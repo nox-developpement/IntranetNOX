@@ -1,0 +1,47 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Imprimantes {% endblock %}
+
+{% block messageAccueil %}Imprimantes{% endblock %}
+
+{% block contenu %} 
+
+    <div id="divAdministrationAdmin">
+
+        <table>
+
+            <tr>
+                <td> Agence </td>
+                <td> Imprimante </td>
+                <td> Type </td>
+                <td> Installation </td>
+            </tr>
+
+            {% for imprimante in imprimantes %}
+
+
+                <tr>
+                    <td>
+                        <p> {{ imprimante.agence }} </p>
+                    </td>
+                    <td> <p> {{ imprimante.nom }} </p> </td>
+
+                    <td> <p> {% if imprimante.type == 'imp' %} Imprimante {% else %} Traceur {% endif %} </p> </td>
+
+                    <td> 
+                        <a class='lienImprimante' href="{{ path('nox_intranet_imprimantes_download', {'agence': imprimante.agence, 'nom': imprimante.nom }) }}" onclick="popupDownloadImprimante();"> 
+                            <img src="{{ asset('bundles/noxintranetressources/images/Printer-48.png') }}"> 
+                        </a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

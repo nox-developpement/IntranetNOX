@@ -1,0 +1,67 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Demande de matériel/logiciel {% endblock %}
+
+{% block messageAccueil %} Demande de matériel/logiciel {% endblock %}
+
+{% block contenu %}
+
+    <div id='divFormulaireMateriel'>
+        <form name='demandeMateriel' method='GET' id='formulaireMateriel' action='{{ path('nox_intranet_demande_materiel_check') }}'>
+
+            <div class='infoDemande'>
+                <label for='agence'>Agence :</label>
+                <input type='text' name='agence' id='agence' value='{{ agence }}' readonly>
+                <label for='demandeur'>Demandeur :</label>
+                <input type='text' name='demandeur' id='demandeur' value='{{ username }}' readonly>
+            </div>
+
+            <br>
+
+            <input type='checkbox' name='materiel' value='materiel' id='materiel'> Matériel
+
+            <br>
+
+            <div class='contenuDemande' id='materielSelection'>
+                <label for="categorie">Catégorie :</label>
+                <select name="categorie" name='categorie' id="categorie">
+                    <optgroup label="Matériel">
+                        <option value="Portable">Portable</option>
+                        <option value="Ultra portable">Ultra portable</option>
+                        <option value="Poste fixe">Poste fixe</option>
+                        <option value="Poste CAO">Poste CAO</option>
+                </select>
+            </div>
+
+            <input type='checkbox' name='logicielCheckbox' value='logicielCheckbox' id='logicielCheckbox'> Logiciel
+
+            <div class='contenuDemande' id='textAreaLogiciel'>
+                <label for='logiciel'>Nom du/des logiciel(s) désiré : 
+                    <textarea id='logiciel' name='logiciel' placeholder='Entrer le/les nom(s) du/des logiciel(s) désiré(s) ici.'></textarea>
+                </label>
+            </div>
+
+            <div class='contenuDemande' id='raisonDemande'>
+                <label for='raisonDemande'>Raison de la demande : 
+                    <textarea id='raisonDemande' name='raisonDemande'></textarea>
+                </label>
+            </div>
+
+            <div class='contenuDemande' id='raisonDemande'>
+                <label for='dateLivraison'>Date de livraison désiré : </label>
+                <input type="text" name="dateLivraison" id='dateLivraison' placeholder='jj/mm/aaaa'> <button type='button' class='boutonFormulaire' id='razDate' onclick="$('#dateLivraison').val('');">RAZ</button>
+            </div>
+
+            <div class='contenuDemande'>
+                <label for='nomSuperieur'>Nom du supérieur hiérarchique :</label>
+                <input type='text' id='nomSuperieur' name='nomSuperieur' placeholder='Supérieur hiérarchique'>
+                <div> <input type='submit' value='Envoyer' class='boutonFormulaire' width='30%'> </div>
+            </div>
+
+
+
+
+        </form>
+    </div>
+
+{% endblock %}

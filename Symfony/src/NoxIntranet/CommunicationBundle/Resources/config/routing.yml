@@ -1,0 +1,38 @@
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+nox_intranet_communication:
+    path:     /communication
+    defaults: { _controller: NoxIntranetCommunicationBundle:Communication:communication } 
+    
+nox_intranet_news_SI:
+    path:   /communication/newsSI
+    defaults: { _controller: NoxIntranetCommunicationBundle:Communication:communicationNewsSI }
+    options:
+        expose: true
+    
+nox_intranet_communication_interne:
+    path:   /communication/interne
+    defaults:   { _controller: NoxIntranetCommunicationBundle:Communication:communicationInterne }
+    
+nox_intranet_communication_externe:
+    path:   /communication/externe
+    defaults:   { _controller: NoxIntranetCommunicationBundle:Communication:communicationExterne }
+    
+nox_intranet_communication_marketing:
+    path:   /communication/marketing
+    defaults:   { _controller: NoxIntranetCommunicationBundle:Communication:communicationMarketing }
+        
+nox_intranet_communication_download:
+    path:     /communication/telechargemenet
+    defaults: { _controller: NoxIntranetCommunicationBundle:Interne:downloadFiles }
+    options:
+        expose: true
+        
+nox_intranet_nox_news:
+    path:   /communication/NoxNews
+    defaults: { _controller: NoxIntranetCommunicationBundle:Communication:communicationNoxNews }
+    
+nox_intranet_nox_letters:
+    path:   /communication/NoxLetters
+    defaults: { _controller: NoxIntranetCommunicationBundle:Communication:communicationNoxLetters }

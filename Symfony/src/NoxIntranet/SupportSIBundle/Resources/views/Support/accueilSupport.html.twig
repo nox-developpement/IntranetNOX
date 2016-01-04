@@ -1,0 +1,89 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Support {% endblock %}
+
+{% block messageAccueil %}Support SI{% endblock %}
+
+{% block contenu %}
+
+    <div class="iconContener">
+
+        <!-- Av. projet -->
+        <a href="{{ path('nox_intranet_avancement_projet') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetsupportsi/images/Date-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Date-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Date-128.png') }}';"
+                    > 
+                <figcaption>Av. projet</figcaption>
+            </figure>
+        </a>
+
+        <!-- Demande de matériels, logiciels -->
+        <a href="{{ path('nox_intranet_demande_materiel') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetsupportsi/images/Materiel-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Materiel-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Materiel-128.png') }}';"
+                    > 
+                <figcaption>Matériel/Logiciel</figcaption>
+            </figure>
+        </a>
+
+        <br>
+
+        <!-- Information -->
+        <a href="{{ path('nox_intranet_information') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetsupportsi/images/Information-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Information-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Information-128.png') }}';"
+                    > 
+                <figcaption>Information</figcaption>
+            </figure>
+        </a>
+
+
+        <!-- Licences (A ajouter) 
+        <a href="{{ path('nox_intranet_accueil') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetsupportsi/images/Licenses-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Licenses-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Licenses-128.png') }}';"
+                    > 
+                <figcaption>Licences</figcaption>
+            </figure>
+        </a>
+        -->
+
+        <!-- Ticketing -->
+        <a href="{{ path('nox_intranet_support_ticketing') }}" class="icon" target='_blank'>
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetsupportsi/images/Ticket-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Ticket-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Ticket-128.png') }}';"
+                    > 
+                <figcaption>Ticketing</figcaption>
+            </figure>
+        </a>
+
+        <!-- Wiki -->
+        <a href="{{ path('nox_intranet_support_wiki') }}" class="icon" target='_blank'>
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetsupportsi/images/Book-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Book-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Book-128.png') }}';"
+                    > 
+                <figcaption>Wiki</figcaption>
+            </figure>
+        </a>
+
+    </div>
+
+{% endblock %}

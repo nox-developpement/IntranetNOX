@@ -1,0 +1,99 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Ressources {% endblock %}
+
+{% block messageAccueil %}Compétences{% endblock %}
+
+{% block textEncart %}
+
+    {% if text is defined %}{{ text|raw }}{% endif %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+
+        {{ form_start(formulaire, {'attr': {'id': 'formulaireTexteEncart' }}) }}
+
+        {{ form_errors(formulaire) }}
+
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(formulaire.text) }}
+
+        {# Génération de l'input. #}
+        {{ form_widget(formulaire.text, {'attr': {'class': 'textEncartField'}}) }}
+
+        {{ form_end(formulaire) }}
+
+        <img src='{{ asset('bundles/noxintranetadministration/images/Text-Editor-32.png') }}' id='texteEncartImg'>
+
+    {% endif %}
+
+{% endblock %}
+
+{% block contenu %} 
+
+    {% if is_granted('ROLE_COMPETENCES') %} 
+
+        <div id="menuAdminCompetences" class='menuAdmin'>
+            <h3> Interface de gestion de contenu </h3>
+            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/competences', 'Gestionnaire de fichiers - Références');"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>
+        </div>
+
+    {% endif %}
+
+    <div id="rechercheUser">
+        <div id="rechercheCompetencesDiv">
+            <form action='{{ path('nox_intranet_competences_recherche') }}' type='GET'>
+                <label for="keyword"> Rechercher par mots-clés : </label>
+                <input type="text" name='keyword' id="keyword" />
+                <input type="submit" name="Rechercher" value="Rechercher" class="boutonFormulaire" >
+                <button value="Annuler" class="boutonFormulaire" id="boutonAnnuler" onclick="{{ path('nox_intranet_competences') }}"> RAZ </button>
+            </form>
+        </div>
+    </div>
+
+    {% if competences == null %}
+
+        <div class="divNews">
+
+            Votre recherche n'a retourné aucun résultat.
+
+        </div>
+
+    {% endif %}
+
+    {% for competence in competences %}
+
+        <div class="divNews">
+
+            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/uploads/Comptetences/{{ competence['lien'] }}', 'Compétences');">
+                <img 
+                    src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}';"
+                    >
+            </a>
+
+            <ul>
+
+                {% for propriete in competence['proprietes'] %}
+
+                    {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}
+
+                    {% if propriete['label'] == 'Author' %} <li> Auteur : {{ propriete['valeur'] }} </li> {% endif %}
+
+                    {% if propriete['label'] == 'Subject' %} <li> Sujet : {{ propriete['valeur'] }} </li> {% endif %}
+
+                    {% if propriete['label'] == 'Keywords' %} <li> Mots clés : {{ propriete['valeur'] }} </li> {% endif %}
+
+                    {% if propriete['label'] == 'ModDate' %} <li> Date : {{ propriete['valeur']|date('d/m/Y') }} </li> {% endif %}
+
+                    {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+    {% endfor %}
+
+{% endblock %}

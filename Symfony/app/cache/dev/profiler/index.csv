@@ -1,0 +1,10 @@
+ebd6d6,::1,GET,http://localhost/Symfony/web/app_dev.php/administration,1451898571,,200
+5fb322,::1,GET,http://localhost/Symfony/web/app_dev.php/js/routing?callback=fos.Router.setData,1451898574,,200
+8db20f,::1,GET,http://localhost/Symfony/web/app_dev.php/,1451898578,499044,200
+499044,::1,GET,http://localhost/Symfony/web/app_dev.php/,1451898578,,500
+ffd776,::1,GET,http://localhost/Symfony/web/app_dev.php/,1451898611,6bbfa2,200
+6bbfa2,::1,GET,http://localhost/Symfony/web/app_dev.php/,1451898611,,500
+9811f9,::1,GET,http://localhost/Symfony/web/app_dev.php/,1451898657,8fc1dc,200
+8fc1dc,::1,GET,http://localhost/Symfony/web/app_dev.php/,1451898657,,500
+f2d7c2,::1,GET,http://localhost/Symfony/web/app_dev.php/,1451898676,,200
+aae163,::1,GET,http://localhost/Symfony/web/app_dev.php/js/routing?callback=fos.Router.setData,1451898679,,200

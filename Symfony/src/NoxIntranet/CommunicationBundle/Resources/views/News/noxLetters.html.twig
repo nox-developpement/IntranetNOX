@@ -1,0 +1,56 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}
+    Nox letters
+{% endblock %}
+
+{% block messageAccueil %}Nox letters{% endblock %}
+
+{% block contenu %}
+
+    {% if is_granted('ROLE_NEWS') %} 
+
+        <div id="menuAdminNewsSI" class='menuAdmin'>
+            <h3> Interface de gestion de contenu </h3>
+            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/noxLetters', 'Gestionnaire de fichiers - Nox letters');"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>
+        </div>
+
+    {% endif %}
+
+    {% for new in news %}
+
+        <div class="divNews">
+
+            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new['lien'] }}', 'Nox Letters');">
+                <img 
+                    src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}';"
+                    >
+            </a>
+
+            <ul>
+
+                {% for propriete in new['proprietes'] %}
+
+                    {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}
+
+                    {% if propriete['label'] == 'Author' %} <li> Auteur : {{ propriete['valeur'] }} </li> {% endif %}
+
+                    {% if propriete['label'] == 'Subject' %} <li> Sujet : {{ propriete['valeur'] }} </li> {% endif %}
+
+                    {% if propriete['label'] == 'Keywords' %} <li> Mots clés : {{ propriete['valeur'] }} </li> {% endif %}
+
+                    {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}
+
+                {% endfor %}
+
+                <li> Posté le : {{ new['dateEnvoi'] }} </li>
+
+            </ul>
+
+        </div>
+
+    {% endfor %}
+
+{% endblock %}

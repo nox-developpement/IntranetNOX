@@ -1,0 +1,72 @@
+elfinder:
+    resource: "@FMElfinderBundle/Resources/config/routing.yml"
+
+nox_intranet_verif_maj_db:
+    resource: "@NoxIntranetVerifMajDBBundle/Resources/config/routing.yml"
+    prefix:   /
+
+# app/config/routing.yml
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+nox_intranet_maj_db:
+    resource: "@NoxIntranetMajDBBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+nox_intranet_ressources:
+    resource: "@NoxIntranetRessourcesBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+nox_intranet_users:
+    resource: "@NoxIntranetUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+nox_intranet_accueil:
+    resource: "@NoxIntranetAccueilBundle/Resources/config/routing.yml"
+    prefix:   /
+
+nox_intranet_support:
+    resource: "@NoxIntranetSupportBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+nox_intranet_support_si:
+    resource:  "@NoxIntranetSupportSIBundle/Resources/config/routing.yml"
+    prefix:   /
+
+nox_intranet_communication:
+    resource: "@NoxIntranetCommunicationBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+nox_intranet_administration:
+    resource: "@NoxIntranetAdministrationBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+nox_intranet_menu:
+    resource: "@NoxIntranetMenuBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+nox_intranet_administration:
+    resource: "@AdministrationBundle/Controller/"
+    type:     annotation
+    prefix:   /
+    
+login:
+    pattern:   /login
+    defaults:  { _controller: NoxIntranetUserBundle:Security:login }
+
+login_check:
+    pattern:   /login_check
+
+logout:
+    pattern:   /logout
+    
+login_fail:
+    pattern: /login_fail
+    defaults: { _controller:NoxIntranetUserBundle:Security:loginFail }
+    
+home:
+    pattern:   /
+    defaults:  { _controller: NoxIntranetAccueilBundle:Accueil:majCommunication }

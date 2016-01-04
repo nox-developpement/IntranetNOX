@@ -1,0 +1,69 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}
+    Administration DB
+{% endblock %}
+
+{% block messageAccueil %}Administration base de données utilisateurs{% endblock %}
+{% block sousMessageAccueil %}Cliquer sur l'icône pour mettre à jour la base de données utilisateurs.{% endblock %}
+
+{% block contenu %}
+
+    <div class="iconContener">
+
+        {% if confirmation == true %}
+
+            <!-- Annuler -->
+            <a href="{{ path('nox_intranet_administration_userDB') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Delete-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Delete-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Delete-128.png') }}';"
+                        > 
+                    <figcaption>Annuler</figcaption>
+                </figure>
+            </a>
+
+            <!-- Confirmer -->
+            <a href="{{ path('nox_intranet_user_updateDB') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Confirm-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}';"
+                        > 
+                    <figcaption>Confirmer</figcaption>
+                </figure>
+            </a>
+
+        {% else %}
+
+            <!-- Mise à jour base de données utilisateurs -->
+            <a href="{{ path('nox_intranet_user_verifupdateDB') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Data-Refresh-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Refresh-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Refresh-128.png') }}';"
+                        > 
+                    <figcaption>Mise à jour</figcaption>
+                </figure>
+            </a>
+
+        {% endif %}
+
+    </div>
+
+    {% if ajout == true %}
+
+        {% for output in outputs %}
+
+            {{ output|raw }} 
+
+        {% endfor %}
+
+    {% endif %}
+
+
+{% endblock %}

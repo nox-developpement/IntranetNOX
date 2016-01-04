@@ -1,0 +1,32 @@
+nox_intranet_support_si:
+    path:     /supportSI
+    defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:accueil }
+
+nox_intranet_support_licenses:
+    path:     /supportSI/licenses
+    defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:licenses }
+    
+nox_intranet_support_ticketing:
+    path:     /supportSI/ticketing
+    defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:ticketing }
+    
+nox_intranet_support_wiki:
+    path:     /supportSI/wiki
+    defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:wiki }
+    
+nox_intranet_demande_materiel:
+    path: /supportSI/demande
+    defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:demande }
+    
+nox_intranet_demande_materiel_check:
+    path: /supportSI/demandeCheck
+    defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:demandeCheck }
+    
+nox_intranet_avancement_projet:
+    path: /supportSI/avancementProjet
+    defaults: { _controller: NoxIntranetSupportSIBundle:AvancementProjet:avancementProjet }
+    
+nox_intranet_information:
+   path: /supportSI/information
+   defaults: { _controller: NoxIntranetSupportSIBundle:Information:information }
+    

@@ -1,0 +1,63 @@
+nox_intranet_ressources:
+    path:     /ressources
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:accueil }
+    
+nox_intranet_liens:
+    path:   /ressources/liens
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:liens }
+    
+nox_intranet_faq:
+    path: /ressources/faq
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:faq }
+    
+nox_intranet_archives:
+    path:   /ressources/archives
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:archives }
+    
+nox_intranet_competences:
+    path:   /ressources/competences
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:competences }
+    
+nox_intranet_competences_recherche:
+    path:   /ressources/competences/recherche
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:competencesKeyword }
+    
+nox_intranet_references:
+    path:   /ressources/references
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:references }
+    
+nox_intranet_procedures:
+    path: /ressources/procedures
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:procedures }
+    
+nox_intranet_download_script_connexion:
+    path: /ressources/archives/connexion/{agence}
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptConnexionDownload }
+    
+nox_intranet_download_script_deconnexion:
+    path: /ressources/archives/deconnexion
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptDeconnexionDownload }
+    
+nox_intranet_imprimantes:
+    path: /ressources/imprimantes
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:imprimantes }
+    
+nox_intranet_imprimantes_download:
+    path: /ressources/imprimantes/{agence}/{nom}
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptImprimanteDownload }
+    
+nox_intranet_serveurs:
+    path: /ressources/serveurs
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:serveurs }
+    
+nox_intranet_serveur_download_script_connexion:
+    path: /ressources/serveurs/connexion/{agence}
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptServeurConnexionDownload }
+    
+nox_intranet_serveur_download_script_deconnexion:
+    path: /ressources/serveurs/deconnexion
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptServeurDeconnexionDownload }
+    
+
+    
+    

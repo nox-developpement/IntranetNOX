@@ -1,0 +1,65 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}
+    Administration serveurs
+{% endblock %}
+
+{% block messageAccueil %}Administration serveurs{% endblock %}
+{% block sousMessageAccueil %}Le script connecte un lecteur Y:\ avec le contenu du champ "Lien vers le serveur"{% endblock %}
+
+{% block contenu %}
+
+    <div id="divAdministrationAdmin">
+
+        <div id="creationAdmin">
+            <div id="creationAdminDiv">
+
+                {{ form_start(form, {'attr': {'class': 'formulaireArchive'}}) }}
+                {{ form_errors(form) }}
+
+                {{ form_label(form.agence, "Agence :", {'label_attr': {'class': 'labelFormulaireArchive'}}) }}
+                {{ form_errors(form.agence) }}
+                {{ form_widget(form.agence, {'attr': {'class': 'textFormulaireArchive', 'placeholder': 'ex: Bron'}}) }}
+
+                {{ form_label(form.lien, "Lien vers le serveur :", {'label_attr': {'class': 'labelFormulaireArchive'}}) }}
+                {{ form_errors(form.lien) }}
+                {{ form_widget(form.lien, {'attr': {'class': 'textFormulaireArchive', 'placeholder': 'ex: \\\\192.168.35.210\\share\\arch_agence\\Bron'}}) }}
+
+
+                {{ form_widget(form._token) }}
+
+                {{ form_widget(form.ajouter, {'attr': {'class': 'submitFormulaireArchive', 'class': 'boutonFormulaire' }}) }}
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+
+        <table>
+
+            <tr>
+                <td> Agence </td>
+                <td> Lien </td>
+                <td> Supprimer </td>
+            </tr>
+
+            {% for serveur in serveurs %}
+
+                <tr>
+                    <td> <p> {{ serveur.agence }} <p> </td>
+
+                    <td>
+                        <p> {{ serveur.lien }} </p>
+                    </td>
+
+                    <td> <a href='{{ path('nox_intranet_suppression_serveur', {'id': serveur.id}) }}'> <img class="suppressionAdminImg" src='{{ asset('bundles/noxintranetadministration/images/Data-Delete-48.png') }}'> </a> </td>
+                </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+{% endblock %}
+{# empty Twig template #}

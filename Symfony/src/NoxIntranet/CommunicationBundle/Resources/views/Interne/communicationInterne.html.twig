@@ -1,0 +1,51 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}
+    Communication interne
+{% endblock %}
+
+{% block messageAccueil %}Communication interne{% endblock %}
+
+{% block contenu %}
+
+    <div class="sousMessageAcceuil"> 
+        <h4 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/trombinoscopeLecture', 'Trombinoscope');"> Trombinoscope </h4>
+    </div>
+
+    <div class="sousMessageAcceuil" id='menuOrganigrammes' onclick="showSubMenu('#sousMenuOrganigrammes',this);"> 
+        <h4> Organigrammes <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'> </h4>
+    </div>
+
+    <div id="sousMenuOrganigrammes" class='sousMenu'>
+
+        <div class="sousSousMessageAcceuil"> 
+            <h5 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/organigrammeStrategiqueLecture', 'Ogranigramme stratégique');"> Organigramme Stratégique </h5>
+        </div>
+
+        <div class="sousSousMessageAcceuil"> 
+            <h5 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/organigrammeFonctionnelLecture', 'Organigramme fonctionnel');"> Organigramme Fonctionnel </h5>
+        </div>
+        
+        <div class="sousSousMessageAcceuil"> 
+            <h5 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/organigrammeAgenceLecture', 'Organigramme agence');"> Organigramme Agence </h5>
+        </div>
+
+    </div>
+
+    <div class="sousMessageAcceuil"> 
+        <h4 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/annuaireAgencesLecture', 'Annuaire agences');"> Annuaire Agences </h4>
+    </div>
+
+    <div class="sousMessageAcceuil"> 
+        <h4> NoxNews </h4>
+    </div>
+
+    <div class="sousMessageAcceuil"> 
+        <h4 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/CELecture', 'CE');"> CE </h4>
+    </div>
+
+    <div class="sousMessageAcceuil"> 
+        <h4 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/CHSCTLecture', 'CHSCT');"> CHSCT </h4>
+    </div>
+
+{% endblock %}

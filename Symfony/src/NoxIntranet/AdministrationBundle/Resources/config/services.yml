@@ -1,0 +1,4 @@
+services:
+    noxintranet_administration.majuserdb:
+        class: NoxIntranet\AdministrationBundle\MajUserDB\NoxIntranetMajUserDB
+        arguments: [ @doctrine.orm.entity_manager ]

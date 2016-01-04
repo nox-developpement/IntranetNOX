@@ -1,0 +1,294 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}Administration utilisateurs{% endblock %}
+
+{% block messageAccueil %}Administration utilisateurs{% endblock %}
+
+{% block contenu %}
+
+    <div id="divAdministrationUtilisateur">
+
+        <div id="rechercheUser">
+            <div id="rechercheUserDiv">
+                <form action='{{ path('nox_intranet_administration_username', {'roleUser': roleUser}) }}' type='GET'>
+                    <label for="recherche"> Rechercher un utilisateur : </label>
+                    <input type="text" name='recherche' id="recherche" />
+                    <input type="submit" name="Rechercher" value="Rechercher" class="boutonFormulaire" >
+                    <button type="button" class="boutonFormulaire" id="boutonAnnuler" onclick="location.href = '{{ path('nox_intranet_administration_user') }}';"> RAZ </button>
+                </form>
+
+
+                <button class="boutonFormulaire" id="boutonExport" onclick="location.href = '{{ path('nox_intranet_export_users') }}';"> Export utilisateurs </button>
+            </div>
+        </div>
+
+        <table>
+
+            <tr>
+                <td> Utilisateurs </td>
+                <td colspan=11> Rôle </td>
+
+                <td> Action </td>
+            </tr>
+            <tr>
+                <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_USER'}) }}' class='tous'> <p>{% if roleUser == 'ROLE_USER' %}<img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}"> {% endif %}Tous</p> </a> </div> </div> </td>
+                <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_ADMIN'}) }}' class='admin'> <p>{% if roleUser == 'ROLE_ADMIN' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}"> {% endif %}Admin </p> </a> </div></div></td>
+                <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_CE'}) }}' class='ce'>  <p>{% if roleUser == 'ROLE_CE' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}"> {% endif %} CE </p>  </a> </div></div></td>
+                <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_CHSCE'}) }}' class='chsce'>  <p>{% if roleUser == 'ROLE_CHSCE' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}"> {% endif %} CHSCE </p>  </a> </div></div></td>
+                <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_NEWS'}) }}' class='communication'> <p> {% if roleUser == 'ROLE_NEWS' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}"> {% endif %}Communication  </p></a> </div></div></td>
+                <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_COMPETENCES'}) }}' class='competences'> <p>{% if roleUser == 'ROLE_COMPETENCES' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}"> {% endif %}Compétences </p> </a></div></div> </td>
+                <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_FAQ'}) }}' class='faq'> <p>{% if roleUser == 'ROLE_FAQ' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}"> {% endif %} FAQ </p> </a> </div></div></td>
+                <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_LIENS'}) }}' class='liens2'> <p> {% if roleUser == 'ROLE_LIENS' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}"> {% endif %}Liens </p>  </a> </div></div></td>
+                <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_PROCEDURES'}) }}' class='procedures'> <p> {% if roleUser == 'ROLE_PROCEDURES' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}"> {% endif %}Procédures  </p></a> </div></div></td>
+                <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_QUALITE'}) }}' class='qualite'>  <p> {% if roleUser == 'ROLE_QUALITE' %}<img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}"> {% endif %}Qualité </p>  </a></div></div> </td>
+                <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_REFERENCES'}) }}' class='references'> <p> {% if roleUser == 'ROLE_REFERENCES' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}"> {% endif %}Références </p> </a></div></div></td>
+                <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'LOCAL'}) }}' class='local'>  <p>{% if roleUser == 'LOCAL' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}"> {% endif %} Local </p>  </a> </div></div></td>
+                <td><div class="vertical-text"> <div class="vertical-text__inner">  </td>
+                            </tr>
+
+                            {% for user in utilisateurs %}
+                                <tr>
+                                    <td> <p>  {{ user.username }} ({{user.agence}}) <p> </td>
+
+                                    <td>
+                                        <form type='GET' action='{{ path('nox_intranet_user_edit', {'userID': user.id, 'roleUser': roleUser }) }}' id='userEdit' >
+                                            <input type='checkbox' name='Admin' value='Admin' id='admin' onclick='checkboxAdminClick(this);'
+                                                   {% for role in user.roles %}
+                                                       {% if role == "ROLE_ADMIN" %}
+                                                           checked
+                                                       {% endif %}
+                                                   {% endfor %}    
+                                                   >
+                                            </td>
+
+                                            <td>
+                                                <input type='checkbox' name='CE' value='CE' id='CE' onclick='checkboxPublicateurClick(this);'
+                                                       {% for role in user.roles %}
+                                                           {% if role == "ROLE_CE" %}
+                                                               checked
+                                                           {% endif %}
+                                                       {% endfor %}   
+                                                       >
+                                            </td>
+
+                                            <td>
+                                                <input type='checkbox' name='CHSCE' value='CHSCE' id='CHSCE' onclick='checkboxPublicateurClick(this);'
+                                                       {% for role in user.roles %}
+                                                           {% if role == "ROLE_CHSCE" %}
+                                                               checked
+                                                           {% endif %}
+                                                       {% endfor %}   
+                                                       >
+                                            </td>
+
+                                            <td>
+                                                <input type='checkbox' name='References' value='References' id='References' onclick='checkboxPublicateurClick(this);'
+                                                       {% for role in user.roles %}
+                                                           {% if role == "ROLE_REFERENCES" %}
+                                                               checked
+                                                           {% endif %}
+                                                       {% endfor %}   
+                                                       >
+                                            </td>
+
+                                            <td>
+                                                <input type='checkbox' name='Competences' value='Competences' id='Competences' onclick='checkboxPublicateurClick(this);'
+                                                       {% for role in user.roles %}
+                                                           {% if role == "ROLE_COMPETENCES" %}
+                                                               checked
+                                                           {% endif %}
+                                                       {% endfor %}   
+                                                       >
+                                            </td>
+
+                                            <td>
+                                                <input type='checkbox' name='Procedures' value='Procedures' id='Procedures' onclick='checkboxPublicateurClick(this);'
+                                                       {% for role in user.roles %}
+                                                           {% if role == "ROLE_PROCEDURES" %}
+                                                               checked
+                                                           {% endif %}
+                                                       {% endfor %}   
+                                                       >
+                                            </td>
+
+                                            <td>
+                                                <input type='checkbox' name='News' value='News' id='News' onclick='checkboxPublicateurClick(this);'
+                                                       {% for role in user.roles %}
+                                                           {% if role == "ROLE_NEWS" %}
+                                                               checked
+                                                           {% endif %}
+                                                       {% endfor %}   
+                                                       >
+                                            </td>
+
+                                            <td>
+                                                <input type='checkbox' name='FAQ' value='FAQ' id='FAQ' onclick='checkboxPublicateurClick(this);'
+                                                       {% for role in user.roles %}
+                                                           {% if role == "ROLE_FAQ" %}
+                                                               checked
+                                                           {% endif %}
+                                                       {% endfor %}   
+                                                       >
+                                            </td>
+
+                                            <td>
+                                                <input type='checkbox' name='Liens' value='Liens' id='Liens' onclick='checkboxPublicateurClick(this);'
+                                                       {% for role in user.roles %}
+                                                           {% if role == "ROLE_LIENS" %}
+                                                               checked
+                                                           {% endif %}
+                                                       {% endfor %}   
+                                                       >
+                                            </td>
+
+                                            <td>
+                                                <input type='checkbox' name='Qualite' value='Qualite' id='Qualite' onclick='checkboxPublicateurClick(this);'
+                                                       {% for role in user.roles %}
+                                                           {% if role == "ROLE_QUALITE" %}
+                                                               checked
+                                                           {% endif %}
+                                                       {% endfor %}   
+                                                       >
+                                            </td>
+
+                                            <td>
+                                                {% if user.local %}
+                                                    oui
+                                                {% else %}
+                                                    non
+                                                {% endif %}
+                                            </td>
+
+                                            <td>
+                                                <input type='submit' value='Modifier' class='modifier'>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </table>
+
+
+
+                            <div id="choixPage">
+
+                                {% if recherche == true %}
+
+                                    {% if nbPage > 1 %} 
+
+                                        {% if numPage > 2 %}
+
+                                            <a href="{{ path('nox_intranet_administration_username', { 'numPage': 1, 'roleUser': roleUser, 'termeRecherche': termeRecherche}) }}"> << </a>
+
+                                            <a href="{{ path('nox_intranet_administration_username', { 'numPage': numPage-1, 'roleUser': roleUser}) }}"> < </a>
+
+                                            {% for i in 0..1 %}
+
+                                                <a href="{{ path('nox_intranet_administration_username', {'numPage': numPage-loop.revindex, 'roleUser': roleUser, 'termeRecherche': termeRecherche}) }}"> {{numPage-loop.revindex}} </a>
+
+                                            {% endfor %}
+
+                                            <a href="{{ path('nox_intranet_administration_username', {'numPage': numPage, 'roleUser': roleUser, 'termeRecherche': termeRecherche}) }}" id="pageActuel"> {{numPage}} </a>
+
+                                            {% if numPage < nbPage %}
+
+                                                {% for i in 0..1 %}
+
+                                                    <a href="{{ path('nox_intranet_administration_username', {'numPage': numPage+loop.index, 'roleUser': roleUser, 'termeRecherche': termeRecherche}) }}"> {{numPage+loop.index}} </a>
+
+                                                {% endfor %}
+
+                                            {% endif %}
+
+                                        {% else %}              
+
+                                            {% if numPage == 2 %} 
+
+                                                <a href="{{ path('nox_intranet_administration_username', { 'numPage': numPage-1, 'roleUser': roleUser, 'termeRecherche': termeRecherche}) }}"> < </a>
+
+                                                <a href="{{ path('nox_intranet_administration_username', {'numPage': numPage-1, 'roleUser': roleUser, 'termeRecherche': termeRecherche}) }}"> {{numPage-1}} </a> {% endif %}
+
+                                                <a href="{{ path('nox_intranet_administration_username', {'numPage': numPage, 'roleUser': roleUser, 'termeRecherche': termeRecherche}) }}" id="pageActuel"> {{numPage}} </a>
+
+                                                {% for i in 0..1 %}
+
+                                                    <a href="{{ path('nox_intranet_administration_username', {'numPage': numPage+loop.index, 'roleUser': roleUser, 'termeRecherche': termeRecherche}) }}"> {{numPage+loop.index}} </a>
+
+                                                {% endfor %}   
+
+                                            {% endif %}
+
+                                            {% if numPage < nbPage %}
+
+                                                <a href="{{ path('nox_intranet_administration_username', { 'numPage': numPage+1, 'roleUser': roleUser, 'termeRecherche': termeRecherche}) }}"> > </a>
+
+                                                <a href="{{ path('nox_intranet_administration_username', { 'numPage': nbPage, 'roleUser': roleUser, 'termeRecherche': termeRecherche}) }}"> >> </a>
+
+                                            {% endif %}
+
+                                        {% endif %}
+                                    </div> 
+
+                                {% else %}
+
+                                    {% if numPage > 2 %}
+
+                                        <a href="{{ path('nox_intranet_administration_user', { 'numPage': 1, 'roleUser': roleUser}) }}"> << </a>
+
+                                        <a href="{{ path('nox_intranet_administration_user', { 'numPage': numPage-1, 'roleUser': roleUser}) }}"> < </a>
+
+                                        {% for i in 0..1 %}
+
+                                            <a href="{{ path('nox_intranet_administration_user', {'numPage': numPage-loop.revindex, 'roleUser': roleUser}) }}"> {{numPage-loop.revindex}} </a>
+
+                                        {% endfor %}
+
+                                        <a href="{{ path('nox_intranet_administration_user', {'numPage': numPage, 'roleUser': roleUser}) }}" id="pageActuel"> {{numPage}} </a>
+
+                                        {% if numPage < nbPage %}
+
+                                            {% for i in 0..1 %}
+
+                                                <a href="{{ path('nox_intranet_administration_user', {'numPage': numPage+loop.index, 'roleUser': roleUser}) }}"> {{numPage+loop.index}} </a>
+
+                                            {% endfor %}
+
+                                        {% endif %}
+
+                                    {% else %}              
+
+                                        {% if numPage == 2 %} 
+
+                                            <a href="{{ path('nox_intranet_administration_user', { 'numPage': numPage-1, 'roleUser': roleUser}) }}"> < </a>
+
+                                            <a href="{{ path('nox_intranet_administration_user', {'numPage': numPage-1, 'roleUser': roleUser}) }}"> {{numPage-1}} </a> {% endif %}
+
+                                            <a href="{{ path('nox_intranet_administration_user', {'numPage': numPage, 'roleUser': roleUser}) }}" id="pageActuel"> {{numPage}} </a>
+
+                                            {% for i in 0..1 %}
+
+                                                <a href="{{ path('nox_intranet_administration_user', {'numPage': numPage+loop.index, 'roleUser': roleUser}) }}"> {{numPage+loop.index}} </a>
+
+                                            {% endfor %}   
+
+                                        {% endif %}
+
+                                        {% if numPage < nbPage %}
+
+                                            <a href="{{ path('nox_intranet_administration_user', { 'numPage': numPage+1, 'roleUser': roleUser}) }}"> > </a>
+
+                                            <a href="{{ path('nox_intranet_administration_user', { 'numPage': nbPage, 'roleUser': roleUser}) }}"> >> </a>
+
+                                        {% endif %}
+
+
+
+                                    {% endif %}
+
+
+                                </div> 
+                            </div>
+                            {% endblock %}
+
+
+                                {# empty Twig template #}

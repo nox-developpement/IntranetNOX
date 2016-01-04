@@ -1,0 +1,8 @@
+
+AD_connexion:
+    path:   /testConnexion
+    defaults: { _controller: NoxIntranetUserBundle:ADConnexion:ADConnexion }
+
+AD_connexion_check:
+    path:   /testConnexionCheck
+    defaults: { _controller: NoxIntranetUserBundle:ADConnexion:ADConnexionCheck }

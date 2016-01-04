@@ -1,0 +1,74 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}
+    Archives
+{% endblock %}
+
+{% block messageAccueil %}Archives{% endblock %}
+
+{% block textEncart %}
+
+    {% if text is defined %}{{ text|raw }}{% endif %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+
+        {{ form_start(formulaire, {'attr': {'id': 'formulaireTexteEncart' }}) }}
+
+        {{ form_errors(formulaire) }}
+
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(formulaire.text) }}
+
+        {# Génération de l'input. #}
+        {{ form_widget(formulaire.text, {'attr': {'class': 'textEncartField'}}) }}
+
+        {{ form_end(formulaire) }}
+
+        <img src='{{ asset('bundles/noxintranetadministration/images/Text-Editor-32.png') }}' id='texteEncartImg'>
+
+    {% endif %}
+
+{% endblock %}
+
+{% block contenu %}
+
+    <div id="divAdministrationAdmin">
+
+        <table>
+
+            <tr>
+                <td> Agence </td>
+                <td> Connexion </td>
+                <td> Déconnexion </td>
+            </tr>
+
+            {% for archive in archives %}
+
+
+                <tr>
+                    <td>
+                        <p> {{ archive.agence }} </p>
+                    </td>
+                    <td> 
+                        <a class='lienArchive' href="{{ path('nox_intranet_download_script_connexion', { 'agence': archive.agence }) }}" onclick="popupDownloadArchiveConnexion();"> 
+                            <img src="{{ asset('bundles/noxintranetressources/images/Connect-48.png') }}"> 
+                        </a>
+                    </td>
+                    <td> 
+                        <a class='lienArchive' href="{{ path('nox_intranet_download_script_deconnexion') }}" onclick="popupDownloadArchiveDeconnexion();"> 
+                            <img src="{{ asset('bundles/noxintranetressources/images/Disconnect-48.png') }}"> 
+                        </a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
+{# empty Twig template #}
