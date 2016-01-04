@@ -49,7 +49,9 @@ class __TwigTemplate_70f1a3c0a1f43c63f2d9beb538b24d2a60c6a7a138a8969025ea891ff3f
 
         <div id=\"menuAdminNewsSI\" class='menuAdmin'>
             <h3> Interface de gestion de contenu </h3>
-            <h3> <a href=\"#\"> Ouvrir le gestionnaire de fichier </a> </h3>
+            <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/newsSI', 'Gestionnaire de fichiers - News SI');\"> 
+                <h3>  Ouvrir le gestionnaire de fichier </h3> 
+            </a>
         </div>
 
     </div>
@@ -87,7 +89,9 @@ class __TwigTemplate_70f1a3c0a1f43c63f2d9beb538b24d2a60c6a7a138a8969025ea891ff3f
 /* */
 /*         <div id="menuAdminNewsSI" class='menuAdmin'>*/
 /*             <h3> Interface de gestion de contenu </h3>*/
-/*             <h3> <a href="#"> Ouvrir le gestionnaire de fichier </a> </h3>*/
+/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/newsSI', 'Gestionnaire de fichiers - News SI');"> */
+/*                 <h3>  Ouvrir le gestionnaire de fichier </h3> */
+/*             </a>*/
 /*         </div>*/
 /* */
 /*     </div>*/

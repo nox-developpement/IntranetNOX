@@ -21,7 +21,7 @@ body {
     margin: auto;
     background-color:white;
     padding-bottom: 2%;
-    background-image: url('../../images/fond2.png');
+    background-image: url('../images/fond2.png');
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -829,7 +829,7 @@ divAdministrationUtilisateur {
 }
 
 #divAdministrationUtilisateur tr:nth-child(2) td:first-child img{
-    max-width: 10px;
+    height: 10%;
 }
 
 #divAdministrationUtilisateur tr:nth-child(2) td img{
@@ -1686,4 +1686,8 @@ divAdministrationUtilisateur {
 .sousSousMessageAcceuil a, .sousSousMessageAcceuil a:hover, .sousSousMessageAcceuil a:checked {
    text-decoration: none;
    color: #021C2D;
+}
+
+.imgRole {
+    height: 10%;
 }
