@@ -222,29 +222,25 @@ class __TwigTemplate_49ea3428f1c4c68180f1712bf6636ccf1dd0e1597973a97b5a2c553adb9
                 echo "
                     ";
                 // line 87
-                if (($this->getAttribute($context["propriete"], "label", array(), "array") == "ModDate")) {
-                    echo " <li> Date : ";
-                    echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "d/m/Y"), "html", null, true);
-                    echo " </li> ";
-                }
-                // line 88
-                echo "
-                    ";
-                // line 89
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Pages")) {
                     echo " <li> Nombre de page(s) : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 90
+                // line 88
                 echo "
                 ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['propriete'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 92
-            echo "
+            // line 90
+            echo "                
+                <li> Posté le : ";
+            // line 91
+            echo twig_escape_filter($this->env, $this->getAttribute($context["competence"], "dateEnvoi", array(), "array"), "html", null, true);
+            echo " </li>
+
             </ul>
 
         </div>
@@ -271,7 +267,7 @@ class __TwigTemplate_49ea3428f1c4c68180f1712bf6636ccf1dd0e1597973a97b5a2c553adb9
 
     public function getDebugInfo()
     {
-        return array (  258 => 98,  247 => 92,  240 => 90,  234 => 89,  231 => 88,  225 => 87,  222 => 86,  216 => 85,  213 => 84,  207 => 83,  204 => 82,  198 => 81,  195 => 80,  189 => 79,  186 => 78,  182 => 77,  173 => 71,  169 => 70,  165 => 69,  160 => 67,  155 => 64,  151 => 63,  148 => 62,  138 => 54,  136 => 53,  128 => 48,  121 => 44,  116 => 41,  105 => 33,  99 => 31,  94 => 28,  88 => 25,  83 => 23,  77 => 21,  71 => 18,  66 => 15,  61 => 13,  58 => 12,  56 => 11,  53 => 10,  49 => 9,  46 => 8,  43 => 7,  37 => 5,  31 => 3,  11 => 1,);
+        return array (  254 => 98,  241 => 91,  238 => 90,  231 => 88,  225 => 87,  222 => 86,  216 => 85,  213 => 84,  207 => 83,  204 => 82,  198 => 81,  195 => 80,  189 => 79,  186 => 78,  182 => 77,  173 => 71,  169 => 70,  165 => 69,  160 => 67,  155 => 64,  151 => 63,  148 => 62,  138 => 54,  136 => 53,  128 => 48,  121 => 44,  116 => 41,  105 => 33,  99 => 31,  94 => 28,  88 => 25,  83 => 23,  77 => 21,  71 => 18,  66 => 15,  61 => 13,  58 => 12,  56 => 11,  53 => 10,  49 => 9,  46 => 8,  43 => 7,  37 => 5,  31 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -360,11 +356,11 @@ class __TwigTemplate_49ea3428f1c4c68180f1712bf6636ccf1dd0e1597973a97b5a2c553adb9
 /* */
 /*                     {% if propriete['label'] == 'Keywords' %} <li> Mots clés : {{ propriete['valeur'] }} </li> {% endif %}*/
 /* */
-/*                     {% if propriete['label'] == 'ModDate' %} <li> Date : {{ propriete['valeur']|date('d/m/Y') }} </li> {% endif %}*/
-/* */
 /*                     {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}*/
 /* */
 /*                 {% endfor %}*/
+/*                 */
+/*                 <li> Posté le : {{ competence['dateEnvoi'] }} </li>*/
 /* */
 /*             </ul>*/
 /* */

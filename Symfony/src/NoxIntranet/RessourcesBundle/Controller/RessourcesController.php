@@ -27,7 +27,8 @@ class RessourcesController extends Controller {
     }
 
     public function faqAction() {
-        return $this->redirect('http://localhost/Symfony/web/support/kb/index.php');
+        $adresseCourante = $_SERVER['HTTP_HOST'];
+        return $this->redirect('http://' . $adresseCourante . '/Symfony/web/support/kb/index.php');
     }
 
     public function archivesAction(Request $request) {
@@ -112,7 +113,7 @@ class RessourcesController extends Controller {
 
         $textEncartAffichage = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('References');
         $text = $textEncartAffichage->getText();
-        
+
         $parser = new \Smalot\PdfParser\Parser();
 
         $dir = 'C:/wamp/www/Symfony/web/uploads/References';
@@ -137,10 +138,17 @@ class RessourcesController extends Controller {
                     $propriete[] = array('label' => $property, 'valeur' => $value);
                 }
 
+                $dateModification = date("d/m/Y à H:i:s", filemtime($chemin));
                 $nom = str_replace('.pdf', '', $file);
-                $references[] = array('lien' => $file, 'nom' => $nom, 'proprietes' => $propriete);
+                $references[] = array('lien' => $file, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
             }
         }
+
+        foreach ($references as $k => $v) {
+            $date[$k] = $v['dateEnvoi'];
+        }
+
+        array_multisort($date, SORT_DESC, $references);
 
         return $this->render('NoxIntranetRessourcesBundle:References:references.html.twig', array('references' => $references, 'text' => $text, 'formulaire' => $form->createView()));
     }
@@ -283,15 +291,59 @@ class RessourcesController extends Controller {
                     $propriete[] = array('label' => $property, 'valeur' => $value);
                 }
 
+                $dateModification = date("d/m/Y à H:i:s", filemtime($chemin));
                 $nom = str_replace('.pdf', '', $file);
-                $competences[] = array('lien' => $file, 'nom' => $nom, 'proprietes' => $propriete);
+                $competences[] = array('lien' => $file, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
             }
         }
+
+        foreach ($competences as $k => $v) {
+            $date[$k] = $v['dateEnvoi'];
+        }
+
+        array_multisort($date, SORT_DESC, $competences);
 
         return $this->render('NoxIntranetRessourcesBundle:Competences:competences.html.twig', array('competences' => $competences, 'text' => $text, 'formulaire' => $form->createView()));
     }
 
     public function competencesKeywordAction(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $textEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Competences');
+
+        if ($textEncart == null) {
+            $textEncart = new texteEncart();
+            $textEncart->setSection('Competences');
+            $em->persist($textEncart);
+            $em->flush();
+        }
+
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $textEncart);
+
+        $formBuilder
+                ->add('text', 'ckeditor')
+                ->add('modifier', 'submit')
+        ;
+
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+
+        // On vérifie que les valeurs entrées sont correctes
+        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+        if ($form->isValid()) {
+            // On l'enregistre notre objet $advert dans la base de données, par exemple
+
+            $em->persist($textEncart);
+            $em->flush();
+
+            // On redirige vers la page de visualisation de l'annonce nouvellement créée
+            return $this->redirectToRoute('nox_intranet_competences');
+        }
+
+        $textEncartAffichage = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Competences');
+        $text = $textEncartAffichage->getText();
 
         $keyword = $request->query->get('keyword');
 
@@ -323,8 +375,10 @@ class RessourcesController extends Controller {
                     $propriete[] = array('label' => $property, 'valeur' => $value);
                 }
 
+                $dateModification = date("d/m/Y à H:i:s", filemtime($file));
+
                 $nom = str_replace('.pdf', '', $file);
-                $competences[] = array('lien' => $file, 'nom' => $nom, 'proprietes' => $propriete);
+                $competences[] = array('lien' => $file, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
             }
         }
 
@@ -339,7 +393,13 @@ class RessourcesController extends Controller {
             }
         }
 
-        return $this->render('NoxIntranetRessourcesBundle:Competences:competences.html.twig', array('competences' => $competencesRecherche));
+        foreach ($competencesRecherche as $k => $v) {
+            $date[$k] = $v['dateEnvoi'];
+        }
+
+        array_multisort($date, SORT_DESC, $competencesRecherche);
+
+        return $this->render('NoxIntranetRessourcesBundle:Competences:competences.html.twig', array('competences' => $competencesRecherche, 'text' => $text, 'formulaire' => $form->createView()));
     }
 
     public function serveursAction(Request $request) {
