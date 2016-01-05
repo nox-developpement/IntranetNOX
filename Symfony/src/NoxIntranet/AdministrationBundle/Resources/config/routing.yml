@@ -18,7 +18,6 @@ nox_intranet_administration_user:
     path: /administration/utilisateur/{roleUser}/{numPage}
     defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationUser, roleUser: "ROLE_USER" , numPage: 1 }
     
-    
 nox_intranet_administration_username:
     path: /administration/utilisateurRecherche/{roleUser}/{termeRecherche}/{numPage}
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationUsers:administrationUsername, roleUser: "ROLE_USER" , numPage: 1, termeRecherche: 'aucun' }
@@ -34,6 +33,14 @@ nox_intranet_administration_userDB:
 nox_intranet_user_verifupdateDB:
     path: /administration/utilisateurDB/confirmation
     defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationUserVerifDBMaj }
+    
+nox_intranet_restaurationBDD:
+    path: /administration/utilisateurDB/restauration
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationBDDRestauration }
+    
+nox_intranet_sauvegardeBDD:
+    path: /administration/utilisateurDB/sauvegarde
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:sauvegardeBDD }
     
 nox_intranet_user_updateDB:
     path: /administration/utilisateurDB/maj

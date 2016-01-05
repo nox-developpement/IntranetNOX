@@ -130,7 +130,7 @@ class AdministrationController extends Controller {
             unset($output[$i]);
         }
 
-        $request->getSession()->getFlashBag()->add('notice', "La base de données utilisateurs à été mise à jours.");
+        $request->getSession()->getFlashBag()->add('notice', "La base de données utilisateurs a été mise à jours.");
 
         return $this->render('NoxIntranetAdministrationBundle:Administration:administrationUserDB.html.twig', array('outputs' => $output, 'ajout' => false, 'confirmation' => false));
         //, array('usernames' => $newUserNames, 'ajout' => 'true'));
@@ -148,6 +148,35 @@ class AdministrationController extends Controller {
 
         return $this->render('NoxIntranetAdministrationBundle:Administration:administrationUserDB.html.twig', array('outputs' => $output, 'ajout' => true, 'confirmation' => true));
         //, array('usernames' => $newUserNames, 'ajout' => 'true'));
+    }
+
+    public function administrationBDDRestaurationAction(Request $request) {
+
+        $output = null;
+
+        exec('C:\wamp\www\Symfony\RestaurationBDD.bat', $output);
+
+        if ($output != null) {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "La restauration a échoué !");
+        } else {
+            $request->getSession()->getFlashBag()->add('notice', "La base de données a été restauré avec succés.");
+        }
+
+        return $this->render('NoxIntranetAdministrationBundle:Administration:administrationUserDB.html.twig', array('outputs' => $output, 'ajout' => false, 'confirmation' => false));
+    }
+
+    public function sauvegardeBDDAction(Request $request) {
+        $output = null;
+
+        exec('C:\wamp\www\Symfony\BDDDump.bat', $output);
+
+        if ($output != null) {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "La sauvegarde a échoué !");
+        } else {
+            $request->getSession()->getFlashBag()->add('notice', "La base de données a été sauvegardé avec succés.");
+        }
+
+        return $this->render('NoxIntranetAdministrationBundle:Administration:administrationUserDB.html.twig', array('outputs' => $output, 'ajout' => false, 'confirmation' => false));
     }
 
     public function administrationAdminAction() {
