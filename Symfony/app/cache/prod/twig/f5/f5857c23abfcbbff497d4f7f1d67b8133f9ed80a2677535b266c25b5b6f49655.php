@@ -47,7 +47,7 @@ class __TwigTemplate_a29be2c685851d026828b2324815fa4193bbee5b00e2da750f1233ce6e9
         echo "
     ";
         // line 11
-        if ($this->env->getExtension('security')->isGranted("ROLE_NEWS")) {
+        if ($this->env->getExtension('security')->isGranted("ROLE_COMMUNICATION")) {
             echo " 
 
         <div id=\"menuAdminNewsSI\" class='menuAdmin'>
@@ -193,7 +193,7 @@ class __TwigTemplate_a29be2c685851d026828b2324815fa4193bbee5b00e2da750f1233ce6e9
 /* */
 /* {% block contenu %}*/
 /* */
-/*     {% if is_granted('ROLE_NEWS') %} */
+/*     {% if is_granted('ROLE_COMMUNICATION') %} */
 /* */
 /*         <div id="menuAdminNewsSI" class='menuAdmin'>*/
 /*             <h3> Interface de gestion de contenu </h3>*/

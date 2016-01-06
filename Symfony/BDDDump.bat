@@ -5,6 +5,6 @@ mysqldump --user=intranetadmin --password=intranet --databases intranet > "C:\wa
 mysqldump --user=intranetadmin --password=intranet --databases wikinox > "C:\wamp\www\Symfony\SauvegardeBDD\BDDWiki.sql"
 mysqldump --user=intranetadmin --password=intranet --databases support > "C:\wamp\www\Symfony\SauvegardeBDD\BDDSupport.sql"
 
-mysqldump --user=intranetadmin --password=intranet --databases intranet > "C:\wamp\www\Symfony\SauvegardeBDDVersioning\BDDIntranet(%date:~0,2%-%date:~3,2%-%date:~6,4%).sql"
-mysqldump --user=intranetadmin --password=intranet --databases wikinox > "C:\wamp\www\Symfony\SauvegardeBDDVersioning\BDDWiki(%date:~0,2%-%date:~3,2%-%date:~6,4%).sql"
-mysqldump --user=intranetadmin --password=intranet --databases support > "C:\wamp\www\Symfony\SauvegardeBDDVersioning\BDDSupport(%date:~0,2%-%date:~3,2%-%date:~6,4%).sql"
+mysqldump --user=intranetadmin --password=intranet --databases intranet > "C:\wamp\www\Symfony\SauvegardeBDDVersioning\BDDIntranet%date:~0,2%%date:~3,2%%date:~6,4%.sql"
+mysqldump --user=intranetadmin --password=intranet --databases wikinox > "C:\wamp\www\Symfony\SauvegardeBDDVersioning\BDDWiki%date:~0,2%%date:~3,2%%date:~6,4%.sql"
+mysqldump --user=intranetadmin --password=intranet --databases support > "C:\wamp\www\Symfony\SauvegardeBDDVersioning\BDDSupport%date:~0,2%%date:~3,2%%date:~6,4%.sql"

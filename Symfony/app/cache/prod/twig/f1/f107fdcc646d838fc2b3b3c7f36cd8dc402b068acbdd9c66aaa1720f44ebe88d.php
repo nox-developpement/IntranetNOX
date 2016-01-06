@@ -155,7 +155,7 @@ class __TwigTemplate_49ea3428f1c4c68180f1712bf6636ccf1dd0e1597973a97b5a2c553adb9
             echo "
         <div class=\"divNews\">
 
-            <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/uploads/Comptetences/";
+            <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/uploads/Competences/";
             // line 67
             echo twig_escape_filter($this->env, $this->getAttribute($context["competence"], "lien", array(), "array"), "html", null, true);
             echo "', 'Compétences');\">
@@ -336,7 +336,7 @@ class __TwigTemplate_49ea3428f1c4c68180f1712bf6636ccf1dd0e1597973a97b5a2c553adb9
 /* */
 /*         <div class="divNews">*/
 /* */
-/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/uploads/Comptetences/{{ competence['lien'] }}', 'Compétences');">*/
+/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/uploads/Competences/{{ competence['lien'] }}', 'Compétences');">*/
 /*                 <img */
 /*                     src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" */
 /*                     onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" */

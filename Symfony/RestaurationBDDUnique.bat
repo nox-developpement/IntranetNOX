@@ -14,3 +14,5 @@ if not exist C:/wamp/www/Symfony/SauvegardeBDDVersioning/%chemin%.sql (
 mysql -u intranetadmin --password=intranet -D %bdd% < C:/wamp/www/Symfony/SauvegardeBDDVersioning/%chemin%.sql
 
 if NOT ["%errorlevel%"]==["0"] pause
+
+pause

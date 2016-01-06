@@ -44,80 +44,91 @@ class __TwigTemplate_275f6e56d95e04a1679312e97d48240601c907e1c11d6d4cda70584ebda
         // line 8
         echo "
     <div id=\"Liens\">
-        <ul>
-            ";
-        // line 11
-        $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["liens"]) ? $context["liens"] : null));
-        foreach ($context['_seq'] as $context["_key"] => $context["lienPrincipal"]) {
-            if (($this->getAttribute($context["lienPrincipal"], "parent", array()) == null)) {
-                // line 12
-                echo "                <li> 
-                    ";
-                // line 13
-                if (($this->getAttribute($context["lienPrincipal"], "type", array()) == "Lien")) {
-                    // line 14
-                    echo "                        <img src=\"";
-                    echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Arrowhead-Right-32.png"), "html", null, true);
-                    echo "\">
-                        <a href=\"";
+        ";
+        // line 10
+        if (((isset($context["liens"]) ? $context["liens"] : null) == null)) {
+            // line 11
+            echo "            Il n'y a aucun lien pour le moment.
+        ";
+        } else {
+            // line 13
+            echo "            <ul>
+                ";
+            // line 14
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable((isset($context["liens"]) ? $context["liens"] : null));
+            foreach ($context['_seq'] as $context["_key"] => $context["lienPrincipal"]) {
+                if (($this->getAttribute($context["lienPrincipal"], "parent", array()) == null)) {
                     // line 15
-                    echo twig_escape_filter($this->env, $this->getAttribute($context["lienPrincipal"], "liens", array()), "html", null, true);
-                    echo "\" target=\"_blank\"> ";
-                    echo twig_escape_filter($this->env, $this->getAttribute($context["lienPrincipal"], "libelle", array()), "html", null, true);
-                    echo " </a>
-                    ";
-                } else {
-                    // line 17
-                    echo "                        <img src=\"";
-                    echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Arrowhead-Right-32.png"), "html", null, true);
-                    echo "\">
+                    echo "                    <li> 
                         ";
-                    // line 18
-                    echo twig_escape_filter($this->env, $this->getAttribute($context["lienPrincipal"], "libelle", array()), "html", null, true);
-                    echo "
-                    ";
-                }
-                // line 20
-                echo "                    <ul>
+                    // line 16
+                    if (($this->getAttribute($context["lienPrincipal"], "type", array()) == "Lien")) {
+                        // line 17
+                        echo "                            <img src=\"";
+                        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Arrowhead-Right-32.png"), "html", null, true);
+                        echo "\">
+                            <a href=\"";
+                        // line 18
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["lienPrincipal"], "liens", array()), "html", null, true);
+                        echo "\" target=\"_blank\"> ";
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["lienPrincipal"], "libelle", array()), "html", null, true);
+                        echo " </a>
                         ";
-                // line 21
-                $context['_parent'] = $context;
-                $context['_seq'] = twig_ensure_traversable((isset($context["liens"]) ? $context["liens"] : null));
-                foreach ($context['_seq'] as $context["_key"] => $context["lienEnfant"]) {
-                    if (($this->getAttribute($context["lienEnfant"], "parent", array()) != null)) {
-                        // line 22
-                        echo "                            ";
-                        if (($this->getAttribute($context["lienEnfant"], "parent", array()) == $this->getAttribute($context["lienPrincipal"], "libelle", array()))) {
-                            // line 23
-                            echo "                                <li> <img src=\"";
-                            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Arrowhead-Right-32.png"), "html", null, true);
-                            echo "\"> <a href=\"";
-                            echo twig_escape_filter($this->env, $this->getAttribute($context["lienEnfant"], "liens", array()), "html", null, true);
-                            echo "\" target=\"_blank\"> ";
-                            echo twig_escape_filter($this->env, $this->getAttribute($context["lienEnfant"], "libelle", array()), "html", null, true);
-                            echo " </a> </li>
-                                ";
-                        }
-                        // line 25
-                        echo "                            ";
+                    } else {
+                        // line 20
+                        echo "                            <img src=\"";
+                        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Arrowhead-Right-32.png"), "html", null, true);
+                        echo "\">
+                            ";
+                        // line 21
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["lienPrincipal"], "libelle", array()), "html", null, true);
+                        echo "
+                        ";
                     }
+                    // line 23
+                    echo "                        <ul>
+                            ";
+                    // line 24
+                    $context['_parent'] = $context;
+                    $context['_seq'] = twig_ensure_traversable((isset($context["liens"]) ? $context["liens"] : null));
+                    foreach ($context['_seq'] as $context["_key"] => $context["lienEnfant"]) {
+                        if (($this->getAttribute($context["lienEnfant"], "parent", array()) != null)) {
+                            // line 25
+                            echo "                                ";
+                            if (($this->getAttribute($context["lienEnfant"], "parent", array()) == $this->getAttribute($context["lienPrincipal"], "libelle", array()))) {
+                                // line 26
+                                echo "                                    <li> <img src=\"";
+                                echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Arrowhead-Right-32.png"), "html", null, true);
+                                echo "\"> <a href=\"";
+                                echo twig_escape_filter($this->env, $this->getAttribute($context["lienEnfant"], "liens", array()), "html", null, true);
+                                echo "\" target=\"_blank\"> ";
+                                echo twig_escape_filter($this->env, $this->getAttribute($context["lienEnfant"], "libelle", array()), "html", null, true);
+                                echo " </a> </li>
+                                    ";
+                            }
+                            // line 28
+                            echo "                                ";
+                        }
+                    }
+                    $_parent = $context['_parent'];
+                    unset($context['_seq'], $context['_iterated'], $context['_key'], $context['lienEnfant'], $context['_parent'], $context['loop']);
+                    $context = array_intersect_key($context, $_parent) + $_parent;
+                    // line 29
+                    echo "                        </ul>
+                    </li>
+                ";
                 }
-                $_parent = $context['_parent'];
-                unset($context['_seq'], $context['_iterated'], $context['_key'], $context['lienEnfant'], $context['_parent'], $context['loop']);
-                $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 26
-                echo "                    </ul>
-                </li>
-            ";
             }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['lienPrincipal'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 32
+            echo "            </ul>
+        ";
         }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['lienPrincipal'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 29
-        echo "        </ul>
-    </div>
+        // line 34
+        echo "    </div>
 
 ";
     }
@@ -134,7 +145,7 @@ class __TwigTemplate_275f6e56d95e04a1679312e97d48240601c907e1c11d6d4cda70584ebda
 
     public function getDebugInfo()
     {
-        return array (  119 => 29,  110 => 26,  103 => 25,  93 => 23,  90 => 22,  85 => 21,  82 => 20,  77 => 18,  72 => 17,  65 => 15,  60 => 14,  58 => 13,  55 => 12,  50 => 11,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  131 => 34,  127 => 32,  118 => 29,  111 => 28,  101 => 26,  98 => 25,  93 => 24,  90 => 23,  85 => 21,  80 => 20,  73 => 18,  68 => 17,  66 => 16,  63 => 15,  58 => 14,  55 => 13,  51 => 11,  49 => 10,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -146,26 +157,30 @@ class __TwigTemplate_275f6e56d95e04a1679312e97d48240601c907e1c11d6d4cda70584ebda
 /* {% block contenu %}*/
 /* */
 /*     <div id="Liens">*/
-/*         <ul>*/
-/*             {% for lienPrincipal in liens if lienPrincipal.parent == null %}*/
-/*                 <li> */
-/*                     {% if lienPrincipal.type == 'Lien' %}*/
-/*                         <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}">*/
-/*                         <a href="{{ lienPrincipal.liens }}" target="_blank"> {{ lienPrincipal.libelle }} </a>*/
-/*                     {% else %}*/
-/*                         <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}">*/
-/*                         {{ lienPrincipal.libelle }}*/
-/*                     {% endif %}*/
-/*                     <ul>*/
-/*                         {% for lienEnfant in liens if lienEnfant.parent != null %}*/
-/*                             {% if lienEnfant.parent == lienPrincipal.libelle %}*/
-/*                                 <li> <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}"> <a href="{{ lienEnfant.liens }}" target="_blank"> {{ lienEnfant.libelle }} </a> </li>*/
-/*                                 {% endif %}*/
-/*                             {% endfor %}*/
-/*                     </ul>*/
-/*                 </li>*/
-/*             {% endfor %}*/
-/*         </ul>*/
+/*         {% if liens == null %}*/
+/*             Il n'y a aucun lien pour le moment.*/
+/*         {% else %}*/
+/*             <ul>*/
+/*                 {% for lienPrincipal in liens if lienPrincipal.parent == null %}*/
+/*                     <li> */
+/*                         {% if lienPrincipal.type == 'Lien' %}*/
+/*                             <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}">*/
+/*                             <a href="{{ lienPrincipal.liens }}" target="_blank"> {{ lienPrincipal.libelle }} </a>*/
+/*                         {% else %}*/
+/*                             <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}">*/
+/*                             {{ lienPrincipal.libelle }}*/
+/*                         {% endif %}*/
+/*                         <ul>*/
+/*                             {% for lienEnfant in liens if lienEnfant.parent != null %}*/
+/*                                 {% if lienEnfant.parent == lienPrincipal.libelle %}*/
+/*                                     <li> <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}"> <a href="{{ lienEnfant.liens }}" target="_blank"> {{ lienEnfant.libelle }} </a> </li>*/
+/*                                     {% endif %}*/
+/*                                 {% endfor %}*/
+/*                         </ul>*/
+/*                     </li>*/
+/*                 {% endfor %}*/
+/*             </ul>*/
+/*         {% endif %}*/
 /*     </div>*/
 /* */
 /* {% endblock %}*/

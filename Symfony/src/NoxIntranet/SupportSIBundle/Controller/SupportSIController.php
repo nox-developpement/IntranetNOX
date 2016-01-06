@@ -10,9 +10,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class SupportSIController extends Controller {
 
-    /**
-     * @Security("has_role('ROLE_USER')")
-     */
     public function accueilAction(Request $request) {
 
         return $this->render('NoxIntranetSupportSIBundle:Support:accueilSupport.html.twig');
@@ -60,7 +57,7 @@ class SupportSIController extends Controller {
 
         date_default_timezone_set('Europe/Paris');
         $date = date('d/m/Y à h:i:s', time());
-        
+
         $dateTimeDemande = \DateTime::createFromFormat("d/m/Y", $request->query->get('dateLivraison'));
 
         if ($request->query->get('materiel') == null && $request->query->get('logicielCheckbox') == null) {
@@ -80,7 +77,7 @@ class SupportSIController extends Controller {
         } else {
 
             $dateDemande = $dateTimeDemande->format('d/m/Y');
-            
+
             $em = $this->getDoctrine()->getManager();
 
             $compteur = $em->getRepository('NoxIntranetSupportSIBundle:CompteurDemande')->find(6);

@@ -13,9 +13,6 @@ class TicketController extends Controller {
         return $this->render('NoxIntranetSupportBundle:Ticket:ticket.html.twig');
     }
 
-    /**
-     * @Security("has_role('ROLE_USER')")
-     */
     public function ajouterTicketAction(Request $request) {
         $ticket = new Ticket();
         $user = $this->get('security.token_storage')->getToken()->getUser();
@@ -49,9 +46,6 @@ class TicketController extends Controller {
         return $this->render('NoxIntranetSupportBundle:Ticket:newticket.html.twig', array('formulaire' => $form->createView()));
     }
 
-    /**
-     * @Security("has_role('ROLE_USER')")
-     */
     public function mesTicketsAction() {
         $user = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
 

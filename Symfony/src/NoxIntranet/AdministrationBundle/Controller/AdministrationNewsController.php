@@ -20,9 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class AdministrationNewsController extends Controller {
 
-    /**
-     * @Security("has_role('ROLE_NEWS')")
-     */
     public function ajouterNewsAction(Request $request) {
         $news = new News();
 
@@ -85,9 +82,6 @@ class AdministrationNewsController extends Controller {
         return $this->render('NoxIntranetAdministrationBundle:AdministrationNews:administrationAjouterNews.html.twig', array('formulaire' => $form->createView()));
     }
 
-    /**
-     * @Security("has_role('ROLE_NEWS')")
-     */
     public function supprimerNewsAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 

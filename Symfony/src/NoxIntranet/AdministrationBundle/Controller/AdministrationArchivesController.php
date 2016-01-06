@@ -63,9 +63,6 @@ class AdministrationArchivesController extends Controller {
 
         $archives = $em->getRepository('NoxIntranetRessourcesBundle:Archive')->findBy(array(), array('agence' => 'ASC'));
 
-        $textEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Archives');
-        $text = $textEncart->getText();
-
         $archive = new Archive();
 
         $form = $this->get('form.factory')->createBuilder('form', $archive)

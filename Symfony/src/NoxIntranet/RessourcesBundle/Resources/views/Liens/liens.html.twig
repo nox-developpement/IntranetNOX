@@ -7,26 +7,30 @@
 {% block contenu %}
 
     <div id="Liens">
-        <ul>
-            {% for lienPrincipal in liens if lienPrincipal.parent == null %}
-                <li> 
-                    {% if lienPrincipal.type == 'Lien' %}
-                        <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}">
-                        <a href="{{ lienPrincipal.liens }}" target="_blank"> {{ lienPrincipal.libelle }} </a>
-                    {% else %}
-                        <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}">
-                        {{ lienPrincipal.libelle }}
-                    {% endif %}
-                    <ul>
-                        {% for lienEnfant in liens if lienEnfant.parent != null %}
-                            {% if lienEnfant.parent == lienPrincipal.libelle %}
-                                <li> <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}"> <a href="{{ lienEnfant.liens }}" target="_blank"> {{ lienEnfant.libelle }} </a> </li>
-                                {% endif %}
-                            {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
-        </ul>
+        {% if liens == null %}
+            Il n'y a aucun lien pour le moment.
+        {% else %}
+            <ul>
+                {% for lienPrincipal in liens if lienPrincipal.parent == null %}
+                    <li> 
+                        {% if lienPrincipal.type == 'Lien' %}
+                            <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}">
+                            <a href="{{ lienPrincipal.liens }}" target="_blank"> {{ lienPrincipal.libelle }} </a>
+                        {% else %}
+                            <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}">
+                            {{ lienPrincipal.libelle }}
+                        {% endif %}
+                        <ul>
+                            {% for lienEnfant in liens if lienEnfant.parent != null %}
+                                {% if lienEnfant.parent == lienPrincipal.libelle %}
+                                    <li> <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}"> <a href="{{ lienEnfant.liens }}" target="_blank"> {{ lienEnfant.libelle }} </a> </li>
+                                    {% endif %}
+                                {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 
 {% endblock %}

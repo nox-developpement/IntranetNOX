@@ -34,8 +34,8 @@
                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_USER'}) }}' class='tous'> <p>{% if roleUser == 'ROLE_USER' %}<img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Tous</p> </a> </div> </div> </td>
                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_ADMIN'}) }}' class='admin'> <p>{% if roleUser == 'ROLE_ADMIN' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Admin </p> </a> </div></div></td>
                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_CE'}) }}' class='ce'>  <p>{% if roleUser == 'ROLE_CE' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %} CE </p>  </a> </div></div></td>
-                <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_CHSCE'}) }}' class='chsce'>  <p>{% if roleUser == 'ROLE_CHSCE' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %} CHSCE </p>  </a> </div></div></td>
-                <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_NEWS'}) }}' class='communication'> <p> {% if roleUser == 'ROLE_NEWS' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Communication  </p></a> </div></div></td>
+                <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_CHSCT'}) }}' class='CHSCT'>  <p>{% if roleUser == 'ROLE_CHSCT' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %} CHSCT </p>  </a> </div></div></td>
+                <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_COMMUNICATION'}) }}' class='communication'> <p> {% if roleUser == 'ROLE_COMMUNICATION' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Communication  </p></a> </div></div></td>
                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_COMPETENCES'}) }}' class='competences'> <p>{% if roleUser == 'ROLE_COMPETENCES' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Compétences </p> </a></div></div> </td>
                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_FAQ'}) }}' class='faq'> <p>{% if roleUser == 'ROLE_FAQ' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %} FAQ </p> </a> </div></div></td>
                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_LIENS'}) }}' class='liens2'> <p> {% if roleUser == 'ROLE_LIENS' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Liens </p>  </a> </div></div></td>
@@ -45,6 +45,8 @@
                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'LOCAL'}) }}' class='local'>  <p>{% if roleUser == 'LOCAL' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %} Local </p>  </a> </div></div></td>
                 <td><div class="vertical-text"> <div class="vertical-text__inner">  </td>
                             </tr>
+
+
 
                             {% for user in utilisateurs %}
                                 <tr>
@@ -72,9 +74,9 @@
                                             </td>
 
                                             <td>
-                                                <input type='checkbox' name='CHSCE' value='CHSCE' id='CHSCE' onclick='checkboxPublicateurClick(this);'
+                                                <input type='checkbox' name='CHSCT' value='CHSCT' id='CHSCT' onclick='checkboxPublicateurClick(this);'
                                                        {% for role in user.roles %}
-                                                           {% if role == "ROLE_CHSCE" %}
+                                                           {% if role == "ROLE_CHSCT" %}
                                                                checked
                                                            {% endif %}
                                                        {% endfor %}   
@@ -82,9 +84,9 @@
                                             </td>
 
                                             <td>
-                                                <input type='checkbox' name='References' value='References' id='References' onclick='checkboxPublicateurClick(this);'
+                                                <input type='checkbox' name='News' value='News' id='News' onclick='checkboxPublicateurClick(this);'
                                                        {% for role in user.roles %}
-                                                           {% if role == "ROLE_REFERENCES" %}
+                                                           {% if role == "ROLE_COMMUNICATION" %}
                                                                checked
                                                            {% endif %}
                                                        {% endfor %}   
@@ -95,26 +97,6 @@
                                                 <input type='checkbox' name='Competences' value='Competences' id='Competences' onclick='checkboxPublicateurClick(this);'
                                                        {% for role in user.roles %}
                                                            {% if role == "ROLE_COMPETENCES" %}
-                                                               checked
-                                                           {% endif %}
-                                                       {% endfor %}   
-                                                       >
-                                            </td>
-
-                                            <td>
-                                                <input type='checkbox' name='Procedures' value='Procedures' id='Procedures' onclick='checkboxPublicateurClick(this);'
-                                                       {% for role in user.roles %}
-                                                           {% if role == "ROLE_PROCEDURES" %}
-                                                               checked
-                                                           {% endif %}
-                                                       {% endfor %}   
-                                                       >
-                                            </td>
-
-                                            <td>
-                                                <input type='checkbox' name='News' value='News' id='News' onclick='checkboxPublicateurClick(this);'
-                                                       {% for role in user.roles %}
-                                                           {% if role == "ROLE_NEWS" %}
                                                                checked
                                                            {% endif %}
                                                        {% endfor %}   
@@ -142,6 +124,16 @@
                                             </td>
 
                                             <td>
+                                                <input type='checkbox' name='Procedures' value='Procedures' id='Procedures' onclick='checkboxPublicateurClick(this);'
+                                                       {% for role in user.roles %}
+                                                           {% if role == "ROLE_PROCEDURES" %}
+                                                               checked
+                                                           {% endif %}
+                                                       {% endfor %}   
+                                                       >
+                                            </td> 
+
+                                            <td>
                                                 <input type='checkbox' name='Qualite' value='Qualite' id='Qualite' onclick='checkboxPublicateurClick(this);'
                                                        {% for role in user.roles %}
                                                            {% if role == "ROLE_QUALITE" %}
@@ -150,6 +142,16 @@
                                                        {% endfor %}   
                                                        >
                                             </td>
+
+                                            <td>
+                                                <input type='checkbox' name='References' value='References' id='References' onclick='checkboxPublicateurClick(this);'
+                                                       {% for role in user.roles %}
+                                                           {% if role == "ROLE_REFERENCES" %}
+                                                               checked
+                                                           {% endif %}
+                                                       {% endfor %}   
+                                                       >
+                                            </td>       
 
                                             <td>
                                                 {% if user.local %}
@@ -166,9 +168,20 @@
                                 </tr>
                             {% endfor %}
 
+
+
+
                             </table>
 
+                            {% if utilisateurs == null %}
 
+                                <div id='noResults'>
+
+                                    Votre recherche n'a retourné aucun résultat.
+
+                                </div>
+
+                            {% endif %}
 
                             <div id="choixPage">
 

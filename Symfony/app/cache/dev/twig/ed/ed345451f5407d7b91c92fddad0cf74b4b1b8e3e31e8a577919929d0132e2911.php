@@ -23,44 +23,44 @@ class __TwigTemplate_3d0fffd8360f32530bfb0f28280a42d2b3cde14b6bfa97e374e9f4dd907
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_9e81a482b3d41c3529869c89b1e12e29ff0141bec3fee8e0f66cda68e5745bea = $this->env->getExtension("native_profiler");
-        $__internal_9e81a482b3d41c3529869c89b1e12e29ff0141bec3fee8e0f66cda68e5745bea->enter($__internal_9e81a482b3d41c3529869c89b1e12e29ff0141bec3fee8e0f66cda68e5745bea_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:Accueil:accueilRessources.html.twig"));
+        $__internal_ee7761894ef2a9d1d849d121423527ea415fcf49a4876ab8b05eaacf282d6922 = $this->env->getExtension("native_profiler");
+        $__internal_ee7761894ef2a9d1d849d121423527ea415fcf49a4876ab8b05eaacf282d6922->enter($__internal_ee7761894ef2a9d1d849d121423527ea415fcf49a4876ab8b05eaacf282d6922_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:Accueil:accueilRessources.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_9e81a482b3d41c3529869c89b1e12e29ff0141bec3fee8e0f66cda68e5745bea->leave($__internal_9e81a482b3d41c3529869c89b1e12e29ff0141bec3fee8e0f66cda68e5745bea_prof);
+        $__internal_ee7761894ef2a9d1d849d121423527ea415fcf49a4876ab8b05eaacf282d6922->leave($__internal_ee7761894ef2a9d1d849d121423527ea415fcf49a4876ab8b05eaacf282d6922_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_863d2b9923b90bddb39a4e7c622978d99b560cb6c1146b49f3eaac11791e5095 = $this->env->getExtension("native_profiler");
-        $__internal_863d2b9923b90bddb39a4e7c622978d99b560cb6c1146b49f3eaac11791e5095->enter($__internal_863d2b9923b90bddb39a4e7c622978d99b560cb6c1146b49f3eaac11791e5095_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_eb84627c0683a0641c800d7b0c27bedb00796abcdfa7409ea62a7f59204f534e = $this->env->getExtension("native_profiler");
+        $__internal_eb84627c0683a0641c800d7b0c27bedb00796abcdfa7409ea62a7f59204f534e->enter($__internal_eb84627c0683a0641c800d7b0c27bedb00796abcdfa7409ea62a7f59204f534e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Ressources ";
         
-        $__internal_863d2b9923b90bddb39a4e7c622978d99b560cb6c1146b49f3eaac11791e5095->leave($__internal_863d2b9923b90bddb39a4e7c622978d99b560cb6c1146b49f3eaac11791e5095_prof);
+        $__internal_eb84627c0683a0641c800d7b0c27bedb00796abcdfa7409ea62a7f59204f534e->leave($__internal_eb84627c0683a0641c800d7b0c27bedb00796abcdfa7409ea62a7f59204f534e_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_a68dc72dd6523245b585de48a752da5eb29088445428d99856e1c13c2126c7cd = $this->env->getExtension("native_profiler");
-        $__internal_a68dc72dd6523245b585de48a752da5eb29088445428d99856e1c13c2126c7cd->enter($__internal_a68dc72dd6523245b585de48a752da5eb29088445428d99856e1c13c2126c7cd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_9eb586e0240b7c23377c0a56f07a163783e995084592bb54708142f032e8a128 = $this->env->getExtension("native_profiler");
+        $__internal_9eb586e0240b7c23377c0a56f07a163783e995084592bb54708142f032e8a128->enter($__internal_9eb586e0240b7c23377c0a56f07a163783e995084592bb54708142f032e8a128_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Ressources";
         
-        $__internal_a68dc72dd6523245b585de48a752da5eb29088445428d99856e1c13c2126c7cd->leave($__internal_a68dc72dd6523245b585de48a752da5eb29088445428d99856e1c13c2126c7cd_prof);
+        $__internal_9eb586e0240b7c23377c0a56f07a163783e995084592bb54708142f032e8a128->leave($__internal_9eb586e0240b7c23377c0a56f07a163783e995084592bb54708142f032e8a128_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_b5cb35b9cc2eda43fdc101fe2e7614cc6f907c808cec073e9c16d479d0e347c0 = $this->env->getExtension("native_profiler");
-        $__internal_b5cb35b9cc2eda43fdc101fe2e7614cc6f907c808cec073e9c16d479d0e347c0->enter($__internal_b5cb35b9cc2eda43fdc101fe2e7614cc6f907c808cec073e9c16d479d0e347c0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_2db3bbf9491a7d7bc11a455f6caf76ab88611621af462a2e184b91ea5b296e1d = $this->env->getExtension("native_profiler");
+        $__internal_2db3bbf9491a7d7bc11a455f6caf76ab88611621af462a2e184b91ea5b296e1d->enter($__internal_2db3bbf9491a7d7bc11a455f6caf76ab88611621af462a2e184b91ea5b296e1d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         echo " 
     <div class=\"iconContener\">
@@ -210,7 +210,7 @@ class __TwigTemplate_3d0fffd8360f32530bfb0f28280a42d2b3cde14b6bfa97e374e9f4dd907
             </figure>
         </a>
 
-        <!-- Procédures -->
+        <!-- Procédures (A ajouter)
         <a href=\"";
         // line 87
         echo $this->env->getExtension('routing')->getPath("nox_intranet_procedures");
@@ -233,24 +233,25 @@ class __TwigTemplate_3d0fffd8360f32530bfb0f28280a42d2b3cde14b6bfa97e374e9f4dd907
                 <figcaption>Procédures</figcaption>
             </figure>
         </a>
+        -->
 
         <!-- Références -->
         <a href=\"";
-        // line 99
+        // line 100
         echo $this->env->getExtension('routing')->getPath("nox_intranet_references");
         echo "\" class=\"icon\">
             <figure>
                 <img 
                     src=\"";
-        // line 102
+        // line 103
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Reference-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
-        // line 103
+        // line 104
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Reference-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
-        // line 104
+        // line 105
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Reference-128.png"), "html", null, true);
         echo "';\"
                     > 
@@ -260,21 +261,21 @@ class __TwigTemplate_3d0fffd8360f32530bfb0f28280a42d2b3cde14b6bfa97e374e9f4dd907
 
         <!-- Serveurs -->            
         <a href=\"";
-        // line 111
+        // line 112
         echo $this->env->getExtension('routing')->getPath("nox_intranet_serveurs");
         echo "\" class=\"icon\">
             <figure>
                 <img 
                     src=\"";
-        // line 114
+        // line 115
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Server-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
-        // line 115
+        // line 116
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Server-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
-        // line 116
+        // line 117
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Server-128.png"), "html", null, true);
         echo "';\"
                     > 
@@ -286,7 +287,7 @@ class __TwigTemplate_3d0fffd8360f32530bfb0f28280a42d2b3cde14b6bfa97e374e9f4dd907
 
 ";
         
-        $__internal_b5cb35b9cc2eda43fdc101fe2e7614cc6f907c808cec073e9c16d479d0e347c0->leave($__internal_b5cb35b9cc2eda43fdc101fe2e7614cc6f907c808cec073e9c16d479d0e347c0_prof);
+        $__internal_2db3bbf9491a7d7bc11a455f6caf76ab88611621af462a2e184b91ea5b296e1d->leave($__internal_2db3bbf9491a7d7bc11a455f6caf76ab88611621af462a2e184b91ea5b296e1d_prof);
 
     }
 
@@ -302,7 +303,7 @@ class __TwigTemplate_3d0fffd8360f32530bfb0f28280a42d2b3cde14b6bfa97e374e9f4dd907
 
     public function getDebugInfo()
     {
-        return array (  278 => 116,  274 => 115,  270 => 114,  264 => 111,  254 => 104,  250 => 103,  246 => 102,  240 => 99,  230 => 92,  226 => 91,  222 => 90,  216 => 87,  206 => 80,  202 => 79,  198 => 78,  192 => 75,  179 => 65,  175 => 64,  171 => 63,  165 => 60,  155 => 53,  151 => 52,  147 => 51,  141 => 48,  131 => 41,  127 => 40,  123 => 39,  117 => 36,  106 => 28,  102 => 27,  98 => 26,  85 => 16,  81 => 15,  77 => 14,  71 => 11,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
+        return array (  279 => 117,  275 => 116,  271 => 115,  265 => 112,  255 => 105,  251 => 104,  247 => 103,  241 => 100,  230 => 92,  226 => 91,  222 => 90,  216 => 87,  206 => 80,  202 => 79,  198 => 78,  192 => 75,  179 => 65,  175 => 64,  171 => 63,  165 => 60,  155 => 53,  151 => 52,  147 => 51,  141 => 48,  131 => 41,  127 => 40,  123 => 39,  117 => 36,  106 => 28,  102 => 27,  98 => 26,  85 => 16,  81 => 15,  77 => 14,  71 => 11,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -390,7 +391,7 @@ class __TwigTemplate_3d0fffd8360f32530bfb0f28280a42d2b3cde14b6bfa97e374e9f4dd907
 /*             </figure>*/
 /*         </a>*/
 /* */
-/*         <!-- Procédures -->*/
+/*         <!-- Procédures (A ajouter)*/
 /*         <a href="{{ path('nox_intranet_procedures') }}" class="icon">*/
 /*             <figure>*/
 /*                 <img */
@@ -401,6 +402,7 @@ class __TwigTemplate_3d0fffd8360f32530bfb0f28280a42d2b3cde14b6bfa97e374e9f4dd907
 /*                 <figcaption>Procédures</figcaption>*/
 /*             </figure>*/
 /*         </a>*/
+/*         -->*/
 /* */
 /*         <!-- Références -->*/
 /*         <a href="{{ path('nox_intranet_references') }}" class="icon">*/

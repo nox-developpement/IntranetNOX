@@ -1,1 +1,0 @@
-<?php return unserialize('a:1:{i:0;O:57:"Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Security":1:{s:13:"' . "\0" . '*' . "\0" . 'expression";s:141:"has_role(\'ROLE_ADMIN\') or has_role(\'ROLE_NEWS\') or has_role(\'ROLE_REFERENCES\') or has_role(\'ROLE_PROCEDURES\') or has_role(\'ROLE_COMPETENCES\')";}}');

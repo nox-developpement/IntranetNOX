@@ -9,14 +9,13 @@ use Symfony\Component\HttpFoundation\Request;
 class AdministrationUsersController extends Controller {
 
     public function administrationUsernameAction(Request $request, $numPage, $roleUser, $termeRecherche) {
-        
-        if($termeRecherche == 'aucun') {
+
+        if ($termeRecherche == 'aucun') {
             $name = $request->query->get('recherche');
-        }
-        else {
+        } else {
             $name = $termeRecherche;
         }
-        
+
         $em = $this->getDoctrine()->getManager();
 
         //$users = $em->getRepository('NoxIntranetUserBundle:User')->findBy(array('username' => $name), array('username' => 'ASC'));
@@ -68,9 +67,13 @@ class AdministrationUsersController extends Controller {
             $usersAfficher = array_merge($usersWithRole, $usersWhitoutRole);
         }
 
-        $nbPages = ceil(sizeof($usersAfficher) / 20);
-
-        $usersPages = array_chunk($usersAfficher, 20);   
+        if ($usersAfficher == null) {
+            $nbPages = 1;
+            $usersPages = null;
+        } else {
+            $nbPages = ceil(sizeof($usersAfficher) / 20);
+            $usersPages = array_chunk($usersAfficher, 20);
+        }
 
         return $this->render('NoxIntranetAdministrationBundle:AdministrationUser:administrationUser2.html.twig', array('recherche' => true, 'utilisateurs' => $usersPages[$numPage - 1], 'nbPage' => $nbPages, 'numPage' => $numPage, 'roleUser' => $roleUser, 'termeRecherche' => $name));
     }
@@ -91,7 +94,8 @@ class AdministrationUsersController extends Controller {
         $roleFAQ = "";
         $roleLiens = "";
         $roleCE = "";
-        $roleCHSCE = "";
+        $roleCHSCT = "";
+        $roleQualite = "";
 
         if ($request->get('Admin') == 'Admin') {
             $roleAdmin = 'ROLE_ADMIN';
@@ -106,7 +110,7 @@ class AdministrationUsersController extends Controller {
             $roleProcedures = 'ROLE_PROCEDURES';
         }
         if ($request->get('News') == 'News') {
-            $roleNews = 'ROLE_NEWS';
+            $roleNews = 'ROLE_COMMUNICATION';
         }
         if ($request->get('FAQ') == 'FAQ') {
             $roleFAQ = 'ROLE_FAQ';
@@ -117,11 +121,14 @@ class AdministrationUsersController extends Controller {
         if ($request->get('CE') == 'CE') {
             $roleCE = 'ROLE_CE';
         }
-        if ($request->get('CHSCE') == 'CHSCE') {
-            $roleLiens = 'ROLE_CHSCE';
+        if ($request->get('CHSCT') == 'CHSCT') {
+            $roleCHSCT = 'ROLE_CHSCT';
+        }
+        if ($request->get('Qualite') == 'Qualite') {
+            $roleQualite = 'ROLE_QUALITE';
         }
 
-        $user->setRoles(array($roleAdmin, $roleReference, $roleCompetences, $roleProcedures, $roleNews, $roleFAQ, $roleLiens, $roleCE, $roleCHSCE, 'ROLE_USER'));
+        $user->setRoles(array($roleAdmin, $roleReference, $roleCompetences, $roleProcedures, $roleNews, $roleFAQ, $roleLiens, $roleCE, $roleCHSCT, $roleQualite, 'ROLE_USER'));
         $em->flush();
 
         $request->getSession()->getFlashBag()->add('notice', "Le rôle de l'utilisateur a bien était modifié.");

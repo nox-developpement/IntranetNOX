@@ -9,9 +9,6 @@ use NoxIntranet\AdministrationBundle\Entity\texteEncart;
 
 class RessourcesController extends Controller {
 
-    /**
-     * @Security("has_role('ROLE_USER')")
-     */
     public function accueilAction(Request $request) {
 
         return $this->render('NoxIntranetRessourcesBundle:Accueil:accueilRessources.html.twig');
@@ -375,7 +372,7 @@ class RessourcesController extends Controller {
                     $propriete[] = array('label' => $property, 'valeur' => $value);
                 }
 
-                $dateModification = date("d/m/Y à H:i:s", filemtime($file));
+                $dateModification = date("d/m/Y à H:i:s", filemtime($chemin));
 
                 $nom = str_replace('.pdf', '', $file);
                 $competences[] = array('lien' => $file, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
@@ -388,16 +385,18 @@ class RessourcesController extends Controller {
 
             foreach ($competence['proprietes'] as $propriete) {
                 if ($propriete['label'] === 'Keywords' && stripos($propriete['valeur'], $keyword) !== false) {
-                    $competencesRecherche[] = array('lien' => $competence['lien'], 'nom' => $competence['nom'], 'proprietes' => $competence['proprietes']);
+                    $competencesRecherche[] = array('lien' => $competence['lien'], 'nom' => $competence['nom'], 'proprietes' => $competence['proprietes'], 'dateEnvoi' => $competence['dateEnvoi']);
                 }
             }
         }
 
-        foreach ($competencesRecherche as $k => $v) {
-            $date[$k] = $v['dateEnvoi'];
-        }
+        if ($competencesRecherche != null) {
+            foreach ($competencesRecherche as $k => $v) {
+                $date[$k] = $v['dateEnvoi'];
+            }
 
-        array_multisort($date, SORT_DESC, $competencesRecherche);
+            array_multisort($date, SORT_DESC, $competencesRecherche);
+        }
 
         return $this->render('NoxIntranetRessourcesBundle:Competences:competences.html.twig', array('competences' => $competencesRecherche, 'text' => $text, 'formulaire' => $form->createView()));
     }

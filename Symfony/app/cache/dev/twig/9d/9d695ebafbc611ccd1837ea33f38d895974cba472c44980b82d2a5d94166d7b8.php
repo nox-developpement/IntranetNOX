@@ -23,44 +23,44 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_872cb2ac97e804812795379ae6a30f6f209ccf6e2b08469c25ec50d1d72f347f = $this->env->getExtension("native_profiler");
-        $__internal_872cb2ac97e804812795379ae6a30f6f209ccf6e2b08469c25ec50d1d72f347f->enter($__internal_872cb2ac97e804812795379ae6a30f6f209ccf6e2b08469c25ec50d1d72f347f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationUser:administrationUser2.html.twig"));
+        $__internal_59d364fa3d2a996cbe073d7c8f89f2e63e1a06742a23c7203f2581cc264cc5e1 = $this->env->getExtension("native_profiler");
+        $__internal_59d364fa3d2a996cbe073d7c8f89f2e63e1a06742a23c7203f2581cc264cc5e1->enter($__internal_59d364fa3d2a996cbe073d7c8f89f2e63e1a06742a23c7203f2581cc264cc5e1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationUser:administrationUser2.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_872cb2ac97e804812795379ae6a30f6f209ccf6e2b08469c25ec50d1d72f347f->leave($__internal_872cb2ac97e804812795379ae6a30f6f209ccf6e2b08469c25ec50d1d72f347f_prof);
+        $__internal_59d364fa3d2a996cbe073d7c8f89f2e63e1a06742a23c7203f2581cc264cc5e1->leave($__internal_59d364fa3d2a996cbe073d7c8f89f2e63e1a06742a23c7203f2581cc264cc5e1_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_82a244db405df6e1f0387e2952313c6326b7953978263463b28e1083331dece8 = $this->env->getExtension("native_profiler");
-        $__internal_82a244db405df6e1f0387e2952313c6326b7953978263463b28e1083331dece8->enter($__internal_82a244db405df6e1f0387e2952313c6326b7953978263463b28e1083331dece8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_bef8d7e7a7d41c62bf7153615f1e20d9abbd29f143fd6feba98d6215d7bc5de5 = $this->env->getExtension("native_profiler");
+        $__internal_bef8d7e7a7d41c62bf7153615f1e20d9abbd29f143fd6feba98d6215d7bc5de5->enter($__internal_bef8d7e7a7d41c62bf7153615f1e20d9abbd29f143fd6feba98d6215d7bc5de5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo "Administration utilisateurs";
         
-        $__internal_82a244db405df6e1f0387e2952313c6326b7953978263463b28e1083331dece8->leave($__internal_82a244db405df6e1f0387e2952313c6326b7953978263463b28e1083331dece8_prof);
+        $__internal_bef8d7e7a7d41c62bf7153615f1e20d9abbd29f143fd6feba98d6215d7bc5de5->leave($__internal_bef8d7e7a7d41c62bf7153615f1e20d9abbd29f143fd6feba98d6215d7bc5de5_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_eed543c74d75cee63fa5e3fe1feaeeadedec3b26d052c12edadd90e100e470b5 = $this->env->getExtension("native_profiler");
-        $__internal_eed543c74d75cee63fa5e3fe1feaeeadedec3b26d052c12edadd90e100e470b5->enter($__internal_eed543c74d75cee63fa5e3fe1feaeeadedec3b26d052c12edadd90e100e470b5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_6e2cd66b7ae6968b44806f66199585c182db5350f14c21c5b0db3a3b1a09c6e9 = $this->env->getExtension("native_profiler");
+        $__internal_6e2cd66b7ae6968b44806f66199585c182db5350f14c21c5b0db3a3b1a09c6e9->enter($__internal_6e2cd66b7ae6968b44806f66199585c182db5350f14c21c5b0db3a3b1a09c6e9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Administration utilisateurs";
         
-        $__internal_eed543c74d75cee63fa5e3fe1feaeeadedec3b26d052c12edadd90e100e470b5->leave($__internal_eed543c74d75cee63fa5e3fe1feaeeadedec3b26d052c12edadd90e100e470b5_prof);
+        $__internal_6e2cd66b7ae6968b44806f66199585c182db5350f14c21c5b0db3a3b1a09c6e9->leave($__internal_6e2cd66b7ae6968b44806f66199585c182db5350f14c21c5b0db3a3b1a09c6e9_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_fe95023d58fe0b0ffc473e21e86010d54d40816f22324d7a5d3548011fa4e60f = $this->env->getExtension("native_profiler");
-        $__internal_fe95023d58fe0b0ffc473e21e86010d54d40816f22324d7a5d3548011fa4e60f->enter($__internal_fe95023d58fe0b0ffc473e21e86010d54d40816f22324d7a5d3548011fa4e60f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_e787bf091e5faf77b53c9dd8adaf0297ff086f07d3ee32ec987ba3f5e98e24bf = $this->env->getExtension("native_profiler");
+        $__internal_e787bf091e5faf77b53c9dd8adaf0297ff086f07d3ee32ec987ba3f5e98e24bf->enter($__internal_e787bf091e5faf77b53c9dd8adaf0297ff086f07d3ee32ec987ba3f5e98e24bf_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -130,19 +130,19 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         echo " CE </p>  </a> </div></div></td>
                 <td><div class=\"vertical-text\"> <div class=\"vertical-text__inner\"> <a href='";
         // line 37
-        echo $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("roleUser" => "ROLE_CHSCE"));
-        echo "' class='chsce'>  <p>";
-        if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_CHSCE")) {
+        echo $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("roleUser" => "ROLE_CHSCT"));
+        echo "' class='CHSCT'>  <p>";
+        if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_CHSCT")) {
             echo " <img src=\"";
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
         }
-        echo " CHSCE </p>  </a> </div></div></td>
+        echo " CHSCT </p>  </a> </div></div></td>
                 <td> <div class=\"vertical-text\"> <div class=\"vertical-text__inner\"><a href='";
         // line 38
-        echo $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("roleUser" => "ROLE_NEWS"));
+        echo $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("roleUser" => "ROLE_COMMUNICATION"));
         echo "' class='communication'> <p> ";
-        if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_NEWS")) {
+        if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_COMMUNICATION")) {
             echo " <img src=\"";
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
@@ -221,15 +221,17 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                 <td><div class=\"vertical-text\"> <div class=\"vertical-text__inner\">  </td>
                             </tr>
 
+
+
                             ";
-        // line 49
+        // line 51
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["utilisateurs"]) ? $context["utilisateurs"] : $this->getContext($context, "utilisateurs")));
         foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
-            // line 50
+            // line 52
             echo "                                <tr>
                                     <td> <p>  ";
-            // line 51
+            // line 53
             echo twig_escape_filter($this->env, $this->getAttribute($context["user"], "username", array()), "html", null, true);
             echo " (";
             echo twig_escape_filter($this->env, $this->getAttribute($context["user"], "agence", array()), "html", null, true);
@@ -237,23 +239,23 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
 
                                     <td>
                                         <form type='GET' action='";
-            // line 54
+            // line 56
             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_user_edit", array("userID" => $this->getAttribute($context["user"], "id", array()), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")))), "html", null, true);
             echo "' id='userEdit' >
                                             <input type='checkbox' name='Admin' value='Admin' id='admin' onclick='checkboxAdminClick(this);'
                                                    ";
-            // line 56
+            // line 58
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["user"], "roles", array()));
             foreach ($context['_seq'] as $context["_key"] => $context["role"]) {
-                // line 57
+                // line 59
                 echo "                                                       ";
                 if (($context["role"] == "ROLE_ADMIN")) {
-                    // line 58
+                    // line 60
                     echo "                                                           checked
                                                        ";
                 }
-                // line 60
+                // line 62
                 echo "                                                   ";
             }
             $_parent = $context['_parent'];
@@ -266,18 +268,18 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                                             <td>
                                                 <input type='checkbox' name='CE' value='CE' id='CE' onclick='checkboxPublicateurClick(this);'
                                                        ";
-            // line 66
+            // line 68
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["user"], "roles", array()));
             foreach ($context['_seq'] as $context["_key"] => $context["role"]) {
-                // line 67
+                // line 69
                 echo "                                                           ";
                 if (($context["role"] == "ROLE_CE")) {
-                    // line 68
+                    // line 70
                     echo "                                                               checked
                                                            ";
                 }
-                // line 70
+                // line 72
                 echo "                                                       ";
             }
             $_parent = $context['_parent'];
@@ -288,92 +290,20 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                                             </td>
 
                                             <td>
-                                                <input type='checkbox' name='CHSCE' value='CHSCE' id='CHSCE' onclick='checkboxPublicateurClick(this);'
+                                                <input type='checkbox' name='CHSCT' value='CHSCT' id='CHSCT' onclick='checkboxPublicateurClick(this);'
                                                        ";
-            // line 76
+            // line 78
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["user"], "roles", array()));
             foreach ($context['_seq'] as $context["_key"] => $context["role"]) {
-                // line 77
+                // line 79
                 echo "                                                           ";
-                if (($context["role"] == "ROLE_CHSCE")) {
-                    // line 78
+                if (($context["role"] == "ROLE_CHSCT")) {
+                    // line 80
                     echo "                                                               checked
                                                            ";
                 }
-                // line 80
-                echo "                                                       ";
-            }
-            $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['role'], $context['_parent'], $context['loop']);
-            $context = array_intersect_key($context, $_parent) + $_parent;
-            echo "   
-                                                       >
-                                            </td>
-
-                                            <td>
-                                                <input type='checkbox' name='References' value='References' id='References' onclick='checkboxPublicateurClick(this);'
-                                                       ";
-            // line 86
-            $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["user"], "roles", array()));
-            foreach ($context['_seq'] as $context["_key"] => $context["role"]) {
-                // line 87
-                echo "                                                           ";
-                if (($context["role"] == "ROLE_REFERENCES")) {
-                    // line 88
-                    echo "                                                               checked
-                                                           ";
-                }
-                // line 90
-                echo "                                                       ";
-            }
-            $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['role'], $context['_parent'], $context['loop']);
-            $context = array_intersect_key($context, $_parent) + $_parent;
-            echo "   
-                                                       >
-                                            </td>
-
-                                            <td>
-                                                <input type='checkbox' name='Competences' value='Competences' id='Competences' onclick='checkboxPublicateurClick(this);'
-                                                       ";
-            // line 96
-            $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["user"], "roles", array()));
-            foreach ($context['_seq'] as $context["_key"] => $context["role"]) {
-                // line 97
-                echo "                                                           ";
-                if (($context["role"] == "ROLE_COMPETENCES")) {
-                    // line 98
-                    echo "                                                               checked
-                                                           ";
-                }
-                // line 100
-                echo "                                                       ";
-            }
-            $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['role'], $context['_parent'], $context['loop']);
-            $context = array_intersect_key($context, $_parent) + $_parent;
-            echo "   
-                                                       >
-                                            </td>
-
-                                            <td>
-                                                <input type='checkbox' name='Procedures' value='Procedures' id='Procedures' onclick='checkboxPublicateurClick(this);'
-                                                       ";
-            // line 106
-            $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["user"], "roles", array()));
-            foreach ($context['_seq'] as $context["_key"] => $context["role"]) {
-                // line 107
-                echo "                                                           ";
-                if (($context["role"] == "ROLE_PROCEDURES")) {
-                    // line 108
-                    echo "                                                               checked
-                                                           ";
-                }
-                // line 110
+                // line 82
                 echo "                                                       ";
             }
             $_parent = $context['_parent'];
@@ -386,18 +316,42 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                                             <td>
                                                 <input type='checkbox' name='News' value='News' id='News' onclick='checkboxPublicateurClick(this);'
                                                        ";
-            // line 116
+            // line 88
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["user"], "roles", array()));
             foreach ($context['_seq'] as $context["_key"] => $context["role"]) {
-                // line 117
+                // line 89
                 echo "                                                           ";
-                if (($context["role"] == "ROLE_NEWS")) {
-                    // line 118
+                if (($context["role"] == "ROLE_COMMUNICATION")) {
+                    // line 90
                     echo "                                                               checked
                                                            ";
                 }
-                // line 120
+                // line 92
+                echo "                                                       ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['role'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            echo "   
+                                                       >
+                                            </td>
+
+                                            <td>
+                                                <input type='checkbox' name='Competences' value='Competences' id='Competences' onclick='checkboxPublicateurClick(this);'
+                                                       ";
+            // line 98
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["user"], "roles", array()));
+            foreach ($context['_seq'] as $context["_key"] => $context["role"]) {
+                // line 99
+                echo "                                                           ";
+                if (($context["role"] == "ROLE_COMPETENCES")) {
+                    // line 100
+                    echo "                                                               checked
+                                                           ";
+                }
+                // line 102
                 echo "                                                       ";
             }
             $_parent = $context['_parent'];
@@ -410,18 +364,18 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                                             <td>
                                                 <input type='checkbox' name='FAQ' value='FAQ' id='FAQ' onclick='checkboxPublicateurClick(this);'
                                                        ";
-            // line 126
+            // line 108
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["user"], "roles", array()));
             foreach ($context['_seq'] as $context["_key"] => $context["role"]) {
-                // line 127
+                // line 109
                 echo "                                                           ";
                 if (($context["role"] == "ROLE_FAQ")) {
-                    // line 128
+                    // line 110
                     echo "                                                               checked
                                                            ";
                 }
-                // line 130
+                // line 112
                 echo "                                                       ";
             }
             $_parent = $context['_parent'];
@@ -434,18 +388,18 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                                             <td>
                                                 <input type='checkbox' name='Liens' value='Liens' id='Liens' onclick='checkboxPublicateurClick(this);'
                                                        ";
-            // line 136
+            // line 118
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["user"], "roles", array()));
             foreach ($context['_seq'] as $context["_key"] => $context["role"]) {
-                // line 137
+                // line 119
                 echo "                                                           ";
                 if (($context["role"] == "ROLE_LIENS")) {
-                    // line 138
+                    // line 120
                     echo "                                                               checked
                                                            ";
                 }
-                // line 140
+                // line 122
                 echo "                                                       ";
             }
             $_parent = $context['_parent'];
@@ -454,22 +408,46 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
             echo "   
                                                        >
                                             </td>
+
+                                            <td>
+                                                <input type='checkbox' name='Procedures' value='Procedures' id='Procedures' onclick='checkboxPublicateurClick(this);'
+                                                       ";
+            // line 128
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["user"], "roles", array()));
+            foreach ($context['_seq'] as $context["_key"] => $context["role"]) {
+                // line 129
+                echo "                                                           ";
+                if (($context["role"] == "ROLE_PROCEDURES")) {
+                    // line 130
+                    echo "                                                               checked
+                                                           ";
+                }
+                // line 132
+                echo "                                                       ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['role'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            echo "   
+                                                       >
+                                            </td> 
 
                                             <td>
                                                 <input type='checkbox' name='Qualite' value='Qualite' id='Qualite' onclick='checkboxPublicateurClick(this);'
                                                        ";
-            // line 146
+            // line 138
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["user"], "roles", array()));
             foreach ($context['_seq'] as $context["_key"] => $context["role"]) {
-                // line 147
+                // line 139
                 echo "                                                           ";
                 if (($context["role"] == "ROLE_QUALITE")) {
-                    // line 148
+                    // line 140
                     echo "                                                               checked
                                                            ";
                 }
-                // line 150
+                // line 142
                 echo "                                                       ";
             }
             $_parent = $context['_parent'];
@@ -480,18 +458,42 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                                             </td>
 
                                             <td>
+                                                <input type='checkbox' name='References' value='References' id='References' onclick='checkboxPublicateurClick(this);'
+                                                       ";
+            // line 148
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["user"], "roles", array()));
+            foreach ($context['_seq'] as $context["_key"] => $context["role"]) {
+                // line 149
+                echo "                                                           ";
+                if (($context["role"] == "ROLE_REFERENCES")) {
+                    // line 150
+                    echo "                                                               checked
+                                                           ";
+                }
+                // line 152
+                echo "                                                       ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['role'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            echo "   
+                                                       >
+                                            </td>       
+
+                                            <td>
                                                 ";
-            // line 155
+            // line 157
             if ($this->getAttribute($context["user"], "local", array())) {
-                // line 156
+                // line 158
                 echo "                                                    oui
                                                 ";
             } else {
-                // line 158
+                // line 160
                 echo "                                                    non
                                                 ";
             }
-            // line 160
+            // line 162
             echo "                                            </td>
 
                                             <td>
@@ -504,41 +506,57 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['user'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 168
+        // line 170
         echo "
+
+
+
                             </table>
 
+                            ";
+        // line 176
+        if (((isset($context["utilisateurs"]) ? $context["utilisateurs"] : $this->getContext($context, "utilisateurs")) == null)) {
+            // line 177
+            echo "
+                                <div id='noResults'>
 
+                                    Votre recherche n'a retourné aucun résultat.
 
+                                </div>
+
+                            ";
+        }
+        // line 185
+        echo "
                             <div id=\"choixPage\">
 
                                 ";
-        // line 175
+        // line 188
         if (((isset($context["recherche"]) ? $context["recherche"] : $this->getContext($context, "recherche")) == true)) {
-            // line 176
+            // line 189
             echo "
                                     ";
-            // line 177
+            // line 190
             if (((isset($context["nbPage"]) ? $context["nbPage"] : $this->getContext($context, "nbPage")) > 1)) {
                 echo " 
 
                                         ";
-                // line 179
+                // line 192
                 if (((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) > 2)) {
-                    // line 180
+                    // line 193
                     echo "
                                             <a href=\"";
-                    // line 181
+                    // line 194
                     echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_username", array("numPage" => 1, "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")), "termeRecherche" => (isset($context["termeRecherche"]) ? $context["termeRecherche"] : $this->getContext($context, "termeRecherche")))), "html", null, true);
                     echo "\"> << </a>
 
                                             <a href=\"";
-                    // line 183
+                    // line 196
                     echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_username", array("numPage" => ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) - 1), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")))), "html", null, true);
                     echo "\"> < </a>
 
                                             ";
-                    // line 185
+                    // line 198
                     $context['_parent'] = $context;
                     $context['_seq'] = twig_ensure_traversable(range(0, 1));
                     $context['loop'] = array(
@@ -555,10 +573,10 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                         $context['loop']['last'] = 1 === $length;
                     }
                     foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-                        // line 186
+                        // line 199
                         echo "
                                                 <a href=\"";
-                        // line 187
+                        // line 200
                         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_username", array("numPage" => ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) - $this->getAttribute($context["loop"], "revindex", array())), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")), "termeRecherche" => (isset($context["termeRecherche"]) ? $context["termeRecherche"] : $this->getContext($context, "termeRecherche")))), "html", null, true);
                         echo "\"> ";
                         echo twig_escape_filter($this->env, ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) - $this->getAttribute($context["loop"], "revindex", array())), "html", null, true);
@@ -577,22 +595,22 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                     $_parent = $context['_parent'];
                     unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
                     $context = array_intersect_key($context, $_parent) + $_parent;
-                    // line 190
+                    // line 203
                     echo "
                                             <a href=\"";
-                    // line 191
+                    // line 204
                     echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_username", array("numPage" => (isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")), "termeRecherche" => (isset($context["termeRecherche"]) ? $context["termeRecherche"] : $this->getContext($context, "termeRecherche")))), "html", null, true);
                     echo "\" id=\"pageActuel\"> ";
                     echo twig_escape_filter($this->env, (isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")), "html", null, true);
                     echo " </a>
 
                                             ";
-                    // line 193
+                    // line 206
                     if (((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) < (isset($context["nbPage"]) ? $context["nbPage"] : $this->getContext($context, "nbPage")))) {
-                        // line 194
+                        // line 207
                         echo "
                                                 ";
-                        // line 195
+                        // line 208
                         $context['_parent'] = $context;
                         $context['_seq'] = twig_ensure_traversable(range(0, 1));
                         $context['loop'] = array(
@@ -609,10 +627,10 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                             $context['loop']['last'] = 1 === $length;
                         }
                         foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-                            // line 196
+                            // line 209
                             echo "
                                                     <a href=\"";
-                            // line 197
+                            // line 210
                             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_username", array("numPage" => ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) + $this->getAttribute($context["loop"], "index", array())), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")), "termeRecherche" => (isset($context["termeRecherche"]) ? $context["termeRecherche"] : $this->getContext($context, "termeRecherche")))), "html", null, true);
                             echo "\"> ";
                             echo twig_escape_filter($this->env, ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) + $this->getAttribute($context["loop"], "index", array())), "html", null, true);
@@ -631,45 +649,45 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                         $_parent = $context['_parent'];
                         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
                         $context = array_intersect_key($context, $_parent) + $_parent;
-                        // line 200
+                        // line 213
                         echo "
                                             ";
                     }
-                    // line 202
+                    // line 215
                     echo "
                                         ";
                 } else {
-                    // line 203
+                    // line 216
                     echo "              
 
                                             ";
-                    // line 205
+                    // line 218
                     if (((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) == 2)) {
                         echo " 
 
                                                 <a href=\"";
-                        // line 207
+                        // line 220
                         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_username", array("numPage" => ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) - 1), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")), "termeRecherche" => (isset($context["termeRecherche"]) ? $context["termeRecherche"] : $this->getContext($context, "termeRecherche")))), "html", null, true);
                         echo "\"> < </a>
 
                                                 <a href=\"";
-                        // line 209
+                        // line 222
                         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_username", array("numPage" => ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) - 1), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")), "termeRecherche" => (isset($context["termeRecherche"]) ? $context["termeRecherche"] : $this->getContext($context, "termeRecherche")))), "html", null, true);
                         echo "\"> ";
                         echo twig_escape_filter($this->env, ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) - 1), "html", null, true);
                         echo " </a> ";
                     }
-                    // line 210
+                    // line 223
                     echo "
                                                 <a href=\"";
-                    // line 211
+                    // line 224
                     echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_username", array("numPage" => (isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")), "termeRecherche" => (isset($context["termeRecherche"]) ? $context["termeRecherche"] : $this->getContext($context, "termeRecherche")))), "html", null, true);
                     echo "\" id=\"pageActuel\"> ";
                     echo twig_escape_filter($this->env, (isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")), "html", null, true);
                     echo " </a>
 
                                                 ";
-                    // line 213
+                    // line 226
                     $context['_parent'] = $context;
                     $context['_seq'] = twig_ensure_traversable(range(0, 1));
                     $context['loop'] = array(
@@ -686,10 +704,10 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                         $context['loop']['last'] = 1 === $length;
                     }
                     foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-                        // line 214
+                        // line 227
                         echo "
                                                     <a href=\"";
-                        // line 215
+                        // line 228
                         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_username", array("numPage" => ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) + $this->getAttribute($context["loop"], "index", array())), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")), "termeRecherche" => (isset($context["termeRecherche"]) ? $context["termeRecherche"] : $this->getContext($context, "termeRecherche")))), "html", null, true);
                         echo "\"> ";
                         echo twig_escape_filter($this->env, ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) + $this->getAttribute($context["loop"], "index", array())), "html", null, true);
@@ -708,58 +726,58 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                     $_parent = $context['_parent'];
                     unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
                     $context = array_intersect_key($context, $_parent) + $_parent;
-                    // line 217
+                    // line 230
                     echo "   
 
                                             ";
                 }
-                // line 220
+                // line 233
                 echo "
                                             ";
-                // line 221
+                // line 234
                 if (((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) < (isset($context["nbPage"]) ? $context["nbPage"] : $this->getContext($context, "nbPage")))) {
-                    // line 222
+                    // line 235
                     echo "
                                                 <a href=\"";
-                    // line 223
+                    // line 236
                     echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_username", array("numPage" => ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) + 1), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")), "termeRecherche" => (isset($context["termeRecherche"]) ? $context["termeRecherche"] : $this->getContext($context, "termeRecherche")))), "html", null, true);
                     echo "\"> > </a>
 
                                                 <a href=\"";
-                    // line 225
+                    // line 238
                     echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_username", array("numPage" => (isset($context["nbPage"]) ? $context["nbPage"] : $this->getContext($context, "nbPage")), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")), "termeRecherche" => (isset($context["termeRecherche"]) ? $context["termeRecherche"] : $this->getContext($context, "termeRecherche")))), "html", null, true);
                     echo "\"> >> </a>
 
                                             ";
                 }
-                // line 228
+                // line 241
                 echo "
                                         ";
             }
-            // line 230
+            // line 243
             echo "                                    </div> 
 
                                 ";
         } else {
-            // line 233
+            // line 246
             echo "
                                     ";
-            // line 234
+            // line 247
             if (((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) > 2)) {
-                // line 235
+                // line 248
                 echo "
                                         <a href=\"";
-                // line 236
+                // line 249
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("numPage" => 1, "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")))), "html", null, true);
                 echo "\"> << </a>
 
                                         <a href=\"";
-                // line 238
+                // line 251
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("numPage" => ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) - 1), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")))), "html", null, true);
                 echo "\"> < </a>
 
                                         ";
-                // line 240
+                // line 253
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable(range(0, 1));
                 $context['loop'] = array(
@@ -776,10 +794,10 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                     $context['loop']['last'] = 1 === $length;
                 }
                 foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-                    // line 241
+                    // line 254
                     echo "
                                             <a href=\"";
-                    // line 242
+                    // line 255
                     echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("numPage" => ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) - $this->getAttribute($context["loop"], "revindex", array())), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")))), "html", null, true);
                     echo "\"> ";
                     echo twig_escape_filter($this->env, ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) - $this->getAttribute($context["loop"], "revindex", array())), "html", null, true);
@@ -798,22 +816,22 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 245
+                // line 258
                 echo "
                                         <a href=\"";
-                // line 246
+                // line 259
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("numPage" => (isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")))), "html", null, true);
                 echo "\" id=\"pageActuel\"> ";
                 echo twig_escape_filter($this->env, (isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")), "html", null, true);
                 echo " </a>
 
                                         ";
-                // line 248
+                // line 261
                 if (((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) < (isset($context["nbPage"]) ? $context["nbPage"] : $this->getContext($context, "nbPage")))) {
-                    // line 249
+                    // line 262
                     echo "
                                             ";
-                    // line 250
+                    // line 263
                     $context['_parent'] = $context;
                     $context['_seq'] = twig_ensure_traversable(range(0, 1));
                     $context['loop'] = array(
@@ -830,10 +848,10 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                         $context['loop']['last'] = 1 === $length;
                     }
                     foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-                        // line 251
+                        // line 264
                         echo "
                                                 <a href=\"";
-                        // line 252
+                        // line 265
                         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("numPage" => ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) + $this->getAttribute($context["loop"], "index", array())), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")))), "html", null, true);
                         echo "\"> ";
                         echo twig_escape_filter($this->env, ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) + $this->getAttribute($context["loop"], "index", array())), "html", null, true);
@@ -852,45 +870,45 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                     $_parent = $context['_parent'];
                     unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
                     $context = array_intersect_key($context, $_parent) + $_parent;
-                    // line 255
+                    // line 268
                     echo "
                                         ";
                 }
-                // line 257
+                // line 270
                 echo "
                                     ";
             } else {
-                // line 258
+                // line 271
                 echo "              
 
                                         ";
-                // line 260
+                // line 273
                 if (((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) == 2)) {
                     echo " 
 
                                             <a href=\"";
-                    // line 262
+                    // line 275
                     echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("numPage" => ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) - 1), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")))), "html", null, true);
                     echo "\"> < </a>
 
                                             <a href=\"";
-                    // line 264
+                    // line 277
                     echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("numPage" => ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) - 1), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")))), "html", null, true);
                     echo "\"> ";
                     echo twig_escape_filter($this->env, ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) - 1), "html", null, true);
                     echo " </a> ";
                 }
-                // line 265
+                // line 278
                 echo "
                                             <a href=\"";
-                // line 266
+                // line 279
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("numPage" => (isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")))), "html", null, true);
                 echo "\" id=\"pageActuel\"> ";
                 echo twig_escape_filter($this->env, (isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")), "html", null, true);
                 echo " </a>
 
                                             ";
-                // line 268
+                // line 281
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable(range(0, 1));
                 $context['loop'] = array(
@@ -907,10 +925,10 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                     $context['loop']['last'] = 1 === $length;
                 }
                 foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-                    // line 269
+                    // line 282
                     echo "
                                                 <a href=\"";
-                    // line 270
+                    // line 283
                     echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("numPage" => ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) + $this->getAttribute($context["loop"], "index", array())), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")))), "html", null, true);
                     echo "\"> ";
                     echo twig_escape_filter($this->env, ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) + $this->getAttribute($context["loop"], "index", array())), "html", null, true);
@@ -929,44 +947,44 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 272
+                // line 285
                 echo "   
 
                                         ";
             }
-            // line 275
+            // line 288
             echo "
                                         ";
-            // line 276
+            // line 289
             if (((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) < (isset($context["nbPage"]) ? $context["nbPage"] : $this->getContext($context, "nbPage")))) {
-                // line 277
+                // line 290
                 echo "
                                             <a href=\"";
-                // line 278
+                // line 291
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("numPage" => ((isset($context["numPage"]) ? $context["numPage"] : $this->getContext($context, "numPage")) + 1), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")))), "html", null, true);
                 echo "\"> > </a>
 
                                             <a href=\"";
-                // line 280
+                // line 293
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_user", array("numPage" => (isset($context["nbPage"]) ? $context["nbPage"] : $this->getContext($context, "nbPage")), "roleUser" => (isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")))), "html", null, true);
                 echo "\"> >> </a>
 
                                         ";
             }
-            // line 283
+            // line 296
             echo "
 
 
                                     ";
         }
-        // line 287
+        // line 300
         echo "
 
                                 </div> 
                             </div>
                             ";
         
-        $__internal_fe95023d58fe0b0ffc473e21e86010d54d40816f22324d7a5d3548011fa4e60f->leave($__internal_fe95023d58fe0b0ffc473e21e86010d54d40816f22324d7a5d3548011fa4e60f_prof);
+        $__internal_e787bf091e5faf77b53c9dd8adaf0297ff086f07d3ee32ec987ba3f5e98e24bf->leave($__internal_e787bf091e5faf77b53c9dd8adaf0297ff086f07d3ee32ec987ba3f5e98e24bf_prof);
 
     }
 
@@ -982,7 +1000,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
 
     public function getDebugInfo()
     {
-        return array (  963 => 287,  957 => 283,  951 => 280,  946 => 278,  943 => 277,  941 => 276,  938 => 275,  933 => 272,  914 => 270,  911 => 269,  894 => 268,  887 => 266,  884 => 265,  878 => 264,  873 => 262,  868 => 260,  864 => 258,  860 => 257,  856 => 255,  837 => 252,  834 => 251,  817 => 250,  814 => 249,  812 => 248,  805 => 246,  802 => 245,  783 => 242,  780 => 241,  763 => 240,  758 => 238,  753 => 236,  750 => 235,  748 => 234,  745 => 233,  740 => 230,  736 => 228,  730 => 225,  725 => 223,  722 => 222,  720 => 221,  717 => 220,  712 => 217,  693 => 215,  690 => 214,  673 => 213,  666 => 211,  663 => 210,  657 => 209,  652 => 207,  647 => 205,  643 => 203,  639 => 202,  635 => 200,  616 => 197,  613 => 196,  596 => 195,  593 => 194,  591 => 193,  584 => 191,  581 => 190,  562 => 187,  559 => 186,  542 => 185,  537 => 183,  532 => 181,  529 => 180,  527 => 179,  522 => 177,  519 => 176,  517 => 175,  508 => 168,  495 => 160,  491 => 158,  487 => 156,  485 => 155,  473 => 150,  469 => 148,  466 => 147,  462 => 146,  449 => 140,  445 => 138,  442 => 137,  438 => 136,  425 => 130,  421 => 128,  418 => 127,  414 => 126,  401 => 120,  397 => 118,  394 => 117,  390 => 116,  377 => 110,  373 => 108,  370 => 107,  366 => 106,  353 => 100,  349 => 98,  346 => 97,  342 => 96,  329 => 90,  325 => 88,  322 => 87,  318 => 86,  305 => 80,  301 => 78,  298 => 77,  294 => 76,  281 => 70,  277 => 68,  274 => 67,  270 => 66,  257 => 60,  253 => 58,  250 => 57,  246 => 56,  241 => 54,  233 => 51,  230 => 50,  226 => 49,  213 => 45,  203 => 44,  193 => 43,  183 => 42,  173 => 41,  163 => 40,  153 => 39,  143 => 38,  133 => 37,  123 => 36,  113 => 35,  103 => 34,  87 => 21,  80 => 17,  73 => 13,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
+        return array (  981 => 300,  975 => 296,  969 => 293,  964 => 291,  961 => 290,  959 => 289,  956 => 288,  951 => 285,  932 => 283,  929 => 282,  912 => 281,  905 => 279,  902 => 278,  896 => 277,  891 => 275,  886 => 273,  882 => 271,  878 => 270,  874 => 268,  855 => 265,  852 => 264,  835 => 263,  832 => 262,  830 => 261,  823 => 259,  820 => 258,  801 => 255,  798 => 254,  781 => 253,  776 => 251,  771 => 249,  768 => 248,  766 => 247,  763 => 246,  758 => 243,  754 => 241,  748 => 238,  743 => 236,  740 => 235,  738 => 234,  735 => 233,  730 => 230,  711 => 228,  708 => 227,  691 => 226,  684 => 224,  681 => 223,  675 => 222,  670 => 220,  665 => 218,  661 => 216,  657 => 215,  653 => 213,  634 => 210,  631 => 209,  614 => 208,  611 => 207,  609 => 206,  602 => 204,  599 => 203,  580 => 200,  577 => 199,  560 => 198,  555 => 196,  550 => 194,  547 => 193,  545 => 192,  540 => 190,  537 => 189,  535 => 188,  530 => 185,  520 => 177,  518 => 176,  510 => 170,  497 => 162,  493 => 160,  489 => 158,  487 => 157,  475 => 152,  471 => 150,  468 => 149,  464 => 148,  451 => 142,  447 => 140,  444 => 139,  440 => 138,  427 => 132,  423 => 130,  420 => 129,  416 => 128,  403 => 122,  399 => 120,  396 => 119,  392 => 118,  379 => 112,  375 => 110,  372 => 109,  368 => 108,  355 => 102,  351 => 100,  348 => 99,  344 => 98,  331 => 92,  327 => 90,  324 => 89,  320 => 88,  307 => 82,  303 => 80,  300 => 79,  296 => 78,  283 => 72,  279 => 70,  276 => 69,  272 => 68,  259 => 62,  255 => 60,  252 => 59,  248 => 58,  243 => 56,  235 => 53,  232 => 52,  228 => 51,  213 => 45,  203 => 44,  193 => 43,  183 => 42,  173 => 41,  163 => 40,  153 => 39,  143 => 38,  133 => 37,  123 => 36,  113 => 35,  103 => 34,  87 => 21,  80 => 17,  73 => 13,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -1021,8 +1039,8 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
 /*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_USER'}) }}' class='tous'> <p>{% if roleUser == 'ROLE_USER' %}<img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Tous</p> </a> </div> </div> </td>*/
 /*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_ADMIN'}) }}' class='admin'> <p>{% if roleUser == 'ROLE_ADMIN' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Admin </p> </a> </div></div></td>*/
 /*                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_CE'}) }}' class='ce'>  <p>{% if roleUser == 'ROLE_CE' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %} CE </p>  </a> </div></div></td>*/
-/*                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_CHSCE'}) }}' class='chsce'>  <p>{% if roleUser == 'ROLE_CHSCE' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %} CHSCE </p>  </a> </div></div></td>*/
-/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_NEWS'}) }}' class='communication'> <p> {% if roleUser == 'ROLE_NEWS' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Communication  </p></a> </div></div></td>*/
+/*                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_CHSCT'}) }}' class='CHSCT'>  <p>{% if roleUser == 'ROLE_CHSCT' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %} CHSCT </p>  </a> </div></div></td>*/
+/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_COMMUNICATION'}) }}' class='communication'> <p> {% if roleUser == 'ROLE_COMMUNICATION' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Communication  </p></a> </div></div></td>*/
 /*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_COMPETENCES'}) }}' class='competences'> <p>{% if roleUser == 'ROLE_COMPETENCES' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Compétences </p> </a></div></div> </td>*/
 /*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_FAQ'}) }}' class='faq'> <p>{% if roleUser == 'ROLE_FAQ' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %} FAQ </p> </a> </div></div></td>*/
 /*                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_LIENS'}) }}' class='liens2'> <p> {% if roleUser == 'ROLE_LIENS' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Liens </p>  </a> </div></div></td>*/
@@ -1032,6 +1050,8 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
 /*                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'LOCAL'}) }}' class='local'>  <p>{% if roleUser == 'LOCAL' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %} Local </p>  </a> </div></div></td>*/
 /*                 <td><div class="vertical-text"> <div class="vertical-text__inner">  </td>*/
 /*                             </tr>*/
+/* */
+/* */
 /* */
 /*                             {% for user in utilisateurs %}*/
 /*                                 <tr>*/
@@ -1059,9 +1079,9 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
 /*                                             </td>*/
 /* */
 /*                                             <td>*/
-/*                                                 <input type='checkbox' name='CHSCE' value='CHSCE' id='CHSCE' onclick='checkboxPublicateurClick(this);'*/
+/*                                                 <input type='checkbox' name='CHSCT' value='CHSCT' id='CHSCT' onclick='checkboxPublicateurClick(this);'*/
 /*                                                        {% for role in user.roles %}*/
-/*                                                            {% if role == "ROLE_CHSCE" %}*/
+/*                                                            {% if role == "ROLE_CHSCT" %}*/
 /*                                                                checked*/
 /*                                                            {% endif %}*/
 /*                                                        {% endfor %}   */
@@ -1069,9 +1089,9 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
 /*                                             </td>*/
 /* */
 /*                                             <td>*/
-/*                                                 <input type='checkbox' name='References' value='References' id='References' onclick='checkboxPublicateurClick(this);'*/
+/*                                                 <input type='checkbox' name='News' value='News' id='News' onclick='checkboxPublicateurClick(this);'*/
 /*                                                        {% for role in user.roles %}*/
-/*                                                            {% if role == "ROLE_REFERENCES" %}*/
+/*                                                            {% if role == "ROLE_COMMUNICATION" %}*/
 /*                                                                checked*/
 /*                                                            {% endif %}*/
 /*                                                        {% endfor %}   */
@@ -1082,26 +1102,6 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
 /*                                                 <input type='checkbox' name='Competences' value='Competences' id='Competences' onclick='checkboxPublicateurClick(this);'*/
 /*                                                        {% for role in user.roles %}*/
 /*                                                            {% if role == "ROLE_COMPETENCES" %}*/
-/*                                                                checked*/
-/*                                                            {% endif %}*/
-/*                                                        {% endfor %}   */
-/*                                                        >*/
-/*                                             </td>*/
-/* */
-/*                                             <td>*/
-/*                                                 <input type='checkbox' name='Procedures' value='Procedures' id='Procedures' onclick='checkboxPublicateurClick(this);'*/
-/*                                                        {% for role in user.roles %}*/
-/*                                                            {% if role == "ROLE_PROCEDURES" %}*/
-/*                                                                checked*/
-/*                                                            {% endif %}*/
-/*                                                        {% endfor %}   */
-/*                                                        >*/
-/*                                             </td>*/
-/* */
-/*                                             <td>*/
-/*                                                 <input type='checkbox' name='News' value='News' id='News' onclick='checkboxPublicateurClick(this);'*/
-/*                                                        {% for role in user.roles %}*/
-/*                                                            {% if role == "ROLE_NEWS" %}*/
 /*                                                                checked*/
 /*                                                            {% endif %}*/
 /*                                                        {% endfor %}   */
@@ -1129,6 +1129,16 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
 /*                                             </td>*/
 /* */
 /*                                             <td>*/
+/*                                                 <input type='checkbox' name='Procedures' value='Procedures' id='Procedures' onclick='checkboxPublicateurClick(this);'*/
+/*                                                        {% for role in user.roles %}*/
+/*                                                            {% if role == "ROLE_PROCEDURES" %}*/
+/*                                                                checked*/
+/*                                                            {% endif %}*/
+/*                                                        {% endfor %}   */
+/*                                                        >*/
+/*                                             </td> */
+/* */
+/*                                             <td>*/
 /*                                                 <input type='checkbox' name='Qualite' value='Qualite' id='Qualite' onclick='checkboxPublicateurClick(this);'*/
 /*                                                        {% for role in user.roles %}*/
 /*                                                            {% if role == "ROLE_QUALITE" %}*/
@@ -1137,6 +1147,16 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
 /*                                                        {% endfor %}   */
 /*                                                        >*/
 /*                                             </td>*/
+/* */
+/*                                             <td>*/
+/*                                                 <input type='checkbox' name='References' value='References' id='References' onclick='checkboxPublicateurClick(this);'*/
+/*                                                        {% for role in user.roles %}*/
+/*                                                            {% if role == "ROLE_REFERENCES" %}*/
+/*                                                                checked*/
+/*                                                            {% endif %}*/
+/*                                                        {% endfor %}   */
+/*                                                        >*/
+/*                                             </td>       */
 /* */
 /*                                             <td>*/
 /*                                                 {% if user.local %}*/
@@ -1153,9 +1173,20 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
 /*                                 </tr>*/
 /*                             {% endfor %}*/
 /* */
+/* */
+/* */
+/* */
 /*                             </table>*/
 /* */
+/*                             {% if utilisateurs == null %}*/
 /* */
+/*                                 <div id='noResults'>*/
+/* */
+/*                                     Votre recherche n'a retourné aucun résultat.*/
+/* */
+/*                                 </div>*/
+/* */
+/*                             {% endif %}*/
 /* */
 /*                             <div id="choixPage">*/
 /* */

@@ -20,8 +20,8 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_64c1220fb619b6b94d1fa00d3bc774a36ebedb13585ade8f112328518db8d46c = $this->env->getExtension("native_profiler");
-        $__internal_64c1220fb619b6b94d1fa00d3bc774a36ebedb13585ade8f112328518db8d46c->enter($__internal_64c1220fb619b6b94d1fa00d3bc774a36ebedb13585ade8f112328518db8d46c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "::layout.html.twig"));
+        $__internal_4842c58341d04c2685a0f83427de088eee90580ee1840d79689a6a763c987aa9 = $this->env->getExtension("native_profiler");
+        $__internal_4842c58341d04c2685a0f83427de088eee90580ee1840d79689a6a763c987aa9->enter($__internal_4842c58341d04c2685a0f83427de088eee90580ee1840d79689a6a763c987aa9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "::layout.html.twig"));
 
         // line 1
         echo "<!DOCTYPE html>
@@ -129,7 +129,7 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
             <div id=\"administrationBouton\" >
                 ";
         // line 58
-        if ((($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()) != null) && (((($this->env->getExtension('security')->isGranted("ROLE_ADMIN") || $this->env->getExtension('security')->isGranted("ROLE_REFERENCES")) || $this->env->getExtension('security')->isGranted("ROLE_COMPETENCES")) || $this->env->getExtension('security')->isGranted("ROLE_NEWS")) || $this->env->getExtension('security')->isGranted("ROLE_PROCEDURES")))) {
+        if ((($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()) != null) && ((((((((($this->env->getExtension('security')->isGranted("ROLE_ADMIN") || $this->env->getExtension('security')->isGranted("ROLE_REFERENCES")) || $this->env->getExtension('security')->isGranted("ROLE_COMPETENCES")) || $this->env->getExtension('security')->isGranted("ROLE_COMMUNICATION")) || $this->env->getExtension('security')->isGranted("ROLE_PROCEDURES")) || $this->env->getExtension('security')->isGranted("ROLE_FAQ")) || $this->env->getExtension('security')->isGranted("ROLE_CE")) || $this->env->getExtension('security')->isGranted("ROLE_CHSCT")) || $this->env->getExtension('security')->isGranted("ROLE_LIENS")) || $this->env->getExtension('security')->isGranted("ROLE_QUALITE")))) {
             // line 59
             echo "                    <p> <a href=\"";
             echo $this->env->getExtension('routing')->getPath("nox_intranet_administration");
@@ -279,67 +279,67 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
     </body>
 </html>";
         
-        $__internal_64c1220fb619b6b94d1fa00d3bc774a36ebedb13585ade8f112328518db8d46c->leave($__internal_64c1220fb619b6b94d1fa00d3bc774a36ebedb13585ade8f112328518db8d46c_prof);
+        $__internal_4842c58341d04c2685a0f83427de088eee90580ee1840d79689a6a763c987aa9->leave($__internal_4842c58341d04c2685a0f83427de088eee90580ee1840d79689a6a763c987aa9_prof);
 
     }
 
     // line 7
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_210e9f2c767b1bc2c9fd021017936d39c6731809241c7aa04e810f38e94ca1b9 = $this->env->getExtension("native_profiler");
-        $__internal_210e9f2c767b1bc2c9fd021017936d39c6731809241c7aa04e810f38e94ca1b9->enter($__internal_210e9f2c767b1bc2c9fd021017936d39c6731809241c7aa04e810f38e94ca1b9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_8825823548cbda2c9fc54e36cbfe1171de8b4294f373fd7a657b60c6717d8d7b = $this->env->getExtension("native_profiler");
+        $__internal_8825823548cbda2c9fc54e36cbfe1171de8b4294f373fd7a657b60c6717d8d7b->enter($__internal_8825823548cbda2c9fc54e36cbfe1171de8b4294f373fd7a657b60c6717d8d7b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         
-        $__internal_210e9f2c767b1bc2c9fd021017936d39c6731809241c7aa04e810f38e94ca1b9->leave($__internal_210e9f2c767b1bc2c9fd021017936d39c6731809241c7aa04e810f38e94ca1b9_prof);
+        $__internal_8825823548cbda2c9fc54e36cbfe1171de8b4294f373fd7a657b60c6717d8d7b->leave($__internal_8825823548cbda2c9fc54e36cbfe1171de8b4294f373fd7a657b60c6717d8d7b_prof);
 
     }
 
     // line 84
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_58166356fe4228d8247659e27f020e10cb958583e05c08e6bfc67292bcf4ec90 = $this->env->getExtension("native_profiler");
-        $__internal_58166356fe4228d8247659e27f020e10cb958583e05c08e6bfc67292bcf4ec90->enter($__internal_58166356fe4228d8247659e27f020e10cb958583e05c08e6bfc67292bcf4ec90_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_55e9344721d31ea6594b7c58a600d97b6987a5c1f3f99065089c11acc69babbe = $this->env->getExtension("native_profiler");
+        $__internal_55e9344721d31ea6594b7c58a600d97b6987a5c1f3f99065089c11acc69babbe->enter($__internal_55e9344721d31ea6594b7c58a600d97b6987a5c1f3f99065089c11acc69babbe_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo " ";
         
-        $__internal_58166356fe4228d8247659e27f020e10cb958583e05c08e6bfc67292bcf4ec90->leave($__internal_58166356fe4228d8247659e27f020e10cb958583e05c08e6bfc67292bcf4ec90_prof);
+        $__internal_55e9344721d31ea6594b7c58a600d97b6987a5c1f3f99065089c11acc69babbe->leave($__internal_55e9344721d31ea6594b7c58a600d97b6987a5c1f3f99065089c11acc69babbe_prof);
 
     }
 
     // line 85
     public function block_sousMessageAccueil($context, array $blocks = array())
     {
-        $__internal_735f1142699695c52d764c2bcbb7e22dd34639a3a3733dc4fd6cdf677cccfbca = $this->env->getExtension("native_profiler");
-        $__internal_735f1142699695c52d764c2bcbb7e22dd34639a3a3733dc4fd6cdf677cccfbca->enter($__internal_735f1142699695c52d764c2bcbb7e22dd34639a3a3733dc4fd6cdf677cccfbca_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
+        $__internal_ccdf6e68f8d8edc0abecdb241db51963b623ff3a5293a46dbc852bb95d8dbb71 = $this->env->getExtension("native_profiler");
+        $__internal_ccdf6e68f8d8edc0abecdb241db51963b623ff3a5293a46dbc852bb95d8dbb71->enter($__internal_ccdf6e68f8d8edc0abecdb241db51963b623ff3a5293a46dbc852bb95d8dbb71_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
 
         echo " ";
         
-        $__internal_735f1142699695c52d764c2bcbb7e22dd34639a3a3733dc4fd6cdf677cccfbca->leave($__internal_735f1142699695c52d764c2bcbb7e22dd34639a3a3733dc4fd6cdf677cccfbca_prof);
+        $__internal_ccdf6e68f8d8edc0abecdb241db51963b623ff3a5293a46dbc852bb95d8dbb71->leave($__internal_ccdf6e68f8d8edc0abecdb241db51963b623ff3a5293a46dbc852bb95d8dbb71_prof);
 
     }
 
     // line 86
     public function block_textEncart($context, array $blocks = array())
     {
-        $__internal_a2b09727917e40e8aa18eeecdfac5ebc21654ad2d436b85d3fc3159337eaccf7 = $this->env->getExtension("native_profiler");
-        $__internal_a2b09727917e40e8aa18eeecdfac5ebc21654ad2d436b85d3fc3159337eaccf7->enter($__internal_a2b09727917e40e8aa18eeecdfac5ebc21654ad2d436b85d3fc3159337eaccf7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "textEncart"));
+        $__internal_638ae712daae196c25dd019f6099dd472d7b3e11626baa7785e8035144df4442 = $this->env->getExtension("native_profiler");
+        $__internal_638ae712daae196c25dd019f6099dd472d7b3e11626baa7785e8035144df4442->enter($__internal_638ae712daae196c25dd019f6099dd472d7b3e11626baa7785e8035144df4442_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "textEncart"));
 
         
-        $__internal_a2b09727917e40e8aa18eeecdfac5ebc21654ad2d436b85d3fc3159337eaccf7->leave($__internal_a2b09727917e40e8aa18eeecdfac5ebc21654ad2d436b85d3fc3159337eaccf7_prof);
+        $__internal_638ae712daae196c25dd019f6099dd472d7b3e11626baa7785e8035144df4442->leave($__internal_638ae712daae196c25dd019f6099dd472d7b3e11626baa7785e8035144df4442_prof);
 
     }
 
     // line 89
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_635024199de6df94c1984820b6e04e6b64fb563a7ed6688775ba5cc4f9a7fcb3 = $this->env->getExtension("native_profiler");
-        $__internal_635024199de6df94c1984820b6e04e6b64fb563a7ed6688775ba5cc4f9a7fcb3->enter($__internal_635024199de6df94c1984820b6e04e6b64fb563a7ed6688775ba5cc4f9a7fcb3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_e7e185c9309f740c7a0bf7297c295b569932a0f4113a74dc95ba68ff2f80a37c = $this->env->getExtension("native_profiler");
+        $__internal_e7e185c9309f740c7a0bf7297c295b569932a0f4113a74dc95ba68ff2f80a37c->enter($__internal_e7e185c9309f740c7a0bf7297c295b569932a0f4113a74dc95ba68ff2f80a37c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 90
         echo "
                 ";
         
-        $__internal_635024199de6df94c1984820b6e04e6b64fb563a7ed6688775ba5cc4f9a7fcb3->leave($__internal_635024199de6df94c1984820b6e04e6b64fb563a7ed6688775ba5cc4f9a7fcb3_prof);
+        $__internal_e7e185c9309f740c7a0bf7297c295b569932a0f4113a74dc95ba68ff2f80a37c->leave($__internal_e7e185c9309f740c7a0bf7297c295b569932a0f4113a74dc95ba68ff2f80a37c_prof);
 
     }
 
@@ -415,7 +415,7 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
 /*             </div>*/
 /* */
 /*             <div id="administrationBouton" >*/
-/*                 {% if app.user != null and (is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENCES') or is_granted('ROLE_COMPETENCES') or is_granted('ROLE_NEWS') or is_granted('ROLE_PROCEDURES')) %}*/
+/*                 {% if app.user != null and (is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENCES') or is_granted('ROLE_COMPETENCES') or is_granted('ROLE_COMMUNICATION') or is_granted('ROLE_PROCEDURES') or is_granted('ROLE_FAQ') or is_granted('ROLE_CE') or is_granted('ROLE_CHSCT') or is_granted('ROLE_LIENS') or is_granted('ROLE_QUALITE')) %}*/
 /*                     <p> <a href="{{ path('nox_intranet_administration') }}"> Administration </a> </p>*/
 /*                 {% elseif is_granted('ROLE_PUBLICATEUR') %}*/
 /*                     <p> Publication </p>*/

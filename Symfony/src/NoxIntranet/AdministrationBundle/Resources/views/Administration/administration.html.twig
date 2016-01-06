@@ -199,7 +199,7 @@
         </a>
 
         <!-- Compétences -->
-        <a href="{{ path('nox_intranet_administration_liens') }}" class="icon">
+        <a href="{{ path('nox_intranet_competences') }}" class="icon">
             <figure>
                 <img 
                     src="{{ asset('bundles/noxintranetadministration/images/Competences-128.png') }}" 
@@ -210,19 +210,21 @@
             </figure>
         </a>
 
-        <!-- FAQ -->
-        <a href="{{ path('nox_intranet_administration_liens') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetadministration/images/FAQ-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/FAQ-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/FAQ-128.png') }}';"
-                    > 
-                <figcaption>FAQ</figcaption>
-            </figure>
-        </a>
+        {% if app.user and is_granted('ROLE_FAQ') %}        
+            <!-- FAQ -->
+            <a href="{{ path('nox_intranet_faq') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/FAQ-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/FAQ-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/FAQ-128.png') }}';"
+                        > 
+                    <figcaption>FAQ</figcaption>
+                </figure>
+            </a>
 
-        <br>
+            <br>
+        {% endif %}
 
         <!-- Liens -->
         <a href="{{ path('nox_intranet_administration_liens') }}" class="icon">
@@ -236,8 +238,13 @@
             </figure>
         </a>
 
+        {% if app.user and not is_granted('ROLE_FAQ') %}        
 
-        <!-- Procédures -->
+            <br>
+
+        {% endif %}
+
+        <!-- Procédures (A ajouté)
         <a href="{{ path('nox_intranet_administration_liens') }}" class="icon">
             <figure>
                 <img 
@@ -248,6 +255,7 @@
                 <figcaption>Procédures</figcaption>
             </figure>
         </a>
+        -->
 
         <!-- Assurance qualité (a ajouter) 
         <a href="{{ path('nox_intranet_administration_liens') }}" class="icon">

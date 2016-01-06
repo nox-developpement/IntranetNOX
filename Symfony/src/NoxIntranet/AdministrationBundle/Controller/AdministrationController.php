@@ -12,17 +12,11 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 class AdministrationController extends Controller {
 
-    /**
-     * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_NEWS') or has_role('ROLE_REFERENCES') or has_role('ROLE_PROCEDURES') or has_role('ROLE_COMPETENCES')")
-     */
     public function administrationAction() {
 
         return $this->render('NoxIntranetAdministrationBundle:Administration:administration.html.twig');
     }
 
-    /**
-     * @Security("has_role('ROLE_NEWS')")
-     */
     public function administrationNewsAction() {
 
         return $this->render('NoxIntranetAdministrationBundle:AdministrationNews:administrationNews.html.twig');

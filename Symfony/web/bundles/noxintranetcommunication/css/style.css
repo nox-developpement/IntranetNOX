@@ -753,7 +753,7 @@ figcaption {
     text-decoration: none;
 }
 
-.chsce, .chsce:checked, .chsce:hover {
+.CHSCT, .CHSCT:checked, .CHSCT:hover {
     color: #772233;
     text-decoration: none;
 }
@@ -1690,4 +1690,10 @@ divAdministrationUtilisateur {
 
 .imgRole {
     height: 10%;
+}
+
+#noResults {
+    width: 70%;
+    margin: auto;
+    padding: 1% 0% 0% 1%;
 }

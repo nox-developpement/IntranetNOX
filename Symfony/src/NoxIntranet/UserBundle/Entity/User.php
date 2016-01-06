@@ -28,7 +28,7 @@ class User implements UserInterface, \Serializable {
     private $firstname;
     
     /**
-     * @ORM\Column(name="lastname", type="string", length=255)
+     * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
      */
     private $lastname;
     

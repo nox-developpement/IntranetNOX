@@ -20,7 +20,7 @@ class LoadUser implements FixtureInterface, ContainerAwareInterface {
 
     public function load(ObjectManager $manager) {
         // Les noms d'utilisateurs à créer
-        $listNames = array('test', 'test2', 'a.pouzols', 'test4', 'test5', 'test6', 'test7', 'test8', 'test9', 'test10', 'test11');
+        $listNames = array('ROLE_CE', 'ROLE_CHSCT', 'ROLE_COMMUNICATION', 'ROLE_COMPETENCES', 'ROLE_FAQ', 'ROLE_LIENS', 'ROLE_PROCEDURES', 'ROLE_QUALITE', 'ROLE_REFERENCES', 'ROLE_USER');
 
         foreach ($listNames as $name) {
             // On crée l'utilisateur
@@ -29,17 +29,33 @@ class LoadUser implements FixtureInterface, ContainerAwareInterface {
             // Le nom d'utilisateur et le mot de passe sont identiques
             $user->setUsername($name);
             $user->setPassword("default");
+            $user->setFirstname($name);
             // the 'security.password_encoder' service requires Symfony 2.6 or higher
-
             // On ne se sert pas du sel pour l'instant
             // On définit uniquement le role ROLE_USER qui est le role de base
-            $user->setRoles(array('ROLE_ADMIN'));
-            
+            $user->setRoles(array($name));
+
             $user->setLocal(true);
 
             // On le persiste
             $manager->persist($user);
         }
+
+        $user = new User;
+
+        // Le nom d'utilisateur et le mot de passe sont identiques
+        $user->setUsername('superadmin');
+        $user->setPassword("superadmin");
+        $user->setFirstname('Superadmin');
+        // the 'security.password_encoder' service requires Symfony 2.6 or higher
+        // On ne se sert pas du sel pour l'instant
+        // On définit uniquement le role ROLE_USER qui est le role de base
+        $user->setRoles(array('ROLE_SUPER_ADMIN'));
+
+        $user->setLocal(true);
+
+        // On le persiste
+        $manager->persist($user);
 
         // On déclenche l'enregistrement
         $manager->flush();

@@ -11,10 +11,15 @@ security:
         # Un admin hérite des droits d'auteur et de modérateur
         ROLE_USER: 
         ROLE_REFERENCES: [ROLE_USER]
+        ROLE_LIENS: [ROLE_USER]
+        ROLE_FAQ: [ROLE_USER]
+        ROLE_CE: [ROLE_USER, ROLE_COMMUNICATION]
+        ROLE_CHSCT: [ROLE_USER, ROLE_COMMUNICATION]
+        ROLE_QUALITE: [ROLE_USER]
         ROLE_COMPETENCES: [ROLE_USER]
-        ROLE_NEWS: [ROLE_USER]
+        ROLE_COMMUNICATION: [ROLE_USER]
         ROLE_PROCEDURES: [ROLE_USER]
-        ROLE_ADMIN: [ROLE_USER, ROLE_PROCEDURES, ROLE_NEWS, ROLE_COMPETENCES, ROLE_REFERENCES]
+        ROLE_ADMIN: [ROLE_USER, ROLE_PROCEDURES, ROLE_COMMUNICATION, ROLE_COMPETENCES, ROLE_REFERENCES, ROLE_LIENS, ROLE_CE, ROLE_CHSCT, ROLE_QUALITE, ROLE_FAQ ]
         # On garde ce rôle superadmin, il nous resservira par la suite
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
@@ -43,12 +48,19 @@ security:
                 target: /accueil
     
     access_control:
-        - { path: ^/efconnect, role: ROLE_USER }
-        - { path: ^/elfinder, role: ROLE_USER }
         - { path: ^/elfinder/archives, role: ROLE_ARCHIVES }
         - { path: ^/elfinder/competences, role: ROLE_COMPETENCES }
-        - { path: ^/elfinder/newsSI, role: ROLE_NEWS }
-        - { path: ^/administration, role: [ROLE_ADMIN, ROLE_REFERENCES, ROLE_COMPETENCES, ROLE_NEWS, ROLE_PROCEDURES] }
+        - { path: ^/elfinder/references, role: ROLE_REFERENCES }
+        - { path: ^/elfinder/newsSI, role: ROLE_COMMUNICATION }
+        - { path: ^/elfinder/CE, role: ROLE_CE }
+        - { path: ^/elfinder/CHSCT, role: ROLE_CHSCT }
+        - { path: ^/efconnect, role: ROLE_USER }
+        - { path: ^/elfinder, role: ROLE_USER }
+        - { path: ^/administration/procedures, role: ROLE_PROCEDURES }
+        - { path: ^/administration/qualite, role: ROLE_QUALITE }
+        - { path: ^/administration/liens, role: ROLE_LIENS }
+        - { path: ^/administration/communication, role: ROLE_COMMUNICATION }
+        - { path: ^/administration, role: [ROLE_ADMIN, ROLE_REFERENCES, ROLE_COMPETENCES, ROLE_COMMUNICATION, ROLE_PROCEDURES, ROLE_CE, ROLE_CHSCT, ROLE_FAQ, ROLE_LIENS, ROLE_QUALITE] }    
         - { path: ^/communication, role: ROLE_USER }
         - { path: ^/ressources, role: ROLE_USER }
         - { path: ^/supportSI, role: ROLE_USER }

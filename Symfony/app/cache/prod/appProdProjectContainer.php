@@ -828,34 +828,48 @@ class appProdProjectContainer extends Container
         $d = $this->get('router', ContainerInterface::NULL_ON_INVALID_REFERENCE);
         $e = $this->get('http_kernel');
         $f = $this->get('security.authentication.manager');
-        $g = new \Symfony\Component\HttpFoundation\RequestMatcher('^/efconnect');
-        $h = new \Symfony\Component\HttpFoundation\RequestMatcher('^/elfinder');
-        $i = new \Symfony\Component\HttpFoundation\RequestMatcher('^/elfinder/archives');
-        $j = new \Symfony\Component\HttpFoundation\RequestMatcher('^/elfinder/competences');
-        $k = new \Symfony\Component\HttpFoundation\RequestMatcher('^/elfinder/newsSI');
-        $l = new \Symfony\Component\HttpFoundation\RequestMatcher('^/administration');
-        $m = new \Symfony\Component\HttpFoundation\RequestMatcher('^/communication');
-        $n = new \Symfony\Component\HttpFoundation\RequestMatcher('^/ressources');
-        $o = new \Symfony\Component\HttpFoundation\RequestMatcher('^/supportSI');
-        $p = new \Symfony\Component\Security\Http\AccessMap();
-        $p->add($g, array(0 => 'ROLE_USER'), NULL);
-        $p->add($h, array(0 => 'ROLE_USER'), NULL);
-        $p->add($i, array(0 => 'ROLE_ARCHIVES'), NULL);
-        $p->add($j, array(0 => 'ROLE_COMPETENCES'), NULL);
-        $p->add($k, array(0 => 'ROLE_NEWS'), NULL);
-        $p->add($l, array(0 => 'ROLE_ADMIN', 1 => 'ROLE_REFERENCES', 2 => 'ROLE_COMPETENCES', 3 => 'ROLE_NEWS', 4 => 'ROLE_PROCEDURES'), NULL);
-        $p->add($m, array(0 => 'ROLE_USER'), NULL);
-        $p->add($n, array(0 => 'ROLE_USER'), NULL);
-        $p->add($o, array(0 => 'ROLE_USER'), NULL);
-        $q = new \Symfony\Component\Security\Http\HttpUtils($d, $d);
-        $r = new \Symfony\Component\Security\Http\Firewall\LogoutListener($b, $q, new \Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler($q, '/accueil'), array('csrf_parameter' => '_csrf_token', 'intention' => 'logout', 'logout_path' => 'logout'));
-        $r->addHandler(new \Symfony\Component\Security\Http\Logout\SessionLogoutHandler());
-        $s = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($q, array());
-        $s->setOptions(array('login_path' => '/connexionRequise', 'always_use_default_target_path' => false, 'default_target_path' => '/', 'target_path_parameter' => '_target_path', 'use_referer' => false));
-        $s->setProviderKey('main');
-        $t = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $q, array(), $a);
-        $t->setOptions(array('login_path' => '/connexionRequise', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'));
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($p, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('security.user.provider.concrete.main')), 'main', $a, $c), 2 => $r, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, new \Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy('migrate'), $q, 'main', $s, $t, array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '568ba038d82ce3.34600504', $a, $f), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $p, $f)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $q, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $q, '/connexionRequise', false), '/accesInterdit', NULL, $a, false));
+        $g = new \Symfony\Component\HttpFoundation\RequestMatcher('^/elfinder/archives');
+        $h = new \Symfony\Component\HttpFoundation\RequestMatcher('^/elfinder/competences');
+        $i = new \Symfony\Component\HttpFoundation\RequestMatcher('^/elfinder/references');
+        $j = new \Symfony\Component\HttpFoundation\RequestMatcher('^/elfinder/newsSI');
+        $k = new \Symfony\Component\HttpFoundation\RequestMatcher('^/elfinder/CE');
+        $l = new \Symfony\Component\HttpFoundation\RequestMatcher('^/elfinder/CHSCT');
+        $m = new \Symfony\Component\HttpFoundation\RequestMatcher('^/efconnect');
+        $n = new \Symfony\Component\HttpFoundation\RequestMatcher('^/elfinder');
+        $o = new \Symfony\Component\HttpFoundation\RequestMatcher('^/administration/procedures');
+        $p = new \Symfony\Component\HttpFoundation\RequestMatcher('^/administration/qualite');
+        $q = new \Symfony\Component\HttpFoundation\RequestMatcher('^/administration/liens');
+        $r = new \Symfony\Component\HttpFoundation\RequestMatcher('^/administration/communication');
+        $s = new \Symfony\Component\HttpFoundation\RequestMatcher('^/administration');
+        $t = new \Symfony\Component\HttpFoundation\RequestMatcher('^/communication');
+        $u = new \Symfony\Component\HttpFoundation\RequestMatcher('^/ressources');
+        $v = new \Symfony\Component\HttpFoundation\RequestMatcher('^/supportSI');
+        $w = new \Symfony\Component\Security\Http\AccessMap();
+        $w->add($g, array(0 => 'ROLE_ARCHIVES'), NULL);
+        $w->add($h, array(0 => 'ROLE_COMPETENCES'), NULL);
+        $w->add($i, array(0 => 'ROLE_REFERENCES'), NULL);
+        $w->add($j, array(0 => 'ROLE_COMMUNICATION'), NULL);
+        $w->add($k, array(0 => 'ROLE_CE'), NULL);
+        $w->add($l, array(0 => 'ROLE_CHSCT'), NULL);
+        $w->add($m, array(0 => 'ROLE_USER'), NULL);
+        $w->add($n, array(0 => 'ROLE_USER'), NULL);
+        $w->add($o, array(0 => 'ROLE_PROCEDURES'), NULL);
+        $w->add($p, array(0 => 'ROLE_QUALITE'), NULL);
+        $w->add($q, array(0 => 'ROLE_LIENS'), NULL);
+        $w->add($r, array(0 => 'ROLE_COMMUNICATION'), NULL);
+        $w->add($s, array(0 => 'ROLE_ADMIN', 1 => 'ROLE_REFERENCES', 2 => 'ROLE_COMPETENCES', 3 => 'ROLE_COMMUNICATION', 4 => 'ROLE_PROCEDURES', 5 => 'ROLE_CE', 6 => 'ROLE_CHSCT', 7 => 'ROLE_FAQ', 8 => 'ROLE_LIENS', 9 => 'ROLE_QUALITE'), NULL);
+        $w->add($t, array(0 => 'ROLE_USER'), NULL);
+        $w->add($u, array(0 => 'ROLE_USER'), NULL);
+        $w->add($v, array(0 => 'ROLE_USER'), NULL);
+        $x = new \Symfony\Component\Security\Http\HttpUtils($d, $d);
+        $y = new \Symfony\Component\Security\Http\Firewall\LogoutListener($b, $x, new \Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler($x, '/accueil'), array('csrf_parameter' => '_csrf_token', 'intention' => 'logout', 'logout_path' => 'logout'));
+        $y->addHandler(new \Symfony\Component\Security\Http\Logout\SessionLogoutHandler());
+        $z = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($x, array());
+        $z->setOptions(array('login_path' => '/connexionRequise', 'always_use_default_target_path' => false, 'default_target_path' => '/', 'target_path_parameter' => '_target_path', 'use_referer' => false));
+        $z->setProviderKey('main');
+        $aa = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $x, array(), $a);
+        $aa->setOptions(array('login_path' => '/connexionRequise', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'));
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($w, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('security.user.provider.concrete.main')), 'main', $a, $c), 2 => $y, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, new \Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy('migrate'), $x, 'main', $z, $aa, array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '568d0dae0af2f4.53548131', $a, $f), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $w, $f)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $x, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $x, '/connexionRequise', false), '/accesInterdit', NULL, $a, false));
     }
     protected function getSecurity_PasswordEncoderService()
     {
@@ -1281,7 +1295,7 @@ class appProdProjectContainer extends Container
     }
     protected function getSecurity_Authentication_ManagerService()
     {
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('security.user.provider.concrete.main'), new \Symfony\Component\Security\Core\User\UserChecker(), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('568ba038d82ce3.34600504')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('security.user.provider.concrete.main'), new \Symfony\Component\Security\Core\User\UserChecker(), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('568d0dae0af2f4.53548131')), true);
         $instance->setEventDispatcher($this->get('event_dispatcher'));
         return $instance;
     }
@@ -1297,7 +1311,7 @@ class appProdProjectContainer extends Container
     }
     protected function getSecurity_RoleHierarchyService()
     {
-        return $this->services['security.role_hierarchy'] = new \Symfony\Component\Security\Core\Role\RoleHierarchy(array('ROLE_USER' => array(), 'ROLE_REFERENCES' => array(0 => 'ROLE_USER'), 'ROLE_COMPETENCES' => array(0 => 'ROLE_USER'), 'ROLE_NEWS' => array(0 => 'ROLE_USER'), 'ROLE_PROCEDURES' => array(0 => 'ROLE_USER'), 'ROLE_ADMIN' => array(0 => 'ROLE_USER', 1 => 'ROLE_PROCEDURES', 2 => 'ROLE_NEWS', 3 => 'ROLE_COMPETENCES', 4 => 'ROLE_REFERENCES'), 'ROLE_SUPER_ADMIN' => array(0 => 'ROLE_ADMIN', 1 => 'ROLE_ALLOWED_TO_SWITCH')));
+        return $this->services['security.role_hierarchy'] = new \Symfony\Component\Security\Core\Role\RoleHierarchy(array('ROLE_USER' => array(), 'ROLE_REFERENCES' => array(0 => 'ROLE_USER'), 'ROLE_LIENS' => array(0 => 'ROLE_USER'), 'ROLE_FAQ' => array(0 => 'ROLE_USER'), 'ROLE_CE' => array(0 => 'ROLE_USER', 1 => 'ROLE_COMMUNICATION'), 'ROLE_CHSCT' => array(0 => 'ROLE_USER', 1 => 'ROLE_COMMUNICATION'), 'ROLE_QUALITE' => array(0 => 'ROLE_USER'), 'ROLE_COMPETENCES' => array(0 => 'ROLE_USER'), 'ROLE_COMMUNICATION' => array(0 => 'ROLE_USER'), 'ROLE_PROCEDURES' => array(0 => 'ROLE_USER'), 'ROLE_ADMIN' => array(0 => 'ROLE_USER', 1 => 'ROLE_PROCEDURES', 2 => 'ROLE_COMMUNICATION', 3 => 'ROLE_COMPETENCES', 4 => 'ROLE_REFERENCES', 5 => 'ROLE_LIENS', 6 => 'ROLE_CE', 7 => 'ROLE_CHSCT', 8 => 'ROLE_QUALITE', 9 => 'ROLE_FAQ'), 'ROLE_SUPER_ADMIN' => array(0 => 'ROLE_ADMIN', 1 => 'ROLE_ALLOWED_TO_SWITCH')));
     }
     protected function getSecurity_User_Provider_Concrete_MainService()
     {
@@ -1606,10 +1620,27 @@ class appProdProjectContainer extends Container
                 'ROLE_REFERENCES' => array(
                     0 => 'ROLE_USER',
                 ),
+                'ROLE_LIENS' => array(
+                    0 => 'ROLE_USER',
+                ),
+                'ROLE_FAQ' => array(
+                    0 => 'ROLE_USER',
+                ),
+                'ROLE_CE' => array(
+                    0 => 'ROLE_USER',
+                    1 => 'ROLE_COMMUNICATION',
+                ),
+                'ROLE_CHSCT' => array(
+                    0 => 'ROLE_USER',
+                    1 => 'ROLE_COMMUNICATION',
+                ),
+                'ROLE_QUALITE' => array(
+                    0 => 'ROLE_USER',
+                ),
                 'ROLE_COMPETENCES' => array(
                     0 => 'ROLE_USER',
                 ),
-                'ROLE_NEWS' => array(
+                'ROLE_COMMUNICATION' => array(
                     0 => 'ROLE_USER',
                 ),
                 'ROLE_PROCEDURES' => array(
@@ -1618,9 +1649,14 @@ class appProdProjectContainer extends Container
                 'ROLE_ADMIN' => array(
                     0 => 'ROLE_USER',
                     1 => 'ROLE_PROCEDURES',
-                    2 => 'ROLE_NEWS',
+                    2 => 'ROLE_COMMUNICATION',
                     3 => 'ROLE_COMPETENCES',
                     4 => 'ROLE_REFERENCES',
+                    5 => 'ROLE_LIENS',
+                    6 => 'ROLE_CE',
+                    7 => 'ROLE_CHSCT',
+                    8 => 'ROLE_QUALITE',
+                    9 => 'ROLE_FAQ',
                 ),
                 'ROLE_SUPER_ADMIN' => array(
                     0 => 'ROLE_ADMIN',

@@ -55,7 +55,7 @@
             </div>
 
             <div id="administrationBouton" >
-                {% if app.user != null and (is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENCES') or is_granted('ROLE_COMPETENCES') or is_granted('ROLE_NEWS') or is_granted('ROLE_PROCEDURES')) %}
+                {% if app.user != null and (is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENCES') or is_granted('ROLE_COMPETENCES') or is_granted('ROLE_COMMUNICATION') or is_granted('ROLE_PROCEDURES') or is_granted('ROLE_FAQ') or is_granted('ROLE_CE') or is_granted('ROLE_CHSCT') or is_granted('ROLE_LIENS') or is_granted('ROLE_QUALITE')) %}
                     <p> <a href="{{ path('nox_intranet_administration') }}"> Administration </a> </p>
                 {% elseif is_granted('ROLE_PUBLICATEUR') %}
                     <p> Publication </p>
