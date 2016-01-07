@@ -40,6 +40,17 @@
         </div>
 
     {% endif %}
+    
+    <div id="rechercheUser">
+        <div id="rechercheCompetencesDiv">
+            <form action='{{ path('nox_intranet_references_recherche') }}' type='GET'>
+                <label for="keyword"> Rechercher par mots-clés : </label>
+                <input type="text" name='keyword' id="keyword" />
+                <input type="submit" name="Rechercher" value="Rechercher" class="boutonFormulaire" >
+                <button value="Annuler" class="boutonFormulaire" id="boutonAnnuler" onclick="{{ path('nox_intranet_references') }}"> RAZ </button>
+            </form>
+        </div>
+    </div>
 
     {% for reference in references %}
 
@@ -55,6 +66,8 @@
 
             <ul>
 
+                <li> Nom du fichier : {{ reference['nom'] }} </li>
+
                 {% for propriete in reference['proprietes'] %}
 
                     {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}
@@ -68,7 +81,7 @@
                     {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}
 
                 {% endfor %}
-                
+
                 <li> Posté le : {{ reference['dateEnvoi'] }} </li>
 
             </ul>

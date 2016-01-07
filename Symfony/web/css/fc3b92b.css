@@ -634,7 +634,7 @@ form {
 }
 
 .sousMessageAcceuil {
-    margin: 2% 25% 3% 25%;
+    margin: 0% 25% 1% 25%;
     padding: 1%;
 }
 
@@ -647,7 +647,7 @@ form {
 }
 
 .sousSousMessageAcceuil {
-    margin: 2% 30% 3% 30%;
+    margin: 0% 30% 0% 30%;
     padding: 1%;   
 }
 
@@ -1679,13 +1679,13 @@ divAdministrationUtilisateur {
 }
 
 .menu a, .menu a:hover, .menu a:checked {
-   text-decoration: none;
-   color: #021C2D;
+    text-decoration: none;
+    color: #021C2D;
 }
 
 .sousSousMessageAcceuil a, .sousSousMessageAcceuil a:hover, .sousSousMessageAcceuil a:checked {
-   text-decoration: none;
-   color: #021C2D;
+    text-decoration: none;
+    color: #021C2D;
 }
 
 .imgRole {
@@ -1696,4 +1696,19 @@ divAdministrationUtilisateur {
     width: 70%;
     margin: auto;
     padding: 1% 0% 0% 1%;
+}
+
+.figureRS {
+    width: 10%;
+}
+
+.imgReseauxSociaux {
+    width: 10%;
+    vertical-align: middle;
+}
+
+.imgReseauxSociaux+h5 {
+    margin-left: 3%; 
+    display: inline-block;
+    vertical-align: middle;
 }

@@ -296,11 +296,9 @@
       </parameter>
       <parameter key="ROLE_CE" type="collection">
         <parameter>ROLE_USER</parameter>
-        <parameter>ROLE_COMMUNICATION</parameter>
       </parameter>
       <parameter key="ROLE_CHSCT" type="collection">
         <parameter>ROLE_USER</parameter>
-        <parameter>ROLE_COMMUNICATION</parameter>
       </parameter>
       <parameter key="ROLE_QUALITE" type="collection">
         <parameter>ROLE_USER</parameter>
@@ -730,7 +728,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -813,7 +811,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -896,7 +894,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -979,7 +977,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -1062,7 +1060,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -1140,21 +1138,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/References</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -1232,21 +1221,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/Communication/Externe/Supports/PlaquettesInstitutionnelle</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -1324,21 +1304,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/Communication/Externe/Supports/PresentationPowerpoint</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -1430,7 +1401,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -1522,7 +1493,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -1614,7 +1585,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -1706,7 +1677,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -1798,7 +1769,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -1876,21 +1847,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/Communication/Externe/NoxDansLaPresse</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -1982,7 +1944,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -2074,7 +2036,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -2166,7 +2128,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -2244,21 +2206,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/Communication/Interne/Trombinoscope</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -2336,21 +2289,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/Communication/Interne/Organigrammes/OrganigrammeStrategique</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -2428,21 +2372,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/Communication/Interne/Organigrammes/OrganigrammeFonctionnel</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -2520,21 +2455,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/Communication/Interne/Organigrammes/OrganigrammeAgence</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -2612,21 +2538,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/Communication/Interne/AnnuaireAgences</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -2704,21 +2621,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/Communication/Interne/CE</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -2796,21 +2704,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/Communication/Interne/CHSCT</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -2888,21 +2787,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/Communication/Marketing/NoxALaConquete</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -2980,21 +2870,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/Communication/Marketing/IlYAForcementPlusSimple</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -3072,21 +2953,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/Communication/Marketing/NoxFournisseurDeTalents</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -3164,21 +3036,12 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/Communication/Marketing/Nos5Valeurs</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
                   <parameter>application/pdf</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -3268,7 +3131,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -3357,7 +3220,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -3446,7 +3309,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -3535,7 +3398,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -3624,7 +3487,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -3713,7 +3576,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -3802,7 +3665,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -3891,7 +3754,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -3980,7 +3843,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -4069,7 +3932,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -4158,7 +4021,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -4247,7 +4110,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -4336,7 +4199,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -4425,7 +4288,7 @@
                   <parameter>all</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection"/>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -4514,7 +4377,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -4603,7 +4466,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -4692,7 +4555,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -4781,7 +4644,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -4870,7 +4733,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -4959,7 +4822,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -5048,7 +4911,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -5137,7 +5000,7 @@
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
-                <parameter key="upload_max_size">100M</parameter>
+                <parameter key="upload_max_size">5M</parameter>
                 <parameter key="volume_id">0</parameter>
                 <parameter key="start_path"></parameter>
                 <parameter key="url"></parameter>
@@ -6664,7 +6527,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>568cf5ef5db1e2.90599471</argument>
+            <argument>568e6fc52af146.61251007</argument>
           </service>
         </argument>
       </argument>
@@ -6723,11 +6586,9 @@
         </argument>
         <argument key="ROLE_CE" type="collection">
           <argument>ROLE_USER</argument>
-          <argument>ROLE_COMMUNICATION</argument>
         </argument>
         <argument key="ROLE_CHSCT" type="collection">
           <argument>ROLE_USER</argument>
-          <argument>ROLE_COMMUNICATION</argument>
         </argument>
         <argument key="ROLE_QUALITE" type="collection">
           <argument>ROLE_USER</argument>
@@ -6954,6 +6815,8 @@
                   </argument>
                   <argument type="collection">
                     <argument>ROLE_COMMUNICATION</argument>
+                    <argument>ROLE_CE</argument>
+                    <argument>ROLE_CHSCT</argument>
                   </argument>
                   <argument>null</argument>
                 </call>
@@ -7143,7 +7006,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>568cf5ef5db1e2.90599471</argument>
+            <argument>568e6fc52af146.61251007</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -7284,6 +7147,8 @@
                   </argument>
                   <argument type="collection">
                     <argument>ROLE_COMMUNICATION</argument>
+                    <argument>ROLE_CE</argument>
+                    <argument>ROLE_CHSCT</argument>
                   </argument>
                   <argument>null</argument>
                 </call>
@@ -8243,7 +8108,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -8326,7 +8191,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -8409,7 +8274,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -8492,7 +8357,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -8575,7 +8440,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -8653,21 +8518,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/References</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -8745,21 +8601,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/Communication/Externe/Supports/PlaquettesInstitutionnelle</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -8837,21 +8684,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/Communication/Externe/Supports/PresentationPowerpoint</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -8943,7 +8781,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -9035,7 +8873,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -9127,7 +8965,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -9219,7 +9057,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -9311,7 +9149,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -9389,21 +9227,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/Communication/Externe/NoxDansLaPresse</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -9495,7 +9324,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -9587,7 +9416,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -9679,7 +9508,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -9757,21 +9586,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/Communication/Interne/Trombinoscope</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -9849,21 +9669,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/Communication/Interne/Organigrammes/OrganigrammeStrategique</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -9941,21 +9752,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/Communication/Interne/Organigrammes/OrganigrammeFonctionnel</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -10033,21 +9835,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/Communication/Interne/Organigrammes/OrganigrammeAgence</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -10125,21 +9918,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/Communication/Interne/AnnuaireAgences</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -10217,21 +10001,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/Communication/Interne/CE</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -10309,21 +10084,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/Communication/Interne/CHSCT</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -10401,21 +10167,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/Communication/Marketing/NoxALaConquete</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -10493,21 +10250,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/Communication/Marketing/IlYAForcementPlusSimple</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -10585,21 +10333,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/Communication/Marketing/NoxFournisseurDeTalents</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -10677,21 +10416,12 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/Communication/Marketing/Nos5Valeurs</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
                     <argument>application/pdf</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -10781,7 +10511,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -10870,7 +10600,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -10959,7 +10689,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -11048,7 +10778,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -11137,7 +10867,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -11226,7 +10956,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -11315,7 +11045,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -11404,7 +11134,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -11493,7 +11223,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -11582,7 +11312,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -11671,7 +11401,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -11760,7 +11490,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -11849,7 +11579,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -11938,7 +11668,7 @@
                     <argument>all</argument>
                   </argument>
                   <argument key="upload_deny" type="collection"/>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -12027,7 +11757,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -12116,7 +11846,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -12205,7 +11935,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -12294,7 +12024,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -12383,7 +12113,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -12472,7 +12202,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -12561,7 +12291,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>
@@ -12650,7 +12380,7 @@
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
-                  <argument key="upload_max_size">100M</argument>
+                  <argument key="upload_max_size">5M</argument>
                   <argument key="volume_id">0</argument>
                   <argument key="start_path"></argument>
                   <argument key="url"></argument>

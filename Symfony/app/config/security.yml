@@ -13,8 +13,8 @@ security:
         ROLE_REFERENCES: [ROLE_USER]
         ROLE_LIENS: [ROLE_USER]
         ROLE_FAQ: [ROLE_USER]
-        ROLE_CE: [ROLE_USER, ROLE_COMMUNICATION]
-        ROLE_CHSCT: [ROLE_USER, ROLE_COMMUNICATION]
+        ROLE_CE: [ROLE_USER]
+        ROLE_CHSCT: [ROLE_USER]
         ROLE_QUALITE: [ROLE_USER]
         ROLE_COMPETENCES: [ROLE_USER]
         ROLE_COMMUNICATION: [ROLE_USER]
@@ -59,7 +59,7 @@ security:
         - { path: ^/administration/procedures, role: ROLE_PROCEDURES }
         - { path: ^/administration/qualite, role: ROLE_QUALITE }
         - { path: ^/administration/liens, role: ROLE_LIENS }
-        - { path: ^/administration/communication, role: ROLE_COMMUNICATION }
+        - { path: ^/administration/communication, role: [ROLE_COMMUNICATION, ROLE_CE, ROLE_CHSCT] }
         - { path: ^/administration, role: [ROLE_ADMIN, ROLE_REFERENCES, ROLE_COMPETENCES, ROLE_COMMUNICATION, ROLE_PROCEDURES, ROLE_CE, ROLE_CHSCT, ROLE_FAQ, ROLE_LIENS, ROLE_QUALITE] }    
         - { path: ^/communication, role: ROLE_USER }
         - { path: ^/ressources, role: ROLE_USER }

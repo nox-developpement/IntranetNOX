@@ -291,7 +291,7 @@ CREATE TABLE `texte_encart` (
   `text` longtext COLLATE utf8_unicode_ci,
   `section` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -300,7 +300,7 @@ CREATE TABLE `texte_encart` (
 
 LOCK TABLES `texte_encart` WRITE;
 /*!40000 ALTER TABLE `texte_encart` DISABLE KEYS */;
-INSERT INTO `texte_encart` VALUES (10,NULL,'Competences'),(11,'<p></p>','References'),(12,'<p></p>','Archives'),(13,NULL,'AvancementProjet');
+INSERT INTO `texte_encart` VALUES (11,'<p></p>','References'),(13,NULL,'AvancementProjet'),(16,'<p>dsqdd</p>','Archives'),(17,'<p></p>','Competences'),(18,NULL,'Information');
 /*!40000 ALTER TABLE `texte_encart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,4 +372,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-06 13:41:34
+-- Dump completed on 2016-01-07  8:00:01

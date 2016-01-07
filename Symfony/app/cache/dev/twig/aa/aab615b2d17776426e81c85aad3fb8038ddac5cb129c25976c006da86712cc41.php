@@ -24,46 +24,46 @@ class __TwigTemplate_7c5fa6ffade3eff38ae8b5d13281d6faa23b759aa14170b55ad21b6607a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_9a41ee5456f980a25e8e58b3199a165619e946737767dfcab8ed1eff2e762406 = $this->env->getExtension("native_profiler");
-        $__internal_9a41ee5456f980a25e8e58b3199a165619e946737767dfcab8ed1eff2e762406->enter($__internal_9a41ee5456f980a25e8e58b3199a165619e946737767dfcab8ed1eff2e762406_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:References:References.html.twig"));
+        $__internal_4f47fc4e09295629b238131fce0f4c2b438764ee0c577357a6581bcafbf50f80 = $this->env->getExtension("native_profiler");
+        $__internal_4f47fc4e09295629b238131fce0f4c2b438764ee0c577357a6581bcafbf50f80->enter($__internal_4f47fc4e09295629b238131fce0f4c2b438764ee0c577357a6581bcafbf50f80_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:References:References.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_9a41ee5456f980a25e8e58b3199a165619e946737767dfcab8ed1eff2e762406->leave($__internal_9a41ee5456f980a25e8e58b3199a165619e946737767dfcab8ed1eff2e762406_prof);
+        $__internal_4f47fc4e09295629b238131fce0f4c2b438764ee0c577357a6581bcafbf50f80->leave($__internal_4f47fc4e09295629b238131fce0f4c2b438764ee0c577357a6581bcafbf50f80_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_2ede02d1048e91d880fc36e9a13205e260601af6cc1f68c443a893fbaf845e86 = $this->env->getExtension("native_profiler");
-        $__internal_2ede02d1048e91d880fc36e9a13205e260601af6cc1f68c443a893fbaf845e86->enter($__internal_2ede02d1048e91d880fc36e9a13205e260601af6cc1f68c443a893fbaf845e86_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_0b12db163611b12efbdadb34b235e3eeaf6a9fae4fa2c3acffc8442e44f2f336 = $this->env->getExtension("native_profiler");
+        $__internal_0b12db163611b12efbdadb34b235e3eeaf6a9fae4fa2c3acffc8442e44f2f336->enter($__internal_0b12db163611b12efbdadb34b235e3eeaf6a9fae4fa2c3acffc8442e44f2f336_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         // line 4
         echo "    Références
 ";
         
-        $__internal_2ede02d1048e91d880fc36e9a13205e260601af6cc1f68c443a893fbaf845e86->leave($__internal_2ede02d1048e91d880fc36e9a13205e260601af6cc1f68c443a893fbaf845e86_prof);
+        $__internal_0b12db163611b12efbdadb34b235e3eeaf6a9fae4fa2c3acffc8442e44f2f336->leave($__internal_0b12db163611b12efbdadb34b235e3eeaf6a9fae4fa2c3acffc8442e44f2f336_prof);
 
     }
 
     // line 7
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_b520d7efc9443ec41ce40a5a7f62b5c3163ba2ce40daa0c9a002c24d1d2a8225 = $this->env->getExtension("native_profiler");
-        $__internal_b520d7efc9443ec41ce40a5a7f62b5c3163ba2ce40daa0c9a002c24d1d2a8225->enter($__internal_b520d7efc9443ec41ce40a5a7f62b5c3163ba2ce40daa0c9a002c24d1d2a8225_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_6ae608628ac6a12e2ec58f9c5310af536add98f9150c50df5a25179cb48822e3 = $this->env->getExtension("native_profiler");
+        $__internal_6ae608628ac6a12e2ec58f9c5310af536add98f9150c50df5a25179cb48822e3->enter($__internal_6ae608628ac6a12e2ec58f9c5310af536add98f9150c50df5a25179cb48822e3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Références";
         
-        $__internal_b520d7efc9443ec41ce40a5a7f62b5c3163ba2ce40daa0c9a002c24d1d2a8225->leave($__internal_b520d7efc9443ec41ce40a5a7f62b5c3163ba2ce40daa0c9a002c24d1d2a8225_prof);
+        $__internal_6ae608628ac6a12e2ec58f9c5310af536add98f9150c50df5a25179cb48822e3->leave($__internal_6ae608628ac6a12e2ec58f9c5310af536add98f9150c50df5a25179cb48822e3_prof);
 
     }
 
     // line 9
     public function block_textEncart($context, array $blocks = array())
     {
-        $__internal_5604af124883ea2e3c7f0f76ff4e96b00c21253495dbe568b9e87c7a9c36e880 = $this->env->getExtension("native_profiler");
-        $__internal_5604af124883ea2e3c7f0f76ff4e96b00c21253495dbe568b9e87c7a9c36e880->enter($__internal_5604af124883ea2e3c7f0f76ff4e96b00c21253495dbe568b9e87c7a9c36e880_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "textEncart"));
+        $__internal_ec2b3aee308d021c4dcc1db8367aaa6bf99709c0ba91979b7f5e3421a789f780 = $this->env->getExtension("native_profiler");
+        $__internal_ec2b3aee308d021c4dcc1db8367aaa6bf99709c0ba91979b7f5e3421a789f780->enter($__internal_ec2b3aee308d021c4dcc1db8367aaa6bf99709c0ba91979b7f5e3421a789f780_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "textEncart"));
 
         // line 10
         echo "
@@ -117,15 +117,15 @@ class __TwigTemplate_7c5fa6ffade3eff38ae8b5d13281d6faa23b759aa14170b55ad21b6607a
         echo "
 ";
         
-        $__internal_5604af124883ea2e3c7f0f76ff4e96b00c21253495dbe568b9e87c7a9c36e880->leave($__internal_5604af124883ea2e3c7f0f76ff4e96b00c21253495dbe568b9e87c7a9c36e880_prof);
+        $__internal_ec2b3aee308d021c4dcc1db8367aaa6bf99709c0ba91979b7f5e3421a789f780->leave($__internal_ec2b3aee308d021c4dcc1db8367aaa6bf99709c0ba91979b7f5e3421a789f780_prof);
 
     }
 
     // line 33
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_663f29c2cac1d5037afd8a8f29352bb482710499642920689de599c195a0d709 = $this->env->getExtension("native_profiler");
-        $__internal_663f29c2cac1d5037afd8a8f29352bb482710499642920689de599c195a0d709->enter($__internal_663f29c2cac1d5037afd8a8f29352bb482710499642920689de599c195a0d709_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_167146f717c3e1cb30a7232217f86901b9134a0610fd1998a30abe0f86986db1 = $this->env->getExtension("native_profiler");
+        $__internal_167146f717c3e1cb30a7232217f86901b9134a0610fd1998a30abe0f86986db1->enter($__internal_167146f717c3e1cb30a7232217f86901b9134a0610fd1998a30abe0f86986db1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 34
         echo "
@@ -142,31 +142,48 @@ class __TwigTemplate_7c5fa6ffade3eff38ae8b5d13281d6faa23b759aa14170b55ad21b6607a
     ";
         }
         // line 43
-        echo "
+        echo "    
+    <div id=\"rechercheUser\">
+        <div id=\"rechercheCompetencesDiv\">
+            <form action='";
+        // line 46
+        echo $this->env->getExtension('routing')->getPath("nox_intranet_references_recherche");
+        echo "' type='GET'>
+                <label for=\"keyword\"> Rechercher par mots-clés : </label>
+                <input type=\"text\" name='keyword' id=\"keyword\" />
+                <input type=\"submit\" name=\"Rechercher\" value=\"Rechercher\" class=\"boutonFormulaire\" >
+                <button value=\"Annuler\" class=\"boutonFormulaire\" id=\"boutonAnnuler\" onclick=\"";
+        // line 50
+        echo $this->env->getExtension('routing')->getPath("nox_intranet_references");
+        echo "\"> RAZ </button>
+            </form>
+        </div>
+    </div>
+
     ";
-        // line 44
+        // line 55
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["references"]) ? $context["references"] : $this->getContext($context, "references")));
         foreach ($context['_seq'] as $context["_key"] => $context["reference"]) {
-            // line 45
+            // line 56
             echo "
         <div class=\"divNews\">
 
             <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/uploads/References/";
-            // line 48
+            // line 59
             echo twig_escape_filter($this->env, $this->getAttribute($context["reference"], "lien", array(), "array"), "html", null, true);
             echo "', 'Références');\">
                 <img 
                     src=\"";
-            // line 50
+            // line 61
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png"), "html", null, true);
             echo "\" alt=\"PDF\" 
                     onmouseover=\"this.src = '";
-            // line 51
+            // line 62
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png"), "html", null, true);
             echo "';\" 
                     onmouseout=\"this.src = '";
-            // line 52
+            // line 63
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png"), "html", null, true);
             echo "';\"
                     >
@@ -174,67 +191,72 @@ class __TwigTemplate_7c5fa6ffade3eff38ae8b5d13281d6faa23b759aa14170b55ad21b6607a
 
             <ul>
 
+                <li> Nom du fichier : ";
+            // line 69
+            echo twig_escape_filter($this->env, $this->getAttribute($context["reference"], "nom", array(), "array"), "html", null, true);
+            echo " </li>
+
                 ";
-            // line 58
+            // line 71
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["reference"], "proprietes", array(), "array"));
             foreach ($context['_seq'] as $context["_key"] => $context["propriete"]) {
-                // line 59
+                // line 72
                 echo "
                     ";
-                // line 60
+                // line 73
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Title")) {
                     echo " <li> Titre : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 61
+                // line 74
                 echo "
                     ";
-                // line 62
+                // line 75
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Author")) {
                     echo " <li> Auteur : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 63
+                // line 76
                 echo "
                     ";
-                // line 64
+                // line 77
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Subject")) {
                     echo " <li> Sujet : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 65
+                // line 78
                 echo "
                     ";
-                // line 66
+                // line 79
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Keywords")) {
                     echo " <li> Mots clés : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 67
+                // line 80
                 echo "
                     ";
-                // line 68
+                // line 81
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Pages")) {
                     echo " <li> Nombre de page(s) : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 69
+                // line 82
                 echo "
                 ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['propriete'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 71
-            echo "                
+            // line 84
+            echo "
                 <li> Posté le : ";
-            // line 72
+            // line 85
             echo twig_escape_filter($this->env, $this->getAttribute($context["reference"], "dateEnvoi", array(), "array"), "html", null, true);
             echo " </li>
 
@@ -247,11 +269,11 @@ class __TwigTemplate_7c5fa6ffade3eff38ae8b5d13281d6faa23b759aa14170b55ad21b6607a
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['reference'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 79
+        // line 92
         echo "
 ";
         
-        $__internal_663f29c2cac1d5037afd8a8f29352bb482710499642920689de599c195a0d709->leave($__internal_663f29c2cac1d5037afd8a8f29352bb482710499642920689de599c195a0d709_prof);
+        $__internal_167146f717c3e1cb30a7232217f86901b9134a0610fd1998a30abe0f86986db1->leave($__internal_167146f717c3e1cb30a7232217f86901b9134a0610fd1998a30abe0f86986db1_prof);
 
     }
 
@@ -267,7 +289,7 @@ class __TwigTemplate_7c5fa6ffade3eff38ae8b5d13281d6faa23b759aa14170b55ad21b6607a
 
     public function getDebugInfo()
     {
-        return array (  251 => 79,  238 => 72,  235 => 71,  228 => 69,  222 => 68,  219 => 67,  213 => 66,  210 => 65,  204 => 64,  201 => 63,  195 => 62,  192 => 61,  186 => 60,  183 => 59,  179 => 58,  170 => 52,  166 => 51,  162 => 50,  157 => 48,  152 => 45,  148 => 44,  145 => 43,  134 => 35,  131 => 34,  125 => 33,  117 => 30,  111 => 27,  106 => 25,  100 => 23,  94 => 20,  89 => 17,  84 => 15,  81 => 14,  79 => 13,  76 => 12,  72 => 11,  69 => 10,  63 => 9,  51 => 7,  43 => 4,  37 => 3,  11 => 1,);
+        return array (  273 => 92,  260 => 85,  257 => 84,  250 => 82,  244 => 81,  241 => 80,  235 => 79,  232 => 78,  226 => 77,  223 => 76,  217 => 75,  214 => 74,  208 => 73,  205 => 72,  201 => 71,  196 => 69,  187 => 63,  183 => 62,  179 => 61,  174 => 59,  169 => 56,  165 => 55,  157 => 50,  150 => 46,  145 => 43,  134 => 35,  131 => 34,  125 => 33,  117 => 30,  111 => 27,  106 => 25,  100 => 23,  94 => 20,  89 => 17,  84 => 15,  81 => 14,  79 => 13,  76 => 12,  72 => 11,  69 => 10,  63 => 9,  51 => 7,  43 => 4,  37 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -312,6 +334,17 @@ class __TwigTemplate_7c5fa6ffade3eff38ae8b5d13281d6faa23b759aa14170b55ad21b6607a
 /*         </div>*/
 /* */
 /*     {% endif %}*/
+/*     */
+/*     <div id="rechercheUser">*/
+/*         <div id="rechercheCompetencesDiv">*/
+/*             <form action='{{ path('nox_intranet_references_recherche') }}' type='GET'>*/
+/*                 <label for="keyword"> Rechercher par mots-clés : </label>*/
+/*                 <input type="text" name='keyword' id="keyword" />*/
+/*                 <input type="submit" name="Rechercher" value="Rechercher" class="boutonFormulaire" >*/
+/*                 <button value="Annuler" class="boutonFormulaire" id="boutonAnnuler" onclick="{{ path('nox_intranet_references') }}"> RAZ </button>*/
+/*             </form>*/
+/*         </div>*/
+/*     </div>*/
 /* */
 /*     {% for reference in references %}*/
 /* */
@@ -327,6 +360,8 @@ class __TwigTemplate_7c5fa6ffade3eff38ae8b5d13281d6faa23b759aa14170b55ad21b6607a
 /* */
 /*             <ul>*/
 /* */
+/*                 <li> Nom du fichier : {{ reference['nom'] }} </li>*/
+/* */
 /*                 {% for propriete in reference['proprietes'] %}*/
 /* */
 /*                     {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}*/
@@ -340,7 +375,7 @@ class __TwigTemplate_7c5fa6ffade3eff38ae8b5d13281d6faa23b759aa14170b55ad21b6607a
 /*                     {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}*/
 /* */
 /*                 {% endfor %}*/
-/*                 */
+/* */
 /*                 <li> Posté le : {{ reference['dateEnvoi'] }} </li>*/
 /* */
 /*             </ul>*/

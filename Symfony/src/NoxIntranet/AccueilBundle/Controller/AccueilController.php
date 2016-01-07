@@ -80,8 +80,8 @@ class AccueilController extends Controller {
                         $propriete[] = array('label' => $property, 'valeur' => $value);
                     }
 
-                    $dateModification = date("d/m/Y à H:i:s", filemtime($file));
-                    $nom = str_replace('.pdf', '', $file);
+                    $dateModification = date("Y/m/d H:i:s", filemtime($file));
+                    $nom = str_replace('.pdf', '', basename($file));
                     $lien = str_replace("C:\wamp\www", '', $file);
                     $lien = str_replace("\\", "/", $lien);
                     $news[] = array('lien' => $lien, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
@@ -91,11 +91,14 @@ class AccueilController extends Controller {
             foreach ($news as $k => $v) {
                 $date[$k] = $v['dateEnvoi'];
             }
-
             array_multisort($date, SORT_DESC, $news);
         }
-        
+
         $news5 = array_slice($news, 0, 5);
+        
+        foreach($news5 as $key => $value) { 
+            $news5[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+        }
 
         return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('news' => $news5));
     }

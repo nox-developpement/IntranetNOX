@@ -81,26 +81,22 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 
             <ul>
 
-                ";
+                <li> Nom du fichier : ";
             // line 23
+            echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "nom", array(), "array"), "html", null, true);
+            echo " </li>
+
+                ";
+            // line 25
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["new"], "proprietes", array(), "array"));
             foreach ($context['_seq'] as $context["_key"] => $context["propriete"]) {
-                // line 24
-                echo "
-                    ";
-                // line 25
-                if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Title")) {
-                    echo " <li> Titre : ";
-                    echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
-                    echo " </li> ";
-                }
                 // line 26
                 echo "
                     ";
                 // line 27
-                if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Author")) {
-                    echo " <li> Auteur : ";
+                if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Title")) {
+                    echo " <li> Titre : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
@@ -108,8 +104,8 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
                 echo "
                     ";
                 // line 29
-                if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Subject")) {
-                    echo " <li> Sujet : ";
+                if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Author")) {
+                    echo " <li> Auteur : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
@@ -117,8 +113,8 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
                 echo "
                     ";
                 // line 31
-                if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Keywords")) {
-                    echo " <li> Mots clés : ";
+                if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Subject")) {
+                    echo " <li> Sujet : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
@@ -126,22 +122,31 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
                 echo "
                     ";
                 // line 33
+                if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Keywords")) {
+                    echo " <li> Mots clés : ";
+                    echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
+                    echo " </li> ";
+                }
+                // line 34
+                echo "
+                    ";
+                // line 35
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Pages")) {
                     echo " <li> Nombre de page(s) : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 34
+                // line 36
                 echo "
                 ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['propriete'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 36
+            // line 38
             echo "
                 <li> Posté le : ";
-            // line 37
+            // line 39
             echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "dateEnvoi", array(), "array"), "html", null, true);
             echo " </li>
 
@@ -154,7 +159,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['new'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 44
+        // line 46
         echo "
 ";
     }
@@ -171,7 +176,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 
     public function getDebugInfo()
     {
-        return array (  158 => 44,  145 => 37,  142 => 36,  135 => 34,  129 => 33,  126 => 32,  120 => 31,  117 => 30,  111 => 29,  108 => 28,  102 => 27,  99 => 26,  93 => 25,  90 => 24,  86 => 23,  77 => 17,  73 => 16,  69 => 15,  64 => 13,  59 => 10,  55 => 9,  52 => 8,  49 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  163 => 46,  150 => 39,  147 => 38,  140 => 36,  134 => 35,  131 => 34,  125 => 33,  122 => 32,  116 => 31,  113 => 30,  107 => 29,  104 => 28,  98 => 27,  95 => 26,  91 => 25,  86 => 23,  77 => 17,  73 => 16,  69 => 15,  64 => 13,  59 => 10,  55 => 9,  52 => 8,  49 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -195,6 +200,8 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*             </a>*/
 /* */
 /*             <ul>*/
+/* */
+/*                 <li> Nom du fichier : {{ new['nom'] }} </li>*/
 /* */
 /*                 {% for propriete in new['proprietes'] %}*/
 /* */

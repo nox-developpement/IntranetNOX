@@ -87,9 +87,17 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
 
             }
 
-            // nox_intranet_references
-            if ($pathinfo === '/ressources/references') {
-                return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::referencesAction',  '_route' => 'nox_intranet_references',);
+            if (0 === strpos($pathinfo, '/ressources/references')) {
+                // nox_intranet_references
+                if ($pathinfo === '/ressources/references') {
+                    return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::referencesAction',  '_route' => 'nox_intranet_references',);
+                }
+
+                // nox_intranet_references_recherche
+                if ($pathinfo === '/ressources/references/recherche') {
+                    return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::referencesKeywordAction',  '_route' => 'nox_intranet_references_recherche',);
+                }
+
             }
 
             // nox_intranet_procedures
@@ -285,6 +293,11 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
                     return array (  '_controller' => 'NoxIntranet\\CommunicationBundle\\Controller\\CommunicationController::communicationNoxLettersAction',  '_route' => 'nox_intranet_nox_letters',);
                 }
 
+            }
+
+            // nox_intranet_affichageContenu
+            if (0 === strpos($pathinfo, '/communication/contenu') && preg_match('#^/communication/contenu/(?P<dossier>[^/]++)/(?P<config>[^/]++)/(?P<chemin>.+)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_affichageContenu')), array (  '_controller' => 'NoxIntranet\\CommunicationBundle\\Controller\\CommunicationController::affichageContenuAction',));
             }
 
         }

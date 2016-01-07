@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/AdministrationBundle/Resources/views/AdministrationCommunication/administrationcommunication.html.twig</file>
-            <file>file:/C:/wamp/www/Symfony/app/config/config.yml</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/AdministrationBundle/Resources/views/Administration/administration.html.twig</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/AdministrationBundle/Resources/views/AdministrationUser/administrationUser2.html.twig</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/UserBundle/DataFixtures/ORM/LoadUser.php</file>
-            <file>file:/C:/wamp/www/Symfony/app/config/security.yml</file>
+            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/CommunicationBundle/Resources/config/routing.yml</file>
+            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/CommunicationBundle/Controller/CommunicationController.php</file>
+            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/CommunicationBundle/Resources/views/Accueil/accueilCommunication.html.twig</file>
+            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/CommunicationBundle/Resources/views/News/noxNews.html.twig</file>
+            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/AccueilBundle/Controller/AccueilController.php</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/CommunicationBundle/Resources/public/css/style.css</file>
+            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/CommunicationBundle/Resources/views/Accueil/affichageContenu.html.twig</file>
         </group>
     </open-files>
 </project-private>

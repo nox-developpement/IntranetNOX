@@ -26,6 +26,10 @@ nox_intranet_references:
     path:   /ressources/references
     defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:references }
     
+nox_intranet_references_recherche:
+    path:   /ressources/references/recherche
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:referencesKeyword }
+    
 nox_intranet_procedures:
     path: /ressources/procedures
     defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:procedures }

@@ -23,57 +23,61 @@ class __TwigTemplate_7bab23ae240dab85306e1c8d31f5c1a3814c0a779945c92630bfe20e3d6
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_07508dc2d605d95f5297c2031dc512e5740b71b84ee64f76528bb3ad4d98c7ea = $this->env->getExtension("native_profiler");
-        $__internal_07508dc2d605d95f5297c2031dc512e5740b71b84ee64f76528bb3ad4d98c7ea->enter($__internal_07508dc2d605d95f5297c2031dc512e5740b71b84ee64f76528bb3ad4d98c7ea_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationCommunication:administrationcommunication.html.twig"));
+        $__internal_3402603d8cbfdeb11c7f8923edcc0a0274db6645240c567708a360ea3990369e = $this->env->getExtension("native_profiler");
+        $__internal_3402603d8cbfdeb11c7f8923edcc0a0274db6645240c567708a360ea3990369e->enter($__internal_3402603d8cbfdeb11c7f8923edcc0a0274db6645240c567708a360ea3990369e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationCommunication:administrationcommunication.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_07508dc2d605d95f5297c2031dc512e5740b71b84ee64f76528bb3ad4d98c7ea->leave($__internal_07508dc2d605d95f5297c2031dc512e5740b71b84ee64f76528bb3ad4d98c7ea_prof);
+        $__internal_3402603d8cbfdeb11c7f8923edcc0a0274db6645240c567708a360ea3990369e->leave($__internal_3402603d8cbfdeb11c7f8923edcc0a0274db6645240c567708a360ea3990369e_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_1a55a0c02fd7b2f402ec20be8729e683dc2b0baeed2cb37d3f4716dec2960256 = $this->env->getExtension("native_profiler");
-        $__internal_1a55a0c02fd7b2f402ec20be8729e683dc2b0baeed2cb37d3f4716dec2960256->enter($__internal_1a55a0c02fd7b2f402ec20be8729e683dc2b0baeed2cb37d3f4716dec2960256_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_f637a33871d237c49113f7647db41bd6448bd401f48c8e408486bad0759ef8e1 = $this->env->getExtension("native_profiler");
+        $__internal_f637a33871d237c49113f7647db41bd6448bd401f48c8e408486bad0759ef8e1->enter($__internal_f637a33871d237c49113f7647db41bd6448bd401f48c8e408486bad0759ef8e1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         // line 4
         echo "    Administration communication
 ";
         
-        $__internal_1a55a0c02fd7b2f402ec20be8729e683dc2b0baeed2cb37d3f4716dec2960256->leave($__internal_1a55a0c02fd7b2f402ec20be8729e683dc2b0baeed2cb37d3f4716dec2960256_prof);
+        $__internal_f637a33871d237c49113f7647db41bd6448bd401f48c8e408486bad0759ef8e1->leave($__internal_f637a33871d237c49113f7647db41bd6448bd401f48c8e408486bad0759ef8e1_prof);
 
     }
 
     // line 7
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_4ec8fb74b5f3bc8f5881ee282891c9273ca133b0953701a88567e1e718f25c03 = $this->env->getExtension("native_profiler");
-        $__internal_4ec8fb74b5f3bc8f5881ee282891c9273ca133b0953701a88567e1e718f25c03->enter($__internal_4ec8fb74b5f3bc8f5881ee282891c9273ca133b0953701a88567e1e718f25c03_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_666ac2763e957ec4eb8d65e4e702b737832ed895bcd489fd7e2dbb37200aee26 = $this->env->getExtension("native_profiler");
+        $__internal_666ac2763e957ec4eb8d65e4e702b737832ed895bcd489fd7e2dbb37200aee26->enter($__internal_666ac2763e957ec4eb8d65e4e702b737832ed895bcd489fd7e2dbb37200aee26_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Administration communication";
         
-        $__internal_4ec8fb74b5f3bc8f5881ee282891c9273ca133b0953701a88567e1e718f25c03->leave($__internal_4ec8fb74b5f3bc8f5881ee282891c9273ca133b0953701a88567e1e718f25c03_prof);
+        $__internal_666ac2763e957ec4eb8d65e4e702b737832ed895bcd489fd7e2dbb37200aee26->leave($__internal_666ac2763e957ec4eb8d65e4e702b737832ed895bcd489fd7e2dbb37200aee26_prof);
 
     }
 
     // line 9
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_be4a466a8a5ff273d82315054c7bfe643807baf26f504c64fdb7240daf45dbac = $this->env->getExtension("native_profiler");
-        $__internal_be4a466a8a5ff273d82315054c7bfe643807baf26f504c64fdb7240daf45dbac->enter($__internal_be4a466a8a5ff273d82315054c7bfe643807baf26f504c64fdb7240daf45dbac_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_be872f34d0f708b06ab1342237b3a777ab8b0ae080a68c73d2339a37742958f4 = $this->env->getExtension("native_profiler");
+        $__internal_be872f34d0f708b06ab1342237b3a777ab8b0ae080a68c73d2339a37742958f4->enter($__internal_be872f34d0f708b06ab1342237b3a777ab8b0ae080a68c73d2339a37742958f4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 10
-        echo "
-    <!-- Externe -->
+        echo "    
+    ";
+        // line 11
+        if (($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()) && $this->env->getExtension('security')->isGranted("ROLE_COMMUNICATION"))) {
+            // line 12
+            echo "    <!-- Externe -->
     <div class=\"surMessageAcceuil\" id='menuExterne' onclick=\"showSubMenu2('#sousMenuExterne', this);\"> 
         <h4> Externe <img src='";
-        // line 13
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
-        echo "' class='menuImg'><img src='";
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
-        echo "' class='menuImgDown'></h4>
+            // line 14
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
+            echo "' class='menuImg'><img src='";
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
+            echo "' class='menuImgDown'></h4>
     </div>
 
     <div id='sousMenuExterne' class='menu'>
@@ -81,11 +85,11 @@ class __TwigTemplate_7bab23ae240dab85306e1c8d31f5c1a3814c0a779945c92630bfe20e3d6
         <!-- Support (a ajouter)
         <div class=\"sousMessageAcceuil\" id='menuSupport' onclick=\"showSubMenu('#sousMenuSupport', this);\"> 
             <h4> Supports <img src='";
-        // line 20
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
-        echo "' class='menuImg'><img src='";
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
-        echo "' class='menuImgDown'></h4>
+            // line 21
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
+            echo "' class='menuImg'><img src='";
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
+            echo "' class='menuImgDown'></h4>
         </div>
 
         <div id=\"sousMenuSupport\" class='sousMenu'>
@@ -130,11 +134,11 @@ class __TwigTemplate_7bab23ae240dab85306e1c8d31f5c1a3814c0a779945c92630bfe20e3d6
 
         <div class=\"sousMessageAcceuil\" id='menuBanqueImages' onclick=\"showSubMenu('#sousMenuBanqueImages', this);\"> 
             <h4> Banques d'images <img src='";
-        // line 64
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
-        echo "' class='menuImg'><img src='";
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
-        echo "' class='menuImgDown'> </h4>
+            // line 65
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
+            echo "' class='menuImg'><img src='";
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
+            echo "' class='menuImgDown'> </h4>
         </div>
 
         <div id=\"sousMenuBanqueImages\" class='sousMenu'>
@@ -154,11 +158,14 @@ class __TwigTemplate_7bab23ae240dab85306e1c8d31f5c1a3814c0a779945c92630bfe20e3d6
         </div>
     </div>
     <!-- Fin Externe -->
-
+    ";
+        }
+        // line 86
+        echo "   
     <!-- Interne -->
     <div class=\"surMessageAcceuil\" id='menuInterne' onclick=\"showSubMenu2('#sousMenuInterne', this);\"> 
         <h4> Interne <img src='";
-        // line 87
+        // line 89
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
         echo "' class='menuImg'><img src='";
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
@@ -166,17 +173,21 @@ class __TwigTemplate_7bab23ae240dab85306e1c8d31f5c1a3814c0a779945c92630bfe20e3d6
     </div>
 
     <div id='sousMenuInterne' class='menu'>
-        <div class=\"sousMessageAcceuil\"> 
+        ";
+        // line 93
+        if (($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()) && $this->env->getExtension('security')->isGranted("ROLE_COMMUNICATION"))) {
+            // line 94
+            echo "        <div class=\"sousMessageAcceuil\"> 
             <h4 onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/trombinoscope', 'Trombinoscope');\"> Trombinoscope </h4>
         </div>
 
         <div class=\"sousMessageAcceuil\" id='menuOrganigrammes' onclick=\"showSubMenu('#sousMenuOrganigrammes', this);\"> 
             <h4> Organigrammes <img src='";
-        // line 96
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
-        echo "' class='menuImg'><img src='";
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
-        echo "' class='menuImgDown'> </h4>
+            // line 99
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
+            echo "' class='menuImg'><img src='";
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
+            echo "' class='menuImgDown'> </h4>
         </div>
 
         <div id=\"sousMenuOrganigrammes\" class='sousMenu'>
@@ -202,40 +213,48 @@ class __TwigTemplate_7bab23ae240dab85306e1c8d31f5c1a3814c0a779945c92630bfe20e3d6
         <div class=\"sousMessageAcceuil\"> 
             <h4 onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/noxNews', 'NoxNews');\"> NoxNews </h4>
         </div>
-
+        
         ";
-        // line 123
+        }
+        // line 127
+        echo "
+        ";
+        // line 128
         if (($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()) && $this->env->getExtension('security')->isGranted("ROLE_CE"))) {
-            // line 124
+            // line 129
             echo "            <div class=\"sousMessageAcceuil\"> 
                 <h4 onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/CE', 'CE');\"> CE </h4>
             </div>
         ";
         }
-        // line 128
+        // line 133
         echo "
         ";
-        // line 129
+        // line 134
         if (($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()) && $this->env->getExtension('security')->isGranted("ROLE_CHSCT"))) {
-            // line 130
+            // line 135
             echo "            <div class=\"sousMessageAcceuil\"> 
                 <h4 onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/CHSCT', 'CHSCT');\"> CHSCT </h4>
             </div>
         ";
         }
-        // line 134
+        // line 139
         echo "
     </div>
     <!-- Fin Interne -->
 
-    <!-- Marketing -->
+    ";
+        // line 143
+        if (($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()) && $this->env->getExtension('security')->isGranted("ROLE_COMMUNICATION"))) {
+            // line 144
+            echo "    <!-- Marketing -->
     <div class=\"surMessageAcceuil\" id='menuMarketing' onclick=\"showSubMenu2('#sousMenuMarketing', this);\"> 
         <h4> Marketing <img src='";
-        // line 140
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
-        echo "' class='menuImg'><img src='";
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
-        echo "' class='menuImgDown'></h4>
+            // line 146
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
+            echo "' class='menuImg'><img src='";
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
+            echo "' class='menuImgDown'></h4>
     </div>
 
     <div id='sousMenuMarketing' class='menu'>
@@ -259,11 +278,11 @@ class __TwigTemplate_7bab23ae240dab85306e1c8d31f5c1a3814c0a779945c92630bfe20e3d6
 
     <div class=\"surMessageAcceuil\" id='menuSI' onclick=\"showSubMenu2('#sousMenuSI', this);\"> 
         <h4> SI <img src='";
-        // line 163
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
-        echo "' class='menuImg'><img src='";
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
-        echo "' class='menuImgDown'></h4>
+            // line 169
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
+            echo "' class='menuImg'><img src='";
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
+            echo "' class='menuImgDown'></h4>
     </div>
 
     <!-- SI -->
@@ -272,13 +291,16 @@ class __TwigTemplate_7bab23ae240dab85306e1c8d31f5c1a3814c0a779945c92630bfe20e3d6
             <h4 onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/newsSI', 'News SI');\"> News SI </h4>
         </div>
     </div>
-    <!-- FIn SI -->
-
+    <!-- Fin SI -->
+    ";
+        }
+        // line 180
+        echo "
 </div>
 
 ";
         
-        $__internal_be4a466a8a5ff273d82315054c7bfe643807baf26f504c64fdb7240daf45dbac->leave($__internal_be4a466a8a5ff273d82315054c7bfe643807baf26f504c64fdb7240daf45dbac_prof);
+        $__internal_be872f34d0f708b06ab1342237b3a777ab8b0ae080a68c73d2339a37742958f4->leave($__internal_be872f34d0f708b06ab1342237b3a777ab8b0ae080a68c73d2339a37742958f4_prof);
 
     }
 
@@ -294,7 +316,7 @@ class __TwigTemplate_7bab23ae240dab85306e1c8d31f5c1a3814c0a779945c92630bfe20e3d6
 
     public function getDebugInfo()
     {
-        return array (  263 => 163,  235 => 140,  227 => 134,  221 => 130,  219 => 129,  216 => 128,  210 => 124,  208 => 123,  176 => 96,  162 => 87,  134 => 64,  85 => 20,  73 => 13,  68 => 10,  62 => 9,  50 => 7,  42 => 4,  36 => 3,  11 => 1,);
+        return array (  298 => 180,  282 => 169,  254 => 146,  250 => 144,  248 => 143,  242 => 139,  236 => 135,  234 => 134,  231 => 133,  225 => 129,  223 => 128,  220 => 127,  187 => 99,  180 => 94,  178 => 93,  169 => 89,  164 => 86,  138 => 65,  89 => 21,  77 => 14,  73 => 12,  71 => 11,  68 => 10,  62 => 9,  50 => 7,  42 => 4,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -306,7 +328,8 @@ class __TwigTemplate_7bab23ae240dab85306e1c8d31f5c1a3814c0a779945c92630bfe20e3d6
 /* {% block messageAccueil %}Administration communication{% endblock %}*/
 /* */
 /* {% block contenu %}*/
-/* */
+/*     */
+/*     {% if app.user and is_granted('ROLE_COMMUNICATION') %}*/
 /*     <!-- Externe -->*/
 /*     <div class="surMessageAcceuil" id='menuExterne' onclick="showSubMenu2('#sousMenuExterne', this);"> */
 /*         <h4> Externe <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>*/
@@ -380,13 +403,15 @@ class __TwigTemplate_7bab23ae240dab85306e1c8d31f5c1a3814c0a779945c92630bfe20e3d6
 /*         </div>*/
 /*     </div>*/
 /*     <!-- Fin Externe -->*/
-/* */
+/*     {% endif %}*/
+/*    */
 /*     <!-- Interne -->*/
 /*     <div class="surMessageAcceuil" id='menuInterne' onclick="showSubMenu2('#sousMenuInterne', this);"> */
 /*         <h4> Interne <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>*/
 /*     </div>*/
 /* */
 /*     <div id='sousMenuInterne' class='menu'>*/
+/*         {% if app.user and is_granted('ROLE_COMMUNICATION') %}*/
 /*         <div class="sousMessageAcceuil"> */
 /*             <h4 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/trombinoscope', 'Trombinoscope');"> Trombinoscope </h4>*/
 /*         </div>*/
@@ -418,6 +443,8 @@ class __TwigTemplate_7bab23ae240dab85306e1c8d31f5c1a3814c0a779945c92630bfe20e3d6
 /*         <div class="sousMessageAcceuil"> */
 /*             <h4 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/noxNews', 'NoxNews');"> NoxNews </h4>*/
 /*         </div>*/
+/*         */
+/*         {% endif %}*/
 /* */
 /*         {% if app.user and is_granted('ROLE_CE') %}*/
 /*             <div class="sousMessageAcceuil"> */
@@ -434,6 +461,7 @@ class __TwigTemplate_7bab23ae240dab85306e1c8d31f5c1a3814c0a779945c92630bfe20e3d6
 /*     </div>*/
 /*     <!-- Fin Interne -->*/
 /* */
+/*     {% if app.user and is_granted('ROLE_COMMUNICATION') %}*/
 /*     <!-- Marketing -->*/
 /*     <div class="surMessageAcceuil" id='menuMarketing' onclick="showSubMenu2('#sousMenuMarketing', this);"> */
 /*         <h4> Marketing <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>*/
@@ -468,7 +496,8 @@ class __TwigTemplate_7bab23ae240dab85306e1c8d31f5c1a3814c0a779945c92630bfe20e3d6
 /*             <h4 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/newsSI', 'News SI');"> News SI </h4>*/
 /*         </div>*/
 /*     </div>*/
-/*     <!-- FIn SI -->*/
+/*     <!-- Fin SI -->*/
+/*     {% endif %}*/
 /* */
 /* </div>*/
 /* */

@@ -7,7 +7,8 @@
 {% block messageAccueil %}Administration communication{% endblock %}
 
 {% block contenu %}
-
+    
+    {% if app.user and is_granted('ROLE_COMMUNICATION') %}
     <!-- Externe -->
     <div class="surMessageAcceuil" id='menuExterne' onclick="showSubMenu2('#sousMenuExterne', this);"> 
         <h4> Externe <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
@@ -81,13 +82,15 @@
         </div>
     </div>
     <!-- Fin Externe -->
-
+    {% endif %}
+   
     <!-- Interne -->
     <div class="surMessageAcceuil" id='menuInterne' onclick="showSubMenu2('#sousMenuInterne', this);"> 
         <h4> Interne <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
     </div>
 
     <div id='sousMenuInterne' class='menu'>
+        {% if app.user and is_granted('ROLE_COMMUNICATION') %}
         <div class="sousMessageAcceuil"> 
             <h4 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/trombinoscope', 'Trombinoscope');"> Trombinoscope </h4>
         </div>
@@ -119,6 +122,8 @@
         <div class="sousMessageAcceuil"> 
             <h4 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/noxNews', 'NoxNews');"> NoxNews </h4>
         </div>
+        
+        {% endif %}
 
         {% if app.user and is_granted('ROLE_CE') %}
             <div class="sousMessageAcceuil"> 
@@ -135,6 +140,7 @@
     </div>
     <!-- Fin Interne -->
 
+    {% if app.user and is_granted('ROLE_COMMUNICATION') %}
     <!-- Marketing -->
     <div class="surMessageAcceuil" id='menuMarketing' onclick="showSubMenu2('#sousMenuMarketing', this);"> 
         <h4> Marketing <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
@@ -169,7 +175,8 @@
             <h4 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/newsSI', 'News SI');"> News SI </h4>
         </div>
     </div>
-    <!-- FIn SI -->
+    <!-- Fin SI -->
+    {% endif %}
 
 </div>
 

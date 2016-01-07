@@ -78,6 +78,7 @@
   'DoctrineBundle:Collector:db.html.twig' => 'C:\\wamp\\www\\Symfony\\vendor\\doctrine\\doctrine-bundle/Resources/views/Collector/db.html.twig',
   'DoctrineBundle:Collector:explain.html.twig' => 'C:\\wamp\\www\\Symfony\\vendor\\doctrine\\doctrine-bundle/Resources/views/Collector/explain.html.twig',
   'NoxIntranetCommunicationBundle:Accueil:accueilCommunication.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\CommunicationBundle/Resources/views/Accueil/accueilCommunication.html.twig',
+  'NoxIntranetCommunicationBundle:Accueil:affichageContenu.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\CommunicationBundle/Resources/views/Accueil/affichageContenu.html.twig',
   'NoxIntranetCommunicationBundle:Externe:communicationExterne.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\CommunicationBundle/Resources/views/Externe/communicationExterne.html.twig',
   'NoxIntranetCommunicationBundle:Interne:communicationInterne.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\CommunicationBundle/Resources/views/Interne/communicationInterne.html.twig',
   'NoxIntranetCommunicationBundle:Marketing:communicationMarketing.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\CommunicationBundle/Resources/views/Marketing/communicationMarketing.html.twig',

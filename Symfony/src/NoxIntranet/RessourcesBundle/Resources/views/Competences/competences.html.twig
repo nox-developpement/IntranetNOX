@@ -73,7 +73,9 @@
             </a>
 
             <ul>
-
+                
+                <li> Nom du fichier : {{ competence['nom'] }} </li>
+                
                 {% for propriete in competence['proprietes'] %}
 
                     {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}

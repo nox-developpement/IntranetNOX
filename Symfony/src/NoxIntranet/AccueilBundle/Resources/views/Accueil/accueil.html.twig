@@ -20,6 +20,8 @@
 
             <ul>
 
+                <li> Nom du fichier : {{ new['nom'] }} </li>
+
                 {% for propriete in new['proprietes'] %}
 
                     {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}

@@ -115,31 +115,48 @@ class __TwigTemplate_569dcd85d8d30f5b877481a4dbc81f622554bd68606383e00ff8f0f1731
     ";
         }
         // line 43
-        echo "
+        echo "    
+    <div id=\"rechercheUser\">
+        <div id=\"rechercheCompetencesDiv\">
+            <form action='";
+        // line 46
+        echo $this->env->getExtension('routing')->getPath("nox_intranet_references_recherche");
+        echo "' type='GET'>
+                <label for=\"keyword\"> Rechercher par mots-clés : </label>
+                <input type=\"text\" name='keyword' id=\"keyword\" />
+                <input type=\"submit\" name=\"Rechercher\" value=\"Rechercher\" class=\"boutonFormulaire\" >
+                <button value=\"Annuler\" class=\"boutonFormulaire\" id=\"boutonAnnuler\" onclick=\"";
+        // line 50
+        echo $this->env->getExtension('routing')->getPath("nox_intranet_references");
+        echo "\"> RAZ </button>
+            </form>
+        </div>
+    </div>
+
     ";
-        // line 44
+        // line 55
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["references"]) ? $context["references"] : null));
         foreach ($context['_seq'] as $context["_key"] => $context["reference"]) {
-            // line 45
+            // line 56
             echo "
         <div class=\"divNews\">
 
             <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/uploads/References/";
-            // line 48
+            // line 59
             echo twig_escape_filter($this->env, $this->getAttribute($context["reference"], "lien", array(), "array"), "html", null, true);
             echo "', 'Références');\">
                 <img 
                     src=\"";
-            // line 50
+            // line 61
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png"), "html", null, true);
             echo "\" alt=\"PDF\" 
                     onmouseover=\"this.src = '";
-            // line 51
+            // line 62
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png"), "html", null, true);
             echo "';\" 
                     onmouseout=\"this.src = '";
-            // line 52
+            // line 63
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png"), "html", null, true);
             echo "';\"
                     >
@@ -147,67 +164,72 @@ class __TwigTemplate_569dcd85d8d30f5b877481a4dbc81f622554bd68606383e00ff8f0f1731
 
             <ul>
 
+                <li> Nom du fichier : ";
+            // line 69
+            echo twig_escape_filter($this->env, $this->getAttribute($context["reference"], "nom", array(), "array"), "html", null, true);
+            echo " </li>
+
                 ";
-            // line 58
+            // line 71
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["reference"], "proprietes", array(), "array"));
             foreach ($context['_seq'] as $context["_key"] => $context["propriete"]) {
-                // line 59
+                // line 72
                 echo "
                     ";
-                // line 60
+                // line 73
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Title")) {
                     echo " <li> Titre : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 61
+                // line 74
                 echo "
                     ";
-                // line 62
+                // line 75
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Author")) {
                     echo " <li> Auteur : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 63
+                // line 76
                 echo "
                     ";
-                // line 64
+                // line 77
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Subject")) {
                     echo " <li> Sujet : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 65
+                // line 78
                 echo "
                     ";
-                // line 66
+                // line 79
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Keywords")) {
                     echo " <li> Mots clés : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 67
+                // line 80
                 echo "
                     ";
-                // line 68
+                // line 81
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Pages")) {
                     echo " <li> Nombre de page(s) : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 69
+                // line 82
                 echo "
                 ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['propriete'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 71
-            echo "                
+            // line 84
+            echo "
                 <li> Posté le : ";
-            // line 72
+            // line 85
             echo twig_escape_filter($this->env, $this->getAttribute($context["reference"], "dateEnvoi", array(), "array"), "html", null, true);
             echo " </li>
 
@@ -220,7 +242,7 @@ class __TwigTemplate_569dcd85d8d30f5b877481a4dbc81f622554bd68606383e00ff8f0f1731
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['reference'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 79
+        // line 92
         echo "
 ";
     }
@@ -237,7 +259,7 @@ class __TwigTemplate_569dcd85d8d30f5b877481a4dbc81f622554bd68606383e00ff8f0f1731
 
     public function getDebugInfo()
     {
-        return array (  224 => 79,  211 => 72,  208 => 71,  201 => 69,  195 => 68,  192 => 67,  186 => 66,  183 => 65,  177 => 64,  174 => 63,  168 => 62,  165 => 61,  159 => 60,  156 => 59,  152 => 58,  143 => 52,  139 => 51,  135 => 50,  130 => 48,  125 => 45,  121 => 44,  118 => 43,  107 => 35,  104 => 34,  101 => 33,  96 => 30,  90 => 27,  85 => 25,  79 => 23,  73 => 20,  68 => 17,  63 => 15,  60 => 14,  58 => 13,  55 => 12,  51 => 11,  48 => 10,  45 => 9,  39 => 7,  34 => 4,  31 => 3,  11 => 1,);
+        return array (  246 => 92,  233 => 85,  230 => 84,  223 => 82,  217 => 81,  214 => 80,  208 => 79,  205 => 78,  199 => 77,  196 => 76,  190 => 75,  187 => 74,  181 => 73,  178 => 72,  174 => 71,  169 => 69,  160 => 63,  156 => 62,  152 => 61,  147 => 59,  142 => 56,  138 => 55,  130 => 50,  123 => 46,  118 => 43,  107 => 35,  104 => 34,  101 => 33,  96 => 30,  90 => 27,  85 => 25,  79 => 23,  73 => 20,  68 => 17,  63 => 15,  60 => 14,  58 => 13,  55 => 12,  51 => 11,  48 => 10,  45 => 9,  39 => 7,  34 => 4,  31 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -282,6 +304,17 @@ class __TwigTemplate_569dcd85d8d30f5b877481a4dbc81f622554bd68606383e00ff8f0f1731
 /*         </div>*/
 /* */
 /*     {% endif %}*/
+/*     */
+/*     <div id="rechercheUser">*/
+/*         <div id="rechercheCompetencesDiv">*/
+/*             <form action='{{ path('nox_intranet_references_recherche') }}' type='GET'>*/
+/*                 <label for="keyword"> Rechercher par mots-clés : </label>*/
+/*                 <input type="text" name='keyword' id="keyword" />*/
+/*                 <input type="submit" name="Rechercher" value="Rechercher" class="boutonFormulaire" >*/
+/*                 <button value="Annuler" class="boutonFormulaire" id="boutonAnnuler" onclick="{{ path('nox_intranet_references') }}"> RAZ </button>*/
+/*             </form>*/
+/*         </div>*/
+/*     </div>*/
 /* */
 /*     {% for reference in references %}*/
 /* */
@@ -297,6 +330,8 @@ class __TwigTemplate_569dcd85d8d30f5b877481a4dbc81f622554bd68606383e00ff8f0f1731
 /* */
 /*             <ul>*/
 /* */
+/*                 <li> Nom du fichier : {{ reference['nom'] }} </li>*/
+/* */
 /*                 {% for propriete in reference['proprietes'] %}*/
 /* */
 /*                     {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}*/
@@ -310,7 +345,7 @@ class __TwigTemplate_569dcd85d8d30f5b877481a4dbc81f622554bd68606383e00ff8f0f1731
 /*                     {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}*/
 /* */
 /*                 {% endfor %}*/
-/*                 */
+/* */
 /*                 <li> Posté le : {{ reference['dateEnvoi'] }} </li>*/
 /* */
 /*             </ul>*/
