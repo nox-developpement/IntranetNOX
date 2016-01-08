@@ -466,9 +466,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                         return array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationController::administrationUserVerifDBMajAction',  '_route' => 'nox_intranet_user_verifupdateDB',);
                     }
 
-                    // nox_intranet_restaurationBDD
-                    if ($pathinfo === '/administration/utilisateurDB/restauration') {
-                        return array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationController::administrationBDDRestaurationAction',  '_route' => 'nox_intranet_restaurationBDD',);
+                    if (0 === strpos($pathinfo, '/administration/utilisateurDB/restauration')) {
+                        // nox_intranet_restaurationBDD
+                        if ($pathinfo === '/administration/utilisateurDB/restauration') {
+                            return array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationController::administrationBDDRestaurationAction',  '_route' => 'nox_intranet_restaurationBDD',);
+                        }
+
+                        // nox_intranet_restaurationBDDConfirmation
+                        if ($pathinfo === '/administration/utilisateurDB/restaurationConfirmation') {
+                            return array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationController::administrationBDDRestaurationConfirmationAction',  '_route' => 'nox_intranet_restaurationBDDConfirmation',);
+                        }
+
                     }
 
                     // nox_intranet_sauvegardeBDD

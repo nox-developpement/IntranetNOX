@@ -101,8 +101,9 @@ class __TwigTemplate_f438993adda8a251a5176bcdf340cc9bb20acfa9fd55daec1ab56d66fc2
             <div class='contenuDemande'>
                 <label for='nomSuperieur'>Nom du supérieur hiérarchique :</label>
                 <input type='text' id='nomSuperieur' name='nomSuperieur' placeholder='Supérieur hiérarchique'>
-                <div> <input type='submit' value='Envoyer' class='boutonFormulaire' width='30%'> </div>
             </div>
+            
+             <p id='demanteMaterielBoutonCentrage'> <input type='submit' value='Envoyer' class='boutonFormulaire'> </p>
 
 
 
@@ -185,8 +186,9 @@ class __TwigTemplate_f438993adda8a251a5176bcdf340cc9bb20acfa9fd55daec1ab56d66fc2
 /*             <div class='contenuDemande'>*/
 /*                 <label for='nomSuperieur'>Nom du supérieur hiérarchique :</label>*/
 /*                 <input type='text' id='nomSuperieur' name='nomSuperieur' placeholder='Supérieur hiérarchique'>*/
-/*                 <div> <input type='submit' value='Envoyer' class='boutonFormulaire' width='30%'> </div>*/
 /*             </div>*/
+/*             */
+/*              <p id='demanteMaterielBoutonCentrage'> <input type='submit' value='Envoyer' class='boutonFormulaire'> </p>*/
 /* */
 /* */
 /* */

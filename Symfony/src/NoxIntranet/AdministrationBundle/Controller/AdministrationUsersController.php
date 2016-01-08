@@ -71,7 +71,7 @@ class AdministrationUsersController extends Controller {
             $nbPages = 1;
             $usersPages = null;
         } else {
-            $nbPages = ceil(sizeof($usersAfficher) / 20);
+            $nbPages = intval(ceil(sizeof($usersAfficher) / 20));
             $usersPages = array_chunk($usersAfficher, 20);
         }
 

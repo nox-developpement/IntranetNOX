@@ -105,6 +105,7 @@
   'NoxIntranetAdministrationBundle:AdministrationNews:testpdf.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\AdministrationBundle/Resources/views/AdministrationNews/testpdf.html.twig',
   'NoxIntranetAdministrationBundle:AdministrationServeurs:administrationserveurs.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\AdministrationBundle/Resources/views/AdministrationServeurs/administrationserveurs.html.twig',
   'NoxIntranetAdministrationBundle:AdministrationUser:administrationUser2.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\AdministrationBundle/Resources/views/AdministrationUser/administrationUser2.html.twig',
+  'NoxIntranetAdministrationBundle:AdministrationUser:sauvegardeSelectionPage.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\AdministrationBundle/Resources/views/AdministrationUser/sauvegardeSelectionPage.html.twig',
   'NoxIntranetUserBundle:Security:ADLogin.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\UserBundle/Resources/views/Security/ADLogin.html.twig',
   'NoxIntranetUserBundle:Security:login.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\UserBundle/Resources/views/Security/login.html.twig',
   'NoxIntranetSupportBundle:Ticket:mestickets.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\SupportBundle/Resources/views/Ticket/mestickets.html.twig',

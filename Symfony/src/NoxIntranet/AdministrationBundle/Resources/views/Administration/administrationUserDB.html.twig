@@ -5,16 +5,45 @@
 {% endblock %}
 
 {% block messageAccueil %}Administration base de données utilisateurs{% endblock %}
-{% block sousMessageAccueil %}Cliquer sur l'icône pour mettre à jour la base de données utilisateurs.{% endblock %}
 
 {% block contenu %}
 
     <div class="iconContener">
 
-        {% if confirmation == true %}
+        {% if confirmation is defined and confirmation == true %}
 
+            <p> Voulez-vous mettre à jours la base de donnée utilisateur ? </p>
+            
             <!-- Confirmer -->
             <a href="{{ path('nox_intranet_user_updateDB') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Confirm-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}';"
+                        > 
+                    <figcaption>Confirmer</figcaption>
+                </figure>
+            </a>
+
+            <!-- Annuler -->
+            <a href="{{ path('nox_intranet_administration_userDB') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Delete-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Delete-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Delete-128.png') }}';"
+                        > 
+                    <figcaption>Annuler</figcaption>
+                </figure>
+            </a>
+
+        {% elseif confirmationRestauration is defined and confirmationRestauration == true %}
+            
+            <p> Voulez-vous restaurer la base de donnée utilisateur ? </p>
+            
+            <!-- Confirmer -->
+            <a href="{{ path('nox_intranet_restaurationBDDConfirmation') }}" class="icon">
                 <figure>
                     <img 
                         src="{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}" 
@@ -79,7 +108,7 @@
 
     </div>
 
-    {% if ajout == true %}
+    {% if ajout is defined and ajout == true %}
 
         {% for output in outputs %}
 

@@ -146,6 +146,11 @@ class AdministrationController extends Controller {
 
     public function administrationBDDRestaurationAction(Request $request) {
 
+        return $this->render('NoxIntranetAdministrationBundle:Administration:administrationUserDB.html.twig', array('ajout' => false, 'confirmationRestauration' => true));
+    }
+    
+    public function administrationBDDRestaurationConfirmationAction(Request $request) {
+
         $output = null;
 
         exec('C:\wamp\www\Symfony\RestaurationBDD.bat', $output);
@@ -156,7 +161,7 @@ class AdministrationController extends Controller {
             $request->getSession()->getFlashBag()->add('notice', "La base de données a été restauré avec succés.");
         }
 
-        return $this->render('NoxIntranetAdministrationBundle:Administration:administrationUserDB.html.twig', array('outputs' => $output, 'ajout' => false, 'confirmation' => false));
+        return $this->redirectToRoute('nox_intranet_administration_userDB');
     }
 
     public function sauvegardeBDDAction(Request $request) {

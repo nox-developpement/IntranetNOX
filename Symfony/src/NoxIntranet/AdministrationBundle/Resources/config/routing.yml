@@ -38,6 +38,10 @@ nox_intranet_restaurationBDD:
     path: /administration/utilisateurDB/restauration
     defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationBDDRestauration }
     
+nox_intranet_restaurationBDDConfirmation:
+    path: /administration/utilisateurDB/restaurationConfirmation
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationBDDRestaurationConfirmation }
+    
 nox_intranet_sauvegardeBDD:
     path: /administration/utilisateurDB/sauvegarde
     defaults: { _controller: NoxIntranetAdministrationBundle:Administration:sauvegardeBDD }

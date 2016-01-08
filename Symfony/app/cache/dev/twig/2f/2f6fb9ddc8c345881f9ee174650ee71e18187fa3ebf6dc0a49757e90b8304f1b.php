@@ -23,44 +23,44 @@ class __TwigTemplate_e6714836f052d968d0d9fda9bc1ec92acdc55668be1ebe3ce6add1ace3a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_4ab0498da6883c01d3c352df99d1282fc846a2f989ea3c84f713b39d60c52deb = $this->env->getExtension("native_profiler");
-        $__internal_4ab0498da6883c01d3c352df99d1282fc846a2f989ea3c84f713b39d60c52deb->enter($__internal_4ab0498da6883c01d3c352df99d1282fc846a2f989ea3c84f713b39d60c52deb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetSupportSIBundle:Support:demandeMateriel.html.twig"));
+        $__internal_c2bc5c67712fcb1591daa2be99d9fec8faa634b9b344124323b712dc682cb6c6 = $this->env->getExtension("native_profiler");
+        $__internal_c2bc5c67712fcb1591daa2be99d9fec8faa634b9b344124323b712dc682cb6c6->enter($__internal_c2bc5c67712fcb1591daa2be99d9fec8faa634b9b344124323b712dc682cb6c6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetSupportSIBundle:Support:demandeMateriel.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_4ab0498da6883c01d3c352df99d1282fc846a2f989ea3c84f713b39d60c52deb->leave($__internal_4ab0498da6883c01d3c352df99d1282fc846a2f989ea3c84f713b39d60c52deb_prof);
+        $__internal_c2bc5c67712fcb1591daa2be99d9fec8faa634b9b344124323b712dc682cb6c6->leave($__internal_c2bc5c67712fcb1591daa2be99d9fec8faa634b9b344124323b712dc682cb6c6_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_59cd5f1789b7b697a0bac35744b70547ef5039c1c3d8a381cc185c4e70b8caf2 = $this->env->getExtension("native_profiler");
-        $__internal_59cd5f1789b7b697a0bac35744b70547ef5039c1c3d8a381cc185c4e70b8caf2->enter($__internal_59cd5f1789b7b697a0bac35744b70547ef5039c1c3d8a381cc185c4e70b8caf2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_b75c94b907b59c6e17bdd4fdec7ac4009df8e7ae20349a8f28d4183d0dbe1393 = $this->env->getExtension("native_profiler");
+        $__internal_b75c94b907b59c6e17bdd4fdec7ac4009df8e7ae20349a8f28d4183d0dbe1393->enter($__internal_b75c94b907b59c6e17bdd4fdec7ac4009df8e7ae20349a8f28d4183d0dbe1393_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Demande de matériel/logiciel ";
         
-        $__internal_59cd5f1789b7b697a0bac35744b70547ef5039c1c3d8a381cc185c4e70b8caf2->leave($__internal_59cd5f1789b7b697a0bac35744b70547ef5039c1c3d8a381cc185c4e70b8caf2_prof);
+        $__internal_b75c94b907b59c6e17bdd4fdec7ac4009df8e7ae20349a8f28d4183d0dbe1393->leave($__internal_b75c94b907b59c6e17bdd4fdec7ac4009df8e7ae20349a8f28d4183d0dbe1393_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_97dc9063ff282894c8a7e15a6aa14475335e058a064f217d11fd93302885d0dd = $this->env->getExtension("native_profiler");
-        $__internal_97dc9063ff282894c8a7e15a6aa14475335e058a064f217d11fd93302885d0dd->enter($__internal_97dc9063ff282894c8a7e15a6aa14475335e058a064f217d11fd93302885d0dd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_2f32359a8cf871bb2fc7d89b1f69bef9540f2d60c2148b84aa9b9f54b3dedb64 = $this->env->getExtension("native_profiler");
+        $__internal_2f32359a8cf871bb2fc7d89b1f69bef9540f2d60c2148b84aa9b9f54b3dedb64->enter($__internal_2f32359a8cf871bb2fc7d89b1f69bef9540f2d60c2148b84aa9b9f54b3dedb64_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo " Demande de matériel/logiciel ";
         
-        $__internal_97dc9063ff282894c8a7e15a6aa14475335e058a064f217d11fd93302885d0dd->leave($__internal_97dc9063ff282894c8a7e15a6aa14475335e058a064f217d11fd93302885d0dd_prof);
+        $__internal_2f32359a8cf871bb2fc7d89b1f69bef9540f2d60c2148b84aa9b9f54b3dedb64->leave($__internal_2f32359a8cf871bb2fc7d89b1f69bef9540f2d60c2148b84aa9b9f54b3dedb64_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_5579738b37d1ab277fe190c9b38be777d42c286fe44c4aaffa8f81d829d4b22e = $this->env->getExtension("native_profiler");
-        $__internal_5579738b37d1ab277fe190c9b38be777d42c286fe44c4aaffa8f81d829d4b22e->enter($__internal_5579738b37d1ab277fe190c9b38be777d42c286fe44c4aaffa8f81d829d4b22e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_319a7e8bcf6c57041f981053769e57db4875405a3a455e5f8ebe9aa254bcc689 = $this->env->getExtension("native_profiler");
+        $__internal_319a7e8bcf6c57041f981053769e57db4875405a3a455e5f8ebe9aa254bcc689->enter($__internal_319a7e8bcf6c57041f981053769e57db4875405a3a455e5f8ebe9aa254bcc689_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -122,8 +122,9 @@ class __TwigTemplate_e6714836f052d968d0d9fda9bc1ec92acdc55668be1ebe3ce6add1ace3a
             <div class='contenuDemande'>
                 <label for='nomSuperieur'>Nom du supérieur hiérarchique :</label>
                 <input type='text' id='nomSuperieur' name='nomSuperieur' placeholder='Supérieur hiérarchique'>
-                <div> <input type='submit' value='Envoyer' class='boutonFormulaire' width='30%'> </div>
             </div>
+            
+             <p id='demanteMaterielBoutonCentrage'> <input type='submit' value='Envoyer' class='boutonFormulaire'> </p>
 
 
 
@@ -133,7 +134,7 @@ class __TwigTemplate_e6714836f052d968d0d9fda9bc1ec92acdc55668be1ebe3ce6add1ace3a
 
 ";
         
-        $__internal_5579738b37d1ab277fe190c9b38be777d42c286fe44c4aaffa8f81d829d4b22e->leave($__internal_5579738b37d1ab277fe190c9b38be777d42c286fe44c4aaffa8f81d829d4b22e_prof);
+        $__internal_319a7e8bcf6c57041f981053769e57db4875405a3a455e5f8ebe9aa254bcc689->leave($__internal_319a7e8bcf6c57041f981053769e57db4875405a3a455e5f8ebe9aa254bcc689_prof);
 
     }
 
@@ -209,8 +210,9 @@ class __TwigTemplate_e6714836f052d968d0d9fda9bc1ec92acdc55668be1ebe3ce6add1ace3a
 /*             <div class='contenuDemande'>*/
 /*                 <label for='nomSuperieur'>Nom du supérieur hiérarchique :</label>*/
 /*                 <input type='text' id='nomSuperieur' name='nomSuperieur' placeholder='Supérieur hiérarchique'>*/
-/*                 <div> <input type='submit' value='Envoyer' class='boutonFormulaire' width='30%'> </div>*/
 /*             </div>*/
+/*             */
+/*              <p id='demanteMaterielBoutonCentrage'> <input type='submit' value='Envoyer' class='boutonFormulaire'> </p>*/
 /* */
 /* */
 /* */

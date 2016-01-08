@@ -19,22 +19,5 @@ $(window).ready(function () {
             $('#textAreaLogiciel').hide();
         }
     });
-    $('#dateLivraison').on('keyup', function () {
-        $('#dateLivraison').val($('#dateLivraison').val().replace(/ /g, ''));
-        if ($('#dateLivraison').val().search(/[a-zA-Z]/) > -1) {
-            $('#dateLivraison').val($('#dateLivraison').val().substring(0, $('#dateLivraison').val().length - 1));
-            alert("Veuillez saisir uniquement des chiffres !");
-        }
-        if ($('#dateLivraison').val().replace(/ /g, '').length === 2) {
-            $('#dateLivraison').val($('#dateLivraison').val() + '/');
-        }
-        if ($('#dateLivraison').val().replace(/ /g, '').length === 5) {
-            $('#dateLivraison').val($('#dateLivraison').val() + '/');
-        }
-        if ($('#dateLivraison').val().replace(/ /g, '').length > 10) {
-            $('#dateLivraison').val($('#dateLivraison').val().substring(0, $('#dateLivraison').val().length - 1));
-            alert("Veuillez saisir une date de format 'jj/mm/aaaa' !");
-        }
-    });
 });
 

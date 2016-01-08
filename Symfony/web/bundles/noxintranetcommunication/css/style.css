@@ -1244,6 +1244,10 @@ divAdministrationUtilisateur {
 
 #pageActuel, #pageActuel:hover, #pageActuel:checked {
     text-decoration: underline;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 #choixPage {
@@ -1414,10 +1418,10 @@ divAdministrationUtilisateur {
     margin-right: 1%;
 }
 
-.contenuDemande div {
-    display: inline-block;
-    width: 48%;
+#demanteMaterielBoutonCentrage {
     text-align: right;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 #newUsers {

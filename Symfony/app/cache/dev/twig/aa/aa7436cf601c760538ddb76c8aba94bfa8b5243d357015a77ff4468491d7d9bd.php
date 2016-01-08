@@ -12,7 +12,6 @@ class __TwigTemplate_9e3ea0d11298d8819506e178e3f6adbc9f5f5f29bb67999ca95bbfccfa9
         $this->blocks = array(
             'titrePage' => array($this, 'block_titrePage'),
             'messageAccueil' => array($this, 'block_messageAccueil'),
-            'sousMessageAccueil' => array($this, 'block_sousMessageAccueil'),
             'contenu' => array($this, 'block_contenu'),
         );
     }
@@ -24,85 +23,75 @@ class __TwigTemplate_9e3ea0d11298d8819506e178e3f6adbc9f5f5f29bb67999ca95bbfccfa9
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_294a4312ad1a2eb19a286dffe245308a1e287ed42b22a53b9f187e43da8d7fce = $this->env->getExtension("native_profiler");
-        $__internal_294a4312ad1a2eb19a286dffe245308a1e287ed42b22a53b9f187e43da8d7fce->enter($__internal_294a4312ad1a2eb19a286dffe245308a1e287ed42b22a53b9f187e43da8d7fce_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:Administration:administrationUserDB.html.twig"));
+        $__internal_57ccf982504545c26b95ce3953fbdf96dbb4b2071d21463bfc0fe63eaee51395 = $this->env->getExtension("native_profiler");
+        $__internal_57ccf982504545c26b95ce3953fbdf96dbb4b2071d21463bfc0fe63eaee51395->enter($__internal_57ccf982504545c26b95ce3953fbdf96dbb4b2071d21463bfc0fe63eaee51395_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:Administration:administrationUserDB.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_294a4312ad1a2eb19a286dffe245308a1e287ed42b22a53b9f187e43da8d7fce->leave($__internal_294a4312ad1a2eb19a286dffe245308a1e287ed42b22a53b9f187e43da8d7fce_prof);
+        $__internal_57ccf982504545c26b95ce3953fbdf96dbb4b2071d21463bfc0fe63eaee51395->leave($__internal_57ccf982504545c26b95ce3953fbdf96dbb4b2071d21463bfc0fe63eaee51395_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_04999638b513717d30c115946386d6eab45616fc00c930b4a765b594312dbf28 = $this->env->getExtension("native_profiler");
-        $__internal_04999638b513717d30c115946386d6eab45616fc00c930b4a765b594312dbf28->enter($__internal_04999638b513717d30c115946386d6eab45616fc00c930b4a765b594312dbf28_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_7b49d8c5e5d04f980b35ee5cff463677c061e2527e969cee32c0404ed5bf5f4d = $this->env->getExtension("native_profiler");
+        $__internal_7b49d8c5e5d04f980b35ee5cff463677c061e2527e969cee32c0404ed5bf5f4d->enter($__internal_7b49d8c5e5d04f980b35ee5cff463677c061e2527e969cee32c0404ed5bf5f4d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         // line 4
         echo "    Administration DB
 ";
         
-        $__internal_04999638b513717d30c115946386d6eab45616fc00c930b4a765b594312dbf28->leave($__internal_04999638b513717d30c115946386d6eab45616fc00c930b4a765b594312dbf28_prof);
+        $__internal_7b49d8c5e5d04f980b35ee5cff463677c061e2527e969cee32c0404ed5bf5f4d->leave($__internal_7b49d8c5e5d04f980b35ee5cff463677c061e2527e969cee32c0404ed5bf5f4d_prof);
 
     }
 
     // line 7
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_b4fefb6cc6c43cf172322f715beafb7f0e93a752112c2ebee4f2b0d1045c36cf = $this->env->getExtension("native_profiler");
-        $__internal_b4fefb6cc6c43cf172322f715beafb7f0e93a752112c2ebee4f2b0d1045c36cf->enter($__internal_b4fefb6cc6c43cf172322f715beafb7f0e93a752112c2ebee4f2b0d1045c36cf_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_5422814897a6d787a3aa149fac3bbd7fbe54ea8aa980e4f0f0315d9db7e250b8 = $this->env->getExtension("native_profiler");
+        $__internal_5422814897a6d787a3aa149fac3bbd7fbe54ea8aa980e4f0f0315d9db7e250b8->enter($__internal_5422814897a6d787a3aa149fac3bbd7fbe54ea8aa980e4f0f0315d9db7e250b8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Administration base de données utilisateurs";
         
-        $__internal_b4fefb6cc6c43cf172322f715beafb7f0e93a752112c2ebee4f2b0d1045c36cf->leave($__internal_b4fefb6cc6c43cf172322f715beafb7f0e93a752112c2ebee4f2b0d1045c36cf_prof);
+        $__internal_5422814897a6d787a3aa149fac3bbd7fbe54ea8aa980e4f0f0315d9db7e250b8->leave($__internal_5422814897a6d787a3aa149fac3bbd7fbe54ea8aa980e4f0f0315d9db7e250b8_prof);
 
     }
 
-    // line 8
-    public function block_sousMessageAccueil($context, array $blocks = array())
-    {
-        $__internal_10dc3cdec3eaab0e3fb047a8543e4fb9b4b13811996211c0e36f0afda6910115 = $this->env->getExtension("native_profiler");
-        $__internal_10dc3cdec3eaab0e3fb047a8543e4fb9b4b13811996211c0e36f0afda6910115->enter($__internal_10dc3cdec3eaab0e3fb047a8543e4fb9b4b13811996211c0e36f0afda6910115_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
-
-        echo "Cliquer sur l'icône pour mettre à jour la base de données utilisateurs.";
-        
-        $__internal_10dc3cdec3eaab0e3fb047a8543e4fb9b4b13811996211c0e36f0afda6910115->leave($__internal_10dc3cdec3eaab0e3fb047a8543e4fb9b4b13811996211c0e36f0afda6910115_prof);
-
-    }
-
-    // line 10
+    // line 9
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_0b9b7c8d9c199f8a527843a16ff991776af787ae70521dc26390cfe35f6b03e7 = $this->env->getExtension("native_profiler");
-        $__internal_0b9b7c8d9c199f8a527843a16ff991776af787ae70521dc26390cfe35f6b03e7->enter($__internal_0b9b7c8d9c199f8a527843a16ff991776af787ae70521dc26390cfe35f6b03e7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_297eabab1e34886d609df6547ef24817c9f8558d42d3bb465b44051a1341d621 = $this->env->getExtension("native_profiler");
+        $__internal_297eabab1e34886d609df6547ef24817c9f8558d42d3bb465b44051a1341d621->enter($__internal_297eabab1e34886d609df6547ef24817c9f8558d42d3bb465b44051a1341d621_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
-        // line 11
+        // line 10
         echo "
     <div class=\"iconContener\">
 
         ";
-        // line 14
-        if (((isset($context["confirmation"]) ? $context["confirmation"] : $this->getContext($context, "confirmation")) == true)) {
-            // line 15
+        // line 13
+        if ((array_key_exists("confirmation", $context) && ((isset($context["confirmation"]) ? $context["confirmation"] : $this->getContext($context, "confirmation")) == true))) {
+            // line 14
             echo "
+            <p> Voulez-vous mettre à jours la base de donnée utilisateur ? </p>
+            
             <!-- Confirmer -->
             <a href=\"";
-            // line 17
+            // line 18
             echo $this->env->getExtension('routing')->getPath("nox_intranet_user_updateDB");
             echo "\" class=\"icon\">
                 <figure>
                     <img 
                         src=\"";
-            // line 20
+            // line 21
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Confirm-128.png"), "html", null, true);
             echo "\" 
                         onmouseover=\"this.src = '";
-            // line 21
+            // line 22
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Confirm-128-hover.png"), "html", null, true);
             echo "';\" 
                         onmouseout=\"this.src = '";
-            // line 22
+            // line 23
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Confirm-128.png"), "html", null, true);
             echo "';\"
                         > 
@@ -112,21 +101,76 @@ class __TwigTemplate_9e3ea0d11298d8819506e178e3f6adbc9f5f5f29bb67999ca95bbfccfa9
 
             <!-- Annuler -->
             <a href=\"";
-            // line 29
+            // line 30
             echo $this->env->getExtension('routing')->getPath("nox_intranet_administration_userDB");
             echo "\" class=\"icon\">
                 <figure>
                     <img 
                         src=\"";
-            // line 32
+            // line 33
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Delete-128.png"), "html", null, true);
             echo "\" 
                         onmouseover=\"this.src = '";
-            // line 33
+            // line 34
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Delete-128-hover.png"), "html", null, true);
             echo "';\" 
                         onmouseout=\"this.src = '";
-            // line 34
+            // line 35
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Delete-128.png"), "html", null, true);
+            echo "';\"
+                        > 
+                    <figcaption>Annuler</figcaption>
+                </figure>
+            </a>
+
+        ";
+        } elseif ((        // line 41
+array_key_exists("confirmationRestauration", $context) && ((isset($context["confirmationRestauration"]) ? $context["confirmationRestauration"] : $this->getContext($context, "confirmationRestauration")) == true))) {
+            // line 42
+            echo "            
+            <p> Voulez-vous restaurer la base de donnée utilisateur ? </p>
+            
+            <!-- Confirmer -->
+            <a href=\"";
+            // line 46
+            echo $this->env->getExtension('routing')->getPath("nox_intranet_restaurationBDDConfirmation");
+            echo "\" class=\"icon\">
+                <figure>
+                    <img 
+                        src=\"";
+            // line 49
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Confirm-128.png"), "html", null, true);
+            echo "\" 
+                        onmouseover=\"this.src = '";
+            // line 50
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Confirm-128-hover.png"), "html", null, true);
+            echo "';\" 
+                        onmouseout=\"this.src = '";
+            // line 51
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Confirm-128.png"), "html", null, true);
+            echo "';\"
+                        > 
+                    <figcaption>Confirmer</figcaption>
+                </figure>
+            </a>
+
+            <!-- Annuler -->
+            <a href=\"";
+            // line 58
+            echo $this->env->getExtension('routing')->getPath("nox_intranet_administration_userDB");
+            echo "\" class=\"icon\">
+                <figure>
+                    <img 
+                        src=\"";
+            // line 61
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Delete-128.png"), "html", null, true);
+            echo "\" 
+                        onmouseover=\"this.src = '";
+            // line 62
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Delete-128-hover.png"), "html", null, true);
+            echo "';\" 
+                        onmouseout=\"this.src = '";
+            // line 63
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Delete-128.png"), "html", null, true);
             echo "';\"
                         > 
@@ -136,25 +180,25 @@ class __TwigTemplate_9e3ea0d11298d8819506e178e3f6adbc9f5f5f29bb67999ca95bbfccfa9
 
         ";
         } else {
-            // line 41
+            // line 70
             echo "
             <!-- Mise à jour base de données utilisateurs -->
             <a href=\"";
-            // line 43
+            // line 72
             echo $this->env->getExtension('routing')->getPath("nox_intranet_user_verifupdateDB");
             echo "\" class=\"icon\">
                 <figure>
                     <img 
                         src=\"";
-            // line 46
+            // line 75
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Data-Refresh-128.png"), "html", null, true);
             echo "\" 
                         onmouseover=\"this.src = '";
-            // line 47
+            // line 76
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Data-Refresh-128-hover.png"), "html", null, true);
             echo "';\" 
                         onmouseout=\"this.src = '";
-            // line 48
+            // line 77
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Data-Refresh-128.png"), "html", null, true);
             echo "';\"
                         > 
@@ -164,21 +208,21 @@ class __TwigTemplate_9e3ea0d11298d8819506e178e3f6adbc9f5f5f29bb67999ca95bbfccfa9
 
             <!-- Restauration des bases de données -->
             <a href=\"";
-            // line 55
+            // line 84
             echo $this->env->getExtension('routing')->getPath("nox_intranet_restaurationBDD");
             echo "\" class=\"icon\">
                 <figure>
                     <img 
                         src=\"";
-            // line 58
+            // line 87
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Data-Find-128.png"), "html", null, true);
             echo "\" 
                         onmouseover=\"this.src = '";
-            // line 59
+            // line 88
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Data-Find-128-hover.png"), "html", null, true);
             echo "';\" 
                         onmouseout=\"this.src = '";
-            // line 60
+            // line 89
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Data-Find-128.png"), "html", null, true);
             echo "';\"
                         > 
@@ -188,21 +232,21 @@ class __TwigTemplate_9e3ea0d11298d8819506e178e3f6adbc9f5f5f29bb67999ca95bbfccfa9
 
             <!-- Sauvegarde des bases de données -->
             <a href=\"";
-            // line 67
+            // line 96
             echo $this->env->getExtension('routing')->getPath("nox_intranet_sauvegardeBDD");
             echo "\" class=\"icon\">
                 <figure>
                     <img 
                         src=\"";
-            // line 70
+            // line 99
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Data-Copy-128.png"), "html", null, true);
             echo "\" 
                         onmouseover=\"this.src = '";
-            // line 71
+            // line 100
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Data-Copy-128-hover.png"), "html", null, true);
             echo "';\" 
                         onmouseout=\"this.src = '";
-            // line 72
+            // line 101
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Data-Copy-128.png"), "html", null, true);
             echo "';\"
                         > 
@@ -212,24 +256,24 @@ class __TwigTemplate_9e3ea0d11298d8819506e178e3f6adbc9f5f5f29bb67999ca95bbfccfa9
 
         ";
         }
-        // line 79
+        // line 108
         echo "
     </div>
 
     ";
-        // line 82
-        if (((isset($context["ajout"]) ? $context["ajout"] : $this->getContext($context, "ajout")) == true)) {
-            // line 83
+        // line 111
+        if ((array_key_exists("ajout", $context) && ((isset($context["ajout"]) ? $context["ajout"] : $this->getContext($context, "ajout")) == true))) {
+            // line 112
             echo "
         ";
-            // line 84
+            // line 113
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["outputs"]) ? $context["outputs"] : $this->getContext($context, "outputs")));
             foreach ($context['_seq'] as $context["_key"] => $context["output"]) {
-                // line 85
+                // line 114
                 echo "
             ";
-                // line 86
+                // line 115
                 echo $context["output"];
                 echo " 
 
@@ -238,16 +282,16 @@ class __TwigTemplate_9e3ea0d11298d8819506e178e3f6adbc9f5f5f29bb67999ca95bbfccfa9
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['output'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 89
+            // line 118
             echo "
     ";
         }
-        // line 91
+        // line 120
         echo "
 
 ";
         
-        $__internal_0b9b7c8d9c199f8a527843a16ff991776af787ae70521dc26390cfe35f6b03e7->leave($__internal_0b9b7c8d9c199f8a527843a16ff991776af787ae70521dc26390cfe35f6b03e7_prof);
+        $__internal_297eabab1e34886d609df6547ef24817c9f8558d42d3bb465b44051a1341d621->leave($__internal_297eabab1e34886d609df6547ef24817c9f8558d42d3bb465b44051a1341d621_prof);
 
     }
 
@@ -263,7 +307,7 @@ class __TwigTemplate_9e3ea0d11298d8819506e178e3f6adbc9f5f5f29bb67999ca95bbfccfa9
 
     public function getDebugInfo()
     {
-        return array (  246 => 91,  242 => 89,  233 => 86,  230 => 85,  226 => 84,  223 => 83,  221 => 82,  216 => 79,  206 => 72,  202 => 71,  198 => 70,  192 => 67,  182 => 60,  178 => 59,  174 => 58,  168 => 55,  158 => 48,  154 => 47,  150 => 46,  144 => 43,  140 => 41,  130 => 34,  126 => 33,  122 => 32,  116 => 29,  106 => 22,  102 => 21,  98 => 20,  92 => 17,  88 => 15,  86 => 14,  81 => 11,  75 => 10,  63 => 8,  51 => 7,  43 => 4,  37 => 3,  11 => 1,);
+        return array (  290 => 120,  286 => 118,  277 => 115,  274 => 114,  270 => 113,  267 => 112,  265 => 111,  260 => 108,  250 => 101,  246 => 100,  242 => 99,  236 => 96,  226 => 89,  222 => 88,  218 => 87,  212 => 84,  202 => 77,  198 => 76,  194 => 75,  188 => 72,  184 => 70,  174 => 63,  170 => 62,  166 => 61,  160 => 58,  150 => 51,  146 => 50,  142 => 49,  136 => 46,  130 => 42,  128 => 41,  119 => 35,  115 => 34,  111 => 33,  105 => 30,  95 => 23,  91 => 22,  87 => 21,  81 => 18,  75 => 14,  73 => 13,  68 => 10,  62 => 9,  50 => 7,  42 => 4,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -273,16 +317,45 @@ class __TwigTemplate_9e3ea0d11298d8819506e178e3f6adbc9f5f5f29bb67999ca95bbfccfa9
 /* {% endblock %}*/
 /* */
 /* {% block messageAccueil %}Administration base de données utilisateurs{% endblock %}*/
-/* {% block sousMessageAccueil %}Cliquer sur l'icône pour mettre à jour la base de données utilisateurs.{% endblock %}*/
 /* */
 /* {% block contenu %}*/
 /* */
 /*     <div class="iconContener">*/
 /* */
-/*         {% if confirmation == true %}*/
+/*         {% if confirmation is defined and confirmation == true %}*/
 /* */
+/*             <p> Voulez-vous mettre à jours la base de donnée utilisateur ? </p>*/
+/*             */
 /*             <!-- Confirmer -->*/
 /*             <a href="{{ path('nox_intranet_user_updateDB') }}" class="icon">*/
+/*                 <figure>*/
+/*                     <img */
+/*                         src="{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}" */
+/*                         onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Confirm-128-hover.png') }}';" */
+/*                         onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}';"*/
+/*                         > */
+/*                     <figcaption>Confirmer</figcaption>*/
+/*                 </figure>*/
+/*             </a>*/
+/* */
+/*             <!-- Annuler -->*/
+/*             <a href="{{ path('nox_intranet_administration_userDB') }}" class="icon">*/
+/*                 <figure>*/
+/*                     <img */
+/*                         src="{{ asset('bundles/noxintranetadministration/images/Delete-128.png') }}" */
+/*                         onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Delete-128-hover.png') }}';" */
+/*                         onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Delete-128.png') }}';"*/
+/*                         > */
+/*                     <figcaption>Annuler</figcaption>*/
+/*                 </figure>*/
+/*             </a>*/
+/* */
+/*         {% elseif confirmationRestauration is defined and confirmationRestauration == true %}*/
+/*             */
+/*             <p> Voulez-vous restaurer la base de donnée utilisateur ? </p>*/
+/*             */
+/*             <!-- Confirmer -->*/
+/*             <a href="{{ path('nox_intranet_restaurationBDDConfirmation') }}" class="icon">*/
 /*                 <figure>*/
 /*                     <img */
 /*                         src="{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}" */
@@ -347,7 +420,7 @@ class __TwigTemplate_9e3ea0d11298d8819506e178e3f6adbc9f5f5f29bb67999ca95bbfccfa9
 /* */
 /*     </div>*/
 /* */
-/*     {% if ajout == true %}*/
+/*     {% if ajout is defined and ajout == true %}*/
 /* */
 /*         {% for output in outputs %}*/
 /* */
