@@ -3,14 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/CommunicationBundle/Resources/config/routing.yml</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/Controller/RessourcesController.php</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/Resources/views/Competences/competences.html.twig</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/CommunicationBundle/Controller/CommunicationController.php</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/Resources/config/routing.yml</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/Resources/views/References/References.html.twig</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/AccueilBundle/Controller/AccueilController.php</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/CommunicationBundle/Resources/public/css/style.css</file>
+            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/SupportSIBundle/Resources/views/Support/demandeMateriel.html.twig</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/AccueilBundle/Resources/views/Accueil/accueil.html.twig</file>
         </group>
     </open-files>

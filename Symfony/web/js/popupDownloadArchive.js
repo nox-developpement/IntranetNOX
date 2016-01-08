@@ -29,7 +29,7 @@ Executer le fichier pour ajouter le lecteur au poste de travail.  \n\
 function popupDownloadServeurDeconnexion() {
     $('.flashbagErreur').remove();
     $('#contenu').prepend("<p class = 'flashbagErreur' >\n\
-Executer le fichier pour supprimer le lecteur du poste de travail. \n\
+Executer le fichier pour supprimer le lecteur de votre poste de travail. \n\
 </p>");
 }
 

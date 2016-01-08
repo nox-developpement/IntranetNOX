@@ -3,6 +3,7 @@
 {% block titrePage %} Accueil {% endblock %}
 
 {% block messageAccueil %}Bienvenue {% if app.user != null %} {{ app.user.firstname }} {{ app.user.lastname }} {% endif %}{% endblock %}
+{% block sousMessageAccueil %}Les dernières news{% endblock %}
 
 {% block contenu %}
 

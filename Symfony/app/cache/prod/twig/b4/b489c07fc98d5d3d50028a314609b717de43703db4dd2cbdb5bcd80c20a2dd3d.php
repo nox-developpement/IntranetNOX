@@ -12,6 +12,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
         $this->blocks = array(
             'titrePage' => array($this, 'block_titrePage'),
             'messageAccueil' => array($this, 'block_messageAccueil'),
+            'sousMessageAccueil' => array($this, 'block_sousMessageAccueil'),
             'contenu' => array($this, 'block_contenu'),
         );
     }
@@ -45,35 +46,41 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
         }
     }
 
-    // line 7
+    // line 6
+    public function block_sousMessageAccueil($context, array $blocks = array())
+    {
+        echo "Les dernières news";
+    }
+
+    // line 8
     public function block_contenu($context, array $blocks = array())
     {
-        // line 8
+        // line 9
         echo "
     ";
-        // line 9
+        // line 10
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["news"]) ? $context["news"] : null));
         foreach ($context['_seq'] as $context["_key"] => $context["new"]) {
-            // line 10
+            // line 11
             echo "
         <div class=\"divNews\">
 
             <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
-            // line 13
+            // line 14
             echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "lien", array(), "array"), "html", null, true);
             echo "', 'News SI');\">
                 <img 
                     src=\"";
-            // line 15
+            // line 16
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png"), "html", null, true);
             echo "\" alt=\"PDF\" 
                     onmouseover=\"this.src = '";
-            // line 16
+            // line 17
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png"), "html", null, true);
             echo "';\" 
                     onmouseout=\"this.src = '";
-            // line 17
+            // line 18
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png"), "html", null, true);
             echo "';\"
                     >
@@ -82,71 +89,71 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             <ul>
 
                 <li> Nom du fichier : ";
-            // line 23
+            // line 24
             echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "nom", array(), "array"), "html", null, true);
             echo " </li>
 
                 ";
-            // line 25
+            // line 26
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["new"], "proprietes", array(), "array"));
             foreach ($context['_seq'] as $context["_key"] => $context["propriete"]) {
-                // line 26
+                // line 27
                 echo "
                     ";
-                // line 27
+                // line 28
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Title")) {
                     echo " <li> Titre : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 28
+                // line 29
                 echo "
                     ";
-                // line 29
+                // line 30
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Author")) {
                     echo " <li> Auteur : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 30
+                // line 31
                 echo "
                     ";
-                // line 31
+                // line 32
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Subject")) {
                     echo " <li> Sujet : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 32
+                // line 33
                 echo "
                     ";
-                // line 33
+                // line 34
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Keywords")) {
                     echo " <li> Mots clés : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 34
+                // line 35
                 echo "
                     ";
-                // line 35
+                // line 36
                 if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Pages")) {
                     echo " <li> Nombre de page(s) : ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
                     echo " </li> ";
                 }
-                // line 36
+                // line 37
                 echo "
                 ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['propriete'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 38
+            // line 39
             echo "
                 <li> Posté le : ";
-            // line 39
+            // line 40
             echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "dateEnvoi", array(), "array"), "html", null, true);
             echo " </li>
 
@@ -159,7 +166,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['new'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 46
+        // line 47
         echo "
 ";
     }
@@ -176,7 +183,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 
     public function getDebugInfo()
     {
-        return array (  163 => 46,  150 => 39,  147 => 38,  140 => 36,  134 => 35,  131 => 34,  125 => 33,  122 => 32,  116 => 31,  113 => 30,  107 => 29,  104 => 28,  98 => 27,  95 => 26,  91 => 25,  86 => 23,  77 => 17,  73 => 16,  69 => 15,  64 => 13,  59 => 10,  55 => 9,  52 => 8,  49 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  170 => 47,  157 => 40,  154 => 39,  147 => 37,  141 => 36,  138 => 35,  132 => 34,  129 => 33,  123 => 32,  120 => 31,  114 => 30,  111 => 29,  105 => 28,  102 => 27,  98 => 26,  93 => 24,  84 => 18,  80 => 17,  76 => 16,  71 => 14,  66 => 11,  62 => 10,  59 => 9,  56 => 8,  50 => 6,  37 => 5,  31 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -184,6 +191,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /* {% block titrePage %} Accueil {% endblock %}*/
 /* */
 /* {% block messageAccueil %}Bienvenue {% if app.user != null %} {{ app.user.firstname }} {{ app.user.lastname }} {% endif %}{% endblock %}*/
+/* {% block sousMessageAccueil %}Les dernières news{% endblock %}*/
 /* */
 /* {% block contenu %}*/
 /* */

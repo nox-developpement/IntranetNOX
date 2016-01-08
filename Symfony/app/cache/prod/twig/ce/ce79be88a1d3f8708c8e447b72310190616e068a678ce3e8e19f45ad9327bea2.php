@@ -94,7 +94,7 @@ class __TwigTemplate_f438993adda8a251a5176bcdf340cc9bb20acfa9fd55daec1ab56d66fc2
             </div>
 
             <div class='contenuDemande' id='raisonDemande'>
-                <label for='dateLivraison'>Date de livraison désiré : </label>
+                <label for='dateLivraison'>Date désirée : </label>
                 <input type=\"text\" name=\"dateLivraison\" id='dateLivraison' placeholder='jj/mm/aaaa'> <button type='button' class='boutonFormulaire' id='razDate' onclick=\"\$('#dateLivraison').val('');\">RAZ</button>
             </div>
 
@@ -179,7 +179,7 @@ class __TwigTemplate_f438993adda8a251a5176bcdf340cc9bb20acfa9fd55daec1ab56d66fc2
 /*             </div>*/
 /* */
 /*             <div class='contenuDemande' id='raisonDemande'>*/
-/*                 <label for='dateLivraison'>Date de livraison désiré : </label>*/
+/*                 <label for='dateLivraison'>Date désirée : </label>*/
 /*                 <input type="text" name="dateLivraison" id='dateLivraison' placeholder='jj/mm/aaaa'> <button type='button' class='boutonFormulaire' id='razDate' onclick="$('#dateLivraison').val('');">RAZ</button>*/
 /*             </div>*/
 /* */

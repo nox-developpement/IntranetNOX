@@ -121,6 +121,10 @@ $wgDiff3 = "";
 
 # The following permissions were set based on your choice in the installer
 $wgGroupPermissions['*']['edit'] = false;
+$wgGroupPermissions['user']['edit']	= false;
+$wgGroupPermissions['bureaucrat']['edit']	= false;
+$wgGroupPermissions['sysop']['edit']	= true;
+$wgGroupPermissions['publicateur']['edit']	= true;
 
 ## Default skin: you can change the default skin. Use the internal symbolic
 ## names, ie 'vector', 'monobook':

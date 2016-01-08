@@ -211,7 +211,7 @@ class __TwigTemplate_a4e4a4927ac5113323cf6af21cdf60a25081a99a5992f472af71158c2b6
             <!-- Archives -->
             <a href=\"";
             // line 97
-            echo $this->env->getExtension('routing')->getPath("nox_intranet_administration_archives");
+            echo $this->env->getExtension('routing')->getPath("nox_intranet_archives");
             echo "\" class=\"icon\">
                 <figure>
                     <img 
@@ -717,7 +717,7 @@ class __TwigTemplate_a4e4a4927ac5113323cf6af21cdf60a25081a99a5992f472af71158c2b6
 /*             </div>*/
 /* */
 /*             <!-- Archives -->*/
-/*             <a href="{{ path('nox_intranet_administration_archives') }}" class="icon">*/
+/*             <a href="{{ path('nox_intranet_archives') }}" class="icon">*/
 /*                 <figure>*/
 /*                     <img */
 /*                         src="{{ asset('bundles/noxintranetadministration/images/Archive-128.png') }}" */

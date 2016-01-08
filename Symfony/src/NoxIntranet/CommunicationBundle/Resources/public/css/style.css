@@ -921,10 +921,6 @@ divAdministrationUtilisateur {
 
 }
 
-#divAdministrationAdmin {
-    height: 100%;
-}
-
 #divAdministrationAdmin table {
     width: 65%;
     margin: auto; 

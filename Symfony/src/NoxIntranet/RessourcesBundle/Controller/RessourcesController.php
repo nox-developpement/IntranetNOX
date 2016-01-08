@@ -28,20 +28,77 @@ class RessourcesController extends Controller {
         return $this->redirect('http://' . $adresseCourante . '/Symfony/web/support/kb/index.php');
     }
 
+    function getDirContents($dir, &$results = array()) {
+        $files = scandir($dir);
+
+        foreach ($files as $key => $value) {
+            $path = realpath($dir . DIRECTORY_SEPARATOR . $value);
+            if (!is_dir($path)) {
+                $results[] = $path;
+            } else if ($value != "." && $value != ".." && $value != ".quarantine" && $value != ".tmb") {
+                $this->getDirContents($path, $results);
+                $results[] = $path;
+            }
+        }
+
+        return $results;
+    }
+
     public function archivesAction(Request $request) {
 
+//        $em = $this->getDoctrine()->getManager();
+//
+//        $textEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Archives');
+//
+//        if ($textEncart == null) {
+//            $textEncart = new texteEncart();
+//            $textEncart->setSection('Archives');
+//            $em->persist($textEncart);
+//            $em->flush();
+//        }
+//
+//        $formBuilder = $this->get('form.factory')->createBuilder('form', $textEncart);
+//
+//        $formBuilder
+//                ->add('text', 'ckeditor')
+//                ->add('modifier', 'submit')
+//        ;
+//
+//        $form = $formBuilder->getForm();
+//
+//        $form->handleRequest($request);
+//
+//        // On vérifie que les valeurs entrées sont correctes
+//        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+//        if ($form->isValid()) {
+//            // On l'enregistre notre objet $advert dans la base de données, par exemple
+//
+//            $em->persist($textEncart);
+//            $em->flush();
+//
+//            // On redirige vers la page de visualisation de l'annonce nouvellement créée
+//            return $this->redirectToRoute('nox_intranet_archives');
+//        }
+//
+//        $textEncartAffichage = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Archives');
+//        $text = $textEncartAffichage->getText();
+//
+//        $archives = $em->getRepository('NoxIntranetRessourcesBundle:Archive')->findBy(array(), array('agence' => 'ASC'));
+//
+//        return $this->render('NoxIntranetRessourcesBundle:Archives:archives.html.twig', array('archives' => $archives, 'text' => $text, 'formulaire' => $form->createView()));
+        
         $em = $this->getDoctrine()->getManager();
 
-        $textEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Archives');
+        $texteEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Archives');
 
-        if ($textEncart == null) {
-            $textEncart = new texteEncart();
-            $textEncart->setSection('Archives');
-            $em->persist($textEncart);
+        if ($texteEncart == null) {
+            $texteEncart = new texteEncart();
+            $texteEncart->setSection('Archives');
+            $em->persist($texteEncart);
             $em->flush();
         }
 
-        $formBuilder = $this->get('form.factory')->createBuilder('form', $textEncart);
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $texteEncart);
 
         $formBuilder
                 ->add('text', 'ckeditor')
@@ -57,19 +114,16 @@ class RessourcesController extends Controller {
         if ($form->isValid()) {
             // On l'enregistre notre objet $advert dans la base de données, par exemple
 
-            $em->persist($textEncart);
+            $em->persist($texteEncart);
             $em->flush();
 
             // On redirige vers la page de visualisation de l'annonce nouvellement créée
             return $this->redirectToRoute('nox_intranet_archives');
         }
 
-        $textEncartAffichage = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Archives');
-        $text = $textEncartAffichage->getText();
+        $texte = $texteEncart->getText();
 
-        $archives = $em->getRepository('NoxIntranetRessourcesBundle:Archive')->findBy(array(), array('agence' => 'ASC'));
-
-        return $this->render('NoxIntranetRessourcesBundle:Archives:archives.html.twig', array('archives' => $archives, 'text' => $text, 'formulaire' => $form->createView()));
+        return $this->render('NoxIntranetRessourcesBundle:Archives:archives.html.twig', array('texte' => $texte, 'formulaire' => $form->createView()));
     }
 
     public function referencesAction(Request $request) {
@@ -115,43 +169,45 @@ class RessourcesController extends Controller {
 
         $dir = 'C:/wamp/www/Symfony/web/uploads/References';
 
-        $files = scandir($dir, SCANDIR_SORT_DESCENDING);
+        $files = $this->getDirContents($dir);
 
-        foreach ($files as $file) {
+        if ($files != null) {
+            foreach ($files as $file) {
+                if (!is_dir($file)) {
+                    $propriete = null;
 
-            $propriete = null;
+                    $pdf = $parser->parseFile($file);
+                    $details = $pdf->getDetails();
 
-            if ($file != '.' && $file != '..' && $file != '.quarantine' && $file != '.tmb') {
-                $chemin = $dir . "/" . $file;
-                $pdf = $parser->parseFile($chemin);
-                $details = $pdf->getDetails();
+                    foreach ($details as $property => $value) {
 
-                foreach ($details as $property => $value) {
+                        if (is_array($value)) {
+                            $value = implode(', ', $value);
+                        }
 
-                    if (is_array($value)) {
-                        $value = implode(', ', $value);
+                        $propriete[] = array('label' => $property, 'valeur' => $value);
                     }
 
-                    $propriete[] = array('label' => $property, 'valeur' => $value);
+                    $dateModification = date("Y/m/d H:i:s", filemtime($file));
+                    $nom = str_replace('.pdf', '', basename($file));
+                    $lien = str_replace("C:\wamp\www", '', $file);
+                    $lien = str_replace("\\", "/", $lien);
+                    $news[] = array('lien' => $lien, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
                 }
+            }
 
-                $dateModification = date("Y/m/d H:i:s", filemtime($chemin));
-                $nom = str_replace('.pdf', '', $file);
-                $references[] = array('lien' => $file, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
+            foreach ($news as $k => $v) {
+                $date[$k] = $v['dateEnvoi'];
+            }
+            array_multisort($date, SORT_DESC, $news);
+        }
+        if ($news != null) {
+            foreach ($news as $key => $value) {
+                $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
             }
         }
 
-        foreach ($references as $k => $v) {
-            $date[$k] = $v['dateEnvoi'];
-        }
-
-        array_multisort($date, SORT_DESC, $references);
-
-        foreach ($references as $key => $value) {
-            $references[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
-        }
-
-        return $this->render('NoxIntranetRessourcesBundle:References:references.html.twig', array('references' => $references, 'text' => $text, 'formulaire' => $form->createView()));
+        return $this->render('NoxIntranetRessourcesBundle:References:references.html.twig', array('references' => $news, 'text' => $text, 'formulaire' => $form->createView()));
     }
 
     public function referencesKeywordAction(Request $request) {
@@ -199,30 +255,31 @@ class RessourcesController extends Controller {
 
         $dir = 'C:/wamp/www/Symfony/web/uploads/References';
 
-        $files = scandir($dir, SCANDIR_SORT_DESCENDING);
+        $files = $this->getDirContents($dir);
 
-        foreach ($files as $file) {
+        if ($files != null) {
+            foreach ($files as $file) {
+                if (!is_dir($file)) {
+                    $propriete = null;
 
-            $propriete = null;
+                    $pdf = $parser->parseFile($file);
+                    $details = $pdf->getDetails();
 
-            if ($file != '.' && $file != '..' && $file != '.quarantine' && $file != '.tmb') {
-                $chemin = $dir . "/" . $file;
-                $pdf = $parser->parseFile($chemin);
-                $details = $pdf->getDetails();
+                    foreach ($details as $property => $value) {
 
-                foreach ($details as $property => $value) {
+                        if (is_array($value)) {
+                            $value = implode(', ', $value);
+                        }
 
-                    if (is_array($value)) {
-                        $value = implode(', ', $value);
+                        $propriete[] = array('label' => $property, 'valeur' => $value);
                     }
 
-                    $propriete[] = array('label' => $property, 'valeur' => $value);
+                    $dateModification = date("Y/m/d H:i:s", filemtime($file));
+                    $nom = str_replace('.pdf', '', basename($file));
+                    $lien = str_replace("C:\wamp\www", '', $file);
+                    $lien = str_replace("\\", "/", $lien);
+                    $competences[] = array('lien' => $lien, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
                 }
-
-                $dateModification = date("Y/m/d H:i:s", filemtime($chemin));
-
-                $nom = str_replace('.pdf', '', $file);
-                $competences[] = array('lien' => $file, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
             }
         }
 
@@ -260,15 +317,17 @@ class RessourcesController extends Controller {
                 }
             }
         }
-        
+
         foreach ($competencesRecherche as $k => $v) {
             $date[$k] = $v['dateEnvoi'];
         }
 
         array_multisort($date, SORT_DESC, $competencesRecherche);
 
-        foreach ($competencesRecherche as $key => $value) {
-            $competencesRecherche[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+        if ($competencesRecherche != null) {
+            foreach ($competencesRecherche as $key => $value) {
+                $competencesRecherche[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+            }
         }
 
         return $this->render('NoxIntranetRessourcesBundle:References:References.html.twig', array('references' => $competencesRecherche, 'text' => $text, 'formulaire' => $form->createView()));
@@ -391,44 +450,49 @@ class RessourcesController extends Controller {
         $parser = new \Smalot\PdfParser\Parser();
 
         $dir = 'C:/wamp/www/Symfony/web/uploads/Competences';
+        
+        $news = null;
 
-        $files = scandir($dir, SCANDIR_SORT_DESCENDING);
+        $files = $this->getDirContents($dir);
 
-        foreach ($files as $file) {
+        if ($files != null) {
+            foreach ($files as $file) {
+                if (!is_dir($file)) {
+                    $propriete = null;
 
-            $propriete = null;
+                    $pdf = $parser->parseFile($file);
+                    $details = $pdf->getDetails();
 
-            if ($file != '.' && $file != '..' && $file != '.quarantine' && $file != '.tmb') {
-                $chemin = $dir . "/" . $file;
-                $pdf = $parser->parseFile($chemin);
-                $details = $pdf->getDetails();
+                    foreach ($details as $property => $value) {
 
-                foreach ($details as $property => $value) {
+                        if (is_array($value)) {
+                            $value = implode(', ', $value);
+                        }
 
-                    if (is_array($value)) {
-                        $value = implode(', ', $value);
+                        $propriete[] = array('label' => $property, 'valeur' => $value);
                     }
 
-                    $propriete[] = array('label' => $property, 'valeur' => $value);
+                    $dateModification = date("Y/m/d H:i:s", filemtime($file));
+                    $nom = str_replace('.pdf', '', basename($file));
+                    $lien = str_replace("C:\wamp\www", '', $file);
+                    $lien = str_replace("\\", "/", $lien);
+                    $news[] = array('lien' => $lien, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
                 }
+            }
 
-                $dateModification = date("Y/m/d H:i:s", filemtime($chemin));
-                $nom = str_replace('.pdf', '', $file);
-                $competences[] = array('lien' => $file, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
+            foreach ($news as $k => $v) {
+                $date[$k] = $v['dateEnvoi'];
+            }
+            array_multisort($date, SORT_DESC, $news);
+        }
+
+        if ($news != null) {
+            foreach ($news as $key => $value) {
+                $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
             }
         }
 
-        foreach ($competences as $k => $v) {
-            $date[$k] = $v['dateEnvoi'];
-        }
-
-        array_multisort($date, SORT_DESC, $competences);
-
-        foreach ($competences as $key => $value) {
-            $competences[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
-        }
-
-        return $this->render('NoxIntranetRessourcesBundle:Competences:competences.html.twig', array('competences' => $competences, 'text' => $text, 'formulaire' => $form->createView()));
+        return $this->render('NoxIntranetRessourcesBundle:Competences:competences.html.twig', array('competences' => $news, 'text' => $text, 'formulaire' => $form->createView()));
     }
 
     public function competencesKeywordAction(Request $request) {
@@ -475,34 +539,36 @@ class RessourcesController extends Controller {
         $parser = new \Smalot\PdfParser\Parser();
 
         $dir = 'C:/wamp/www/Symfony/web/uploads/Competences';
+        
+        $news = null;
 
-        $files = scandir($dir, SCANDIR_SORT_DESCENDING);
+        $files = $this->getDirContents($dir);
 
-        foreach ($files as $file) {
+        if ($files != null) {
+            foreach ($files as $file) {
+                if (!is_dir($file)) {
+                    $propriete = null;
 
-            $propriete = null;
+                    $pdf = $parser->parseFile($file);
+                    $details = $pdf->getDetails();
 
-            if ($file != '.' && $file != '..' && $file != '.quarantine' && $file != '.tmb') {
-                $chemin = $dir . "/" . $file;
-                $pdf = $parser->parseFile($chemin);
-                $details = $pdf->getDetails();
+                    foreach ($details as $property => $value) {
 
-                foreach ($details as $property => $value) {
+                        if (is_array($value)) {
+                            $value = implode(', ', $value);
+                        }
 
-                    if (is_array($value)) {
-                        $value = implode(', ', $value);
+                        $propriete[] = array('label' => $property, 'valeur' => $value);
                     }
 
-                    $propriete[] = array('label' => $property, 'valeur' => $value);
+                    $dateModification = date("Y/m/d H:i:s", filemtime($file));
+                    $nom = str_replace('.pdf', '', basename($file));
+                    $lien = str_replace("C:\wamp\www", '', $file);
+                    $lien = str_replace("\\", "/", $lien);
+                    $competences[] = array('lien' => $lien, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
                 }
-
-                $dateModification = date("Y/m/d H:i:s", filemtime($chemin));
-
-                $nom = str_replace('.pdf', '', $file);
-                $competences[] = array('lien' => $file, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
             }
         }
-
         if (strcmp($request->query->get('keyword'), '') == 0) {
             $competencesRecherche = $competences;
         } else {
@@ -544,8 +610,10 @@ class RessourcesController extends Controller {
 
         array_multisort($date, SORT_DESC, $competencesRecherche);
 
-        foreach ($competencesRecherche as $key => $value) {
-            $competencesRecherche[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+        if ($competences != null) {
+            foreach ($competences as $key => $value) {
+                $competences[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+            }
         }
 
         return $this->render('NoxIntranetRessourcesBundle:Competences:competences.html.twig', array('competences' => $competencesRecherche, 'text' => $text, 'formulaire' => $form->createView()));

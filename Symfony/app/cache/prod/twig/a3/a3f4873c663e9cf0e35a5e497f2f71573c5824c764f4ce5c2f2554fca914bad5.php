@@ -53,7 +53,7 @@ Raison de la demande : ";
         echo twig_escape_filter($this->env, (isset($context["raison"]) ? $context["raison"] : null), "html", null, true);
         echo "
 <br /><br />
-Date de livraison demandé : <strong>";
+Date désirée : <strong>";
         // line 16
         echo twig_escape_filter($this->env, (isset($context["date"]) ? $context["date"] : null), "html", null, true);
         echo "</strong>
@@ -95,7 +95,7 @@ Nom du supérieur : <strong>";
 /* <br />*/
 /* Raison de la demande : {{ raison }}*/
 /* <br /><br />*/
-/* Date de livraison demandé : <strong>{{ date }}</strong>*/
+/* Date désirée : <strong>{{ date }}</strong>*/
 /* <br /><br />*/
 /* Nom du supérieur : <strong>{{ superieur }}.</strong>*/
 /* */

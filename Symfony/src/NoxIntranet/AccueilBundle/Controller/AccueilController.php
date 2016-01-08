@@ -96,8 +96,10 @@ class AccueilController extends Controller {
 
         $news5 = array_slice($news, 0, 5);
         
-        foreach($news5 as $key => $value) { 
-            $news5[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+        if ($news5 != null) {
+            foreach ($news5 as $key => $value) {
+                $news5[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+            }
         }
 
         return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('news' => $news5));

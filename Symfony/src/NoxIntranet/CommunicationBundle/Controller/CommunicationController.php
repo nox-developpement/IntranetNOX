@@ -21,7 +21,7 @@ class CommunicationController extends Controller {
 
         $parser = new \Smalot\PdfParser\Parser();
 
-        $Path = 'C:/wamp/www/Symfony/web/uploads/Communication/SI/NewsSI'; 
+        $Path = 'C:/wamp/www/Symfony/web/uploads/Communication/SI/NewsSI';
 
         $files = $this->getDirContents($Path);
 
@@ -59,8 +59,10 @@ class CommunicationController extends Controller {
             array_multisort($date, SORT_DESC, $news);
         }
         
-         foreach($news as $key => $value) { 
-            $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+        if ($news != null) {
+            foreach ($news as $key => $value) {
+                $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+            }
         }
 
         return $this->render('NoxIntranetCommunicationBundle:News:newsSI.html.twig', array('news' => $news));
@@ -124,10 +126,12 @@ class CommunicationController extends Controller {
             array_multisort($date, SORT_DESC, $news);
         }
 
-         foreach($news as $key => $value) { 
-            $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+        if ($news != null) {
+            foreach ($news as $key => $value) {
+                $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+            }
         }
-        
+
         return $this->render('NoxIntranetCommunicationBundle:News:noxNews.html.twig', array('news' => $news));
     }
 
@@ -172,9 +176,11 @@ class CommunicationController extends Controller {
 
             array_multisort($date, SORT_DESC, $news);
         }
-        
-         foreach($news as $key => $value) { 
-            $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+
+        if ($news != null) {
+            foreach ($news as $key => $value) {
+                $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+            }
         }
 
         return $this->render('NoxIntranetCommunicationBundle:News:noxLetters.html.twig', array('news' => $news));
@@ -236,9 +242,11 @@ class CommunicationController extends Controller {
 
             array_multisort($date, SORT_DESC, $news);
         }
-        
-        foreach($news as $key => $value) { 
-            $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+
+        if ($news != null) {
+            foreach ($news as $key => $value) {
+                $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+            }
         }
 
         return $this->render('NoxIntranetCommunicationBundle:Accueil:affichageContenu.html.twig', array('news' => $news, 'dossier' => $dossier, 'config' => $config));
