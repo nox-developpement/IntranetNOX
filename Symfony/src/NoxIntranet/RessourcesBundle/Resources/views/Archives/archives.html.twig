@@ -7,28 +7,32 @@
 {% block messageAccueil %}Archives{% endblock %}
 
 {% block contenu %}
+    
+        <div class='zoneEdition'>
 
-    <div class='zoneEdition'>
+             {% if is_granted('ROLE_ADMIN') %}
+            
+            <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
+            
+                {% endif %}
+   
+            {{ form_start(formulaire, {'attr': {'id': 'formulaireTexte' }}) }}
+
+            {{ form_errors(formulaire) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(formulaire.text) }}
+
+            {# Génération de l'input. #}
+            {{ form_widget(formulaire.text, {'attr': {'class': 'textField' }}) }}
+
+            {{ form_end(formulaire) }}
+
+        </div>
+
+        <div class='zoneTexte'>
+            {{ texte|raw }}
+        </div>
         
-        <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
-        
-        {{ form_start(formulaire, {'attr': {'id': 'formulaireTexte' }}) }}
-
-        {{ form_errors(formulaire) }}
-
-        {# Affichage des erreurs pour ce champ précis. #}
-        {{ form_errors(formulaire.text) }}
-
-        {# Génération de l'input. #}
-        {{ form_widget(formulaire.text, {'attr': {'class': 'textField' }}) }}
-
-        {{ form_end(formulaire) }}
-
-    </div>
-
-    <div class='zoneTexte'>
-        {{ texte|raw }}
-    </di>
-
 {% endblock %}
 {# empty Twig template #}
