@@ -131,7 +131,7 @@ class AdministrationUsersController extends Controller {
         $user->setRoles(array($roleAdmin, $roleReference, $roleCompetences, $roleProcedures, $roleNews, $roleFAQ, $roleLiens, $roleCE, $roleCHSCT, $roleQualite, 'ROLE_USER'));
         $em->flush();
 
-        $request->getSession()->getFlashBag()->add('notice', "Le rôle de l'utilisateur a bien était modifié.");
+        $request->getSession()->getFlashBag()->add('notice', "Le rôle de l'utilisateur a bien été modifié.");
 
         $nbPages = ceil(sizeof($users) / 20);
 

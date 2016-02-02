@@ -82,6 +82,14 @@ nox_intranet_suppression_lien:
     path: /administration/liens/suppression/{lienID}
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationLiens:administrationLiensSuppression }
     
+nox_intranet_modification_lien:
+    path: /administration/liens/modification/{lienID}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationLiens:administrationLiensModification }
+    
+nox_intranet_modification_lien_check:
+    path: /administration/liens/modificationCheck/{lienID}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationLiens:administrationLiensModificationCheck }
+    
 nox_intranet_ajout_lien:
     path: /administration/liens/ajout
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationLiens:administrationLiensAjout }

@@ -15,8 +15,8 @@ class __TwigTemplate_a32133dfdda18336fa542d5635c8751435aa74b44357921e28663936706
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_cb49dd60d7e0a1a9dea1c76567f7dbbb138e79935fc66950ed1ef4c8d5e60fb4 = $this->env->getExtension("native_profiler");
-        $__internal_cb49dd60d7e0a1a9dea1c76567f7dbbb138e79935fc66950ed1ef4c8d5e60fb4->enter($__internal_cb49dd60d7e0a1a9dea1c76567f7dbbb138e79935fc66950ed1ef4c8d5e60fb4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", ":Emails:demandeMateriel.html.twig"));
+        $__internal_cfef41887c7b37b815a22b0e65fc4e6908b57657b6361f420b0ab688e99281d4 = $this->env->getExtension("native_profiler");
+        $__internal_cfef41887c7b37b815a22b0e65fc4e6908b57657b6361f420b0ab688e99281d4->enter($__internal_cfef41887c7b37b815a22b0e65fc4e6908b57657b6361f420b0ab688e99281d4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", ":Emails:demandeMateriel.html.twig"));
 
         // line 1
         echo "N° ordre : ";
@@ -56,7 +56,7 @@ Raison de la demande : ";
         echo twig_escape_filter($this->env, (isset($context["raison"]) ? $context["raison"] : $this->getContext($context, "raison")), "html", null, true);
         echo "
 <br /><br />
-Date de livraison demandé : <strong>";
+Date désirée : <strong>";
         // line 16
         echo twig_escape_filter($this->env, (isset($context["date"]) ? $context["date"] : $this->getContext($context, "date")), "html", null, true);
         echo "</strong>
@@ -67,7 +67,7 @@ Nom du supérieur : <strong>";
         echo ".</strong>
 ";
         
-        $__internal_cb49dd60d7e0a1a9dea1c76567f7dbbb138e79935fc66950ed1ef4c8d5e60fb4->leave($__internal_cb49dd60d7e0a1a9dea1c76567f7dbbb138e79935fc66950ed1ef4c8d5e60fb4_prof);
+        $__internal_cfef41887c7b37b815a22b0e65fc4e6908b57657b6361f420b0ab688e99281d4->leave($__internal_cfef41887c7b37b815a22b0e65fc4e6908b57657b6361f420b0ab688e99281d4_prof);
 
     }
 
@@ -101,7 +101,7 @@ Nom du supérieur : <strong>";
 /* <br />*/
 /* Raison de la demande : {{ raison }}*/
 /* <br /><br />*/
-/* Date de livraison demandé : <strong>{{ date }}</strong>*/
+/* Date désirée : <strong>{{ date }}</strong>*/
 /* <br /><br />*/
 /* Nom du supérieur : <strong>{{ superieur }}.</strong>*/
 /* */

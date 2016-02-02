@@ -3,46 +3,217 @@
 {% block titrePage %} Accueil {% endblock %}
 
 {% block messageAccueil %}Bienvenue {% if app.user != null %} {{ app.user.firstname }} {{ app.user.lastname }} {% endif %}{% endblock %}
-{% block sousMessageAccueil %}Les dernières news{% endblock %}
+{% block sousMessageAccueil %}Le : {{ date()|date("d/m/Y") }}{% endblock %}
 
 {% block contenu %}
 
-    {% for new in news %}
 
-        <div class="divNews">
+    {% if news is defined %}
+        {% for new in news %}
 
-            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new['lien'] }}', 'News SI');">
-                <img 
-                    src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}';"
-                    >
-            </a>
+            <div class="divNews">
 
-            <ul>
+                <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new['lien'] }}', 'News SI');">
+                    <img 
+                        src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}';"
+                        >
+                </a>
 
-                <li> Nom du fichier : {{ new['nom'] }} </li>
+                <ul>
 
-                {% for propriete in new['proprietes'] %}
+                    <li> Nom du fichier : {{ new['nom'] }} </li>
 
-                    {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}
+                    {% for propriete in new['proprietes'] %}
 
-                    {% if propriete['label'] == 'Author' %} <li> Auteur : {{ propriete['valeur'] }} </li> {% endif %}
+                        {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}
 
-                    {% if propriete['label'] == 'Subject' %} <li> Sujet : {{ propriete['valeur'] }} </li> {% endif %}
+                        {% if propriete['label'] == 'Author' %} <li> Auteur : {{ propriete['valeur'] }} </li> {% endif %}
 
-                    {% if propriete['label'] == 'Keywords' %} <li> Mots clés : {{ propriete['valeur'] }} </li> {% endif %}
+                        {% if propriete['label'] == 'Subject' %} <li> Sujet : {{ propriete['valeur'] }} </li> {% endif %}
 
-                    {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}
+                        {% if propriete['label'] == 'Keywords' %} <li> Mots clés : {{ propriete['valeur'] }} </li> {% endif %}
 
+                        {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}
+
+                    {% endfor %}
+
+                    <li> Posté le : {{ new['dateEnvoi'] }} </li>
+
+                </ul>
+
+            </div>
+
+        {% endfor %}
+    {% endif %}
+
+    <div class='zoneEditionAccueil'>
+
+        {% if is_granted('ROLE_ADMIN') %}
+
+            <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
+
+        {% endif %}
+
+        {{ form_start(formulaire, {'attr': {'id': 'formulaireTexte' }}) }}
+
+        {{ form_errors(formulaire) }}
+
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(formulaire.text) }}
+
+        {# Génération de l'input. #}
+        {{ form_widget(formulaire.text, {'attr': {'class': 'textField' }}) }}
+
+        {{ form_end(formulaire) }}
+
+    </div>
+
+
+    <div class='zoneTexteAccueil'>
+        <p id='edito'> Edito </p>
+        <div id='texteAccueil'>
+            {{ texte|raw }}
+        </div>
+    </div>
+
+    <div id="zoneNewsAccueil">
+
+        <script src={{ asset('./js/jquery-2.2.0.min.js') }}></script>
+
+        <!-- Affichage défilant mise à jours Externe -->
+        <p class="maj"> Mise à jours Externe </p>
+        {% if majExterne is defined %}
+            <div id='majExterne'>
+                <p></p>
+            </div>
+
+            <script type="text/javascript">
+
+                var newsExterne = new Array();
+
+                {% for maj in majExterne %}
+                    newsExterne.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");
                 {% endfor %}
 
-                <li> Posté le : {{ new['dateEnvoi'] }} </li>
+                    function showNews(arr) {
+                        $('#majExterne p').html(arr[0]);
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    $('#majExterne p').html(arr[i]);
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 3000);
+                    }
 
-            </ul>
+                    showNews(newsExterne);
 
-        </div>
+            </script>
+        {% endif %}
+        <!-------------------------------------------------->
 
-    {% endfor %}
+        <!-- Affichage défilant mise à jours Interne -->
+        <p class="maj"> Mise à jours Interne </p>
+        {% if majInterne is defined %}
+            <div id='majInterne'>
+                <p></p>
+            </div>
+
+            <script type="text/javascript">
+
+                var newsInterne = new Array();
+
+                {% for maj in majInterne %}
+                    newsInterne.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");
+                {% endfor %}
+
+                    function showNews(arr) {
+                        $('#majInterne p').html(arr[0]);
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    $('#majInterne p').html(arr[i]);
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 3000);
+                    }
+
+                    showNews(newsInterne);
+
+            </script>
+        {% endif %}
+        <!-------------------------------------------------->
+
+        <!-- Affichage défilant mise à jours Marketing -->
+        <p class="maj"> Mise à jours Marketing </p>
+        {% if majMarketing is defined %}
+            <div id='majMarketing'>
+                <p></p>
+            </div>
+
+            <script type="text/javascript">
+
+                var newsMarketing = new Array();
+
+                {% for maj in majMarketing %}
+                    newsMarketing.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");
+                {% endfor %}
+
+                    function showNews(arr) {
+                        $('#majMarketing p').html(arr[0]);
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    $('#majMarketing p').html(arr[i]);
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 3000);
+                    }
+
+                    showNews(newsMarketing);
+
+            </script>
+        {% endif %}
+        <!-------------------------------------------------->
+
+        <!-- Affichage défilant mise à jours SI -->
+        <p class="maj"> Mise à jours SI </p>
+        {% if majSI is defined %}
+            <div id='majSI'>
+                <p></p>
+            </div>
+
+            <script type="text/javascript">
+
+                var newsSI = new Array();
+
+                {% for maj in majSI %}
+                    newsSI.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");
+                {% endfor %}
+
+                    function showNews(arr) {
+                        $('#majSI p').html(arr[0]);
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    $('#majSI p').html(arr[i]);
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 3000);
+                    }
+
+                    showNews(newsSI);
+
+            </script>
+        {% endif %}
+        <!-------------------------------------------------->
+
+    </div>
 
 {% endblock %}

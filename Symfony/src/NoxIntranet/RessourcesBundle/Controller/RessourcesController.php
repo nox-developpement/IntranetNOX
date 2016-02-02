@@ -86,7 +86,7 @@ class RessourcesController extends Controller {
 //        $archives = $em->getRepository('NoxIntranetRessourcesBundle:Archive')->findBy(array(), array('agence' => 'ASC'));
 //
 //        return $this->render('NoxIntranetRessourcesBundle:Archives:archives.html.twig', array('archives' => $archives, 'text' => $text, 'formulaire' => $form->createView()));
-        
+
         $em = $this->getDoctrine()->getManager();
 
         $texteEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Archives');
@@ -200,6 +200,8 @@ class RessourcesController extends Controller {
                 $date[$k] = $v['dateEnvoi'];
             }
             array_multisort($date, SORT_DESC, $news);
+        } else {
+            $news = null;
         }
         if ($news != null) {
             foreach ($news as $key => $value) {
@@ -281,6 +283,8 @@ class RessourcesController extends Controller {
                     $competences[] = array('lien' => $lien, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
                 }
             }
+        } else {
+            $competences = null;
         }
 
         if (strcmp($request->query->get('keyword'), '') == 0) {
@@ -288,28 +292,31 @@ class RessourcesController extends Controller {
         } else {
             $competencesRecherche = null;
 
-            foreach ($competences as $competence) {
+            if ($competences != null) {
+                foreach ($competences as $competence) {
 
-                $labelKeyword = false;
-                $find = true;
+                    $labelKeyword = false;
+                    $find = true;
 
-                foreach ($competence['proprietes'] as $propriete) {
-                    if ($propriete['label'] === 'Keywords') {
-                        $labelKeyword = true;
-                        foreach ($keywords as $keyword) {
-                            if (stripos($propriete['valeur'], $keyword) === false) {
-                                $find = false;
+                    foreach ($competence['proprietes'] as $propriete) {
+                        if ($propriete['label'] === 'Keywords') {
+                            $labelKeyword = true;
+                            foreach ($keywords as $keyword) {
+                                if (stripos($propriete['valeur'], $keyword) === false) {
+                                    $find = false;
+                                }
                             }
                         }
                     }
-                }
 
-                if ($labelKeyword) {
-                    if ($find) {
-                        $competencesRecherche[] = array('lien' => $competence['lien'], 'nom' => $competence['nom'], 'proprietes' => $competence['proprietes'], 'dateEnvoi' => $competence['dateEnvoi']);
+                    if ($labelKeyword) {
+                        if ($find) {
+                            $competencesRecherche[] = array('lien' => $competence['lien'], 'nom' => $competence['nom'], 'proprietes' => $competence['proprietes'], 'dateEnvoi' => $competence['dateEnvoi']);
+                        }
                     }
                 }
             }
+
 
             if ($competencesRecherche != null) {
                 foreach ($competencesRecherche as $k => $v) {
@@ -318,11 +325,13 @@ class RessourcesController extends Controller {
             }
         }
 
-        foreach ($competencesRecherche as $k => $v) {
-            $date[$k] = $v['dateEnvoi'];
+        if ($competencesRecherche != null) {
+            foreach ($competencesRecherche as $k => $v) {
+                $date[$k] = $v['dateEnvoi'];
+            }
+            array_multisort($date, SORT_DESC, $competencesRecherche);
         }
 
-        array_multisort($date, SORT_DESC, $competencesRecherche);
 
         if ($competencesRecherche != null) {
             foreach ($competencesRecherche as $key => $value) {
@@ -450,7 +459,7 @@ class RessourcesController extends Controller {
         $parser = new \Smalot\PdfParser\Parser();
 
         $dir = 'C:/wamp/www/Symfony/web/uploads/Competences';
-        
+
         $news = null;
 
         $files = $this->getDirContents($dir);
@@ -539,7 +548,7 @@ class RessourcesController extends Controller {
         $parser = new \Smalot\PdfParser\Parser();
 
         $dir = 'C:/wamp/www/Symfony/web/uploads/Competences';
-        
+
         $news = null;
 
         $files = $this->getDirContents($dir);
@@ -568,34 +577,40 @@ class RessourcesController extends Controller {
                     $competences[] = array('lien' => $lien, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
                 }
             }
+        } else {
+            $competences = null;
         }
+
         if (strcmp($request->query->get('keyword'), '') == 0) {
             $competencesRecherche = $competences;
         } else {
             $competencesRecherche = null;
 
-            foreach ($competences as $competence) {
+            if ($competences != null) {
+                foreach ($competences as $competence) {
 
-                $labelKeyword = false;
-                $find = true;
+                    $labelKeyword = false;
+                    $find = true;
 
-                foreach ($competence['proprietes'] as $propriete) {
-                    if ($propriete['label'] === 'Keywords') {
-                        $labelKeyword = true;
-                        foreach ($keywords as $keyword) {
-                            if (stripos($propriete['valeur'], $keyword) === false) {
-                                $find = false;
+                    foreach ($competence['proprietes'] as $propriete) {
+                        if ($propriete['label'] === 'Keywords') {
+                            $labelKeyword = true;
+                            foreach ($keywords as $keyword) {
+                                if (stripos($propriete['valeur'], $keyword) === false) {
+                                    $find = false;
+                                }
                             }
                         }
                     }
-                }
 
-                if ($labelKeyword) {
-                    if ($find) {
-                        $competencesRecherche[] = array('lien' => $competence['lien'], 'nom' => $competence['nom'], 'proprietes' => $competence['proprietes'], 'dateEnvoi' => $competence['dateEnvoi']);
+                    if ($labelKeyword) {
+                        if ($find) {
+                            $competencesRecherche[] = array('lien' => $competence['lien'], 'nom' => $competence['nom'], 'proprietes' => $competence['proprietes'], 'dateEnvoi' => $competence['dateEnvoi']);
+                        }
                     }
                 }
             }
+
 
             if ($competencesRecherche != null) {
                 foreach ($competencesRecherche as $k => $v) {
@@ -604,11 +619,15 @@ class RessourcesController extends Controller {
             }
         }
 
-        foreach ($competencesRecherche as $k => $v) {
-            $date[$k] = $v['dateEnvoi'];
+        if ($competencesRecherche != null) {
+            foreach ($competencesRecherche as $k => $v) {
+                $date[$k] = $v['dateEnvoi'];
+            }
+
+            array_multisort($date, SORT_DESC, $competencesRecherche);
         }
 
-        array_multisort($date, SORT_DESC, $competencesRecherche);
+
 
         if ($competences != null) {
             foreach ($competences as $key => $value) {

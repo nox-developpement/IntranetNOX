@@ -10,11 +10,11 @@
     
         <div class='zoneEdition'>
 
-             {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_ADMIN') %}
             
             <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
             
-                {% endif %}
+            {% endif %}
    
             {{ form_start(formulaire, {'attr': {'id': 'formulaireTexte' }}) }}
 

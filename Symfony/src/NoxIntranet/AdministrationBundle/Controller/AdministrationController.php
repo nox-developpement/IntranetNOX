@@ -294,8 +294,10 @@ class AdministrationController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $liens = $em->getRepository('NoxIntranetRessourcesBundle:Liens')->findBy(array(), array('libelle' => 'asc'));
+        
+        $categories = $em->getRepository('NoxIntranetRessourcesBundle:Liens')->findByType('Catégorie');
 
-        return $this->render('NoxIntranetAdministrationBundle:AdministrationLiens:administrationLiens.html.twig', array('liens' => $liens));
+        return $this->render('NoxIntranetAdministrationBundle:AdministrationLiens:administrationLiens.html.twig', array('liens' => $liens, 'catégories' => $categories));
     }
 
     public function administrationArchivesAction() {

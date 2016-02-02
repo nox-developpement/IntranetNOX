@@ -23,44 +23,44 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_3f803990f3e7aa99cea102128652ad7b5ceea2d9daeb72c285e4c168b008d7de = $this->env->getExtension("native_profiler");
-        $__internal_3f803990f3e7aa99cea102128652ad7b5ceea2d9daeb72c285e4c168b008d7de->enter($__internal_3f803990f3e7aa99cea102128652ad7b5ceea2d9daeb72c285e4c168b008d7de_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetCommunicationBundle:Accueil:accueilCommunication.html.twig"));
+        $__internal_dad53ea8b0e7957f734dcf7cdf6ca1b4ac65c1a7e3e82d1169d6add6e673655f = $this->env->getExtension("native_profiler");
+        $__internal_dad53ea8b0e7957f734dcf7cdf6ca1b4ac65c1a7e3e82d1169d6add6e673655f->enter($__internal_dad53ea8b0e7957f734dcf7cdf6ca1b4ac65c1a7e3e82d1169d6add6e673655f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetCommunicationBundle:Accueil:accueilCommunication.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_3f803990f3e7aa99cea102128652ad7b5ceea2d9daeb72c285e4c168b008d7de->leave($__internal_3f803990f3e7aa99cea102128652ad7b5ceea2d9daeb72c285e4c168b008d7de_prof);
+        $__internal_dad53ea8b0e7957f734dcf7cdf6ca1b4ac65c1a7e3e82d1169d6add6e673655f->leave($__internal_dad53ea8b0e7957f734dcf7cdf6ca1b4ac65c1a7e3e82d1169d6add6e673655f_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_373e4bf89ac8519cae6bc5b9d4e33524c37d83a010b40986df3a8d211381678f = $this->env->getExtension("native_profiler");
-        $__internal_373e4bf89ac8519cae6bc5b9d4e33524c37d83a010b40986df3a8d211381678f->enter($__internal_373e4bf89ac8519cae6bc5b9d4e33524c37d83a010b40986df3a8d211381678f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_9b36df65f0c70bd8673a83e3c65c61f98f06883a6204a719d91d363ebb754b5e = $this->env->getExtension("native_profiler");
+        $__internal_9b36df65f0c70bd8673a83e3c65c61f98f06883a6204a719d91d363ebb754b5e->enter($__internal_9b36df65f0c70bd8673a83e3c65c61f98f06883a6204a719d91d363ebb754b5e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Communication ";
         
-        $__internal_373e4bf89ac8519cae6bc5b9d4e33524c37d83a010b40986df3a8d211381678f->leave($__internal_373e4bf89ac8519cae6bc5b9d4e33524c37d83a010b40986df3a8d211381678f_prof);
+        $__internal_9b36df65f0c70bd8673a83e3c65c61f98f06883a6204a719d91d363ebb754b5e->leave($__internal_9b36df65f0c70bd8673a83e3c65c61f98f06883a6204a719d91d363ebb754b5e_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_eb7b4ae2fbcdf8f8cbb3fcae23187736679a4b1cef50e2648ac7e4f0d120e305 = $this->env->getExtension("native_profiler");
-        $__internal_eb7b4ae2fbcdf8f8cbb3fcae23187736679a4b1cef50e2648ac7e4f0d120e305->enter($__internal_eb7b4ae2fbcdf8f8cbb3fcae23187736679a4b1cef50e2648ac7e4f0d120e305_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_bb7ea758f7e19209b99745edfe0f30a53ba5d8bc7d837d049dc7cae3453a8b24 = $this->env->getExtension("native_profiler");
+        $__internal_bb7ea758f7e19209b99745edfe0f30a53ba5d8bc7d837d049dc7cae3453a8b24->enter($__internal_bb7ea758f7e19209b99745edfe0f30a53ba5d8bc7d837d049dc7cae3453a8b24_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Communication";
         
-        $__internal_eb7b4ae2fbcdf8f8cbb3fcae23187736679a4b1cef50e2648ac7e4f0d120e305->leave($__internal_eb7b4ae2fbcdf8f8cbb3fcae23187736679a4b1cef50e2648ac7e4f0d120e305_prof);
+        $__internal_bb7ea758f7e19209b99745edfe0f30a53ba5d8bc7d837d049dc7cae3453a8b24->leave($__internal_bb7ea758f7e19209b99745edfe0f30a53ba5d8bc7d837d049dc7cae3453a8b24_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_1fca2183487be677846ef84af4b888a6e06b3a3059782f49506f536def105a98 = $this->env->getExtension("native_profiler");
-        $__internal_1fca2183487be677846ef84af4b888a6e06b3a3059782f49506f536def105a98->enter($__internal_1fca2183487be677846ef84af4b888a6e06b3a3059782f49506f536def105a98_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_7f15d8493a1256ceba1f70003daed6ec90461c68b577768e9a3e6c935e3579a8 = $this->env->getExtension("native_profiler");
+        $__internal_7f15d8493a1256ceba1f70003daed6ec90461c68b577768e9a3e6c935e3579a8->enter($__internal_7f15d8493a1256ceba1f70003daed6ec90461c68b577768e9a3e6c935e3579a8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -207,18 +207,39 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 
         <div id=\"sousMenuBanqueImages\" class='sousMenu'>
 
-            <div class=\"sousSousMessageAcceuil\"> 
-                <h5 onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/logoNoxLecture', 'Logo Nox');\"> Logo Nox </h5>
-            </div>
+            ";
+        // line 109
+        if ($this->env->getExtension('security')->isGranted("ROLE_COMMUNICATION")) {
+            echo " 
+                <div class=\"sousSousMessageAcceuil\"> 
+                    <h5 onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/logoNox', 'Logo Nox');\"> Logo Nox </h5>
+                </div>
 
-            <div class=\"sousSousMessageAcceuil\"> 
-                <h5 onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDuSiteInternetLecture', 'Celles du site internet');\"> Celles du site internet </h5>
-            </div>
+                <div class=\"sousSousMessageAcceuil\"> 
+                    <h5 onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDuSiteInternet', 'Celles du site internet');\"> Celles du site internet </h5>
+                </div>
 
-            <div class=\"sousSousMessageAcceuil\"> 
-                <h5 onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDesSupportsLecture', 'Celles des supports');\"> Celles des supports </h5>
-            </div>
+                <div class=\"sousSousMessageAcceuil\"> 
+                    <h5 onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDesSupports', 'Celles des supports');\"> Celles des supports </h5>
+                </div>
+            ";
+        } else {
+            // line 122
+            echo "                <div class=\"sousSousMessageAcceuil\"> 
+                    <h5 onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/logoNoxLecture', 'Logo Nox');\"> Logo Nox </h5>
+                </div>
 
+                <div class=\"sousSousMessageAcceuil\"> 
+                    <h5 onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDuSiteInternetLecture', 'Celles du site internet');\"> Celles du site internet </h5>
+                </div>
+
+                <div class=\"sousSousMessageAcceuil\"> 
+                    <h5 onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDesSupportsLecture', 'Celles des supports');\"> Celles des supports </h5>
+                </div>
+            ";
+        }
+        // line 134
+        echo "
         </div>
     </div>
     <!-- Fin Externe -->
@@ -226,7 +247,7 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
     <!-- Interne -->
     <div class=\"surMessageAcceuil\" id='menuInterne' onclick=\"showSubMenu2('#sousMenuInterne', this);\"> 
         <h4> Interne <img src='";
-        // line 127
+        // line 141
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
         echo "' class='menuImg'><img src='";
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
@@ -236,14 +257,14 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
     <div id='sousMenuInterne' class='menu'>
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 132
+        // line 146
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Interne/Trombinoscope", "dossier" => "Trombinoscope", "config" => "trombinoscope")), "html", null, true);
         echo "'><h4> Trombinoscope </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\" id='menuOrganigrammes' onclick=\"showSubMenu('#sousMenuOrganigrammes', this);\"> 
             <h4> Organigrammes <img src='";
-        // line 136
+        // line 150
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
         echo "' class='menuImg'><img src='";
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
@@ -254,21 +275,21 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 
             <div class=\"sousSousMessageAcceuil\"> 
                 <a href='";
-        // line 142
+        // line 156
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Interne/Organigrammes/OrganigrammeStrategique", "dossier" => "Organigramme Stratégique", "config" => "organigrammeStrategique")), "html", null, true);
         echo "'> <h5> Organigramme Stratégique </h5> </a>
             </div>
 
             <div class=\"sousSousMessageAcceuil\"> 
                 <a href='";
-        // line 146
+        // line 160
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Interne/Organigrammes/OrganigrammeFonctionnel", "dossier" => "Organigramme Fonctionnel", "config" => "organigrammeFonctionnel")), "html", null, true);
         echo "'> <h5> Organigramme Fonctionnel </h5> </a>
             </div>
 
             <div class=\"sousSousMessageAcceuil\"> 
                 <a href='";
-        // line 150
+        // line 164
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Interne/Organigrammes/OrganigrammeAgence", "dossier" => "Organigramme Agence", "config" => "organigrammeAgence")), "html", null, true);
         echo "'> <h5> Organigramme Agence </h5> </a>
             </div>
@@ -277,28 +298,28 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 156
+        // line 170
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Interne/AnnuaireAgences", "dossier" => "Annuaire Agences", "config" => "annuaireAgences")), "html", null, true);
         echo "'> <h4> Annuaire Agences </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 160
+        // line 174
         echo $this->env->getExtension('routing')->getPath("nox_intranet_nox_news");
         echo "'> <h4> NoxNews </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\">
             <a href='";
-        // line 164
+        // line 178
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Interne/CE", "dossier" => "CE", "config" => "CE")), "html", null, true);
         echo "'> <h4> CE </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 168
+        // line 182
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Interne/CHSCT", "dossier" => "CHSCT", "config" => "CHSCT")), "html", null, true);
         echo "'> <h4> CHSCT </h4> </a>
         </div>
@@ -308,7 +329,7 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
     <!-- Marketing -->
     <div class=\"surMessageAcceuil\" id='menuMarketing' onclick=\"showSubMenu2('#sousMenuMarketing', this);\"> 
         <h4> Marketing <img src='";
-        // line 175
+        // line 189
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
         echo "' class='menuImg'><img src='";
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
@@ -318,28 +339,28 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
     <div id='sousMenuMarketing' class='menu'>
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 180
+        // line 194
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Marketing/NoxALaConquete", "dossier" => "NOX à la conquête", "config" => "noxALaConquete")), "html", null, true);
         echo "'> <h4> NOX à la conquête </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 184
+        // line 198
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Marketing/IlYAForcementPlusSimple", "dossier" => "Il y a forcément plus simple", "config" => "ilYAForcementPlusSimple")), "html", null, true);
         echo "'> <h4> Il y a forcément plus simple </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 188
+        // line 202
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Marketing/NoxFournisseurDeTalents", "dossier" => "NOX fournisseur de talents", "config" => "noxFournisseurDeTalents")), "html", null, true);
         echo "'> <h4> NOX fournisseur de talents </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 192
+        // line 206
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Marketing/Nos5Valeurs", "dossier" => "Nos 5 valeurs", "config" => "nos5Valeurs")), "html", null, true);
         echo "'> <h4> Nos 5 valeurs </h4> </a>
         </div>
@@ -348,7 +369,7 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 
     <div class=\"surMessageAcceuil\" id='menuSI' onclick=\"showSubMenu2('#sousMenuSI', this);\"> 
         <h4> SI <img src='";
-        // line 198
+        // line 212
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
         echo "' class='menuImg'><img src='";
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
@@ -359,7 +380,7 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
     <div id='sousMenuSI' class='menu'>
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 204
+        // line 218
         echo $this->env->getExtension('routing')->getPath("nox_intranet_news_SI");
         echo "'> <h4>  News SI </h4> </a>
         </div>
@@ -370,7 +391,7 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 
 ";
         
-        $__internal_1fca2183487be677846ef84af4b888a6e06b3a3059782f49506f536def105a98->leave($__internal_1fca2183487be677846ef84af4b888a6e06b3a3059782f49506f536def105a98_prof);
+        $__internal_7f15d8493a1256ceba1f70003daed6ec90461c68b577768e9a3e6c935e3579a8->leave($__internal_7f15d8493a1256ceba1f70003daed6ec90461c68b577768e9a3e6c935e3579a8_prof);
 
     }
 
@@ -386,7 +407,7 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 
     public function getDebugInfo()
     {
-        return array (  363 => 204,  352 => 198,  343 => 192,  336 => 188,  329 => 184,  322 => 180,  312 => 175,  302 => 168,  295 => 164,  288 => 160,  281 => 156,  272 => 150,  265 => 146,  258 => 142,  247 => 136,  240 => 132,  230 => 127,  202 => 104,  193 => 98,  186 => 94,  179 => 90,  172 => 86,  161 => 80,  154 => 76,  147 => 72,  125 => 55,  83 => 18,  71 => 11,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
+        return array (  384 => 218,  373 => 212,  364 => 206,  357 => 202,  350 => 198,  343 => 194,  333 => 189,  323 => 182,  316 => 178,  309 => 174,  302 => 170,  293 => 164,  286 => 160,  279 => 156,  268 => 150,  261 => 146,  251 => 141,  242 => 134,  228 => 122,  212 => 109,  202 => 104,  193 => 98,  186 => 94,  179 => 90,  172 => 86,  161 => 80,  154 => 76,  147 => 72,  125 => 55,  83 => 18,  71 => 11,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -497,17 +518,31 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 /* */
 /*         <div id="sousMenuBanqueImages" class='sousMenu'>*/
 /* */
-/*             <div class="sousSousMessageAcceuil"> */
-/*                 <h5 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/logoNoxLecture', 'Logo Nox');"> Logo Nox </h5>*/
-/*             </div>*/
+/*             {% if is_granted('ROLE_COMMUNICATION') %} */
+/*                 <div class="sousSousMessageAcceuil"> */
+/*                     <h5 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/logoNox', 'Logo Nox');"> Logo Nox </h5>*/
+/*                 </div>*/
 /* */
-/*             <div class="sousSousMessageAcceuil"> */
-/*                 <h5 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDuSiteInternetLecture', 'Celles du site internet');"> Celles du site internet </h5>*/
-/*             </div>*/
+/*                 <div class="sousSousMessageAcceuil"> */
+/*                     <h5 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDuSiteInternet', 'Celles du site internet');"> Celles du site internet </h5>*/
+/*                 </div>*/
 /* */
-/*             <div class="sousSousMessageAcceuil"> */
-/*                 <h5 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDesSupportsLecture', 'Celles des supports');"> Celles des supports </h5>*/
-/*             </div>*/
+/*                 <div class="sousSousMessageAcceuil"> */
+/*                     <h5 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDesSupports', 'Celles des supports');"> Celles des supports </h5>*/
+/*                 </div>*/
+/*             {% else %}*/
+/*                 <div class="sousSousMessageAcceuil"> */
+/*                     <h5 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/logoNoxLecture', 'Logo Nox');"> Logo Nox </h5>*/
+/*                 </div>*/
+/* */
+/*                 <div class="sousSousMessageAcceuil"> */
+/*                     <h5 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDuSiteInternetLecture', 'Celles du site internet');"> Celles du site internet </h5>*/
+/*                 </div>*/
+/* */
+/*                 <div class="sousSousMessageAcceuil"> */
+/*                     <h5 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDesSupportsLecture', 'Celles des supports');"> Celles des supports </h5>*/
+/*                 </div>*/
+/*             {% endif %}*/
 /* */
 /*         </div>*/
 /*     </div>*/

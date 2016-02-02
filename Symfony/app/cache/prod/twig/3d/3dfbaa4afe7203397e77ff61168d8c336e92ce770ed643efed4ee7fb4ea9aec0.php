@@ -58,7 +58,7 @@ class __TwigTemplate_275f6e56d95e04a1679312e97d48240601c907e1c11d6d4cda70584ebda
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["liens"]) ? $context["liens"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["lienPrincipal"]) {
-                if (($this->getAttribute($context["lienPrincipal"], "parent", array()) == null)) {
+                if (($this->getAttribute($context["lienPrincipal"], "parent", array()) == "Aucune")) {
                     // line 15
                     echo "                    <li> 
                         ";
@@ -93,7 +93,7 @@ class __TwigTemplate_275f6e56d95e04a1679312e97d48240601c907e1c11d6d4cda70584ebda
                     $context['_parent'] = $context;
                     $context['_seq'] = twig_ensure_traversable((isset($context["liens"]) ? $context["liens"] : null));
                     foreach ($context['_seq'] as $context["_key"] => $context["lienEnfant"]) {
-                        if (($this->getAttribute($context["lienEnfant"], "parent", array()) != null)) {
+                        if (($this->getAttribute($context["lienEnfant"], "parent", array()) != "Aucune")) {
                             // line 25
                             echo "                                ";
                             if (($this->getAttribute($context["lienEnfant"], "parent", array()) == $this->getAttribute($context["lienPrincipal"], "libelle", array()))) {
@@ -161,7 +161,7 @@ class __TwigTemplate_275f6e56d95e04a1679312e97d48240601c907e1c11d6d4cda70584ebda
 /*             Il n'y a aucun lien pour le moment.*/
 /*         {% else %}*/
 /*             <ul>*/
-/*                 {% for lienPrincipal in liens if lienPrincipal.parent == null %}*/
+/*                 {% for lienPrincipal in liens if lienPrincipal.parent == 'Aucune' %}*/
 /*                     <li> */
 /*                         {% if lienPrincipal.type == 'Lien' %}*/
 /*                             <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}">*/
@@ -171,7 +171,7 @@ class __TwigTemplate_275f6e56d95e04a1679312e97d48240601c907e1c11d6d4cda70584ebda
 /*                             {{ lienPrincipal.libelle }}*/
 /*                         {% endif %}*/
 /*                         <ul>*/
-/*                             {% for lienEnfant in liens if lienEnfant.parent != null %}*/
+/*                             {% for lienEnfant in liens if lienEnfant.parent != 'Aucune' %}*/
 /*                                 {% if lienEnfant.parent == lienPrincipal.libelle %}*/
 /*                                     <li> <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}"> <a href="{{ lienEnfant.liens }}" target="_blank"> {{ lienEnfant.libelle }} </a> </li>*/
 /*                                     {% endif %}*/

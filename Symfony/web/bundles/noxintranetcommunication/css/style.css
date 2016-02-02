@@ -840,37 +840,39 @@ divAdministrationUtilisateur {
     height: 100%;
 }
 
-divAdministrationUtilisateur {
-    height: 100%;
-}
-
 #divAdministrationLien table {
     width: 70%;
     margin: auto; 
     vertical-align: middle;
     font-size: 0.8vw;
-    table-layout: fixed;
+    table-layout: auto;
     border-collapse: collapse;
-    border: solid 0px;
+    border: solid 1px black;
 }
 
 #divAdministrationLien tr:first-child {
     font-weight: bold;
     background-color: #021C2D;
     color: white;
+    text-align: center; 
 }
 
-#divAdministrationLien tr:nth-child(2) td img{
-    max-width: 10px;
-
+#divAdministrationLien tr:first-child td {
+    padding-top: 1%;
+    padding-bottom: 1%;
 }
 
-#divAdministrationLien tr:nth-child(2) td img{
-    padding: 0px;
+#divAdministrationLien tr {
+    border: solid 1px black;
+    text-align: center;
 }
 
-#divAdministrationLien tr:nth-child(2) td p{
-    height: 100%;
+#divAdministrationLien td {
+    border: solid 1px black;
+}
+
+#divAdministrationLien p {
+    text-align: center;
 }
 
 .vertical-text {
@@ -1140,7 +1142,12 @@ divAdministrationUtilisateur {
 
 
 #suppressionLienImg {
-    width: 50%;
+    width: 30%;
+    vertical-align: middle;
+}
+
+#editionLienImg {
+    width: 20%;
     vertical-align: middle;
 }
 
@@ -1627,6 +1634,28 @@ divAdministrationUtilisateur {
     margin: auto;
 }
 
+.zoneEditionAccueil {
+    width: 40%;
+    margin-left: 15%;
+}
+
+.zoneTexteAccueil {
+    display: inline-block;
+    width: 40%;
+    margin-left: 15%;
+    overflow: auto;
+    border: solid 1px #021C2D;
+    vertical-align: top;
+    max-height: 72%;
+    height: 72%;
+}
+
+#zoneNewsAccueil {
+    display: inline-block;
+    width: 29.5%;
+    vertical-align: top;
+}
+
 #menuSupport, #menuVideoInstitutionnelle, #menuReseauxSociaux, #menuBanqueImages, #menuOrganigrammes { 
     cursor: pointer;
 }
@@ -1711,4 +1740,71 @@ divAdministrationUtilisateur {
     margin-left: 3%; 
     display: inline-block;
     vertical-align: middle;
+}
+
+#dateDuJour {
+    background-color: #021C2D;
+    color: white;
+    padding: 1%;
+    text-align: center;
+    display: inline-block;
+}
+
+.maj {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background-color: #021C2D;
+    color: white;
+    padding: 1% 0% 1% 1%;
+    width: 99%;
+    border-left: solid 1px #021C2D;
+    border-right: solid 1px #021C2D;
+    font-size: 0.8vw;
+}
+
+#majExterne, #majInterne, #majMarketing, #majSI {
+    width: 100%;
+    border: black 1px solid;
+    margin-bottom: 5%;
+}
+
+#majExterne p, #majInterne p, #majMarketing p, #majSI p {
+    text-align: center;
+    padding-left: 1%;
+    padding-right: 1%;
+    font-size: 0.7vw;
+
+}
+
+#majExterne p a, #majInterne p a, #majMarketing p a, #majSI p a {
+    text-decoration: none;
+    color: #2ECCFA;
+    cursor: pointer;
+}
+
+.dateMaj {
+    font-weight: bold;
+}
+
+#edito {
+    display: inline-block;
+    width: 99%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background-color: #021C2D;
+    color: white;
+    padding: 1% 0% 1% 1%;
+    font-size: 0.8vw;
+}
+
+#texteAccueil {
+    padding: 0% 1% 0% 1%;
+    webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    -o-hyphens: auto;
+    hyphens: auto;
+    max-width: 98%;
+    word-wrap: break-word;
+    font-size: 0.8vw;
 }

@@ -23,44 +23,44 @@ class __TwigTemplate_bacb27f22282ee04708ccbf5f208a1332b8c235bf143056ab3c7431cb89
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_c7eaf4b8cb974230c6d0b40088e7b447434c704f8a6f0e7e3ded1bda6a6e7950 = $this->env->getExtension("native_profiler");
-        $__internal_c7eaf4b8cb974230c6d0b40088e7b447434c704f8a6f0e7e3ded1bda6a6e7950->enter($__internal_c7eaf4b8cb974230c6d0b40088e7b447434c704f8a6f0e7e3ded1bda6a6e7950_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:Liens:liens.html.twig"));
+        $__internal_25dc3a81325dae5d3efaca7c3ecdcf1fd2244bc8ab1f6b4648f083eefc71d5cd = $this->env->getExtension("native_profiler");
+        $__internal_25dc3a81325dae5d3efaca7c3ecdcf1fd2244bc8ab1f6b4648f083eefc71d5cd->enter($__internal_25dc3a81325dae5d3efaca7c3ecdcf1fd2244bc8ab1f6b4648f083eefc71d5cd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:Liens:liens.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_c7eaf4b8cb974230c6d0b40088e7b447434c704f8a6f0e7e3ded1bda6a6e7950->leave($__internal_c7eaf4b8cb974230c6d0b40088e7b447434c704f8a6f0e7e3ded1bda6a6e7950_prof);
+        $__internal_25dc3a81325dae5d3efaca7c3ecdcf1fd2244bc8ab1f6b4648f083eefc71d5cd->leave($__internal_25dc3a81325dae5d3efaca7c3ecdcf1fd2244bc8ab1f6b4648f083eefc71d5cd_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_db514f5b7e3505361c18c13170a6f9a9bc07f715a4f42ce04099093709539cd2 = $this->env->getExtension("native_profiler");
-        $__internal_db514f5b7e3505361c18c13170a6f9a9bc07f715a4f42ce04099093709539cd2->enter($__internal_db514f5b7e3505361c18c13170a6f9a9bc07f715a4f42ce04099093709539cd2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_49797b1effbfada9b0c43ecb454f96d5ad4ff675fca5f7ee73a0f8ccd73c152a = $this->env->getExtension("native_profiler");
+        $__internal_49797b1effbfada9b0c43ecb454f96d5ad4ff675fca5f7ee73a0f8ccd73c152a->enter($__internal_49797b1effbfada9b0c43ecb454f96d5ad4ff675fca5f7ee73a0f8ccd73c152a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Liens ";
         
-        $__internal_db514f5b7e3505361c18c13170a6f9a9bc07f715a4f42ce04099093709539cd2->leave($__internal_db514f5b7e3505361c18c13170a6f9a9bc07f715a4f42ce04099093709539cd2_prof);
+        $__internal_49797b1effbfada9b0c43ecb454f96d5ad4ff675fca5f7ee73a0f8ccd73c152a->leave($__internal_49797b1effbfada9b0c43ecb454f96d5ad4ff675fca5f7ee73a0f8ccd73c152a_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_32bfe6b41633881c771df961bbc19e1878f3c4deef24a8cf144429e291d898bc = $this->env->getExtension("native_profiler");
-        $__internal_32bfe6b41633881c771df961bbc19e1878f3c4deef24a8cf144429e291d898bc->enter($__internal_32bfe6b41633881c771df961bbc19e1878f3c4deef24a8cf144429e291d898bc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_59c46b17a0545ff06fcf6884771bcf2854508f21c0cdfdfbe6d9ed1e3290ff2a = $this->env->getExtension("native_profiler");
+        $__internal_59c46b17a0545ff06fcf6884771bcf2854508f21c0cdfdfbe6d9ed1e3290ff2a->enter($__internal_59c46b17a0545ff06fcf6884771bcf2854508f21c0cdfdfbe6d9ed1e3290ff2a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo " Liens ";
         
-        $__internal_32bfe6b41633881c771df961bbc19e1878f3c4deef24a8cf144429e291d898bc->leave($__internal_32bfe6b41633881c771df961bbc19e1878f3c4deef24a8cf144429e291d898bc_prof);
+        $__internal_59c46b17a0545ff06fcf6884771bcf2854508f21c0cdfdfbe6d9ed1e3290ff2a->leave($__internal_59c46b17a0545ff06fcf6884771bcf2854508f21c0cdfdfbe6d9ed1e3290ff2a_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_3e3492e026fc590753572b14b4b597aa7d9ed6d7068d28d12bb00528ce58cad0 = $this->env->getExtension("native_profiler");
-        $__internal_3e3492e026fc590753572b14b4b597aa7d9ed6d7068d28d12bb00528ce58cad0->enter($__internal_3e3492e026fc590753572b14b4b597aa7d9ed6d7068d28d12bb00528ce58cad0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_af0417482dea0cbb826777db307bfc69c487c6943399e7a47eab44aa0d90b9a4 = $this->env->getExtension("native_profiler");
+        $__internal_af0417482dea0cbb826777db307bfc69c487c6943399e7a47eab44aa0d90b9a4->enter($__internal_af0417482dea0cbb826777db307bfc69c487c6943399e7a47eab44aa0d90b9a4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -79,7 +79,7 @@ class __TwigTemplate_bacb27f22282ee04708ccbf5f208a1332b8c235bf143056ab3c7431cb89
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["liens"]) ? $context["liens"] : $this->getContext($context, "liens")));
             foreach ($context['_seq'] as $context["_key"] => $context["lienPrincipal"]) {
-                if (($this->getAttribute($context["lienPrincipal"], "parent", array()) == null)) {
+                if (($this->getAttribute($context["lienPrincipal"], "parent", array()) == "Aucune")) {
                     // line 15
                     echo "                    <li> 
                         ";
@@ -114,7 +114,7 @@ class __TwigTemplate_bacb27f22282ee04708ccbf5f208a1332b8c235bf143056ab3c7431cb89
                     $context['_parent'] = $context;
                     $context['_seq'] = twig_ensure_traversable((isset($context["liens"]) ? $context["liens"] : $this->getContext($context, "liens")));
                     foreach ($context['_seq'] as $context["_key"] => $context["lienEnfant"]) {
-                        if (($this->getAttribute($context["lienEnfant"], "parent", array()) != null)) {
+                        if (($this->getAttribute($context["lienEnfant"], "parent", array()) != "Aucune")) {
                             // line 25
                             echo "                                ";
                             if (($this->getAttribute($context["lienEnfant"], "parent", array()) == $this->getAttribute($context["lienPrincipal"], "libelle", array()))) {
@@ -153,7 +153,7 @@ class __TwigTemplate_bacb27f22282ee04708ccbf5f208a1332b8c235bf143056ab3c7431cb89
 
 ";
         
-        $__internal_3e3492e026fc590753572b14b4b597aa7d9ed6d7068d28d12bb00528ce58cad0->leave($__internal_3e3492e026fc590753572b14b4b597aa7d9ed6d7068d28d12bb00528ce58cad0_prof);
+        $__internal_af0417482dea0cbb826777db307bfc69c487c6943399e7a47eab44aa0d90b9a4->leave($__internal_af0417482dea0cbb826777db307bfc69c487c6943399e7a47eab44aa0d90b9a4_prof);
 
     }
 
@@ -185,7 +185,7 @@ class __TwigTemplate_bacb27f22282ee04708ccbf5f208a1332b8c235bf143056ab3c7431cb89
 /*             Il n'y a aucun lien pour le moment.*/
 /*         {% else %}*/
 /*             <ul>*/
-/*                 {% for lienPrincipal in liens if lienPrincipal.parent == null %}*/
+/*                 {% for lienPrincipal in liens if lienPrincipal.parent == 'Aucune' %}*/
 /*                     <li> */
 /*                         {% if lienPrincipal.type == 'Lien' %}*/
 /*                             <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}">*/
@@ -195,7 +195,7 @@ class __TwigTemplate_bacb27f22282ee04708ccbf5f208a1332b8c235bf143056ab3c7431cb89
 /*                             {{ lienPrincipal.libelle }}*/
 /*                         {% endif %}*/
 /*                         <ul>*/
-/*                             {% for lienEnfant in liens if lienEnfant.parent != null %}*/
+/*                             {% for lienEnfant in liens if lienEnfant.parent != 'Aucune' %}*/
 /*                                 {% if lienEnfant.parent == lienPrincipal.libelle %}*/
 /*                                     <li> <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}"> <a href="{{ lienEnfant.liens }}" target="_blank"> {{ lienEnfant.libelle }} </a> </li>*/
 /*                                     {% endif %}*/

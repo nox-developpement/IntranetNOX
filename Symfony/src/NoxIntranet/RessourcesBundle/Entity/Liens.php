@@ -31,14 +31,14 @@ class Liens
     /**
      * @var string
      *
-     * @ORM\Column(name="liens", type="string", length=255)
+     * @ORM\Column(name="liens", type="string", length=255, nullable=true)
      */
     private $liens;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="parent", type="string", length=255)
+     * @ORM\Column(name="parent", type="string", length=255, nullable=true)
      */
     private $parent;
     

@@ -8,7 +8,7 @@ Executer le fichier pour ajouter l'archive au poste de travail. \n\
 function popupDownloadArchiveDeconnexion() {
     $('.flashbagErreur').remove();
     $('#contenu').prepend("<p class = 'flashbagErreur' >\n\
-Executer le fichier pour supprimer l'archive du poste de travail. \n\
+Executer le fichier pour supprimer l'archive de votre poste de travail. \n\
 </p>");
 }
 

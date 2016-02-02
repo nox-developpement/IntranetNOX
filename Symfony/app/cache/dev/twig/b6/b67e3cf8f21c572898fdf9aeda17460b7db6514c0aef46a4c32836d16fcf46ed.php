@@ -23,63 +23,63 @@ class __TwigTemplate_5e65ab79b4e2b27837867646f3fd02f17df8a0d56f7770c256e708f6cbb
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_03b79396772c4a6a8e36be5f53984d23d6b442b8b1d2bc15404ab4cd7cfb0e4a = $this->env->getExtension("native_profiler");
-        $__internal_03b79396772c4a6a8e36be5f53984d23d6b442b8b1d2bc15404ab4cd7cfb0e4a->enter($__internal_03b79396772c4a6a8e36be5f53984d23d6b442b8b1d2bc15404ab4cd7cfb0e4a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetCommunicationBundle:Accueil:affichageContenu.html.twig"));
+        $__internal_ae16bbc445f4bfb76610ecd2db014ce6f10bab22604729af1ef2ab15799a6de4 = $this->env->getExtension("native_profiler");
+        $__internal_ae16bbc445f4bfb76610ecd2db014ce6f10bab22604729af1ef2ab15799a6de4->enter($__internal_ae16bbc445f4bfb76610ecd2db014ce6f10bab22604729af1ef2ab15799a6de4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetCommunicationBundle:Accueil:affichageContenu.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_03b79396772c4a6a8e36be5f53984d23d6b442b8b1d2bc15404ab4cd7cfb0e4a->leave($__internal_03b79396772c4a6a8e36be5f53984d23d6b442b8b1d2bc15404ab4cd7cfb0e4a_prof);
+        $__internal_ae16bbc445f4bfb76610ecd2db014ce6f10bab22604729af1ef2ab15799a6de4->leave($__internal_ae16bbc445f4bfb76610ecd2db014ce6f10bab22604729af1ef2ab15799a6de4_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_c788c4f76060435285c5db37780867314c1cd87d1fb21aff4f0454c800101890 = $this->env->getExtension("native_profiler");
-        $__internal_c788c4f76060435285c5db37780867314c1cd87d1fb21aff4f0454c800101890->enter($__internal_c788c4f76060435285c5db37780867314c1cd87d1fb21aff4f0454c800101890_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_201104881e7a539c14145994435c87d97956572b6949816297dec7d1b49db8b7 = $this->env->getExtension("native_profiler");
+        $__internal_201104881e7a539c14145994435c87d97956572b6949816297dec7d1b49db8b7->enter($__internal_201104881e7a539c14145994435c87d97956572b6949816297dec7d1b49db8b7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo twig_escape_filter($this->env, (isset($context["dossier"]) ? $context["dossier"] : $this->getContext($context, "dossier")), "html", null, true);
         
-        $__internal_c788c4f76060435285c5db37780867314c1cd87d1fb21aff4f0454c800101890->leave($__internal_c788c4f76060435285c5db37780867314c1cd87d1fb21aff4f0454c800101890_prof);
+        $__internal_201104881e7a539c14145994435c87d97956572b6949816297dec7d1b49db8b7->leave($__internal_201104881e7a539c14145994435c87d97956572b6949816297dec7d1b49db8b7_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_c74e4fa1ead9ad6fd5ddf6de18e0f709f56e3efeb13bd5a46cb5223295589408 = $this->env->getExtension("native_profiler");
-        $__internal_c74e4fa1ead9ad6fd5ddf6de18e0f709f56e3efeb13bd5a46cb5223295589408->enter($__internal_c74e4fa1ead9ad6fd5ddf6de18e0f709f56e3efeb13bd5a46cb5223295589408_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_06e416808c8d8fa75dfc7488a3f54608ae6e11f4b15dd577e48401917c865e03 = $this->env->getExtension("native_profiler");
+        $__internal_06e416808c8d8fa75dfc7488a3f54608ae6e11f4b15dd577e48401917c865e03->enter($__internal_06e416808c8d8fa75dfc7488a3f54608ae6e11f4b15dd577e48401917c865e03_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo twig_escape_filter($this->env, (isset($context["dossier"]) ? $context["dossier"] : $this->getContext($context, "dossier")), "html", null, true);
         
-        $__internal_c74e4fa1ead9ad6fd5ddf6de18e0f709f56e3efeb13bd5a46cb5223295589408->leave($__internal_c74e4fa1ead9ad6fd5ddf6de18e0f709f56e3efeb13bd5a46cb5223295589408_prof);
+        $__internal_06e416808c8d8fa75dfc7488a3f54608ae6e11f4b15dd577e48401917c865e03->leave($__internal_06e416808c8d8fa75dfc7488a3f54608ae6e11f4b15dd577e48401917c865e03_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_03cae564521a766e90c1b9895ac7a4bb9823683da071798a7a76b5805e22bcd4 = $this->env->getExtension("native_profiler");
-        $__internal_03cae564521a766e90c1b9895ac7a4bb9823683da071798a7a76b5805e22bcd4->enter($__internal_03cae564521a766e90c1b9895ac7a4bb9823683da071798a7a76b5805e22bcd4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_eecf0d88217563066565b6762e784347e5e0c48f74984bf33315fe286ba79f6f = $this->env->getExtension("native_profiler");
+        $__internal_eecf0d88217563066565b6762e784347e5e0c48f74984bf33315fe286ba79f6f->enter($__internal_eecf0d88217563066565b6762e784347e5e0c48f74984bf33315fe286ba79f6f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
-        echo "    
+        echo "
     ";
         // line 9
         if ($this->env->getExtension('security')->isGranted("ROLE_COMMUNICATION")) {
             echo " 
 
-            <div id=\"menuAdminNewsSI\" class='menuAdmin'>
-                <h3> Interface de gestion de contenu </h3>
-                <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/";
+        <div id=\"menuAdminNewsSI\" class='menuAdmin'>
+            <h3> Interface de gestion de contenu </h3>
+            <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/";
             // line 13
             echo twig_escape_filter($this->env, (isset($context["config"]) ? $context["config"] : $this->getContext($context, "config")), "html", null, true);
             echo "', 'Gestionnaire de fichiers - ";
             echo twig_escape_filter($this->env, (isset($context["dossier"]) ? $context["dossier"] : $this->getContext($context, "dossier")), "html", null, true);
             echo "');\"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>
-            </div>
+        </div>
 
-        ";
+    ";
         }
         // line 17
         echo "
@@ -196,7 +196,7 @@ class __TwigTemplate_5e65ab79b4e2b27837867646f3fd02f17df8a0d56f7770c256e708f6cbb
         echo "
 ";
         
-        $__internal_03cae564521a766e90c1b9895ac7a4bb9823683da071798a7a76b5805e22bcd4->leave($__internal_03cae564521a766e90c1b9895ac7a4bb9823683da071798a7a76b5805e22bcd4_prof);
+        $__internal_eecf0d88217563066565b6762e784347e5e0c48f74984bf33315fe286ba79f6f->leave($__internal_eecf0d88217563066565b6762e784347e5e0c48f74984bf33315fe286ba79f6f_prof);
 
     }
 
@@ -222,15 +222,15 @@ class __TwigTemplate_5e65ab79b4e2b27837867646f3fd02f17df8a0d56f7770c256e708f6cbb
 /* {% block messageAccueil %}{{ dossier }}{% endblock %}*/
 /* */
 /* {% block contenu %}*/
-/*     */
+/* */
 /*     {% if is_granted('ROLE_COMMUNICATION') %} */
 /* */
-/*             <div id="menuAdminNewsSI" class='menuAdmin'>*/
-/*                 <h3> Interface de gestion de contenu </h3>*/
-/*                 <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/{{ config }}', 'Gestionnaire de fichiers - {{ dossier }}');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>*/
-/*             </div>*/
+/*         <div id="menuAdminNewsSI" class='menuAdmin'>*/
+/*             <h3> Interface de gestion de contenu </h3>*/
+/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/{{ config }}', 'Gestionnaire de fichiers - {{ dossier }}');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>*/
+/*         </div>*/
 /* */
-/*         {% endif %}*/
+/*     {% endif %}*/
 /* */
 /*     {% for new in news %} */
 /* */

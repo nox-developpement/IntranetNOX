@@ -845,7 +845,7 @@ ivory_ck_editor:
     default_config:    my_custom_config
     configs:
         my_custom_config:
-            toolbar: [['NewPage', "-", 'DocProps', 'Preview']['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo'],'/',['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript', 'RemoveFormat'],['FontSize','TextColor'],['Image']]
+            toolbar: [['NewPage', "-", 'DocProps', 'Preview']['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],'/',['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript', 'RemoveFormat'],['FontSize','TextColor'],['Image'],['Link']]
             filebrowserBrowseRoute:     elfinder
             filebrowserBrowseRouteParameters:
                 instance: ckeditor

@@ -16,20 +16,20 @@ class __TwigTemplate_4e4d3ea7cabe805280867208cc4d3899bd70334767375647898b27bda08
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_1d9f075a7ed7b83efc5130b64bde683e5e95dd5906d313b27f450abc0a79956f = $this->env->getExtension("native_profiler");
-        $__internal_1d9f075a7ed7b83efc5130b64bde683e5e95dd5906d313b27f450abc0a79956f->enter($__internal_1d9f075a7ed7b83efc5130b64bde683e5e95dd5906d313b27f450abc0a79956f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "IvoryCKEditorBundle:Form:ckeditor_widget.html.twig"));
+        $__internal_72dbf77bf19f7dd9e85c353b064ee0d267b3f9063daac4d496a02a4cf4f06c7c = $this->env->getExtension("native_profiler");
+        $__internal_72dbf77bf19f7dd9e85c353b064ee0d267b3f9063daac4d496a02a4cf4f06c7c->enter($__internal_72dbf77bf19f7dd9e85c353b064ee0d267b3f9063daac4d496a02a4cf4f06c7c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "IvoryCKEditorBundle:Form:ckeditor_widget.html.twig"));
 
         // line 1
         $this->displayBlock('ckeditor_widget', $context, $blocks);
         
-        $__internal_1d9f075a7ed7b83efc5130b64bde683e5e95dd5906d313b27f450abc0a79956f->leave($__internal_1d9f075a7ed7b83efc5130b64bde683e5e95dd5906d313b27f450abc0a79956f_prof);
+        $__internal_72dbf77bf19f7dd9e85c353b064ee0d267b3f9063daac4d496a02a4cf4f06c7c->leave($__internal_72dbf77bf19f7dd9e85c353b064ee0d267b3f9063daac4d496a02a4cf4f06c7c_prof);
 
     }
 
     public function block_ckeditor_widget($context, array $blocks = array())
     {
-        $__internal_670f95d22fbc354fa81962e4c67baac7302046632997957f4d8dd52487a79c07 = $this->env->getExtension("native_profiler");
-        $__internal_670f95d22fbc354fa81962e4c67baac7302046632997957f4d8dd52487a79c07->enter($__internal_670f95d22fbc354fa81962e4c67baac7302046632997957f4d8dd52487a79c07_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "ckeditor_widget"));
+        $__internal_53fa1483a38acb77c16d73cff0db513b4585aa4d2b60b5d427b53e16680648bc = $this->env->getExtension("native_profiler");
+        $__internal_53fa1483a38acb77c16d73cff0db513b4585aa4d2b60b5d427b53e16680648bc->enter($__internal_53fa1483a38acb77c16d73cff0db513b4585aa4d2b60b5d427b53e16680648bc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "ckeditor_widget"));
 
         // line 2
         echo "    <textarea ";
@@ -130,7 +130,7 @@ class __TwigTemplate_4e4d3ea7cabe805280867208cc4d3899bd70334767375647898b27bda08
     ";
         }
         
-        $__internal_670f95d22fbc354fa81962e4c67baac7302046632997957f4d8dd52487a79c07->leave($__internal_670f95d22fbc354fa81962e4c67baac7302046632997957f4d8dd52487a79c07_prof);
+        $__internal_53fa1483a38acb77c16d73cff0db513b4585aa4d2b60b5d427b53e16680648bc->leave($__internal_53fa1483a38acb77c16d73cff0db513b4585aa4d2b60b5d427b53e16680648bc_prof);
 
     }
 

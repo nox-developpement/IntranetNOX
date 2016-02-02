@@ -43,17 +43,42 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
     {
         // line 8
         echo "
-    <div id=\"divAdministrationUtilisateur\">
+    <div id=\"divAdministrationLien\">
 
         <div id=\"administrationLien\">
             <form action='";
         // line 12
         echo $this->env->getExtension('routing')->getPath("nox_intranet_ajout_lien");
-        echo "' >
-                <label for=\"lienlibelle\"> Ajouter un(e) lien/catégorie : </label>
-                <input type=\"text\" name='lienlibelle' id=\"lienlibelle\" placeholder=\"Libellé du lien/catégorie\" />
-                <input type=\"text\" name='lien' id=\"lien\" placeholder=\"Lien (optionnel)\" />
-                <input type=\"text\" name='parent' id=\"parent\" placeholder=\"Libellé parent (optionnel)\" />
+        echo "' >            
+                <label> Ajouter un(e) lien/catégorie : </label> <br />  <br />
+                <label for=\"type\"> Type : </label>
+                <input type=\"radio\" name=\"type\" value=\"lien\" id=\"radioLien\" checked > Lien </input>
+                <input type=\"radio\" name=\"type\" value=\"categorie\" id=\"radioCategorie\"> Catégorie </input> <br />  <br />
+                <label for=\"lienlibelle\"> Libellé : </label>
+                <input type=\"text\" name='lienlibelle' id=\"lienlibelle\" /> <br />  <br />
+                <label for=\"lien\"> Lien : </label>
+                <input type=\"text\" name='lien' id=\"lien\" placeholder=\"Lien\" />
+                <label for=\"categorie\"> Catégorie : </label>
+                <select name=\"categorie\" id=\"categorie\">
+                    <option value=\"Aucune\">Aucune</option>
+                    ";
+        // line 24
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["catégories"]) ? $context["catégories"] : null));
+        foreach ($context['_seq'] as $context["_key"] => $context["categorie"]) {
+            // line 25
+            echo "                        <option value=\"";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["categorie"], "libelle", array()), "html", null, true);
+            echo "\">";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["categorie"], "libelle", array()), "html", null, true);
+            echo "</option>
+                    ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['categorie'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 27
+        echo "                </select>
                 <input type=\"submit\" name=\"Ajouter\" value=\"Ajouter\" class=\"boutonFormulaire\" >
             </form>
         </div>
@@ -63,52 +88,61 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
             <tr>
                 <td> Libelle </td>
                 <td> Type </td>
-                <td> Parent </td>
+                <td> Catégorie </td>
+                <td> Modifier </td>
                 <td> Supprimer </td>
             </tr>
 
             ";
-        // line 30
+        // line 42
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["liens"]) ? $context["liens"] : null));
         foreach ($context['_seq'] as $context["_key"] => $context["lien"]) {
-            // line 31
+            // line 43
             echo "
                 <tr>
                     <td> <p> ";
-            // line 33
+            // line 45
             echo twig_escape_filter($this->env, $this->getAttribute($context["lien"], "libelle", array()), "html", null, true);
             echo " <p> </td>
                     <td> 
-                         <p>
+                        <p>
                             ";
-            // line 36
+            // line 48
             if (($this->getAttribute($context["lien"], "liens", array()) == null)) {
-                // line 37
+                // line 49
                 echo "                                Catégorie
                             ";
             } else {
-                // line 39
+                // line 51
                 echo "                                Lien (";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["lien"], "liens", array()), "html", null, true);
                 echo ")
                             ";
             }
-            // line 41
+            // line 53
             echo "                        <p> 
                     </td>
-                    <td> <p> ";
-            // line 43
-            if (($this->getAttribute($context["lien"], "parent", array()) == null)) {
-                echo " Aucun ";
-            } else {
+                    <td ";
+            // line 55
+            if (($this->getAttribute($context["lien"], "parent", array()) == "Aucune")) {
+                echo " style=\"background-color:lightgrey;\" ";
+            }
+            echo "> <p> ";
+            if (($this->getAttribute($context["lien"], "parent", array()) != "Aucune")) {
                 echo " ";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["lien"], "parent", array()), "html", null, true);
                 echo " ";
             }
             echo " <p> </td>
                     <td> <a href='";
-            // line 44
+            // line 56
+            echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_modification_lien", array("lienID" => $this->getAttribute($context["lien"], "id", array()))), "html", null, true);
+            echo "'> <img id=\"editionLienImg\" src='";
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Data-Edit-32.png"), "html", null, true);
+            echo "'> </a> </td>
+                    <td> <a href='";
+            // line 57
             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_suppression_lien", array("lienID" => $this->getAttribute($context["lien"], "id", array()))), "html", null, true);
             echo "'> <img id=\"suppressionLienImg\" src='";
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Delete-48.png"), "html", null, true);
@@ -120,7 +154,7 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['lien'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 48
+        // line 61
         echo "
         </table>
 
@@ -140,7 +174,7 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
 
     public function getDebugInfo()
     {
-        return array (  124 => 48,  112 => 44,  102 => 43,  98 => 41,  92 => 39,  88 => 37,  86 => 36,  80 => 33,  76 => 31,  72 => 30,  51 => 12,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  158 => 61,  146 => 57,  140 => 56,  128 => 55,  124 => 53,  118 => 51,  114 => 49,  112 => 48,  106 => 45,  102 => 43,  98 => 42,  81 => 27,  70 => 25,  66 => 24,  51 => 12,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -151,14 +185,25 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
 /* */
 /* {% block contenu %}*/
 /* */
-/*     <div id="divAdministrationUtilisateur">*/
+/*     <div id="divAdministrationLien">*/
 /* */
 /*         <div id="administrationLien">*/
-/*             <form action='{{ path('nox_intranet_ajout_lien') }}' >*/
-/*                 <label for="lienlibelle"> Ajouter un(e) lien/catégorie : </label>*/
-/*                 <input type="text" name='lienlibelle' id="lienlibelle" placeholder="Libellé du lien/catégorie" />*/
-/*                 <input type="text" name='lien' id="lien" placeholder="Lien (optionnel)" />*/
-/*                 <input type="text" name='parent' id="parent" placeholder="Libellé parent (optionnel)" />*/
+/*             <form action='{{ path('nox_intranet_ajout_lien') }}' >            */
+/*                 <label> Ajouter un(e) lien/catégorie : </label> <br />  <br />*/
+/*                 <label for="type"> Type : </label>*/
+/*                 <input type="radio" name="type" value="lien" id="radioLien" checked > Lien </input>*/
+/*                 <input type="radio" name="type" value="categorie" id="radioCategorie"> Catégorie </input> <br />  <br />*/
+/*                 <label for="lienlibelle"> Libellé : </label>*/
+/*                 <input type="text" name='lienlibelle' id="lienlibelle" /> <br />  <br />*/
+/*                 <label for="lien"> Lien : </label>*/
+/*                 <input type="text" name='lien' id="lien" placeholder="Lien" />*/
+/*                 <label for="categorie"> Catégorie : </label>*/
+/*                 <select name="categorie" id="categorie">*/
+/*                     <option value="Aucune">Aucune</option>*/
+/*                     {% for categorie in catégories %}*/
+/*                         <option value="{{ categorie.libelle }}">{{ categorie.libelle }}</option>*/
+/*                     {% endfor %}*/
+/*                 </select>*/
 /*                 <input type="submit" name="Ajouter" value="Ajouter" class="boutonFormulaire" >*/
 /*             </form>*/
 /*         </div>*/
@@ -168,7 +213,8 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
 /*             <tr>*/
 /*                 <td> Libelle </td>*/
 /*                 <td> Type </td>*/
-/*                 <td> Parent </td>*/
+/*                 <td> Catégorie </td>*/
+/*                 <td> Modifier </td>*/
 /*                 <td> Supprimer </td>*/
 /*             </tr>*/
 /* */
@@ -177,7 +223,7 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
 /*                 <tr>*/
 /*                     <td> <p> {{ lien.libelle }} <p> </td>*/
 /*                     <td> */
-/*                          <p>*/
+/*                         <p>*/
 /*                             {% if lien.liens == null %}*/
 /*                                 Catégorie*/
 /*                             {% else %}*/
@@ -185,7 +231,8 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
 /*                             {% endif %}*/
 /*                         <p> */
 /*                     </td>*/
-/*                     <td> <p> {% if lien.parent == null %} Aucun {% else %} {{ lien.parent }} {% endif %} <p> </td>*/
+/*                     <td {% if lien.parent == 'Aucune' %} style="background-color:lightgrey;" {% endif %}> <p> {% if lien.parent != 'Aucune' %} {{ lien.parent }} {% endif %} <p> </td>*/
+/*                     <td> <a href='{{ path('nox_intranet_modification_lien', {'lienID': lien.id}) }}'> <img id="editionLienImg" src='{{ asset('bundles/noxintranetadministration/images/Data-Edit-32.png') }}'> </a> </td>*/
 /*                     <td> <a href='{{ path('nox_intranet_suppression_lien', {'lienID': lien.id}) }}'> <img id="suppressionLienImg" src='{{ asset('bundles/noxintranetadministration/images/Delete-48.png') }}'> </a> </td>*/
 /*                 </tr>*/
 /* */

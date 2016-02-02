@@ -40,7 +40,7 @@
         </div>
 
     {% endif %}
-    
+
     <div id="rechercheUser">
         <div id="rechercheCompetencesDiv">
             <form action='{{ path('nox_intranet_references_recherche') }}' type='GET'>
@@ -51,6 +51,16 @@
             </form>
         </div>
     </div>
+
+    {% if references == null %}
+
+        <div class="divNews">
+
+            Votre recherche n'a retourné aucun résultat.
+
+        </div>
+
+    {% endif %}
 
     {% for reference in references %}
 

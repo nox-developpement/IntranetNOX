@@ -543,6 +543,19 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_suppression_lien')), array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationLiensController::administrationLiensSuppressionAction',));
                 }
 
+                if (0 === strpos($pathinfo, '/administration/liens/modification')) {
+                    // nox_intranet_modification_lien
+                    if (preg_match('#^/administration/liens/modification/(?P<lienID>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_modification_lien')), array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationLiensController::administrationLiensModificationAction',));
+                    }
+
+                    // nox_intranet_modification_lien_check
+                    if (0 === strpos($pathinfo, '/administration/liens/modificationCheck') && preg_match('#^/administration/liens/modificationCheck/(?P<lienID>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_modification_lien_check')), array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationLiensController::administrationLiensModificationCheckAction',));
+                    }
+
+                }
+
                 // nox_intranet_ajout_lien
                 if ($pathinfo === '/administration/liens/ajout') {
                     return array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationLiensController::administrationLiensAjoutAction',  '_route' => 'nox_intranet_ajout_lien',);

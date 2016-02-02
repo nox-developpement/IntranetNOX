@@ -23,77 +23,86 @@ class __TwigTemplate_645f8754bbe03b72f28d31d05fada3d314ef29426feb50d37f1142bc0f0
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_f989e4fde0fd176c34440464ba2985d1ea5d7e5c511fc644ff22d5cdbaec43f1 = $this->env->getExtension("native_profiler");
-        $__internal_f989e4fde0fd176c34440464ba2985d1ea5d7e5c511fc644ff22d5cdbaec43f1->enter($__internal_f989e4fde0fd176c34440464ba2985d1ea5d7e5c511fc644ff22d5cdbaec43f1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetSupportSIBundle:Support:information.html.twig"));
+        $__internal_143e7f7b99b6c081a539fae4d7c04167c81e7f7ceee8d13da1447a49414fded0 = $this->env->getExtension("native_profiler");
+        $__internal_143e7f7b99b6c081a539fae4d7c04167c81e7f7ceee8d13da1447a49414fded0->enter($__internal_143e7f7b99b6c081a539fae4d7c04167c81e7f7ceee8d13da1447a49414fded0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetSupportSIBundle:Support:information.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_f989e4fde0fd176c34440464ba2985d1ea5d7e5c511fc644ff22d5cdbaec43f1->leave($__internal_f989e4fde0fd176c34440464ba2985d1ea5d7e5c511fc644ff22d5cdbaec43f1_prof);
+        $__internal_143e7f7b99b6c081a539fae4d7c04167c81e7f7ceee8d13da1447a49414fded0->leave($__internal_143e7f7b99b6c081a539fae4d7c04167c81e7f7ceee8d13da1447a49414fded0_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_9bd3691091371f01ae4040a6f2e6743015fad7d9284315006de1a07b98349af7 = $this->env->getExtension("native_profiler");
-        $__internal_9bd3691091371f01ae4040a6f2e6743015fad7d9284315006de1a07b98349af7->enter($__internal_9bd3691091371f01ae4040a6f2e6743015fad7d9284315006de1a07b98349af7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_84b64f687b0b151c0eb1df0223901747acca89ad5e9d67bd195a21c1cc7267c0 = $this->env->getExtension("native_profiler");
+        $__internal_84b64f687b0b151c0eb1df0223901747acca89ad5e9d67bd195a21c1cc7267c0->enter($__internal_84b64f687b0b151c0eb1df0223901747acca89ad5e9d67bd195a21c1cc7267c0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         // line 4
         echo "    Information
 ";
         
-        $__internal_9bd3691091371f01ae4040a6f2e6743015fad7d9284315006de1a07b98349af7->leave($__internal_9bd3691091371f01ae4040a6f2e6743015fad7d9284315006de1a07b98349af7_prof);
+        $__internal_84b64f687b0b151c0eb1df0223901747acca89ad5e9d67bd195a21c1cc7267c0->leave($__internal_84b64f687b0b151c0eb1df0223901747acca89ad5e9d67bd195a21c1cc7267c0_prof);
 
     }
 
     // line 7
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_6e3a4478cde3008b1850ba4d9430ac60e4744f66b9f477a8cfcf8d5bd93858d3 = $this->env->getExtension("native_profiler");
-        $__internal_6e3a4478cde3008b1850ba4d9430ac60e4744f66b9f477a8cfcf8d5bd93858d3->enter($__internal_6e3a4478cde3008b1850ba4d9430ac60e4744f66b9f477a8cfcf8d5bd93858d3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_fbe35c1cd2c4c5db8120cd2657adaaf54f15b4f568a2a74ecd47ef767ce4359f = $this->env->getExtension("native_profiler");
+        $__internal_fbe35c1cd2c4c5db8120cd2657adaaf54f15b4f568a2a74ecd47ef767ce4359f->enter($__internal_fbe35c1cd2c4c5db8120cd2657adaaf54f15b4f568a2a74ecd47ef767ce4359f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Information";
         
-        $__internal_6e3a4478cde3008b1850ba4d9430ac60e4744f66b9f477a8cfcf8d5bd93858d3->leave($__internal_6e3a4478cde3008b1850ba4d9430ac60e4744f66b9f477a8cfcf8d5bd93858d3_prof);
+        $__internal_fbe35c1cd2c4c5db8120cd2657adaaf54f15b4f568a2a74ecd47ef767ce4359f->leave($__internal_fbe35c1cd2c4c5db8120cd2657adaaf54f15b4f568a2a74ecd47ef767ce4359f_prof);
 
     }
 
     // line 9
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_b9d10435863de3e765c46b0e2a843d0a069fa254c3c2ba7c25457a499df8af58 = $this->env->getExtension("native_profiler");
-        $__internal_b9d10435863de3e765c46b0e2a843d0a069fa254c3c2ba7c25457a499df8af58->enter($__internal_b9d10435863de3e765c46b0e2a843d0a069fa254c3c2ba7c25457a499df8af58_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_36d78a005e2254a60d3d2c84d2fd5772eb10ae00e3a87826da7449f2c2099a81 = $this->env->getExtension("native_profiler");
+        $__internal_36d78a005e2254a60d3d2c84d2fd5772eb10ae00e3a87826da7449f2c2099a81->enter($__internal_36d78a005e2254a60d3d2c84d2fd5772eb10ae00e3a87826da7449f2c2099a81_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 10
         echo "
     <div class='zoneEdition'>
         
+        ";
+        // line 13
+        if ($this->env->getExtension('security')->isGranted("ROLE_ADMIN")) {
+            // line 14
+            echo "        
         <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
         
         ";
-        // line 15
+        }
+        // line 18
+        echo "        
+        ";
+        // line 19
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formulaire"]) ? $context["formulaire"] : $this->getContext($context, "formulaire")), 'form_start', array("attr" => array("id" => "formulaireTexte")));
         echo "
 
         ";
-        // line 17
+        // line 21
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formulaire"]) ? $context["formulaire"] : $this->getContext($context, "formulaire")), 'errors');
         echo "
 
         ";
-        // line 20
+        // line 24
         echo "        ";
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formulaire"]) ? $context["formulaire"] : $this->getContext($context, "formulaire")), "text", array()), 'errors');
         echo "
 
         ";
-        // line 23
+        // line 27
         echo "        ";
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formulaire"]) ? $context["formulaire"] : $this->getContext($context, "formulaire")), "text", array()), 'widget', array("attr" => array("class" => "textField")));
         echo "
 
         ";
-        // line 25
+        // line 29
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formulaire"]) ? $context["formulaire"] : $this->getContext($context, "formulaire")), 'form_end');
         echo "
 
@@ -101,14 +110,14 @@ class __TwigTemplate_645f8754bbe03b72f28d31d05fada3d314ef29426feb50d37f1142bc0f0
 
     <div class='zoneTexte'>
         ";
-        // line 30
+        // line 34
         echo (isset($context["texte"]) ? $context["texte"] : $this->getContext($context, "texte"));
         echo "
     </di>
 
 ";
         
-        $__internal_b9d10435863de3e765c46b0e2a843d0a069fa254c3c2ba7c25457a499df8af58->leave($__internal_b9d10435863de3e765c46b0e2a843d0a069fa254c3c2ba7c25457a499df8af58_prof);
+        $__internal_36d78a005e2254a60d3d2c84d2fd5772eb10ae00e3a87826da7449f2c2099a81->leave($__internal_36d78a005e2254a60d3d2c84d2fd5772eb10ae00e3a87826da7449f2c2099a81_prof);
 
     }
 
@@ -124,7 +133,7 @@ class __TwigTemplate_645f8754bbe03b72f28d31d05fada3d314ef29426feb50d37f1142bc0f0
 
     public function getDebugInfo()
     {
-        return array (  105 => 30,  97 => 25,  91 => 23,  85 => 20,  80 => 17,  75 => 15,  68 => 10,  62 => 9,  50 => 7,  42 => 4,  36 => 3,  11 => 1,);
+        return array (  114 => 34,  106 => 29,  100 => 27,  94 => 24,  89 => 21,  84 => 19,  81 => 18,  75 => 14,  73 => 13,  68 => 10,  62 => 9,  50 => 7,  42 => 4,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -139,7 +148,11 @@ class __TwigTemplate_645f8754bbe03b72f28d31d05fada3d314ef29426feb50d37f1142bc0f0
 /* */
 /*     <div class='zoneEdition'>*/
 /*         */
+/*         {% if is_granted('ROLE_ADMIN') %}*/
+/*         */
 /*         <button id='texteEditButton' class='boutonFormulaire'>Editer</button>*/
+/*         */
+/*         {% endif %}*/
 /*         */
 /*         {{ form_start(formulaire, {'attr': {'id': 'formulaireTexte' }}) }}*/
 /* */

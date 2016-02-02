@@ -42,23 +42,23 @@ class __TwigTemplate_c2a539193bc4431fb3c616d83c719eaaae4d07d86263b5edea731b47951
     public function block_contenu($context, array $blocks = array())
     {
         // line 8
-        echo "    
+        echo "
     ";
         // line 9
         if ($this->env->getExtension('security')->isGranted("ROLE_COMMUNICATION")) {
             echo " 
 
-            <div id=\"menuAdminNewsSI\" class='menuAdmin'>
-                <h3> Interface de gestion de contenu </h3>
-                <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/";
+        <div id=\"menuAdminNewsSI\" class='menuAdmin'>
+            <h3> Interface de gestion de contenu </h3>
+            <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/";
             // line 13
             echo twig_escape_filter($this->env, (isset($context["config"]) ? $context["config"] : null), "html", null, true);
             echo "', 'Gestionnaire de fichiers - ";
             echo twig_escape_filter($this->env, (isset($context["dossier"]) ? $context["dossier"] : null), "html", null, true);
             echo "');\"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>
-            </div>
+        </div>
 
-        ";
+    ";
         }
         // line 17
         echo "
@@ -198,15 +198,15 @@ class __TwigTemplate_c2a539193bc4431fb3c616d83c719eaaae4d07d86263b5edea731b47951
 /* {% block messageAccueil %}{{ dossier }}{% endblock %}*/
 /* */
 /* {% block contenu %}*/
-/*     */
+/* */
 /*     {% if is_granted('ROLE_COMMUNICATION') %} */
 /* */
-/*             <div id="menuAdminNewsSI" class='menuAdmin'>*/
-/*                 <h3> Interface de gestion de contenu </h3>*/
-/*                 <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/{{ config }}', 'Gestionnaire de fichiers - {{ dossier }}');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>*/
-/*             </div>*/
+/*         <div id="menuAdminNewsSI" class='menuAdmin'>*/
+/*             <h3> Interface de gestion de contenu </h3>*/
+/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/{{ config }}', 'Gestionnaire de fichiers - {{ dossier }}');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>*/
+/*         </div>*/
 /* */
-/*         {% endif %}*/
+/*     {% endif %}*/
 /* */
 /*     {% for new in news %} */
 /* */
