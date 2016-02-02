@@ -237,7 +237,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
         echo "></script>
 
         <!-- Affichage défilant mise à jours Externe -->
-        <p class=\"maj\"> Mise à jours Externe </p>
+        <p class=\"maj\"> Mises à jour Externe </p>
         ";
         // line 87
         if (array_key_exists("majExterne", $context)) {
@@ -273,15 +273,19 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             // line 99
             echo "
                     function showNews(arr) {
+                        \$('#majExterne p').fadeTo(3000, 100);
                         \$('#majExterne p').html(arr[0]);
+                        \$('#majExterne p').fadeTo(3000, 0); // fade to \"0\" with a 1000ms duration
                         var i = 1;
                         setInterval(
                                 function () {
+                                    \$('#majExterne p').fadeTo(3000, 100);
                                     \$('#majExterne p').html(arr[i]);
+                                    \$('#majExterne p').fadeTo(3000, 0); // fade to \"0\" with a 1000ms duration
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 3000);
+                                }, 6000);
                     }
 
                     showNews(newsExterne);
@@ -289,15 +293,15 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             </script>
         ";
         }
-        // line 116
+        // line 120
         echo "        <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours Interne -->
-        <p class=\"maj\"> Mise à jours Interne </p>
+        <p class=\"maj\"> Mises à jour Interne </p>
         ";
-        // line 120
+        // line 124
         if (array_key_exists("majInterne", $context)) {
-            // line 121
+            // line 125
             echo "            <div id='majInterne'>
                 <p></p>
             </div>
@@ -307,11 +311,11 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
                 var newsInterne = new Array();
 
                 ";
-            // line 129
+            // line 133
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majInterne"]) ? $context["majInterne"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 130
+                // line 134
                 echo "                    newsInterne.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array(), "array"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -326,18 +330,22 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 132
+            // line 136
             echo "
                     function showNews(arr) {
+                        \$('#majInterne p').fadeTo(3000, 100);
                         \$('#majInterne p').html(arr[0]);
+                        \$('#majInterne p').fadeTo(3000, 0);
                         var i = 1;
                         setInterval(
                                 function () {
+                                    \$('#majInterne p').fadeTo(3000, 100);
                                     \$('#majInterne p').html(arr[i]);
+                                    \$('#majInterne p').fadeTo(3000, 0);
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 3000);
+                                }, 6000);
                     }
 
                     showNews(newsInterne);
@@ -345,15 +353,15 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             </script>
         ";
         }
-        // line 149
+        // line 157
         echo "        <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours Marketing -->
-        <p class=\"maj\"> Mise à jours Marketing </p>
+        <p class=\"maj\"> Mises à jour Marketing </p>
         ";
-        // line 153
+        // line 161
         if (array_key_exists("majMarketing", $context)) {
-            // line 154
+            // line 162
             echo "            <div id='majMarketing'>
                 <p></p>
             </div>
@@ -363,11 +371,11 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
                 var newsMarketing = new Array();
 
                 ";
-            // line 162
+            // line 170
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majMarketing"]) ? $context["majMarketing"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 163
+                // line 171
                 echo "                    newsMarketing.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array(), "array"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -382,18 +390,22 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 165
+            // line 173
             echo "
                     function showNews(arr) {
+                        \$('#majMarketing p').fadeTo(3000, 100);
                         \$('#majMarketing p').html(arr[0]);
+                        \$('#majMarketing p').fadeTo(3000, 0);
                         var i = 1;
                         setInterval(
                                 function () {
+                                    \$('#majMarketing p').fadeTo(3000, 100);
                                     \$('#majMarketing p').html(arr[i]);
+                                    \$('#majMarketing p').fadeTo(3000, 0);
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 3000);
+                                }, 6000);
                     }
 
                     showNews(newsMarketing);
@@ -401,15 +413,15 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             </script>
         ";
         }
-        // line 182
+        // line 194
         echo "        <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours SI -->
-        <p class=\"maj\"> Mise à jours SI </p>
+        <p class=\"maj\"> Mises à jour SI </p>
         ";
-        // line 186
+        // line 198
         if (array_key_exists("majSI", $context)) {
-            // line 187
+            // line 199
             echo "            <div id='majSI'>
                 <p></p>
             </div>
@@ -419,11 +431,11 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
                 var newsSI = new Array();
 
                 ";
-            // line 195
+            // line 207
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majSI"]) ? $context["majSI"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 196
+                // line 208
                 echo "                    newsSI.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array(), "array"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -438,18 +450,22 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 198
+            // line 210
             echo "
                     function showNews(arr) {
+                        \$('#majSI p').fadeTo(3000, 100);
                         \$('#majSI p').html(arr[0]);
+                        \$('#majSI p').fadeTo(3000, 0);
                         var i = 1;
                         setInterval(
                                 function () {
+                                    \$('#majSI p').fadeTo(3000, 100);
                                     \$('#majSI p').html(arr[i]);
+                                    \$('#majSI p').fadeTo(3000, 0);
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 3000);
+                                }, 6000);
                     }
 
                     showNews(newsSI);
@@ -457,7 +473,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             </script>
         ";
         }
-        // line 215
+        // line 231
         echo "        <!-------------------------------------------------->
 
     </div>
@@ -477,7 +493,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 
     public function getDebugInfo()
     {
-        return array (  461 => 215,  442 => 198,  427 => 196,  423 => 195,  413 => 187,  411 => 186,  405 => 182,  386 => 165,  371 => 163,  367 => 162,  357 => 154,  355 => 153,  349 => 149,  330 => 132,  315 => 130,  311 => 129,  301 => 121,  299 => 120,  293 => 116,  274 => 99,  259 => 97,  255 => 96,  245 => 88,  243 => 87,  236 => 83,  227 => 77,  216 => 69,  210 => 67,  204 => 64,  199 => 61,  194 => 59,  191 => 58,  185 => 54,  183 => 53,  178 => 50,  175 => 49,  162 => 42,  159 => 41,  152 => 39,  146 => 38,  143 => 37,  137 => 36,  134 => 35,  128 => 34,  125 => 33,  119 => 32,  116 => 31,  110 => 30,  107 => 29,  103 => 28,  98 => 26,  89 => 20,  85 => 19,  81 => 18,  76 => 16,  71 => 13,  66 => 12,  64 => 11,  60 => 9,  57 => 8,  50 => 6,  37 => 5,  31 => 3,  11 => 1,);
+        return array (  477 => 231,  454 => 210,  439 => 208,  435 => 207,  425 => 199,  423 => 198,  417 => 194,  394 => 173,  379 => 171,  375 => 170,  365 => 162,  363 => 161,  357 => 157,  334 => 136,  319 => 134,  315 => 133,  305 => 125,  303 => 124,  297 => 120,  274 => 99,  259 => 97,  255 => 96,  245 => 88,  243 => 87,  236 => 83,  227 => 77,  216 => 69,  210 => 67,  204 => 64,  199 => 61,  194 => 59,  191 => 58,  185 => 54,  183 => 53,  178 => 50,  175 => 49,  162 => 42,  159 => 41,  152 => 39,  146 => 38,  143 => 37,  137 => 36,  134 => 35,  128 => 34,  125 => 33,  119 => 32,  116 => 31,  110 => 30,  107 => 29,  103 => 28,  98 => 26,  89 => 20,  85 => 19,  81 => 18,  76 => 16,  71 => 13,  66 => 12,  64 => 11,  60 => 9,  57 => 8,  50 => 6,  37 => 5,  31 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -565,7 +581,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*         <script src={{ asset('./js/jquery-2.2.0.min.js') }}></script>*/
 /* */
 /*         <!-- Affichage défilant mise à jours Externe -->*/
-/*         <p class="maj"> Mise à jours Externe </p>*/
+/*         <p class="maj"> Mises à jour Externe </p>*/
 /*         {% if majExterne is defined %}*/
 /*             <div id='majExterne'>*/
 /*                 <p></p>*/
@@ -580,15 +596,19 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/
+/*                         $('#majExterne p').fadeTo(3000, 100);*/
 /*                         $('#majExterne p').html(arr[0]);*/
+/*                         $('#majExterne p').fadeTo(3000, 0); // fade to "0" with a 1000ms duration*/
 /*                         var i = 1;*/
 /*                         setInterval(*/
 /*                                 function () {*/
+/*                                     $('#majExterne p').fadeTo(3000, 100);*/
 /*                                     $('#majExterne p').html(arr[i]);*/
+/*                                     $('#majExterne p').fadeTo(3000, 0); // fade to "0" with a 1000ms duration*/
 /*                                     i++;*/
 /*                                     if (i >= arr.length)*/
 /*                                         i = 0;*/
-/*                                 }, 3000);*/
+/*                                 }, 6000);*/
 /*                     }*/
 /* */
 /*                     showNews(newsExterne);*/
@@ -598,7 +618,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*         <!-------------------------------------------------->*/
 /* */
 /*         <!-- Affichage défilant mise à jours Interne -->*/
-/*         <p class="maj"> Mise à jours Interne </p>*/
+/*         <p class="maj"> Mises à jour Interne </p>*/
 /*         {% if majInterne is defined %}*/
 /*             <div id='majInterne'>*/
 /*                 <p></p>*/
@@ -613,15 +633,19 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/
+/*                         $('#majInterne p').fadeTo(3000, 100);*/
 /*                         $('#majInterne p').html(arr[0]);*/
+/*                         $('#majInterne p').fadeTo(3000, 0);*/
 /*                         var i = 1;*/
 /*                         setInterval(*/
 /*                                 function () {*/
+/*                                     $('#majInterne p').fadeTo(3000, 100);*/
 /*                                     $('#majInterne p').html(arr[i]);*/
+/*                                     $('#majInterne p').fadeTo(3000, 0);*/
 /*                                     i++;*/
 /*                                     if (i >= arr.length)*/
 /*                                         i = 0;*/
-/*                                 }, 3000);*/
+/*                                 }, 6000);*/
 /*                     }*/
 /* */
 /*                     showNews(newsInterne);*/
@@ -631,7 +655,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*         <!-------------------------------------------------->*/
 /* */
 /*         <!-- Affichage défilant mise à jours Marketing -->*/
-/*         <p class="maj"> Mise à jours Marketing </p>*/
+/*         <p class="maj"> Mises à jour Marketing </p>*/
 /*         {% if majMarketing is defined %}*/
 /*             <div id='majMarketing'>*/
 /*                 <p></p>*/
@@ -646,15 +670,19 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/
+/*                         $('#majMarketing p').fadeTo(3000, 100);*/
 /*                         $('#majMarketing p').html(arr[0]);*/
+/*                         $('#majMarketing p').fadeTo(3000, 0);*/
 /*                         var i = 1;*/
 /*                         setInterval(*/
 /*                                 function () {*/
+/*                                     $('#majMarketing p').fadeTo(3000, 100);*/
 /*                                     $('#majMarketing p').html(arr[i]);*/
+/*                                     $('#majMarketing p').fadeTo(3000, 0);*/
 /*                                     i++;*/
 /*                                     if (i >= arr.length)*/
 /*                                         i = 0;*/
-/*                                 }, 3000);*/
+/*                                 }, 6000);*/
 /*                     }*/
 /* */
 /*                     showNews(newsMarketing);*/
@@ -664,7 +692,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*         <!-------------------------------------------------->*/
 /* */
 /*         <!-- Affichage défilant mise à jours SI -->*/
-/*         <p class="maj"> Mise à jours SI </p>*/
+/*         <p class="maj"> Mises à jour SI </p>*/
 /*         {% if majSI is defined %}*/
 /*             <div id='majSI'>*/
 /*                 <p></p>*/
@@ -679,15 +707,19 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/
+/*                         $('#majSI p').fadeTo(3000, 100);*/
 /*                         $('#majSI p').html(arr[0]);*/
+/*                         $('#majSI p').fadeTo(3000, 0);*/
 /*                         var i = 1;*/
 /*                         setInterval(*/
 /*                                 function () {*/
+/*                                     $('#majSI p').fadeTo(3000, 100);*/
 /*                                     $('#majSI p').html(arr[i]);*/
+/*                                     $('#majSI p').fadeTo(3000, 0);*/
 /*                                     i++;*/
 /*                                     if (i >= arr.length)*/
 /*                                         i = 0;*/
-/*                                 }, 3000);*/
+/*                                 }, 6000);*/
 /*                     }*/
 /* */
 /*                     showNews(newsSI);*/

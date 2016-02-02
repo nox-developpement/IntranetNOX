@@ -262,6 +262,19 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             }
 
+            if (0 === strpos($pathinfo, '/ressources/aq')) {
+                // nox_intranet_aq
+                if ($pathinfo === '/ressources/aq') {
+                    return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::aqAction',  '_route' => 'nox_intranet_aq',);
+                }
+
+                // nox_intranet_affichageAQ
+                if (preg_match('#^/ressources/aq/(?P<dossier>[^/]++)/(?P<config>[^/]++)/(?P<chemin>.+)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_affichageAQ')), array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::affichageAQAction',));
+                }
+
+            }
+
         }
 
         if (0 === strpos($pathinfo, '/testConnexion')) {

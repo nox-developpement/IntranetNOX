@@ -114,6 +114,7 @@
   'NoxIntranetSupportBundle:Ticket:ticket.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\SupportBundle/Resources/views/Ticket/ticket.html.twig',
   'NoxIntranetAccueilBundle:Accueil:accueil.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\AccueilBundle/Resources/views/Accueil/accueil.html.twig',
   'NoxIntranetRessourcesBundle:Accueil:accueilRessources.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/Accueil/accueilRessources.html.twig',
+  'NoxIntranetRessourcesBundle:AQ:AQ.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/AQ/AQ.html.twig',
   'NoxIntranetRessourcesBundle:Archives:archives.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/Archives/archives.html.twig',
   'NoxIntranetRessourcesBundle:Competences:competences.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/Competences/competences.html.twig',
   'NoxIntranetRessourcesBundle:Imprimantes:imprimantes.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/Imprimantes/imprimantes.html.twig',

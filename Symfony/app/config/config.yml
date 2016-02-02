@@ -94,7 +94,7 @@ fm_elfinder:
                         path:             uploads/ImagesPublication
                         upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  10000M
+                        upload_max_size:  5M
         archives:
             locale:           %locale%
             editor:           ckeditor
@@ -346,7 +346,7 @@ fm_elfinder:
                         path:             uploads/Communication/Interne/Trombinoscope
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  1000M
         organigrammeStrategique:
             locale:           %locale%
             editor:           ckeditor
@@ -484,6 +484,20 @@ fm_elfinder:
                     uploads:
                         driver:           LocalFileSystem
                         path:             uploads/Communication/Marketing/Nos5Valeurs
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M
+        ISO9001:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/CERTIFICATSISOETOPQIBI/ISO9001
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  5M

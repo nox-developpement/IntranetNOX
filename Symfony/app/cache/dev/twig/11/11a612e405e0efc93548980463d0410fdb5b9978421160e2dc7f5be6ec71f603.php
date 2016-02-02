@@ -15,8 +15,8 @@ class __TwigTemplate_f9656b146fc789c54ef5946b46f402a23a65c0005850c35b791fe7083b7
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_fb582fdec604840a6e33df41b5cf88edb5ba4d3724598b99f9ce2b95399726a1 = $this->env->getExtension("native_profiler");
-        $__internal_fb582fdec604840a6e33df41b5cf88edb5ba4d3724598b99f9ce2b95399726a1->enter($__internal_fb582fdec604840a6e33df41b5cf88edb5ba4d3724598b99f9ce2b95399726a1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "SensioDistributionBundle:Configurator:steps.html.twig"));
+        $__internal_1b9d1218c3279efe0a1e71d2ac993eed80ebd44ead7b4ada46c9411e759dcb1f = $this->env->getExtension("native_profiler");
+        $__internal_1b9d1218c3279efe0a1e71d2ac993eed80ebd44ead7b4ada46c9411e759dcb1f->enter($__internal_1b9d1218c3279efe0a1e71d2ac993eed80ebd44ead7b4ada46c9411e759dcb1f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "SensioDistributionBundle:Configurator:steps.html.twig"));
 
         // line 1
         echo "<div class=\"symfony-block-steps\">
@@ -61,7 +61,7 @@ class __TwigTemplate_f9656b146fc789c54ef5946b46f402a23a65c0005850c35b791fe7083b7
         echo "</div>
 ";
         
-        $__internal_fb582fdec604840a6e33df41b5cf88edb5ba4d3724598b99f9ce2b95399726a1->leave($__internal_fb582fdec604840a6e33df41b5cf88edb5ba4d3724598b99f9ce2b95399726a1_prof);
+        $__internal_1b9d1218c3279efe0a1e71d2ac993eed80ebd44ead7b4ada46c9411e759dcb1f->leave($__internal_1b9d1218c3279efe0a1e71d2ac993eed80ebd44ead7b4ada46c9411e759dcb1f_prof);
 
     }
 

@@ -62,6 +62,16 @@ nox_intranet_serveur_download_script_deconnexion:
     path: /ressources/serveurs/deconnexion
     defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptServeurDeconnexionDownload }
     
+nox_intranet_aq:
+    path: /ressources/aq
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:aq }
+    
+nox_intranet_affichageAQ:
+    path:   /ressources/aq/{dossier}/{config}/{chemin}
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:affichageAQ }
+    requirements:
+         chemin: .+
+    
 
     
     

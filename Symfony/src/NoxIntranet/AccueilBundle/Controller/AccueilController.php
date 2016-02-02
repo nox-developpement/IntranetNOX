@@ -162,7 +162,7 @@ class AccueilController extends Controller {
 
 //        $majExterne = null;
 //
-        $majInterne = null;
+//        $majInterne = null;
 
 //        $majMarketing = null;
 
@@ -170,7 +170,7 @@ class AccueilController extends Controller {
 
         $majExterne = $this->getMaj($filesExterne);
 //
-//        $majInterne = $this->getMaj($filesInterne);
+        $majInterne = $this->getMaj($filesInterne);
 //
         $majMarketing = $this->getMaj($filesMarketing);
 //

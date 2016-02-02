@@ -83,7 +83,7 @@
         <script src={{ asset('./js/jquery-2.2.0.min.js') }}></script>
 
         <!-- Affichage défilant mise à jours Externe -->
-        <p class="maj"> Mise à jours Externe </p>
+        <p class="maj"> Mises à jour Externe </p>
         {% if majExterne is defined %}
             <div id='majExterne'>
                 <p></p>
@@ -98,15 +98,19 @@
                 {% endfor %}
 
                     function showNews(arr) {
+                        $('#majExterne p').fadeTo(3000, 100);
                         $('#majExterne p').html(arr[0]);
+                        $('#majExterne p').fadeTo(3000, 0); // fade to "0" with a 1000ms duration
                         var i = 1;
                         setInterval(
                                 function () {
+                                    $('#majExterne p').fadeTo(3000, 100);
                                     $('#majExterne p').html(arr[i]);
+                                    $('#majExterne p').fadeTo(3000, 0); // fade to "0" with a 1000ms duration
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 3000);
+                                }, 6000);
                     }
 
                     showNews(newsExterne);
@@ -116,7 +120,7 @@
         <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours Interne -->
-        <p class="maj"> Mise à jours Interne </p>
+        <p class="maj"> Mises à jour Interne </p>
         {% if majInterne is defined %}
             <div id='majInterne'>
                 <p></p>
@@ -131,15 +135,19 @@
                 {% endfor %}
 
                     function showNews(arr) {
+                        $('#majInterne p').fadeTo(3000, 100);
                         $('#majInterne p').html(arr[0]);
+                        $('#majInterne p').fadeTo(3000, 0);
                         var i = 1;
                         setInterval(
                                 function () {
+                                    $('#majInterne p').fadeTo(3000, 100);
                                     $('#majInterne p').html(arr[i]);
+                                    $('#majInterne p').fadeTo(3000, 0);
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 3000);
+                                }, 6000);
                     }
 
                     showNews(newsInterne);
@@ -149,7 +157,7 @@
         <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours Marketing -->
-        <p class="maj"> Mise à jours Marketing </p>
+        <p class="maj"> Mises à jour Marketing </p>
         {% if majMarketing is defined %}
             <div id='majMarketing'>
                 <p></p>
@@ -164,15 +172,19 @@
                 {% endfor %}
 
                     function showNews(arr) {
+                        $('#majMarketing p').fadeTo(3000, 100);
                         $('#majMarketing p').html(arr[0]);
+                        $('#majMarketing p').fadeTo(3000, 0);
                         var i = 1;
                         setInterval(
                                 function () {
+                                    $('#majMarketing p').fadeTo(3000, 100);
                                     $('#majMarketing p').html(arr[i]);
+                                    $('#majMarketing p').fadeTo(3000, 0);
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 3000);
+                                }, 6000);
                     }
 
                     showNews(newsMarketing);
@@ -182,7 +194,7 @@
         <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours SI -->
-        <p class="maj"> Mise à jours SI </p>
+        <p class="maj"> Mises à jour SI </p>
         {% if majSI is defined %}
             <div id='majSI'>
                 <p></p>
@@ -197,15 +209,19 @@
                 {% endfor %}
 
                     function showNews(arr) {
+                        $('#majSI p').fadeTo(3000, 100);
                         $('#majSI p').html(arr[0]);
+                        $('#majSI p').fadeTo(3000, 0);
                         var i = 1;
                         setInterval(
                                 function () {
+                                    $('#majSI p').fadeTo(3000, 100);
                                     $('#majSI p').html(arr[i]);
+                                    $('#majSI p').fadeTo(3000, 0);
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 3000);
+                                }, 6000);
                     }
 
                     showNews(newsSI);

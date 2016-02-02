@@ -1673,7 +1673,8 @@ divAdministrationUtilisateur {
     display: none;
 }
 
-#sousMenuSupport, #sousMenuVideoInstitutionnelle, #sousMenuReseauxSociaux, #sousMenuBanqueImages, #sousMenuOrganigrammes, #sousMenuExterne, #sousMenuInterne, #sousMenuMarketing, #sousMenuSI {
+#sousMenuSupport, #sousMenuVideoInstitutionnelle, #sousMenuReseauxSociaux, #sousMenuBanqueImages, #sousMenuOrganigrammes, #sousMenuExterne, 
+#sousMenuInterne, #sousMenuMarketing, #sousMenuSI, #sousMenuCertificatsISO, #sousMenuDocumentQSE, #sousMenuInfoQSE {
     display: none;
 }
 

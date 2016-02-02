@@ -149,6 +149,11 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
 
             }
 
+            // nox_intranet_aq
+            if ($pathinfo === '/ressources/aq') {
+                return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::aqAction',  '_route' => 'nox_intranet_aq',);
+            }
+
         }
 
         if (0 === strpos($pathinfo, '/testConnexion')) {

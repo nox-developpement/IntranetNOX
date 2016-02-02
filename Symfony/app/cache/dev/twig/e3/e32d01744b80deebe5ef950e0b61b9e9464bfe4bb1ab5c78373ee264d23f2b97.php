@@ -1,6 +1,6 @@
 <?php
 
-/* FMElfinderBundle:Elfinder:helper/assets_js.html.twig */
+/* FMElfinderBundle:Elfinder/helper:assets_js.html.twig */
 class __TwigTemplate_7497a54bda44d910aa7e2368e3441987e60a276335cd9dbc070e766f073feac7 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -15,8 +15,8 @@ class __TwigTemplate_7497a54bda44d910aa7e2368e3441987e60a276335cd9dbc070e766f073
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_cf3934fb4cce741418e94f6c6e2f0faf264ea18ec7e63c28b8ea23cc1b985262 = $this->env->getExtension("native_profiler");
-        $__internal_cf3934fb4cce741418e94f6c6e2f0faf264ea18ec7e63c28b8ea23cc1b985262->enter($__internal_cf3934fb4cce741418e94f6c6e2f0faf264ea18ec7e63c28b8ea23cc1b985262_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "FMElfinderBundle:Elfinder:helper/assets_js.html.twig"));
+        $__internal_fe7c5028d2975fdb6d05963ad4acbc68ce949790e2532bbef32561ea3af6b0c4 = $this->env->getExtension("native_profiler");
+        $__internal_fe7c5028d2975fdb6d05963ad4acbc68ce949790e2532bbef32561ea3af6b0c4->enter($__internal_fe7c5028d2975fdb6d05963ad4acbc68ce949790e2532bbef32561ea3af6b0c4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "FMElfinderBundle:Elfinder/helper:assets_js.html.twig"));
 
         // line 1
         echo "<script src=\"";
@@ -39,13 +39,13 @@ class __TwigTemplate_7497a54bda44d910aa7e2368e3441987e60a276335cd9dbc070e766f073
 
 ";
         
-        $__internal_cf3934fb4cce741418e94f6c6e2f0faf264ea18ec7e63c28b8ea23cc1b985262->leave($__internal_cf3934fb4cce741418e94f6c6e2f0faf264ea18ec7e63c28b8ea23cc1b985262_prof);
+        $__internal_fe7c5028d2975fdb6d05963ad4acbc68ce949790e2532bbef32561ea3af6b0c4->leave($__internal_fe7c5028d2975fdb6d05963ad4acbc68ce949790e2532bbef32561ea3af6b0c4_prof);
 
     }
 
     public function getTemplateName()
     {
-        return "FMElfinderBundle:Elfinder:helper/assets_js.html.twig";
+        return "FMElfinderBundle:Elfinder/helper:assets_js.html.twig";
     }
 
     public function isTraitable()
