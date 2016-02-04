@@ -34,7 +34,7 @@
 
         <div id="menuAdminCompetences" class='menuAdmin'>
             <h3> Interface de gestion de contenu </h3>
-            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/competences', 'Gestionnaire de fichiers - Références');"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>
+            <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/competences', 'Gestionnaire de fichiers - Références');"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>
         </div>
 
     {% endif %}
@@ -64,7 +64,7 @@
 
         <div class="divNews">
 
-            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/uploads/Competences/{{ competence['lien'] }}', 'Compétences');">
+            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ competence['lien'] }}', 'Compétences');">
                 <img 
                     src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" 
                     onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" 

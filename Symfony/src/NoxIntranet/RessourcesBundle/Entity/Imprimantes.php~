@@ -274,4 +274,28 @@ class Imprimantes {
     {
         return $this->nomReseau;
     }
+
+    /**
+     * Set fileLPR
+     *
+     * @param string $fileLPR
+     *
+     * @return Imprimantes
+     */
+    public function setFileLPR($fileLPR)
+    {
+        $this->fileLPR = $fileLPR;
+
+        return $this;
+    }
+
+    /**
+     * Get fileLPR
+     *
+     * @return string
+     */
+    public function getFileLPR()
+    {
+        return $this->fileLPR;
+    }
 }

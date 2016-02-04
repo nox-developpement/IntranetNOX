@@ -64,10 +64,10 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'libelle', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'liens', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'parent', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'type');
+            return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'position', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'libelle', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'liens', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'parent', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'type');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'libelle', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'liens', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'parent', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'type');
+        return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'position', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'libelle', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'liens', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'parent', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'type');
     }
 
     /**
@@ -274,6 +274,28 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getType', array());
 
         return parent::getType();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPosition($position)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPosition', array($position));
+
+        return parent::setPosition($position);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPosition()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPosition', array());
+
+        return parent::getPosition();
     }
 
 }

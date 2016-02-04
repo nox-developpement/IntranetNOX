@@ -15,13 +15,45 @@ class RessourcesController extends Controller {
         return $this->render('NoxIntranetRessourcesBundle:Accueil:accueilRessources.html.twig');
     }
 
-    public function liensAction() {
+    public function liensAction(Request $request) {
 
         $em = $this->getDoctrine()->getManager();
 
-        $liens = $em->getRepository('NoxIntranetRessourcesBundle:Liens')->findBy(array(), array('libelle' => 'asc'));
+        $texteEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Liens');
 
-        return $this->render('NoxIntranetRessourcesBundle:Liens:liens.html.twig', array('liens' => $liens));
+        if ($texteEncart == null) {
+            $texteEncart = new texteEncart();
+            $texteEncart->setSection('Liens');
+            $em->persist($texteEncart);
+            $em->flush();
+        }
+
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $texteEncart);
+
+        $formBuilder
+                ->add('text', 'ckeditor')
+                ->add('modifier', 'submit')
+        ;
+
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+
+        // On vérifie que les valeurs entrées sont correctes
+        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+        if ($form->isValid()) {
+            // On l'enregistre notre objet $advert dans la base de données, par exemple
+
+            $em->persist($texteEncart);
+            $em->flush();
+
+            // On redirige vers la page de visualisation de l'annonce nouvellement créée
+            return $this->redirectToRoute('nox_intranet_liens');
+        }
+
+        $texte = $texteEncart->getText();
+
+        return $this->render('NoxIntranetRessourcesBundle:Liens:liens.html.twig', array('texte' => $texte, 'formulaire' => $form->createView()));
     }
 
     public function faqAction() {
@@ -133,6 +165,24 @@ class RessourcesController extends Controller {
 
         $textEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('References');
 
+        $keywords = $em->getRepository('NoxIntranetRessourcesBundle:ReferencesKeywords')->findAll();
+
+        if ($keywords != null) {
+            foreach ($keywords as $k => $v) {
+                $nombre[$k] = $v->getNombre();
+            }
+            array_multisort($nombre, SORT_DESC, $keywords);
+
+            $keywordNombreMax = $keywords[0]->getNombre();
+
+            $keywords5 = array_slice($keywords, 0, 10);
+
+            shuffle($keywords5);
+        } else {
+            $keywords5 = null;
+            $keywordNombreMax = null;
+        }
+
         if ($textEncart == null) {
             $textEncart = new texteEncart();
             $textEncart->setSection('References');
@@ -172,6 +222,8 @@ class RessourcesController extends Controller {
 
         $files = $this->getDirContents($dir);
 
+        $news = null;
+
         if ($files != null) {
             foreach ($files as $file) {
                 if (!is_dir($file)) {
@@ -197,10 +249,12 @@ class RessourcesController extends Controller {
                 }
             }
 
-            foreach ($news as $k => $v) {
-                $date[$k] = $v['dateEnvoi'];
+            if ($news != null) {
+                foreach ($news as $k => $v) {
+                    $date[$k] = $v['dateEnvoi'];
+                }
+                array_multisort($date, SORT_DESC, $news);
             }
-            array_multisort($date, SORT_DESC, $news);
         } else {
             $news = null;
         }
@@ -210,7 +264,7 @@ class RessourcesController extends Controller {
             }
         }
 
-        return $this->render('NoxIntranetRessourcesBundle:References:references.html.twig', array('references' => $news, 'text' => $text, 'formulaire' => $form->createView()));
+        return $this->render('NoxIntranetRessourcesBundle:References:references.html.twig', array('references' => $news, 'text' => $text, 'keywords' => $keywords5, 'nombreMax' => $keywordNombreMax, 'formulaire' => $form->createView()));
     }
 
     public function referencesKeywordAction(Request $request) {
@@ -218,6 +272,24 @@ class RessourcesController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $textEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('References');
+
+        $keywords = $em->getRepository('NoxIntranetRessourcesBundle:ReferencesKeywords')->findAll();
+
+        if ($keywords != null) {
+            foreach ($keywords as $k => $v) {
+                $nombre[$k] = $v->getNombre();
+            }
+            array_multisort($nombre, SORT_DESC, $keywords);
+
+            $keywordNombreMax = $keywords[0]->getNombre();
+
+            $keywords5 = array_slice($keywords, 0, 10);
+
+            shuffle($keywords5);
+        } else {
+            $keywords5 = null;
+            $keywordNombreMax = null;
+        }
 
         if ($textEncart == null) {
             $textEncart = new texteEncart();
@@ -259,6 +331,8 @@ class RessourcesController extends Controller {
         $dir = 'C:/wamp/www/Symfony/web/uploads/References';
 
         $files = $this->getDirContents($dir);
+
+        $competences = null;
 
         if ($files != null) {
             foreach ($files as $file) {
@@ -340,7 +414,7 @@ class RessourcesController extends Controller {
             }
         }
 
-        return $this->render('NoxIntranetRessourcesBundle:References:References.html.twig', array('references' => $competencesRecherche, 'text' => $text, 'formulaire' => $form->createView()));
+        return $this->render('NoxIntranetRessourcesBundle:References:References.html.twig', array('references' => $competencesRecherche, 'text' => $text, 'keywords' => $keywords5, 'nombreMax' => $keywordNombreMax, 'formulaire' => $form->createView()));
     }
 
     public function proceduresAction() {
@@ -739,7 +813,7 @@ class RessourcesController extends Controller {
             }
         }
 
-        return $this->render('NoxIntranetCommunicationBundle:Accueil:affichageContenu.html.twig', array('news' => $news, 'dossier' => $dossier, 'config' => $config));
+        return $this->render('NoxIntranetRessourcesBundle:AQ:affichageContenu.html.twig', array('news' => $news, 'dossier' => $dossier, 'config' => $config));
     }
 
 }

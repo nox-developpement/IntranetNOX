@@ -99,6 +99,51 @@ class __TwigTemplate_397419cb9014fe3418cdf226093ce6178cac561933bdb9edcfbc9bd8bf9
         // line 26
         echo "                </select>
 
+
+                <select name=\"position\" id=\"position\">
+
+                    ";
+        // line 31
+        if (((isset($context["position"]) ? $context["position"] : null) == null)) {
+            // line 32
+            echo "
+                        <option value=\"";
+            // line 33
+            echo twig_escape_filter($this->env, ((isset($context["positionMax"]) ? $context["positionMax"] : null) + 1), "html", null, true);
+            echo "\" readonly>";
+            echo twig_escape_filter($this->env, ((isset($context["positionMax"]) ? $context["positionMax"] : null) + 1), "html", null, true);
+            echo "</option>
+
+                    ";
+        } else {
+            // line 36
+            echo "
+                        ";
+            // line 37
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable(range(1, (isset($context["positionMax"]) ? $context["positionMax"] : null)));
+            foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
+                // line 38
+                echo "                            <option value=\"";
+                echo twig_escape_filter($this->env, $context["i"], "html", null, true);
+                echo "\" ";
+                if (((isset($context["position"]) ? $context["position"] : null) == $context["i"])) {
+                    echo " selected ";
+                }
+                echo ">";
+                echo twig_escape_filter($this->env, $context["i"], "html", null, true);
+                echo "</option>
+                        ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 40
+            echo "
+                    ";
+        }
+        // line 42
+        echo "                </select>
                 <br /> <br />
 
                 <input type=\"submit\" name=\"Modifier\" value=\"Modifier\" class=\"boutonFormulaire\" >
@@ -121,7 +166,7 @@ class __TwigTemplate_397419cb9014fe3418cdf226093ce6178cac561933bdb9edcfbc9bd8bf9
 
     public function getDebugInfo()
     {
-        return array (  100 => 26,  85 => 24,  81 => 23,  74 => 19,  69 => 17,  62 => 15,  56 => 14,  51 => 12,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  146 => 42,  142 => 40,  127 => 38,  123 => 37,  120 => 36,  112 => 33,  109 => 32,  107 => 31,  100 => 26,  85 => 24,  81 => 23,  74 => 19,  69 => 17,  62 => 15,  56 => 14,  51 => 12,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -151,6 +196,21 @@ class __TwigTemplate_397419cb9014fe3418cdf226093ce6178cac561933bdb9edcfbc9bd8bf9
 /*                     {% endfor %}*/
 /*                 </select>*/
 /* */
+/* */
+/*                 <select name="position" id="position">*/
+/* */
+/*                     {% if position == null %}*/
+/* */
+/*                         <option value="{{ positionMax+1 }}" readonly>{{ positionMax+1 }}</option>*/
+/* */
+/*                     {% else %}*/
+/* */
+/*                         {% for i in 1..positionMax %}*/
+/*                             <option value="{{ i }}" {% if position == i %} selected {% endif %}>{{ i }}</option>*/
+/*                         {% endfor %}*/
+/* */
+/*                     {% endif %}*/
+/*                 </select>*/
 /*                 <br /> <br />*/
 /* */
 /*                 <input type="submit" name="Modifier" value="Modifier" class="boutonFormulaire" >*/

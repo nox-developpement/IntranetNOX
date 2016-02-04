@@ -178,7 +178,7 @@ fm_elfinder:
                         path:             uploads/References
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         plaquettesInstitutionnelle:
             locale:           %locale%
             editor:           ckeditor
@@ -501,6 +501,146 @@ fm_elfinder:
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  5M
+        ISO14001&18001:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/CERTIFICATSISOETOPQIBI/ISO14001&18001
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M
+        OPQIBI:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/CERTIFICATSISOETOPQIBI/OPQIBI
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M
+        manuelQualite:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/DOCUMENTQSE/MANUELQUALITE
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M
+        procedures:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/DOCUMENTQSE/PROCEDURES
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M
+        modesOperatoires:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/DOCUMENTQSE/MODESOPERATOIRES
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M
+        formulairesEtDocumentsTypes:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/DOCUMENTQSE/FORMULAIRESETDOCUMENTSTYPES
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M       
+        indicateurs:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/DOCUMENTQSE/INDICATEURS
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M      
+        equipeQSE:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/INFOSQSE/EQUIPEQSE
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M     
+        citations:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/INFOSQSE/CITATIONS
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M    
+        evenements:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/INFOSQSE/EVENEMENTS
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M     
         plaquettesInstitutionnelleLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -854,12 +994,188 @@ fm_elfinder:
                         upload_allow:
                         upload_deny:      ['all']
                         upload_max_size:  5M
+        ISO9001Lecture:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/CERTIFICATSISOETOPQIBI/ISO9001
+                        attributes:
+                            - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M
+        ISO14001&18001Lecture:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/CERTIFICATSISOETOPQIBI/ISO14001&18001
+                        attributes:
+                            - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M
+        OPQIBILecture:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/CERTIFICATSISOETOPQIBI/OPQIBI
+                        attributes:
+                            - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M
+        manuelQualiteLecture:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/DOCUMENTQSE/MANUELQUALITE
+                        attributes:
+                            - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M
+        proceduresLecture:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/DOCUMENTQSE/PROCEDURES
+                        attributes:
+                            - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M
+        modesOperatoiresLecture:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/DOCUMENTQSE/MODESOPERATOIRES
+                        attributes:
+                            - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M
+        formulairesEtDocumentsTypesLecture:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/DOCUMENTQSE/FORMULAIRESETDOCUMENTSTYPES
+                        attributes:
+                            - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M         
+        indicateursLecture:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/DOCUMENTQSE/INDICATEURS
+                        attributes:
+                            - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M   
+        equipeQSELecture:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/INFOSQSE/EQUIPEQSE
+                        attributes:
+                            - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M     
+        citationsLecture:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/INFOSQSE/CITATIONS
+                        attributes:
+                            - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M    
+        evenementsLecture:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/INFOSQSE/EVENEMENTS
+                        attributes:
+                            - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M     
                         
 ivory_ck_editor:
     default_config:    my_custom_config
     configs:
         my_custom_config:
-            toolbar: [['NewPage', "-", 'DocProps', 'Preview']['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],'/',['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript', 'RemoveFormat'],['FontSize','TextColor'],['Image'],['Link']]
+            toolbar: [['NewPage', "-", 'DocProps', 'Preview']['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote'],['Source'],'/',['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript', 'RemoveFormat'],['HorizontalRule'],['FontSize','TextColor'],['Image'],['Link'],['Iframe']]
             filebrowserBrowseRoute:     elfinder
             filebrowserBrowseRouteParameters:
                 instance: ckeditor

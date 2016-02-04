@@ -25,6 +25,21 @@
                     {% endfor %}
                 </select>
 
+
+                <select name="position" id="position">
+
+                    {% if position == null %}
+
+                        <option value="{{ positionMax+1 }}" readonly>{{ positionMax+1 }}</option>
+
+                    {% else %}
+
+                        {% for i in 1..positionMax %}
+                            <option value="{{ i }}" {% if position == i %} selected {% endif %}>{{ i }}</option>
+                        {% endfor %}
+
+                    {% endif %}
+                </select>
                 <br /> <br />
 
                 <input type="submit" name="Modifier" value="Modifier" class="boutonFormulaire" >

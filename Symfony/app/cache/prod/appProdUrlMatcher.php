@@ -27,6 +27,11 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
         $context = $this->context;
         $request = $this->request;
 
+        // nox_intranet_listing_keywords_references_homepage
+        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_listing_keywords_references_homepage')), array (  '_controller' => 'NoxIntranet\\ListingKeywordsReferencesBundle\\Controller\\DefaultController::indexAction',));
+        }
+
         if (0 === strpos($pathinfo, '/e')) {
             // ef_connect
             if (0 === strpos($pathinfo, '/efconnect') && preg_match('#^/efconnect(?:/(?P<instance>[^/]++)(?:/(?P<homeFolder>[^/]++))?)?$#s', $pathinfo, $matches)) {
@@ -149,9 +154,17 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
 
             }
 
-            // nox_intranet_aq
-            if ($pathinfo === '/ressources/aq') {
-                return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::aqAction',  '_route' => 'nox_intranet_aq',);
+            if (0 === strpos($pathinfo, '/ressources/aq')) {
+                // nox_intranet_aq
+                if ($pathinfo === '/ressources/aq') {
+                    return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::aqAction',  '_route' => 'nox_intranet_aq',);
+                }
+
+                // nox_intranet_affichageAQ
+                if (preg_match('#^/ressources/aq/(?P<dossier>[^/]++)/(?P<config>[^/]++)/(?P<chemin>.+)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_affichageAQ')), array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::affichageAQAction',));
+                }
+
             }
 
         }

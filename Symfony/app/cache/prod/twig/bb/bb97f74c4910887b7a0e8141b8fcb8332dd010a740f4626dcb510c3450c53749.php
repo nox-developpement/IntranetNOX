@@ -52,7 +52,7 @@ class __TwigTemplate_f5c678d5f3fc304058eda53549d1a1b73b875d7dc105cc31758149fc8c8
 
         <div id=\"menuAdminNewsSI\" class='menuAdmin'>
             <h3> Interface de gestion de contenu </h3>
-            <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/newsSI', 'Gestionnaire de fichiers - News SI');\"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>
+            <a onclick=\"openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/newsSI', 'Gestionnaire de fichiers - News SI');\"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>
         </div>
 
     ";
@@ -202,7 +202,7 @@ class __TwigTemplate_f5c678d5f3fc304058eda53549d1a1b73b875d7dc105cc31758149fc8c8
 /* */
 /*         <div id="menuAdminNewsSI" class='menuAdmin'>*/
 /*             <h3> Interface de gestion de contenu </h3>*/
-/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/newsSI', 'Gestionnaire de fichiers - News SI');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>*/
+/*             <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/newsSI', 'Gestionnaire de fichiers - News SI');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>*/
 /*         </div>*/
 /* */
 /*     {% endif %}*/

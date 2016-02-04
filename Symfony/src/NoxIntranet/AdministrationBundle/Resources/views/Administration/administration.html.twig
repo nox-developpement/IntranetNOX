@@ -185,6 +185,18 @@
         <div class="sousMessageAcceuil"> 
             <h4> Publication Collaborateurs :  </h4>
         </div>
+        
+        <!-- Assurance qualité -->
+        <a href="{{ path('nox_intranet_aq') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetcommunication/images/Thumbs-Up-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Thumbs-Up-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetcommunication/images/Thumbs-Up-128.png') }}';"
+                    > 
+                <figcaption>Assurance qualité</figcaption>
+            </figure>
+        </a>
 
         <!-- Communication -->
         <a href="{{ path('nox_intranet_administration_communication') }}" class="icon">
@@ -198,7 +210,7 @@
             </figure>
         </a>
 
-        <!-- Compétences -->
+        <!-- Compétences (en atttente)
         <a href="{{ path('nox_intranet_competences') }}" class="icon">
             <figure>
                 <img 
@@ -209,6 +221,7 @@
                 <figcaption>Compétences</figcaption>
             </figure>
         </a>
+        <!------------------------>
 
         {% if app.user and is_granted('ROLE_FAQ') %}        
             <!-- FAQ -->
@@ -256,19 +269,6 @@
             </figure>
         </a>
         -->
-
-        <!-- Assurance qualité (a ajouter) 
-        <a href="{{ path('nox_intranet_administration_liens') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetadministration/images/Thumbs-Up-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Thumbs-Up-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Thumbs-Up-128.png') }}';"
-                    > 
-                <figcaption>Assurance qualité</figcaption>
-            </figure>
-        </a>
-        --> 
 
         <!-- Références -->
         <a href="{{ path('nox_intranet_references') }}" class="icon">

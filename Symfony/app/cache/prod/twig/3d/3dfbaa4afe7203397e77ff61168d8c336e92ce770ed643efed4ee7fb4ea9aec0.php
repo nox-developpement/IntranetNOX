@@ -29,106 +29,70 @@ class __TwigTemplate_275f6e56d95e04a1679312e97d48240601c907e1c11d6d4cda70584ebda
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        echo " Liens ";
-    }
-
-    // line 5
-    public function block_messageAccueil($context, array $blocks = array())
-    {
-        echo " Liens ";
+        // line 4
+        echo "    Liens
+";
     }
 
     // line 7
+    public function block_messageAccueil($context, array $blocks = array())
+    {
+        echo "Liens";
+    }
+
+    // line 9
     public function block_contenu($context, array $blocks = array())
     {
-        // line 8
-        echo "
-    <div id=\"Liens\">
-        ";
         // line 10
-        if (((isset($context["liens"]) ? $context["liens"] : null) == null)) {
-            // line 11
-            echo "            Il n'y a aucun lien pour le moment.
-        ";
-        } else {
-            // line 13
-            echo "            <ul>
-                ";
-            // line 14
-            $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable((isset($context["liens"]) ? $context["liens"] : null));
-            foreach ($context['_seq'] as $context["_key"] => $context["lienPrincipal"]) {
-                if (($this->getAttribute($context["lienPrincipal"], "parent", array()) == "Aucune")) {
-                    // line 15
-                    echo "                    <li> 
-                        ";
-                    // line 16
-                    if (($this->getAttribute($context["lienPrincipal"], "type", array()) == "Lien")) {
-                        // line 17
-                        echo "                            <img src=\"";
-                        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Arrowhead-Right-32.png"), "html", null, true);
-                        echo "\">
-                            <a href=\"";
-                        // line 18
-                        echo twig_escape_filter($this->env, $this->getAttribute($context["lienPrincipal"], "liens", array()), "html", null, true);
-                        echo "\" target=\"_blank\"> ";
-                        echo twig_escape_filter($this->env, $this->getAttribute($context["lienPrincipal"], "libelle", array()), "html", null, true);
-                        echo " </a>
-                        ";
-                    } else {
-                        // line 20
-                        echo "                            <img src=\"";
-                        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Arrowhead-Right-32.png"), "html", null, true);
-                        echo "\">
-                            ";
-                        // line 21
-                        echo twig_escape_filter($this->env, $this->getAttribute($context["lienPrincipal"], "libelle", array()), "html", null, true);
-                        echo "
-                        ";
-                    }
-                    // line 23
-                    echo "                        <ul>
-                            ";
-                    // line 24
-                    $context['_parent'] = $context;
-                    $context['_seq'] = twig_ensure_traversable((isset($context["liens"]) ? $context["liens"] : null));
-                    foreach ($context['_seq'] as $context["_key"] => $context["lienEnfant"]) {
-                        if (($this->getAttribute($context["lienEnfant"], "parent", array()) != "Aucune")) {
-                            // line 25
-                            echo "                                ";
-                            if (($this->getAttribute($context["lienEnfant"], "parent", array()) == $this->getAttribute($context["lienPrincipal"], "libelle", array()))) {
-                                // line 26
-                                echo "                                    <li> <img src=\"";
-                                echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Arrowhead-Right-32.png"), "html", null, true);
-                                echo "\"> <a href=\"";
-                                echo twig_escape_filter($this->env, $this->getAttribute($context["lienEnfant"], "liens", array()), "html", null, true);
-                                echo "\" target=\"_blank\"> ";
-                                echo twig_escape_filter($this->env, $this->getAttribute($context["lienEnfant"], "libelle", array()), "html", null, true);
-                                echo " </a> </li>
-                                    ";
-                            }
-                            // line 28
-                            echo "                                ";
-                        }
-                    }
-                    $_parent = $context['_parent'];
-                    unset($context['_seq'], $context['_iterated'], $context['_key'], $context['lienEnfant'], $context['_parent'], $context['loop']);
-                    $context = array_intersect_key($context, $_parent) + $_parent;
-                    // line 29
-                    echo "                        </ul>
-                    </li>
-                ";
-                }
-            }
-            $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['lienPrincipal'], $context['_parent'], $context['loop']);
-            $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 32
-            echo "            </ul>
-        ";
+        echo "
+    ";
+        // line 11
+        if ($this->env->getExtension('security')->isGranted("ROLE_LIENS")) {
+            echo " 
+
+        <div class='zoneEdition'>
+
+            <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
+
+            ";
+            // line 17
+            echo             $this->env->getExtension('form')->renderer->renderBlock((isset($context["formulaire"]) ? $context["formulaire"] : null), 'form_start', array("attr" => array("id" => "formulaireTexte")));
+            echo "
+
+            ";
+            // line 19
+            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formulaire"]) ? $context["formulaire"] : null), 'errors');
+            echo "
+
+            ";
+            // line 22
+            echo "            ";
+            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formulaire"]) ? $context["formulaire"] : null), "text", array()), 'errors');
+            echo "
+
+            ";
+            // line 25
+            echo "            ";
+            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formulaire"]) ? $context["formulaire"] : null), "text", array()), 'widget', array("attr" => array("class" => "textField")));
+            echo "
+
+            ";
+            // line 27
+            echo             $this->env->getExtension('form')->renderer->renderBlock((isset($context["formulaire"]) ? $context["formulaire"] : null), 'form_end');
+            echo "
+
+        </div>
+
+    ";
         }
+        // line 32
+        echo "
+    <div class='zoneTexte'>
+        ";
         // line 34
-        echo "    </div>
+        echo (isset($context["texte"]) ? $context["texte"] : null);
+        echo "
+    </di>
 
 ";
     }
@@ -145,42 +109,44 @@ class __TwigTemplate_275f6e56d95e04a1679312e97d48240601c907e1c11d6d4cda70584ebda
 
     public function getDebugInfo()
     {
-        return array (  131 => 34,  127 => 32,  118 => 29,  111 => 28,  101 => 26,  98 => 25,  93 => 24,  90 => 23,  85 => 21,  80 => 20,  73 => 18,  68 => 17,  66 => 16,  63 => 15,  58 => 14,  55 => 13,  51 => 11,  49 => 10,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  93 => 34,  89 => 32,  81 => 27,  75 => 25,  69 => 22,  64 => 19,  59 => 17,  50 => 11,  47 => 10,  44 => 9,  38 => 7,  33 => 4,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
 /* */
-/* {% block titrePage %} Liens {% endblock %}*/
+/* {% block titrePage %}*/
+/*     Liens*/
+/* {% endblock %}*/
 /* */
-/* {% block messageAccueil %} Liens {% endblock %}*/
+/* {% block messageAccueil %}Liens{% endblock %}*/
 /* */
 /* {% block contenu %}*/
 /* */
-/*     <div id="Liens">*/
-/*         {% if liens == null %}*/
-/*             Il n'y a aucun lien pour le moment.*/
-/*         {% else %}*/
-/*             <ul>*/
-/*                 {% for lienPrincipal in liens if lienPrincipal.parent == 'Aucune' %}*/
-/*                     <li> */
-/*                         {% if lienPrincipal.type == 'Lien' %}*/
-/*                             <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}">*/
-/*                             <a href="{{ lienPrincipal.liens }}" target="_blank"> {{ lienPrincipal.libelle }} </a>*/
-/*                         {% else %}*/
-/*                             <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}">*/
-/*                             {{ lienPrincipal.libelle }}*/
-/*                         {% endif %}*/
-/*                         <ul>*/
-/*                             {% for lienEnfant in liens if lienEnfant.parent != 'Aucune' %}*/
-/*                                 {% if lienEnfant.parent == lienPrincipal.libelle %}*/
-/*                                     <li> <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}"> <a href="{{ lienEnfant.liens }}" target="_blank"> {{ lienEnfant.libelle }} </a> </li>*/
-/*                                     {% endif %}*/
-/*                                 {% endfor %}*/
-/*                         </ul>*/
-/*                     </li>*/
-/*                 {% endfor %}*/
-/*             </ul>*/
-/*         {% endif %}*/
-/*     </div>*/
+/*     {% if is_granted('ROLE_LIENS') %} */
+/* */
+/*         <div class='zoneEdition'>*/
+/* */
+/*             <button id='texteEditButton' class='boutonFormulaire'>Editer</button>*/
+/* */
+/*             {{ form_start(formulaire, {'attr': {'id': 'formulaireTexte' }}) }}*/
+/* */
+/*             {{ form_errors(formulaire) }}*/
+/* */
+/*             {# Affichage des erreurs pour ce champ précis. #}*/
+/*             {{ form_errors(formulaire.text) }}*/
+/* */
+/*             {# Génération de l'input. #}*/
+/*             {{ form_widget(formulaire.text, {'attr': {'class': 'textField' }}) }}*/
+/* */
+/*             {{ form_end(formulaire) }}*/
+/* */
+/*         </div>*/
+/* */
+/*     {% endif %}*/
+/* */
+/*     <div class='zoneTexte'>*/
+/*         {{ texte|raw }}*/
+/*     </di>*/
 /* */
 /* {% endblock %}*/
+/* */

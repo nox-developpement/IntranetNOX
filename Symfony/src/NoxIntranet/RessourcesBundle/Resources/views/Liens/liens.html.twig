@@ -1,36 +1,37 @@
 {% extends "::layout.html.twig" %}
 
-{% block titrePage %} Liens {% endblock %}
+{% block titrePage %}
+    Liens
+{% endblock %}
 
-{% block messageAccueil %} Liens {% endblock %}
+{% block messageAccueil %}Liens{% endblock %}
 
 {% block contenu %}
 
-    <div id="Liens">
-        {% if liens == null %}
-            Il n'y a aucun lien pour le moment.
-        {% else %}
-            <ul>
-                {% for lienPrincipal in liens if lienPrincipal.parent == 'Aucune' %}
-                    <li> 
-                        {% if lienPrincipal.type == 'Lien' %}
-                            <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}">
-                            <a href="{{ lienPrincipal.liens }}" target="_blank"> {{ lienPrincipal.libelle }} </a>
-                        {% else %}
-                            <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}">
-                            {{ lienPrincipal.libelle }}
-                        {% endif %}
-                        <ul>
-                            {% for lienEnfant in liens if lienEnfant.parent != 'Aucune' %}
-                                {% if lienEnfant.parent == lienPrincipal.libelle %}
-                                    <li> <img src="{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-32.png') }}"> <a href="{{ lienEnfant.liens }}" target="_blank"> {{ lienEnfant.libelle }} </a> </li>
-                                    {% endif %}
-                                {% endfor %}
-                        </ul>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
+    {% if is_granted('ROLE_LIENS') %} 
+
+        <div class='zoneEdition'>
+
+            <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
+
+            {{ form_start(formulaire, {'attr': {'id': 'formulaireTexte' }}) }}
+
+            {{ form_errors(formulaire) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(formulaire.text) }}
+
+            {# Génération de l'input. #}
+            {{ form_widget(formulaire.text, {'attr': {'class': 'textField' }}) }}
+
+            {{ form_end(formulaire) }}
+
+        </div>
+
+    {% endif %}
+
+    <div class='zoneTexte'>
+        {{ texte|raw }}
+    </di>
 
 {% endblock %}

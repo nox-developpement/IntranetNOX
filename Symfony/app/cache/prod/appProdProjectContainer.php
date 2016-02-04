@@ -126,6 +126,7 @@ class appProdProjectContainer extends Container
             'monolog.logger.security' => 'getMonolog_Logger_SecurityService',
             'monolog.logger.translation' => 'getMonolog_Logger_TranslationService',
             'noxintranet_administration.majuserdb' => 'getNoxintranetAdministration_MajuserdbService',
+            'noxintranet_references.putkeywordsnumber' => 'getNoxintranetReferences_PutkeywordsnumberService',
             'property_accessor' => 'getPropertyAccessorService',
             'request' => 'getRequestService',
             'request_stack' => 'getRequestStackService',
@@ -314,16 +315,17 @@ class appProdProjectContainer extends Container
     protected function getDoctrine_Orm_DefaultEntityManagerService()
     {
         $a = $this->get('annotation_reader');
-        $b = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($a, array(0 => ($this->targetDirs[3].'\\src\\NoxIntranet\\CommunicationBundle\\Entity'), 1 => ($this->targetDirs[3].'\\src\\NoxIntranet\\AdministrationBundle\\Entity'), 2 => ($this->targetDirs[3].'\\src\\NoxIntranet\\UserBundle\\Entity'), 3 => ($this->targetDirs[3].'\\src\\NoxIntranet\\SupportBundle\\Entity'), 4 => ($this->targetDirs[3].'\\src\\NoxIntranet\\RessourcesBundle\\Entity'), 5 => ($this->targetDirs[3].'\\src\\NoxIntranet\\SupportSIBundle\\Entity')));
+        $b = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($a, array(0 => ($this->targetDirs[3].'\\src\\NoxIntranet\\CommunicationBundle\\Entity'), 1 => ($this->targetDirs[3].'\\src\\NoxIntranet\\AdministrationBundle\\Entity'), 2 => ($this->targetDirs[3].'\\src\\NoxIntranet\\UserBundle\\Entity'), 3 => ($this->targetDirs[3].'\\src\\NoxIntranet\\SupportBundle\\Entity'), 4 => ($this->targetDirs[3].'\\src\\NoxIntranet\\AccueilBundle\\Entity'), 5 => ($this->targetDirs[3].'\\src\\NoxIntranet\\RessourcesBundle\\Entity'), 6 => ($this->targetDirs[3].'\\src\\NoxIntranet\\SupportSIBundle\\Entity')));
         $c = new \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain();
         $c->addDriver($b, 'NoxIntranet\\CommunicationBundle\\Entity');
         $c->addDriver($b, 'NoxIntranet\\AdministrationBundle\\Entity');
         $c->addDriver($b, 'NoxIntranet\\UserBundle\\Entity');
         $c->addDriver($b, 'NoxIntranet\\SupportBundle\\Entity');
+        $c->addDriver($b, 'NoxIntranet\\AccueilBundle\\Entity');
         $c->addDriver($b, 'NoxIntranet\\RessourcesBundle\\Entity');
         $c->addDriver($b, 'NoxIntranet\\SupportSIBundle\\Entity');
         $d = new \Doctrine\ORM\Configuration();
-        $d->setEntityNamespaces(array('NoxIntranetCommunicationBundle' => 'NoxIntranet\\CommunicationBundle\\Entity', 'NoxIntranetAdministrationBundle' => 'NoxIntranet\\AdministrationBundle\\Entity', 'NoxIntranetUserBundle' => 'NoxIntranet\\UserBundle\\Entity', 'NoxIntranetSupportBundle' => 'NoxIntranet\\SupportBundle\\Entity', 'NoxIntranetRessourcesBundle' => 'NoxIntranet\\RessourcesBundle\\Entity', 'NoxIntranetSupportSIBundle' => 'NoxIntranet\\SupportSIBundle\\Entity'));
+        $d->setEntityNamespaces(array('NoxIntranetCommunicationBundle' => 'NoxIntranet\\CommunicationBundle\\Entity', 'NoxIntranetAdministrationBundle' => 'NoxIntranet\\AdministrationBundle\\Entity', 'NoxIntranetUserBundle' => 'NoxIntranet\\UserBundle\\Entity', 'NoxIntranetSupportBundle' => 'NoxIntranet\\SupportBundle\\Entity', 'NoxIntranetAccueilBundle' => 'NoxIntranet\\AccueilBundle\\Entity', 'NoxIntranetRessourcesBundle' => 'NoxIntranet\\RessourcesBundle\\Entity', 'NoxIntranetSupportSIBundle' => 'NoxIntranet\\SupportSIBundle\\Entity'));
         $d->setMetadataCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_metadata_cache'));
         $d->setQueryCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_query_cache'));
         $d->setResultCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_result_cache'));
@@ -408,7 +410,7 @@ class appProdProjectContainer extends Container
     }
     protected function getFmElfinder_Configurator_DefaultService()
     {
-        return $this->services['fm_elfinder.configurator.default'] = new \FM\ElfinderBundle\Configuration\ElFinderConfigurationReader(array('instances' => array('ckeditor' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/ImagesPublication', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'archives' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Archives', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'competences' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Competences', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'newsSI' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/SI/NewsSI', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxNews' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/NoxNews', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxLetters' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/NoxLetters', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'references' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/References', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'plaquettesInstitutionnelle' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/PlaquettesInstitutionnelle', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'presentationPowerPoint' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/PresentationPowerpoint', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'fichesMetier' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/FichesMetier', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'dossierTypeAppelOffre' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/DossierTypeAppelOffre', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'CVType' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/CVType', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'courriersType' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/CourriersType', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'papierEntete' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/PapierEntete', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxDansLaPresse' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/NoxDansLaPresse', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'logoNox' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/BanqueImages/LogoNox', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'cellesDuSiteInternet' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/BanqueImages/CellesDuSiteInternet', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'cellesDesSupports' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/BanqueImages/CellesDesSupports', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'trombinoscope' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Trombinoscope', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '1000M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'organigrammeStrategique' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Organigrammes/OrganigrammeStrategique', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'organigrammeFonctionnel' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Organigrammes/OrganigrammeFonctionnel', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'organigrammeAgence' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Organigrammes/OrganigrammeAgence', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'annuaireAgences' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/AnnuaireAgences', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'CE' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/CE', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'CHSCT' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/CHSCT', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxALaConquete' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/NoxALaConquete', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'ilYAForcementPlusSimple' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/IlYAForcementPlusSimple', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxFournisseurDeTalents' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/NoxFournisseurDeTalents', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'nos5Valeurs' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/Nos5Valeurs', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'ISO9001' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/CERTIFICATSISOETOPQIBI/ISO9001', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'plaquettesInstitutionnelleLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/PlaquettesInstitutionnelle', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'presentationPowerPointLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/PresentationPowerpoint', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'fichesMetierLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/FichesMetier', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'dossierTypeAppelOffreLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/DossierTypeAppelOffre', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'CVTypeLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/CVType', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'courriersTypeLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/CourriersType', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'papierEnteteLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/PapierEntete', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxDansLaPresseLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/NoxDansLaPresse', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'logoNoxLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/BanqueImages/LogoNox', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'cellesDuSiteInternetLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/BanqueImages/CellesDuSiteInternet', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'cellesDesSupportsLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/BanqueImages/CellesDesSupports', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'trombinoscopeLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Trombinoscope', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'organigrammeStrategiqueLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Organigrammes/OrganigrammeStrategique', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'organigrammeFonctionnelLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Organigrammes/OrganigrammeFonctionnel', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(0 => 'all'), 'upload_deny' => array(), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'organigrammeAgenceLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Organigrammes/OrganigrammeAgence', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'annuaireAgencesLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/AnnuaireAgences', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'CELecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/CE', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'CHSCTLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/CHSCT', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxALaConqueteLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/NoxALaConquete', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'ilYAForcementPlusSimpleLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/IlYAForcementPlusSimple', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxFournisseurDeTalentsLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/NoxFournisseurDeTalents', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'nos5ValeursLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/Nos5Valeurs', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/')), 'configuration_provider' => 'fm_elfinder.configurator.default', 'assets_path' => '/assets', 'loader' => 'fm_elfinder.loader.default'), $this->get('request_stack'), $this);
+        return $this->services['fm_elfinder.configurator.default'] = new \FM\ElfinderBundle\Configuration\ElFinderConfigurationReader(array('instances' => array('ckeditor' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/ImagesPublication', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'archives' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Archives', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'competences' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Competences', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'newsSI' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/SI/NewsSI', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxNews' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/NoxNews', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxLetters' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/NoxLetters', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'references' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/References', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '10M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'plaquettesInstitutionnelle' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/PlaquettesInstitutionnelle', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'presentationPowerPoint' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/PresentationPowerpoint', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'fichesMetier' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/FichesMetier', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'dossierTypeAppelOffre' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/DossierTypeAppelOffre', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'CVType' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/CVType', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'courriersType' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/CourriersType', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'papierEntete' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/PapierEntete', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxDansLaPresse' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/NoxDansLaPresse', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'logoNox' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/BanqueImages/LogoNox', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'cellesDuSiteInternet' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/BanqueImages/CellesDuSiteInternet', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'cellesDesSupports' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/BanqueImages/CellesDesSupports', 'upload_allow' => array(0 => 'image/png', 1 => 'image/jpg', 2 => 'image/jpeg', 3 => 'image/gif', 4 => 'application/zip', 5 => 'audio/mpeg', 6 => 'text/csv', 7 => 'video/mp4', 8 => 'video/webm', 9 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'trombinoscope' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Trombinoscope', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '1000M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'organigrammeStrategique' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Organigrammes/OrganigrammeStrategique', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'organigrammeFonctionnel' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Organigrammes/OrganigrammeFonctionnel', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'organigrammeAgence' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Organigrammes/OrganigrammeAgence', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'annuaireAgences' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/AnnuaireAgences', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'CE' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/CE', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'CHSCT' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/CHSCT', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxALaConquete' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/NoxALaConquete', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'ilYAForcementPlusSimple' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/IlYAForcementPlusSimple', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxFournisseurDeTalents' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/NoxFournisseurDeTalents', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'nos5Valeurs' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/Nos5Valeurs', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'ISO9001' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/CERTIFICATSISOETOPQIBI/ISO9001', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'ISO14001&18001' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/CERTIFICATSISOETOPQIBI/ISO14001&18001', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'OPQIBI' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/CERTIFICATSISOETOPQIBI/OPQIBI', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'manuelQualite' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/DOCUMENTQSE/MANUELQUALITE', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'procedures' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/DOCUMENTQSE/PROCEDURES', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'modesOperatoires' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/DOCUMENTQSE/MODESOPERATOIRES', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'formulairesEtDocumentsTypes' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/DOCUMENTQSE/FORMULAIRESETDOCUMENTSTYPES', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'indicateurs' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/DOCUMENTQSE/INDICATEURS', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'equipeQSE' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/INFOSQSE/EQUIPEQSE', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'citations' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/INFOSQSE/CITATIONS', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'evenements' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/INFOSQSE/EVENEMENTS', 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'attributes' => array(), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'plaquettesInstitutionnelleLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/PlaquettesInstitutionnelle', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'presentationPowerPointLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/PresentationPowerpoint', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'fichesMetierLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/FichesMetier', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'dossierTypeAppelOffreLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/DossierTypeAppelOffre', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'CVTypeLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/CVType', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'courriersTypeLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/CourriersType', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'papierEnteteLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/Supports/PapierEntete', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxDansLaPresseLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/NoxDansLaPresse', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'logoNoxLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/BanqueImages/LogoNox', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'cellesDuSiteInternetLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/BanqueImages/CellesDuSiteInternet', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'cellesDesSupportsLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Externe/BanqueImages/CellesDesSupports', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'trombinoscopeLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Trombinoscope', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'organigrammeStrategiqueLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Organigrammes/OrganigrammeStrategique', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'organigrammeFonctionnelLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Organigrammes/OrganigrammeFonctionnel', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(0 => 'all'), 'upload_deny' => array(), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'organigrammeAgenceLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/Organigrammes/OrganigrammeAgence', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'annuaireAgencesLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/AnnuaireAgences', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'CELecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/CE', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'CHSCTLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Interne/CHSCT', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxALaConqueteLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/NoxALaConquete', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'ilYAForcementPlusSimpleLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/IlYAForcementPlusSimple', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'noxFournisseurDeTalentsLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/NoxFournisseurDeTalents', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'nos5ValeursLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/Communication/Marketing/Nos5Valeurs', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'ISO9001Lecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/CERTIFICATSISOETOPQIBI/ISO9001', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'ISO14001&18001Lecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/CERTIFICATSISOETOPQIBI/ISO14001&18001', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'OPQIBILecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/CERTIFICATSISOETOPQIBI/OPQIBI', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'manuelQualiteLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/DOCUMENTQSE/MANUELQUALITE', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'proceduresLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/DOCUMENTQSE/PROCEDURES', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'modesOperatoiresLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/DOCUMENTQSE/MODESOPERATOIRES', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'formulairesEtDocumentsTypesLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/DOCUMENTQSE/FORMULAIRESETDOCUMENTSTYPES', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'indicateursLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/DOCUMENTQSE/INDICATEURS', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'equipeQSELecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/INFOSQSE/EQUIPEQSE', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'citationsLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/INFOSQSE/CITATIONS', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/'), 'evenementsLecture' => array('locale' => 'fr', 'editor' => 'ckeditor', 'fullscreen' => true, 'include_assets' => true, 'connector' => array('debug' => true, 'roots' => array('uploads' => array('driver' => 'LocalFileSystem', 'path' => 'uploads/AQ/INFOSQSE/EVENEMENTS', 'attributes' => array(0 => array('pattern' => '/^[^\\.].*/', 'read' => true, 'write' => false, 'locked' => true, 'hidden' => false)), 'upload_allow' => array(0 => 'application/pdf'), 'upload_deny' => array(0 => 'all'), 'upload_max_size' => '5M', 'volume_id' => 0, 'start_path' => '', 'url' => '', 'alias' => '', 'mime_detect' => 'auto', 'mimefile' => '', 'img_lib' => 'auto', 'tmb_path' => '.tmb', 'tmb_path_mode' => 511, 'tmb_url' => '', 'tmb_size' => 48, 'tmb_crop' => true, 'tmb_bg_color' => '#ffffff', 'copy_overwrite' => true, 'copy_join' => true, 'copy_from' => true, 'copy_to' => true, 'upload_overwrite' => true, 'upload_order' => array(0 => 'deny', 1 => 'allow'), 'defaults' => array('read' => true, 'write' => true), 'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u', 'show_hidden' => false, 'disabled_commands' => array(), 'tree_deep' => 0, 'check_subfolders' => true, 'separator' => '\\', 'date_format' => 'j M Y H:i', 'time_format' => 'H:i', 'archive_mimes' => array(), 'archivers' => array(), 'flysystem' => array('enabled' => false, 'type' => ''), 'glide_url' => '', 'glide_key' => '', 'plugins' => array(), 'dropbox_settings' => array('enabled' => false), 'ftp_settings' => array('enabled' => false), 's3_settings' => array('enabled' => false))), 'binds' => array(), 'plugins' => array()), 'cors_support' => false, 'editor_template' => NULL, 'theme' => 'smoothness', 'tinymce_popup_path' => '', 'relative_path' => true, 'path_prefix' => '/')), 'configuration_provider' => 'fm_elfinder.configurator.default', 'assets_path' => '/assets', 'loader' => 'fm_elfinder.loader.default'), $this->get('request_stack'), $this);
     }
     protected function getFmElfinder_Form_TypeService()
     {
@@ -592,7 +594,7 @@ class appProdProjectContainer extends Container
     }
     protected function getFosJsRouting_ExtractorService()
     {
-        return $this->services['fos_js_routing.extractor'] = new \FOS\JsRoutingBundle\Extractor\ExposedRoutesExtractor($this->get('router'), array(), __DIR__, array('FrameworkBundle' => 'Symfony\\Bundle\\FrameworkBundle\\FrameworkBundle', 'SecurityBundle' => 'Symfony\\Bundle\\SecurityBundle\\SecurityBundle', 'TwigBundle' => 'Symfony\\Bundle\\TwigBundle\\TwigBundle', 'MonologBundle' => 'Symfony\\Bundle\\MonologBundle\\MonologBundle', 'SwiftmailerBundle' => 'Symfony\\Bundle\\SwiftmailerBundle\\SwiftmailerBundle', 'AsseticBundle' => 'Symfony\\Bundle\\AsseticBundle\\AsseticBundle', 'DoctrineBundle' => 'Doctrine\\Bundle\\DoctrineBundle\\DoctrineBundle', 'SensioFrameworkExtraBundle' => 'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle', 'NoxIntranetCommunicationBundle' => 'NoxIntranet\\CommunicationBundle\\NoxIntranetCommunicationBundle', 'NoxIntranetMenuBundle' => 'NoxIntranet\\MenuBundle\\NoxIntranetMenuBundle', 'NoxIntranetAdministrationBundle' => 'NoxIntranet\\AdministrationBundle\\NoxIntranetAdministrationBundle', 'NoxIntranetUserBundle' => 'NoxIntranet\\UserBundle\\NoxIntranetUserBundle', 'NoxIntranetSupportBundle' => 'NoxIntranet\\SupportBundle\\NoxIntranetSupportBundle', 'NoxIntranetAccueilBundle' => 'NoxIntranet\\AccueilBundle\\NoxIntranetAccueilBundle', 'NoxIntranetRessourcesBundle' => 'NoxIntranet\\RessourcesBundle\\NoxIntranetRessourcesBundle', 'NoxIntranetSupportSIBundle' => 'NoxIntranet\\SupportSIBundle\\NoxIntranetSupportSIBundle', 'FOSJsRoutingBundle' => 'FOS\\JsRoutingBundle\\FOSJsRoutingBundle', 'NoxIntranetMajDBBundle' => 'NoxIntranet\\MajDBBundle\\NoxIntranetMajDBBundle', 'NoxIntranetVerifMajDBBundle' => 'NoxIntranet\\VerifMajDBBundle\\NoxIntranetVerifMajDBBundle', 'FMElfinderBundle' => 'FM\\ElfinderBundle\\FMElfinderBundle', 'IvoryCKEditorBundle' => 'Ivory\\CKEditorBundle\\IvoryCKEditorBundle'));
+        return $this->services['fos_js_routing.extractor'] = new \FOS\JsRoutingBundle\Extractor\ExposedRoutesExtractor($this->get('router'), array(), __DIR__, array('FrameworkBundle' => 'Symfony\\Bundle\\FrameworkBundle\\FrameworkBundle', 'SecurityBundle' => 'Symfony\\Bundle\\SecurityBundle\\SecurityBundle', 'TwigBundle' => 'Symfony\\Bundle\\TwigBundle\\TwigBundle', 'MonologBundle' => 'Symfony\\Bundle\\MonologBundle\\MonologBundle', 'SwiftmailerBundle' => 'Symfony\\Bundle\\SwiftmailerBundle\\SwiftmailerBundle', 'AsseticBundle' => 'Symfony\\Bundle\\AsseticBundle\\AsseticBundle', 'DoctrineBundle' => 'Doctrine\\Bundle\\DoctrineBundle\\DoctrineBundle', 'SensioFrameworkExtraBundle' => 'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle', 'NoxIntranetCommunicationBundle' => 'NoxIntranet\\CommunicationBundle\\NoxIntranetCommunicationBundle', 'NoxIntranetMenuBundle' => 'NoxIntranet\\MenuBundle\\NoxIntranetMenuBundle', 'NoxIntranetAdministrationBundle' => 'NoxIntranet\\AdministrationBundle\\NoxIntranetAdministrationBundle', 'NoxIntranetUserBundle' => 'NoxIntranet\\UserBundle\\NoxIntranetUserBundle', 'NoxIntranetSupportBundle' => 'NoxIntranet\\SupportBundle\\NoxIntranetSupportBundle', 'NoxIntranetAccueilBundle' => 'NoxIntranet\\AccueilBundle\\NoxIntranetAccueilBundle', 'NoxIntranetRessourcesBundle' => 'NoxIntranet\\RessourcesBundle\\NoxIntranetRessourcesBundle', 'NoxIntranetSupportSIBundle' => 'NoxIntranet\\SupportSIBundle\\NoxIntranetSupportSIBundle', 'FOSJsRoutingBundle' => 'FOS\\JsRoutingBundle\\FOSJsRoutingBundle', 'NoxIntranetMajDBBundle' => 'NoxIntranet\\MajDBBundle\\NoxIntranetMajDBBundle', 'NoxIntranetVerifMajDBBundle' => 'NoxIntranet\\VerifMajDBBundle\\NoxIntranetVerifMajDBBundle', 'FMElfinderBundle' => 'FM\\ElfinderBundle\\FMElfinderBundle', 'IvoryCKEditorBundle' => 'Ivory\\CKEditorBundle\\IvoryCKEditorBundle', 'NoxIntranetListingKeywordsReferencesBundle' => 'NoxIntranet\\ListingKeywordsReferencesBundle\\NoxIntranetListingKeywordsReferencesBundle'));
     }
     protected function getFosJsRouting_SerializerService()
     {
@@ -643,7 +645,7 @@ class appProdProjectContainer extends Container
     protected function getIvoryCkEditor_ConfigManagerService()
     {
         $this->services['ivory_ck_editor.config_manager'] = $instance = new \Ivory\CKEditorBundle\Model\ConfigManager();
-        $instance->setConfig('my_custom_config', array('toolbar' => array(0 => array(0 => 'NewPage', 1 => '-', 2 => 'DocProps', 3 => 'Preview'), 1 => array(0 => 'Cut', 1 => 'Copy', 2 => 'Paste', 3 => '-', 4 => 'Undo', 5 => 'Redo'), 2 => array(0 => 'JustifyLeft', 1 => 'JustifyCenter', 2 => 'JustifyRight', 3 => 'JustifyBlock'), 3 => '/', 4 => array(0 => 'Bold', 1 => 'Italic', 2 => 'Underline', 3 => 'Strike', 4 => '-', 5 => 'Subscript', 6 => 'Superscript', 7 => 'RemoveFormat'), 5 => array(0 => 'FontSize', 1 => 'TextColor'), 6 => array(0 => 'Image'), 7 => array(0 => 'Link')), 'filebrowserBrowseRoute' => 'elfinder', 'filebrowserBrowseRouteParameters' => array('instance' => 'ckeditor')));
+        $instance->setConfig('my_custom_config', array('toolbar' => array(0 => array(0 => 'NewPage', 1 => '-', 2 => 'DocProps', 3 => 'Preview'), 1 => array(0 => 'Cut', 1 => 'Copy', 2 => 'Paste', 3 => '-', 4 => 'Undo', 5 => 'Redo'), 2 => array(0 => 'JustifyLeft', 1 => 'JustifyCenter', 2 => 'JustifyRight', 3 => 'JustifyBlock'), 3 => array(0 => 'NumberedList', 1 => 'BulletedList', 2 => '-', 3 => 'Outdent', 4 => 'Indent', 5 => '-', 6 => 'Blockquote'), 4 => array(0 => 'Source'), 5 => '/', 6 => array(0 => 'Bold', 1 => 'Italic', 2 => 'Underline', 3 => 'Strike', 4 => '-', 5 => 'Subscript', 6 => 'Superscript', 7 => 'RemoveFormat'), 7 => array(0 => 'HorizontalRule'), 8 => array(0 => 'FontSize', 1 => 'TextColor'), 9 => array(0 => 'Image'), 10 => array(0 => 'Link'), 11 => array(0 => 'Iframe')), 'filebrowserBrowseRoute' => 'elfinder', 'filebrowserBrowseRouteParameters' => array('instance' => 'ckeditor')));
         $instance->setDefaultConfig('my_custom_config');
         return $instance;
     }
@@ -750,6 +752,10 @@ class appProdProjectContainer extends Container
     protected function getNoxintranetAdministration_MajuserdbService()
     {
         return $this->services['noxintranet_administration.majuserdb'] = new \NoxIntranet\AdministrationBundle\MajUserDB\NoxIntranetMajUserDB($this->get('doctrine.orm.default_entity_manager'));
+    }
+    protected function getNoxintranetReferences_PutkeywordsnumberService()
+    {
+        return $this->services['noxintranet_references.putkeywordsnumber'] = new \NoxIntranet\RessourcesBundle\GetKeywordsReferences\NoxIntranetGetKeywordsReferences($this->get('doctrine.orm.default_entity_manager'));
     }
     protected function getPropertyAccessorService()
     {
@@ -869,7 +875,7 @@ class appProdProjectContainer extends Container
         $z->setProviderKey('main');
         $aa = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $x, array(), $a);
         $aa->setOptions(array('login_path' => '/connexionRequise', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'));
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($w, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('security.user.provider.concrete.main')), 'main', $a, $c), 2 => $y, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, new \Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy('migrate'), $x, 'main', $z, $aa, array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '56b0d4376af552.21852413', $a, $f), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $w, $f)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $x, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $x, '/connexionRequise', false), '/accesInterdit', NULL, $a, false));
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($w, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('security.user.provider.concrete.main')), 'main', $a, $c), 2 => $y, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, new \Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy('migrate'), $x, 'main', $z, $aa, array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '56b375db1a8fe4.00165803', $a, $f), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $w, $f)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $x, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $x, '/connexionRequise', false), '/accesInterdit', NULL, $a, false));
     }
     protected function getSecurity_PasswordEncoderService()
     {
@@ -1154,7 +1160,7 @@ class appProdProjectContainer extends Container
     }
     protected function getTranslator_DefaultService()
     {
-        $this->services['translator.default'] = $instance = new \Symfony\Bundle\FrameworkBundle\Translation\Translator($this, new \Symfony\Component\Translation\MessageSelector(), array('translation.loader.php' => array(0 => 'php'), 'translation.loader.yml' => array(0 => 'yml'), 'translation.loader.xliff' => array(0 => 'xlf', 1 => 'xliff'), 'translation.loader.po' => array(0 => 'po'), 'translation.loader.mo' => array(0 => 'mo'), 'translation.loader.qt' => array(0 => 'ts'), 'translation.loader.csv' => array(0 => 'csv'), 'translation.loader.res' => array(0 => 'res'), 'translation.loader.dat' => array(0 => 'dat'), 'translation.loader.ini' => array(0 => 'ini'), 'translation.loader.json' => array(0 => 'json')), array('cache_dir' => (__DIR__.'/translations'), 'debug' => false, 'resource_files' => array('af' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.af.xlf')), 'ar' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ar.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ar.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ar.xlf')), 'az' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.az.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.az.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.az.xlf')), 'bg' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.bg.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.bg.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.bg.xlf')), 'ca' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ca.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ca.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ca.xlf')), 'cs' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.cs.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.cs.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.cs.xlf')), 'cy' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.cy.xlf')), 'da' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.da.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.da.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.da.xlf')), 'de' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.de.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.de.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.de.xlf')), 'el' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.el.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.el.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.el.xlf')), 'en' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.en.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.en.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.en.xlf')), 'es' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.es.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.es.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.es.xlf')), 'et' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.et.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.et.xlf')), 'eu' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.eu.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.eu.xlf')), 'fa' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.fa.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.fa.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.fa.xlf')), 'fi' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.fi.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.fi.xlf')), 'fr' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.fr.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.fr.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.fr.xlf'), 3 => ($this->targetDirs[3].'\\src\\NoxIntranet\\CommunicationBundle/Resources/translations\\messages.fr.xlf'), 4 => ($this->targetDirs[3].'\\src\\NoxIntranet\\MenuBundle/Resources/translations\\messages.fr.xlf'), 5 => ($this->targetDirs[3].'\\src\\NoxIntranet\\AdministrationBundle/Resources/translations\\messages.fr.xlf'), 6 => ($this->targetDirs[3].'\\src\\NoxIntranet\\UserBundle/Resources/translations\\messages.fr.xlf'), 7 => ($this->targetDirs[3].'\\src\\NoxIntranet\\SupportBundle/Resources/translations\\messages.fr.xlf'), 8 => ($this->targetDirs[3].'\\src\\NoxIntranet\\AccueilBundle/Resources/translations\\messages.fr.xlf'), 9 => ($this->targetDirs[3].'\\src\\NoxIntranet\\RessourcesBundle/Resources/translations\\messages.fr.xlf'), 10 => ($this->targetDirs[3].'\\src\\NoxIntranet\\SupportSIBundle/Resources/translations\\messages.fr.xlf'), 11 => ($this->targetDirs[3].'\\src\\NoxIntranet\\MajDBBundle/Resources/translations\\messages.fr.xlf'), 12 => ($this->targetDirs[3].'\\src\\NoxIntranet\\VerifMajDBBundle/Resources/translations\\messages.fr.xlf')), 'gl' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.gl.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.gl.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.gl.xlf')), 'he' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.he.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.he.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.he.xlf')), 'hr' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.hr.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.hr.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.hr.xlf')), 'hu' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.hu.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.hu.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.hu.xlf')), 'hy' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.hy.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.hy.xlf')), 'id' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.id.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.id.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.id.xlf')), 'it' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.it.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.it.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.it.xlf')), 'ja' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ja.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ja.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ja.xlf')), 'lb' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.lb.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.lb.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.lb.xlf')), 'lt' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.lt.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.lt.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.lt.xlf')), 'mn' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.mn.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.mn.xlf')), 'nb' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.nb.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.nb.xlf')), 'nl' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.nl.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.nl.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.nl.xlf')), 'no' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.no.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.no.xlf')), 'pl' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.pl.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.pl.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.pl.xlf')), 'pt' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.pt.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.pt.xlf')), 'pt_BR' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.pt_BR.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.pt_BR.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.pt_BR.xlf')), 'ro' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ro.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ro.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ro.xlf')), 'ru' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ru.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ru.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ru.xlf')), 'sk' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sk.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sk.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sk.xlf')), 'sl' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sl.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sl.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sl.xlf')), 'sq' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sq.xlf')), 'sr_Cyrl' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sr_Cyrl.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sr_Cyrl.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sr_Cyrl.xlf')), 'sr_Latn' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sr_Latn.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sr_Latn.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sr_Latn.xlf')), 'sv' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sv.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sv.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sv.xlf')), 'th' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.th.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.th.xlf')), 'tr' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.tr.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.tr.xlf')), 'uk' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.uk.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.uk.xlf')), 'vi' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.vi.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.vi.xlf')), 'zh_CN' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.zh_CN.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.zh_CN.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.zh_CN.xlf')), 'zh_TW' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.zh_TW.xlf')), 'lv' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.lv.xlf')), 'pt_PT' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.pt_PT.xlf')), 'ua' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ua.xlf')))), array());
+        $this->services['translator.default'] = $instance = new \Symfony\Bundle\FrameworkBundle\Translation\Translator($this, new \Symfony\Component\Translation\MessageSelector(), array('translation.loader.php' => array(0 => 'php'), 'translation.loader.yml' => array(0 => 'yml'), 'translation.loader.xliff' => array(0 => 'xlf', 1 => 'xliff'), 'translation.loader.po' => array(0 => 'po'), 'translation.loader.mo' => array(0 => 'mo'), 'translation.loader.qt' => array(0 => 'ts'), 'translation.loader.csv' => array(0 => 'csv'), 'translation.loader.res' => array(0 => 'res'), 'translation.loader.dat' => array(0 => 'dat'), 'translation.loader.ini' => array(0 => 'ini'), 'translation.loader.json' => array(0 => 'json')), array('cache_dir' => (__DIR__.'/translations'), 'debug' => false, 'resource_files' => array('af' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.af.xlf')), 'ar' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ar.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ar.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ar.xlf')), 'az' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.az.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.az.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.az.xlf')), 'bg' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.bg.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.bg.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.bg.xlf')), 'ca' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ca.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ca.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ca.xlf')), 'cs' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.cs.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.cs.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.cs.xlf')), 'cy' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.cy.xlf')), 'da' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.da.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.da.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.da.xlf')), 'de' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.de.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.de.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.de.xlf')), 'el' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.el.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.el.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.el.xlf')), 'en' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.en.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.en.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.en.xlf')), 'es' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.es.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.es.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.es.xlf')), 'et' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.et.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.et.xlf')), 'eu' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.eu.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.eu.xlf')), 'fa' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.fa.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.fa.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.fa.xlf')), 'fi' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.fi.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.fi.xlf')), 'fr' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.fr.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.fr.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.fr.xlf'), 3 => ($this->targetDirs[3].'\\src\\NoxIntranet\\CommunicationBundle/Resources/translations\\messages.fr.xlf'), 4 => ($this->targetDirs[3].'\\src\\NoxIntranet\\MenuBundle/Resources/translations\\messages.fr.xlf'), 5 => ($this->targetDirs[3].'\\src\\NoxIntranet\\AdministrationBundle/Resources/translations\\messages.fr.xlf'), 6 => ($this->targetDirs[3].'\\src\\NoxIntranet\\UserBundle/Resources/translations\\messages.fr.xlf'), 7 => ($this->targetDirs[3].'\\src\\NoxIntranet\\SupportBundle/Resources/translations\\messages.fr.xlf'), 8 => ($this->targetDirs[3].'\\src\\NoxIntranet\\AccueilBundle/Resources/translations\\messages.fr.xlf'), 9 => ($this->targetDirs[3].'\\src\\NoxIntranet\\RessourcesBundle/Resources/translations\\messages.fr.xlf'), 10 => ($this->targetDirs[3].'\\src\\NoxIntranet\\SupportSIBundle/Resources/translations\\messages.fr.xlf'), 11 => ($this->targetDirs[3].'\\src\\NoxIntranet\\MajDBBundle/Resources/translations\\messages.fr.xlf'), 12 => ($this->targetDirs[3].'\\src\\NoxIntranet\\VerifMajDBBundle/Resources/translations\\messages.fr.xlf'), 13 => ($this->targetDirs[3].'\\src\\NoxIntranet\\ListingKeywordsReferencesBundle/Resources/translations\\messages.fr.xlf')), 'gl' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.gl.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.gl.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.gl.xlf')), 'he' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.he.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.he.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.he.xlf')), 'hr' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.hr.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.hr.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.hr.xlf')), 'hu' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.hu.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.hu.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.hu.xlf')), 'hy' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.hy.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.hy.xlf')), 'id' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.id.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.id.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.id.xlf')), 'it' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.it.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.it.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.it.xlf')), 'ja' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ja.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ja.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ja.xlf')), 'lb' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.lb.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.lb.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.lb.xlf')), 'lt' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.lt.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.lt.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.lt.xlf')), 'mn' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.mn.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.mn.xlf')), 'nb' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.nb.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.nb.xlf')), 'nl' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.nl.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.nl.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.nl.xlf')), 'no' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.no.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.no.xlf')), 'pl' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.pl.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.pl.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.pl.xlf')), 'pt' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.pt.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.pt.xlf')), 'pt_BR' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.pt_BR.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.pt_BR.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.pt_BR.xlf')), 'ro' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ro.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ro.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ro.xlf')), 'ru' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ru.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ru.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ru.xlf')), 'sk' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sk.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sk.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sk.xlf')), 'sl' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sl.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sl.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sl.xlf')), 'sq' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sq.xlf')), 'sr_Cyrl' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sr_Cyrl.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sr_Cyrl.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sr_Cyrl.xlf')), 'sr_Latn' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sr_Latn.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sr_Latn.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sr_Latn.xlf')), 'sv' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sv.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sv.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sv.xlf')), 'th' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.th.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.th.xlf')), 'tr' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.tr.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.tr.xlf')), 'uk' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.uk.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.uk.xlf')), 'vi' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.vi.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.vi.xlf')), 'zh_CN' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.zh_CN.xlf'), 1 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.zh_CN.xlf'), 2 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.zh_CN.xlf')), 'zh_TW' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.zh_TW.xlf')), 'lv' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.lv.xlf')), 'pt_PT' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.pt_PT.xlf')), 'ua' => array(0 => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ua.xlf')))), array());
         $instance->setFallbackLocales(array(0 => 'fr'));
         return $instance;
     }
@@ -1235,6 +1241,7 @@ class appProdProjectContainer extends Container
         $instance->addPath(($this->targetDirs[3].'\\src\\NoxIntranet\\VerifMajDBBundle/Resources/views'), 'NoxIntranetVerifMajDB');
         $instance->addPath(($this->targetDirs[3].'\\vendor\\helios-ag\\fm-elfinder-bundle/Resources/views'), 'FMElfinder');
         $instance->addPath(($this->targetDirs[3].'\\vendor\\egeloen\\ckeditor-bundle/Resources/views'), 'IvoryCKEditor');
+        $instance->addPath(($this->targetDirs[3].'\\src\\NoxIntranet\\ListingKeywordsReferencesBundle/Resources/views'), 'NoxIntranetListingKeywordsReferences');
         $instance->addPath(($this->targetDirs[2].'/Resources/views'));
         $instance->addPath(($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bridge\\Twig/Resources/views/Form'));
         return $instance;
@@ -1295,7 +1302,7 @@ class appProdProjectContainer extends Container
     }
     protected function getSecurity_Authentication_ManagerService()
     {
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('security.user.provider.concrete.main'), new \Symfony\Component\Security\Core\User\UserChecker(), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('56b0d4376af552.21852413')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('security.user.provider.concrete.main'), new \Symfony\Component\Security\Core\User\UserChecker(), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('56b375db1a8fe4.00165803')), true);
         $instance->setEventDispatcher($this->get('event_dispatcher'));
         return $instance;
     }
@@ -1384,6 +1391,7 @@ class appProdProjectContainer extends Container
                 'NoxIntranetVerifMajDBBundle' => 'NoxIntranet\\VerifMajDBBundle\\NoxIntranetVerifMajDBBundle',
                 'FMElfinderBundle' => 'FM\\ElfinderBundle\\FMElfinderBundle',
                 'IvoryCKEditorBundle' => 'Ivory\\CKEditorBundle\\IvoryCKEditorBundle',
+                'NoxIntranetListingKeywordsReferencesBundle' => 'NoxIntranet\\ListingKeywordsReferencesBundle\\NoxIntranetListingKeywordsReferencesBundle',
             ),
             'kernel.charset' => 'UTF-8',
             'kernel.container_class' => 'appProdProjectContainer',
@@ -2507,7 +2515,7 @@ class appProdProjectContainer extends Container
                                     'upload_deny' => array(
                                         0 => 'all',
                                     ),
-                                    'upload_max_size' => '5M',
+                                    'upload_max_size' => '10M',
                                     'volume_id' => 0,
                                     'start_path' => '',
                                     'url' => '',
@@ -4722,6 +4730,906 @@ class appProdProjectContainer extends Container
                         'relative_path' => true,
                         'path_prefix' => '/',
                     ),
+                    'ISO14001&18001' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/CERTIFICATSISOETOPQIBI/ISO14001&18001',
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'attributes' => array(
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'OPQIBI' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/CERTIFICATSISOETOPQIBI/OPQIBI',
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'attributes' => array(
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'manuelQualite' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/DOCUMENTQSE/MANUELQUALITE',
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'attributes' => array(
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'procedures' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/DOCUMENTQSE/PROCEDURES',
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'attributes' => array(
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'modesOperatoires' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/DOCUMENTQSE/MODESOPERATOIRES',
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'attributes' => array(
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'formulairesEtDocumentsTypes' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/DOCUMENTQSE/FORMULAIRESETDOCUMENTSTYPES',
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'attributes' => array(
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'indicateurs' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/DOCUMENTQSE/INDICATEURS',
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'attributes' => array(
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'equipeQSE' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/INFOSQSE/EQUIPEQSE',
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'attributes' => array(
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'citations' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/INFOSQSE/CITATIONS',
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'attributes' => array(
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'evenements' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/INFOSQSE/EVENEMENTS',
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'attributes' => array(
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
                     'plaquettesInstitutionnelleLecture' => array(
                         'locale' => 'fr',
                         'editor' => 'ckeditor',
@@ -6759,6 +7667,1073 @@ class appProdProjectContainer extends Container
                                         ),
                                     ),
                                     'upload_allow' => array(
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'ISO9001Lecture' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/CERTIFICATSISOETOPQIBI/ISO9001',
+                                    'attributes' => array(
+                                        0 => array(
+                                            'pattern' => '/^[^\\.].*/',
+                                            'read' => true,
+                                            'write' => false,
+                                            'locked' => true,
+                                            'hidden' => false,
+                                        ),
+                                    ),
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'ISO14001&18001Lecture' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/CERTIFICATSISOETOPQIBI/ISO14001&18001',
+                                    'attributes' => array(
+                                        0 => array(
+                                            'pattern' => '/^[^\\.].*/',
+                                            'read' => true,
+                                            'write' => false,
+                                            'locked' => true,
+                                            'hidden' => false,
+                                        ),
+                                    ),
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'OPQIBILecture' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/CERTIFICATSISOETOPQIBI/OPQIBI',
+                                    'attributes' => array(
+                                        0 => array(
+                                            'pattern' => '/^[^\\.].*/',
+                                            'read' => true,
+                                            'write' => false,
+                                            'locked' => true,
+                                            'hidden' => false,
+                                        ),
+                                    ),
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'manuelQualiteLecture' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/DOCUMENTQSE/MANUELQUALITE',
+                                    'attributes' => array(
+                                        0 => array(
+                                            'pattern' => '/^[^\\.].*/',
+                                            'read' => true,
+                                            'write' => false,
+                                            'locked' => true,
+                                            'hidden' => false,
+                                        ),
+                                    ),
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'proceduresLecture' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/DOCUMENTQSE/PROCEDURES',
+                                    'attributes' => array(
+                                        0 => array(
+                                            'pattern' => '/^[^\\.].*/',
+                                            'read' => true,
+                                            'write' => false,
+                                            'locked' => true,
+                                            'hidden' => false,
+                                        ),
+                                    ),
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'modesOperatoiresLecture' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/DOCUMENTQSE/MODESOPERATOIRES',
+                                    'attributes' => array(
+                                        0 => array(
+                                            'pattern' => '/^[^\\.].*/',
+                                            'read' => true,
+                                            'write' => false,
+                                            'locked' => true,
+                                            'hidden' => false,
+                                        ),
+                                    ),
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'formulairesEtDocumentsTypesLecture' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/DOCUMENTQSE/FORMULAIRESETDOCUMENTSTYPES',
+                                    'attributes' => array(
+                                        0 => array(
+                                            'pattern' => '/^[^\\.].*/',
+                                            'read' => true,
+                                            'write' => false,
+                                            'locked' => true,
+                                            'hidden' => false,
+                                        ),
+                                    ),
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'indicateursLecture' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/DOCUMENTQSE/INDICATEURS',
+                                    'attributes' => array(
+                                        0 => array(
+                                            'pattern' => '/^[^\\.].*/',
+                                            'read' => true,
+                                            'write' => false,
+                                            'locked' => true,
+                                            'hidden' => false,
+                                        ),
+                                    ),
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'equipeQSELecture' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/INFOSQSE/EQUIPEQSE',
+                                    'attributes' => array(
+                                        0 => array(
+                                            'pattern' => '/^[^\\.].*/',
+                                            'read' => true,
+                                            'write' => false,
+                                            'locked' => true,
+                                            'hidden' => false,
+                                        ),
+                                    ),
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'citationsLecture' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/INFOSQSE/CITATIONS',
+                                    'attributes' => array(
+                                        0 => array(
+                                            'pattern' => '/^[^\\.].*/',
+                                            'read' => true,
+                                            'write' => false,
+                                            'locked' => true,
+                                            'hidden' => false,
+                                        ),
+                                    ),
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
+                                    ),
+                                    'upload_deny' => array(
+                                        0 => 'all',
+                                    ),
+                                    'upload_max_size' => '5M',
+                                    'volume_id' => 0,
+                                    'start_path' => '',
+                                    'url' => '',
+                                    'alias' => '',
+                                    'mime_detect' => 'auto',
+                                    'mimefile' => '',
+                                    'img_lib' => 'auto',
+                                    'tmb_path' => '.tmb',
+                                    'tmb_path_mode' => 511,
+                                    'tmb_url' => '',
+                                    'tmb_size' => 48,
+                                    'tmb_crop' => true,
+                                    'tmb_bg_color' => '#ffffff',
+                                    'copy_overwrite' => true,
+                                    'copy_join' => true,
+                                    'copy_from' => true,
+                                    'copy_to' => true,
+                                    'upload_overwrite' => true,
+                                    'upload_order' => array(
+                                        0 => 'deny',
+                                        1 => 'allow',
+                                    ),
+                                    'defaults' => array(
+                                        'read' => true,
+                                        'write' => true,
+                                    ),
+                                    'accepted_name' => '/^\\w[\\w\\s\\.\\%\\-]*$/u',
+                                    'show_hidden' => false,
+                                    'disabled_commands' => array(
+                                    ),
+                                    'tree_deep' => 0,
+                                    'check_subfolders' => true,
+                                    'separator' => '\\',
+                                    'date_format' => 'j M Y H:i',
+                                    'time_format' => 'H:i',
+                                    'archive_mimes' => array(
+                                    ),
+                                    'archivers' => array(
+                                    ),
+                                    'flysystem' => array(
+                                        'enabled' => false,
+                                        'type' => '',
+                                    ),
+                                    'glide_url' => '',
+                                    'glide_key' => '',
+                                    'plugins' => array(
+                                    ),
+                                    'dropbox_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    'ftp_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                    's3_settings' => array(
+                                        'enabled' => false,
+                                    ),
+                                ),
+                            ),
+                            'binds' => array(
+                            ),
+                            'plugins' => array(
+                            ),
+                        ),
+                        'cors_support' => false,
+                        'editor_template' => NULL,
+                        'theme' => 'smoothness',
+                        'tinymce_popup_path' => '',
+                        'relative_path' => true,
+                        'path_prefix' => '/',
+                    ),
+                    'evenementsLecture' => array(
+                        'locale' => 'fr',
+                        'editor' => 'ckeditor',
+                        'fullscreen' => true,
+                        'include_assets' => true,
+                        'connector' => array(
+                            'debug' => true,
+                            'roots' => array(
+                                'uploads' => array(
+                                    'driver' => 'LocalFileSystem',
+                                    'path' => 'uploads/AQ/INFOSQSE/EVENEMENTS',
+                                    'attributes' => array(
+                                        0 => array(
+                                            'pattern' => '/^[^\\.].*/',
+                                            'read' => true,
+                                            'write' => false,
+                                            'locked' => true,
+                                            'hidden' => false,
+                                        ),
+                                    ),
+                                    'upload_allow' => array(
+                                        0 => 'application/pdf',
                                     ),
                                     'upload_deny' => array(
                                         0 => 'all',

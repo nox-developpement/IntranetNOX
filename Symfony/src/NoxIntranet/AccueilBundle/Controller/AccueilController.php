@@ -11,6 +11,8 @@ namespace NoxIntranet\AccueilBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
+use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
+use NoxIntranet\AccueilBundle\Entity\Compteur;
 
 /**
  * Description of AccueilController
@@ -54,9 +56,25 @@ class AccueilController extends Controller {
         return $results;
     }
 
+    function getDirContents2($path) {
+
+        $results = array();
+
+        $dir_iterator = new RecursiveDirectoryIterator(dirname($path), false);
+        $iterator = new \RecursiveIteratorIterator($dir_iterator);
+        foreach ($iterator as $file) {
+            if ($file->getBasename() != "." && $file->getBasename() != ".." && $file->getBasename() != ".quarantine" && $file->getBasename() != ".tmb" && $file->getBasename() != "ImagesPublication" && $file->getBasename() != "BanqueImages") {
+                $results[] = $file->getPathName();
+            }
+        }
+
+
+        var_dump($results);
+
+        return $results;
+    }
+
     function getMaj($files) {
-
-
 
         $parser = new \Smalot\PdfParser\Parser();
 
@@ -110,21 +128,37 @@ class AccueilController extends Controller {
 
     public function majCommunicationAction(Request $request) {
 
-        $Path = 'C:/wamp/www/Symfony/web/uploads/Communication/';
 
 
-
-        $filesExterne = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/Externe');
+        $filesExterne = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/Externe/');
 
         $filesInterne = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/Interne');
 
         $filesMarketing = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/Marketing');
 
         $filesSI = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/SI');
-//
-//        return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('news' => $news5));
+
+        $filesAQ = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/AQ');
+
+        $filesReferences = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/References');
+
+//      return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('news' => $news5));
 
         $em = $this->getDoctrine()->getManager();
+
+        $compteurVue = $em->getRepository('NoxIntranetAccueilBundle:Compteur')->findOneByCompteur('Accueil');
+
+        if ($compteurVue == null) {
+            $compteurVue = new Compteur();
+            $compteurVue->setCompteur('Accueil');
+            $compteurVue->setVue(1);
+            $em->persist($compteurVue);
+            $em->flush();
+        } else {
+            $compteurVue->setVue($compteurVue->getVue() + 1);
+            $em->persist($compteurVue);
+            $em->flush();
+        }
 
         $texteEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Edito');
 
@@ -163,9 +197,7 @@ class AccueilController extends Controller {
 //        $majExterne = null;
 //
 //        $majInterne = null;
-
 //        $majMarketing = null;
-
 //        $majSI = null;
 
         $majExterne = $this->getMaj($filesExterne);
@@ -175,8 +207,14 @@ class AccueilController extends Controller {
         $majMarketing = $this->getMaj($filesMarketing);
 //
         $majSI = $this->getMaj($filesSI);
-        
-        return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('texte' => $texte, 'formulaire' => $form->createView(), 'majExterne' => $majExterne, 'majInterne' => $majInterne, 'majMarketing' => $majMarketing, 'majSI' => $majSI));
+
+        $majAQ = $this->getMaj($filesAQ);
+
+        $majReferences = $this->getMaj($filesReferences);
+
+        return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('texte' => $texte, 'formulaire' => $form->createView(),
+                    'majExterne' => $majExterne, 'majInterne' => $majInterne, 'majMarketing' => $majMarketing, 'majSI' => $majSI,
+                    'majAQ' => $majAQ, 'majReferences' => $majReferences, 'nombreVues' => $compteurVue->getVue()));
     }
 
 }

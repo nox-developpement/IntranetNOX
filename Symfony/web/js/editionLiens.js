@@ -39,7 +39,7 @@ $(window).ready(function () {
             $("#categorie").hide();
         }
     });
-    
+
     $("#selectLien").change(function () {
         if ($("#radioLien").is(':checked')) {
             $("label[for=lien]").show();
@@ -53,6 +53,17 @@ $(window).ready(function () {
             $("label[for=categorie]").hide();
             $("#categorie").hide();
         }
+    });
+
+    if ($('#categorie').val() !== 'Aucune') {
+        $('#position').hide();
+    }
+
+    $('#categorie').change(function () {
+        if ($('#categorie').val() !== 'Aucune') {
+            $('#position').hide();
+        }
+        else $('#position').show();
     });
 
 });

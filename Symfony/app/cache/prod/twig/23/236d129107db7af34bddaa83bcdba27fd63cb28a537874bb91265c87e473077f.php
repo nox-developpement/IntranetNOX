@@ -45,48 +45,48 @@ class __TwigTemplate_fc9dc0b0ba18c06dd0f13e5cec02572031af2c69ebdc1e286423f2d21e0
     {
         // line 10
         echo "
-    <div class='zoneEdition'>
-        
-        ";
-        // line 13
+    ";
+        // line 11
         if ($this->env->getExtension('security')->isGranted("ROLE_ADMIN")) {
-            // line 14
-            echo "        
-        <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
-        
-        ";
+            // line 12
+            echo "
+        <div class='zoneEdition'>
+
+            <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
+
+            ";
+            // line 17
+            echo             $this->env->getExtension('form')->renderer->renderBlock((isset($context["formulaire"]) ? $context["formulaire"] : null), 'form_start', array("attr" => array("id" => "formulaireTexte")));
+            echo "
+
+            ";
+            // line 19
+            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formulaire"]) ? $context["formulaire"] : null), 'errors');
+            echo "
+
+            ";
+            // line 22
+            echo "            ";
+            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formulaire"]) ? $context["formulaire"] : null), "text", array()), 'errors');
+            echo "
+
+            ";
+            // line 25
+            echo "            ";
+            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formulaire"]) ? $context["formulaire"] : null), "text", array()), 'widget', array("attr" => array("class" => "textField")));
+            echo "
+
+            ";
+            // line 27
+            echo             $this->env->getExtension('form')->renderer->renderBlock((isset($context["formulaire"]) ? $context["formulaire"] : null), 'form_end');
+            echo "
+
+        </div>
+
+    ";
         }
-        // line 18
-        echo "        
-        ";
-        // line 19
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formulaire"]) ? $context["formulaire"] : null), 'form_start', array("attr" => array("id" => "formulaireTexte")));
+        // line 32
         echo "
-
-        ";
-        // line 21
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formulaire"]) ? $context["formulaire"] : null), 'errors');
-        echo "
-
-        ";
-        // line 24
-        echo "        ";
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formulaire"]) ? $context["formulaire"] : null), "text", array()), 'errors');
-        echo "
-
-        ";
-        // line 27
-        echo "        ";
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formulaire"]) ? $context["formulaire"] : null), "text", array()), 'widget', array("attr" => array("class" => "textField")));
-        echo "
-
-        ";
-        // line 29
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formulaire"]) ? $context["formulaire"] : null), 'form_end');
-        echo "
-
-    </div>
-
     <div class='zoneTexte'>
         ";
         // line 34
@@ -109,7 +109,7 @@ class __TwigTemplate_fc9dc0b0ba18c06dd0f13e5cec02572031af2c69ebdc1e286423f2d21e0
 
     public function getDebugInfo()
     {
-        return array (  93 => 34,  85 => 29,  79 => 27,  73 => 24,  68 => 21,  63 => 19,  60 => 18,  54 => 14,  52 => 13,  47 => 10,  44 => 9,  38 => 7,  33 => 4,  30 => 3,  11 => 1,);
+        return array (  93 => 34,  89 => 32,  81 => 27,  75 => 25,  69 => 22,  64 => 19,  59 => 17,  52 => 12,  50 => 11,  47 => 10,  44 => 9,  38 => 7,  33 => 4,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -122,27 +122,27 @@ class __TwigTemplate_fc9dc0b0ba18c06dd0f13e5cec02572031af2c69ebdc1e286423f2d21e0
 /* */
 /* {% block contenu %}*/
 /* */
-/*     <div class='zoneEdition'>*/
-/*         */
-/*         {% if is_granted('ROLE_ADMIN') %}*/
-/*         */
-/*         <button id='texteEditButton' class='boutonFormulaire'>Editer</button>*/
-/*         */
-/*         {% endif %}*/
-/*         */
-/*         {{ form_start(formulaire, {'attr': {'id': 'formulaireTexte' }}) }}*/
+/*     {% if is_granted('ROLE_ADMIN') %}*/
 /* */
-/*         {{ form_errors(formulaire) }}*/
+/*         <div class='zoneEdition'>*/
 /* */
-/*         {# Affichage des erreurs pour ce champ précis. #}*/
-/*         {{ form_errors(formulaire.text) }}*/
+/*             <button id='texteEditButton' class='boutonFormulaire'>Editer</button>*/
 /* */
-/*         {# Génération de l'input. #}*/
-/*         {{ form_widget(formulaire.text, {'attr': {'class': 'textField' }}) }}*/
+/*             {{ form_start(formulaire, {'attr': {'id': 'formulaireTexte' }}) }}*/
 /* */
-/*         {{ form_end(formulaire) }}*/
+/*             {{ form_errors(formulaire) }}*/
 /* */
-/*     </div>*/
+/*             {# Affichage des erreurs pour ce champ précis. #}*/
+/*             {{ form_errors(formulaire.text) }}*/
+/* */
+/*             {# Génération de l'input. #}*/
+/*             {{ form_widget(formulaire.text, {'attr': {'class': 'textField' }}) }}*/
+/* */
+/*             {{ form_end(formulaire) }}*/
+/* */
+/*         </div>*/
+/* */
+/*     {% endif %}*/
 /* */
 /*     <div class='zoneTexte'>*/
 /*         {{ texte|raw }}*/

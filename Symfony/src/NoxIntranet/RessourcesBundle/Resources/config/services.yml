@@ -1,4 +1,4 @@
 services:
-#    nox_intranet_ressources.example:
-#        class: NoxIntranet\RessourcesBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    noxintranet_references.putkeywordsnumber:
+        class: NoxIntranet\RessourcesBundle\GetKeywordsReferences\NoxIntranetGetKeywordsReferences
+        arguments: [ @doctrine.orm.entity_manager ]

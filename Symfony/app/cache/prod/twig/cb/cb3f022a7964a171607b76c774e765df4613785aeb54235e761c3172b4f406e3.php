@@ -52,7 +52,7 @@ class __TwigTemplate_b0a459ae3c8fa8625d7cb5b0ede42b1cc8c99974d84876eba7565a6c912
 
         <div id=\"menuAdminNewsSI\" class='menuAdmin'>
             <h3> Interface de gestion de contenu </h3>
-            <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/noxLetters', 'Gestionnaire de fichiers - Nox letters');\"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>
+            <a onclick=\"openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/noxLetters', 'Gestionnaire de fichiers - Nox letters');\"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>
         </div>
 
     ";
@@ -202,7 +202,7 @@ class __TwigTemplate_b0a459ae3c8fa8625d7cb5b0ede42b1cc8c99974d84876eba7565a6c912
 /* */
 /*         <div id="menuAdminNewsSI" class='menuAdmin'>*/
 /*             <h3> Interface de gestion de contenu </h3>*/
-/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/noxLetters', 'Gestionnaire de fichiers - Nox letters');"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>*/
+/*             <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/noxLetters', 'Gestionnaire de fichiers - Nox letters');"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>*/
 /*         </div>*/
 /* */
 /*     {% endif %}*/

@@ -50,7 +50,7 @@ class __TwigTemplate_c2a539193bc4431fb3c616d83c719eaaae4d07d86263b5edea731b47951
 
         <div id=\"menuAdminNewsSI\" class='menuAdmin'>
             <h3> Interface de gestion de contenu </h3>
-            <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/";
+            <a onclick=\"openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/";
             // line 13
             echo twig_escape_filter($this->env, (isset($context["config"]) ? $context["config"] : null), "html", null, true);
             echo "', 'Gestionnaire de fichiers - ";
@@ -203,7 +203,7 @@ class __TwigTemplate_c2a539193bc4431fb3c616d83c719eaaae4d07d86263b5edea731b47951
 /* */
 /*         <div id="menuAdminNewsSI" class='menuAdmin'>*/
 /*             <h3> Interface de gestion de contenu </h3>*/
-/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/{{ config }}', 'Gestionnaire de fichiers - {{ dossier }}');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>*/
+/*             <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/{{ config }}', 'Gestionnaire de fichiers - {{ dossier }}');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>*/
 /*         </div>*/
 /* */
 /*     {% endif %}*/

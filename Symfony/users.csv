@@ -599,3 +599,4 @@ DN,sAMAccountName
 "CN=GUEGAN Delphine,OU=Compta,OU=Siège,OU=NOX,DC=nox,DC=local",d.guegan
 "CN=Admin UD,OU=_Generique,OU=NOX,DC=nox,DC=local",AdminUD
 "CN=MOREL Gérôme,OU=Nantes,OU=Developpement Immobilier,OU=France,OU=NOX,DC=nox,DC=local",g.morel
+"CN=CHATAIN Samuel,OU=Saintes,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",s.chatain

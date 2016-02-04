@@ -8,23 +8,27 @@
 
 {% block contenu %}
 
-    <div class='zoneEdition'>
-        
-        <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
-        
-        {{ form_start(formulaire, {'attr': {'id': 'formulaireTexte' }}) }}
+    {% if is_granted('ROLE_ADMIN') %}
 
-        {{ form_errors(formulaire) }}
+        <div class='zoneEdition'> 
 
-        {# Affichage des erreurs pour ce champ précis. #}
-        {{ form_errors(formulaire.text) }}
+            <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
 
-        {# Génération de l'input. #}
-        {{ form_widget(formulaire.text, {'attr': {'class': 'textField' }}) }}
+            {{ form_start(formulaire, {'attr': {'id': 'formulaireTexte' }}) }}
 
-        {{ form_end(formulaire) }}
+            {{ form_errors(formulaire) }}
 
-    </div>
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(formulaire.text) }}
+
+            {# Génération de l'input. #}
+            {{ form_widget(formulaire.text, {'attr': {'class': 'textField' }}) }}
+
+            {{ form_end(formulaire) }}
+
+        </div>
+
+    {% endif %}
 
     <div class='zoneTexte'>
         {{ texte|raw }}

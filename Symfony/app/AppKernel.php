@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new NoxIntranet\VerifMajDBBundle\NoxIntranetVerifMajDBBundle(),
 			new FM\ElfinderBundle\FMElfinderBundle(),
 			new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new NoxIntranet\ListingKeywordsReferencesBundle\NoxIntranetListingKeywordsReferencesBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

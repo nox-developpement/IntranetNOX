@@ -36,7 +36,7 @@
 
         <div id="menuAdminReferences" class='menuAdmin'>
             <h3> Interface de gestion de contenu </h3>
-            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/references', 'Gestionnaire de fichiers - Références');"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>
+            <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/references', 'Gestionnaire de fichiers - Références');"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>
         </div>
 
     {% endif %}
@@ -45,11 +45,21 @@
         <div id="rechercheCompetencesDiv">
             <form action='{{ path('nox_intranet_references_recherche') }}' type='GET'>
                 <label for="keyword"> Rechercher par mots-clés : </label>
-                <input type="text" name='keyword' id="keyword" />
+                <input type="text" name='keyword' id="keyword" placeholder="{{ app.request.get('keyword') }}"/>
                 <input type="submit" name="Rechercher" value="Rechercher" class="boutonFormulaire" >
                 <button value="Annuler" class="boutonFormulaire" id="boutonAnnuler" onclick="{{ path('nox_intranet_references') }}"> RAZ </button>
             </form>
         </div>
+    </div>
+
+    <div id="Keywords">
+        <p>
+            {% for keyword in keywords %}
+                <span style="font-size: calc(0.7vw + {% if keyword.Nombre/nombreMax < 1 %}{{ keyword.Nombre/nombreMax }}{% else %}1{% endif %}vw)">
+                    <a href="{{ path('nox_intranet_references_recherche') }}?keyword={{ keyword.Keyword }}"> {{ keyword.Keyword }}</a>
+                </span>
+            {% endfor %}
+        </p>
     </div>
 
     {% if references == null %}
@@ -66,7 +76,7 @@
 
         <div class="divNews">
 
-            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/uploads/References/{{ reference['lien'] }}', 'Références');">
+            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ reference['lien'] }}', 'Références');">
                 <img 
                     src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" 
                     onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" 

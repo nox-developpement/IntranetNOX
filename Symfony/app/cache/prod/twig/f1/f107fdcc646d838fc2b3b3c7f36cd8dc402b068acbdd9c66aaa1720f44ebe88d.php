@@ -107,7 +107,7 @@ class __TwigTemplate_49ea3428f1c4c68180f1712bf6636ccf1dd0e1597973a97b5a2c553adb9
 
         <div id=\"menuAdminCompetences\" class='menuAdmin'>
             <h3> Interface de gestion de contenu </h3>
-            <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/competences', 'Gestionnaire de fichiers - Références');\"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>
+            <a onclick=\"openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/competences', 'Gestionnaire de fichiers - Références');\"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>
         </div>
 
     ";
@@ -155,7 +155,7 @@ class __TwigTemplate_49ea3428f1c4c68180f1712bf6636ccf1dd0e1597973a97b5a2c553adb9
             echo "
         <div class=\"divNews\">
 
-            <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/uploads/Competences/";
+            <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
             // line 67
             echo twig_escape_filter($this->env, $this->getAttribute($context["competence"], "lien", array(), "array"), "html", null, true);
             echo "', 'Compétences');\">
@@ -311,7 +311,7 @@ class __TwigTemplate_49ea3428f1c4c68180f1712bf6636ccf1dd0e1597973a97b5a2c553adb9
 /* */
 /*         <div id="menuAdminCompetences" class='menuAdmin'>*/
 /*             <h3> Interface de gestion de contenu </h3>*/
-/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/competences', 'Gestionnaire de fichiers - Références');"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>*/
+/*             <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/competences', 'Gestionnaire de fichiers - Références');"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>*/
 /*         </div>*/
 /* */
 /*     {% endif %}*/
@@ -341,7 +341,7 @@ class __TwigTemplate_49ea3428f1c4c68180f1712bf6636ccf1dd0e1597973a97b5a2c553adb9
 /* */
 /*         <div class="divNews">*/
 /* */
-/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/uploads/Competences/{{ competence['lien'] }}', 'Compétences');">*/
+/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ competence['lien'] }}', 'Compétences');">*/
 /*                 <img */
 /*                     src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" */
 /*                     onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" */

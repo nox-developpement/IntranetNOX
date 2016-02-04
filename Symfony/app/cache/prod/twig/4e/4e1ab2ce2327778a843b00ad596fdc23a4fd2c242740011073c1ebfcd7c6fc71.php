@@ -86,6 +86,7 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
         <table>
 
             <tr>
+                <td> Position </td>
                 <td> Libelle </td>
                 <td> Type </td>
                 <td> Catégorie </td>
@@ -94,37 +95,41 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
             </tr>
 
             ";
-        // line 42
+        // line 43
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["liens"]) ? $context["liens"] : null));
         foreach ($context['_seq'] as $context["_key"] => $context["lien"]) {
-            // line 43
+            // line 44
             echo "
                 <tr>
                     <td> <p> ";
-            // line 45
+            // line 46
+            echo twig_escape_filter($this->env, $this->getAttribute($context["lien"], "position", array()), "html", null, true);
+            echo " </p> </td>
+                    <td> <p> ";
+            // line 47
             echo twig_escape_filter($this->env, $this->getAttribute($context["lien"], "libelle", array()), "html", null, true);
             echo " <p> </td>
                     <td> 
                         <p>
                             ";
-            // line 48
+            // line 50
             if (($this->getAttribute($context["lien"], "liens", array()) == null)) {
-                // line 49
+                // line 51
                 echo "                                Catégorie
                             ";
             } else {
-                // line 51
+                // line 53
                 echo "                                Lien (";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["lien"], "liens", array()), "html", null, true);
                 echo ")
                             ";
             }
-            // line 53
+            // line 55
             echo "                        <p> 
                     </td>
                     <td ";
-            // line 55
+            // line 57
             if (($this->getAttribute($context["lien"], "parent", array()) == "Aucune")) {
                 echo " style=\"background-color:lightgrey;\" ";
             }
@@ -136,13 +141,13 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
             }
             echo " <p> </td>
                     <td> <a href='";
-            // line 56
+            // line 58
             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_modification_lien", array("lienID" => $this->getAttribute($context["lien"], "id", array()))), "html", null, true);
             echo "'> <img id=\"editionLienImg\" src='";
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Data-Edit-32.png"), "html", null, true);
             echo "'> </a> </td>
                     <td> <a href='";
-            // line 57
+            // line 59
             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_suppression_lien", array("lienID" => $this->getAttribute($context["lien"], "id", array()))), "html", null, true);
             echo "'> <img id=\"suppressionLienImg\" src='";
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Delete-48.png"), "html", null, true);
@@ -154,7 +159,7 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['lien'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 61
+        // line 63
         echo "
         </table>
 
@@ -174,7 +179,7 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
 
     public function getDebugInfo()
     {
-        return array (  158 => 61,  146 => 57,  140 => 56,  128 => 55,  124 => 53,  118 => 51,  114 => 49,  112 => 48,  106 => 45,  102 => 43,  98 => 42,  81 => 27,  70 => 25,  66 => 24,  51 => 12,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  163 => 63,  151 => 59,  145 => 58,  133 => 57,  129 => 55,  123 => 53,  119 => 51,  117 => 50,  111 => 47,  107 => 46,  103 => 44,  99 => 43,  81 => 27,  70 => 25,  66 => 24,  51 => 12,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -211,6 +216,7 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
 /*         <table>*/
 /* */
 /*             <tr>*/
+/*                 <td> Position </td>*/
 /*                 <td> Libelle </td>*/
 /*                 <td> Type </td>*/
 /*                 <td> Catégorie </td>*/
@@ -221,6 +227,7 @@ class __TwigTemplate_d9262e7677151324b8e42b3bbb304fa613e5cf71018430257853d8043b6
 /*             {% for lien in liens %}*/
 /* */
 /*                 <tr>*/
+/*                     <td> <p> {{ lien.position }} </p> </td>*/
 /*                     <td> <p> {{ lien.libelle }} <p> </td>*/
 /*                     <td> */
 /*                         <p>*/
