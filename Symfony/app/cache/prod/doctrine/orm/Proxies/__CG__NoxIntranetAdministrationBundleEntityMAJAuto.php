@@ -36,7 +36,7 @@ class MAJAuto extends \NoxIntranet\AdministrationBundle\Entity\MAJAuto implement
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class MAJAuto extends \NoxIntranet\AdministrationBundle\Entity\MAJAuto implement
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'name', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'commands', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'lastrun', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'intervaltime');
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'name', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'commands', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'lastrun', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'intervaltime'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'name', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'commands', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'lastrun', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'intervaltime');
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'name', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'commands', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'lastrun', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\MAJAuto' . "\0" . 'intervaltime'];
     }
 
     /**
@@ -97,7 +97,7 @@ class MAJAuto extends \NoxIntranet\AdministrationBundle\Entity\MAJAuto implement
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class MAJAuto extends \NoxIntranet\AdministrationBundle\Entity\MAJAuto implement
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class MAJAuto extends \NoxIntranet\AdministrationBundle\Entity\MAJAuto implement
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class MAJAuto extends \NoxIntranet\AdministrationBundle\Entity\MAJAuto implement
     public function setName($name)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', array($name));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', [$name]);
 
         return parent::setName($name);
     }
@@ -205,7 +205,7 @@ class MAJAuto extends \NoxIntranet\AdministrationBundle\Entity\MAJAuto implement
     public function getName()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getName', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getName', []);
 
         return parent::getName();
     }
@@ -216,7 +216,7 @@ class MAJAuto extends \NoxIntranet\AdministrationBundle\Entity\MAJAuto implement
     public function setCommands($commands)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCommands', array($commands));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCommands', [$commands]);
 
         return parent::setCommands($commands);
     }
@@ -227,7 +227,7 @@ class MAJAuto extends \NoxIntranet\AdministrationBundle\Entity\MAJAuto implement
     public function getCommands()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCommands', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCommands', []);
 
         return parent::getCommands();
     }
@@ -238,7 +238,7 @@ class MAJAuto extends \NoxIntranet\AdministrationBundle\Entity\MAJAuto implement
     public function setLastrun($lastrun)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLastrun', array($lastrun));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLastrun', [$lastrun]);
 
         return parent::setLastrun($lastrun);
     }
@@ -249,7 +249,7 @@ class MAJAuto extends \NoxIntranet\AdministrationBundle\Entity\MAJAuto implement
     public function getLastrun()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLastrun', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLastrun', []);
 
         return parent::getLastrun();
     }
@@ -260,7 +260,7 @@ class MAJAuto extends \NoxIntranet\AdministrationBundle\Entity\MAJAuto implement
     public function setIntervaltime($intervaltime)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIntervaltime', array($intervaltime));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIntervaltime', [$intervaltime]);
 
         return parent::setIntervaltime($intervaltime);
     }
@@ -271,7 +271,7 @@ class MAJAuto extends \NoxIntranet\AdministrationBundle\Entity\MAJAuto implement
     public function getIntervaltime()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIntervaltime', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIntervaltime', []);
 
         return parent::getIntervaltime();
     }

@@ -1636,6 +1636,19 @@ divAdministrationUtilisateur {
     margin: auto;
 }
 
+#zoneTexteLiens a {
+    text-decoration: none;
+}
+
+#zoneTexteLiens a:visited {
+    text-decoration: none;
+}
+
+#zoneTexteLiens a:hover {
+    text-decoration: none;
+    padding-left: 5%;
+}
+
 .zoneEditionAccueil {
     width: 40%;
     margin-left: 15%;

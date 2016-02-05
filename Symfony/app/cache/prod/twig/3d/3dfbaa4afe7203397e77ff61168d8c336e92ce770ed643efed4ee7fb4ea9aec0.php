@@ -50,7 +50,7 @@ class __TwigTemplate_275f6e56d95e04a1679312e97d48240601c907e1c11d6d4cda70584ebda
         if ($this->env->getExtension('security')->isGranted("ROLE_LIENS")) {
             echo " 
 
-        <div class='zoneEdition'>
+        <div class='zoneEdition' id=\"zoneEditionLiens\">
 
             <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
 
@@ -87,7 +87,7 @@ class __TwigTemplate_275f6e56d95e04a1679312e97d48240601c907e1c11d6d4cda70584ebda
         }
         // line 32
         echo "
-    <div class='zoneTexte'>
+    <div class='zoneTexte' id=\"zoneTexteLiens\">
         ";
         // line 34
         echo (isset($context["texte"]) ? $context["texte"] : null);
@@ -124,7 +124,7 @@ class __TwigTemplate_275f6e56d95e04a1679312e97d48240601c907e1c11d6d4cda70584ebda
 /* */
 /*     {% if is_granted('ROLE_LIENS') %} */
 /* */
-/*         <div class='zoneEdition'>*/
+/*         <div class='zoneEdition' id="zoneEditionLiens">*/
 /* */
 /*             <button id='texteEditButton' class='boutonFormulaire'>Editer</button>*/
 /* */
@@ -144,7 +144,7 @@ class __TwigTemplate_275f6e56d95e04a1679312e97d48240601c907e1c11d6d4cda70584ebda
 /* */
 /*     {% endif %}*/
 /* */
-/*     <div class='zoneTexte'>*/
+/*     <div class='zoneTexte' id="zoneTexteLiens">*/
 /*         {{ texte|raw }}*/
 /*     </di>*/
 /* */

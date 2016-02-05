@@ -36,7 +36,7 @@ class texteEncart extends \NoxIntranet\AdministrationBundle\Entity\texteEncart i
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class texteEncart extends \NoxIntranet\AdministrationBundle\Entity\texteEncart i
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'text', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'section');
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'text', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'section'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'text', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'section');
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'text', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'section'];
     }
 
     /**
@@ -97,7 +97,7 @@ class texteEncart extends \NoxIntranet\AdministrationBundle\Entity\texteEncart i
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class texteEncart extends \NoxIntranet\AdministrationBundle\Entity\texteEncart i
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class texteEncart extends \NoxIntranet\AdministrationBundle\Entity\texteEncart i
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class texteEncart extends \NoxIntranet\AdministrationBundle\Entity\texteEncart i
     public function setText($text)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setText', array($text));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setText', [$text]);
 
         return parent::setText($text);
     }
@@ -205,7 +205,7 @@ class texteEncart extends \NoxIntranet\AdministrationBundle\Entity\texteEncart i
     public function getText()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getText', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getText', []);
 
         return parent::getText();
     }
@@ -216,7 +216,7 @@ class texteEncart extends \NoxIntranet\AdministrationBundle\Entity\texteEncart i
     public function setSection($section)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSection', array($section));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSection', [$section]);
 
         return parent::setSection($section);
     }
@@ -227,7 +227,7 @@ class texteEncart extends \NoxIntranet\AdministrationBundle\Entity\texteEncart i
     public function getSection()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSection', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSection', []);
 
         return parent::getSection();
     }

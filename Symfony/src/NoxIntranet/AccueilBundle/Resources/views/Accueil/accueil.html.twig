@@ -95,7 +95,7 @@
                 var newsExterne = new Array();
 
                 {% for maj in majExterne %}
-                    newsExterne.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");
+                    newsExterne.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
                 {% endfor %}
 
                     function showNews(arr) {
@@ -132,7 +132,7 @@
                 var newsInterne = new Array();
 
                 {% for maj in majInterne %}
-                    newsInterne.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");
+                    newsInterne.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
                 {% endfor %}
 
                     function showNews(arr) {
@@ -169,7 +169,7 @@
                 var newsMarketing = new Array();
 
                 {% for maj in majMarketing %}
-                    newsMarketing.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");
+                    newsMarketing.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
                 {% endfor %}
 
                     function showNews(arr) {
@@ -206,7 +206,7 @@
                 var newsSI = new Array();
 
                 {% for maj in majSI %}
-                    newsSI.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");
+                    newsSI.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
                 {% endfor %}
 
                     function showNews(arr) {
@@ -243,7 +243,7 @@
                 var newsAQ = new Array();
 
                 {% for maj in majAQ %}
-                    newsAQ.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");
+                    newsAQ.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
                 {% endfor %}
 
                     function showNews(arr) {
@@ -280,7 +280,7 @@
                 var newsReferences = new Array();
 
                 {% for maj in majReferences %}
-                    newsReferences.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");
+                    newsReferences.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
                 {% endfor %}
 
                     function showNews(arr) {

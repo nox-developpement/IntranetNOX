@@ -36,7 +36,7 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'objet', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'contenu', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'dateAjout', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'auteur', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'status');
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'objet', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'contenu', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'dateAjout', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'auteur', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'status'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'objet', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'contenu', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'dateAjout', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'auteur', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'status');
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'objet', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'contenu', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'dateAjout', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'auteur', '' . "\0" . 'NoxIntranet\\SupportBundle\\Entity\\Ticket' . "\0" . 'status'];
     }
 
     /**
@@ -97,7 +97,7 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
     public function setObjet($objet)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setObjet', array($objet));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setObjet', [$objet]);
 
         return parent::setObjet($objet);
     }
@@ -205,7 +205,7 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
     public function getObjet()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getObjet', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getObjet', []);
 
         return parent::getObjet();
     }
@@ -216,7 +216,7 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
     public function setContenu($contenu)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setContenu', array($contenu));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setContenu', [$contenu]);
 
         return parent::setContenu($contenu);
     }
@@ -227,7 +227,7 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
     public function getContenu()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getContenu', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getContenu', []);
 
         return parent::getContenu();
     }
@@ -238,7 +238,7 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
     public function setDateAjout($dateAjout)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDateAjout', array($dateAjout));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDateAjout', [$dateAjout]);
 
         return parent::setDateAjout($dateAjout);
     }
@@ -249,7 +249,7 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
     public function getDateAjout()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDateAjout', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDateAjout', []);
 
         return parent::getDateAjout();
     }
@@ -260,7 +260,7 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
     public function setAuteur($auteur)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAuteur', array($auteur));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAuteur', [$auteur]);
 
         return parent::setAuteur($auteur);
     }
@@ -271,7 +271,7 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
     public function getAuteur()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAuteur', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAuteur', []);
 
         return parent::getAuteur();
     }
@@ -282,7 +282,7 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
     public function setStatus($status)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatus', array($status));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatus', [$status]);
 
         return parent::setStatus($status);
     }
@@ -293,7 +293,7 @@ class Ticket extends \NoxIntranet\SupportBundle\Entity\Ticket implements \Doctri
     public function getStatus()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatus', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatus', []);
 
         return parent::getStatus();
     }

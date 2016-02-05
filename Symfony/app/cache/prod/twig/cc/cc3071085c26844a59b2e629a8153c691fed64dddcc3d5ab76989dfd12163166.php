@@ -207,7 +207,7 @@ class __TwigTemplate_e4fcdd64732b7b04ad2bf1deb860ed3ba7286d17490c83af48dc79d3100
 
         if (clazz) {
             var tags = document.getElementsByTagName('*');
-            for (i = tags.length - 1; i >= 0 ; i--) {
+            for (i = tags.length - 1; i >= 0; i--) {
                 if (tags[i].className === clazz) {
                     tags[i].style.display = 'none';
                 }
@@ -348,7 +348,7 @@ class __TwigTemplate_e4fcdd64732b7b04ad2bf1deb860ed3ba7286d17490c83af48dc79d3100
 /* */
 /*         if (clazz) {*/
 /*             var tags = document.getElementsByTagName('*');*/
-/*             for (i = tags.length - 1; i >= 0 ; i--) {*/
+/*             for (i = tags.length - 1; i >= 0; i--) {*/
 /*                 if (tags[i].className === clazz) {*/
 /*                     tags[i].style.display = 'none';*/
 /*                 }*/

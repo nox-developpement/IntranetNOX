@@ -69,7 +69,7 @@
         -->
 
         <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_nox_letters') }}'> <h4> NoxLetters </h4> </a>
+            <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Externe/NoxLetters', 'dossier': 'NOX Letters', 'config': 'noxLetters' }) }}'> <h4> NoxLetters </h4> </a>
         </div>
 
         <div class="sousMessageAcceuil"> 
@@ -171,7 +171,7 @@
         </div>
 
         <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_nox_news') }}'> <h4> NoxNews </h4> </a>
+            <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/NoxNews', 'dossier': 'NOX News', 'config': 'noxNews' }) }}'> <h4> NoxNews </h4> </a>
         </div>
 
         <div class="sousMessageAcceuil">
@@ -180,6 +180,10 @@
 
         <div class="sousMessageAcceuil"> 
             <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/CHSCT', 'dossier': 'CHSCT', 'config': 'CHSCT' }) }}'> <h4> CHSCT </h4> </a>
+        </div>
+        
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/MailingInterne', 'dossier': 'Mailing Interne', 'config': 'mailingInterne' }) }}'><h4> Mailing Interne </h4> </a>
         </div>
     </div>
     <!-- Fin Interne -->
@@ -215,7 +219,7 @@
     <!-- SI -->
     <div id='sousMenuSI' class='menu'>
         <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_news_SI') }}'> <h4>  News SI </h4> </a>
+            <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'SI/NewsSI', 'dossier': 'News SI', 'config': 'newsSI' }) }}'> <h4>  News SI </h4> </a>
         </div>
     </div>
     <!-- FIn SI -->

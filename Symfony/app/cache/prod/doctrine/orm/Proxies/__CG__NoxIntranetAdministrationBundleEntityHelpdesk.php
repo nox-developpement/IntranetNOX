@@ -36,7 +36,7 @@ class Helpdesk extends \NoxIntranet\AdministrationBundle\Entity\Helpdesk impleme
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class Helpdesk extends \NoxIntranet\AdministrationBundle\Entity\Helpdesk impleme
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Helpdesk' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Helpdesk' . "\0" . 'section', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Helpdesk' . "\0" . 'email');
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Helpdesk' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Helpdesk' . "\0" . 'section', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Helpdesk' . "\0" . 'email'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Helpdesk' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Helpdesk' . "\0" . 'section', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Helpdesk' . "\0" . 'email');
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Helpdesk' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Helpdesk' . "\0" . 'section', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Helpdesk' . "\0" . 'email'];
     }
 
     /**
@@ -97,7 +97,7 @@ class Helpdesk extends \NoxIntranet\AdministrationBundle\Entity\Helpdesk impleme
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class Helpdesk extends \NoxIntranet\AdministrationBundle\Entity\Helpdesk impleme
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class Helpdesk extends \NoxIntranet\AdministrationBundle\Entity\Helpdesk impleme
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class Helpdesk extends \NoxIntranet\AdministrationBundle\Entity\Helpdesk impleme
     public function setSection($section)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSection', array($section));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSection', [$section]);
 
         return parent::setSection($section);
     }
@@ -205,7 +205,7 @@ class Helpdesk extends \NoxIntranet\AdministrationBundle\Entity\Helpdesk impleme
     public function getSection()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSection', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSection', []);
 
         return parent::getSection();
     }
@@ -216,7 +216,7 @@ class Helpdesk extends \NoxIntranet\AdministrationBundle\Entity\Helpdesk impleme
     public function setEmail($email)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEmail', array($email));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEmail', [$email]);
 
         return parent::setEmail($email);
     }
@@ -227,7 +227,7 @@ class Helpdesk extends \NoxIntranet\AdministrationBundle\Entity\Helpdesk impleme
     public function getEmail()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEmail', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEmail', []);
 
         return parent::getEmail();
     }

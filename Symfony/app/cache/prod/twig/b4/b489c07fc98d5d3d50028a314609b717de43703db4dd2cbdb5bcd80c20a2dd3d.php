@@ -49,10 +49,11 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
     // line 6
     public function block_sousMessageAccueil($context, array $blocks = array())
     {
-        echo "Le : ";
+        echo "Nous sommes le ";
         echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_date_converter($this->env), "d/m/Y"), "html", null, true);
-        echo " Nombre de vue : ";
+        echo ", l'intranet a été visité ";
         echo twig_escape_filter($this->env, (isset($context["nombreVues"]) ? $context["nombreVues"] : null), "html", null, true);
+        echo " fois.";
     }
 
     // line 8
@@ -260,13 +261,13 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
                 // line 98
                 echo "                    newsExterne.push(\"<span class='dateMaj'>";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "lien", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Lien", array()), "html", null, true);
                 echo "', '";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "nom", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
                 echo "');\\\">";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "nom", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
                 echo "</a>\");
                 ";
             }
@@ -320,13 +321,13 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
                 // line 135
                 echo "                    newsInterne.push(\"<span class='dateMaj'>";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "lien", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Lien", array()), "html", null, true);
                 echo "', '";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "nom", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
                 echo "');\\\">";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "nom", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
                 echo "</a>\");
                 ";
             }
@@ -380,13 +381,13 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
                 // line 172
                 echo "                    newsMarketing.push(\"<span class='dateMaj'>";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "lien", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Lien", array()), "html", null, true);
                 echo "', '";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "nom", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
                 echo "');\\\">";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "nom", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
                 echo "</a>\");
                 ";
             }
@@ -440,13 +441,13 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
                 // line 209
                 echo "                    newsSI.push(\"<span class='dateMaj'>";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "lien", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Lien", array()), "html", null, true);
                 echo "', '";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "nom", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
                 echo "');\\\">";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "nom", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
                 echo "</a>\");
                 ";
             }
@@ -500,13 +501,13 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
                 // line 246
                 echo "                    newsAQ.push(\"<span class='dateMaj'>";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "lien", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Lien", array()), "html", null, true);
                 echo "', '";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "nom", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
                 echo "');\\\">";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "nom", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
                 echo "</a>\");
                 ";
             }
@@ -560,13 +561,13 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
                 // line 283
                 echo "                    newsReferences.push(\"<span class='dateMaj'>";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "lien", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Lien", array()), "html", null, true);
                 echo "', '";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "nom", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
                 echo "');\\\">";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "nom", array(), "array"), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
                 echo "</a>\");
                 ";
             }
@@ -616,7 +617,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 
     public function getDebugInfo()
     {
-        return array (  600 => 306,  577 => 285,  562 => 283,  558 => 282,  547 => 273,  545 => 272,  540 => 269,  517 => 248,  502 => 246,  498 => 245,  487 => 236,  485 => 235,  480 => 232,  457 => 211,  442 => 209,  438 => 208,  427 => 199,  425 => 198,  420 => 195,  397 => 174,  382 => 172,  378 => 171,  367 => 162,  365 => 161,  360 => 158,  337 => 137,  322 => 135,  318 => 134,  307 => 125,  305 => 124,  300 => 121,  277 => 100,  262 => 98,  258 => 97,  246 => 87,  244 => 86,  238 => 83,  229 => 77,  218 => 69,  212 => 67,  206 => 64,  201 => 61,  196 => 59,  193 => 58,  187 => 54,  185 => 53,  180 => 50,  177 => 49,  164 => 42,  161 => 41,  154 => 39,  148 => 38,  145 => 37,  139 => 36,  136 => 35,  130 => 34,  127 => 33,  121 => 32,  118 => 31,  112 => 30,  109 => 29,  105 => 28,  100 => 26,  91 => 20,  87 => 19,  83 => 18,  78 => 16,  73 => 13,  68 => 12,  66 => 11,  62 => 9,  59 => 8,  50 => 6,  37 => 5,  31 => 3,  11 => 1,);
+        return array (  601 => 306,  578 => 285,  563 => 283,  559 => 282,  548 => 273,  546 => 272,  541 => 269,  518 => 248,  503 => 246,  499 => 245,  488 => 236,  486 => 235,  481 => 232,  458 => 211,  443 => 209,  439 => 208,  428 => 199,  426 => 198,  421 => 195,  398 => 174,  383 => 172,  379 => 171,  368 => 162,  366 => 161,  361 => 158,  338 => 137,  323 => 135,  319 => 134,  308 => 125,  306 => 124,  301 => 121,  278 => 100,  263 => 98,  259 => 97,  247 => 87,  245 => 86,  239 => 83,  230 => 77,  219 => 69,  213 => 67,  207 => 64,  202 => 61,  197 => 59,  194 => 58,  188 => 54,  186 => 53,  181 => 50,  178 => 49,  165 => 42,  162 => 41,  155 => 39,  149 => 38,  146 => 37,  140 => 36,  137 => 35,  131 => 34,  128 => 33,  122 => 32,  119 => 31,  113 => 30,  110 => 29,  106 => 28,  101 => 26,  92 => 20,  88 => 19,  84 => 18,  79 => 16,  74 => 13,  69 => 12,  67 => 11,  63 => 9,  60 => 8,  50 => 6,  37 => 5,  31 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -624,7 +625,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /* {% block titrePage %} Accueil {% endblock %}*/
 /* */
 /* {% block messageAccueil %}Bienvenue {% if app.user != null %} {{ app.user.firstname }} {{ app.user.lastname }} {% endif %}{% endblock %}*/
-/* {% block sousMessageAccueil %}Le : {{ date()|date("d/m/Y") }} Nombre de vue : {{ nombreVues }}{% endblock %}*/
+/* {% block sousMessageAccueil %}Nous sommes le {{ date()|date("d/m/Y") }}, l'intranet a été visité {{ nombreVues }} fois.{% endblock %}*/
 /* */
 /* {% block contenu %}*/
 /* */
@@ -716,7 +717,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*                 var newsExterne = new Array();*/
 /* */
 /*                 {% for maj in majExterne %}*/
-/*                     newsExterne.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");*/
+/*                     newsExterne.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");*/
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/
@@ -753,7 +754,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*                 var newsInterne = new Array();*/
 /* */
 /*                 {% for maj in majInterne %}*/
-/*                     newsInterne.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");*/
+/*                     newsInterne.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");*/
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/
@@ -790,7 +791,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*                 var newsMarketing = new Array();*/
 /* */
 /*                 {% for maj in majMarketing %}*/
-/*                     newsMarketing.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");*/
+/*                     newsMarketing.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");*/
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/
@@ -827,7 +828,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*                 var newsSI = new Array();*/
 /* */
 /*                 {% for maj in majSI %}*/
-/*                     newsSI.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");*/
+/*                     newsSI.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");*/
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/
@@ -864,7 +865,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*                 var newsAQ = new Array();*/
 /* */
 /*                 {% for maj in majAQ %}*/
-/*                     newsAQ.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");*/
+/*                     newsAQ.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");*/
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/
@@ -901,7 +902,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*                 var newsReferences = new Array();*/
 /* */
 /*                 {% for maj in majReferences %}*/
-/*                     newsReferences.push("<span class='dateMaj'>{{ maj['dateEnvoi'] }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{ maj['lien'] }}', '{{ maj['nom'] }}');\">{{ maj['nom'] }}</a>");*/
+/*                     newsReferences.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");*/
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/

@@ -36,7 +36,7 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'section', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'categorie', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'objet', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'dateModifiction', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'fichier');
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'section', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'categorie', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'objet', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'dateModifiction', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'fichier'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'section', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'categorie', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'objet', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'dateModifiction', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'fichier');
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'section', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'categorie', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'objet', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'dateModifiction', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Communication' . "\0" . 'fichier'];
     }
 
     /**
@@ -97,7 +97,7 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
     public function setSection($section)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSection', array($section));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSection', [$section]);
 
         return parent::setSection($section);
     }
@@ -205,7 +205,7 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
     public function getSection()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSection', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSection', []);
 
         return parent::getSection();
     }
@@ -216,7 +216,7 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
     public function setCategorie($categorie)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCategorie', array($categorie));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCategorie', [$categorie]);
 
         return parent::setCategorie($categorie);
     }
@@ -227,7 +227,7 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
     public function getCategorie()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCategorie', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCategorie', []);
 
         return parent::getCategorie();
     }
@@ -238,7 +238,7 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
     public function setObjet($objet)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setObjet', array($objet));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setObjet', [$objet]);
 
         return parent::setObjet($objet);
     }
@@ -249,7 +249,7 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
     public function getObjet()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getObjet', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getObjet', []);
 
         return parent::getObjet();
     }
@@ -260,7 +260,7 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
     public function setDateModifiction($dateModifiction)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDateModifiction', array($dateModifiction));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDateModifiction', [$dateModifiction]);
 
         return parent::setDateModifiction($dateModifiction);
     }
@@ -271,7 +271,7 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
     public function getDateModifiction()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDateModifiction', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDateModifiction', []);
 
         return parent::getDateModifiction();
     }
@@ -282,7 +282,7 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
     public function setFichier($fichier)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFichier', array($fichier));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFichier', [$fichier]);
 
         return parent::setFichier($fichier);
     }
@@ -293,7 +293,7 @@ class Communication extends \NoxIntranet\AdministrationBundle\Entity\Communicati
     public function getFichier()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFichier', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFichier', []);
 
         return parent::getFichier();
     }

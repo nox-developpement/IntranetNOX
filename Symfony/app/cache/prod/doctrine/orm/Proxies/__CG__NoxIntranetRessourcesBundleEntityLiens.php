@@ -36,7 +36,7 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'position', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'libelle', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'liens', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'parent', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'type');
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'position', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'libelle', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'liens', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'parent', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'type'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'position', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'libelle', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'liens', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'parent', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'type');
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'position', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'libelle', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'liens', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'parent', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Liens' . "\0" . 'type'];
     }
 
     /**
@@ -97,7 +97,7 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
     public function setLibelle($libelle)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLibelle', array($libelle));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLibelle', [$libelle]);
 
         return parent::setLibelle($libelle);
     }
@@ -205,7 +205,7 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
     public function getLibelle()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLibelle', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLibelle', []);
 
         return parent::getLibelle();
     }
@@ -216,7 +216,7 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
     public function setLiens($liens)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLiens', array($liens));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLiens', [$liens]);
 
         return parent::setLiens($liens);
     }
@@ -227,7 +227,7 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
     public function getLiens()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLiens', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLiens', []);
 
         return parent::getLiens();
     }
@@ -238,7 +238,7 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
     public function setParent($parent)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setParent', array($parent));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setParent', [$parent]);
 
         return parent::setParent($parent);
     }
@@ -249,7 +249,7 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
     public function getParent()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getParent', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getParent', []);
 
         return parent::getParent();
     }
@@ -260,7 +260,7 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
     public function setType($type)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setType', array($type));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setType', [$type]);
 
         return parent::setType($type);
     }
@@ -271,7 +271,7 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
     public function getType()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getType', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getType', []);
 
         return parent::getType();
     }
@@ -282,7 +282,7 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
     public function setPosition($position)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPosition', array($position));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPosition', [$position]);
 
         return parent::setPosition($position);
     }
@@ -293,7 +293,7 @@ class Liens extends \NoxIntranet\RessourcesBundle\Entity\Liens implements \Doctr
     public function getPosition()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPosition', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPosition', []);
 
         return parent::getPosition();
     }

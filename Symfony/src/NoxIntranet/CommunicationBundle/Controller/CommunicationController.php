@@ -58,7 +58,7 @@ class CommunicationController extends Controller {
 
             array_multisort($date, SORT_DESC, $news);
         }
-        
+
         if ($news != null) {
             foreach ($news as $key => $value) {
                 $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
@@ -203,53 +203,83 @@ class CommunicationController extends Controller {
     }
 
     function affichageContenuAction($chemin, $dossier, $config) {
-        $parser = new \Smalot\PdfParser\Parser();
+//        $parser = new \Smalot\PdfParser\Parser();
+//
+//        $Path = 'C:/wamp/www/Symfony/web/uploads/Communication/' . $chemin;
+//
+//        $files = $this->getDirContents($Path);
+//
+//        $news = null;
+//
+//        if ($files != null) {
+//            foreach ($files as $file) {
+//                if (!is_dir($file)) {
+//                    $propriete = null;
+//
+//                    $pdf = $parser->parseFile($file);
+//                    $details = $pdf->getDetails();
+//
+//                    foreach ($details as $property => $value) {
+//
+//                        if (is_array($value)) {
+//                            $value = implode(', ', $value);
+//                        }
+//
+//                        $propriete[] = array('label' => $property, 'valeur' => $value);
+//                    }
+//
+//                    $dateModification = date("Y/m/d H:i:s", filemtime($file));
+//                    $nom = str_replace('.pdf', '', basename($file));
+//                    $lien = str_replace("C:\wamp\www", '', $file);
+//                    $lien = str_replace("\\", "/", $lien);
+//                    $news[] = array('lien' => $lien, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
+//                }
+//            }
+//
+//            foreach ($news as $k => $v) {
+//                $date[$k] = $v['dateEnvoi'];
+//            }
+//
+//            array_multisort($date, SORT_DESC, $news);
+//        }
+//
+//        if ($news != null) {
+//            foreach ($news as $key => $value) {
+//                $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
+//            }
+//        }
 
-        $Path = 'C:/wamp/www/Symfony/web/uploads/Communication/' . $chemin;
-
-        $files = $this->getDirContents($Path);
-
-        $news = null;
-
-        if ($files != null) {
-            foreach ($files as $file) {
-                if (!is_dir($file)) {
-                    $propriete = null;
-
-                    $pdf = $parser->parseFile($file);
-                    $details = $pdf->getDetails();
-
-                    foreach ($details as $property => $value) {
-
-                        if (is_array($value)) {
-                            $value = implode(', ', $value);
-                        }
-
-                        $propriete[] = array('label' => $property, 'valeur' => $value);
-                    }
-
-                    $dateModification = date("Y/m/d H:i:s", filemtime($file));
-                    $nom = str_replace('.pdf', '', basename($file));
-                    $lien = str_replace("C:\wamp\www", '', $file);
-                    $lien = str_replace("\\", "/", $lien);
-                    $news[] = array('lien' => $lien, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
-                }
-            }
-
-            foreach ($news as $k => $v) {
-                $date[$k] = $v['dateEnvoi'];
-            }
-
-            array_multisort($date, SORT_DESC, $news);
-        }
-
-        if ($news != null) {
-            foreach ($news as $key => $value) {
-                $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
-            }
-        }
+        $news = $this->getPDF("C:/wamp/www/Symfony/web/uploads/Communication/" . $chemin);
 
         return $this->render('NoxIntranetCommunicationBundle:Accueil:affichageContenu.html.twig', array('news' => $news, 'dossier' => $dossier, 'config' => $config));
+    }
+
+    public function getPDF($chemin) {
+
+        $files = $this->getDirContents($chemin);
+
+        $listePDF = array();
+
+        $PDFs = array();
+
+        $em = $this->getDoctrine()->getManager();
+
+        foreach ($files as $file) {
+
+            $fileExist = $em->getRepository('NoxIntranetPDFParsingBundle:PDF')->findOneByChemin($file);
+
+            if ($fileExist != null) {
+
+                $listePDF[] = $fileExist;
+
+                foreach ($listePDF as $k => $v) {
+                    $date[$k] = $v->getDateEnvoi();
+                }
+
+                array_multisort($date, SORT_DESC, $listePDF);
+            }
+        }
+        return $listePDF;
     }
 
 }

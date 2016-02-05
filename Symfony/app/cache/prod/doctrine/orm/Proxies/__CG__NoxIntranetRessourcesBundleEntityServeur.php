@@ -36,7 +36,7 @@ class Serveur extends \NoxIntranet\RessourcesBundle\Entity\Serveur implements \D
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class Serveur extends \NoxIntranet\RessourcesBundle\Entity\Serveur implements \D
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'agence', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'lien', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'chemin');
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'agence', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'lien', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'chemin'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'agence', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'lien', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'chemin');
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'agence', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'lien', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' . "\0" . 'chemin'];
     }
 
     /**
@@ -97,7 +97,7 @@ class Serveur extends \NoxIntranet\RessourcesBundle\Entity\Serveur implements \D
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class Serveur extends \NoxIntranet\RessourcesBundle\Entity\Serveur implements \D
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class Serveur extends \NoxIntranet\RessourcesBundle\Entity\Serveur implements \D
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class Serveur extends \NoxIntranet\RessourcesBundle\Entity\Serveur implements \D
     public function setAgence($agence)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAgence', array($agence));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAgence', [$agence]);
 
         return parent::setAgence($agence);
     }
@@ -205,7 +205,7 @@ class Serveur extends \NoxIntranet\RessourcesBundle\Entity\Serveur implements \D
     public function getAgence()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAgence', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAgence', []);
 
         return parent::getAgence();
     }
@@ -216,7 +216,7 @@ class Serveur extends \NoxIntranet\RessourcesBundle\Entity\Serveur implements \D
     public function setLien($lien)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLien', array($lien));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLien', [$lien]);
 
         return parent::setLien($lien);
     }
@@ -227,7 +227,7 @@ class Serveur extends \NoxIntranet\RessourcesBundle\Entity\Serveur implements \D
     public function getLien()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLien', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLien', []);
 
         return parent::getLien();
     }
@@ -238,7 +238,7 @@ class Serveur extends \NoxIntranet\RessourcesBundle\Entity\Serveur implements \D
     public function setChemin($chemin)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setChemin', array($chemin));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setChemin', [$chemin]);
 
         return parent::setChemin($chemin);
     }
@@ -249,7 +249,7 @@ class Serveur extends \NoxIntranet\RessourcesBundle\Entity\Serveur implements \D
     public function getChemin()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getChemin', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getChemin', []);
 
         return parent::getChemin();
     }

@@ -36,7 +36,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'username', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'firstname', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'lastname', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'password', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'local', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'salt', 'roles', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'agence');
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'username', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'firstname', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'lastname', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'password', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'local', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'salt', 'roles', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'agence'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'username', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'firstname', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'lastname', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'password', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'local', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'salt', 'roles', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'agence');
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'username', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'firstname', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'lastname', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'password', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'local', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'salt', 'roles', '' . "\0" . 'NoxIntranet\\UserBundle\\Entity\\User' . "\0" . 'agence'];
     }
 
     /**
@@ -97,7 +97,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -179,7 +179,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function getUsername()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUsername', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUsername', []);
 
         return parent::getUsername();
     }
@@ -190,7 +190,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function getLocal()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLocal', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLocal', []);
 
         return parent::getLocal();
     }
@@ -201,7 +201,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function getRoles()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRoles', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRoles', []);
 
         return parent::getRoles();
     }
@@ -212,7 +212,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function getSalt()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSalt', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSalt', []);
 
         return parent::getSalt();
     }
@@ -223,7 +223,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function getPassword()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPassword', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPassword', []);
 
         return parent::getPassword();
     }
@@ -234,7 +234,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function getUser()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUser', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUser', []);
 
         return parent::getUser();
     }
@@ -245,7 +245,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function getRole()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRole', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRole', []);
 
         return parent::getRole();
     }
@@ -256,7 +256,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function eraseCredentials()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'eraseCredentials', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'eraseCredentials', []);
 
         return parent::eraseCredentials();
     }
@@ -271,7 +271,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -282,7 +282,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function setUsername($username)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUsername', array($username));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUsername', [$username]);
 
         return parent::setUsername($username);
     }
@@ -293,7 +293,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function setPassword($password)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPassword', array($password));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPassword', [$password]);
 
         return parent::setPassword($password);
     }
@@ -304,7 +304,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function setLocal($local)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLocal', array($local));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLocal', [$local]);
 
         return parent::setLocal($local);
     }
@@ -315,7 +315,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function setSalt($salt)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSalt', array($salt));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSalt', [$salt]);
 
         return parent::setSalt($salt);
     }
@@ -326,7 +326,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function setRoles($roles)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setRoles', array($roles));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setRoles', [$roles]);
 
         return parent::setRoles($roles);
     }
@@ -337,7 +337,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function serialize()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'serialize', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'serialize', []);
 
         return parent::serialize();
     }
@@ -348,7 +348,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function unserialize($serialized)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'unserialize', array($serialized));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'unserialize', [$serialized]);
 
         return parent::unserialize($serialized);
     }
@@ -359,7 +359,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function setAgence($agence)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAgence', array($agence));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAgence', [$agence]);
 
         return parent::setAgence($agence);
     }
@@ -370,7 +370,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function getAgence()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAgence', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAgence', []);
 
         return parent::getAgence();
     }
@@ -381,7 +381,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function setFullname($fullname)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFullname', array($fullname));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFullname', [$fullname]);
 
         return parent::setFullname($fullname);
     }
@@ -392,7 +392,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function getFullname()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFullname', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFullname', []);
 
         return parent::getFullname();
     }
@@ -403,7 +403,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function setFirstname($firstname)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFirstname', array($firstname));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFirstname', [$firstname]);
 
         return parent::setFirstname($firstname);
     }
@@ -414,7 +414,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function getFirstname()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFirstname', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFirstname', []);
 
         return parent::getFirstname();
     }
@@ -425,7 +425,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function setLastname($lastname)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLastname', array($lastname));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLastname', [$lastname]);
 
         return parent::setLastname($lastname);
     }
@@ -436,7 +436,7 @@ class User extends \NoxIntranet\UserBundle\Entity\User implements \Doctrine\ORM\
     public function getLastname()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLastname', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLastname', []);
 
         return parent::getLastname();
     }

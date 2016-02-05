@@ -12,7 +12,18 @@ use Psr\Log\LoggerInterface;
  */
 class appProdUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerator
 {
-    private static $declaredRoutes = array(
+    private static $declaredRoutes;
+
+    /**
+     * Constructor.
+     */
+    public function __construct(RequestContext $context, LoggerInterface $logger = null)
+    {
+        $this->context = $context;
+        $this->logger = $logger;
+        if (null === self::$declaredRoutes) {
+            self::$declaredRoutes = array(
+        'nox_intranet_pdf_parsing_homepage' => array (  0 =>   array (    0 => 'name',  ),  1 =>   array (    '_controller' => 'NoxIntranet\\PDFParsingBundle\\Controller\\DefaultController::indexAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'variable',      1 => '/',      2 => '[^/]++',      3 => 'name',    ),    1 =>     array (      0 => 'text',      1 => '/hello',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'nox_intranet_listing_keywords_references_homepage' => array (  0 =>   array (    0 => 'name',  ),  1 =>   array (    '_controller' => 'NoxIntranet\\ListingKeywordsReferencesBundle\\Controller\\DefaultController::indexAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'variable',      1 => '/',      2 => '[^/]++',      3 => 'name',    ),    1 =>     array (      0 => 'text',      1 => '/hello',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'ef_connect' => array (  0 =>   array (    0 => 'instance',    1 => 'homeFolder',  ),  1 =>   array (    '_controller' => 'FM\\ElfinderBundle\\Controller\\ElFinderController::loadAction',    'instance' => 'default',    'homeFolder' => '',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'variable',      1 => '/',      2 => '[^/]++',      3 => 'homeFolder',    ),    1 =>     array (      0 => 'variable',      1 => '/',      2 => '[^/]++',      3 => 'instance',    ),    2 =>     array (      0 => 'text',      1 => '/efconnect',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'elfinder' => array (  0 =>   array (    0 => 'instance',    1 => 'homeFolder',  ),  1 =>   array (    '_controller' => 'FM\\ElfinderBundle\\Controller\\ElFinderController::showAction',    'instance' => 'default',    'homeFolder' => '',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'variable',      1 => '/',      2 => '[^/]++',      3 => 'homeFolder',    ),    1 =>     array (      0 => 'variable',      1 => '/',      2 => '[^/]++',      3 => 'instance',    ),    2 =>     array (      0 => 'text',      1 => '/elfinder',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
@@ -107,14 +118,7 @@ class appProdUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerat
         'login_fail' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'NoxIntranet\\UserBundle\\Controller\\SecurityController::loginFailAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/login_fail',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'home' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'NoxIntranet\\AccueilBundle\\Controller\\AccueilController::majCommunicationAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
     );
-
-    /**
-     * Constructor.
-     */
-    public function __construct(RequestContext $context, LoggerInterface $logger = null)
-    {
-        $this->context = $context;
-        $this->logger = $logger;
+        }
     }
 
     public function generate($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH)

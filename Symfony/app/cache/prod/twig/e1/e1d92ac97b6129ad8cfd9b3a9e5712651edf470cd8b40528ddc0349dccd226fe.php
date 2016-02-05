@@ -414,7 +414,7 @@ class __TwigTemplate_a4e4a4927ac5113323cf6af21cdf60a25081a99a5992f472af71158c2b6
         <!-- Communication -->
         <a href=\"";
         // line 202
-        echo $this->env->getExtension('routing')->getPath("nox_intranet_administration_communication");
+        echo $this->env->getExtension('routing')->getPath("nox_intranet_communication");
         echo "\" class=\"icon\">
             <figure>
                 <img 
@@ -822,7 +822,7 @@ class __TwigTemplate_a4e4a4927ac5113323cf6af21cdf60a25081a99a5992f472af71158c2b6
 /*         </a>*/
 /* */
 /*         <!-- Communication -->*/
-/*         <a href="{{ path('nox_intranet_administration_communication') }}" class="icon">*/
+/*         <a href="{{ path('nox_intranet_communication') }}" class="icon">*/
 /*             <figure>*/
 /*                 <img */
 /*                     src="{{ asset('bundles/noxintranetadministration/images/Communication-128.png') }}" */

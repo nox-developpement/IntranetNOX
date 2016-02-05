@@ -73,7 +73,7 @@ class __TwigTemplate_c2a539193bc4431fb3c616d83c719eaaae4d07d86263b5edea731b47951
 
             <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
             // line 22
-            echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "lien", array(), "array"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "Lien", array()), "html", null, true);
             echo "', 'Nox Letters');\">
                 <img 
                     src=\"";
@@ -95,71 +95,57 @@ class __TwigTemplate_c2a539193bc4431fb3c616d83c719eaaae4d07d86263b5edea731b47951
 
                 <li> Nom du fichier : ";
             // line 32
-            echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "nom", array(), "array"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "Nom", array()), "html", null, true);
             echo " </li>
 
                 ";
             // line 34
-            $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["new"], "proprietes", array(), "array"));
-            foreach ($context['_seq'] as $context["_key"] => $context["propriete"]) {
-                // line 35
-                echo "
-                    ";
-                // line 36
-                if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Title")) {
-                    echo " <li> Titre : ";
-                    echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
-                    echo " </li> ";
-                }
-                // line 37
-                echo "
-                    ";
-                // line 38
-                if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Author")) {
-                    echo " <li> Auteur : ";
-                    echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
-                    echo " </li> ";
-                }
-                // line 39
-                echo "
-                    ";
-                // line 40
-                if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Subject")) {
-                    echo " <li> Sujet : ";
-                    echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
-                    echo " </li> ";
-                }
-                // line 41
-                echo "
-                    ";
-                // line 42
-                if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Keywords")) {
-                    echo " <li> Mots clés : ";
-                    echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
-                    echo " </li> ";
-                }
-                // line 43
-                echo "
-                    ";
-                // line 44
-                if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Pages")) {
-                    echo " <li> Nombre de page(s) : ";
-                    echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
-                    echo " </li> ";
-                }
-                // line 45
-                echo "
-                ";
+            if (($this->getAttribute($context["new"], "Title", array()) != null)) {
+                echo " <li> Titre : ";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "Title", array()), "html", null, true);
+                echo " </li> ";
             }
-            $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['propriete'], $context['_parent'], $context['loop']);
-            $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 47
+            // line 35
+            echo "
+                ";
+            // line 36
+            if (($this->getAttribute($context["new"], "Author", array()) != null)) {
+                echo " <li> Auteur : ";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "Author", array()), "html", null, true);
+                echo " </li> ";
+            }
+            // line 37
+            echo "
+                ";
+            // line 38
+            if (($this->getAttribute($context["new"], "Subject", array()) != null)) {
+                echo " <li> Sujet : ";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "Subject", array()), "html", null, true);
+                echo " </li> ";
+            }
+            // line 39
+            echo "
+                ";
+            // line 40
+            if (($this->getAttribute($context["new"], "Keywords", array()) != null)) {
+                echo " <li> Mots : ";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "Keywords", array()), "html", null, true);
+                echo " </li> ";
+            }
+            // line 41
+            echo "
+                ";
+            // line 42
+            if (($this->getAttribute($context["new"], "Pages", array()) != null)) {
+                echo " <li> Nombre de page(s) : ";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "Pages", array()), "html", null, true);
+                echo " </li> ";
+            }
+            // line 43
             echo "
                 <li> Posté le : ";
-            // line 48
-            echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "dateEnvoi", array(), "array"), "html", null, true);
+            // line 44
+            echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "dateEnvoi", array()), "html", null, true);
             echo " </li>
 
             </ul>
@@ -171,7 +157,7 @@ class __TwigTemplate_c2a539193bc4431fb3c616d83c719eaaae4d07d86263b5edea731b47951
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['new'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 55
+        // line 51
         echo "
 ";
     }
@@ -188,7 +174,7 @@ class __TwigTemplate_c2a539193bc4431fb3c616d83c719eaaae4d07d86263b5edea731b47951
 
     public function getDebugInfo()
     {
-        return array (  175 => 55,  162 => 48,  159 => 47,  152 => 45,  146 => 44,  143 => 43,  137 => 42,  134 => 41,  128 => 40,  125 => 39,  119 => 38,  116 => 37,  110 => 36,  107 => 35,  103 => 34,  98 => 32,  89 => 26,  85 => 25,  81 => 24,  76 => 22,  67 => 18,  64 => 17,  55 => 13,  48 => 9,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  161 => 51,  148 => 44,  145 => 43,  139 => 42,  136 => 41,  130 => 40,  127 => 39,  121 => 38,  118 => 37,  112 => 36,  109 => 35,  103 => 34,  98 => 32,  89 => 26,  85 => 25,  81 => 24,  76 => 22,  67 => 18,  64 => 17,  55 => 13,  48 => 9,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -212,7 +198,7 @@ class __TwigTemplate_c2a539193bc4431fb3c616d83c719eaaae4d07d86263b5edea731b47951
 /* */
 /*         <div class="divNews">*/
 /* */
-/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new['lien'] }}', 'Nox Letters');">*/
+/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new.Lien }}', 'Nox Letters');">*/
 /*                 <img */
 /*                     src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" */
 /*                     onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" */
@@ -222,23 +208,19 @@ class __TwigTemplate_c2a539193bc4431fb3c616d83c719eaaae4d07d86263b5edea731b47951
 /* */
 /*             <ul>*/
 /* */
-/*                 <li> Nom du fichier : {{ new['nom'] }} </li>*/
+/*                 <li> Nom du fichier : {{ new.Nom }} </li>*/
 /* */
-/*                 {% for propriete in new['proprietes'] %}*/
+/*                 {% if new.Title != null %} <li> Titre : {{ new.Title }} </li> {% endif %}*/
 /* */
-/*                     {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}*/
+/*                 {% if new.Author != null %} <li> Auteur : {{ new.Author }} </li> {% endif %}*/
 /* */
-/*                     {% if propriete['label'] == 'Author' %} <li> Auteur : {{ propriete['valeur'] }} </li> {% endif %}*/
+/*                 {% if new.Subject != null %} <li> Sujet : {{ new.Subject }} </li> {% endif %}*/
 /* */
-/*                     {% if propriete['label'] == 'Subject' %} <li> Sujet : {{ propriete['valeur'] }} </li> {% endif %}*/
+/*                 {% if new.Keywords != null %} <li> Mots : {{ new.Keywords }} </li> {% endif %}*/
 /* */
-/*                     {% if propriete['label'] == 'Keywords' %} <li> Mots clés : {{ propriete['valeur'] }} </li> {% endif %}*/
+/*                 {% if new.Pages != null %} <li> Nombre de page(s) : {{ new.Pages }} </li> {% endif %}*/
 /* */
-/*                     {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}*/
-/* */
-/*                 {% endfor %}*/
-/* */
-/*                 <li> Posté le : {{ new['dateEnvoi'] }} </li>*/
+/*                 <li> Posté le : {{ new.dateEnvoi }} </li>*/
 /* */
 /*             </ul>*/
 /* */

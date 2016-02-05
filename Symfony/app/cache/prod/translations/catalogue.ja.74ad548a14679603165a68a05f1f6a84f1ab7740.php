@@ -84,7 +84,7 @@ $catalogue = new MessageCatalogue('ja', array (
     'This value does not match the expected {{ charset }} charset.' => 'この値は予期される文字コード（{{ charset }}）と異なります。',
     'This form should not contain extra fields.' => 'フィールドグループに追加のフィールドを含んではなりません。',
     'The uploaded file was too large. Please try to upload a smaller file.' => 'アップロードされたファイルが大きすぎます。小さなファイルで再度アップロードしてください。',
-    'The CSRF token is invalid.' => 'CSRFトークンが無効です。',
+    'The CSRF token is invalid. Please try to resubmit the form.' => 'CSRFトークンが無効です、再送信してください。',
   ),
   'security' => 
   array (

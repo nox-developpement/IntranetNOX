@@ -36,7 +36,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'agence', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'chemin', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'type', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'ip', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'cheminPilote', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'nomReseau', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'fileLPR');
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'agence', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'chemin', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'type', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'ip', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'cheminPilote', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'nomReseau', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'fileLPR'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'agence', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'chemin', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'type', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'ip', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'cheminPilote', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'nomReseau', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'fileLPR');
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'agence', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'chemin', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'type', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'ip', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'cheminPilote', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'nomReseau', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Imprimantes' . "\0" . 'fileLPR'];
     }
 
     /**
@@ -97,7 +97,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function setAgence($agence)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAgence', array($agence));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAgence', [$agence]);
 
         return parent::setAgence($agence);
     }
@@ -205,7 +205,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function getAgence()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAgence', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAgence', []);
 
         return parent::getAgence();
     }
@@ -216,7 +216,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function setChemin($chemin)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setChemin', array($chemin));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setChemin', [$chemin]);
 
         return parent::setChemin($chemin);
     }
@@ -227,7 +227,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function getChemin()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getChemin', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getChemin', []);
 
         return parent::getChemin();
     }
@@ -238,7 +238,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function setNom($nom)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNom', array($nom));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNom', [$nom]);
 
         return parent::setNom($nom);
     }
@@ -249,7 +249,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function getNom()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNom', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNom', []);
 
         return parent::getNom();
     }
@@ -260,7 +260,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function setScript($script)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setScript', array($script));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setScript', [$script]);
 
         return parent::setScript($script);
     }
@@ -271,7 +271,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function getScript()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getScript', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getScript', []);
 
         return parent::getScript();
     }
@@ -282,7 +282,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function setType($type)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setType', array($type));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setType', [$type]);
 
         return parent::setType($type);
     }
@@ -293,7 +293,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function getType()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getType', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getType', []);
 
         return parent::getType();
     }
@@ -304,7 +304,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function setIp($ip)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIp', array($ip));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIp', [$ip]);
 
         return parent::setIp($ip);
     }
@@ -315,7 +315,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function getIp()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIp', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIp', []);
 
         return parent::getIp();
     }
@@ -326,7 +326,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function setCheminPilote($cheminPilote)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCheminPilote', array($cheminPilote));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCheminPilote', [$cheminPilote]);
 
         return parent::setCheminPilote($cheminPilote);
     }
@@ -337,7 +337,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function getCheminPilote()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCheminPilote', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCheminPilote', []);
 
         return parent::getCheminPilote();
     }
@@ -348,7 +348,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function setNomReseau($nomReseau)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNomReseau', array($nomReseau));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNomReseau', [$nomReseau]);
 
         return parent::setNomReseau($nomReseau);
     }
@@ -359,7 +359,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function getNomReseau()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNomReseau', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNomReseau', []);
 
         return parent::getNomReseau();
     }
@@ -370,7 +370,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function setFileLPR($fileLPR)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFileLPR', array($fileLPR));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFileLPR', [$fileLPR]);
 
         return parent::setFileLPR($fileLPR);
     }
@@ -381,7 +381,7 @@ class Imprimantes extends \NoxIntranet\RessourcesBundle\Entity\Imprimantes imple
     public function getFileLPR()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFileLPR', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFileLPR', []);
 
         return parent::getFileLPR();
     }

@@ -10,7 +10,7 @@
 
     {% if is_granted('ROLE_LIENS') %} 
 
-        <div class='zoneEdition'>
+        <div class='zoneEdition' id="zoneEditionLiens">
 
             <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
 
@@ -30,7 +30,7 @@
 
     {% endif %}
 
-    <div class='zoneTexte'>
+    <div class='zoneTexte' id="zoneTexteLiens">
         {{ texte|raw }}
     </di>
 

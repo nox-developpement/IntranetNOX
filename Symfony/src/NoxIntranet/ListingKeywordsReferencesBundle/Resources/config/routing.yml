@@ -1,0 +1,3 @@
+nox_intranet_listing_keywords_references_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: NoxIntranetListingKeywordsReferencesBundle:Default:index }

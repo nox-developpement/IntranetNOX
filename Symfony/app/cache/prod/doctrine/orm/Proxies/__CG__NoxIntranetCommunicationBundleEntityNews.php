@@ -36,7 +36,7 @@ class News extends \NoxIntranet\CommunicationBundle\Entity\News implements \Doct
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class News extends \NoxIntranet\CommunicationBundle\Entity\News implements \Doct
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'titre', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'auteur', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'date', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'contenu');
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'titre', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'auteur', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'date', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'contenu'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'titre', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'auteur', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'date', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'contenu');
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'titre', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'auteur', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'date', '' . "\0" . 'NoxIntranet\\CommunicationBundle\\Entity\\News' . "\0" . 'contenu'];
     }
 
     /**
@@ -97,7 +97,7 @@ class News extends \NoxIntranet\CommunicationBundle\Entity\News implements \Doct
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class News extends \NoxIntranet\CommunicationBundle\Entity\News implements \Doct
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class News extends \NoxIntranet\CommunicationBundle\Entity\News implements \Doct
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class News extends \NoxIntranet\CommunicationBundle\Entity\News implements \Doct
     public function getNews()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNews', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNews', []);
 
         return parent::getNews();
     }
@@ -205,7 +205,7 @@ class News extends \NoxIntranet\CommunicationBundle\Entity\News implements \Doct
     public function setTitre($titre)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTitre', array($titre));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTitre', [$titre]);
 
         return parent::setTitre($titre);
     }
@@ -216,7 +216,7 @@ class News extends \NoxIntranet\CommunicationBundle\Entity\News implements \Doct
     public function getTitre()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTitre', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTitre', []);
 
         return parent::getTitre();
     }
@@ -227,7 +227,7 @@ class News extends \NoxIntranet\CommunicationBundle\Entity\News implements \Doct
     public function setAuteur($auteur)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAuteur', array($auteur));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAuteur', [$auteur]);
 
         return parent::setAuteur($auteur);
     }
@@ -238,7 +238,7 @@ class News extends \NoxIntranet\CommunicationBundle\Entity\News implements \Doct
     public function getAuteur()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAuteur', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAuteur', []);
 
         return parent::getAuteur();
     }
@@ -249,7 +249,7 @@ class News extends \NoxIntranet\CommunicationBundle\Entity\News implements \Doct
     public function setDate($date)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDate', array($date));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDate', [$date]);
 
         return parent::setDate($date);
     }
@@ -260,7 +260,7 @@ class News extends \NoxIntranet\CommunicationBundle\Entity\News implements \Doct
     public function getDate()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDate', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDate', []);
 
         return parent::getDate();
     }
@@ -271,7 +271,7 @@ class News extends \NoxIntranet\CommunicationBundle\Entity\News implements \Doct
     public function setContenu($contenu)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setContenu', array($contenu));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setContenu', [$contenu]);
 
         return parent::setContenu($contenu);
     }
@@ -282,7 +282,7 @@ class News extends \NoxIntranet\CommunicationBundle\Entity\News implements \Doct
     public function getContenu()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getContenu', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getContenu', []);
 
         return parent::getContenu();
     }

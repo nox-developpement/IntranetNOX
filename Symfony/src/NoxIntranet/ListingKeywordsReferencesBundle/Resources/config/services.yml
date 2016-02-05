@@ -1,0 +1,4 @@
+services:
+#    nox_intranet_listing_keywords_references.example:
+#        class: NoxIntranet\ListingKeywordsReferencesBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -36,7 +36,7 @@ class Agence extends \NoxIntranet\AdministrationBundle\Entity\Agence implements 
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class Agence extends \NoxIntranet\AdministrationBundle\Entity\Agence implements 
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Agence' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Agence' . "\0" . 'lieu');
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Agence' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Agence' . "\0" . 'lieu'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Agence' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Agence' . "\0" . 'lieu');
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Agence' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Agence' . "\0" . 'lieu'];
     }
 
     /**
@@ -97,7 +97,7 @@ class Agence extends \NoxIntranet\AdministrationBundle\Entity\Agence implements 
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class Agence extends \NoxIntranet\AdministrationBundle\Entity\Agence implements 
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class Agence extends \NoxIntranet\AdministrationBundle\Entity\Agence implements 
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class Agence extends \NoxIntranet\AdministrationBundle\Entity\Agence implements 
     public function setLieu($lieu)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLieu', array($lieu));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLieu', [$lieu]);
 
         return parent::setLieu($lieu);
     }
@@ -205,7 +205,7 @@ class Agence extends \NoxIntranet\AdministrationBundle\Entity\Agence implements 
     public function getLieu()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLieu', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLieu', []);
 
         return parent::getLieu();
     }

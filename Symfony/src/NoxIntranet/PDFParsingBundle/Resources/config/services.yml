@@ -1,0 +1,4 @@
+services:
+    noxintranet_pdfparsing.parsepdf:
+        class: NoxIntranet\PDFParsingBundle\ExtractPDFMetadatas\NoxIntranetExtractPDFMetadatas
+        arguments: [ @doctrine.orm.entity_manager ]

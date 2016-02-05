@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
 use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
 use NoxIntranet\AccueilBundle\Entity\Compteur;
+use NoxIntranet\PDFParsingBundle\Entity\PDF;
 
 /**
  * Description of AccueilController
@@ -52,24 +53,6 @@ class AccueilController extends Controller {
                 $results[] = $path;
             }
         }
-
-        return $results;
-    }
-
-    function getDirContents2($path) {
-
-        $results = array();
-
-        $dir_iterator = new RecursiveDirectoryIterator(dirname($path), false);
-        $iterator = new \RecursiveIteratorIterator($dir_iterator);
-        foreach ($iterator as $file) {
-            if ($file->getBasename() != "." && $file->getBasename() != ".." && $file->getBasename() != ".quarantine" && $file->getBasename() != ".tmb" && $file->getBasename() != "ImagesPublication" && $file->getBasename() != "BanqueImages") {
-                $results[] = $file->getPathName();
-            }
-        }
-
-
-        var_dump($results);
 
         return $results;
     }
@@ -128,21 +111,17 @@ class AccueilController extends Controller {
 
     public function majCommunicationAction(Request $request) {
 
-
-
-        $filesExterne = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/Externe/');
-
-        $filesInterne = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/Interne');
-
-        $filesMarketing = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/Marketing');
-
-        $filesSI = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/SI');
-
-        $filesAQ = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/AQ');
-
-        $filesReferences = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/References');
-
-//      return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('news' => $news5));
+//        $filesExterne = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/Externe/');
+//
+//        $filesInterne = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/Interne');
+//
+//        $filesMarketing = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/Marketing');
+//
+//        $filesSI = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/SI');
+//
+//        $filesAQ = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/AQ');
+//
+//        $filesReferences = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/References');
 
         $em = $this->getDoctrine()->getManager();
 
@@ -194,27 +173,62 @@ class AccueilController extends Controller {
 
         $texte = $texteEncart->getText();
 
-//        $majExterne = null;
-//
-//        $majInterne = null;
-//        $majMarketing = null;
-//        $majSI = null;
 
-        $majExterne = $this->getMaj($filesExterne);
+//        $majExterne = $this->getMaj($filesExterne);
 //
-        $majInterne = $this->getMaj($filesInterne);
+//        $majInterne = $this->getMaj($filesInterne);
 //
-        $majMarketing = $this->getMaj($filesMarketing);
+//        $majMarketing = $this->getMaj($filesMarketing);
 //
-        $majSI = $this->getMaj($filesSI);
+//        $majSI = $this->getMaj($filesSI);
+//
+//        $majAQ = $this->getMaj($filesAQ);
+//
+//        $majReferences = $this->getMaj($filesReferences);
 
-        $majAQ = $this->getMaj($filesAQ);
+        $majExterne = $this->getPDF('C:/wamp/www/Symfony/web/uploads/Communication/Externe/');
 
-        $majReferences = $this->getMaj($filesReferences);
+        $majInterne = $this->getPDF('C:/wamp/www/Symfony/web/uploads/Communication/Interne/');
+
+        $majMarketing = $this->getPDF('C:/wamp/www/Symfony/web/uploads/Communication/Marketing/');
+
+        $majSI = $this->getPDF('C:/wamp/www/Symfony/web/uploads/Communication/SI/');
+
+        $majAQ = $this->getPDF('C:/wamp/www/Symfony/web/uploads/AQ/');
+
+        $majReferences = $this->getPDF('C:/wamp/www/Symfony/web/uploads/References/');
 
         return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('texte' => $texte, 'formulaire' => $form->createView(),
                     'majExterne' => $majExterne, 'majInterne' => $majInterne, 'majMarketing' => $majMarketing, 'majSI' => $majSI,
                     'majAQ' => $majAQ, 'majReferences' => $majReferences, 'nombreVues' => $compteurVue->getVue()));
+    }
+
+    public function getPDF($chemin) {
+
+        $files = $this->getDirContents($chemin);
+
+        $listePDF = array();
+
+        $PDFs = array();
+
+        $em = $this->getDoctrine()->getManager();
+
+        foreach ($files as $file) {
+
+            $fileExist = $em->getRepository('NoxIntranetPDFParsingBundle:PDF')->findOneByChemin($file);
+
+            if ($fileExist != null) {
+
+                $listePDF[] = $fileExist;
+
+                foreach ($listePDF as $k => $v) {
+                    $date[$k] = $v->getDateEnvoi();
+                }
+
+                array_multisort($date, SORT_DESC, $listePDF);
+            }
+        }
+        return $listePDF;
     }
 
 }

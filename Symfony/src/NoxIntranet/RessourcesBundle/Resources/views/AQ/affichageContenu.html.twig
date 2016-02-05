@@ -1,0 +1,53 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}{{ dossier }}{% endblock %}
+
+{% block messageAccueil %}{{ dossier }}{% endblock %}
+
+{% block contenu %}
+
+    {% if is_granted('ROLE_QUALITE') %} 
+
+        <div id="menuAdminNewsSI" class='menuAdmin'>
+            <h3> Interface de gestion de contenu </h3>
+            <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/{{ config }}', 'Gestionnaire de fichiers - {{ dossier }}');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>
+        </div>
+
+    {% endif %}
+
+    {% for new in news %} 
+
+        <div class="divNews">
+
+            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new.Lien }}', 'Nox Letters');">
+                <img 
+                    src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}';"
+                    >
+            </a>
+
+            <ul>
+
+                <li> Nom du fichier : {{ new.Nom }} </li>
+
+                {% if new.Title != null %} <li> Titre : {{ new.Title }} </li> {% endif %}
+
+                {% if new.Author != null %} <li> Auteur : {{ new.Author }} </li> {% endif %}
+
+                {% if new.Subject != null %} <li> Sujet : {{ new.Subject }} </li> {% endif %}
+
+                {% if new.Keywords != null %} <li> Mots : {{ new.Keywords }} </li> {% endif %}
+
+                {% if new.Pages != null %} <li> Nombre de page(s) : {{ new.Pages }} </li> {% endif %}
+
+                <li> Posté le : {{ new.dateEnvoi }} </li>
+
+            </ul>
+
+        </div>
+
+    {% endfor %}
+
+{% endblock %}
+{# empty Twig template #}

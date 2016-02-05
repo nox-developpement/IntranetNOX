@@ -19,7 +19,7 @@
 
         <div class="divNews">
 
-            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new['lien'] }}', 'Nox Letters');">
+            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new.Lien }}', 'Nox Letters');">
                 <img 
                     src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" 
                     onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" 
@@ -29,23 +29,19 @@
 
             <ul>
 
-                <li> Nom du fichier : {{ new['nom'] }} </li>
+                <li> Nom du fichier : {{ new.Nom }} </li>
 
-                {% for propriete in new['proprietes'] %}
+                {% if new.Title != null %} <li> Titre : {{ new.Title }} </li> {% endif %}
 
-                    {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}
+                {% if new.Author != null %} <li> Auteur : {{ new.Author }} </li> {% endif %}
 
-                    {% if propriete['label'] == 'Author' %} <li> Auteur : {{ propriete['valeur'] }} </li> {% endif %}
+                {% if new.Subject != null %} <li> Sujet : {{ new.Subject }} </li> {% endif %}
 
-                    {% if propriete['label'] == 'Subject' %} <li> Sujet : {{ propriete['valeur'] }} </li> {% endif %}
+                {% if new.Keywords != null %} <li> Mots : {{ new.Keywords }} </li> {% endif %}
 
-                    {% if propriete['label'] == 'Keywords' %} <li> Mots clés : {{ propriete['valeur'] }} </li> {% endif %}
+                {% if new.Pages != null %} <li> Nombre de page(s) : {{ new.Pages }} </li> {% endif %}
 
-                    {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}
-
-                {% endfor %}
-
-                <li> Posté le : {{ new['dateEnvoi'] }} </li>
+                <li> Posté le : {{ new.dateEnvoi }} </li>
 
             </ul>
 

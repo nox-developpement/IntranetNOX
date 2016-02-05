@@ -36,7 +36,7 @@ class CompteurDemande extends \NoxIntranet\SupportSIBundle\Entity\CompteurDemand
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class CompteurDemande extends \NoxIntranet\SupportSIBundle\Entity\CompteurDemand
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\SupportSIBundle\\Entity\\CompteurDemande' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\SupportSIBundle\\Entity\\CompteurDemande' . "\0" . 'compteur', '' . "\0" . 'NoxIntranet\\SupportSIBundle\\Entity\\CompteurDemande' . "\0" . 'date');
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\SupportSIBundle\\Entity\\CompteurDemande' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\SupportSIBundle\\Entity\\CompteurDemande' . "\0" . 'compteur', '' . "\0" . 'NoxIntranet\\SupportSIBundle\\Entity\\CompteurDemande' . "\0" . 'date'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'NoxIntranet\\SupportSIBundle\\Entity\\CompteurDemande' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\SupportSIBundle\\Entity\\CompteurDemande' . "\0" . 'compteur', '' . "\0" . 'NoxIntranet\\SupportSIBundle\\Entity\\CompteurDemande' . "\0" . 'date');
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\SupportSIBundle\\Entity\\CompteurDemande' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\SupportSIBundle\\Entity\\CompteurDemande' . "\0" . 'compteur', '' . "\0" . 'NoxIntranet\\SupportSIBundle\\Entity\\CompteurDemande' . "\0" . 'date'];
     }
 
     /**
@@ -97,7 +97,7 @@ class CompteurDemande extends \NoxIntranet\SupportSIBundle\Entity\CompteurDemand
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class CompteurDemande extends \NoxIntranet\SupportSIBundle\Entity\CompteurDemand
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class CompteurDemande extends \NoxIntranet\SupportSIBundle\Entity\CompteurDemand
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class CompteurDemande extends \NoxIntranet\SupportSIBundle\Entity\CompteurDemand
     public function setId($id)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', array($id));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', [$id]);
 
         return parent::setId($id);
     }
@@ -205,7 +205,7 @@ class CompteurDemande extends \NoxIntranet\SupportSIBundle\Entity\CompteurDemand
     public function setCompteur($compteur)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCompteur', array($compteur));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCompteur', [$compteur]);
 
         return parent::setCompteur($compteur);
     }
@@ -216,7 +216,7 @@ class CompteurDemande extends \NoxIntranet\SupportSIBundle\Entity\CompteurDemand
     public function getCompteur()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCompteur', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCompteur', []);
 
         return parent::getCompteur();
     }
@@ -227,7 +227,7 @@ class CompteurDemande extends \NoxIntranet\SupportSIBundle\Entity\CompteurDemand
     public function setDate($date)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDate', array($date));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDate', [$date]);
 
         return parent::setDate($date);
     }
@@ -238,7 +238,7 @@ class CompteurDemande extends \NoxIntranet\SupportSIBundle\Entity\CompteurDemand
     public function getDate()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDate', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDate', []);
 
         return parent::getDate();
     }
