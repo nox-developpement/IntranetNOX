@@ -8,47 +8,85 @@
 
     <div id='DivFormulaireAjoutProfil'>
 
-        {{ form_start(form, {'attr': {'class': 'formulaireAdministrationAjoutProfil'}}) }}
-        {{ form_errors(form) }}
+        {{ form_start(formAjoutProfil, {'attr': {'class': 'formulaireAdministrationAjoutProfil'}}) }}
+        {{ form_errors(formAjoutProfil) }}
 
         <fieldset>
 
             <legend>Ajouter un profil</legend>
 
-            {{ form_label(form.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutProfil'}}) }}
-            {{ form_errors(form.Nom) }}
-            {{ form_widget(form.Nom, {'attr': {'class': 'textFormulaireAdministrationAjoutProfil'}}) }}
+            {{ form_label(formAjoutProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutProfil'}}) }}
+            {{ form_errors(formAjoutProfil.Nom) }}
+            {{ form_widget(formAjoutProfil.Nom, {'attr': {'class': 'textFormulaireAdministrationAjoutProfil'}}) }}
 
-            {{ form_widget(form._token) }}
+            {{ form_widget(formAjoutProfil._token) }}
 
-            {{ form_widget(form.Ajouter, {'attr': {'class': 'submitFormulaireAdministrationAjoutProfil', 'class': 'boutonFormulaire' }}) }}
+            {{ form_widget(formAjoutProfil.Ajouter, {'attr': {'class': 'submitFormulaireAdministrationAjoutProfil', 'class': 'boutonFormulaire' }}) }}
 
         </fieldset>
 
-        {{ form_end(form) }}
+        {{ form_end(formAjoutProfil) }}
 
     </div>
 
     <div id='DivFormulaireSuppressionProfil'>
 
-        {{ form_start(form2, {'attr': {'class': 'formulaireAdministrationSuppressionProfil'}}) }}
-        {{ form_errors(form2) }}
+        {{ form_start(formSuppresionProfil, {'attr': {'class': 'formulaireAdministrationSuppressionProfil'}}) }}
+        {{ form_errors(formSuppresionProfil) }}
 
         <fieldset>
 
             <legend>Supprimer un profil</legend>
 
-            {{ form_label(form2.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionProfil'}}) }}
-            {{ form_errors(form2.Nom) }}
-            {{ form_widget(form2.Nom, {'attr': {'class': 'selectFormulaireAdministrationSuppressionProfil'}}) }}
+            {{ form_label(formSuppresionProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionProfil'}}) }}
+            {{ form_errors(formSuppresionProfil.Nom) }}
+            {{ form_widget(formSuppresionProfil.Nom, {'attr': {'class': 'selectFormulaireAdministrationSuppressionProfil'}}) }}
 
-            {{ form_widget(form2._token) }}
+            {{ form_widget(formSuppresionProfil._token) }}
 
-            {{ form_widget(form2.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationSuppressionProfil', 'class': 'boutonFormulaire' }}) }}
+            {{ form_widget(formSuppresionProfil.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationSuppressionProfil', 'class': 'boutonFormulaire' }}) }}
 
         </fieldset> 
 
-        {{ form_end(form2) }}
+        {{ form_end(formSuppresionProfil) }}
+
+    </div>
+
+    <div class='DivAjoutFeuilleSuivi'>
+        <form class='formulaireAjoutFeuilleSuivi'>
+            <fieldset>
+                <legend> Gestionnaire de feuilles de suivis </legend>
+                <p> <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/feuillesSuivis', 'Gestionnaire de fichiers - Feuilles de suivis');"> Ajout/Supression de feuilles de suivis </a> </p>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class='DivFormulaireAjoutFormulaire'>
+
+        {{ form_start(formAjoutFormulaire, {'attr': {'class': 'formulaireAjoutFormulaire'}}) }}
+        {{ form_errors(formAjoutFormulaire) }}
+
+        <fieldset>
+
+            <legend>Ajouter un champ</legend>
+
+            <p>
+                {{ form_label(formAjoutFormulaire.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAjoutFormulaire'}}) }}
+                {{ form_errors(formAjoutFormulaire.Nom) }}
+                {{ form_widget(formAjoutFormulaire.Nom, {'attr': {'class': 'textFormulaireAjoutFormulaire'}}) }}
+
+                {{ form_label(formAjoutFormulaire.Type, "Type de champ :", {'label_attr': {'class': 'labelFormulaireAjoutFormulaire'}}) }}
+                {{ form_errors(formAjoutFormulaire.Type) }}
+                {{ form_widget(formAjoutFormulaire.Type, {'attr': {'class': 'selectFormulaireAjoutFormulaire'}}) }}
+
+                {{ form_widget(formAjoutFormulaire._token) }}
+
+                {{ form_widget(formAjoutFormulaire.Ajouter, {'attr': {'class': 'submitFormulaireAjoutFormulaire' }}) }}
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(formAjoutFormulaire) }}
 
     </div>
 

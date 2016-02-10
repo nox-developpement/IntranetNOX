@@ -195,6 +195,11 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
                         return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController::generateExcelFileAction',  '_route' => 'nox_intranet_assistant_affaire_generation',);
                     }
 
+                    // nox_intranet_assistant_affaire_parcour_suivi_en_cours
+                    if (0 === strpos($pathinfo, '/ressources/assistant-affaire/parcours-suivi-en-cours') && preg_match('#^/ressources/assistant\\-affaire/parcours\\-suivi\\-en\\-cours(?:/(?P<agence>[^/]++))?$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_assistant_affaire_parcour_suivi_en_cours')), array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController::consulterSuiviAction',  'agence' => 'Toutes',));
+                    }
+
                 }
 
             }

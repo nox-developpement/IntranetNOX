@@ -84,4 +84,8 @@ nox_intranet_assistant_affaire_generation:
     path: /ressources/assistantAffaireGeneration
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:generateExcelFile }
     
+nox_intranet_assistant_affaire_parcour_suivi_en_cours:
+    path: /ressources/assistant-affaire/parcours-suivi-en-cours/{agence}
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:consulterSuivi, agence: Toutes }
+    
     

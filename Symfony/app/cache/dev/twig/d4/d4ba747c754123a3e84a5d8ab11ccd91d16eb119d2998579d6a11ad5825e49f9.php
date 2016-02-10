@@ -23,44 +23,44 @@ class __TwigTemplate_cc497fa2e2f42caf63dd25d58a2714006e79c9c8e8b49f243cd999de21c
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_0645d9b0849231b51da36d0a3207856be06925a0ea115537a92122d3ebb20e90 = $this->env->getExtension("native_profiler");
-        $__internal_0645d9b0849231b51da36d0a3207856be06925a0ea115537a92122d3ebb20e90->enter($__internal_0645d9b0849231b51da36d0a3207856be06925a0ea115537a92122d3ebb20e90_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireaccueil.html.twig"));
+        $__internal_121ea2c8131d3449740c989d100513cf9ef252ef294c4d1470cebf9018097095 = $this->env->getExtension("native_profiler");
+        $__internal_121ea2c8131d3449740c989d100513cf9ef252ef294c4d1470cebf9018097095->enter($__internal_121ea2c8131d3449740c989d100513cf9ef252ef294c4d1470cebf9018097095_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireaccueil.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_0645d9b0849231b51da36d0a3207856be06925a0ea115537a92122d3ebb20e90->leave($__internal_0645d9b0849231b51da36d0a3207856be06925a0ea115537a92122d3ebb20e90_prof);
+        $__internal_121ea2c8131d3449740c989d100513cf9ef252ef294c4d1470cebf9018097095->leave($__internal_121ea2c8131d3449740c989d100513cf9ef252ef294c4d1470cebf9018097095_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_69c05780c91505b976078505ec22547448d3a035c014a8f38ac86c685ec2a25d = $this->env->getExtension("native_profiler");
-        $__internal_69c05780c91505b976078505ec22547448d3a035c014a8f38ac86c685ec2a25d->enter($__internal_69c05780c91505b976078505ec22547448d3a035c014a8f38ac86c685ec2a25d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_a23e7f2bf9038dad1d551a28a889eef2206efa88d35fc6b1d43df9da8a6f15a7 = $this->env->getExtension("native_profiler");
+        $__internal_a23e7f2bf9038dad1d551a28a889eef2206efa88d35fc6b1d43df9da8a6f15a7->enter($__internal_a23e7f2bf9038dad1d551a28a889eef2206efa88d35fc6b1d43df9da8a6f15a7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Assistant d'affaire ";
         
-        $__internal_69c05780c91505b976078505ec22547448d3a035c014a8f38ac86c685ec2a25d->leave($__internal_69c05780c91505b976078505ec22547448d3a035c014a8f38ac86c685ec2a25d_prof);
+        $__internal_a23e7f2bf9038dad1d551a28a889eef2206efa88d35fc6b1d43df9da8a6f15a7->leave($__internal_a23e7f2bf9038dad1d551a28a889eef2206efa88d35fc6b1d43df9da8a6f15a7_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_3d3169045f7fc11fba7c255ecfd40942d9828f805845ef8053d6ed62211b25b5 = $this->env->getExtension("native_profiler");
-        $__internal_3d3169045f7fc11fba7c255ecfd40942d9828f805845ef8053d6ed62211b25b5->enter($__internal_3d3169045f7fc11fba7c255ecfd40942d9828f805845ef8053d6ed62211b25b5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_b33b3280777352aabd43b2745eea57fd32a20c7e50d5dcd958b93d393f6d3156 = $this->env->getExtension("native_profiler");
+        $__internal_b33b3280777352aabd43b2745eea57fd32a20c7e50d5dcd958b93d393f6d3156->enter($__internal_b33b3280777352aabd43b2745eea57fd32a20c7e50d5dcd958b93d393f6d3156_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Assistant d'affaire";
         
-        $__internal_3d3169045f7fc11fba7c255ecfd40942d9828f805845ef8053d6ed62211b25b5->leave($__internal_3d3169045f7fc11fba7c255ecfd40942d9828f805845ef8053d6ed62211b25b5_prof);
+        $__internal_b33b3280777352aabd43b2745eea57fd32a20c7e50d5dcd958b93d393f6d3156->leave($__internal_b33b3280777352aabd43b2745eea57fd32a20c7e50d5dcd958b93d393f6d3156_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_54e0969c7fc975ffc845187d4e42d1b9bc28c8f4bf0cd4e37147dcc240571fa2 = $this->env->getExtension("native_profiler");
-        $__internal_54e0969c7fc975ffc845187d4e42d1b9bc28c8f4bf0cd4e37147dcc240571fa2->enter($__internal_54e0969c7fc975ffc845187d4e42d1b9bc28c8f4bf0cd4e37147dcc240571fa2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_663f5ef4e7af6f27dba4dfbadbcbd167d87a093c1f3a950e93589cbd593b7680 = $this->env->getExtension("native_profiler");
+        $__internal_663f5ef4e7af6f27dba4dfbadbcbd167d87a093c1f3a950e93589cbd593b7680->enter($__internal_663f5ef4e7af6f27dba4dfbadbcbd167d87a093c1f3a950e93589cbd593b7680_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -93,7 +93,7 @@ class __TwigTemplate_cc497fa2e2f42caf63dd25d58a2714006e79c9c8e8b49f243cd999de21c
         <!-- Parcourir les suivis en cours -->
         <a href=\"";
         // line 24
-        echo $this->env->getExtension('routing')->getPath("nox_intranet_archives");
+        echo $this->env->getExtension('routing')->getPath("nox_intranet_assistant_affaire_parcour_suivi_en_cours");
         echo "\" class=\"icon\">
             <figure>
                 <img 
@@ -142,7 +142,7 @@ class __TwigTemplate_cc497fa2e2f42caf63dd25d58a2714006e79c9c8e8b49f243cd999de21c
 
 ";
         
-        $__internal_54e0969c7fc975ffc845187d4e42d1b9bc28c8f4bf0cd4e37147dcc240571fa2->leave($__internal_54e0969c7fc975ffc845187d4e42d1b9bc28c8f4bf0cd4e37147dcc240571fa2_prof);
+        $__internal_663f5ef4e7af6f27dba4dfbadbcbd167d87a093c1f3a950e93589cbd593b7680->leave($__internal_663f5ef4e7af6f27dba4dfbadbcbd167d87a093c1f3a950e93589cbd593b7680_prof);
 
     }
 
@@ -184,7 +184,7 @@ class __TwigTemplate_cc497fa2e2f42caf63dd25d58a2714006e79c9c8e8b49f243cd999de21c
 /*         </a>*/
 /* */
 /*         <!-- Parcourir les suivis en cours -->*/
-/*         <a href="{{ path('nox_intranet_archives') }}" class="icon">*/
+/*         <a href="{{ path('nox_intranet_assistant_affaire_parcour_suivi_en_cours') }}" class="icon">*/
 /*             <figure>*/
 /*                 <img */
 /*                     src="{{ asset('bundles/noxintranetressources/images/Document-Exchange-02-128.png') }}" */

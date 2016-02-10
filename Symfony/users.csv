@@ -520,7 +520,7 @@ DN,sAMAccountName
 "CN=GRONDAIN Jérémy,OU=Angouleme,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",j.grondain
 "CN=MORISSEAU Laurent,OU=Informatique,OU=Siège,OU=NOX,DC=nox,DC=local",l.morisseau
 "CN=PASQUET Dominique,OU=Saintes,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",d.pasquet
-"CN=be_admin,OU=Serveurs,OU=Informatique,OU=Siège,OU=NOX,DC=nox,DC=local",be_admin
+"CN=be_admin,OU=Informatique,OU=_Old,OU=NOX,DC=nox,DC=local",be_admin
 "CN=NOBILLIAUX Simon,OU=Bron,OU=_Old,OU=NOX,DC=nox,DC=local",s.nobilliaux
 "CN=LAMARCHE Yves,OU=Beaune,OU=_Old,OU=NOX,DC=nox,DC=local",y.lamarche
 "CN=Stagiaire,OU=Angouleme,OU=_Old,OU=NOX,DC=nox,DC=local",nox16

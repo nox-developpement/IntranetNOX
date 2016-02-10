@@ -654,7 +654,21 @@ fm_elfinder:
                         path:             uploads/AQ/INFOSQSE/EVENEMENTS
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M     
+                        upload_max_size:  5M   
+        feuillesSuivis:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AssistantAffaires/FeuillesSuivis
+                        upload_allow:     ['application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M   
         plaquettesInstitutionnelleLecture:
             locale:           %locale%
             editor:           ckeditor

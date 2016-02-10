@@ -407,7 +407,7 @@ class __TwigTemplate_a4e4a4927ac5113323cf6af21cdf60a25081a99a5992f472af71158c2b6
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Document-Zoom-In-03-128.png"), "html", null, true);
         echo "';\"
                     > 
-                <figcaption>Assurance qualité</figcaption>
+                <figcaption>Assistant d'affaire</figcaption>
             </figure>
         </a>
         
@@ -831,7 +831,7 @@ class __TwigTemplate_a4e4a4927ac5113323cf6af21cdf60a25081a99a5992f472af71158c2b6
 /*                     onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Document-Zoom-In-03-128-hover.png') }}';" */
 /*                     onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Document-Zoom-In-03-128.png') }}';"*/
 /*                     > */
-/*                 <figcaption>Assurance qualité</figcaption>*/
+/*                 <figcaption>Assistant d'affaire</figcaption>*/
 /*             </figure>*/
 /*         </a>*/
 /*         */

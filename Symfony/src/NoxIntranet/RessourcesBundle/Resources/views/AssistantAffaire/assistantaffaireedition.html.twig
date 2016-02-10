@@ -1,0 +1,48 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Parcourirs les suivis en cours {% endblock %}
+
+{% block messageAccueil %}Parcourirs les suivis en cours{% endblock %}
+
+{% block contenu %}
+
+    <div id='DivFormulaireParcourSuiviEnCours'>
+
+        {{ form_start(formAgence, {'attr': {'class': 'formulaireSelectionAgence'}}) }}
+        {{ form_errors(formAgence) }}
+
+        {{ form_errors(formAgence.Agences) }}
+        {{ form_widget(formAgence.Agences, {'attr': {'class': 'selectFormulaireSelectionAgence'}}) }}
+
+        {{ form_end(formAgence) }}
+
+        {{ form_start(form, {'attr': {'class': 'formulaireParcourSuiviEnCours'}}) }}
+        {{ form_errors(form) }}
+
+        <fieldset>
+
+            <legend>Selection du suivi</legend>
+
+            <p>
+                {{ form_errors(form.Suivi) }}
+                {{ form_widget(form.Suivi, {'attr': {'class': 'selectFormulaireAdministrationAjoutProfil', 'size': 15}}) }}
+            </p>
+
+            {{ form_widget(form._token) }}
+
+            <p>
+                {{ form_widget(form.Editer, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}
+                {{ form_widget(form.Supprimer, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}
+            </p>
+
+        </fieldset>
+
+        {{ form_end(form) }}
+
+    </div>
+
+    <script>
+
+    </script>
+
+{% endblock %}

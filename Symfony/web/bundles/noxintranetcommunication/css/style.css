@@ -1868,29 +1868,36 @@ divAdministrationUtilisateur {
     text-decoration: none;
 }
 
-#DivFormulaireAjoutProfil, #DivFormulaireSuppressionProfil, #DivCreationSuivi {
+#DivFormulaireAjoutProfil, #DivFormulaireSuppressionProfil, #DivCreationSuivi, #DivFormulaireParcourSuiviEnCours, .DivAjoutFeuilleSuivi, .DivFormulaireAjoutFormulaire {
     width: 70%;
     margin: auto;
     margin-bottom: 2%;
+    font-size: 0.8vw;
 }
 
-.formulaireAdministrationAjoutProfil, .formulaireAdministrationSuppressionProfil, .formulaireCreationSuivi {
+.formulaireAdministrationAjoutProfil, .formulaireAdministrationSuppressionProfil, .formulaireCreationSuivi, 
+.formulaireParcourSuiviEnCours, .formulaireAjoutFeuilleSuivi, .formulaireAjoutFormulaire {
     padding: 0px;
     border: none;
     width: 80%;
 }
 
-.formulaireAdministrationAjoutProfil fieldset, .formulaireAdministrationSuppressionProfil fieldset, .formulaireCreationSuivi fieldset {
+.formulaireAdministrationAjoutProfil fieldset, .formulaireAdministrationSuppressionProfil fieldset, 
+.formulaireCreationSuivi fieldset, .formulaireParcourSuiviEnCours fieldset, .formulaireAjoutFeuilleSuivi fieldset, .formulaireAjoutFormulaire fieldset {
     text-align: center;
     border-color: #021C2D;
     border-width: 1px;
-    background-color: rgba(88, 130, 250, 0.5);
+    background-color: rgba(246, 240, 154, 0.5);
 }
 
-.formulaireAdministrationAjoutProfil fieldset legend, .formulaireAdministrationSuppressionProfil fieldset legend, .formulaireCreationSuivi fieldset legend {
+.formulaireAdministrationAjoutProfil fieldset legend, .formulaireAdministrationSuppressionProfil fieldset legend, 
+.formulaireCreationSuivi fieldset legend, .formulaireParcourSuiviEnCours fieldset legend, .formulaireAjoutFeuilleSuivi fieldset legend, 
+.formulaireAjoutFormulaire fieldset legend {
     text-align: left;
     color: #021C2D;
     background-color: white;
+    border: solid 1px #021C2D;
+    padding: 0.3%;
 }
 
 .selectFormulaireAdministrationSuppressionProfil, .textFormulaireAdministrationAjoutProfil {
@@ -1904,6 +1911,12 @@ divAdministrationUtilisateur {
     padding: 0px; 
 }
 
+.formulaireAjoutFormulaire fieldset p {
+    width: 45%;
+    margin: auto;
+    padding: 0px; 
+}
+
 .labelFormulaireCreationSuivi {
     display: block; /* La balise devient de type block. */
     width: 40%;
@@ -1911,7 +1924,14 @@ divAdministrationUtilisateur {
     text-align: right;
 }
 
-.textFormulaireCreationSuivi, .selectFormulaireCreationSuivi {
+.labelFormulaireAjoutFormulaire {
+    display: block; /* La balise devient de type block. */
+    width: 43%;
+    float: left;
+    text-align: right;
+}
+
+.textFormulaireCreationSuivi, .selectFormulaireCreationSuivi,.selectFormulaireAjoutFormulaire, .textFormulaireAjoutFormulaire {
     width: 50%;
     margin-bottom: 5%;
     text-align: center;
@@ -1919,5 +1939,51 @@ divAdministrationUtilisateur {
 
 .selectFormulaireCreationSuivi option {
     text-align: center;
+}
+
+.formulaireParcourSuiviEnCours p {
+    vertical-align: middle;
+    width: 40%;
+    display: inline-block;
+    text-align: center;
+}
+
+.formulaireParcourSuiviEnCours p select {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 5%;
+    padding-top: 5%;
+    overflow: auto;
+}
+
+.submitFormulaireParcourSuiviEnCours, .submitFormulaireAjoutFormulaire {
+    background-color: #021C2D;
+    color: white;
+    border-radius: 5px;
+    border: inset 1px #021C2D;
+    padding: 2%;
+    cursor: pointer;
+    font-size: 0.6vw;
+    margin-bottom: 5%;
+    width: 50%;
+}
+
+.submitFormulaireParcourSuiviEnCours:hover, .submitFormulaireAjoutFormulaire:hover {
+    color: #010101;
+    background-color: #FEFEFE;
+}
+
+.formulaireAjoutFeuilleSuivi p {
+    cursor: pointer; 
+    display: inline-block; 
+    border: solid 1px #021C2D; 
+    padding: 1%; 
+    background-color: #021C2D; 
+    color: white;
+}
+
+.formulaireAjoutFeuilleSuivi p:hover {
+    background-color: white; 
+    color: #021C2D; ;
 }
 

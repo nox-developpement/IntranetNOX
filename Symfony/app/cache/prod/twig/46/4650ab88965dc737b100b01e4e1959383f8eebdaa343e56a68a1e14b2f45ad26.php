@@ -281,6 +281,10 @@ class __TwigTemplate_ab5c40be05ad6797b940552c452231bce56cb0a155bf90bdd1b2270f7b9
         // line 113
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/jscroller2-1.61.js"), "html", null, true);
         echo "></script>
+        <script src=";
+        // line 114
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/submitFormAffaires.js"), "html", null, true);
+        echo "></script>
     </body>
 </html>";
     }
@@ -327,7 +331,7 @@ class __TwigTemplate_ab5c40be05ad6797b940552c452231bce56cb0a155bf90bdd1b2270f7b9
 
     public function getDebugInfo()
     {
-        return array (  314 => 90,  311 => 89,  306 => 86,  300 => 85,  294 => 84,  289 => 7,  282 => 113,  278 => 112,  274 => 111,  270 => 110,  266 => 109,  262 => 108,  258 => 107,  254 => 106,  250 => 105,  246 => 104,  242 => 103,  238 => 102,  234 => 101,  230 => 100,  226 => 99,  222 => 98,  218 => 97,  214 => 96,  208 => 92,  206 => 89,  202 => 87,  200 => 86,  196 => 85,  192 => 84,  187 => 81,  178 => 79,  175 => 78,  171 => 77,  167 => 75,  158 => 73,  155 => 72,  151 => 71,  141 => 63,  137 => 61,  131 => 59,  129 => 58,  117 => 49,  110 => 45,  105 => 43,  100 => 41,  95 => 39,  82 => 29,  76 => 26,  63 => 16,  55 => 12,  41 => 10,  36 => 9,  32 => 7,  24 => 1,);
+        return array (  318 => 90,  315 => 89,  310 => 86,  304 => 85,  298 => 84,  293 => 7,  286 => 114,  282 => 113,  278 => 112,  274 => 111,  270 => 110,  266 => 109,  262 => 108,  258 => 107,  254 => 106,  250 => 105,  246 => 104,  242 => 103,  238 => 102,  234 => 101,  230 => 100,  226 => 99,  222 => 98,  218 => 97,  214 => 96,  208 => 92,  206 => 89,  202 => 87,  200 => 86,  196 => 85,  192 => 84,  187 => 81,  178 => 79,  175 => 78,  171 => 77,  167 => 75,  158 => 73,  155 => 72,  151 => 71,  141 => 63,  137 => 61,  131 => 59,  129 => 58,  117 => 49,  110 => 45,  105 => 43,  100 => 41,  95 => 39,  82 => 29,  76 => 26,  63 => 16,  55 => 12,  41 => 10,  36 => 9,  32 => 7,  24 => 1,);
     }
 }
 /* <!DOCTYPE html>*/
@@ -443,5 +447,6 @@ class __TwigTemplate_ab5c40be05ad6797b940552c452231bce56cb0a155bf90bdd1b2270f7b9
 /*         <script src={{ asset('./js/formImprimanteScript.js') }}></script>*/
 /*         <script src={{ asset('./js/editionLiens.js') }}></script>*/
 /*         <script src={{ asset('./js/jscroller2-1.61.js') }}></script>*/
+/*         <script src={{ asset('./js/submitFormAffaires.js') }}></script>*/
 /*     </body>*/
 /* </html>*/
