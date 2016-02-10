@@ -90,11 +90,7 @@ protected $metadataBag;
 public function __construct(array $options = array(), $handler = null, MetadataBag $metaBag = null)
 {
 session_cache_limiter(''); ini_set('session.use_cookies', 1);
-if (PHP_VERSION_ID >= 50400) {
 session_register_shutdown();
-} else {
-register_shutdown_function('session_write_close');
-}
 $this->setMetadataBag($metaBag);
 $this->setOptions($options);
 $this->setSaveHandler($handler);
@@ -827,10 +823,10 @@ use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\RequestContextAwareInterface;
 interface UrlGeneratorInterface extends RequestContextAwareInterface
 {
-const ABSOLUTE_URL = true;
-const ABSOLUTE_PATH = false;
-const RELATIVE_PATH ='relative';
-const NETWORK_PATH ='network';
+const ABSOLUTE_URL = 0;
+const ABSOLUTE_PATH = 1;
+const RELATIVE_PATH = 2;
+const NETWORK_PATH = 3;
 public function generate($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH);
 }
 }
@@ -890,6 +886,18 @@ return $this->doGenerate($compiledRoute->getVariables(), $route->getDefaults(), 
 }
 protected function doGenerate($variables, $defaults, $requirements, $tokens, $parameters, $name, $referenceType, $hostTokens, array $requiredSchemes = array())
 {
+if (is_bool($referenceType) || is_string($referenceType)) {
+@trigger_error('The hardcoded value you are using for the $referenceType argument of the '.__CLASS__.'::generate method is deprecated since version 2.8 and will not be supported anymore in 3.0. Use the constants defined in the UrlGeneratorInterface instead.', E_USER_DEPRECATED);
+if (true === $referenceType) {
+$referenceType = self::ABSOLUTE_URL;
+} elseif (false === $referenceType) {
+$referenceType = self::ABSOLUTE_PATH;
+} elseif ('relative'=== $referenceType) {
+$referenceType = self::RELATIVE_PATH;
+} elseif ('network'=== $referenceType) {
+$referenceType = self::NETWORK_PATH;
+}
+}
 $variables = array_flip($variables);
 $mergedParams = array_replace($defaults, $this->context->getParameters(), $parameters);
 if ($diff = array_diff_key($variables, $mergedParams)) {
@@ -1782,6 +1790,17 @@ $this->sortListeners($eventName);
 }
 return array_filter($this->sorted);
 }
+public function getListenerPriority($eventName, $listener)
+{
+if (!isset($this->listeners[$eventName])) {
+return;
+}
+foreach ($this->listeners[$eventName] as $priority => $listeners) {
+if (false !== ($key = array_search($listener, $listeners, true))) {
+return $priority;
+}
+}
+}
 public function hasListeners($eventName = null)
 {
 return (bool) count($this->getListeners($eventName));
@@ -1839,7 +1858,6 @@ break;
 }
 private function sortListeners($eventName)
 {
-$this->sorted[$eventName] = array();
 krsort($this->listeners[$eventName]);
 $this->sorted[$eventName] = call_user_func_array('array_merge', $this->listeners[$eventName]);
 }
@@ -1905,6 +1923,11 @@ $this->lazyLoad($serviceEventName);
 $this->lazyLoad($eventName);
 }
 return parent::getListeners($eventName);
+}
+public function getListenerPriority($eventName, $listener)
+{
+$this->lazyLoad($eventName);
+return parent::getListenerPriority($eventName, $listener);
 }
 public function addSubscriberService($serviceId, $class)
 {
@@ -1998,16 +2021,31 @@ private $context;
 private $logger;
 private $request;
 private $requestStack;
-public function __construct($matcher, RequestContext $context = null, LoggerInterface $logger = null, RequestStack $requestStack = null)
+public function __construct($matcher, $requestStack = null, $context = null, $logger = null)
 {
+if ($requestStack instanceof RequestContext || $context instanceof LoggerInterface || $logger instanceof RequestStack) {
+$tmp = $requestStack;
+$requestStack = $logger;
+$logger = $context;
+$context = $tmp;
+@trigger_error('The '.__METHOD__.' method now requires a RequestStack to be given as second argument as '.__CLASS__.'::setRequest method will not be supported anymore in 3.0.', E_USER_DEPRECATED);
+} elseif (!$requestStack instanceof RequestStack) {
+@trigger_error('The '.__METHOD__.' method now requires a RequestStack instance as '.__CLASS__.'::setRequest method will not be supported anymore in 3.0.', E_USER_DEPRECATED);
+}
+if (null !== $requestStack && !$requestStack instanceof RequestStack) {
+throw new \InvalidArgumentException('RequestStack instance expected.');
+}
+if (null !== $context && !$context instanceof RequestContext) {
+throw new \InvalidArgumentException('RequestContext instance expected.');
+}
+if (null !== $logger && !$logger instanceof LoggerInterface) {
+throw new \InvalidArgumentException('Logger must implement LoggerInterface.');
+}
 if (!$matcher instanceof UrlMatcherInterface && !$matcher instanceof RequestMatcherInterface) {
 throw new \InvalidArgumentException('Matcher must either implement UrlMatcherInterface or RequestMatcherInterface.');
 }
 if (null === $context && !$matcher instanceof RequestContextAwareInterface) {
 throw new \InvalidArgumentException('You must either pass a RequestContext or the matcher must implement RequestContextAwareInterface.');
-}
-if (!$requestStack instanceof RequestStack) {
-@trigger_error('The '.__METHOD__.' method now requires a RequestStack instance as '.__CLASS__.'::setRequest method will not be supported anymore in 3.0.', E_USER_DEPRECATED);
 }
 $this->matcher = $matcher;
 $this->context = $context ?: $matcher->getContext();
@@ -2735,11 +2773,8 @@ private $voters;
 private $strategy;
 private $allowIfAllAbstainDecisions;
 private $allowIfEqualGrantedDeniedDecisions;
-public function __construct(array $voters, $strategy = self::STRATEGY_AFFIRMATIVE, $allowIfAllAbstainDecisions = false, $allowIfEqualGrantedDeniedDecisions = true)
+public function __construct(array $voters = array(), $strategy = self::STRATEGY_AFFIRMATIVE, $allowIfAllAbstainDecisions = false, $allowIfEqualGrantedDeniedDecisions = true)
 {
-if (!$voters) {
-throw new \InvalidArgumentException('You must at least add one voter.');
-}
 $strategyMethod ='decide'.ucfirst($strategy);
 if (!is_callable(array($this, $strategyMethod))) {
 throw new \InvalidArgumentException(sprintf('The strategy "%s" is not supported.', $strategy));
@@ -2749,12 +2784,17 @@ $this->strategy = $strategyMethod;
 $this->allowIfAllAbstainDecisions = (bool) $allowIfAllAbstainDecisions;
 $this->allowIfEqualGrantedDeniedDecisions = (bool) $allowIfEqualGrantedDeniedDecisions;
 }
+public function setVoters(array $voters)
+{
+$this->voters = $voters;
+}
 public function decide(TokenInterface $token, array $attributes, $object = null)
 {
 return $this->{$this->strategy}($token, $attributes, $object);
 }
 public function supportsAttribute($attribute)
 {
+@trigger_error('The '.__METHOD__.' is deprecated since version 2.8 and will be removed in version 3.0.', E_USER_DEPRECATED);
 foreach ($this->voters as $voter) {
 if ($voter->supportsAttribute($attribute)) {
 return true;
@@ -2764,6 +2804,7 @@ return false;
 }
 public function supportsClass($class)
 {
+@trigger_error('The '.__METHOD__.' is deprecated since version 2.8 and will be removed in version 3.0.', E_USER_DEPRECATED);
 foreach ($this->voters as $voter) {
 if ($voter->supportsClass($class)) {
 return true;
@@ -2795,7 +2836,6 @@ private function decideConsensus(TokenInterface $token, array $attributes, $obje
 {
 $grant = 0;
 $deny = 0;
-$abstain = 0;
 foreach ($this->voters as $voter) {
 $result = $voter->vote($token, $object, $attributes);
 switch ($result) {
@@ -2805,9 +2845,6 @@ break;
 case VoterInterface::ACCESS_DENIED:
 ++$deny;
 break;
-default:
-++$abstain;
-break;
 }
 }
 if ($grant > $deny) {
@@ -2816,7 +2853,7 @@ return true;
 if ($deny > $grant) {
 return false;
 }
-if ($grant == $deny && $grant != 0) {
+if ($grant > 0) {
 return $this->allowIfEqualGrantedDeniedDecisions;
 }
 return $this->allowIfAllAbstainDecisions;
@@ -5727,21 +5764,6 @@ throw new \BadMethodCallException('Call to undefined method '. get_class($this) 
 }
 }
 }
-namespace Psr\Log
-{
-interface LoggerInterface
-{
-public function emergency($message, array $context = array());
-public function alert($message, array $context = array());
-public function critical($message, array $context = array());
-public function error($message, array $context = array());
-public function warning($message, array $context = array());
-public function notice($message, array $context = array());
-public function info($message, array $context = array());
-public function debug($message, array $context = array());
-public function log($level, $message, array $context = array());
-}
-}
 namespace Monolog
 {
 use Monolog\Handler\HandlerInterface;
@@ -6057,7 +6079,7 @@ public function getLogs()
 {
 $records = array();
 foreach ($this->records as $record) {
-$records[] = array('timestamp'=> $record['datetime']->getTimestamp(),'message'=> $record['message'],'priority'=> $record['level'],'priorityName'=> $record['level_name'],'context'=> $record['context'],
+$records[] = array('timestamp'=> $record['datetime']->getTimestamp(),'message'=> $record['message'],'priority'=> $record['level'],'priorityName'=> $record['level_name'],'context'=> $record['context'],'channel'=> isset($record['channel']) ? $record['channel'] :'',
 );
 }
 return $records;

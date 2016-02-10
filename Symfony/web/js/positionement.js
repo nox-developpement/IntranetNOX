@@ -16,6 +16,8 @@ $(window).ready(function () {
     setTimeout(function () {
         resizeLogin();
     }, 10);
+    
+    $('#Keywords p').css('font-size', $('#Keywords p').height());
 });
 
 $(window).resize(function () {

@@ -29,4 +29,3 @@ nox_intranet_avancement_projet:
 nox_intranet_information:
    path: /supportSI/information
    defaults: { _controller: NoxIntranetSupportSIBundle:Information:information }
-    

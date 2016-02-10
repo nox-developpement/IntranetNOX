@@ -23,192 +23,211 @@ class __TwigTemplate_784f0cc31efcbd28d89d3e0f655350985f96f3fb681388cd9808f1b651f
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_2d597b09550f6bc70c97a22a5f1337f5dc0902dd12ae3bcf3522dae616d3b2dd = $this->env->getExtension("native_profiler");
-        $__internal_2d597b09550f6bc70c97a22a5f1337f5dc0902dd12ae3bcf3522dae616d3b2dd->enter($__internal_2d597b09550f6bc70c97a22a5f1337f5dc0902dd12ae3bcf3522dae616d3b2dd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@WebProfiler/Collector/twig.html.twig"));
+        $__internal_8b3657edc250526a9a084123428de31b8fd33b248a933ee2c18f47f7d024c9e1 = $this->env->getExtension("native_profiler");
+        $__internal_8b3657edc250526a9a084123428de31b8fd33b248a933ee2c18f47f7d024c9e1->enter($__internal_8b3657edc250526a9a084123428de31b8fd33b248a933ee2c18f47f7d024c9e1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@WebProfiler/Collector/twig.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_2d597b09550f6bc70c97a22a5f1337f5dc0902dd12ae3bcf3522dae616d3b2dd->leave($__internal_2d597b09550f6bc70c97a22a5f1337f5dc0902dd12ae3bcf3522dae616d3b2dd_prof);
+        $__internal_8b3657edc250526a9a084123428de31b8fd33b248a933ee2c18f47f7d024c9e1->leave($__internal_8b3657edc250526a9a084123428de31b8fd33b248a933ee2c18f47f7d024c9e1_prof);
 
     }
 
     // line 3
     public function block_toolbar($context, array $blocks = array())
     {
-        $__internal_8f11fbe824a0396efadd4087df8fcac216243affa93033f9c394ed4a7f09149f = $this->env->getExtension("native_profiler");
-        $__internal_8f11fbe824a0396efadd4087df8fcac216243affa93033f9c394ed4a7f09149f->enter($__internal_8f11fbe824a0396efadd4087df8fcac216243affa93033f9c394ed4a7f09149f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
+        $__internal_845d6ed8030c522b1793d7b0e227e8fa9e4b760f8dca1f0535f7d0783d7331b0 = $this->env->getExtension("native_profiler");
+        $__internal_845d6ed8030c522b1793d7b0e227e8fa9e4b760f8dca1f0535f7d0783d7331b0->enter($__internal_845d6ed8030c522b1793d7b0e227e8fa9e4b760f8dca1f0535f7d0783d7331b0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
 
         // line 4
         echo "    ";
-        $context["time"] = (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "templatecount", array())) ? (sprintf("%0.0f ms", $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "time", array()))) : ("n/a"));
+        $context["time"] = (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "templatecount", array())) ? (sprintf("%0.0f", $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "time", array()))) : ("n/a"));
         // line 5
         echo "    ";
         ob_start();
         // line 6
-        echo "        <img height=\"28\" alt=\"Twig\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAcCAYAAACOGPReAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAbElEQVRIx2NgGAXUBowMDAwMaWlp/6ll4KxZsxhZYJy0tDRqGMjAwMDAwEQL77OgCxSXlJBsSG9PDwqfJi6lj/fRvTJ4XYocUTBXE4q8oRtRRBnKwsw8RFw6fA0lKkd1dnYOIpfCCthRMIIAAI0IFu9Hxh7ZAAAAAElFTkSuQmCC\" />
-        <span class=\"sf-toolbar-status\">";
+        echo "        ";
+        echo twig_include($this->env, $context, "@WebProfiler/Icon/twig.svg");
+        echo "
+        <span class=\"sf-toolbar-value\">";
         // line 7
         echo twig_escape_filter($this->env, (isset($context["time"]) ? $context["time"] : $this->getContext($context, "time")), "html", null, true);
         echo "</span>
+        <span class=\"sf-toolbar-label\">ms</span>
     ";
         $context["icon"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-        // line 9
-        echo "    ";
-        ob_start();
         // line 10
+        echo "
+    ";
+        // line 11
+        ob_start();
+        // line 12
         echo "        <div class=\"sf-toolbar-info-piece\">
             <b>Render Time</b>
             <span>";
-        // line 12
+        // line 14
         echo twig_escape_filter($this->env, (isset($context["time"]) ? $context["time"] : $this->getContext($context, "time")), "html", null, true);
-        echo "</span>
+        echo " ms</span>
         </div>
         <div class=\"sf-toolbar-info-piece\">
             <b>Template Calls</b>
-            <span>";
-        // line 16
+            <span class=\"sf-toolbar-status\">";
+        // line 18
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "templatecount", array()), "html", null, true);
         echo "</span>
         </div>
         <div class=\"sf-toolbar-info-piece\">
             <b>Block Calls</b>
-            <span>";
-        // line 20
+            <span class=\"sf-toolbar-status\">";
+        // line 22
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "blockcount", array()), "html", null, true);
         echo "</span>
         </div>
         <div class=\"sf-toolbar-info-piece\">
             <b>Macro Calls</b>
-            <span>";
-        // line 24
+            <span class=\"sf-toolbar-status\">";
+        // line 26
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "macrocount", array()), "html", null, true);
         echo "</span>
         </div>
     ";
         $context["text"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-        // line 27
-        echo "    ";
-        $this->loadTemplate("@WebProfiler/Profiler/toolbar_item.html.twig", "@WebProfiler/Collector/twig.html.twig", 27)->display(array_merge($context, array("link" => (isset($context["profiler_url"]) ? $context["profiler_url"] : $this->getContext($context, "profiler_url")))));
-        
-        $__internal_8f11fbe824a0396efadd4087df8fcac216243affa93033f9c394ed4a7f09149f->leave($__internal_8f11fbe824a0396efadd4087df8fcac216243affa93033f9c394ed4a7f09149f_prof);
-
-    }
-
-    // line 30
-    public function block_menu($context, array $blocks = array())
-    {
-        $__internal_d52ace01d7342ac1af96d245b18812161e11965086977a16bdc5e83cf13aa0be = $this->env->getExtension("native_profiler");
-        $__internal_d52ace01d7342ac1af96d245b18812161e11965086977a16bdc5e83cf13aa0be->enter($__internal_d52ace01d7342ac1af96d245b18812161e11965086977a16bdc5e83cf13aa0be_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
-
-        // line 31
-        echo "<span class=\"label\">
-    <span class=\"icon\"><img alt=\"Twig\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAgCAYAAAABtRhCAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAbklEQVRIx2NgGAVDHTDCGGlpaf9pZcmsWbPg9rAgS6SlpdHCMhQ+E72DlAWbYHFJCcUG9/b0YBWnuw9HLaRPosEV4cPHh9iyBczXxGaZ0WxBfBwwM4/mw1ELRy0c4MK7s7NzCPsQvYU1CkYBNgAAV5UW+fU+ZL4AAAAASUVORK5CYII=\"></span>
-    <strong>Twig</strong>
-    <span class=\"count\">
-        <span>";
-        // line 35
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "templatecount", array()), "html", null, true);
-        echo "</span>
-        <span>";
-        // line 36
-        echo twig_escape_filter($this->env, sprintf("%0.0f ms", $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "time", array())), "html", null, true);
-        echo "</span>
-    </span>
-</span>
+        // line 29
+        echo "
+    ";
+        // line 30
+        echo twig_include($this->env, $context, "@WebProfiler/Profiler/toolbar_item.html.twig", array("link" => (isset($context["profiler_url"]) ? $context["profiler_url"] : $this->getContext($context, "profiler_url"))));
+        echo "
 ";
         
-        $__internal_d52ace01d7342ac1af96d245b18812161e11965086977a16bdc5e83cf13aa0be->leave($__internal_d52ace01d7342ac1af96d245b18812161e11965086977a16bdc5e83cf13aa0be_prof);
+        $__internal_845d6ed8030c522b1793d7b0e227e8fa9e4b760f8dca1f0535f7d0783d7331b0->leave($__internal_845d6ed8030c522b1793d7b0e227e8fa9e4b760f8dca1f0535f7d0783d7331b0_prof);
 
     }
 
-    // line 41
+    // line 33
+    public function block_menu($context, array $blocks = array())
+    {
+        $__internal_226119a1fdafc6ec3e0968959991237536bb416cdd7a0416861f91830c04d292 = $this->env->getExtension("native_profiler");
+        $__internal_226119a1fdafc6ec3e0968959991237536bb416cdd7a0416861f91830c04d292->enter($__internal_226119a1fdafc6ec3e0968959991237536bb416cdd7a0416861f91830c04d292_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
+
+        // line 34
+        echo "    <span class=\"label\">
+        <span class=\"icon\">";
+        // line 35
+        echo twig_include($this->env, $context, "@WebProfiler/Icon/twig.svg");
+        echo "</span>
+        <strong>Twig</strong>
+    </span>
+";
+        
+        $__internal_226119a1fdafc6ec3e0968959991237536bb416cdd7a0416861f91830c04d292->leave($__internal_226119a1fdafc6ec3e0968959991237536bb416cdd7a0416861f91830c04d292_prof);
+
+    }
+
+    // line 40
     public function block_panel($context, array $blocks = array())
     {
-        $__internal_0841045fc4a85c9dae274878580a41f35d1ae2ee999577a90a2d6d403f4aee75 = $this->env->getExtension("native_profiler");
-        $__internal_0841045fc4a85c9dae274878580a41f35d1ae2ee999577a90a2d6d403f4aee75->enter($__internal_0841045fc4a85c9dae274878580a41f35d1ae2ee999577a90a2d6d403f4aee75_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
+        $__internal_aecb43aafd0c3b347062d9362bed3d337245deeb636d405fc3610be970d9d814 = $this->env->getExtension("native_profiler");
+        $__internal_aecb43aafd0c3b347062d9362bed3d337245deeb636d405fc3610be970d9d814->enter($__internal_aecb43aafd0c3b347062d9362bed3d337245deeb636d405fc3610be970d9d814_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
 
-        // line 42
+        // line 41
         echo "    ";
-        if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "templatecount", array())) {
-            // line 43
-            echo "        <h2>Twig Stats</h2>
+        if (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "templatecount", array()) == 0)) {
+            // line 42
+            echo "        <h2>Twig</h2>
 
-        <table>
-            <tr>
-                <th>Total Render Time<br /><small>including sub-requests rendering time</small></th>
-                <td><pre>";
+        <div class=\"empty\">
+            <p>No Twig templates were rendered for this request.</p>
+        </div>
+    ";
+        } else {
             // line 48
-            echo twig_escape_filter($this->env, sprintf("%0.0f ms", $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "time", array())), "html", null, true);
-            echo "</pre></td>
-            </tr>
-            <tr>
-                <th scope=\"col\" style=\"width: 30%\">Template Calls</th>
-                <td scope=\"col\" style=\"width: 60%\"><pre>";
+            echo "        <h2>Twig Metrics</h2>
+
+        <div class=\"metrics\">
+            <div class=\"metric\">
+                <span class=\"value\">";
             // line 52
+            echo twig_escape_filter($this->env, sprintf("%0.0f", $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "time", array())), "html", null, true);
+            echo " <span class=\"unit\">ms</span></span>
+                <span class=\"label\">Render time</span>
+            </div>
+
+            <div class=\"metric\">
+                <span class=\"value\">";
+            // line 57
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "templatecount", array()), "html", null, true);
-            echo "</pre></td>
-            </tr>
-            <tr>
-                <th>Block Calls</th>
-                <td><pre>";
-            // line 56
+            echo "</span>
+                <span class=\"label\">Template calls</span>
+            </div>
+
+            <div class=\"metric\">
+                <span class=\"value\">";
+            // line 62
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "blockcount", array()), "html", null, true);
-            echo "</pre></td>
-            </tr>
-            <tr>
-                <th>Macro Calls</th>
-                <td><pre>";
-            // line 60
+            echo "</span>
+                <span class=\"label\">Block calls</span>
+            </div>
+
+            <div class=\"metric\">
+                <span class=\"value\">";
+            // line 67
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "macrocount", array()), "html", null, true);
-            echo "</pre></td>
-            </tr>
-        </table>
+            echo "</span>
+                <span class=\"label\">Macro calls</span>
+            </div>
+        </div>
+
+        <p class=\"help\">
+            Render time includes sub-requests rendering time (if any).
+        </p>
 
         <h2>Rendered Templates</h2>
 
         <table>
-            <tr>
-                <th scope=\"col\">Template Name</th>
-                <th scope=\"col\">Render Count</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th scope=\"col\">Template Name</th>
+                    <th scope=\"col\">Render Count</th>
+                </tr>
+            </thead>
+            <tbody>
             ";
-            // line 71
+            // line 86
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "templates", array()));
             foreach ($context['_seq'] as $context["template"] => $context["count"]) {
-                // line 72
+                // line 87
                 echo "                <tr>
-                    <td><code>";
-                // line 73
+                    <td>";
+                // line 88
                 echo twig_escape_filter($this->env, $context["template"], "html", null, true);
-                echo "</code></td>
-                    <td><pre>";
-                // line 74
+                echo "</td>
+                    <td class=\"font-normal\">";
+                // line 89
                 echo twig_escape_filter($this->env, $context["count"], "html", null, true);
-                echo "</pre></td>
+                echo "</td>
                 </tr>
             ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['template'], $context['count'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 77
-            echo "        </table>
+            // line 92
+            echo "            </tbody>
+        </table>
 
         <h2>Rendering Call Graph</h2>
 
-        ";
-            // line 81
+        <div id=\"twig-dump\">
+            ";
+            // line 98
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "htmlcallgraph", array()), "html", null, true);
             echo "
-    ";
-        } else {
-            // line 83
-            echo "        <p><em>No Twig templates were rendered for this request.</em></p>
+        </div>
     ";
         }
         
-        $__internal_0841045fc4a85c9dae274878580a41f35d1ae2ee999577a90a2d6d403f4aee75->leave($__internal_0841045fc4a85c9dae274878580a41f35d1ae2ee999577a90a2d6d403f4aee75_prof);
+        $__internal_aecb43aafd0c3b347062d9362bed3d337245deeb636d405fc3610be970d9d814->leave($__internal_aecb43aafd0c3b347062d9362bed3d337245deeb636d405fc3610be970d9d814_prof);
 
     }
 
@@ -224,92 +243,108 @@ class __TwigTemplate_784f0cc31efcbd28d89d3e0f655350985f96f3fb681388cd9808f1b651f
 
     public function getDebugInfo()
     {
-        return array (  207 => 83,  202 => 81,  196 => 77,  187 => 74,  183 => 73,  180 => 72,  176 => 71,  162 => 60,  155 => 56,  148 => 52,  141 => 48,  134 => 43,  131 => 42,  125 => 41,  114 => 36,  110 => 35,  104 => 31,  98 => 30,  90 => 27,  84 => 24,  77 => 20,  70 => 16,  63 => 12,  59 => 10,  56 => 9,  51 => 7,  48 => 6,  45 => 5,  42 => 4,  36 => 3,  11 => 1,);
+        return array (  224 => 98,  216 => 92,  207 => 89,  203 => 88,  200 => 87,  196 => 86,  174 => 67,  166 => 62,  158 => 57,  150 => 52,  144 => 48,  136 => 42,  133 => 41,  127 => 40,  116 => 35,  113 => 34,  107 => 33,  98 => 30,  95 => 29,  89 => 26,  82 => 22,  75 => 18,  68 => 14,  64 => 12,  62 => 11,  59 => 10,  53 => 7,  48 => 6,  45 => 5,  42 => 4,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends '@WebProfiler/Profiler/layout.html.twig' %}*/
 /* */
 /* {% block toolbar %}*/
-/*     {% set time = collector.templatecount ? '%0.0f ms'|format(collector.time) : 'n/a' %}*/
+/*     {% set time = collector.templatecount ? '%0.0f'|format(collector.time) : 'n/a' %}*/
 /*     {% set icon %}*/
-/*         <img height="28" alt="Twig" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAcCAYAAACOGPReAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAbElEQVRIx2NgGAXUBowMDAwMaWlp/6ll4KxZsxhZYJy0tDRqGMjAwMDAwEQL77OgCxSXlJBsSG9PDwqfJi6lj/fRvTJ4XYocUTBXE4q8oRtRRBnKwsw8RFw6fA0lKkd1dnYOIpfCCthRMIIAAI0IFu9Hxh7ZAAAAAElFTkSuQmCC" />*/
-/*         <span class="sf-toolbar-status">{{ time }}</span>*/
+/*         {{ include('@WebProfiler/Icon/twig.svg') }}*/
+/*         <span class="sf-toolbar-value">{{ time }}</span>*/
+/*         <span class="sf-toolbar-label">ms</span>*/
 /*     {% endset %}*/
+/* */
 /*     {% set text %}*/
 /*         <div class="sf-toolbar-info-piece">*/
 /*             <b>Render Time</b>*/
-/*             <span>{{ time }}</span>*/
+/*             <span>{{ time }} ms</span>*/
 /*         </div>*/
 /*         <div class="sf-toolbar-info-piece">*/
 /*             <b>Template Calls</b>*/
-/*             <span>{{ collector.templatecount }}</span>*/
+/*             <span class="sf-toolbar-status">{{ collector.templatecount }}</span>*/
 /*         </div>*/
 /*         <div class="sf-toolbar-info-piece">*/
 /*             <b>Block Calls</b>*/
-/*             <span>{{ collector.blockcount }}</span>*/
+/*             <span class="sf-toolbar-status">{{ collector.blockcount }}</span>*/
 /*         </div>*/
 /*         <div class="sf-toolbar-info-piece">*/
 /*             <b>Macro Calls</b>*/
-/*             <span>{{ collector.macrocount }}</span>*/
+/*             <span class="sf-toolbar-status">{{ collector.macrocount }}</span>*/
 /*         </div>*/
 /*     {% endset %}*/
-/*     {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': profiler_url } %}*/
+/* */
+/*     {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: profiler_url }) }}*/
 /* {% endblock %}*/
 /* */
 /* {% block menu %}*/
-/* <span class="label">*/
-/*     <span class="icon"><img alt="Twig" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAgCAYAAAABtRhCAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAbklEQVRIx2NgGAVDHTDCGGlpaf9pZcmsWbPg9rAgS6SlpdHCMhQ+E72DlAWbYHFJCcUG9/b0YBWnuw9HLaRPosEV4cPHh9iyBczXxGaZ0WxBfBwwM4/mw1ELRy0c4MK7s7NzCPsQvYU1CkYBNgAAV5UW+fU+ZL4AAAAASUVORK5CYII="></span>*/
-/*     <strong>Twig</strong>*/
-/*     <span class="count">*/
-/*         <span>{{ collector.templatecount }}</span>*/
-/*         <span>{{ '%0.0f ms'|format(collector.time) }}</span>*/
+/*     <span class="label">*/
+/*         <span class="icon">{{ include('@WebProfiler/Icon/twig.svg') }}</span>*/
+/*         <strong>Twig</strong>*/
 /*     </span>*/
-/* </span>*/
 /* {% endblock %}*/
 /* */
 /* {% block panel %}*/
-/*     {% if collector.templatecount %}*/
-/*         <h2>Twig Stats</h2>*/
+/*     {% if collector.templatecount == 0 %}*/
+/*         <h2>Twig</h2>*/
 /* */
-/*         <table>*/
-/*             <tr>*/
-/*                 <th>Total Render Time<br /><small>including sub-requests rendering time</small></th>*/
-/*                 <td><pre>{{ '%0.0f ms'|format(collector.time) }}</pre></td>*/
-/*             </tr>*/
-/*             <tr>*/
-/*                 <th scope="col" style="width: 30%">Template Calls</th>*/
-/*                 <td scope="col" style="width: 60%"><pre>{{ collector.templatecount }}</pre></td>*/
-/*             </tr>*/
-/*             <tr>*/
-/*                 <th>Block Calls</th>*/
-/*                 <td><pre>{{ collector.blockcount }}</pre></td>*/
-/*             </tr>*/
-/*             <tr>*/
-/*                 <th>Macro Calls</th>*/
-/*                 <td><pre>{{ collector.macrocount }}</pre></td>*/
-/*             </tr>*/
-/*         </table>*/
+/*         <div class="empty">*/
+/*             <p>No Twig templates were rendered for this request.</p>*/
+/*         </div>*/
+/*     {% else %}*/
+/*         <h2>Twig Metrics</h2>*/
+/* */
+/*         <div class="metrics">*/
+/*             <div class="metric">*/
+/*                 <span class="value">{{ '%0.0f'|format(collector.time) }} <span class="unit">ms</span></span>*/
+/*                 <span class="label">Render time</span>*/
+/*             </div>*/
+/* */
+/*             <div class="metric">*/
+/*                 <span class="value">{{ collector.templatecount }}</span>*/
+/*                 <span class="label">Template calls</span>*/
+/*             </div>*/
+/* */
+/*             <div class="metric">*/
+/*                 <span class="value">{{ collector.blockcount }}</span>*/
+/*                 <span class="label">Block calls</span>*/
+/*             </div>*/
+/* */
+/*             <div class="metric">*/
+/*                 <span class="value">{{ collector.macrocount }}</span>*/
+/*                 <span class="label">Macro calls</span>*/
+/*             </div>*/
+/*         </div>*/
+/* */
+/*         <p class="help">*/
+/*             Render time includes sub-requests rendering time (if any).*/
+/*         </p>*/
 /* */
 /*         <h2>Rendered Templates</h2>*/
 /* */
 /*         <table>*/
-/*             <tr>*/
-/*                 <th scope="col">Template Name</th>*/
-/*                 <th scope="col">Render Count</th>*/
-/*             </tr>*/
+/*             <thead>*/
+/*                 <tr>*/
+/*                     <th scope="col">Template Name</th>*/
+/*                     <th scope="col">Render Count</th>*/
+/*                 </tr>*/
+/*             </thead>*/
+/*             <tbody>*/
 /*             {% for template, count in collector.templates %}*/
 /*                 <tr>*/
-/*                     <td><code>{{ template }}</code></td>*/
-/*                     <td><pre>{{ count }}</pre></td>*/
+/*                     <td>{{ template }}</td>*/
+/*                     <td class="font-normal">{{ count }}</td>*/
 /*                 </tr>*/
 /*             {% endfor %}*/
+/*             </tbody>*/
 /*         </table>*/
 /* */
 /*         <h2>Rendering Call Graph</h2>*/
 /* */
-/*         {{ collector.htmlcallgraph }}*/
-/*     {% else %}*/
-/*         <p><em>No Twig templates were rendered for this request.</em></p>*/
+/*         <div id="twig-dump">*/
+/*             {{ collector.htmlcallgraph }}*/
+/*         </div>*/
 /*     {% endif %}*/
 /* {% endblock %}*/
 /* */

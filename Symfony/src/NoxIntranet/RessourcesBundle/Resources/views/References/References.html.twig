@@ -76,7 +76,7 @@
 
         <div class="divNews">
 
-            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ reference['lien'] }}', 'Références');">
+            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ reference.Lien }}', 'Références');">
                 <img 
                     src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" 
                     onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" 
@@ -86,23 +86,19 @@
 
             <ul>
 
-                <li> Nom du fichier : {{ reference['nom'] }} </li>
+                <li> Nom du fichier : {{ reference.Nom }} </li>
 
-                {% for propriete in reference['proprietes'] %}
+                {% if reference.Title != null %} <li> Titre : {{ reference.Title }} </li> {% endif %}
 
-                    {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}
+                {% if reference.Author != null %} <li> Auteur : {{ reference.Author }} </li> {% endif %}
 
-                    {% if propriete['label'] == 'Author' %} <li> Auteur : {{ propriete['valeur'] }} </li> {% endif %}
+                {% if reference.Subject != null %} <li> Sujet : {{ reference.Subject }} </li> {% endif %}
 
-                    {% if propriete['label'] == 'Subject' %} <li> Sujet : {{ propriete['valeur'] }} </li> {% endif %}
+                {% if reference.Keywords != null %} <li> Mots : {{ reference.Keywords }} </li> {% endif %}
 
-                    {% if propriete['label'] == 'Keywords' %} <li> Mots clés : {{ propriete['valeur'] }} </li> {% endif %}
+                {% if reference.Pages != null %} <li> Nombre de page(s) : {{ reference.Pages }} </li> {% endif %}
 
-                    {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}
-
-                {% endfor %}
-
-                <li> Posté le : {{ reference['dateEnvoi'] }} </li>
+                <li> Posté le : {{ reference.dateEnvoi }} </li>
 
             </ul>
 

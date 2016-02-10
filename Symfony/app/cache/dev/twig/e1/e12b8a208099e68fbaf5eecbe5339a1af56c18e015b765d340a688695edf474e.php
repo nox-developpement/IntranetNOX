@@ -12,7 +12,6 @@ class __TwigTemplate_a6cf3189ba768b7caf607b1c184ba81b7afdd5da0f2014136480c1925ab
         $this->blocks = array(
             'menu' => array($this, 'block_menu'),
             'panel' => array($this, 'block_panel'),
-            'panelContent' => array($this, 'block_panelContent'),
         );
     }
 
@@ -23,162 +22,116 @@ class __TwigTemplate_a6cf3189ba768b7caf607b1c184ba81b7afdd5da0f2014136480c1925ab
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_a9eb96afa55a35632b667a37d1919644db11ef0877806cf7908cb21113c36318 = $this->env->getExtension("native_profiler");
-        $__internal_a9eb96afa55a35632b667a37d1919644db11ef0877806cf7908cb21113c36318->enter($__internal_a9eb96afa55a35632b667a37d1919644db11ef0877806cf7908cb21113c36318_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@WebProfiler/Collector/events.html.twig"));
+        $__internal_c98d7327d5e80af431dbcd13b802a984a65fc72b1648782cd9edb408cda35737 = $this->env->getExtension("native_profiler");
+        $__internal_c98d7327d5e80af431dbcd13b802a984a65fc72b1648782cd9edb408cda35737->enter($__internal_c98d7327d5e80af431dbcd13b802a984a65fc72b1648782cd9edb408cda35737_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@WebProfiler/Collector/events.html.twig"));
 
         // line 3
-        $context["__internal_5758c905b9be00dd8313e39e75eeb586ee9b4a5a5d44266f435b86d850f9545e"] = $this;
+        $context["helper"] = $this;
         // line 1
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_a9eb96afa55a35632b667a37d1919644db11ef0877806cf7908cb21113c36318->leave($__internal_a9eb96afa55a35632b667a37d1919644db11ef0877806cf7908cb21113c36318_prof);
+        $__internal_c98d7327d5e80af431dbcd13b802a984a65fc72b1648782cd9edb408cda35737->leave($__internal_c98d7327d5e80af431dbcd13b802a984a65fc72b1648782cd9edb408cda35737_prof);
 
     }
 
     // line 5
     public function block_menu($context, array $blocks = array())
     {
-        $__internal_395e291f49cd98e482129eed12ed2dcaa2ba8c733a4ef2230c97babbe72f047f = $this->env->getExtension("native_profiler");
-        $__internal_395e291f49cd98e482129eed12ed2dcaa2ba8c733a4ef2230c97babbe72f047f->enter($__internal_395e291f49cd98e482129eed12ed2dcaa2ba8c733a4ef2230c97babbe72f047f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
+        $__internal_9702d21a1f18a2537450477f825184da9a5b4489a38a267b9ae60c77836e2838 = $this->env->getExtension("native_profiler");
+        $__internal_9702d21a1f18a2537450477f825184da9a5b4489a38a267b9ae60c77836e2838->enter($__internal_9702d21a1f18a2537450477f825184da9a5b4489a38a267b9ae60c77836e2838_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
 
         // line 6
         echo "<span class=\"label\">
-    <span class=\"icon\"><svg width=\"26\" height=\"34\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 26 34\" enable-background=\"new 0 0 26 34\" xml:space=\"preserve\"><g><path fill=\"#3F3F3F\" d=\"M15.5 14.8c0.5-0.6 0.9-1.4 0.9-2.3c0-1.9-1.5-3.4-3.4-3.4s-3.4 1.5-3.4 3.4c0 0.9 0.3 1.7 0.9 2.3L3.2 34 h2.5l0.4-1.1l6.8-4.3l6.8 4.3l0.4 1.1h2.5L15.5 14.8z M16 22.6l-2.1-1l1.4-0.7L16 22.6z M13 16c0.1 0 0.3 0 0.4 0l1.6 4.2l-2 1 l-2-1l1.6-4.2C12.7 15.9 12.9 16 13 16z M12.1 21.6l-2.1 1l0.6-1.7L12.1 21.6z M7 30.7L8.8 26l2.9 1.8L7 30.7z M9.3 24.7l0.4-1 L13 22l3.4 1.7l0.4 1L13 27L9.3 24.7z M14.3 27.8l2.9-1.8l1.8 4.7L14.3 27.8z\"/><g><path fill=\"#3F3F3F\" d=\"M6.2 6.2c0.7-0.7 1.7-1.1 2.7-1.1v1.3c-0.7 0-1.3 0.2-1.8 0.7S6.4 8.2 6.4 8.9H5.1 C5.1 7.9 5.5 6.9 6.2 6.2z\"/><path fill=\"#3F3F3F\" d=\"M2.5 8.9c0-1.7 0.7-3.3 1.9-4.5s2.8-1.9 4.5-1.9l0 1.3c-1.4 0-2.6 0.5-3.6 1.5S3.8 7.5 3.8 8.9 C3.8 8.9 2.5 8.9 2.5 8.9z\"/><path fill=\"#3F3F3F\" d=\"M5.6 0.7C6.6 0.2 7.7 0 8.9 0l0 0v1.3c-2 0-4 0.8-5.4 2.2S1.3 6.9 1.3 8.9H0c0-1.2 0.2-2.3 0.7-3.3 c0.4-1.1 1.1-2.1 2-2.9S4.4 1.1 5.6 0.7L5.6 0.7z\"/></g><g><path fill=\"#3F3F3F\" d=\"M20.9 8.9h-1.3c0-0.7-0.2-1.3-0.7-1.8c-0.5-0.5-1.1-0.7-1.8-0.7V5.1c1 0 2 0.4 2.7 1.1 C20.5 6.9 20.9 7.9 20.9 8.9z\"/><path fill=\"#3F3F3F\" d=\"M22.2 8.9c0-1.4-0.5-2.6-1.5-3.6c-1-1-2.2-1.5-3.6-1.5V2.5c1.7 0 3.3 0.7 4.5 1.9s1.9 2.8 1.9 4.5 C23.5 8.9 22.2 8.9 22.2 8.9z\"/><path fill=\"#3F3F3F\" d=\"M20.5 0.7c1.1 0.4 2.1 1.1 2.9 2s1.5 1.8 2 2.9C25.8 6.6 26 7.7 26 8.9h-1.3c0-2-0.8-4-2.2-5.4 s-3.4-2.2-5.4-2.2V0l0 0C18.3 0 19.4 0.2 20.5 0.7L20.5 0.7z\"/></g></g></svg></span>
+    <span class=\"icon\">";
+        // line 7
+        echo twig_include($this->env, $context, "@WebProfiler/Icon/event.svg");
+        echo "</span>
     <strong>Events</strong>
 </span>
 ";
         
-        $__internal_395e291f49cd98e482129eed12ed2dcaa2ba8c733a4ef2230c97babbe72f047f->leave($__internal_395e291f49cd98e482129eed12ed2dcaa2ba8c733a4ef2230c97babbe72f047f_prof);
+        $__internal_9702d21a1f18a2537450477f825184da9a5b4489a38a267b9ae60c77836e2838->leave($__internal_9702d21a1f18a2537450477f825184da9a5b4489a38a267b9ae60c77836e2838_prof);
 
     }
 
     // line 12
     public function block_panel($context, array $blocks = array())
     {
-        $__internal_0311cfa7fa36b688b200163164e45aa7919fba80fc99bb027f5ad2c4f30aed23 = $this->env->getExtension("native_profiler");
-        $__internal_0311cfa7fa36b688b200163164e45aa7919fba80fc99bb027f5ad2c4f30aed23->enter($__internal_0311cfa7fa36b688b200163164e45aa7919fba80fc99bb027f5ad2c4f30aed23_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
+        $__internal_cc695c650d2a2e921bd02eb2fadeea34769e7c8f96cfa0b9f565461f74b8c00c = $this->env->getExtension("native_profiler");
+        $__internal_cc695c650d2a2e921bd02eb2fadeea34769e7c8f96cfa0b9f565461f74b8c00c->enter($__internal_cc695c650d2a2e921bd02eb2fadeea34769e7c8f96cfa0b9f565461f74b8c00c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
 
         // line 13
-        echo "    ";
-        if (twig_length_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "calledlisteners", array()))) {
-            // line 14
-            echo "        ";
-            $this->displayBlock("panelContent", $context, $blocks);
-            echo "
+        echo "    <h2>Event Dispatcher</h2>
+
     ";
-        } else {
+        // line 15
+        if (twig_test_empty($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "calledlisteners", array()))) {
             // line 16
-            echo "        <h2>Events</h2>
-        <p>
-            <em>No events have been recorded. Are you sure that debugging is enabled in the kernel?</em>
-        </p>
-    ";
-        }
-        
-        $__internal_0311cfa7fa36b688b200163164e45aa7919fba80fc99bb027f5ad2c4f30aed23->leave($__internal_0311cfa7fa36b688b200163164e45aa7919fba80fc99bb027f5ad2c4f30aed23_prof);
-
-    }
-
-    // line 23
-    public function block_panelContent($context, array $blocks = array())
-    {
-        $__internal_87f7b82f2fba3dd21f5c4d96a4c13aaba66eb1da03479cf768ece934f7ab59a1 = $this->env->getExtension("native_profiler");
-        $__internal_87f7b82f2fba3dd21f5c4d96a4c13aaba66eb1da03479cf768ece934f7ab59a1->enter($__internal_87f7b82f2fba3dd21f5c4d96a4c13aaba66eb1da03479cf768ece934f7ab59a1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panelContent"));
-
-        // line 24
-        echo "    <h2>Called Listeners</h2>
-
-    <table>
-        <tr>
-            <th>Event name</th>
-            <th>Listener</th>
-        </tr>
-        ";
-        // line 31
-        $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "calledlisteners", array()));
-        foreach ($context['_seq'] as $context["_key"] => $context["listener"]) {
-            // line 32
-            echo "            <tr>
-                <td><code>";
-            // line 33
-            echo twig_escape_filter($this->env, $this->getAttribute($context["listener"], "event", array()), "html", null, true);
-            echo "</code></td>
-                <td><code>";
-            // line 34
-            echo $context["__internal_5758c905b9be00dd8313e39e75eeb586ee9b4a5a5d44266f435b86d850f9545e"]->getdisplay_listener($context["listener"]);
-            echo "</code></td>
-            </tr>
-        ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['listener'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 37
-        echo "    </table>
-
-    <h2>Not Called Listeners</h2>
-
-    ";
-        // line 41
-        if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "notcalledlisteners", array())) {
-            // line 42
-            echo "        <table>
-            <tr>
-                <th>Event name</th>
-                <th>Listener</th>
-            </tr>
-            ";
-            // line 47
-            $context["listeners"] = $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "notcalledlisteners", array());
-            // line 48
-            echo "            ";
-            $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable(twig_sort_filter(twig_get_array_keys_filter((isset($context["listeners"]) ? $context["listeners"] : $this->getContext($context, "listeners")))));
-            foreach ($context['_seq'] as $context["_key"] => $context["listener"]) {
-                // line 49
-                echo "                <tr>
-                    <td><code>";
-                // line 50
-                echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["listeners"]) ? $context["listeners"] : $this->getContext($context, "listeners")), $context["listener"], array(), "array"), "event", array()), "html", null, true);
-                echo "</code></td>
-                    <td><code>";
-                // line 51
-                echo $context["__internal_5758c905b9be00dd8313e39e75eeb586ee9b4a5a5d44266f435b86d850f9545e"]->getdisplay_listener($this->getAttribute((isset($context["listeners"]) ? $context["listeners"] : $this->getContext($context, "listeners")), $context["listener"], array(), "array"));
-                echo "</code></td>
-                </tr>
-            ";
-            }
-            $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['listener'], $context['_parent'], $context['loop']);
-            $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 54
-            echo "        </table>
+            echo "        <div class=\"empty\">
+            <p>No events have been recorded. Check that debugging is enabled in the kernel.</p>
+        </div>
     ";
         } else {
-            // line 56
-            echo "        <p>
-            <strong>No uncalled listeners</strong>.
-        </p>
-        <p>
+            // line 20
+            echo "        <div class=\"sf-tabs\">
+            <div class=\"tab\">
+                <h3 class=\"tab-title\">Called Listeners <span class=\"badge\">";
+            // line 22
+            echo twig_escape_filter($this->env, twig_length_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "calledlisteners", array())), "html", null, true);
+            echo "</span></h3>
 
-            All listeners were called for this request or an error occurred
-            when trying to collect uncalled listeners (in which case check the
-            logs to get more information).
+                <div class=\"tab-content\">
+                    ";
+            // line 25
+            echo $context["helper"]->getrender_table($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "calledlisteners", array()));
+            echo "
+                </div>
+            </div>
 
-        </p>
+            <div class=\"tab\">
+                <h3 class=\"tab-title\">Not Called Listeners <span class=\"badge\">";
+            // line 30
+            echo twig_escape_filter($this->env, twig_length_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "notcalledlisteners", array())), "html", null, true);
+            echo "</span></h3>
+                <div class=\"tab-content\">
+                    ";
+            // line 32
+            if (twig_test_empty($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "notcalledlisteners", array()))) {
+                // line 33
+                echo "                        <div class=\"empty\">
+                            <p>
+                                <strong>There are no uncalled listeners</strong>.
+                            </p>
+                            <p>
+                                All listeners were called for this request or an error occurred
+                                when trying to collect uncalled listeners (in which case check the
+                                logs to get more information).
+                            </p>
+                        </div>
+                    ";
+            } else {
+                // line 44
+                echo "                        ";
+                echo $context["helper"]->getrender_table($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "notcalledlisteners", array()));
+                echo "
+                    ";
+            }
+            // line 46
+            echo "                </div>
+            </div>
+        </div>
     ";
         }
         
-        $__internal_87f7b82f2fba3dd21f5c4d96a4c13aaba66eb1da03479cf768ece934f7ab59a1->leave($__internal_87f7b82f2fba3dd21f5c4d96a4c13aaba66eb1da03479cf768ece934f7ab59a1_prof);
+        $__internal_cc695c650d2a2e921bd02eb2fadeea34769e7c8f96cfa0b9f565461f74b8c00c->leave($__internal_cc695c650d2a2e921bd02eb2fadeea34769e7c8f96cfa0b9f565461f74b8c00c_prof);
 
     }
 
-    // line 69
-    public function getdisplay_listener($__listener__ = null)
+    // line 52
+    public function getrender_table($__listeners__ = null)
     {
         $context = $this->env->mergeGlobals(array(
-            "listener" => $__listener__,
+            "listeners" => $__listeners__,
             "varargs" => func_num_args() > 1 ? array_slice(func_get_args(), 1) : array(),
         ));
 
@@ -186,55 +139,198 @@ class __TwigTemplate_a6cf3189ba768b7caf607b1c184ba81b7afdd5da0f2014136480c1925ab
 
         ob_start();
         try {
-            $__internal_d63a4b937ccf828e68152cc2c97231a9f429b43a332f49e6b5bcc842243a506c = $this->env->getExtension("native_profiler");
-            $__internal_d63a4b937ccf828e68152cc2c97231a9f429b43a332f49e6b5bcc842243a506c->enter($__internal_d63a4b937ccf828e68152cc2c97231a9f429b43a332f49e6b5bcc842243a506c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "macro", "display_listener"));
+            $__internal_b8737a82d66777c1b65d311eca676005a91c7968f541276354f067f78488ec57 = $this->env->getExtension("native_profiler");
+            $__internal_b8737a82d66777c1b65d311eca676005a91c7968f541276354f067f78488ec57->enter($__internal_b8737a82d66777c1b65d311eca676005a91c7968f541276354f067f78488ec57_prof = new Twig_Profiler_Profile($this->getTemplateName(), "macro", "render_table"));
 
-            // line 70
-            echo "    ";
-            if (($this->getAttribute((isset($context["listener"]) ? $context["listener"] : $this->getContext($context, "listener")), "type", array()) == "Closure")) {
-                // line 71
-                echo "        Closure
-    ";
-            } elseif (($this->getAttribute(            // line 72
-(isset($context["listener"]) ? $context["listener"] : $this->getContext($context, "listener")), "type", array()) == "Function")) {
-                // line 73
-                echo "        ";
-                $context["link"] = $this->env->getExtension('code')->getFileLink($this->getAttribute((isset($context["listener"]) ? $context["listener"] : $this->getContext($context, "listener")), "file", array()), $this->getAttribute((isset($context["listener"]) ? $context["listener"] : $this->getContext($context, "listener")), "line", array()));
-                // line 74
-                echo "        ";
-                if ((isset($context["link"]) ? $context["link"] : $this->getContext($context, "link"))) {
-                    echo "<a href=\"";
-                    echo twig_escape_filter($this->env, (isset($context["link"]) ? $context["link"] : $this->getContext($context, "link")), "html", null, true);
-                    echo "\">";
-                    echo twig_escape_filter($this->env, $this->getAttribute((isset($context["listener"]) ? $context["listener"] : $this->getContext($context, "listener")), "function", array()), "html", null, true);
-                    echo "</a>";
-                } else {
-                    echo twig_escape_filter($this->env, $this->getAttribute((isset($context["listener"]) ? $context["listener"] : $this->getContext($context, "listener")), "function", array()), "html", null, true);
+            // line 53
+            echo "    <table>
+        <thead>
+            <tr>
+                <th class=\"text-right\">Priority</th>
+                <th>Listener</th>
+            </tr>
+        </thead>
+
+        ";
+            // line 61
+            $context["previous_event"] = $this->getAttribute(twig_first($this->env, (isset($context["listeners"]) ? $context["listeners"] : $this->getContext($context, "listeners"))), "event", array());
+            // line 62
+            echo "        ";
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable((isset($context["listeners"]) ? $context["listeners"] : $this->getContext($context, "listeners")));
+            $context['loop'] = array(
+              'parent' => $context['_parent'],
+              'index0' => 0,
+              'index'  => 1,
+              'first'  => true,
+            );
+            if (is_array($context['_seq']) || (is_object($context['_seq']) && $context['_seq'] instanceof Countable)) {
+                $length = count($context['_seq']);
+                $context['loop']['revindex0'] = $length - 1;
+                $context['loop']['revindex'] = $length;
+                $context['loop']['length'] = $length;
+                $context['loop']['last'] = 1 === $length;
+            }
+            foreach ($context['_seq'] as $context["_key"] => $context["listener"]) {
+                // line 63
+                echo "            ";
+                if (($this->getAttribute($context["loop"], "first", array()) || ($this->getAttribute($context["listener"], "event", array()) != (isset($context["previous_event"]) ? $context["previous_event"] : $this->getContext($context, "previous_event"))))) {
+                    // line 64
+                    echo "                ";
+                    if ( !$this->getAttribute($context["loop"], "first", array())) {
+                        // line 65
+                        echo "                    </tbody>
+                ";
+                    }
+                    // line 67
+                    echo "
+                <tbody>
+                    <tr>
+                        <th colspan=\"2\" class=\"colored font-normal\">";
+                    // line 70
+                    echo twig_escape_filter($this->env, $this->getAttribute($context["listener"], "event", array()), "html", null, true);
+                    echo "</th>
+                    </tr>
+
+                ";
+                    // line 73
+                    $context["previous_event"] = $this->getAttribute($context["listener"], "event", array());
+                    // line 74
+                    echo "            ";
                 }
                 // line 75
-                echo "    ";
-            } elseif (($this->getAttribute((isset($context["listener"]) ? $context["listener"] : $this->getContext($context, "listener")), "type", array()) == "Method")) {
-                // line 76
-                echo "        ";
-                $context["link"] = $this->env->getExtension('code')->getFileLink($this->getAttribute((isset($context["listener"]) ? $context["listener"] : $this->getContext($context, "listener")), "file", array()), $this->getAttribute((isset($context["listener"]) ? $context["listener"] : $this->getContext($context, "listener")), "line", array()));
+                echo "
+            <tr>
+                <td class=\"text-right\">";
                 // line 77
-                echo "        ";
-                echo $this->env->getExtension('code')->abbrClass($this->getAttribute((isset($context["listener"]) ? $context["listener"] : $this->getContext($context, "listener")), "class", array()));
-                echo "::";
-                if ((isset($context["link"]) ? $context["link"] : $this->getContext($context, "link"))) {
-                    echo "<a href=\"";
-                    echo twig_escape_filter($this->env, (isset($context["link"]) ? $context["link"] : $this->getContext($context, "link")), "html", null, true);
-                    echo "\">";
-                    echo twig_escape_filter($this->env, $this->getAttribute((isset($context["listener"]) ? $context["listener"] : $this->getContext($context, "listener")), "method", array()), "html", null, true);
-                    echo "</a>";
-                } else {
-                    echo twig_escape_filter($this->env, $this->getAttribute((isset($context["listener"]) ? $context["listener"] : $this->getContext($context, "listener")), "method", array()), "html", null, true);
+                echo twig_escape_filter($this->env, (($this->getAttribute($context["listener"], "priority", array(), "any", true, true)) ? (_twig_default_filter($this->getAttribute($context["listener"], "priority", array()), "-")) : ("-")), "html", null, true);
+                echo "</td>
+                <td class=\"font-normal\">
+                    ";
+                // line 79
+                if (($this->getAttribute($context["listener"], "type", array()) == "Closure")) {
+                    // line 80
+                    echo "
+                        Closure
+                        <span class=\"text-muted text-small\">(there is no class or file information)</span>
+
+                    ";
+                } elseif (($this->getAttribute(                // line 84
+$context["listener"], "type", array()) == "Function")) {
+                    // line 85
+                    echo "
+                        ";
+                    // line 86
+                    $context["link"] = $this->env->getExtension('code')->getFileLink($this->getAttribute($context["listener"], "file", array()), $this->getAttribute($context["listener"], "line", array()));
+                    // line 87
+                    echo "                        ";
+                    if ((isset($context["link"]) ? $context["link"] : $this->getContext($context, "link"))) {
+                        // line 88
+                        echo "                            <a href=\"";
+                        echo twig_escape_filter($this->env, (isset($context["link"]) ? $context["link"] : $this->getContext($context, "link")), "html", null, true);
+                        echo "\">";
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["listener"], "function", array()), "html", null, true);
+                        echo "()</a>
+                            <span class=\"text-muted text-small\">(";
+                        // line 89
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["listener"], "file", array()), "html", null, true);
+                        echo ")</span>
+                        ";
+                    } else {
+                        // line 91
+                        echo "                            ";
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["listener"], "function", array()), "html", null, true);
+                        echo "()
+                            <span class=\"text-muted newline text-small\">";
+                        // line 92
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["listener"], "file", array()), "html", null, true);
+                        echo " (line ";
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["listener"], "line", array()), "html", null, true);
+                        echo ")</span>
+                        ";
+                    }
+                    // line 94
+                    echo "
+                    ";
+                } elseif (($this->getAttribute(                // line 95
+$context["listener"], "type", array()) == "Method")) {
+                    // line 96
+                    echo "
+                        ";
+                    // line 97
+                    $context["link"] = $this->env->getExtension('code')->getFileLink($this->getAttribute($context["listener"], "file", array()), $this->getAttribute($context["listener"], "line", array()));
+                    // line 98
+                    echo "                        ";
+                    $context["class_namespace"] = twig_join_filter(twig_split_filter($this->env, $this->getAttribute($context["listener"], "class", array()), "\\",  -1), "\\");
+                    // line 99
+                    echo "
+                        ";
+                    // line 100
+                    if ((isset($context["link"]) ? $context["link"] : $this->getContext($context, "link"))) {
+                        // line 101
+                        echo "                            <a href=\"";
+                        echo twig_escape_filter($this->env, (isset($context["link"]) ? $context["link"] : $this->getContext($context, "link")), "html", null, true);
+                        echo "\"><strong>";
+                        echo twig_escape_filter($this->env, strip_tags($this->env->getExtension('code')->abbrClass($this->getAttribute($context["listener"], "class", array()))), "html", null, true);
+                        echo "</strong>::";
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["listener"], "method", array()), "html", null, true);
+                        echo "()</a>
+                            <span class=\"text-muted text-small\">(";
+                        // line 102
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["listener"], "class", array()), "html", null, true);
+                        echo ")</span>
+                        ";
+                    } else {
+                        // line 104
+                        echo "                            <span>";
+                        echo twig_escape_filter($this->env, (isset($context["class_namespace"]) ? $context["class_namespace"] : $this->getContext($context, "class_namespace")), "html", null, true);
+                        echo "\\</span><strong>";
+                        echo twig_escape_filter($this->env, strip_tags($this->env->getExtension('code')->abbrClass($this->getAttribute($context["listener"], "class", array()))), "html", null, true);
+                        echo "</strong>::";
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["listener"], "method", array()), "html", null, true);
+                        echo "()
+                            <span class=\"text-muted newline text-small\">";
+                        // line 105
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["listener"], "file", array()), "html", null, true);
+                        echo " (line ";
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["listener"], "line", array()), "html", null, true);
+                        echo ")</span>
+                        ";
+                    }
+                    // line 107
+                    echo "
+                    ";
                 }
-                // line 78
-                echo "    ";
+                // line 109
+                echo "                </td>
+            </tr>
+
+            ";
+                // line 112
+                if ($this->getAttribute($context["loop"], "last", array())) {
+                    // line 113
+                    echo "                </tbody>
+            ";
+                }
+                // line 115
+                echo "        ";
+                ++$context['loop']['index0'];
+                ++$context['loop']['index'];
+                $context['loop']['first'] = false;
+                if (isset($context['loop']['length'])) {
+                    --$context['loop']['revindex0'];
+                    --$context['loop']['revindex'];
+                    $context['loop']['last'] = 0 === $context['loop']['revindex0'];
+                }
             }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['listener'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 116
+            echo "    </table>
+";
             
-            $__internal_d63a4b937ccf828e68152cc2c97231a9f429b43a332f49e6b5bcc842243a506c->leave($__internal_d63a4b937ccf828e68152cc2c97231a9f429b43a332f49e6b5bcc842243a506c_prof);
+            $__internal_b8737a82d66777c1b65d311eca676005a91c7968f541276354f067f78488ec57->leave($__internal_b8737a82d66777c1b65d311eca676005a91c7968f541276354f067f78488ec57_prof);
 
         } catch (Exception $e) {
             ob_end_clean();
@@ -257,86 +353,124 @@ class __TwigTemplate_a6cf3189ba768b7caf607b1c184ba81b7afdd5da0f2014136480c1925ab
 
     public function getDebugInfo()
     {
-        return array (  234 => 78,  221 => 77,  218 => 76,  215 => 75,  204 => 74,  201 => 73,  199 => 72,  196 => 71,  193 => 70,  178 => 69,  160 => 56,  156 => 54,  147 => 51,  143 => 50,  140 => 49,  135 => 48,  133 => 47,  126 => 42,  124 => 41,  118 => 37,  109 => 34,  105 => 33,  102 => 32,  98 => 31,  89 => 24,  83 => 23,  71 => 16,  65 => 14,  62 => 13,  56 => 12,  45 => 6,  39 => 5,  32 => 1,  30 => 3,  11 => 1,);
+        return array (  330 => 116,  316 => 115,  312 => 113,  310 => 112,  305 => 109,  301 => 107,  294 => 105,  285 => 104,  280 => 102,  271 => 101,  269 => 100,  266 => 99,  263 => 98,  261 => 97,  258 => 96,  256 => 95,  253 => 94,  246 => 92,  241 => 91,  236 => 89,  229 => 88,  226 => 87,  224 => 86,  221 => 85,  219 => 84,  213 => 80,  211 => 79,  206 => 77,  202 => 75,  199 => 74,  197 => 73,  191 => 70,  186 => 67,  182 => 65,  179 => 64,  176 => 63,  158 => 62,  156 => 61,  146 => 53,  131 => 52,  120 => 46,  114 => 44,  101 => 33,  99 => 32,  94 => 30,  86 => 25,  80 => 22,  76 => 20,  70 => 16,  68 => 15,  64 => 13,  58 => 12,  47 => 7,  44 => 6,  38 => 5,  31 => 1,  29 => 3,  11 => 1,);
     }
 }
 /* {% extends '@WebProfiler/Profiler/layout.html.twig' %}*/
 /* */
-/* {% from _self import display_listener %}*/
+/* {% import _self as helper %}*/
 /* */
 /* {% block menu %}*/
 /* <span class="label">*/
-/*     <span class="icon"><svg width="26" height="34" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 26 34" enable-background="new 0 0 26 34" xml:space="preserve"><g><path fill="#3F3F3F" d="M15.5 14.8c0.5-0.6 0.9-1.4 0.9-2.3c0-1.9-1.5-3.4-3.4-3.4s-3.4 1.5-3.4 3.4c0 0.9 0.3 1.7 0.9 2.3L3.2 34 h2.5l0.4-1.1l6.8-4.3l6.8 4.3l0.4 1.1h2.5L15.5 14.8z M16 22.6l-2.1-1l1.4-0.7L16 22.6z M13 16c0.1 0 0.3 0 0.4 0l1.6 4.2l-2 1 l-2-1l1.6-4.2C12.7 15.9 12.9 16 13 16z M12.1 21.6l-2.1 1l0.6-1.7L12.1 21.6z M7 30.7L8.8 26l2.9 1.8L7 30.7z M9.3 24.7l0.4-1 L13 22l3.4 1.7l0.4 1L13 27L9.3 24.7z M14.3 27.8l2.9-1.8l1.8 4.7L14.3 27.8z"/><g><path fill="#3F3F3F" d="M6.2 6.2c0.7-0.7 1.7-1.1 2.7-1.1v1.3c-0.7 0-1.3 0.2-1.8 0.7S6.4 8.2 6.4 8.9H5.1 C5.1 7.9 5.5 6.9 6.2 6.2z"/><path fill="#3F3F3F" d="M2.5 8.9c0-1.7 0.7-3.3 1.9-4.5s2.8-1.9 4.5-1.9l0 1.3c-1.4 0-2.6 0.5-3.6 1.5S3.8 7.5 3.8 8.9 C3.8 8.9 2.5 8.9 2.5 8.9z"/><path fill="#3F3F3F" d="M5.6 0.7C6.6 0.2 7.7 0 8.9 0l0 0v1.3c-2 0-4 0.8-5.4 2.2S1.3 6.9 1.3 8.9H0c0-1.2 0.2-2.3 0.7-3.3 c0.4-1.1 1.1-2.1 2-2.9S4.4 1.1 5.6 0.7L5.6 0.7z"/></g><g><path fill="#3F3F3F" d="M20.9 8.9h-1.3c0-0.7-0.2-1.3-0.7-1.8c-0.5-0.5-1.1-0.7-1.8-0.7V5.1c1 0 2 0.4 2.7 1.1 C20.5 6.9 20.9 7.9 20.9 8.9z"/><path fill="#3F3F3F" d="M22.2 8.9c0-1.4-0.5-2.6-1.5-3.6c-1-1-2.2-1.5-3.6-1.5V2.5c1.7 0 3.3 0.7 4.5 1.9s1.9 2.8 1.9 4.5 C23.5 8.9 22.2 8.9 22.2 8.9z"/><path fill="#3F3F3F" d="M20.5 0.7c1.1 0.4 2.1 1.1 2.9 2s1.5 1.8 2 2.9C25.8 6.6 26 7.7 26 8.9h-1.3c0-2-0.8-4-2.2-5.4 s-3.4-2.2-5.4-2.2V0l0 0C18.3 0 19.4 0.2 20.5 0.7L20.5 0.7z"/></g></g></svg></span>*/
+/*     <span class="icon">{{ include('@WebProfiler/Icon/event.svg') }}</span>*/
 /*     <strong>Events</strong>*/
 /* </span>*/
 /* {% endblock %}*/
 /* */
 /* {% block panel %}*/
-/*     {% if collector.calledlisteners|length %}*/
-/*         {{ block('panelContent') }}*/
+/*     <h2>Event Dispatcher</h2>*/
+/* */
+/*     {% if collector.calledlisteners is empty %}*/
+/*         <div class="empty">*/
+/*             <p>No events have been recorded. Check that debugging is enabled in the kernel.</p>*/
+/*         </div>*/
 /*     {% else %}*/
-/*         <h2>Events</h2>*/
-/*         <p>*/
-/*             <em>No events have been recorded. Are you sure that debugging is enabled in the kernel?</em>*/
-/*         </p>*/
+/*         <div class="sf-tabs">*/
+/*             <div class="tab">*/
+/*                 <h3 class="tab-title">Called Listeners <span class="badge">{{ collector.calledlisteners|length }}</span></h3>*/
+/* */
+/*                 <div class="tab-content">*/
+/*                     {{ helper.render_table(collector.calledlisteners) }}*/
+/*                 </div>*/
+/*             </div>*/
+/* */
+/*             <div class="tab">*/
+/*                 <h3 class="tab-title">Not Called Listeners <span class="badge">{{ collector.notcalledlisteners|length }}</span></h3>*/
+/*                 <div class="tab-content">*/
+/*                     {% if collector.notcalledlisteners is empty %}*/
+/*                         <div class="empty">*/
+/*                             <p>*/
+/*                                 <strong>There are no uncalled listeners</strong>.*/
+/*                             </p>*/
+/*                             <p>*/
+/*                                 All listeners were called for this request or an error occurred*/
+/*                                 when trying to collect uncalled listeners (in which case check the*/
+/*                                 logs to get more information).*/
+/*                             </p>*/
+/*                         </div>*/
+/*                     {% else %}*/
+/*                         {{ helper.render_table(collector.notcalledlisteners) }}*/
+/*                     {% endif %}*/
+/*                 </div>*/
+/*             </div>*/
+/*         </div>*/
 /*     {% endif %}*/
 /* {% endblock %}*/
 /* */
-/* {% block panelContent %}*/
-/*     <h2>Called Listeners</h2>*/
-/* */
+/* {% macro render_table(listeners) %}*/
 /*     <table>*/
-/*         <tr>*/
-/*             <th>Event name</th>*/
-/*             <th>Listener</th>*/
-/*         </tr>*/
-/*         {% for listener in collector.calledlisteners %}*/
+/*         <thead>*/
 /*             <tr>*/
-/*                 <td><code>{{ listener.event }}</code></td>*/
-/*                 <td><code>{{ display_listener(listener) }}</code></td>*/
-/*             </tr>*/
-/*         {% endfor %}*/
-/*     </table>*/
-/* */
-/*     <h2>Not Called Listeners</h2>*/
-/* */
-/*     {% if collector.notcalledlisteners %}*/
-/*         <table>*/
-/*             <tr>*/
-/*                 <th>Event name</th>*/
+/*                 <th class="text-right">Priority</th>*/
 /*                 <th>Listener</th>*/
 /*             </tr>*/
-/*             {% set listeners = collector.notcalledlisteners %}*/
-/*             {% for listener in listeners|keys|sort %}*/
-/*                 <tr>*/
-/*                     <td><code>{{ listeners[listener].event }}</code></td>*/
-/*                     <td><code>{{ display_listener(listeners[listener]) }}</code></td>*/
-/*                 </tr>*/
-/*             {% endfor %}*/
-/*         </table>*/
-/*     {% else %}*/
-/*         <p>*/
-/*             <strong>No uncalled listeners</strong>.*/
-/*         </p>*/
-/*         <p>*/
+/*         </thead>*/
 /* */
-/*             All listeners were called for this request or an error occurred*/
-/*             when trying to collect uncalled listeners (in which case check the*/
-/*             logs to get more information).*/
+/*         {% set previous_event = (listeners|first).event %}*/
+/*         {% for listener in listeners %}*/
+/*             {% if loop.first or listener.event != previous_event %}*/
+/*                 {% if not loop.first %}*/
+/*                     </tbody>*/
+/*                 {% endif %}*/
 /* */
-/*         </p>*/
-/*     {% endif %}*/
-/* {% endblock %}*/
+/*                 <tbody>*/
+/*                     <tr>*/
+/*                         <th colspan="2" class="colored font-normal">{{ listener.event }}</th>*/
+/*                     </tr>*/
 /* */
-/* {% macro display_listener(listener) %}*/
-/*     {% if listener.type == "Closure" %}*/
-/*         Closure*/
-/*     {% elseif listener.type == "Function" %}*/
-/*         {% set link = listener.file|file_link(listener.line) %}*/
-/*         {% if link %}<a href="{{ link }}">{{ listener.function }}</a>{% else %}{{ listener.function }}{% endif %}*/
-/*     {% elseif listener.type == "Method" %}*/
-/*         {% set link = listener.file|file_link(listener.line) %}*/
-/*         {{ listener.class|abbr_class }}::{% if link %}<a href="{{ link }}">{{ listener.method }}</a>{% else %}{{ listener.method }}{% endif %}*/
-/*     {% endif %}*/
+/*                 {% set previous_event = listener.event %}*/
+/*             {% endif %}*/
+/* */
+/*             <tr>*/
+/*                 <td class="text-right">{{ listener.priority|default('-') }}</td>*/
+/*                 <td class="font-normal">*/
+/*                     {% if listener.type == 'Closure' %}*/
+/* */
+/*                         Closure*/
+/*                         <span class="text-muted text-small">(there is no class or file information)</span>*/
+/* */
+/*                     {% elseif listener.type == 'Function' %}*/
+/* */
+/*                         {% set link = listener.file|file_link(listener.line) %}*/
+/*                         {% if link %}*/
+/*                             <a href="{{ link }}">{{ listener.function }}()</a>*/
+/*                             <span class="text-muted text-small">({{ listener.file }})</span>*/
+/*                         {% else %}*/
+/*                             {{ listener.function }}()*/
+/*                             <span class="text-muted newline text-small">{{ listener.file }} (line {{ listener.line }})</span>*/
+/*                         {% endif %}*/
+/* */
+/*                     {% elseif listener.type == "Method" %}*/
+/* */
+/*                         {% set link = listener.file|file_link(listener.line) %}*/
+/*                         {% set class_namespace = listener.class|split('\\', -1)|join('\\') %}*/
+/* */
+/*                         {% if link %}*/
+/*                             <a href="{{ link }}"><strong>{{ listener.class|abbr_class|striptags }}</strong>::{{ listener.method }}()</a>*/
+/*                             <span class="text-muted text-small">({{ listener.class }})</span>*/
+/*                         {% else %}*/
+/*                             <span>{{ class_namespace }}\</span><strong>{{ listener.class|abbr_class|striptags }}</strong>::{{ listener.method }}()*/
+/*                             <span class="text-muted newline text-small">{{ listener.file }} (line {{ listener.line }})</span>*/
+/*                         {% endif %}*/
+/* */
+/*                     {% endif %}*/
+/*                 </td>*/
+/*             </tr>*/
+/* */
+/*             {% if loop.last %}*/
+/*                 </tbody>*/
+/*             {% endif %}*/
+/*         {% endfor %}*/
+/*     </table>*/
 /* {% endmacro %}*/
 /* */

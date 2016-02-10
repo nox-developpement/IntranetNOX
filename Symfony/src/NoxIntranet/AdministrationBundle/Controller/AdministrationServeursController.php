@@ -78,7 +78,7 @@ class AdministrationServeursController extends Controller {
             $serveurLien = $em->getRepository('NoxIntranetRessourcesBundle:Serveur')->findByLien($form['lien']->getData());
 
             if ($serveurAgence != null || $serveurLien != null) {
-                $request->getSession()->getFlashBag()->add('noticeErreur', 'Cette archive existe déjà !');
+                $request->getSession()->getFlashBag()->add('noticeErreur', 'Ce serverur existe déjà !');
                 return $this->render('NoxIntranetAdministrationBundle:AdministrationServeurs:administrationserveurs.html.twig', array('form' => $form->createView(), 'serveurs' => $serveurs));
             }
 
@@ -93,7 +93,7 @@ class AdministrationServeursController extends Controller {
 
             $this->creationBat();
 
-            return $this->redirectToRoute('nox_intranet_serveurs');
+            return $this->redirectToRoute('nox_intranet_administration_serveurs');
         }
 
         return $this->render('NoxIntranetAdministrationBundle:AdministrationServeurs:administrationserveurs.html.twig', array('form' => $form->createView(), 'serveurs' => $serveurs));

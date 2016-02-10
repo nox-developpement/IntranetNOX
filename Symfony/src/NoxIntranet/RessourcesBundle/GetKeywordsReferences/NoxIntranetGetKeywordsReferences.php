@@ -68,13 +68,14 @@ class NoxIntranetGetKeywordsReferences extends Controller {
                     }
 
                     if ($keywordsColles != null) {
+
                         $keywords = explode(' ', $keywordsColles);
 
                         foreach ($keywords as $keyword) {
-                            if (array_key_exists(ucfirst(strtolower($keyword)), $keywordsListe)) {
-                                $keywordsListe[ucfirst(strtolower($keyword))] = $keywordsListe[ucfirst(strtolower($keyword))] + 1;
+                            if (array_key_exists(ucfirst(strtolower(utf8_decode($keyword))), $keywordsListe)) {
+                                $keywordsListe[ucfirst(strtolower(utf8_decode($keyword)))] = $keywordsListe[ucfirst(strtolower(utf8_decode($keyword)))] + 1;
                             } else {
-                                $keywordsListe[ucfirst(strtolower($keyword))] = 1;
+                                $keywordsListe[ucfirst(strtolower(utf8_decode($keyword)))] = 1;
                             }
                         }
                     }
@@ -107,7 +108,7 @@ class NoxIntranetGetKeywordsReferences extends Controller {
 
             if ($compteurKeyword == null) {
                 $compteurKeyword = new ReferencesKeywords();
-                $compteurKeyword->setKeyword($nom);
+                $compteurKeyword->setKeyword(utf8_encode($nom));
                 $compteurKeyword->setNombre($nombre);
                 $referencesEm->persist($compteurKeyword);
                 $referencesEm->flush();

@@ -27,7 +27,7 @@ include_once($configfile); // TODO: Check for errors
 TODO: Currently the number of flexlm-licenses that this PHP-Application can configure is limited. How can we solve that? Javascript? Does someone have a solution?
 TODO: improve Layout 
 -->
-<?php for ($i = 0; $i <= 1; $i++) {
+<?php for ($i = 0; $i <= 9; $i++) {
 ?>
 <div id=<? print "\"flexlm$i\""; ?>> 
 Server: 

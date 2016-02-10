@@ -275,15 +275,39 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             }
 
-            if (0 === strpos($pathinfo, '/ressources/aq')) {
-                // nox_intranet_aq
-                if ($pathinfo === '/ressources/aq') {
-                    return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::aqAction',  '_route' => 'nox_intranet_aq',);
+            if (0 === strpos($pathinfo, '/ressources/a')) {
+                if (0 === strpos($pathinfo, '/ressources/aq')) {
+                    // nox_intranet_aq
+                    if ($pathinfo === '/ressources/aq') {
+                        return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::aqAction',  '_route' => 'nox_intranet_aq',);
+                    }
+
+                    // nox_intranet_affichageAQ
+                    if (preg_match('#^/ressources/aq/(?P<dossier>[^/]++)/(?P<config>[^/]++)/(?P<chemin>.+)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_affichageAQ')), array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::affichageAQAction',));
+                    }
+
                 }
 
-                // nox_intranet_affichageAQ
-                if (preg_match('#^/ressources/aq/(?P<dossier>[^/]++)/(?P<config>[^/]++)/(?P<chemin>.+)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_affichageAQ')), array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::affichageAQAction',));
+                if (0 === strpos($pathinfo, '/ressources/assistant')) {
+                    if (0 === strpos($pathinfo, '/ressources/assistant-affaire')) {
+                        // nox_intranet_assistant_affaire
+                        if ($pathinfo === '/ressources/assistant-affaire') {
+                            return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController::accueilAssistantAffaireAction',  '_route' => 'nox_intranet_assistant_affaire',);
+                        }
+
+                        // nox_intranet_assistant_affaire_nouvelle
+                        if ($pathinfo === '/ressources/assistant-affaire/creation-suivi') {
+                            return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController::creationSuiviAction',  '_route' => 'nox_intranet_assistant_affaire_nouvelle',);
+                        }
+
+                    }
+
+                    // nox_intranet_assistant_affaire_generation
+                    if ($pathinfo === '/ressources/assistantAffaireGeneration') {
+                        return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController::generateExcelFileAction',  '_route' => 'nox_intranet_assistant_affaire_generation',);
+                    }
+
                 }
 
             }
@@ -672,6 +696,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             // nox_intranet_administration_materiel
             if ($pathinfo === '/administration/materiel') {
                 return array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationMaterielController::materielAccueilAction',  '_route' => 'nox_intranet_administration_materiel',);
+            }
+
+            // nox_intranet_administration_affaires
+            if ($pathinfo === '/administration/assistant-affaires') {
+                return array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesAccueilAction',  '_route' => 'nox_intranet_administration_affaires',);
             }
 
         }

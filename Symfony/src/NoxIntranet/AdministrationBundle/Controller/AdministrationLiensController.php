@@ -158,8 +158,6 @@ class AdministrationLiensController extends Controller {
 
         $positionMax = $this->maxValueInArray($positions);
 
-        var_dump($positionMax);
-
         $categories = $em->getRepository('NoxIntranetRessourcesBundle:Liens')->findByType('Catégorie');
 
         return $this->render('NoxIntranetAdministrationBundle:AdministrationLiens:modificationLien.html.twig', array('catégories' => $categories, 'lien' => $lien, 'lienID' => $lienID, 'position' => $lien->getPosition(), 'positionMax' => $positionMax));
@@ -181,11 +179,9 @@ class AdministrationLiensController extends Controller {
             if ($request->query->get('lienlibelle') != null) {
                 if ($em->getRepository('NoxIntranetRessourcesBundle:Liens')->findByLibelle($lienLibelle) != null && $em->getRepository('NoxIntranetRessourcesBundle:Liens')->findOneByLibelle($lienLibelle)->getId() != $lienID) {
                     $request->getSession()->getFlashBag()->add('noticeErreur', "Ce libellé est déjà utilisé !");
-                    var_dump('test!');
                     return $this->redirectToRoute('nox_intranet_modification_lien', array('lienID' => $lienID));
                 } elseif ($lienAdresse == null) {
                     $request->getSession()->getFlashBag()->add('noticeErreur', "Veuillez entrer un lien !");
-                    var_dump('test!');
                     return $this->redirectToRoute('nox_intranet_modification_lien', array('lienID' => $lienID));
                 } else {
 

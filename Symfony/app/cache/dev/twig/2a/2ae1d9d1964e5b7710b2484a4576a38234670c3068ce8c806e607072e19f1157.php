@@ -21,33 +21,37 @@ class __TwigTemplate_3027573edb928da194760688c9e226b665cdbe4a22a587b7743789187e2
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_77a0de909b8f35d7d0a7b0eae13f9c17efcd017184171c3bb99e9f2fb01b67c8 = $this->env->getExtension("native_profiler");
-        $__internal_77a0de909b8f35d7d0a7b0eae13f9c17efcd017184171c3bb99e9f2fb01b67c8->enter($__internal_77a0de909b8f35d7d0a7b0eae13f9c17efcd017184171c3bb99e9f2fb01b67c8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@WebProfiler/Collector/ajax.html.twig"));
+        $__internal_bc7a270d23739e7f98a34c89532abaa9075056083197f1ccd867483eb44e86bd = $this->env->getExtension("native_profiler");
+        $__internal_bc7a270d23739e7f98a34c89532abaa9075056083197f1ccd867483eb44e86bd->enter($__internal_bc7a270d23739e7f98a34c89532abaa9075056083197f1ccd867483eb44e86bd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@WebProfiler/Collector/ajax.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_77a0de909b8f35d7d0a7b0eae13f9c17efcd017184171c3bb99e9f2fb01b67c8->leave($__internal_77a0de909b8f35d7d0a7b0eae13f9c17efcd017184171c3bb99e9f2fb01b67c8_prof);
+        $__internal_bc7a270d23739e7f98a34c89532abaa9075056083197f1ccd867483eb44e86bd->leave($__internal_bc7a270d23739e7f98a34c89532abaa9075056083197f1ccd867483eb44e86bd_prof);
 
     }
 
     // line 3
     public function block_toolbar($context, array $blocks = array())
     {
-        $__internal_1a3d8bf77b7b4585365b7279028af72c6e2ac179a67a7553212c6a0bbb376098 = $this->env->getExtension("native_profiler");
-        $__internal_1a3d8bf77b7b4585365b7279028af72c6e2ac179a67a7553212c6a0bbb376098->enter($__internal_1a3d8bf77b7b4585365b7279028af72c6e2ac179a67a7553212c6a0bbb376098_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
+        $__internal_5c8f957575a395c7f5ece755ec0411ad9e95320d46795e8ededaaf0ba3f4574b = $this->env->getExtension("native_profiler");
+        $__internal_5c8f957575a395c7f5ece755ec0411ad9e95320d46795e8ededaaf0ba3f4574b->enter($__internal_5c8f957575a395c7f5ece755ec0411ad9e95320d46795e8ededaaf0ba3f4574b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
 
         // line 4
         echo "    ";
-        $context["icon"] = ('' === $tmp = "        <span>
-            <svg width=\"24\" height=\"28\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 24 28\" enable-background=\"new 0 0 24 28\" xml:space=\"preserve\"><polygon fill=\"#3F3F3F\" points=\"18.4,3.8 12.8,9.4 16.3,9.4 16.3,21.1 14.1,21.1 9.9,25.3 16.3,25.3 20.5,25.3 20.5,21.1 20.5,9.4 23.9,9.4\"/><polygon fill=\"#3F3F3F\" points=\"5.6,25.3 11.2,19.7 7.7,19.7 7.7,8 9.9,8 14.1,3.8 7.7,3.8 3.5,3.8 3.5,8 3.5,19.7 0.1,19.7\"/></svg>
-            <span class=\"sf-toolbar-ajax-requests\">0</span>
-        </span>
-    ") ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-        // line 10
-        echo "    ";
+        ob_start();
+        // line 5
+        echo "        ";
+        echo twig_include($this->env, $context, "@WebProfiler/Icon/ajax.svg");
+        echo "
+        <span class=\"sf-toolbar-value sf-toolbar-ajax-requests\">0</span>
+    ";
+        $context["icon"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
+        // line 8
+        echo "
+    ";
+        // line 9
         $context["text"] = ('' === $tmp = "        <div class=\"sf-toolbar-info-piece\">
-            <b>AJAX requests</b>
-            <span class=\"sf-toolbar-ajax-info\"></span>
+            <b class=\"sf-toolbar-ajax-info\"></b>
         </div>
         <div class=\"sf-toolbar-info-piece\">
             <table class=\"sf-toolbar-ajax-requests\">
@@ -63,11 +67,15 @@ class __TwigTemplate_3027573edb928da194760688c9e226b665cdbe4a22a587b7743789187e2
             </table>
         </div>
     ") ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-        // line 29
-        echo "    ";
-        $this->loadTemplate("@WebProfiler/Profiler/toolbar_item.html.twig", "@WebProfiler/Collector/ajax.html.twig", 29)->display(array_merge($context, array("link" => false)));
+        // line 27
+        echo "
+    ";
+        // line 28
+        echo twig_include($this->env, $context, "@WebProfiler/Profiler/toolbar_item.html.twig", array("link" => false));
+        echo "
+";
         
-        $__internal_1a3d8bf77b7b4585365b7279028af72c6e2ac179a67a7553212c6a0bbb376098->leave($__internal_1a3d8bf77b7b4585365b7279028af72c6e2ac179a67a7553212c6a0bbb376098_prof);
+        $__internal_5c8f957575a395c7f5ece755ec0411ad9e95320d46795e8ededaaf0ba3f4574b->leave($__internal_5c8f957575a395c7f5ece755ec0411ad9e95320d46795e8ededaaf0ba3f4574b_prof);
 
     }
 
@@ -83,22 +91,20 @@ class __TwigTemplate_3027573edb928da194760688c9e226b665cdbe4a22a587b7743789187e2
 
     public function getDebugInfo()
     {
-        return array (  67 => 29,  47 => 10,  40 => 4,  34 => 3,  11 => 1,);
+        return array (  74 => 28,  71 => 27,  53 => 9,  50 => 8,  43 => 5,  40 => 4,  34 => 3,  11 => 1,);
     }
 }
 /* {% extends '@WebProfiler/Profiler/layout.html.twig' %}*/
 /* */
 /* {% block toolbar %}*/
 /*     {% set icon %}*/
-/*         <span>*/
-/*             <svg width="24" height="28" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 24 28" enable-background="new 0 0 24 28" xml:space="preserve"><polygon fill="#3F3F3F" points="18.4,3.8 12.8,9.4 16.3,9.4 16.3,21.1 14.1,21.1 9.9,25.3 16.3,25.3 20.5,25.3 20.5,21.1 20.5,9.4 23.9,9.4"/><polygon fill="#3F3F3F" points="5.6,25.3 11.2,19.7 7.7,19.7 7.7,8 9.9,8 14.1,3.8 7.7,3.8 3.5,3.8 3.5,8 3.5,19.7 0.1,19.7"/></svg>*/
-/*             <span class="sf-toolbar-ajax-requests">0</span>*/
-/*         </span>*/
+/*         {{ include('@WebProfiler/Icon/ajax.svg') }}*/
+/*         <span class="sf-toolbar-value sf-toolbar-ajax-requests">0</span>*/
 /*     {% endset %}*/
+/* */
 /*     {% set text %}*/
 /*         <div class="sf-toolbar-info-piece">*/
-/*             <b>AJAX requests</b>*/
-/*             <span class="sf-toolbar-ajax-info"></span>*/
+/*             <b class="sf-toolbar-ajax-info"></b>*/
 /*         </div>*/
 /*         <div class="sf-toolbar-info-piece">*/
 /*             <table class="sf-toolbar-ajax-requests">*/
@@ -114,6 +120,7 @@ class __TwigTemplate_3027573edb928da194760688c9e226b665cdbe4a22a587b7743789187e2
 /*             </table>*/
 /*         </div>*/
 /*     {% endset %}*/
-/*     {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': false } %}*/
+/* */
+/*     {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: false }) }}*/
 /* {% endblock %}*/
 /* */

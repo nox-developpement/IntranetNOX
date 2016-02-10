@@ -1,0 +1,56 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Création de suivi {% endblock %}
+
+{% block messageAccueil %}Création de suivi{% endblock %}
+
+{% block contenu %}
+
+    <div id="DivCreationSuivi">
+
+        {{ form_start(form, {'attr': {'class': 'formulaireCreationSuivi'}}) }}
+        {{ form_errors(form) }}
+
+        <fieldset>
+
+            <legend>Ajouter un profil</legend>
+
+            <p>
+
+                {{ form_label(form.Nom, "Nom du suivi :", {'label_attr': {'class': 'labelFormulaireCreationSuivi'}}) }}
+                {{ form_errors(form.Nom) }}
+                {{ form_widget(form.Nom, {'attr': {'class': 'textFormulaireCreationSuivi'}}) }}
+
+                <br />
+
+                {{ form_label(form.Agence, "Agence :", {'label_attr': {'class': 'labelFormulaireCreationSuivi'}}) }}
+                {{ form_errors(form.Agence) }}
+                {{ form_widget(form.Agence, {'attr': {'class': 'textFormulaireCreationSuivi'}}) }}
+
+                <br />
+
+                {{ form_label(form.NumeroGX, "Numéro GX :", {'label_attr': {'class': 'labelFormulaireCreationSuivi'}}) }}
+                {{ form_errors(form.NumeroGX) }}
+                {{ form_widget(form.NumeroGX, {'attr': {'class': 'textFormulaireCreationSuivi'}}) }}
+
+                <br />
+
+                {{ form_label(form.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireCreationSuivi'}}) }}
+                {{ form_errors(form.Profil) }}
+                {{ form_widget(form.Profil, {'attr': {'class': 'selectFormulaireCreationSuivi'}}) }}
+
+                {{ form_widget(form._token) }}
+
+                <br />
+
+                {{ form_widget(form.Créer, {'label': 'Créer profil', 'attr': {'class': 'submitFormulaireCreationSuivi', 'class': 'boutonFormulaire' }}) }}
+
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}

@@ -24,23 +24,23 @@ class __TwigTemplate_cc6fc5836cc70ea054b5b9ce71fd0047ef18d71799ade71cea05480273a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b6639561e7ac241667f93e9c1e489ca69321e6a8f29151a244e45b9faa42d416 = $this->env->getExtension("native_profiler");
-        $__internal_b6639561e7ac241667f93e9c1e489ca69321e6a8f29151a244e45b9faa42d416->enter($__internal_b6639561e7ac241667f93e9c1e489ca69321e6a8f29151a244e45b9faa42d416_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@WebProfiler/Collector/translation.html.twig"));
+        $__internal_283289a6cf2a71517e506bafb22f98d62f7eb62302382b3d0cd9949ca0794cfa = $this->env->getExtension("native_profiler");
+        $__internal_283289a6cf2a71517e506bafb22f98d62f7eb62302382b3d0cd9949ca0794cfa->enter($__internal_283289a6cf2a71517e506bafb22f98d62f7eb62302382b3d0cd9949ca0794cfa_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@WebProfiler/Collector/translation.html.twig"));
 
         // line 3
-        $context["translator"] = $this;
+        $context["helper"] = $this;
         // line 1
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_b6639561e7ac241667f93e9c1e489ca69321e6a8f29151a244e45b9faa42d416->leave($__internal_b6639561e7ac241667f93e9c1e489ca69321e6a8f29151a244e45b9faa42d416_prof);
+        $__internal_283289a6cf2a71517e506bafb22f98d62f7eb62302382b3d0cd9949ca0794cfa->leave($__internal_283289a6cf2a71517e506bafb22f98d62f7eb62302382b3d0cd9949ca0794cfa_prof);
 
     }
 
     // line 5
     public function block_toolbar($context, array $blocks = array())
     {
-        $__internal_86193bbfe113307278fe9456bc5a602f9c471d4ff17e0aefe8a1b7a23bf2271d = $this->env->getExtension("native_profiler");
-        $__internal_86193bbfe113307278fe9456bc5a602f9c471d4ff17e0aefe8a1b7a23bf2271d->enter($__internal_86193bbfe113307278fe9456bc5a602f9c471d4ff17e0aefe8a1b7a23bf2271d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
+        $__internal_af906a2e392be3ddf5e503daf1ed62d60e19de308f0f9bc704d9ddbbe3e7d3e0 = $this->env->getExtension("native_profiler");
+        $__internal_af906a2e392be3ddf5e503daf1ed62d60e19de308f0f9bc704d9ddbbe3e7d3e0->enter($__internal_af906a2e392be3ddf5e503daf1ed62d60e19de308f0f9bc704d9ddbbe3e7d3e0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
 
         // line 6
         echo "    ";
@@ -49,234 +49,322 @@ class __TwigTemplate_cc6fc5836cc70ea054b5b9ce71fd0047ef18d71799ade71cea05480273a
             echo "        ";
             ob_start();
             // line 8
-            echo "            <svg width=\"28\" height=\"28\" version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 417 300\" enable-background=\"new 0 0 417 300\" xml:space=\"preserve\"><g id=\"Layer_1_1_\"><g id=\"outline_1_\"><path fill=\"#B5B5B6\" d=\"M275.9,145c0,18.2-14.799,33-33,33H120.701l-36.3,42l-0.3-42H40c-18.2,0-33-14.8-33-33V44c0-18.2,14.8-33,33-33h202.9c18.199,0,33,14.8,33,33V145L275.9,145z\"/></g><g enable-background=\"new\"><path fill=\"#FFFFFF\" d=\"M194.501,146.962h-23.898l-9.5-24.715h-43.492l-8.98,24.715H85.326l42.379-108.805h23.23L194.501,146.962zM154.052,103.915L139.06,63.54l-14.695,40.375H154.052z\"/></g></g><g id=\"Layer_2_1_\"><g id=\"japanese\"><g id=\"outline\"><path fill=\"#414141\" d=\"M141.451,214c0,18.2,14.8,33,33,33h122.2l36.301,42l0.301-42h44.1c18.201,0,33-14.8,33-33V113c0-18.2-14.799-33-33-33H174.453c-18.201,0-33,14.8-33,33L141.451,214L141.451,214z\"/></g><g enable-background=\"new\"><path fill=\"#FFFFFF\" d=\"M312.158,143.327c-0.455,1.672-0.912,3.344-1.215,5.016c22.039,6.08,31.766,21.431,31.766,38.455c0,24.318-18.238,40.733-57.301,45.598c-1.217-3.952-5.016-11.248-7.904-15.352c27.359-3.04,45.295-12.159,45.295-29.791c0-5.016-1.672-16.871-18.088-22.19c-6.688,15.199-16.871,29.335-28.727,39.519c0.607,1.976,1.367,3.647,2.127,5.167l-15.654,10.032c-0.76-1.521-1.52-3.192-2.129-5.017c-7.6,4.256-15.959,6.992-24.471,6.992c-13.375,0-22.189-8.512-22.189-22.647c0-20.975,16.111-37.542,37.693-46.357c-0.305-6.536-0.305-13.223-0.305-20.215c-11.398,0.304-23.711,0.608-29.789,0.456l-0.912-17.783c6.99,0.152,19.758,0.152,31.006,0.152c0.305-6.536,0.457-14.135,0.76-20.519l23.863,1.824c-0.305,1.52-1.52,2.736-4.104,3.04c-0.457,4.408-0.76,10.184-1.217,15.047c16.568-0.76,37.391-2.736,54.262-6.384l1.672,18.391c-16.719,3.04-38.605,4.56-56.846,5.168c-0.15,5.319-0.303,10.487-0.303,15.503c6.383-1.52,15.654-2.432,22.799-1.976c0.607-2.28,1.063-4.56,1.215-6.84L312.158,143.327z M255.77,198.044c-1.672-8.056-2.736-17.479-3.496-27.814c-12.008,5.927-20.215,15.199-20.215,25.382c0,8.664,6.535,8.36,8.512,8.209C245.281,203.668,250.449,201.539,255.77,198.044zM286.473,162.021c-2.129-0.304-10.033,0.305-16.871,2.128c0.455,7.6,0.91,14.591,1.975,20.671C277.504,178.589,282.672,170.686,286.473,162.021z\"/></g></g></g></svg>
+            echo "            ";
+            echo twig_include($this->env, $context, "@WebProfiler/Icon/translation.svg");
+            echo "
             ";
             // line 9
-            if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countMissings", array())) {
-                // line 10
-                echo "                ";
-                $context["status_color"] = "red";
-                // line 11
-                echo "            ";
-            } elseif ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countFallbacks", array())) {
-                // line 12
-                echo "                ";
-                $context["status_color"] = "yellow";
-                // line 13
-                echo "            ";
-            }
-            // line 14
+            $context["status_color"] = (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countMissings", array())) ? ("red") : ((($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countFallbacks", array())) ? ("yellow") : (""))));
+            // line 10
             echo "            ";
             $context["error_count"] = ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countMissings", array()) + $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countFallbacks", array()));
-            // line 15
-            echo "            <span class=\"sf-toolbar-status";
-            if (array_key_exists("status_color", $context)) {
-                echo " sf-toolbar-status-";
-                echo twig_escape_filter($this->env, (isset($context["status_color"]) ? $context["status_color"] : $this->getContext($context, "status_color")), "html", null, true);
-            }
-            echo "\">";
+            // line 11
+            echo "            <span class=\"sf-toolbar-value\">";
             echo twig_escape_filter($this->env, (((isset($context["error_count"]) ? $context["error_count"] : $this->getContext($context, "error_count"))) ? ((isset($context["error_count"]) ? $context["error_count"] : $this->getContext($context, "error_count"))) : ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countdefines", array()))), "html", null, true);
             echo "</span>
         ";
             $context["icon"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-            // line 17
-            echo "        ";
+            // line 13
+            echo "
+        ";
+            // line 14
             ob_start();
+            // line 15
+            echo "            <div class=\"sf-toolbar-info-piece\">
+                <b>Missing messages</b>
+                <span class=\"sf-toolbar-status sf-toolbar-status-";
+            // line 17
+            echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countMissings", array())) ? ("red") : (""));
+            echo "\">
+                    ";
             // line 18
-            echo "            ";
-            if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countMissings", array())) {
-                // line 19
-                echo "                <div class=\"sf-toolbar-info-piece\">
-                    <b>Missing messages</b>
-                    <span class=\"sf-toolbar-status sf-toolbar-status-red\">";
-                // line 21
-                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countMissings", array()), "html", null, true);
-                echo "</span>
-                </div>
-            ";
-            }
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countMissings", array()), "html", null, true);
+            echo "
+                </span>
+            </div>
+
+            <div class=\"sf-toolbar-info-piece\">
+                <b>Fallback messages</b>
+                <span class=\"sf-toolbar-status sf-toolbar-status-";
             // line 24
-            echo "            ";
-            if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countFallbacks", array())) {
-                // line 25
-                echo "                <div class=\"sf-toolbar-info-piece\">
-                    <b>Fallback messages</b>
-                    <span class=\"sf-toolbar-status sf-toolbar-status-yellow\">";
-                // line 27
-                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countFallbacks", array()), "html", null, true);
-                echo "</span>
-                </div>
-            ";
-            }
-            // line 30
-            echo "            ";
-            if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countdefines", array())) {
-                // line 31
-                echo "                <div class=\"sf-toolbar-info-piece\">
-                    <b>Defined messages</b>
-                    <span class=\"sf-toolbar-status sf-toolbar-status-green\">";
-                // line 33
-                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countdefines", array()), "html", null, true);
-                echo "</span>
-                </div>
-            ";
-            }
-            // line 36
-            echo "        ";
+            echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countFallbacks", array())) ? ("yellow") : (""));
+            echo "\">
+                    ";
+            // line 25
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countFallbacks", array()), "html", null, true);
+            echo "
+                </span>
+            </div>
+
+            <div class=\"sf-toolbar-info-piece\">
+                <b>Defined messages</b>
+                <span class=\"sf-toolbar-status\">";
+            // line 31
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countdefines", array()), "html", null, true);
+            echo "</span>
+            </div>
+        ";
             $context["text"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-            // line 37
-            echo "        ";
-            $this->loadTemplate("@WebProfiler/Profiler/toolbar_item.html.twig", "@WebProfiler/Collector/translation.html.twig", 37)->display(array_merge($context, array("link" => (isset($context["profiler_url"]) ? $context["profiler_url"] : $this->getContext($context, "profiler_url")))));
-            // line 38
-            echo "    ";
+            // line 34
+            echo "
+        ";
+            // line 35
+            echo twig_include($this->env, $context, "@WebProfiler/Profiler/toolbar_item.html.twig", array("link" => (isset($context["profiler_url"]) ? $context["profiler_url"] : $this->getContext($context, "profiler_url")), "status" => (isset($context["status_color"]) ? $context["status_color"] : $this->getContext($context, "status_color"))));
+            echo "
+    ";
         }
         
-        $__internal_86193bbfe113307278fe9456bc5a602f9c471d4ff17e0aefe8a1b7a23bf2271d->leave($__internal_86193bbfe113307278fe9456bc5a602f9c471d4ff17e0aefe8a1b7a23bf2271d_prof);
+        $__internal_af906a2e392be3ddf5e503daf1ed62d60e19de308f0f9bc704d9ddbbe3e7d3e0->leave($__internal_af906a2e392be3ddf5e503daf1ed62d60e19de308f0f9bc704d9ddbbe3e7d3e0_prof);
 
     }
 
-    // line 41
+    // line 39
     public function block_menu($context, array $blocks = array())
     {
-        $__internal_7e66668965e543a0baac0e6b2343592c73fe0d3333e063debdc867bb8af5945b = $this->env->getExtension("native_profiler");
-        $__internal_7e66668965e543a0baac0e6b2343592c73fe0d3333e063debdc867bb8af5945b->enter($__internal_7e66668965e543a0baac0e6b2343592c73fe0d3333e063debdc867bb8af5945b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
+        $__internal_780d2a31cfd9fcb89f621e9c924bc098d8ac34c198aa458ba474e23a6e8ea192 = $this->env->getExtension("native_profiler");
+        $__internal_780d2a31cfd9fcb89f621e9c924bc098d8ac34c198aa458ba474e23a6e8ea192->enter($__internal_780d2a31cfd9fcb89f621e9c924bc098d8ac34c198aa458ba474e23a6e8ea192_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
 
-        // line 42
-        echo "<span class=\"label\">
-    <span class=\"icon\"><svg width=\"35\" height=\"28\" version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 417 300\" enable-background=\"new 0 0 417 300\" xml:space=\"preserve\"><g id=\"Layer_1_1_\"><g id=\"outline_1_\"><path fill=\"#B5B5B6\" d=\"M275.9,145c0,18.2-14.799,33-33,33H120.701l-36.3,42l-0.3-42H40c-18.2,0-33-14.8-33-33V44c0-18.2,14.8-33,33-33h202.9c18.199,0,33,14.8,33,33V145L275.9,145z\"/></g><g enable-background=\"new\"><path fill=\"#FFFFFF\" d=\"M194.501,146.962h-23.898l-9.5-24.715h-43.492l-8.98,24.715H85.326l42.379-108.805h23.23L194.501,146.962zM154.052,103.915L139.06,63.54l-14.695,40.375H154.052z\"/></g></g><g id=\"Layer_2_1_\"><g id=\"japanese\"><g id=\"outline\"><path fill=\"#414141\" d=\"M141.451,214c0,18.2,14.8,33,33,33h122.2l36.301,42l0.301-42h44.1c18.201,0,33-14.8,33-33V113c0-18.2-14.799-33-33-33H174.453c-18.201,0-33,14.8-33,33L141.451,214L141.451,214z\"/></g><g enable-background=\"new\"><path fill=\"#FFFFFF\" d=\"M312.158,143.327c-0.455,1.672-0.912,3.344-1.215,5.016c22.039,6.08,31.766,21.431,31.766,38.455c0,24.318-18.238,40.733-57.301,45.598c-1.217-3.952-5.016-11.248-7.904-15.352c27.359-3.04,45.295-12.159,45.295-29.791c0-5.016-1.672-16.871-18.088-22.19c-6.688,15.199-16.871,29.335-28.727,39.519c0.607,1.976,1.367,3.647,2.127,5.167l-15.654,10.032c-0.76-1.521-1.52-3.192-2.129-5.017c-7.6,4.256-15.959,6.992-24.471,6.992c-13.375,0-22.189-8.512-22.189-22.647c0-20.975,16.111-37.542,37.693-46.357c-0.305-6.536-0.305-13.223-0.305-20.215c-11.398,0.304-23.711,0.608-29.789,0.456l-0.912-17.783c6.99,0.152,19.758,0.152,31.006,0.152c0.305-6.536,0.457-14.135,0.76-20.519l23.863,1.824c-0.305,1.52-1.52,2.736-4.104,3.04c-0.457,4.408-0.76,10.184-1.217,15.047c16.568-0.76,37.391-2.736,54.262-6.384l1.672,18.391c-16.719,3.04-38.605,4.56-56.846,5.168c-0.15,5.319-0.303,10.487-0.303,15.503c6.383-1.52,15.654-2.432,22.799-1.976c0.607-2.28,1.063-4.56,1.215-6.84L312.158,143.327z M255.77,198.044c-1.672-8.056-2.736-17.479-3.496-27.814c-12.008,5.927-20.215,15.199-20.215,25.382c0,8.664,6.535,8.36,8.512,8.209C245.281,203.668,250.449,201.539,255.77,198.044zM286.473,162.021c-2.129-0.304-10.033,0.305-16.871,2.128c0.455,7.6,0.91,14.591,1.975,20.671C277.504,178.589,282.672,170.686,286.473,162.021z\"/></g></g></g></svg></span>
-    <strong>Translation</strong>
-</span>
+        // line 40
+        echo "    <span class=\"label label-status-";
+        echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countMissings", array())) ? ("error") : ((($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countFallbacks", array())) ? ("warning") : (""))));
+        echo " ";
+        echo ((twig_test_empty($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "messages", array()))) ? ("disabled") : (""));
+        echo "\">
+        <span class=\"icon\">";
+        // line 41
+        echo twig_include($this->env, $context, "@WebProfiler/Icon/translation.svg");
+        echo "</span>
+        <strong>Translation</strong>
+        ";
+        // line 43
+        if (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countMissings", array()) || $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countFallbacks", array()))) {
+            // line 44
+            echo "            ";
+            $context["error_count"] = ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countMissings", array()) + $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countFallbacks", array()));
+            // line 45
+            echo "            <span class=\"count\">
+                <span>";
+            // line 46
+            echo twig_escape_filter($this->env, (isset($context["error_count"]) ? $context["error_count"] : $this->getContext($context, "error_count")), "html", null, true);
+            echo "</span>
+            </span>
+        ";
+        }
+        // line 49
+        echo "    </span>
 ";
         
-        $__internal_7e66668965e543a0baac0e6b2343592c73fe0d3333e063debdc867bb8af5945b->leave($__internal_7e66668965e543a0baac0e6b2343592c73fe0d3333e063debdc867bb8af5945b_prof);
+        $__internal_780d2a31cfd9fcb89f621e9c924bc098d8ac34c198aa458ba474e23a6e8ea192->leave($__internal_780d2a31cfd9fcb89f621e9c924bc098d8ac34c198aa458ba474e23a6e8ea192_prof);
 
     }
 
-    // line 48
+    // line 52
     public function block_panel($context, array $blocks = array())
     {
-        $__internal_d3391d703aabbeda1c8be0958e690e32c6fdf4c5eaf7eaa669366911adb36f40 = $this->env->getExtension("native_profiler");
-        $__internal_d3391d703aabbeda1c8be0958e690e32c6fdf4c5eaf7eaa669366911adb36f40->enter($__internal_d3391d703aabbeda1c8be0958e690e32c6fdf4c5eaf7eaa669366911adb36f40_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
+        $__internal_9baa80eb477772e8f40f5ee48509288be9c0466b979425d2d934a397fdee5c88 = $this->env->getExtension("native_profiler");
+        $__internal_9baa80eb477772e8f40f5ee48509288be9c0466b979425d2d934a397fdee5c88->enter($__internal_9baa80eb477772e8f40f5ee48509288be9c0466b979425d2d934a397fdee5c88_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
 
-        // line 49
+        // line 53
         echo "    ";
         if (twig_test_empty($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "messages", array()))) {
-            // line 50
+            // line 54
             echo "        <h2>Translations</h2>
-        <p>
-            <em>No translations have been called.</em>
-        </p>
+        <div class=\"empty\">
+            <p>No translations have been called.</p>
+        </div>
     ";
         } else {
-            // line 55
+            // line 59
             echo "        ";
             $this->displayBlock("panelContent", $context, $blocks);
             echo "
     ";
         }
         
-        $__internal_d3391d703aabbeda1c8be0958e690e32c6fdf4c5eaf7eaa669366911adb36f40->leave($__internal_d3391d703aabbeda1c8be0958e690e32c6fdf4c5eaf7eaa669366911adb36f40_prof);
+        $__internal_9baa80eb477772e8f40f5ee48509288be9c0466b979425d2d934a397fdee5c88->leave($__internal_9baa80eb477772e8f40f5ee48509288be9c0466b979425d2d934a397fdee5c88_prof);
 
     }
 
-    // line 59
+    // line 63
     public function block_panelContent($context, array $blocks = array())
     {
-        $__internal_614c37c005530f5b9ff4521c05cb7e8293bdc4f8624387a77086e375516c2ff7 = $this->env->getExtension("native_profiler");
-        $__internal_614c37c005530f5b9ff4521c05cb7e8293bdc4f8624387a77086e375516c2ff7->enter($__internal_614c37c005530f5b9ff4521c05cb7e8293bdc4f8624387a77086e375516c2ff7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panelContent"));
+        $__internal_7754ea4e6f3e1c98465b99a3361bac76e3b16ca04a6ae2c067ee5bc222b8c3a2 = $this->env->getExtension("native_profiler");
+        $__internal_7754ea4e6f3e1c98465b99a3361bac76e3b16ca04a6ae2c067ee5bc222b8c3a2->enter($__internal_7754ea4e6f3e1c98465b99a3361bac76e3b16ca04a6ae2c067ee5bc222b8c3a2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panelContent"));
 
-        // line 60
-        echo "    <h2>Translation Stats</h2>
-    <table>
-        <tbody>
-            <tr>
-                <th>Defined messages</th>
-                <td><pre>";
-        // line 65
+        // line 64
+        echo "    <h2>Translation Metrics</h2>
+
+    <div class=\"metrics\">
+        <div class=\"metric\">
+            <span class=\"value\">";
+        // line 68
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countdefines", array()), "html", null, true);
-        echo "</pre></td>
-            </tr>
-            <tr>
-                <th scope=\"col\" style=\"width: 30%\">Fallback messages</th>
-                <td scope=\"col\" style=\"width: 60%\"><pre>";
-        // line 69
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countFallbacks", array()), "html", null, true);
-        echo "</pre></td>
-            </tr>
-            <tr>
-                <th>Missing messages</th>
-                <td><pre>";
-        // line 73
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countMissings", array()), "html", null, true);
-        echo "</pre></td>
-            </tr>
-        </tbody>
-    </table>
+        echo "</span>
+            <span class=\"label\">Defined messages</span>
+        </div>
 
-    <table>
-        <tr>
-            <th>State</th>
-            <th>Locale</th>
-            <th>Domain</th>
-            <th>Id</th>
-            <th>Message Preview</th>
-        </tr>
-        ";
+        <div class=\"metric\">
+            <span class=\"value\">";
+        // line 73
+        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countFallbacks", array()), "html", null, true);
+        echo "</span>
+            <span class=\"label\">Fallback messages</span>
+        </div>
+
+        <div class=\"metric\">
+            <span class=\"value\">";
+        // line 78
+        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "countMissings", array()), "html", null, true);
+        echo "</span>
+            <span class=\"label\">Missing messages</span>
+        </div>
+    </div>
+
+    <h2>Translation Messages</h2>
+
+    ";
         // line 86
+        echo "    ";
+        list($context["messages_defined"], $context["messages_missing"], $context["messages_fallback"]) =         array(array(), array(), array());
+        // line 87
+        echo "    ";
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "messages", array()));
         foreach ($context['_seq'] as $context["_key"] => $context["message"]) {
-            // line 87
-            echo "            <tr>
-                <td><code>";
             // line 88
-            echo $context["translator"]->getstate($context["message"]);
-            echo "</code></td>
-                <td><code>";
-            // line 89
-            echo twig_escape_filter($this->env, $this->getAttribute($context["message"], "locale", array()), "html", null, true);
-            echo "</code></td>
-                <td><code>";
-            // line 90
-            echo twig_escape_filter($this->env, $this->getAttribute($context["message"], "domain", array()), "html", null, true);
-            echo "</code></td>
-                <td>
-                    <code>";
-            // line 92
-            echo twig_escape_filter($this->env, $this->getAttribute($context["message"], "id", array()), "html", null, true);
-            echo "</code>
-                    ";
-            // line 93
-            if (($this->getAttribute($context["message"], "count", array()) > 1)) {
-                echo "<br><small style=\"color: gray;\">(used ";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["message"], "count", array()), "html", null, true);
-                echo " times)</small>";
+            echo "        ";
+            if (($this->getAttribute($context["message"], "state", array()) == twig_constant("Symfony\\Component\\Translation\\DataCollectorTranslator::MESSAGE_DEFINED"))) {
+                // line 89
+                echo "            ";
+                $context["messages_defined"] = twig_array_merge((isset($context["messages_defined"]) ? $context["messages_defined"] : $this->getContext($context, "messages_defined")), array(0 => $context["message"]));
+                // line 90
+                echo "        ";
+            } elseif (($this->getAttribute($context["message"], "state", array()) == twig_constant("Symfony\\Component\\Translation\\DataCollectorTranslator::MESSAGE_MISSING"))) {
+                // line 91
+                echo "            ";
+                $context["messages_missing"] = twig_array_merge((isset($context["messages_missing"]) ? $context["messages_missing"] : $this->getContext($context, "messages_missing")), array(0 => $context["message"]));
+                // line 92
+                echo "        ";
+            } elseif (($this->getAttribute($context["message"], "state", array()) == twig_constant("Symfony\\Component\\Translation\\DataCollectorTranslator::MESSAGE_EQUALS_FALLBACK"))) {
+                // line 93
+                echo "            ";
+                $context["messages_fallback"] = twig_array_merge((isset($context["messages_fallback"]) ? $context["messages_fallback"] : $this->getContext($context, "messages_fallback")), array(0 => $context["message"]));
+                // line 94
+                echo "        ";
             }
-            // line 94
-            echo "                </td>
-                <td><code>";
             // line 95
-            echo twig_escape_filter($this->env, $this->getAttribute($context["message"], "translation", array()), "html", null, true);
-            echo "</code></td>
-            </tr>
-        ";
+            echo "    ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['message'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 98
-        echo "    </table>
+        // line 96
+        echo "
+    <div class=\"sf-tabs\">
+        <div class=\"tab\">
+            <h3 class=\"tab-title\">Defined <span class=\"badge\">";
+        // line 99
+        echo twig_escape_filter($this->env, twig_length_filter($this->env, (isset($context["messages_defined"]) ? $context["messages_defined"] : $this->getContext($context, "messages_defined"))), "html", null, true);
+        echo "</span></h3>
+
+            <div class=\"tab-content\">
+                <p class=\"help\">
+                    These messages are correctly translated into the given locale.
+                </p>
+
+                ";
+        // line 106
+        if (twig_test_empty((isset($context["messages_defined"]) ? $context["messages_defined"] : $this->getContext($context, "messages_defined")))) {
+            // line 107
+            echo "                    <div class=\"empty\">
+                        <p>None of the used translation messages are defined for the given locale.</p>
+                    </div>
+                ";
+        } else {
+            // line 111
+            echo "                    ";
+            echo $context["helper"]->getrender_table((isset($context["messages_defined"]) ? $context["messages_defined"] : $this->getContext($context, "messages_defined")));
+            echo "
+                ";
+        }
+        // line 113
+        echo "            </div>
+        </div>
+
+        <div class=\"tab\">
+            <h3 class=\"tab-title\">Fallback <span class=\"badge\">";
+        // line 117
+        echo twig_escape_filter($this->env, twig_length_filter($this->env, (isset($context["messages_fallback"]) ? $context["messages_fallback"] : $this->getContext($context, "messages_fallback"))), "html", null, true);
+        echo "</span></h3>
+
+            <div class=\"tab-content\">
+                <p class=\"help\">
+                    These messages are not available for the given locale
+                    but Symfony found them in the fallback locale catalog.
+                </p>
+
+                ";
+        // line 125
+        if (twig_test_empty((isset($context["messages_fallback"]) ? $context["messages_fallback"] : $this->getContext($context, "messages_fallback")))) {
+            // line 126
+            echo "                    <div class=\"empty\">
+                        <p>No fallback translation messages were used.</p>
+                    </div>
+                ";
+        } else {
+            // line 130
+            echo "                    ";
+            echo $context["helper"]->getrender_table((isset($context["messages_fallback"]) ? $context["messages_fallback"] : $this->getContext($context, "messages_fallback")));
+            echo "
+                ";
+        }
+        // line 132
+        echo "            </div>
+        </div>
+
+        <div class=\"tab\">
+            <h3 class=\"tab-title\">Missing <span class=\"badge\">";
+        // line 136
+        echo twig_escape_filter($this->env, twig_length_filter($this->env, (isset($context["messages_missing"]) ? $context["messages_missing"] : $this->getContext($context, "messages_missing"))), "html", null, true);
+        echo "</span></h3>
+
+            <div class=\"tab-content\">
+                <p class=\"help\">
+                    These messages are not available for the given locale and cannot
+                    be found in the fallback locales. Add them to the translation
+                    catalogue to avoid Symfony outputting untranslated contents.
+                </p>
+
+                ";
+        // line 145
+        if (twig_test_empty((isset($context["messages_missing"]) ? $context["messages_missing"] : $this->getContext($context, "messages_missing")))) {
+            // line 146
+            echo "                    <div class=\"empty\">
+                        <p>There are no messages of this category.</p>
+                    </div>
+                ";
+        } else {
+            // line 150
+            echo "                    ";
+            echo $context["helper"]->getrender_table((isset($context["messages_missing"]) ? $context["messages_missing"] : $this->getContext($context, "messages_missing")));
+            echo "
+                ";
+        }
+        // line 152
+        echo "            </div>
+        </div>
+    </div>
 ";
         
-        $__internal_614c37c005530f5b9ff4521c05cb7e8293bdc4f8624387a77086e375516c2ff7->leave($__internal_614c37c005530f5b9ff4521c05cb7e8293bdc4f8624387a77086e375516c2ff7_prof);
+        $__internal_7754ea4e6f3e1c98465b99a3361bac76e3b16ca04a6ae2c067ee5bc222b8c3a2->leave($__internal_7754ea4e6f3e1c98465b99a3361bac76e3b16ca04a6ae2c067ee5bc222b8c3a2_prof);
 
     }
 
-    // line 101
-    public function getstate($__translation__ = null)
+    // line 157
+    public function getrender_table($__messages__ = null)
     {
         $context = $this->env->mergeGlobals(array(
-            "translation" => $__translation__,
+            "messages" => $__messages__,
             "varargs" => func_num_args() > 1 ? array_slice(func_get_args(), 1) : array(),
         ));
 
@@ -284,23 +372,151 @@ class __TwigTemplate_cc6fc5836cc70ea054b5b9ce71fd0047ef18d71799ade71cea05480273a
 
         ob_start();
         try {
-            $__internal_21c15899b8f37b2ca32a66f95cf18d8e139e02a20162b7b068cae1cd9ed53f58 = $this->env->getExtension("native_profiler");
-            $__internal_21c15899b8f37b2ca32a66f95cf18d8e139e02a20162b7b068cae1cd9ed53f58->enter($__internal_21c15899b8f37b2ca32a66f95cf18d8e139e02a20162b7b068cae1cd9ed53f58_prof = new Twig_Profiler_Profile($this->getTemplateName(), "macro", "state"));
+            $__internal_455022f0b3888ae862b96e3c2c9001ee38dc9caffc6001c1dcc36d0330d3a97d = $this->env->getExtension("native_profiler");
+            $__internal_455022f0b3888ae862b96e3c2c9001ee38dc9caffc6001c1dcc36d0330d3a97d->enter($__internal_455022f0b3888ae862b96e3c2c9001ee38dc9caffc6001c1dcc36d0330d3a97d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "macro", "render_table"));
 
-            // line 102
-            echo "    ";
-            if (($this->getAttribute((isset($context["translation"]) ? $context["translation"] : $this->getContext($context, "translation")), "state", array()) == twig_constant("Symfony\\Component\\Translation\\DataCollectorTranslator::MESSAGE_EQUALS_FALLBACK"))) {
-                // line 103
-                echo "        same as fallback
-    ";
-            } elseif (($this->getAttribute(            // line 104
-(isset($context["translation"]) ? $context["translation"] : $this->getContext($context, "translation")), "state", array()) == twig_constant("Symfony\\Component\\Translation\\DataCollectorTranslator::MESSAGE_MISSING"))) {
-                // line 105
-                echo "        missing
-    ";
+            // line 158
+            echo "    <table>
+        <thead>
+            <tr>
+                <th>Locale</th>
+                <th>Domain</th>
+                <th>Times used</th>
+                <th>Message ID</th>
+                <th>Message Preview</th>
+            </tr>
+        </thead>
+        <tbody>
+        ";
+            // line 169
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable((isset($context["messages"]) ? $context["messages"] : $this->getContext($context, "messages")));
+            $context['loop'] = array(
+              'parent' => $context['_parent'],
+              'index0' => 0,
+              'index'  => 1,
+              'first'  => true,
+            );
+            if (is_array($context['_seq']) || (is_object($context['_seq']) && $context['_seq'] instanceof Countable)) {
+                $length = count($context['_seq']);
+                $context['loop']['revindex0'] = $length - 1;
+                $context['loop']['revindex'] = $length;
+                $context['loop']['length'] = $length;
+                $context['loop']['last'] = 1 === $length;
             }
+            foreach ($context['_seq'] as $context["_key"] => $context["message"]) {
+                // line 170
+                echo "            <tr>
+                <td class=\"font-normal text-small\">";
+                // line 171
+                echo twig_escape_filter($this->env, $this->getAttribute($context["message"], "locale", array()), "html", null, true);
+                echo "</td>
+                <td class=\"font-normal text-small text-bold\">";
+                // line 172
+                echo twig_escape_filter($this->env, $this->getAttribute($context["message"], "domain", array()), "html", null, true);
+                echo "</td>
+                <td class=\"font-normal text-small\">";
+                // line 173
+                echo twig_escape_filter($this->env, $this->getAttribute($context["message"], "count", array()), "html", null, true);
+                echo "</td>
+                <td>
+                    ";
+                // line 175
+                echo twig_escape_filter($this->env, $this->getAttribute($context["message"], "id", array()), "html", null, true);
+                echo "
+
+                    ";
+                // line 177
+                if ( !(null === $this->getAttribute($context["message"], "transChoiceNumber", array()))) {
+                    // line 178
+                    echo "                        <small class=\"newline\">(pluralization is used)</small>
+                    ";
+                }
+                // line 180
+                echo "
+                    ";
+                // line 181
+                if ((twig_length_filter($this->env, $this->getAttribute($context["message"], "parameters", array())) > 0)) {
+                    // line 182
+                    echo "                        <button class=\"btn-link newline text-small sf-toggle\" data-toggle-selector=\"#parameters-";
+                    echo twig_escape_filter($this->env, $this->getAttribute($context["loop"], "index", array()), "html", null, true);
+                    echo "\" data-toggle-alt-content=\"Hide parameters\">Show parameters</button>
+
+                        <div id=\"parameters-";
+                    // line 184
+                    echo twig_escape_filter($this->env, $this->getAttribute($context["loop"], "index", array()), "html", null, true);
+                    echo "\" class=\"hidden\">
+                            ";
+                    // line 185
+                    $context['_parent'] = $context;
+                    $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["message"], "parameters", array()));
+                    $context['loop'] = array(
+                      'parent' => $context['_parent'],
+                      'index0' => 0,
+                      'index'  => 1,
+                      'first'  => true,
+                    );
+                    if (is_array($context['_seq']) || (is_object($context['_seq']) && $context['_seq'] instanceof Countable)) {
+                        $length = count($context['_seq']);
+                        $context['loop']['revindex0'] = $length - 1;
+                        $context['loop']['revindex'] = $length;
+                        $context['loop']['length'] = $length;
+                        $context['loop']['last'] = 1 === $length;
+                    }
+                    foreach ($context['_seq'] as $context["_key"] => $context["parameters"]) {
+                        // line 186
+                        echo "                                ";
+                        echo twig_escape_filter($this->env, $this->env->getExtension('profiler')->dumpValue($context["parameters"]), "html", null, true);
+                        echo "
+                                ";
+                        // line 187
+                        if ( !$this->getAttribute($context["loop"], "last", array())) {
+                            echo "<br />";
+                        }
+                        // line 188
+                        echo "                            ";
+                        ++$context['loop']['index0'];
+                        ++$context['loop']['index'];
+                        $context['loop']['first'] = false;
+                        if (isset($context['loop']['length'])) {
+                            --$context['loop']['revindex0'];
+                            --$context['loop']['revindex'];
+                            $context['loop']['last'] = 0 === $context['loop']['revindex0'];
+                        }
+                    }
+                    $_parent = $context['_parent'];
+                    unset($context['_seq'], $context['_iterated'], $context['_key'], $context['parameters'], $context['_parent'], $context['loop']);
+                    $context = array_intersect_key($context, $_parent) + $_parent;
+                    // line 189
+                    echo "                        </div>
+                    ";
+                }
+                // line 191
+                echo "                </td>
+                <td>";
+                // line 192
+                echo twig_escape_filter($this->env, $this->getAttribute($context["message"], "translation", array()), "html", null, true);
+                echo "</td>
+            </tr>
+        ";
+                ++$context['loop']['index0'];
+                ++$context['loop']['index'];
+                $context['loop']['first'] = false;
+                if (isset($context['loop']['length'])) {
+                    --$context['loop']['revindex0'];
+                    --$context['loop']['revindex'];
+                    $context['loop']['last'] = 0 === $context['loop']['revindex0'];
+                }
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['message'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 195
+            echo "        </tbody>
+    </table>
+";
             
-            $__internal_21c15899b8f37b2ca32a66f95cf18d8e139e02a20162b7b068cae1cd9ed53f58->leave($__internal_21c15899b8f37b2ca32a66f95cf18d8e139e02a20162b7b068cae1cd9ed53f58_prof);
+            $__internal_455022f0b3888ae862b96e3c2c9001ee38dc9caffc6001c1dcc36d0330d3a97d->leave($__internal_455022f0b3888ae862b96e3c2c9001ee38dc9caffc6001c1dcc36d0330d3a97d_prof);
 
         } catch (Exception $e) {
             ob_end_clean();
@@ -323,114 +539,204 @@ class __TwigTemplate_cc6fc5836cc70ea054b5b9ce71fd0047ef18d71799ade71cea05480273a
 
     public function getDebugInfo()
     {
-        return array (  299 => 105,  297 => 104,  294 => 103,  291 => 102,  276 => 101,  268 => 98,  259 => 95,  256 => 94,  250 => 93,  246 => 92,  241 => 90,  237 => 89,  233 => 88,  230 => 87,  226 => 86,  210 => 73,  203 => 69,  196 => 65,  189 => 60,  183 => 59,  172 => 55,  165 => 50,  162 => 49,  156 => 48,  145 => 42,  139 => 41,  131 => 38,  128 => 37,  125 => 36,  119 => 33,  115 => 31,  112 => 30,  106 => 27,  102 => 25,  99 => 24,  93 => 21,  89 => 19,  86 => 18,  83 => 17,  72 => 15,  69 => 14,  66 => 13,  63 => 12,  60 => 11,  57 => 10,  55 => 9,  52 => 8,  49 => 7,  46 => 6,  40 => 5,  33 => 1,  31 => 3,  11 => 1,);
+        return array (  515 => 195,  498 => 192,  495 => 191,  491 => 189,  477 => 188,  473 => 187,  468 => 186,  451 => 185,  447 => 184,  441 => 182,  439 => 181,  436 => 180,  432 => 178,  430 => 177,  425 => 175,  420 => 173,  416 => 172,  412 => 171,  409 => 170,  392 => 169,  379 => 158,  364 => 157,  354 => 152,  348 => 150,  342 => 146,  340 => 145,  328 => 136,  322 => 132,  316 => 130,  310 => 126,  308 => 125,  297 => 117,  291 => 113,  285 => 111,  279 => 107,  277 => 106,  267 => 99,  262 => 96,  256 => 95,  253 => 94,  250 => 93,  247 => 92,  244 => 91,  241 => 90,  238 => 89,  235 => 88,  230 => 87,  227 => 86,  217 => 78,  209 => 73,  201 => 68,  195 => 64,  189 => 63,  178 => 59,  171 => 54,  168 => 53,  162 => 52,  154 => 49,  148 => 46,  145 => 45,  142 => 44,  140 => 43,  135 => 41,  128 => 40,  122 => 39,  112 => 35,  109 => 34,  103 => 31,  94 => 25,  90 => 24,  81 => 18,  77 => 17,  73 => 15,  71 => 14,  68 => 13,  62 => 11,  59 => 10,  57 => 9,  52 => 8,  49 => 7,  46 => 6,  40 => 5,  33 => 1,  31 => 3,  11 => 1,);
     }
 }
 /* {% extends '@WebProfiler/Profiler/layout.html.twig' %}*/
 /* */
-/* {% import _self as translator %}*/
+/* {% import _self as helper %}*/
 /* */
 /* {% block toolbar %}*/
 /*     {% if collector.messages|length %}*/
 /*         {% set icon %}*/
-/*             <svg width="28" height="28" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 417 300" enable-background="new 0 0 417 300" xml:space="preserve"><g id="Layer_1_1_"><g id="outline_1_"><path fill="#B5B5B6" d="M275.9,145c0,18.2-14.799,33-33,33H120.701l-36.3,42l-0.3-42H40c-18.2,0-33-14.8-33-33V44c0-18.2,14.8-33,33-33h202.9c18.199,0,33,14.8,33,33V145L275.9,145z"/></g><g enable-background="new"><path fill="#FFFFFF" d="M194.501,146.962h-23.898l-9.5-24.715h-43.492l-8.98,24.715H85.326l42.379-108.805h23.23L194.501,146.962zM154.052,103.915L139.06,63.54l-14.695,40.375H154.052z"/></g></g><g id="Layer_2_1_"><g id="japanese"><g id="outline"><path fill="#414141" d="M141.451,214c0,18.2,14.8,33,33,33h122.2l36.301,42l0.301-42h44.1c18.201,0,33-14.8,33-33V113c0-18.2-14.799-33-33-33H174.453c-18.201,0-33,14.8-33,33L141.451,214L141.451,214z"/></g><g enable-background="new"><path fill="#FFFFFF" d="M312.158,143.327c-0.455,1.672-0.912,3.344-1.215,5.016c22.039,6.08,31.766,21.431,31.766,38.455c0,24.318-18.238,40.733-57.301,45.598c-1.217-3.952-5.016-11.248-7.904-15.352c27.359-3.04,45.295-12.159,45.295-29.791c0-5.016-1.672-16.871-18.088-22.19c-6.688,15.199-16.871,29.335-28.727,39.519c0.607,1.976,1.367,3.647,2.127,5.167l-15.654,10.032c-0.76-1.521-1.52-3.192-2.129-5.017c-7.6,4.256-15.959,6.992-24.471,6.992c-13.375,0-22.189-8.512-22.189-22.647c0-20.975,16.111-37.542,37.693-46.357c-0.305-6.536-0.305-13.223-0.305-20.215c-11.398,0.304-23.711,0.608-29.789,0.456l-0.912-17.783c6.99,0.152,19.758,0.152,31.006,0.152c0.305-6.536,0.457-14.135,0.76-20.519l23.863,1.824c-0.305,1.52-1.52,2.736-4.104,3.04c-0.457,4.408-0.76,10.184-1.217,15.047c16.568-0.76,37.391-2.736,54.262-6.384l1.672,18.391c-16.719,3.04-38.605,4.56-56.846,5.168c-0.15,5.319-0.303,10.487-0.303,15.503c6.383-1.52,15.654-2.432,22.799-1.976c0.607-2.28,1.063-4.56,1.215-6.84L312.158,143.327z M255.77,198.044c-1.672-8.056-2.736-17.479-3.496-27.814c-12.008,5.927-20.215,15.199-20.215,25.382c0,8.664,6.535,8.36,8.512,8.209C245.281,203.668,250.449,201.539,255.77,198.044zM286.473,162.021c-2.129-0.304-10.033,0.305-16.871,2.128c0.455,7.6,0.91,14.591,1.975,20.671C277.504,178.589,282.672,170.686,286.473,162.021z"/></g></g></g></svg>*/
-/*             {% if collector.countMissings %}*/
-/*                 {% set status_color = "red" %}*/
-/*             {% elseif collector.countFallbacks %}*/
-/*                 {% set status_color = "yellow" %}*/
-/*             {% endif %}*/
+/*             {{ include('@WebProfiler/Icon/translation.svg') }}*/
+/*             {% set status_color = collector.countMissings ? 'red' : collector.countFallbacks ? 'yellow' %}*/
 /*             {% set error_count = collector.countMissings + collector.countFallbacks %}*/
-/*             <span class="sf-toolbar-status{% if status_color is defined %} sf-toolbar-status-{{ status_color }}{% endif %}">{{ error_count ?: collector.countdefines }}</span>*/
+/*             <span class="sf-toolbar-value">{{ error_count ?: collector.countdefines }}</span>*/
 /*         {% endset %}*/
+/* */
 /*         {% set text %}*/
-/*             {% if collector.countMissings %}*/
-/*                 <div class="sf-toolbar-info-piece">*/
-/*                     <b>Missing messages</b>*/
-/*                     <span class="sf-toolbar-status sf-toolbar-status-red">{{ collector.countMissings }}</span>*/
-/*                 </div>*/
-/*             {% endif %}*/
-/*             {% if collector.countFallbacks %}*/
-/*                 <div class="sf-toolbar-info-piece">*/
-/*                     <b>Fallback messages</b>*/
-/*                     <span class="sf-toolbar-status sf-toolbar-status-yellow">{{ collector.countFallbacks }}</span>*/
-/*                 </div>*/
-/*             {% endif %}*/
-/*             {% if collector.countdefines %}*/
-/*                 <div class="sf-toolbar-info-piece">*/
-/*                     <b>Defined messages</b>*/
-/*                     <span class="sf-toolbar-status sf-toolbar-status-green">{{ collector.countdefines }}</span>*/
-/*                 </div>*/
-/*             {% endif %}*/
+/*             <div class="sf-toolbar-info-piece">*/
+/*                 <b>Missing messages</b>*/
+/*                 <span class="sf-toolbar-status sf-toolbar-status-{{ collector.countMissings ? 'red' }}">*/
+/*                     {{ collector.countMissings }}*/
+/*                 </span>*/
+/*             </div>*/
+/* */
+/*             <div class="sf-toolbar-info-piece">*/
+/*                 <b>Fallback messages</b>*/
+/*                 <span class="sf-toolbar-status sf-toolbar-status-{{ collector.countFallbacks ? 'yellow' }}">*/
+/*                     {{ collector.countFallbacks }}*/
+/*                 </span>*/
+/*             </div>*/
+/* */
+/*             <div class="sf-toolbar-info-piece">*/
+/*                 <b>Defined messages</b>*/
+/*                 <span class="sf-toolbar-status">{{ collector.countdefines }}</span>*/
+/*             </div>*/
 /*         {% endset %}*/
-/*         {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': profiler_url } %}*/
+/* */
+/*         {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: profiler_url, status: status_color }) }}*/
 /*     {% endif %}*/
 /* {% endblock %}*/
 /* */
 /* {% block menu %}*/
-/* <span class="label">*/
-/*     <span class="icon"><svg width="35" height="28" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 417 300" enable-background="new 0 0 417 300" xml:space="preserve"><g id="Layer_1_1_"><g id="outline_1_"><path fill="#B5B5B6" d="M275.9,145c0,18.2-14.799,33-33,33H120.701l-36.3,42l-0.3-42H40c-18.2,0-33-14.8-33-33V44c0-18.2,14.8-33,33-33h202.9c18.199,0,33,14.8,33,33V145L275.9,145z"/></g><g enable-background="new"><path fill="#FFFFFF" d="M194.501,146.962h-23.898l-9.5-24.715h-43.492l-8.98,24.715H85.326l42.379-108.805h23.23L194.501,146.962zM154.052,103.915L139.06,63.54l-14.695,40.375H154.052z"/></g></g><g id="Layer_2_1_"><g id="japanese"><g id="outline"><path fill="#414141" d="M141.451,214c0,18.2,14.8,33,33,33h122.2l36.301,42l0.301-42h44.1c18.201,0,33-14.8,33-33V113c0-18.2-14.799-33-33-33H174.453c-18.201,0-33,14.8-33,33L141.451,214L141.451,214z"/></g><g enable-background="new"><path fill="#FFFFFF" d="M312.158,143.327c-0.455,1.672-0.912,3.344-1.215,5.016c22.039,6.08,31.766,21.431,31.766,38.455c0,24.318-18.238,40.733-57.301,45.598c-1.217-3.952-5.016-11.248-7.904-15.352c27.359-3.04,45.295-12.159,45.295-29.791c0-5.016-1.672-16.871-18.088-22.19c-6.688,15.199-16.871,29.335-28.727,39.519c0.607,1.976,1.367,3.647,2.127,5.167l-15.654,10.032c-0.76-1.521-1.52-3.192-2.129-5.017c-7.6,4.256-15.959,6.992-24.471,6.992c-13.375,0-22.189-8.512-22.189-22.647c0-20.975,16.111-37.542,37.693-46.357c-0.305-6.536-0.305-13.223-0.305-20.215c-11.398,0.304-23.711,0.608-29.789,0.456l-0.912-17.783c6.99,0.152,19.758,0.152,31.006,0.152c0.305-6.536,0.457-14.135,0.76-20.519l23.863,1.824c-0.305,1.52-1.52,2.736-4.104,3.04c-0.457,4.408-0.76,10.184-1.217,15.047c16.568-0.76,37.391-2.736,54.262-6.384l1.672,18.391c-16.719,3.04-38.605,4.56-56.846,5.168c-0.15,5.319-0.303,10.487-0.303,15.503c6.383-1.52,15.654-2.432,22.799-1.976c0.607-2.28,1.063-4.56,1.215-6.84L312.158,143.327z M255.77,198.044c-1.672-8.056-2.736-17.479-3.496-27.814c-12.008,5.927-20.215,15.199-20.215,25.382c0,8.664,6.535,8.36,8.512,8.209C245.281,203.668,250.449,201.539,255.77,198.044zM286.473,162.021c-2.129-0.304-10.033,0.305-16.871,2.128c0.455,7.6,0.91,14.591,1.975,20.671C277.504,178.589,282.672,170.686,286.473,162.021z"/></g></g></g></svg></span>*/
-/*     <strong>Translation</strong>*/
-/* </span>*/
+/*     <span class="label label-status-{{ collector.countMissings ? 'error' : collector.countFallbacks ? 'warning' }} {{ collector.messages is empty ? 'disabled' }}">*/
+/*         <span class="icon">{{ include('@WebProfiler/Icon/translation.svg') }}</span>*/
+/*         <strong>Translation</strong>*/
+/*         {% if collector.countMissings or collector.countFallbacks %}*/
+/*             {% set error_count = collector.countMissings + collector.countFallbacks %}*/
+/*             <span class="count">*/
+/*                 <span>{{ error_count }}</span>*/
+/*             </span>*/
+/*         {% endif %}*/
+/*     </span>*/
 /* {% endblock %}*/
 /* */
 /* {% block panel %}*/
 /*     {% if collector.messages is empty %}*/
 /*         <h2>Translations</h2>*/
-/*         <p>*/
-/*             <em>No translations have been called.</em>*/
-/*         </p>*/
+/*         <div class="empty">*/
+/*             <p>No translations have been called.</p>*/
+/*         </div>*/
 /*     {% else %}*/
 /*         {{ block('panelContent') }}*/
 /*     {% endif %}*/
 /* {% endblock %}*/
 /* */
 /* {% block panelContent %}*/
-/*     <h2>Translation Stats</h2>*/
-/*     <table>*/
-/*         <tbody>*/
-/*             <tr>*/
-/*                 <th>Defined messages</th>*/
-/*                 <td><pre>{{ collector.countdefines }}</pre></td>*/
-/*             </tr>*/
-/*             <tr>*/
-/*                 <th scope="col" style="width: 30%">Fallback messages</th>*/
-/*                 <td scope="col" style="width: 60%"><pre>{{ collector.countFallbacks }}</pre></td>*/
-/*             </tr>*/
-/*             <tr>*/
-/*                 <th>Missing messages</th>*/
-/*                 <td><pre>{{ collector.countMissings }}</pre></td>*/
-/*             </tr>*/
-/*         </tbody>*/
-/*     </table>*/
+/*     <h2>Translation Metrics</h2>*/
 /* */
-/*     <table>*/
-/*         <tr>*/
-/*             <th>State</th>*/
-/*             <th>Locale</th>*/
-/*             <th>Domain</th>*/
-/*             <th>Id</th>*/
-/*             <th>Message Preview</th>*/
-/*         </tr>*/
-/*         {% for message in collector.messages %}*/
-/*             <tr>*/
-/*                 <td><code>{{ translator.state(message) }}</code></td>*/
-/*                 <td><code>{{ message.locale }}</code></td>*/
-/*                 <td><code>{{ message.domain }}</code></td>*/
-/*                 <td>*/
-/*                     <code>{{ message.id }}</code>*/
-/*                     {% if message.count > 1 %}<br><small style="color: gray;">(used {{ message.count }} times)</small>{% endif %}*/
-/*                 </td>*/
-/*                 <td><code>{{ message.translation }}</code></td>*/
-/*             </tr>*/
-/*         {% endfor %}*/
-/*     </table>*/
+/*     <div class="metrics">*/
+/*         <div class="metric">*/
+/*             <span class="value">{{ collector.countdefines }}</span>*/
+/*             <span class="label">Defined messages</span>*/
+/*         </div>*/
+/* */
+/*         <div class="metric">*/
+/*             <span class="value">{{ collector.countFallbacks }}</span>*/
+/*             <span class="label">Fallback messages</span>*/
+/*         </div>*/
+/* */
+/*         <div class="metric">*/
+/*             <span class="value">{{ collector.countMissings }}</span>*/
+/*             <span class="label">Missing messages</span>*/
+/*         </div>*/
+/*     </div>*/
+/* */
+/*     <h2>Translation Messages</h2>*/
+/* */
+/*     {# sort translation messages in groups #}*/
+/*     {% set messages_defined, messages_missing, messages_fallback = [], [], [] %}*/
+/*     {% for message in collector.messages %}*/
+/*         {% if message.state == constant('Symfony\\Component\\Translation\\DataCollectorTranslator::MESSAGE_DEFINED') %}*/
+/*             {% set messages_defined = messages_defined|merge([message]) %}*/
+/*         {% elseif message.state == constant('Symfony\\Component\\Translation\\DataCollectorTranslator::MESSAGE_MISSING') %}*/
+/*             {% set messages_missing = messages_missing|merge([message]) %}*/
+/*         {% elseif message.state == constant('Symfony\\Component\\Translation\\DataCollectorTranslator::MESSAGE_EQUALS_FALLBACK') %}*/
+/*             {% set messages_fallback = messages_fallback|merge([message]) %}*/
+/*         {% endif %}*/
+/*     {% endfor %}*/
+/* */
+/*     <div class="sf-tabs">*/
+/*         <div class="tab">*/
+/*             <h3 class="tab-title">Defined <span class="badge">{{ messages_defined|length }}</span></h3>*/
+/* */
+/*             <div class="tab-content">*/
+/*                 <p class="help">*/
+/*                     These messages are correctly translated into the given locale.*/
+/*                 </p>*/
+/* */
+/*                 {% if messages_defined is empty %}*/
+/*                     <div class="empty">*/
+/*                         <p>None of the used translation messages are defined for the given locale.</p>*/
+/*                     </div>*/
+/*                 {% else %}*/
+/*                     {{ helper.render_table(messages_defined) }}*/
+/*                 {% endif %}*/
+/*             </div>*/
+/*         </div>*/
+/* */
+/*         <div class="tab">*/
+/*             <h3 class="tab-title">Fallback <span class="badge">{{ messages_fallback|length }}</span></h3>*/
+/* */
+/*             <div class="tab-content">*/
+/*                 <p class="help">*/
+/*                     These messages are not available for the given locale*/
+/*                     but Symfony found them in the fallback locale catalog.*/
+/*                 </p>*/
+/* */
+/*                 {% if messages_fallback is empty %}*/
+/*                     <div class="empty">*/
+/*                         <p>No fallback translation messages were used.</p>*/
+/*                     </div>*/
+/*                 {% else %}*/
+/*                     {{ helper.render_table(messages_fallback) }}*/
+/*                 {% endif %}*/
+/*             </div>*/
+/*         </div>*/
+/* */
+/*         <div class="tab">*/
+/*             <h3 class="tab-title">Missing <span class="badge">{{ messages_missing|length }}</span></h3>*/
+/* */
+/*             <div class="tab-content">*/
+/*                 <p class="help">*/
+/*                     These messages are not available for the given locale and cannot*/
+/*                     be found in the fallback locales. Add them to the translation*/
+/*                     catalogue to avoid Symfony outputting untranslated contents.*/
+/*                 </p>*/
+/* */
+/*                 {% if messages_missing is empty %}*/
+/*                     <div class="empty">*/
+/*                         <p>There are no messages of this category.</p>*/
+/*                     </div>*/
+/*                 {% else %}*/
+/*                     {{ helper.render_table(messages_missing) }}*/
+/*                 {% endif %}*/
+/*             </div>*/
+/*         </div>*/
+/*     </div>*/
 /* {% endblock %}*/
 /* */
-/* {% macro state(translation) %}*/
-/*     {% if translation.state == constant('Symfony\\Component\\Translation\\DataCollectorTranslator::MESSAGE_EQUALS_FALLBACK') %}*/
-/*         same as fallback*/
-/*     {% elseif translation.state == constant('Symfony\\Component\\Translation\\DataCollectorTranslator::MESSAGE_MISSING') %}*/
-/*         missing*/
-/*     {% endif %}*/
+/* {% macro render_table(messages) %}*/
+/*     <table>*/
+/*         <thead>*/
+/*             <tr>*/
+/*                 <th>Locale</th>*/
+/*                 <th>Domain</th>*/
+/*                 <th>Times used</th>*/
+/*                 <th>Message ID</th>*/
+/*                 <th>Message Preview</th>*/
+/*             </tr>*/
+/*         </thead>*/
+/*         <tbody>*/
+/*         {% for message in messages %}*/
+/*             <tr>*/
+/*                 <td class="font-normal text-small">{{ message.locale }}</td>*/
+/*                 <td class="font-normal text-small text-bold">{{ message.domain }}</td>*/
+/*                 <td class="font-normal text-small">{{ message.count }}</td>*/
+/*                 <td>*/
+/*                     {{ message.id }}*/
+/* */
+/*                     {% if message.transChoiceNumber is not null %}*/
+/*                         <small class="newline">(pluralization is used)</small>*/
+/*                     {% endif %}*/
+/* */
+/*                     {% if message.parameters|length > 0 %}*/
+/*                         <button class="btn-link newline text-small sf-toggle" data-toggle-selector="#parameters-{{ loop.index }}" data-toggle-alt-content="Hide parameters">Show parameters</button>*/
+/* */
+/*                         <div id="parameters-{{ loop.index }}" class="hidden">*/
+/*                             {% for parameters in message.parameters %}*/
+/*                                 {{ profiler_dump(parameters) }}*/
+/*                                 {% if not loop.last %}<br />{% endif %}*/
+/*                             {% endfor %}*/
+/*                         </div>*/
+/*                     {% endif %}*/
+/*                 </td>*/
+/*                 <td>{{ message.translation }}</td>*/
+/*             </tr>*/
+/*         {% endfor %}*/
+/*         </tbody>*/
+/*     </table>*/
 /* {% endmacro %}*/
 /* */

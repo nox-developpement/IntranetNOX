@@ -1,0 +1,55 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Administration assistant d'affaires {% endblock %}
+
+{% block messageAccueil %}Administration assistant d'affaires{% endblock %}
+
+{% block contenu %}
+
+    <div id='DivFormulaireAjoutProfil'>
+
+        {{ form_start(form, {'attr': {'class': 'formulaireAdministrationAjoutProfil'}}) }}
+        {{ form_errors(form) }}
+
+        <fieldset>
+
+            <legend>Ajouter un profil</legend>
+
+            {{ form_label(form.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutProfil'}}) }}
+            {{ form_errors(form.Nom) }}
+            {{ form_widget(form.Nom, {'attr': {'class': 'textFormulaireAdministrationAjoutProfil'}}) }}
+
+            {{ form_widget(form._token) }}
+
+            {{ form_widget(form.Ajouter, {'attr': {'class': 'submitFormulaireAdministrationAjoutProfil', 'class': 'boutonFormulaire' }}) }}
+
+        </fieldset>
+
+        {{ form_end(form) }}
+
+    </div>
+
+    <div id='DivFormulaireSuppressionProfil'>
+
+        {{ form_start(form2, {'attr': {'class': 'formulaireAdministrationSuppressionProfil'}}) }}
+        {{ form_errors(form2) }}
+
+        <fieldset>
+
+            <legend>Supprimer un profil</legend>
+
+            {{ form_label(form2.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionProfil'}}) }}
+            {{ form_errors(form2.Nom) }}
+            {{ form_widget(form2.Nom, {'attr': {'class': 'selectFormulaireAdministrationSuppressionProfil'}}) }}
+
+            {{ form_widget(form2._token) }}
+
+            {{ form_widget(form2.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationSuppressionProfil', 'class': 'boutonFormulaire' }}) }}
+
+        </fieldset> 
+
+        {{ form_end(form2) }}
+
+    </div>
+
+{% endblock %}

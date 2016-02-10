@@ -134,6 +134,7 @@ h2 {
 }
 
 #login input[type="submit"] {
+    margin-top: 1%;
     padding: 2%;
     font-size: 15px;
 }
@@ -1166,6 +1167,7 @@ divAdministrationUtilisateur {
 
 #rechercheUser input[type='text'] {
     text-align: left;
+    width: 35%;
 }
 
 #rechercheUser form input[type='submit'], #boutonAnnuler, #creer, #form_ajouter{
@@ -1839,6 +1841,7 @@ divAdministrationUtilisateur {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space:nowrap;
+    color: #5882FA;;
 }
 
 #Keywords p a {
@@ -1864,3 +1867,57 @@ divAdministrationUtilisateur {
     text-shadow: 1px 1px 10px #5882FA;
     text-decoration: none;
 }
+
+#DivFormulaireAjoutProfil, #DivFormulaireSuppressionProfil, #DivCreationSuivi {
+    width: 70%;
+    margin: auto;
+    margin-bottom: 2%;
+}
+
+.formulaireAdministrationAjoutProfil, .formulaireAdministrationSuppressionProfil, .formulaireCreationSuivi {
+    padding: 0px;
+    border: none;
+    width: 80%;
+}
+
+.formulaireAdministrationAjoutProfil fieldset, .formulaireAdministrationSuppressionProfil fieldset, .formulaireCreationSuivi fieldset {
+    text-align: center;
+    border-color: #021C2D;
+    border-width: 1px;
+    background-color: rgba(88, 130, 250, 0.5);
+}
+
+.formulaireAdministrationAjoutProfil fieldset legend, .formulaireAdministrationSuppressionProfil fieldset legend, .formulaireCreationSuivi fieldset legend {
+    text-align: left;
+    color: #021C2D;
+    background-color: white;
+}
+
+.selectFormulaireAdministrationSuppressionProfil, .textFormulaireAdministrationAjoutProfil {
+    width: 30%;
+    text-align: center;
+}
+
+.formulaireCreationSuivi fieldset p {
+    width: 40%;
+    margin: auto;
+    padding: 0px; 
+}
+
+.labelFormulaireCreationSuivi {
+    display: block; /* La balise devient de type block. */
+    width: 40%;
+    float: left;
+    text-align: right;
+}
+
+.textFormulaireCreationSuivi, .selectFormulaireCreationSuivi {
+    width: 50%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+.selectFormulaireCreationSuivi option {
+    text-align: center;
+}
+

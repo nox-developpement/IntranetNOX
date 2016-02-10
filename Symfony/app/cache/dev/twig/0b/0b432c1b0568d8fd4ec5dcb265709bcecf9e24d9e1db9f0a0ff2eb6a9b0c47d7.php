@@ -10,7 +10,6 @@ class __TwigTemplate_5ec8c0f8cd4187f5f34ffa944c8506957108cab277cb2cc335e16027140
         $this->parent = false;
 
         $this->blocks = array(
-            'title' => array($this, 'block_title'),
             'head' => array($this, 'block_head'),
             'body' => array($this, 'block_body'),
         );
@@ -18,8 +17,8 @@ class __TwigTemplate_5ec8c0f8cd4187f5f34ffa944c8506957108cab277cb2cc335e16027140
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_0ffa8023f19fd0750c79a5548ed7ac25abcbb88a9c1ea611fe29d6f480c14e33 = $this->env->getExtension("native_profiler");
-        $__internal_0ffa8023f19fd0750c79a5548ed7ac25abcbb88a9c1ea611fe29d6f480c14e33->enter($__internal_0ffa8023f19fd0750c79a5548ed7ac25abcbb88a9c1ea611fe29d6f480c14e33_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@WebProfiler/Profiler/base.html.twig"));
+        $__internal_88462fe6c8425995b2d242131787416fd1f41dea76564a4f4fa88e8a894199b6 = $this->env->getExtension("native_profiler");
+        $__internal_88462fe6c8425995b2d242131787416fd1f41dea76564a4f4fa88e8a894199b6->enter($__internal_88462fe6c8425995b2d242131787416fd1f41dea76564a4f4fa88e8a894199b6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@WebProfiler/Profiler/base.html.twig"));
 
         // line 1
         echo "<!DOCTYPE html>
@@ -30,81 +29,56 @@ class __TwigTemplate_5ec8c0f8cd4187f5f34ffa944c8506957108cab277cb2cc335e16027140
         echo twig_escape_filter($this->env, $this->env->getCharset(), "html", null, true);
         echo "\" />
         <meta name=\"robots\" content=\"noindex,nofollow\" />
-        <title>";
-        // line 6
-        $this->displayBlock('title', $context, $blocks);
-        echo "</title>
-        <link rel=\"icon\" type=\"image/x-icon\" sizes=\"16x16\" href=\"data:image/ico;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABMLAAATCwAAAAAAAAAAAAAAAAAAAAAAADIvMQAyLzEIMi8xSzEuMKoyLzHkMi8x/TIvMf0yLzHlMi8xrDIvMU4yLzEJMi8xAAAAAAAAAAAAAAAAADIvMQAyLzEYMS4wkTMwMu45Njj/MS4w/zEuMP8yLzH/Mi8x/zIvMf8yLzHvMi8xlDIvMRkyLzEAAAAAADIvMQAyLzEXMS4wrTk2OPyVk5T7kI6P/nl3ef8+Oz3/MS4w/zIvMf8yLzH/Mi8x/zIvMf4yLzGxMi8xGjIvMQAyLzEGMi8xkDEuMP4/PD79wcDA+oB+gP6Ni4z/paOk/zk2OP8xLjD/Mi8x/zIvMf8yLzH/Mi8x/zIvMZQyLzEIMi8xSTIvMewyLzH/MS4w/z06PP81MjT+TktN/93c3f97eXv/MC0v/zIvMf8yLzH/Mi8x/zIvMf8yLzHuMi8xTzIvMaUyLzH/Mi8x/0lHSf9kYmP/XFpb/zs4Ov/DwsL+ycjI/zs4Ov8xLjD/Mi8x/zIvMf8yLzH/Mi8x/zIvMawyLzHfMC0v/1tYWv+opqf/YV5g/8bFxf96eHn+m5qb/u7u7v9WVFX/MC0v/zIvMf8yLzH/Mi8x/zIvMf8yLzHkMi8x+jAtL/9iYGH/mZiZ/2dlZv/p6On/oJ+g/np4ev/6+vr/dXN1/y0qLP8xLjD/Mi8x/zIvMf8yLzH/Mi8x/DIvMfoyLzH/MzAy/0A+QP7JyMj85eXl/1tYWv9XVVf/8fDx/6qpqv9ZV1j/Q0BC/zIvMf8yLzH/Mi8x/zIvMfwyLzHeMi8x/zEuMP8/PD762dnZ9JWTlP81MjT/ZmRm/+Dg4P/DwsP/YV5g/6Wkpf9BPkD/MS4w/zIvMf8yLzHjMi8xozIvMf8yLzH/Mi8x/nZ0dv2amJn4dXN0+V5bXf+Pjo//0tLS/0hFR/9vbG7/Ozg6/zEuMP8yLzH/Mi8xqTIvMUcyLzHrMi8x/zIvMf8xLjD/Ozg6/Do3OfwwLS//REFD/728vP9nZWb/TktN/4mIif05Nzn/Mi8x7jMwMkwyLzEGMi8xjDIvMf4yLzH/Mi8x/zIvMf8yLzH/Mi8x/zAtL/9XVFb/goGC+Hx6e+6qqanwOzg6/DMwMpJDQEIIMi8xADIvMRUyLzGrMi8x/jIvMf8yLzH/Mi8x/zIvMf8yLzH/MS4w/zg2N/xBPkD3OTY4/DIvMa8yLzEYMi8xAAAAAAAyLzEAMi8xGDIvMY0yLzHqMi8x/zIvMf8yLzH/Mi8x/zIvMf8yLzH/MS4w7DEuMJEyLzEaMi8xAAAAAAAAAAAAAAAAADIvMQAyLzEGMi8xQzIvMZ4yLzHdMi8x+jIvMfoyLzHeMi8xoDIvMUUyLzEGMi8xAAAAAAAAAAAA4AcAAMADAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIABAADAAwAA4AcAAA==\">
-        <style>
-            ";
-        // line 9
-        $this->loadTemplate("@WebProfiler/Profiler/body.css.twig", "@WebProfiler/Profiler/base.html.twig", 9)->display($context);
-        // line 10
-        echo "        </style>
+        <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />
+        <title>Symfony Profiler</title>
+        <link rel=\"icon\" type=\"image/x-icon\" sizes=\"16x16\" href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAFEUlEQVR4AZVXA4wm2RMf27bXDM/+3/+sYBGfrbVtezc6BWtzfPbYXtvDL9906t6v0vWl05me7q1JzXuvvu4yXnvZgJ9hH6bwZYXLFR739vauUGuDwhq1L1N4Uv/tRYUhFjwcg49hn6aYr1V4TiGp86CoP9Oh1tV414KnM6t9fHymKUZ3DAI0hW4b1AyK3lE8phh5OxWeoJgUGhi5mLm95YzBwcHuhIQEV1JSEoWGhoKWHxYWFmenhJ/B5W0GwZpDt5Ovry9lZWWRyWOu5ORk7JsUpogsq5gnmISTU+HKQoLFQv/qq6/os88+I+EVFRUlSsRZ5oRiVmwlXMWShQkahUdERJCfnx/vd+3aRTU1NXTixAmqrq6mK1eu0PTp05mnrmD+QK6XhLO0XP2O2FJAQICRjjMU4P1PP/1EfX19NGfOHM8Z0N7ezueQkBBXYGAgSWIaQ5Em2T5QzFNSUig9PV3OHOe4uDjZ87p//34C7Nm7x/NcRUUFAX799Vec8Y7m7+8Pz92SfBDXr7VwPYRbxn/MmDG8Tps2jQBd3V30/PPPe35/6qmnaPXq1TR69Gg+h4eHiwwosdLT4dBkQDSXWmJiIq/vv/8+/fvvv3ThwgWqr6+n/Px8oyCmAerq6jy03Nxc2Yv7ySSjQzrmi4i92fVpaWlYOZ79/f2MW7dtpSlTptDp06epo6ODPvroI850ASiGdyZOnEjXrl2jyspKT4XA9cgjkaPL/D8UWG62HokieyQQoKSkRGiMs2bNotraWmprayOBNWvWyO+scGdnp5zF/WYvLEb8TwpRykp1MV7feust6uzqJMD169fpueeeY/rDDz/MKzzgdrsJoGkaffvtt/TFF19wQsIDmzZtssojt+6Fo1CgzKiAvAB3DRs2jAULtLS0eErPGB5Ad3c3lZaWUnFxMfeAd955h5+JjY3FaqXAPwhBnRCNySK4b98+Aoilv/z6i/zGggSk1g0opWupAMvGP91yt96zadWqVdTc3Ezz58/31LOAy+US6zgHBP766y+mDR8+HBUgFWSnQI2EAFnqlpcaGxsJIFkMN8L9AnPnzmX6jRs3SACeAi0vL888JwYPgTEJpauhnADo6/LSgQMHCHD37l2Cp15//XXq7eslgKb+Fi1exM9lZmbaCDclIcpQQhATE4OVsrOzuamg+cyePZuzG64Hrlu3jp9ZuWolCdy+fZueeOIJpkdHR1sLHqgM0Yh0bTRz1m7fvp2KiopYkYKCApo8ebLZIwzlFeXSOXEnsLPe2Ij+p5DbYYdOdOtDQ0rNjFya5sTcsGGDcTDZoXTcNoVBMoxWyzDS2yXmOyeUtGSskmDjx4/nRgPAfBDmMpZtUIbRcsi2GsfSD2QYyd2OcdmyZSSwdu1apuXk5GB16v4bak0yX0imyIUEgwNovFTglhMZGcm0srIy43zAVUxuTLbW4xn17Fci23wly9dngUummrTaixcvMpOtW7fiiBwQpqKYU9efHuxDJE5hC9wvL9TW1RLg+PHjPGTQ8wsLC4WpDC5Y5UR4k5qKMSLT6lqeAiX0nuAaMmSI9sMPP9CZM2foyJEj9O677wpTVIuTjidNp0HibvttoH9E5OMqbWKkSaNSlojldoLF7TEP+nUEmKI62y1kOBINbVaNarcI0PuGGUlHyfYvLHg7/jhFSFYqZh0P8KHSptd5ksOPU3tvqAEUot/hFmOIYJLp87wGe9Dwm95eg5xa/R8G6d8U5EcFhwAAAABJRU5ErkJggg==\">
+
         ";
-        // line 11
+        // line 10
         $this->displayBlock('head', $context, $blocks);
-        // line 16
-        echo "        <style>
-            ";
-        // line 17
-        $this->loadTemplate("@WebProfiler/Profiler/toolbar.css.twig", "@WebProfiler/Profiler/base.html.twig", 17)->display(array_merge($context, array("position" => "top", "floatable" => false)));
-        // line 18
-        echo "        </style>
-    </head>
+        // line 15
+        echo "    </head>
     <body>
         ";
-        // line 21
+        // line 17
         $this->displayBlock('body', $context, $blocks);
-        // line 22
+        // line 18
         echo "    </body>
 </html>
 ";
         
-        $__internal_0ffa8023f19fd0750c79a5548ed7ac25abcbb88a9c1ea611fe29d6f480c14e33->leave($__internal_0ffa8023f19fd0750c79a5548ed7ac25abcbb88a9c1ea611fe29d6f480c14e33_prof);
+        $__internal_88462fe6c8425995b2d242131787416fd1f41dea76564a4f4fa88e8a894199b6->leave($__internal_88462fe6c8425995b2d242131787416fd1f41dea76564a4f4fa88e8a894199b6_prof);
 
     }
 
-    // line 6
-    public function block_title($context, array $blocks = array())
-    {
-        $__internal_dceca210f7e1a0edf2f6823c3e6da07ae1186373e291a93c5005ed82a83c81a1 = $this->env->getExtension("native_profiler");
-        $__internal_dceca210f7e1a0edf2f6823c3e6da07ae1186373e291a93c5005ed82a83c81a1->enter($__internal_dceca210f7e1a0edf2f6823c3e6da07ae1186373e291a93c5005ed82a83c81a1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
-
-        echo "Profiler";
-        
-        $__internal_dceca210f7e1a0edf2f6823c3e6da07ae1186373e291a93c5005ed82a83c81a1->leave($__internal_dceca210f7e1a0edf2f6823c3e6da07ae1186373e291a93c5005ed82a83c81a1_prof);
-
-    }
-
-    // line 11
+    // line 10
     public function block_head($context, array $blocks = array())
     {
-        $__internal_bb1c6fd78e9641f7494e8a8b96c59ea99a25c51586c597dcea81a9384c0b1382 = $this->env->getExtension("native_profiler");
-        $__internal_bb1c6fd78e9641f7494e8a8b96c59ea99a25c51586c597dcea81a9384c0b1382->enter($__internal_bb1c6fd78e9641f7494e8a8b96c59ea99a25c51586c597dcea81a9384c0b1382_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "head"));
+        $__internal_27e739dd8bc86ccf26fcd934a146464c52b431cd55ebdc41ea1f2d81ddf6f189 = $this->env->getExtension("native_profiler");
+        $__internal_27e739dd8bc86ccf26fcd934a146464c52b431cd55ebdc41ea1f2d81ddf6f189->enter($__internal_27e739dd8bc86ccf26fcd934a146464c52b431cd55ebdc41ea1f2d81ddf6f189_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "head"));
 
-        // line 12
+        // line 11
         echo "            <style>
                 ";
-        // line 13
-        $this->loadTemplate("@WebProfiler/Profiler/profiler.css.twig", "@WebProfiler/Profiler/base.html.twig", 13)->display($context);
-        // line 14
-        echo "            </style>
+        // line 12
+        echo twig_include($this->env, $context, "@WebProfiler/Profiler/profiler.css.twig");
+        echo "
+            </style>
         ";
         
-        $__internal_bb1c6fd78e9641f7494e8a8b96c59ea99a25c51586c597dcea81a9384c0b1382->leave($__internal_bb1c6fd78e9641f7494e8a8b96c59ea99a25c51586c597dcea81a9384c0b1382_prof);
+        $__internal_27e739dd8bc86ccf26fcd934a146464c52b431cd55ebdc41ea1f2d81ddf6f189->leave($__internal_27e739dd8bc86ccf26fcd934a146464c52b431cd55ebdc41ea1f2d81ddf6f189_prof);
 
     }
 
-    // line 21
+    // line 17
     public function block_body($context, array $blocks = array())
     {
-        $__internal_fa77eaa7e58ef51abff9ae58378104596f6526a343f5a91bccc69685127987b2 = $this->env->getExtension("native_profiler");
-        $__internal_fa77eaa7e58ef51abff9ae58378104596f6526a343f5a91bccc69685127987b2->enter($__internal_fa77eaa7e58ef51abff9ae58378104596f6526a343f5a91bccc69685127987b2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
+        $__internal_12af54901da153346090dfa9d1dd1b94b75e077fd776ce5f1a478d0b3512a22c = $this->env->getExtension("native_profiler");
+        $__internal_12af54901da153346090dfa9d1dd1b94b75e077fd776ce5f1a478d0b3512a22c->enter($__internal_12af54901da153346090dfa9d1dd1b94b75e077fd776ce5f1a478d0b3512a22c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         echo "";
         
-        $__internal_fa77eaa7e58ef51abff9ae58378104596f6526a343f5a91bccc69685127987b2->leave($__internal_fa77eaa7e58ef51abff9ae58378104596f6526a343f5a91bccc69685127987b2_prof);
+        $__internal_12af54901da153346090dfa9d1dd1b94b75e077fd776ce5f1a478d0b3512a22c->leave($__internal_12af54901da153346090dfa9d1dd1b94b75e077fd776ce5f1a478d0b3512a22c_prof);
 
     }
 
@@ -120,7 +94,7 @@ class __TwigTemplate_5ec8c0f8cd4187f5f34ffa944c8506957108cab277cb2cc335e16027140
 
     public function getDebugInfo()
     {
-        return array (  100 => 21,  92 => 14,  90 => 13,  87 => 12,  81 => 11,  69 => 6,  60 => 22,  58 => 21,  53 => 18,  51 => 17,  48 => 16,  46 => 11,  43 => 10,  41 => 9,  35 => 6,  30 => 4,  25 => 1,);
+        return array (  74 => 17,  64 => 12,  61 => 11,  55 => 10,  46 => 18,  44 => 17,  40 => 15,  38 => 10,  29 => 4,  24 => 1,);
     }
 }
 /* <!DOCTYPE html>*/
@@ -128,19 +102,15 @@ class __TwigTemplate_5ec8c0f8cd4187f5f34ffa944c8506957108cab277cb2cc335e16027140
 /*     <head>*/
 /*         <meta charset="{{ _charset }}" />*/
 /*         <meta name="robots" content="noindex,nofollow" />*/
-/*         <title>{% block title 'Profiler' %}</title>*/
-/*         <link rel="icon" type="image/x-icon" sizes="16x16" href="data:image/ico;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABMLAAATCwAAAAAAAAAAAAAAAAAAAAAAADIvMQAyLzEIMi8xSzEuMKoyLzHkMi8x/TIvMf0yLzHlMi8xrDIvMU4yLzEJMi8xAAAAAAAAAAAAAAAAADIvMQAyLzEYMS4wkTMwMu45Njj/MS4w/zEuMP8yLzH/Mi8x/zIvMf8yLzHvMi8xlDIvMRkyLzEAAAAAADIvMQAyLzEXMS4wrTk2OPyVk5T7kI6P/nl3ef8+Oz3/MS4w/zIvMf8yLzH/Mi8x/zIvMf4yLzGxMi8xGjIvMQAyLzEGMi8xkDEuMP4/PD79wcDA+oB+gP6Ni4z/paOk/zk2OP8xLjD/Mi8x/zIvMf8yLzH/Mi8x/zIvMZQyLzEIMi8xSTIvMewyLzH/MS4w/z06PP81MjT+TktN/93c3f97eXv/MC0v/zIvMf8yLzH/Mi8x/zIvMf8yLzHuMi8xTzIvMaUyLzH/Mi8x/0lHSf9kYmP/XFpb/zs4Ov/DwsL+ycjI/zs4Ov8xLjD/Mi8x/zIvMf8yLzH/Mi8x/zIvMawyLzHfMC0v/1tYWv+opqf/YV5g/8bFxf96eHn+m5qb/u7u7v9WVFX/MC0v/zIvMf8yLzH/Mi8x/zIvMf8yLzHkMi8x+jAtL/9iYGH/mZiZ/2dlZv/p6On/oJ+g/np4ev/6+vr/dXN1/y0qLP8xLjD/Mi8x/zIvMf8yLzH/Mi8x/DIvMfoyLzH/MzAy/0A+QP7JyMj85eXl/1tYWv9XVVf/8fDx/6qpqv9ZV1j/Q0BC/zIvMf8yLzH/Mi8x/zIvMfwyLzHeMi8x/zEuMP8/PD762dnZ9JWTlP81MjT/ZmRm/+Dg4P/DwsP/YV5g/6Wkpf9BPkD/MS4w/zIvMf8yLzHjMi8xozIvMf8yLzH/Mi8x/nZ0dv2amJn4dXN0+V5bXf+Pjo//0tLS/0hFR/9vbG7/Ozg6/zEuMP8yLzH/Mi8xqTIvMUcyLzHrMi8x/zIvMf8xLjD/Ozg6/Do3OfwwLS//REFD/728vP9nZWb/TktN/4mIif05Nzn/Mi8x7jMwMkwyLzEGMi8xjDIvMf4yLzH/Mi8x/zIvMf8yLzH/Mi8x/zAtL/9XVFb/goGC+Hx6e+6qqanwOzg6/DMwMpJDQEIIMi8xADIvMRUyLzGrMi8x/jIvMf8yLzH/Mi8x/zIvMf8yLzH/MS4w/zg2N/xBPkD3OTY4/DIvMa8yLzEYMi8xAAAAAAAyLzEAMi8xGDIvMY0yLzHqMi8x/zIvMf8yLzH/Mi8x/zIvMf8yLzH/MS4w7DEuMJEyLzEaMi8xAAAAAAAAAAAAAAAAADIvMQAyLzEGMi8xQzIvMZ4yLzHdMi8x+jIvMfoyLzHeMi8xoDIvMUUyLzEGMi8xAAAAAAAAAAAA4AcAAMADAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIABAADAAwAA4AcAAA==">*/
-/*         <style>*/
-/*             {% include '@WebProfiler/Profiler/body.css.twig' %}*/
-/*         </style>*/
+/*         <meta name="viewport" content="width=device-width,initial-scale=1" />*/
+/*         <title>Symfony Profiler</title>*/
+/*         <link rel="icon" type="image/x-icon" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAFEUlEQVR4AZVXA4wm2RMf27bXDM/+3/+sYBGfrbVtezc6BWtzfPbYXtvDL9906t6v0vWl05me7q1JzXuvvu4yXnvZgJ9hH6bwZYXLFR739vauUGuDwhq1L1N4Uv/tRYUhFjwcg49hn6aYr1V4TiGp86CoP9Oh1tV414KnM6t9fHymKUZ3DAI0hW4b1AyK3lE8phh5OxWeoJgUGhi5mLm95YzBwcHuhIQEV1JSEoWGhoKWHxYWFmenhJ/B5W0GwZpDt5Ovry9lZWWRyWOu5ORk7JsUpogsq5gnmISTU+HKQoLFQv/qq6/os88+I+EVFRUlSsRZ5oRiVmwlXMWShQkahUdERJCfnx/vd+3aRTU1NXTixAmqrq6mK1eu0PTp05mnrmD+QK6XhLO0XP2O2FJAQICRjjMU4P1PP/1EfX19NGfOHM8Z0N7ezueQkBBXYGAgSWIaQ5Em2T5QzFNSUig9PV3OHOe4uDjZ87p//34C7Nm7x/NcRUUFAX799Vec8Y7m7+8Pz92SfBDXr7VwPYRbxn/MmDG8Tps2jQBd3V30/PPPe35/6qmnaPXq1TR69Gg+h4eHiwwosdLT4dBkQDSXWmJiIq/vv/8+/fvvv3ThwgWqr6+n/Px8oyCmAerq6jy03Nxc2Yv7ySSjQzrmi4i92fVpaWlYOZ79/f2MW7dtpSlTptDp06epo6ODPvroI850ASiGdyZOnEjXrl2jyspKT4XA9cgjkaPL/D8UWG62HokieyQQoKSkRGiMs2bNotraWmprayOBNWvWyO+scGdnp5zF/WYvLEb8TwpRykp1MV7feust6uzqJMD169fpueeeY/rDDz/MKzzgdrsJoGkaffvtt/TFF19wQsIDmzZtssojt+6Fo1CgzKiAvAB3DRs2jAULtLS0eErPGB5Ad3c3lZaWUnFxMfeAd955h5+JjY3FaqXAPwhBnRCNySK4b98+Aoilv/z6i/zGggSk1g0opWupAMvGP91yt96zadWqVdTc3Ezz58/31LOAy+US6zgHBP766y+mDR8+HBUgFWSnQI2EAFnqlpcaGxsJIFkMN8L9AnPnzmX6jRs3SACeAi0vL888JwYPgTEJpauhnADo6/LSgQMHCHD37l2Cp15//XXq7eslgKb+Fi1exM9lZmbaCDclIcpQQhATE4OVsrOzuamg+cyePZuzG64Hrlu3jp9ZuWolCdy+fZueeOIJpkdHR1sLHqgM0Yh0bTRz1m7fvp2KiopYkYKCApo8ebLZIwzlFeXSOXEnsLPe2Ij+p5DbYYdOdOtDQ0rNjFya5sTcsGGDcTDZoXTcNoVBMoxWyzDS2yXmOyeUtGSskmDjx4/nRgPAfBDmMpZtUIbRcsi2GsfSD2QYyd2OcdmyZSSwdu1apuXk5GB16v4bak0yX0imyIUEgwNovFTglhMZGcm0srIy43zAVUxuTLbW4xn17Fci23wly9dngUummrTaixcvMpOtW7fiiBwQpqKYU9efHuxDJE5hC9wvL9TW1RLg+PHjPGTQ8wsLC4WpDC5Y5UR4k5qKMSLT6lqeAiX0nuAaMmSI9sMPP9CZM2foyJEj9O677wpTVIuTjidNp0HibvttoH9E5OMqbWKkSaNSlojldoLF7TEP+nUEmKI62y1kOBINbVaNarcI0PuGGUlHyfYvLHg7/jhFSFYqZh0P8KHSptd5ksOPU3tvqAEUot/hFmOIYJLp87wGe9Dwm95eg5xa/R8G6d8U5EcFhwAAAABJRU5ErkJggg==">*/
+/* */
 /*         {% block head %}*/
 /*             <style>*/
-/*                 {% include '@WebProfiler/Profiler/profiler.css.twig' %}*/
+/*                 {{ include('@WebProfiler/Profiler/profiler.css.twig') }}*/
 /*             </style>*/
 /*         {% endblock %}*/
-/*         <style>*/
-/*             {% include '@WebProfiler/Profiler/toolbar.css.twig' with { 'position': 'top', 'floatable': false } %}*/
-/*         </style>*/
 /*     </head>*/
 /*     <body>*/
 /*         {% block body '' %}*/

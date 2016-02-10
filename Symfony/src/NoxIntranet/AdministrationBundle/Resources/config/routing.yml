@@ -152,3 +152,7 @@ nox_intranet_administration_materiel:
     path: /administration/materiel
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationMateriel:materielAccueil }
     
+nox_intranet_administration_affaires:
+    path: /administration/assistant-affaires
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:administrationAffairesAccueil }
+    

@@ -19,6 +19,18 @@
             </figure>
         </a>
 
+        <!-- Assistant d'affaire -->
+        <a href="{{ path('nox_intranet_assistant_affaire') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetressources/images/Business-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Business-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Business-128.png') }}';"
+                    > 
+                <figcaption>Assistant d'affaire</figcaption>
+            </figure>
+        </a>
+
         <!-- Assurance qualité -->
         <a href="{{ path('nox_intranet_aq') }}" class="icon">
             <figure>
@@ -30,6 +42,8 @@
                 <figcaption>Assurance qualité</figcaption>
             </figure>
         </a>
+
+        <br>
 
         <!-- Compétences (en attente)
         <a href="{{ path('nox_intranet_competences') }}" class="icon">
@@ -55,8 +69,6 @@
                 <figcaption>FAQ</figcaption>
             </figure>
         </a>
-
-        <br>  
 
         <!-- Imprimantes (A tester !)
         <a href="{{ path('nox_intranet_imprimantes') }}" class="icon">

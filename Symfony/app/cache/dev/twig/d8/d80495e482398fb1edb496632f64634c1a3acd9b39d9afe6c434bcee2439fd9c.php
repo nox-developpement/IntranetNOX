@@ -23,258 +23,136 @@ class __TwigTemplate_ce83f69eb8c647db16ad566ee63b8c468593caafd8d3413fec420ea36ce
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b98042ed567d39241e7241a06f60bab1279996c42b8f84d6cc89c094aa2c32f8 = $this->env->getExtension("native_profiler");
-        $__internal_b98042ed567d39241e7241a06f60bab1279996c42b8f84d6cc89c094aa2c32f8->enter($__internal_b98042ed567d39241e7241a06f60bab1279996c42b8f84d6cc89c094aa2c32f8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@WebProfiler/Collector/config.html.twig"));
+        $__internal_94013f25fbe5aa90d4a1d1f1778c9a2311c583212fb494c61c11dab6cb71f218 = $this->env->getExtension("native_profiler");
+        $__internal_94013f25fbe5aa90d4a1d1f1778c9a2311c583212fb494c61c11dab6cb71f218->enter($__internal_94013f25fbe5aa90d4a1d1f1778c9a2311c583212fb494c61c11dab6cb71f218_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@WebProfiler/Collector/config.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_b98042ed567d39241e7241a06f60bab1279996c42b8f84d6cc89c094aa2c32f8->leave($__internal_b98042ed567d39241e7241a06f60bab1279996c42b8f84d6cc89c094aa2c32f8_prof);
+        $__internal_94013f25fbe5aa90d4a1d1f1778c9a2311c583212fb494c61c11dab6cb71f218->leave($__internal_94013f25fbe5aa90d4a1d1f1778c9a2311c583212fb494c61c11dab6cb71f218_prof);
 
     }
 
     // line 3
     public function block_toolbar($context, array $blocks = array())
     {
-        $__internal_f468a864fea772fcc202eb17aed9aa582e3326e08771d8906e59379e2eebb287 = $this->env->getExtension("native_profiler");
-        $__internal_f468a864fea772fcc202eb17aed9aa582e3326e08771d8906e59379e2eebb287->enter($__internal_f468a864fea772fcc202eb17aed9aa582e3326e08771d8906e59379e2eebb287_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
+        $__internal_bdded734298ddd0236765b71817a30150ff579ea1fac2faf92a8af58a5c377c9 = $this->env->getExtension("native_profiler");
+        $__internal_bdded734298ddd0236765b71817a30150ff579ea1fac2faf92a8af58a5c377c9->enter($__internal_bdded734298ddd0236765b71817a30150ff579ea1fac2faf92a8af58a5c377c9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
 
         // line 4
         echo "    ";
-        // line 5
-        echo "    ";
-        ob_start();
-        // line 6
-        echo "        <a href=\"https://symfony.com/\">
-            <svg width=\"26\" height=\"28\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 26 28\" enable-background=\"new 0 0 26 28\" xml:space=\"preserve\"><path fill=\"#010202\" d=\"M13 0C5.8 0 0 5.8 0 13c0 7.2 5.8 13 13 13c7.2 0 13-5.8 13-13C26 5.8 20.2 0 13 0z M20 7.5 c-0.6 0-1-0.3-1-0.9c0-0.2 0-0.4 0.2-0.6c0.1-0.3 0.2-0.3 0.2-0.4c0-0.3-0.5-0.4-0.7-0.4c-2 0.1-2.5 2.7-2.9 4.8l-0.2 1.1 c1.1 0.2 1.9 0 2.4-0.3c0.6-0.4-0.2-0.8-0.1-1.3C18 9.2 18.4 9 18.7 8.9c0.5 0 0.8 0.5 0.8 1c0 0.8-1.1 2-3.3 1.9 c-0.3 0-0.5 0-0.7-0.1L15 14.1c-0.4 1.7-0.9 4.1-2.6 6.2c-1.5 1.8-3.1 2.1-3.8 2.1c-1.3 0-2.1-0.6-2.2-1.6c0-0.9 0.8-1.4 1.3-1.4 c0.7 0 1.2 0.5 1.2 1.1c0 0.5-0.2 0.6-0.4 0.7c-0.1 0.1-0.3 0.2-0.3 0.4c0 0.1 0.1 0.3 0.4 0.3c0.5 0 0.9-0.3 1.2-0.5 c1.3-1 1.7-2.9 2.4-6.2l0.1-0.8c0.2-1.1 0.5-2.3 0.8-3.5c-0.9-0.7-1.4-1.5-2.6-1.8c-0.8-0.2-1.3 0-1.7 0.4C8.4 10 8.6 10.7 9 11.1 l0.7 0.7c0.8 0.9 1.3 1.7 1.1 2.7c-0.3 1.6-2.1 2.8-4.3 2.1c-1.9-0.6-2.2-1.9-2-2.7c0.2-0.6 0.7-0.8 1.2-0.6 c0.5 0.2 0.7 0.8 0.6 1.3c0 0.1 0 0.1-0.1 0.3C6 15 5.9 15.2 5.9 15.3c-0.1 0.4 0.4 0.7 0.8 0.8c0.8 0.3 1.7-0.2 1.9-0.9 c0.2-0.6-0.2-1.1-0.4-1.2l-0.8-0.9c-0.4-0.4-1.2-1.5-0.8-2.8c0.2-0.5 0.5-1 0.9-1.4c1-0.7 2-0.8 3-0.6c1.3 0.4 1.9 1.2 2.8 1.9 c0.5-1.3 1.1-2.6 2-3.8c0.9-1 2-1.7 3.3-1.8C20 4.8 21 5.4 21 6.3C21 6.7 20.8 7.5 20 7.5z\"/></svg>
-            <span>
-                ";
-        // line 9
-        if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationname", array())) {
+        if (("unknown" == $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyState", array()))) {
+            // line 5
+            echo "        ";
+            $context["block_status"] = "";
+            // line 6
+            echo "        ";
+            $context["symfony_version_status"] = "Unable to retrieve information about the Symfony version.";
+            // line 7
+            echo "    ";
+        } elseif (("eol" == $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyState", array()))) {
+            // line 8
+            echo "        ";
+            $context["block_status"] = "red";
+            // line 9
+            echo "        ";
+            $context["symfony_version_status"] = "This Symfony version will no longer receive security fixes.";
             // line 10
-            echo "                    ";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationname", array()), "html", null, true);
-            echo " ";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationversion", array()), "html", null, true);
-            echo "
-                ";
-        } elseif ($this->getAttribute(        // line 11
-(isset($context["collector"]) ? $context["collector"] : null), "symfonyState", array(), "any", true, true)) {
+            echo "    ";
+        } elseif (("eom" == $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyState", array()))) {
+            // line 11
+            echo "        ";
+            $context["block_status"] = "yellow";
             // line 12
-            echo "                    ";
-            if (("unknown" == $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyState", array()))) {
-                // line 13
-                echo "<span class=\"sf-toolbar-status sf-toolbar-info-piece-additional\" title=\"Unable to retrieve information about the Symfony version.\">";
-            } elseif (("eol" == $this->getAttribute(            // line 14
-(isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyState", array()))) {
-                // line 15
-                echo "<span class=\"sf-toolbar-status sf-toolbar-status-red\" title=\"This Symfony version will no longer receive security fixes.\">";
-            } elseif (("eom" == $this->getAttribute(            // line 16
-(isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyState", array()))) {
-                // line 17
-                echo "<span class=\"sf-toolbar-status sf-toolbar-status-yellow\" title=\"This Symfony version will only receive security fixes.\">";
-            } elseif (("dev" == $this->getAttribute(            // line 18
-(isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyState", array()))) {
-                // line 19
-                echo "<span class=\"sf-toolbar-status sf-toolbar-status-yellow\" title=\"This Symfony version is still in the development phase.\">";
-            } else {
-                // line 21
-                echo "<span class=\"sf-toolbar-status sf-toolbar-status-green\">";
-            }
+            echo "        ";
+            $context["symfony_version_status"] = "This Symfony version will only receive security fixes.";
+            // line 13
+            echo "    ";
+        } elseif (("dev" == $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyState", array()))) {
+            // line 14
+            echo "        ";
+            $context["block_status"] = "yellow";
+            // line 15
+            echo "        ";
+            $context["symfony_version_status"] = "This Symfony version is still in the development phase.";
+            // line 16
+            echo "    ";
+        } else {
+            // line 17
+            echo "        ";
+            $context["block_status"] = "";
+            // line 18
+            echo "        ";
+            $context["symfony_version_status"] = "";
+            // line 19
+            echo "    ";
+        }
+        // line 20
+        echo "
+    ";
+        // line 21
+        ob_start();
+        // line 22
+        echo "        ";
+        if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationname", array())) {
             // line 23
+            echo "            <span class=\"sf-toolbar-label\">";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationname", array()), "html", null, true);
+            echo "</span>
+            <span class=\"sf-toolbar-value\">";
+            // line 24
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationversion", array()), "html", null, true);
+            echo "</span>
+        ";
+        } elseif ($this->getAttribute(        // line 25
+(isset($context["collector"]) ? $context["collector"] : null), "symfonyState", array(), "any", true, true)) {
+            // line 26
+            echo "            <span class=\"sf-toolbar-label\">
+                ";
+            // line 27
+            echo twig_include($this->env, $context, "@WebProfiler/Icon/symfony.svg");
+            echo "
+            </span>
+            <span class=\"sf-toolbar-value\">";
+            // line 29
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyversion", array()), "html", null, true);
             echo "</span>
-                ";
-        }
-        // line 25
-        echo "            </span>
-        </a>
-    ";
-        $context["icon"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-        // line 28
-        echo "    ";
-        ob_start();
-        // line 29
-        echo "        ";
-        if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationname", array())) {
-            // line 30
-            echo "            <div class=\"sf-toolbar-info-piece\">
-                ";
-            // line 31
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationname", array()), "html", null, true);
-            echo " <b>";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationversion", array()), "html", null, true);
-            echo "</b>
-            </div>
         ";
         }
+        // line 31
+        echo "    ";
+        $context["icon"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
+        // line 32
+        echo "
+    ";
+        // line 33
+        ob_start();
         // line 34
-        echo "        <div class=\"sf-toolbar-info-piece\">
-            Symfony <b>";
+        echo "        <div class=\"sf-toolbar-info-group\">
+            ";
         // line 35
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyversion", array()), "html", null, true);
-        echo "</b>
-        </div>
-        <div class=\"sf-toolbar-info-piece\">
-            <a href=\"https://symfony.com/doc/";
-        // line 38
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyversion", array()), "html", null, true);
-        echo "/index.html\" rel=\"help\">Symfony Documentation</a>
-        </div>
-    ";
-        $context["text"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
+        if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationname", array())) {
+            // line 36
+            echo "                <div class=\"sf-toolbar-info-piece\">
+                    <b>";
+            // line 37
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationname", array()), "html", null, true);
+            echo "</b>
+                    <span>";
+            // line 38
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationversion", array()), "html", null, true);
+            echo "</span>
+                </div>
+            ";
+        }
         // line 41
-        echo "    ";
-        $this->loadTemplate("@WebProfiler/Profiler/toolbar_item.html.twig", "@WebProfiler/Collector/config.html.twig", 41)->display(array_merge($context, array("link" => false)));
-        // line 42
         echo "
-    ";
-        // line 44
-        echo "    ";
-        ob_start();
-        // line 45
-        echo "        <a href=\"";
-        echo $this->env->getExtension('routing')->getPath("_profiler_phpinfo");
-        echo "\">
-            <svg width=\"26\" height=\"28\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 26 28\" enable-background=\"new 0 0 26 28\" xml:space=\"preserve\"><g><path fill=\"#010202\" d=\"M8 11.5c-0.2-0.1-0.4-0.1-0.7-0.1s-0.5 0-0.8 0c0 0-0.1 0-0.1 0c0 0-0.1 0-0.1 0c0 0-0.1 0-0.1 0 c0 0-0.1 0-0.1 0v0l-0.9 3.3c0 0 0 0 0 0c0 0 0 0 0 0c0 0 0 0 0 0c0 0 0 0 0 0c0 0 0 0 0.1 0c0 0 0.1 0 0.1 0c0.3 0 0.7 0 1 0 c0.3 0 0.6-0.1 0.8-0.2c0.2-0.1 0.4-0.3 0.6-0.5c0.2-0.3 0.3-0.6 0.4-1.1c0.1-0.4 0.1-0.7 0.1-0.9C8.3 11.7 8.1 11.6 8 11.5z\"/><path fill=\"#010202\" d=\"M21.3 11.5c-0.2-0.1-0.4-0.1-0.7-0.1s-0.5 0-0.8 0c0 0-0.1 0-0.1 0c0 0-0.1 0-0.1 0c0 0-0.1 0-0.1 0 s-0.1 0-0.1 0v0l-0.9 3.3c0 0 0 0 0 0c0 0 0 0 0 0c0 0 0 0 0 0s0 0 0 0c0 0 0 0 0.1 0c0 0 0.1 0 0.1 0c0.3 0 0.7 0 1 0 c0.3 0 0.6-0.1 0.8-0.2c0.2-0.1 0.4-0.3 0.6-0.5c0.2-0.3 0.3-0.6 0.4-1.1c0.1-0.4 0.1-0.7 0.1-0.9C21.6 11.7 21.5 11.6 21.3 11.5z\"/><path fill=\"#010202\" d=\"M13 0C5.8 0 0 5.8 0 13c0 7.2 5.8 13 13 13c7.2 0 13-5.8 13-13C26 5.8 20.2 0 13 0z M9.8 12.9 c0 0.2-0.1 0.4-0.2 0.6c-0.1 0.2-0.2 0.4-0.2 0.6c-0.1 0.2-0.2 0.4-0.3 0.5S8.8 14.9 8.7 15c-0.2 0.2-0.4 0.3-0.6 0.5 c-0.2 0.1-0.4 0.2-0.6 0.3c-0.2 0.1-0.4 0.1-0.6 0.1c-0.2 0-0.4 0-0.7 0H4.8L4.2 18H2.7l2.1-7.9h2.9c0.4 0 0.8 0.1 1.1 0.2 c0.3 0.1 0.5 0.3 0.7 0.6c0.2 0.2 0.3 0.5 0.3 0.9C10 12.1 9.9 12.4 9.8 12.9z M13.7 15.9l0.9-3.5c0.1-0.2 0.1-0.3 0.1-0.5 c0-0.1 0-0.2-0.1-0.3c-0.1-0.1-0.2-0.1-0.3-0.2c-0.1 0-0.3-0.1-0.5-0.1l-1.2 0l-1.2 4.5H10L12.1 8h1.5l-0.6 2.1h1.4 c0.4 0 0.7 0 1 0.1s0.5 0.2 0.7 0.3c0.2 0.1 0.3 0.4 0.3 0.6c0 0.3 0 0.6-0.1 1l-1 3.7H13.7z M23 13.4c-0.1 0.2-0.2 0.4-0.2 0.6 c-0.1 0.2-0.2 0.4-0.3 0.5S22.2 14.9 22 15c-0.2 0.2-0.4 0.3-0.6 0.5c-0.2 0.1-0.4 0.2-0.6 0.3c-0.2 0.1-0.4 0.1-0.6 0.1 c-0.2 0-0.4 0-0.7 0h-1.3L17.6 18h-1.5l2.1-7.9h2.9c0.4 0 0.8 0.1 1.1 0.2c0.3 0.1 0.5 0.3 0.7 0.6c0.2 0.2 0.3 0.5 0.3 0.9 c0 0.3 0 0.7-0.1 1.1C23.1 13.1 23.1 13.3 23 13.4z\"/></g></svg>
-        </a>
-    ";
-        $context["icon"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-        // line 49
-        echo "    ";
-        ob_start();
-        // line 50
-        echo "        ";
-        ob_start();
-        // line 51
-        echo "            <div class=\"sf-toolbar-info-piece sf-toolbar-info-php\">
-                <b>PHP</b>
-                <span>";
-        // line 53
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "phpversion", array()), "html", null, true);
-        echo "</span>
-            </div>
-            <div class=\"sf-toolbar-info-piece sf-toolbar-info-php-ext\">
-                <b>PHP Extensions</b>
-                <span class=\"sf-toolbar-status sf-toolbar-status-";
-        // line 57
-        echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "hasxdebug", array())) ? ("green") : ("red"));
-        echo "\">xdebug</span>
-                <span class=\"sf-toolbar-status sf-toolbar-status-";
-        // line 58
-        echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "hasaccelerator", array())) ? ("green") : ("red"));
-        echo "\">accel</span>
-            </div>
             <div class=\"sf-toolbar-info-piece\">
-                <b>PHP SAPI</b>
-                <span>";
-        // line 62
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "sapiName", array()), "html", null, true);
-        echo "</span>
-            </div>
-        ";
-        echo trim(preg_replace('/>\s+</', '><', ob_get_clean()));
-        // line 65
-        echo "    ";
-        $context["text"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-        // line 66
-        echo "    ";
-        $this->loadTemplate("@WebProfiler/Profiler/toolbar_item.html.twig", "@WebProfiler/Collector/config.html.twig", 66)->display(array_merge($context, array("link" => false)));
-        // line 67
-        echo "
-    ";
-        // line 69
-        echo "    ";
-        ob_start();
-        echo "sf-toolbar-status sf-toolbar-status-";
-        echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "debug", array())) ? ("green") : ("red"));
-        $context["debug_status_class"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-        // line 70
-        echo "    ";
-        ob_start();
-        // line 71
-        echo "        <svg width=\"21\" height=\"28\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 21 28\" enable-background=\"new 0 0 21 28\" xml:space=\"preserve\"><g><path fill=\"#3F3F3F\" d=\"M5 17H1c-0.5 0-1-0.4-1-1V9c0-0.5 0.4-1 1-1h4c0.5 0 1 0.4 1 1v7C6 16.6 5.6 17 5 17z\"/><path fill=\"#3F3F3F\" d=\"M19 17h-4c-0.5 0-1-0.4-1-1V9c0-0.5 0.4-1 1-1h4c0.5 0 1 0.4 1 1v7C20 16.6 19.6 17 19 17z\"/><path fill=\"#3F3F3F\" d=\"M12.1 20h-4c-0.5 0-1-0.4-1-1v-7c0-0.5 0.4-1 1-1h4c0.5 0 1 0.4 1 1v7C13.1 19.5 12.6 20 12.1 20z\"/><rect x=\"9.1\" y=\"5.8\" fill=\"#3F3F3F\" width=\"2\" height=\"4.5\"/><rect x=\"16\" y=\"17.7\" fill=\"#3F3F3F\" width=\"2\" height=\"4.5\"/><rect x=\"2.1\" y=\"17.7\" fill=\"#3F3F3F\" width=\"2\" height=\"4.5\"/><rect x=\"9.1\" y=\"20.7\" fill=\"#3F3F3F\" width=\"2\" height=\"1.5\"/><rect x=\"2.1\" y=\"5.7\" fill=\"#3F3F3F\" width=\"2\" height=\"1.5\"/><rect x=\"16.1\" y=\"5.7\" fill=\"#3F3F3F\" width=\"2\" height=\"1.5\"/></g></svg>
-        <span class=\"sf-toolbar-info-piece-additional-detail ";
-        // line 72
-        echo twig_escape_filter($this->env, (isset($context["debug_status_class"]) ? $context["debug_status_class"] : $this->getContext($context, "debug_status_class")), "html", null, true);
-        echo "\"> </span>
-        <span class=\"sf-toolbar-info-piece-additional sf-toolbar-status\">";
-        // line 73
-        echo twig_escape_filter($this->env, (isset($context["token"]) ? $context["token"] : $this->getContext($context, "token")), "html", null, true);
-        echo "</span>
-        ";
-        // line 74
-        if ((("n/a" != $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "appname", array())) || ("n/a" != $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "env", array())))) {
-            // line 75
-            echo "            <span class=\"sf-toolbar-info-piece-additional-detail\">
-                <span class=\"sf-toolbar-info-with-delimiter\">";
-            // line 76
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "appname", array()), "html", null, true);
-            echo "</span>
-                <span>";
-            // line 77
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "env", array()), "html", null, true);
-            echo "</span>
-            </span>
-        ";
-        }
-        // line 80
-        echo "    ";
-        $context["icon"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-        // line 81
-        echo "    ";
-        ob_start();
-        // line 82
-        echo "        ";
-        ob_start();
-        // line 83
-        echo "            ";
-        if (("n/a" != $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "appname", array()))) {
-            // line 84
-            echo "                <div class=\"sf-toolbar-info-piece\">
-                    <b>Name</b>
-                    <span>";
-            // line 86
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "appname", array()), "html", null, true);
-            echo "</span>
-                </div>
-            ";
-        }
-        // line 89
-        echo "            ";
-        if (("n/a" != $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "env", array()))) {
-            // line 90
-            echo "                <div class=\"sf-toolbar-info-piece\">
-                    <b>Environment</b>
-                    <span>";
-            // line 92
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "env", array()), "html", null, true);
-            echo "</span>
-                </div>
-            ";
-        }
-        // line 95
-        echo "            ";
-        if (("n/a" != $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "debug", array()))) {
-            // line 96
-            echo "                <div class=\"sf-toolbar-info-piece\">
-                    <b>Debug</b>
-                    <span class=\"";
-            // line 98
-            echo twig_escape_filter($this->env, (isset($context["debug_status_class"]) ? $context["debug_status_class"] : $this->getContext($context, "debug_status_class")), "html", null, true);
-            echo "\">";
-            echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "debug", array())) ? ("en") : ("dis"));
-            echo "abled</span>
-                </div>
-            ";
-        }
-        // line 101
-        echo "            <div class=\"sf-toolbar-info-piece\">
-                <b>Token</b>
+                <b>Profiler token</b>
                 <span>
                     ";
-        // line 104
+        // line 45
         if ((isset($context["profiler_url"]) ? $context["profiler_url"] : $this->getContext($context, "profiler_url"))) {
-            // line 105
+            // line 46
             echo "                        <a href=\"";
             echo twig_escape_filter($this->env, (isset($context["profiler_url"]) ? $context["profiler_url"] : $this->getContext($context, "profiler_url")), "html", null, true);
             echo "\">";
@@ -282,230 +160,384 @@ class __TwigTemplate_ce83f69eb8c647db16ad566ee63b8c468593caafd8d3413fec420ea36ce
             echo "</a>
                     ";
         } else {
-            // line 107
+            // line 48
             echo "                        ";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "token", array()), "html", null, true);
             echo "
                     ";
         }
-        // line 109
+        // line 50
         echo "                </span>
             </div>
-        ";
-        echo trim(preg_replace('/>\s+</', '><', ob_get_clean()));
-        // line 112
-        echo "    ";
-        $context["text"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
+
+            ";
+        // line 53
+        if (("n/a" != $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "appname", array()))) {
+            // line 54
+            echo "                <div class=\"sf-toolbar-info-piece\">
+                    <b>Kernel name</b>
+                    <span>";
+            // line 56
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "appname", array()), "html", null, true);
+            echo "</span>
+                </div>
+            ";
+        }
+        // line 59
+        echo "
+            ";
+        // line 60
+        if (("n/a" != $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "env", array()))) {
+            // line 61
+            echo "                <div class=\"sf-toolbar-info-piece\">
+                    <b>Environment</b>
+                    <span>";
+            // line 63
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "env", array()), "html", null, true);
+            echo "</span>
+                </div>
+            ";
+        }
+        // line 66
+        echo "
+            ";
+        // line 67
+        if (("n/a" != $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "debug", array()))) {
+            // line 68
+            echo "                <div class=\"sf-toolbar-info-piece\">
+                    <b>Debug</b>
+                    <span class=\"";
+            // line 70
+            echo twig_escape_filter($this->env, (isset($context["debug_status_class"]) ? $context["debug_status_class"] : $this->getContext($context, "debug_status_class")), "html", null, true);
+            echo "\">";
+            echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "debug", array())) ? ("enabled") : ("disabled"));
+            echo "</span>
+                </div>
+            ";
+        }
+        // line 73
+        echo "        </div>
+
+        <div class=\"sf-toolbar-info-group\">
+            <div class=\"sf-toolbar-info-piece sf-toolbar-info-php\">
+                <b>PHP version</b>
+                <span>
+                    ";
+        // line 79
+        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "phpversion", array()), "html", null, true);
+        echo "
+                    &nbsp; <a href=\"";
+        // line 80
+        echo $this->env->getExtension('routing')->getPath("_profiler_phpinfo");
+        echo "\">View phpinfo()</a>
+                </span>
+            </div>
+
+            <div class=\"sf-toolbar-info-piece sf-toolbar-info-php-ext\">
+                <b>PHP Extensions</b>
+                <span class=\"sf-toolbar-status sf-toolbar-status-";
+        // line 86
+        echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "hasxdebug", array())) ? ("green") : ("red"));
+        echo "\">xdebug</span>
+                <span class=\"sf-toolbar-status sf-toolbar-status-";
+        // line 87
+        echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "hasaccelerator", array())) ? ("green") : ("red"));
+        echo "\">accel</span>
+            </div>
+
+            <div class=\"sf-toolbar-info-piece\">
+                <b>PHP SAPI</b>
+                <span>";
+        // line 92
+        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "sapiName", array()), "html", null, true);
+        echo "</span>
+            </div>
+        </div>
+
+        <div class=\"sf-toolbar-info-group\">
+            ";
+        // line 97
+        if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : null), "symfonyversion", array(), "any", true, true)) {
+            // line 98
+            echo "                <div class=\"sf-toolbar-info-piece\">
+                    <b>Resources</b>
+                    <span>
+                        ";
+            // line 101
+            if (("Silex" == $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationname", array()))) {
+                // line 102
+                echo "                            <a href=\"http://silex.sensiolabs.org/documentation\" rel=\"help\">
+                                Read Silex Docs
+                            </a>
+                        ";
+            } else {
+                // line 106
+                echo "                            <a href=\"https://symfony.com/doc/";
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyversion", array()), "html", null, true);
+                echo "/index.html\" rel=\"help\">
+                                Read Symfony ";
+                // line 107
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyversion", array()), "html", null, true);
+                echo " Docs
+                            </a>
+                        ";
+            }
+            // line 110
+            echo "                    </span>
+                </div>
+            ";
+        }
         // line 113
-        echo "    ";
-        $this->loadTemplate("@WebProfiler/Profiler/toolbar_item.html.twig", "@WebProfiler/Collector/config.html.twig", 113)->display(array_merge($context, array("link" => (isset($context["profiler_url"]) ? $context["profiler_url"] : $this->getContext($context, "profiler_url")))));
-        
-        $__internal_f468a864fea772fcc202eb17aed9aa582e3326e08771d8906e59379e2eebb287->leave($__internal_f468a864fea772fcc202eb17aed9aa582e3326e08771d8906e59379e2eebb287_prof);
-
-    }
-
-    // line 116
-    public function block_menu($context, array $blocks = array())
-    {
-        $__internal_9dfcedff27d06b167423ea3bfff8a56884e92135c64f18c6295d315ece00f7ba = $this->env->getExtension("native_profiler");
-        $__internal_9dfcedff27d06b167423ea3bfff8a56884e92135c64f18c6295d315ece00f7ba->enter($__internal_9dfcedff27d06b167423ea3bfff8a56884e92135c64f18c6295d315ece00f7ba_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
-
-        // line 117
-        echo "<span class=\"label\">
-    <span class=\"icon\"><svg width=\"21\" height=\"28\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 21 28\" enable-background=\"new 0 0 21 28\" xml:space=\"preserve\"><g><path fill=\"#3F3F3F\" d=\"M5 17H1c-0.5 0-1-0.4-1-1V9c0-0.5 0.4-1 1-1h4c0.5 0 1 0.4 1 1v7C6 16.6 5.6 17 5 17z\"/><path fill=\"#3F3F3F\" d=\"M19 17h-4c-0.5 0-1-0.4-1-1V9c0-0.5 0.4-1 1-1h4c0.5 0 1 0.4 1 1v7C20 16.6 19.6 17 19 17z\"/><path fill=\"#3F3F3F\" d=\"M12.1 20h-4c-0.5 0-1-0.4-1-1v-7c0-0.5 0.4-1 1-1h4c0.5 0 1 0.4 1 1v7C13.1 19.5 12.6 20 12.1 20z\"/><rect x=\"9.1\" y=\"5.8\" fill=\"#3F3F3F\" width=\"2\" height=\"4.5\"/><rect x=\"16\" y=\"17.7\" fill=\"#3F3F3F\" width=\"2\" height=\"4.5\"/><rect x=\"2.1\" y=\"17.7\" fill=\"#3F3F3F\" width=\"2\" height=\"4.5\"/><rect x=\"9.1\" y=\"20.7\" fill=\"#3F3F3F\" width=\"2\" height=\"1.5\"/><rect x=\"2.1\" y=\"5.7\" fill=\"#3F3F3F\" width=\"2\" height=\"1.5\"/><rect x=\"16.1\" y=\"5.7\" fill=\"#3F3F3F\" width=\"2\" height=\"1.5\"/></g></svg></span>
-    <strong>Config</strong>
-</span>
+        echo "        </div>
+    ";
+        $context["text"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
+        // line 115
+        echo "
+    ";
+        // line 116
+        echo twig_include($this->env, $context, "@WebProfiler/Profiler/toolbar_item.html.twig", array("link" => true, "name" => "config", "status" => (isset($context["block_status"]) ? $context["block_status"] : $this->getContext($context, "block_status")), "additional_classes" => "sf-toolbar-block-right"));
+        echo "
 ";
         
-        $__internal_9dfcedff27d06b167423ea3bfff8a56884e92135c64f18c6295d315ece00f7ba->leave($__internal_9dfcedff27d06b167423ea3bfff8a56884e92135c64f18c6295d315ece00f7ba_prof);
+        $__internal_bdded734298ddd0236765b71817a30150ff579ea1fac2faf92a8af58a5c377c9->leave($__internal_bdded734298ddd0236765b71817a30150ff579ea1fac2faf92a8af58a5c377c9_prof);
 
     }
 
-    // line 123
+    // line 119
+    public function block_menu($context, array $blocks = array())
+    {
+        $__internal_5d052a54c8e0e23520cc9a0dbe6acbe8bc08ab53a200ef04bb06f343216217ea = $this->env->getExtension("native_profiler");
+        $__internal_5d052a54c8e0e23520cc9a0dbe6acbe8bc08ab53a200ef04bb06f343216217ea->enter($__internal_5d052a54c8e0e23520cc9a0dbe6acbe8bc08ab53a200ef04bb06f343216217ea_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
+
+        // line 120
+        echo "    <span class=\"label label-status-";
+        echo ((($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyState", array()) == "eol")) ? ("red") : (((twig_in_filter($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyState", array()), array(0 => "eom", 1 => "dev"))) ? ("yellow") : (""))));
+        echo "\">
+        <span class=\"icon\">";
+        // line 121
+        echo twig_include($this->env, $context, "@WebProfiler/Icon/config.svg");
+        echo "</span>
+        <strong>Configuration</strong>
+    </span>
+";
+        
+        $__internal_5d052a54c8e0e23520cc9a0dbe6acbe8bc08ab53a200ef04bb06f343216217ea->leave($__internal_5d052a54c8e0e23520cc9a0dbe6acbe8bc08ab53a200ef04bb06f343216217ea_prof);
+
+    }
+
+    // line 126
     public function block_panel($context, array $blocks = array())
     {
-        $__internal_67ade9db09d5d222e1813c366a12442e3d114d2b200615a6735d39dd099ccb44 = $this->env->getExtension("native_profiler");
-        $__internal_67ade9db09d5d222e1813c366a12442e3d114d2b200615a6735d39dd099ccb44->enter($__internal_67ade9db09d5d222e1813c366a12442e3d114d2b200615a6735d39dd099ccb44_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
+        $__internal_b95c4a4fca69e1f28e9d858cdfc77ba0fe8f381737eef8c1cb857475aa15c97e = $this->env->getExtension("native_profiler");
+        $__internal_b95c4a4fca69e1f28e9d858cdfc77ba0fe8f381737eef8c1cb857475aa15c97e->enter($__internal_b95c4a4fca69e1f28e9d858cdfc77ba0fe8f381737eef8c1cb857475aa15c97e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
 
-        // line 124
-        echo "    <h2>Project Configuration</h2>
-    <table>
-        <tr>
-            <th>Key</th>
-            <th>Value</th>
-        </tr>
-        <tr>
-            ";
-        // line 131
+        // line 127
+        echo "    ";
         if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationname", array())) {
-            // line 132
-            echo "                <th>Application</th>
-                <td>";
+            // line 128
+            echo "        ";
+            // line 129
+            echo "        <h2>Project Configuration</h2>
+
+        <div class=\"metrics\">
+            <div class=\"metric\">
+                <span class=\"value\">";
             // line 133
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationname", array()), "html", null, true);
-            echo " ";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationversion", array()), "html", null, true);
-            echo " (on Symfony ";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyversion", array()), "html", null, true);
-            echo ")</td>
-            ";
-        } else {
-            // line 135
-            echo "                <th>Symfony version</th>
-                <td>";
-            // line 136
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyversion", array()), "html", null, true);
-            echo "</td>
-            ";
-        }
-        // line 138
-        echo "        </tr>
-        ";
-        // line 139
-        if (("n/a" != $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "appname", array()))) {
-            // line 140
-            echo "            <tr>
-                <th>Application name</th>
-                <td>";
-            // line 142
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "appname", array()), "html", null, true);
-            echo "</td>
-            </tr>
-        ";
-        }
-        // line 145
-        echo "        ";
-        if (("n/a" != $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "env", array()))) {
-            // line 146
-            echo "            <tr>
-                <th>Environment</th>
-                <td>";
-            // line 148
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "env", array()), "html", null, true);
-            echo "</td>
-            </tr>
-        ";
-        }
-        // line 151
-        echo "        ";
-        if (("n/a" != $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "debug", array()))) {
-            // line 152
-            echo "            <tr>
-                <th>Debug</th>
-                <td>";
-            // line 154
-            echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "debug", array())) ? ("enabled") : ("disabled"));
-            echo "</td>
-            </tr>
-        ";
-        }
-        // line 157
-        echo "    </table>
+            echo "</span>
+                <span class=\"label\">Application name</span>
+            </div>
 
-    <h2>PHP configuration</h2>
-    <table>
-        <tr>
-            <th>Key</th>
-            <th>Value</th>
-        </tr>
-        <tr>
-            <th>PHP version</th>
-            <td>";
-        // line 167
+            <div class=\"metric\">
+                <span class=\"value\">";
+            // line 138
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "applicationversion", array()), "html", null, true);
+            echo "</span>
+                <span class=\"label\">Application version</span>
+            </div>
+        </div>
+
+        <p>
+            Based on <a class=\"text-bold\" href=\"https://symfony.com\">Symfony ";
+            // line 144
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyversion", array()), "html", null, true);
+            echo "</a>
+        </p>
+    ";
+        } else {
+            // line 147
+            echo "        <h2>Symfony Configuration</h2>
+
+        <div class=\"metrics\">
+            <div class=\"metric\">
+                <span class=\"value\">";
+            // line 151
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "symfonyversion", array()), "html", null, true);
+            echo "</span>
+                <span class=\"label\">Symfony version</span>
+            </div>
+
+            ";
+            // line 155
+            if (("n/a" != $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "appname", array()))) {
+                // line 156
+                echo "                <div class=\"metric\">
+                    <span class=\"value\">";
+                // line 157
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "appname", array()), "html", null, true);
+                echo "</span>
+                    <span class=\"label\">Application name</span>
+                </div>
+            ";
+            }
+            // line 161
+            echo "
+            ";
+            // line 162
+            if (("n/a" != $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "env", array()))) {
+                // line 163
+                echo "                <div class=\"metric\">
+                    <span class=\"value\">";
+                // line 164
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "env", array()), "html", null, true);
+                echo "</span>
+                    <span class=\"label\">Environment</span>
+                </div>
+            ";
+            }
+            // line 168
+            echo "
+            ";
+            // line 169
+            if (("n/a" != $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "debug", array()))) {
+                // line 170
+                echo "                <div class=\"metric\">
+                    <span class=\"value\">";
+                // line 171
+                echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "debug", array())) ? ("enabled") : ("disabled"));
+                echo "</span>
+                    <span class=\"label\">Debug</span>
+                </div>
+            ";
+            }
+            // line 175
+            echo "        </div>
+    ";
+        }
+        // line 177
+        echo "
+    <h2>PHP Configuration</h2>
+
+    <div class=\"metrics\">
+        <div class=\"metric\">
+            <span class=\"value\">";
+        // line 182
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "phpversion", array()), "html", null, true);
-        echo "</td>
-        </tr>
-        <tr>
-            <th>Xdebug</th>
-            <td>";
-        // line 171
-        echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "hasxdebug", array())) ? ("enabled") : ("disabled"));
-        echo "</td>
-        </tr>
-        <tr>
-            <th>PHP acceleration</th>
-            <td>";
-        // line 175
-        echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "hasaccelerator", array())) ? ("enabled") : ("disabled"));
-        echo "</td>
-        </tr>
-        <tr>
-            <th>XCache</th>
-            <td>";
-        // line 179
-        echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "hasxcache", array())) ? ("enabled") : ("disabled"));
-        echo "</td>
-        </tr>
-        <tr>
-            <th>APC</th>
-            <td>";
-        // line 183
-        echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "hasapc", array())) ? ("enabled") : ("disabled"));
-        echo "</td>
-        </tr>
-        <tr>
-            <th>Zend OPcache</th>
-            <td>";
+        echo "</span>
+            <span class=\"label\">PHP version</span>
+        </div>
+
+        <div class=\"metric\">
+            <span class=\"value\">";
         // line 187
-        echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "haszendopcache", array())) ? ("enabled") : ("disabled"));
-        echo "</td>
-        </tr>
-        <tr>
-            <th>EAccelerator</th>
-            <td>";
-        // line 191
-        echo (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "haseaccelerator", array())) ? ("enabled") : ("disabled"));
-        echo "</td>
-        </tr>
-        <tr>
-            <th>Full PHP configuration</th>
-            <td><a href=\"";
-        // line 195
+        echo twig_include($this->env, $context, (("@WebProfiler/Icon/" . (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "hasaccelerator", array())) ? ("yes") : ("no"))) . ".svg"));
+        echo "</span>
+            <span class=\"label\">PHP acceleration</span>
+        </div>
+
+        <div class=\"metric\">
+            <span class=\"value\">";
+        // line 192
+        echo twig_include($this->env, $context, (("@WebProfiler/Icon/" . (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "hasxdebug", array())) ? ("yes") : ("no"))) . ".svg"));
+        echo "</span>
+            <span class=\"label\">Xdebug</span>
+        </div>
+    </div>
+
+    <div class=\"metrics metrics-horizontal\">
+        <div class=\"metric\">
+            <span class=\"value\">";
+        // line 199
+        echo twig_include($this->env, $context, (("@WebProfiler/Icon/" . (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "haszendopcache", array())) ? ("yes") : ("no"))) . ".svg"));
+        echo "</span>
+            <span class=\"label\">OPcache</span>
+        </div>
+
+        <div class=\"metric\">
+            <span class=\"value\">";
+        // line 204
+        echo twig_include($this->env, $context, (("@WebProfiler/Icon/" . (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "hasapc", array())) ? ("yes") : ("no"))) . ".svg"));
+        echo "</span>
+            <span class=\"label\">APC</span>
+        </div>
+
+        <div class=\"metric\">
+            <span class=\"value\">";
+        // line 209
+        echo twig_include($this->env, $context, (("@WebProfiler/Icon/" . (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "hasxcache", array())) ? ("yes") : ("no"))) . ".svg"));
+        echo "</span>
+            <span class=\"label\">XCache</span>
+        </div>
+
+        <div class=\"metric\">
+            <span class=\"value\">";
+        // line 214
+        echo twig_include($this->env, $context, (("@WebProfiler/Icon/" . (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "haseaccelerator", array())) ? ("yes") : ("no"))) . ".svg"));
+        echo "</span>
+            <span class=\"label\">EAccelerator</span>
+        </div>
+    </div>
+
+    <p>
+        <a href=\"";
+        // line 220
         echo $this->env->getExtension('routing')->getPath("_profiler_phpinfo");
-        echo "\"><code>phpinfo</code></a></td>
-        </tr>
-    </table>
+        echo "\">View full PHP configuration</a>
+    </p>
 
     ";
-        // line 199
+        // line 223
         if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "bundles", array())) {
-            // line 200
-            echo "        <h2>Active bundles</h2>
+            // line 224
+            echo "        <h2>Enabled Bundles <small>(";
+            echo twig_escape_filter($this->env, twig_length_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "bundles", array())), "html", null, true);
+            echo ")</small></h2>
         <table>
-            <tr>
-                <th>Name</th>
-                <th>Path</th>
-            </tr>
-            ";
-            // line 206
-            $context["bundles"] = $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "bundles", array());
-            // line 207
-            echo "            ";
+            <thead>
+                <tr>
+                    <th class=\"key\">Name</th>
+                    <th>Path</th>
+                </tr>
+            </thead>
+            <tbody>
+                ";
+            // line 233
             $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable(twig_sort_filter(twig_get_array_keys_filter((isset($context["bundles"]) ? $context["bundles"] : $this->getContext($context, "bundles")))));
+            $context['_seq'] = twig_ensure_traversable(twig_sort_filter(twig_get_array_keys_filter($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "bundles", array()))));
             foreach ($context['_seq'] as $context["_key"] => $context["name"]) {
-                // line 208
-                echo "            <tr>
-                <th>";
-                // line 209
+                // line 234
+                echo "                <tr>
+                    <th scope=\"row\" class=\"font-normal\">";
+                // line 235
                 echo twig_escape_filter($this->env, $context["name"], "html", null, true);
                 echo "</th>
-                <td>";
-                // line 210
-                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["bundles"]) ? $context["bundles"] : $this->getContext($context, "bundles")), $context["name"], array(), "array"), "html", null, true);
+                    <td class=\"font-normal\">";
+                // line 236
+                echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "bundles", array()), $context["name"], array(), "array"), "html", null, true);
                 echo "</td>
-            </tr>
-            ";
+                </tr>
+                ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['name'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 213
-            echo "        </table>
+            // line 239
+            echo "            </tbody>
+        </table>
     ";
         }
         
-        $__internal_67ade9db09d5d222e1813c366a12442e3d114d2b200615a6735d39dd099ccb44->leave($__internal_67ade9db09d5d222e1813c366a12442e3d114d2b200615a6735d39dd099ccb44_prof);
+        $__internal_b95c4a4fca69e1f28e9d858cdfc77ba0fe8f381737eef8c1cb857475aa15c97e->leave($__internal_b95c4a4fca69e1f28e9d858cdfc77ba0fe8f381737eef8c1cb857475aa15c97e_prof);
 
     }
 
@@ -521,111 +553,52 @@ class __TwigTemplate_ce83f69eb8c647db16ad566ee63b8c468593caafd8d3413fec420ea36ce
 
     public function getDebugInfo()
     {
-        return array (  504 => 213,  495 => 210,  491 => 209,  488 => 208,  483 => 207,  481 => 206,  473 => 200,  471 => 199,  464 => 195,  457 => 191,  450 => 187,  443 => 183,  436 => 179,  429 => 175,  422 => 171,  415 => 167,  403 => 157,  397 => 154,  393 => 152,  390 => 151,  384 => 148,  380 => 146,  377 => 145,  371 => 142,  367 => 140,  365 => 139,  362 => 138,  357 => 136,  354 => 135,  345 => 133,  342 => 132,  340 => 131,  331 => 124,  325 => 123,  314 => 117,  308 => 116,  300 => 113,  297 => 112,  292 => 109,  286 => 107,  278 => 105,  276 => 104,  271 => 101,  263 => 98,  259 => 96,  256 => 95,  250 => 92,  246 => 90,  243 => 89,  237 => 86,  233 => 84,  230 => 83,  227 => 82,  224 => 81,  221 => 80,  215 => 77,  211 => 76,  208 => 75,  206 => 74,  202 => 73,  198 => 72,  195 => 71,  192 => 70,  186 => 69,  183 => 67,  180 => 66,  177 => 65,  171 => 62,  164 => 58,  160 => 57,  153 => 53,  149 => 51,  146 => 50,  143 => 49,  135 => 45,  132 => 44,  129 => 42,  126 => 41,  120 => 38,  114 => 35,  111 => 34,  103 => 31,  100 => 30,  97 => 29,  94 => 28,  89 => 25,  84 => 23,  81 => 21,  78 => 19,  76 => 18,  74 => 17,  72 => 16,  70 => 15,  68 => 14,  66 => 13,  63 => 12,  61 => 11,  54 => 10,  52 => 9,  47 => 6,  44 => 5,  42 => 4,  36 => 3,  11 => 1,);
+        return array (  535 => 239,  526 => 236,  522 => 235,  519 => 234,  515 => 233,  502 => 224,  500 => 223,  494 => 220,  485 => 214,  477 => 209,  469 => 204,  461 => 199,  451 => 192,  443 => 187,  435 => 182,  428 => 177,  424 => 175,  417 => 171,  414 => 170,  412 => 169,  409 => 168,  402 => 164,  399 => 163,  397 => 162,  394 => 161,  387 => 157,  384 => 156,  382 => 155,  375 => 151,  369 => 147,  363 => 144,  354 => 138,  346 => 133,  340 => 129,  338 => 128,  335 => 127,  329 => 126,  318 => 121,  313 => 120,  307 => 119,  298 => 116,  295 => 115,  291 => 113,  286 => 110,  280 => 107,  275 => 106,  269 => 102,  267 => 101,  262 => 98,  260 => 97,  252 => 92,  244 => 87,  240 => 86,  231 => 80,  227 => 79,  219 => 73,  211 => 70,  207 => 68,  205 => 67,  202 => 66,  196 => 63,  192 => 61,  190 => 60,  187 => 59,  181 => 56,  177 => 54,  175 => 53,  170 => 50,  164 => 48,  156 => 46,  154 => 45,  148 => 41,  142 => 38,  138 => 37,  135 => 36,  133 => 35,  130 => 34,  128 => 33,  125 => 32,  122 => 31,  117 => 29,  112 => 27,  109 => 26,  107 => 25,  103 => 24,  98 => 23,  95 => 22,  93 => 21,  90 => 20,  87 => 19,  84 => 18,  81 => 17,  78 => 16,  75 => 15,  72 => 14,  69 => 13,  66 => 12,  63 => 11,  60 => 10,  57 => 9,  54 => 8,  51 => 7,  48 => 6,  45 => 5,  42 => 4,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends '@WebProfiler/Profiler/layout.html.twig' %}*/
 /* */
 /* {% block toolbar %}*/
-/*     {# Symfony Logo #}*/
+/*     {% if 'unknown' == collector.symfonyState %}*/
+/*         {% set block_status = '' %}*/
+/*         {% set symfony_version_status = 'Unable to retrieve information about the Symfony version.' %}*/
+/*     {% elseif 'eol' == collector.symfonyState %}*/
+/*         {% set block_status = 'red' %}*/
+/*         {% set symfony_version_status = 'This Symfony version will no longer receive security fixes.' %}*/
+/*     {% elseif 'eom' == collector.symfonyState %}*/
+/*         {% set block_status = 'yellow' %}*/
+/*         {% set symfony_version_status = 'This Symfony version will only receive security fixes.' %}*/
+/*     {% elseif 'dev' == collector.symfonyState %}*/
+/*         {% set block_status = 'yellow' %}*/
+/*         {% set symfony_version_status = 'This Symfony version is still in the development phase.' %}*/
+/*     {% else %}*/
+/*         {% set block_status = '' %}*/
+/*         {% set symfony_version_status = '' %}*/
+/*     {% endif %}*/
+/* */
 /*     {% set icon %}*/
-/*         <a href="https://symfony.com/">*/
-/*             <svg width="26" height="28" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 26 28" enable-background="new 0 0 26 28" xml:space="preserve"><path fill="#010202" d="M13 0C5.8 0 0 5.8 0 13c0 7.2 5.8 13 13 13c7.2 0 13-5.8 13-13C26 5.8 20.2 0 13 0z M20 7.5 c-0.6 0-1-0.3-1-0.9c0-0.2 0-0.4 0.2-0.6c0.1-0.3 0.2-0.3 0.2-0.4c0-0.3-0.5-0.4-0.7-0.4c-2 0.1-2.5 2.7-2.9 4.8l-0.2 1.1 c1.1 0.2 1.9 0 2.4-0.3c0.6-0.4-0.2-0.8-0.1-1.3C18 9.2 18.4 9 18.7 8.9c0.5 0 0.8 0.5 0.8 1c0 0.8-1.1 2-3.3 1.9 c-0.3 0-0.5 0-0.7-0.1L15 14.1c-0.4 1.7-0.9 4.1-2.6 6.2c-1.5 1.8-3.1 2.1-3.8 2.1c-1.3 0-2.1-0.6-2.2-1.6c0-0.9 0.8-1.4 1.3-1.4 c0.7 0 1.2 0.5 1.2 1.1c0 0.5-0.2 0.6-0.4 0.7c-0.1 0.1-0.3 0.2-0.3 0.4c0 0.1 0.1 0.3 0.4 0.3c0.5 0 0.9-0.3 1.2-0.5 c1.3-1 1.7-2.9 2.4-6.2l0.1-0.8c0.2-1.1 0.5-2.3 0.8-3.5c-0.9-0.7-1.4-1.5-2.6-1.8c-0.8-0.2-1.3 0-1.7 0.4C8.4 10 8.6 10.7 9 11.1 l0.7 0.7c0.8 0.9 1.3 1.7 1.1 2.7c-0.3 1.6-2.1 2.8-4.3 2.1c-1.9-0.6-2.2-1.9-2-2.7c0.2-0.6 0.7-0.8 1.2-0.6 c0.5 0.2 0.7 0.8 0.6 1.3c0 0.1 0 0.1-0.1 0.3C6 15 5.9 15.2 5.9 15.3c-0.1 0.4 0.4 0.7 0.8 0.8c0.8 0.3 1.7-0.2 1.9-0.9 c0.2-0.6-0.2-1.1-0.4-1.2l-0.8-0.9c-0.4-0.4-1.2-1.5-0.8-2.8c0.2-0.5 0.5-1 0.9-1.4c1-0.7 2-0.8 3-0.6c1.3 0.4 1.9 1.2 2.8 1.9 c0.5-1.3 1.1-2.6 2-3.8c0.9-1 2-1.7 3.3-1.8C20 4.8 21 5.4 21 6.3C21 6.7 20.8 7.5 20 7.5z"/></svg>*/
-/*             <span>*/
-/*                 {% if collector.applicationname %}*/
-/*                     {{ collector.applicationname }} {{ collector.applicationversion }}*/
-/*                 {% elseif collector.symfonyState is defined %}*/
-/*                     {% if 'unknown' == collector.symfonyState -%}*/
-/*                     <span class="sf-toolbar-status sf-toolbar-info-piece-additional" title="Unable to retrieve information about the Symfony version.">*/
-/*                     {%- elseif 'eol' == collector.symfonyState -%}*/
-/*                     <span class="sf-toolbar-status sf-toolbar-status-red" title="This Symfony version will no longer receive security fixes.">*/
-/*                     {%- elseif 'eom' == collector.symfonyState -%}*/
-/*                     <span class="sf-toolbar-status sf-toolbar-status-yellow" title="This Symfony version will only receive security fixes.">*/
-/*                     {%- elseif 'dev' == collector.symfonyState -%}*/
-/*                     <span class="sf-toolbar-status sf-toolbar-status-yellow" title="This Symfony version is still in the development phase.">*/
-/*                     {%- else -%}*/
-/*                     <span class="sf-toolbar-status sf-toolbar-status-green">*/
-/*                     {%- endif -%}*/
-/*                     {{ collector.symfonyversion }}</span>*/
-/*                 {% endif %}*/
-/*             </span>*/
-/*         </a>*/
-/*     {% endset %}*/
-/*     {% set text %}*/
 /*         {% if collector.applicationname %}*/
-/*             <div class="sf-toolbar-info-piece">*/
-/*                 {{ collector.applicationname }} <b>{{ collector.applicationversion }}</b>*/
-/*             </div>*/
-/*         {% endif %}*/
-/*         <div class="sf-toolbar-info-piece">*/
-/*             Symfony <b>{{ collector.symfonyversion }}</b>*/
-/*         </div>*/
-/*         <div class="sf-toolbar-info-piece">*/
-/*             <a href="https://symfony.com/doc/{{ collector.symfonyversion }}/index.html" rel="help">Symfony Documentation</a>*/
-/*         </div>*/
-/*     {% endset %}*/
-/*     {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': false } %}*/
-/* */
-/*     {# PHP Information #}*/
-/*     {% set icon %}*/
-/*         <a href="{{ path('_profiler_phpinfo') }}">*/
-/*             <svg width="26" height="28" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 26 28" enable-background="new 0 0 26 28" xml:space="preserve"><g><path fill="#010202" d="M8 11.5c-0.2-0.1-0.4-0.1-0.7-0.1s-0.5 0-0.8 0c0 0-0.1 0-0.1 0c0 0-0.1 0-0.1 0c0 0-0.1 0-0.1 0 c0 0-0.1 0-0.1 0v0l-0.9 3.3c0 0 0 0 0 0c0 0 0 0 0 0c0 0 0 0 0 0c0 0 0 0 0 0c0 0 0 0 0.1 0c0 0 0.1 0 0.1 0c0.3 0 0.7 0 1 0 c0.3 0 0.6-0.1 0.8-0.2c0.2-0.1 0.4-0.3 0.6-0.5c0.2-0.3 0.3-0.6 0.4-1.1c0.1-0.4 0.1-0.7 0.1-0.9C8.3 11.7 8.1 11.6 8 11.5z"/><path fill="#010202" d="M21.3 11.5c-0.2-0.1-0.4-0.1-0.7-0.1s-0.5 0-0.8 0c0 0-0.1 0-0.1 0c0 0-0.1 0-0.1 0c0 0-0.1 0-0.1 0 s-0.1 0-0.1 0v0l-0.9 3.3c0 0 0 0 0 0c0 0 0 0 0 0c0 0 0 0 0 0s0 0 0 0c0 0 0 0 0.1 0c0 0 0.1 0 0.1 0c0.3 0 0.7 0 1 0 c0.3 0 0.6-0.1 0.8-0.2c0.2-0.1 0.4-0.3 0.6-0.5c0.2-0.3 0.3-0.6 0.4-1.1c0.1-0.4 0.1-0.7 0.1-0.9C21.6 11.7 21.5 11.6 21.3 11.5z"/><path fill="#010202" d="M13 0C5.8 0 0 5.8 0 13c0 7.2 5.8 13 13 13c7.2 0 13-5.8 13-13C26 5.8 20.2 0 13 0z M9.8 12.9 c0 0.2-0.1 0.4-0.2 0.6c-0.1 0.2-0.2 0.4-0.2 0.6c-0.1 0.2-0.2 0.4-0.3 0.5S8.8 14.9 8.7 15c-0.2 0.2-0.4 0.3-0.6 0.5 c-0.2 0.1-0.4 0.2-0.6 0.3c-0.2 0.1-0.4 0.1-0.6 0.1c-0.2 0-0.4 0-0.7 0H4.8L4.2 18H2.7l2.1-7.9h2.9c0.4 0 0.8 0.1 1.1 0.2 c0.3 0.1 0.5 0.3 0.7 0.6c0.2 0.2 0.3 0.5 0.3 0.9C10 12.1 9.9 12.4 9.8 12.9z M13.7 15.9l0.9-3.5c0.1-0.2 0.1-0.3 0.1-0.5 c0-0.1 0-0.2-0.1-0.3c-0.1-0.1-0.2-0.1-0.3-0.2c-0.1 0-0.3-0.1-0.5-0.1l-1.2 0l-1.2 4.5H10L12.1 8h1.5l-0.6 2.1h1.4 c0.4 0 0.7 0 1 0.1s0.5 0.2 0.7 0.3c0.2 0.1 0.3 0.4 0.3 0.6c0 0.3 0 0.6-0.1 1l-1 3.7H13.7z M23 13.4c-0.1 0.2-0.2 0.4-0.2 0.6 c-0.1 0.2-0.2 0.4-0.3 0.5S22.2 14.9 22 15c-0.2 0.2-0.4 0.3-0.6 0.5c-0.2 0.1-0.4 0.2-0.6 0.3c-0.2 0.1-0.4 0.1-0.6 0.1 c-0.2 0-0.4 0-0.7 0h-1.3L17.6 18h-1.5l2.1-7.9h2.9c0.4 0 0.8 0.1 1.1 0.2c0.3 0.1 0.5 0.3 0.7 0.6c0.2 0.2 0.3 0.5 0.3 0.9 c0 0.3 0 0.7-0.1 1.1C23.1 13.1 23.1 13.3 23 13.4z"/></g></svg>*/
-/*         </a>*/
-/*     {% endset %}*/
-/*     {% set text %}*/
-/*         {% spaceless %}*/
-/*             <div class="sf-toolbar-info-piece sf-toolbar-info-php">*/
-/*                 <b>PHP</b>*/
-/*                 <span>{{ collector.phpversion }}</span>*/
-/*             </div>*/
-/*             <div class="sf-toolbar-info-piece sf-toolbar-info-php-ext">*/
-/*                 <b>PHP Extensions</b>*/
-/*                 <span class="sf-toolbar-status sf-toolbar-status-{{ collector.hasxdebug ? 'green' : 'red' }}">xdebug</span>*/
-/*                 <span class="sf-toolbar-status sf-toolbar-status-{{ collector.hasaccelerator ? 'green' : 'red' }}">accel</span>*/
-/*             </div>*/
-/*             <div class="sf-toolbar-info-piece">*/
-/*                 <b>PHP SAPI</b>*/
-/*                 <span>{{ collector.sapiName }}</span>*/
-/*             </div>*/
-/*         {% endspaceless %}*/
-/*     {% endset %}*/
-/*     {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': false } %}*/
-/* */
-/*     {# Environment #}*/
-/*     {% set debug_status_class %}sf-toolbar-status sf-toolbar-status-{{ collector.debug ? 'green' : 'red' }}{% endset %}*/
-/*     {% set icon %}*/
-/*         <svg width="21" height="28" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 21 28" enable-background="new 0 0 21 28" xml:space="preserve"><g><path fill="#3F3F3F" d="M5 17H1c-0.5 0-1-0.4-1-1V9c0-0.5 0.4-1 1-1h4c0.5 0 1 0.4 1 1v7C6 16.6 5.6 17 5 17z"/><path fill="#3F3F3F" d="M19 17h-4c-0.5 0-1-0.4-1-1V9c0-0.5 0.4-1 1-1h4c0.5 0 1 0.4 1 1v7C20 16.6 19.6 17 19 17z"/><path fill="#3F3F3F" d="M12.1 20h-4c-0.5 0-1-0.4-1-1v-7c0-0.5 0.4-1 1-1h4c0.5 0 1 0.4 1 1v7C13.1 19.5 12.6 20 12.1 20z"/><rect x="9.1" y="5.8" fill="#3F3F3F" width="2" height="4.5"/><rect x="16" y="17.7" fill="#3F3F3F" width="2" height="4.5"/><rect x="2.1" y="17.7" fill="#3F3F3F" width="2" height="4.5"/><rect x="9.1" y="20.7" fill="#3F3F3F" width="2" height="1.5"/><rect x="2.1" y="5.7" fill="#3F3F3F" width="2" height="1.5"/><rect x="16.1" y="5.7" fill="#3F3F3F" width="2" height="1.5"/></g></svg>*/
-/*         <span class="sf-toolbar-info-piece-additional-detail {{ debug_status_class }}"> </span>*/
-/*         <span class="sf-toolbar-info-piece-additional sf-toolbar-status">{{ token }}</span>*/
-/*         {% if 'n/a' != collector.appname or 'n/a' != collector.env %}*/
-/*             <span class="sf-toolbar-info-piece-additional-detail">*/
-/*                 <span class="sf-toolbar-info-with-delimiter">{{ collector.appname }}</span>*/
-/*                 <span>{{ collector.env }}</span>*/
+/*             <span class="sf-toolbar-label">{{ collector.applicationname }}</span>*/
+/*             <span class="sf-toolbar-value">{{ collector.applicationversion }}</span>*/
+/*         {% elseif collector.symfonyState is defined %}*/
+/*             <span class="sf-toolbar-label">*/
+/*                 {{ include('@WebProfiler/Icon/symfony.svg') }}*/
 /*             </span>*/
+/*             <span class="sf-toolbar-value">{{ collector.symfonyversion }}</span>*/
 /*         {% endif %}*/
 /*     {% endset %}*/
+/* */
 /*     {% set text %}*/
-/*         {% spaceless %}*/
-/*             {% if 'n/a' != collector.appname %}*/
+/*         <div class="sf-toolbar-info-group">*/
+/*             {% if collector.applicationname %}*/
 /*                 <div class="sf-toolbar-info-piece">*/
-/*                     <b>Name</b>*/
-/*                     <span>{{ collector.appname }}</span>*/
+/*                     <b>{{ collector.applicationname }}</b>*/
+/*                     <span>{{ collector.applicationversion }}</span>*/
 /*                 </div>*/
 /*             {% endif %}*/
-/*             {% if 'n/a' != collector.env %}*/
-/*                 <div class="sf-toolbar-info-piece">*/
-/*                     <b>Environment</b>*/
-/*                     <span>{{ collector.env }}</span>*/
-/*                 </div>*/
-/*             {% endif %}*/
-/*             {% if 'n/a' != collector.debug %}*/
-/*                 <div class="sf-toolbar-info-piece">*/
-/*                     <b>Debug</b>*/
-/*                     <span class="{{ debug_status_class }}">{{ collector.debug ? 'en' : 'dis' }}abled</span>*/
-/*                 </div>*/
-/*             {% endif %}*/
+/* */
 /*             <div class="sf-toolbar-info-piece">*/
-/*                 <b>Token</b>*/
+/*                 <b>Profiler token</b>*/
 /*                 <span>*/
 /*                     {% if profiler_url %}*/
 /*                         <a href="{{ profiler_url }}">{{ collector.token }}</a>*/
@@ -634,108 +607,194 @@ class __TwigTemplate_ce83f69eb8c647db16ad566ee63b8c468593caafd8d3413fec420ea36ce
 /*                     {% endif %}*/
 /*                 </span>*/
 /*             </div>*/
-/*         {% endspaceless %}*/
+/* */
+/*             {% if 'n/a' != collector.appname %}*/
+/*                 <div class="sf-toolbar-info-piece">*/
+/*                     <b>Kernel name</b>*/
+/*                     <span>{{ collector.appname }}</span>*/
+/*                 </div>*/
+/*             {% endif %}*/
+/* */
+/*             {% if 'n/a' != collector.env %}*/
+/*                 <div class="sf-toolbar-info-piece">*/
+/*                     <b>Environment</b>*/
+/*                     <span>{{ collector.env }}</span>*/
+/*                 </div>*/
+/*             {% endif %}*/
+/* */
+/*             {% if 'n/a' != collector.debug %}*/
+/*                 <div class="sf-toolbar-info-piece">*/
+/*                     <b>Debug</b>*/
+/*                     <span class="{{ debug_status_class }}">{{ collector.debug ? 'enabled' : 'disabled' }}</span>*/
+/*                 </div>*/
+/*             {% endif %}*/
+/*         </div>*/
+/* */
+/*         <div class="sf-toolbar-info-group">*/
+/*             <div class="sf-toolbar-info-piece sf-toolbar-info-php">*/
+/*                 <b>PHP version</b>*/
+/*                 <span>*/
+/*                     {{ collector.phpversion }}*/
+/*                     &nbsp; <a href="{{ path('_profiler_phpinfo') }}">View phpinfo()</a>*/
+/*                 </span>*/
+/*             </div>*/
+/* */
+/*             <div class="sf-toolbar-info-piece sf-toolbar-info-php-ext">*/
+/*                 <b>PHP Extensions</b>*/
+/*                 <span class="sf-toolbar-status sf-toolbar-status-{{ collector.hasxdebug ? 'green' : 'red' }}">xdebug</span>*/
+/*                 <span class="sf-toolbar-status sf-toolbar-status-{{ collector.hasaccelerator ? 'green' : 'red' }}">accel</span>*/
+/*             </div>*/
+/* */
+/*             <div class="sf-toolbar-info-piece">*/
+/*                 <b>PHP SAPI</b>*/
+/*                 <span>{{ collector.sapiName }}</span>*/
+/*             </div>*/
+/*         </div>*/
+/* */
+/*         <div class="sf-toolbar-info-group">*/
+/*             {% if collector.symfonyversion is defined %}*/
+/*                 <div class="sf-toolbar-info-piece">*/
+/*                     <b>Resources</b>*/
+/*                     <span>*/
+/*                         {% if 'Silex' == collector.applicationname %}*/
+/*                             <a href="http://silex.sensiolabs.org/documentation" rel="help">*/
+/*                                 Read Silex Docs*/
+/*                             </a>*/
+/*                         {% else %}*/
+/*                             <a href="https://symfony.com/doc/{{ collector.symfonyversion }}/index.html" rel="help">*/
+/*                                 Read Symfony {{ collector.symfonyversion }} Docs*/
+/*                             </a>*/
+/*                         {% endif %}*/
+/*                     </span>*/
+/*                 </div>*/
+/*             {% endif %}*/
+/*         </div>*/
 /*     {% endset %}*/
-/*     {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': profiler_url } %}*/
+/* */
+/*     {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: true, name: 'config', status: block_status, additional_classes: 'sf-toolbar-block-right' }) }}*/
 /* {% endblock %}*/
 /* */
 /* {% block menu %}*/
-/* <span class="label">*/
-/*     <span class="icon"><svg width="21" height="28" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 21 28" enable-background="new 0 0 21 28" xml:space="preserve"><g><path fill="#3F3F3F" d="M5 17H1c-0.5 0-1-0.4-1-1V9c0-0.5 0.4-1 1-1h4c0.5 0 1 0.4 1 1v7C6 16.6 5.6 17 5 17z"/><path fill="#3F3F3F" d="M19 17h-4c-0.5 0-1-0.4-1-1V9c0-0.5 0.4-1 1-1h4c0.5 0 1 0.4 1 1v7C20 16.6 19.6 17 19 17z"/><path fill="#3F3F3F" d="M12.1 20h-4c-0.5 0-1-0.4-1-1v-7c0-0.5 0.4-1 1-1h4c0.5 0 1 0.4 1 1v7C13.1 19.5 12.6 20 12.1 20z"/><rect x="9.1" y="5.8" fill="#3F3F3F" width="2" height="4.5"/><rect x="16" y="17.7" fill="#3F3F3F" width="2" height="4.5"/><rect x="2.1" y="17.7" fill="#3F3F3F" width="2" height="4.5"/><rect x="9.1" y="20.7" fill="#3F3F3F" width="2" height="1.5"/><rect x="2.1" y="5.7" fill="#3F3F3F" width="2" height="1.5"/><rect x="16.1" y="5.7" fill="#3F3F3F" width="2" height="1.5"/></g></svg></span>*/
-/*     <strong>Config</strong>*/
-/* </span>*/
+/*     <span class="label label-status-{{ collector.symfonyState == 'eol' ? 'red' : collector.symfonyState in ['eom', 'dev'] ? 'yellow' : '' }}">*/
+/*         <span class="icon">{{ include('@WebProfiler/Icon/config.svg') }}</span>*/
+/*         <strong>Configuration</strong>*/
+/*     </span>*/
 /* {% endblock %}*/
 /* */
 /* {% block panel %}*/
-/*     <h2>Project Configuration</h2>*/
-/*     <table>*/
-/*         <tr>*/
-/*             <th>Key</th>*/
-/*             <th>Value</th>*/
-/*         </tr>*/
-/*         <tr>*/
-/*             {% if collector.applicationname %}*/
-/*                 <th>Application</th>*/
-/*                 <td>{{ collector.applicationname }} {{ collector.applicationversion }} (on Symfony {{ collector.symfonyversion }})</td>*/
-/*             {% else %}*/
-/*                 <th>Symfony version</th>*/
-/*                 <td>{{ collector.symfonyversion }}</td>*/
-/*             {% endif %}*/
-/*         </tr>*/
-/*         {% if 'n/a' != collector.appname %}*/
-/*             <tr>*/
-/*                 <th>Application name</th>*/
-/*                 <td>{{ collector.appname }}</td>*/
-/*             </tr>*/
-/*         {% endif %}*/
-/*         {% if 'n/a' != collector.env %}*/
-/*             <tr>*/
-/*                 <th>Environment</th>*/
-/*                 <td>{{ collector.env }}</td>*/
-/*             </tr>*/
-/*         {% endif %}*/
-/*         {% if 'n/a' != collector.debug %}*/
-/*             <tr>*/
-/*                 <th>Debug</th>*/
-/*                 <td>{{ collector.debug ? 'enabled' : 'disabled' }}</td>*/
-/*             </tr>*/
-/*         {% endif %}*/
-/*     </table>*/
+/*     {% if collector.applicationname %}*/
+/*         {# this application is not the Symfony framework #}*/
+/*         <h2>Project Configuration</h2>*/
 /* */
-/*     <h2>PHP configuration</h2>*/
-/*     <table>*/
-/*         <tr>*/
-/*             <th>Key</th>*/
-/*             <th>Value</th>*/
-/*         </tr>*/
-/*         <tr>*/
-/*             <th>PHP version</th>*/
-/*             <td>{{ collector.phpversion }}</td>*/
-/*         </tr>*/
-/*         <tr>*/
-/*             <th>Xdebug</th>*/
-/*             <td>{{ collector.hasxdebug ? 'enabled' : 'disabled' }}</td>*/
-/*         </tr>*/
-/*         <tr>*/
-/*             <th>PHP acceleration</th>*/
-/*             <td>{{ collector.hasaccelerator ? 'enabled' : 'disabled' }}</td>*/
-/*         </tr>*/
-/*         <tr>*/
-/*             <th>XCache</th>*/
-/*             <td>{{ collector.hasxcache ? 'enabled' : 'disabled' }}</td>*/
-/*         </tr>*/
-/*         <tr>*/
-/*             <th>APC</th>*/
-/*             <td>{{ collector.hasapc ? 'enabled' : 'disabled' }}</td>*/
-/*         </tr>*/
-/*         <tr>*/
-/*             <th>Zend OPcache</th>*/
-/*             <td>{{ collector.haszendopcache ? 'enabled' : 'disabled' }}</td>*/
-/*         </tr>*/
-/*         <tr>*/
-/*             <th>EAccelerator</th>*/
-/*             <td>{{ collector.haseaccelerator ? 'enabled' : 'disabled' }}</td>*/
-/*         </tr>*/
-/*         <tr>*/
-/*             <th>Full PHP configuration</th>*/
-/*             <td><a href="{{ path('_profiler_phpinfo') }}"><code>phpinfo</code></a></td>*/
-/*         </tr>*/
-/*     </table>*/
+/*         <div class="metrics">*/
+/*             <div class="metric">*/
+/*                 <span class="value">{{ collector.applicationname }}</span>*/
+/*                 <span class="label">Application name</span>*/
+/*             </div>*/
+/* */
+/*             <div class="metric">*/
+/*                 <span class="value">{{ collector.applicationversion }}</span>*/
+/*                 <span class="label">Application version</span>*/
+/*             </div>*/
+/*         </div>*/
+/* */
+/*         <p>*/
+/*             Based on <a class="text-bold" href="https://symfony.com">Symfony {{ collector.symfonyversion }}</a>*/
+/*         </p>*/
+/*     {% else %}*/
+/*         <h2>Symfony Configuration</h2>*/
+/* */
+/*         <div class="metrics">*/
+/*             <div class="metric">*/
+/*                 <span class="value">{{ collector.symfonyversion }}</span>*/
+/*                 <span class="label">Symfony version</span>*/
+/*             </div>*/
+/* */
+/*             {% if 'n/a' != collector.appname %}*/
+/*                 <div class="metric">*/
+/*                     <span class="value">{{ collector.appname }}</span>*/
+/*                     <span class="label">Application name</span>*/
+/*                 </div>*/
+/*             {% endif %}*/
+/* */
+/*             {% if 'n/a' != collector.env %}*/
+/*                 <div class="metric">*/
+/*                     <span class="value">{{ collector.env }}</span>*/
+/*                     <span class="label">Environment</span>*/
+/*                 </div>*/
+/*             {% endif %}*/
+/* */
+/*             {% if 'n/a' != collector.debug %}*/
+/*                 <div class="metric">*/
+/*                     <span class="value">{{ collector.debug ? 'enabled' : 'disabled' }}</span>*/
+/*                     <span class="label">Debug</span>*/
+/*                 </div>*/
+/*             {% endif %}*/
+/*         </div>*/
+/*     {% endif %}*/
+/* */
+/*     <h2>PHP Configuration</h2>*/
+/* */
+/*     <div class="metrics">*/
+/*         <div class="metric">*/
+/*             <span class="value">{{ collector.phpversion }}</span>*/
+/*             <span class="label">PHP version</span>*/
+/*         </div>*/
+/* */
+/*         <div class="metric">*/
+/*             <span class="value">{{ include('@WebProfiler/Icon/' ~ (collector.hasaccelerator ? 'yes' : 'no') ~ '.svg') }}</span>*/
+/*             <span class="label">PHP acceleration</span>*/
+/*         </div>*/
+/* */
+/*         <div class="metric">*/
+/*             <span class="value">{{ include('@WebProfiler/Icon/' ~ (collector.hasxdebug ? 'yes' : 'no') ~ '.svg') }}</span>*/
+/*             <span class="label">Xdebug</span>*/
+/*         </div>*/
+/*     </div>*/
+/* */
+/*     <div class="metrics metrics-horizontal">*/
+/*         <div class="metric">*/
+/*             <span class="value">{{ include('@WebProfiler/Icon/' ~ (collector.haszendopcache ? 'yes' : 'no') ~ '.svg') }}</span>*/
+/*             <span class="label">OPcache</span>*/
+/*         </div>*/
+/* */
+/*         <div class="metric">*/
+/*             <span class="value">{{ include('@WebProfiler/Icon/' ~ (collector.hasapc ? 'yes' : 'no') ~ '.svg') }}</span>*/
+/*             <span class="label">APC</span>*/
+/*         </div>*/
+/* */
+/*         <div class="metric">*/
+/*             <span class="value">{{ include('@WebProfiler/Icon/' ~ (collector.hasxcache ? 'yes' : 'no') ~ '.svg') }}</span>*/
+/*             <span class="label">XCache</span>*/
+/*         </div>*/
+/* */
+/*         <div class="metric">*/
+/*             <span class="value">{{ include('@WebProfiler/Icon/' ~ (collector.haseaccelerator ? 'yes' : 'no') ~ '.svg') }}</span>*/
+/*             <span class="label">EAccelerator</span>*/
+/*         </div>*/
+/*     </div>*/
+/* */
+/*     <p>*/
+/*         <a href="{{ path('_profiler_phpinfo') }}">View full PHP configuration</a>*/
+/*     </p>*/
 /* */
 /*     {% if collector.bundles %}*/
-/*         <h2>Active bundles</h2>*/
+/*         <h2>Enabled Bundles <small>({{ collector.bundles|length }})</small></h2>*/
 /*         <table>*/
-/*             <tr>*/
-/*                 <th>Name</th>*/
-/*                 <th>Path</th>*/
-/*             </tr>*/
-/*             {% set bundles = collector.bundles %}*/
-/*             {% for name in bundles|keys|sort %}*/
-/*             <tr>*/
-/*                 <th>{{ name }}</th>*/
-/*                 <td>{{ bundles[name] }}</td>*/
-/*             </tr>*/
-/*             {% endfor %}*/
+/*             <thead>*/
+/*                 <tr>*/
+/*                     <th class="key">Name</th>*/
+/*                     <th>Path</th>*/
+/*                 </tr>*/
+/*             </thead>*/
+/*             <tbody>*/
+/*                 {% for name in collector.bundles|keys|sort %}*/
+/*                 <tr>*/
+/*                     <th scope="row" class="font-normal">{{ name }}</th>*/
+/*                     <td class="font-normal">{{ collector.bundles[name] }}</td>*/
+/*                 </tr>*/
+/*                 {% endfor %}*/
+/*             </tbody>*/
 /*         </table>*/
 /*     {% endif %}*/
 /* {% endblock %}*/

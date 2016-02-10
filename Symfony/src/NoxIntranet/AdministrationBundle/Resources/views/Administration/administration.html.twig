@@ -186,6 +186,18 @@
             <h4> Publication Collaborateurs :  </h4>
         </div>
         
+        <!-- Assistant d'affaire -->
+        <a href="{{ path('nox_intranet_administration_affaires') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetressources/images/Document-Zoom-In-03-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Document-Zoom-In-03-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Document-Zoom-In-03-128.png') }}';"
+                    > 
+                <figcaption>Assurance qualité</figcaption>
+            </figure>
+        </a>
+        
         <!-- Assurance qualité -->
         <a href="{{ path('nox_intranet_aq') }}" class="icon">
             <figure>
@@ -221,7 +233,9 @@
                 <figcaption>Compétences</figcaption>
             </figure>
         </a>
-        <!------------------------>
+        <!------------------------>      
+
+            <br>
 
         {% if app.user and is_granted('ROLE_FAQ') %}        
             <!-- FAQ -->
@@ -235,8 +249,7 @@
                     <figcaption>FAQ</figcaption>
                 </figure>
             </a>
-
-            <br>
+                        
         {% endif %}
 
         <!-- Liens -->
@@ -250,12 +263,6 @@
                 <figcaption>Liens</figcaption>
             </figure>
         </a>
-
-        {% if app.user and not is_granted('ROLE_FAQ') %}        
-
-            <br>
-
-        {% endif %}
 
         <!-- Procédures (A ajouté)
         <a href="{{ path('nox_intranet_administration_liens') }}" class="icon">

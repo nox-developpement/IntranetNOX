@@ -77,14 +77,14 @@ for ( $i = 0 ; $i < sizeof($servers) ; $i++ ) {
 	while ( !feof ($fp) ) {
 		$line = fgets ($fp, 1024);
 		/* Look for an expression like this ie. kalahari: license server UP (MASTER) v6.1 */
-		if ( mb_eregi (": license server UP \(MASTER\) ", $line) ) {
+		if ( eregi (": license server UP \(MASTER\) ", $line) ) {
 			$status_string = "UP";
 			$class = "up";
 			$lmgrdversion = eregi_replace(".*license server UP \(MASTER\) ", "", $line);
 			$lmmaster = substr($line,0,strpos($line,':',0));
 		}
 
-		if ( mb_eregi ("Cannot connect to license server", $line, $out) ) {
+		if ( eregi ("Cannot connect to license server", $line, $out) ) {
 			$status_string = "DOWN";
 			$class = "down";
 			$lmgrdversion = "unknown" ;
@@ -94,7 +94,7 @@ for ( $i = 0 ; $i < sizeof($servers) ; $i++ ) {
 			break;
 		}
 
-		if ( mb_eregi ("Cannot read data", $line, $out) ) {
+		if ( eregi ("Cannot read data", $line, $out) ) {
 			$status_string = "DOWN";
 			$class = "down";
 			$lmgrdversion = "unknown" ;
@@ -104,7 +104,7 @@ for ( $i = 0 ; $i < sizeof($servers) ; $i++ ) {
 			break;
 		}
 
-		if ( mb_eregi ("Error getting status", $line, $out) ) {
+		if ( eregi ("Error getting status", $line, $out) ) {
 			$status_string = "DOWN";
 			$class = "down";
 			$lmgrdversion = "unknown" ;
@@ -115,7 +115,7 @@ for ( $i = 0 ; $i < sizeof($servers) ; $i++ ) {
 		}
 
 		/* Checking if vendor daemon has died evenif lmgrd is still running */
-		if ( mb_eregi ("vendor daemon is down", $line, $out) ) {
+		if ( eregi ("vendor daemon is down", $line, $out) ) {
 			$status_string = "VENDOR DOWN";
 			$class = "warning";
 			$lmgrdversion = eregi_replace(".*license server UP \(MASTER\) ", "", $line);
@@ -190,7 +190,7 @@ $table->addRow($colHeaders, $headerStyle, "TH");
 
 # If no license server is running, lum outputs:
 # ADM-10037: There are no active license servers
-		if ( mb_eregi ("ADM-10037: There are no active license servers", $line) ) {
+		if ( eregi ("ADM-10037: There are no active license servers", $line) ) {
 			$servername = "unknown" ;
 			$targetid = "unknown" ;
 			$targettype = "unknown" ;
@@ -225,7 +225,7 @@ $table->addRow($colHeaders, $headerStyle, "TH");
 //                           ==========================
 //                           === End of Server List ===
 //                           ==========================
-		if ( mb_eregi ("Server Name:", $line) ) {
+		if ( eregi ("Server Name:", $line) ) {
 			$servername = eregi_replace(".*Server Name:\ *", "", $line) ;
 			$targetid = eregi_replace(".*Target ID:\ *", "", fgets ($fp, 1024));  // Next line: TargetID
 			$targettype = eregi_replace(".*Target Type:\ *", "", fgets ($fp, 1024));  // Next line: TargetType
@@ -255,9 +255,9 @@ $table->display();
 ?>
 
 <?PHP
-
+if ( $showversion ) {
   include_once('./version.php');
-
+}
 ?>
 
 </body></html>

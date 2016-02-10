@@ -23,67 +23,60 @@ class __TwigTemplate_7f4902c39fc5e6dfe8516a41093514a909ab287ecaff5f18f5db0bbe8c1
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b596aa52a06ce5e4f078e574cf8806779a4abbdbce0dbdd20a01c53f82590a4b = $this->env->getExtension("native_profiler");
-        $__internal_b596aa52a06ce5e4f078e574cf8806779a4abbdbce0dbdd20a01c53f82590a4b->enter($__internal_b596aa52a06ce5e4f078e574cf8806779a4abbdbce0dbdd20a01c53f82590a4b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Debug/Profiler/dump.html.twig"));
+        $__internal_cf16f322e05a0503aa5700a904d04031ad67d68381309cb792414267d1c63f96 = $this->env->getExtension("native_profiler");
+        $__internal_cf16f322e05a0503aa5700a904d04031ad67d68381309cb792414267d1c63f96->enter($__internal_cf16f322e05a0503aa5700a904d04031ad67d68381309cb792414267d1c63f96_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Debug/Profiler/dump.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_b596aa52a06ce5e4f078e574cf8806779a4abbdbce0dbdd20a01c53f82590a4b->leave($__internal_b596aa52a06ce5e4f078e574cf8806779a4abbdbce0dbdd20a01c53f82590a4b_prof);
+        $__internal_cf16f322e05a0503aa5700a904d04031ad67d68381309cb792414267d1c63f96->leave($__internal_cf16f322e05a0503aa5700a904d04031ad67d68381309cb792414267d1c63f96_prof);
 
     }
 
     // line 3
     public function block_toolbar($context, array $blocks = array())
     {
-        $__internal_901a5ef65cd21129ca9793f6652406854aa4b704c3c04c5016ba990f73ae6f28 = $this->env->getExtension("native_profiler");
-        $__internal_901a5ef65cd21129ca9793f6652406854aa4b704c3c04c5016ba990f73ae6f28->enter($__internal_901a5ef65cd21129ca9793f6652406854aa4b704c3c04c5016ba990f73ae6f28_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
+        $__internal_c41c5ad85dafca75712615e7bc3a2e91b6dd3f87981fb65d21b71168f2235278 = $this->env->getExtension("native_profiler");
+        $__internal_c41c5ad85dafca75712615e7bc3a2e91b6dd3f87981fb65d21b71168f2235278->enter($__internal_c41c5ad85dafca75712615e7bc3a2e91b6dd3f87981fb65d21b71168f2235278_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
 
         // line 4
         echo "    ";
-        $context["dumps_count"] = $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "dumpsCount", array());
-        // line 5
-        echo "
-    ";
-        // line 6
-        if ((isset($context["dumps_count"]) ? $context["dumps_count"] : $this->getContext($context, "dumps_count"))) {
-            // line 7
+        if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "dumpsCount", array())) {
+            // line 5
             echo "        ";
             ob_start();
-            // line 8
-            echo "            <svg width=\"21\" height=\"28\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 21 28\" enable-background=\"new 0 0 21 28\" xml:space=\"preserve\"><path fill=\"#3F3F3F\" d=\"M21 14h-1c-0.3-4.8-4.1-8.7-9-9V4h-1v1c-4.8 0.3-8.7 4.1-9 9H0v1h1c0.3 4.8 4.1 8.7 9 9v1h1v-1 c4.8-0.3 8.7-4.1 9-9h1V14z M11 22v-4h-1v4c-3.7-0.2-6.7-3.2-7-7h4v-1H3c0.2-3.7 3.2-6.7 7-7v4h1V7c3.7 0.2 6.7 3.2 7 7h-4v1h4 C17.7 18.7 14.7 21.7 11 22z\"/></svg>
-            <span class=\"sf-toolbar-status sf-toolbar-status-yellow\">";
-            // line 9
-            echo twig_escape_filter($this->env, (isset($context["dumps_count"]) ? $context["dumps_count"] : $this->getContext($context, "dumps_count")), "html", null, true);
+            // line 6
+            echo "            ";
+            echo twig_include($this->env, $context, "@Debug/Profiler/icon.svg");
+            echo "
+            <span class=\"sf-toolbar-value\">";
+            // line 7
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "dumpsCount", array()), "html", null, true);
             echo "</span>
         ";
             $context["icon"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-            // line 11
+            // line 9
             echo "
         ";
-            // line 12
+            // line 10
             ob_start();
-            // line 13
-            echo "            <div class=\"sf-toolbar-info-piece\">
-                <b>dump()</b>
-            </div>
-            ";
-            // line 16
+            // line 11
+            echo "            ";
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "getDumps", array(0 => "html"), "method"));
             foreach ($context['_seq'] as $context["_key"] => $context["dump"]) {
-                // line 17
+                // line 12
                 echo "                <div class=\"sf-toolbar-info-piece\">
-                    in
+                    <span>
                     ";
-                // line 19
+                // line 14
                 if ($this->getAttribute($context["dump"], "file", array())) {
-                    // line 20
+                    // line 15
                     echo "                        ";
                     $context["link"] = $this->env->getExtension('code')->getFileLink($this->getAttribute($context["dump"], "file", array()), $this->getAttribute($context["dump"], "line", array()));
-                    // line 21
+                    // line 16
                     echo "                        ";
                     if ((isset($context["link"]) ? $context["link"] : $this->getContext($context, "link"))) {
-                        // line 22
+                        // line 17
                         echo "                            <a href=\"";
                         echo twig_escape_filter($this->env, (isset($context["link"]) ? $context["link"] : $this->getContext($context, "link")), "html", null, true);
                         echo "\" title=\"";
@@ -93,7 +86,7 @@ class __TwigTemplate_7f4902c39fc5e6dfe8516a41093514a909ab287ecaff5f18f5db0bbe8c1
                         echo "</a>
                         ";
                     } else {
-                        // line 24
+                        // line 19
                         echo "                            <abbr title=\"";
                         echo twig_escape_filter($this->env, $this->getAttribute($context["dump"], "file", array()), "html", null, true);
                         echo "\">";
@@ -101,21 +94,24 @@ class __TwigTemplate_7f4902c39fc5e6dfe8516a41093514a909ab287ecaff5f18f5db0bbe8c1
                         echo "</abbr>
                         ";
                     }
-                    // line 26
+                    // line 21
                     echo "                    ";
                 } else {
-                    // line 27
+                    // line 22
                     echo "                        ";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["dump"], "name", array()), "html", null, true);
                     echo "
                     ";
                 }
-                // line 29
-                echo "                    line ";
+                // line 24
+                echo "                    </span>
+                    <span class=\"sf-toolbar-file-line\">line ";
+                // line 25
                 echo twig_escape_filter($this->env, $this->getAttribute($context["dump"], "line", array()), "html", null, true);
-                echo ":
+                echo "</span>
+
                     ";
-                // line 30
+                // line 27
                 echo $this->getAttribute($context["dump"], "data", array());
                 echo "
                 </div>
@@ -124,165 +120,163 @@ class __TwigTemplate_7f4902c39fc5e6dfe8516a41093514a909ab287ecaff5f18f5db0bbe8c1
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['dump'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 33
+            // line 30
             echo "            <img src=\"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==\" onload=\"var h = this.parentNode.innerHTML, rx=/<script>(.*?)<\\/script>/g, s; while (s = rx.exec(h)) {eval(s[1]);};\" />
         ";
             $context["text"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-            // line 35
+            // line 32
             echo "
         ";
-            // line 36
-            $this->loadTemplate("@WebProfiler/Profiler/toolbar_item.html.twig", "@Debug/Profiler/dump.html.twig", 36)->display(array_merge($context, array("link" => true)));
-            // line 37
-            echo "    ";
+            // line 33
+            echo twig_include($this->env, $context, "@WebProfiler/Profiler/toolbar_item.html.twig", array("link" => true));
+            echo "
+    ";
         }
         
-        $__internal_901a5ef65cd21129ca9793f6652406854aa4b704c3c04c5016ba990f73ae6f28->leave($__internal_901a5ef65cd21129ca9793f6652406854aa4b704c3c04c5016ba990f73ae6f28_prof);
+        $__internal_c41c5ad85dafca75712615e7bc3a2e91b6dd3f87981fb65d21b71168f2235278->leave($__internal_c41c5ad85dafca75712615e7bc3a2e91b6dd3f87981fb65d21b71168f2235278_prof);
 
     }
 
-    // line 40
+    // line 37
     public function block_menu($context, array $blocks = array())
     {
-        $__internal_afcf26e8528ae8638460ab7a10dbfb68a94a51eb930741f60ae66a64b4e9fc1f = $this->env->getExtension("native_profiler");
-        $__internal_afcf26e8528ae8638460ab7a10dbfb68a94a51eb930741f60ae66a64b4e9fc1f->enter($__internal_afcf26e8528ae8638460ab7a10dbfb68a94a51eb930741f60ae66a64b4e9fc1f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
+        $__internal_f21ee262cab3789a6c384122ab12dadfa4283a092a9e3edf295f4020d83f3f2d = $this->env->getExtension("native_profiler");
+        $__internal_f21ee262cab3789a6c384122ab12dadfa4283a092a9e3edf295f4020d83f3f2d->enter($__internal_f21ee262cab3789a6c384122ab12dadfa4283a092a9e3edf295f4020d83f3f2d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
 
-        // line 41
-        echo "    <span class=\"label\">
+        // line 38
+        echo "    <span class=\"label ";
+        echo ((($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "dumpsCount", array()) == 0)) ? ("disabled") : (""));
+        echo "\">
         <span class=\"icon\">";
-        // line 43
-        echo "";
-        // line 44
-        echo "<svg width=\"28\" height=\"28\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 28 28\" enable-background=\"new 0 0 28 28\" xml:space=\"preserve\"><path fill=\"#3F3F3F\" d=\"M28 13h-1.1C26.5 6.6 21.4 1.5 15 1.1V0h-2v1.1C6.6 1.5 1.5 6.6 1.1 13H0v2h1.1C1.5 21.4 6.6 26.5 13 26.9 V28h2v-1.1c6.4-0.5 11.5-5.6 11.9-11.9H28V13z M15 24.9V19h-2v5.9c-5.3-0.5-9.5-4.7-9.9-9.9H9v-2H3.1C3.5 7.7 7.7 3.5 13 3.1V9h2 V3.1c5.3 0.5 9.5 4.7 9.9 9.9H19v2h5.9C24.5 20.3 20.3 24.5 15 24.9z\"/></svg>";
-        // line 45
-        echo "";
-        // line 46
+        // line 39
+        echo twig_include($this->env, $context, "@Debug/Profiler/icon.svg");
         echo "</span>
-        <strong>dump()</strong>
-        <span class=\"count\">
-            <span>";
-        // line 49
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "dumpsCount", array()), "html", null, true);
-        echo "</span>
-        </span>
+        <strong>Debug</strong>
     </span>
 ";
         
-        $__internal_afcf26e8528ae8638460ab7a10dbfb68a94a51eb930741f60ae66a64b4e9fc1f->leave($__internal_afcf26e8528ae8638460ab7a10dbfb68a94a51eb930741f60ae66a64b4e9fc1f_prof);
+        $__internal_f21ee262cab3789a6c384122ab12dadfa4283a092a9e3edf295f4020d83f3f2d->leave($__internal_f21ee262cab3789a6c384122ab12dadfa4283a092a9e3edf295f4020d83f3f2d_prof);
 
     }
 
-    // line 54
+    // line 44
     public function block_panel($context, array $blocks = array())
     {
-        $__internal_e92445b121489f0e82d86f10473a1c48de717e641f4f81c89a317a3e716560f5 = $this->env->getExtension("native_profiler");
-        $__internal_e92445b121489f0e82d86f10473a1c48de717e641f4f81c89a317a3e716560f5->enter($__internal_e92445b121489f0e82d86f10473a1c48de717e641f4f81c89a317a3e716560f5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
+        $__internal_afe5f925dea0b564b5dbcb813e815e64bfdf197c8bdde67fd9667d13ea272c04 = $this->env->getExtension("native_profiler");
+        $__internal_afe5f925dea0b564b5dbcb813e815e64bfdf197c8bdde67fd9667d13ea272c04->enter($__internal_afe5f925dea0b564b5dbcb813e815e64bfdf197c8bdde67fd9667d13ea272c04_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
 
-        // line 55
-        echo "    <h2>dump()</h2>
-
-    <style>
-        li.sf-dump {
-            list-style-type: disc;
-        }
-        .sf-dump ol>li {
-            padding: 0;
-        }
-        .sf-dump a {
-            cursor: pointer;
-        }
-        .sf-dump-compact {
-            display: none;
-        }
-    </style>
+        // line 45
+        echo "    <h2>Dumped Contents</h2>
 
     ";
-        // line 72
-        if ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "dumpsCount", array())) {
-            // line 73
-            echo "        <ul class=\"alt\">
-            ";
-            // line 74
-            $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "getDumps", array(0 => "html"), "method"));
-            foreach ($context['_seq'] as $context["_key"] => $context["dump"]) {
-                // line 75
-                echo "            <li class=\"sf-dump sf-reset\">
-                in
+        // line 47
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "getDumps", array(0 => "html"), "method"));
+        $context['_iterated'] = false;
+        $context['loop'] = array(
+          'parent' => $context['_parent'],
+          'index0' => 0,
+          'index'  => 1,
+          'first'  => true,
+        );
+        if (is_array($context['_seq']) || (is_object($context['_seq']) && $context['_seq'] instanceof Countable)) {
+            $length = count($context['_seq']);
+            $context['loop']['revindex0'] = $length - 1;
+            $context['loop']['revindex'] = $length;
+            $context['loop']['length'] = $length;
+            $context['loop']['last'] = 1 === $length;
+        }
+        foreach ($context['_seq'] as $context["_key"] => $context["dump"]) {
+            // line 48
+            echo "        <div class=\"sf-dump sf-reset\">
+            <h3>In
                 ";
-                // line 77
-                if ($this->getAttribute($context["dump"], "line", array())) {
-                    // line 78
-                    echo "                    ";
-                    $context["link"] = $this->env->getExtension('code')->getFileLink($this->getAttribute($context["dump"], "file", array()), $this->getAttribute($context["dump"], "line", array()));
-                    // line 79
-                    echo "                    ";
-                    if ((isset($context["link"]) ? $context["link"] : $this->getContext($context, "link"))) {
-                        // line 80
-                        echo "                        <a href=\"";
-                        echo twig_escape_filter($this->env, (isset($context["link"]) ? $context["link"] : $this->getContext($context, "link")), "html", null, true);
-                        echo "\" title=\"";
-                        echo twig_escape_filter($this->env, $this->getAttribute($context["dump"], "file", array()), "html", null, true);
-                        echo "\">";
-                        echo twig_escape_filter($this->env, $this->getAttribute($context["dump"], "name", array()), "html", null, true);
-                        echo "</a>
-                    ";
-                    } else {
-                        // line 82
-                        echo "                        <abbr title=\"";
-                        echo twig_escape_filter($this->env, $this->getAttribute($context["dump"], "file", array()), "html", null, true);
-                        echo "\">";
-                        echo twig_escape_filter($this->env, $this->getAttribute($context["dump"], "name", array()), "html", null, true);
-                        echo "</abbr>
-                    ";
-                    }
-                    // line 84
-                    echo "                ";
-                } else {
-                    // line 85
-                    echo "                    ";
+            // line 50
+            if ($this->getAttribute($context["dump"], "line", array())) {
+                // line 51
+                echo "                    ";
+                $context["link"] = $this->env->getExtension('code')->getFileLink($this->getAttribute($context["dump"], "file", array()), $this->getAttribute($context["dump"], "line", array()));
+                // line 52
+                echo "                    ";
+                if ((isset($context["link"]) ? $context["link"] : $this->getContext($context, "link"))) {
+                    // line 53
+                    echo "                        <a href=\"";
+                    echo twig_escape_filter($this->env, (isset($context["link"]) ? $context["link"] : $this->getContext($context, "link")), "html", null, true);
+                    echo "\" title=\"";
+                    echo twig_escape_filter($this->env, $this->getAttribute($context["dump"], "file", array()), "html", null, true);
+                    echo "\">";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["dump"], "name", array()), "html", null, true);
-                    echo "
-                ";
-                }
-                // line 87
-                echo "                line ";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["dump"], "line", array()), "html", null, true);
-                echo ":
-                <a onclick=\"var s = this.nextElementSibling; if ('sf-dump-compact' == s.className) {this.innerHTML = '&#9660;'; s.className = 'sf-dump-expanded';} else {this.innerHTML = '&#9654;'; s.className = 'sf-dump-compact';}\">&#9654;</a>
-                <span class=\"sf-dump-compact\">
-                ";
-                // line 90
-                if ($this->getAttribute($context["dump"], "fileExcerpt", array())) {
-                    echo $this->getAttribute($context["dump"], "fileExcerpt", array());
+                    echo "</a>
+                    ";
                 } else {
-                    echo $this->env->getExtension('code')->fileExcerpt($this->getAttribute($context["dump"], "file", array()), $this->getAttribute($context["dump"], "line", array()));
+                    // line 55
+                    echo "                        <abbr title=\"";
+                    echo twig_escape_filter($this->env, $this->getAttribute($context["dump"], "file", array()), "html", null, true);
+                    echo "\">";
+                    echo twig_escape_filter($this->env, $this->getAttribute($context["dump"], "name", array()), "html", null, true);
+                    echo "</abbr>
+                    ";
                 }
-                // line 91
-                echo "                </span>
-
-                ";
-                // line 93
-                echo $this->getAttribute($context["dump"], "data", array());
+                // line 57
+                echo "                ";
+            } else {
+                // line 58
+                echo "                    ";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["dump"], "name", array()), "html", null, true);
                 echo "
-            </li>
-            ";
+                ";
             }
-            $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['dump'], $context['_parent'], $context['loop']);
-            $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 96
-            echo "        </ul>
+            // line 60
+            echo "                <small>line ";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["dump"], "line", array()), "html", null, true);
+            echo "</small>
+
+                <a class=\"text-small sf-toggle\" data-toggle-selector=\"#sf-trace-";
+            // line 62
+            echo twig_escape_filter($this->env, $this->getAttribute($context["loop"], "index0", array()), "html", null, true);
+            echo "\" data-toggle-alt-content=\"Hide code\">Show code</a>
+            </h3>
+
+            <div class=\"sf-dump-compact hidden\" id=\"sf-trace-";
+            // line 65
+            echo twig_escape_filter($this->env, $this->getAttribute($context["loop"], "index0", array()), "html", null, true);
+            echo "\">
+                <div class=\"trace\">
+                    ";
+            // line 67
+            echo (($this->getAttribute($context["dump"], "fileExcerpt", array())) ? ($this->getAttribute($context["dump"], "fileExcerpt", array())) : ($this->env->getExtension('code')->fileExcerpt($this->getAttribute($context["dump"], "file", array()), $this->getAttribute($context["dump"], "line", array()))));
+            echo "
+                </div>
+            </div>
+
+            ";
+            // line 71
+            echo $this->getAttribute($context["dump"], "data", array());
+            echo "
+        </div>
     ";
-        } else {
-            // line 98
-            echo "        <p>
-            <em>No dumped variable</em>
-        </p>
+            $context['_iterated'] = true;
+            ++$context['loop']['index0'];
+            ++$context['loop']['index'];
+            $context['loop']['first'] = false;
+            if (isset($context['loop']['length'])) {
+                --$context['loop']['revindex0'];
+                --$context['loop']['revindex'];
+                $context['loop']['last'] = 0 === $context['loop']['revindex0'];
+            }
+        }
+        if (!$context['_iterated']) {
+            // line 74
+            echo "        <div class=\"empty\">
+            <p>No content was dumped.</p>
+        </div>
     ";
         }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['dump'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
         
-        $__internal_e92445b121489f0e82d86f10473a1c48de717e641f4f81c89a317a3e716560f5->leave($__internal_e92445b121489f0e82d86f10473a1c48de717e641f4f81c89a317a3e716560f5_prof);
+        $__internal_afe5f925dea0b564b5dbcb813e815e64bfdf197c8bdde67fd9667d13ea272c04->leave($__internal_afe5f925dea0b564b5dbcb813e815e64bfdf197c8bdde67fd9667d13ea272c04_prof);
 
     }
 
@@ -298,27 +292,22 @@ class __TwigTemplate_7f4902c39fc5e6dfe8516a41093514a909ab287ecaff5f18f5db0bbe8c1
 
     public function getDebugInfo()
     {
-        return array (  279 => 98,  275 => 96,  266 => 93,  262 => 91,  256 => 90,  249 => 87,  243 => 85,  240 => 84,  232 => 82,  222 => 80,  219 => 79,  216 => 78,  214 => 77,  210 => 75,  206 => 74,  203 => 73,  201 => 72,  182 => 55,  176 => 54,  165 => 49,  160 => 46,  158 => 45,  156 => 44,  154 => 43,  151 => 41,  145 => 40,  137 => 37,  135 => 36,  132 => 35,  128 => 33,  119 => 30,  114 => 29,  108 => 27,  105 => 26,  97 => 24,  87 => 22,  84 => 21,  81 => 20,  79 => 19,  75 => 17,  71 => 16,  66 => 13,  64 => 12,  61 => 11,  56 => 9,  53 => 8,  50 => 7,  48 => 6,  45 => 5,  42 => 4,  36 => 3,  11 => 1,);
+        return array (  270 => 74,  254 => 71,  247 => 67,  242 => 65,  236 => 62,  230 => 60,  224 => 58,  221 => 57,  213 => 55,  203 => 53,  200 => 52,  197 => 51,  195 => 50,  191 => 48,  173 => 47,  169 => 45,  163 => 44,  152 => 39,  147 => 38,  141 => 37,  131 => 33,  128 => 32,  124 => 30,  115 => 27,  110 => 25,  107 => 24,  101 => 22,  98 => 21,  90 => 19,  80 => 17,  77 => 16,  74 => 15,  72 => 14,  68 => 12,  63 => 11,  61 => 10,  58 => 9,  53 => 7,  48 => 6,  45 => 5,  42 => 4,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends '@WebProfiler/Profiler/layout.html.twig' %}*/
 /* */
 /* {% block toolbar %}*/
-/*     {% set dumps_count = collector.dumpsCount %}*/
-/* */
-/*     {% if dumps_count %}*/
+/*     {% if collector.dumpsCount %}*/
 /*         {% set icon %}*/
-/*             <svg width="21" height="28" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 21 28" enable-background="new 0 0 21 28" xml:space="preserve"><path fill="#3F3F3F" d="M21 14h-1c-0.3-4.8-4.1-8.7-9-9V4h-1v1c-4.8 0.3-8.7 4.1-9 9H0v1h1c0.3 4.8 4.1 8.7 9 9v1h1v-1 c4.8-0.3 8.7-4.1 9-9h1V14z M11 22v-4h-1v4c-3.7-0.2-6.7-3.2-7-7h4v-1H3c0.2-3.7 3.2-6.7 7-7v4h1V7c3.7 0.2 6.7 3.2 7 7h-4v1h4 C17.7 18.7 14.7 21.7 11 22z"/></svg>*/
-/*             <span class="sf-toolbar-status sf-toolbar-status-yellow">{{ dumps_count }}</span>*/
+/*             {{ include('@Debug/Profiler/icon.svg') }}*/
+/*             <span class="sf-toolbar-value">{{ collector.dumpsCount }}</span>*/
 /*         {% endset %}*/
 /* */
 /*         {% set text %}*/
-/*             <div class="sf-toolbar-info-piece">*/
-/*                 <b>dump()</b>*/
-/*             </div>*/
 /*             {% for dump in collector.getDumps('html') %}*/
 /*                 <div class="sf-toolbar-info-piece">*/
-/*                     in*/
+/*                     <span>*/
 /*                     {% if dump.file %}*/
 /*                         {% set link = dump.file|file_link(dump.line) %}*/
 /*                         {% if link %}*/
@@ -329,54 +318,32 @@ class __TwigTemplate_7f4902c39fc5e6dfe8516a41093514a909ab287ecaff5f18f5db0bbe8c1
 /*                     {% else %}*/
 /*                         {{ dump.name }}*/
 /*                     {% endif %}*/
-/*                     line {{ dump.line }}:*/
+/*                     </span>*/
+/*                     <span class="sf-toolbar-file-line">line {{ dump.line }}</span>*/
+/* */
 /*                     {{ dump.data|raw }}*/
 /*                 </div>*/
 /*             {% endfor %}*/
 /*             <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onload="var h = this.parentNode.innerHTML, rx=/<script>(.*?)<\/script>/g, s; while (s = rx.exec(h)) {eval(s[1]);};" />*/
 /*         {% endset %}*/
 /* */
-/*         {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': true } %}*/
+/*         {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { 'link': true }) }}*/
 /*     {% endif %}*/
 /* {% endblock %}*/
 /* */
 /* {% block menu %}*/
-/*     <span class="label">*/
-/*         <span class="icon">*/
-/*         {{- "" -}}*/
-/*         <svg width="28" height="28" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve"><path fill="#3F3F3F" d="M28 13h-1.1C26.5 6.6 21.4 1.5 15 1.1V0h-2v1.1C6.6 1.5 1.5 6.6 1.1 13H0v2h1.1C1.5 21.4 6.6 26.5 13 26.9 V28h2v-1.1c6.4-0.5 11.5-5.6 11.9-11.9H28V13z M15 24.9V19h-2v5.9c-5.3-0.5-9.5-4.7-9.9-9.9H9v-2H3.1C3.5 7.7 7.7 3.5 13 3.1V9h2 V3.1c5.3 0.5 9.5 4.7 9.9 9.9H19v2h5.9C24.5 20.3 20.3 24.5 15 24.9z"/></svg>*/
-/*         {{- "" -}}*/
-/*         </span>*/
-/*         <strong>dump()</strong>*/
-/*         <span class="count">*/
-/*             <span>{{ collector.dumpsCount }}</span>*/
-/*         </span>*/
+/*     <span class="label {{ collector.dumpsCount == 0 ? 'disabled' }}">*/
+/*         <span class="icon">{{ include('@Debug/Profiler/icon.svg') }}</span>*/
+/*         <strong>Debug</strong>*/
 /*     </span>*/
 /* {% endblock %}*/
 /* */
 /* {% block panel %}*/
-/*     <h2>dump()</h2>*/
+/*     <h2>Dumped Contents</h2>*/
 /* */
-/*     <style>*/
-/*         li.sf-dump {*/
-/*             list-style-type: disc;*/
-/*         }*/
-/*         .sf-dump ol>li {*/
-/*             padding: 0;*/
-/*         }*/
-/*         .sf-dump a {*/
-/*             cursor: pointer;*/
-/*         }*/
-/*         .sf-dump-compact {*/
-/*             display: none;*/
-/*         }*/
-/*     </style>*/
-/* */
-/*     {% if collector.dumpsCount %}*/
-/*         <ul class="alt">*/
-/*             {% for dump in collector.getDumps('html') %}*/
-/*             <li class="sf-dump sf-reset">*/
-/*                 in*/
+/*     {% for dump in collector.getDumps('html') %}*/
+/*         <div class="sf-dump sf-reset">*/
+/*             <h3>In*/
 /*                 {% if dump.line %}*/
 /*                     {% set link = dump.file|file_link(dump.line) %}*/
 /*                     {% if link %}*/
@@ -387,20 +354,23 @@ class __TwigTemplate_7f4902c39fc5e6dfe8516a41093514a909ab287ecaff5f18f5db0bbe8c1
 /*                 {% else %}*/
 /*                     {{ dump.name }}*/
 /*                 {% endif %}*/
-/*                 line {{ dump.line }}:*/
-/*                 <a onclick="var s = this.nextElementSibling; if ('sf-dump-compact' == s.className) {this.innerHTML = '&#9660;'; s.className = 'sf-dump-expanded';} else {this.innerHTML = '&#9654;'; s.className = 'sf-dump-compact';}">&#9654;</a>*/
-/*                 <span class="sf-dump-compact">*/
-/*                 {% if dump.fileExcerpt %}{{ dump.fileExcerpt|raw }}{% else %}{{ dump.file|file_excerpt(dump.line) }}{% endif %}*/
-/*                 </span>*/
+/*                 <small>line {{ dump.line }}</small>*/
 /* */
-/*                 {{ dump.data|raw }}*/
-/*             </li>*/
-/*             {% endfor %}*/
-/*         </ul>*/
+/*                 <a class="text-small sf-toggle" data-toggle-selector="#sf-trace-{{ loop.index0 }}" data-toggle-alt-content="Hide code">Show code</a>*/
+/*             </h3>*/
+/* */
+/*             <div class="sf-dump-compact hidden" id="sf-trace-{{ loop.index0 }}">*/
+/*                 <div class="trace">*/
+/*                     {{ dump.fileExcerpt ? dump.fileExcerpt|raw : dump.file|file_excerpt(dump.line) }}*/
+/*                 </div>*/
+/*             </div>*/
+/* */
+/*             {{ dump.data|raw }}*/
+/*         </div>*/
 /*     {% else %}*/
-/*         <p>*/
-/*             <em>No dumped variable</em>*/
-/*         </p>*/
-/*     {% endif %}*/
+/*         <div class="empty">*/
+/*             <p>No content was dumped.</p>*/
+/*         </div>*/
+/*     {% endfor %}*/
 /* {% endblock %}*/
 /* */

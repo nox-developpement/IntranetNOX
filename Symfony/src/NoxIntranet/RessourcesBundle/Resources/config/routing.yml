@@ -71,7 +71,17 @@ nox_intranet_affichageAQ:
     defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:affichageAQ }
     requirements:
          chemin: .+
+         
+nox_intranet_assistant_affaire:
+    path: /ressources/assistant-affaire
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:accueilAssistantAffaire }
     
-
+nox_intranet_assistant_affaire_nouvelle:
+    path: /ressources/assistant-affaire/creation-suivi
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuivi }
+    
+nox_intranet_assistant_affaire_generation:
+    path: /ressources/assistantAffaireGeneration
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:generateExcelFile }
     
     

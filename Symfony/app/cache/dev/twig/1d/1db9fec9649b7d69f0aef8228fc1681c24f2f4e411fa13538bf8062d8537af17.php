@@ -12,6 +12,7 @@ class __TwigTemplate_b5a5d7abc177e859122fad81dda46ad1faab392d6ca24f633e2a8a25dea
         $this->blocks = array(
             'toolbar' => array($this, 'block_toolbar'),
             'menu' => array($this, 'block_menu'),
+            'head' => array($this, 'block_head'),
             'panel' => array($this, 'block_panel'),
         );
     }
@@ -23,299 +24,336 @@ class __TwigTemplate_b5a5d7abc177e859122fad81dda46ad1faab392d6ca24f633e2a8a25dea
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_1146397f7dd269cfb587825f438d91f41d14791647b1885506cb8b2aa007490e = $this->env->getExtension("native_profiler");
-        $__internal_1146397f7dd269cfb587825f438d91f41d14791647b1885506cb8b2aa007490e->enter($__internal_1146397f7dd269cfb587825f438d91f41d14791647b1885506cb8b2aa007490e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@WebProfiler/Collector/form.html.twig"));
+        $__internal_483c40464eef9cda4825db9575005117df8be1fd172579e0aaa76dee92a27897 = $this->env->getExtension("native_profiler");
+        $__internal_483c40464eef9cda4825db9575005117df8be1fd172579e0aaa76dee92a27897->enter($__internal_483c40464eef9cda4825db9575005117df8be1fd172579e0aaa76dee92a27897_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@WebProfiler/Collector/form.html.twig"));
 
         // line 3
-        $context["__internal_456b2d68aa46193f888b11331284a2372469502c4012a5903479cf2c9ccb5f67"] = $this;
+        $context["__internal_47d406a476eb67551fdf972f501b75fa49f988c18b9b9e7eeb44a7ee0e6fb6b0"] = $this;
         // line 1
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_1146397f7dd269cfb587825f438d91f41d14791647b1885506cb8b2aa007490e->leave($__internal_1146397f7dd269cfb587825f438d91f41d14791647b1885506cb8b2aa007490e_prof);
+        $__internal_483c40464eef9cda4825db9575005117df8be1fd172579e0aaa76dee92a27897->leave($__internal_483c40464eef9cda4825db9575005117df8be1fd172579e0aaa76dee92a27897_prof);
 
     }
 
     // line 5
     public function block_toolbar($context, array $blocks = array())
     {
-        $__internal_9b2c07c9e4c523cda9d1b4696fd8a3cf021a3b84ab3f86b006fb59ba23239e4c = $this->env->getExtension("native_profiler");
-        $__internal_9b2c07c9e4c523cda9d1b4696fd8a3cf021a3b84ab3f86b006fb59ba23239e4c->enter($__internal_9b2c07c9e4c523cda9d1b4696fd8a3cf021a3b84ab3f86b006fb59ba23239e4c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
+        $__internal_bfd056b7eb9cc2b15631f94596d1919f83e0c0a2683c6b5eea3f0144d981af26 = $this->env->getExtension("native_profiler");
+        $__internal_bfd056b7eb9cc2b15631f94596d1919f83e0c0a2683c6b5eea3f0144d981af26->enter($__internal_bfd056b7eb9cc2b15631f94596d1919f83e0c0a2683c6b5eea3f0144d981af26_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
 
         // line 6
         echo "    ";
-        if (twig_length_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()))) {
+        if ((($this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "nb_errors", array()) > 0) || twig_length_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "forms", array())))) {
             // line 7
             echo "        ";
-            ob_start();
+            $context["status_color"] = (($this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "nb_errors", array())) ? ("red") : (""));
             // line 8
-            echo "            <svg width=\"20\" height=\"28\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 20 28\" enable-background=\"new 0 0 20 28\" xml:space=\"preserve\"><g><polygon fill=\"#3F3F3F\" points=\"16,5 13,5 13,3 7,3 7,5 4,5 4,9 16,9\"/><path fill=\"#3F3F3F\" d=\"M17 6v4H3V6H0v19h20V6H17z M8 22H3v-1h5V22z M17 20H3v-1h14V20z M17 18H3v-1h14V18z M17 16H3v-1h14V16z M17 14H4v-1h13V14z\"/></g></svg>
-            <span class=\"sf-toolbar-status sf-toolbar-status-";
+            echo "        ";
+            ob_start();
             // line 9
-            if ($this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "nb_errors", array())) {
-                echo "red";
-            } else {
-                echo "green";
-            }
-            echo "\">";
-            if ($this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "nb_errors", array())) {
-                echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "nb_errors", array()), "html", null, true);
-            } else {
-                echo twig_escape_filter($this->env, twig_length_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "forms", array())), "html", null, true);
-            }
-            echo "</span>
+            echo "            ";
+            echo twig_include($this->env, $context, "@WebProfiler/Icon/form.svg");
+            echo "
+            <span class=\"sf-toolbar-value\">
+                ";
+            // line 11
+            echo twig_escape_filter($this->env, (($this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "nb_errors", array())) ? ($this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "nb_errors", array())) : (twig_length_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "forms", array())))), "html", null, true);
+            echo "
+            </span>
         ";
             $context["icon"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-            // line 11
+            // line 14
             echo "
         ";
-            // line 12
-            $this->loadTemplate("@WebProfiler/Profiler/toolbar_item.html.twig", "@WebProfiler/Collector/form.html.twig", 12)->display(array_merge($context, array("link" => (isset($context["profiler_url"]) ? $context["profiler_url"] : $this->getContext($context, "profiler_url")))));
-            // line 13
-            echo "    ";
+            // line 15
+            ob_start();
+            // line 16
+            echo "            <div class=\"sf-toolbar-info-piece\">
+                <b>Number of forms</b>
+                <span class=\"sf-toolbar-status\">";
+            // line 18
+            echo twig_escape_filter($this->env, twig_length_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "forms", array())), "html", null, true);
+            echo "</span>
+            </div>
+            <div class=\"sf-toolbar-info-piece\">
+                <b>Number of errors</b>
+                <span class=\"sf-toolbar-status sf-toolbar-status-";
+            // line 22
+            echo ((($this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "nb_errors", array()) > 0)) ? ("red") : (""));
+            echo "\">";
+            echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "nb_errors", array()), "html", null, true);
+            echo "</span>
+            </div>
+        ";
+            $context["text"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
+            // line 25
+            echo "
+        ";
+            // line 26
+            echo twig_include($this->env, $context, "@WebProfiler/Profiler/toolbar_item.html.twig", array("link" => (isset($context["profiler_url"]) ? $context["profiler_url"] : $this->getContext($context, "profiler_url")), "status" => (isset($context["status_color"]) ? $context["status_color"] : $this->getContext($context, "status_color"))));
+            echo "
+    ";
         }
         
-        $__internal_9b2c07c9e4c523cda9d1b4696fd8a3cf021a3b84ab3f86b006fb59ba23239e4c->leave($__internal_9b2c07c9e4c523cda9d1b4696fd8a3cf021a3b84ab3f86b006fb59ba23239e4c_prof);
+        $__internal_bfd056b7eb9cc2b15631f94596d1919f83e0c0a2683c6b5eea3f0144d981af26->leave($__internal_bfd056b7eb9cc2b15631f94596d1919f83e0c0a2683c6b5eea3f0144d981af26_prof);
 
     }
 
-    // line 16
+    // line 30
     public function block_menu($context, array $blocks = array())
     {
-        $__internal_c345d7372307b3244d978ab7af66e136464e388d5f595085da169f8813987b5a = $this->env->getExtension("native_profiler");
-        $__internal_c345d7372307b3244d978ab7af66e136464e388d5f595085da169f8813987b5a->enter($__internal_c345d7372307b3244d978ab7af66e136464e388d5f595085da169f8813987b5a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
+        $__internal_69f3d72c4f724a524ca19dea07d370b4d6f718683cf3bea7c486d66f9e6538b1 = $this->env->getExtension("native_profiler");
+        $__internal_69f3d72c4f724a524ca19dea07d370b4d6f718683cf3bea7c486d66f9e6538b1->enter($__internal_69f3d72c4f724a524ca19dea07d370b4d6f718683cf3bea7c486d66f9e6538b1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
 
-        // line 17
-        echo "    <span class=\"label\">
-        <span class=\"icon\"><svg width=\"20\" height=\"27\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 20 27\" enable-background=\"new 0 0 20 27\" xml:space=\"preserve\"><g><polygon fill=\"#3F3F3F\" points=\"16,2 13,2 13,0 7,0 7,2 4,2 4,6 16,6\"/><path fill=\"#3F3F3F\" d=\"M17 3v4H3V3H0v24h20V3H17z M3 13h10v1H3V13z M8 24H3v-1h5V24z M17 22H3v-1h14V22z M17 20H3v-1h14V20z M17 18H3v-1h14V18z M17 16H4v-1h13V16z M17 12H3v-1h14V12z M17 10H4V9h13V10z\"/></g></svg></span>
+        // line 31
+        echo "    <span class=\"label label-status-";
+        echo (($this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "nb_errors", array())) ? ("error") : (""));
+        echo " ";
+        echo ((twig_test_empty($this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "forms", array()))) ? ("disabled") : (""));
+        echo "\">
+        <span class=\"icon\">";
+        // line 32
+        echo twig_include($this->env, $context, "@WebProfiler/Icon/form.svg");
+        echo "</span>
         <strong>Forms</strong>
         ";
-        // line 20
-        if (twig_length_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "forms", array()))) {
-            // line 21
-            echo "            <span class=\"count\"><span>";
-            echo twig_escape_filter($this->env, twig_length_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "forms", array())), "html", null, true);
-            echo "</span></span>
+        // line 34
+        if (($this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "nb_errors", array()) > 0)) {
+            // line 35
+            echo "            <span class=\"count\">
+                <span>";
+            // line 36
+            echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "nb_errors", array()), "html", null, true);
+            echo "</span>
+            </span>
         ";
         }
-        // line 23
+        // line 39
         echo "    </span>
 ";
         
-        $__internal_c345d7372307b3244d978ab7af66e136464e388d5f595085da169f8813987b5a->leave($__internal_c345d7372307b3244d978ab7af66e136464e388d5f595085da169f8813987b5a_prof);
+        $__internal_69f3d72c4f724a524ca19dea07d370b4d6f718683cf3bea7c486d66f9e6538b1->leave($__internal_69f3d72c4f724a524ca19dea07d370b4d6f718683cf3bea7c486d66f9e6538b1_prof);
 
     }
 
-    // line 26
+    // line 42
+    public function block_head($context, array $blocks = array())
+    {
+        $__internal_2d9ca3fcdf07270d1a34e307022d45aa4c12233f894b4bb015a6e83fab83f998 = $this->env->getExtension("native_profiler");
+        $__internal_2d9ca3fcdf07270d1a34e307022d45aa4c12233f894b4bb015a6e83fab83f998->enter($__internal_2d9ca3fcdf07270d1a34e307022d45aa4c12233f894b4bb015a6e83fab83f998_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "head"));
+
+        // line 43
+        echo "    ";
+        $this->displayParentBlock("head", $context, $blocks);
+        echo "
+
+    <style>
+        #tree-menu {
+            float: left;
+            padding-right: 10px;
+            width: 230px;
+        }
+        #tree-menu ul {
+            list-style: none;
+            margin: 0;
+            padding-left: 0;
+        }
+        #tree-menu li {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+        #tree-menu .empty {
+            border: 0;
+            mmargin: 0;
+            padding: 0;
+        }
+        #tree-details-container {
+            border-left: 1px solid #DDD;
+            margin-left: 250px;
+            padding-left: 20px;
+        }
+        .tree-details {
+            padding-bottom: 40px;
+        }
+        .tree-details h3 {
+            font-size: 18px;
+            position: relative;
+        }
+
+        .toggle-icon {
+            display: inline-block;
+            background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAgBAMAAADpp+X/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDgwx4LcKwAAAABVQTFRFAAAA////////////////ZmZm////bvjBwAAAAAV0Uk5TABZwsuCVEUjgAAAAAWJLR0QF+G/pxwAAAE1JREFUGNNjSHMSYGBgUEljSGYAAzMGBwiDhUEBwmBiEIAwGBmwgTQgQGWgA7h2uIFwK+CWwp1BpHvYEqDuATEYkBlY3IOmBq6dCPcAAIT5Eg2IksjQAAAAAElFTkSuQmCC\") no-repeat top left #5eb5e0;
+        }
+        .closed .toggle-icon, .closed.toggle-icon {
+            background-position: bottom left;
+        }
+        .toggle-icon.empty {
+            background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QAZgBmAGYHukptAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDhIf6CA40AAAAFRJREFUOMvtk7ENACEMA61vfx767MROWfO+AdGBHlNyTZrYUZRYDBII4NWE1pNdpFarfgLUbpDaBEgBYRiEVjsvDLa1l6O4Z3wkFWN+OfLKdpisOH/TlICzukmUJwAAAABJRU5ErkJggg==\");
+        }
+
+        .tree .tree-inner {
+            cursor: pointer;
+            padding: 5px 7px 5px 22px;
+            position: relative;
+
+        }
+        .tree .toggle-button {
+            /* provide a bigger clickable area than just 10x10px */
+            width: 16px;
+            height: 16px;
+            /* vertically center the button */
+            position: absolute;
+            top: 50%;
+            margin-top: -8px;
+            margin-left: -18px;
+        }
+        .tree .toggle-icon {
+            width: 10px;
+            height: 10px;
+            /* position the icon in the center of the clickable area */
+            margin-left: 3px;
+            margin-top: 3px;
+            background-size: 10px 20px;
+            background-color: #ccc;
+        }
+        .tree .toggle-icon.empty {
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            top: 50%;
+            margin-top: -5px;
+            margin-left: -15px;
+            background-size: 10px 10px;
+        }
+        .tree ul ul .tree-inner {
+            padding-left: 37px;
+        }
+        .tree ul ul ul .tree-inner {
+            padding-left: 52px;
+        }
+        .tree ul ul ul ul .tree-inner {
+            padding-left: 67px;
+        }
+        .tree ul ul ul ul ul .tree-inner {
+            padding-left: 82px;
+        }
+        .tree .tree-inner:hover {
+            background: #dfdfdf;
+        }
+        .tree .tree-inner.active, .tree .tree-inner.active:hover {
+            background: #E0E0E0;
+            font-weight: bold;
+        }
+        .tree .tree-inner.active .toggle-icon, .tree .tree-inner:hover .toggle-icon, .tree .tree-inner.active:hover .toggle-icon {
+            background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAgBAMAAADpp+X/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDhEYXWn+sAAAABhQTFRFAAAA39/f39/f39/f39/fZmZm39/f////gc3YPwAAAAV0Uk5TAAtAc6ZeVyCYAAAAAWJLR0QF+G/pxwAAAE1JREFUGNNjSHMSYGBgUEljSGYAAzMGBwiDhUEBwmBiEIAwGBmwgXIgQGWgA7h2uIFwK+CWwp1BpHvYC6DuATEYkBlY3IOmBq6dCPcAADqLE4MnBi/fAAAAAElFTkSuQmCC\");
+            background-color: #999;
+        }
+        .tree .tree-inner.active .toggle-icon.empty, .tree .tree-inner:hover .toggle-icon.empty, .tree .tree-inner.active:hover .toggle-icon.empty {
+            background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDhoucSey4gAAABVQTFRFAAAA39/f39/f39/f39/fZmZm39/fD5Dx2AAAAAV0Uk5TAAtAc6ZeVyCYAAAAAWJLR0QF+G/pxwAAADJJREFUCNdjSHMSYGBgUEljSGYAAzMGBwiDhUEBwmBiEIAwGBnIA3DtcAPhVsAthTkDAFOfBKW9C1iqAAAAAElFTkSuQmCC\");
+        }
+        .tree-details .toggle-icon {
+            width: 16px;
+            height: 16px;
+            /* vertically center the button */
+            position: absolute;
+            top: 50%;
+            margin-top: -9px;
+            margin-left: 6px;
+        }
+        .form-type {
+            color: #999;
+        }
+        .badge-error {
+            float: right;
+            background: #B0413E;
+            color: #FFF;
+            padding: 1px 4px;
+            font-size: 10px;
+            font-weight: bold;
+            vertical-align: middle;
+        }
+        .errors h3 {
+            color: #B0413E;
+        }
+        .errors th {
+            background: #B0413E;
+            color: #FFF;
+        }
+        .errors .toggle-icon {
+            background-color: #B0413E;
+        }
+        h3 a, h3 a:hover, h3 a:focus {
+            color: inherit;
+            text-decoration: inherit;
+        }
+    </style>
+";
+        
+        $__internal_2d9ca3fcdf07270d1a34e307022d45aa4c12233f894b4bb015a6e83fab83f998->leave($__internal_2d9ca3fcdf07270d1a34e307022d45aa4c12233f894b4bb015a6e83fab83f998_prof);
+
+    }
+
+    // line 188
     public function block_panel($context, array $blocks = array())
     {
-        $__internal_66a338375fbd383fd3c2455146ceb72b5c5d8ea539ac08b64e345953650508ac = $this->env->getExtension("native_profiler");
-        $__internal_66a338375fbd383fd3c2455146ceb72b5c5d8ea539ac08b64e345953650508ac->enter($__internal_66a338375fbd383fd3c2455146ceb72b5c5d8ea539ac08b64e345953650508ac_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
+        $__internal_a4dab93d6e8c060348015bc178eae2e3fc18dc1ee99a78e1439c1a1e36e26010 = $this->env->getExtension("native_profiler");
+        $__internal_a4dab93d6e8c060348015bc178eae2e3fc18dc1ee99a78e1439c1a1e36e26010->enter($__internal_a4dab93d6e8c060348015bc178eae2e3fc18dc1ee99a78e1439c1a1e36e26010_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
 
-        // line 27
-        echo "    <style type=\"text/css\">
-    .window {
-        /*background: #F6F6F6;*/
-        margin: -30px -40px -40px;
-    }
-    .toggle-icon {
-        display: inline-block;
-        background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAgBAMAAADpp+X/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDgwx4LcKwAAAABVQTFRFAAAA////////////////ZmZm////bvjBwAAAAAV0Uk5TABZwsuCVEUjgAAAAAWJLR0QF+G/pxwAAAE1JREFUGNNjSHMSYGBgUEljSGYAAzMGBwiDhUEBwmBiEIAwGBmwgTQgQGWgA7h2uIFwK+CWwp1BpHvYEqDuATEYkBlY3IOmBq6dCPcAAIT5Eg2IksjQAAAAAElFTkSuQmCC\") no-repeat top left #5eb5e0;
-    }
-    .closed .toggle-icon, .closed.toggle-icon {
-        background-position: bottom left;
-    }
-    .toggle-icon.empty {
-        background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QAZgBmAGYHukptAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDhIf6CA40AAAAFRJREFUOMvtk7ENACEMA61vfx767MROWfO+AdGBHlNyTZrYUZRYDBII4NWE1pNdpFarfgLUbpDaBEgBYRiEVjsvDLa1l6O4Z3wkFWN+OfLKdpisOH/TlICzukmUJwAAAABJRU5ErkJggg==\");
-    }
-    .tree {
-        width: 230px;
-        padding: 10px;
-        font-size: 12px;
-        float: left;
-    }
-    #content .tree h2 {
-        font-size: 13px;
-        padding: 5px 7px;
-        margin: 0;
-    }
-    .tree li {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-    }
-    .tree .tree-inner {
-        width: 100%;
-        padding: 5px 7px 5px 22px;
-        border-radius: 6px;
-        color: #313131;
-        cursor: pointer;
-        position: relative;
-
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-    .tree a {
-        text-decoration: none;
-    }
-    .tree .toggle-button {
-        /* provide a bigger clickable area than just 10x10px */
-        width: 16px;
-        height: 16px;
-        /* vertically center the button */
-        position: absolute;
-        top: 50%;
-        margin-top: -8px;
-        margin-left: -18px;
-    }
-    .tree .toggle-icon {
-        width: 10px;
-        height: 10px;
-        /* position the icon in the center of the clickable area */
-        margin-left: 3px;
-        margin-top: 3px;
-        background-size: 10px 20px;
-        background-color: #ccc;
-    }
-    .tree .toggle-icon.empty {
-        width: 10px;
-        height: 10px;
-        position: absolute;
-        top: 50%;
-        margin-top: -5px;
-        margin-left: -15px;
-        background-size: 10px 10px;
-    }
-    .tree ul ul .tree-inner {
-        padding-left: 37px;
-    }
-    .tree ul ul ul .tree-inner {
-        padding-left: 52px;
-    }
-    .tree ul ul ul ul .tree-inner {
-        padding-left: 67px;
-    }
-    .tree ul ul ul ul ul .tree-inner {
-        padding-left: 82px;
-    }
-    .tree .tree-inner:hover {
-        background: #dfdfdf;
-    }
-    .tree .tree-inner.active, .tree .tree-inner.active:hover {
-        background: #dfdfdf;
-        font-weight: bold;
-        color: #313131;
-    }
-    .tree .tree-inner.active .toggle-icon, .tree .tree-inner:hover .toggle-icon, .tree .tree-inner.active:hover .toggle-icon {
-        background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAgBAMAAADpp+X/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDhEYXWn+sAAAABhQTFRFAAAA39/f39/f39/f39/fZmZm39/f////gc3YPwAAAAV0Uk5TAAtAc6ZeVyCYAAAAAWJLR0QF+G/pxwAAAE1JREFUGNNjSHMSYGBgUEljSGYAAzMGBwiDhUEBwmBiEIAwGBmwgXIgQGWgA7h2uIFwK+CWwp1BpHvYC6DuATEYkBlY3IOmBq6dCPcAADqLE4MnBi/fAAAAAElFTkSuQmCC\");
-        background-color: #aaa;
-    }
-    .tree .tree-inner.active .toggle-icon.empty, .tree .tree-inner:hover .toggle-icon.empty, .tree .tree-inner.active:hover .toggle-icon.empty {
-        background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDhoucSey4gAAABVQTFRFAAAA39/f39/f39/f39/fZmZm39/fD5Dx2AAAAAV0Uk5TAAtAc6ZeVyCYAAAAAWJLR0QF+G/pxwAAADJJREFUCNdjSHMSYGBgUEljSGYAAzMGBwiDhUEBwmBiEIAwGBnIA3DtcAPhVsAthTkDAFOfBKW9C1iqAAAAAElFTkSuQmCC\");
-    }
-    .tree-details {
-        border-left: 1px solid #dfdfdf;
-        background: white;
-        margin-left: 250px;
-        padding: 30px 40px 40px;
-    }
-    .tree-details h3 {
-        position: relative;
-    }
-    .tree-details .toggle-icon {
-        width: 16px;
-        height: 16px;
-        /* vertically center the button */
-        position: absolute;
-        top: 50%;
-        margin-top: -9px;
-        margin-left: 6px;
-    }
-    .form-type {
-        color: #999999;
-    }
-    .hidden {
-        display: none;
-    }
-    .badge-error {
-        float: right;
-        background: #a33;
-        color: #fff;
-        padding: 1px 4px;
-        font-size: 10px;
-        font-weight: bold;
-        vertical-align: middle;
-        border-radius: 6px;
-    }
-    .errors h3 {
-        color: #800;
-    }
-    .errors th, .errors td {
-        border-color: #800;
-    }
-    .errors th {
-        background: #a33;
-        color: #fff;
-    }
-    .errors .toggle-icon {
-        background-color: #a33;
-    }
-    h3 a, h3 a:hover, h3 a:focus {
-        color: inherit;
-        text-decoration: inherit;
-    }
-    </style>
+        // line 189
+        echo "    <h2>Forms</h2>
 
     ";
-        // line 181
+        // line 191
         if (twig_length_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "forms", array()))) {
-            // line 182
-            echo "        <div class=\"window\">
-            <div class=\"tree\">
-                <h2>Forms</h2>
-
-                <ul>
-                ";
-            // line 187
-            $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "forms", array()));
-            foreach ($context['_seq'] as $context["formName"] => $context["formData"]) {
-                // line 188
-                echo "                    ";
-                echo $context["__internal_456b2d68aa46193f888b11331284a2372469502c4012a5903479cf2c9ccb5f67"]->getform_tree_entry($context["formName"], $context["formData"], true);
-                echo "
-                ";
-            }
-            $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_iterated'], $context['formName'], $context['formData'], $context['_parent'], $context['loop']);
-            $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 190
-            echo "                </ul>
-            </div>
-
+            // line 192
+            echo "        <div id=\"tree-menu\" class=\"tree\">
+            <ul>
             ";
-            // line 193
+            // line 194
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "forms", array()));
             foreach ($context['_seq'] as $context["formName"] => $context["formData"]) {
-                // line 194
+                // line 195
                 echo "                ";
-                echo $context["__internal_456b2d68aa46193f888b11331284a2372469502c4012a5903479cf2c9ccb5f67"]->getform_tree_details($context["formName"], $context["formData"], $this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "forms_by_hash", array()));
+                echo $context["__internal_47d406a476eb67551fdf972f501b75fa49f988c18b9b9e7eeb44a7ee0e6fb6b0"]->getform_tree_entry($context["formName"], $context["formData"], true);
                 echo "
             ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['formName'], $context['formData'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 196
+            // line 197
+            echo "            </ul>
+        </div>
+
+        <div id=\"tree-details-container\">
+            ";
+            // line 201
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "forms", array()));
+            foreach ($context['_seq'] as $context["formName"] => $context["formData"]) {
+                // line 202
+                echo "                ";
+                echo $context["__internal_47d406a476eb67551fdf972f501b75fa49f988c18b9b9e7eeb44a7ee0e6fb6b0"]->getform_tree_details($context["formName"], $context["formData"], $this->getAttribute($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "data", array()), "forms_by_hash", array()));
+                echo "
+            ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['formName'], $context['formData'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 204
             echo "        </div>
     ";
         } else {
-            // line 198
-            echo "        <p><em>No forms were submitted for this request.</em></p>
+            // line 206
+            echo "        <div class=\"empty\">
+            <p>No forms were submitted for this request.</p>
+        </div>
     ";
         }
-        // line 200
+        // line 210
         echo "
     <script>
     function Toggler(storage) {
@@ -536,11 +574,11 @@ class __TwigTemplate_b5a5d7abc177e859122fad81dda46ad1faab392d6ca24f633e2a8a25dea
     </script>
 ";
         
-        $__internal_66a338375fbd383fd3c2455146ceb72b5c5d8ea539ac08b64e345953650508ac->leave($__internal_66a338375fbd383fd3c2455146ceb72b5c5d8ea539ac08b64e345953650508ac_prof);
+        $__internal_a4dab93d6e8c060348015bc178eae2e3fc18dc1ee99a78e1439c1a1e36e26010->leave($__internal_a4dab93d6e8c060348015bc178eae2e3fc18dc1ee99a78e1439c1a1e36e26010_prof);
 
     }
 
-    // line 420
+    // line 430
     public function getform_tree_entry($__name__ = null, $__data__ = null, $__expanded__ = null)
     {
         $context = $this->env->mergeGlobals(array(
@@ -554,33 +592,35 @@ class __TwigTemplate_b5a5d7abc177e859122fad81dda46ad1faab392d6ca24f633e2a8a25dea
 
         ob_start();
         try {
-            $__internal_7f58ae872a9cd8c3e44465b0898f956d012dad955c3c0a25c573fbce22cfa02c = $this->env->getExtension("native_profiler");
-            $__internal_7f58ae872a9cd8c3e44465b0898f956d012dad955c3c0a25c573fbce22cfa02c->enter($__internal_7f58ae872a9cd8c3e44465b0898f956d012dad955c3c0a25c573fbce22cfa02c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "macro", "form_tree_entry"));
+            $__internal_42a29a9e40124807bb5d08482ffb9d16b444756ee1244914951247bd6c001e00 = $this->env->getExtension("native_profiler");
+            $__internal_42a29a9e40124807bb5d08482ffb9d16b444756ee1244914951247bd6c001e00->enter($__internal_42a29a9e40124807bb5d08482ffb9d16b444756ee1244914951247bd6c001e00_prof = new Twig_Profiler_Profile($this->getTemplateName(), "macro", "form_tree_entry"));
 
-            // line 421
+            // line 431
             echo "    ";
             $context["tree"] = $this;
-            // line 422
+            // line 432
             echo "    <li>
         <div class=\"tree-inner\" data-tab-target-id=\"";
-            // line 423
+            // line 433
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
             echo "-details\">
             ";
-            // line 424
+            // line 434
             if ( !twig_test_empty($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "children", array()))) {
-                // line 425
+                // line 435
                 echo "                <a class=\"toggle-button\" data-toggle-target-id=\"";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
                 echo "-children\" href=\"#\"><span class=\"toggle-icon\"></span></a>
             ";
             } else {
-                // line 427
+                // line 437
                 echo "                <div class=\"toggle-icon empty\"></div>
             ";
             }
-            // line 429
-            echo "            ";
+            // line 439
+            echo "
+            ";
+            // line 440
             echo twig_escape_filter($this->env, ((array_key_exists("name", $context)) ? (_twig_default_filter((isset($context["name"]) ? $context["name"] : $this->getContext($context, "name")), "(no name)")) : ("(no name)")), "html", null, true);
             echo " ";
             if (($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "type_class", array(), "any", true, true) && $this->getAttribute((isset($context["data"]) ? $context["data"] : null), "type", array(), "any", true, true))) {
@@ -590,35 +630,37 @@ class __TwigTemplate_b5a5d7abc177e859122fad81dda46ad1faab392d6ca24f633e2a8a25dea
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "type", array()), "html", null, true);
                 echo "</abbr>]";
             }
-            // line 430
-            echo "            ";
+            // line 441
+            echo "
+            ";
+            // line 442
             if (($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "errors", array(), "any", true, true) && (twig_length_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "errors", array())) > 0))) {
-                // line 431
-                echo "            <div class=\"badge-error\">";
+                // line 443
+                echo "                <div class=\"badge-error\">";
                 echo twig_escape_filter($this->env, twig_length_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "errors", array())), "html", null, true);
                 echo "</div>
             ";
             }
-            // line 433
+            // line 445
             echo "        </div>
 
         ";
-            // line 435
+            // line 447
             if ( !twig_test_empty($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "children", array()))) {
-                // line 436
+                // line 448
                 echo "            <ul id=\"";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
-                echo "-children\"";
+                echo "-children\" ";
                 if ( !(isset($context["expanded"]) ? $context["expanded"] : $this->getContext($context, "expanded"))) {
-                    echo " class=\"hidden\"";
+                    echo "class=\"hidden\"";
                 }
                 echo ">
                 ";
-                // line 437
+                // line 449
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "children", array()));
                 foreach ($context['_seq'] as $context["childName"] => $context["childData"]) {
-                    // line 438
+                    // line 450
                     echo "                    ";
                     echo $context["tree"]->getform_tree_entry($context["childName"], $context["childData"], false);
                     echo "
@@ -627,15 +669,15 @@ class __TwigTemplate_b5a5d7abc177e859122fad81dda46ad1faab392d6ca24f633e2a8a25dea
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['childName'], $context['childData'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 440
+                // line 452
                 echo "            </ul>
         ";
             }
-            // line 442
+            // line 454
             echo "    </li>
 ";
             
-            $__internal_7f58ae872a9cd8c3e44465b0898f956d012dad955c3c0a25c573fbce22cfa02c->leave($__internal_7f58ae872a9cd8c3e44465b0898f956d012dad955c3c0a25c573fbce22cfa02c_prof);
+            $__internal_42a29a9e40124807bb5d08482ffb9d16b444756ee1244914951247bd6c001e00->leave($__internal_42a29a9e40124807bb5d08482ffb9d16b444756ee1244914951247bd6c001e00_prof);
 
         } catch (Exception $e) {
             ob_end_clean();
@@ -646,7 +688,7 @@ class __TwigTemplate_b5a5d7abc177e859122fad81dda46ad1faab392d6ca24f633e2a8a25dea
         return ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
     }
 
-    // line 445
+    // line 457
     public function getform_tree_details($__name__ = null, $__data__ = null, $__forms_by_hash__ = null)
     {
         $context = $this->env->mergeGlobals(array(
@@ -660,29 +702,29 @@ class __TwigTemplate_b5a5d7abc177e859122fad81dda46ad1faab392d6ca24f633e2a8a25dea
 
         ob_start();
         try {
-            $__internal_b6c208ad0da0c73ed8589c55a8c7e66133d7c53c4cb784cdc7e8ffaf67d65c44 = $this->env->getExtension("native_profiler");
-            $__internal_b6c208ad0da0c73ed8589c55a8c7e66133d7c53c4cb784cdc7e8ffaf67d65c44->enter($__internal_b6c208ad0da0c73ed8589c55a8c7e66133d7c53c4cb784cdc7e8ffaf67d65c44_prof = new Twig_Profiler_Profile($this->getTemplateName(), "macro", "form_tree_details"));
+            $__internal_27297bdb7d840120f5d46316d442e656f5e16f284ac94a4674192aa69678f85d = $this->env->getExtension("native_profiler");
+            $__internal_27297bdb7d840120f5d46316d442e656f5e16f284ac94a4674192aa69678f85d->enter($__internal_27297bdb7d840120f5d46316d442e656f5e16f284ac94a4674192aa69678f85d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "macro", "form_tree_details"));
 
-            // line 446
+            // line 458
             echo "    ";
             $context["tree"] = $this;
-            // line 447
+            // line 459
             echo "    <div class=\"tree-details\" ";
             if ($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "id", array(), "any", true, true)) {
-                echo " id=\"";
+                echo "id=\"";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
                 echo "-details\"";
             }
             echo ">
         <h2>
             ";
-            // line 449
+            // line 461
             echo twig_escape_filter($this->env, ((array_key_exists("name", $context)) ? (_twig_default_filter((isset($context["name"]) ? $context["name"] : $this->getContext($context, "name")), "(no name)")) : ("(no name)")), "html", null, true);
             echo "
             ";
-            // line 450
+            // line 462
             if (($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "type_class", array(), "any", true, true) && $this->getAttribute((isset($context["data"]) ? $context["data"] : null), "type", array(), "any", true, true))) {
-                // line 451
+                // line 463
                 echo "            <span class=\"form-type\">[<abbr title=\"";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "type_class", array()), "html", null, true);
                 echo "\">";
@@ -690,68 +732,70 @@ class __TwigTemplate_b5a5d7abc177e859122fad81dda46ad1faab392d6ca24f633e2a8a25dea
                 echo "</abbr>]</span>
             ";
             }
-            // line 453
+            // line 465
             echo "        </h2>
 
         ";
-            // line 455
+            // line 467
             if (($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "errors", array(), "any", true, true) && (twig_length_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "errors", array())) > 0))) {
-                // line 456
+                // line 468
                 echo "        <div class=\"errors\">
             <h3>
                 <a class=\"toggle-button\" data-toggle-target-id=\"";
-                // line 458
+                // line 470
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
                 echo "-errors\" href=\"#\">
-                    Errors
-                    <span class=\"toggle-icon\"></span>
+                    Errors <span class=\"toggle-icon\"></span>
                 </a>
             </h3>
 
             <table id=\"";
-                // line 464
+                // line 475
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
                 echo "-errors\">
-                <tr>
-                    <th>Message</th>
-                    <th>Origin</th>
-                    <th>Cause</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Message</th>
+                        <th>Origin</th>
+                        <th>Cause</th>
+                    </tr>
+                </thead>
+                <tbody>
                 ";
-                // line 470
+                // line 484
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "errors", array()));
                 foreach ($context['_seq'] as $context["_key"] => $context["error"]) {
-                    // line 471
+                    // line 485
                     echo "                <tr>
                     <td>";
-                    // line 472
+                    // line 486
                     echo twig_escape_filter($this->env, $this->getAttribute($context["error"], "message", array()), "html", null, true);
                     echo "</td>
                     <td>
                         ";
-                    // line 474
+                    // line 488
                     if (twig_test_empty($this->getAttribute($context["error"], "origin", array()))) {
-                        // line 475
+                        // line 489
                         echo "                            <em>This form.</em>
                         ";
-                    } elseif ( !$this->getAttribute(                    // line 476
+                    } elseif ( !$this->getAttribute(                    // line 490
 (isset($context["forms_by_hash"]) ? $context["forms_by_hash"] : null), $this->getAttribute($context["error"], "origin", array()), array(), "array", true, true)) {
-                        // line 477
+                        // line 491
                         echo "                            <em>Unknown.</em>
                         ";
                     } else {
-                        // line 479
+                        // line 493
                         echo "                            ";
                         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["forms_by_hash"]) ? $context["forms_by_hash"] : $this->getContext($context, "forms_by_hash")), $this->getAttribute($context["error"], "origin", array()), array(), "array"), "name", array()), "html", null, true);
                         echo "
                         ";
                     }
-                    // line 481
+                    // line 495
                     echo "                    </td>
                     <td>
                         ";
-                    // line 483
+                    // line 497
                     $context['_parent'] = $context;
                     $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["error"], "trace", array()));
                     $context['_iterated'] = false;
@@ -769,57 +813,59 @@ class __TwigTemplate_b5a5d7abc177e859122fad81dda46ad1faab392d6ca24f633e2a8a25dea
                         $context['loop']['last'] = 1 === $length;
                     }
                     foreach ($context['_seq'] as $context["_key"] => $context["trace"]) {
-                        // line 484
+                        // line 498
                         echo "                            ";
                         if ( !$this->getAttribute($context["loop"], "first", array())) {
-                            // line 485
-                            echo "                                <br/>Caused by:<br/><br/>
+                            // line 499
+                            echo "                                <span class=\"newline\">Caused by:</span>
                             ";
                         }
-                        // line 487
-                        echo "                            ";
+                        // line 501
+                        echo "
+                            ";
+                        // line 502
                         if ($this->getAttribute($context["trace"], "root", array(), "any", true, true)) {
-                            // line 488
-                            echo "                                <strong>";
+                            // line 503
+                            echo "                                <strong class=\"newline\">";
                             echo twig_escape_filter($this->env, $this->getAttribute($context["trace"], "class", array()), "html", null, true);
-                            echo "</strong><br/>
+                            echo "</strong>
                                 <pre>";
-                            // line 490
+                            // line 505
                             echo twig_escape_filter($this->env, $this->getAttribute($context["trace"], "root", array()), "html", null, true);
-                            // line 491
+                            // line 506
                             if ( !twig_test_empty($this->getAttribute($context["trace"], "path", array()))) {
-                                // line 492
+                                // line 507
                                 if ((twig_first($this->env, $this->getAttribute($context["trace"], "path", array())) != "[")) {
                                     echo ".";
                                 }
-                                // line 493
+                                // line 508
                                 echo twig_escape_filter($this->env, $this->getAttribute($context["trace"], "path", array()), "html", null, true);
                             }
-                            // line 494
+                            // line 509
                             echo " = ";
                             echo twig_escape_filter($this->env, $this->getAttribute($context["trace"], "value", array()), "html", null, true);
-                            // line 495
+                            // line 510
                             echo "</pre>
                             ";
-                        } elseif ($this->getAttribute(                        // line 496
+                        } elseif ($this->getAttribute(                        // line 511
 $context["trace"], "message", array(), "any", true, true)) {
-                            // line 497
-                            echo "                                <strong>";
+                            // line 512
+                            echo "                                <strong class=\"newline\">";
                             echo twig_escape_filter($this->env, $this->getAttribute($context["trace"], "class", array()), "html", null, true);
-                            echo "</strong><br/>
+                            echo "</strong>
                                 <pre>";
-                            // line 498
+                            // line 513
                             echo twig_escape_filter($this->env, $this->getAttribute($context["trace"], "message", array()), "html", null, true);
                             echo "</pre>
                             ";
                         } else {
-                            // line 500
+                            // line 515
                             echo "                                <pre>";
                             echo twig_escape_filter($this->env, $context["trace"], "html", null, true);
                             echo "</pre>
                             ";
                         }
-                        // line 502
+                        // line 517
                         echo "                        ";
                         $context['_iterated'] = true;
                         ++$context['loop']['index0'];
@@ -832,14 +878,14 @@ $context["trace"], "message", array(), "any", true, true)) {
                         }
                     }
                     if (!$context['_iterated']) {
-                        // line 503
+                        // line 518
                         echo "                            <em>Unknown.</em>
                         ";
                     }
                     $_parent = $context['_parent'];
                     unset($context['_seq'], $context['_iterated'], $context['_key'], $context['trace'], $context['_parent'], $context['loop']);
                     $context = array_intersect_key($context, $_parent) + $_parent;
-                    // line 505
+                    // line 520
                     echo "                    </td>
                 </tr>
                 ";
@@ -847,222 +893,241 @@ $context["trace"], "message", array(), "any", true, true)) {
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['error'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 508
-                echo "            </table>
+                // line 523
+                echo "                </tbody>
+            </table>
         </div>
         ";
             }
-            // line 511
+            // line 527
             echo "
         ";
-            // line 512
+            // line 528
             if ($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "default_data", array(), "any", true, true)) {
-                // line 513
+                // line 529
                 echo "        <h3>
             <a class=\"toggle-button\" data-toggle-target-id=\"";
-                // line 514
+                // line 530
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
                 echo "-default_data\" href=\"#\">
-                Default Data
-                <span class=\"toggle-icon\"></span>
+                Default Data <span class=\"toggle-icon\"></span>
             </a>
         </h3>
 
         <div id=\"";
-                // line 520
+                // line 535
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
                 echo "-default_data\">
             <table>
-                <tr>
-                    <th width=\"180\">Model Format</th>
-                    <td>
-                        ";
-                // line 525
+                <thead>
+                    <tr>
+                        <th width=\"180\">Property</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class=\"font-normal\" scope=\"row\">Model Format</th>
+                        <td>
+                            ";
+                // line 547
                 if ($this->getAttribute($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "default_data", array(), "any", false, true), "model", array(), "any", true, true)) {
-                    // line 526
-                    echo "                            <pre>";
+                    // line 548
+                    echo "                                ";
                     echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "default_data", array()), "model", array()), "html", null, true);
-                    echo "</pre>
-                        ";
+                    echo "
+                            ";
                 } else {
-                    // line 528
-                    echo "                            <em>same as normalized format</em>
-                        ";
+                    // line 550
+                    echo "                                <em class=\"font-normal text-muted\">same as normalized format</em>
+                            ";
                 }
-                // line 530
-                echo "                    </td>
-                </tr>
-                <tr>
-                    <th>Normalized Format</th>
-                    <td><pre>";
-                // line 534
+                // line 552
+                echo "                        </td>
+                    </tr>
+                    <tr>
+                        <th class=\"font-normal\" scope=\"row\">Normalized Format</th>
+                        <td>";
+                // line 556
                 echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "default_data", array()), "norm", array()), "html", null, true);
-                echo "</pre></td>
-                </tr>
-                <tr>
-                    <th>View Format</th>
-                    <td>
-                        ";
-                // line 539
+                echo "</td>
+                    </tr>
+                    <tr>
+                        <th class=\"font-normal\" scope=\"row\">View Format</th>
+                        <td>
+                            ";
+                // line 561
                 if ($this->getAttribute($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "default_data", array(), "any", false, true), "view", array(), "any", true, true)) {
-                    // line 540
-                    echo "                            <pre>";
+                    // line 562
+                    echo "                                ";
                     echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "default_data", array()), "view", array()), "html", null, true);
-                    echo "</pre>
-                        ";
+                    echo "
+                            ";
                 } else {
-                    // line 542
-                    echo "                            <em>same as normalized format</em>
-                        ";
+                    // line 564
+                    echo "                                <em class=\"font-normal text-muted\">same as normalized format</em>
+                            ";
                 }
-                // line 544
-                echo "                    </td>
-                </tr>
+                // line 566
+                echo "                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
         ";
             }
-            // line 549
+            // line 572
             echo "
         ";
-            // line 550
+            // line 573
             if ($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "submitted_data", array(), "any", true, true)) {
-                // line 551
+                // line 574
                 echo "        <h3>
             <a class=\"toggle-button\" data-toggle-target-id=\"";
-                // line 552
+                // line 575
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
                 echo "-submitted_data\" href=\"#\">
-                Submitted Data
-                <span class=\"toggle-icon\"></span>
+                Submitted Data <span class=\"toggle-icon\"></span>
             </a>
         </h3>
 
         <div id=\"";
-                // line 558
+                // line 580
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
                 echo "-submitted_data\">
         ";
-                // line 559
+                // line 581
                 if ($this->getAttribute($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "submitted_data", array(), "any", false, true), "norm", array(), "any", true, true)) {
-                    // line 560
+                    // line 582
                     echo "            <table>
-                <tr>
-                    <th width=\"180\">View Format</th>
-                    <td>
-                        ";
-                    // line 564
+                <thead>
+                    <tr>
+                        <th width=\"180\">Property</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class=\"font-normal\" scope=\"row\">View Format</th>
+                        <td>
+                            ";
+                    // line 593
                     if ($this->getAttribute($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "submitted_data", array(), "any", false, true), "view", array(), "any", true, true)) {
-                        // line 565
-                        echo "                            <pre>";
+                        // line 594
+                        echo "                                ";
                         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "submitted_data", array()), "view", array()), "html", null, true);
-                        echo "</pre>
-                        ";
+                        echo "
+                            ";
                     } else {
-                        // line 567
-                        echo "                            <em>same as normalized format</em>
-                        ";
+                        // line 596
+                        echo "                                <em class=\"font-normal text-muted\">same as normalized format</em>
+                            ";
                     }
-                    // line 569
-                    echo "                    </td>
-                </tr>
-                <tr>
-                    <th>Normalized Format</th>
-                    <td><pre>";
-                    // line 573
+                    // line 598
+                    echo "                        </td>
+                    </tr>
+                    <tr>
+                        <th class=\"font-normal\" scope=\"row\">Normalized Format</th>
+                        <td>";
+                    // line 602
                     echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "submitted_data", array()), "norm", array()), "html", null, true);
-                    echo "</pre></td>
-                </tr>
-                <tr>
-                    <th>Model Format</th>
-                    <td>
-                        ";
-                    // line 578
+                    echo "</td>
+                    </tr>
+                    <tr>
+                        <th class=\"font-normal\" scope=\"row\">Model Format</th>
+                        <td>
+                            ";
+                    // line 607
                     if ($this->getAttribute($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "submitted_data", array(), "any", false, true), "model", array(), "any", true, true)) {
-                        // line 579
-                        echo "                            <pre>";
+                        // line 608
+                        echo "                                ";
                         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "submitted_data", array()), "model", array()), "html", null, true);
-                        echo "</pre>
-                        ";
+                        echo "
+                            ";
                     } else {
-                        // line 581
-                        echo "                            <em>same as normalized format</em>
-                        ";
+                        // line 610
+                        echo "                                <em class=\"font-normal text-muted\">same as normalized format</em>
+                            ";
                     }
-                    // line 583
-                    echo "                    </td>
-                </tr>
+                    // line 612
+                    echo "                        </td>
+                    </tr>
+                </tbody>
             </table>
         ";
                 } else {
-                    // line 587
-                    echo "            <p><em>This form was not submitted.</em></p>
+                    // line 617
+                    echo "            <div class=\"empty\">
+                <p>This form was not submitted.</p>
+            </div>
         ";
                 }
-                // line 589
+                // line 621
                 echo "        </div>
         ";
             }
-            // line 591
+            // line 623
             echo "
         ";
-            // line 592
+            // line 624
             if ($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "passed_options", array(), "any", true, true)) {
-                // line 593
+                // line 625
                 echo "        <h3>
             <a class=\"toggle-button\" data-toggle-target-id=\"";
-                // line 594
+                // line 626
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
                 echo "-passed_options\" href=\"#\">
-                Passed Options
-                <span class=\"toggle-icon\"></span>
+                Passed Options <span class=\"toggle-icon\"></span>
             </a>
         </h3>
 
         <div id=\"";
-                // line 600
+                // line 631
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
                 echo "-passed_options\">
             ";
-                // line 601
+                // line 632
                 if (twig_length_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "passed_options", array()))) {
-                    // line 602
+                    // line 633
                     echo "            <table>
-                <tr>
-                    <th width=\"180\">Option</th>
-                    <th>Passed Value</th>
-                    <th>Resolved Value</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th width=\"180\">Option</th>
+                        <th>Passed Value</th>
+                        <th>Resolved Value</th>
+                    </tr>
+                </thead>
+                <tbody>
                 ";
-                    // line 608
+                    // line 642
                     $context['_parent'] = $context;
                     $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "passed_options", array()));
                     foreach ($context['_seq'] as $context["option"] => $context["value"]) {
-                        // line 609
+                        // line 643
                         echo "                <tr>
                     <th>";
-                        // line 610
+                        // line 644
                         echo twig_escape_filter($this->env, $context["option"], "html", null, true);
                         echo "</th>
-                    <td><pre>";
-                        // line 611
+                    <td>";
+                        // line 645
                         echo twig_escape_filter($this->env, $context["value"], "html", null, true);
-                        echo "</pre></td>
+                        echo "</td>
                     <td>
                         ";
-                        // line 613
+                        // line 647
                         if (($this->getAttribute($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "resolved_options", array()), $context["option"], array(), "array") === $context["value"])) {
-                            // line 614
-                            echo "                            <em>same as passed value</em>
+                            // line 648
+                            echo "                            <em class=\"font-normal text-muted\">same as passed value</em>
                         ";
                         } else {
-                            // line 616
-                            echo "                            <pre>";
+                            // line 650
+                            echo "                            ";
                             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "resolved_options", array()), $context["option"], array(), "array"), "html", null, true);
-                            echo "</pre>
+                            echo "
                         ";
                         }
-                        // line 618
+                        // line 652
                         echo "                    </td>
                 </tr>
                 ";
@@ -1070,129 +1135,138 @@ $context["trace"], "message", array(), "any", true, true)) {
                     $_parent = $context['_parent'];
                     unset($context['_seq'], $context['_iterated'], $context['option'], $context['value'], $context['_parent'], $context['loop']);
                     $context = array_intersect_key($context, $_parent) + $_parent;
-                    // line 621
-                    echo "            </table>
+                    // line 655
+                    echo "                </tbody>
+            </table>
             ";
                 } else {
-                    // line 623
-                    echo "            <p><em>No options where passed when constructing this form.</em></p>
+                    // line 658
+                    echo "                <div class=\"empty\">
+                    <p>No options where passed when constructing this form.</p>
+                </div>
             ";
                 }
-                // line 625
+                // line 662
                 echo "        </div>
         ";
             }
-            // line 627
+            // line 664
             echo "
         ";
-            // line 628
+            // line 665
             if ($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "resolved_options", array(), "any", true, true)) {
-                // line 629
+                // line 666
                 echo "        <h3>
             <a class=\"toggle-button\" data-toggle-target-id=\"";
-                // line 630
+                // line 667
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
                 echo "-resolved_options\" href=\"#\">
-                Resolved Options
-                <span class=\"toggle-icon\"></span>
+                Resolved Options <span class=\"toggle-icon\"></span>
             </a>
         </h3>
 
         <div id=\"";
-                // line 636
+                // line 672
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
                 echo "-resolved_options\" class=\"hidden\">
             <table>
-                <tr>
-                    <th width=\"180\">Option</th>
-                    <th>Value</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th width=\"180\">Option</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
                 ";
-                // line 642
+                // line 681
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "resolved_options", array()));
                 foreach ($context['_seq'] as $context["option"] => $context["value"]) {
-                    // line 643
+                    // line 682
                     echo "                <tr>
-                    <th>";
-                    // line 644
+                    <th scope=\"row\">";
+                    // line 683
                     echo twig_escape_filter($this->env, $context["option"], "html", null, true);
                     echo "</th>
-                    <td><pre>";
-                    // line 645
+                    <td>";
+                    // line 684
                     echo twig_escape_filter($this->env, $context["value"], "html", null, true);
-                    echo "</pre></td>
+                    echo "</td>
                 </tr>
                 ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['option'], $context['value'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 648
-                echo "            </table>
+                // line 687
+                echo "                </tbody>
+            </table>
         </div>
         ";
             }
-            // line 651
+            // line 691
             echo "
         ";
-            // line 652
+            // line 692
             if ($this->getAttribute((isset($context["data"]) ? $context["data"] : null), "view_vars", array(), "any", true, true)) {
-                // line 653
+                // line 693
                 echo "        <h3>
             <a class=\"toggle-button\" data-toggle-target-id=\"";
-                // line 654
+                // line 694
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
                 echo "-view_vars\" href=\"#\">
-                View Variables
-                <span class=\"toggle-icon\"></span>
+                View Variables <span class=\"toggle-icon\"></span>
             </a>
         </h3>
 
         <div id=\"";
-                // line 660
+                // line 699
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "id", array()), "html", null, true);
                 echo "-view_vars\" class=\"hidden\">
             <table>
-                <tr>
-                    <th width=\"180\">Variable</th>
-                    <th>Value</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th width=\"180\">Variable</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
                 ";
-                // line 666
+                // line 708
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "view_vars", array()));
                 foreach ($context['_seq'] as $context["variable"] => $context["value"]) {
-                    // line 667
+                    // line 709
                     echo "                <tr>
-                    <th>";
-                    // line 668
+                    <th scope=\"row\">";
+                    // line 710
                     echo twig_escape_filter($this->env, $context["variable"], "html", null, true);
                     echo "</th>
-                    <td><pre>";
-                    // line 669
+                    <td>";
+                    // line 711
                     echo twig_escape_filter($this->env, $context["value"], "html", null, true);
-                    echo "</pre></td>
+                    echo "</td>
                 </tr>
                 ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['variable'], $context['value'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 672
-                echo "            </table>
+                // line 714
+                echo "                </tbody>
+            </table>
         </div>
         ";
             }
-            // line 675
+            // line 718
             echo "    </div>
 
     ";
-            // line 677
+            // line 720
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), "children", array()));
             foreach ($context['_seq'] as $context["childName"] => $context["childData"]) {
-                // line 678
+                // line 721
                 echo "        ";
                 echo $context["tree"]->getform_tree_details($context["childName"], $context["childData"], (isset($context["forms_by_hash"]) ? $context["forms_by_hash"] : $this->getContext($context, "forms_by_hash")));
                 echo "
@@ -1202,7 +1276,7 @@ $context["trace"], "message", array(), "any", true, true)) {
             unset($context['_seq'], $context['_iterated'], $context['childName'], $context['childData'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
             
-            $__internal_b6c208ad0da0c73ed8589c55a8c7e66133d7c53c4cb784cdc7e8ffaf67d65c44->leave($__internal_b6c208ad0da0c73ed8589c55a8c7e66133d7c53c4cb784cdc7e8ffaf67d65c44_prof);
+            $__internal_27297bdb7d840120f5d46316d442e656f5e16f284ac94a4674192aa69678f85d->leave($__internal_27297bdb7d840120f5d46316d442e656f5e16f284ac94a4674192aa69678f85d_prof);
 
         } catch (Exception $e) {
             ob_end_clean();
@@ -1225,7 +1299,7 @@ $context["trace"], "message", array(), "any", true, true)) {
 
     public function getDebugInfo()
     {
-        return array (  1196 => 678,  1192 => 677,  1188 => 675,  1183 => 672,  1174 => 669,  1170 => 668,  1167 => 667,  1163 => 666,  1154 => 660,  1145 => 654,  1142 => 653,  1140 => 652,  1137 => 651,  1132 => 648,  1123 => 645,  1119 => 644,  1116 => 643,  1112 => 642,  1103 => 636,  1094 => 630,  1091 => 629,  1089 => 628,  1086 => 627,  1082 => 625,  1078 => 623,  1074 => 621,  1066 => 618,  1060 => 616,  1056 => 614,  1054 => 613,  1049 => 611,  1045 => 610,  1042 => 609,  1038 => 608,  1030 => 602,  1028 => 601,  1024 => 600,  1015 => 594,  1012 => 593,  1010 => 592,  1007 => 591,  1003 => 589,  999 => 587,  993 => 583,  989 => 581,  983 => 579,  981 => 578,  973 => 573,  967 => 569,  963 => 567,  957 => 565,  955 => 564,  949 => 560,  947 => 559,  943 => 558,  934 => 552,  931 => 551,  929 => 550,  926 => 549,  919 => 544,  915 => 542,  909 => 540,  907 => 539,  899 => 534,  893 => 530,  889 => 528,  883 => 526,  881 => 525,  873 => 520,  864 => 514,  861 => 513,  859 => 512,  856 => 511,  851 => 508,  843 => 505,  836 => 503,  823 => 502,  817 => 500,  812 => 498,  807 => 497,  805 => 496,  802 => 495,  799 => 494,  796 => 493,  792 => 492,  790 => 491,  788 => 490,  783 => 488,  780 => 487,  776 => 485,  773 => 484,  755 => 483,  751 => 481,  745 => 479,  741 => 477,  739 => 476,  736 => 475,  734 => 474,  729 => 472,  726 => 471,  722 => 470,  713 => 464,  704 => 458,  700 => 456,  698 => 455,  694 => 453,  686 => 451,  684 => 450,  680 => 449,  670 => 447,  667 => 446,  650 => 445,  635 => 442,  631 => 440,  622 => 438,  618 => 437,  609 => 436,  607 => 435,  603 => 433,  597 => 431,  594 => 430,  583 => 429,  579 => 427,  573 => 425,  571 => 424,  567 => 423,  564 => 422,  561 => 421,  544 => 420,  319 => 200,  315 => 198,  311 => 196,  302 => 194,  298 => 193,  293 => 190,  284 => 188,  280 => 187,  273 => 182,  271 => 181,  115 => 27,  109 => 26,  101 => 23,  95 => 21,  93 => 20,  88 => 17,  82 => 16,  74 => 13,  72 => 12,  69 => 11,  54 => 9,  51 => 8,  48 => 7,  45 => 6,  39 => 5,  32 => 1,  30 => 3,  11 => 1,);
+        return array (  1270 => 721,  1266 => 720,  1262 => 718,  1256 => 714,  1247 => 711,  1243 => 710,  1240 => 709,  1236 => 708,  1224 => 699,  1216 => 694,  1213 => 693,  1211 => 692,  1208 => 691,  1202 => 687,  1193 => 684,  1189 => 683,  1186 => 682,  1182 => 681,  1170 => 672,  1162 => 667,  1159 => 666,  1157 => 665,  1154 => 664,  1150 => 662,  1144 => 658,  1139 => 655,  1131 => 652,  1125 => 650,  1121 => 648,  1119 => 647,  1114 => 645,  1110 => 644,  1107 => 643,  1103 => 642,  1092 => 633,  1090 => 632,  1086 => 631,  1078 => 626,  1075 => 625,  1073 => 624,  1070 => 623,  1066 => 621,  1060 => 617,  1053 => 612,  1049 => 610,  1043 => 608,  1041 => 607,  1033 => 602,  1027 => 598,  1023 => 596,  1017 => 594,  1015 => 593,  1002 => 582,  1000 => 581,  996 => 580,  988 => 575,  985 => 574,  983 => 573,  980 => 572,  972 => 566,  968 => 564,  962 => 562,  960 => 561,  952 => 556,  946 => 552,  942 => 550,  936 => 548,  934 => 547,  919 => 535,  911 => 530,  908 => 529,  906 => 528,  903 => 527,  897 => 523,  889 => 520,  882 => 518,  869 => 517,  863 => 515,  858 => 513,  853 => 512,  851 => 511,  848 => 510,  845 => 509,  842 => 508,  838 => 507,  836 => 506,  834 => 505,  829 => 503,  827 => 502,  824 => 501,  820 => 499,  817 => 498,  799 => 497,  795 => 495,  789 => 493,  785 => 491,  783 => 490,  780 => 489,  778 => 488,  773 => 486,  770 => 485,  766 => 484,  754 => 475,  746 => 470,  742 => 468,  740 => 467,  736 => 465,  728 => 463,  726 => 462,  722 => 461,  712 => 459,  709 => 458,  692 => 457,  677 => 454,  673 => 452,  664 => 450,  660 => 449,  651 => 448,  649 => 447,  645 => 445,  639 => 443,  637 => 442,  634 => 441,  624 => 440,  621 => 439,  617 => 437,  611 => 435,  609 => 434,  605 => 433,  602 => 432,  599 => 431,  582 => 430,  357 => 210,  351 => 206,  347 => 204,  338 => 202,  334 => 201,  328 => 197,  319 => 195,  315 => 194,  311 => 192,  309 => 191,  305 => 189,  299 => 188,  147 => 43,  141 => 42,  133 => 39,  127 => 36,  124 => 35,  122 => 34,  117 => 32,  110 => 31,  104 => 30,  94 => 26,  91 => 25,  83 => 22,  76 => 18,  72 => 16,  70 => 15,  67 => 14,  61 => 11,  55 => 9,  52 => 8,  49 => 7,  46 => 6,  40 => 5,  33 => 1,  31 => 3,  11 => 1,);
     }
 }
 /* {% extends '@WebProfiler/Profiler/layout.html.twig' %}*/
@@ -1233,199 +1307,209 @@ $context["trace"], "message", array(), "any", true, true)) {
 /* {% from _self import form_tree_entry, form_tree_details %}*/
 /* */
 /* {% block toolbar %}*/
-/*     {% if collector.data|length %}*/
+/*     {% if collector.data.nb_errors > 0 or collector.data.forms|length %}*/
+/*         {% set status_color = collector.data.nb_errors ? 'red' : '' %}*/
 /*         {% set icon %}*/
-/*             <svg width="20" height="28" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 20 28" enable-background="new 0 0 20 28" xml:space="preserve"><g><polygon fill="#3F3F3F" points="16,5 13,5 13,3 7,3 7,5 4,5 4,9 16,9"/><path fill="#3F3F3F" d="M17 6v4H3V6H0v19h20V6H17z M8 22H3v-1h5V22z M17 20H3v-1h14V20z M17 18H3v-1h14V18z M17 16H3v-1h14V16z M17 14H4v-1h13V14z"/></g></svg>*/
-/*             <span class="sf-toolbar-status sf-toolbar-status-{% if collector.data.nb_errors %}red{% else %}green{% endif %}">{% if collector.data.nb_errors %}{{ collector.data.nb_errors }}{% else %}{{ collector.data.forms|length }}{% endif %}</span>*/
+/*             {{ include('@WebProfiler/Icon/form.svg') }}*/
+/*             <span class="sf-toolbar-value">*/
+/*                 {{ collector.data.nb_errors ?: collector.data.forms|length }}*/
+/*             </span>*/
 /*         {% endset %}*/
 /* */
-/*         {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': profiler_url } %}*/
+/*         {% set text %}*/
+/*             <div class="sf-toolbar-info-piece">*/
+/*                 <b>Number of forms</b>*/
+/*                 <span class="sf-toolbar-status">{{ collector.data.forms|length }}</span>*/
+/*             </div>*/
+/*             <div class="sf-toolbar-info-piece">*/
+/*                 <b>Number of errors</b>*/
+/*                 <span class="sf-toolbar-status sf-toolbar-status-{{ collector.data.nb_errors > 0 ? 'red' }}">{{ collector.data.nb_errors }}</span>*/
+/*             </div>*/
+/*         {% endset %}*/
+/* */
+/*         {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: profiler_url, status: status_color }) }}*/
 /*     {% endif %}*/
 /* {% endblock %}*/
 /* */
 /* {% block menu %}*/
-/*     <span class="label">*/
-/*         <span class="icon"><svg width="20" height="27" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 20 27" enable-background="new 0 0 20 27" xml:space="preserve"><g><polygon fill="#3F3F3F" points="16,2 13,2 13,0 7,0 7,2 4,2 4,6 16,6"/><path fill="#3F3F3F" d="M17 3v4H3V3H0v24h20V3H17z M3 13h10v1H3V13z M8 24H3v-1h5V24z M17 22H3v-1h14V22z M17 20H3v-1h14V20z M17 18H3v-1h14V18z M17 16H4v-1h13V16z M17 12H3v-1h14V12z M17 10H4V9h13V10z"/></g></svg></span>*/
+/*     <span class="label label-status-{{ collector.data.nb_errors ? 'error' }} {{ collector.data.forms is empty ? 'disabled' }}">*/
+/*         <span class="icon">{{ include('@WebProfiler/Icon/form.svg') }}</span>*/
 /*         <strong>Forms</strong>*/
-/*         {% if collector.data.forms|length %}*/
-/*             <span class="count"><span>{{ collector.data.forms|length }}</span></span>*/
+/*         {% if collector.data.nb_errors > 0 %}*/
+/*             <span class="count">*/
+/*                 <span>{{ collector.data.nb_errors }}</span>*/
+/*             </span>*/
 /*         {% endif %}*/
 /*     </span>*/
 /* {% endblock %}*/
 /* */
-/* {% block panel %}*/
-/*     <style type="text/css">*/
-/*     .window {*/
-/*         /*background: #F6F6F6;*//* */
-/*         margin: -30px -40px -40px;*/
-/*     }*/
-/*     .toggle-icon {*/
-/*         display: inline-block;*/
-/*         background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAgBAMAAADpp+X/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDgwx4LcKwAAAABVQTFRFAAAA////////////////ZmZm////bvjBwAAAAAV0Uk5TABZwsuCVEUjgAAAAAWJLR0QF+G/pxwAAAE1JREFUGNNjSHMSYGBgUEljSGYAAzMGBwiDhUEBwmBiEIAwGBmwgTQgQGWgA7h2uIFwK+CWwp1BpHvYEqDuATEYkBlY3IOmBq6dCPcAAIT5Eg2IksjQAAAAAElFTkSuQmCC") no-repeat top left #5eb5e0;*/
-/*     }*/
-/*     .closed .toggle-icon, .closed.toggle-icon {*/
-/*         background-position: bottom left;*/
-/*     }*/
-/*     .toggle-icon.empty {*/
-/*         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QAZgBmAGYHukptAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDhIf6CA40AAAAFRJREFUOMvtk7ENACEMA61vfx767MROWfO+AdGBHlNyTZrYUZRYDBII4NWE1pNdpFarfgLUbpDaBEgBYRiEVjsvDLa1l6O4Z3wkFWN+OfLKdpisOH/TlICzukmUJwAAAABJRU5ErkJggg==");*/
-/*     }*/
-/*     .tree {*/
-/*         width: 230px;*/
-/*         padding: 10px;*/
-/*         font-size: 12px;*/
-/*         float: left;*/
-/*     }*/
-/*     #content .tree h2 {*/
-/*         font-size: 13px;*/
-/*         padding: 5px 7px;*/
-/*         margin: 0;*/
-/*     }*/
-/*     .tree li {*/
-/*         margin: 0;*/
-/*         padding: 0;*/
-/*         width: 100%;*/
-/*     }*/
-/*     .tree .tree-inner {*/
-/*         width: 100%;*/
-/*         padding: 5px 7px 5px 22px;*/
-/*         border-radius: 6px;*/
-/*         color: #313131;*/
-/*         cursor: pointer;*/
-/*         position: relative;*/
+/* {% block head %}*/
+/*     {{ parent() }}*/
 /* */
-/*         -webkit-box-sizing: border-box;*/
-/*         -moz-box-sizing: border-box;*/
-/*         box-sizing: border-box;*/
-/*     }*/
-/*     .tree a {*/
-/*         text-decoration: none;*/
-/*     }*/
-/*     .tree .toggle-button {*/
-/*         /* provide a bigger clickable area than just 10x10px *//* */
-/*         width: 16px;*/
-/*         height: 16px;*/
-/*         /* vertically center the button *//* */
-/*         position: absolute;*/
-/*         top: 50%;*/
-/*         margin-top: -8px;*/
-/*         margin-left: -18px;*/
-/*     }*/
-/*     .tree .toggle-icon {*/
-/*         width: 10px;*/
-/*         height: 10px;*/
-/*         /* position the icon in the center of the clickable area *//* */
-/*         margin-left: 3px;*/
-/*         margin-top: 3px;*/
-/*         background-size: 10px 20px;*/
-/*         background-color: #ccc;*/
-/*     }*/
-/*     .tree .toggle-icon.empty {*/
-/*         width: 10px;*/
-/*         height: 10px;*/
-/*         position: absolute;*/
-/*         top: 50%;*/
-/*         margin-top: -5px;*/
-/*         margin-left: -15px;*/
-/*         background-size: 10px 10px;*/
-/*     }*/
-/*     .tree ul ul .tree-inner {*/
-/*         padding-left: 37px;*/
-/*     }*/
-/*     .tree ul ul ul .tree-inner {*/
-/*         padding-left: 52px;*/
-/*     }*/
-/*     .tree ul ul ul ul .tree-inner {*/
-/*         padding-left: 67px;*/
-/*     }*/
-/*     .tree ul ul ul ul ul .tree-inner {*/
-/*         padding-left: 82px;*/
-/*     }*/
-/*     .tree .tree-inner:hover {*/
-/*         background: #dfdfdf;*/
-/*     }*/
-/*     .tree .tree-inner.active, .tree .tree-inner.active:hover {*/
-/*         background: #dfdfdf;*/
-/*         font-weight: bold;*/
-/*         color: #313131;*/
-/*     }*/
-/*     .tree .tree-inner.active .toggle-icon, .tree .tree-inner:hover .toggle-icon, .tree .tree-inner.active:hover .toggle-icon {*/
-/*         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAgBAMAAADpp+X/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDhEYXWn+sAAAABhQTFRFAAAA39/f39/f39/f39/fZmZm39/f////gc3YPwAAAAV0Uk5TAAtAc6ZeVyCYAAAAAWJLR0QF+G/pxwAAAE1JREFUGNNjSHMSYGBgUEljSGYAAzMGBwiDhUEBwmBiEIAwGBmwgXIgQGWgA7h2uIFwK+CWwp1BpHvYC6DuATEYkBlY3IOmBq6dCPcAADqLE4MnBi/fAAAAAElFTkSuQmCC");*/
-/*         background-color: #aaa;*/
-/*     }*/
-/*     .tree .tree-inner.active .toggle-icon.empty, .tree .tree-inner:hover .toggle-icon.empty, .tree .tree-inner.active:hover .toggle-icon.empty {*/
-/*         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDhoucSey4gAAABVQTFRFAAAA39/f39/f39/f39/fZmZm39/fD5Dx2AAAAAV0Uk5TAAtAc6ZeVyCYAAAAAWJLR0QF+G/pxwAAADJJREFUCNdjSHMSYGBgUEljSGYAAzMGBwiDhUEBwmBiEIAwGBnIA3DtcAPhVsAthTkDAFOfBKW9C1iqAAAAAElFTkSuQmCC");*/
-/*     }*/
-/*     .tree-details {*/
-/*         border-left: 1px solid #dfdfdf;*/
-/*         background: white;*/
-/*         margin-left: 250px;*/
-/*         padding: 30px 40px 40px;*/
-/*     }*/
-/*     .tree-details h3 {*/
-/*         position: relative;*/
-/*     }*/
-/*     .tree-details .toggle-icon {*/
-/*         width: 16px;*/
-/*         height: 16px;*/
-/*         /* vertically center the button *//* */
-/*         position: absolute;*/
-/*         top: 50%;*/
-/*         margin-top: -9px;*/
-/*         margin-left: 6px;*/
-/*     }*/
-/*     .form-type {*/
-/*         color: #999999;*/
-/*     }*/
-/*     .hidden {*/
-/*         display: none;*/
-/*     }*/
-/*     .badge-error {*/
-/*         float: right;*/
-/*         background: #a33;*/
-/*         color: #fff;*/
-/*         padding: 1px 4px;*/
-/*         font-size: 10px;*/
-/*         font-weight: bold;*/
-/*         vertical-align: middle;*/
-/*         border-radius: 6px;*/
-/*     }*/
-/*     .errors h3 {*/
-/*         color: #800;*/
-/*     }*/
-/*     .errors th, .errors td {*/
-/*         border-color: #800;*/
-/*     }*/
-/*     .errors th {*/
-/*         background: #a33;*/
-/*         color: #fff;*/
-/*     }*/
-/*     .errors .toggle-icon {*/
-/*         background-color: #a33;*/
-/*     }*/
-/*     h3 a, h3 a:hover, h3 a:focus {*/
-/*         color: inherit;*/
-/*         text-decoration: inherit;*/
-/*     }*/
+/*     <style>*/
+/*         #tree-menu {*/
+/*             float: left;*/
+/*             padding-right: 10px;*/
+/*             width: 230px;*/
+/*         }*/
+/*         #tree-menu ul {*/
+/*             list-style: none;*/
+/*             margin: 0;*/
+/*             padding-left: 0;*/
+/*         }*/
+/*         #tree-menu li {*/
+/*             margin: 0;*/
+/*             padding: 0;*/
+/*             width: 100%;*/
+/*         }*/
+/*         #tree-menu .empty {*/
+/*             border: 0;*/
+/*             mmargin: 0;*/
+/*             padding: 0;*/
+/*         }*/
+/*         #tree-details-container {*/
+/*             border-left: 1px solid #DDD;*/
+/*             margin-left: 250px;*/
+/*             padding-left: 20px;*/
+/*         }*/
+/*         .tree-details {*/
+/*             padding-bottom: 40px;*/
+/*         }*/
+/*         .tree-details h3 {*/
+/*             font-size: 18px;*/
+/*             position: relative;*/
+/*         }*/
+/* */
+/*         .toggle-icon {*/
+/*             display: inline-block;*/
+/*             background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAgBAMAAADpp+X/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDgwx4LcKwAAAABVQTFRFAAAA////////////////ZmZm////bvjBwAAAAAV0Uk5TABZwsuCVEUjgAAAAAWJLR0QF+G/pxwAAAE1JREFUGNNjSHMSYGBgUEljSGYAAzMGBwiDhUEBwmBiEIAwGBmwgTQgQGWgA7h2uIFwK+CWwp1BpHvYEqDuATEYkBlY3IOmBq6dCPcAAIT5Eg2IksjQAAAAAElFTkSuQmCC") no-repeat top left #5eb5e0;*/
+/*         }*/
+/*         .closed .toggle-icon, .closed.toggle-icon {*/
+/*             background-position: bottom left;*/
+/*         }*/
+/*         .toggle-icon.empty {*/
+/*             background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QAZgBmAGYHukptAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDhIf6CA40AAAAFRJREFUOMvtk7ENACEMA61vfx767MROWfO+AdGBHlNyTZrYUZRYDBII4NWE1pNdpFarfgLUbpDaBEgBYRiEVjsvDLa1l6O4Z3wkFWN+OfLKdpisOH/TlICzukmUJwAAAABJRU5ErkJggg==");*/
+/*         }*/
+/* */
+/*         .tree .tree-inner {*/
+/*             cursor: pointer;*/
+/*             padding: 5px 7px 5px 22px;*/
+/*             position: relative;*/
+/* */
+/*         }*/
+/*         .tree .toggle-button {*/
+/*             /* provide a bigger clickable area than just 10x10px *//* */
+/*             width: 16px;*/
+/*             height: 16px;*/
+/*             /* vertically center the button *//* */
+/*             position: absolute;*/
+/*             top: 50%;*/
+/*             margin-top: -8px;*/
+/*             margin-left: -18px;*/
+/*         }*/
+/*         .tree .toggle-icon {*/
+/*             width: 10px;*/
+/*             height: 10px;*/
+/*             /* position the icon in the center of the clickable area *//* */
+/*             margin-left: 3px;*/
+/*             margin-top: 3px;*/
+/*             background-size: 10px 20px;*/
+/*             background-color: #ccc;*/
+/*         }*/
+/*         .tree .toggle-icon.empty {*/
+/*             width: 10px;*/
+/*             height: 10px;*/
+/*             position: absolute;*/
+/*             top: 50%;*/
+/*             margin-top: -5px;*/
+/*             margin-left: -15px;*/
+/*             background-size: 10px 10px;*/
+/*         }*/
+/*         .tree ul ul .tree-inner {*/
+/*             padding-left: 37px;*/
+/*         }*/
+/*         .tree ul ul ul .tree-inner {*/
+/*             padding-left: 52px;*/
+/*         }*/
+/*         .tree ul ul ul ul .tree-inner {*/
+/*             padding-left: 67px;*/
+/*         }*/
+/*         .tree ul ul ul ul ul .tree-inner {*/
+/*             padding-left: 82px;*/
+/*         }*/
+/*         .tree .tree-inner:hover {*/
+/*             background: #dfdfdf;*/
+/*         }*/
+/*         .tree .tree-inner.active, .tree .tree-inner.active:hover {*/
+/*             background: #E0E0E0;*/
+/*             font-weight: bold;*/
+/*         }*/
+/*         .tree .tree-inner.active .toggle-icon, .tree .tree-inner:hover .toggle-icon, .tree .tree-inner.active:hover .toggle-icon {*/
+/*             background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAgBAMAAADpp+X/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDhEYXWn+sAAAABhQTFRFAAAA39/f39/f39/f39/fZmZm39/f////gc3YPwAAAAV0Uk5TAAtAc6ZeVyCYAAAAAWJLR0QF+G/pxwAAAE1JREFUGNNjSHMSYGBgUEljSGYAAzMGBwiDhUEBwmBiEIAwGBmwgXIgQGWgA7h2uIFwK+CWwp1BpHvYC6DuATEYkBlY3IOmBq6dCPcAADqLE4MnBi/fAAAAAElFTkSuQmCC");*/
+/*             background-color: #999;*/
+/*         }*/
+/*         .tree .tree-inner.active .toggle-icon.empty, .tree .tree-inner:hover .toggle-icon.empty, .tree .tree-inner.active:hover .toggle-icon.empty {*/
+/*             background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QweDhoucSey4gAAABVQTFRFAAAA39/f39/f39/f39/fZmZm39/fD5Dx2AAAAAV0Uk5TAAtAc6ZeVyCYAAAAAWJLR0QF+G/pxwAAADJJREFUCNdjSHMSYGBgUEljSGYAAzMGBwiDhUEBwmBiEIAwGBnIA3DtcAPhVsAthTkDAFOfBKW9C1iqAAAAAElFTkSuQmCC");*/
+/*         }*/
+/*         .tree-details .toggle-icon {*/
+/*             width: 16px;*/
+/*             height: 16px;*/
+/*             /* vertically center the button *//* */
+/*             position: absolute;*/
+/*             top: 50%;*/
+/*             margin-top: -9px;*/
+/*             margin-left: 6px;*/
+/*         }*/
+/*         .form-type {*/
+/*             color: #999;*/
+/*         }*/
+/*         .badge-error {*/
+/*             float: right;*/
+/*             background: #B0413E;*/
+/*             color: #FFF;*/
+/*             padding: 1px 4px;*/
+/*             font-size: 10px;*/
+/*             font-weight: bold;*/
+/*             vertical-align: middle;*/
+/*         }*/
+/*         .errors h3 {*/
+/*             color: #B0413E;*/
+/*         }*/
+/*         .errors th {*/
+/*             background: #B0413E;*/
+/*             color: #FFF;*/
+/*         }*/
+/*         .errors .toggle-icon {*/
+/*             background-color: #B0413E;*/
+/*         }*/
+/*         h3 a, h3 a:hover, h3 a:focus {*/
+/*             color: inherit;*/
+/*             text-decoration: inherit;*/
+/*         }*/
 /*     </style>*/
+/* {% endblock %}*/
+/* */
+/* {% block panel %}*/
+/*     <h2>Forms</h2>*/
 /* */
 /*     {% if collector.data.forms|length %}*/
-/*         <div class="window">*/
-/*             <div class="tree">*/
-/*                 <h2>Forms</h2>*/
+/*         <div id="tree-menu" class="tree">*/
+/*             <ul>*/
+/*             {% for formName, formData in collector.data.forms %}*/
+/*                 {{ form_tree_entry(formName, formData, true) }}*/
+/*             {% endfor %}*/
+/*             </ul>*/
+/*         </div>*/
 /* */
-/*                 <ul>*/
-/*                 {% for formName, formData in collector.data.forms %}*/
-/*                     {{ form_tree_entry(formName, formData, true) }}*/
-/*                 {% endfor %}*/
-/*                 </ul>*/
-/*             </div>*/
-/* */
+/*         <div id="tree-details-container">*/
 /*             {% for formName, formData in collector.data.forms %}*/
 /*                 {{ form_tree_details(formName, formData, collector.data.forms_by_hash) }}*/
 /*             {% endfor %}*/
 /*         </div>*/
 /*     {% else %}*/
-/*         <p><em>No forms were submitted for this request.</em></p>*/
+/*         <div class="empty">*/
+/*             <p>No forms were submitted for this request.</p>*/
+/*         </div>*/
 /*     {% endif %}*/
 /* */
 /*     <script>*/
@@ -1656,14 +1740,16 @@ $context["trace"], "message", array(), "any", true, true)) {
 /*             {% else %}*/
 /*                 <div class="toggle-icon empty"></div>*/
 /*             {% endif %}*/
+/* */
 /*             {{ name|default('(no name)') }} {% if data.type_class is defined and data.type is defined %}[<abbr title="{{ data.type_class }}">{{ data.type }}</abbr>]{% endif %}*/
+/* */
 /*             {% if data.errors is defined and data.errors|length > 0 %}*/
-/*             <div class="badge-error">{{ data.errors|length }}</div>*/
+/*                 <div class="badge-error">{{ data.errors|length }}</div>*/
 /*             {% endif %}*/
 /*         </div>*/
 /* */
 /*         {% if data.children is not empty %}*/
-/*             <ul id="{{ data.id }}-children"{% if not expanded %} class="hidden"{% endif %}>*/
+/*             <ul id="{{ data.id }}-children" {% if not expanded %}class="hidden"{% endif %}>*/
 /*                 {% for childName, childData in data.children %}*/
 /*                     {{ tree.form_tree_entry(childName, childData, false) }}*/
 /*                 {% endfor %}*/
@@ -1674,7 +1760,7 @@ $context["trace"], "message", array(), "any", true, true)) {
 /* */
 /* {% macro form_tree_details(name, data, forms_by_hash) %}*/
 /*     {% import _self as tree %}*/
-/*     <div class="tree-details" {% if data.id is defined %} id="{{ data.id }}-details"{% endif %}>*/
+/*     <div class="tree-details" {% if data.id is defined %}id="{{ data.id }}-details"{% endif %}>*/
 /*         <h2>*/
 /*             {{ name|default('(no name)') }}*/
 /*             {% if data.type_class is defined and data.type is defined %}*/
@@ -1686,17 +1772,19 @@ $context["trace"], "message", array(), "any", true, true)) {
 /*         <div class="errors">*/
 /*             <h3>*/
 /*                 <a class="toggle-button" data-toggle-target-id="{{ data.id }}-errors" href="#">*/
-/*                     Errors*/
-/*                     <span class="toggle-icon"></span>*/
+/*                     Errors <span class="toggle-icon"></span>*/
 /*                 </a>*/
 /*             </h3>*/
 /* */
 /*             <table id="{{ data.id }}-errors">*/
-/*                 <tr>*/
-/*                     <th>Message</th>*/
-/*                     <th>Origin</th>*/
-/*                     <th>Cause</th>*/
-/*                 </tr>*/
+/*                 <thead>*/
+/*                     <tr>*/
+/*                         <th>Message</th>*/
+/*                         <th>Origin</th>*/
+/*                         <th>Cause</th>*/
+/*                     </tr>*/
+/*                 </thead>*/
+/*                 <tbody>*/
 /*                 {% for error in data.errors %}*/
 /*                 <tr>*/
 /*                     <td>{{ error.message }}</td>*/
@@ -1712,10 +1800,11 @@ $context["trace"], "message", array(), "any", true, true)) {
 /*                     <td>*/
 /*                         {% for trace in error.trace %}*/
 /*                             {% if not loop.first %}*/
-/*                                 <br/>Caused by:<br/><br/>*/
+/*                                 <span class="newline">Caused by:</span>*/
 /*                             {% endif %}*/
+/* */
 /*                             {% if trace.root is defined %}*/
-/*                                 <strong>{{ trace.class }}</strong><br/>*/
+/*                                 <strong class="newline">{{ trace.class }}</strong>*/
 /*                                 <pre>*/
 /*                                     {{- trace.root -}}*/
 /*                                     {%- if trace.path is not empty -%}*/
@@ -1724,7 +1813,7 @@ $context["trace"], "message", array(), "any", true, true)) {
 /*                                     {%- endif %} = {{ trace.value -}}*/
 /*                                 </pre>*/
 /*                             {% elseif trace.message is defined %}*/
-/*                                 <strong>{{ trace.class }}</strong><br/>*/
+/*                                 <strong class="newline">{{ trace.class }}</strong>*/
 /*                                 <pre>{{ trace.message }}</pre>*/
 /*                             {% else %}*/
 /*                                 <pre>{{ trace }}</pre>*/
@@ -1735,6 +1824,7 @@ $context["trace"], "message", array(), "any", true, true)) {
 /*                     </td>*/
 /*                 </tr>*/
 /*                 {% endfor %}*/
+/*                 </tbody>*/
 /*             </table>*/
 /*         </div>*/
 /*         {% endif %}*/
@@ -1742,37 +1832,44 @@ $context["trace"], "message", array(), "any", true, true)) {
 /*         {% if data.default_data is defined %}*/
 /*         <h3>*/
 /*             <a class="toggle-button" data-toggle-target-id="{{ data.id }}-default_data" href="#">*/
-/*                 Default Data*/
-/*                 <span class="toggle-icon"></span>*/
+/*                 Default Data <span class="toggle-icon"></span>*/
 /*             </a>*/
 /*         </h3>*/
 /* */
 /*         <div id="{{ data.id }}-default_data">*/
 /*             <table>*/
-/*                 <tr>*/
-/*                     <th width="180">Model Format</th>*/
-/*                     <td>*/
-/*                         {% if data.default_data.model is defined %}*/
-/*                             <pre>{{ data.default_data.model }}</pre>*/
-/*                         {% else %}*/
-/*                             <em>same as normalized format</em>*/
-/*                         {% endif %}*/
-/*                     </td>*/
-/*                 </tr>*/
-/*                 <tr>*/
-/*                     <th>Normalized Format</th>*/
-/*                     <td><pre>{{ data.default_data.norm }}</pre></td>*/
-/*                 </tr>*/
-/*                 <tr>*/
-/*                     <th>View Format</th>*/
-/*                     <td>*/
-/*                         {% if data.default_data.view is defined %}*/
-/*                             <pre>{{ data.default_data.view }}</pre>*/
-/*                         {% else %}*/
-/*                             <em>same as normalized format</em>*/
-/*                         {% endif %}*/
-/*                     </td>*/
-/*                 </tr>*/
+/*                 <thead>*/
+/*                     <tr>*/
+/*                         <th width="180">Property</th>*/
+/*                         <th>Value</th>*/
+/*                     </tr>*/
+/*                 </thead>*/
+/*                 <tbody>*/
+/*                     <tr>*/
+/*                         <th class="font-normal" scope="row">Model Format</th>*/
+/*                         <td>*/
+/*                             {% if data.default_data.model is defined %}*/
+/*                                 {{ data.default_data.model }}*/
+/*                             {% else %}*/
+/*                                 <em class="font-normal text-muted">same as normalized format</em>*/
+/*                             {% endif %}*/
+/*                         </td>*/
+/*                     </tr>*/
+/*                     <tr>*/
+/*                         <th class="font-normal" scope="row">Normalized Format</th>*/
+/*                         <td>{{ data.default_data.norm }}</td>*/
+/*                     </tr>*/
+/*                     <tr>*/
+/*                         <th class="font-normal" scope="row">View Format</th>*/
+/*                         <td>*/
+/*                             {% if data.default_data.view is defined %}*/
+/*                                 {{ data.default_data.view }}*/
+/*                             {% else %}*/
+/*                                 <em class="font-normal text-muted">same as normalized format</em>*/
+/*                             {% endif %}*/
+/*                         </td>*/
+/*                     </tr>*/
+/*                 </tbody>*/
 /*             </table>*/
 /*         </div>*/
 /*         {% endif %}*/
@@ -1780,41 +1877,50 @@ $context["trace"], "message", array(), "any", true, true)) {
 /*         {% if data.submitted_data is defined %}*/
 /*         <h3>*/
 /*             <a class="toggle-button" data-toggle-target-id="{{ data.id }}-submitted_data" href="#">*/
-/*                 Submitted Data*/
-/*                 <span class="toggle-icon"></span>*/
+/*                 Submitted Data <span class="toggle-icon"></span>*/
 /*             </a>*/
 /*         </h3>*/
 /* */
 /*         <div id="{{ data.id }}-submitted_data">*/
 /*         {% if data.submitted_data.norm is defined %}*/
 /*             <table>*/
-/*                 <tr>*/
-/*                     <th width="180">View Format</th>*/
-/*                     <td>*/
-/*                         {% if data.submitted_data.view is defined %}*/
-/*                             <pre>{{ data.submitted_data.view }}</pre>*/
-/*                         {% else %}*/
-/*                             <em>same as normalized format</em>*/
-/*                         {% endif %}*/
-/*                     </td>*/
-/*                 </tr>*/
-/*                 <tr>*/
-/*                     <th>Normalized Format</th>*/
-/*                     <td><pre>{{ data.submitted_data.norm }}</pre></td>*/
-/*                 </tr>*/
-/*                 <tr>*/
-/*                     <th>Model Format</th>*/
-/*                     <td>*/
-/*                         {% if data.submitted_data.model is defined %}*/
-/*                             <pre>{{ data.submitted_data.model }}</pre>*/
-/*                         {% else %}*/
-/*                             <em>same as normalized format</em>*/
-/*                         {% endif %}*/
-/*                     </td>*/
-/*                 </tr>*/
+/*                 <thead>*/
+/*                     <tr>*/
+/*                         <th width="180">Property</th>*/
+/*                         <th>Value</th>*/
+/*                     </tr>*/
+/*                 </thead>*/
+/*                 <tbody>*/
+/*                     <tr>*/
+/*                         <th class="font-normal" scope="row">View Format</th>*/
+/*                         <td>*/
+/*                             {% if data.submitted_data.view is defined %}*/
+/*                                 {{ data.submitted_data.view }}*/
+/*                             {% else %}*/
+/*                                 <em class="font-normal text-muted">same as normalized format</em>*/
+/*                             {% endif %}*/
+/*                         </td>*/
+/*                     </tr>*/
+/*                     <tr>*/
+/*                         <th class="font-normal" scope="row">Normalized Format</th>*/
+/*                         <td>{{ data.submitted_data.norm }}</td>*/
+/*                     </tr>*/
+/*                     <tr>*/
+/*                         <th class="font-normal" scope="row">Model Format</th>*/
+/*                         <td>*/
+/*                             {% if data.submitted_data.model is defined %}*/
+/*                                 {{ data.submitted_data.model }}*/
+/*                             {% else %}*/
+/*                                 <em class="font-normal text-muted">same as normalized format</em>*/
+/*                             {% endif %}*/
+/*                         </td>*/
+/*                     </tr>*/
+/*                 </tbody>*/
 /*             </table>*/
 /*         {% else %}*/
-/*             <p><em>This form was not submitted.</em></p>*/
+/*             <div class="empty">*/
+/*                 <p>This form was not submitted.</p>*/
+/*             </div>*/
 /*         {% endif %}*/
 /*         </div>*/
 /*         {% endif %}*/
@@ -1822,35 +1928,40 @@ $context["trace"], "message", array(), "any", true, true)) {
 /*         {% if data.passed_options is defined %}*/
 /*         <h3>*/
 /*             <a class="toggle-button" data-toggle-target-id="{{ data.id }}-passed_options" href="#">*/
-/*                 Passed Options*/
-/*                 <span class="toggle-icon"></span>*/
+/*                 Passed Options <span class="toggle-icon"></span>*/
 /*             </a>*/
 /*         </h3>*/
 /* */
 /*         <div id="{{ data.id }}-passed_options">*/
 /*             {% if data.passed_options|length %}*/
 /*             <table>*/
-/*                 <tr>*/
-/*                     <th width="180">Option</th>*/
-/*                     <th>Passed Value</th>*/
-/*                     <th>Resolved Value</th>*/
-/*                 </tr>*/
+/*                 <thead>*/
+/*                     <tr>*/
+/*                         <th width="180">Option</th>*/
+/*                         <th>Passed Value</th>*/
+/*                         <th>Resolved Value</th>*/
+/*                     </tr>*/
+/*                 </thead>*/
+/*                 <tbody>*/
 /*                 {% for option, value in data.passed_options %}*/
 /*                 <tr>*/
 /*                     <th>{{ option }}</th>*/
-/*                     <td><pre>{{ value }}</pre></td>*/
+/*                     <td>{{ value }}</td>*/
 /*                     <td>*/
 /*                         {% if data.resolved_options[option] is same as(value) %}*/
-/*                             <em>same as passed value</em>*/
+/*                             <em class="font-normal text-muted">same as passed value</em>*/
 /*                         {% else %}*/
-/*                             <pre>{{ data.resolved_options[option] }}</pre>*/
+/*                             {{ data.resolved_options[option] }}*/
 /*                         {% endif %}*/
 /*                     </td>*/
 /*                 </tr>*/
 /*                 {% endfor %}*/
+/*                 </tbody>*/
 /*             </table>*/
 /*             {% else %}*/
-/*             <p><em>No options where passed when constructing this form.</em></p>*/
+/*                 <div class="empty">*/
+/*                     <p>No options where passed when constructing this form.</p>*/
+/*                 </div>*/
 /*             {% endif %}*/
 /*         </div>*/
 /*         {% endif %}*/
@@ -1858,23 +1969,26 @@ $context["trace"], "message", array(), "any", true, true)) {
 /*         {% if data.resolved_options is defined %}*/
 /*         <h3>*/
 /*             <a class="toggle-button" data-toggle-target-id="{{ data.id }}-resolved_options" href="#">*/
-/*                 Resolved Options*/
-/*                 <span class="toggle-icon"></span>*/
+/*                 Resolved Options <span class="toggle-icon"></span>*/
 /*             </a>*/
 /*         </h3>*/
 /* */
 /*         <div id="{{ data.id }}-resolved_options" class="hidden">*/
 /*             <table>*/
-/*                 <tr>*/
-/*                     <th width="180">Option</th>*/
-/*                     <th>Value</th>*/
-/*                 </tr>*/
+/*                 <thead>*/
+/*                     <tr>*/
+/*                         <th width="180">Option</th>*/
+/*                         <th>Value</th>*/
+/*                     </tr>*/
+/*                 </thead>*/
+/*                 <tbody>*/
 /*                 {% for option, value in data.resolved_options %}*/
 /*                 <tr>*/
-/*                     <th>{{ option }}</th>*/
-/*                     <td><pre>{{ value }}</pre></td>*/
+/*                     <th scope="row">{{ option }}</th>*/
+/*                     <td>{{ value }}</td>*/
 /*                 </tr>*/
 /*                 {% endfor %}*/
+/*                 </tbody>*/
 /*             </table>*/
 /*         </div>*/
 /*         {% endif %}*/
@@ -1882,23 +1996,26 @@ $context["trace"], "message", array(), "any", true, true)) {
 /*         {% if data.view_vars is defined %}*/
 /*         <h3>*/
 /*             <a class="toggle-button" data-toggle-target-id="{{ data.id }}-view_vars" href="#">*/
-/*                 View Variables*/
-/*                 <span class="toggle-icon"></span>*/
+/*                 View Variables <span class="toggle-icon"></span>*/
 /*             </a>*/
 /*         </h3>*/
 /* */
 /*         <div id="{{ data.id }}-view_vars" class="hidden">*/
 /*             <table>*/
-/*                 <tr>*/
-/*                     <th width="180">Variable</th>*/
-/*                     <th>Value</th>*/
-/*                 </tr>*/
+/*                 <thead>*/
+/*                     <tr>*/
+/*                         <th width="180">Variable</th>*/
+/*                         <th>Value</th>*/
+/*                     </tr>*/
+/*                 </thead>*/
+/*                 <tbody>*/
 /*                 {% for variable, value in data.view_vars %}*/
 /*                 <tr>*/
-/*                     <th>{{ variable }}</th>*/
-/*                     <td><pre>{{ value }}</pre></td>*/
+/*                     <th scope="row">{{ variable }}</th>*/
+/*                     <td>{{ value }}</td>*/
 /*                 </tr>*/
 /*                 {% endfor %}*/
+/*                 </tbody>*/
 /*             </table>*/
 /*         </div>*/
 /*         {% endif %}*/
