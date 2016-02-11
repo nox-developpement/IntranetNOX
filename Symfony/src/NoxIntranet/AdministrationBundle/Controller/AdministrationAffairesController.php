@@ -51,14 +51,28 @@ class AdministrationAffairesController extends Controller {
                 ->add('Supprimer', 'submit')
                 ->getForm();
 
-        $formulaire = new Formulaires();
+        $formulaireAjout = new Formulaires();
 
-        $formAjoutFormulaire = $this->get('form.factory')->createNamedBuilder('formAjoutFormulaire', 'form', $formulaire)
+        $formAjoutFormulaire = $this->get('form.factory')->createNamedBuilder('formAjoutFormulaire', 'form', $formulaireAjout)
                 ->add('Nom', TextType::class)
                 ->add('Type', ChoiceType::class, array(
                     'choices' => array('Texte' => 'Texte', 'Nombre' => 'Nombre'),
                 ))
                 ->add('Ajouter', 'submit')
+                ->getForm();
+
+        $formulaireSuppression = new Formulaires();
+
+        $formSuppresionFormulaire = $this->get('form.factory')->createNamedBuilder('formSuppressionFormulaire', 'form', $formulaireSuppression)
+                ->add('Nom', EntityType::class, array(
+                    'class' => 'NoxIntranetAdministrationBundle:Formulaires',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                                ->orderBy('u.nom', 'ASC');
+                    },
+                    'choice_label' => 'Nom',
+                ))
+                ->add('Supprimer', 'submit')
                 ->getForm();
 
         if ($request->request->has('formAjoutProfil')) {
@@ -103,25 +117,39 @@ class AdministrationAffairesController extends Controller {
             if ($formAjoutFormulaire->isValid()) {
 
                 if ($em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findOneByNom($formAjoutFormulaire['Nom']->getData()) == null) {
-                    
-                    $formulaire->setNom($formAjoutFormulaire['Nom']->getData());
-                    $formulaire->setType($formAjoutFormulaire['Type']->getData());
-                    
-                    $em->persist($formulaire);
+
+                    $formulaireAjout->setNom($formAjoutFormulaire['Nom']->getData());
+                    $formulaireAjout->setType($formAjoutFormulaire['Type']->getData());
+
+                    $em->persist($formulaireAjout);
                     $em->flush();
 
                     $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $formAjoutFormulaire['Nom']->getData() . ' a été créé.');
 
                     return $this->redirectToRoute('nox_intranet_administration_affaires');
-                }
-                else {
+                } else {
                     $request->getSession()->getFlashBag()->add('noticeErreur', 'Le champ ' . $formAjoutFormulaire['Nom']->getData() . ' existe déjà !');
                 }
             }
         }
 
+        if ($request->request->has('formSuppressionFormulaire')) {
+
+            $formSuppresionFormulaire->handleRequest($request);
+
+            if ($formSuppresionFormulaire->isValid()) {
+
+                $em->remove($formSuppresionFormulaire['Nom']->getData());
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'Le formulaire ' . $formSuppresionFormulaire['Nom']->getData()->getNom() . ' a été supprimé.');
+
+                return $this->redirectToRoute('nox_intranet_administration_affaires');
+            }
+        }
+
         return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig', array('formAjoutProfil' => $formAjoutProfil->createView(), 'profils' => $profils, 'formSuppresionProfil' => $formSuppresionProfil->createView(),
-                    'formAjoutFormulaire' => $formAjoutFormulaire->createView()));
+                    'formAjoutFormulaire' => $formAjoutFormulaire->createView(), 'formSuppressionFormulaire' => $formSuppresionFormulaire->createView()));
     }
 
 }

@@ -1,4 +1,4 @@
-{% extends "::layout.html.twig" %}
+{% extends '::layout.html.twig' %}
 
 {% block titrePage %} Licences {% endblock %}
 
@@ -6,6 +6,8 @@
 
 {% block contenu %}
 
-    <p style='margin: auto; width: 70%; text-align: center; font-size: 2vw; color: red'> En cours d'implémentation... </p>
+    <div id="DivIframeLicences">
+        <iframe id='licencesIframe' src="http://192.168.69.11:7019/EasyAdmin2/#{'include_obsolete':false,'server':'','vendor':'','license_type':[],'additional_key':'','feature':[],'products':[],'timeformat':'dd/mm/yyyy hh:mm:ss','timezone':'W. Europe Standard Time','module':'ea-licenses','windowSize':{'width':932,'height':600,'maximized':false}}"></iframe>
+    </div>
 
 {% endblock %}

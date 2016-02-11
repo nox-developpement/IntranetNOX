@@ -43,8 +43,9 @@ class __TwigTemplate_1f1cc4f1d817b462b23dcd4615b704ef5aa6afac968e5d2f4c22b9520a7
     {
         // line 8
         echo "
-    <p style='margin: auto; width: 70%; text-align: center; font-size: 2vw; color: red'> En cours d'implémentation... </p>
-
+    <div id=\"DivIframeLicences\">
+        <iframe id='licencesIframe' src=\"http://192.168.69.11:7019/EasyAdmin2/#{'include_obsolete':false,'server':'','vendor':'','license_type':[],'additional_key':'','feature':[],'products':[],'timeformat':'dd/mm/yyyy hh:mm:ss','timezone':'W. Europe Standard Time','module':'ea-licenses','windowSize':{'width':932,'height':600,'maximized':false}}\"></iframe>
+    </div>
 ";
     }
 
@@ -63,7 +64,7 @@ class __TwigTemplate_1f1cc4f1d817b462b23dcd4615b704ef5aa6afac968e5d2f4c22b9520a7
         return array (  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
-/* {% extends "::layout.html.twig" %}*/
+/* {% extends '::layout.html.twig' %}*/
 /* */
 /* {% block titrePage %} Licences {% endblock %}*/
 /* */
@@ -71,7 +72,7 @@ class __TwigTemplate_1f1cc4f1d817b462b23dcd4615b704ef5aa6afac968e5d2f4c22b9520a7
 /* */
 /* {% block contenu %}*/
 /* */
-/*     <p style='margin: auto; width: 70%; text-align: center; font-size: 2vw; color: red'> En cours d'implémentation... </p>*/
-/* */
+/*     <div id="DivIframeLicences">*/
+/*         <iframe id='licencesIframe' src="http://192.168.69.11:7019/EasyAdmin2/#{'include_obsolete':false,'server':'','vendor':'','license_type':[],'additional_key':'','feature':[],'products':[],'timeformat':'dd/mm/yyyy hh:mm:ss','timezone':'W. Europe Standard Time','module':'ea-licenses','windowSize':{'width':932,'height':600,'maximized':false}}"></iframe>*/
+/*     </div>*/
 /* {% endblock %}*/
-/* */

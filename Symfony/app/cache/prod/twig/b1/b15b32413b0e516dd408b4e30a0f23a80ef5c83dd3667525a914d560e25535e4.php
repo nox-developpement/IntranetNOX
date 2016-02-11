@@ -56,7 +56,7 @@ class __TwigTemplate_208cd812140f6e385c91e2f2afc5cda0b4013c6be4ce2c38c7f43652b35
 
         <fieldset>
 
-            <legend>Ajouter un profil</legend>
+            <legend>Ajouter un suivi</legend>
 
             <p>
 
@@ -127,7 +127,7 @@ class __TwigTemplate_208cd812140f6e385c91e2f2afc5cda0b4013c6be4ce2c38c7f43652b35
 
                 ";
         // line 46
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "Créer", array()), 'widget', array("label" => "Créer profil", "attr" => array("class" => "submitFormulaireCreationSuivi", "class" => "boutonFormulaire")));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "Créer", array()), 'widget', array("label" => "Créer suivi", "attr" => array("class" => "submitFormulaireCreationSuivi", "class" => "boutonFormulaire")));
         echo "
 
             </p>
@@ -174,7 +174,7 @@ class __TwigTemplate_208cd812140f6e385c91e2f2afc5cda0b4013c6be4ce2c38c7f43652b35
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend>Ajouter un profil</legend>*/
+/*             <legend>Ajouter un suivi</legend>*/
 /* */
 /*             <p>*/
 /* */
@@ -204,7 +204,7 @@ class __TwigTemplate_208cd812140f6e385c91e2f2afc5cda0b4013c6be4ce2c38c7f43652b35
 /* */
 /*                 <br />*/
 /* */
-/*                 {{ form_widget(form.Créer, {'label': 'Créer profil', 'attr': {'class': 'submitFormulaireCreationSuivi', 'class': 'boutonFormulaire' }}) }}*/
+/*                 {{ form_widget(form.Créer, {'label': 'Créer suivi', 'attr': {'class': 'submitFormulaireCreationSuivi', 'class': 'boutonFormulaire' }}) }}*/
 /* */
 /*             </p>*/
 /* */

@@ -6,9 +6,39 @@
         <meta charset="utf-8" />
         <title> Groupe-Nox / {% block titrePage %}{% endblock %}</title>
         {# app/Resources/views/layout.html.twig #}
-        {% stylesheets '@NoxIntranetCommunicationBundle/Resources/public/css/style.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-        {% endstylesheets %}
+
+        <script src={{ asset('./js/jquery-2.2.0.min.js') }}></script>
+        <script src={{ asset('./js/js.cookie.js') }}></script>
+        <script type="text/javascript">
+            function changementSkin($skin) {
+                if ($skin === 'normal') {
+                    Cookies.set("skin", "normal");
+                    location.reload();
+                } else if ($skin === 'bammez') {
+                    Cookies.set("skin", "bammez");
+                    location.reload();
+                }
+            }
+        </script>
+
+        {% if app.request.cookies.get('skin') == null %}
+            {% set skin = 'normal' %}
+        {% elseif app.request.cookies.get('skin') == 'normal' %}
+            {% set skin = 'normal' %}
+        {% elseif app.request.cookies.get('skin') == 'bammez' %}
+            {% set skin = 'bammez' %}
+        {% endif %}
+
+        {% if skin == 'normal' %}
+            {% stylesheets '@NoxIntranetCommunicationBundle/Resources/public/css/style.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+            {% endstylesheets %}
+        {% else %} 
+            {% stylesheets '@NoxIntranetCommunicationBundle/Resources/public/css/style_bammez.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+            {% endstylesheets %}
+        {% endif %}
+
         <link rel="icon" type="image/png" href="{{ asset('bundles/noxintranetcommunication/images/favicon.ico') }}" />
         <style type="text/css">
             @font-face {
@@ -18,12 +48,16 @@
         </style>
     </head>
 
-    <body onload="menuAnimation();">
+    <body onload="{% if skin == 'normal' %}menuAnimation();{% else %}menuAnimationBammez();{% endif %}">
 
         <header>
 
             <div id ="bandeau">  
-                <img src="{{ asset('bundles/noxintranetcommunication/images/bandeau.png') }}" id ="image_bandeau" alt="bandeau" onmousedown="return false;">
+                {% if skin == 'normal' %}
+                    <img src="{{ asset('bundles/noxintranetcommunication/images/bandeau.png') }}" id ="image_bandeau" alt="bandeau" onmousedown="return false;">
+                {% else %} 
+                    <img src="{{ asset('bundles/noxintranetcommunication/images/bandeau_bammez.png') }}" id ="image_bandeau" alt="bandeau" onmousedown="return false;">
+                {% endif %}
             </div>
 
             {{ include('NoxIntranetUserBundle:Security:ADlogin.html.twig') }}
@@ -31,6 +65,15 @@
         </header>
 
         <div id="bar_menu">
+
+            <div id="selectionSkinBouton" >
+                <div>
+                    <p> Couleurs :
+                        <img src="{{ asset('bundles/noxintranetcommunication/images/CarreBleuClair.png') }}" onclick="changementSkin('bammez');">
+                        <img src="{{ asset('bundles/noxintranetcommunication/images/CarreBleuFonce.png') }}" onclick="changementSkin('normal');">
+                    </p>
+                </div>
+            </div>
 
             <div id="div_menu">
 
@@ -46,7 +89,12 @@
 
                     <li id="google_search"> 
                         <form id="google_form">
-                            <img src ="{{ asset('bundles/noxintranetcommunication/images/logoGoogle.png') }}" alt="Logo Google" onmousedown="return false;">
+                            {% if skin == 'normal' %}
+                                <img src ="{{ asset('bundles/noxintranetcommunication/images/logoGoogle.png') }}" alt="Logo Google" onmousedown="return false;">
+                            {% else %} 
+                                <img src ="{{ asset('bundles/noxintranetcommunication/images/logoRecherche.png') }}" alt="Logo Google" onmousedown="return false;">
+                            {% endif %}
+
                             <input type="text" id="search_input" name="seach_input" placeholder="Rechercher sur Google">
                             <button id="search" onclick="googleSearch(this);"> Rechercher </button>
                         </form>
@@ -83,34 +131,33 @@
                 <div class="messageAcceuil"> 
                     <h2> {% block messageAccueil %} {% endblock %} </h2>
                     <h3> {% block sousMessageAccueil %} {% endblock %} </h3>
-                    {% block textEncart %}{% endblock %}
-                </div>
-
-                {% block contenu %}
-
-                {% endblock %}
-
+                {% block textEncart %}{% endblock %}
             </div>
-        </div>
 
-        <script src={{ asset('./js/jquery-2.2.0.min.js') }}></script>
-        <script src={{ asset('./js/jquery-ui.min.js') }}></script>
-        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-        <script src={{ asset('./js/googleSearch.js') }}></script>
-        <script src={{ asset('./js/menuAnimation.js') }}></script>
-        <script src={{ asset('./js/positionement.js') }}></script>
-        <script src={{ asset('./js/checkboxClick.js') }}></script>   
-        <!-- <script src={{ asset('./js/communicationMenu.js') }}></script> -->
-        <script src={{ asset('./js/textareaLogiciel.js') }}></script>  
-        <script src="{{ asset('./js/gestionFichiersPopup.js') }}"></script>
-        <script src={{ asset('./js/texteEncartActions.js') }}></script>
-        <script src={{ asset('./js/popupDownloadArchive.js') }}></script>
-        <script src={{ asset('./js/texteActions.js') }}></script>
-        <script src={{ asset('./js/menuAdministrationCommunication.js') }}></script>
-        <script src={{ asset('./js/formImprimanteScript.js') }}></script>
-        <script src={{ asset('./js/editionLiens.js') }}></script>
-        <script src={{ asset('./js/jscroller2-1.61.js') }}></script>
-        <script src={{ asset('./js/submitFormAffaires.js') }}></script>
-    </body>
+            {% block contenu %}
+
+            {% endblock %}
+
+        </div>
+    </div>
+
+    <script src={{ asset('./js/jquery-ui.min.js') }}></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    <script src={{ asset('./js/googleSearch.js') }}></script>
+    <script src={{ asset('./js/menuAnimation.js') }}></script>
+    <script src={{ asset('./js/positionement.js') }}></script>
+    <script src={{ asset('./js/checkboxClick.js') }}></script>   
+    <!-- <script src={{ asset('./js/communicationMenu.js') }}></script> -->
+    <script src={{ asset('./js/textareaLogiciel.js') }}></script>  
+    <script src="{{ asset('./js/gestionFichiersPopup.js') }}"></script>
+    <script src={{ asset('./js/texteEncartActions.js') }}></script>
+    <script src={{ asset('./js/popupDownloadArchive.js') }}></script>
+    <script src={{ asset('./js/texteActions.js') }}></script>
+    <script src={{ asset('./js/menuAdministrationCommunication.js') }}></script>
+    <script src={{ asset('./js/formImprimanteScript.js') }}></script>
+    <script src={{ asset('./js/editionLiens.js') }}></script>
+    <script src={{ asset('./js/jscroller2-1.61.js') }}></script>
+    <script src={{ asset('./js/submitFormAffaires.js') }}></script>
+</body>
 </html>

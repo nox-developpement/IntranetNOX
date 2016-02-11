@@ -6,6 +6,10 @@
 
 {% block contenu %}
 
+    <div class="sousMessageAcceuil">
+        <h4> Profils : </h4>
+    </div>
+
     <div id='DivFormulaireAjoutProfil'>
 
         {{ form_start(formAjoutProfil, {'attr': {'class': 'formulaireAdministrationAjoutProfil'}}) }}
@@ -52,6 +56,11 @@
 
     </div>
 
+
+    <div class="sousMessageAcceuil">
+        <h4> Feuilles de suivis : </h4>
+    </div>
+
     <div class='DivAjoutFeuilleSuivi'>
         <form class='formulaireAjoutFeuilleSuivi'>
             <fieldset>
@@ -59,6 +68,11 @@
                 <p> <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/feuillesSuivis', 'Gestionnaire de fichiers - Feuilles de suivis');"> Ajout/Supression de feuilles de suivis </a> </p>
             </fieldset>
         </form>
+    </div>
+
+
+    <div class="sousMessageAcceuil">
+        <h4> Champs : </h4>
     </div>
 
     <div class='DivFormulaireAjoutFormulaire'>
@@ -87,6 +101,29 @@
         </fieldset> 
 
         {{ form_end(formAjoutFormulaire) }}
+
+    </div>
+
+    <div class='DivFormulaireSuppressionFormulaire'>
+
+        {{ form_start(formSuppressionFormulaire, {'attr': {'class': 'formulaireAdministrationSuppressionFormulaire'}}) }}
+        {{ form_errors(formSuppressionFormulaire) }}
+
+        <fieldset>
+
+            <legend>Supprimer un Champ</legend>
+
+            {{ form_label(formSuppressionFormulaire.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionFormulaire'}}) }}
+            {{ form_errors(formSuppressionFormulaire.Nom) }}
+            {{ form_widget(formSuppressionFormulaire.Nom, {'attr': {'class': 'selectFormulaireAdministrationSuppressionFormulaire'}}) }}
+
+            {{ form_widget(formSuppressionFormulaire._token) }}
+
+            {{ form_widget(formSuppressionFormulaire.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationSuppressionFormulaire', 'class': 'boutonFormulaire' }}) }}
+
+        </fieldset> 
+
+        {{ form_end(formSuppressionFormulaire) }}
 
     </div>
 
