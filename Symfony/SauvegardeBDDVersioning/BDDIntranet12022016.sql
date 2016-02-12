@@ -120,7 +120,7 @@ CREATE TABLE `compteur` (
 
 LOCK TABLES `compteur` WRITE;
 /*!40000 ALTER TABLE `compteur` DISABLE KEYS */;
-INSERT INTO `compteur` VALUES (1,'Accueil','444');
+INSERT INTO `compteur` VALUES (1,'Accueil','563');
 /*!40000 ALTER TABLE `compteur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +145,7 @@ CREATE TABLE `compteur_demande` (
 
 LOCK TABLES `compteur_demande` WRITE;
 /*!40000 ALTER TABLE `compteur_demande` DISABLE KEYS */;
-INSERT INTO `compteur_demande` VALUES (6,2,'2016-02-03');
+INSERT INTO `compteur_demande` VALUES (6,2,'2016-02-12');
 /*!40000 ALTER TABLE `compteur_demande` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -330,7 +330,7 @@ CREATE TABLE `pdf` (
   `dateEnvoi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Lien` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4812 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4980 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -339,7 +339,7 @@ CREATE TABLE `pdf` (
 
 LOCK TABLES `pdf` WRITE;
 /*!40000 ALTER TABLE `pdf` DISABLE KEYS */;
-INSERT INTO `pdf` VALUES (4791,'C:\\wamp\\www\\Symfony\\web\\uploads\\AQ\\CERTIFICATSISOETOPQIBI\\ISO14001&18001\\Certificat_ISO 14001_18001_BEAUNE.pdf','Certificat_ISO 14001_18001_BEAUNE','CONVENTION EQS - CLIENT','COMPAQ',NULL,NULL,'1','2016/02/03','/Symfony/web/uploads/AQ/CERTIFICATSISOETOPQIBI/ISO14001&18001/Certificat_ISO 14001_18001_BEAUNE.pdf'),(4792,'C:\\wamp\\www\\Symfony\\web\\uploads\\AQ\\CERTIFICATSISOETOPQIBI\\ISO14001&18001\\Certificat_ISO 14001_18001_BRON.pdf','Certificat_ISO 14001_18001_BRON','CONVENTION EQS - CLIENT','COMPAQ',NULL,NULL,'1','2016/02/03','/Symfony/web/uploads/AQ/CERTIFICATSISOETOPQIBI/ISO14001&18001/Certificat_ISO 14001_18001_BRON.pdf'),(4793,'C:\\wamp\\www\\Symfony\\web\\uploads\\AQ\\CERTIFICATSISOETOPQIBI\\ISO9001\\Certificat_ ISO 9001_NOX ENERGIE.pdf','Certificat_ ISO 9001_NOX ENERGIE','CONVENTION EQS - CLIENT','COMPAQ',NULL,NULL,'2','2016/02/03','/Symfony/web/uploads/AQ/CERTIFICATSISOETOPQIBI/ISO9001/Certificat_ ISO 9001_NOX ENERGIE.pdf'),(4794,'C:\\wamp\\www\\Symfony\\web\\uploads\\AQ\\CERTIFICATSISOETOPQIBI\\ISO9001\\Certificat_ ISO 9001_NOX INGENIERIE.pdf','Certificat_ ISO 9001_NOX INGENIERIE','CONVENTION EQS - CLIENT','COMPAQ',NULL,NULL,'2','2016/02/03','/Symfony/web/uploads/AQ/CERTIFICATSISOETOPQIBI/ISO9001/Certificat_ ISO 9001_NOX INGENIERIE.pdf'),(4795,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Externe\\NoxLetters\\NOX NEWS 001 AVRIL 2015.pdf','NOX NEWS 001 AVRIL 2015','Présentation PowerPoint','Nicolas Bammez',NULL,NULL,'4','2016/01/07','/Symfony/web/uploads/Communication/Externe/NoxLetters/NOX NEWS 001 AVRIL 2015.pdf'),(4796,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Externe\\NoxLetters\\NOX NEWS 002 MAI 2015.pdf','NOX NEWS 002 MAI 2015','Présentation PowerPoint','Nicolas Bammez',NULL,NULL,'5','2016/01/07','/Symfony/web/uploads/Communication/Externe/NoxLetters/NOX NEWS 002 MAI 2015.pdf'),(4797,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Externe\\NoxLetters\\NOX NEWS 003 JUIN 2015.pdf','NOX NEWS 003 JUIN 2015','Présentation PowerPoint','RIGAUDEAU Nicolas',NULL,NULL,'4','2016/01/07','/Symfony/web/uploads/Communication/Externe/NoxLetters/NOX NEWS 003 JUIN 2015.pdf'),(4798,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Externe\\NoxLetters\\NOX NEWS 004 JUILLET AOUT 2015.pdf','NOX NEWS 004 JUILLET AOUT 2015','Présentation PowerPoint','Nicolas Bammez',NULL,NULL,'8','2016/01/07','/Symfony/web/uploads/Communication/Externe/NoxLetters/NOX NEWS 004 JUILLET AOUT 2015.pdf'),(4799,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Externe\\NoxLetters\\NOX NEWS 005 SEPTEMBRE OCTOBRE 2015.pdf','NOX NEWS 005 SEPTEMBRE OCTOBRE 2015','Présentation PowerPoint','Nicolas Bammez',NULL,NULL,'7','2016/01/07','/Symfony/web/uploads/Communication/Externe/NoxLetters/NOX NEWS 005 SEPTEMBRE OCTOBRE 2015.pdf'),(4800,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Externe\\NoxLetters\\NOX NEWS 006 NOVEMBRE DECEMBRE 2015.pdf','NOX NEWS 006 NOVEMBRE DECEMBRE 2015','Présentation PowerPoint','Nicolas Bammez',NULL,NULL,'9','2016/01/07','/Symfony/web/uploads/Communication/Externe/NoxLetters/NOX NEWS 006 NOVEMBRE DECEMBRE 2015.pdf'),(4801,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Interne\\AnnuaireAgences\\Contacts agences GROUPE NOX.pdf','Contacts agences GROUPE NOX',NULL,'g.toure',NULL,NULL,'1','2016/02/05','/Symfony/web/uploads/Communication/Interne/AnnuaireAgences/Contacts agences GROUPE NOX.pdf'),(4802,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Interne\\Organigrammes\\OrganigrammeFonctionnel\\Organigramme Fonctionnel GROUPE NOX décembre 2015.pdf','Organigramme Fonctionnel GROUPE NOX décembre 2015','Diapositive 1','Nicolas Bammez',NULL,NULL,'1','2016/01/11','/Symfony/web/uploads/Communication/Interne/Organigrammes/OrganigrammeFonctionnel/Organigramme Fonctionnel GROUPE NOX décembre 2015.pdf'),(4803,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Interne\\Trombinoscope\\Organigramme Fonctionnel GROUPE NOX décembre 2015.pdf','Organigramme Fonctionnel GROUPE NOX décembre 2015','Diapositive 1','Nicolas Bammez',NULL,NULL,'1','2016/02/08','/Symfony/web/uploads/Communication/Interne/Trombinoscope/Organigramme Fonctionnel GROUPE NOX décembre 2015.pdf'),(4804,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Interne\\Trombinoscope\\Trombinoscope QSE GROUPE NOX Décembre 2015.pdf','Trombinoscope QSE GROUPE NOX Décembre 2015','Trombinoscope CE NOX INGENIERIE','a.forestier',NULL,NULL,'1','2016/02/08','/Symfony/web/uploads/Communication/Interne/Trombinoscope/Trombinoscope QSE GROUPE NOX Décembre 2015.pdf'),(4805,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\SI\\NewsSI\\Charte Informatique Groupe NOX\\Charte informatique Groupe NOX Janvier 2016.pdf','Charte informatique Groupe NOX Janvier 2016',NULL,'l.lemarechal@groupe-nox.com',NULL,NULL,'6','2016/01/28','/Symfony/web/uploads/Communication/SI/NewsSI/Charte Informatique Groupe NOX/Charte informatique Groupe NOX Janvier 2016.pdf'),(4806,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\SI\\NewsSI\\Mailing Internes\\Mailing Interne 04.02.16  - Politique mot de passe de session.pdf','Mailing Interne 04.02.16  - Politique mot de passe de session',NULL,'JUBEAU Sylvain',NULL,NULL,'1','2016/02/05','/Symfony/web/uploads/Communication/SI/NewsSI/Mailing Internes/Mailing Interne 04.02.16  - Politique mot de passe de session.pdf'),(4807,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\SI\\NewsSI\\Mailing Internes\\Mailing Interne 05.11.13 - Note Utilisation outils informatiques.pdf','Mailing Interne 05.11.13 - Note Utilisation outils informatiques',NULL,NULL,NULL,NULL,'1','2016/02/05','/Symfony/web/uploads/Communication/SI/NewsSI/Mailing Internes/Mailing Interne 05.11.13 - Note Utilisation outils informatiques.pdf'),(4808,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\SI\\NewsSI\\Méthodologie\\Méthodologie Références.pdf','Méthodologie Références','Méthodologie Références','BESSON Tristan',NULL,'Méthodologie Références Ajout Suppression Documents Mots-clés','2','2016/02/08','/Symfony/web/uploads/Communication/SI/NewsSI/Méthodologie/Méthodologie Références.pdf'),(4809,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\SI\\NewsSI\\Méthodologie\\Méthodologie incidents.pdf','Méthodologie incidents','Méthodologie incidents','BESSON Tristan',NULL,'Méthodologie Incidents Support Aide Ticketing','1','2016/02/08','/Symfony/web/uploads/Communication/SI/NewsSI/Méthodologie/Méthodologie incidents.pdf'),(4810,'C:\\wamp\\www\\Symfony\\web\\uploads\\References\\Bron\\fiche_ref_GE_2016.01.pdf','fiche_ref_GE_2016.01','Présentation PowerPoint','ALEX Evelyne',NULL,'ENV MONTAGNE ECOLOGIE','23','2016/02/08','/Symfony/web/uploads/References/Bron/fiche_ref_GE_2016.01.pdf'),(4811,'C:\\wamp\\www\\Symfony\\web\\uploads\\References\\Méthodologie Références.pdf','Méthodologie Références','Méthodologie Références','BESSON Tristan',NULL,'Méthodologie Références Ajout Suppression Documents Mots-clés','2','2016/02/08','/Symfony/web/uploads/References/Méthodologie Références.pdf');
+INSERT INTO `pdf` VALUES (4959,'C:\\wamp\\www\\Symfony\\web\\uploads\\AQ\\CERTIFICATSISOETOPQIBI\\ISO14001&18001\\Certificat_ISO 14001_18001_BEAUNE.pdf','Certificat_ISO 14001_18001_BEAUNE','CONVENTION EQS - CLIENT','COMPAQ',NULL,NULL,'1','2016/02/03','/Symfony/web/uploads/AQ/CERTIFICATSISOETOPQIBI/ISO14001&18001/Certificat_ISO 14001_18001_BEAUNE.pdf'),(4960,'C:\\wamp\\www\\Symfony\\web\\uploads\\AQ\\CERTIFICATSISOETOPQIBI\\ISO14001&18001\\Certificat_ISO 14001_18001_BRON.pdf','Certificat_ISO 14001_18001_BRON','CONVENTION EQS - CLIENT','COMPAQ',NULL,NULL,'1','2016/02/03','/Symfony/web/uploads/AQ/CERTIFICATSISOETOPQIBI/ISO14001&18001/Certificat_ISO 14001_18001_BRON.pdf'),(4961,'C:\\wamp\\www\\Symfony\\web\\uploads\\AQ\\CERTIFICATSISOETOPQIBI\\ISO9001\\Certificat_ ISO 9001_NOX ENERGIE.pdf','Certificat_ ISO 9001_NOX ENERGIE','CONVENTION EQS - CLIENT','COMPAQ',NULL,NULL,'2','2016/02/03','/Symfony/web/uploads/AQ/CERTIFICATSISOETOPQIBI/ISO9001/Certificat_ ISO 9001_NOX ENERGIE.pdf'),(4962,'C:\\wamp\\www\\Symfony\\web\\uploads\\AQ\\CERTIFICATSISOETOPQIBI\\ISO9001\\Certificat_ ISO 9001_NOX INGENIERIE.pdf','Certificat_ ISO 9001_NOX INGENIERIE','CONVENTION EQS - CLIENT','COMPAQ',NULL,NULL,'2','2016/02/03','/Symfony/web/uploads/AQ/CERTIFICATSISOETOPQIBI/ISO9001/Certificat_ ISO 9001_NOX INGENIERIE.pdf'),(4963,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Externe\\NoxLetters\\NOX NEWS 001 AVRIL 2015.pdf','NOX NEWS 001 AVRIL 2015','Présentation PowerPoint','Nicolas Bammez',NULL,NULL,'4','2016/01/07','/Symfony/web/uploads/Communication/Externe/NoxLetters/NOX NEWS 001 AVRIL 2015.pdf'),(4964,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Externe\\NoxLetters\\NOX NEWS 002 MAI 2015.pdf','NOX NEWS 002 MAI 2015','Présentation PowerPoint','Nicolas Bammez',NULL,NULL,'5','2016/01/07','/Symfony/web/uploads/Communication/Externe/NoxLetters/NOX NEWS 002 MAI 2015.pdf'),(4965,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Externe\\NoxLetters\\NOX NEWS 003 JUIN 2015.pdf','NOX NEWS 003 JUIN 2015','Présentation PowerPoint','RIGAUDEAU Nicolas',NULL,NULL,'4','2016/01/07','/Symfony/web/uploads/Communication/Externe/NoxLetters/NOX NEWS 003 JUIN 2015.pdf'),(4966,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Externe\\NoxLetters\\NOX NEWS 004 JUILLET AOUT 2015.pdf','NOX NEWS 004 JUILLET AOUT 2015','Présentation PowerPoint','Nicolas Bammez',NULL,NULL,'8','2016/01/07','/Symfony/web/uploads/Communication/Externe/NoxLetters/NOX NEWS 004 JUILLET AOUT 2015.pdf'),(4967,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Externe\\NoxLetters\\NOX NEWS 005 SEPTEMBRE OCTOBRE 2015.pdf','NOX NEWS 005 SEPTEMBRE OCTOBRE 2015','Présentation PowerPoint','Nicolas Bammez',NULL,NULL,'7','2016/01/07','/Symfony/web/uploads/Communication/Externe/NoxLetters/NOX NEWS 005 SEPTEMBRE OCTOBRE 2015.pdf'),(4968,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Externe\\NoxLetters\\NOX NEWS 006 NOVEMBRE DECEMBRE 2015.pdf','NOX NEWS 006 NOVEMBRE DECEMBRE 2015','Présentation PowerPoint','Nicolas Bammez',NULL,NULL,'9','2016/01/07','/Symfony/web/uploads/Communication/Externe/NoxLetters/NOX NEWS 006 NOVEMBRE DECEMBRE 2015.pdf'),(4969,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Interne\\AnnuaireAgences\\Contacts agences GROUPE NOX.pdf','Contacts agences GROUPE NOX',NULL,'g.toure',NULL,NULL,'1','2016/02/05','/Symfony/web/uploads/Communication/Interne/AnnuaireAgences/Contacts agences GROUPE NOX.pdf'),(4970,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Interne\\Organigrammes\\OrganigrammeFonctionnel\\Organigramme Fonctionnel GROUPE NOX décembre 2015.pdf','Organigramme Fonctionnel GROUPE NOX décembre 2015','Diapositive 1','Nicolas Bammez',NULL,NULL,'1','2016/01/11','/Symfony/web/uploads/Communication/Interne/Organigrammes/OrganigrammeFonctionnel/Organigramme Fonctionnel GROUPE NOX décembre 2015.pdf'),(4971,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Interne\\Trombinoscope\\Organigramme Fonctionnel GROUPE NOX décembre 2015.pdf','Organigramme Fonctionnel GROUPE NOX décembre 2015','Diapositive 1','Nicolas Bammez',NULL,NULL,'1','2016/02/08','/Symfony/web/uploads/Communication/Interne/Trombinoscope/Organigramme Fonctionnel GROUPE NOX décembre 2015.pdf'),(4972,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\Interne\\Trombinoscope\\Trombinoscope QSE GROUPE NOX Décembre 2015.pdf','Trombinoscope QSE GROUPE NOX Décembre 2015','Trombinoscope CE NOX INGENIERIE','a.forestier',NULL,NULL,'1','2016/02/08','/Symfony/web/uploads/Communication/Interne/Trombinoscope/Trombinoscope QSE GROUPE NOX Décembre 2015.pdf'),(4973,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\SI\\NewsSI\\Charte Informatique Groupe NOX\\Charte informatique Groupe NOX Janvier 2016.pdf','Charte informatique Groupe NOX Janvier 2016',NULL,'l.lemarechal@groupe-nox.com',NULL,NULL,'6','2016/01/28','/Symfony/web/uploads/Communication/SI/NewsSI/Charte Informatique Groupe NOX/Charte informatique Groupe NOX Janvier 2016.pdf'),(4974,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\SI\\NewsSI\\Mailing Internes\\Mailing Interne 04.02.16  - Politique mot de passe de session.pdf','Mailing Interne 04.02.16  - Politique mot de passe de session',NULL,'JUBEAU Sylvain',NULL,NULL,'1','2016/02/05','/Symfony/web/uploads/Communication/SI/NewsSI/Mailing Internes/Mailing Interne 04.02.16  - Politique mot de passe de session.pdf'),(4975,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\SI\\NewsSI\\Mailing Internes\\Mailing Interne 05.11.13 - Note Utilisation outils informatiques.pdf','Mailing Interne 05.11.13 - Note Utilisation outils informatiques',NULL,NULL,NULL,NULL,'1','2016/02/05','/Symfony/web/uploads/Communication/SI/NewsSI/Mailing Internes/Mailing Interne 05.11.13 - Note Utilisation outils informatiques.pdf'),(4976,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\SI\\NewsSI\\Méthodologie\\Méthodologie Références.pdf','Méthodologie Références','Méthodologie Références','BESSON Tristan',NULL,'Méthodologie Références Ajout Suppression Documents Mots-clés','2','2016/02/08','/Symfony/web/uploads/Communication/SI/NewsSI/Méthodologie/Méthodologie Références.pdf'),(4977,'C:\\wamp\\www\\Symfony\\web\\uploads\\Communication\\SI\\NewsSI\\Méthodologie\\Méthodologie incidents.pdf','Méthodologie incidents','Méthodologie incidents','BESSON Tristan',NULL,'Méthodologie Incidents Support Aide Ticketing','1','2016/02/08','/Symfony/web/uploads/Communication/SI/NewsSI/Méthodologie/Méthodologie incidents.pdf'),(4978,'C:\\wamp\\www\\Symfony\\web\\uploads\\References\\Bron\\fiche_ref_GE_2016.01.pdf','fiche_ref_GE_2016.01','Présentation PowerPoint','ALEX Evelyne',NULL,'ENV MONTAGNE ECOLOGIE','23','2016/02/08','/Symfony/web/uploads/References/Bron/fiche_ref_GE_2016.01.pdf'),(4979,'C:\\wamp\\www\\Symfony\\web\\uploads\\References\\Méthodologie Références.pdf','Méthodologie Références','Méthodologie Références','BESSON Tristan',NULL,'Méthodologie Références Ajout Suppression Documents Mots-clés','2','2016/02/08','/Symfony/web/uploads/References/Méthodologie Références.pdf');
 /*!40000 ALTER TABLE `pdf` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,7 +354,7 @@ CREATE TABLE `profils` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -379,7 +379,7 @@ CREATE TABLE `references_keywords` (
   `Keyword` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Nombre` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=261 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=333 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -388,7 +388,7 @@ CREATE TABLE `references_keywords` (
 
 LOCK TABLES `references_keywords` WRITE;
 /*!40000 ALTER TABLE `references_keywords` DISABLE KEYS */;
-INSERT INTO `references_keywords` VALUES (252,'Env',1),(253,'Montagne',1),(254,'Ecologie',1),(255,'Méthodologie',1),(256,'Références',1),(257,'Ajout',1),(258,'Suppression',1),(259,'Documents',1),(260,'Mots-clés',1);
+INSERT INTO `references_keywords` VALUES (324,'Env',1),(325,'Montagne',1),(326,'Ecologie',1),(327,'Méthodologie',1),(328,'Références',1),(329,'Ajout',1),(330,'Suppression',1),(331,'Documents',1),(332,'Mots-clés',1);
 /*!40000 ALTER TABLE `references_keywords` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -405,7 +405,7 @@ CREATE TABLE `serveur` (
   `lien` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `chemin` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -431,8 +431,9 @@ CREATE TABLE `suivis` (
   `Agence` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `NumeroGX` int(11) NOT NULL,
   `Profil` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Statut` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -441,7 +442,7 @@ CREATE TABLE `suivis` (
 
 LOCK TABLES `suivis` WRITE;
 /*!40000 ALTER TABLE `suivis` DISABLE KEYS */;
-INSERT INTO `suivis` VALUES (1,'Suivi 1','Bron',45589845,'RTE'),(2,'Suivi 2','Ecuisses',7875126,'Distrib');
+INSERT INTO `suivis` VALUES (3,'Suivi 3','Bron',452213,'RTE','Terminé'),(5,'Suivi 4','Rennes',45674,'Distrib','En cours');
 /*!40000 ALTER TABLE `suivis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -538,4 +539,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-12  8:00:05
+-- Dump completed on 2016-02-12 16:35:47

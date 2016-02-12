@@ -159,7 +159,6 @@
   ':default:index.html.twig' => 'C:\\wamp\\www\\Symfony\\app/Resources\\views/default/index.html.twig',
   ':Emails:demandeMateriel.html.twig' => 'C:\\wamp\\www\\Symfony\\app/Resources\\views/Emails/demandeMateriel.html.twig',
   '::layout.html.twig' => 'C:\\wamp\\www\\Symfony\\app/Resources\\views/layout.html.twig',
-  '::layout_bammez.html.twig' => 'C:\\wamp\\www\\Symfony\\app/Resources\\views/layout_bammez.html.twig',
   ':support/api:api.inc.php' => 'C:\\wamp\\www\\Symfony\\app/Resources\\views/support/api/api.inc.php',
   ':support/assets/default/css:theme.min.css' => 'C:\\wamp\\www\\Symfony\\app/Resources\\views/support/assets/default/css/theme.min.css',
   ':support:client.inc.php' => 'C:\\wamp\\www\\Symfony\\app/Resources\\views/support/client.inc.php',

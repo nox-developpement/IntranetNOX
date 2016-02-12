@@ -603,3 +603,5 @@ DN,sAMAccountName
 "CN=UD TEST,OU=_Test,OU=NOX,DC=nox,DC=local",ud_test_user
 "CN=DRONET André-Paul,OU=Boulogne,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",ap.dronet
 "CN=EPS Delphine,OU=Beaune,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",d.eps
+"CN=TESTA Fabrice,OU=Beaune,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",f.testa
+"CN=PIOT Laura,OU=INGENIERIE,OU=Bron,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",l.piot

@@ -421,7 +421,7 @@ CREATE TABLE `wikinox_job` (
   KEY `job_cmd_token_id` (`job_cmd`,`job_token`,`job_id`),
   KEY `job_cmd` (`job_cmd`,`job_namespace`,`job_title`,`job_params`(128)),
   KEY `job_timestamp` (`job_timestamp`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=binary;
+) ENGINE=InnoDB DEFAULT CHARSET=binary;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1536,4 +1536,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-12  8:00:06
+-- Dump completed on 2016-02-12 16:35:47

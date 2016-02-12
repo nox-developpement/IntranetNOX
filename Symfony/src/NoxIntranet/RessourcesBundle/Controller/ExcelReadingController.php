@@ -120,6 +120,8 @@ class ExcelReadingController extends Controller {
 
     public function creationSuiviAction(Request $request) {
 
+        $em = $this->getDoctrine()->getManager();
+
         $suivi = new Suivis();
 
         $form = $this->get('form.factory')->createBuilder('form', $suivi)
@@ -139,6 +141,31 @@ class ExcelReadingController extends Controller {
 
         $form->handleRequest($request);
 
+
+        if ($form->isValid()) {
+
+            if ($em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByNom($form['Nom']->getData()) == null) {
+                if ($em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByNumeroGX($form['NumeroGX']->getData()) == null) {
+                    $suivi->setNom($form['Nom']->getData());
+                    $suivi->setAgence($form['Agence']->getData());
+                    $suivi->setNumeroGX($form['NumeroGX']->getData());
+                    $suivi->setProfil($form['Profil']->getData()->getNom());
+                    $suivi->setStatut('En cours');
+
+                    $em->persist($suivi);
+                    $em->flush();
+
+                    $request->getSession()->getFlashBag()->add('notice', 'Le suivi ' . $form['Nom']->getData() . ' a été créé.');
+
+                    return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle');
+                } else {
+                    $request->getSession()->getFlashBag()->add('noticeErreur', 'Le numéro GX ' . $form['NumeroGX']->getData() . ' est déjà attribué !');
+                }
+            } else {
+                $request->getSession()->getFlashBag()->add('noticeErreur', 'Le nom ' . $form['Nom']->getData() . ' est déjà attribué !');
+            }
+        }
+
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreation.html.twig', array('form' => $form->createView()));
     }
 
@@ -156,22 +183,15 @@ class ExcelReadingController extends Controller {
             }
         }
 
-        $formAgence = $this->get('form.factory')->createBuilder('form', $agences)
+        $formAgence = $this->get('form.factory')->createNamedBuilder('formSelectionAgence', 'form', $agences)
                 ->add('Agences', ChoiceType::class, array(
                     'choices' => $agences,
                     'data' => $agence
                 ))
                 ->getForm();
 
-        $formAgence->handleRequest($request);
-
-        if ($formAgence->isValid()) {
-
-            return $this->redirectToRoute('nox_intranet_assistant_affaire_parcour_suivi_en_cours', array('agence' => $formAgence['Agences']->getData()));
-        }
-
         if ($agence != "Toutes") {
-            $form = $this->get('form.factory')->createBuilder('form', $suivis)
+            $form = $this->get('form.factory')->createNamedBuilder('formSelectionSuivi', 'form', $suivis)
                     ->add('Suivi', EntityType::class, array(
                         'class' => 'NoxIntranetRessourcesBundle:Suivis',
                         'query_builder' => function (EntityRepository $er) use ($agence) {
@@ -200,7 +220,33 @@ class ExcelReadingController extends Controller {
                     ->getForm();
         }
 
-        $form->handleRequest($request);
+        if ($request->request->has('formSelectionSuivi')) {
+
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+
+                if ($form->get('Supprimer')->isClicked()) {
+
+                    $em->remove($form['Suivi']->getData());
+                    $em->flush();
+
+                    $request->getSession()->getFlashBag()->add('notice', 'Le suivi ' . $form['Suivi']->getData()->getNom() . ' a été supprimé.');
+
+                    return $this->redirectToRoute('nox_intranet_assistant_affaire_parcour_suivi_en_cours');
+                }
+            }
+        }
+
+        if ($request->request->has('formSelectionAgence')) {
+
+            $formAgence->handleRequest($request);
+
+            if ($formAgence->isValid()) {
+
+                return $this->redirectToRoute('nox_intranet_assistant_affaire_parcour_suivi_en_cours', array('agence' => $formAgence['Agences']->getData()));
+            }
+        }
 
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireedition.html.twig', array('form' => $form->createView(), 'formAgence' => $formAgence->createView()));
     }

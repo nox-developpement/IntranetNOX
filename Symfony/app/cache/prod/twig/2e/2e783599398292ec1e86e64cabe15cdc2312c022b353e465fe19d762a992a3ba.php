@@ -127,7 +127,7 @@ class __TwigTemplate_cb62de792a2df447bbc1983dfd1728c8b345f14caf2ae86c45262450975
 
                 ";
         // line 46
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "Créer", array()), 'widget', array("label" => "Créer suivi", "attr" => array("class" => "submitFormulaireCreationSuivi", "class" => "boutonFormulaire")));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "Créer", array()), 'widget', array("label" => "Créer suivi", "attr" => array("class" => "submitFormulaireCreationSuivi")));
         echo "
 
             </p>
@@ -204,7 +204,7 @@ class __TwigTemplate_cb62de792a2df447bbc1983dfd1728c8b345f14caf2ae86c45262450975
 /* */
 /*                 <br />*/
 /* */
-/*                 {{ form_widget(form.Créer, {'label': 'Créer suivi', 'attr': {'class': 'submitFormulaireCreationSuivi', 'class': 'boutonFormulaire' }}) }}*/
+/*                 {{ form_widget(form.Créer, {'label': 'Créer suivi', 'attr': {'class': 'submitFormulaireCreationSuivi' }}) }}*/
 /* */
 /*             </p>*/
 /* */

@@ -1939,7 +1939,7 @@ divAdministrationUtilisateur {
 }
 
 .formulaireCreationSuivi fieldset p {
-    width: 40%;
+    width: 50%;
     margin: auto;
     padding: 0px; 
 }
@@ -2002,6 +2002,22 @@ divAdministrationUtilisateur {
 }
 
 .submitFormulaireParcourSuiviEnCours:hover, .submitFormulaireAjoutFormulaire:hover {
+    color: #010101;
+    background-color: #FEFEFE;
+}
+
+.submitFormulaireCreationSuivi {
+    background-color: #021C2D;
+    color: white;
+    border-radius: 5px;
+    border: inset 1px #021C2D;
+    padding: 2%;
+    cursor: pointer;
+    font-size: 0.6vw;
+    width: 50%;
+}
+
+.submitFormulaireCreationSuivi:hover {
     color: #010101;
     background-color: #FEFEFE;
 }

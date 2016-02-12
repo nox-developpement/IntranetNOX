@@ -185,7 +185,7 @@ class __TwigTemplate_303dba3b8dd315a1770c8d0abcdfcca4ae1b706d3c25f59ac39816e68f1
 
             <div id=\"selectionSkinBouton\" >
                 <span></span>
-                <p>Couleurs : </p>
+                <p>Apparence : </p>
                 <img src=\"";
         // line 72
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/CarreBleuClair.png"), "html", null, true);
@@ -406,6 +406,7 @@ class __TwigTemplate_303dba3b8dd315a1770c8d0abcdfcca4ae1b706d3c25f59ac39816e68f1
         // line 159
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/submitFormAffaires.js"), "html", null, true);
         echo "></script>
+    <script src=\"https://appsforoffice.microsoft.com/lib/1/hosted/Office.js\"/>
 </body>
 </html>";
     }
@@ -452,7 +453,7 @@ class __TwigTemplate_303dba3b8dd315a1770c8d0abcdfcca4ae1b706d3c25f59ac39816e68f1
 
     public function getDebugInfo()
     {
-        return array (  439 => 136,  436 => 135,  431 => 132,  425 => 131,  419 => 130,  414 => 7,  407 => 159,  403 => 158,  399 => 157,  395 => 156,  391 => 155,  387 => 154,  383 => 153,  379 => 152,  375 => 151,  371 => 150,  367 => 149,  363 => 148,  359 => 147,  355 => 146,  351 => 145,  347 => 144,  343 => 143,  339 => 142,  333 => 138,  331 => 135,  327 => 133,  325 => 132,  321 => 131,  317 => 130,  312 => 127,  303 => 125,  300 => 124,  296 => 123,  292 => 121,  283 => 119,  280 => 118,  276 => 117,  266 => 109,  262 => 107,  256 => 105,  254 => 104,  243 => 95,  238 => 93,  235 => 92,  229 => 91,  227 => 90,  220 => 86,  215 => 84,  210 => 82,  205 => 80,  195 => 73,  191 => 72,  179 => 63,  175 => 61,  170 => 59,  167 => 58,  161 => 57,  159 => 56,  147 => 51,  139 => 46,  132 => 42,  129 => 41,  126 => 40,  112 => 38,  108 => 37,  103 => 36,  89 => 34,  84 => 33,  82 => 32,  79 => 31,  76 => 30,  73 => 29,  70 => 28,  67 => 27,  64 => 26,  61 => 25,  59 => 24,  43 => 11,  39 => 10,  36 => 9,  32 => 7,  24 => 1,);
+        return array (  440 => 136,  437 => 135,  432 => 132,  426 => 131,  420 => 130,  415 => 7,  407 => 159,  403 => 158,  399 => 157,  395 => 156,  391 => 155,  387 => 154,  383 => 153,  379 => 152,  375 => 151,  371 => 150,  367 => 149,  363 => 148,  359 => 147,  355 => 146,  351 => 145,  347 => 144,  343 => 143,  339 => 142,  333 => 138,  331 => 135,  327 => 133,  325 => 132,  321 => 131,  317 => 130,  312 => 127,  303 => 125,  300 => 124,  296 => 123,  292 => 121,  283 => 119,  280 => 118,  276 => 117,  266 => 109,  262 => 107,  256 => 105,  254 => 104,  243 => 95,  238 => 93,  235 => 92,  229 => 91,  227 => 90,  220 => 86,  215 => 84,  210 => 82,  205 => 80,  195 => 73,  191 => 72,  179 => 63,  175 => 61,  170 => 59,  167 => 58,  161 => 57,  159 => 56,  147 => 51,  139 => 46,  132 => 42,  129 => 41,  126 => 40,  112 => 38,  108 => 37,  103 => 36,  89 => 34,  84 => 33,  82 => 32,  79 => 31,  76 => 30,  73 => 29,  70 => 28,  67 => 27,  64 => 26,  61 => 25,  59 => 24,  43 => 11,  39 => 10,  36 => 9,  32 => 7,  24 => 1,);
     }
 }
 /* <!DOCTYPE html>*/
@@ -525,7 +526,7 @@ class __TwigTemplate_303dba3b8dd315a1770c8d0abcdfcca4ae1b706d3c25f59ac39816e68f1
 /* */
 /*             <div id="selectionSkinBouton" >*/
 /*                 <span></span>*/
-/*                 <p>Couleurs : </p>*/
+/*                 <p>Apparence : </p>*/
 /*                 <img src="{{ asset('bundles/noxintranetcommunication/images/CarreBleuClair.png') }}" onclick="changementSkin('bammez');">*/
 /*                 <img src="{{ asset('bundles/noxintranetcommunication/images/CarreBleuFonce.png') }}" onclick="changementSkin('normal');">*/
 /*             </div>*/
@@ -614,5 +615,6 @@ class __TwigTemplate_303dba3b8dd315a1770c8d0abcdfcca4ae1b706d3c25f59ac39816e68f1
 /*     <script src={{ asset('./js/editionLiens.js') }}></script>*/
 /*     <script src={{ asset('./js/jscroller2-1.61.js') }}></script>*/
 /*     <script src={{ asset('./js/submitFormAffaires.js') }}></script>*/
+/*     <script src="https://appsforoffice.microsoft.com/lib/1/hosted/Office.js"/>*/
 /* </body>*/
 /* </html>*/
