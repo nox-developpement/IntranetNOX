@@ -244,21 +244,30 @@ h2 {
     height: 100%;
     margin: 0px;
     float: left;
+    text-align: center;
 }
 
-#selectionSkinBouton p {
-    padding: 0px;
-    color: white;
-    margin: 0px;
-    width: 100%;
+#selectionSkinBouton span {
+    display: inline-block;
     height: 100%;
-    text-align: center;
     vertical-align: middle;
 }
 
+#selectionSkinBouton p {
+    display: inline-block;
+    padding: 0px;
+    color: white;
+    margin: 0px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.9vw;
+}
+
 #selectionSkinBouton img {
-    width: 10%;
+    width: 8%;
     border: solid 1px white;
+    cursor: pointer;
+    vertical-align: middle;
 }
 
 #sections {
@@ -1887,14 +1896,15 @@ divAdministrationUtilisateur {
 }
 
 #DivFormulaireAjoutProfil, #DivFormulaireSuppressionProfil, #DivCreationSuivi, #DivFormulaireParcourSuiviEnCours, 
-.DivAjoutFeuilleSuivi, .DivFormulaireAjoutFormulaire, .DivFormulaireSuppressionFormulaire {
+.DivAjoutFeuilleSuivi, .DivFormulaireAjoutFormulaire, .DivFormulaireSuppressionFormulaire, #DivFormulaireSelectionAgence {
     margin: 0% 25% 0% 25%;
     margin-bottom: 2%;
     font-size: 0.8vw;
 }
 
 .formulaireAdministrationAjoutProfil, .formulaireAdministrationSuppressionProfil, .formulaireCreationSuivi, 
-.formulaireParcourSuiviEnCours, .formulaireAjoutFeuilleSuivi, .formulaireAjoutFormulaire, .formulaireAdministrationSuppressionFormulaire {
+.formulaireParcourSuiviEnCours, .formulaireAjoutFeuilleSuivi, .formulaireAjoutFormulaire, 
+.formulaireAdministrationSuppressionFormulaire, .formulaireSelectionAgence {
     padding: 0px;
     border: none;
     width: 80%;
@@ -1902,7 +1912,7 @@ divAdministrationUtilisateur {
 
 .formulaireAdministrationAjoutProfil fieldset, .formulaireAdministrationSuppressionProfil fieldset, 
 .formulaireCreationSuivi fieldset, .formulaireParcourSuiviEnCours fieldset, .formulaireAjoutFeuilleSuivi fieldset, 
-.formulaireAjoutFormulaire fieldset, .formulaireAdministrationSuppressionFormulaire fieldset {
+.formulaireAjoutFormulaire fieldset, .formulaireAdministrationSuppressionFormulaire fieldset, .formulaireSelectionAgence fieldset {
     text-align: center;
     border-color: #021C2D;
     border-width: 1px;
@@ -1911,13 +1921,13 @@ divAdministrationUtilisateur {
 
 .formulaireAdministrationAjoutProfil fieldset legend, .formulaireAdministrationSuppressionProfil fieldset legend, 
 .formulaireCreationSuivi fieldset legend, .formulaireParcourSuiviEnCours fieldset legend, .formulaireAjoutFeuilleSuivi fieldset legend, 
-.formulaireAjoutFormulaire fieldset legend, .formulaireAdministrationSuppressionFormulaire fieldset legend {
-    text-align: left;
+.formulaireAjoutFormulaire fieldset legend, .formulaireAdministrationSuppressionFormulaire fieldset legend, .formulaireSelectionAgence fieldset legend {
     color: #021C2D;
     background-color: white;
     border: solid 1px #021C2D;
-    padding: 0.5%;
+    padding: 0% 0.5% 0% 0.5%;
     white-space: nowrap;
+    text-align: left;
 }
 
 .selectFormulaireAdministrationSuppressionProfil, .textFormulaireAdministrationAjoutProfil {
@@ -1926,7 +1936,7 @@ divAdministrationUtilisateur {
 }
 
 .formulaireCreationSuivi fieldset p {
-    width: 40%;
+    width: 50%;
     margin: auto;
     padding: 0px; 
 }

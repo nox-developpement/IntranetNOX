@@ -43,7 +43,7 @@ class __TwigTemplate_cbbfeb877fc02f9d5a0d18e16d74feea166b149617dd2a9ba4b68104669
     {
         // line 8
         echo "
-    <div id='DivFormulaireParcourSuiviEnCours'>
+    <div id='DivFormulaireSelectionAgence'>
 
         ";
         // line 11
@@ -54,56 +54,70 @@ class __TwigTemplate_cbbfeb877fc02f9d5a0d18e16d74feea166b149617dd2a9ba4b68104669
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formAgence"]) ? $context["formAgence"] : null), 'errors');
         echo "
 
-        ";
-        // line 14
+        <fieldset>
+
+            <legend><span>Agence</span></legend>
+
+            ";
+        // line 18
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAgence"]) ? $context["formAgence"] : null), "Agences", array()), 'label', array("label_attr" => array("class" => "labelFormulaireSelectionAgence"), "label" => "Selection de l'agence :"));
+        echo "
+            ";
+        // line 19
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAgence"]) ? $context["formAgence"] : null), "Agences", array()), 'errors');
         echo "
-        ";
-        // line 15
+            ";
+        // line 20
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAgence"]) ? $context["formAgence"] : null), "Agences", array()), 'widget', array("attr" => array("class" => "selectFormulaireSelectionAgence")));
         echo "
 
+        </fieldset>
+
         ";
-        // line 17
+        // line 24
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formAgence"]) ? $context["formAgence"] : null), 'form_end');
         echo "
 
+    </div>
+
+
+    <div id='DivFormulaireParcourSuiviEnCours'>
         ";
-        // line 19
+        // line 30
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["form"]) ? $context["form"] : null), 'form_start', array("attr" => array("class" => "formulaireParcourSuiviEnCours")));
         echo "
         ";
-        // line 20
+        // line 31
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["form"]) ? $context["form"] : null), 'errors');
         echo "
 
         <fieldset>
 
-            <legend>Selection du suivi</legend>
+            <legend><span>Selection du suivi</span></legend>
 
             <p>
                 ";
-        // line 27
+        // line 38
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "Suivi", array()), 'errors');
         echo "
                 ";
-        // line 28
+        // line 39
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "Suivi", array()), 'widget', array("attr" => array("class" => "selectFormulaireAdministrationAjoutProfil", "size" => 15)));
         echo "
             </p>
 
             ";
-        // line 31
+        // line 42
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "_token", array()), 'widget');
         echo "
 
             <p>
                 ";
-        // line 34
+        // line 45
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "Editer", array()), 'widget', array("attr" => array("class" => "submitFormulaireParcourSuiviEnCours")));
         echo "
                 ";
-        // line 35
+        // line 46
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "Supprimer", array()), 'widget', array("attr" => array("class" => "submitFormulaireParcourSuiviEnCours")));
         echo "
             </p>
@@ -111,7 +125,7 @@ class __TwigTemplate_cbbfeb877fc02f9d5a0d18e16d74feea166b149617dd2a9ba4b68104669
         </fieldset>
 
         ";
-        // line 40
+        // line 51
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["form"]) ? $context["form"] : null), 'form_end');
         echo "
 
@@ -136,7 +150,7 @@ class __TwigTemplate_cbbfeb877fc02f9d5a0d18e16d74feea166b149617dd2a9ba4b68104669
 
     public function getDebugInfo()
     {
-        return array (  115 => 40,  107 => 35,  103 => 34,  97 => 31,  91 => 28,  87 => 27,  77 => 20,  73 => 19,  68 => 17,  63 => 15,  59 => 14,  54 => 12,  50 => 11,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  129 => 51,  121 => 46,  117 => 45,  111 => 42,  105 => 39,  101 => 38,  91 => 31,  87 => 30,  78 => 24,  71 => 20,  67 => 19,  63 => 18,  54 => 12,  50 => 11,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -147,22 +161,33 @@ class __TwigTemplate_cbbfeb877fc02f9d5a0d18e16d74feea166b149617dd2a9ba4b68104669
 /* */
 /* {% block contenu %}*/
 /* */
-/*     <div id='DivFormulaireParcourSuiviEnCours'>*/
+/*     <div id='DivFormulaireSelectionAgence'>*/
 /* */
 /*         {{ form_start(formAgence, {'attr': {'class': 'formulaireSelectionAgence'}}) }}*/
 /*         {{ form_errors(formAgence) }}*/
 /* */
-/*         {{ form_errors(formAgence.Agences) }}*/
-/*         {{ form_widget(formAgence.Agences, {'attr': {'class': 'selectFormulaireSelectionAgence'}}) }}*/
+/*         <fieldset>*/
+/* */
+/*             <legend><span>Agence</span></legend>*/
+/* */
+/*             {{ form_label(formAgence.Agences, "Selection de l'agence :", {'label_attr': {'class': 'labelFormulaireSelectionAgence'}}) }}*/
+/*             {{ form_errors(formAgence.Agences) }}*/
+/*             {{ form_widget(formAgence.Agences, {'attr': {'class': 'selectFormulaireSelectionAgence'}}) }}*/
+/* */
+/*         </fieldset>*/
 /* */
 /*         {{ form_end(formAgence) }}*/
 /* */
+/*     </div>*/
+/* */
+/* */
+/*     <div id='DivFormulaireParcourSuiviEnCours'>*/
 /*         {{ form_start(form, {'attr': {'class': 'formulaireParcourSuiviEnCours'}}) }}*/
 /*         {{ form_errors(form) }}*/
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend>Selection du suivi</legend>*/
+/*             <legend><span>Selection du suivi</span></legend>*/
 /* */
 /*             <p>*/
 /*                 {{ form_errors(form.Suivi) }}*/

@@ -13,7 +13,7 @@
 
         <fieldset>
 
-            <legend>Ajouter un suivi</legend>
+            <legend><span>Ajouter un suivi</span></legend>
 
             <p>
 
@@ -31,7 +31,7 @@
 
                 {{ form_label(form.NumeroGX, "Numéro GX :", {'label_attr': {'class': 'labelFormulaireCreationSuivi'}}) }}
                 {{ form_errors(form.NumeroGX) }}
-                {{ form_widget(form.NumeroGX, {'attr': {'class': 'textFormulaireCreationSuivi'}}) }}
+                {{ form_widget(form.NumeroGX, {'attr': {'class': 'textFormulaireCreationSuivi', 'min': 1 , 'step': 1 }}) }}
 
                 <br />
 

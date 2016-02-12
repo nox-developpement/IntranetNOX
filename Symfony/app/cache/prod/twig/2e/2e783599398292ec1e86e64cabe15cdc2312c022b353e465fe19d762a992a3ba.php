@@ -56,7 +56,7 @@ class __TwigTemplate_cb62de792a2df447bbc1983dfd1728c8b345f14caf2ae86c45262450975
 
         <fieldset>
 
-            <legend>Ajouter un suivi</legend>
+            <legend><span>Ajouter un suivi</span></legend>
 
             <p>
 
@@ -100,7 +100,7 @@ class __TwigTemplate_cb62de792a2df447bbc1983dfd1728c8b345f14caf2ae86c45262450975
         echo "
                 ";
         // line 34
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "NumeroGX", array()), 'widget', array("attr" => array("class" => "textFormulaireCreationSuivi")));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "NumeroGX", array()), 'widget', array("attr" => array("class" => "textFormulaireCreationSuivi", "min" => 1, "step" => 1)));
         echo "
 
                 <br />
@@ -174,7 +174,7 @@ class __TwigTemplate_cb62de792a2df447bbc1983dfd1728c8b345f14caf2ae86c45262450975
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend>Ajouter un suivi</legend>*/
+/*             <legend><span>Ajouter un suivi</span></legend>*/
 /* */
 /*             <p>*/
 /* */
@@ -192,7 +192,7 @@ class __TwigTemplate_cb62de792a2df447bbc1983dfd1728c8b345f14caf2ae86c45262450975
 /* */
 /*                 {{ form_label(form.NumeroGX, "Numéro GX :", {'label_attr': {'class': 'labelFormulaireCreationSuivi'}}) }}*/
 /*                 {{ form_errors(form.NumeroGX) }}*/
-/*                 {{ form_widget(form.NumeroGX, {'attr': {'class': 'textFormulaireCreationSuivi'}}) }}*/
+/*                 {{ form_widget(form.NumeroGX, {'attr': {'class': 'textFormulaireCreationSuivi', 'min': 1 , 'step': 1 }}) }}*/
 /* */
 /*                 <br />*/
 /* */

@@ -23,44 +23,44 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_79c5755bed11816a864a2d2ce02271cf83435473af629b110525c0bdbd9b9fe2 = $this->env->getExtension("native_profiler");
-        $__internal_79c5755bed11816a864a2d2ce02271cf83435473af629b110525c0bdbd9b9fe2->enter($__internal_79c5755bed11816a864a2d2ce02271cf83435473af629b110525c0bdbd9b9fe2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig"));
+        $__internal_9c673dde14585dfab7efc7ed53791d930588da6665565ca60d9c00be01a16a5c = $this->env->getExtension("native_profiler");
+        $__internal_9c673dde14585dfab7efc7ed53791d930588da6665565ca60d9c00be01a16a5c->enter($__internal_9c673dde14585dfab7efc7ed53791d930588da6665565ca60d9c00be01a16a5c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_79c5755bed11816a864a2d2ce02271cf83435473af629b110525c0bdbd9b9fe2->leave($__internal_79c5755bed11816a864a2d2ce02271cf83435473af629b110525c0bdbd9b9fe2_prof);
+        $__internal_9c673dde14585dfab7efc7ed53791d930588da6665565ca60d9c00be01a16a5c->leave($__internal_9c673dde14585dfab7efc7ed53791d930588da6665565ca60d9c00be01a16a5c_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_fe66d2bd7e9e0b3532f3c274da5305426757c10309051cf6b887bbe50c7ee65d = $this->env->getExtension("native_profiler");
-        $__internal_fe66d2bd7e9e0b3532f3c274da5305426757c10309051cf6b887bbe50c7ee65d->enter($__internal_fe66d2bd7e9e0b3532f3c274da5305426757c10309051cf6b887bbe50c7ee65d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_7e05d79d663487de2f45866708792f22bb06432dda4ebcf705b0fb07fe768b9f = $this->env->getExtension("native_profiler");
+        $__internal_7e05d79d663487de2f45866708792f22bb06432dda4ebcf705b0fb07fe768b9f->enter($__internal_7e05d79d663487de2f45866708792f22bb06432dda4ebcf705b0fb07fe768b9f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Administration assistant d'affaires ";
         
-        $__internal_fe66d2bd7e9e0b3532f3c274da5305426757c10309051cf6b887bbe50c7ee65d->leave($__internal_fe66d2bd7e9e0b3532f3c274da5305426757c10309051cf6b887bbe50c7ee65d_prof);
+        $__internal_7e05d79d663487de2f45866708792f22bb06432dda4ebcf705b0fb07fe768b9f->leave($__internal_7e05d79d663487de2f45866708792f22bb06432dda4ebcf705b0fb07fe768b9f_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_d0e51ad0d1f5a57ac23782d6b45af2cfe87df9fa09816e66ca9caf57594fc14d = $this->env->getExtension("native_profiler");
-        $__internal_d0e51ad0d1f5a57ac23782d6b45af2cfe87df9fa09816e66ca9caf57594fc14d->enter($__internal_d0e51ad0d1f5a57ac23782d6b45af2cfe87df9fa09816e66ca9caf57594fc14d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_3fa5c51e25099e6417e7cb6239fc001c92155e687132bb7beb7a992f7e82109f = $this->env->getExtension("native_profiler");
+        $__internal_3fa5c51e25099e6417e7cb6239fc001c92155e687132bb7beb7a992f7e82109f->enter($__internal_3fa5c51e25099e6417e7cb6239fc001c92155e687132bb7beb7a992f7e82109f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Administration assistant d'affaires";
         
-        $__internal_d0e51ad0d1f5a57ac23782d6b45af2cfe87df9fa09816e66ca9caf57594fc14d->leave($__internal_d0e51ad0d1f5a57ac23782d6b45af2cfe87df9fa09816e66ca9caf57594fc14d_prof);
+        $__internal_3fa5c51e25099e6417e7cb6239fc001c92155e687132bb7beb7a992f7e82109f->leave($__internal_3fa5c51e25099e6417e7cb6239fc001c92155e687132bb7beb7a992f7e82109f_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_635766ece44456122cb17bedf66b7b66b2f6ca50e58e9c0c591e8bb3eaa31ced = $this->env->getExtension("native_profiler");
-        $__internal_635766ece44456122cb17bedf66b7b66b2f6ca50e58e9c0c591e8bb3eaa31ced->enter($__internal_635766ece44456122cb17bedf66b7b66b2f6ca50e58e9c0c591e8bb3eaa31ced_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_e29266756b35d15465217bc1fe6152229fb91d65993a080351e66beb71231f4c = $this->env->getExtension("native_profiler");
+        $__internal_e29266756b35d15465217bc1fe6152229fb91d65993a080351e66beb71231f4c->enter($__internal_e29266756b35d15465217bc1fe6152229fb91d65993a080351e66beb71231f4c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -81,7 +81,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
         <fieldset>
 
-            <legend>Ajouter un profil</legend>
+            <legend><span>Ajouter un profil</span></legend>
 
             ";
         // line 22
@@ -128,7 +128,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
         <fieldset>
 
-            <legend>Supprimer un profil</legend>
+            <legend><span>Supprimer un profil</span></legend>
 
             ";
         // line 45
@@ -170,7 +170,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
     <div class='DivAjoutFeuilleSuivi'>
         <form class='formulaireAjoutFeuilleSuivi'>
             <fieldset>
-                <legend> Gestionnaire de feuilles de suivis </legend>
+                <legend><span> Gestionnaire de feuilles de suivis </span></legend>
                 <p> <a onclick=\"openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/feuillesSuivis', 'Gestionnaire de fichiers - Feuilles de suivis');\"> Ajout/Supression de feuilles de suivis </a> </p>
             </fieldset>
         </form>
@@ -194,7 +194,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
         <fieldset>
 
-            <legend>Ajouter un champ</legend>
+            <legend><span>Ajouter un champ</span></legend>
 
             <p>
                 ";
@@ -256,7 +256,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
         <fieldset>
 
-            <legend>Supprimer un Champ</legend>
+            <legend><span>Supprimer un Champ</span></legend>
 
             ";
         // line 116
@@ -292,7 +292,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
 ";
         
-        $__internal_635766ece44456122cb17bedf66b7b66b2f6ca50e58e9c0c591e8bb3eaa31ced->leave($__internal_635766ece44456122cb17bedf66b7b66b2f6ca50e58e9c0c591e8bb3eaa31ced_prof);
+        $__internal_e29266756b35d15465217bc1fe6152229fb91d65993a080351e66beb71231f4c->leave($__internal_e29266756b35d15465217bc1fe6152229fb91d65993a080351e66beb71231f4c_prof);
 
     }
 
@@ -330,7 +330,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend>Ajouter un profil</legend>*/
+/*             <legend><span>Ajouter un profil</span></legend>*/
 /* */
 /*             {{ form_label(formAjoutProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutProfil'}}) }}*/
 /*             {{ form_errors(formAjoutProfil.Nom) }}*/
@@ -353,7 +353,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend>Supprimer un profil</legend>*/
+/*             <legend><span>Supprimer un profil</span></legend>*/
 /* */
 /*             {{ form_label(formSuppresionProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionProfil'}}) }}*/
 /*             {{ form_errors(formSuppresionProfil.Nom) }}*/
@@ -377,7 +377,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /*     <div class='DivAjoutFeuilleSuivi'>*/
 /*         <form class='formulaireAjoutFeuilleSuivi'>*/
 /*             <fieldset>*/
-/*                 <legend> Gestionnaire de feuilles de suivis </legend>*/
+/*                 <legend><span> Gestionnaire de feuilles de suivis </span></legend>*/
 /*                 <p> <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/feuillesSuivis', 'Gestionnaire de fichiers - Feuilles de suivis');"> Ajout/Supression de feuilles de suivis </a> </p>*/
 /*             </fieldset>*/
 /*         </form>*/
@@ -395,7 +395,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend>Ajouter un champ</legend>*/
+/*             <legend><span>Ajouter un champ</span></legend>*/
 /* */
 /*             <p>*/
 /*                 {{ form_label(formAjoutFormulaire.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAjoutFormulaire'}}) }}*/
@@ -424,7 +424,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend>Supprimer un Champ</legend>*/
+/*             <legend><span>Supprimer un Champ</span></legend>*/
 /* */
 /*             {{ form_label(formSuppressionFormulaire.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionFormulaire'}}) }}*/
 /*             {{ form_errors(formSuppressionFormulaire.Nom) }}*/

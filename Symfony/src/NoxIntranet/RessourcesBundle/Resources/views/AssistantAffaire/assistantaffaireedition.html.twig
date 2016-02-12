@@ -6,22 +6,33 @@
 
 {% block contenu %}
 
-    <div id='DivFormulaireParcourSuiviEnCours'>
+    <div id='DivFormulaireSelectionAgence'>
 
         {{ form_start(formAgence, {'attr': {'class': 'formulaireSelectionAgence'}}) }}
         {{ form_errors(formAgence) }}
 
-        {{ form_errors(formAgence.Agences) }}
-        {{ form_widget(formAgence.Agences, {'attr': {'class': 'selectFormulaireSelectionAgence'}}) }}
+        <fieldset>
+
+            <legend><span>Agence</span></legend>
+
+            {{ form_label(formAgence.Agences, "Selection de l'agence :", {'label_attr': {'class': 'labelFormulaireSelectionAgence'}}) }}
+            {{ form_errors(formAgence.Agences) }}
+            {{ form_widget(formAgence.Agences, {'attr': {'class': 'selectFormulaireSelectionAgence'}}) }}
+
+        </fieldset>
 
         {{ form_end(formAgence) }}
 
+    </div>
+
+
+    <div id='DivFormulaireParcourSuiviEnCours'>
         {{ form_start(form, {'attr': {'class': 'formulaireParcourSuiviEnCours'}}) }}
         {{ form_errors(form) }}
 
         <fieldset>
 
-            <legend>Selection du suivi</legend>
+            <legend><span>Selection du suivi</span></legend>
 
             <p>
                 {{ form_errors(form.Suivi) }}

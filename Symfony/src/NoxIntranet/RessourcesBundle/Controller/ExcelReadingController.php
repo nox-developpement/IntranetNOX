@@ -176,7 +176,7 @@ class ExcelReadingController extends Controller {
                         'class' => 'NoxIntranetRessourcesBundle:Suivis',
                         'query_builder' => function (EntityRepository $er) use ($agence) {
                             return $er->createQueryBuilder('u')
-                                    ->where("u.agence ='" . $agence . "'")
+                                    ->where("u.agence ='" . $agence . "' AND u.statut = 'En cours'")
                                     ->orderBy('u.nom', 'ASC');
                         },
                         'choice_label' => 'Nom',
@@ -188,8 +188,9 @@ class ExcelReadingController extends Controller {
             $form = $this->get('form.factory')->createBuilder('form', $suivis)
                     ->add('Suivi', EntityType::class, array(
                         'class' => 'NoxIntranetRessourcesBundle:Suivis',
-                        'query_builder' => function (EntityRepository $er) use ($agence) {
+                        'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('u')
+                                    ->where("u.statut = 'En cours'")
                                     ->orderBy('u.nom', 'ASC');
                         },
                         'choice_label' => 'Nom',
@@ -202,6 +203,66 @@ class ExcelReadingController extends Controller {
         $form->handleRequest($request);
 
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireedition.html.twig', array('form' => $form->createView(), 'formAgence' => $formAgence->createView()));
+    }
+
+    public function consulterSuiviTermineAction(Request $request, $agence) {
+        $em = $this->getDoctrine()->getManager();
+
+        $suivis = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findBy(array(), array('nom' => 'ASC'));
+
+        $agences['Toutes'] = 'Toutes';
+
+        foreach ($suivis as $suivi) {
+            if (!in_array($suivi->getAgence(), $agences)) {
+                $agences[$suivi->getAgence()] = $suivi->getAgence();
+            }
+        }
+
+        $formAgence = $this->get('form.factory')->createBuilder('form', $agences)
+                ->add('Agences', ChoiceType::class, array(
+                    'choices' => $agences,
+                    'data' => $agence
+                ))
+                ->getForm();
+
+        $formAgence->handleRequest($request);
+
+        if ($formAgence->isValid()) {
+
+            return $this->redirectToRoute('nox_intranet_assistant_affaire_parcour_suivi_termine', array('agence' => $formAgence['Agences']->getData()));
+        }
+
+        if ($agence != "Toutes") {
+            $form = $this->get('form.factory')->createBuilder('form', $suivis)
+                    ->add('Suivi', EntityType::class, array(
+                        'class' => 'NoxIntranetRessourcesBundle:Suivis',
+                        'query_builder' => function (EntityRepository $er) use ($agence) {
+                            return $er->createQueryBuilder('u')
+                                    ->where("u.agence ='" . $agence . "' AND u.statut = 'Terminé'")
+                                    ->orderBy('u.nom', 'ASC');
+                        },
+                        'choice_label' => 'Nom',
+                    ))
+                    ->add('Consulter', 'submit')
+                    ->getForm();
+        } else {
+            $form = $this->get('form.factory')->createBuilder('form', $suivis)
+                    ->add('Suivi', EntityType::class, array(
+                        'class' => 'NoxIntranetRessourcesBundle:Suivis',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('u')
+                                    ->where("u.statut = 'Terminé'")
+                                    ->orderBy('u.nom', 'ASC');
+                        },
+                        'choice_label' => 'Nom',
+                    ))
+                    ->add('Consulter', 'submit')
+                    ->getForm();
+        }
+
+        $form->handleRequest($request);
+
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairetermine.html.twig', array('form' => $form->createView(), 'formAgence' => $formAgence->createView()));
     }
 
 }

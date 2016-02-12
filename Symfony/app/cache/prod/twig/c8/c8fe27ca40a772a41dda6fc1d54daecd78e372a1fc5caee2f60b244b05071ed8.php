@@ -46,6 +46,7 @@ class __TwigTemplate_1f1cc4f1d817b462b23dcd4615b704ef5aa6afac968e5d2f4c22b9520a7
     <div id=\"DivIframeLicences\">
         <iframe id='licencesIframe' src=\"http://192.168.69.11:7019/EasyAdmin2/#{'include_obsolete':false,'server':'','vendor':'','license_type':[],'additional_key':'','feature':[],'products':[],'timeformat':'dd/mm/yyyy hh:mm:ss','timezone':'W. Europe Standard Time','module':'ea-licenses','windowSize':{'width':932,'height':600,'maximized':false}}\"></iframe>
     </div>
+
 ";
     }
 
@@ -75,4 +76,5 @@ class __TwigTemplate_1f1cc4f1d817b462b23dcd4615b704ef5aa6afac968e5d2f4c22b9520a7
 /*     <div id="DivIframeLicences">*/
 /*         <iframe id='licencesIframe' src="http://192.168.69.11:7019/EasyAdmin2/#{'include_obsolete':false,'server':'','vendor':'','license_type':[],'additional_key':'','feature':[],'products':[],'timeformat':'dd/mm/yyyy hh:mm:ss','timezone':'W. Europe Standard Time','module':'ea-licenses','windowSize':{'width':932,'height':600,'maximized':false}}"></iframe>*/
 /*     </div>*/
+/* */
 /* {% endblock %}*/

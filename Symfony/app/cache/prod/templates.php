@@ -123,6 +123,7 @@
   'NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireaccueil.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/AssistantAffaire/assistantaffaireaccueil.html.twig',
   'NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreation.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/AssistantAffaire/assistantaffairecreation.html.twig',
   'NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireedition.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/AssistantAffaire/assistantaffaireedition.html.twig',
+  'NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairetermine.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/AssistantAffaire/assistantaffairetermine.html.twig',
   'NoxIntranetRessourcesBundle:Competences:competences.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/Competences/competences.html.twig',
   'NoxIntranetRessourcesBundle:Imprimantes:imprimantes.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/Imprimantes/imprimantes.html.twig',
   'NoxIntranetRessourcesBundle:Liens:liens.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/Liens/liens.html.twig',

@@ -73,11 +73,11 @@ nox_intranet_affichageAQ:
          chemin: .+
          
 nox_intranet_assistant_affaire:
-    path: /ressources/assistant-affaire
+    path: /ressources/assistant-affaires
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:accueilAssistantAffaire }
     
 nox_intranet_assistant_affaire_nouvelle:
-    path: /ressources/assistant-affaire/creation-suivi
+    path: /ressources/assistant-affaires/creation-suivi
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuivi }
     
 nox_intranet_assistant_affaire_generation:
@@ -85,7 +85,11 @@ nox_intranet_assistant_affaire_generation:
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:generateExcelFile }
     
 nox_intranet_assistant_affaire_parcour_suivi_en_cours:
-    path: /ressources/assistant-affaire/parcours-suivi-en-cours/{agence}
+    path: /ressources/assistant-affaires/parcours-suivis-en-cours/{agence}
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:consulterSuivi, agence: Toutes }
+    
+nox_intranet_assistant_affaire_parcour_suivi_termine:
+    path: /ressources/assistant-affaires/parcours-suivis-terminés/{agence}
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:consulterSuiviTermine, agence: Toutes }
     
     

@@ -96,7 +96,7 @@ class __TwigTemplate_8f3dd4e5fd2815b8772ef4de1eb83a982a3633cf1752e8be75251580a2c
         <!-- Parcourir les suivis terminés -->
         <a href=\"";
         // line 36
-        echo $this->env->getExtension('routing')->getPath("nox_intranet_archives");
+        echo $this->env->getExtension('routing')->getPath("nox_intranet_assistant_affaire_parcour_suivi_termine");
         echo "\" class=\"icon\">
             <figure>
                 <img 
@@ -172,7 +172,7 @@ class __TwigTemplate_8f3dd4e5fd2815b8772ef4de1eb83a982a3633cf1752e8be75251580a2c
 /*         </a>*/
 /* */
 /*         <!-- Parcourir les suivis terminés -->*/
-/*         <a href="{{ path('nox_intranet_archives') }}" class="icon">*/
+/*         <a href="{{ path('nox_intranet_assistant_affaire_parcour_suivi_termine') }}" class="icon">*/
 /*             <figure>*/
 /*                 <img */
 /*                     src="{{ asset('bundles/noxintranetressources/images/Document-Zoom-In-03-128.png') }}" */

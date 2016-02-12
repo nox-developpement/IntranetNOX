@@ -177,14 +177,14 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
                 }
 
                 if (0 === strpos($pathinfo, '/ressources/assistant')) {
-                    if (0 === strpos($pathinfo, '/ressources/assistant-affaire')) {
+                    if (0 === strpos($pathinfo, '/ressources/assistant-affaires')) {
                         // nox_intranet_assistant_affaire
-                        if ($pathinfo === '/ressources/assistant-affaire') {
+                        if ($pathinfo === '/ressources/assistant-affaires') {
                             return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController::accueilAssistantAffaireAction',  '_route' => 'nox_intranet_assistant_affaire',);
                         }
 
                         // nox_intranet_assistant_affaire_nouvelle
-                        if ($pathinfo === '/ressources/assistant-affaire/creation-suivi') {
+                        if ($pathinfo === '/ressources/assistant-affaires/creation-suivi') {
                             return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController::creationSuiviAction',  '_route' => 'nox_intranet_assistant_affaire_nouvelle',);
                         }
 
@@ -195,9 +195,17 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
                         return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController::generateExcelFileAction',  '_route' => 'nox_intranet_assistant_affaire_generation',);
                     }
 
-                    // nox_intranet_assistant_affaire_parcour_suivi_en_cours
-                    if (0 === strpos($pathinfo, '/ressources/assistant-affaire/parcours-suivi-en-cours') && preg_match('#^/ressources/assistant\\-affaire/parcours\\-suivi\\-en\\-cours(?:/(?P<agence>[^/]++))?$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_assistant_affaire_parcour_suivi_en_cours')), array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController::consulterSuiviAction',  'agence' => 'Toutes',));
+                    if (0 === strpos($pathinfo, '/ressources/assistant-affaires/parcours-suivis-')) {
+                        // nox_intranet_assistant_affaire_parcour_suivi_en_cours
+                        if (0 === strpos($pathinfo, '/ressources/assistant-affaires/parcours-suivis-en-cours') && preg_match('#^/ressources/assistant\\-affaires/parcours\\-suivis\\-en\\-cours(?:/(?P<agence>[^/]++))?$#s', $pathinfo, $matches)) {
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_assistant_affaire_parcour_suivi_en_cours')), array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController::consulterSuiviAction',  'agence' => 'Toutes',));
+                        }
+
+                        // nox_intranet_assistant_affaire_parcour_suivi_termine
+                        if (0 === strpos($pathinfo, '/ressources/assistant-affaires/parcours-suivis-terminés') && preg_match('#^/ressources/assistant\\-affaires/parcours\\-suivis\\-terminés(?:/(?P<agence>[^/]++))?$#s', $pathinfo, $matches)) {
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_assistant_affaire_parcour_suivi_termine')), array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController::consulterSuiviTermineAction',  'agence' => 'Toutes',));
+                        }
+
                     }
 
                 }
