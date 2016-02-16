@@ -64,4 +64,5 @@ security:
         - { path: ^/communication, role: ROLE_USER }
         - { path: ^/ressources, role: ROLE_USER }
         - { path: ^/supportSI, role: ROLE_USER }
+        - { path: ^/accueil/edition-annonces, role: ROLE_ADMIN }
         

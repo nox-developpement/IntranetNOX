@@ -543,24 +543,24 @@ class __TwigTemplate_823524504e555d9920e2e769c910ff4a85b104dec25e111fc3e3604c600
         <!-- Affichage défilant mise à jours Références -->
         ";
         // line 272
-        if ((array_key_exists("majReferences", $context) && ((isset($context["majReferences"]) ? $context["majReferences"] : null) != null))) {
+        if ((array_key_exists("majRH", $context) && ((isset($context["majRH"]) ? $context["majRH"] : null) != null))) {
             // line 273
             echo "            <p class=\"maj\"> Mises à jour Références </p>
-            <div id='majReferences'>
+            <div id='majRH'>
                 <p></p>
             </div>
 
             <script type=\"text/javascript\">
 
-                var newsReferences = new Array();
+                var newsRH = new Array();
 
                 ";
             // line 282
             $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable((isset($context["majReferences"]) ? $context["majReferences"] : null));
+            $context['_seq'] = twig_ensure_traversable((isset($context["majRH"]) ? $context["majRH"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
                 // line 283
-                echo "                    newsReferences.push(\"<span class='dateMaj'>";
+                echo "                    newsRH.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Lien", array()), "html", null, true);
@@ -577,22 +577,22 @@ class __TwigTemplate_823524504e555d9920e2e769c910ff4a85b104dec25e111fc3e3604c600
             // line 285
             echo "
                     function showNews(arr) {
-                        \$('#majReferences p').fadeTo(3000, 100);
-                        \$('#majReferences p').html(arr[0]);
-                        \$('#majReferences p').fadeTo(3000, 0);
+                        \$('#majRH p').fadeTo(3000, 100);
+                        \$('#majRH p').html(arr[0]);
+                        \$('#majRH p').fadeTo(3000, 0);
                         var i = 1;
                         setInterval(
                                 function () {
-                                    \$('#majReferences p').fadeTo(3000, 100);
-                                    \$('#majReferences p').html(arr[i]);
-                                    \$('#majReferences p').fadeTo(3000, 0);
+                                    \$('#majRH p').fadeTo(3000, 100);
+                                    \$('#majRH p').html(arr[i]);
+                                    \$('#majRH p').fadeTo(3000, 0);
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
                                 }, 6000);
                     }
 
-                    showNews(newsReferences);
+                    showNews(newsRH);
 
             </script>
         ";
@@ -891,37 +891,37 @@ class __TwigTemplate_823524504e555d9920e2e769c910ff4a85b104dec25e111fc3e3604c600
 /*         <!-------------------------------------------------->*/
 /* */
 /*         <!-- Affichage défilant mise à jours Références -->*/
-/*         {% if majReferences is defined and majReferences != null %}*/
+/*         {% if majRH is defined and majRH != null %}*/
 /*             <p class="maj"> Mises à jour Références </p>*/
-/*             <div id='majReferences'>*/
+/*             <div id='majRH'>*/
 /*                 <p></p>*/
 /*             </div>*/
 /* */
 /*             <script type="text/javascript">*/
 /* */
-/*                 var newsReferences = new Array();*/
+/*                 var newsRH = new Array();*/
 /* */
-/*                 {% for maj in majReferences %}*/
-/*                     newsReferences.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");*/
+/*                 {% for maj in majRH %}*/
+/*                     newsRH.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");*/
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/
-/*                         $('#majReferences p').fadeTo(3000, 100);*/
-/*                         $('#majReferences p').html(arr[0]);*/
-/*                         $('#majReferences p').fadeTo(3000, 0);*/
+/*                         $('#majRH p').fadeTo(3000, 100);*/
+/*                         $('#majRH p').html(arr[0]);*/
+/*                         $('#majRH p').fadeTo(3000, 0);*/
 /*                         var i = 1;*/
 /*                         setInterval(*/
 /*                                 function () {*/
-/*                                     $('#majReferences p').fadeTo(3000, 100);*/
-/*                                     $('#majReferences p').html(arr[i]);*/
-/*                                     $('#majReferences p').fadeTo(3000, 0);*/
+/*                                     $('#majRH p').fadeTo(3000, 100);*/
+/*                                     $('#majRH p').html(arr[i]);*/
+/*                                     $('#majRH p').fadeTo(3000, 0);*/
 /*                                     i++;*/
 /*                                     if (i >= arr.length)*/
 /*                                         i = 0;*/
 /*                                 }, 6000);*/
 /*                     }*/
 /* */
-/*                     showNews(newsReferences);*/
+/*                     showNews(newsRH);*/
 /* */
 /*             </script>*/
 /*         {% endif %}*/

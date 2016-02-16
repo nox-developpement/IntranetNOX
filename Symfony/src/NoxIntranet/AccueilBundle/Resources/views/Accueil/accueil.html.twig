@@ -269,37 +269,111 @@
         <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours Références -->
-        {% if majReferences is defined and majReferences != null %}
+        {% if majRH is defined and majRH != null %}
             <p class="maj"> Mises à jour Références </p>
-            <div id='majReferences'>
+            <div id='majRH'>
                 <p></p>
             </div>
 
             <script type="text/javascript">
 
-                var newsReferences = new Array();
+                var newsRH = new Array();
 
-                {% for maj in majReferences %}
-                    newsReferences.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
+                {% for maj in majRH %}
+                    newsRH.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
                 {% endfor %}
 
                     function showNews(arr) {
-                        $('#majReferences p').fadeTo(3000, 100);
-                        $('#majReferences p').html(arr[0]);
-                        $('#majReferences p').fadeTo(3000, 0);
+                        $('#majRH p').fadeTo(3000, 100);
+                        $('#majRH p').html(arr[0]);
+                        $('#majRH p').fadeTo(3000, 0);
                         var i = 1;
                         setInterval(
                                 function () {
-                                    $('#majReferences p').fadeTo(3000, 100);
-                                    $('#majReferences p').html(arr[i]);
-                                    $('#majReferences p').fadeTo(3000, 0);
+                                    $('#majRH p').fadeTo(3000, 100);
+                                    $('#majRH p').html(arr[i]);
+                                    $('#majRH p').fadeTo(3000, 0);
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
                                 }, 6000);
                     }
 
-                    showNews(newsReferences);
+                    showNews(newsRH);
+
+            </script>
+        {% endif %}
+        <!-------------------------------------------------->
+        
+        <!-- Affichage défilant Poste à pourvoir -->
+        {% if posteAPourvoir is defined and posteAPourvoir != null %}
+            <p class="maj"> Mises à jour Références </p>
+            <div id='posteAPourvoir'>
+                <p></p>
+            </div>
+
+            <script type="text/javascript">
+
+                var newsPosteAPourvoir = new Array();
+
+                {% for maj in posteAPourvoir %}
+                    newsPosteAPourvoir.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
+                {% endfor %}
+
+                    function showNews(arr) {
+                        $('#posteAPourvoir p').fadeTo(3000, 100);
+                        $('#posteAPourvoir p').html(arr[0]);
+                        $('#posteAPourvoir p').fadeTo(3000, 0);
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    $('#posteAPourvoir p').fadeTo(3000, 100);
+                                    $('#posteAPourvoir p').html(arr[i]);
+                                    $('#posteAPourvoir p').fadeTo(3000, 0);
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 6000);
+                    }
+
+                    showNews(newsPosteAPourvoir);
+
+            </script>
+        {% endif %}
+        <!-------------------------------------------------->
+        
+        <!-- Affichage défilant Poste à pourvoir -->
+        {% if nominationOrganisation is defined and nominationOrganisation != null %}
+            <p class="maj"> Mises à jour Références </p>
+            <div id='nominationOrganisation'>
+                <p></p>
+            </div>
+
+            <script type="text/javascript">
+
+                var newsNominationOrganisation = new Array();
+
+                {% for maj in nominationOrganisation %}
+                    newsNominationOrganisation.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
+                {% endfor %}
+
+                    function showNews(arr) {
+                        $('#nominationOrganisation p').fadeTo(3000, 100);
+                        $('#nominationOrganisation p').html(arr[0]);
+                        $('#nominationOrganisation p').fadeTo(3000, 0);
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    $('#nominationOrganisation p').fadeTo(3000, 100);
+                                    $('#nominationOrganisation p').html(arr[i]);
+                                    $('#nominationOrganisation p').fadeTo(3000, 0);
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 6000);
+                    }
+
+                    showNews(newsNominationOrganisation);
 
             </script>
         {% endif %}

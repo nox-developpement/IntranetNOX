@@ -1,0 +1,50 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Edition {% endblock %}
+
+{% block messageAccueil %}Administration assistant d'affaires{% endblock %}
+
+{% block contenu %}
+
+    <div id='tableauExcel'>
+
+        <table>
+            <tr>
+                <th></th>
+                    {% for i in 'a'|upper..sheet.getHighestColumn %}
+
+                    <th style='font-weight: bold'>
+                        {{ i }}
+                    </th>
+                {% endfor %}
+
+                <td style='font-weight: bold' id="ajoutColonne">
+                    +
+                </td>
+            </tr>
+
+            {% for row in sheet.getRowIterator %} 
+                <tr>
+                    <th style='font-weight: bold'>
+                        {{ loop.index }}
+                    </th>
+
+                    {% for cell in row.getCellIterator %}
+                        <td>
+                            {{ cell.getValue }}
+                        </td>
+                    {% endfor %}
+
+                </tr>
+
+            {% endfor %}
+
+            <tr>
+                <td style='font-weight: bold' id="ajoutLigne">+</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+{% endblock %}

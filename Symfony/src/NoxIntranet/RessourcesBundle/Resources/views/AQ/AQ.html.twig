@@ -26,6 +26,18 @@
             <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/OPQIBI', 'dossier': 'OPQIBI', 'config': 'OPQIBI' }) }}'> <h4> OPQIBI </h4> </a>
         </div>
 
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/EQUIPEQSE', 'dossier': 'Equipe QSE', 'config': 'equipeQSE' }) }}'> <h4> Equipe QSE </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_aq_citations') }}'> <h4> Citations </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/EVENEMENTS', 'dossier': 'Evénements', 'config': 'evenements' }) }}'> <h4> Evénements </h4> </a>
+        </div>
+
     </div>
 
     <div class="surMessageAcceuil" id='menuDocumentQSE' onclick="showSubMenu2('#sousMenuDocumentQSE', this);"> 
@@ -56,29 +68,11 @@
 
     </div>
 
-    <div class="surMessageAcceuil" id='menuInfoQSE' onclick="showSubMenu2('#sousMenuInfoQSE', this);"> 
-        <h4> Infos QSE <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
-    </div> 
-
-    <div id='sousMenuInfoQSE' class='menu'>
-
-        <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'INFOSQSE/EQUIPEQSE', 'dossier': 'Equipe QSE', 'config': 'equipeQSE' }) }}'> <h4> Equipe QSE </h4> </a>
-        </div>
-
-        <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'INFOSQSE/CITATIONS', 'dossier': 'CITATIONS', 'config': 'citations' }) }}'> <h4> Citations </h4> </a>
-        </div>
-
-        <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'INFOSQSE/EVENEMENTS', 'dossier': 'Evénements', 'config': 'evenements' }) }}'> <h4> Evénements </h4> </a>
-        </div>
-
-    </div>
-
-    <!-- Fin Externe -->
-
-</div>
+    <!--
+            <div class="surMessageAcceuil" id='menuInfoQSE' onclick="showSubMenu2('#sousMenuInfoQSE', this);"> 
+                <h4> Infos QSE <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
+            </div>
+    -->
 
 {% endblock %}
 {# empty Twig template #}

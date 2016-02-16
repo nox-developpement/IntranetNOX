@@ -24,32 +24,32 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_7b4647aa0d4269db913235cd44e09334851917ede1e3b9c0fbfb7cd8311e2dae = $this->env->getExtension("native_profiler");
-        $__internal_7b4647aa0d4269db913235cd44e09334851917ede1e3b9c0fbfb7cd8311e2dae->enter($__internal_7b4647aa0d4269db913235cd44e09334851917ede1e3b9c0fbfb7cd8311e2dae_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAccueilBundle:Accueil:accueil.html.twig"));
+        $__internal_54f5749e740055635d69ca079530b2ba7022b8e41a0296e4a9b3c44400e8b3a1 = $this->env->getExtension("native_profiler");
+        $__internal_54f5749e740055635d69ca079530b2ba7022b8e41a0296e4a9b3c44400e8b3a1->enter($__internal_54f5749e740055635d69ca079530b2ba7022b8e41a0296e4a9b3c44400e8b3a1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAccueilBundle:Accueil:accueil.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_7b4647aa0d4269db913235cd44e09334851917ede1e3b9c0fbfb7cd8311e2dae->leave($__internal_7b4647aa0d4269db913235cd44e09334851917ede1e3b9c0fbfb7cd8311e2dae_prof);
+        $__internal_54f5749e740055635d69ca079530b2ba7022b8e41a0296e4a9b3c44400e8b3a1->leave($__internal_54f5749e740055635d69ca079530b2ba7022b8e41a0296e4a9b3c44400e8b3a1_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_7b967b74b4872de320665579dd3ef9e61af8e6a39c92eb9183a3e6d3a6e6776e = $this->env->getExtension("native_profiler");
-        $__internal_7b967b74b4872de320665579dd3ef9e61af8e6a39c92eb9183a3e6d3a6e6776e->enter($__internal_7b967b74b4872de320665579dd3ef9e61af8e6a39c92eb9183a3e6d3a6e6776e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_33217ee5756c07953db0177c8cc73951d206661d55309882b71b7f3c698b2398 = $this->env->getExtension("native_profiler");
+        $__internal_33217ee5756c07953db0177c8cc73951d206661d55309882b71b7f3c698b2398->enter($__internal_33217ee5756c07953db0177c8cc73951d206661d55309882b71b7f3c698b2398_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Accueil ";
         
-        $__internal_7b967b74b4872de320665579dd3ef9e61af8e6a39c92eb9183a3e6d3a6e6776e->leave($__internal_7b967b74b4872de320665579dd3ef9e61af8e6a39c92eb9183a3e6d3a6e6776e_prof);
+        $__internal_33217ee5756c07953db0177c8cc73951d206661d55309882b71b7f3c698b2398->leave($__internal_33217ee5756c07953db0177c8cc73951d206661d55309882b71b7f3c698b2398_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_1ebca1521e5cbba9d33369873ec4d7fe9430d9814da3c807dce05b5caa7a0167 = $this->env->getExtension("native_profiler");
-        $__internal_1ebca1521e5cbba9d33369873ec4d7fe9430d9814da3c807dce05b5caa7a0167->enter($__internal_1ebca1521e5cbba9d33369873ec4d7fe9430d9814da3c807dce05b5caa7a0167_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_edc095091ddf05d9623eef036d8c58d8c0a3a6faf597b1102d978afb99fe20d1 = $this->env->getExtension("native_profiler");
+        $__internal_edc095091ddf05d9623eef036d8c58d8c0a3a6faf597b1102d978afb99fe20d1->enter($__internal_edc095091ddf05d9623eef036d8c58d8c0a3a6faf597b1102d978afb99fe20d1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Bienvenue ";
         if (($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()) != null)) {
@@ -60,15 +60,15 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             echo " ";
         }
         
-        $__internal_1ebca1521e5cbba9d33369873ec4d7fe9430d9814da3c807dce05b5caa7a0167->leave($__internal_1ebca1521e5cbba9d33369873ec4d7fe9430d9814da3c807dce05b5caa7a0167_prof);
+        $__internal_edc095091ddf05d9623eef036d8c58d8c0a3a6faf597b1102d978afb99fe20d1->leave($__internal_edc095091ddf05d9623eef036d8c58d8c0a3a6faf597b1102d978afb99fe20d1_prof);
 
     }
 
     // line 6
     public function block_sousMessageAccueil($context, array $blocks = array())
     {
-        $__internal_d471231a4b0b5b144f0cb8515a5080447227979d945abdfb87c78be397977859 = $this->env->getExtension("native_profiler");
-        $__internal_d471231a4b0b5b144f0cb8515a5080447227979d945abdfb87c78be397977859->enter($__internal_d471231a4b0b5b144f0cb8515a5080447227979d945abdfb87c78be397977859_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
+        $__internal_ba2939bd0dd11529ad91f791aebf21d18de80847ee5071d31fe9262a2989ae87 = $this->env->getExtension("native_profiler");
+        $__internal_ba2939bd0dd11529ad91f791aebf21d18de80847ee5071d31fe9262a2989ae87->enter($__internal_ba2939bd0dd11529ad91f791aebf21d18de80847ee5071d31fe9262a2989ae87_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
 
         echo "Nous sommes le ";
         echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_date_converter($this->env), "d/m/Y"), "html", null, true);
@@ -76,15 +76,15 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
         echo twig_escape_filter($this->env, (isset($context["nombreVues"]) ? $context["nombreVues"] : $this->getContext($context, "nombreVues")), "html", null, true);
         echo " fois.";
         
-        $__internal_d471231a4b0b5b144f0cb8515a5080447227979d945abdfb87c78be397977859->leave($__internal_d471231a4b0b5b144f0cb8515a5080447227979d945abdfb87c78be397977859_prof);
+        $__internal_ba2939bd0dd11529ad91f791aebf21d18de80847ee5071d31fe9262a2989ae87->leave($__internal_ba2939bd0dd11529ad91f791aebf21d18de80847ee5071d31fe9262a2989ae87_prof);
 
     }
 
     // line 8
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_2f1f0f3817678b8306985389c8e8afe457138b388bbc0979fa068d53a998c329 = $this->env->getExtension("native_profiler");
-        $__internal_2f1f0f3817678b8306985389c8e8afe457138b388bbc0979fa068d53a998c329->enter($__internal_2f1f0f3817678b8306985389c8e8afe457138b388bbc0979fa068d53a998c329_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_850680d6ec832b5a77f82e8bedcb9a2af0b6220482b7d2bba441d1f030cf6793 = $this->env->getExtension("native_profiler");
+        $__internal_850680d6ec832b5a77f82e8bedcb9a2af0b6220482b7d2bba441d1f030cf6793->enter($__internal_850680d6ec832b5a77f82e8bedcb9a2af0b6220482b7d2bba441d1f030cf6793_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 9
         echo "
@@ -570,24 +570,24 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
         <!-- Affichage défilant mise à jours Références -->
         ";
         // line 272
-        if ((array_key_exists("majReferences", $context) && ((isset($context["majReferences"]) ? $context["majReferences"] : $this->getContext($context, "majReferences")) != null))) {
+        if ((array_key_exists("majRH", $context) && ((isset($context["majRH"]) ? $context["majRH"] : $this->getContext($context, "majRH")) != null))) {
             // line 273
             echo "            <p class=\"maj\"> Mises à jour Références </p>
-            <div id='majReferences'>
+            <div id='majRH'>
                 <p></p>
             </div>
 
             <script type=\"text/javascript\">
 
-                var newsReferences = new Array();
+                var newsRH = new Array();
 
                 ";
             // line 282
             $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable((isset($context["majReferences"]) ? $context["majReferences"] : $this->getContext($context, "majReferences")));
+            $context['_seq'] = twig_ensure_traversable((isset($context["majRH"]) ? $context["majRH"] : $this->getContext($context, "majRH")));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
                 // line 283
-                echo "                    newsReferences.push(\"<span class='dateMaj'>";
+                echo "                    newsRH.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Lien", array()), "html", null, true);
@@ -604,34 +604,94 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             // line 285
             echo "
                     function showNews(arr) {
-                        \$('#majReferences p').fadeTo(3000, 100);
-                        \$('#majReferences p').html(arr[0]);
-                        \$('#majReferences p').fadeTo(3000, 0);
+                        \$('#majRH p').fadeTo(3000, 100);
+                        \$('#majRH p').html(arr[0]);
+                        \$('#majRH p').fadeTo(3000, 0);
                         var i = 1;
                         setInterval(
                                 function () {
-                                    \$('#majReferences p').fadeTo(3000, 100);
-                                    \$('#majReferences p').html(arr[i]);
-                                    \$('#majReferences p').fadeTo(3000, 0);
+                                    \$('#majRH p').fadeTo(3000, 100);
+                                    \$('#majRH p').html(arr[i]);
+                                    \$('#majRH p').fadeTo(3000, 0);
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
                                 }, 6000);
                     }
 
-                    showNews(newsReferences);
+                    showNews(newsRH);
 
             </script>
         ";
         }
         // line 306
         echo "        <!-------------------------------------------------->
+        
+        <!-- Affichage défilant Poste à pourvoir -->
+        ";
+        // line 309
+        if ((array_key_exists("posteAPourvoir", $context) && ((isset($context["posteAPourvoir"]) ? $context["posteAPourvoir"] : $this->getContext($context, "posteAPourvoir")) != null))) {
+            // line 310
+            echo "            <p class=\"maj\"> Mises à jour Références </p>
+            <div id='posteAPourvoir'>
+                <p></p>
+            </div>
+
+            <script type=\"text/javascript\">
+
+                var newsPosteAPourvoir = new Array();
+
+                ";
+            // line 319
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable((isset($context["posteAPourvoir"]) ? $context["posteAPourvoir"] : $this->getContext($context, "posteAPourvoir")));
+            foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
+                // line 320
+                echo "                    newsPosteAPourvoir.push(\"<span class='dateMaj'>";
+                echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
+                echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Lien", array()), "html", null, true);
+                echo "', '";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
+                echo "');\\\">";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
+                echo "</a>\");
+                ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 322
+            echo "
+                    function showNews(arr) {
+                        \$('#posteAPourvoir p').fadeTo(3000, 100);
+                        \$('#posteAPourvoir p').html(arr[0]);
+                        \$('#posteAPourvoir p').fadeTo(3000, 0);
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    \$('#posteAPourvoir p').fadeTo(3000, 100);
+                                    \$('#posteAPourvoir p').html(arr[i]);
+                                    \$('#posteAPourvoir p').fadeTo(3000, 0);
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 6000);
+                    }
+
+                    showNews(newsPosteAPourvoir);
+
+            </script>
+        ";
+        }
+        // line 343
+        echo "        <!-------------------------------------------------->
 
     </div>
 
 ";
         
-        $__internal_2f1f0f3817678b8306985389c8e8afe457138b388bbc0979fa068d53a998c329->leave($__internal_2f1f0f3817678b8306985389c8e8afe457138b388bbc0979fa068d53a998c329_prof);
+        $__internal_850680d6ec832b5a77f82e8bedcb9a2af0b6220482b7d2bba441d1f030cf6793->leave($__internal_850680d6ec832b5a77f82e8bedcb9a2af0b6220482b7d2bba441d1f030cf6793_prof);
 
     }
 
@@ -647,7 +707,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 
     public function getDebugInfo()
     {
-        return array (  628 => 306,  605 => 285,  590 => 283,  586 => 282,  575 => 273,  573 => 272,  568 => 269,  545 => 248,  530 => 246,  526 => 245,  515 => 236,  513 => 235,  508 => 232,  485 => 211,  470 => 209,  466 => 208,  455 => 199,  453 => 198,  448 => 195,  425 => 174,  410 => 172,  406 => 171,  395 => 162,  393 => 161,  388 => 158,  365 => 137,  350 => 135,  346 => 134,  335 => 125,  333 => 124,  328 => 121,  305 => 100,  290 => 98,  286 => 97,  274 => 87,  272 => 86,  266 => 83,  257 => 77,  246 => 69,  240 => 67,  234 => 64,  229 => 61,  224 => 59,  221 => 58,  215 => 54,  213 => 53,  208 => 50,  205 => 49,  192 => 42,  189 => 41,  182 => 39,  176 => 38,  173 => 37,  167 => 36,  164 => 35,  158 => 34,  155 => 33,  149 => 32,  146 => 31,  140 => 30,  137 => 29,  133 => 28,  128 => 26,  119 => 20,  115 => 19,  111 => 18,  106 => 16,  101 => 13,  96 => 12,  94 => 11,  90 => 9,  84 => 8,  68 => 6,  49 => 5,  37 => 3,  11 => 1,);
+        return array (  688 => 343,  665 => 322,  650 => 320,  646 => 319,  635 => 310,  633 => 309,  628 => 306,  605 => 285,  590 => 283,  586 => 282,  575 => 273,  573 => 272,  568 => 269,  545 => 248,  530 => 246,  526 => 245,  515 => 236,  513 => 235,  508 => 232,  485 => 211,  470 => 209,  466 => 208,  455 => 199,  453 => 198,  448 => 195,  425 => 174,  410 => 172,  406 => 171,  395 => 162,  393 => 161,  388 => 158,  365 => 137,  350 => 135,  346 => 134,  335 => 125,  333 => 124,  328 => 121,  305 => 100,  290 => 98,  286 => 97,  274 => 87,  272 => 86,  266 => 83,  257 => 77,  246 => 69,  240 => 67,  234 => 64,  229 => 61,  224 => 59,  221 => 58,  215 => 54,  213 => 53,  208 => 50,  205 => 49,  192 => 42,  189 => 41,  182 => 39,  176 => 38,  173 => 37,  167 => 36,  164 => 35,  158 => 34,  155 => 33,  149 => 32,  146 => 31,  140 => 30,  137 => 29,  133 => 28,  128 => 26,  119 => 20,  115 => 19,  111 => 18,  106 => 16,  101 => 13,  96 => 12,  94 => 11,  90 => 9,  84 => 8,  68 => 6,  49 => 5,  37 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -921,37 +981,74 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 /*         <!-------------------------------------------------->*/
 /* */
 /*         <!-- Affichage défilant mise à jours Références -->*/
-/*         {% if majReferences is defined and majReferences != null %}*/
+/*         {% if majRH is defined and majRH != null %}*/
 /*             <p class="maj"> Mises à jour Références </p>*/
-/*             <div id='majReferences'>*/
+/*             <div id='majRH'>*/
 /*                 <p></p>*/
 /*             </div>*/
 /* */
 /*             <script type="text/javascript">*/
 /* */
-/*                 var newsReferences = new Array();*/
+/*                 var newsRH = new Array();*/
 /* */
-/*                 {% for maj in majReferences %}*/
-/*                     newsReferences.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");*/
+/*                 {% for maj in majRH %}*/
+/*                     newsRH.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");*/
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/
-/*                         $('#majReferences p').fadeTo(3000, 100);*/
-/*                         $('#majReferences p').html(arr[0]);*/
-/*                         $('#majReferences p').fadeTo(3000, 0);*/
+/*                         $('#majRH p').fadeTo(3000, 100);*/
+/*                         $('#majRH p').html(arr[0]);*/
+/*                         $('#majRH p').fadeTo(3000, 0);*/
 /*                         var i = 1;*/
 /*                         setInterval(*/
 /*                                 function () {*/
-/*                                     $('#majReferences p').fadeTo(3000, 100);*/
-/*                                     $('#majReferences p').html(arr[i]);*/
-/*                                     $('#majReferences p').fadeTo(3000, 0);*/
+/*                                     $('#majRH p').fadeTo(3000, 100);*/
+/*                                     $('#majRH p').html(arr[i]);*/
+/*                                     $('#majRH p').fadeTo(3000, 0);*/
 /*                                     i++;*/
 /*                                     if (i >= arr.length)*/
 /*                                         i = 0;*/
 /*                                 }, 6000);*/
 /*                     }*/
 /* */
-/*                     showNews(newsReferences);*/
+/*                     showNews(newsRH);*/
+/* */
+/*             </script>*/
+/*         {% endif %}*/
+/*         <!-------------------------------------------------->*/
+/*         */
+/*         <!-- Affichage défilant Poste à pourvoir -->*/
+/*         {% if posteAPourvoir is defined and posteAPourvoir != null %}*/
+/*             <p class="maj"> Mises à jour Références </p>*/
+/*             <div id='posteAPourvoir'>*/
+/*                 <p></p>*/
+/*             </div>*/
+/* */
+/*             <script type="text/javascript">*/
+/* */
+/*                 var newsPosteAPourvoir = new Array();*/
+/* */
+/*                 {% for maj in posteAPourvoir %}*/
+/*                     newsPosteAPourvoir.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");*/
+/*                 {% endfor %}*/
+/* */
+/*                     function showNews(arr) {*/
+/*                         $('#posteAPourvoir p').fadeTo(3000, 100);*/
+/*                         $('#posteAPourvoir p').html(arr[0]);*/
+/*                         $('#posteAPourvoir p').fadeTo(3000, 0);*/
+/*                         var i = 1;*/
+/*                         setInterval(*/
+/*                                 function () {*/
+/*                                     $('#posteAPourvoir p').fadeTo(3000, 100);*/
+/*                                     $('#posteAPourvoir p').html(arr[i]);*/
+/*                                     $('#posteAPourvoir p').fadeTo(3000, 0);*/
+/*                                     i++;*/
+/*                                     if (i >= arr.length)*/
+/*                                         i = 0;*/
+/*                                 }, 6000);*/
+/*                     }*/
+/* */
+/*                     showNews(newsPosteAPourvoir);*/
 /* */
 /*             </script>*/
 /*         {% endif %}*/

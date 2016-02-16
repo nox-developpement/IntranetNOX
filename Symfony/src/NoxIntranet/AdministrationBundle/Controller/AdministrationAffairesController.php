@@ -24,6 +24,12 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
  */
 class AdministrationAffairesController extends Controller {
 
+    function getDirContents($dir, &$results = array()) {
+        $results = glob($dir);
+
+        return $results;
+    }
+
     public function administrationAffairesAccueilAction(Request $request) {
 
         $em = $this->getDoctrine()->getManager();
@@ -53,12 +59,21 @@ class AdministrationAffairesController extends Controller {
 
         $formulaireAjout = new Formulaires();
 
+        $listeFichiers = $this->getDirContents('C:\wamp\www\Symfony\web\uploads\AssistantAffaires\FeuillesSuivis\*.xlsx');
+
+        foreach ($listeFichiers as $fichier) {
+            $nomFichier[basename($fichier)] = basename($fichier);
+        }
+
         $formAjoutFormulaire = $this->get('form.factory')->createNamedBuilder('formAjoutFormulaire', 'form', $formulaireAjout)
-                ->add('Nom', TextType::class)
                 ->add('Type', ChoiceType::class, array(
-                    'choices' => array('Texte' => 'Texte', 'Nombre' => 'Nombre'),
+                    'choices' => $listeFichiers,
+                    'choices_as_values' => true,
+                    'choice_label' => function($value) use ($nomFichier) {
+                        return $nomFichier[basename($value)];
+                    },
                 ))
-                ->add('Ajouter', 'submit')
+                ->add('Editer', 'submit')
                 ->getForm();
 
         $formulaireSuppression = new Formulaires();
@@ -116,20 +131,7 @@ class AdministrationAffairesController extends Controller {
 
             if ($formAjoutFormulaire->isValid()) {
 
-                if ($em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findOneByNom($formAjoutFormulaire['Nom']->getData()) == null) {
-
-                    $formulaireAjout->setNom($formAjoutFormulaire['Nom']->getData());
-                    $formulaireAjout->setType($formAjoutFormulaire['Type']->getData());
-
-                    $em->persist($formulaireAjout);
-                    $em->flush();
-
-                    $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $formAjoutFormulaire['Nom']->getData() . ' a été créé.');
-
-                    return $this->redirectToRoute('nox_intranet_administration_affaires');
-                } else {
-                    $request->getSession()->getFlashBag()->add('noticeErreur', 'Le champ ' . $formAjoutFormulaire['Nom']->getData() . ' existe déjà !');
-                }
+                return $this->redirectToRoute('nox_intranet_administration_affaires_edition', array('filename' => basename($formAjoutFormulaire['Type']->getData())));
             }
         }
 
@@ -150,6 +152,43 @@ class AdministrationAffairesController extends Controller {
 
         return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig', array('formAjoutProfil' => $formAjoutProfil->createView(), 'profils' => $profils, 'formSuppresionProfil' => $formSuppresionProfil->createView(),
                     'formAjoutFormulaire' => $formAjoutFormulaire->createView(), 'formSuppressionFormulaire' => $formSuppresionFormulaire->createView()));
+    }
+
+    public function administrationAffairesEditionAction($filename) {
+
+        include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
+
+        $file = "C:\wamp\www\Symfony\web\uploads\AssistantAffaires\FeuillesSuivis\\" . $filename;
+
+        // Chargement du fichier Excel
+        $objReader = new \PHPExcel_Reader_Excel2007();
+        $objPHPExcel = $objReader->load($file);
+
+        /**
+         * récupération de la première feuille du fichier Excel
+         * @var PHPExcel_Worksheet $sheet
+         */
+        $sheet = $objPHPExcel->getSheet(0);
+
+//        echo '<table border="1">';
+//
+//// On boucle sur les lignes
+//        foreach ($sheet->getRowIterator() as $row) {
+//
+//            echo '<tr>';
+//
+//            // On boucle sur les cellule de la ligne
+//            foreach ($row->getCellIterator() as $cell) {
+//                echo '<td>';
+//                print_r($cell->getValue());
+//                echo '</td>';
+//            }
+//
+//            echo '</tr>';
+//        }
+//        echo '</table>';
+
+        return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig', array('sheet' => $sheet));
     }
 
 }

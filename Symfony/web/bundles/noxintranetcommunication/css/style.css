@@ -1029,7 +1029,6 @@ divAdministrationUtilisateur {
     width: 15%;
     border-radius: 15px;
     margin-right: 2%;
-    opacity: 0.74;
 }
 
 
@@ -1052,7 +1051,7 @@ divAdministrationUtilisateur {
     margin-bottom: 1%;
     text-align: right;
     width: 100%;
-    background-color: rgba(2, 28, 45, 0.74);
+    background-color: rgb(31,78,121);
     color: white;
     border-radius: 5px;
 }
@@ -1700,7 +1699,8 @@ divAdministrationUtilisateur {
     vertical-align: top;
 }
 
-#menuSupport, #menuVideoInstitutionnelle, #menuReseauxSociaux, #menuBanqueImages, #menuOrganigrammes { 
+#menuSupport, #menuVideoInstitutionnelle, #menuReseauxSociaux, #menuBanqueImages, #menuOrganigrammes, #menuVieDeLentreprise, 
+#menuRHQuotidien, #menuReglementationRH { 
     cursor: pointer;
 }
 
@@ -1718,7 +1718,8 @@ divAdministrationUtilisateur {
 }
 
 #sousMenuSupport, #sousMenuVideoInstitutionnelle, #sousMenuReseauxSociaux, #sousMenuBanqueImages, #sousMenuOrganigrammes, #sousMenuExterne, 
-#sousMenuInterne, #sousMenuMarketing, #sousMenuSI, #sousMenuCertificatsISO, #sousMenuDocumentQSE, #sousMenuInfoQSE {
+#sousMenuInterne, #sousMenuMarketing, #sousMenuSI, #sousMenuCertificatsISO, #sousMenuDocumentQSE, #sousMenuInfoQSE, 
+#sousMenuVieDeLentreprise, #sousMenuRHQuotidien, #sousMenuReglementationRH {
     display: none;
 }
 
@@ -1807,13 +1808,13 @@ divAdministrationUtilisateur {
     font-size: 0.8vw;
 }
 
-#majExterne, #majInterne, #majMarketing, #majSI, #majAQ, #majReferences {
+#majExterne, #majInterne, #majMarketing, #majSI, #majAQ, #majRH {
     width: 100%;
     border: black 1px solid;
     margin-bottom: 5%;
 }
 
-#majExterne p, #majInterne p, #majMarketing p, #majSI p, #majAQ p, #majReferences p {
+#majExterne p, #majInterne p, #majMarketing p, #majSI p, #majAQ p, #majRH p {
     text-align: center;
     padding-left: 1%;
     padding-right: 1%;
@@ -1821,7 +1822,7 @@ divAdministrationUtilisateur {
 
 }
 
-#majExterne p a, #majInterne p a, #majMarketing p a, #majSI p a, #majAQ p a, #majReferences p a {
+#majExterne p a, #majInterne p a, #majMarketing p a, #majSI p a, #majAQ p a, #majRH p a {
     text-decoration: none;
     color: #5882FA;
     cursor: pointer;
@@ -1916,10 +1917,9 @@ divAdministrationUtilisateur {
     text-align: center;
     border-color: #021C2D;
     border-width: 1px;
-    /*background-color: rgba(246, 240, 154, 0.5);*/
-    background-image: url('../images/notepaper.jpg');
-    background-repeat: no-repeat;
-    background-size: 100%;
+    background-color: rgba(246, 240, 154, 0.5);
+    /*background-image: url('../images/Excel-grille.png');*/
+    /*background-size: 100%;*/
 }
 
 .formulaireAdministrationAjoutProfil fieldset legend, .formulaireAdministrationSuppressionProfil fieldset legend, 
@@ -1945,7 +1945,7 @@ divAdministrationUtilisateur {
 }
 
 .formulaireAjoutFormulaire fieldset p {
-    width: 55%;
+    width: 35%;
     margin: auto;
     padding: 0px; 
 }
@@ -1959,7 +1959,7 @@ divAdministrationUtilisateur {
 
 .labelFormulaireAjoutFormulaire {
     display: block; /* La balise devient de type block. */
-    width: 45%;
+    width: 35%;
     float: left;
     text-align: right;
 }
@@ -2046,5 +2046,41 @@ divAdministrationUtilisateur {
     margin: auto;
     width: 70%;
     height: 80%;
+}
+
+#tableauExcel {
+    width: 70%;
+    margin: auto;
+}
+
+#tableauExcel table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    font-size: 0.8vw;
+    word-wrap: break-word;
+}
+
+#ajoutColonne, #ajoutLigne {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+#ajoutColonne:hover, #ajoutLigne:hover {
+    background-color: white;
+}
+
+#tableauExcel table, #tableauExcel td {
+    border: 1px solid black;
+}
+
+#tableauExcel th {
+    border: 1px outset white;
+    background-color: #021C2D;
+    color: white;
+}
+
+#tableauExcel table tr td {
+    background-color: white;
 }
 

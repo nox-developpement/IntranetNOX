@@ -11,9 +11,11 @@ namespace NoxIntranet\AccueilBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
-use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
 use NoxIntranet\AccueilBundle\Entity\Compteur;
-use NoxIntranet\PDFParsingBundle\Entity\PDF;
+use NoxIntranet\AccueilBundle\Entity\Annonces;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Description of AccueilController
@@ -196,11 +198,11 @@ class AccueilController extends Controller {
 
         $majAQ = $this->getPDF('C:/wamp/www/Symfony/web/uploads/AQ/');
 
-        $majReferences = $this->getPDF('C:/wamp/www/Symfony/web/uploads/References/');
+        $majRH = $this->getPDF('C:/wamp/www/Symfony/web/uploads/RH/');
 
         return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('texte' => $texte, 'formulaire' => $form->createView(),
                     'majExterne' => $majExterne, 'majInterne' => $majInterne, 'majMarketing' => $majMarketing, 'majSI' => $majSI,
-                    'majAQ' => $majAQ, 'majReferences' => $majReferences, 'nombreVues' => $compteurVue->getVue()));
+                    'majAQ' => $majAQ, 'majRH' => $majRH, 'nombreVues' => $compteurVue->getVue()));
     }
 
     public function getPDF($chemin) {
@@ -229,6 +231,68 @@ class AccueilController extends Controller {
             }
         }
         return $listePDF;
+    }
+
+    public function setAnnoncesAction(Request $request, $categorie) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $annonces = $em->getRepository('NoxIntranetAccueilBundle:Annonces')->findByCategorie($categorie);
+
+        $formSuppressionAnnonce = $this->get('form.factory')->createNamedBuilder('formSuppressionAnnonce', 'form', $annonces)
+                ->add('Message', EntityType::class, array(
+                    'class' => 'NoxIntranetAccueilBundle:Annonces',
+                    'query_builder' => function (EntityRepository $er) use ($categorie) {
+                        return $er->createQueryBuilder('u')
+                                ->where("u.categorie = '" . $categorie . "'");
+//                                ->orderBy('u.nom', 'ASC');
+                    },
+                    'choice_label' => 'Message',
+                ))
+                ->add('Supprimer', 'submit')
+                ->getForm();
+
+        $newAnnonce = new Annonces();
+
+        $formAjoutAnnonce = $this->get('form.factory')->createNamedBuilder('formAjoutAnnonce', 'form', $newAnnonce)
+                ->add('Message', TextareaType::class)
+                ->add('Ajouter', 'submit')
+                ->getForm();
+
+        if ($request->request->has('formSuppressionAnnonce')) {
+
+            $formSuppressionAnnonce->handleRequest($request);
+
+            if ($formSuppressionAnnonce->isValid()) {
+
+                $em->remove($formSuppressionAnnonce['Message']->getData());
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'L\'annonce a été supprimé.');
+
+                return $this->redirectToRoute('nox_intranet_edition_annonces', array('categorie' => $categorie));
+            }
+        }
+
+        if ($request->request->has('formAjoutAnnonce')) {
+
+            $formAjoutAnnonce->handleRequest($request);
+
+            if ($formAjoutAnnonce->isValid()) {
+
+                $newAnnonce->setCategorie($categorie);
+                $newAnnonce->setMessage($formAjoutAnnonce['Message']->getData());
+
+                $em->persist($newAnnonce);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'L\'annonce a été créé.');
+
+                return $this->redirectToRoute('nox_intranet_edition_annonces', array('categorie' => $categorie));
+            }
+        }
+
+        return $this->render('NoxIntranetAccueilBundle:EditionAnnonces:editionAnnonces.html.twig', array('categorie' => $categorie, 'formSuppressionAnnonce' => $formSuppressionAnnonce->createView(), 'formAjoutAnnonce' => $formAjoutAnnonce->createView()));
     }
 
 }

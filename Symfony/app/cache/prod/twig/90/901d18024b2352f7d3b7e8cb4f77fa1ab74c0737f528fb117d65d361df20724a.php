@@ -74,7 +74,7 @@ class __TwigTemplate_02080d5e936c84feb69574ef8e7d327fc1d6077a89135ffb8f06122ce9d
             <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
             // line 22
             echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "Lien", array()), "html", null, true);
-            echo "', 'Nox Letters');\">
+            echo "', 'AQ');\">
                 <img 
                     src=\"";
             // line 24
@@ -198,7 +198,7 @@ class __TwigTemplate_02080d5e936c84feb69574ef8e7d327fc1d6077a89135ffb8f06122ce9d
 /* */
 /*         <div class="divNews">*/
 /* */
-/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new.Lien }}', 'Nox Letters');">*/
+/*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new.Lien }}', 'AQ');">*/
 /*                 <img */
 /*                     src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" */
 /*                     onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" */

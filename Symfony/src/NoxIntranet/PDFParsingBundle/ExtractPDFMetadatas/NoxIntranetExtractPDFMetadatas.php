@@ -30,13 +30,21 @@ class NoxIntranetExtractPDFMetadatas {
             $path = realpath($dir . DIRECTORY_SEPARATOR . $value);
             if (!is_dir($path)) {
                 $results[] = $path;
-            } else if ($value != "." && $value != ".." && $value != ".quarantine" && $value != ".tmb" && $value != "ImagesPublication" && $value != "BanqueImages") {
+            } else if ($value != "." && $value != ".." && $value != ".quarantine" && $value != ".tmb" && $value != "ImagesPublication" &&
+                    $value != "BanqueImages") {
                 $this->getDirContents($path, $results);
                 $results[] = $path;
             }
         }
 
-        return $results;
+        foreach ($results as $file) {
+            $info = new \SplFileInfo($file);
+            if ($info->getExtension() == 'pdf') {
+                $finalResult[] = $file;
+            }
+        }
+
+        return $finalResult;
     }
 
     function parsePDF() {

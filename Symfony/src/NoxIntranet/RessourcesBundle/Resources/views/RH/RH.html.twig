@@ -1,0 +1,73 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Ressources humaines {% endblock %}
+
+{% block messageAccueil %}Ressources humaines{% endblock %}
+
+{% block contenu %}
+
+    <!-- RH au quotidien -->
+    <div class="surMessageAcceuil" id='menuRHQuotidien' onclick="showSubMenu2('#sousMenuRHQuotidien', this);"> 
+        <h4> RH au quotidien <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
+    </div>
+
+    <div id='sousMenuRHQuotidien' class='menu'>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/LivretAccueil', 'dossier': "Livret accueil", 'config': 'livretAccueil' }) }}'> <h4> Livret d'accueil </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='#'> <h4> Demande d'attestation employeur </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/FormulaireCP', 'dossier': 'Formulaire CP ou Absence', 'config': 'formulaireCP' }) }}'> <h4> Formulaire CP ou Absence </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/ProcessLogement', 'dossier': 'Process 1% Logement + GRILLE', 'config': 'processLogement' }) }}'> <h4> Process 1% Logement + GRILLE </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='#'> <h4> Process Mutuelle + prévoyance + GRILLE </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='#'> <h4> Pointage </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='#'> <h4> Note de frais </h4> </a>
+        </div>
+
+    </div>
+
+    <!-- Règlementation RH -->
+    <div class="surMessageAcceuil" id='menuReglementationRH' onclick="showSubMenu2('#sousMenuReglementationRH', this);"> 
+        <h4> Règlementation RH <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
+    </div>
+
+    <div id='sousMenuReglementationRH' class='menu'>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='#'> <h4> Convention collective </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/ReglementInterieur', 'dossier': 'Réglement intérieur', 'config': 'reglementInterieur' }) }}'> <h4> Réglement intérieur </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/ACCORDS', 'dossier': 'ACCORDS voir disctinction par entreprise', 'config': 'ACCORDS' }) }}'> <h4> ACCORDS voir disctinction par entreprise </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/NotesTypePolitiqueDeplacement', 'dossier': 'Notes type politique déplacement', 'config': 'notesTypePolitiqueDeplacement' }) }}'> <h4> Notes type politique déplacement </h4> </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

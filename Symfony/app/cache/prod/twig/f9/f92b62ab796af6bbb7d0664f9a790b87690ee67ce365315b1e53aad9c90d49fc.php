@@ -77,11 +77,32 @@ class __TwigTemplate_1df0b91f62f83e00c44be26ae197a0e68fecde103a301417a0fbb719dc8
         echo "'> <h4> OPQIBI </h4> </a>
         </div>
 
+        <div class=\"sousMessageAcceuil\"> 
+            <a href='";
+        // line 30
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "CERTIFICATSISOETOPQIBI/EQUIPEQSE", "dossier" => "Equipe QSE", "config" => "equipeQSE")), "html", null, true);
+        echo "'> <h4> Equipe QSE </h4> </a>
+        </div>
+
+        <div class=\"sousMessageAcceuil\"> 
+            <a href='";
+        // line 34
+        echo $this->env->getExtension('routing')->getPath("nox_intranet_aq_citations");
+        echo "'> <h4> Citations </h4> </a>
+        </div>
+
+        <div class=\"sousMessageAcceuil\"> 
+            <a href='";
+        // line 38
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "CERTIFICATSISOETOPQIBI/EVENEMENTS", "dossier" => "Evénements", "config" => "evenements")), "html", null, true);
+        echo "'> <h4> Evénements </h4> </a>
+        </div>
+
     </div>
 
     <div class=\"surMessageAcceuil\" id='menuDocumentQSE' onclick=\"showSubMenu2('#sousMenuDocumentQSE', this);\"> 
         <h4> Documents QSE <img src='";
-        // line 32
+        // line 44
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
         echo "' class='menuImg'><img src='";
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
@@ -92,78 +113,51 @@ class __TwigTemplate_1df0b91f62f83e00c44be26ae197a0e68fecde103a301417a0fbb719dc8
 
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 38
+        // line 50
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "DOCUMENTQSE/MANUELQUALITE", "dossier" => "Manuel Qualité", "config" => "manuelQualite")), "html", null, true);
         echo "'> <h4> Manuel Qualité </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 42
+        // line 54
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "DOCUMENTQSE/PROCEDURES", "dossier" => "Procédures", "config" => "procedures")), "html", null, true);
         echo "'> <h4> Procédures </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 46
+        // line 58
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "DOCUMENTQSE/MODESOPERATOIRES", "dossier" => "Modes opératoires", "config" => "modesOperatoires")), "html", null, true);
         echo "'> <h4> Mode opératoires </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 50
+        // line 62
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "DOCUMENTQSE/FORMULAIRESETDOCUMENTSTYPES", "dossier" => "Formulaires et documents types", "config" => "formulairesEtDocumentsTypes")), "html", null, true);
         echo "'> <h4> Formulaires et documents types </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 54
+        // line 66
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "DOCUMENTQSE/INDICATEURS", "dossier" => "Indicateurs", "config" => "indicateurs")), "html", null, true);
         echo "'> <h4> Indicateurs </h4> </a>
         </div>
 
     </div>
 
-    <div class=\"surMessageAcceuil\" id='menuInfoQSE' onclick=\"showSubMenu2('#sousMenuInfoQSE', this);\"> 
-        <h4> Infos QSE <img src='";
-        // line 60
+    <!--
+            <div class=\"surMessageAcceuil\" id='menuInfoQSE' onclick=\"showSubMenu2('#sousMenuInfoQSE', this);\"> 
+                <h4> Infos QSE <img src='";
+        // line 73
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
         echo "' class='menuImg'><img src='";
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
         echo "' class='menuImgDown'></h4>
-    </div> 
-
-    <div id='sousMenuInfoQSE' class='menu'>
-
-        <div class=\"sousMessageAcceuil\"> 
-            <a href='";
-        // line 66
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "INFOSQSE/EQUIPEQSE", "dossier" => "Equipe QSE", "config" => "equipeQSE")), "html", null, true);
-        echo "'> <h4> Equipe QSE </h4> </a>
-        </div>
-
-        <div class=\"sousMessageAcceuil\"> 
-            <a href='";
-        // line 70
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "INFOSQSE/CITATIONS", "dossier" => "CITATIONS", "config" => "citations")), "html", null, true);
-        echo "'> <h4> Citations </h4> </a>
-        </div>
-
-        <div class=\"sousMessageAcceuil\"> 
-            <a href='";
-        // line 74
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "INFOSQSE/EVENEMENTS", "dossier" => "Evénements", "config" => "evenements")), "html", null, true);
-        echo "'> <h4> Evénements </h4> </a>
-        </div>
-
-    </div>
-
-    <!-- Fin Externe -->
-
-</div>
+            </div>
+    -->
 
 ";
     }
@@ -180,7 +174,7 @@ class __TwigTemplate_1df0b91f62f83e00c44be26ae197a0e68fecde103a301417a0fbb719dc8
 
     public function getDebugInfo()
     {
-        return array (  158 => 74,  151 => 70,  144 => 66,  133 => 60,  124 => 54,  117 => 50,  110 => 46,  103 => 42,  96 => 38,  85 => 32,  76 => 26,  69 => 22,  62 => 18,  50 => 11,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  155 => 73,  145 => 66,  138 => 62,  131 => 58,  124 => 54,  117 => 50,  106 => 44,  97 => 38,  90 => 34,  83 => 30,  76 => 26,  69 => 22,  62 => 18,  50 => 11,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -209,6 +203,18 @@ class __TwigTemplate_1df0b91f62f83e00c44be26ae197a0e68fecde103a301417a0fbb719dc8
 /* */
 /*         <div class="sousMessageAcceuil"> */
 /*             <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/OPQIBI', 'dossier': 'OPQIBI', 'config': 'OPQIBI' }) }}'> <h4> OPQIBI </h4> </a>*/
+/*         </div>*/
+/* */
+/*         <div class="sousMessageAcceuil"> */
+/*             <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/EQUIPEQSE', 'dossier': 'Equipe QSE', 'config': 'equipeQSE' }) }}'> <h4> Equipe QSE </h4> </a>*/
+/*         </div>*/
+/* */
+/*         <div class="sousMessageAcceuil"> */
+/*             <a href='{{ path('nox_intranet_aq_citations') }}'> <h4> Citations </h4> </a>*/
+/*         </div>*/
+/* */
+/*         <div class="sousMessageAcceuil"> */
+/*             <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/EVENEMENTS', 'dossier': 'Evénements', 'config': 'evenements' }) }}'> <h4> Evénements </h4> </a>*/
 /*         </div>*/
 /* */
 /*     </div>*/
@@ -241,29 +247,11 @@ class __TwigTemplate_1df0b91f62f83e00c44be26ae197a0e68fecde103a301417a0fbb719dc8
 /* */
 /*     </div>*/
 /* */
-/*     <div class="surMessageAcceuil" id='menuInfoQSE' onclick="showSubMenu2('#sousMenuInfoQSE', this);"> */
-/*         <h4> Infos QSE <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>*/
-/*     </div> */
-/* */
-/*     <div id='sousMenuInfoQSE' class='menu'>*/
-/* */
-/*         <div class="sousMessageAcceuil"> */
-/*             <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'INFOSQSE/EQUIPEQSE', 'dossier': 'Equipe QSE', 'config': 'equipeQSE' }) }}'> <h4> Equipe QSE </h4> </a>*/
-/*         </div>*/
-/* */
-/*         <div class="sousMessageAcceuil"> */
-/*             <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'INFOSQSE/CITATIONS', 'dossier': 'CITATIONS', 'config': 'citations' }) }}'> <h4> Citations </h4> </a>*/
-/*         </div>*/
-/* */
-/*         <div class="sousMessageAcceuil"> */
-/*             <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'INFOSQSE/EVENEMENTS', 'dossier': 'Evénements', 'config': 'evenements' }) }}'> <h4> Evénements </h4> </a>*/
-/*         </div>*/
-/* */
-/*     </div>*/
-/* */
-/*     <!-- Fin Externe -->*/
-/* */
-/* </div>*/
+/*     <!--*/
+/*             <div class="surMessageAcceuil" id='menuInfoQSE' onclick="showSubMenu2('#sousMenuInfoQSE', this);"> */
+/*                 <h4> Infos QSE <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>*/
+/*             </div>*/
+/*     -->*/
 /* */
 /* {% endblock %}*/
 /* {# empty Twig template #}*/

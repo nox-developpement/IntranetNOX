@@ -212,6 +212,24 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
 
             }
 
+            if (0 === strpos($pathinfo, '/ressources/rh')) {
+                // nox_intranet_rh
+                if ($pathinfo === '/ressources/rh') {
+                    return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::rhAction',  '_route' => 'nox_intranet_rh',);
+                }
+
+                // nox_intranet_affichageRH
+                if (preg_match('#^/ressources/rh/(?P<dossier>[^/]++)/(?P<config>[^/]++)/(?P<chemin>.+)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_affichageRH')), array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::affichageRHAction',));
+                }
+
+            }
+
+            // nox_intranet_aq_citations
+            if ($pathinfo === '/ressources/aq/citations') {
+                return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::citationsAction',  '_route' => 'nox_intranet_aq_citations',);
+            }
+
         }
 
         if (0 === strpos($pathinfo, '/testConnexion')) {
@@ -598,9 +616,17 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
                 return array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationMaterielController::materielAccueilAction',  '_route' => 'nox_intranet_administration_materiel',);
             }
 
-            // nox_intranet_administration_affaires
-            if ($pathinfo === '/administration/assistant-affaires') {
-                return array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesAccueilAction',  '_route' => 'nox_intranet_administration_affaires',);
+            if (0 === strpos($pathinfo, '/administration/assistant-affaires')) {
+                // nox_intranet_administration_affaires
+                if ($pathinfo === '/administration/assistant-affaires') {
+                    return array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesAccueilAction',  '_route' => 'nox_intranet_administration_affaires',);
+                }
+
+                // nox_intranet_administration_affaires_edition
+                if (0 === strpos($pathinfo, '/administration/assistant-affaires/edition-fichier') && preg_match('#^/administration/assistant\\-affaires/edition\\-fichier/(?P<filename>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_administration_affaires_edition')), array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesEditionAction',));
+                }
+
             }
 
         }

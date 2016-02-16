@@ -92,4 +92,18 @@ nox_intranet_assistant_affaire_parcour_suivi_termine:
     path: /ressources/assistant-affaires/parcours-suivis-terminés/{agence}
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:consulterSuiviTermine, agence: Toutes }
     
+nox_intranet_rh:
+    path: /ressources/rh
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:rh }
+    
+nox_intranet_affichageRH:
+    path:   /ressources/rh/{dossier}/{config}/{chemin}
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:affichageRH }
+    requirements:
+         chemin: .+
+         
+    
+nox_intranet_aq_citations:
+    path: /ressources/aq/citations
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:citations }
     
