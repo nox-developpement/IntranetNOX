@@ -774,37 +774,42 @@ figcaption {
 }
 
 .admin, .admin:checked, .admin:hover {
-    color: red;
+    color: #8A0808;
     text-decoration: none;
 }
 
 .ce, .ce:checked, .ce:hover {
-    color: #005946;
+    color: #8A4B08;
     text-decoration: none;
 }
 
 .CHSCT, .CHSCT:checked, .CHSCT:hover {
-    color: #772233;
+    color: #868A08;
     text-decoration: none;
 }
 
 .references, .references:checked, .references:hover {
-    color: orange;
+    color: #4B088A;
+    text-decoration: none;
+}
+
+.RH, .RH:checked, .RH:hover {
+    color: #8A0886;
     text-decoration: none;
 }
 
 .competences, .competences:checked, .competences:hover {
-    color: purple;
+    color: #088A08;
     text-decoration: none;
 }
 
 .procedures, .procedures:checked, .procedures:hover {
-    color: blue;
+    color: #084B8A;
     text-decoration: none;
 }
 
 .communication, .communication:checked, .communication:hover {
-    color: green;
+    color: #4B8A08;
     text-decoration: none;
 
 }
@@ -816,23 +821,23 @@ figcaption {
 }
 
 .faq, .faq:checked, .faq:hover {
-    color:#0000FF;
+    color:#088A4B;
     text-decoration: none;
 }
 
 .liens2, .liens2:checked, .liens2:hover {
-    color:#ff0084;
+    color:#088A85;
     text-decoration: none;
 }
 
 
 .local, .local:checked, .local:hover {
-    color:#021C2D;
+    color:#8A084B;
     text-decoration: none;
 }
 
 .qualite, .qualite:checked, .qualite:hover {
-    color:#ffa07a;
+    color:#08088A;
     text-decoration: none;
 }
 
@@ -1832,6 +1837,16 @@ divAdministrationUtilisateur {
     font-weight: bold;
 }
 
+.editionAnnonces, .editionAnnonces:visited {
+    color: #5882FA;
+    text-decoration: none;
+}
+
+.editionAnnonces:hover {
+    color: white;
+    text-decoration: none;
+}
+
 #edito {
     display: inline-block;
     width: 99%;
@@ -2054,6 +2069,16 @@ divAdministrationUtilisateur {
 #tableauExcel {
     width: 70%;
     margin: auto;
+    overflow: auto;
+}
+
+#tableauExcel p {
+    text-align: right;
+    padding-right: 4.5%;
+}
+
+#tableauExcel p button {
+    font-size: 0.7vw;
 }
 
 #tableauExcel table {
@@ -2062,19 +2087,12 @@ divAdministrationUtilisateur {
     border-collapse: collapse;
     font-size: 0.8vw;
     word-wrap: break-word;
-}
-
-#ajoutColonne, #ajoutLigne {
-    background-color: #f1f1f1;
-    cursor: pointer;
-}
-
-#ajoutColonne:hover, #ajoutLigne:hover {
-    background-color: white;
+    border-spacing: 0px;
 }
 
 #tableauExcel table, #tableauExcel td {
     border: 1px solid black;
+    padding: 0px;
 }
 
 #tableauExcel th {
@@ -2084,6 +2102,16 @@ divAdministrationUtilisateur {
 }
 
 #tableauExcel table tr td {
+    background-color: white;
+    padding: 0px;
+}
+
+.ajoutColonne, .ajoutLigne {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.ajoutColonne:hover, .ajoutLigne:hover {
     background-color: white;
 }
 

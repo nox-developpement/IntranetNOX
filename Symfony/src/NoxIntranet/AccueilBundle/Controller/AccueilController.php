@@ -141,7 +141,12 @@ class AccueilController extends Controller {
             $em->flush();
         }
 
-        $texteEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Edito');
+        if ($em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findBy(array('section' => 'Edito')) != null) {
+            $editos = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findBy(array('section' => 'Edito'));
+            $texteEncart = end($editos);
+        } else {
+            $texteEncart = null;
+        }
 
         if ($texteEncart == null) {
             $texteEncart = new texteEncart();
@@ -149,6 +154,8 @@ class AccueilController extends Controller {
             $em->persist($texteEncart);
             $em->flush();
         }
+
+        $newTexteEncart = new texteEncart();
 
         $formBuilder = $this->get('form.factory')->createBuilder('form', $texteEncart);
 
@@ -166,8 +173,12 @@ class AccueilController extends Controller {
         if ($form->isValid()) {
             // On l'enregistre notre objet $advert dans la base de données, par exemple
 
-            $em->persist($texteEncart);
-            $em->flush();
+            if ($texteEncart !== $form['text']->getData()) {
+                $newTexteEncart->setSection('Edito');
+                $newTexteEncart->setText($form['text']->getData());
+                $em->persist($newTexteEncart);
+                $em->flush();
+            }
 
             // On redirige vers la page de visualisation de l'annonce nouvellement créée
             return $this->redirectToRoute('nox_intranet_accueil');
@@ -200,9 +211,14 @@ class AccueilController extends Controller {
 
         $majRH = $this->getPDF('C:/wamp/www/Symfony/web/uploads/RH/');
 
+        $annoncesPoste = $em->getRepository('NoxIntranetAccueilBundle:Annonces')->findByCategorie('Poste à pourvoir');
+
+        $annoncesNomination = $em->getRepository('NoxIntranetAccueilBundle:Annonces')->findByCategorie('Nomination / organisation');
+
         return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('texte' => $texte, 'formulaire' => $form->createView(),
                     'majExterne' => $majExterne, 'majInterne' => $majInterne, 'majMarketing' => $majMarketing, 'majSI' => $majSI,
-                    'majAQ' => $majAQ, 'majRH' => $majRH, 'nombreVues' => $compteurVue->getVue()));
+                    'majAQ' => $majAQ, 'majRH' => $majRH, 'posteAPourvoir' => $annoncesPoste,
+                    'nominationOrganisation' => $annoncesNomination, 'nombreVues' => $compteurVue->getVue()));
     }
 
     public function getPDF($chemin) {

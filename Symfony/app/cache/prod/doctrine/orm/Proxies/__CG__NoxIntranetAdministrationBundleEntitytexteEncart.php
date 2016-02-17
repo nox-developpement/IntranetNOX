@@ -64,10 +64,10 @@ class texteEncart extends \NoxIntranet\AdministrationBundle\Entity\texteEncart i
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'text', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'section'];
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'text', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'section', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'date'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'text', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'section'];
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'text', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'section', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\texteEncart' . "\0" . 'date'];
     }
 
     /**
@@ -230,6 +230,28 @@ class texteEncart extends \NoxIntranet\AdministrationBundle\Entity\texteEncart i
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSection', []);
 
         return parent::getSection();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setDate($date)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDate', [$date]);
+
+        return parent::setDate($date);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDate()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDate', []);
+
+        return parent::getDate();
     }
 
 }

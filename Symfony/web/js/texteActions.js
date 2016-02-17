@@ -1,7 +1,7 @@
 
 $('#formulaireTexte').hide();
 $('#formulaireTexte #form_modifier').hide();
-$('#formulaireTexte').prev().css('display','inline-block');
+$('#formulaireTexte').prev().css('display', 'inline-block');
 
 $(document).ready(function () {
     var edit = false;
@@ -13,15 +13,15 @@ $(document).ready(function () {
 
         } else {
             edit = true;
-            $('.zoneEdition').css('height','65%');
-            $('.zoneEditionAccueil').css('height','65%');
+            $('.zoneEdition').css('height', '65%');
+            $('.zoneEditionAccueil').css('height', '65%');
             $('#cke_1_contents').css('height', $('.zoneEdition').height());
             $('#cke_1_contents').css('height', $('.zoneEditionAccueil').height());
             $('.textEncart').text($('.zoneTexte').text());
             $('.zoneTexte').text('');
             $('.zoneTexteAccueil').text('');
-            $('.zoneTexte').css('border','none');
-            $('.zoneTexteAccueil').css('border','none');
+            $('.zoneTexte').css('border', 'none');
+            $('.zoneTexteAccueil').css('border', 'none');
             $('#texteEditButton').text('Sauvegarder');
             $('#formulaireTexte').toggle();
         }

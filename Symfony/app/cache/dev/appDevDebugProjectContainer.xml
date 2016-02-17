@@ -271,6 +271,9 @@
       <parameter key="ROLE_PROCEDURES" type="collection">
         <parameter>ROLE_USER</parameter>
       </parameter>
+      <parameter key="ROLE_RH" type="collection">
+        <parameter>ROLE_USER</parameter>
+      </parameter>
       <parameter key="ROLE_ADMIN" type="collection">
         <parameter>ROLE_USER</parameter>
         <parameter>ROLE_PROCEDURES</parameter>
@@ -282,6 +285,7 @@
         <parameter>ROLE_CHSCT</parameter>
         <parameter>ROLE_QUALITE</parameter>
         <parameter>ROLE_FAQ</parameter>
+        <parameter>ROLE_RH</parameter>
       </parameter>
       <parameter key="ROLE_SUPER_ADMIN" type="collection">
         <parameter>ROLE_ADMIN</parameter>
@@ -9469,7 +9473,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>56c347a67ed416.95144897</argument>
+            <argument>56c433829fd7f1.85341974</argument>
           </service>
         </argument>
       </argument>
@@ -9547,6 +9551,9 @@
         <argument key="ROLE_PROCEDURES" type="collection">
           <argument>ROLE_USER</argument>
         </argument>
+        <argument key="ROLE_RH" type="collection">
+          <argument>ROLE_USER</argument>
+        </argument>
         <argument key="ROLE_ADMIN" type="collection">
           <argument>ROLE_USER</argument>
           <argument>ROLE_PROCEDURES</argument>
@@ -9558,6 +9565,7 @@
           <argument>ROLE_CHSCT</argument>
           <argument>ROLE_QUALITE</argument>
           <argument>ROLE_FAQ</argument>
+          <argument>ROLE_RH</argument>
         </argument>
         <argument key="ROLE_SUPER_ADMIN" type="collection">
           <argument>ROLE_ADMIN</argument>
@@ -9966,7 +9974,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>56c347a67ed416.95144897</argument>
+            <argument>56c433829fd7f1.85341974</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>

@@ -116,6 +116,7 @@
   'NoxIntranetSupportBundle:Ticket:newticket.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\SupportBundle/Resources/views/Ticket/newticket.html.twig',
   'NoxIntranetSupportBundle:Ticket:ticket.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\SupportBundle/Resources/views/Ticket/ticket.html.twig',
   'NoxIntranetAccueilBundle:Accueil:accueil.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\AccueilBundle/Resources/views/Accueil/accueil.html.twig',
+  'NoxIntranetAccueilBundle:EditionAnnonces:editionAnnonces.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\AccueilBundle/Resources/views/EditionAnnonces/editionAnnonces.html.twig',
   'NoxIntranetRessourcesBundle:Accueil:accueilRessources.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/Accueil/accueilRessources.html.twig',
   'NoxIntranetRessourcesBundle:AQ:affichageContenu.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/AQ/affichageContenu.html.twig',
   'NoxIntranetRessourcesBundle:AQ:AQ.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/AQ/AQ.html.twig',

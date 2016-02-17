@@ -4,35 +4,30 @@
 
 {% block messageAccueil %}Administration assistant d'affaires{% endblock %}
 
+{% block sousMessageAccueil %}{{ filename }}{% endblock %}
+
 {% block contenu %}
 
     <div id='tableauExcel'>
+
+        <p> <button> Annuler </button> <button onclick="exctractionTableau();"> Sauvegarder </button> </p>
 
         <table>
             <tr>
                 <th></th>
                     {% for i in 'a'|upper..sheet.getHighestColumn %}
+                    <th style='font-weight: bold'>{{ i }}</th>
+                    {% endfor %}
 
-                    <th style='font-weight: bold'>
-                        {{ i }}
-                    </th>
-                {% endfor %}
-
-                <td style='font-weight: bold' id="ajoutColonne">
-                    +
-                </td>
+                <th style='font-weight: bold' class="ajoutColonne">+</th>
             </tr>
 
             {% for row in sheet.getRowIterator %} 
                 <tr>
-                    <th style='font-weight: bold'>
-                        {{ loop.index }}
-                    </th>
+                    <th style='font-weight: bold'>{{ loop.index }}</th>
 
                     {% for cell in row.getCellIterator %}
-                        <td>
-                            {{ cell.getValue }}
-                        </td>
+                        <td>{{ cell.getValue }}</td>
                     {% endfor %}
 
                 </tr>
@@ -40,7 +35,7 @@
             {% endfor %}
 
             <tr>
-                <td style='font-weight: bold' id="ajoutLigne">+</td>
+                <th style='font-weight: bold' class="ajoutLigne">+</th>
             </tr>
 
         </table>

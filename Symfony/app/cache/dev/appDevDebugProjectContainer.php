@@ -2433,7 +2433,7 @@ class appDevDebugProjectContainer extends Container
         $ba = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $y, array(), $a);
         $ba->setOptions(array('login_path' => '/connexionRequise', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'));
 
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($x, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('security.user.provider.concrete.main')), 'main', $a, $c), 2 => $z, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, new \Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy('migrate'), $y, 'main', $aa, $ba, array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'csrf_token_id' => 'authenticate', 'post_only' => true), $a, $c, NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '56c347a67ed416.95144897', $a, $f), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $x, $f)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $y, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $y, '/connexionRequise', false), '/accesInterdit', NULL, $a, false));
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($x, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('security.user.provider.concrete.main')), 'main', $a, $c), 2 => $z, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, new \Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy('migrate'), $y, 'main', $aa, $ba, array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'csrf_token_id' => 'authenticate', 'post_only' => true), $a, $c, NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '56c433829fd7f1.85341974', $a, $f), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $x, $f)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $y, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $y, '/connexionRequise', false), '/accesInterdit', NULL, $a, false));
     }
 
     /**
@@ -3833,7 +3833,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_Authentication_ManagerService()
     {
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('security.user.provider.concrete.main'), $this->get('security.user_checker.main'), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('56c347a67ed416.95144897')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('security.user.provider.concrete.main'), $this->get('security.user_checker.main'), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('56c433829fd7f1.85341974')), true);
 
         $instance->setEventDispatcher($this->get('debug.event_dispatcher'));
 
@@ -3892,7 +3892,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_RoleHierarchyService()
     {
-        return $this->services['security.role_hierarchy'] = new \Symfony\Component\Security\Core\Role\RoleHierarchy(array('ROLE_USER' => array(), 'ROLE_REFERENCES' => array(0 => 'ROLE_USER'), 'ROLE_LIENS' => array(0 => 'ROLE_USER'), 'ROLE_FAQ' => array(0 => 'ROLE_USER'), 'ROLE_CE' => array(0 => 'ROLE_USER'), 'ROLE_CHSCT' => array(0 => 'ROLE_USER'), 'ROLE_QUALITE' => array(0 => 'ROLE_USER'), 'ROLE_COMPETENCES' => array(0 => 'ROLE_USER'), 'ROLE_COMMUNICATION' => array(0 => 'ROLE_USER'), 'ROLE_PROCEDURES' => array(0 => 'ROLE_USER'), 'ROLE_ADMIN' => array(0 => 'ROLE_USER', 1 => 'ROLE_PROCEDURES', 2 => 'ROLE_COMMUNICATION', 3 => 'ROLE_COMPETENCES', 4 => 'ROLE_REFERENCES', 5 => 'ROLE_LIENS', 6 => 'ROLE_CE', 7 => 'ROLE_CHSCT', 8 => 'ROLE_QUALITE', 9 => 'ROLE_FAQ'), 'ROLE_SUPER_ADMIN' => array(0 => 'ROLE_ADMIN', 1 => 'ROLE_ALLOWED_TO_SWITCH')));
+        return $this->services['security.role_hierarchy'] = new \Symfony\Component\Security\Core\Role\RoleHierarchy(array('ROLE_USER' => array(), 'ROLE_REFERENCES' => array(0 => 'ROLE_USER'), 'ROLE_LIENS' => array(0 => 'ROLE_USER'), 'ROLE_FAQ' => array(0 => 'ROLE_USER'), 'ROLE_CE' => array(0 => 'ROLE_USER'), 'ROLE_CHSCT' => array(0 => 'ROLE_USER'), 'ROLE_QUALITE' => array(0 => 'ROLE_USER'), 'ROLE_COMPETENCES' => array(0 => 'ROLE_USER'), 'ROLE_COMMUNICATION' => array(0 => 'ROLE_USER'), 'ROLE_PROCEDURES' => array(0 => 'ROLE_USER'), 'ROLE_RH' => array(0 => 'ROLE_USER'), 'ROLE_ADMIN' => array(0 => 'ROLE_USER', 1 => 'ROLE_PROCEDURES', 2 => 'ROLE_COMMUNICATION', 3 => 'ROLE_COMPETENCES', 4 => 'ROLE_REFERENCES', 5 => 'ROLE_LIENS', 6 => 'ROLE_CE', 7 => 'ROLE_CHSCT', 8 => 'ROLE_QUALITE', 9 => 'ROLE_FAQ', 10 => 'ROLE_RH'), 'ROLE_SUPER_ADMIN' => array(0 => 'ROLE_ADMIN', 1 => 'ROLE_ALLOWED_TO_SWITCH')));
     }
 
     /**
@@ -4291,6 +4291,9 @@ class appDevDebugProjectContainer extends Container
                 'ROLE_PROCEDURES' => array(
                     0 => 'ROLE_USER',
                 ),
+                'ROLE_RH' => array(
+                    0 => 'ROLE_USER',
+                ),
                 'ROLE_ADMIN' => array(
                     0 => 'ROLE_USER',
                     1 => 'ROLE_PROCEDURES',
@@ -4302,6 +4305,7 @@ class appDevDebugProjectContainer extends Container
                     7 => 'ROLE_CHSCT',
                     8 => 'ROLE_QUALITE',
                     9 => 'ROLE_FAQ',
+                    10 => 'ROLE_RH',
                 ),
                 'ROLE_SUPER_ADMIN' => array(
                     0 => 'ROLE_ADMIN',

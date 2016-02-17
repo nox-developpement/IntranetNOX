@@ -96,6 +96,7 @@ class AdministrationUsersController extends Controller {
         $roleCE = "";
         $roleCHSCT = "";
         $roleQualite = "";
+        $roleRH = "";
 
         if ($request->get('Admin') == 'Admin') {
             $roleAdmin = 'ROLE_ADMIN';
@@ -127,8 +128,11 @@ class AdministrationUsersController extends Controller {
         if ($request->get('Qualite') == 'Qualite') {
             $roleQualite = 'ROLE_QUALITE';
         }
+        if ($request->get('RH') == 'RH') {
+            $roleQualite = 'ROLE_RH';
+        }
 
-        $user->setRoles(array($roleAdmin, $roleReference, $roleCompetences, $roleProcedures, $roleNews, $roleFAQ, $roleLiens, $roleCE, $roleCHSCT, $roleQualite, 'ROLE_USER'));
+        $user->setRoles(array($roleAdmin, $roleReference, $roleCompetences, $roleProcedures, $roleNews, $roleFAQ, $roleLiens, $roleCE, $roleCHSCT, $roleQualite, $roleRH, 'ROLE_USER'));
         $em->flush();
 
         $request->getSession()->getFlashBag()->add('notice', "Le rôle de l'utilisateur a bien été modifié.");

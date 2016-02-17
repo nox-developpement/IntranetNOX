@@ -393,7 +393,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         // nox_intranet_edition_annonces
-        if (0 === strpos($pathinfo, '/accueil/edition-annonces') && preg_match('#^/accueil/edition\\-annonces/(?P<categorie>[^/]++)$#s', $pathinfo, $matches)) {
+        if (0 === strpos($pathinfo, '/accueil/edition-annonces') && preg_match('#^/accueil/edition\\-annonces/(?P<categorie>.+)$#s', $pathinfo, $matches)) {
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_edition_annonces')), array (  '_controller' => 'NoxIntranet\\AccueilBundle\\Controller\\AccueilController::setAnnoncesAction',));
         }
 

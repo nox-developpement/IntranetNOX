@@ -24,32 +24,32 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_54f5749e740055635d69ca079530b2ba7022b8e41a0296e4a9b3c44400e8b3a1 = $this->env->getExtension("native_profiler");
-        $__internal_54f5749e740055635d69ca079530b2ba7022b8e41a0296e4a9b3c44400e8b3a1->enter($__internal_54f5749e740055635d69ca079530b2ba7022b8e41a0296e4a9b3c44400e8b3a1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAccueilBundle:Accueil:accueil.html.twig"));
+        $__internal_127e977c7536aab97cbbecc140daef072bb59422250f3b86b7f50ce791c509c9 = $this->env->getExtension("native_profiler");
+        $__internal_127e977c7536aab97cbbecc140daef072bb59422250f3b86b7f50ce791c509c9->enter($__internal_127e977c7536aab97cbbecc140daef072bb59422250f3b86b7f50ce791c509c9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAccueilBundle:Accueil:accueil.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_54f5749e740055635d69ca079530b2ba7022b8e41a0296e4a9b3c44400e8b3a1->leave($__internal_54f5749e740055635d69ca079530b2ba7022b8e41a0296e4a9b3c44400e8b3a1_prof);
+        $__internal_127e977c7536aab97cbbecc140daef072bb59422250f3b86b7f50ce791c509c9->leave($__internal_127e977c7536aab97cbbecc140daef072bb59422250f3b86b7f50ce791c509c9_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_33217ee5756c07953db0177c8cc73951d206661d55309882b71b7f3c698b2398 = $this->env->getExtension("native_profiler");
-        $__internal_33217ee5756c07953db0177c8cc73951d206661d55309882b71b7f3c698b2398->enter($__internal_33217ee5756c07953db0177c8cc73951d206661d55309882b71b7f3c698b2398_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_2f8dccc7f859226ca34b1791084495e03f66c5d5167a2e240322bda14e66c10a = $this->env->getExtension("native_profiler");
+        $__internal_2f8dccc7f859226ca34b1791084495e03f66c5d5167a2e240322bda14e66c10a->enter($__internal_2f8dccc7f859226ca34b1791084495e03f66c5d5167a2e240322bda14e66c10a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Accueil ";
         
-        $__internal_33217ee5756c07953db0177c8cc73951d206661d55309882b71b7f3c698b2398->leave($__internal_33217ee5756c07953db0177c8cc73951d206661d55309882b71b7f3c698b2398_prof);
+        $__internal_2f8dccc7f859226ca34b1791084495e03f66c5d5167a2e240322bda14e66c10a->leave($__internal_2f8dccc7f859226ca34b1791084495e03f66c5d5167a2e240322bda14e66c10a_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_edc095091ddf05d9623eef036d8c58d8c0a3a6faf597b1102d978afb99fe20d1 = $this->env->getExtension("native_profiler");
-        $__internal_edc095091ddf05d9623eef036d8c58d8c0a3a6faf597b1102d978afb99fe20d1->enter($__internal_edc095091ddf05d9623eef036d8c58d8c0a3a6faf597b1102d978afb99fe20d1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_073afdec19186a03fdf5ae5ea3bed0dc038ca55c98d47f5303a6bd5b29f6259e = $this->env->getExtension("native_profiler");
+        $__internal_073afdec19186a03fdf5ae5ea3bed0dc038ca55c98d47f5303a6bd5b29f6259e->enter($__internal_073afdec19186a03fdf5ae5ea3bed0dc038ca55c98d47f5303a6bd5b29f6259e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Bienvenue ";
         if (($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()) != null)) {
@@ -60,15 +60,15 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             echo " ";
         }
         
-        $__internal_edc095091ddf05d9623eef036d8c58d8c0a3a6faf597b1102d978afb99fe20d1->leave($__internal_edc095091ddf05d9623eef036d8c58d8c0a3a6faf597b1102d978afb99fe20d1_prof);
+        $__internal_073afdec19186a03fdf5ae5ea3bed0dc038ca55c98d47f5303a6bd5b29f6259e->leave($__internal_073afdec19186a03fdf5ae5ea3bed0dc038ca55c98d47f5303a6bd5b29f6259e_prof);
 
     }
 
     // line 6
     public function block_sousMessageAccueil($context, array $blocks = array())
     {
-        $__internal_ba2939bd0dd11529ad91f791aebf21d18de80847ee5071d31fe9262a2989ae87 = $this->env->getExtension("native_profiler");
-        $__internal_ba2939bd0dd11529ad91f791aebf21d18de80847ee5071d31fe9262a2989ae87->enter($__internal_ba2939bd0dd11529ad91f791aebf21d18de80847ee5071d31fe9262a2989ae87_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
+        $__internal_bfe39f3e5d1aa58865781f3e69a791b763b908fbf1130d2f5a42f27191fe9640 = $this->env->getExtension("native_profiler");
+        $__internal_bfe39f3e5d1aa58865781f3e69a791b763b908fbf1130d2f5a42f27191fe9640->enter($__internal_bfe39f3e5d1aa58865781f3e69a791b763b908fbf1130d2f5a42f27191fe9640_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
 
         echo "Nous sommes le ";
         echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_date_converter($this->env), "d/m/Y"), "html", null, true);
@@ -76,19 +76,19 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
         echo twig_escape_filter($this->env, (isset($context["nombreVues"]) ? $context["nombreVues"] : $this->getContext($context, "nombreVues")), "html", null, true);
         echo " fois.";
         
-        $__internal_ba2939bd0dd11529ad91f791aebf21d18de80847ee5071d31fe9262a2989ae87->leave($__internal_ba2939bd0dd11529ad91f791aebf21d18de80847ee5071d31fe9262a2989ae87_prof);
+        $__internal_bfe39f3e5d1aa58865781f3e69a791b763b908fbf1130d2f5a42f27191fe9640->leave($__internal_bfe39f3e5d1aa58865781f3e69a791b763b908fbf1130d2f5a42f27191fe9640_prof);
 
     }
 
     // line 8
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_850680d6ec832b5a77f82e8bedcb9a2af0b6220482b7d2bba441d1f030cf6793 = $this->env->getExtension("native_profiler");
-        $__internal_850680d6ec832b5a77f82e8bedcb9a2af0b6220482b7d2bba441d1f030cf6793->enter($__internal_850680d6ec832b5a77f82e8bedcb9a2af0b6220482b7d2bba441d1f030cf6793_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_7cbce066d71029b9b878d1915c98a39d132101b174c12bcbbbd1a36fecc5dbdb = $this->env->getExtension("native_profiler");
+        $__internal_7cbce066d71029b9b878d1915c98a39d132101b174c12bcbbbd1a36fecc5dbdb->enter($__internal_7cbce066d71029b9b878d1915c98a39d132101b174c12bcbbbd1a36fecc5dbdb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 9
         echo "
-
+    <!--
     ";
         // line 11
         if (array_key_exists("news", $context)) {
@@ -128,14 +128,14 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
                 echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "nom", array(), "array"), "html", null, true);
                 echo " </li>
 
-                    ";
+            ";
                 // line 28
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["new"], "proprietes", array(), "array"));
                 foreach ($context['_seq'] as $context["_key"] => $context["propriete"]) {
                     // line 29
                     echo "
-                        ";
+                ";
                     // line 30
                     if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Title")) {
                         echo " <li> Titre : ";
@@ -144,7 +144,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
                     }
                     // line 31
                     echo "
-                        ";
+                ";
                     // line 32
                     if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Author")) {
                         echo " <li> Auteur : ";
@@ -153,7 +153,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
                     }
                     // line 33
                     echo "
-                        ";
+                ";
                     // line 34
                     if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Subject")) {
                         echo " <li> Sujet : ";
@@ -162,7 +162,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
                     }
                     // line 35
                     echo "
-                        ";
+                ";
                     // line 36
                     if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Keywords")) {
                         echo " <li> Mots clés : ";
@@ -171,7 +171,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
                     }
                     // line 37
                     echo "
-                        ";
+                ";
                     // line 38
                     if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Pages")) {
                         echo " <li> Nombre de page(s) : ";
@@ -180,21 +180,21 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
                     }
                     // line 39
                     echo "
-                    ";
+            ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['propriete'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
                 // line 41
                 echo "
-                    <li> Posté le : ";
+            <li> Posté le : ";
                 // line 42
                 echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "dateEnvoi", array(), "array"), "html", null, true);
                 echo " </li>
 
-                </ul>
+        </ul>
 
-            </div>
+    </div>
 
         ";
             }
@@ -205,44 +205,45 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             echo "    ";
         }
         // line 50
-        echo "
+        echo "    -->
+
     <div class='zoneEditionAccueil'>
 
         ";
-        // line 53
+        // line 54
         if ($this->env->getExtension('security')->isGranted("ROLE_ADMIN")) {
-            // line 54
+            // line 55
             echo "
             <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
 
         ";
         }
-        // line 58
+        // line 59
         echo "
         ";
-        // line 59
+        // line 60
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formulaire"]) ? $context["formulaire"] : $this->getContext($context, "formulaire")), 'form_start', array("attr" => array("id" => "formulaireTexte")));
         echo "
 
         ";
-        // line 61
+        // line 62
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formulaire"]) ? $context["formulaire"] : $this->getContext($context, "formulaire")), 'errors');
         echo "
 
         ";
-        // line 64
+        // line 65
         echo "        ";
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formulaire"]) ? $context["formulaire"] : $this->getContext($context, "formulaire")), "text", array()), 'errors');
         echo "
 
         ";
-        // line 67
+        // line 68
         echo "        ";
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formulaire"]) ? $context["formulaire"] : $this->getContext($context, "formulaire")), "text", array()), 'widget', array("attr" => array("class" => "textField")));
         echo "
 
         ";
-        // line 69
+        // line 70
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formulaire"]) ? $context["formulaire"] : $this->getContext($context, "formulaire")), 'form_end');
         echo "
 
@@ -253,7 +254,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
         <p id='edito'> Edito </p>
         <div id='texteAccueil'>
             ";
-        // line 77
+        // line 78
         echo (isset($context["texte"]) ? $context["texte"] : $this->getContext($context, "texte"));
         echo "
         </div>
@@ -262,15 +263,15 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
     <div id=\"zoneNewsAccueil\">
 
         <script src=";
-        // line 83
+        // line 84
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/jquery-2.2.0.min.js"), "html", null, true);
         echo "></script>
 
         <!-- Affichage défilant mise à jours Externe -->
         ";
-        // line 86
+        // line 87
         if ((array_key_exists("majExterne", $context) && ((isset($context["majExterne"]) ? $context["majExterne"] : $this->getContext($context, "majExterne")) != null))) {
-            // line 87
+            // line 88
             echo "            <p class=\"maj\"> Mises à jour Externe </p>
 
             <div id='majExterne'>
@@ -282,11 +283,11 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
                 var newsExterne = new Array();
 
                 ";
-            // line 97
+            // line 98
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majExterne"]) ? $context["majExterne"] : $this->getContext($context, "majExterne")));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 98
+                // line 99
                 echo "                    newsExterne.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -301,7 +302,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 100
+            // line 101
             echo "
                     function showNews(arr) {
                         \$('#majExterne p').fadeTo(3000, 100);
@@ -324,14 +325,14 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             </script>
         ";
         }
-        // line 121
+        // line 122
         echo "        <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours Interne -->
         ";
-        // line 124
+        // line 125
         if ((array_key_exists("majInterne", $context) && ((isset($context["majInterne"]) ? $context["majInterne"] : $this->getContext($context, "majInterne")) != null))) {
-            // line 125
+            // line 126
             echo "            <p class=\"maj\"> Mises à jour Interne </p>
             <div id='majInterne'>
                 <p></p>
@@ -342,11 +343,11 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
                 var newsInterne = new Array();
 
                 ";
-            // line 134
+            // line 135
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majInterne"]) ? $context["majInterne"] : $this->getContext($context, "majInterne")));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 135
+                // line 136
                 echo "                    newsInterne.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -361,7 +362,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 137
+            // line 138
             echo "
                     function showNews(arr) {
                         \$('#majInterne p').fadeTo(3000, 100);
@@ -384,14 +385,14 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             </script>
         ";
         }
-        // line 158
+        // line 159
         echo "        <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours Marketing -->
         ";
-        // line 161
+        // line 162
         if ((array_key_exists("majMarketing", $context) && ((isset($context["majMarketing"]) ? $context["majMarketing"] : $this->getContext($context, "majMarketing")) != null))) {
-            // line 162
+            // line 163
             echo "            <p class=\"maj\"> Mises à jour Marketing </p>
             <div id='majMarketing'>
                 <p></p>
@@ -402,11 +403,11 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
                 var newsMarketing = new Array();
 
                 ";
-            // line 171
+            // line 172
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majMarketing"]) ? $context["majMarketing"] : $this->getContext($context, "majMarketing")));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 172
+                // line 173
                 echo "                    newsMarketing.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -421,7 +422,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 174
+            // line 175
             echo "
                     function showNews(arr) {
                         \$('#majMarketing p').fadeTo(3000, 100);
@@ -444,14 +445,14 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             </script>
         ";
         }
-        // line 195
+        // line 196
         echo "        <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours SI -->
         ";
-        // line 198
+        // line 199
         if ((array_key_exists("majSI", $context) && ((isset($context["majSI"]) ? $context["majSI"] : $this->getContext($context, "majSI")) != null))) {
-            // line 199
+            // line 200
             echo "            <p class=\"maj\"> Mises à jour SI </p>
             <div id='majSI'>
                 <p></p>
@@ -462,11 +463,11 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
                 var newsSI = new Array();
 
                 ";
-            // line 208
+            // line 209
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majSI"]) ? $context["majSI"] : $this->getContext($context, "majSI")));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 209
+                // line 210
                 echo "                    newsSI.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -481,7 +482,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 211
+            // line 212
             echo "
                     function showNews(arr) {
                         \$('#majSI p').fadeTo(3000, 100);
@@ -504,14 +505,14 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             </script>
         ";
         }
-        // line 232
+        // line 233
         echo "        <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours AQ -->
         ";
-        // line 235
+        // line 236
         if ((array_key_exists("majAQ", $context) && ((isset($context["majAQ"]) ? $context["majAQ"] : $this->getContext($context, "majAQ")) != null))) {
-            // line 236
+            // line 237
             echo "            <p class=\"maj\"> Mises à jour Assurance qualité </p>
             <div id='majAQ'>
                 <p></p>
@@ -522,11 +523,11 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
                 var newsAQ = new Array();
 
                 ";
-            // line 245
+            // line 246
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majAQ"]) ? $context["majAQ"] : $this->getContext($context, "majAQ")));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 246
+                // line 247
                 echo "                    newsAQ.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -541,7 +542,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 248
+            // line 249
             echo "
                     function showNews(arr) {
                         \$('#majAQ p').fadeTo(3000, 100);
@@ -564,14 +565,14 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             </script>
         ";
         }
-        // line 269
+        // line 270
         echo "        <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours Références -->
         ";
-        // line 272
+        // line 273
         if ((array_key_exists("majRH", $context) && ((isset($context["majRH"]) ? $context["majRH"] : $this->getContext($context, "majRH")) != null))) {
-            // line 273
+            // line 274
             echo "            <p class=\"maj\"> Mises à jour Références </p>
             <div id='majRH'>
                 <p></p>
@@ -582,11 +583,11 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
                 var newsRH = new Array();
 
                 ";
-            // line 282
+            // line 283
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majRH"]) ? $context["majRH"] : $this->getContext($context, "majRH")));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 283
+                // line 284
                 echo "                    newsRH.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -601,7 +602,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 285
+            // line 286
             echo "
                     function showNews(arr) {
                         \$('#majRH p').fadeTo(3000, 100);
@@ -624,44 +625,50 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             </script>
         ";
         }
-        // line 306
+        // line 307
         echo "        <!-------------------------------------------------->
-        
-        <!-- Affichage défilant Poste à pourvoir -->
-        ";
-        // line 309
-        if ((array_key_exists("posteAPourvoir", $context) && ((isset($context["posteAPourvoir"]) ? $context["posteAPourvoir"] : $this->getContext($context, "posteAPourvoir")) != null))) {
-            // line 310
-            echo "            <p class=\"maj\"> Mises à jour Références </p>
-            <div id='posteAPourvoir'>
-                <p></p>
-            </div>
 
-            <script type=\"text/javascript\">
+        <!-- Affichage défilant Poste à pourvoir -->
+
+        <p class=\"maj\"> Poste à pourvoir ";
+        // line 311
+        if ($this->env->getExtension('security')->isGranted("ROLE_RH")) {
+            echo " - <a class='editionAnnonces' href='";
+            echo $this->env->getExtension('routing')->getPath("nox_intranet_edition_annonces", array("categorie" => "Poste à pourvoir"));
+            echo "'> Editer </a>";
+        }
+        echo "</p>
+        <div id='posteAPourvoir'>
+            <p>";
+        // line 313
+        if ((array_key_exists("posteAPourvoir", $context) && ((isset($context["posteAPourvoir"]) ? $context["posteAPourvoir"] : $this->getContext($context, "posteAPourvoir")) == null))) {
+            echo "Pas de message pour le moment";
+        }
+        echo "</p>
+        </div>
+        ";
+        // line 315
+        if ((array_key_exists("posteAPourvoir", $context) && ((isset($context["posteAPourvoir"]) ? $context["posteAPourvoir"] : $this->getContext($context, "posteAPourvoir")) != null))) {
+            // line 316
+            echo "            <script type=\"text/javascript\">
 
                 var newsPosteAPourvoir = new Array();
 
                 ";
-            // line 319
+            // line 320
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["posteAPourvoir"]) ? $context["posteAPourvoir"] : $this->getContext($context, "posteAPourvoir")));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 320
-                echo "                    newsPosteAPourvoir.push(\"<span class='dateMaj'>";
-                echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
-                echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Lien", array()), "html", null, true);
-                echo "', '";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
-                echo "');\\\">";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
+                // line 321
+                echo "                    newsPosteAPourvoir.push(\"<a style='cursor: default'>";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Message", array()), "html", null, true);
                 echo "</a>\");
                 ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 322
+            // line 323
             echo "
                     function showNews(arr) {
                         \$('#posteAPourvoir p').fadeTo(3000, 100);
@@ -684,14 +691,80 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             </script>
         ";
         }
-        // line 343
+        // line 344
+        echo "        <!-------------------------------------------------->
+
+        <!-- Affichage défilant Poste à pourvoir -->
+
+        <p class=\"maj\"> Nomination / organisation ";
+        // line 348
+        if ($this->env->getExtension('security')->isGranted("ROLE_RH")) {
+            echo " - <a class='editionAnnonces' href='";
+            echo $this->env->getExtension('routing')->getPath("nox_intranet_edition_annonces", array("categorie" => "Nomination / organisation"));
+            echo "'> Editer </a>";
+        }
+        echo "</p>
+        <div id='nominationOrganisation'>
+            <p>";
+        // line 350
+        if ((array_key_exists("nominationOrganisation", $context) && ((isset($context["nominationOrganisation"]) ? $context["nominationOrganisation"] : $this->getContext($context, "nominationOrganisation")) == null))) {
+            echo "Pas de message pour le moment";
+        }
+        echo "</p>
+        </div>
+        ";
+        // line 352
+        if ((array_key_exists("nominationOrganisation", $context) && ((isset($context["nominationOrganisation"]) ? $context["nominationOrganisation"] : $this->getContext($context, "nominationOrganisation")) != null))) {
+            // line 353
+            echo "            <script type=\"text/javascript\">
+
+                var newsNominationOrganisation = new Array();
+
+                ";
+            // line 357
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable((isset($context["nominationOrganisation"]) ? $context["nominationOrganisation"] : $this->getContext($context, "nominationOrganisation")));
+            foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
+                // line 358
+                echo "                    newsNominationOrganisation.push(\"<a style='cursor: default'>";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Message", array()), "html", null, true);
+                echo "</a>\");
+                ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 360
+            echo "
+                    function showNews(arr) {
+                        \$('#nominationOrganisation p').fadeTo(3000, 100);
+                        \$('#nominationOrganisation p').html(arr[0]);
+                        \$('#nominationOrganisation p').fadeTo(3000, 0);
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    \$('#nominationOrganisation p').fadeTo(3000, 100);
+                                    \$('#nominationOrganisation p').html(arr[i]);
+                                    \$('#nominationOrganisation p').fadeTo(3000, 0);
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 6000);
+                    }
+
+                    showNews(newsNominationOrganisation);
+
+            </script>
+        ";
+        }
+        // line 381
         echo "        <!-------------------------------------------------->
 
     </div>
 
 ";
         
-        $__internal_850680d6ec832b5a77f82e8bedcb9a2af0b6220482b7d2bba441d1f030cf6793->leave($__internal_850680d6ec832b5a77f82e8bedcb9a2af0b6220482b7d2bba441d1f030cf6793_prof);
+        $__internal_7cbce066d71029b9b878d1915c98a39d132101b174c12bcbbbd1a36fecc5dbdb->leave($__internal_7cbce066d71029b9b878d1915c98a39d132101b174c12bcbbbd1a36fecc5dbdb_prof);
 
     }
 
@@ -707,7 +780,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 
     public function getDebugInfo()
     {
-        return array (  688 => 343,  665 => 322,  650 => 320,  646 => 319,  635 => 310,  633 => 309,  628 => 306,  605 => 285,  590 => 283,  586 => 282,  575 => 273,  573 => 272,  568 => 269,  545 => 248,  530 => 246,  526 => 245,  515 => 236,  513 => 235,  508 => 232,  485 => 211,  470 => 209,  466 => 208,  455 => 199,  453 => 198,  448 => 195,  425 => 174,  410 => 172,  406 => 171,  395 => 162,  393 => 161,  388 => 158,  365 => 137,  350 => 135,  346 => 134,  335 => 125,  333 => 124,  328 => 121,  305 => 100,  290 => 98,  286 => 97,  274 => 87,  272 => 86,  266 => 83,  257 => 77,  246 => 69,  240 => 67,  234 => 64,  229 => 61,  224 => 59,  221 => 58,  215 => 54,  213 => 53,  208 => 50,  205 => 49,  192 => 42,  189 => 41,  182 => 39,  176 => 38,  173 => 37,  167 => 36,  164 => 35,  158 => 34,  155 => 33,  149 => 32,  146 => 31,  140 => 30,  137 => 29,  133 => 28,  128 => 26,  119 => 20,  115 => 19,  111 => 18,  106 => 16,  101 => 13,  96 => 12,  94 => 11,  90 => 9,  84 => 8,  68 => 6,  49 => 5,  37 => 3,  11 => 1,);
+        return array (  761 => 381,  738 => 360,  729 => 358,  725 => 357,  719 => 353,  717 => 352,  710 => 350,  701 => 348,  695 => 344,  672 => 323,  663 => 321,  659 => 320,  653 => 316,  651 => 315,  644 => 313,  635 => 311,  629 => 307,  606 => 286,  591 => 284,  587 => 283,  576 => 274,  574 => 273,  569 => 270,  546 => 249,  531 => 247,  527 => 246,  516 => 237,  514 => 236,  509 => 233,  486 => 212,  471 => 210,  467 => 209,  456 => 200,  454 => 199,  449 => 196,  426 => 175,  411 => 173,  407 => 172,  396 => 163,  394 => 162,  389 => 159,  366 => 138,  351 => 136,  347 => 135,  336 => 126,  334 => 125,  329 => 122,  306 => 101,  291 => 99,  287 => 98,  275 => 88,  273 => 87,  267 => 84,  258 => 78,  247 => 70,  241 => 68,  235 => 65,  230 => 62,  225 => 60,  222 => 59,  216 => 55,  214 => 54,  208 => 50,  205 => 49,  192 => 42,  189 => 41,  182 => 39,  176 => 38,  173 => 37,  167 => 36,  164 => 35,  158 => 34,  155 => 33,  149 => 32,  146 => 31,  140 => 30,  137 => 29,  133 => 28,  128 => 26,  119 => 20,  115 => 19,  111 => 18,  106 => 16,  101 => 13,  96 => 12,  94 => 11,  90 => 9,  84 => 8,  68 => 6,  49 => 5,  37 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -719,7 +792,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 /* */
 /* {% block contenu %}*/
 /* */
-/* */
+/*     <!--*/
 /*     {% if news is defined %}*/
 /*         {% for new in news %}*/
 /* */
@@ -737,28 +810,29 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 /* */
 /*                     <li> Nom du fichier : {{ new['nom'] }} </li>*/
 /* */
-/*                     {% for propriete in new['proprietes'] %}*/
+/*             {% for propriete in new['proprietes'] %}*/
 /* */
-/*                         {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}*/
+/*                 {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}*/
 /* */
-/*                         {% if propriete['label'] == 'Author' %} <li> Auteur : {{ propriete['valeur'] }} </li> {% endif %}*/
+/*                 {% if propriete['label'] == 'Author' %} <li> Auteur : {{ propriete['valeur'] }} </li> {% endif %}*/
 /* */
-/*                         {% if propriete['label'] == 'Subject' %} <li> Sujet : {{ propriete['valeur'] }} </li> {% endif %}*/
+/*                 {% if propriete['label'] == 'Subject' %} <li> Sujet : {{ propriete['valeur'] }} </li> {% endif %}*/
 /* */
-/*                         {% if propriete['label'] == 'Keywords' %} <li> Mots clés : {{ propriete['valeur'] }} </li> {% endif %}*/
+/*                 {% if propriete['label'] == 'Keywords' %} <li> Mots clés : {{ propriete['valeur'] }} </li> {% endif %}*/
 /* */
-/*                         {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}*/
+/*                 {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}*/
 /* */
-/*                     {% endfor %}*/
+/*             {% endfor %}*/
 /* */
-/*                     <li> Posté le : {{ new['dateEnvoi'] }} </li>*/
+/*             <li> Posté le : {{ new['dateEnvoi'] }} </li>*/
 /* */
-/*                 </ul>*/
+/*         </ul>*/
 /* */
-/*             </div>*/
+/*     </div>*/
 /* */
 /*         {% endfor %}*/
 /*     {% endif %}*/
+/*     -->*/
 /* */
 /*     <div class='zoneEditionAccueil'>*/
 /* */
@@ -1016,20 +1090,20 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 /*             </script>*/
 /*         {% endif %}*/
 /*         <!-------------------------------------------------->*/
-/*         */
-/*         <!-- Affichage défilant Poste à pourvoir -->*/
-/*         {% if posteAPourvoir is defined and posteAPourvoir != null %}*/
-/*             <p class="maj"> Mises à jour Références </p>*/
-/*             <div id='posteAPourvoir'>*/
-/*                 <p></p>*/
-/*             </div>*/
 /* */
+/*         <!-- Affichage défilant Poste à pourvoir -->*/
+/* */
+/*         <p class="maj"> Poste à pourvoir {% if is_granted('ROLE_RH') %} - <a class='editionAnnonces' href='{{ path('nox_intranet_edition_annonces', { 'categorie': 'Poste à pourvoir' }) }}'> Editer </a>{% endif %}</p>*/
+/*         <div id='posteAPourvoir'>*/
+/*             <p>{% if posteAPourvoir is defined and posteAPourvoir == null %}Pas de message pour le moment{% endif %}</p>*/
+/*         </div>*/
+/*         {% if posteAPourvoir is defined and posteAPourvoir != null %}*/
 /*             <script type="text/javascript">*/
 /* */
 /*                 var newsPosteAPourvoir = new Array();*/
 /* */
 /*                 {% for maj in posteAPourvoir %}*/
-/*                     newsPosteAPourvoir.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");*/
+/*                     newsPosteAPourvoir.push("<a style='cursor: default'>{{ maj.Message }}</a>");*/
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/
@@ -1049,6 +1123,43 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 /*                     }*/
 /* */
 /*                     showNews(newsPosteAPourvoir);*/
+/* */
+/*             </script>*/
+/*         {% endif %}*/
+/*         <!-------------------------------------------------->*/
+/* */
+/*         <!-- Affichage défilant Poste à pourvoir -->*/
+/* */
+/*         <p class="maj"> Nomination / organisation {% if is_granted('ROLE_RH') %} - <a class='editionAnnonces' href='{{ path('nox_intranet_edition_annonces', { 'categorie': 'Nomination / organisation' }) }}'> Editer </a>{% endif %}</p>*/
+/*         <div id='nominationOrganisation'>*/
+/*             <p>{% if nominationOrganisation is defined and nominationOrganisation == null %}Pas de message pour le moment{% endif %}</p>*/
+/*         </div>*/
+/*         {% if nominationOrganisation is defined and nominationOrganisation != null %}*/
+/*             <script type="text/javascript">*/
+/* */
+/*                 var newsNominationOrganisation = new Array();*/
+/* */
+/*                 {% for maj in nominationOrganisation %}*/
+/*                     newsNominationOrganisation.push("<a style='cursor: default'>{{ maj.Message }}</a>");*/
+/*                 {% endfor %}*/
+/* */
+/*                     function showNews(arr) {*/
+/*                         $('#nominationOrganisation p').fadeTo(3000, 100);*/
+/*                         $('#nominationOrganisation p').html(arr[0]);*/
+/*                         $('#nominationOrganisation p').fadeTo(3000, 0);*/
+/*                         var i = 1;*/
+/*                         setInterval(*/
+/*                                 function () {*/
+/*                                     $('#nominationOrganisation p').fadeTo(3000, 100);*/
+/*                                     $('#nominationOrganisation p').html(arr[i]);*/
+/*                                     $('#nominationOrganisation p').fadeTo(3000, 0);*/
+/*                                     i++;*/
+/*                                     if (i >= arr.length)*/
+/*                                         i = 0;*/
+/*                                 }, 6000);*/
+/*                     }*/
+/* */
+/*                     showNews(newsNominationOrganisation);*/
 /* */
 /*             </script>*/
 /*         {% endif %}*/

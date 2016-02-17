@@ -188,7 +188,7 @@ class AdministrationAffairesController extends Controller {
 //        }
 //        echo '</table>';
 
-        return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig', array('sheet' => $sheet));
+        return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig', array('sheet' => $sheet, 'filename' => $filename));
     }
 
 }

@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="NoxIntranet\AdministrationBundle\Entity\texteEncartRepository")
  */
-class texteEncart
-{
+class texteEncart {
+
     /**
      * @var integer
      *
@@ -27,7 +27,7 @@ class texteEncart
      * @ORM\Column(name="text", type="text", nullable=true)
      */
     private $text;
-    
+
     /**
      * @var string
      *
@@ -36,12 +36,18 @@ class texteEncart
     private $section;
 
     /**
+     * @var date
+     *
+     * @ORM\Column(name="date", type="date", nullable=true)
+     */
+    private $date;
+
+    /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -52,8 +58,7 @@ class texteEncart
      *
      * @return texteEncart
      */
-    public function setText($text)
-    {
+    public function setText($text) {
         $this->text = $text;
 
         return $this;
@@ -64,8 +69,7 @@ class texteEncart
      *
      * @return string
      */
-    public function getText()
-    {
+    public function getText() {
         return $this->text;
     }
 
@@ -76,8 +80,7 @@ class texteEncart
      *
      * @return texteEncart
      */
-    public function setSection($section)
-    {
+    public function setSection($section) {
         $this->section = $section;
 
         return $this;
@@ -88,12 +91,35 @@ class texteEncart
      *
      * @return string
      */
-    public function getSection()
-    {
+    public function getSection() {
         return $this->section;
     }
-    
+
     public function __construct() {
         $this->text = '<p></p>';
+        $this->date = new \DateTime();
     }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return texteEncart
+     */
+    public function setDate($date) {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate() {
+        return $this->date;
+    }
+
 }

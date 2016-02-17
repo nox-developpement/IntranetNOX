@@ -774,37 +774,42 @@ figcaption {
 }
 
 .admin, .admin:checked, .admin:hover {
-    color: red;
+    color: #8A0808;
     text-decoration: none;
 }
 
 .ce, .ce:checked, .ce:hover {
-    color: #005946;
+    color: #8A4B08;
     text-decoration: none;
 }
 
 .CHSCT, .CHSCT:checked, .CHSCT:hover {
-    color: #772233;
+    color: #868A08;
     text-decoration: none;
 }
 
 .references, .references:checked, .references:hover {
-    color: orange;
+    color: #4B088A;
+    text-decoration: none;
+}
+
+.RH, .RH:checked, .RH:hover {
+    color: #8A0886;
     text-decoration: none;
 }
 
 .competences, .competences:checked, .competences:hover {
-    color: purple;
+    color: #088A08;
     text-decoration: none;
 }
 
 .procedures, .procedures:checked, .procedures:hover {
-    color: blue;
+    color: #084B8A;
     text-decoration: none;
 }
 
 .communication, .communication:checked, .communication:hover {
-    color: green;
+    color: #4B8A08;
     text-decoration: none;
 
 }
@@ -816,23 +821,23 @@ figcaption {
 }
 
 .faq, .faq:checked, .faq:hover {
-    color:#0000FF;
+    color:#088A4B;
     text-decoration: none;
 }
 
 .liens2, .liens2:checked, .liens2:hover {
-    color:#ff0084;
+    color:#088A85;
     text-decoration: none;
 }
 
 
 .local, .local:checked, .local:hover {
-    color:#021C2D;
+    color:#8A084B;
     text-decoration: none;
 }
 
 .qualite, .qualite:checked, .qualite:hover {
-    color:#ffa07a;
+    color:#08088A;
     text-decoration: none;
 }
 
@@ -1808,13 +1813,13 @@ divAdministrationUtilisateur {
     font-size: 0.8vw;
 }
 
-#majExterne, #majInterne, #majMarketing, #majSI, #majAQ, #majRH {
+#majExterne, #majInterne, #majMarketing, #majSI, #majAQ, #majRH, #posteAPourvoir, #nominationOrganisation {
     width: 100%;
     border: black 1px solid;
     margin-bottom: 5%;
 }
 
-#majExterne p, #majInterne p, #majMarketing p, #majSI p, #majAQ p, #majRH p {
+#majExterne p, #majInterne p, #majMarketing p, #majSI p, #majAQ p, #majRH p, #posteAPourvoir p, #nominationOrganisation p {
     text-align: center;
     padding-left: 1%;
     padding-right: 1%;
@@ -1822,7 +1827,7 @@ divAdministrationUtilisateur {
 
 }
 
-#majExterne p a, #majInterne p a, #majMarketing p a, #majSI p a, #majAQ p a, #majRH p a {
+#majExterne p a, #majInterne p a, #majMarketing p a, #majSI p a, #majAQ p a, #majRH p a, #posteAPourvoir p a, #nominationOrganisation p a {
     text-decoration: none;
     color: #5882FA;
     cursor: pointer;
@@ -1830,6 +1835,16 @@ divAdministrationUtilisateur {
 
 .dateMaj {
     font-weight: bold;
+}
+
+.editionAnnonces, .editionAnnonces:visited {
+    color: #5882FA;
+    text-decoration: none;
+}
+
+.editionAnnonces:hover {
+    color: white;
+    text-decoration: none;
 }
 
 #edito {
@@ -1897,7 +1912,8 @@ divAdministrationUtilisateur {
 }
 
 #DivFormulaireAjoutProfil, #DivFormulaireSuppressionProfil, #DivCreationSuivi, #DivFormulaireParcourSuiviEnCours, 
-.DivAjoutFeuilleSuivi, .DivFormulaireAjoutFormulaire, .DivFormulaireSuppressionFormulaire, #DivFormulaireSelectionAgence {
+.DivAjoutFeuilleSuivi, .DivFormulaireAjoutFormulaire, .DivFormulaireSuppressionFormulaire, 
+#DivFormulaireSelectionAgence {
     margin: 0% 25% 0% 25%;
     margin-bottom: 2%;
     font-size: 0.8vw;
@@ -1913,7 +1929,8 @@ divAdministrationUtilisateur {
 
 .formulaireAdministrationAjoutProfil fieldset, .formulaireAdministrationSuppressionProfil fieldset, 
 .formulaireCreationSuivi fieldset, .formulaireParcourSuiviEnCours fieldset, .formulaireAjoutFeuilleSuivi fieldset, 
-.formulaireAjoutFormulaire fieldset, .formulaireAdministrationSuppressionFormulaire fieldset, .formulaireSelectionAgence fieldset {
+.formulaireAjoutFormulaire fieldset, .formulaireAdministrationSuppressionFormulaire fieldset, 
+.formulaireSelectionAgence fieldset {
     text-align: center;
     border-color: #021C2D;
     border-width: 1px;
@@ -1924,7 +1941,8 @@ divAdministrationUtilisateur {
 
 .formulaireAdministrationAjoutProfil fieldset legend, .formulaireAdministrationSuppressionProfil fieldset legend, 
 .formulaireCreationSuivi fieldset legend, .formulaireParcourSuiviEnCours fieldset legend, .formulaireAjoutFeuilleSuivi fieldset legend, 
-.formulaireAjoutFormulaire fieldset legend, .formulaireAdministrationSuppressionFormulaire fieldset legend, .formulaireSelectionAgence fieldset legend {
+.formulaireAjoutFormulaire fieldset legend, .formulaireAdministrationSuppressionFormulaire fieldset legend, 
+.formulaireSelectionAgence fieldset legend {
     color: #021C2D;
     background-color: white;
     border: solid 1px #021C2D;
@@ -2051,6 +2069,16 @@ divAdministrationUtilisateur {
 #tableauExcel {
     width: 70%;
     margin: auto;
+    overflow: auto;
+}
+
+#tableauExcel p {
+    text-align: right;
+    padding-right: 4.5%;
+}
+
+#tableauExcel p button {
+    font-size: 0.7vw;
 }
 
 #tableauExcel table {
@@ -2059,19 +2087,12 @@ divAdministrationUtilisateur {
     border-collapse: collapse;
     font-size: 0.8vw;
     word-wrap: break-word;
-}
-
-#ajoutColonne, #ajoutLigne {
-    background-color: #f1f1f1;
-    cursor: pointer;
-}
-
-#ajoutColonne:hover, #ajoutLigne:hover {
-    background-color: white;
+    border-spacing: 0px;
 }
 
 #tableauExcel table, #tableauExcel td {
     border: 1px solid black;
+    padding: 0px;
 }
 
 #tableauExcel th {
@@ -2082,5 +2103,106 @@ divAdministrationUtilisateur {
 
 #tableauExcel table tr td {
     background-color: white;
+    padding: 0px;
 }
 
+.ajoutColonne, .ajoutLigne {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.ajoutColonne:hover, .ajoutLigne:hover {
+    background-color: white;
+}
+
+#DivFormulaireSuppresionAnnonce {
+    width: 70%;
+    margin: auto;
+    font-size: 0.8vw;
+    height: 60%;
+}
+
+.formulaireSuppressionAnnonce {
+    padding: 0px;
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+.formulaireSuppressionAnnonce fieldset {
+    text-align: center;
+    border-color: #021C2D;
+    border-width: 1px;
+    background-color: rgba(246, 240, 154, 0.5);
+    width: 98%;
+    padding: 1%;
+    height: 100%;
+}
+
+.formulaireSuppressionAnnonce fieldset legend {
+    color: #021C2D;
+    background-color: white;
+    border: solid 1px #021C2D;
+    padding: 0% 0.5% 0% 0.5%;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.selectFormulaireSuppressionAnnonce {
+    word-wrap: break-word;
+    width: 100%;
+    overflow: auto;
+    height: 80%;
+    margin-bottom: 3%;
+}
+
+.selectFormulaireSuppressionAnnonce option {
+    padding: 1%;
+    font-size: 0.8vw;
+}
+
+.selectFormulaireSuppressionAnnonce option:nth-child(even) {
+    background-color: #CCC;
+}
+
+#DivFormulaireAjoutAnnonce {
+    width: 70%;
+    max-width: 70%;
+    margin: auto;
+    margin-top: 5%;
+    font-size: 0.8vw;
+}
+
+.formulaireAjoutAnnonce {
+    padding: 0px;
+    border: none;
+    width: 100%;
+    max-width: 100%;
+}
+
+.formulaireAjoutAnnonce fieldset {
+    text-align: center;
+    border-color: #021C2D;
+    border-width: 1px;
+    background-color: rgba(246, 240, 154, 0.5);
+    width: 98%;
+    max-width: 98%;
+    padding: 1%;
+}
+
+.formulaireAjoutAnnonce fieldset legend {
+    color: #021C2D;
+    background-color: white;
+    border: solid 1px #021C2D;
+    padding: 0% 0.5% 0% 0.5%;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.textFormulaireAjoutAnnonce {
+    width: 98%;
+    max-width: 98%;
+    resize: vertical;
+    font-size: 0.8vw;
+    margin-bottom: 3%;
+}

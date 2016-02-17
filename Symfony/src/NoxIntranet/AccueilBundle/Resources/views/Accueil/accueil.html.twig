@@ -7,7 +7,7 @@
 
 {% block contenu %}
 
-
+    <!--
     {% if news is defined %}
         {% for new in news %}
 
@@ -25,28 +25,29 @@
 
                     <li> Nom du fichier : {{ new['nom'] }} </li>
 
-                    {% for propriete in new['proprietes'] %}
+            {% for propriete in new['proprietes'] %}
 
-                        {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}
+                {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}
 
-                        {% if propriete['label'] == 'Author' %} <li> Auteur : {{ propriete['valeur'] }} </li> {% endif %}
+                {% if propriete['label'] == 'Author' %} <li> Auteur : {{ propriete['valeur'] }} </li> {% endif %}
 
-                        {% if propriete['label'] == 'Subject' %} <li> Sujet : {{ propriete['valeur'] }} </li> {% endif %}
+                {% if propriete['label'] == 'Subject' %} <li> Sujet : {{ propriete['valeur'] }} </li> {% endif %}
 
-                        {% if propriete['label'] == 'Keywords' %} <li> Mots clés : {{ propriete['valeur'] }} </li> {% endif %}
+                {% if propriete['label'] == 'Keywords' %} <li> Mots clés : {{ propriete['valeur'] }} </li> {% endif %}
 
-                        {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}
+                {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}
 
-                    {% endfor %}
+            {% endfor %}
 
-                    <li> Posté le : {{ new['dateEnvoi'] }} </li>
+            <li> Posté le : {{ new['dateEnvoi'] }} </li>
 
-                </ul>
+        </ul>
 
-            </div>
+    </div>
 
         {% endfor %}
     {% endif %}
+    -->
 
     <div class='zoneEditionAccueil'>
 
@@ -304,20 +305,20 @@
             </script>
         {% endif %}
         <!-------------------------------------------------->
-        
-        <!-- Affichage défilant Poste à pourvoir -->
-        {% if posteAPourvoir is defined and posteAPourvoir != null %}
-            <p class="maj"> Mises à jour Références </p>
-            <div id='posteAPourvoir'>
-                <p></p>
-            </div>
 
+        <!-- Affichage défilant Poste à pourvoir -->
+
+        <p class="maj"> Poste à pourvoir {% if is_granted('ROLE_RH') %} - <a class='editionAnnonces' href='{{ path('nox_intranet_edition_annonces', { 'categorie': 'Poste à pourvoir' }) }}'> Editer </a>{% endif %}</p>
+        <div id='posteAPourvoir'>
+            <p>{% if posteAPourvoir is defined and posteAPourvoir == null %}Pas de message pour le moment{% endif %}</p>
+        </div>
+        {% if posteAPourvoir is defined and posteAPourvoir != null %}
             <script type="text/javascript">
 
                 var newsPosteAPourvoir = new Array();
 
                 {% for maj in posteAPourvoir %}
-                    newsPosteAPourvoir.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
+                    newsPosteAPourvoir.push("<a style='cursor: default'>{{ maj.Message }}</a>");
                 {% endfor %}
 
                     function showNews(arr) {
@@ -341,20 +342,20 @@
             </script>
         {% endif %}
         <!-------------------------------------------------->
-        
-        <!-- Affichage défilant Poste à pourvoir -->
-        {% if nominationOrganisation is defined and nominationOrganisation != null %}
-            <p class="maj"> Mises à jour Références </p>
-            <div id='nominationOrganisation'>
-                <p></p>
-            </div>
 
+        <!-- Affichage défilant Poste à pourvoir -->
+
+        <p class="maj"> Nomination / organisation {% if is_granted('ROLE_RH') %} - <a class='editionAnnonces' href='{{ path('nox_intranet_edition_annonces', { 'categorie': 'Nomination / organisation' }) }}'> Editer </a>{% endif %}</p>
+        <div id='nominationOrganisation'>
+            <p>{% if nominationOrganisation is defined and nominationOrganisation == null %}Pas de message pour le moment{% endif %}</p>
+        </div>
+        {% if nominationOrganisation is defined and nominationOrganisation != null %}
             <script type="text/javascript">
 
                 var newsNominationOrganisation = new Array();
 
                 {% for maj in nominationOrganisation %}
-                    newsNominationOrganisation.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
+                    newsNominationOrganisation.push("<a style='cursor: default'>{{ maj.Message }}</a>");
                 {% endfor %}
 
                     function showNews(arr) {
