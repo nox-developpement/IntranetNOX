@@ -4,13 +4,15 @@
 
 {% block messageAccueil %}Administration assistant d'affaires{% endblock %}
 
-{% block sousMessageAccueil %}{{ filename }}{% endblock %}
-
 {% block contenu %}
 
     <div id='tableauExcel'>
 
-        <p> <button> Annuler </button> <button onclick="exctractionTableau();"> Sauvegarder </button> </p>
+        <div>
+            <p>{{ filename }}</p>
+            <p> <button class="boutonFormulaire" onclick="location.reload();"> Annuler </button> <button class="boutonFormulaire" onclick="exctractionTableau();
+                    window.location.href = '{{ path('nox_intranet_administration_affaires_edition_sauvegarde', { 'filename': filename }) }}';"> Sauvegarder </button> </p>
+        </div>
 
         <table>
             <tr>

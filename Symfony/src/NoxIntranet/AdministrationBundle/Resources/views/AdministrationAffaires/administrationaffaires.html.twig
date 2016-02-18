@@ -61,13 +61,28 @@
         <h4> Feuilles de suivis : </h4>
     </div>
 
-    <div class='DivAjoutFeuilleSuivi'>
-        <form class='formulaireAjoutFeuilleSuivi'>
-            <fieldset>
-                <legend><span> Gestionnaire de feuilles de suivis </span></legend>
-                <p> <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/feuillesSuivis', 'Gestionnaire de fichiers - Feuilles de suivis');"> Ajout/Supression de feuilles de suivis </a> </p>
-            </fieldset>
-        </form>
+    <div class='DivFormulaireAjoutFichier'>
+
+        {{ form_start(formAjoutFichier, {'attr': {'class': 'formulaireAjoutFichier'}}) }}
+        {{ form_errors(formAjoutFichier) }}
+
+        <fieldset>
+
+            <legend><span>Ajouter un fichier</span></legend>
+
+            <p>
+                {{ form_errors(formAjoutFichier.file) }}
+                {{ form_widget(formAjoutFichier.file, {'attr': {'class': 'fileFormulaireAjoutFichier' }}) }}
+
+                {{ form_widget(formAjoutFichier._token) }} <br /><br />
+
+                {{ form_widget(formAjoutFichier.Ajouter, {'attr': {'class': 'submitFormulaireAjoutFichier', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(formAjoutFichier) }}
+
     </div>
 
 
@@ -99,30 +114,5 @@
         {{ form_end(formAjoutFormulaire) }}
 
     </div>
-
-    <!--
-    <div class='DivFormulaireSuppressionFormulaire'>
-
-    {{ form_start(formSuppressionFormulaire, {'attr': {'class': 'formulaireAdministrationSuppressionFormulaire'}}) }}
-    {{ form_errors(formSuppressionFormulaire) }}
-
-    <fieldset>
-
-        <legend><span>Supprimer un Champ</span></legend>
-
-    {{ form_label(formSuppressionFormulaire.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionFormulaire'}}) }}
-    {{ form_errors(formSuppressionFormulaire.Nom) }}
-    {{ form_widget(formSuppressionFormulaire.Nom, {'attr': {'class': 'selectFormulaireAdministrationSuppressionFormulaire'}}) }}
-
-    {{ form_widget(formSuppressionFormulaire._token) }}
-
-    {{ form_widget(formSuppressionFormulaire.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationSuppressionFormulaire', 'class': 'boutonFormulaire' }}) }}
-
-</fieldset> 
-
-    {{ form_end(formSuppressionFormulaire) }}
-
-</div>
-    -->
 
 {% endblock %}

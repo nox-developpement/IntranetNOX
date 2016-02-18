@@ -16,6 +16,7 @@ use Doctrine\ORM\EntityRepository;
 use NoxIntranet\AdministrationBundle\Entity\Formulaires;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
  * Description of AdministrationAffairesController
@@ -76,19 +77,23 @@ class AdministrationAffairesController extends Controller {
                 ->add('Editer', 'submit')
                 ->getForm();
 
-        $formulaireSuppression = new Formulaires();
-
-        $formSuppresionFormulaire = $this->get('form.factory')->createNamedBuilder('formSuppressionFormulaire', 'form', $formulaireSuppression)
-                ->add('Nom', EntityType::class, array(
-                    'class' => 'NoxIntranetAdministrationBundle:Formulaires',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                                ->orderBy('u.nom', 'ASC');
-                    },
-                    'choice_label' => 'Nom',
-                ))
-                ->add('Supprimer', 'submit')
+        $formAjoutFichier = $this->get('form.factory')->createNamedBuilder('formAjoutFichier', 'form')
+                ->add('file', FileType::class)
+                ->add('Ajouter', 'submit')
                 ->getForm();
+
+//        $formulaireSuppression = new Formulaires();
+//        $formSuppresionFormulaire = $this->get('form.factory')->createNamedBuilder('formSuppressionFormulaire', 'form', $formulaireSuppression)
+//                ->add('Nom', EntityType::class, array(
+//                    'class' => 'NoxIntranetAdministrationBundle:Formulaires',
+//                    'query_builder' => function (EntityRepository $er) {
+//                        return $er->createQueryBuilder('u')
+//                                ->orderBy('u.nom', 'ASC');
+//                    },
+//                    'choice_label' => 'Nom',
+//                ))
+//                ->add('Supprimer', 'submit')
+//                ->getForm();
 
         if ($request->request->has('formAjoutProfil')) {
 
@@ -125,6 +130,34 @@ class AdministrationAffairesController extends Controller {
             }
         }
 
+        if ($request->request->has('formAjoutFichier')) {
+
+            $formAjoutFichier->handleRequest($request);
+
+            if ($formAjoutFichier->isValid()) {
+
+                $dir = "C:\wamp\www\Symfony\web\uploads\AssistantAffaires\FeuillesSuivis\\";
+
+                $file = $formAjoutFichier['file']->getData();
+
+                $extension = $file->guessExtension();
+
+                if ($extension === 'xlsx') {
+                    $folderName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+
+                    $file->move($dir . $folderName, $file->getClientOriginalName());
+
+                    $request->getSession()->getFlashBag()->add('notice', 'Le fichier ' . $file->getClientOriginalName() . ' a été ajouté.');
+
+                    return $this->redirectToRoute('nox_intranet_administration_affaires');
+                }
+
+                $request->getSession()->getFlashBag()->add('noticeErreur', 'Le fichier doit être un fichier Excel (.xlsx) !');
+
+                return $this->redirectToRoute('nox_intranet_administration_affaires');
+            }
+        }
+
         if ($request->request->has('formAjoutFormulaire')) {
 
             $formAjoutFormulaire->handleRequest($request);
@@ -135,23 +168,8 @@ class AdministrationAffairesController extends Controller {
             }
         }
 
-        if ($request->request->has('formSuppressionFormulaire')) {
-
-            $formSuppresionFormulaire->handleRequest($request);
-
-            if ($formSuppresionFormulaire->isValid()) {
-
-                $em->remove($formSuppresionFormulaire['Nom']->getData());
-                $em->flush();
-
-                $request->getSession()->getFlashBag()->add('notice', 'Le formulaire ' . $formSuppresionFormulaire['Nom']->getData()->getNom() . ' a été supprimé.');
-
-                return $this->redirectToRoute('nox_intranet_administration_affaires');
-            }
-        }
-
         return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig', array('formAjoutProfil' => $formAjoutProfil->createView(), 'profils' => $profils, 'formSuppresionProfil' => $formSuppresionProfil->createView(),
-                    'formAjoutFormulaire' => $formAjoutFormulaire->createView(), 'formSuppressionFormulaire' => $formSuppresionFormulaire->createView()));
+                    'formAjoutFormulaire' => $formAjoutFormulaire->createView(), 'formAjoutFichier' => $formAjoutFichier->createView()));
     }
 
     public function administrationAffairesEditionAction($filename) {
@@ -164,31 +182,71 @@ class AdministrationAffairesController extends Controller {
         $objReader = new \PHPExcel_Reader_Excel2007();
         $objPHPExcel = $objReader->load($file);
 
-        /**
-         * récupération de la première feuille du fichier Excel
-         * @var PHPExcel_Worksheet $sheet
-         */
         $sheet = $objPHPExcel->getSheet(0);
 
-//        echo '<table border="1">';
-//
-//// On boucle sur les lignes
-//        foreach ($sheet->getRowIterator() as $row) {
-//
-//            echo '<tr>';
-//
-//            // On boucle sur les cellule de la ligne
-//            foreach ($row->getCellIterator() as $cell) {
-//                echo '<td>';
-//                print_r($cell->getValue());
-//                echo '</td>';
-//            }
-//
-//            echo '</tr>';
-//        }
-//        echo '</table>';
-
         return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig', array('sheet' => $sheet, 'filename' => $filename));
+    }
+
+    public function administrationAffaireSauvegardeModificationAction(Request $request, $filename) {
+
+        include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
+
+        $cookies = $request->cookies;
+
+        if ($cookies->get('editionCellules') == true) {
+
+
+            $cellules = json_decode($cookies->get('cellules'));
+
+
+            $workbook = new \PHPExcel;
+
+            $sheet = $workbook->getActiveSheet();
+//
+//            $response = new Response();
+//            $response->setStatusCode(Response::HTTP_OK);
+//            $response->headers->set('Content-Type', 'text/html');
+
+            foreach ($cellules as $cellule) {
+                if (array_key_exists(0, $cellule) && array_key_exists(1, $cellule) && array_key_exists(2, $cellule)) {
+                    $sheet->setCellValue($cellule[1] . $cellule[0], $cellule[2]);
+//                    $response->setContent($response->getContent() . " Coordonnes: " . $cellule[1] . $cellule[0] . " Valeur: " . $cellule[2]);
+                }
+            }
+
+            $writer = new \PHPExcel_Writer_Excel2007($workbook);
+
+            $version = null;
+
+            if (preg_match('/([_][v][0-9]+)/', $filename, $version)) {
+                preg_match('/([_][v][0-9]+)/', $filename, $version);
+
+                $versionNombre = null;
+                preg_match('/([0-9]+)/', $filename, $versionNombre);
+                $versionSauvegarde = $versionNombre[0] + 1;
+
+                $path = pathinfo($filename);
+                $fichier = preg_replace('/([0-9]+)/', $versionSauvegarde . ".xlsx", $path['filename']);
+            } else {
+                $path = pathinfo($filename);
+                $fichier = $path['filename'] . "_v1.xlsx";
+            }
+
+            $writer->save("C:\wamp\www\Symfony\web\uploads\AssistantAffaires\FeuillesSuivis\\" . $fichier);
+
+            $cookies->remove('editionCellules');
+            $cookies->remove('cellules');
+
+            $request->getSession()->getFlashBag()->add('notice', 'Le fichier à été sauvegardé sous le nom ' . $fichier);
+
+            return $this->redirectToRoute('nox_intranet_administration_affaires');
+
+//            return $response->send();
+        } else {
+            $request->getSession()->getFlashBag()->add('noticeErreur', 'Erreur lors de la sauvegarde !');
+
+            return $this->redirectToRoute('nox_intranet_administration_affaires_edition', array('filename' => $filename));
+        }
     }
 
 }

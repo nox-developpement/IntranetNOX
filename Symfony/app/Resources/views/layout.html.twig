@@ -40,6 +40,7 @@
         {% endif %}
 
         <link rel="icon" type="image/png" href="{{ asset('bundles/noxintranetcommunication/images/favicon.ico') }}" />
+        <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet">
         <style type="text/css">
             @font-face {
                 font-family: 'NoxFont'; 
@@ -52,7 +53,11 @@
 
         <header>
 
-            <div id ="bandeau">  
+            <div style="border: none; width: 15%; display:inline-block; text-align: center; vertical-align: middle;"> <a style="cursor: pointer;" onclick="$(function () {
+                        $('#dialog').dialog({width: 970, height: 600});
+                    });"> Plan du site <br /><img style="width: 10%;" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}"> </a> </div><!--
+
+            --><div id ="bandeau">  
                 {% if skin == 'normal' %}
                     <img src="{{ asset('bundles/noxintranetcommunication/images/bandeau.png') }}" id ="image_bandeau" alt="bandeau" onmousedown="return false;">
                 {% else %} 
@@ -63,6 +68,12 @@
             {{ include('NoxIntranetUserBundle:Security:ADlogin.html.twig') }}
 
         </header>
+
+        <div id="dialog" title="Plan du site" style="display: none;">
+
+            <img src="{{ asset('bundles/noxintranetaccueil/images/PlanIntranet.svg') }}">
+
+        </div>
 
         <div id="bar_menu">
 
@@ -94,7 +105,8 @@
                             {% endif %}
 
                             <input type="text" id="search_input" name="seach_input" placeholder="Rechercher sur Google">
-                            <button id="search" onclick="googleSearch(this);"> Rechercher </button>
+                            <button id="search" onclick="googleSearch(this)
+                                            ;"> Rechercher </button>
                         </form>
                     </li>
                 </ul>

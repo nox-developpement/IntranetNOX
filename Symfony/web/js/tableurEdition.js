@@ -79,6 +79,7 @@ function editionCellule() {
 function exctractionTableau() {
 
     var cellules = [[]];
+    var reWhiteSpace = new RegExp(/(\S)/);
 
     $('#tableauExcel table tr').each(function () {
         var coordonneLigne = $(this).find('th').text();
@@ -87,7 +88,7 @@ function exctractionTableau() {
             var valeur = $(this).text();
 
             if (coordonneLigne !== null && coordonneColonne !== null && valeur !== null) {
-                if (valeur !== '&nbsp;') {
+                if (reWhiteSpace.test(valeur)) {
                     cellules.push([coordonneLigne, coordonneColonne, valeur]);
                 }
             }
@@ -95,7 +96,6 @@ function exctractionTableau() {
         });
     });
 
-    Cookies.set('valeurs', JSON.stringify(cellules));
-
-    alert(Cookies.get('valeurs'));
+    Cookies.set('editionCellules', true);
+    Cookies.set('cellules', JSON.stringify(cellules));
 }

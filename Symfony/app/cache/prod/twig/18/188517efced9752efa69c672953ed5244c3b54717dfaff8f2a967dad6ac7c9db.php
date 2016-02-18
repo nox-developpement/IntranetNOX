@@ -12,7 +12,6 @@ class __TwigTemplate_6a1bc463501a190bba973765bfdc1e2662160a24c10d253c4bed96baea9
         $this->blocks = array(
             'titrePage' => array($this, 'block_titrePage'),
             'messageAccueil' => array($this, 'block_messageAccueil'),
-            'sousMessageAccueil' => array($this, 'block_sousMessageAccueil'),
             'contenu' => array($this, 'block_contenu'),
         );
     }
@@ -40,29 +39,33 @@ class __TwigTemplate_6a1bc463501a190bba973765bfdc1e2662160a24c10d253c4bed96baea9
     }
 
     // line 7
-    public function block_sousMessageAccueil($context, array $blocks = array())
-    {
-        echo twig_escape_filter($this->env, (isset($context["filename"]) ? $context["filename"] : null), "html", null, true);
-    }
-
-    // line 9
     public function block_contenu($context, array $blocks = array())
     {
-        // line 10
+        // line 8
         echo "
     <div id='tableauExcel'>
 
-        <p> <button> Annuler </button> <button onclick=\"exctractionTableau();\"> Sauvegarder </button> </p>
+        <div>
+            <p>";
+        // line 12
+        echo twig_escape_filter($this->env, (isset($context["filename"]) ? $context["filename"] : null), "html", null, true);
+        echo "</p>
+            <p> <button class=\"boutonFormulaire\" onclick=\"location.reload();\"> Annuler </button> <button class=\"boutonFormulaire\" onclick=\"exctractionTableau();
+                    window.location.href = '";
+        // line 14
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_affaires_edition_sauvegarde", array("filename" => (isset($context["filename"]) ? $context["filename"] : null))), "html", null, true);
+        echo "';\"> Sauvegarder </button> </p>
+        </div>
 
         <table>
             <tr>
                 <th></th>
                     ";
-        // line 18
+        // line 20
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable(range(twig_upper_filter($this->env, "a"), $this->getAttribute((isset($context["sheet"]) ? $context["sheet"] : null), "getHighestColumn", array())));
         foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-            // line 19
+            // line 21
             echo "                    <th style='font-weight: bold'>";
             echo twig_escape_filter($this->env, $context["i"], "html", null, true);
             echo "</th>
@@ -71,13 +74,13 @@ class __TwigTemplate_6a1bc463501a190bba973765bfdc1e2662160a24c10d253c4bed96baea9
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 21
+        // line 23
         echo "
                 <th style='font-weight: bold' class=\"ajoutColonne\">+</th>
             </tr>
 
             ";
-        // line 25
+        // line 27
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["sheet"]) ? $context["sheet"] : null), "getRowIterator", array()));
         $context['loop'] = array(
@@ -97,16 +100,16 @@ class __TwigTemplate_6a1bc463501a190bba973765bfdc1e2662160a24c10d253c4bed96baea9
             echo " 
                 <tr>
                     <th style='font-weight: bold'>";
-            // line 27
+            // line 29
             echo twig_escape_filter($this->env, $this->getAttribute($context["loop"], "index", array()), "html", null, true);
             echo "</th>
 
                     ";
-            // line 29
+            // line 31
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["row"], "getCellIterator", array()));
             foreach ($context['_seq'] as $context["_key"] => $context["cell"]) {
-                // line 30
+                // line 32
                 echo "                        <td>";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["cell"], "getValue", array()), "html", null, true);
                 echo "</td>
@@ -115,7 +118,7 @@ class __TwigTemplate_6a1bc463501a190bba973765bfdc1e2662160a24c10d253c4bed96baea9
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['cell'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 32
+            // line 34
             echo "
                 </tr>
 
@@ -132,7 +135,7 @@ class __TwigTemplate_6a1bc463501a190bba973765bfdc1e2662160a24c10d253c4bed96baea9
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['row'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 36
+        // line 38
         echo "
             <tr>
                 <th style='font-weight: bold' class=\"ajoutLigne\">+</th>
@@ -157,7 +160,7 @@ class __TwigTemplate_6a1bc463501a190bba973765bfdc1e2662160a24c10d253c4bed96baea9
 
     public function getDebugInfo()
     {
-        return array (  136 => 36,  119 => 32,  110 => 30,  106 => 29,  101 => 27,  81 => 25,  75 => 21,  66 => 19,  62 => 18,  52 => 10,  49 => 9,  43 => 7,  37 => 5,  31 => 3,  11 => 1,);
+        return array (  139 => 38,  122 => 34,  113 => 32,  109 => 31,  104 => 29,  84 => 27,  78 => 23,  69 => 21,  65 => 20,  56 => 14,  51 => 12,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -166,13 +169,15 @@ class __TwigTemplate_6a1bc463501a190bba973765bfdc1e2662160a24c10d253c4bed96baea9
 /* */
 /* {% block messageAccueil %}Administration assistant d'affaires{% endblock %}*/
 /* */
-/* {% block sousMessageAccueil %}{{ filename }}{% endblock %}*/
-/* */
 /* {% block contenu %}*/
 /* */
 /*     <div id='tableauExcel'>*/
 /* */
-/*         <p> <button> Annuler </button> <button onclick="exctractionTableau();"> Sauvegarder </button> </p>*/
+/*         <div>*/
+/*             <p>{{ filename }}</p>*/
+/*             <p> <button class="boutonFormulaire" onclick="location.reload();"> Annuler </button> <button class="boutonFormulaire" onclick="exctractionTableau();*/
+/*                     window.location.href = '{{ path('nox_intranet_administration_affaires_edition_sauvegarde', { 'filename': filename }) }}';"> Sauvegarder </button> </p>*/
+/*         </div>*/
 /* */
 /*         <table>*/
 /*             <tr>*/

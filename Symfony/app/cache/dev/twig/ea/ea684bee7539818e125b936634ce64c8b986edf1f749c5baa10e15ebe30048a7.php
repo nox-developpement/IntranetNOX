@@ -24,32 +24,32 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_127e977c7536aab97cbbecc140daef072bb59422250f3b86b7f50ce791c509c9 = $this->env->getExtension("native_profiler");
-        $__internal_127e977c7536aab97cbbecc140daef072bb59422250f3b86b7f50ce791c509c9->enter($__internal_127e977c7536aab97cbbecc140daef072bb59422250f3b86b7f50ce791c509c9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAccueilBundle:Accueil:accueil.html.twig"));
+        $__internal_58f50270053ab1e5bc61b7cb1ec73e148e5cba21a2bb5c606de4724bc75d42f9 = $this->env->getExtension("native_profiler");
+        $__internal_58f50270053ab1e5bc61b7cb1ec73e148e5cba21a2bb5c606de4724bc75d42f9->enter($__internal_58f50270053ab1e5bc61b7cb1ec73e148e5cba21a2bb5c606de4724bc75d42f9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAccueilBundle:Accueil:accueil.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_127e977c7536aab97cbbecc140daef072bb59422250f3b86b7f50ce791c509c9->leave($__internal_127e977c7536aab97cbbecc140daef072bb59422250f3b86b7f50ce791c509c9_prof);
+        $__internal_58f50270053ab1e5bc61b7cb1ec73e148e5cba21a2bb5c606de4724bc75d42f9->leave($__internal_58f50270053ab1e5bc61b7cb1ec73e148e5cba21a2bb5c606de4724bc75d42f9_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_2f8dccc7f859226ca34b1791084495e03f66c5d5167a2e240322bda14e66c10a = $this->env->getExtension("native_profiler");
-        $__internal_2f8dccc7f859226ca34b1791084495e03f66c5d5167a2e240322bda14e66c10a->enter($__internal_2f8dccc7f859226ca34b1791084495e03f66c5d5167a2e240322bda14e66c10a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_71966f999e82615699e47bc236d197ae57d7c08ebc8d6ce278dc667784aca5aa = $this->env->getExtension("native_profiler");
+        $__internal_71966f999e82615699e47bc236d197ae57d7c08ebc8d6ce278dc667784aca5aa->enter($__internal_71966f999e82615699e47bc236d197ae57d7c08ebc8d6ce278dc667784aca5aa_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Accueil ";
         
-        $__internal_2f8dccc7f859226ca34b1791084495e03f66c5d5167a2e240322bda14e66c10a->leave($__internal_2f8dccc7f859226ca34b1791084495e03f66c5d5167a2e240322bda14e66c10a_prof);
+        $__internal_71966f999e82615699e47bc236d197ae57d7c08ebc8d6ce278dc667784aca5aa->leave($__internal_71966f999e82615699e47bc236d197ae57d7c08ebc8d6ce278dc667784aca5aa_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_073afdec19186a03fdf5ae5ea3bed0dc038ca55c98d47f5303a6bd5b29f6259e = $this->env->getExtension("native_profiler");
-        $__internal_073afdec19186a03fdf5ae5ea3bed0dc038ca55c98d47f5303a6bd5b29f6259e->enter($__internal_073afdec19186a03fdf5ae5ea3bed0dc038ca55c98d47f5303a6bd5b29f6259e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_f7824fd0889cad44a43b7caad53f84eee120b48fe32a9d647241517143ee0632 = $this->env->getExtension("native_profiler");
+        $__internal_f7824fd0889cad44a43b7caad53f84eee120b48fe32a9d647241517143ee0632->enter($__internal_f7824fd0889cad44a43b7caad53f84eee120b48fe32a9d647241517143ee0632_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Bienvenue ";
         if (($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()) != null)) {
@@ -60,15 +60,15 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             echo " ";
         }
         
-        $__internal_073afdec19186a03fdf5ae5ea3bed0dc038ca55c98d47f5303a6bd5b29f6259e->leave($__internal_073afdec19186a03fdf5ae5ea3bed0dc038ca55c98d47f5303a6bd5b29f6259e_prof);
+        $__internal_f7824fd0889cad44a43b7caad53f84eee120b48fe32a9d647241517143ee0632->leave($__internal_f7824fd0889cad44a43b7caad53f84eee120b48fe32a9d647241517143ee0632_prof);
 
     }
 
     // line 6
     public function block_sousMessageAccueil($context, array $blocks = array())
     {
-        $__internal_bfe39f3e5d1aa58865781f3e69a791b763b908fbf1130d2f5a42f27191fe9640 = $this->env->getExtension("native_profiler");
-        $__internal_bfe39f3e5d1aa58865781f3e69a791b763b908fbf1130d2f5a42f27191fe9640->enter($__internal_bfe39f3e5d1aa58865781f3e69a791b763b908fbf1130d2f5a42f27191fe9640_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
+        $__internal_01c33ef9d69fad516b056a31ad45e083367c0a09c869507572ba72df4841bfb4 = $this->env->getExtension("native_profiler");
+        $__internal_01c33ef9d69fad516b056a31ad45e083367c0a09c869507572ba72df4841bfb4->enter($__internal_01c33ef9d69fad516b056a31ad45e083367c0a09c869507572ba72df4841bfb4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
 
         echo "Nous sommes le ";
         echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_date_converter($this->env), "d/m/Y"), "html", null, true);
@@ -76,15 +76,15 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
         echo twig_escape_filter($this->env, (isset($context["nombreVues"]) ? $context["nombreVues"] : $this->getContext($context, "nombreVues")), "html", null, true);
         echo " fois.";
         
-        $__internal_bfe39f3e5d1aa58865781f3e69a791b763b908fbf1130d2f5a42f27191fe9640->leave($__internal_bfe39f3e5d1aa58865781f3e69a791b763b908fbf1130d2f5a42f27191fe9640_prof);
+        $__internal_01c33ef9d69fad516b056a31ad45e083367c0a09c869507572ba72df4841bfb4->leave($__internal_01c33ef9d69fad516b056a31ad45e083367c0a09c869507572ba72df4841bfb4_prof);
 
     }
 
     // line 8
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_7cbce066d71029b9b878d1915c98a39d132101b174c12bcbbbd1a36fecc5dbdb = $this->env->getExtension("native_profiler");
-        $__internal_7cbce066d71029b9b878d1915c98a39d132101b174c12bcbbbd1a36fecc5dbdb->enter($__internal_7cbce066d71029b9b878d1915c98a39d132101b174c12bcbbbd1a36fecc5dbdb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_a4e5ccb803f0e3fd0e2f2d2b840eba7503f4008c098927f0eeb004fd0bcdb753 = $this->env->getExtension("native_profiler");
+        $__internal_a4e5ccb803f0e3fd0e2f2d2b840eba7503f4008c098927f0eeb004fd0bcdb753->enter($__internal_a4e5ccb803f0e3fd0e2f2d2b840eba7503f4008c098927f0eeb004fd0bcdb753_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 9
         echo "
@@ -700,7 +700,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
         // line 348
         if ($this->env->getExtension('security')->isGranted("ROLE_RH")) {
             echo " - <a class='editionAnnonces' href='";
-            echo $this->env->getExtension('routing')->getPath("nox_intranet_edition_annonces", array("categorie" => "Nomination / organisation"));
+            echo $this->env->getExtension('routing')->getPath("nox_intranet_edition_annonces", array("categorie" => "Nomination/organisation"));
             echo "'> Editer </a>";
         }
         echo "</p>
@@ -764,7 +764,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 
 ";
         
-        $__internal_7cbce066d71029b9b878d1915c98a39d132101b174c12bcbbbd1a36fecc5dbdb->leave($__internal_7cbce066d71029b9b878d1915c98a39d132101b174c12bcbbbd1a36fecc5dbdb_prof);
+        $__internal_a4e5ccb803f0e3fd0e2f2d2b840eba7503f4008c098927f0eeb004fd0bcdb753->leave($__internal_a4e5ccb803f0e3fd0e2f2d2b840eba7503f4008c098927f0eeb004fd0bcdb753_prof);
 
     }
 
@@ -1130,7 +1130,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 /* */
 /*         <!-- Affichage défilant Poste à pourvoir -->*/
 /* */
-/*         <p class="maj"> Nomination / organisation {% if is_granted('ROLE_RH') %} - <a class='editionAnnonces' href='{{ path('nox_intranet_edition_annonces', { 'categorie': 'Nomination / organisation' }) }}'> Editer </a>{% endif %}</p>*/
+/*         <p class="maj"> Nomination / organisation {% if is_granted('ROLE_RH') %} - <a class='editionAnnonces' href='{{ path('nox_intranet_edition_annonces', { 'categorie': 'Nomination/organisation' }) }}'> Editer </a>{% endif %}</p>*/
 /*         <div id='nominationOrganisation'>*/
 /*             <p>{% if nominationOrganisation is defined and nominationOrganisation == null %}Pas de message pour le moment{% endif %}</p>*/
 /*         </div>*/

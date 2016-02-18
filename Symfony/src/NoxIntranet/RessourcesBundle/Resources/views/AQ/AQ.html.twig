@@ -2,9 +2,29 @@
 
 {% block titrePage %} Assurance qualité {% endblock %}
 
-{% block messageAccueil %}Assurance qualité{% endblock %}
+{% block messageAccueil %}Assurance qualité<div><div style="float: right;"><p style="font-size: 0.8vw;" ><a style="text-decoration: none; display: inline-block; width: 110%;" href="mailto:g.toure@groupe-nox.com?subject=Demande d'informations 'Assurance qualité'"><span style="vertical-align:middle; margin-right: 3%; display: inline-block;">Contact</span><img style="vertical-align: middle; width: 25%;" src="{{ asset('bundles/noxintranetressources/images/Message-Mail-24.png') }}"></a></p></div></div>{% endblock %}
+
+
 
 {% block contenu %}
+
+    <div class="surMessageAcceuil" id='menuInfoQSE' onclick="showSubMenu2('#sousMenuInfoQSE', this);"> 
+        <h4> Infos QSE <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
+    </div>
+
+    <div id="sousMenuInfoQSE" class="menu">
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/EQUIPEQSE', 'dossier': 'Equipe QSE', 'config': 'equipeQSE' }) }}'> <h4> Equipe QSE </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_aq_citations') }}'> <h4> Citations </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/EVENEMENTS', 'dossier': 'Evénements', 'config': 'evenements' }) }}'> <h4> Evénements </h4> </a>
+        </div>
+    </div>
 
     <!-- Externe -->
     <div class="surMessageAcceuil" id='menuCertificatsISO' onclick="showSubMenu2('#sousMenuCertificatsISO', this);"> 
@@ -24,18 +44,6 @@
 
         <div class="sousMessageAcceuil"> 
             <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/OPQIBI', 'dossier': 'OPQIBI', 'config': 'OPQIBI' }) }}'> <h4> OPQIBI </h4> </a>
-        </div>
-
-        <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/EQUIPEQSE', 'dossier': 'Equipe QSE', 'config': 'equipeQSE' }) }}'> <h4> Equipe QSE </h4> </a>
-        </div>
-
-        <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_aq_citations') }}'> <h4> Citations </h4> </a>
-        </div>
-
-        <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/EVENEMENTS', 'dossier': 'Evénements', 'config': 'evenements' }) }}'> <h4> Evénements </h4> </a>
         </div>
 
     </div>
@@ -66,13 +74,7 @@
             <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'DOCUMENTQSE/INDICATEURS', 'dossier': 'Indicateurs', 'config': 'indicateurs' }) }}'> <h4> Indicateurs </h4> </a>
         </div>
 
-    </div>
-
-    <!--
-            <div class="surMessageAcceuil" id='menuInfoQSE' onclick="showSubMenu2('#sousMenuInfoQSE', this);"> 
-                <h4> Infos QSE <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
-            </div>
-    -->
+    </div> 
 
 {% endblock %}
 {# empty Twig template #}

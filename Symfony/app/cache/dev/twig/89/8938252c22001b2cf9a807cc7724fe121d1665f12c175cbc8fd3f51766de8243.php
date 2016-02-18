@@ -12,7 +12,6 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
         $this->blocks = array(
             'titrePage' => array($this, 'block_titrePage'),
             'messageAccueil' => array($this, 'block_messageAccueil'),
-            'sousMessageAccueil' => array($this, 'block_sousMessageAccueil'),
             'contenu' => array($this, 'block_contenu'),
         );
     }
@@ -24,72 +23,70 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_be0b12ab5fcc48075226e27af87e5fe48c76ab27259bab84932a323b9f748cdb = $this->env->getExtension("native_profiler");
-        $__internal_be0b12ab5fcc48075226e27af87e5fe48c76ab27259bab84932a323b9f748cdb->enter($__internal_be0b12ab5fcc48075226e27af87e5fe48c76ab27259bab84932a323b9f748cdb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig"));
+        $__internal_6e83eb895792e0aa5dda0188d567e9f81542a98a1c2fcf2b68a42f115b83c9a4 = $this->env->getExtension("native_profiler");
+        $__internal_6e83eb895792e0aa5dda0188d567e9f81542a98a1c2fcf2b68a42f115b83c9a4->enter($__internal_6e83eb895792e0aa5dda0188d567e9f81542a98a1c2fcf2b68a42f115b83c9a4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_be0b12ab5fcc48075226e27af87e5fe48c76ab27259bab84932a323b9f748cdb->leave($__internal_be0b12ab5fcc48075226e27af87e5fe48c76ab27259bab84932a323b9f748cdb_prof);
+        $__internal_6e83eb895792e0aa5dda0188d567e9f81542a98a1c2fcf2b68a42f115b83c9a4->leave($__internal_6e83eb895792e0aa5dda0188d567e9f81542a98a1c2fcf2b68a42f115b83c9a4_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_568cbd1200cc76f2cce2586e7357c315495f1aa593a520df297b197ab8a38e73 = $this->env->getExtension("native_profiler");
-        $__internal_568cbd1200cc76f2cce2586e7357c315495f1aa593a520df297b197ab8a38e73->enter($__internal_568cbd1200cc76f2cce2586e7357c315495f1aa593a520df297b197ab8a38e73_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_505df829068dad4bd5661441888073773d43882a4f3c80295ddaa8bfbf2779ad = $this->env->getExtension("native_profiler");
+        $__internal_505df829068dad4bd5661441888073773d43882a4f3c80295ddaa8bfbf2779ad->enter($__internal_505df829068dad4bd5661441888073773d43882a4f3c80295ddaa8bfbf2779ad_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Edition ";
         
-        $__internal_568cbd1200cc76f2cce2586e7357c315495f1aa593a520df297b197ab8a38e73->leave($__internal_568cbd1200cc76f2cce2586e7357c315495f1aa593a520df297b197ab8a38e73_prof);
+        $__internal_505df829068dad4bd5661441888073773d43882a4f3c80295ddaa8bfbf2779ad->leave($__internal_505df829068dad4bd5661441888073773d43882a4f3c80295ddaa8bfbf2779ad_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_56a75b88038d4dc705b3fb925c34d7656fe7f13a4f692fba2610898fa04a4dc1 = $this->env->getExtension("native_profiler");
-        $__internal_56a75b88038d4dc705b3fb925c34d7656fe7f13a4f692fba2610898fa04a4dc1->enter($__internal_56a75b88038d4dc705b3fb925c34d7656fe7f13a4f692fba2610898fa04a4dc1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_f6b99b6b4bec9b13143969d4b6e510a7ba1ab3d6a06c6d70e544496c72c49f86 = $this->env->getExtension("native_profiler");
+        $__internal_f6b99b6b4bec9b13143969d4b6e510a7ba1ab3d6a06c6d70e544496c72c49f86->enter($__internal_f6b99b6b4bec9b13143969d4b6e510a7ba1ab3d6a06c6d70e544496c72c49f86_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Administration assistant d'affaires";
         
-        $__internal_56a75b88038d4dc705b3fb925c34d7656fe7f13a4f692fba2610898fa04a4dc1->leave($__internal_56a75b88038d4dc705b3fb925c34d7656fe7f13a4f692fba2610898fa04a4dc1_prof);
+        $__internal_f6b99b6b4bec9b13143969d4b6e510a7ba1ab3d6a06c6d70e544496c72c49f86->leave($__internal_f6b99b6b4bec9b13143969d4b6e510a7ba1ab3d6a06c6d70e544496c72c49f86_prof);
 
     }
 
     // line 7
-    public function block_sousMessageAccueil($context, array $blocks = array())
-    {
-        $__internal_b4b706114b04644c70442cce208a5d8f38fe6022eafbf42c1244eb75edb7c07b = $this->env->getExtension("native_profiler");
-        $__internal_b4b706114b04644c70442cce208a5d8f38fe6022eafbf42c1244eb75edb7c07b->enter($__internal_b4b706114b04644c70442cce208a5d8f38fe6022eafbf42c1244eb75edb7c07b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
-
-        echo twig_escape_filter($this->env, (isset($context["filename"]) ? $context["filename"] : $this->getContext($context, "filename")), "html", null, true);
-        
-        $__internal_b4b706114b04644c70442cce208a5d8f38fe6022eafbf42c1244eb75edb7c07b->leave($__internal_b4b706114b04644c70442cce208a5d8f38fe6022eafbf42c1244eb75edb7c07b_prof);
-
-    }
-
-    // line 9
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_b3f87301605e09aa10fad4c54d8d9c2f7c3b99ea6de787ac4924d9a093e81633 = $this->env->getExtension("native_profiler");
-        $__internal_b3f87301605e09aa10fad4c54d8d9c2f7c3b99ea6de787ac4924d9a093e81633->enter($__internal_b3f87301605e09aa10fad4c54d8d9c2f7c3b99ea6de787ac4924d9a093e81633_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_dcb294b7a241ae7ccc0f9116787552d2a017c4bb61cc5591b63aabf02add609d = $this->env->getExtension("native_profiler");
+        $__internal_dcb294b7a241ae7ccc0f9116787552d2a017c4bb61cc5591b63aabf02add609d->enter($__internal_dcb294b7a241ae7ccc0f9116787552d2a017c4bb61cc5591b63aabf02add609d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
-        // line 10
+        // line 8
         echo "
     <div id='tableauExcel'>
 
-        <p> <button> Annuler </button> <button onclick=\"exctractionTableau();\"> Sauvegarder </button> </p>
+        <div>
+            <p>";
+        // line 12
+        echo twig_escape_filter($this->env, (isset($context["filename"]) ? $context["filename"] : $this->getContext($context, "filename")), "html", null, true);
+        echo "</p>
+            <p> <button class=\"boutonFormulaire\" onclick=\"location.reload();\"> Annuler </button> <button class=\"boutonFormulaire\" onclick=\"exctractionTableau();
+                    window.location.href = '";
+        // line 14
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_affaires_edition_sauvegarde", array("filename" => (isset($context["filename"]) ? $context["filename"] : $this->getContext($context, "filename")))), "html", null, true);
+        echo "';\"> Sauvegarder </button> </p>
+        </div>
 
         <table>
             <tr>
                 <th></th>
                     ";
-        // line 18
+        // line 20
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable(range(twig_upper_filter($this->env, "a"), $this->getAttribute((isset($context["sheet"]) ? $context["sheet"] : $this->getContext($context, "sheet")), "getHighestColumn", array())));
         foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-            // line 19
+            // line 21
             echo "                    <th style='font-weight: bold'>";
             echo twig_escape_filter($this->env, $context["i"], "html", null, true);
             echo "</th>
@@ -98,13 +95,13 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 21
+        // line 23
         echo "
                 <th style='font-weight: bold' class=\"ajoutColonne\">+</th>
             </tr>
 
             ";
-        // line 25
+        // line 27
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["sheet"]) ? $context["sheet"] : $this->getContext($context, "sheet")), "getRowIterator", array()));
         $context['loop'] = array(
@@ -124,16 +121,16 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
             echo " 
                 <tr>
                     <th style='font-weight: bold'>";
-            // line 27
+            // line 29
             echo twig_escape_filter($this->env, $this->getAttribute($context["loop"], "index", array()), "html", null, true);
             echo "</th>
 
                     ";
-            // line 29
+            // line 31
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["row"], "getCellIterator", array()));
             foreach ($context['_seq'] as $context["_key"] => $context["cell"]) {
-                // line 30
+                // line 32
                 echo "                        <td>";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["cell"], "getValue", array()), "html", null, true);
                 echo "</td>
@@ -142,7 +139,7 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['cell'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 32
+            // line 34
             echo "
                 </tr>
 
@@ -159,7 +156,7 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['row'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 36
+        // line 38
         echo "
             <tr>
                 <th style='font-weight: bold' class=\"ajoutLigne\">+</th>
@@ -171,7 +168,7 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
 
 ";
         
-        $__internal_b3f87301605e09aa10fad4c54d8d9c2f7c3b99ea6de787ac4924d9a093e81633->leave($__internal_b3f87301605e09aa10fad4c54d8d9c2f7c3b99ea6de787ac4924d9a093e81633_prof);
+        $__internal_dcb294b7a241ae7ccc0f9116787552d2a017c4bb61cc5591b63aabf02add609d->leave($__internal_dcb294b7a241ae7ccc0f9116787552d2a017c4bb61cc5591b63aabf02add609d_prof);
 
     }
 
@@ -187,7 +184,7 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
 
     public function getDebugInfo()
     {
-        return array (  163 => 36,  146 => 32,  137 => 30,  133 => 29,  128 => 27,  108 => 25,  102 => 21,  93 => 19,  89 => 18,  79 => 10,  73 => 9,  61 => 7,  49 => 5,  37 => 3,  11 => 1,);
+        return array (  160 => 38,  143 => 34,  134 => 32,  130 => 31,  125 => 29,  105 => 27,  99 => 23,  90 => 21,  86 => 20,  77 => 14,  72 => 12,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -196,13 +193,15 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
 /* */
 /* {% block messageAccueil %}Administration assistant d'affaires{% endblock %}*/
 /* */
-/* {% block sousMessageAccueil %}{{ filename }}{% endblock %}*/
-/* */
 /* {% block contenu %}*/
 /* */
 /*     <div id='tableauExcel'>*/
 /* */
-/*         <p> <button> Annuler </button> <button onclick="exctractionTableau();"> Sauvegarder </button> </p>*/
+/*         <div>*/
+/*             <p>{{ filename }}</p>*/
+/*             <p> <button class="boutonFormulaire" onclick="location.reload();"> Annuler </button> <button class="boutonFormulaire" onclick="exctractionTableau();*/
+/*                     window.location.href = '{{ path('nox_intranet_administration_affaires_edition_sauvegarde', { 'filename': filename }) }}';"> Sauvegarder </button> </p>*/
+/*         </div>*/
 /* */
 /*         <table>*/
 /*             <tr>*/

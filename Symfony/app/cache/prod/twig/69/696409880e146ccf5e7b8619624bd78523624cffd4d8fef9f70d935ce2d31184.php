@@ -673,7 +673,7 @@ class __TwigTemplate_823524504e555d9920e2e769c910ff4a85b104dec25e111fc3e3604c600
         // line 348
         if ($this->env->getExtension('security')->isGranted("ROLE_RH")) {
             echo " - <a class='editionAnnonces' href='";
-            echo $this->env->getExtension('routing')->getPath("nox_intranet_edition_annonces", array("categorie" => "Nomination / organisation"));
+            echo $this->env->getExtension('routing')->getPath("nox_intranet_edition_annonces", array("categorie" => "Nomination/organisation"));
             echo "'> Editer </a>";
         }
         echo "</p>
@@ -1100,7 +1100,7 @@ class __TwigTemplate_823524504e555d9920e2e769c910ff4a85b104dec25e111fc3e3604c600
 /* */
 /*         <!-- Affichage défilant Poste à pourvoir -->*/
 /* */
-/*         <p class="maj"> Nomination / organisation {% if is_granted('ROLE_RH') %} - <a class='editionAnnonces' href='{{ path('nox_intranet_edition_annonces', { 'categorie': 'Nomination / organisation' }) }}'> Editer </a>{% endif %}</p>*/
+/*         <p class="maj"> Nomination / organisation {% if is_granted('ROLE_RH') %} - <a class='editionAnnonces' href='{{ path('nox_intranet_edition_annonces', { 'categorie': 'Nomination/organisation' }) }}'> Editer </a>{% endif %}</p>*/
 /*         <div id='nominationOrganisation'>*/
 /*             <p>{% if nominationOrganisation is defined and nominationOrganisation == null %}Pas de message pour le moment{% endif %}</p>*/
 /*         </div>*/

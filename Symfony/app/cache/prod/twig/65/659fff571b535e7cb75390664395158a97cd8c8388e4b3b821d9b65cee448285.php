@@ -146,13 +146,49 @@ class __TwigTemplate_e9e08fcb9e0c24e3b997dd9ac0692a39f10cdd002d303037b9184b62641
         <h4> Feuilles de suivis : </h4>
     </div>
 
-    <div class='DivAjoutFeuilleSuivi'>
-        <form class='formulaireAjoutFeuilleSuivi'>
-            <fieldset>
-                <legend><span> Gestionnaire de feuilles de suivis </span></legend>
-                <p> <a onclick=\"openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/feuillesSuivis', 'Gestionnaire de fichiers - Feuilles de suivis');\"> Ajout/Supression de feuilles de suivis </a> </p>
-            </fieldset>
-        </form>
+    <div class='DivFormulaireAjoutFichier'>
+
+        ";
+        // line 66
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formAjoutFichier"]) ? $context["formAjoutFichier"] : null), 'form_start', array("attr" => array("class" => "formulaireAjoutFichier")));
+        echo "
+        ";
+        // line 67
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formAjoutFichier"]) ? $context["formAjoutFichier"] : null), 'errors');
+        echo "
+
+        <fieldset>
+
+            <legend><span>Ajouter un fichier</span></legend>
+
+            <p>
+                ";
+        // line 74
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutFichier"]) ? $context["formAjoutFichier"] : null), "file", array()), 'errors');
+        echo "
+                ";
+        // line 75
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutFichier"]) ? $context["formAjoutFichier"] : null), "file", array()), 'widget', array("attr" => array("class" => "fileFormulaireAjoutFichier")));
+        echo "
+
+                ";
+        // line 77
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutFichier"]) ? $context["formAjoutFichier"] : null), "_token", array()), 'widget');
+        echo " <br /><br />
+
+                ";
+        // line 79
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutFichier"]) ? $context["formAjoutFichier"] : null), "Ajouter", array()), 'widget', array("attr" => array("class" => "submitFormulaireAjoutFichier", "class" => "boutonFormulaire")));
+        echo "
+            </p>
+
+        </fieldset> 
+
+        ";
+        // line 84
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formAjoutFichier"]) ? $context["formAjoutFichier"] : null), 'form_end');
+        echo "
+
     </div>
 
 
@@ -163,11 +199,11 @@ class __TwigTemplate_e9e08fcb9e0c24e3b997dd9ac0692a39f10cdd002d303037b9184b62641
     <div class='DivFormulaireAjoutFormulaire'>
 
         ";
-        // line 80
+        // line 95
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : null), 'form_start', array("attr" => array("class" => "formulaireAjoutFormulaire")));
         echo "
         ";
-        // line 81
+        // line 96
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : null), 'errors');
         echo "
 
@@ -177,25 +213,25 @@ class __TwigTemplate_e9e08fcb9e0c24e3b997dd9ac0692a39f10cdd002d303037b9184b62641
 
             <p>
                 ";
-        // line 88
+        // line 103
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : null), "Type", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAjoutFormulaire"), "label" => "Fichier :"));
         echo "
                 ";
-        // line 89
+        // line 104
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : null), "Type", array()), 'errors');
         echo "
                 ";
-        // line 90
+        // line 105
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : null), "Type", array()), 'widget', array("attr" => array("class" => "selectFormulaireAjoutFormulaire")));
         echo "
 
                 ";
-        // line 92
+        // line 107
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : null), "_token", array()), 'widget');
         echo "
 
                 ";
-        // line 94
+        // line 109
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : null), "Editer", array()), 'widget', array("attr" => array("class" => "submitFormulaireAjoutFormulaire")));
         echo "
             </p>
@@ -203,60 +239,11 @@ class __TwigTemplate_e9e08fcb9e0c24e3b997dd9ac0692a39f10cdd002d303037b9184b62641
         </fieldset> 
 
         ";
-        // line 99
+        // line 114
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : null), 'form_end');
         echo "
 
     </div>
-
-    <!--
-    <div class='DivFormulaireSuppressionFormulaire'>
-
-    ";
-        // line 106
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSuppressionFormulaire"]) ? $context["formSuppressionFormulaire"] : null), 'form_start', array("attr" => array("class" => "formulaireAdministrationSuppressionFormulaire")));
-        echo "
-    ";
-        // line 107
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formSuppressionFormulaire"]) ? $context["formSuppressionFormulaire"] : null), 'errors');
-        echo "
-
-    <fieldset>
-
-        <legend><span>Supprimer un Champ</span></legend>
-
-    ";
-        // line 113
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSuppressionFormulaire"]) ? $context["formSuppressionFormulaire"] : null), "Nom", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAdministrationSuppressionFormulaire"), "label" => "Nom :"));
-        echo "
-    ";
-        // line 114
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSuppressionFormulaire"]) ? $context["formSuppressionFormulaire"] : null), "Nom", array()), 'errors');
-        echo "
-    ";
-        // line 115
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSuppressionFormulaire"]) ? $context["formSuppressionFormulaire"] : null), "Nom", array()), 'widget', array("attr" => array("class" => "selectFormulaireAdministrationSuppressionFormulaire")));
-        echo "
-
-    ";
-        // line 117
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSuppressionFormulaire"]) ? $context["formSuppressionFormulaire"] : null), "_token", array()), 'widget');
-        echo "
-
-    ";
-        // line 119
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSuppressionFormulaire"]) ? $context["formSuppressionFormulaire"] : null), "Supprimer", array()), 'widget', array("attr" => array("class" => "submitFormulaireAdministrationSuppressionFormulaire", "class" => "boutonFormulaire")));
-        echo "
-
-</fieldset> 
-
-    ";
-        // line 123
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSuppressionFormulaire"]) ? $context["formSuppressionFormulaire"] : null), 'form_end');
-        echo "
-
-</div>
-    -->
 
 ";
     }
@@ -273,7 +260,7 @@ class __TwigTemplate_e9e08fcb9e0c24e3b997dd9ac0692a39f10cdd002d303037b9184b62641
 
     public function getDebugInfo()
     {
-        return array (  255 => 123,  248 => 119,  243 => 117,  238 => 115,  234 => 114,  230 => 113,  221 => 107,  217 => 106,  207 => 99,  199 => 94,  194 => 92,  189 => 90,  185 => 89,  181 => 88,  171 => 81,  167 => 80,  139 => 55,  132 => 51,  127 => 49,  122 => 47,  118 => 46,  114 => 45,  105 => 39,  101 => 38,  92 => 32,  85 => 28,  80 => 26,  75 => 24,  71 => 23,  67 => 22,  58 => 16,  54 => 15,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  243 => 114,  235 => 109,  230 => 107,  225 => 105,  221 => 104,  217 => 103,  207 => 96,  203 => 95,  189 => 84,  181 => 79,  176 => 77,  171 => 75,  167 => 74,  157 => 67,  153 => 66,  139 => 55,  132 => 51,  127 => 49,  122 => 47,  118 => 46,  114 => 45,  105 => 39,  101 => 38,  92 => 32,  85 => 28,  80 => 26,  75 => 24,  71 => 23,  67 => 22,  58 => 16,  54 => 15,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -339,13 +326,28 @@ class __TwigTemplate_e9e08fcb9e0c24e3b997dd9ac0692a39f10cdd002d303037b9184b62641
 /*         <h4> Feuilles de suivis : </h4>*/
 /*     </div>*/
 /* */
-/*     <div class='DivAjoutFeuilleSuivi'>*/
-/*         <form class='formulaireAjoutFeuilleSuivi'>*/
-/*             <fieldset>*/
-/*                 <legend><span> Gestionnaire de feuilles de suivis </span></legend>*/
-/*                 <p> <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/feuillesSuivis', 'Gestionnaire de fichiers - Feuilles de suivis');"> Ajout/Supression de feuilles de suivis </a> </p>*/
-/*             </fieldset>*/
-/*         </form>*/
+/*     <div class='DivFormulaireAjoutFichier'>*/
+/* */
+/*         {{ form_start(formAjoutFichier, {'attr': {'class': 'formulaireAjoutFichier'}}) }}*/
+/*         {{ form_errors(formAjoutFichier) }}*/
+/* */
+/*         <fieldset>*/
+/* */
+/*             <legend><span>Ajouter un fichier</span></legend>*/
+/* */
+/*             <p>*/
+/*                 {{ form_errors(formAjoutFichier.file) }}*/
+/*                 {{ form_widget(formAjoutFichier.file, {'attr': {'class': 'fileFormulaireAjoutFichier' }}) }}*/
+/* */
+/*                 {{ form_widget(formAjoutFichier._token) }} <br /><br />*/
+/* */
+/*                 {{ form_widget(formAjoutFichier.Ajouter, {'attr': {'class': 'submitFormulaireAjoutFichier', 'class': 'boutonFormulaire' }}) }}*/
+/*             </p>*/
+/* */
+/*         </fieldset> */
+/* */
+/*         {{ form_end(formAjoutFichier) }}*/
+/* */
 /*     </div>*/
 /* */
 /* */
@@ -377,31 +379,6 @@ class __TwigTemplate_e9e08fcb9e0c24e3b997dd9ac0692a39f10cdd002d303037b9184b62641
 /*         {{ form_end(formAjoutFormulaire) }}*/
 /* */
 /*     </div>*/
-/* */
-/*     <!--*/
-/*     <div class='DivFormulaireSuppressionFormulaire'>*/
-/* */
-/*     {{ form_start(formSuppressionFormulaire, {'attr': {'class': 'formulaireAdministrationSuppressionFormulaire'}}) }}*/
-/*     {{ form_errors(formSuppressionFormulaire) }}*/
-/* */
-/*     <fieldset>*/
-/* */
-/*         <legend><span>Supprimer un Champ</span></legend>*/
-/* */
-/*     {{ form_label(formSuppressionFormulaire.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionFormulaire'}}) }}*/
-/*     {{ form_errors(formSuppressionFormulaire.Nom) }}*/
-/*     {{ form_widget(formSuppressionFormulaire.Nom, {'attr': {'class': 'selectFormulaireAdministrationSuppressionFormulaire'}}) }}*/
-/* */
-/*     {{ form_widget(formSuppressionFormulaire._token) }}*/
-/* */
-/*     {{ form_widget(formSuppressionFormulaire.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationSuppressionFormulaire', 'class': 'boutonFormulaire' }}) }}*/
-/* */
-/* </fieldset> */
-/* */
-/*     {{ form_end(formSuppressionFormulaire) }}*/
-/* */
-/* </div>*/
-/*     -->*/
 /* */
 /* {% endblock %}*/
 /* */

@@ -756,9 +756,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     return array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesAccueilAction',  '_route' => 'nox_intranet_administration_affaires',);
                 }
 
-                // nox_intranet_administration_affaires_edition
-                if (0 === strpos($pathinfo, '/administration/assistant-affaires/edition-fichier') && preg_match('#^/administration/assistant\\-affaires/edition\\-fichier/(?P<filename>[^/]++)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_administration_affaires_edition')), array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesEditionAction',));
+                if (0 === strpos($pathinfo, '/administration/assistant-affaires/edition-fichier')) {
+                    // nox_intranet_administration_affaires_edition
+                    if (preg_match('#^/administration/assistant\\-affaires/edition\\-fichier/(?P<filename>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_administration_affaires_edition')), array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesEditionAction',));
+                    }
+
+                    // nox_intranet_administration_affaires_edition_sauvegarde
+                    if (preg_match('#^/administration/assistant\\-affaires/edition\\-fichier/(?P<filename>[^/]++)/sauvegarde$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_administration_affaires_edition_sauvegarde')), array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffaireSauvegardeModificationAction',));
+                    }
+
                 }
 
             }
