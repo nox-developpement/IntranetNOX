@@ -153,16 +153,14 @@ nox_intranet_administration_materiel:
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationMateriel:materielAccueil }
     
 nox_intranet_administration_affaires:
-    path: /administration/assistant-affaires
-    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:administrationAffairesAccueil }
-    
-nox_intranet_administration_affaires:
-    path: /administration/assistant-affaires
-    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:administrationAffairesAccueil }
+    path: /administration/assistant-affaires/{dossier}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:administrationAffairesAccueil, dossier: '' }
     
 nox_intranet_administration_affaires_edition:
-    path: /administration/assistant-affaires/edition-fichier/{filename}
+    path: /administration/assistant-affaires/edition-fichier/{file}
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:administrationAffairesEdition }
+    requirements:
+        file: .+
     
 nox_intranet_administration_affaires_edition_sauvegarde:
     path: /administration/assistant-affaires/edition-fichier/{filename}/sauvegarde

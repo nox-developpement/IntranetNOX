@@ -102,7 +102,6 @@ nox_intranet_affichageRH:
     requirements:
          chemin: .+
          
-    
 nox_intranet_aq_citations:
     path: /ressources/aq/citations
     defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:citations }

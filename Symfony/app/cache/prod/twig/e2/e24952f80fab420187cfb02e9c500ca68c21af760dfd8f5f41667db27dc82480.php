@@ -58,7 +58,7 @@ class __TwigTemplate_4753d9b7d632e119dd6465d834cbd42e0cfa6b3e64456386624f8eca699
 
         <fieldset>
 
-            <legend>Supprimer annonce</legend>
+            <legend><p>Supprimer annonce</p></legend>
 
             ";
         // line 17
@@ -76,7 +76,7 @@ class __TwigTemplate_4753d9b7d632e119dd6465d834cbd42e0cfa6b3e64456386624f8eca699
 
             ";
         // line 22
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSuppressionAnnonce"]) ? $context["formSuppressionAnnonce"] : null), "Supprimer", array()), 'widget', array("attr" => array("class" => "boutonFormulaire")));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSuppressionAnnonce"]) ? $context["formSuppressionAnnonce"] : null), "Supprimer", array()), 'widget', array("attr" => array("class" => "boutonAnnonce")));
         echo "
 
         </fieldset>
@@ -100,7 +100,7 @@ class __TwigTemplate_4753d9b7d632e119dd6465d834cbd42e0cfa6b3e64456386624f8eca699
 
         <fieldset>
 
-            <legend><span>Ajouter annonce</span></legend>
+            <legend><p>Ajouter annonce</p></legend>
 
             ";
         // line 38
@@ -118,7 +118,7 @@ class __TwigTemplate_4753d9b7d632e119dd6465d834cbd42e0cfa6b3e64456386624f8eca699
 
             ";
         // line 43
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutAnnonce"]) ? $context["formAjoutAnnonce"] : null), "Ajouter", array()), 'widget', array("attr" => array("class" => "boutonFormulaire")));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutAnnonce"]) ? $context["formAjoutAnnonce"] : null), "Ajouter", array()), 'widget', array("attr" => array("class" => "boutonAnnonce")));
         echo "
 
         </fieldset>
@@ -162,14 +162,14 @@ class __TwigTemplate_4753d9b7d632e119dd6465d834cbd42e0cfa6b3e64456386624f8eca699
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend>Supprimer annonce</legend>*/
+/*             <legend><p>Supprimer annonce</p></legend>*/
 /* */
 /*             {{ form_errors(formSuppressionAnnonce.Message) }}*/
 /*             {{ form_widget(formSuppressionAnnonce.Message, {'attr': {'class': 'selectFormulaireSuppressionAnnonce', 'size': 15}}) }}*/
 /* */
 /*             {{ form_widget(formSuppressionAnnonce._token) }}*/
 /* */
-/*             {{ form_widget(formSuppressionAnnonce.Supprimer, {'attr': {'class': 'boutonFormulaire' }}) }}*/
+/*             {{ form_widget(formSuppressionAnnonce.Supprimer, {'attr': {'class': 'boutonAnnonce' }}) }}*/
 /* */
 /*         </fieldset>*/
 /* */
@@ -183,14 +183,14 @@ class __TwigTemplate_4753d9b7d632e119dd6465d834cbd42e0cfa6b3e64456386624f8eca699
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend><span>Ajouter annonce</span></legend>*/
+/*             <legend><p>Ajouter annonce</p></legend>*/
 /* */
 /*             {{ form_errors(formAjoutAnnonce.Message) }}*/
 /*             {{ form_widget(formAjoutAnnonce.Message, {'attr': {'class': 'textFormulaireAjoutAnnonce', 'width': '98%'}}) }}*/
 /* */
 /*             {{ form_widget(formAjoutAnnonce._token) }}*/
 /* */
-/*             {{ form_widget(formAjoutAnnonce.Ajouter, {'attr': {'class': 'boutonFormulaire' }}) }}*/
+/*             {{ form_widget(formAjoutAnnonce.Ajouter, {'attr': {'class': 'boutonAnnonce' }}) }}*/
 /* */
 /*         </fieldset>*/
 /* */

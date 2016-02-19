@@ -752,13 +752,13 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             if (0 === strpos($pathinfo, '/administration/assistant-affaires')) {
                 // nox_intranet_administration_affaires
-                if ($pathinfo === '/administration/assistant-affaires') {
-                    return array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesAccueilAction',  '_route' => 'nox_intranet_administration_affaires',);
+                if (preg_match('#^/administration/assistant\\-affaires(?:/(?P<dossier>[^/]++))?$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_administration_affaires')), array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesAccueilAction',  'dossier' => '',));
                 }
 
                 if (0 === strpos($pathinfo, '/administration/assistant-affaires/edition-fichier')) {
                     // nox_intranet_administration_affaires_edition
-                    if (preg_match('#^/administration/assistant\\-affaires/edition\\-fichier/(?P<filename>[^/]++)$#s', $pathinfo, $matches)) {
+                    if (preg_match('#^/administration/assistant\\-affaires/edition\\-fichier/(?P<file>.+)$#s', $pathinfo, $matches)) {
                         return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_administration_affaires_edition')), array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesEditionAction',));
                     }
 

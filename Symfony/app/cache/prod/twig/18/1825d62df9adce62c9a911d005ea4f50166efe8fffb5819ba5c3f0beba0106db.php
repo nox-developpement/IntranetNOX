@@ -77,15 +77,15 @@ class __TwigTemplate_2ee25e983497edcda86592547e9752e39e1cdbb4021e987b6958e6ab40e
                 <img 
                     src=\"";
         // line 26
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Business-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Business-Man-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
         // line 27
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Business-128-hover.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Business-Man-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
         // line 28
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Business-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Business-Man-128.png"), "html", null, true);
         echo "';\"
                     > 
                 <figcaption>Assistant d'affaire</figcaption>
@@ -101,15 +101,15 @@ class __TwigTemplate_2ee25e983497edcda86592547e9752e39e1cdbb4021e987b6958e6ab40e
                 <img 
                     src=\"";
         // line 38
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Thumbs-Up-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Hand-Sign-06-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
         // line 39
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Thumbs-Up-128-hover.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Hand-Sign-06-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
         // line 40
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Thumbs-Up-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Hand-Sign-06-128.png"), "html", null, true);
         echo "';\"
                     > 
                 <figcaption>Assurance qualité</figcaption>
@@ -150,15 +150,15 @@ class __TwigTemplate_2ee25e983497edcda86592547e9752e39e1cdbb4021e987b6958e6ab40e
                 <img 
                     src=\"";
         // line 63
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/FAQ-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Help-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
         // line 64
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/FAQ-128-hover.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Help-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
         // line 65
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/FAQ-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Help-128.png"), "html", null, true);
         echo "';\"
                     > 
                 <figcaption>FAQ</figcaption>
@@ -250,15 +250,15 @@ class __TwigTemplate_2ee25e983497edcda86592547e9752e39e1cdbb4021e987b6958e6ab40e
                 <img 
                     src=\"";
         // line 115
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Reference-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Sort-Ascending-01-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
         // line 116
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Reference-128-hover.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Sort-Ascending-01-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
         // line 117
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Reference-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Sort-Ascending-01-128.png"), "html", null, true);
         echo "';\"
                     > 
                 <figcaption>Références</figcaption>
@@ -298,15 +298,15 @@ class __TwigTemplate_2ee25e983497edcda86592547e9752e39e1cdbb4021e987b6958e6ab40e
                 <img 
                     src=\"";
         // line 139
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Server-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Server-02-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
         // line 140
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Server-128-hover.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Server-02-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
         // line 141
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Server-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Server-02-128.png"), "html", null, true);
         echo "';\"
                     > 
                 <figcaption>Serveurs</figcaption>
@@ -358,9 +358,9 @@ class __TwigTemplate_2ee25e983497edcda86592547e9752e39e1cdbb4021e987b6958e6ab40e
 /*         <a href="{{ path('nox_intranet_assistant_affaire') }}" class="icon">*/
 /*             <figure>*/
 /*                 <img */
-/*                     src="{{ asset('bundles/noxintranetressources/images/Business-128.png') }}" */
-/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Business-128-hover.png') }}';" */
-/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Business-128.png') }}';"*/
+/*                     src="{{ asset('bundles/noxintranetressources/images/Business-Man-128.png') }}" */
+/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Business-Man-128-hover.png') }}';" */
+/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Business-Man-128.png') }}';"*/
 /*                     > */
 /*                 <figcaption>Assistant d'affaire</figcaption>*/
 /*             </figure>*/
@@ -370,9 +370,9 @@ class __TwigTemplate_2ee25e983497edcda86592547e9752e39e1cdbb4021e987b6958e6ab40e
 /*         <a href="{{ path('nox_intranet_aq') }}" class="icon">*/
 /*             <figure>*/
 /*                 <img */
-/*                     src="{{ asset('bundles/noxintranetcommunication/images/Thumbs-Up-128.png') }}" */
-/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Thumbs-Up-128-hover.png') }}';" */
-/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetcommunication/images/Thumbs-Up-128.png') }}';"*/
+/*                     src="{{ asset('bundles/noxintranetressources/images/Hand-Sign-06-128.png') }}" */
+/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Hand-Sign-06-128-hover.png') }}';" */
+/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Hand-Sign-06-128.png') }}';"*/
 /*                     > */
 /*                 <figcaption>Assurance qualité</figcaption>*/
 /*             </figure>*/
@@ -395,9 +395,9 @@ class __TwigTemplate_2ee25e983497edcda86592547e9752e39e1cdbb4021e987b6958e6ab40e
 /*         <a href="{{ path('nox_intranet_faq') }}" class="icon">*/
 /*             <figure>*/
 /*                 <img */
-/*                     src="{{ asset('bundles/noxintranetressources/images/FAQ-128.png') }}" */
-/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/FAQ-128-hover.png') }}';" */
-/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/FAQ-128.png') }}';"*/
+/*                     src="{{ asset('bundles/noxintranetressources/images/Help-128.png') }}" */
+/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Help-128-hover.png') }}';" */
+/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Help-128.png') }}';"*/
 /*                     > */
 /*                 <figcaption>FAQ</figcaption>*/
 /*             </figure>*/
@@ -447,9 +447,9 @@ class __TwigTemplate_2ee25e983497edcda86592547e9752e39e1cdbb4021e987b6958e6ab40e
 /*         <a href="{{ path('nox_intranet_references') }}" class="icon">*/
 /*             <figure>*/
 /*                 <img */
-/*                     src="{{ asset('bundles/noxintranetressources/images/Reference-128.png') }}" */
-/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Reference-128-hover.png') }}';" */
-/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Reference-128.png') }}';"*/
+/*                     src="{{ asset('bundles/noxintranetressources/images/Sort-Ascending-01-128.png') }}" */
+/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Sort-Ascending-01-128-hover.png') }}';" */
+/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Sort-Ascending-01-128.png') }}';"*/
 /*                     > */
 /*                 <figcaption>Références</figcaption>*/
 /*             </figure>*/
@@ -471,9 +471,9 @@ class __TwigTemplate_2ee25e983497edcda86592547e9752e39e1cdbb4021e987b6958e6ab40e
 /*         <a href="{{ path('nox_intranet_serveurs') }}" class="icon">*/
 /*             <figure>*/
 /*                 <img */
-/*                     src="{{ asset('bundles/noxintranetressources/images/Server-128.png') }}" */
-/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Server-128-hover.png') }}';" */
-/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Server-128.png') }}';"*/
+/*                     src="{{ asset('bundles/noxintranetressources/images/Server-02-128.png') }}" */
+/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Server-02-128-hover.png') }}';" */
+/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Server-02-128.png') }}';"*/
 /*                     > */
 /*                 <figcaption>Serveurs</figcaption>*/
 /*             </figure>*/

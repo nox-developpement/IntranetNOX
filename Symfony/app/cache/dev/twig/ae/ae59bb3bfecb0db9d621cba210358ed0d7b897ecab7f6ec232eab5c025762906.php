@@ -20,8 +20,8 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_748066379717182b21c77fcd7c81a80ca707e14f93aaa3a5b68b444134dda144 = $this->env->getExtension("native_profiler");
-        $__internal_748066379717182b21c77fcd7c81a80ca707e14f93aaa3a5b68b444134dda144->enter($__internal_748066379717182b21c77fcd7c81a80ca707e14f93aaa3a5b68b444134dda144_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "::layout.html.twig"));
+        $__internal_e25c1c97e7af550b7b93256e3e762c712654599994bc87e54e4b2b92cee93ee9 = $this->env->getExtension("native_profiler");
+        $__internal_e25c1c97e7af550b7b93256e3e762c712654599994bc87e54e4b2b92cee93ee9->enter($__internal_e25c1c97e7af550b7b93256e3e762c712654599994bc87e54e4b2b92cee93ee9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "::layout.html.twig"));
 
         // line 1
         echo "<!DOCTYPE html>
@@ -157,7 +157,7 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
 
         <header>
 
-            <div style=\"border: none; width: 15%; display:inline-block; text-align: center; vertical-align: middle;\"> <a style=\"cursor: pointer;\" onclick=\"\$(function () {
+            <div style=\"border: none; width: 15%; display:inline-block; text-align: center; vertical-align: middle; margin-top: 2.5%;\"> <a style=\"cursor: pointer; font-size: 0.85vw;\" onclick=\"\$(function () {
                         \$('#dialog').dialog({width: 970, height: 600});
                     });\"> Plan du site <br /><img style=\"width: 10%;\" src=\"";
         // line 58
@@ -204,16 +204,7 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
         <div id=\"bar_menu\">
 
             <div id=\"selectionSkinBouton\" >
-                <span></span>
-                <p>Apparence : </p>
-                <img src=\"";
-        // line 83
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/CarreBleuClair.png"), "html", null, true);
-        echo "\" onclick=\"changementSkin('bammez');\">
-                <img src=\"";
-        // line 84
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/CarreBleuFonce.png"), "html", null, true);
-        echo "\" onclick=\"changementSkin('normal');\">
+
             </div>
 
             <div id=\"div_menu\">
@@ -221,45 +212,45 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
                 <ul id=\"menu\">
 
                     <li class=\"menuElement\"> <a href=\"";
-        // line 91
+        // line 88
         echo $this->env->getExtension('routing')->getPath("nox_intranet_accueil");
         echo "\" class=\"liens\"> Accueil </a> </li> 
 
                     <li class=\"menuElement\"> <a href=\"";
-        // line 93
+        // line 90
         echo $this->env->getExtension('routing')->getPath("nox_intranet_communication");
         echo "\" class=\"liens\"> Communication </a> </li> 
 
                     <li class=\"menuElement\"> <a href=\"";
-        // line 95
+        // line 92
         echo $this->env->getExtension('routing')->getPath("nox_intranet_ressources");
         echo "\" class=\"liens\"> Ressources </a> </li> 
 
                     <li class=\"menuElement\"> <a href=\"";
-        // line 97
+        // line 94
         echo $this->env->getExtension('routing')->getPath("nox_intranet_support_si");
         echo "\" class=\"liens\" title='Aide pour les problèmes informatiques.'> Support SI </a> </li> 
 
                     <li id=\"google_search\"> 
                         <form id=\"google_form\">
                             ";
-        // line 101
+        // line 98
         if (((isset($context["skin"]) ? $context["skin"] : $this->getContext($context, "skin")) == "normal")) {
-            // line 102
+            // line 99
             echo "                                <img src =\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/logoGoogle.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/logoRecherche.png"), "html", null, true);
             echo "\" alt=\"Logo Google\" onmousedown=\"return false;\">
                             ";
         } else {
-            // line 103
+            // line 100
             echo " 
                                 <img src =\"";
-            // line 104
+            // line 101
             echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/logoRecherche.png"), "html", null, true);
             echo "\" alt=\"Logo Google\" onmousedown=\"return false;\">
                             ";
         }
-        // line 106
+        // line 103
         echo "
                             <input type=\"text\" id=\"search_input\" name=\"seach_input\" placeholder=\"Rechercher sur Google\">
                             <button id=\"search\" onclick=\"googleSearch(this)
@@ -271,19 +262,19 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
 
             <div id=\"administrationBouton\" >
                 ";
-        // line 116
+        // line 113
         if ((($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()) != null) && ((((((((($this->env->getExtension('security')->isGranted("ROLE_ADMIN") || $this->env->getExtension('security')->isGranted("ROLE_REFERENCES")) || $this->env->getExtension('security')->isGranted("ROLE_COMPETENCES")) || $this->env->getExtension('security')->isGranted("ROLE_COMMUNICATION")) || $this->env->getExtension('security')->isGranted("ROLE_PROCEDURES")) || $this->env->getExtension('security')->isGranted("ROLE_FAQ")) || $this->env->getExtension('security')->isGranted("ROLE_CE")) || $this->env->getExtension('security')->isGranted("ROLE_CHSCT")) || $this->env->getExtension('security')->isGranted("ROLE_LIENS")) || $this->env->getExtension('security')->isGranted("ROLE_QUALITE")))) {
-            // line 117
+            // line 114
             echo "                    <p> <a href=\"";
             echo $this->env->getExtension('routing')->getPath("nox_intranet_administration");
             echo "\"> Administration </a> </p>
                 ";
         } elseif ($this->env->getExtension('security')->isGranted("ROLE_PUBLICATEUR")) {
-            // line 119
+            // line 116
             echo "                    <p> Publication </p>
                 ";
         }
-        // line 121
+        // line 118
         echo "            </div>
         </div>
 
@@ -293,14 +284,14 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
             <div id=\"contenu\">
 
                 ";
-        // line 129
+        // line 126
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "session", array()), "flashbag", array()), "get", array(0 => "notice"), "method"));
         foreach ($context['_seq'] as $context["_key"] => $context["flashMessage"]) {
-            // line 130
+            // line 127
             echo "                    <p class=\"flashbag\"> 
                         ";
-            // line 131
+            // line 128
             echo twig_escape_filter($this->env, $context["flashMessage"], "html", null, true);
             echo "
                     </p>
@@ -309,18 +300,18 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['flashMessage'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 133
+        // line 130
         echo " 
 
                 ";
-        // line 135
+        // line 132
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "session", array()), "flashbag", array()), "get", array(0 => "noticeErreur"), "method"));
         foreach ($context['_seq'] as $context["_key"] => $context["flashMessage"]) {
-            // line 136
+            // line 133
             echo "                    <p class=\"flashbagErreur\"> 
                         ";
-            // line 137
+            // line 134
             echo twig_escape_filter($this->env, $context["flashMessage"], "html", null, true);
             echo "
                     </p>
@@ -329,173 +320,173 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['flashMessage'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 139
+        // line 136
         echo " 
 
                 <div class=\"messageAcceuil\"> 
                     <h2> ";
-        // line 142
+        // line 139
         $this->displayBlock('messageAccueil', $context, $blocks);
         echo " </h2>
                     <h3> ";
-        // line 143
+        // line 140
         $this->displayBlock('sousMessageAccueil', $context, $blocks);
         echo " </h3>
                 ";
-        // line 144
+        // line 141
         $this->displayBlock('textEncart', $context, $blocks);
-        // line 145
+        // line 142
         echo "            </div>
 
             ";
-        // line 147
+        // line 144
         $this->displayBlock('contenu', $context, $blocks);
-        // line 150
+        // line 147
         echo "
         </div>
     </div>
 
     <script src=";
-        // line 154
+        // line 151
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/jquery-ui.min.js"), "html", null, true);
         echo "></script>
     <script src=\"";
-        // line 155
+        // line 152
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/fosjsrouting/js/router.js"), "html", null, true);
         echo "\"></script>
     <script src=\"";
-        // line 156
+        // line 153
         echo $this->env->getExtension('routing')->getPath("fos_js_routing_js", array("callback" => "fos.Router.setData"));
         echo "\"></script>
     <script src=";
-        // line 157
+        // line 154
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/googleSearch.js"), "html", null, true);
         echo "></script>
     <script src=";
-        // line 158
+        // line 155
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/menuAnimation.js"), "html", null, true);
         echo "></script>
     <script src=";
-        // line 159
+        // line 156
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/positionement.js"), "html", null, true);
         echo "></script>
     <script src=";
-        // line 160
+        // line 157
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/checkboxClick.js"), "html", null, true);
         echo "></script>   
     <!-- <script src=";
-        // line 161
+        // line 158
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/communicationMenu.js"), "html", null, true);
         echo "></script> -->
     <script src=";
-        // line 162
+        // line 159
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/textareaLogiciel.js"), "html", null, true);
         echo "></script>  
     <script src=\"";
-        // line 163
+        // line 160
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/gestionFichiersPopup.js"), "html", null, true);
         echo "\"></script>
     <script src=";
-        // line 164
+        // line 161
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/texteEncartActions.js"), "html", null, true);
         echo "></script>
     <script src=";
-        // line 165
+        // line 162
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/popupDownloadArchive.js"), "html", null, true);
         echo "></script>
     <script src=";
-        // line 166
+        // line 163
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/texteActions.js"), "html", null, true);
         echo "></script>
     <script src=";
-        // line 167
+        // line 164
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/menuAdministrationCommunication.js"), "html", null, true);
         echo "></script>
     <script src=";
-        // line 168
+        // line 165
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/formImprimanteScript.js"), "html", null, true);
         echo "></script>
     <script src=";
-        // line 169
+        // line 166
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/editionLiens.js"), "html", null, true);
         echo "></script>
     <script src=";
-        // line 170
+        // line 167
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/jscroller2-1.61.js"), "html", null, true);
         echo "></script>
     <script src=";
-        // line 171
+        // line 168
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/submitFormAffaires.js"), "html", null, true);
         echo "></script>
     <script src=\"";
-        // line 172
+        // line 169
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/tableurEdition.js"), "html", null, true);
         echo "\"/></script>
 
 </body>
 </html>";
         
-        $__internal_748066379717182b21c77fcd7c81a80ca707e14f93aaa3a5b68b444134dda144->leave($__internal_748066379717182b21c77fcd7c81a80ca707e14f93aaa3a5b68b444134dda144_prof);
+        $__internal_e25c1c97e7af550b7b93256e3e762c712654599994bc87e54e4b2b92cee93ee9->leave($__internal_e25c1c97e7af550b7b93256e3e762c712654599994bc87e54e4b2b92cee93ee9_prof);
 
     }
 
     // line 7
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_238b8ec08c6627591e6bd0b2c25f22effdc095a443fdfceca943630c6bd7115c = $this->env->getExtension("native_profiler");
-        $__internal_238b8ec08c6627591e6bd0b2c25f22effdc095a443fdfceca943630c6bd7115c->enter($__internal_238b8ec08c6627591e6bd0b2c25f22effdc095a443fdfceca943630c6bd7115c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_2ee090af3db89b3f02c2510905a6ae5c4ab4b738d056ad7e07a90df5a743e38f = $this->env->getExtension("native_profiler");
+        $__internal_2ee090af3db89b3f02c2510905a6ae5c4ab4b738d056ad7e07a90df5a743e38f->enter($__internal_2ee090af3db89b3f02c2510905a6ae5c4ab4b738d056ad7e07a90df5a743e38f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         
-        $__internal_238b8ec08c6627591e6bd0b2c25f22effdc095a443fdfceca943630c6bd7115c->leave($__internal_238b8ec08c6627591e6bd0b2c25f22effdc095a443fdfceca943630c6bd7115c_prof);
+        $__internal_2ee090af3db89b3f02c2510905a6ae5c4ab4b738d056ad7e07a90df5a743e38f->leave($__internal_2ee090af3db89b3f02c2510905a6ae5c4ab4b738d056ad7e07a90df5a743e38f_prof);
 
     }
 
-    // line 142
+    // line 139
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_1021f82f490df2da9d96ec6110a274ac9425d3b3b28b24ce901018165c833469 = $this->env->getExtension("native_profiler");
-        $__internal_1021f82f490df2da9d96ec6110a274ac9425d3b3b28b24ce901018165c833469->enter($__internal_1021f82f490df2da9d96ec6110a274ac9425d3b3b28b24ce901018165c833469_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_e026e3fe5bcd04a75aaf320ad958b6639be645b8098a988a01fc288e2efb6aac = $this->env->getExtension("native_profiler");
+        $__internal_e026e3fe5bcd04a75aaf320ad958b6639be645b8098a988a01fc288e2efb6aac->enter($__internal_e026e3fe5bcd04a75aaf320ad958b6639be645b8098a988a01fc288e2efb6aac_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo " ";
         
-        $__internal_1021f82f490df2da9d96ec6110a274ac9425d3b3b28b24ce901018165c833469->leave($__internal_1021f82f490df2da9d96ec6110a274ac9425d3b3b28b24ce901018165c833469_prof);
+        $__internal_e026e3fe5bcd04a75aaf320ad958b6639be645b8098a988a01fc288e2efb6aac->leave($__internal_e026e3fe5bcd04a75aaf320ad958b6639be645b8098a988a01fc288e2efb6aac_prof);
 
     }
 
-    // line 143
+    // line 140
     public function block_sousMessageAccueil($context, array $blocks = array())
     {
-        $__internal_11d0d8316642a3b01b37841468cf871020bc428f3202c9a6bd94178d5ba12b2b = $this->env->getExtension("native_profiler");
-        $__internal_11d0d8316642a3b01b37841468cf871020bc428f3202c9a6bd94178d5ba12b2b->enter($__internal_11d0d8316642a3b01b37841468cf871020bc428f3202c9a6bd94178d5ba12b2b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
+        $__internal_e901a1242714d18cdc1da36044c302846070adff2c8bd0d1919a878ee2030606 = $this->env->getExtension("native_profiler");
+        $__internal_e901a1242714d18cdc1da36044c302846070adff2c8bd0d1919a878ee2030606->enter($__internal_e901a1242714d18cdc1da36044c302846070adff2c8bd0d1919a878ee2030606_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
 
         echo " ";
         
-        $__internal_11d0d8316642a3b01b37841468cf871020bc428f3202c9a6bd94178d5ba12b2b->leave($__internal_11d0d8316642a3b01b37841468cf871020bc428f3202c9a6bd94178d5ba12b2b_prof);
+        $__internal_e901a1242714d18cdc1da36044c302846070adff2c8bd0d1919a878ee2030606->leave($__internal_e901a1242714d18cdc1da36044c302846070adff2c8bd0d1919a878ee2030606_prof);
+
+    }
+
+    // line 141
+    public function block_textEncart($context, array $blocks = array())
+    {
+        $__internal_a97bff6212113eea55a954f4187279fbe4b417a8bdc951d010209367fad736cb = $this->env->getExtension("native_profiler");
+        $__internal_a97bff6212113eea55a954f4187279fbe4b417a8bdc951d010209367fad736cb->enter($__internal_a97bff6212113eea55a954f4187279fbe4b417a8bdc951d010209367fad736cb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "textEncart"));
+
+        
+        $__internal_a97bff6212113eea55a954f4187279fbe4b417a8bdc951d010209367fad736cb->leave($__internal_a97bff6212113eea55a954f4187279fbe4b417a8bdc951d010209367fad736cb_prof);
 
     }
 
     // line 144
-    public function block_textEncart($context, array $blocks = array())
-    {
-        $__internal_aa769cc7fda4625a87d275e84e998c06042563b733d92a25b8723c40bca6ffeb = $this->env->getExtension("native_profiler");
-        $__internal_aa769cc7fda4625a87d275e84e998c06042563b733d92a25b8723c40bca6ffeb->enter($__internal_aa769cc7fda4625a87d275e84e998c06042563b733d92a25b8723c40bca6ffeb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "textEncart"));
-
-        
-        $__internal_aa769cc7fda4625a87d275e84e998c06042563b733d92a25b8723c40bca6ffeb->leave($__internal_aa769cc7fda4625a87d275e84e998c06042563b733d92a25b8723c40bca6ffeb_prof);
-
-    }
-
-    // line 147
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_c9697ea97914b1095cc13da76127ab2263a1dbb48c87142f953b7a7bb72aae9e = $this->env->getExtension("native_profiler");
-        $__internal_c9697ea97914b1095cc13da76127ab2263a1dbb48c87142f953b7a7bb72aae9e->enter($__internal_c9697ea97914b1095cc13da76127ab2263a1dbb48c87142f953b7a7bb72aae9e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_ae288db6ab1ed48923b222e1295cb54fae3311180e4d32bdde8e28fb1c1edb50 = $this->env->getExtension("native_profiler");
+        $__internal_ae288db6ab1ed48923b222e1295cb54fae3311180e4d32bdde8e28fb1c1edb50->enter($__internal_ae288db6ab1ed48923b222e1295cb54fae3311180e4d32bdde8e28fb1c1edb50_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
-        // line 148
+        // line 145
         echo "
             ";
         
-        $__internal_c9697ea97914b1095cc13da76127ab2263a1dbb48c87142f953b7a7bb72aae9e->leave($__internal_c9697ea97914b1095cc13da76127ab2263a1dbb48c87142f953b7a7bb72aae9e_prof);
+        $__internal_ae288db6ab1ed48923b222e1295cb54fae3311180e4d32bdde8e28fb1c1edb50->leave($__internal_ae288db6ab1ed48923b222e1295cb54fae3311180e4d32bdde8e28fb1c1edb50_prof);
 
     }
 
@@ -511,7 +502,7 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
 
     public function getDebugInfo()
     {
-        return array (  495 => 148,  489 => 147,  478 => 144,  466 => 143,  454 => 142,  443 => 7,  432 => 172,  428 => 171,  424 => 170,  420 => 169,  416 => 168,  412 => 167,  408 => 166,  404 => 165,  400 => 164,  396 => 163,  392 => 162,  388 => 161,  384 => 160,  380 => 159,  376 => 158,  372 => 157,  368 => 156,  364 => 155,  360 => 154,  354 => 150,  352 => 147,  348 => 145,  346 => 144,  342 => 143,  338 => 142,  333 => 139,  324 => 137,  321 => 136,  317 => 135,  313 => 133,  304 => 131,  301 => 130,  297 => 129,  287 => 121,  283 => 119,  277 => 117,  275 => 116,  263 => 106,  258 => 104,  255 => 103,  249 => 102,  247 => 101,  240 => 97,  235 => 95,  230 => 93,  225 => 91,  215 => 84,  211 => 83,  199 => 74,  190 => 68,  186 => 66,  181 => 64,  178 => 63,  172 => 62,  170 => 61,  164 => 58,  151 => 52,  143 => 47,  135 => 42,  132 => 41,  129 => 40,  115 => 38,  111 => 37,  106 => 36,  92 => 34,  87 => 33,  85 => 32,  82 => 31,  79 => 30,  76 => 29,  73 => 28,  70 => 27,  67 => 26,  64 => 25,  62 => 24,  46 => 11,  42 => 10,  39 => 9,  35 => 7,  27 => 1,);
+        return array (  486 => 145,  480 => 144,  469 => 141,  457 => 140,  445 => 139,  434 => 7,  423 => 169,  419 => 168,  415 => 167,  411 => 166,  407 => 165,  403 => 164,  399 => 163,  395 => 162,  391 => 161,  387 => 160,  383 => 159,  379 => 158,  375 => 157,  371 => 156,  367 => 155,  363 => 154,  359 => 153,  355 => 152,  351 => 151,  345 => 147,  343 => 144,  339 => 142,  337 => 141,  333 => 140,  329 => 139,  324 => 136,  315 => 134,  312 => 133,  308 => 132,  304 => 130,  295 => 128,  292 => 127,  288 => 126,  278 => 118,  274 => 116,  268 => 114,  266 => 113,  254 => 103,  249 => 101,  246 => 100,  240 => 99,  238 => 98,  231 => 94,  226 => 92,  221 => 90,  216 => 88,  199 => 74,  190 => 68,  186 => 66,  181 => 64,  178 => 63,  172 => 62,  170 => 61,  164 => 58,  151 => 52,  143 => 47,  135 => 42,  132 => 41,  129 => 40,  115 => 38,  111 => 37,  106 => 36,  92 => 34,  87 => 33,  85 => 32,  82 => 31,  79 => 30,  76 => 29,  73 => 28,  70 => 27,  67 => 26,  64 => 25,  62 => 24,  46 => 11,  42 => 10,  39 => 9,  35 => 7,  27 => 1,);
     }
 }
 /* <!DOCTYPE html>*/
@@ -569,7 +560,7 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
 /* */
 /*         <header>*/
 /* */
-/*             <div style="border: none; width: 15%; display:inline-block; text-align: center; vertical-align: middle;"> <a style="cursor: pointer;" onclick="$(function () {*/
+/*             <div style="border: none; width: 15%; display:inline-block; text-align: center; vertical-align: middle; margin-top: 2.5%;"> <a style="cursor: pointer; font-size: 0.85vw;" onclick="$(function () {*/
 /*                         $('#dialog').dialog({width: 970, height: 600});*/
 /*                     });"> Plan du site <br /><img style="width: 10%;" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}"> </a> </div><!--*/
 /* */
@@ -594,10 +585,7 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
 /*         <div id="bar_menu">*/
 /* */
 /*             <div id="selectionSkinBouton" >*/
-/*                 <span></span>*/
-/*                 <p>Apparence : </p>*/
-/*                 <img src="{{ asset('bundles/noxintranetcommunication/images/CarreBleuClair.png') }}" onclick="changementSkin('bammez');">*/
-/*                 <img src="{{ asset('bundles/noxintranetcommunication/images/CarreBleuFonce.png') }}" onclick="changementSkin('normal');">*/
+/* */
 /*             </div>*/
 /* */
 /*             <div id="div_menu">*/
@@ -615,7 +603,7 @@ class __TwigTemplate_f4d6f96a75b40e06dd36fbb052e140b1d2c07b86cd197fa5ffecf3fb4b3
 /*                     <li id="google_search"> */
 /*                         <form id="google_form">*/
 /*                             {% if skin == 'normal' %}*/
-/*                                 <img src ="{{ asset('bundles/noxintranetcommunication/images/logoGoogle.png') }}" alt="Logo Google" onmousedown="return false;">*/
+/*                                 <img src ="{{ asset('bundles/noxintranetcommunication/images/logoRecherche.png') }}" alt="Logo Google" onmousedown="return false;">*/
 /*                             {% else %} */
 /*                                 <img src ="{{ asset('bundles/noxintranetcommunication/images/logoRecherche.png') }}" alt="Logo Google" onmousedown="return false;">*/
 /*                             {% endif %}*/

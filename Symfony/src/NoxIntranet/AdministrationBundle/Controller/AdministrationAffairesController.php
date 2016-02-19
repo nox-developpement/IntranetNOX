@@ -13,10 +13,10 @@ use NoxIntranet\RessourcesBundle\Entity\Profils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
-use NoxIntranet\AdministrationBundle\Entity\Formulaires;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Description of AdministrationAffairesController
@@ -31,10 +31,11 @@ class AdministrationAffairesController extends Controller {
         return $results;
     }
 
-    public function administrationAffairesAccueilAction(Request $request) {
+    public function administrationAffairesAccueilAction(Request $request, $dossier) {
 
         $em = $this->getDoctrine()->getManager();
 
+        // Génération formulaire d'ajout de champs
         $profils = $em->getRepository('NoxIntranetRessourcesBundle:Profils')->findBy(array(), array('nom' => 'ASC'));
 
         $nouveauProfil = new Profils();
@@ -43,7 +44,8 @@ class AdministrationAffairesController extends Controller {
                 ->add('Nom', TextType::class)
                 ->add('Ajouter', 'submit')
                 ->getForm();
-
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Génération formulaire de suppresion de champs
         $profilASupprimer = new Profils();
 
         $formSuppresionProfil = $this->get('form.factory')->createNamedBuilder('formSuppresionProfil', 'form', $profilASupprimer)
@@ -57,44 +59,92 @@ class AdministrationAffairesController extends Controller {
                 ))
                 ->add('Supprimer', 'submit')
                 ->getForm();
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Génération formulaire de séléction du suivi  
+        $path = 'C:/wamp/www/Symfony/web/uploads/AssistantAffaires/FeuillesSuivis/';
+        $fichiers = array_diff(scandir($path), array('.', '..'));
+        $dossiers = array();
 
-        $formulaireAjout = new Formulaires();
-
-        $listeFichiers = $this->getDirContents('C:\wamp\www\Symfony\web\uploads\AssistantAffaires\FeuillesSuivis\*.xlsx');
-
-        foreach ($listeFichiers as $fichier) {
-            $nomFichier[basename($fichier)] = basename($fichier);
+        foreach ($fichiers as $fichier) {
+            if (is_dir($path . $fichier)) {
+                $dossiers[$fichier] = $path . $fichier;
+            }
         }
 
-        $formAjoutFormulaire = $this->get('form.factory')->createNamedBuilder('formAjoutFormulaire', 'form', $formulaireAjout)
-                ->add('Type', ChoiceType::class, array(
-                    'choices' => $listeFichiers,
-                    'choices_as_values' => true,
-                    'choice_label' => function($value) use ($nomFichier) {
-                        return $nomFichier[basename($value)];
+        $formSelectionDossier = $this->get('form.factory')->createNamedBuilder('formSelectionDossier', 'form', $dossiers)
+                ->add('dossiers', ChoiceType::class, array(
+                    'placeholder' => 'Selectionnez un suivi',
+                    'choices' => $dossiers,
+                    'choice_label' => function ($value) {
+                        return $value;
                     },
+                    'data' => $dossier
                 ))
-                ->add('Editer', 'submit')
                 ->getForm();
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Génération formulaire de séléction de la version du suivi
+        if ($dossier !== "") {
 
+            $fichiersVersion = scandir($path . $dossier);
+            foreach ($fichiersVersion as $fichier) {
+                if (!is_dir($path . $fichier)) {
+                    $versions[$path . $dossier . "/" . $fichier] = $fichier;
+                }
+            }
+
+            if (isset($versions)) {
+                end($versions);
+                $key = key($versions);
+            } else {
+                $versions = array();
+                $key = "";
+            }
+
+            $formSelectionVersion = $this->get('form.factory')->createNamedBuilder('formSelectionVersion', 'form', $versions)
+                    ->add('versions', ChoiceType::class, array(
+                        'choices' => $versions,
+//                        'choice_label' => function ($value) {
+//                            return $value;
+//                        },
+                        'data' => $key
+                    ))
+                    ->add('Editer', SubmitType::class)
+                    ->add('Supprimer', SubmitType::class)
+                    ->getForm();
+        } else {
+            $formSelectionVersion = $this->get('form.factory')->createNamedBuilder('formSelectionVersion', 'form')
+                    ->add('versions', ChoiceType::class)
+                    ->add('Editer', SubmitType::class)
+                    ->add('Supprimer', SubmitType::class)
+                    ->getForm();
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+//        $formulaireAjout = new Formulaires();
+//
+//        $listeFichiers = $this->getDirContents('C:\wamp\www\Symfony\web\uploads\AssistantAffaires\FeuillesSuivis\*.xlsx');
+//
+//        foreach ($listeFichiers as $fichier) {
+//            $nomFichier[basename($fichier)] = basename($fichier);
+//        }
+//
+//        $formAjoutFormulaire = $this->get('form.factory')->createNamedBuilder('formAjoutFormulaire', 'form', $formulaireAjout)
+//                ->add('Type', ChoiceType::class, array(
+//                    'choices' => $listeFichiers,
+//                    'choices_as_values' => true,
+//                    'choice_label' => function($value) use ($nomFichier) {
+//                        return $nomFichier[basename($value)];
+//                    },
+//                ))
+//                ->add('Editer', 'submit')
+//                ->getForm();
+//
+        // Génération formulaire ajout de fichier
         $formAjoutFichier = $this->get('form.factory')->createNamedBuilder('formAjoutFichier', 'form')
                 ->add('file', FileType::class)
                 ->add('Ajouter', 'submit')
                 ->getForm();
-
-//        $formulaireSuppression = new Formulaires();
-//        $formSuppresionFormulaire = $this->get('form.factory')->createNamedBuilder('formSuppressionFormulaire', 'form', $formulaireSuppression)
-//                ->add('Nom', EntityType::class, array(
-//                    'class' => 'NoxIntranetAdministrationBundle:Formulaires',
-//                    'query_builder' => function (EntityRepository $er) {
-//                        return $er->createQueryBuilder('u')
-//                                ->orderBy('u.nom', 'ASC');
-//                    },
-//                    'choice_label' => 'Nom',
-//                ))
-//                ->add('Supprimer', 'submit')
-//                ->getForm();
-
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Traitement du formulaire d'ajout de champs
         if ($request->request->has('formAjoutProfil')) {
 
             $formAjoutProfil->handleRequest($request);
@@ -114,7 +164,8 @@ class AdministrationAffairesController extends Controller {
                 }
             }
         }
-
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Traitement du formulaire de suppression de champs
         if ($request->request->has('formSuppresionProfil')) {
 
             $formSuppresionProfil->handleRequest($request);
@@ -129,7 +180,8 @@ class AdministrationAffairesController extends Controller {
                 return $this->redirectToRoute('nox_intranet_administration_affaires');
             }
         }
-
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Traitement du formulaire d'ajout de fichier
         if ($request->request->has('formAjoutFichier')) {
 
             $formAjoutFichier->handleRequest($request);
@@ -157,26 +209,46 @@ class AdministrationAffairesController extends Controller {
                 return $this->redirectToRoute('nox_intranet_administration_affaires');
             }
         }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Traitement du formulaire de séléction du suivi
+        if ($request->request->has('formSelectionDossier')) {
+            $formSelectionDossier->handleRequest($request);
 
-        if ($request->request->has('formAjoutFormulaire')) {
-
-            $formAjoutFormulaire->handleRequest($request);
-
-            if ($formAjoutFormulaire->isValid()) {
-
-                return $this->redirectToRoute('nox_intranet_administration_affaires_edition', array('filename' => basename($formAjoutFormulaire['Type']->getData())));
+            if ($formSelectionDossier->isValid()) {
+                return $this->redirectToRoute('nox_intranet_administration_affaires', array('dossier' => $formSelectionDossier['dossiers']->getData()));
             }
         }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Traitement du formulaire de séléction de la version du suivi
+        if ($request->request->has('formSelectionVersion')) {
+            $formSelectionVersion->handleRequest($request);
 
-        return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig', array('formAjoutProfil' => $formAjoutProfil->createView(), 'profils' => $profils, 'formSuppresionProfil' => $formSuppresionProfil->createView(),
-                    'formAjoutFormulaire' => $formAjoutFormulaire->createView(), 'formAjoutFichier' => $formAjoutFichier->createView()));
+            if ($formSelectionVersion->isValid()) {
+                if ($formSelectionVersion->get('Editer')->isClicked()) {
+                    return $this->redirectToRoute('nox_intranet_administration_affaires_edition', array('file' => $formSelectionVersion['versions']->getData()));
+                }
+                if ($formSelectionVersion->get('Supprimer')->isClicked()) {
+                    unlink($formSelectionVersion['versions']->getData());
+                    $request->getSession()->getFlashBag()->add('notice', 'Le fichier ' . pathinfo($formSelectionVersion['versions']->getData(), PATHINFO_BASENAME) . ' a été supprimé.');
+                    return $this->redirectToRoute('nox_intranet_administration_affaires', array('dossier' => $dossier));
+                }
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Génération de l'affichage
+        return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig', array(
+                    'formAjoutProfil' => $formAjoutProfil->createView(), 'profils' => $profils, 'formSuppresionProfil' => $formSuppresionProfil->createView(),
+                    'formAjoutFichier' => $formAjoutFichier->createView(), 'formSelectionDossier' => $formSelectionDossier->createView(),
+                    'formSelectionVersion' => $formSelectionVersion->createView()
+        ));
+        ////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
-    public function administrationAffairesEditionAction($filename) {
+    public function administrationAffairesEditionAction($file) {
 
         include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
 
-        $file = "C:\wamp\www\Symfony\web\uploads\AssistantAffaires\FeuillesSuivis\\" . $filename;
+        $filename = pathinfo($file, PATHINFO_FILENAME);
 
         // Chargement du fichier Excel
         $objReader = new \PHPExcel_Reader_Excel2007();

@@ -11,7 +11,7 @@ body {
     padding: 0px;
     display: block;
     height: 100%;
-    background-color:#EEF1F3;
+    background-color:rgb(242,242,242);
     font-family: 'NoxFont';
 }
 
@@ -32,7 +32,7 @@ body {
     margin:0px 0px 0px 0px;
     background-color:transparent;
     border-top: solid 1px white;
-    color: #021C2D;
+    color: rgb(31,78,121);
     overflow: auto;
 }
 
@@ -43,7 +43,7 @@ header {
     padding:0px;
     margin:auto;
     display: inline-block;
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
     border: none;
     margin-bottom: 0px;
 }
@@ -55,7 +55,7 @@ footer {
     padding:0px;
     margin:0px;
     display: inline-block;
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
 }
 
 footer p {
@@ -94,7 +94,7 @@ h2>div {
     display: inline-block;
     font-size: 0.8vw;
     margin:0px;
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
     color: #FEFEFE;
     width: 15%;
     padding: 0px;
@@ -149,8 +149,8 @@ h2>div {
     display: inline-block;
     font-size: 0.8vw;
     margin:0px;
-    background-color: #021C2D;
-    color: #021C2D;
+    background-color: rgb(31,78,121);
+    color: rgb(31,78,121);
     width: 15%;
     padding: 0px;
     overflow: auto;
@@ -159,7 +159,6 @@ h2>div {
 
 #identifiants p img {
     width:25%;
-    border-radius: 15px;
 }
 
 #identifiants p {
@@ -204,7 +203,7 @@ h2>div {
     width: 100%;
     height: 40px;
     padding: 0px;
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
 }
 
 #div_menu {
@@ -213,7 +212,7 @@ h2>div {
     height: 100%;
     padding: 0px;
     margin: auto;
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
 }
 
 #administrationBouton {
@@ -356,7 +355,7 @@ article p {
     padding : 0; /* aucune marge intérieure */
     text-decoration : none; /* on supprime le style par défaut des liens (la plupart du temps = souligné) */
     /*width : 40%; /* largeur */
-    background-color : #021C2D;
+    background-color : rgb(31,78,121);
     color: #FEFEFE;
     margin: 0px;
 }
@@ -392,10 +391,10 @@ article p {
     vertical-align: middle;
     line-height:0px;
     color: white;
-    background: #021C2D;
+    background: rgb(31,78,121);
     border-radius: 0px;
     height: 27px;
-    border: outset 1px black;
+    border: solid 1px white;
     font-family: "NoxFont";
     font-size: 0.6vw;
 }
@@ -403,13 +402,14 @@ article p {
 #search:hover {
     color: #010101;
     background: white;
+    border: inset 1px rgb(31,78,121);
 }
 
 
 #google_search {
     width: 42%;
     height: 40px;
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
     border-left:none;
     float: right;
 }
@@ -421,13 +421,13 @@ article p {
     padding: 0px;
     height: 40px;
     text-align: center;
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
     border:none;
 }
 
 #google_form input[type='text'] {
     text-align: center;
-    border: inset 1px #021C2D;;
+    border: inset 1px white;
 }
 
 #google_form img {
@@ -531,10 +531,10 @@ form {
 }
 
 .boutonFormulaire {
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
     color: white;
     border-radius: 5px;
-    border: inset 1px #021C2D;
+    border: inset 1px rgb(31,78,121);
     padding: 1%;
     cursor: pointer;
     font-size: 0.6vw;
@@ -548,7 +548,7 @@ form {
 
 .boutonFormulaireInverse {
     background-color: white;
-    color: #021C2D;
+    color: rgb(31,78,121);
     border-radius: 5px;
     border: inset 1px white;
     padding: 3%;
@@ -558,7 +558,7 @@ form {
 
 .boutonFormulaireInverse:hover {
     color: white;
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
 }
 
 .flashbag {
@@ -621,7 +621,7 @@ form {
 .messageAcceuil {
     margin: 2% 15% 3% 15%;
     padding: 1%;   
-    border-bottom: solid 1px #021C2D;
+    border-bottom: solid 1px rgb(192,0,0);
 }
 
 .messageAcceuil p {
@@ -631,14 +631,14 @@ form {
 }
 
 .messageAcceuil h2 {
-    color: #021C2D;
+    color: rgb(31,78,121);
     margin: 0px;
     padding: 0px;
     font-size: 2vw;
 }
 
 .messageAcceuil h3 {
-    color: #021C2D;
+    color: rgb(31,78,121);
     margin: 0px;
     padding: 0px;
     font-size: 1vw;
@@ -646,7 +646,7 @@ form {
 
 .messageAcceuil h4 {
     text-align: left;
-    color: #021C2D;
+    color: rgb(31,78,121);
     margin: auto;
     padding: 0px;
     font-size: 1vw;
@@ -656,12 +656,12 @@ form {
 .surMessageAcceuil {
     margin: 2% 20% 3% 20%;
     padding: 1%;   
-    border-bottom: solid 1px #021C2D;
+    border-bottom: solid 1px rgb(31,78,121);
 }
 
 .surMessageAcceuil h4 {
     text-align: left;
-    color: #021C2D;
+    color: rgb(31,78,121);
     font-size: 1vw;
     margin: auto;
     cursor: pointer;
@@ -674,7 +674,7 @@ form {
 
 .sousMessageAcceuil h4 {
     text-align: left;
-    color: #021C2D;
+    color: rgb(31,78,121);
     font-size: 1vw;
     margin: auto;
     cursor: pointer;
@@ -687,7 +687,7 @@ form {
 
 .sousSousMessageAcceuil h5 {
     text-align: left;
-    color: #021C2D;
+    color: rgb(31,78,121);
     font-size: 1vw;
     margin: auto;
     cursor: pointer;
@@ -727,7 +727,7 @@ figure {
 }
 
 figure img { 
-    border: solid 1px #021C2D; 
+    border: solid 1px rgb(31,78,121); 
     border-radius: 15px;
     width: 100%;
 }
@@ -737,7 +737,7 @@ figcaption {
     display: table-caption; 
     caption-side: bottom; 
     white-space: normal;
-    color: #021C2D;
+    color: rgb(31,78,121);
 }
 
 #Liens {
@@ -761,14 +761,14 @@ figcaption {
 }
 
 #Liens ul {
-    color: #021C2D;
+    color: rgb(31,78,121);
     list-style-type: none;
 }
 
 #Liens a, #Liens a:checked {
     font-size: 1vw;
     text-decoration: none;
-    color: #021C2D;
+    color: rgb(31,78,121);
     vertical-align: middle;
     font-weight: normal;
 }
@@ -819,7 +819,7 @@ figcaption {
 }
 
 .tous, .tous:checked, .tous:hover {
-    color:#021C2D;
+    color:rgb(31,78,121);
     text-decoration: none;
 
 }
@@ -863,7 +863,7 @@ divAdministrationUtilisateur {
 
 #divAdministrationUtilisateur tr:first-child {
     font-weight: bold;
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
     color: white;
 }
 
@@ -891,7 +891,7 @@ divAdministrationUtilisateur {
 
 #divAdministrationLien tr:first-child {
     font-weight: bold;
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
     color: white;
     text-align: center; 
 }
@@ -974,7 +974,7 @@ divAdministrationUtilisateur {
 
 #divAdministrationAdmin tr:first-child {
     font-weight: bold;
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
     color: white;
 }
 
@@ -1020,12 +1020,12 @@ divAdministrationUtilisateur {
 
 .divNews {
     display: block;
-    border: solid 2px #021C2D;
-    box-shadow: 2px 2px 5px #021C2D;
+    border: solid 2px rgb(31,78,121);
+    box-shadow: 2px 2px 5px rgb(31,78,121);
     padding: 1%;
     width: 60%;
     border-radius: 12px;
-    color: #021C2D;
+    color: rgb(31,78,121);
     margin: auto;
     margin-bottom: 1%;
     font-size: 0.8vw;
@@ -1106,10 +1106,10 @@ divAdministrationUtilisateur {
 
 .modifier {
     border-radius: 5px;
-    border: inset 1px #021C2D;
+    border: inset 1px rgb(31,78,121);
     padding: 3%;
-    background-color: #C6C6C6;
-    color: black;
+    background-color: rgb(242,242,242);
+    color: rgb(31,78,121);
     font-size: 0.7vw;
 }
 
@@ -1224,7 +1224,7 @@ divAdministrationUtilisateur {
 
 .ui-menu .ui-menu-item {
     background-color: white;
-    color: #021C2D;
+    color: rgb(31,78,121);
     font-weight: bold;
     font-size: 0.8vw;
     list-style-type: none;
@@ -1244,7 +1244,12 @@ divAdministrationUtilisateur {
 }
 
 .suppressionAdminImg {
-    width: 10%;
+    width: 7%;
+    vertical-align: middle;
+}
+
+.suppressionServeurImg {
+    width: 15%;
     vertical-align: middle;
 }
 
@@ -1301,13 +1306,13 @@ divAdministrationUtilisateur {
 
 #choixPage a, #choixPage a:checked {
     text-decoration: none;
-    color: #021C2D;
+    color: rgb(31,78,121);
     text-align: center;
 }
 
 #choixPage a:hover {
     text-decoration: underline;
-    color: #021C2D;
+    color: rgb(31,78,121);
     text-align: center;
 }
 
@@ -1326,7 +1331,7 @@ divAdministrationUtilisateur {
 }
 
 #communicationMenu li {
-    background: #021C2D;
+    background: rgb(31,78,121);
     color: white ;
     border: 1px solid #021C2D ;
     margin-bottom: 1px ;
@@ -1406,7 +1411,8 @@ divAdministrationUtilisateur {
     margin: auto;
     padding: 1%;
     font-size: 0.8vw;
-    border: solid 1px #021C2D;
+    border: solid 1px rgb(31,78,121);
+    background-color: rgba(141, 167, 190, 0.5);
 }
 
 #formulaireMateriel {
@@ -1520,7 +1526,7 @@ divAdministrationUtilisateur {
 }
 
 .menuAdmin {
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
     color: white;
     width: 68%;
     margin: auto;
@@ -1545,9 +1551,9 @@ divAdministrationUtilisateur {
 }
 
 .menuAdmin a:hover {
-    color: #021C2D;
+    color: rgb(31,78,121);
     background-color: white;
-    border-color: #021C2D;
+    border-color: rgb(31,78,121);
 }
 
 .menuAdmin a h3 {
@@ -1561,7 +1567,7 @@ divAdministrationUtilisateur {
 
 .lienArchive, .lienArchiv:checked  {
     display: block;
-    color: #021C2D;
+    color: rgb(31,78,121);
     text-decoration: none;
     cursor: pointer;
     vertical-align: middle;
@@ -1569,7 +1575,7 @@ divAdministrationUtilisateur {
 }
 
 .lienArchive:hover {
-    text-shadow: 0px 0px 10px #021C2D;
+    text-shadow: 0px 0px 10px rgb(31,78,121);
 }
 
 .lienArchive p {
@@ -1585,7 +1591,7 @@ divAdministrationUtilisateur {
 
 .lienImprimante, .lienImprimante:checked  {
     display: block;
-    color: #021C2D;
+    color: rgb(31,78,121);
     text-decoration: none;
     cursor: pointer;
     vertical-align: middle;
@@ -1593,7 +1599,7 @@ divAdministrationUtilisateur {
 }
 
 .lienImprimante:hover {
-    text-shadow: 0px 0px 10px #021C2D;
+    text-shadow: 0px 0px 10px rgb(31,78,121);
 }
 
 .lienImprimante p {
@@ -1696,7 +1702,7 @@ divAdministrationUtilisateur {
     width: 40%;
     margin-left: 15%;
     overflow: auto;
-    border: solid 1px #021C2D;
+    border: solid 1px rgb(31,78,121);
     vertical-align: top;
     max-height: 72%;
     height: 72%;
@@ -1734,6 +1740,7 @@ divAdministrationUtilisateur {
 
 .formulaireAdministrationMateriel {
     text-align: center;
+    background-color: rgba(141, 167, 190, 0.5);
 }
 
 .suppressionImprimanteImg {
@@ -1764,12 +1771,12 @@ divAdministrationUtilisateur {
 
 .menu a, .menu a:hover, .menu a:checked {
     text-decoration: none;
-    color: #021C2D;
+    color: rgb(31,78,121);
 }
 
 .sousSousMessageAcceuil a, .sousSousMessageAcceuil a:hover, .sousSousMessageAcceuil a:checked {
     text-decoration: none;
-    color: #021C2D;
+    color: rgb(31,78,121);
 }
 
 .imgRole {
@@ -1798,7 +1805,7 @@ divAdministrationUtilisateur {
 }
 
 #dateDuJour {
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
     color: white;
     padding: 1%;
     text-align: center;
@@ -1808,12 +1815,12 @@ divAdministrationUtilisateur {
 .maj {
     margin-top: 0px;
     margin-bottom: 0px;
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
     color: white;
     padding: 1% 0% 1% 1%;
     width: 99%;
-    border-left: solid 1px #021C2D;
-    border-right: solid 1px #021C2D;
+    border-left: solid 1px rgb(31,78,121);
+    border-right: solid 1px rgb(31,78,121);
     font-size: 0.8vw;
 }
 
@@ -1833,7 +1840,7 @@ divAdministrationUtilisateur {
 
 #majExterne p a, #majInterne p a, #majMarketing p a, #majSI p a, #majAQ p a, #majRH p a, #posteAPourvoir p a, #nominationOrganisation p a {
     text-decoration: none;
-    color: #5882FA;
+    color: rgb(192,0,0);
     cursor: pointer;
 }
 
@@ -1842,7 +1849,7 @@ divAdministrationUtilisateur {
 }
 
 .editionAnnonces, .editionAnnonces:visited {
-    color: #5882FA;
+    color: rgb(192,0,0);
     text-decoration: none;
 }
 
@@ -1856,7 +1863,7 @@ divAdministrationUtilisateur {
     width: 99%;
     margin-top: 0px;
     margin-bottom: 0px;
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
     color: white;
     padding: 1% 0% 1% 1%;
     font-size: 0.8vw;
@@ -1916,16 +1923,16 @@ divAdministrationUtilisateur {
 }
 
 #DivFormulaireAjoutProfil, #DivFormulaireSuppressionProfil, #DivCreationSuivi, #DivFormulaireParcourSuiviEnCours, 
-.DivAjoutFeuilleSuivi, .DivFormulaireAjoutFormulaire, .DivFormulaireSuppressionFormulaire, .DivFormulaireAjoutFichier, 
-#DivFormulaireSelectionAgence {
+.DivAjoutFeuilleSuivi, .DivFormulaireSuppressionFormulaire, .DivFormulaireAjoutFichier, 
+#DivFormulaireSelectionAgence, #DivFormulaireSelectionDossier, #DivFormulaireSelectionVersion {
     margin: 0% 25% 0% 25%;
     margin-bottom: 2%;
     font-size: 0.8vw;
 }
 
 .formulaireAdministrationAjoutProfil, .formulaireAdministrationSuppressionProfil, .formulaireCreationSuivi, 
-.formulaireParcourSuiviEnCours, .formulaireAjoutFeuilleSuivi, .formulaireAjoutFormulaire, 
-.formulaireAdministrationSuppressionFormulaire, .formulaireSelectionAgence, .formulaireAjoutFichier {
+.formulaireParcourSuiviEnCours, .formulaireAjoutFeuilleSuivi, .formulaireAdministrationSuppressionFormulaire, 
+.formulaireSelectionAgence, .formulaireAjoutFichier, .formulaireSelectionDossier, .formulaireSelectionVersion {
     padding: 0px;
     border: none;
     width: 80%;
@@ -1933,23 +1940,25 @@ divAdministrationUtilisateur {
 
 .formulaireAdministrationAjoutProfil fieldset, .formulaireAdministrationSuppressionProfil fieldset, 
 .formulaireCreationSuivi fieldset, .formulaireParcourSuiviEnCours fieldset, .formulaireAjoutFeuilleSuivi fieldset, 
-.formulaireAjoutFormulaire fieldset, .formulaireAdministrationSuppressionFormulaire fieldset, 
-.formulaireSelectionAgence fieldset, .formulaireAjoutFichier fieldset {
+.formulaireAdministrationSuppressionFormulaire fieldset, .formulaireSelectionAgence fieldset, .formulaireAjoutFichier fieldset, 
+.formulaireSelectionDossier fieldset, .formulaireSelectionVersion fieldset {
     text-align: center;
-    border-color: #021C2D;
+    border-color: rgb(31,78,121);
     border-width: 1px;
-    background-color: rgba(246, 240, 154, 0.5);
+    background-color: rgba(141, 167, 190, 0.5);
+    /*background-color: rgba(246, 240, 154, 0.5);*/
     /*background-image: url('../images/Excel-grille.png');*/
     /*background-size: 100%;*/
 }
 
 .formulaireAdministrationAjoutProfil fieldset legend, .formulaireAdministrationSuppressionProfil fieldset legend, 
-.formulaireCreationSuivi fieldset legend, .formulaireParcourSuiviEnCours fieldset legend, .formulaireAjoutFeuilleSuivi fieldset legend, 
-.formulaireAjoutFormulaire fieldset legend, .formulaireAdministrationSuppressionFormulaire fieldset legend, 
-.formulaireSelectionAgence fieldset legend, .formulaireAjoutFichier fieldset legend {
-    color: #021C2D;
+.formulaireCreationSuivi fieldset legend, .formulaireParcourSuiviEnCours fieldset legend, 
+.formulaireAjoutFeuilleSuivi fieldset legend, .formulaireAdministrationSuppressionFormulaire fieldset legend, 
+.formulaireSelectionAgence fieldset legend, .formulaireAjoutFichier fieldset legend, 
+.formulaireSelectionDossier fieldset legend, .formulaireSelectionVersion fieldset legend {
+    color: rgb(31,78,121);
     background-color: white;
-    border: solid 1px #021C2D;
+    border: solid 1px rgb(31,78,121);
     padding: 0% 0.5% 0% 0.5%;
     white-space: nowrap;
     text-align: left;
@@ -1996,14 +2005,14 @@ divAdministrationUtilisateur {
     text-align: center;
 }
 
-.formulaireParcourSuiviEnCours p {
+.formulaireParcourSuiviEnCours p, .formulaireSelectionVersion p {
     vertical-align: middle;
     width: 40%;
     display: inline-block;
     text-align: center;
 }
 
-.formulaireParcourSuiviEnCours p select {
+.formulaireParcourSuiviEnCours p select, .formulaireSelectionVersion p select {
     width: 100%;
     text-align: center;
     padding-bottom: 5%;
@@ -2011,11 +2020,11 @@ divAdministrationUtilisateur {
     overflow: auto;
 }
 
-.submitFormulaireParcourSuiviEnCours, .submitFormulaireAjoutFormulaire {
-    background-color: #021C2D;
+.submitFormulaireParcourSuiviEnCours, .submitFormulaireAjoutFormulaire, .submitFormulaireSelectionVersion {
+    background-color: rgb(31,78,121);
     color: white;
     border-radius: 5px;
-    border: inset 1px #021C2D;
+    border: inset 1px rgb(31,78,121);
     padding: 2%;
     cursor: pointer;
     font-size: 0.6vw;
@@ -2023,17 +2032,17 @@ divAdministrationUtilisateur {
     width: 50%;
 }
 
-.submitFormulaireParcourSuiviEnCours:hover, .submitFormulaireAjoutFormulaire:hover {
+.submitFormulaireParcourSuiviEnCours:hover, .submitFormulaireAjoutFormulaire:hover, .submitFormulaireSelectionVersion:hover {
     color: #010101;
     background-color: #FEFEFE;
 }
 
 
 .submitFormulaireCreationSuivi {
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
     color: white;
     border-radius: 5px;
-    border: inset 1px #021C2D;
+    border: inset 1px rgb(31,78,121);
     padding: 2%;
     cursor: pointer;
     font-size: 0.6vw;
@@ -2048,15 +2057,15 @@ divAdministrationUtilisateur {
 .formulaireAjoutFeuilleSuivi p {
     cursor: pointer; 
     display: inline-block; 
-    border: solid 1px #021C2D; 
+    border: solid 1px rgb(31,78,121); 
     padding: 1%; 
-    background-color: #021C2D; 
+    background-color: rgb(31,78,121); 
     color: white;
 }
 
 .formulaireAjoutFeuilleSuivi p:hover {
     background-color: white; 
-    color: #021C2D; ;
+    color: rgb(31,78,121); ;
 }
 
 #licencesIframe {
@@ -2107,7 +2116,7 @@ divAdministrationUtilisateur {
 
 #tableauExcel th {
     border: 1px outset white;
-    background-color: #021C2D;
+    background-color: rgb(31,78,121);
     color: white;
 }
 
@@ -2136,23 +2145,23 @@ divAdministrationUtilisateur {
     padding: 0px;
     border: none;
     width: 100%;
-    height: 100%;
+    height: 60%;
 }
 
 .formulaireSuppressionAnnonce fieldset {
     text-align: center;
-    border-color: #021C2D;
+    border-color: rgb(31,78,121);
     border-width: 1px;
-    background-color: rgba(246, 240, 154, 0.5);
+    background-color: rgba(141, 167, 190, 0.5);
     width: 98%;
     padding: 1%;
     height: 100%;
 }
 
 .formulaireSuppressionAnnonce fieldset legend {
-    color: #021C2D;
+    color: rgb(31,78,121);
     background-color: white;
-    border: solid 1px #021C2D;
+    border: solid 1px rgb(31,78,121);
     padding: 0% 0.5% 0% 0.5%;
     white-space: nowrap;
     text-align: left;
@@ -2163,7 +2172,6 @@ divAdministrationUtilisateur {
     width: 100%;
     overflow: auto;
     height: 80%;
-    margin-bottom: 3%;
 }
 
 .selectFormulaireSuppressionAnnonce option {
@@ -2192,18 +2200,18 @@ divAdministrationUtilisateur {
 
 .formulaireAjoutAnnonce fieldset {
     text-align: center;
-    border-color: #021C2D;
+    border-color: rgb(31,78,121);
     border-width: 1px;
-    background-color: rgba(246, 240, 154, 0.5);
+    background-color: rgba(141, 167, 190, 0.5);
     width: 98%;
     max-width: 98%;
     padding: 1%;
 }
 
 .formulaireAjoutAnnonce fieldset legend {
-    color: #021C2D;
+    color: rgb(31,78,121);
     background-color: white;
-    border: solid 1px #021C2D;
+    border: solid 1px rgb(31,78,121);
     padding: 0% 0.5% 0% 0.5%;
     white-space: nowrap;
     text-align: left;
@@ -2214,17 +2222,25 @@ divAdministrationUtilisateur {
     max-width: 98%;
     resize: vertical;
     font-size: 0.8vw;
-    margin-bottom: 3%;
 }
 
-/*.ui-dialog {
-    background-color: #021C2D;
+legend>p {
+    margin: 0px;
+    text-align: center;
 }
 
-.ui-dialog-title {
+.boutonAnnonce {
+    background-color: rgb(31,78,121);
     color: white;
+    border-radius: 5px;
+    border: inset 1px rgb(31,78,121);
+    padding: 1%;
+    cursor: pointer;
+    font-size: 0.6vw;
+    margin-top: 1%;
 }
 
-.ui-dialog-titlebar-close {
-    text-align: right;
-}*/
+.boutonAnnonce:hover {
+    color: #010101;
+    background-color: #FEFEFE;
+}

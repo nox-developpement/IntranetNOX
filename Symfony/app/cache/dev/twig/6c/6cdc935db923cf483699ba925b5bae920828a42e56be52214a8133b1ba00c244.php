@@ -23,44 +23,44 @@ class __TwigTemplate_935cb1959e1a34ee4aa81985c4daf9ff82e043b553fa503a8c99ab231e0
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_80512bae71b8725b9d559b4486a85e102dcba58d34707fca8f2aad68c54c9c01 = $this->env->getExtension("native_profiler");
-        $__internal_80512bae71b8725b9d559b4486a85e102dcba58d34707fca8f2aad68c54c9c01->enter($__internal_80512bae71b8725b9d559b4486a85e102dcba58d34707fca8f2aad68c54c9c01_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:Administration:administrationAdmins.html.twig"));
+        $__internal_ae1f7d5f0b8072c21d72942f2c1401e34d901731c5cd2bfeaa2d2182707dca0f = $this->env->getExtension("native_profiler");
+        $__internal_ae1f7d5f0b8072c21d72942f2c1401e34d901731c5cd2bfeaa2d2182707dca0f->enter($__internal_ae1f7d5f0b8072c21d72942f2c1401e34d901731c5cd2bfeaa2d2182707dca0f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:Administration:administrationAdmins.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_80512bae71b8725b9d559b4486a85e102dcba58d34707fca8f2aad68c54c9c01->leave($__internal_80512bae71b8725b9d559b4486a85e102dcba58d34707fca8f2aad68c54c9c01_prof);
+        $__internal_ae1f7d5f0b8072c21d72942f2c1401e34d901731c5cd2bfeaa2d2182707dca0f->leave($__internal_ae1f7d5f0b8072c21d72942f2c1401e34d901731c5cd2bfeaa2d2182707dca0f_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_92749964b1a7393415d27560e00913e3cb26eca9fbff202506fed428a7f078e1 = $this->env->getExtension("native_profiler");
-        $__internal_92749964b1a7393415d27560e00913e3cb26eca9fbff202506fed428a7f078e1->enter($__internal_92749964b1a7393415d27560e00913e3cb26eca9fbff202506fed428a7f078e1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_a90468df34c41b35dbca4a9d8b4b07be11ece8819f878e5292362bad1e56faf7 = $this->env->getExtension("native_profiler");
+        $__internal_a90468df34c41b35dbca4a9d8b4b07be11ece8819f878e5292362bad1e56faf7->enter($__internal_a90468df34c41b35dbca4a9d8b4b07be11ece8819f878e5292362bad1e56faf7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo "Administration Admins";
         
-        $__internal_92749964b1a7393415d27560e00913e3cb26eca9fbff202506fed428a7f078e1->leave($__internal_92749964b1a7393415d27560e00913e3cb26eca9fbff202506fed428a7f078e1_prof);
+        $__internal_a90468df34c41b35dbca4a9d8b4b07be11ece8819f878e5292362bad1e56faf7->leave($__internal_a90468df34c41b35dbca4a9d8b4b07be11ece8819f878e5292362bad1e56faf7_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_2b20a09f4790cbfca53654134d07144aeafb266749343848acd915b15a3053aa = $this->env->getExtension("native_profiler");
-        $__internal_2b20a09f4790cbfca53654134d07144aeafb266749343848acd915b15a3053aa->enter($__internal_2b20a09f4790cbfca53654134d07144aeafb266749343848acd915b15a3053aa_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_d9cb812720a57f8c0253f9bc68400526da4b07532f1af506222095231f1c7319 = $this->env->getExtension("native_profiler");
+        $__internal_d9cb812720a57f8c0253f9bc68400526da4b07532f1af506222095231f1c7319->enter($__internal_d9cb812720a57f8c0253f9bc68400526da4b07532f1af506222095231f1c7319_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Administration des comptes admins";
         
-        $__internal_2b20a09f4790cbfca53654134d07144aeafb266749343848acd915b15a3053aa->leave($__internal_2b20a09f4790cbfca53654134d07144aeafb266749343848acd915b15a3053aa_prof);
+        $__internal_d9cb812720a57f8c0253f9bc68400526da4b07532f1af506222095231f1c7319->leave($__internal_d9cb812720a57f8c0253f9bc68400526da4b07532f1af506222095231f1c7319_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_81e4e162aa810a1de18bd0f1d58237cb123037cc9dcb77dd1aa62571289ebb23 = $this->env->getExtension("native_profiler");
-        $__internal_81e4e162aa810a1de18bd0f1d58237cb123037cc9dcb77dd1aa62571289ebb23->enter($__internal_81e4e162aa810a1de18bd0f1d58237cb123037cc9dcb77dd1aa62571289ebb23_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_9f0a89264ebda03b5275a8bd44db33343c55101c8ea40ef5935f5b43173543d6 = $this->env->getExtension("native_profiler");
+        $__internal_9f0a89264ebda03b5275a8bd44db33343c55101c8ea40ef5935f5b43173543d6->enter($__internal_9f0a89264ebda03b5275a8bd44db33343c55101c8ea40ef5935f5b43173543d6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -133,7 +133,7 @@ class __TwigTemplate_935cb1959e1a34ee4aa81985c4daf9ff82e043b553fa503a8c99ab231e0
                     // line 48
                     echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_suppression_admin", array("adminID" => $this->getAttribute($context["admin"], "id", array()))), "html", null, true);
                     echo "'> <img class=\"suppressionAdminImg\" src='";
-                    echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/User-Delete-48.png"), "html", null, true);
+                    echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/User-Delete-32.png"), "html", null, true);
                     echo "'> </a> </td>
                         </tr>
 
@@ -158,7 +158,7 @@ class __TwigTemplate_935cb1959e1a34ee4aa81985c4daf9ff82e043b553fa503a8c99ab231e0
     </div>
 ";
         
-        $__internal_81e4e162aa810a1de18bd0f1d58237cb123037cc9dcb77dd1aa62571289ebb23->leave($__internal_81e4e162aa810a1de18bd0f1d58237cb123037cc9dcb77dd1aa62571289ebb23_prof);
+        $__internal_9f0a89264ebda03b5275a8bd44db33343c55101c8ea40ef5935f5b43173543d6->leave($__internal_9f0a89264ebda03b5275a8bd44db33343c55101c8ea40ef5935f5b43173543d6_prof);
 
     }
 
@@ -224,7 +224,7 @@ class __TwigTemplate_935cb1959e1a34ee4aa81985c4daf9ff82e043b553fa503a8c99ab231e0
 /*                                 {% endif %}*/
 /*                             </td>*/
 /* */
-/*                             <td> <a href='{{ path('nox_intranet_suppression_admin', {'adminID': admin.id}) }}'> <img class="suppressionAdminImg" src='{{ asset('bundles/noxintranetadministration/images/User-Delete-48.png') }}'> </a> </td>*/
+/*                             <td> <a href='{{ path('nox_intranet_suppression_admin', {'adminID': admin.id}) }}'> <img class="suppressionAdminImg" src='{{ asset('bundles/noxintranetadministration/images/User-Delete-32.png') }}'> </a> </td>*/
 /*                         </tr>*/
 /* */
 /*                     {% endif %}*/

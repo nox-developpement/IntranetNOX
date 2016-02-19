@@ -23,44 +23,44 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_000fe164aac2ded43e20879a92954513cb0ba87e1e13ee0b4e46cf0097b191b2 = $this->env->getExtension("native_profiler");
-        $__internal_000fe164aac2ded43e20879a92954513cb0ba87e1e13ee0b4e46cf0097b191b2->enter($__internal_000fe164aac2ded43e20879a92954513cb0ba87e1e13ee0b4e46cf0097b191b2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationUser:administrationUser2.html.twig"));
+        $__internal_47eba69b611dfad998e39a357010bdccaeefd040afae25d21048a5289ea13249 = $this->env->getExtension("native_profiler");
+        $__internal_47eba69b611dfad998e39a357010bdccaeefd040afae25d21048a5289ea13249->enter($__internal_47eba69b611dfad998e39a357010bdccaeefd040afae25d21048a5289ea13249_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationUser:administrationUser2.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_000fe164aac2ded43e20879a92954513cb0ba87e1e13ee0b4e46cf0097b191b2->leave($__internal_000fe164aac2ded43e20879a92954513cb0ba87e1e13ee0b4e46cf0097b191b2_prof);
+        $__internal_47eba69b611dfad998e39a357010bdccaeefd040afae25d21048a5289ea13249->leave($__internal_47eba69b611dfad998e39a357010bdccaeefd040afae25d21048a5289ea13249_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_4409a228ee1a07c20b489f787e94fe6b18f2348e727fa72b1310636ef3bbc189 = $this->env->getExtension("native_profiler");
-        $__internal_4409a228ee1a07c20b489f787e94fe6b18f2348e727fa72b1310636ef3bbc189->enter($__internal_4409a228ee1a07c20b489f787e94fe6b18f2348e727fa72b1310636ef3bbc189_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_9422ae7d4a37578b07ba25aa0c918cb9d7a2e0d7bdf7c74a21697a0d90c526ca = $this->env->getExtension("native_profiler");
+        $__internal_9422ae7d4a37578b07ba25aa0c918cb9d7a2e0d7bdf7c74a21697a0d90c526ca->enter($__internal_9422ae7d4a37578b07ba25aa0c918cb9d7a2e0d7bdf7c74a21697a0d90c526ca_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo "Administration utilisateurs";
         
-        $__internal_4409a228ee1a07c20b489f787e94fe6b18f2348e727fa72b1310636ef3bbc189->leave($__internal_4409a228ee1a07c20b489f787e94fe6b18f2348e727fa72b1310636ef3bbc189_prof);
+        $__internal_9422ae7d4a37578b07ba25aa0c918cb9d7a2e0d7bdf7c74a21697a0d90c526ca->leave($__internal_9422ae7d4a37578b07ba25aa0c918cb9d7a2e0d7bdf7c74a21697a0d90c526ca_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_471c939a0b02d466e515abd02f8fe134e86099ffe2221ba9e4438c07ca4c4fdf = $this->env->getExtension("native_profiler");
-        $__internal_471c939a0b02d466e515abd02f8fe134e86099ffe2221ba9e4438c07ca4c4fdf->enter($__internal_471c939a0b02d466e515abd02f8fe134e86099ffe2221ba9e4438c07ca4c4fdf_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_da4393ba313b6a8addd4ab677df7ea37f16ce9a5e0515bb874c7466809c200ea = $this->env->getExtension("native_profiler");
+        $__internal_da4393ba313b6a8addd4ab677df7ea37f16ce9a5e0515bb874c7466809c200ea->enter($__internal_da4393ba313b6a8addd4ab677df7ea37f16ce9a5e0515bb874c7466809c200ea_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Administration utilisateurs";
         
-        $__internal_471c939a0b02d466e515abd02f8fe134e86099ffe2221ba9e4438c07ca4c4fdf->leave($__internal_471c939a0b02d466e515abd02f8fe134e86099ffe2221ba9e4438c07ca4c4fdf_prof);
+        $__internal_da4393ba313b6a8addd4ab677df7ea37f16ce9a5e0515bb874c7466809c200ea->leave($__internal_da4393ba313b6a8addd4ab677df7ea37f16ce9a5e0515bb874c7466809c200ea_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_9540c3499ffb0524c1034c485a5616e195830f5c67f9adf06df3957d1925f162 = $this->env->getExtension("native_profiler");
-        $__internal_9540c3499ffb0524c1034c485a5616e195830f5c67f9adf06df3957d1925f162->enter($__internal_9540c3499ffb0524c1034c485a5616e195830f5c67f9adf06df3957d1925f162_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_3c2163df74181bfa1313485fdaf5fd999c3f544a693ce36d05328e0c8f839a83 = $this->env->getExtension("native_profiler");
+        $__internal_3c2163df74181bfa1313485fdaf5fd999c3f544a693ce36d05328e0c8f839a83->enter($__internal_3c2163df74181bfa1313485fdaf5fd999c3f544a693ce36d05328e0c8f839a83_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -104,7 +104,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         echo "' class='tous'> <p>";
         if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_USER")) {
             echo "<img src=\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Left-32.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
         }
         echo "Tous</p> </a> </div> </div> </td>
@@ -114,7 +114,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         echo "' class='admin'> <p>";
         if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_ADMIN")) {
             echo " <img src=\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Left-32.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
         }
         echo "Admin </p> </a> </div></div></td>
@@ -124,7 +124,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         echo "' class='ce'>  <p>";
         if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_CE")) {
             echo " <img src=\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Left-32.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
         }
         echo " CE </p>  </a> </div></div></td>
@@ -134,7 +134,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         echo "' class='CHSCT'>  <p>";
         if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_CHSCT")) {
             echo " <img src=\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Left-32.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
         }
         echo " CHSCT </p>  </a> </div></div></td>
@@ -144,7 +144,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         echo "' class='communication'> <p> ";
         if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_COMMUNICATION")) {
             echo " <img src=\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Left-32.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
         }
         echo "Communication  </p></a> </div></div></td>
@@ -154,7 +154,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         echo "' class='competences'> <p>";
         if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_COMPETENCES")) {
             echo " <img src=\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Left-32.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
         }
         echo "Compétences </p> </a></div></div> </td>
@@ -164,7 +164,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         echo "' class='faq'> <p>";
         if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_FAQ")) {
             echo " <img src=\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Left-32.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
         }
         echo " FAQ </p> </a> </div></div></td>
@@ -174,7 +174,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         echo "' class='liens2'> <p> ";
         if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_LIENS")) {
             echo " <img src=\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Left-32.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
         }
         echo "Liens </p>  </a> </div></div></td>
@@ -184,7 +184,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         echo "' class='procedures'> <p> ";
         if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_PROCEDURES")) {
             echo " <img src=\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Left-32.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
         }
         echo "Procédures  </p></a> </div></div></td>
@@ -194,7 +194,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         echo "' class='qualite'>  <p> ";
         if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_QUALITE")) {
             echo "<img src=\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Left-32.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
         }
         echo "Qualité </p>  </a></div></div> </td>
@@ -204,7 +204,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         echo "' class='references'> <p> ";
         if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_REFERENCES")) {
             echo " <img src=\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Left-32.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
         }
         echo "Références </p> </a></div></div></td>
@@ -214,7 +214,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         echo "' class='RH'> <p> ";
         if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "ROLE_RH")) {
             echo " <img src=\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Left-32.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
         }
         echo "RH </p> </a></div></div></td>
@@ -224,7 +224,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
         echo "' class='local'>  <p>";
         if (((isset($context["roleUser"]) ? $context["roleUser"] : $this->getContext($context, "roleUser")) == "LOCAL")) {
             echo " <img src=\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Left-32.png"), "html", null, true);
             echo "\" class=\"imgRole\"> ";
         }
         echo " Local </p>  </a> </div></div></td>
@@ -868,7 +868,7 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
     </div>
 ";
         
-        $__internal_9540c3499ffb0524c1034c485a5616e195830f5c67f9adf06df3957d1925f162->leave($__internal_9540c3499ffb0524c1034c485a5616e195830f5c67f9adf06df3957d1925f162_prof);
+        $__internal_3c2163df74181bfa1313485fdaf5fd999c3f544a693ce36d05328e0c8f839a83->leave($__internal_3c2163df74181bfa1313485fdaf5fd999c3f544a693ce36d05328e0c8f839a83_prof);
 
     }
 
@@ -920,19 +920,19 @@ class __TwigTemplate_f63362d5cef707659d4f07d5edbcc42546dc39299a345263527f6d18717
 /*                 <td> Action </td>*/
 /*             </tr>*/
 /*             <tr>*/
-/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_USER'}) }}' class='tous'> <p>{% if roleUser == 'ROLE_USER' %}<img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Tous</p> </a> </div> </div> </td>*/
-/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_ADMIN'}) }}' class='admin'> <p>{% if roleUser == 'ROLE_ADMIN' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Admin </p> </a> </div></div></td>*/
-/*                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_CE'}) }}' class='ce'>  <p>{% if roleUser == 'ROLE_CE' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %} CE </p>  </a> </div></div></td>*/
-/*                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_CHSCT'}) }}' class='CHSCT'>  <p>{% if roleUser == 'ROLE_CHSCT' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %} CHSCT </p>  </a> </div></div></td>*/
-/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_COMMUNICATION'}) }}' class='communication'> <p> {% if roleUser == 'ROLE_COMMUNICATION' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Communication  </p></a> </div></div></td>*/
-/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_COMPETENCES'}) }}' class='competences'> <p>{% if roleUser == 'ROLE_COMPETENCES' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Compétences </p> </a></div></div> </td>*/
-/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_FAQ'}) }}' class='faq'> <p>{% if roleUser == 'ROLE_FAQ' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %} FAQ </p> </a> </div></div></td>*/
-/*                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_LIENS'}) }}' class='liens2'> <p> {% if roleUser == 'ROLE_LIENS' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Liens </p>  </a> </div></div></td>*/
-/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_PROCEDURES'}) }}' class='procedures'> <p> {% if roleUser == 'ROLE_PROCEDURES' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Procédures  </p></a> </div></div></td>*/
-/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_QUALITE'}) }}' class='qualite'>  <p> {% if roleUser == 'ROLE_QUALITE' %}<img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Qualité </p>  </a></div></div> </td>*/
-/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_REFERENCES'}) }}' class='references'> <p> {% if roleUser == 'ROLE_REFERENCES' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}Références </p> </a></div></div></td>*/
-/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_RH'}) }}' class='RH'> <p> {% if roleUser == 'ROLE_RH' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %}RH </p> </a></div></div></td>*/
-/*                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'LOCAL'}) }}' class='local'>  <p>{% if roleUser == 'LOCAL' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow.png') }}" class="imgRole"> {% endif %} Local </p>  </a> </div></div></td>*/
+/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_USER'}) }}' class='tous'> <p>{% if roleUser == 'ROLE_USER' %}<img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %}Tous</p> </a> </div> </div> </td>*/
+/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_ADMIN'}) }}' class='admin'> <p>{% if roleUser == 'ROLE_ADMIN' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %}Admin </p> </a> </div></div></td>*/
+/*                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_CE'}) }}' class='ce'>  <p>{% if roleUser == 'ROLE_CE' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %} CE </p>  </a> </div></div></td>*/
+/*                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_CHSCT'}) }}' class='CHSCT'>  <p>{% if roleUser == 'ROLE_CHSCT' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %} CHSCT </p>  </a> </div></div></td>*/
+/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_COMMUNICATION'}) }}' class='communication'> <p> {% if roleUser == 'ROLE_COMMUNICATION' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %}Communication  </p></a> </div></div></td>*/
+/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_COMPETENCES'}) }}' class='competences'> <p>{% if roleUser == 'ROLE_COMPETENCES' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %}Compétences </p> </a></div></div> </td>*/
+/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_FAQ'}) }}' class='faq'> <p>{% if roleUser == 'ROLE_FAQ' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %} FAQ </p> </a> </div></div></td>*/
+/*                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_LIENS'}) }}' class='liens2'> <p> {% if roleUser == 'ROLE_LIENS' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %}Liens </p>  </a> </div></div></td>*/
+/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_PROCEDURES'}) }}' class='procedures'> <p> {% if roleUser == 'ROLE_PROCEDURES' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %}Procédures  </p></a> </div></div></td>*/
+/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_QUALITE'}) }}' class='qualite'>  <p> {% if roleUser == 'ROLE_QUALITE' %}<img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %}Qualité </p>  </a></div></div> </td>*/
+/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_REFERENCES'}) }}' class='references'> <p> {% if roleUser == 'ROLE_REFERENCES' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %}Références </p> </a></div></div></td>*/
+/*                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_RH'}) }}' class='RH'> <p> {% if roleUser == 'ROLE_RH' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %}RH </p> </a></div></div></td>*/
+/*                 <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'LOCAL'}) }}' class='local'>  <p>{% if roleUser == 'LOCAL' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %} Local </p>  </a> </div></div></td>*/
 /*                 <td><div class="vertical-text"> <div class="vertical-text__inner"> </div> </div> </td>*/
 /*             </tr>*/
 /* */

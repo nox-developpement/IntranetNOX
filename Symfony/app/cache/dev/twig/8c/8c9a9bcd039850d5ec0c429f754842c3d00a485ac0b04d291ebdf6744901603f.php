@@ -23,44 +23,44 @@ class __TwigTemplate_187cfb8210cfc88a149b4edf7b885092e0600af8d84c30d74049607e719
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_8ad7c515b81b53172eb9f2c06e8c4b61e37f49f55795d1ad5af9bb8f2bce4260 = $this->env->getExtension("native_profiler");
-        $__internal_8ad7c515b81b53172eb9f2c06e8c4b61e37f49f55795d1ad5af9bb8f2bce4260->enter($__internal_8ad7c515b81b53172eb9f2c06e8c4b61e37f49f55795d1ad5af9bb8f2bce4260_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetSupportSIBundle:Support:accueilSupport.html.twig"));
+        $__internal_260f9a547e3fd8a584159223cf8756900b5282dca8d31e248ab4c07ce6b0a00a = $this->env->getExtension("native_profiler");
+        $__internal_260f9a547e3fd8a584159223cf8756900b5282dca8d31e248ab4c07ce6b0a00a->enter($__internal_260f9a547e3fd8a584159223cf8756900b5282dca8d31e248ab4c07ce6b0a00a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetSupportSIBundle:Support:accueilSupport.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_8ad7c515b81b53172eb9f2c06e8c4b61e37f49f55795d1ad5af9bb8f2bce4260->leave($__internal_8ad7c515b81b53172eb9f2c06e8c4b61e37f49f55795d1ad5af9bb8f2bce4260_prof);
+        $__internal_260f9a547e3fd8a584159223cf8756900b5282dca8d31e248ab4c07ce6b0a00a->leave($__internal_260f9a547e3fd8a584159223cf8756900b5282dca8d31e248ab4c07ce6b0a00a_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_6093158e07c6f07dfb324c20c8906b30fb902da9bf0e727debff52bcb81dd113 = $this->env->getExtension("native_profiler");
-        $__internal_6093158e07c6f07dfb324c20c8906b30fb902da9bf0e727debff52bcb81dd113->enter($__internal_6093158e07c6f07dfb324c20c8906b30fb902da9bf0e727debff52bcb81dd113_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_6ccf443297fc8504569daa75529949e856fc72205aa718974bd254bb612df7ef = $this->env->getExtension("native_profiler");
+        $__internal_6ccf443297fc8504569daa75529949e856fc72205aa718974bd254bb612df7ef->enter($__internal_6ccf443297fc8504569daa75529949e856fc72205aa718974bd254bb612df7ef_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Support ";
         
-        $__internal_6093158e07c6f07dfb324c20c8906b30fb902da9bf0e727debff52bcb81dd113->leave($__internal_6093158e07c6f07dfb324c20c8906b30fb902da9bf0e727debff52bcb81dd113_prof);
+        $__internal_6ccf443297fc8504569daa75529949e856fc72205aa718974bd254bb612df7ef->leave($__internal_6ccf443297fc8504569daa75529949e856fc72205aa718974bd254bb612df7ef_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_500f7371aadcfbe8fb4d2178f080b4017e8a553c76c8fe5e5e5034c8aebe4c96 = $this->env->getExtension("native_profiler");
-        $__internal_500f7371aadcfbe8fb4d2178f080b4017e8a553c76c8fe5e5e5034c8aebe4c96->enter($__internal_500f7371aadcfbe8fb4d2178f080b4017e8a553c76c8fe5e5e5034c8aebe4c96_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_e4830df03a4f6e233168f81be29e2beed54670b6e402d494d02a90adb508ed78 = $this->env->getExtension("native_profiler");
+        $__internal_e4830df03a4f6e233168f81be29e2beed54670b6e402d494d02a90adb508ed78->enter($__internal_e4830df03a4f6e233168f81be29e2beed54670b6e402d494d02a90adb508ed78_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Support SI";
         
-        $__internal_500f7371aadcfbe8fb4d2178f080b4017e8a553c76c8fe5e5e5034c8aebe4c96->leave($__internal_500f7371aadcfbe8fb4d2178f080b4017e8a553c76c8fe5e5e5034c8aebe4c96_prof);
+        $__internal_e4830df03a4f6e233168f81be29e2beed54670b6e402d494d02a90adb508ed78->leave($__internal_e4830df03a4f6e233168f81be29e2beed54670b6e402d494d02a90adb508ed78_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_9cd62ee5d4e9f7034ec41832373cfea1784045eb356c03d1ec86f93cf61fcee8 = $this->env->getExtension("native_profiler");
-        $__internal_9cd62ee5d4e9f7034ec41832373cfea1784045eb356c03d1ec86f93cf61fcee8->enter($__internal_9cd62ee5d4e9f7034ec41832373cfea1784045eb356c03d1ec86f93cf61fcee8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_45ac63adb5dc276a6cc545c430d4e669b1e277bfb1880d3cd15d5b5b33b0b736 = $this->env->getExtension("native_profiler");
+        $__internal_45ac63adb5dc276a6cc545c430d4e669b1e277bfb1880d3cd15d5b5b33b0b736->enter($__internal_45ac63adb5dc276a6cc545c430d4e669b1e277bfb1880d3cd15d5b5b33b0b736_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -75,15 +75,15 @@ class __TwigTemplate_187cfb8210cfc88a149b4edf7b885092e0600af8d84c30d74049607e719
                 <img 
                     src=\"";
         // line 15
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Date-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Calendar-Date-04-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
         // line 16
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Date-128-hover.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Calendar-Date-04-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
         // line 17
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Date-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Calendar-Date-04-128.png"), "html", null, true);
         echo "';\"
                     > 
                 <figcaption>Av. projet</figcaption>
@@ -99,15 +99,15 @@ class __TwigTemplate_187cfb8210cfc88a149b4edf7b885092e0600af8d84c30d74049607e719
                 <img 
                     src=\"";
         // line 27
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Materiel-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Mobile-Phone-Message-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
         // line 28
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Materiel-128-hover.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Mobile-Phone-Message-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
         // line 29
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Materiel-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Mobile-Phone-Message-128.png"), "html", null, true);
         echo "';\"
                     > 
                 <figcaption>Matériel/Logiciel</figcaption>
@@ -123,15 +123,15 @@ class __TwigTemplate_187cfb8210cfc88a149b4edf7b885092e0600af8d84c30d74049607e719
                 <img 
                     src=\"";
         // line 39
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Information-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Message-Information-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
         // line 40
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Information-128-hover.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Message-Information-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
         // line 41
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Information-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Message-Information-128.png"), "html", null, true);
         echo "';\"
                     > 
                 <figcaption>Information</figcaption>
@@ -148,15 +148,15 @@ class __TwigTemplate_187cfb8210cfc88a149b4edf7b885092e0600af8d84c30d74049607e719
                 <img 
                     src=\"";
         // line 52
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Licenses-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Verify-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
         // line 53
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Licenses-128-hover.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Verify-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
         // line 54
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Licenses-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Verify-128.png"), "html", null, true);
         echo "';\"
                     > 
                 <figcaption>Licences</figcaption>
@@ -172,15 +172,15 @@ class __TwigTemplate_187cfb8210cfc88a149b4edf7b885092e0600af8d84c30d74049607e719
                 <img 
                     src=\"";
         // line 64
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Ticket-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Ticketing-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
         // line 65
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Ticket-128-hover.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Ticketing-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
         // line 66
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Ticket-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Ticketing-128.png"), "html", null, true);
         echo "';\"
                     > 
                 <figcaption>Ticketing</figcaption>
@@ -196,15 +196,15 @@ class __TwigTemplate_187cfb8210cfc88a149b4edf7b885092e0600af8d84c30d74049607e719
                 <img 
                     src=\"";
         // line 76
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Book-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Book-Open-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
         // line 77
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Book-128-hover.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Book-Open-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
         // line 78
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Book-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Book-Open-128.png"), "html", null, true);
         echo "';\"
                     > 
                 <figcaption>Wiki</figcaption>
@@ -215,7 +215,7 @@ class __TwigTemplate_187cfb8210cfc88a149b4edf7b885092e0600af8d84c30d74049607e719
 
 ";
         
-        $__internal_9cd62ee5d4e9f7034ec41832373cfea1784045eb356c03d1ec86f93cf61fcee8->leave($__internal_9cd62ee5d4e9f7034ec41832373cfea1784045eb356c03d1ec86f93cf61fcee8_prof);
+        $__internal_45ac63adb5dc276a6cc545c430d4e669b1e277bfb1880d3cd15d5b5b33b0b736->leave($__internal_45ac63adb5dc276a6cc545c430d4e669b1e277bfb1880d3cd15d5b5b33b0b736_prof);
 
     }
 
@@ -248,9 +248,9 @@ class __TwigTemplate_187cfb8210cfc88a149b4edf7b885092e0600af8d84c30d74049607e719
 /*         <a href="{{ path('nox_intranet_avancement_projet') }}" class="icon">*/
 /*             <figure>*/
 /*                 <img */
-/*                     src="{{ asset('bundles/noxintranetsupportsi/images/Date-128.png') }}" */
-/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Date-128-hover.png') }}';" */
-/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Date-128.png') }}';"*/
+/*                     src="{{ asset('bundles/noxintranetsupportsi/images/Calendar-Date-04-128.png') }}" */
+/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Calendar-Date-04-128-hover.png') }}';" */
+/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Calendar-Date-04-128.png') }}';"*/
 /*                     > */
 /*                 <figcaption>Av. projet</figcaption>*/
 /*             </figure>*/
@@ -260,9 +260,9 @@ class __TwigTemplate_187cfb8210cfc88a149b4edf7b885092e0600af8d84c30d74049607e719
 /*         <a href="{{ path('nox_intranet_demande_materiel') }}" class="icon">*/
 /*             <figure>*/
 /*                 <img */
-/*                     src="{{ asset('bundles/noxintranetsupportsi/images/Materiel-128.png') }}" */
-/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Materiel-128-hover.png') }}';" */
-/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Materiel-128.png') }}';"*/
+/*                     src="{{ asset('bundles/noxintranetsupportsi/images/Mobile-Phone-Message-128.png') }}" */
+/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Mobile-Phone-Message-128-hover.png') }}';" */
+/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Mobile-Phone-Message-128.png') }}';"*/
 /*                     > */
 /*                 <figcaption>Matériel/Logiciel</figcaption>*/
 /*             </figure>*/
@@ -272,9 +272,9 @@ class __TwigTemplate_187cfb8210cfc88a149b4edf7b885092e0600af8d84c30d74049607e719
 /*         <a href="{{ path('nox_intranet_information') }}" class="icon">*/
 /*             <figure>*/
 /*                 <img */
-/*                     src="{{ asset('bundles/noxintranetsupportsi/images/Information-128.png') }}" */
-/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Information-128-hover.png') }}';" */
-/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Information-128.png') }}';"*/
+/*                     src="{{ asset('bundles/noxintranetsupportsi/images/Message-Information-128.png') }}" */
+/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Message-Information-128-hover.png') }}';" */
+/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Message-Information-128.png') }}';"*/
 /*                     > */
 /*                 <figcaption>Information</figcaption>*/
 /*             </figure>*/
@@ -285,9 +285,9 @@ class __TwigTemplate_187cfb8210cfc88a149b4edf7b885092e0600af8d84c30d74049607e719
 /*         <a href="{{ path('nox_intranet_support_licenses') }}" class="icon">*/
 /*             <figure>*/
 /*                 <img */
-/*                     src="{{ asset('bundles/noxintranetsupportsi/images/Licenses-128.png') }}" */
-/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Licenses-128-hover.png') }}';" */
-/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Licenses-128.png') }}';"*/
+/*                     src="{{ asset('bundles/noxintranetsupportsi/images/Verify-128.png') }}" */
+/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Verify-128-hover.png') }}';" */
+/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Verify-128.png') }}';"*/
 /*                     > */
 /*                 <figcaption>Licences</figcaption>*/
 /*             </figure>*/
@@ -297,9 +297,9 @@ class __TwigTemplate_187cfb8210cfc88a149b4edf7b885092e0600af8d84c30d74049607e719
 /*         <a href="{{ path('nox_intranet_support_ticketing') }}" class="icon" target='_blank'>*/
 /*             <figure>*/
 /*                 <img */
-/*                     src="{{ asset('bundles/noxintranetsupportsi/images/Ticket-128.png') }}" */
-/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Ticket-128-hover.png') }}';" */
-/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Ticket-128.png') }}';"*/
+/*                     src="{{ asset('bundles/noxintranetsupportsi/images/Ticketing-128.png') }}" */
+/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Ticketing-128-hover.png') }}';" */
+/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Ticketing-128.png') }}';"*/
 /*                     > */
 /*                 <figcaption>Ticketing</figcaption>*/
 /*             </figure>*/
@@ -309,9 +309,9 @@ class __TwigTemplate_187cfb8210cfc88a149b4edf7b885092e0600af8d84c30d74049607e719
 /*         <a href="{{ path('nox_intranet_support_wiki') }}" class="icon" target='_blank'>*/
 /*             <figure>*/
 /*                 <img */
-/*                     src="{{ asset('bundles/noxintranetsupportsi/images/Book-128.png') }}" */
-/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Book-128-hover.png') }}';" */
-/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Book-128.png') }}';"*/
+/*                     src="{{ asset('bundles/noxintranetsupportsi/images/Book-Open-128.png') }}" */
+/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Book-Open-128-hover.png') }}';" */
+/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Book-Open-128.png') }}';"*/
 /*                     > */
 /*                 <figcaption>Wiki</figcaption>*/
 /*             </figure>*/

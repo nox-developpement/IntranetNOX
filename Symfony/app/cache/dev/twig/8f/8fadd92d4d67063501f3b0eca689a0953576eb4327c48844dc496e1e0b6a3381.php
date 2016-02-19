@@ -23,44 +23,44 @@ class __TwigTemplate_95c1d2cc46cbc3d2da6a03dfdd0be7bb8f8453ed82f15056afcf37d2168
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_9b055b095e8c9ce980efe169e83f2d4eca3023c98a8e8641f52e93e4e75cd21f = $this->env->getExtension("native_profiler");
-        $__internal_9b055b095e8c9ce980efe169e83f2d4eca3023c98a8e8641f52e93e4e75cd21f->enter($__internal_9b055b095e8c9ce980efe169e83f2d4eca3023c98a8e8641f52e93e4e75cd21f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:RH:RH.html.twig"));
+        $__internal_4f84ae65acb396755fdf09a28ef8366ad868268a87e858f18b63eec43d9cbf94 = $this->env->getExtension("native_profiler");
+        $__internal_4f84ae65acb396755fdf09a28ef8366ad868268a87e858f18b63eec43d9cbf94->enter($__internal_4f84ae65acb396755fdf09a28ef8366ad868268a87e858f18b63eec43d9cbf94_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:RH:RH.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_9b055b095e8c9ce980efe169e83f2d4eca3023c98a8e8641f52e93e4e75cd21f->leave($__internal_9b055b095e8c9ce980efe169e83f2d4eca3023c98a8e8641f52e93e4e75cd21f_prof);
+        $__internal_4f84ae65acb396755fdf09a28ef8366ad868268a87e858f18b63eec43d9cbf94->leave($__internal_4f84ae65acb396755fdf09a28ef8366ad868268a87e858f18b63eec43d9cbf94_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_92f1dbf218202dfd3e921da1ea768d1a2a1b4c123bb144073d425f739822e082 = $this->env->getExtension("native_profiler");
-        $__internal_92f1dbf218202dfd3e921da1ea768d1a2a1b4c123bb144073d425f739822e082->enter($__internal_92f1dbf218202dfd3e921da1ea768d1a2a1b4c123bb144073d425f739822e082_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_44c884554448d92bbca93a2ea2df1a4ff0d44ff0068b30047e251d28385425dc = $this->env->getExtension("native_profiler");
+        $__internal_44c884554448d92bbca93a2ea2df1a4ff0d44ff0068b30047e251d28385425dc->enter($__internal_44c884554448d92bbca93a2ea2df1a4ff0d44ff0068b30047e251d28385425dc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Ressources humaines ";
         
-        $__internal_92f1dbf218202dfd3e921da1ea768d1a2a1b4c123bb144073d425f739822e082->leave($__internal_92f1dbf218202dfd3e921da1ea768d1a2a1b4c123bb144073d425f739822e082_prof);
+        $__internal_44c884554448d92bbca93a2ea2df1a4ff0d44ff0068b30047e251d28385425dc->leave($__internal_44c884554448d92bbca93a2ea2df1a4ff0d44ff0068b30047e251d28385425dc_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_1c5971ec500a4854314f614fa8239a9e3e75ef52002d85c71870518e1010e537 = $this->env->getExtension("native_profiler");
-        $__internal_1c5971ec500a4854314f614fa8239a9e3e75ef52002d85c71870518e1010e537->enter($__internal_1c5971ec500a4854314f614fa8239a9e3e75ef52002d85c71870518e1010e537_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_f5f418efd8b143c6b98e9cea3565ae7c24c1b2ca710ff744cf2f7131c2bd9f74 = $this->env->getExtension("native_profiler");
+        $__internal_f5f418efd8b143c6b98e9cea3565ae7c24c1b2ca710ff744cf2f7131c2bd9f74->enter($__internal_f5f418efd8b143c6b98e9cea3565ae7c24c1b2ca710ff744cf2f7131c2bd9f74_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Ressources humaines";
         
-        $__internal_1c5971ec500a4854314f614fa8239a9e3e75ef52002d85c71870518e1010e537->leave($__internal_1c5971ec500a4854314f614fa8239a9e3e75ef52002d85c71870518e1010e537_prof);
+        $__internal_f5f418efd8b143c6b98e9cea3565ae7c24c1b2ca710ff744cf2f7131c2bd9f74->leave($__internal_f5f418efd8b143c6b98e9cea3565ae7c24c1b2ca710ff744cf2f7131c2bd9f74_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_b054bef1128a89b55a20a1196cb6a4318cba152c65b5128f2aa4d6769f573e70 = $this->env->getExtension("native_profiler");
-        $__internal_b054bef1128a89b55a20a1196cb6a4318cba152c65b5128f2aa4d6769f573e70->enter($__internal_b054bef1128a89b55a20a1196cb6a4318cba152c65b5128f2aa4d6769f573e70_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_970f209cf22b613fb9ab2d40c14cfd1c83dd452ec50b2f007c1da60d0cb502b7 = $this->env->getExtension("native_profiler");
+        $__internal_970f209cf22b613fb9ab2d40c14cfd1c83dd452ec50b2f007c1da60d0cb502b7->enter($__internal_970f209cf22b613fb9ab2d40c14cfd1c83dd452ec50b2f007c1da60d0cb502b7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -84,7 +84,12 @@ class __TwigTemplate_95c1d2cc46cbc3d2da6a03dfdd0be7bb8f8453ed82f15056afcf37d2168
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
-            <a href=\"mailto:g.toure@groupe-nox.com?subject=Demande d'attestation employeur\"> <h4> Demande d'attestation employeur </h4> </a>
+            <a href=\"mailto:rh@groupe-nox.com?subject=Demande d'attestation employeur ";
+        // line 21
+        echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()), "firstname", array()), "html", null, true);
+        echo " ";
+        echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()), "lastname", array()), "html", null, true);
+        echo "\"> <h4> Demande d'attestation employeur </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
@@ -158,7 +163,7 @@ class __TwigTemplate_95c1d2cc46cbc3d2da6a03dfdd0be7bb8f8453ed82f15056afcf37d2168
 
 ";
         
-        $__internal_b054bef1128a89b55a20a1196cb6a4318cba152c65b5128f2aa4d6769f573e70->leave($__internal_b054bef1128a89b55a20a1196cb6a4318cba152c65b5128f2aa4d6769f573e70_prof);
+        $__internal_970f209cf22b613fb9ab2d40c14cfd1c83dd452ec50b2f007c1da60d0cb502b7->leave($__internal_970f209cf22b613fb9ab2d40c14cfd1c83dd452ec50b2f007c1da60d0cb502b7_prof);
 
     }
 
@@ -174,7 +179,7 @@ class __TwigTemplate_95c1d2cc46cbc3d2da6a03dfdd0be7bb8f8453ed82f15056afcf37d2168
 
     public function getDebugInfo()
     {
-        return array (  151 => 66,  144 => 62,  137 => 58,  122 => 48,  100 => 29,  93 => 25,  82 => 17,  71 => 11,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
+        return array (  156 => 66,  149 => 62,  142 => 58,  127 => 48,  105 => 29,  98 => 25,  89 => 21,  82 => 17,  71 => 11,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -197,7 +202,7 @@ class __TwigTemplate_95c1d2cc46cbc3d2da6a03dfdd0be7bb8f8453ed82f15056afcf37d2168
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href="mailto:g.toure@groupe-nox.com?subject=Demande d'attestation employeur"> <h4> Demande d'attestation employeur </h4> </a>*/
+/*             <a href="mailto:rh@groupe-nox.com?subject=Demande d'attestation employeur {{ app.user.firstname }} {{ app.user.lastname }}"> <h4> Demande d'attestation employeur </h4> </a>*/
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */

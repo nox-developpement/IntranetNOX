@@ -23,46 +23,46 @@ class __TwigTemplate_73045127fbf087b187a5f9abffac5dd7e509136759d39beee25a5a2a330
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_f3d3f68e7e741984d5a56c460a6110011b930e00a1abbea2e8981f52fe0813a4 = $this->env->getExtension("native_profiler");
-        $__internal_f3d3f68e7e741984d5a56c460a6110011b930e00a1abbea2e8981f52fe0813a4->enter($__internal_f3d3f68e7e741984d5a56c460a6110011b930e00a1abbea2e8981f52fe0813a4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:Serveurs:serveurs.html.twig"));
+        $__internal_26ed917130cc98a2f2b37080e4a2ca1047e7fbdedce802d93ab94907c5953e8a = $this->env->getExtension("native_profiler");
+        $__internal_26ed917130cc98a2f2b37080e4a2ca1047e7fbdedce802d93ab94907c5953e8a->enter($__internal_26ed917130cc98a2f2b37080e4a2ca1047e7fbdedce802d93ab94907c5953e8a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:Serveurs:serveurs.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_f3d3f68e7e741984d5a56c460a6110011b930e00a1abbea2e8981f52fe0813a4->leave($__internal_f3d3f68e7e741984d5a56c460a6110011b930e00a1abbea2e8981f52fe0813a4_prof);
+        $__internal_26ed917130cc98a2f2b37080e4a2ca1047e7fbdedce802d93ab94907c5953e8a->leave($__internal_26ed917130cc98a2f2b37080e4a2ca1047e7fbdedce802d93ab94907c5953e8a_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_b5631dba44a77536ba65fc8f3e5973d0feb97f28c22eceb74787708b707e31ca = $this->env->getExtension("native_profiler");
-        $__internal_b5631dba44a77536ba65fc8f3e5973d0feb97f28c22eceb74787708b707e31ca->enter($__internal_b5631dba44a77536ba65fc8f3e5973d0feb97f28c22eceb74787708b707e31ca_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_a2428dc4fe12523abeebdfa7022f7c913316d9751854d162e430b765f90a99eb = $this->env->getExtension("native_profiler");
+        $__internal_a2428dc4fe12523abeebdfa7022f7c913316d9751854d162e430b765f90a99eb->enter($__internal_a2428dc4fe12523abeebdfa7022f7c913316d9751854d162e430b765f90a99eb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         // line 4
         echo "    Serveurs
 ";
         
-        $__internal_b5631dba44a77536ba65fc8f3e5973d0feb97f28c22eceb74787708b707e31ca->leave($__internal_b5631dba44a77536ba65fc8f3e5973d0feb97f28c22eceb74787708b707e31ca_prof);
+        $__internal_a2428dc4fe12523abeebdfa7022f7c913316d9751854d162e430b765f90a99eb->leave($__internal_a2428dc4fe12523abeebdfa7022f7c913316d9751854d162e430b765f90a99eb_prof);
 
     }
 
     // line 7
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_1998614e0e679e8e4ddf2b8ad9029e0e7af509aeed57859634df9af36cc17478 = $this->env->getExtension("native_profiler");
-        $__internal_1998614e0e679e8e4ddf2b8ad9029e0e7af509aeed57859634df9af36cc17478->enter($__internal_1998614e0e679e8e4ddf2b8ad9029e0e7af509aeed57859634df9af36cc17478_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_481aaa851b8259c2d9c16972d4ff69a154e3e9f38a36df2c017c00411f1ed944 = $this->env->getExtension("native_profiler");
+        $__internal_481aaa851b8259c2d9c16972d4ff69a154e3e9f38a36df2c017c00411f1ed944->enter($__internal_481aaa851b8259c2d9c16972d4ff69a154e3e9f38a36df2c017c00411f1ed944_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Serveurs";
         
-        $__internal_1998614e0e679e8e4ddf2b8ad9029e0e7af509aeed57859634df9af36cc17478->leave($__internal_1998614e0e679e8e4ddf2b8ad9029e0e7af509aeed57859634df9af36cc17478_prof);
+        $__internal_481aaa851b8259c2d9c16972d4ff69a154e3e9f38a36df2c017c00411f1ed944->leave($__internal_481aaa851b8259c2d9c16972d4ff69a154e3e9f38a36df2c017c00411f1ed944_prof);
 
     }
 
     // line 9
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_74db6ba104f69140e00ec156d34f6ef2ea5afb9989641a882b389a4cb9742e08 = $this->env->getExtension("native_profiler");
-        $__internal_74db6ba104f69140e00ec156d34f6ef2ea5afb9989641a882b389a4cb9742e08->enter($__internal_74db6ba104f69140e00ec156d34f6ef2ea5afb9989641a882b389a4cb9742e08_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_309611fe5418f373137d60494f7744cea0fb667a0fd9d1ec5b3e05894acfe53e = $this->env->getExtension("native_profiler");
+        $__internal_309611fe5418f373137d60494f7744cea0fb667a0fd9d1ec5b3e05894acfe53e->enter($__internal_309611fe5418f373137d60494f7744cea0fb667a0fd9d1ec5b3e05894acfe53e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 10
         echo "
@@ -98,7 +98,7 @@ class __TwigTemplate_73045127fbf087b187a5f9abffac5dd7e509136759d39beee25a5a2a330
             echo "\" onclick=\"popupDownloadServeurConnexion();\"> 
                             <img src=\"";
             // line 30
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Connect-48.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Network-01-32.png"), "html", null, true);
             echo "\"> 
                         </a>
                     </td>
@@ -109,7 +109,7 @@ class __TwigTemplate_73045127fbf087b187a5f9abffac5dd7e509136759d39beee25a5a2a330
             echo "\" onclick=\"popupDownloadServeurDeconnexion();\"> 
                             <img src=\"";
             // line 35
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Disconnect-48.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Network-Disconnected-32.png"), "html", null, true);
             echo "\"> 
                         </a>
                     </td>
@@ -131,7 +131,7 @@ class __TwigTemplate_73045127fbf087b187a5f9abffac5dd7e509136759d39beee25a5a2a330
 
 ";
         
-        $__internal_74db6ba104f69140e00ec156d34f6ef2ea5afb9989641a882b389a4cb9742e08->leave($__internal_74db6ba104f69140e00ec156d34f6ef2ea5afb9989641a882b389a4cb9742e08_prof);
+        $__internal_309611fe5418f373137d60494f7744cea0fb667a0fd9d1ec5b3e05894acfe53e->leave($__internal_309611fe5418f373137d60494f7744cea0fb667a0fd9d1ec5b3e05894acfe53e_prof);
 
     }
 
@@ -179,12 +179,12 @@ class __TwigTemplate_73045127fbf087b187a5f9abffac5dd7e509136759d39beee25a5a2a330
 /*                     </td>*/
 /*                     <td> */
 /*                         <a class='lienArchive' href="{{ path('nox_intranet_serveur_download_script_connexion', { 'agence': serveur.agence }) }}" onclick="popupDownloadServeurConnexion();"> */
-/*                             <img src="{{ asset('bundles/noxintranetressources/images/Connect-48.png') }}"> */
+/*                             <img src="{{ asset('bundles/noxintranetressources/images/Network-01-32.png') }}"> */
 /*                         </a>*/
 /*                     </td>*/
 /*                     <td> */
 /*                         <a class='lienArchive' href="{{ path('nox_intranet_serveur_download_script_deconnexion') }}" onclick="popupDownloadServeurDeconnexion();"> */
-/*                             <img src="{{ asset('bundles/noxintranetressources/images/Disconnect-48.png') }}"> */
+/*                             <img src="{{ asset('bundles/noxintranetressources/images/Network-Disconnected-32.png') }}"> */
 /*                         </a>*/
 /*                     </td>*/
 /*                 </tr>*/

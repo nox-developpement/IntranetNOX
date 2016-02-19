@@ -87,7 +87,7 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
 
         <img src='";
             // line 27
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Text-Editor-32.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Text-Editor-32.png"), "html", null, true);
             echo "' id='texteEncartImg'>
 
     ";
@@ -325,7 +325,7 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
 /* */
 /*         {{ form_end(formulaire) }}*/
 /* */
-/*         <img src='{{ asset('bundles/noxintranetadministration/images/Text-Editor-32.png') }}' id='texteEncartImg'>*/
+/*         <img src='{{ asset('bundles/noxintranetressources/images/Text-Editor-32.png') }}' id='texteEncartImg'>*/
 /* */
 /*     {% endif %}*/
 /* */

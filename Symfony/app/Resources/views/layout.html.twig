@@ -53,7 +53,7 @@
 
         <header>
 
-            <div style="border: none; width: 15%; display:inline-block; text-align: center; vertical-align: middle;"> <a style="cursor: pointer;" onclick="$(function () {
+            <div style="border: none; width: 15%; display:inline-block; text-align: center; vertical-align: middle; margin-top: 2.5%;"> <a style="cursor: pointer; font-size: 0.85vw;" onclick="$(function () {
                         $('#dialog').dialog({width: 970, height: 600});
                     });"> Plan du site <br /><img style="width: 10%;" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}"> </a> </div><!--
 
@@ -78,10 +78,7 @@
         <div id="bar_menu">
 
             <div id="selectionSkinBouton" >
-                <span></span>
-                <p>Apparence : </p>
-                <img src="{{ asset('bundles/noxintranetcommunication/images/CarreBleuClair.png') }}" onclick="changementSkin('bammez');">
-                <img src="{{ asset('bundles/noxintranetcommunication/images/CarreBleuFonce.png') }}" onclick="changementSkin('normal');">
+
             </div>
 
             <div id="div_menu">
@@ -99,7 +96,7 @@
                     <li id="google_search"> 
                         <form id="google_form">
                             {% if skin == 'normal' %}
-                                <img src ="{{ asset('bundles/noxintranetcommunication/images/logoGoogle.png') }}" alt="Logo Google" onmousedown="return false;">
+                                <img src ="{{ asset('bundles/noxintranetcommunication/images/logoRecherche.png') }}" alt="Logo Google" onmousedown="return false;">
                             {% else %} 
                                 <img src ="{{ asset('bundles/noxintranetcommunication/images/logoRecherche.png') }}" alt="Logo Google" onmousedown="return false;">
                             {% endif %}

@@ -112,7 +112,7 @@ class __TwigTemplate_9794f46e23a1a8afff7c73298cd27f6edf00d3aa8596f9e03fc37b52064
                     // line 48
                     echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_suppression_admin", array("adminID" => $this->getAttribute($context["admin"], "id", array()))), "html", null, true);
                     echo "'> <img class=\"suppressionAdminImg\" src='";
-                    echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/User-Delete-48.png"), "html", null, true);
+                    echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/User-Delete-32.png"), "html", null, true);
                     echo "'> </a> </td>
                         </tr>
 
@@ -200,7 +200,7 @@ class __TwigTemplate_9794f46e23a1a8afff7c73298cd27f6edf00d3aa8596f9e03fc37b52064
 /*                                 {% endif %}*/
 /*                             </td>*/
 /* */
-/*                             <td> <a href='{{ path('nox_intranet_suppression_admin', {'adminID': admin.id}) }}'> <img class="suppressionAdminImg" src='{{ asset('bundles/noxintranetadministration/images/User-Delete-48.png') }}'> </a> </td>*/
+/*                             <td> <a href='{{ path('nox_intranet_suppression_admin', {'adminID': admin.id}) }}'> <img class="suppressionAdminImg" src='{{ asset('bundles/noxintranetadministration/images/User-Delete-32.png') }}'> </a> </td>*/
 /*                         </tr>*/
 /* */
 /*                     {% endif %}*/

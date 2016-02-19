@@ -12,14 +12,14 @@
 
         <fieldset>
 
-            <legend>Supprimer annonce</legend>
+            <legend><p>Supprimer annonce</p></legend>
 
             {{ form_errors(formSuppressionAnnonce.Message) }}
             {{ form_widget(formSuppressionAnnonce.Message, {'attr': {'class': 'selectFormulaireSuppressionAnnonce', 'size': 15}}) }}
 
             {{ form_widget(formSuppressionAnnonce._token) }}
 
-            {{ form_widget(formSuppressionAnnonce.Supprimer, {'attr': {'class': 'boutonFormulaire' }}) }}
+            {{ form_widget(formSuppressionAnnonce.Supprimer, {'attr': {'class': 'boutonAnnonce' }}) }}
 
         </fieldset>
 
@@ -33,14 +33,14 @@
 
         <fieldset>
 
-            <legend><span>Ajouter annonce</span></legend>
+            <legend><p>Ajouter annonce</p></legend>
 
             {{ form_errors(formAjoutAnnonce.Message) }}
             {{ form_widget(formAjoutAnnonce.Message, {'attr': {'class': 'textFormulaireAjoutAnnonce', 'width': '98%'}}) }}
 
             {{ form_widget(formAjoutAnnonce._token) }}
 
-            {{ form_widget(formAjoutAnnonce.Ajouter, {'attr': {'class': 'boutonFormulaire' }}) }}
+            {{ form_widget(formAjoutAnnonce.Ajouter, {'attr': {'class': 'boutonAnnonce' }}) }}
 
         </fieldset>
 

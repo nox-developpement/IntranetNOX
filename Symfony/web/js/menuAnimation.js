@@ -7,17 +7,6 @@
 function menuAnimation() {
 
     $('.liens').mouseover(function () {
-        $(this).animate({'color': '#021C2D', 'background-color': '#fff'}, '400');
-    });
-
-    $('.liens').mouseout(function () {
-        $(this).animate({'background-color': '#021C2D', 'color': '#fff'}, '400');
-    });
-}
-
-function menuAnimationBammez() {
-
-    $('.liens').mouseover(function () {
         $(this).animate({'color': 'rgb(31,78,121)', 'background-color': '#fff'}, '400');
     });
 

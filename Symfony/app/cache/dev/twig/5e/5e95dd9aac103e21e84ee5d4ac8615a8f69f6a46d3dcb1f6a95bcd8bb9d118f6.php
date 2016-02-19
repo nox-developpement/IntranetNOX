@@ -23,47 +23,47 @@ class __TwigTemplate_d94ecf5df1591e647ff171bffc4a5278ae83b5a3628376b9bed15feb6f0
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_4a4e269056ecef69a0bcc9da2b6497614711ff3cec81d7e24a06bb21c1d41922 = $this->env->getExtension("native_profiler");
-        $__internal_4a4e269056ecef69a0bcc9da2b6497614711ff3cec81d7e24a06bb21c1d41922->enter($__internal_4a4e269056ecef69a0bcc9da2b6497614711ff3cec81d7e24a06bb21c1d41922_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAccueilBundle:EditionAnnonces:editionAnnonces.html.twig"));
+        $__internal_7c529013f5bd27c4f7dc119e666434ba8df73422b46b6861f306a25dddd55c5b = $this->env->getExtension("native_profiler");
+        $__internal_7c529013f5bd27c4f7dc119e666434ba8df73422b46b6861f306a25dddd55c5b->enter($__internal_7c529013f5bd27c4f7dc119e666434ba8df73422b46b6861f306a25dddd55c5b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAccueilBundle:EditionAnnonces:editionAnnonces.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_4a4e269056ecef69a0bcc9da2b6497614711ff3cec81d7e24a06bb21c1d41922->leave($__internal_4a4e269056ecef69a0bcc9da2b6497614711ff3cec81d7e24a06bb21c1d41922_prof);
+        $__internal_7c529013f5bd27c4f7dc119e666434ba8df73422b46b6861f306a25dddd55c5b->leave($__internal_7c529013f5bd27c4f7dc119e666434ba8df73422b46b6861f306a25dddd55c5b_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_f7ed5525d46910f2fbeba66eac9560512b126d719196148f1139c72689adabb3 = $this->env->getExtension("native_profiler");
-        $__internal_f7ed5525d46910f2fbeba66eac9560512b126d719196148f1139c72689adabb3->enter($__internal_f7ed5525d46910f2fbeba66eac9560512b126d719196148f1139c72689adabb3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_030fe5b3ea0d68bfc8d2baa9ca54a151fc9555b9d461a0dc76e5aa30846e67a7 = $this->env->getExtension("native_profiler");
+        $__internal_030fe5b3ea0d68bfc8d2baa9ca54a151fc9555b9d461a0dc76e5aa30846e67a7->enter($__internal_030fe5b3ea0d68bfc8d2baa9ca54a151fc9555b9d461a0dc76e5aa30846e67a7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Edition annonces ";
         echo twig_escape_filter($this->env, (isset($context["categorie"]) ? $context["categorie"] : $this->getContext($context, "categorie")), "html", null, true);
         echo " ";
         
-        $__internal_f7ed5525d46910f2fbeba66eac9560512b126d719196148f1139c72689adabb3->leave($__internal_f7ed5525d46910f2fbeba66eac9560512b126d719196148f1139c72689adabb3_prof);
+        $__internal_030fe5b3ea0d68bfc8d2baa9ca54a151fc9555b9d461a0dc76e5aa30846e67a7->leave($__internal_030fe5b3ea0d68bfc8d2baa9ca54a151fc9555b9d461a0dc76e5aa30846e67a7_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_0f4ddb491b469626c56168d0b11f87f27e877ce419f2be2a4c0d23c06a4162dc = $this->env->getExtension("native_profiler");
-        $__internal_0f4ddb491b469626c56168d0b11f87f27e877ce419f2be2a4c0d23c06a4162dc->enter($__internal_0f4ddb491b469626c56168d0b11f87f27e877ce419f2be2a4c0d23c06a4162dc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_cbf107636def3e0be1ac7258ad5a40fd86688d3b216b0dfdd4fc771f7fb31dae = $this->env->getExtension("native_profiler");
+        $__internal_cbf107636def3e0be1ac7258ad5a40fd86688d3b216b0dfdd4fc771f7fb31dae->enter($__internal_cbf107636def3e0be1ac7258ad5a40fd86688d3b216b0dfdd4fc771f7fb31dae_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Edition annonces ";
         echo twig_escape_filter($this->env, (isset($context["categorie"]) ? $context["categorie"] : $this->getContext($context, "categorie")), "html", null, true);
         
-        $__internal_0f4ddb491b469626c56168d0b11f87f27e877ce419f2be2a4c0d23c06a4162dc->leave($__internal_0f4ddb491b469626c56168d0b11f87f27e877ce419f2be2a4c0d23c06a4162dc_prof);
+        $__internal_cbf107636def3e0be1ac7258ad5a40fd86688d3b216b0dfdd4fc771f7fb31dae->leave($__internal_cbf107636def3e0be1ac7258ad5a40fd86688d3b216b0dfdd4fc771f7fb31dae_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_e86a094fb4b59c4dfab842e9d22ab566f88a61aaf3caee9e88e4834e8f57dcbb = $this->env->getExtension("native_profiler");
-        $__internal_e86a094fb4b59c4dfab842e9d22ab566f88a61aaf3caee9e88e4834e8f57dcbb->enter($__internal_e86a094fb4b59c4dfab842e9d22ab566f88a61aaf3caee9e88e4834e8f57dcbb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_5d44a5259005655ef455034a3877b7608490844836b09e9a97d6ad2d7a9f30af = $this->env->getExtension("native_profiler");
+        $__internal_5d44a5259005655ef455034a3877b7608490844836b09e9a97d6ad2d7a9f30af->enter($__internal_5d44a5259005655ef455034a3877b7608490844836b09e9a97d6ad2d7a9f30af_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -79,7 +79,7 @@ class __TwigTemplate_d94ecf5df1591e647ff171bffc4a5278ae83b5a3628376b9bed15feb6f0
 
         <fieldset>
 
-            <legend>Supprimer annonce</legend>
+            <legend><p>Supprimer annonce</p></legend>
 
             ";
         // line 17
@@ -97,7 +97,7 @@ class __TwigTemplate_d94ecf5df1591e647ff171bffc4a5278ae83b5a3628376b9bed15feb6f0
 
             ";
         // line 22
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSuppressionAnnonce"]) ? $context["formSuppressionAnnonce"] : $this->getContext($context, "formSuppressionAnnonce")), "Supprimer", array()), 'widget', array("attr" => array("class" => "boutonFormulaire")));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSuppressionAnnonce"]) ? $context["formSuppressionAnnonce"] : $this->getContext($context, "formSuppressionAnnonce")), "Supprimer", array()), 'widget', array("attr" => array("class" => "boutonAnnonce")));
         echo "
 
         </fieldset>
@@ -121,7 +121,7 @@ class __TwigTemplate_d94ecf5df1591e647ff171bffc4a5278ae83b5a3628376b9bed15feb6f0
 
         <fieldset>
 
-            <legend><span>Ajouter annonce</span></legend>
+            <legend><p>Ajouter annonce</p></legend>
 
             ";
         // line 38
@@ -139,7 +139,7 @@ class __TwigTemplate_d94ecf5df1591e647ff171bffc4a5278ae83b5a3628376b9bed15feb6f0
 
             ";
         // line 43
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutAnnonce"]) ? $context["formAjoutAnnonce"] : $this->getContext($context, "formAjoutAnnonce")), "Ajouter", array()), 'widget', array("attr" => array("class" => "boutonFormulaire")));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutAnnonce"]) ? $context["formAjoutAnnonce"] : $this->getContext($context, "formAjoutAnnonce")), "Ajouter", array()), 'widget', array("attr" => array("class" => "boutonAnnonce")));
         echo "
 
         </fieldset>
@@ -153,7 +153,7 @@ class __TwigTemplate_d94ecf5df1591e647ff171bffc4a5278ae83b5a3628376b9bed15feb6f0
 
 ";
         
-        $__internal_e86a094fb4b59c4dfab842e9d22ab566f88a61aaf3caee9e88e4834e8f57dcbb->leave($__internal_e86a094fb4b59c4dfab842e9d22ab566f88a61aaf3caee9e88e4834e8f57dcbb_prof);
+        $__internal_5d44a5259005655ef455034a3877b7608490844836b09e9a97d6ad2d7a9f30af->leave($__internal_5d44a5259005655ef455034a3877b7608490844836b09e9a97d6ad2d7a9f30af_prof);
 
     }
 
@@ -186,14 +186,14 @@ class __TwigTemplate_d94ecf5df1591e647ff171bffc4a5278ae83b5a3628376b9bed15feb6f0
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend>Supprimer annonce</legend>*/
+/*             <legend><p>Supprimer annonce</p></legend>*/
 /* */
 /*             {{ form_errors(formSuppressionAnnonce.Message) }}*/
 /*             {{ form_widget(formSuppressionAnnonce.Message, {'attr': {'class': 'selectFormulaireSuppressionAnnonce', 'size': 15}}) }}*/
 /* */
 /*             {{ form_widget(formSuppressionAnnonce._token) }}*/
 /* */
-/*             {{ form_widget(formSuppressionAnnonce.Supprimer, {'attr': {'class': 'boutonFormulaire' }}) }}*/
+/*             {{ form_widget(formSuppressionAnnonce.Supprimer, {'attr': {'class': 'boutonAnnonce' }}) }}*/
 /* */
 /*         </fieldset>*/
 /* */
@@ -207,14 +207,14 @@ class __TwigTemplate_d94ecf5df1591e647ff171bffc4a5278ae83b5a3628376b9bed15feb6f0
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend><span>Ajouter annonce</span></legend>*/
+/*             <legend><p>Ajouter annonce</p></legend>*/
 /* */
 /*             {{ form_errors(formAjoutAnnonce.Message) }}*/
 /*             {{ form_widget(formAjoutAnnonce.Message, {'attr': {'class': 'textFormulaireAjoutAnnonce', 'width': '98%'}}) }}*/
 /* */
 /*             {{ form_widget(formAjoutAnnonce._token) }}*/
 /* */
-/*             {{ form_widget(formAjoutAnnonce.Ajouter, {'attr': {'class': 'boutonFormulaire' }}) }}*/
+/*             {{ form_widget(formAjoutAnnonce.Ajouter, {'attr': {'class': 'boutonAnnonce' }}) }}*/
 /* */
 /*         </fieldset>*/
 /* */

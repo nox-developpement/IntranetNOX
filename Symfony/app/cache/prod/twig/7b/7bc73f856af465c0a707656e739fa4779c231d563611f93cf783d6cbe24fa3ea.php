@@ -35,8 +35,8 @@ class __TwigTemplate_3cdde2b6484ed697866959d9563e06e771c658dc23eabca5212f947c42a
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        echo "Assurance qualité<div><div style=\"float: right;\"><p style=\"font-size: 0.8vw;\" ><a style=\"text-decoration: none; display: inline-block; width: 110%;\" href=\"mailto:g.toure@groupe-nox.com?subject=Demande d'informations 'Assurance qualité'\"><span style=\"vertical-align:middle; margin-right: 3%; display: inline-block;\">Contact</span><img style=\"vertical-align: middle; width: 25%;\" src=\"";
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Message-Mail-24.png"), "html", null, true);
+        echo "Assurance qualité<div><div style=\"float: right;\"><p style=\"font-size: 0.8vw;\" ><a style=\"text-decoration: none; display: inline-block; width: 110%; color: rgb(31,78,121);\" href=\"mailto:g.toure@groupe-nox.com?subject=Demande d'informations 'Assurance qualité'\"><span style=\"vertical-align:middle; margin-right: 3%; display: inline-block;\">Contact</span><img style=\"vertical-align: middle; width: 25%;\" src=\"";
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Message-Mail-32.png"), "html", null, true);
         echo "\"></a></p></div></div>";
     }
 
@@ -183,7 +183,7 @@ class __TwigTemplate_3cdde2b6484ed697866959d9563e06e771c658dc23eabca5212f947c42a
 /* */
 /* {% block titrePage %} Assurance qualité {% endblock %}*/
 /* */
-/* {% block messageAccueil %}Assurance qualité<div><div style="float: right;"><p style="font-size: 0.8vw;" ><a style="text-decoration: none; display: inline-block; width: 110%;" href="mailto:g.toure@groupe-nox.com?subject=Demande d'informations 'Assurance qualité'"><span style="vertical-align:middle; margin-right: 3%; display: inline-block;">Contact</span><img style="vertical-align: middle; width: 25%;" src="{{ asset('bundles/noxintranetressources/images/Message-Mail-24.png') }}"></a></p></div></div>{% endblock %}*/
+/* {% block messageAccueil %}Assurance qualité<div><div style="float: right;"><p style="font-size: 0.8vw;" ><a style="text-decoration: none; display: inline-block; width: 110%; color: rgb(31,78,121);" href="mailto:g.toure@groupe-nox.com?subject=Demande d'informations 'Assurance qualité'"><span style="vertical-align:middle; margin-right: 3%; display: inline-block;">Contact</span><img style="vertical-align: middle; width: 25%;" src="{{ asset('bundles/noxintranetressources/images/Message-Mail-32.png') }}"></a></p></div></div>{% endblock %}*/
 /* */
 /* */
 /* */

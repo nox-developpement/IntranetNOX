@@ -23,46 +23,46 @@ class __TwigTemplate_6c415c4b6758cb17b64eaf810634e3eeef7b534bc565d6859ce2c831801
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_43be914a9e42c0a5b994358c7433315fb782d39310038b394df4f9e3cb4e08de = $this->env->getExtension("native_profiler");
-        $__internal_43be914a9e42c0a5b994358c7433315fb782d39310038b394df4f9e3cb4e08de->enter($__internal_43be914a9e42c0a5b994358c7433315fb782d39310038b394df4f9e3cb4e08de_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:AQ:AQ.html.twig"));
+        $__internal_a7263e3c678e62b182b90a9e972782a17fe9de3f3a3ebfa31b23f5934d50a152 = $this->env->getExtension("native_profiler");
+        $__internal_a7263e3c678e62b182b90a9e972782a17fe9de3f3a3ebfa31b23f5934d50a152->enter($__internal_a7263e3c678e62b182b90a9e972782a17fe9de3f3a3ebfa31b23f5934d50a152_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:AQ:AQ.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_43be914a9e42c0a5b994358c7433315fb782d39310038b394df4f9e3cb4e08de->leave($__internal_43be914a9e42c0a5b994358c7433315fb782d39310038b394df4f9e3cb4e08de_prof);
+        $__internal_a7263e3c678e62b182b90a9e972782a17fe9de3f3a3ebfa31b23f5934d50a152->leave($__internal_a7263e3c678e62b182b90a9e972782a17fe9de3f3a3ebfa31b23f5934d50a152_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_359d6d26090ff8521a44a2c99e81ed06c7a533528d46b051af5be40b17234763 = $this->env->getExtension("native_profiler");
-        $__internal_359d6d26090ff8521a44a2c99e81ed06c7a533528d46b051af5be40b17234763->enter($__internal_359d6d26090ff8521a44a2c99e81ed06c7a533528d46b051af5be40b17234763_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_42ca9842b0146204ab3ffa6bfc0db0d2afcbb94e6429c318421830a52a7f290b = $this->env->getExtension("native_profiler");
+        $__internal_42ca9842b0146204ab3ffa6bfc0db0d2afcbb94e6429c318421830a52a7f290b->enter($__internal_42ca9842b0146204ab3ffa6bfc0db0d2afcbb94e6429c318421830a52a7f290b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Assurance qualité ";
         
-        $__internal_359d6d26090ff8521a44a2c99e81ed06c7a533528d46b051af5be40b17234763->leave($__internal_359d6d26090ff8521a44a2c99e81ed06c7a533528d46b051af5be40b17234763_prof);
+        $__internal_42ca9842b0146204ab3ffa6bfc0db0d2afcbb94e6429c318421830a52a7f290b->leave($__internal_42ca9842b0146204ab3ffa6bfc0db0d2afcbb94e6429c318421830a52a7f290b_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_a8e1e178ba8f8a700de0c5163aae249502000db9386971d914504c9266cd965e = $this->env->getExtension("native_profiler");
-        $__internal_a8e1e178ba8f8a700de0c5163aae249502000db9386971d914504c9266cd965e->enter($__internal_a8e1e178ba8f8a700de0c5163aae249502000db9386971d914504c9266cd965e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_8278bef70536c3403f030d44d54d9ccf4346b7f7ca50f00a1bdd7764383237e5 = $this->env->getExtension("native_profiler");
+        $__internal_8278bef70536c3403f030d44d54d9ccf4346b7f7ca50f00a1bdd7764383237e5->enter($__internal_8278bef70536c3403f030d44d54d9ccf4346b7f7ca50f00a1bdd7764383237e5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
-        echo "Assurance qualité<div><div style=\"float: right;\"><p style=\"font-size: 0.8vw;\" ><a style=\"text-decoration: none; display: inline-block; width: 110%;\" href=\"mailto:g.toure@groupe-nox.com?subject=Demande d'informations 'Assurance qualité'\"><span style=\"vertical-align:middle; margin-right: 3%; display: inline-block;\">Contact</span><img style=\"vertical-align: middle; width: 25%;\" src=\"";
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Message-Mail-24.png"), "html", null, true);
+        echo "Assurance qualité<div><div style=\"float: right;\"><p style=\"font-size: 0.8vw;\" ><a style=\"text-decoration: none; display: inline-block; width: 110%; color: rgb(31,78,121);\" href=\"mailto:g.toure@groupe-nox.com?subject=Demande d'informations 'Assurance qualité'\"><span style=\"vertical-align:middle; margin-right: 3%; display: inline-block;\">Contact</span><img style=\"vertical-align: middle; width: 25%;\" src=\"";
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Message-Mail-32.png"), "html", null, true);
         echo "\"></a></p></div></div>";
         
-        $__internal_a8e1e178ba8f8a700de0c5163aae249502000db9386971d914504c9266cd965e->leave($__internal_a8e1e178ba8f8a700de0c5163aae249502000db9386971d914504c9266cd965e_prof);
+        $__internal_8278bef70536c3403f030d44d54d9ccf4346b7f7ca50f00a1bdd7764383237e5->leave($__internal_8278bef70536c3403f030d44d54d9ccf4346b7f7ca50f00a1bdd7764383237e5_prof);
 
     }
 
     // line 9
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_1ff13be2420174af2e74edf2e74c5945e22fa8df2a477362f3916107074ae8e9 = $this->env->getExtension("native_profiler");
-        $__internal_1ff13be2420174af2e74edf2e74c5945e22fa8df2a477362f3916107074ae8e9->enter($__internal_1ff13be2420174af2e74edf2e74c5945e22fa8df2a477362f3916107074ae8e9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_ca06b366fa90ab3b9c67d3ec5d170f5913f450a9178ba2bd85d637ae503d6059 = $this->env->getExtension("native_profiler");
+        $__internal_ca06b366fa90ab3b9c67d3ec5d170f5913f450a9178ba2bd85d637ae503d6059->enter($__internal_ca06b366fa90ab3b9c67d3ec5d170f5913f450a9178ba2bd85d637ae503d6059_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 10
         echo "
@@ -184,7 +184,7 @@ class __TwigTemplate_6c415c4b6758cb17b64eaf810634e3eeef7b534bc565d6859ce2c831801
 
 ";
         
-        $__internal_1ff13be2420174af2e74edf2e74c5945e22fa8df2a477362f3916107074ae8e9->leave($__internal_1ff13be2420174af2e74edf2e74c5945e22fa8df2a477362f3916107074ae8e9_prof);
+        $__internal_ca06b366fa90ab3b9c67d3ec5d170f5913f450a9178ba2bd85d637ae503d6059->leave($__internal_ca06b366fa90ab3b9c67d3ec5d170f5913f450a9178ba2bd85d637ae503d6059_prof);
 
     }
 
@@ -207,7 +207,7 @@ class __TwigTemplate_6c415c4b6758cb17b64eaf810634e3eeef7b534bc565d6859ce2c831801
 /* */
 /* {% block titrePage %} Assurance qualité {% endblock %}*/
 /* */
-/* {% block messageAccueil %}Assurance qualité<div><div style="float: right;"><p style="font-size: 0.8vw;" ><a style="text-decoration: none; display: inline-block; width: 110%;" href="mailto:g.toure@groupe-nox.com?subject=Demande d'informations 'Assurance qualité'"><span style="vertical-align:middle; margin-right: 3%; display: inline-block;">Contact</span><img style="vertical-align: middle; width: 25%;" src="{{ asset('bundles/noxintranetressources/images/Message-Mail-24.png') }}"></a></p></div></div>{% endblock %}*/
+/* {% block messageAccueil %}Assurance qualité<div><div style="float: right;"><p style="font-size: 0.8vw;" ><a style="text-decoration: none; display: inline-block; width: 110%; color: rgb(31,78,121);" href="mailto:g.toure@groupe-nox.com?subject=Demande d'informations 'Assurance qualité'"><span style="vertical-align:middle; margin-right: 3%; display: inline-block;">Contact</span><img style="vertical-align: middle; width: 25%;" src="{{ asset('bundles/noxintranetressources/images/Message-Mail-32.png') }}"></a></p></div></div>{% endblock %}*/
 /* */
 /* */
 /* */

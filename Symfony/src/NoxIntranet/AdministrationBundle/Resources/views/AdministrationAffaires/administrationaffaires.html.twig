@@ -17,7 +17,7 @@
 
         <fieldset>
 
-            <legend><span>Ajouter un profil</span></legend>
+            <legend><p>Ajouter un profil</p></legend>
 
             {{ form_label(formAjoutProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutProfil'}}) }}
             {{ form_errors(formAjoutProfil.Nom) }}
@@ -40,7 +40,7 @@
 
         <fieldset>
 
-            <legend><span>Supprimer un profil</span></legend>
+            <legend><p>Supprimer un profil</p></legend>
 
             {{ form_label(formSuppresionProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionProfil'}}) }}
             {{ form_errors(formSuppresionProfil.Nom) }}
@@ -68,7 +68,7 @@
 
         <fieldset>
 
-            <legend><span>Ajouter un fichier</span></legend>
+            <legend><p>Ajouter un fichier</p></legend>
 
             <p>
                 {{ form_errors(formAjoutFichier.file) }}
@@ -90,28 +90,48 @@
         <h4> Champs : </h4>
     </div>
 
-    <div class='DivFormulaireAjoutFormulaire'>
+    <div id='DivFormulaireSelectionDossier'>
 
-        {{ form_start(formAjoutFormulaire, {'attr': {'class': 'formulaireAjoutFormulaire'}}) }}
-        {{ form_errors(formAjoutFormulaire) }}
+        {{ form_start(formSelectionDossier, {'attr': {'class': 'formulaireSelectionDossier'}}) }}
+        {{ form_errors(formSelectionDossier) }}
 
         <fieldset>
 
-            <legend><span>Editer un fichier</span></legend>
+            <legend><p>Suivi</p></legend>
+
+            {{ form_label(formSelectionDossier.dossiers, "Selection du suivi :", {'label_attr': {'class': 'labelFormulaireSelectionDossier'}}) }}
+            {{ form_errors(formSelectionDossier.dossiers) }}
+            {{ form_widget(formSelectionDossier.dossiers, {'attr': {'class': 'selectFormulaireSelectionDossier'}}) }}
+
+        </fieldset>
+
+        {{ form_end(formSelectionDossier) }}
+
+    </div>
+
+    <div id='DivFormulaireSelectionVersion'>
+        {{ form_start(formSelectionVersion, {'attr': {'class': 'formulaireSelectionVersion'}}) }}
+        {{ form_errors(formSelectionVersion) }}
+
+        <fieldset>
+
+            <legend><p>Selection de la version</p></legend>
 
             <p>
-                {{ form_label(formAjoutFormulaire.Type, "Fichier :", {'label_attr': {'class': 'labelFormulaireAjoutFormulaire'}}) }}
-                {{ form_errors(formAjoutFormulaire.Type) }}
-                {{ form_widget(formAjoutFormulaire.Type, {'attr': {'class': 'selectFormulaireAjoutFormulaire'}}) }}
-
-                {{ form_widget(formAjoutFormulaire._token) }}
-
-                {{ form_widget(formAjoutFormulaire.Editer, {'attr': {'class': 'submitFormulaireAjoutFormulaire' }}) }}
+                {{ form_errors(formSelectionVersion.versions) }}
+                {{ form_widget(formSelectionVersion.versions, {'attr': {'class': 'selectFormulaireSelectionVersion', 'size': 15}}) }}
             </p>
 
-        </fieldset> 
+            {{ form_widget(formSelectionVersion._token) }}
 
-        {{ form_end(formAjoutFormulaire) }}
+            <p>
+                {{ form_widget(formSelectionVersion.Editer, {'attr': {'class': 'submitFormulaireSelectionVersion' }}) }}
+                {{ form_widget(formSelectionVersion.Supprimer, {'attr': {'class': 'submitFormulaireSelectionVersion' }}) }}
+            </p>
+
+        </fieldset>
+
+        {{ form_end(formSelectionVersion) }}
 
     </div>
 

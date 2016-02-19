@@ -77,7 +77,7 @@ class __TwigTemplate_07b75df66630c015c197f4a09b2e2e75a08a32fa6adc80911a6b021d49f
             echo "\" onclick=\"popupDownloadServeurConnexion();\"> 
                             <img src=\"";
             // line 30
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Connect-48.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Network-01-32.png"), "html", null, true);
             echo "\"> 
                         </a>
                     </td>
@@ -88,7 +88,7 @@ class __TwigTemplate_07b75df66630c015c197f4a09b2e2e75a08a32fa6adc80911a6b021d49f
             echo "\" onclick=\"popupDownloadServeurDeconnexion();\"> 
                             <img src=\"";
             // line 35
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Disconnect-48.png"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Network-Disconnected-32.png"), "html", null, true);
             echo "\"> 
                         </a>
                     </td>
@@ -155,12 +155,12 @@ class __TwigTemplate_07b75df66630c015c197f4a09b2e2e75a08a32fa6adc80911a6b021d49f
 /*                     </td>*/
 /*                     <td> */
 /*                         <a class='lienArchive' href="{{ path('nox_intranet_serveur_download_script_connexion', { 'agence': serveur.agence }) }}" onclick="popupDownloadServeurConnexion();"> */
-/*                             <img src="{{ asset('bundles/noxintranetressources/images/Connect-48.png') }}"> */
+/*                             <img src="{{ asset('bundles/noxintranetressources/images/Network-01-32.png') }}"> */
 /*                         </a>*/
 /*                     </td>*/
 /*                     <td> */
 /*                         <a class='lienArchive' href="{{ path('nox_intranet_serveur_download_script_deconnexion') }}" onclick="popupDownloadServeurDeconnexion();"> */
-/*                             <img src="{{ asset('bundles/noxintranetressources/images/Disconnect-48.png') }}"> */
+/*                             <img src="{{ asset('bundles/noxintranetressources/images/Network-Disconnected-32.png') }}"> */
 /*                         </a>*/
 /*                     </td>*/
 /*                 </tr>*/

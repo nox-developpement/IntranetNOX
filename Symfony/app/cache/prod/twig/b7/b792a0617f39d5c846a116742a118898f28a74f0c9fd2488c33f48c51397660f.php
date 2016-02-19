@@ -63,7 +63,7 @@ class __TwigTemplate_5bbc33c7df8330fa3ba196c67e4b78fe8b65a171be3dfa4bfcef2ff7ff9
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
-            <a href=\"mailto:g.toure@groupe-nox.com?subject=Demande d'attestation employeur ";
+            <a href=\"mailto:rh@groupe-nox.com?subject=Demande d'attestation employeur ";
         // line 21
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : null), "user", array()), "firstname", array()), "html", null, true);
         echo " ";
@@ -178,7 +178,7 @@ class __TwigTemplate_5bbc33c7df8330fa3ba196c67e4b78fe8b65a171be3dfa4bfcef2ff7ff9
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href="mailto:g.toure@groupe-nox.com?subject=Demande d'attestation employeur {{ app.user.firstname }} {{ app.user.lastname }}"> <h4> Demande d'attestation employeur </h4> </a>*/
+/*             <a href="mailto:rh@groupe-nox.com?subject=Demande d'attestation employeur {{ app.user.firstname }} {{ app.user.lastname }}"> <h4> Demande d'attestation employeur </h4> </a>*/
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */

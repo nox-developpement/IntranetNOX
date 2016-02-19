@@ -23,44 +23,44 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_081f8439e3629ce2f22d5417628471fbab13895e0adbda40497c3198f4be582a = $this->env->getExtension("native_profiler");
-        $__internal_081f8439e3629ce2f22d5417628471fbab13895e0adbda40497c3198f4be582a->enter($__internal_081f8439e3629ce2f22d5417628471fbab13895e0adbda40497c3198f4be582a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig"));
+        $__internal_c2ea088f57bf1fa49030508f3376b7d719d16501b2462351b99b437ba74c34ce = $this->env->getExtension("native_profiler");
+        $__internal_c2ea088f57bf1fa49030508f3376b7d719d16501b2462351b99b437ba74c34ce->enter($__internal_c2ea088f57bf1fa49030508f3376b7d719d16501b2462351b99b437ba74c34ce_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_081f8439e3629ce2f22d5417628471fbab13895e0adbda40497c3198f4be582a->leave($__internal_081f8439e3629ce2f22d5417628471fbab13895e0adbda40497c3198f4be582a_prof);
+        $__internal_c2ea088f57bf1fa49030508f3376b7d719d16501b2462351b99b437ba74c34ce->leave($__internal_c2ea088f57bf1fa49030508f3376b7d719d16501b2462351b99b437ba74c34ce_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_34f7b2c09c74c7ad3bf99649fbfbc5756591cb5ecda7311a92ba748fbe954675 = $this->env->getExtension("native_profiler");
-        $__internal_34f7b2c09c74c7ad3bf99649fbfbc5756591cb5ecda7311a92ba748fbe954675->enter($__internal_34f7b2c09c74c7ad3bf99649fbfbc5756591cb5ecda7311a92ba748fbe954675_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_0a036e02b6d52544729f4d9dffede605a6f059eb1bb57bcf63eef8c5f46d55cf = $this->env->getExtension("native_profiler");
+        $__internal_0a036e02b6d52544729f4d9dffede605a6f059eb1bb57bcf63eef8c5f46d55cf->enter($__internal_0a036e02b6d52544729f4d9dffede605a6f059eb1bb57bcf63eef8c5f46d55cf_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Administration assistant d'affaires ";
         
-        $__internal_34f7b2c09c74c7ad3bf99649fbfbc5756591cb5ecda7311a92ba748fbe954675->leave($__internal_34f7b2c09c74c7ad3bf99649fbfbc5756591cb5ecda7311a92ba748fbe954675_prof);
+        $__internal_0a036e02b6d52544729f4d9dffede605a6f059eb1bb57bcf63eef8c5f46d55cf->leave($__internal_0a036e02b6d52544729f4d9dffede605a6f059eb1bb57bcf63eef8c5f46d55cf_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_97fcb78d240f194ed783f9692f23f1dc057cddc794861cd0f50e9bec6ae4f90c = $this->env->getExtension("native_profiler");
-        $__internal_97fcb78d240f194ed783f9692f23f1dc057cddc794861cd0f50e9bec6ae4f90c->enter($__internal_97fcb78d240f194ed783f9692f23f1dc057cddc794861cd0f50e9bec6ae4f90c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_dd3551db329f9f8fd0bb8bd155b91beec3bccb49f24f8ecbab236ad0dad2e753 = $this->env->getExtension("native_profiler");
+        $__internal_dd3551db329f9f8fd0bb8bd155b91beec3bccb49f24f8ecbab236ad0dad2e753->enter($__internal_dd3551db329f9f8fd0bb8bd155b91beec3bccb49f24f8ecbab236ad0dad2e753_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Administration assistant d'affaires";
         
-        $__internal_97fcb78d240f194ed783f9692f23f1dc057cddc794861cd0f50e9bec6ae4f90c->leave($__internal_97fcb78d240f194ed783f9692f23f1dc057cddc794861cd0f50e9bec6ae4f90c_prof);
+        $__internal_dd3551db329f9f8fd0bb8bd155b91beec3bccb49f24f8ecbab236ad0dad2e753->leave($__internal_dd3551db329f9f8fd0bb8bd155b91beec3bccb49f24f8ecbab236ad0dad2e753_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_9064dd972d19cd52ea8c5c85958721414a2641fc8e0f3e2c98dce4689c092eb5 = $this->env->getExtension("native_profiler");
-        $__internal_9064dd972d19cd52ea8c5c85958721414a2641fc8e0f3e2c98dce4689c092eb5->enter($__internal_9064dd972d19cd52ea8c5c85958721414a2641fc8e0f3e2c98dce4689c092eb5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_daab50f50fc8c6df442b8bfa580cd939be40db0781a6166e70c9a1eace9fc409 = $this->env->getExtension("native_profiler");
+        $__internal_daab50f50fc8c6df442b8bfa580cd939be40db0781a6166e70c9a1eace9fc409->enter($__internal_daab50f50fc8c6df442b8bfa580cd939be40db0781a6166e70c9a1eace9fc409_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -81,7 +81,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
         <fieldset>
 
-            <legend><span>Ajouter un profil</span></legend>
+            <legend><p>Ajouter un profil</p></legend>
 
             ";
         // line 22
@@ -128,7 +128,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
         <fieldset>
 
-            <legend><span>Supprimer un profil</span></legend>
+            <legend><p>Supprimer un profil</p></legend>
 
             ";
         // line 45
@@ -180,7 +180,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
         <fieldset>
 
-            <legend><span>Ajouter un fichier</span></legend>
+            <legend><p>Ajouter un fichier</p></legend>
 
             <p>
                 ";
@@ -217,58 +217,96 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
         <h4> Champs : </h4>
     </div>
 
-    <div class='DivFormulaireAjoutFormulaire'>
+    <div id='DivFormulaireSelectionDossier'>
 
         ";
         // line 95
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : $this->getContext($context, "formAjoutFormulaire")), 'form_start', array("attr" => array("class" => "formulaireAjoutFormulaire")));
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionDossier"]) ? $context["formSelectionDossier"] : $this->getContext($context, "formSelectionDossier")), 'form_start', array("attr" => array("class" => "formulaireSelectionDossier")));
         echo "
         ";
         // line 96
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : $this->getContext($context, "formAjoutFormulaire")), 'errors');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formSelectionDossier"]) ? $context["formSelectionDossier"] : $this->getContext($context, "formSelectionDossier")), 'errors');
         echo "
 
         <fieldset>
 
-            <legend><span>Editer un fichier</span></legend>
+            <legend><p>Suivi</p></legend>
+
+            ";
+        // line 102
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionDossier"]) ? $context["formSelectionDossier"] : $this->getContext($context, "formSelectionDossier")), "dossiers", array()), 'label', array("label_attr" => array("class" => "labelFormulaireSelectionDossier"), "label" => "Selection du suivi :"));
+        echo "
+            ";
+        // line 103
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionDossier"]) ? $context["formSelectionDossier"] : $this->getContext($context, "formSelectionDossier")), "dossiers", array()), 'errors');
+        echo "
+            ";
+        // line 104
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionDossier"]) ? $context["formSelectionDossier"] : $this->getContext($context, "formSelectionDossier")), "dossiers", array()), 'widget', array("attr" => array("class" => "selectFormulaireSelectionDossier")));
+        echo "
+
+        </fieldset>
+
+        ";
+        // line 108
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionDossier"]) ? $context["formSelectionDossier"] : $this->getContext($context, "formSelectionDossier")), 'form_end');
+        echo "
+
+    </div>
+
+    <div id='DivFormulaireSelectionVersion'>
+        ";
+        // line 113
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : $this->getContext($context, "formSelectionVersion")), 'form_start', array("attr" => array("class" => "formulaireSelectionVersion")));
+        echo "
+        ";
+        // line 114
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : $this->getContext($context, "formSelectionVersion")), 'errors');
+        echo "
+
+        <fieldset>
+
+            <legend><p>Selection de la version</p></legend>
 
             <p>
                 ";
-        // line 103
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : $this->getContext($context, "formAjoutFormulaire")), "Type", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAjoutFormulaire"), "label" => "Fichier :"));
+        // line 121
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : $this->getContext($context, "formSelectionVersion")), "versions", array()), 'errors');
         echo "
                 ";
-        // line 104
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : $this->getContext($context, "formAjoutFormulaire")), "Type", array()), 'errors');
-        echo "
-                ";
-        // line 105
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : $this->getContext($context, "formAjoutFormulaire")), "Type", array()), 'widget', array("attr" => array("class" => "selectFormulaireAjoutFormulaire")));
-        echo "
-
-                ";
-        // line 107
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : $this->getContext($context, "formAjoutFormulaire")), "_token", array()), 'widget');
-        echo "
-
-                ";
-        // line 109
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : $this->getContext($context, "formAjoutFormulaire")), "Editer", array()), 'widget', array("attr" => array("class" => "submitFormulaireAjoutFormulaire")));
+        // line 122
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : $this->getContext($context, "formSelectionVersion")), "versions", array()), 'widget', array("attr" => array("class" => "selectFormulaireSelectionVersion", "size" => 15)));
         echo "
             </p>
 
-        </fieldset> 
+            ";
+        // line 125
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : $this->getContext($context, "formSelectionVersion")), "_token", array()), 'widget');
+        echo "
+
+            <p>
+                ";
+        // line 128
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : $this->getContext($context, "formSelectionVersion")), "Editer", array()), 'widget', array("attr" => array("class" => "submitFormulaireSelectionVersion")));
+        echo "
+                ";
+        // line 129
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : $this->getContext($context, "formSelectionVersion")), "Supprimer", array()), 'widget', array("attr" => array("class" => "submitFormulaireSelectionVersion")));
+        echo "
+            </p>
+
+        </fieldset>
 
         ";
-        // line 114
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formAjoutFormulaire"]) ? $context["formAjoutFormulaire"] : $this->getContext($context, "formAjoutFormulaire")), 'form_end');
+        // line 134
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : $this->getContext($context, "formSelectionVersion")), 'form_end');
         echo "
 
     </div>
 
 ";
         
-        $__internal_9064dd972d19cd52ea8c5c85958721414a2641fc8e0f3e2c98dce4689c092eb5->leave($__internal_9064dd972d19cd52ea8c5c85958721414a2641fc8e0f3e2c98dce4689c092eb5_prof);
+        $__internal_daab50f50fc8c6df442b8bfa580cd939be40db0781a6166e70c9a1eace9fc409->leave($__internal_daab50f50fc8c6df442b8bfa580cd939be40db0781a6166e70c9a1eace9fc409_prof);
 
     }
 
@@ -284,7 +322,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
     public function getDebugInfo()
     {
-        return array (  264 => 114,  256 => 109,  251 => 107,  246 => 105,  242 => 104,  238 => 103,  228 => 96,  224 => 95,  210 => 84,  202 => 79,  197 => 77,  192 => 75,  188 => 74,  178 => 67,  174 => 66,  160 => 55,  153 => 51,  148 => 49,  143 => 47,  139 => 46,  135 => 45,  126 => 39,  122 => 38,  113 => 32,  106 => 28,  101 => 26,  96 => 24,  92 => 23,  88 => 22,  79 => 16,  75 => 15,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
+        return array (  302 => 134,  294 => 129,  290 => 128,  284 => 125,  278 => 122,  274 => 121,  264 => 114,  260 => 113,  252 => 108,  245 => 104,  241 => 103,  237 => 102,  228 => 96,  224 => 95,  210 => 84,  202 => 79,  197 => 77,  192 => 75,  188 => 74,  178 => 67,  174 => 66,  160 => 55,  153 => 51,  148 => 49,  143 => 47,  139 => 46,  135 => 45,  126 => 39,  122 => 38,  113 => 32,  106 => 28,  101 => 26,  96 => 24,  92 => 23,  88 => 22,  79 => 16,  75 => 15,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -306,7 +344,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend><span>Ajouter un profil</span></legend>*/
+/*             <legend><p>Ajouter un profil</p></legend>*/
 /* */
 /*             {{ form_label(formAjoutProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutProfil'}}) }}*/
 /*             {{ form_errors(formAjoutProfil.Nom) }}*/
@@ -329,7 +367,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend><span>Supprimer un profil</span></legend>*/
+/*             <legend><p>Supprimer un profil</p></legend>*/
 /* */
 /*             {{ form_label(formSuppresionProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionProfil'}}) }}*/
 /*             {{ form_errors(formSuppresionProfil.Nom) }}*/
@@ -357,7 +395,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend><span>Ajouter un fichier</span></legend>*/
+/*             <legend><p>Ajouter un fichier</p></legend>*/
 /* */
 /*             <p>*/
 /*                 {{ form_errors(formAjoutFichier.file) }}*/
@@ -379,28 +417,48 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /*         <h4> Champs : </h4>*/
 /*     </div>*/
 /* */
-/*     <div class='DivFormulaireAjoutFormulaire'>*/
+/*     <div id='DivFormulaireSelectionDossier'>*/
 /* */
-/*         {{ form_start(formAjoutFormulaire, {'attr': {'class': 'formulaireAjoutFormulaire'}}) }}*/
-/*         {{ form_errors(formAjoutFormulaire) }}*/
+/*         {{ form_start(formSelectionDossier, {'attr': {'class': 'formulaireSelectionDossier'}}) }}*/
+/*         {{ form_errors(formSelectionDossier) }}*/
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend><span>Editer un fichier</span></legend>*/
+/*             <legend><p>Suivi</p></legend>*/
+/* */
+/*             {{ form_label(formSelectionDossier.dossiers, "Selection du suivi :", {'label_attr': {'class': 'labelFormulaireSelectionDossier'}}) }}*/
+/*             {{ form_errors(formSelectionDossier.dossiers) }}*/
+/*             {{ form_widget(formSelectionDossier.dossiers, {'attr': {'class': 'selectFormulaireSelectionDossier'}}) }}*/
+/* */
+/*         </fieldset>*/
+/* */
+/*         {{ form_end(formSelectionDossier) }}*/
+/* */
+/*     </div>*/
+/* */
+/*     <div id='DivFormulaireSelectionVersion'>*/
+/*         {{ form_start(formSelectionVersion, {'attr': {'class': 'formulaireSelectionVersion'}}) }}*/
+/*         {{ form_errors(formSelectionVersion) }}*/
+/* */
+/*         <fieldset>*/
+/* */
+/*             <legend><p>Selection de la version</p></legend>*/
 /* */
 /*             <p>*/
-/*                 {{ form_label(formAjoutFormulaire.Type, "Fichier :", {'label_attr': {'class': 'labelFormulaireAjoutFormulaire'}}) }}*/
-/*                 {{ form_errors(formAjoutFormulaire.Type) }}*/
-/*                 {{ form_widget(formAjoutFormulaire.Type, {'attr': {'class': 'selectFormulaireAjoutFormulaire'}}) }}*/
-/* */
-/*                 {{ form_widget(formAjoutFormulaire._token) }}*/
-/* */
-/*                 {{ form_widget(formAjoutFormulaire.Editer, {'attr': {'class': 'submitFormulaireAjoutFormulaire' }}) }}*/
+/*                 {{ form_errors(formSelectionVersion.versions) }}*/
+/*                 {{ form_widget(formSelectionVersion.versions, {'attr': {'class': 'selectFormulaireSelectionVersion', 'size': 15}}) }}*/
 /*             </p>*/
 /* */
-/*         </fieldset> */
+/*             {{ form_widget(formSelectionVersion._token) }}*/
 /* */
-/*         {{ form_end(formAjoutFormulaire) }}*/
+/*             <p>*/
+/*                 {{ form_widget(formSelectionVersion.Editer, {'attr': {'class': 'submitFormulaireSelectionVersion' }}) }}*/
+/*                 {{ form_widget(formSelectionVersion.Supprimer, {'attr': {'class': 'submitFormulaireSelectionVersion' }}) }}*/
+/*             </p>*/
+/* */
+/*         </fieldset>*/
+/* */
+/*         {{ form_end(formSelectionVersion) }}*/
 /* */
 /*     </div>*/
 /* */
