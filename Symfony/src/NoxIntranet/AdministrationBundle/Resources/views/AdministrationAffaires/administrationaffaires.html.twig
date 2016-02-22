@@ -68,6 +68,12 @@
 
         <fieldset>
 
+            <p>
+                {{ form_label(formAjoutFichier.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireAjoutFichier'}}) }}
+                {{ form_errors(formAjoutFichier.Profil) }}
+                {{ form_widget(formAjoutFichier.Profil, {'attr': {'class': 'fileFormulaireAjoutFichier' }}) }}
+            </p>
+
             <legend><p>Ajouter un fichier</p></legend>
 
             <p>
@@ -85,9 +91,73 @@
 
     </div>
 
-
     <div class="sousMessageAcceuil">
         <h4> Champs : </h4>
+    </div>
+
+    <div class='DivFormulaireAjoutChamp'>
+
+        {{ form_start(formAjoutChamp, {'attr': {'class': 'formulaireAjoutChamp'}}) }}
+        {{ form_errors(formAjoutChamp) }}
+
+        <fieldset>
+
+            <legend><p>Ajouter un champ</p></legend>
+
+            <p>
+                {{ form_label(formAjoutChamp.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
+                {{ form_errors(formAjoutChamp.Nom) }}
+                {{ form_widget(formAjoutChamp.Nom, {'attr': {'class': 'texteFormulaireAjoutChamp' }}) }}
+            </p>
+
+            <p>
+                {{ form_label(formAjoutChamp.Type, "Type :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
+                {{ form_errors(formAjoutChamp.Type) }}
+                {{ form_widget(formAjoutChamp.Type, {'attr': {'class': 'selectFormulaireAjoutChamp' }}) }}
+
+                {{ form_widget(formAjoutChamp._token) }}
+            </p>
+
+            <p>
+                {{ form_widget(formAjoutChamp.Ajouter, {'attr': {'class': 'submitFormulaireAjoutChamp', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(formAjoutChamp) }}
+
+    </div>
+
+    <div class='DivFormulaireSuppressionChamp'>
+
+        {{ form_start(formSuppressionChamp, {'attr': {'class': 'formulaireSuppressionChamp'}}) }}
+        {{ form_errors(formSuppressionChamp) }}
+
+        <fieldset>
+
+            <legend><p>Supprimer un champ</p></legend>       
+
+            <p>
+                {{ form_label(formSuppressionChamp.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireSuppressionChamp'}}) }}
+                {{ form_errors(formSuppressionChamp.Nom) }}
+                {{ form_widget(formSuppressionChamp.Nom, {'attr': {'class': 'selectFormulaireSuppressionChamp' }}) }}
+            </p>
+
+            <p>
+                {{ form_widget(formSuppressionChamp._token) }} 
+
+                {{ form_widget(formSuppressionChamp.Supprimer, {'attr': {'class': 'submitFormulaireSuppressionChamp', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(formSuppressionChamp) }}
+
+    </div>
+
+
+    <div class="sousMessageAcceuil">
+        <h4> Suivis : </h4>
     </div>
 
     <div id='DivFormulaireSelectionDossier'>
@@ -102,6 +172,8 @@
             {{ form_label(formSelectionDossier.dossiers, "Selection du suivi :", {'label_attr': {'class': 'labelFormulaireSelectionDossier'}}) }}
             {{ form_errors(formSelectionDossier.dossiers) }}
             {{ form_widget(formSelectionDossier.dossiers, {'attr': {'class': 'selectFormulaireSelectionDossier'}}) }}
+
+            {{ form_widget(formSelectionDossier.Supprimer, { 'label': 'Supprimer le suivi', 'attr': {'class': 'boutonFormulaire'}}) }}
 
         </fieldset>
 

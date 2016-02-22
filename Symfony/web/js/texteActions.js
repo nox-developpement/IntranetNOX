@@ -22,6 +22,7 @@ $(document).ready(function () {
             $('.zoneTexteAccueil').text('');
             $('.zoneTexte').css('border', 'none');
             $('.zoneTexteAccueil').css('border', 'none');
+            $('.zoneTexteAccueil').css('display', 'none');
             $('#texteEditButton').text('Sauvegarder');
             $('#formulaireTexte').toggle();
         }

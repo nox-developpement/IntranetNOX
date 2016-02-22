@@ -53,7 +53,7 @@ class __TwigTemplate_6a1bc463501a190bba973765bfdc1e2662160a24c10d253c4bed96baea9
             <p> <button class=\"boutonFormulaire\" onclick=\"location.reload();\"> Annuler </button> <button class=\"boutonFormulaire\" onclick=\"exctractionTableau();
                     window.location.href = '";
         // line 14
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_affaires_edition_sauvegarde", array("filename" => (isset($context["filename"]) ? $context["filename"] : null))), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_affaires_edition_sauvegarde", array("filename" => (isset($context["file"]) ? $context["file"] : null))), "html", null, true);
         echo "';\"> Sauvegarder </button> </p>
         </div>
 
@@ -176,7 +176,7 @@ class __TwigTemplate_6a1bc463501a190bba973765bfdc1e2662160a24c10d253c4bed96baea9
 /*         <div>*/
 /*             <p>{{ filename }}</p>*/
 /*             <p> <button class="boutonFormulaire" onclick="location.reload();"> Annuler </button> <button class="boutonFormulaire" onclick="exctractionTableau();*/
-/*                     window.location.href = '{{ path('nox_intranet_administration_affaires_edition_sauvegarde', { 'filename': filename }) }}';"> Sauvegarder </button> </p>*/
+/*                     window.location.href = '{{ path('nox_intranet_administration_affaires_edition_sauvegarde', { 'filename': file }) }}';"> Sauvegarder </button> </p>*/
 /*         </div>*/
 /* */
 /*         <table>*/

@@ -8,7 +8,11 @@ $(window).ready(function () {
     });
 
     $('#formSelectionVersion_Supprimer').click(function () {
-        return confirm('Voulez vous vraiment supprimer le fichier ' + $('.selectFormulaireSelectionVersion').val().replace(/.*(\/|\\)/, ''));
+        return confirm('Voulez vous vraiment supprimer le fichier ' + $('.selectFormulaireSelectionVersion').val().replace(/.*(\/|\\)/, '') + " ?");
+    });
+
+    $('#formSelectionDossier_Supprimer').click(function () {
+        return confirm('Voulez vous vraiment supprimer le suivi ' + $('.selectFormulaireSelectionDossier option:selected').text().replace(/.*(\/|\\)/, '') + " ?");
     });
 });
 

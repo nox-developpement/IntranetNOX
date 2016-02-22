@@ -1695,6 +1695,7 @@ divAdministrationUtilisateur {
 .zoneEditionAccueil {
     width: 40%;
     margin-left: 15%;
+    display: inline-block;
 }
 
 .zoneTexteAccueil {
@@ -2138,7 +2139,6 @@ divAdministrationUtilisateur {
     width: 70%;
     margin: auto;
     font-size: 0.8vw;
-    height: 60%;
 }
 
 .formulaireSuppressionAnnonce {
