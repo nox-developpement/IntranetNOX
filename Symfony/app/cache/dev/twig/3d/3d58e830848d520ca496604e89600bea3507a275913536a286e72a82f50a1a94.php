@@ -15,8 +15,8 @@ class __TwigTemplate_1a9b1b7e937174ef70195e3e6f20b4115e90ae9be2fdfa0bebbfd61bc11
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_d38ec5e050902c1935c659d8b5634e72c16823c1544bac4fc802d6e1577c6075 = $this->env->getExtension("native_profiler");
-        $__internal_d38ec5e050902c1935c659d8b5634e72c16823c1544bac4fc802d6e1577c6075->enter($__internal_d38ec5e050902c1935c659d8b5634e72c16823c1544bac4fc802d6e1577c6075_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/js/redactor-osticket.js"));
+        $__internal_2322c0edc5ead3432b37a4e644ab2e65c31a95a2abd215473eee8dcccd796faa = $this->env->getExtension("native_profiler");
+        $__internal_2322c0edc5ead3432b37a4e644ab2e65c31a95a2abd215473eee8dcccd796faa->enter($__internal_2322c0edc5ead3432b37a4e644ab2e65c31a95a2abd215473eee8dcccd796faa_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/js/redactor-osticket.js"));
 
         // line 1
         echo "if (typeof RedactorPlugins === 'undefined') var RedactorPlugins = {};
@@ -341,7 +341,7 @@ RedactorPlugins.signature = {
 });
 ";
         
-        $__internal_d38ec5e050902c1935c659d8b5634e72c16823c1544bac4fc802d6e1577c6075->leave($__internal_d38ec5e050902c1935c659d8b5634e72c16823c1544bac4fc802d6e1577c6075_prof);
+        $__internal_2322c0edc5ead3432b37a4e644ab2e65c31a95a2abd215473eee8dcccd796faa->leave($__internal_2322c0edc5ead3432b37a4e644ab2e65c31a95a2abd215473eee8dcccd796faa_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_aa12def73b7b7cdcd5ce8816e4b30ce78b846858019a2782745422eca07
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_2ac2c374218ac2dcb61f0426c41910b24f1866ec1f7df57f4af3a82bab6a3c42 = $this->env->getExtension("native_profiler");
-        $__internal_2ac2c374218ac2dcb61f0426c41910b24f1866ec1f7df57f4af3a82bab6a3c42->enter($__internal_2ac2c374218ac2dcb61f0426c41910b24f1866ec1f7df57f4af3a82bab6a3c42_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/user-account.tmpl.php"));
+        $__internal_4c9da5700c42a5fa5155ca3a49976591833027893d107481c3a4ef131ce17ca8 = $this->env->getExtension("native_profiler");
+        $__internal_4c9da5700c42a5fa5155ca3a49976591833027893d107481c3a4ef131ce17ca8->enter($__internal_4c9da5700c42a5fa5155ca3a49976591833027893d107481c3a4ef131ce17ca8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/user-account.tmpl.php"));
 
         // line 1
         echo "<?php
@@ -203,7 +203,7 @@ if (\$info['error']) {
 </script>
 ";
         
-        $__internal_2ac2c374218ac2dcb61f0426c41910b24f1866ec1f7df57f4af3a82bab6a3c42->leave($__internal_2ac2c374218ac2dcb61f0426c41910b24f1866ec1f7df57f4af3a82bab6a3c42_prof);
+        $__internal_4c9da5700c42a5fa5155ca3a49976591833027893d107481c3a4ef131ce17ca8->leave($__internal_4c9da5700c42a5fa5155ca3a49976591833027893d107481c3a4ef131ce17ca8_prof);
 
     }
 

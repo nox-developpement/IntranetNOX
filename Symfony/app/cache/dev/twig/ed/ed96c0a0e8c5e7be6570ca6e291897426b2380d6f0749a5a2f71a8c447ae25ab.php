@@ -15,8 +15,8 @@ class __TwigTemplate_f337a8739e84c78354279f87e6f36daf8d74a32088da13fc5b6b6ef6ecb
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_295a58d95e4c3ccd4c36c5f0a7479453b8d1c1f89ae439db4b8b89f87208caa2 = $this->env->getExtension("native_profiler");
-        $__internal_295a58d95e4c3ccd4c36c5f0a7479453b8d1c1f89ae439db4b8b89f87208caa2->enter($__internal_295a58d95e4c3ccd4c36c5f0a7479453b8d1c1f89ae439db4b8b89f87208caa2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/pwreset.php"));
+        $__internal_60a5945f27e7c0a396f2e493fb655d86f06b243c92d52b549d86dea51ce31e40 = $this->env->getExtension("native_profiler");
+        $__internal_60a5945f27e7c0a396f2e493fb655d86f06b243c92d52b549d86dea51ce31e40->enter($__internal_60a5945f27e7c0a396f2e493fb655d86f06b243c92d52b549d86dea51ce31e40_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/pwreset.php"));
 
         // line 1
         echo "<?php
@@ -106,7 +106,7 @@ require CLIENTINC_DIR.'footer.inc.php';
 ?>
 ";
         
-        $__internal_295a58d95e4c3ccd4c36c5f0a7479453b8d1c1f89ae439db4b8b89f87208caa2->leave($__internal_295a58d95e4c3ccd4c36c5f0a7479453b8d1c1f89ae439db4b8b89f87208caa2_prof);
+        $__internal_60a5945f27e7c0a396f2e493fb655d86f06b243c92d52b549d86dea51ce31e40->leave($__internal_60a5945f27e7c0a396f2e493fb655d86f06b243c92d52b549d86dea51ce31e40_prof);
 
     }
 

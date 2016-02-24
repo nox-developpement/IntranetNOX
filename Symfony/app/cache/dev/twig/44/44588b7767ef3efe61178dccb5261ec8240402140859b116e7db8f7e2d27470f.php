@@ -15,8 +15,8 @@ class __TwigTemplate_48d303c5a4c084b2c0fc53af3983442d04d49929aa9bd9e420e211a9a1e
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_0e49a2de250330478b2f68e509682060e9c0b763efa39f8c68d3afca3a0b2eda = $this->env->getExtension("native_profiler");
-        $__internal_0e49a2de250330478b2f68e509682060e9c0b763efa39f8c68d3afca3a0b2eda->enter($__internal_0e49a2de250330478b2f68e509682060e9c0b763efa39f8c68d3afca3a0b2eda_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/email/note.alert.yaml"));
+        $__internal_735f421d6b6dcc1aee8b6b2ff5006889fa7d873af8a85fab92ea35b1125bb092 = $this->env->getExtension("native_profiler");
+        $__internal_735f421d6b6dcc1aee8b6b2ff5006889fa7d873af8a85fab92ea35b1125bb092->enter($__internal_735f421d6b6dcc1aee8b6b2ff5006889fa7d873af8a85fab92ea35b1125bb092_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/email/note.alert.yaml"));
 
         // line 1
         echo "#
@@ -74,7 +74,7 @@ body: |
     alt=\"Powered by osTicket\" width=\"126\" height=\"19\" style=\"width: 126px;\">
 ";
         
-        $__internal_0e49a2de250330478b2f68e509682060e9c0b763efa39f8c68d3afca3a0b2eda->leave($__internal_0e49a2de250330478b2f68e509682060e9c0b763efa39f8c68d3afca3a0b2eda_prof);
+        $__internal_735f421d6b6dcc1aee8b6b2ff5006889fa7d873af8a85fab92ea35b1125bb092->leave($__internal_735f421d6b6dcc1aee8b6b2ff5006889fa7d873af8a85fab92ea35b1125bb092_prof);
 
     }
 

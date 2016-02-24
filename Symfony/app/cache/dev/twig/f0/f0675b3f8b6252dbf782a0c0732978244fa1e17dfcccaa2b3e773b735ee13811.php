@@ -15,8 +15,8 @@ class __TwigTemplate_66862768c1acef8677961ecc28613e5c89636f433f2db870b6f004f3937
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b57fa063bc7d2d27193b5c9d845816a39e114f2376a17a6cf2e655dbc78a9a6d = $this->env->getExtension("native_profiler");
-        $__internal_b57fa063bc7d2d27193b5c9d845816a39e114f2376a17a6cf2e655dbc78a9a6d->enter($__internal_b57fa063bc7d2d27193b5c9d845816a39e114f2376a17a6cf2e655dbc78a9a6d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.ajax.php"));
+        $__internal_2650f294ea03ad4b0057f9373c2f3a9dd981eca87394163a12fa3428db005fc7 = $this->env->getExtension("native_profiler");
+        $__internal_2650f294ea03ad4b0057f9373c2f3a9dd981eca87394163a12fa3428db005fc7->enter($__internal_2650f294ea03ad4b0057f9373c2f3a9dd981eca87394163a12fa3428db005fc7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.ajax.php"));
 
         // line 1
         echo "<?php
@@ -72,7 +72,7 @@ class AjaxController extends ApiController {
 }
 ";
         
-        $__internal_b57fa063bc7d2d27193b5c9d845816a39e114f2376a17a6cf2e655dbc78a9a6d->leave($__internal_b57fa063bc7d2d27193b5c9d845816a39e114f2376a17a6cf2e655dbc78a9a6d_prof);
+        $__internal_2650f294ea03ad4b0057f9373c2f3a9dd981eca87394163a12fa3428db005fc7->leave($__internal_2650f294ea03ad4b0057f9373c2f3a9dd981eca87394163a12fa3428db005fc7_prof);
 
     }
 

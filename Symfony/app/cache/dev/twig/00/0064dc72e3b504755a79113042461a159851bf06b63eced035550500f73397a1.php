@@ -15,8 +15,8 @@ class __TwigTemplate_25016c49c754b18b28196367439f639d313374dcc622038a11ceb518c06
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_971fe4b84fa31da87c38a425a754b1c64fe860f8b1fea90fd241e87212a4abdf = $this->env->getExtension("native_profiler");
-        $__internal_971fe4b84fa31da87c38a425a754b1c64fe860f8b1fea90fd241e87212a4abdf->enter($__internal_971fe4b84fa31da87c38a425a754b1c64fe860f8b1fea90fd241e87212a4abdf_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/offline.php"));
+        $__internal_6cbbce01b0cf9e0e2fb3f7c124a6a4cc9054479c856aca8633eeae57cf7888af = $this->env->getExtension("native_profiler");
+        $__internal_6cbbce01b0cf9e0e2fb3f7c124a6a4cc9054479c856aca8633eeae57cf7888af->enter($__internal_6cbbce01b0cf9e0e2fb3f7c124a6a4cc9054479c856aca8633eeae57cf7888af_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/offline.php"));
 
         // line 1
         echo "<?php
@@ -55,7 +55,7 @@ if((\$page=\$cfg->getOfflinePage())) {
 <?php require(CLIENTINC_DIR.'footer.inc.php'); ?>
 ";
         
-        $__internal_971fe4b84fa31da87c38a425a754b1c64fe860f8b1fea90fd241e87212a4abdf->leave($__internal_971fe4b84fa31da87c38a425a754b1c64fe860f8b1fea90fd241e87212a4abdf_prof);
+        $__internal_6cbbce01b0cf9e0e2fb3f7c124a6a4cc9054479c856aca8633eeae57cf7888af->leave($__internal_6cbbce01b0cf9e0e2fb3f7c124a6a4cc9054479c856aca8633eeae57cf7888af_prof);
 
     }
 

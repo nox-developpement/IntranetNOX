@@ -15,8 +15,8 @@ class __TwigTemplate_d871f2c16e07cbc73e79eaf1128c0498605123fa45abe542f8fae5ef1ac
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_9cc88179b29e0fb6e9b3b149efca64c48bd7a0631a56a53fa400e9217c2e5d76 = $this->env->getExtension("native_profiler");
-        $__internal_9cc88179b29e0fb6e9b3b149efca64c48bd7a0631a56a53fa400e9217c2e5d76->enter($__internal_9cc88179b29e0fb6e9b3b149efca64c48bd7a0631a56a53fa400e9217c2e5d76_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/config/filetype.yaml"));
+        $__internal_7878c8e0d7d92bfd0181eaeebee0323d1328190db8ad9f9bbc8982e0f25c9a74 = $this->env->getExtension("native_profiler");
+        $__internal_7878c8e0d7d92bfd0181eaeebee0323d1328190db8ad9f9bbc8982e0f25c9a74->enter($__internal_7878c8e0d7d92bfd0181eaeebee0323d1328190db8ad9f9bbc8982e0f25c9a74_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/config/filetype.yaml"));
 
         // line 1
         echo "---
@@ -150,7 +150,7 @@ archive:
     'application/x-7z-compressed': ['7z']
 ";
         
-        $__internal_9cc88179b29e0fb6e9b3b149efca64c48bd7a0631a56a53fa400e9217c2e5d76->leave($__internal_9cc88179b29e0fb6e9b3b149efca64c48bd7a0631a56a53fa400e9217c2e5d76_prof);
+        $__internal_7878c8e0d7d92bfd0181eaeebee0323d1328190db8ad9f9bbc8982e0f25c9a74->leave($__internal_7878c8e0d7d92bfd0181eaeebee0323d1328190db8ad9f9bbc8982e0f25c9a74_prof);
 
     }
 

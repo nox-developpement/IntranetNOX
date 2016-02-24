@@ -15,8 +15,8 @@ class __TwigTemplate_f04cd25b1973cc7cb0024b6b360c3f51b67b185cee40816ce236ff79ff1
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_cb1de941116c9652381152980f87866bd0bc82c563185ff56cfa117ce231265e = $this->env->getExtension("native_profiler");
-        $__internal_cb1de941116c9652381152980f87866bd0bc82c563185ff56cfa117ce231265e->enter($__internal_cb1de941116c9652381152980f87866bd0bc82c563185ff56cfa117ce231265e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/00ff231f-9f3b454c.patch.sql"));
+        $__internal_3739739fc3a2bc0069ad4ccd288018dec594a5f1412aac5913b0de145574f882 = $this->env->getExtension("native_profiler");
+        $__internal_3739739fc3a2bc0069ad4ccd288018dec594a5f1412aac5913b0de145574f882->enter($__internal_3739739fc3a2bc0069ad4ccd288018dec594a5f1412aac5913b0de145574f882_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/00ff231f-9f3b454c.patch.sql"));
 
         // line 1
         echo "/**
@@ -59,7 +59,7 @@ UPDATE `%TABLE_PREFIX%config`
     SET `schema_signature`='9f3b454c06dfd5ee96003eae5182ac13';
 ";
         
-        $__internal_cb1de941116c9652381152980f87866bd0bc82c563185ff56cfa117ce231265e->leave($__internal_cb1de941116c9652381152980f87866bd0bc82c563185ff56cfa117ce231265e_prof);
+        $__internal_3739739fc3a2bc0069ad4ccd288018dec594a5f1412aac5913b0de145574f882->leave($__internal_3739739fc3a2bc0069ad4ccd288018dec594a5f1412aac5913b0de145574f882_prof);
 
     }
 

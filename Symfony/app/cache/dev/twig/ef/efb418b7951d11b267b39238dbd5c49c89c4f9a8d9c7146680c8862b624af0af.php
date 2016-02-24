@@ -15,8 +15,8 @@ class __TwigTemplate_d0a35fdacfadacff8b3e4a387c34f8704e895136c68991e1cf0269cc441
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_5b6780ac4881ea07503f8f41822acc2f3dffe0a9ddefdc135fc6c618fc2dbe3e = $this->env->getExtension("native_profiler");
-        $__internal_5b6780ac4881ea07503f8f41822acc2f3dffe0a9ddefdc135fc6c618fc2dbe3e->enter($__internal_5b6780ac4881ea07503f8f41822acc2f3dffe0a9ddefdc135fc6c618fc2dbe3e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/f1ccd3bb-f5692e24.cleanup.sql"));
+        $__internal_b63166aef4fba4108474948a9b78a20063209d4bd7e696bef18c45c51143a52d = $this->env->getExtension("native_profiler");
+        $__internal_b63166aef4fba4108474948a9b78a20063209d4bd7e696bef18c45c51143a52d->enter($__internal_b63166aef4fba4108474948a9b78a20063209d4bd7e696bef18c45c51143a52d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/f1ccd3bb-f5692e24.cleanup.sql"));
 
         // line 1
         echo "/**
@@ -42,7 +42,7 @@ ALTER TABLE `%TABLE_PREFIX%ticket_email_info`
 DROP TABLE IF EXISTS `%TABLE_PREFIX%ticket__cdata`;
 ";
         
-        $__internal_5b6780ac4881ea07503f8f41822acc2f3dffe0a9ddefdc135fc6c618fc2dbe3e->leave($__internal_5b6780ac4881ea07503f8f41822acc2f3dffe0a9ddefdc135fc6c618fc2dbe3e_prof);
+        $__internal_b63166aef4fba4108474948a9b78a20063209d4bd7e696bef18c45c51143a52d->leave($__internal_b63166aef4fba4108474948a9b78a20063209d4bd7e696bef18c45c51143a52d_prof);
 
     }
 

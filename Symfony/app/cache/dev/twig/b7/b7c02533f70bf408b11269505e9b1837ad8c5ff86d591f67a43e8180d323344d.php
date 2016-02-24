@@ -15,8 +15,8 @@ class __TwigTemplate_6d383296a73056beb5c1592c7a710194864c595959e7111cf5c16f53dab
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_afff31196e75eb3f143ca41a92f39e91f4aa827281007741ad8bd43eb3bec7f0 = $this->env->getExtension("native_profiler");
-        $__internal_afff31196e75eb3f143ca41a92f39e91f4aa827281007741ad8bd43eb3bec7f0->enter($__internal_afff31196e75eb3f143ca41a92f39e91f4aa827281007741ad8bd43eb3bec7f0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.upgrader.php"));
+        $__internal_e8cac8df9393674f202360cf425367f99f0c9482a750ca86009fc485f82d34be = $this->env->getExtension("native_profiler");
+        $__internal_e8cac8df9393674f202360cf425367f99f0c9482a750ca86009fc485f82d34be->enter($__internal_e8cac8df9393674f202360cf425367f99f0c9482a750ca86009fc485f82d34be_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.upgrader.php"));
 
         // line 1
         echo "<?php
@@ -87,7 +87,7 @@ class UpgraderAjaxAPI extends AjaxController {
 ?>
 ";
         
-        $__internal_afff31196e75eb3f143ca41a92f39e91f4aa827281007741ad8bd43eb3bec7f0->leave($__internal_afff31196e75eb3f143ca41a92f39e91f4aa827281007741ad8bd43eb3bec7f0_prof);
+        $__internal_e8cac8df9393674f202360cf425367f99f0c9482a750ca86009fc485f82d34be->leave($__internal_e8cac8df9393674f202360cf425367f99f0c9482a750ca86009fc485f82d34be_prof);
 
     }
 

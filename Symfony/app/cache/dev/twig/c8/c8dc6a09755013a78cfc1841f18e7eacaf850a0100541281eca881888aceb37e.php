@@ -15,8 +15,8 @@ class __TwigTemplate_666b8b80014f168144ed5a433f0e23ab8472fc93ddea38031f8c5aaf605
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_2bfaa3dfe9e99ecc4cdc04e86640af1b10b714600c3cc22b795193aea2fdb182 = $this->env->getExtension("native_profiler");
-        $__internal_2bfaa3dfe9e99ecc4cdc04e86640af1b10b714600c3cc22b795193aea2fdb182->enter($__internal_2bfaa3dfe9e99ecc4cdc04e86640af1b10b714600c3cc22b795193aea2fdb182_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/assets/default/images/poweredby.png"));
+        $__internal_164f4e302149dbb981a33b3378413910e75ca0e95c69a8989a54facbd887c2db = $this->env->getExtension("native_profiler");
+        $__internal_164f4e302149dbb981a33b3378413910e75ca0e95c69a8989a54facbd887c2db->enter($__internal_164f4e302149dbb981a33b3378413910e75ca0e95c69a8989a54facbd887c2db_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/assets/default/images/poweredby.png"));
 
         // line 1
         echo "‰PNG
@@ -92,7 +92,7 @@ A¬©bÙ}Z<`D‡Gf.lÎ+ne Ñ
 qlúe<ô;Ñãy'O«Éu¬s™ÌÞ¥N4oH»jbÐg{ÒÌÝÎô-zéÿ9^äG¢k×õø·Ý;­+eú¿\000\000
 ”D'y<P\000\000\000\000IEND®B`‚";
         
-        $__internal_2bfaa3dfe9e99ecc4cdc04e86640af1b10b714600c3cc22b795193aea2fdb182->leave($__internal_2bfaa3dfe9e99ecc4cdc04e86640af1b10b714600c3cc22b795193aea2fdb182_prof);
+        $__internal_164f4e302149dbb981a33b3378413910e75ca0e95c69a8989a54facbd887c2db->leave($__internal_164f4e302149dbb981a33b3378413910e75ca0e95c69a8989a54facbd887c2db_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_5702a947c1d891c50d9e18e5ea0ce5ff62fdadf3f9180120742a268b421
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_0f24b0fd06c830772192ef9236427e23f6f256523b0109c46bc71c3ef16480a6 = $this->env->getExtension("native_profiler");
-        $__internal_0f24b0fd06c830772192ef9236427e23f6f256523b0109c46bc71c3ef16480a6->enter($__internal_0f24b0fd06c830772192ef9236427e23f6f256523b0109c46bc71c3ef16480a6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/profile.inc.php"));
+        $__internal_fb93155a34196bbfc50a98425051199c20fdda24986bfa835f044c46f2330bab = $this->env->getExtension("native_profiler");
+        $__internal_fb93155a34196bbfc50a98425051199c20fdda24986bfa835f044c46f2330bab->enter($__internal_fb93155a34196bbfc50a98425051199c20fdda24986bfa835f044c46f2330bab_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/profile.inc.php"));
 
         // line 1
         echo "<?php
@@ -283,7 +283,7 @@ if(!defined('OSTSTAFFINC') || !\$staff || !\$thisstaff) die('Access Denied');
 </form>
 ";
         
-        $__internal_0f24b0fd06c830772192ef9236427e23f6f256523b0109c46bc71c3ef16480a6->leave($__internal_0f24b0fd06c830772192ef9236427e23f6f256523b0109c46bc71c3ef16480a6_prof);
+        $__internal_fb93155a34196bbfc50a98425051199c20fdda24986bfa835f044c46f2330bab->leave($__internal_fb93155a34196bbfc50a98425051199c20fdda24986bfa835f044c46f2330bab_prof);
 
     }
 

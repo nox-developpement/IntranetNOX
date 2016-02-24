@@ -15,8 +15,8 @@ class __TwigTemplate_e54d5d0d37be0e23ead613c872426c55652c86a24ee771ee89aeac46511
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_82ec8854b5c0018924683cb2a08dc0a644c3e38b2b2faae4b513648d857c073e = $this->env->getExtension("native_profiler");
-        $__internal_82ec8854b5c0018924683cb2a08dc0a644c3e38b2b2faae4b513648d857c073e->enter($__internal_82ec8854b5c0018924683cb2a08dc0a644c3e38b2b2faae4b513648d857c073e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/group.inc.php"));
+        $__internal_9814143371af34e7b8807ba002895b87a4526df34521b3ff8f0c38d07ec3a0af = $this->env->getExtension("native_profiler");
+        $__internal_9814143371af34e7b8807ba002895b87a4526df34521b3ff8f0c38d07ec3a0af->enter($__internal_9814143371af34e7b8807ba002895b87a4526df34521b3ff8f0c38d07ec3a0af_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/group.inc.php"));
 
         // line 1
         echo "<?php
@@ -209,7 +209,7 @@ if(\$group && \$_REQUEST['a']!='add'){
 </form>
 ";
         
-        $__internal_82ec8854b5c0018924683cb2a08dc0a644c3e38b2b2faae4b513648d857c073e->leave($__internal_82ec8854b5c0018924683cb2a08dc0a644c3e38b2b2faae4b513648d857c073e_prof);
+        $__internal_9814143371af34e7b8807ba002895b87a4526df34521b3ff8f0c38d07ec3a0af->leave($__internal_9814143371af34e7b8807ba002895b87a4526df34521b3ff8f0c38d07ec3a0af_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_e06ffe36250ed2b235dc62895f259c96b5c71c00813b5e425dcfca63a37
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_36d62064ad314f1669b8d3c2d94a4a84474adca65ca02a190301f520db4826ca = $this->env->getExtension("native_profiler");
-        $__internal_36d62064ad314f1669b8d3c2d94a4a84474adca65ca02a190301f520db4826ca->enter($__internal_36d62064ad314f1669b8d3c2d94a4a84474adca65ca02a190301f520db4826ca_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/email/ticket.reply.yaml"));
+        $__internal_86debc0216f28b1e3589231580b4fdb7e003947483d8a98049b3a2798f5ac9cb = $this->env->getExtension("native_profiler");
+        $__internal_86debc0216f28b1e3589231580b4fdb7e003947483d8a98049b3a2798f5ac9cb->enter($__internal_86debc0216f28b1e3589231580b4fdb7e003947483d8a98049b3a2798f5ac9cb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/email/ticket.reply.yaml"));
 
         // line 1
         echo "#
@@ -50,7 +50,7 @@ body: |
     and responses.</em></div>
 ";
         
-        $__internal_36d62064ad314f1669b8d3c2d94a4a84474adca65ca02a190301f520db4826ca->leave($__internal_36d62064ad314f1669b8d3c2d94a4a84474adca65ca02a190301f520db4826ca_prof);
+        $__internal_86debc0216f28b1e3589231580b4fdb7e003947483d8a98049b3a2798f5ac9cb->leave($__internal_86debc0216f28b1e3589231580b4fdb7e003947483d8a98049b3a2798f5ac9cb_prof);
 
     }
 

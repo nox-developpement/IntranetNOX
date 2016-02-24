@@ -15,8 +15,8 @@ class __TwigTemplate_1beb987db39b5a59365622ab3b74c87dc09a0aeb01e912713d0d84e2554
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_9b1d6d9047c1e49c5158fa93d2a7e287a2a49a0637248513253de02d81df7ce4 = $this->env->getExtension("native_profiler");
-        $__internal_9b1d6d9047c1e49c5158fa93d2a7e287a2a49a0637248513253de02d81df7ce4->enter($__internal_9b1d6d9047c1e49c5158fa93d2a7e287a2a49a0637248513253de02d81df7ce4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.nav.php"));
+        $__internal_333c56a075ebd5d586275a389215cb776bb58dd3cb6e64fcb1855e1b57c08c59 = $this->env->getExtension("native_profiler");
+        $__internal_333c56a075ebd5d586275a389215cb776bb58dd3cb6e64fcb1855e1b57c08c59->enter($__internal_333c56a075ebd5d586275a389215cb776bb58dd3cb6e64fcb1855e1b57c08c59_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.nav.php"));
 
         // line 1
         echo "<?php
@@ -378,7 +378,7 @@ class UserNav {
 ?>
 ";
         
-        $__internal_9b1d6d9047c1e49c5158fa93d2a7e287a2a49a0637248513253de02d81df7ce4->leave($__internal_9b1d6d9047c1e49c5158fa93d2a7e287a2a49a0637248513253de02d81df7ce4_prof);
+        $__internal_333c56a075ebd5d586275a389215cb776bb58dd3cb6e64fcb1855e1b57c08c59->leave($__internal_333c56a075ebd5d586275a389215cb776bb58dd3cb6e64fcb1855e1b57c08c59_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_5d408a7a2c0437c64db8dd528640f078ebb602d7ce34769f24ea8de8bcc
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_7a54a4e101bd75596640f4ce7e5b24a83156690b0bba288f6c02982890ed7d15 = $this->env->getExtension("native_profiler");
-        $__internal_7a54a4e101bd75596640f4ce7e5b24a83156690b0bba288f6c02982890ed7d15->enter($__internal_7a54a4e101bd75596640f4ce7e5b24a83156690b0bba288f6c02982890ed7d15_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.search.php"));
+        $__internal_9f67f2249721747a49014966d467300179325a23bfe9e042de3bc41efbec1cd6 = $this->env->getExtension("native_profiler");
+        $__internal_9f67f2249721747a49014966d467300179325a23bfe9e042de3bc41efbec1cd6->enter($__internal_9f67f2249721747a49014966d467300179325a23bfe9e042de3bc41efbec1cd6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.search.php"));
 
         // line 1
         echo "<?php
@@ -682,7 +682,7 @@ Signal::connect('system.install',
 MysqlSearchBackend::register();
 ";
         
-        $__internal_7a54a4e101bd75596640f4ce7e5b24a83156690b0bba288f6c02982890ed7d15->leave($__internal_7a54a4e101bd75596640f4ce7e5b24a83156690b0bba288f6c02982890ed7d15_prof);
+        $__internal_9f67f2249721747a49014966d467300179325a23bfe9e042de3bc41efbec1cd6->leave($__internal_9f67f2249721747a49014966d467300179325a23bfe9e042de3bc41efbec1cd6_prof);
 
     }
 

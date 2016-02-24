@@ -15,8 +15,8 @@ class __TwigTemplate_16a1f107a257bdb3aab07994256751a1dcb0f7dbb9c5baeb51e8c66bba2
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_d906ba3235eb074f288696d566afec53c523e0760297c1ea6a1e13bfe505fd70 = $this->env->getExtension("native_profiler");
-        $__internal_d906ba3235eb074f288696d566afec53c523e0760297c1ea6a1e13bfe505fd70->enter($__internal_d906ba3235eb074f288696d566afec53c523e0760297c1ea6a1e13bfe505fd70_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/ticket/upgraded.yaml"));
+        $__internal_cd78c49fe773bd15148e4914763a4e7ef3e560ac1e94718d4e23e8992502d9c7 = $this->env->getExtension("native_profiler");
+        $__internal_cd78c49fe773bd15148e4914763a4e7ef3e560ac1e94718d4e23e8992502d9c7->enter($__internal_cd78c49fe773bd15148e4914763a4e7ef3e560ac1e94718d4e23e8992502d9c7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/ticket/upgraded.yaml"));
 
         // line 1
         echo "#
@@ -61,7 +61,7 @@ message: |
     </p>
 ";
         
-        $__internal_d906ba3235eb074f288696d566afec53c523e0760297c1ea6a1e13bfe505fd70->leave($__internal_d906ba3235eb074f288696d566afec53c523e0760297c1ea6a1e13bfe505fd70_prof);
+        $__internal_cd78c49fe773bd15148e4914763a4e7ef3e560ac1e94718d4e23e8992502d9c7->leave($__internal_cd78c49fe773bd15148e4914763a4e7ef3e560ac1e94718d4e23e8992502d9c7_prof);
 
     }
 

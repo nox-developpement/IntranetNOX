@@ -15,8 +15,8 @@ class __TwigTemplate_4fdfedabced3ab7e89a18c17d7287b1e231d3782aed1b2b046ba9d2602c
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_450a8dbdbbd7a9e72bada6b1c4d9b24a193301bd7766f605cf8aec6ef2230554 = $this->env->getExtension("native_profiler");
-        $__internal_450a8dbdbbd7a9e72bada6b1c4d9b24a193301bd7766f605cf8aec6ef2230554->enter($__internal_450a8dbdbbd7a9e72bada6b1c4d9b24a193301bd7766f605cf8aec6ef2230554_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/pwreset.login.php"));
+        $__internal_b29d59188745b1eb93477c0587ef7caa79bba7d93c3932d9082117ff17e17302 = $this->env->getExtension("native_profiler");
+        $__internal_b29d59188745b1eb93477c0587ef7caa79bba7d93c3932d9082117ff17e17302->enter($__internal_b29d59188745b1eb93477c0587ef7caa79bba7d93c3932d9082117ff17e17302_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/pwreset.login.php"));
 
         // line 1
         echo "<?php
@@ -50,7 +50,7 @@ defined('OSTSCPINC') or die('Invalid path');
 </html>
 ";
         
-        $__internal_450a8dbdbbd7a9e72bada6b1c4d9b24a193301bd7766f605cf8aec6ef2230554->leave($__internal_450a8dbdbbd7a9e72bada6b1c4d9b24a193301bd7766f605cf8aec6ef2230554_prof);
+        $__internal_b29d59188745b1eb93477c0587ef7caa79bba7d93c3932d9082117ff17e17302->leave($__internal_b29d59188745b1eb93477c0587ef7caa79bba7d93c3932d9082117ff17e17302_prof);
 
     }
 

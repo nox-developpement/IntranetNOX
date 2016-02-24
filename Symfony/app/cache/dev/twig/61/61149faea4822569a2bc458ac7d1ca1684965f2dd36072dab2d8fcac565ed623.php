@@ -15,8 +15,8 @@ class __TwigTemplate_e24431f6c49ac06e7614647d85ca07f25004f08d13d08340fd74f71470a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_f383bafdd062b8fedd94b21b9a3a5728ce1b7278c6f7163616a76f6101fe8f3f = $this->env->getExtension("native_profiler");
-        $__internal_f383bafdd062b8fedd94b21b9a3a5728ce1b7278c6f7163616a76f6101fe8f3f->enter($__internal_f383bafdd062b8fedd94b21b9a3a5728ce1b7278c6f7163616a76f6101fe8f3f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/api/http.php"));
+        $__internal_55efe421dc24b01b45094bf6a55793d744df3bdd67dfef9d7e2303fae1142633 = $this->env->getExtension("native_profiler");
+        $__internal_55efe421dc24b01b45094bf6a55793d744df3bdd67dfef9d7e2303fae1142633->enter($__internal_55efe421dc24b01b45094bf6a55793d744df3bdd67dfef9d7e2303fae1142633_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/api/http.php"));
 
         // line 1
         echo "<?php
@@ -57,7 +57,7 @@ print \$dispatcher->resolve(\$ost->get_path_info());
 ?>
 ";
         
-        $__internal_f383bafdd062b8fedd94b21b9a3a5728ce1b7278c6f7163616a76f6101fe8f3f->leave($__internal_f383bafdd062b8fedd94b21b9a3a5728ce1b7278c6f7163616a76f6101fe8f3f_prof);
+        $__internal_55efe421dc24b01b45094bf6a55793d744df3bdd67dfef9d7e2303fae1142633->leave($__internal_55efe421dc24b01b45094bf6a55793d744df3bdd67dfef9d7e2303fae1142633_prof);
 
     }
 

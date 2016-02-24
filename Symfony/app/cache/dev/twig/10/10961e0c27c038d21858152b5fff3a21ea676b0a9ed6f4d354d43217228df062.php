@@ -15,8 +15,8 @@ class __TwigTemplate_4ed1e32a7a89201b208bb8a905f8a60cb3f8a1767f17f282b6a6b225427
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_d95e6c8e9834870ea5913f4aaba0022779a9a299041797ad1602ea21dd76466d = $this->env->getExtension("native_profiler");
-        $__internal_d95e6c8e9834870ea5913f4aaba0022779a9a299041797ad1602ea21dd76466d->enter($__internal_d95e6c8e9834870ea5913f4aaba0022779a9a299041797ad1602ea21dd76466d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/logo.php"));
+        $__internal_4709986e137d61f201d24bb22f58ab6d1db0228dd0c10500654a1e783fb639d7 = $this->env->getExtension("native_profiler");
+        $__internal_4709986e137d61f201d24bb22f58ab6d1db0228dd0c10500654a1e783fb639d7->enter($__internal_4709986e137d61f201d24bb22f58ab6d1db0228dd0c10500654a1e783fb639d7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/logo.php"));
 
         // line 1
         echo "<?php
@@ -53,7 +53,7 @@ if ((\$logo = \$ost->getConfig()->getStaffLogo())) {
 ?>
 ";
         
-        $__internal_d95e6c8e9834870ea5913f4aaba0022779a9a299041797ad1602ea21dd76466d->leave($__internal_d95e6c8e9834870ea5913f4aaba0022779a9a299041797ad1602ea21dd76466d_prof);
+        $__internal_4709986e137d61f201d24bb22f58ab6d1db0228dd0c10500654a1e783fb639d7->leave($__internal_4709986e137d61f201d24bb22f58ab6d1db0228dd0c10500654a1e783fb639d7_prof);
 
     }
 

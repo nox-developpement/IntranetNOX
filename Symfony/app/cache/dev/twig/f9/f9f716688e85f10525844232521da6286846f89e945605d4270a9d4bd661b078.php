@@ -15,8 +15,8 @@ class __TwigTemplate_fcc5023ee1baaa733bbcdfcc33d7afbc59549ab1aad56dcea7b37db8257
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_ec20a414f8e214cfa0eea521b08bfc5ae44c3b104a8794b1919b121d0e925913 = $this->env->getExtension("native_profiler");
-        $__internal_ec20a414f8e214cfa0eea521b08bfc5ae44c3b104a8794b1919b121d0e925913->enter($__internal_ec20a414f8e214cfa0eea521b08bfc5ae44c3b104a8794b1919b121d0e925913_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.faq.php"));
+        $__internal_46b8c81082270654ab63718270404de2d1b33198aaed83ec46ffb3e572f17dcc = $this->env->getExtension("native_profiler");
+        $__internal_46b8c81082270654ab63718270404de2d1b33198aaed83ec46ffb3e572f17dcc->enter($__internal_46b8c81082270654ab63718270404de2d1b33198aaed83ec46ffb3e572f17dcc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.faq.php"));
 
         // line 1
         echo "<?php
@@ -357,7 +357,7 @@ class FAQ {
 ?>
 ";
         
-        $__internal_ec20a414f8e214cfa0eea521b08bfc5ae44c3b104a8794b1919b121d0e925913->leave($__internal_ec20a414f8e214cfa0eea521b08bfc5ae44c3b104a8794b1919b121d0e925913_prof);
+        $__internal_46b8c81082270654ab63718270404de2d1b33198aaed83ec46ffb3e572f17dcc->leave($__internal_46b8c81082270654ab63718270404de2d1b33198aaed83ec46ffb3e572f17dcc_prof);
 
     }
 

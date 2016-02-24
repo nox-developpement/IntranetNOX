@@ -64,10 +64,10 @@ class Formulaires extends \NoxIntranet\AdministrationBundle\Entity\Formulaires i
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'type', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'colonne', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'ligne', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'profil'];
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'type', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'profil'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'type', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'colonne', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'ligne', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'profil'];
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'type', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'profil'];
     }
 
     /**
@@ -235,28 +235,6 @@ class Formulaires extends \NoxIntranet\AdministrationBundle\Entity\Formulaires i
     /**
      * {@inheritDoc}
      */
-    public function setPosition($position)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPosition', [$position]);
-
-        return parent::setPosition($position);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getPosition()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPosition', []);
-
-        return parent::getPosition();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setProfil($profil)
     {
 
@@ -274,50 +252,6 @@ class Formulaires extends \NoxIntranet\AdministrationBundle\Entity\Formulaires i
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getProfil', []);
 
         return parent::getProfil();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setColonne($colonne)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setColonne', [$colonne]);
-
-        return parent::setColonne($colonne);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getColonne()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getColonne', []);
-
-        return parent::getColonne();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setLigne($ligne)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLigne', [$ligne]);
-
-        return parent::setLigne($ligne);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getLigne()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLigne', []);
-
-        return parent::getLigne();
     }
 
 }

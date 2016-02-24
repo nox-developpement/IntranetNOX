@@ -15,8 +15,8 @@ class __TwigTemplate_2136d9ac31e74e98353faa142ca6027366f8abe399d87b9e15d56581627
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_e0ea428ee087f906511276218eb5df9e3b0dd3576271eae9bfadba12422f210d = $this->env->getExtension("native_profiler");
-        $__internal_e0ea428ee087f906511276218eb5df9e3b0dd3576271eae9bfadba12422f210d->enter($__internal_e0ea428ee087f906511276218eb5df9e3b0dd3576271eae9bfadba12422f210d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/rename.inc.php"));
+        $__internal_36a1f19fa8119a4ca8cff53f9df1ba4c7fcc37240571c24531e1972c563fc637 = $this->env->getExtension("native_profiler");
+        $__internal_36a1f19fa8119a4ca8cff53f9df1ba4c7fcc37240571c24531e1972c563fc637->enter($__internal_36a1f19fa8119a4ca8cff53f9df1ba4c7fcc37240571c24531e1972c563fc637_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/rename.inc.php"));
 
         // line 1
         echo "<?php
@@ -55,7 +55,7 @@ if(!defined('OSTSCPINC') || !\$thisstaff || !\$thisstaff->isAdmin()) die('Access
 </div>
 ";
         
-        $__internal_e0ea428ee087f906511276218eb5df9e3b0dd3576271eae9bfadba12422f210d->leave($__internal_e0ea428ee087f906511276218eb5df9e3b0dd3576271eae9bfadba12422f210d_prof);
+        $__internal_36a1f19fa8119a4ca8cff53f9df1ba4c7fcc37240571c24531e1972c563fc637->leave($__internal_36a1f19fa8119a4ca8cff53f9df1ba4c7fcc37240571c24531e1972c563fc637_prof);
 
     }
 

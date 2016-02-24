@@ -15,8 +15,8 @@ class __TwigTemplate_a5e5019dc2c406a1624fd405220443261cb43aff47a1a4beba6d8255bc2
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_ac51dec73de321f44e7fc5375c2ac2fc2f4f90607e3c749ecb568df3e67b23f9 = $this->env->getExtension("native_profiler");
-        $__internal_ac51dec73de321f44e7fc5375c2ac2fc2f4f90607e3c749ecb568df3e67b23f9->enter($__internal_ac51dec73de321f44e7fc5375c2ac2fc2f4f90607e3c749ecb568df3e67b23f9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.log.php"));
+        $__internal_b7aea27c3f455de4002881cb04415807cfb15d54693dcfe11fd124dc787de078 = $this->env->getExtension("native_profiler");
+        $__internal_b7aea27c3f455de4002881cb04415807cfb15d54693dcfe11fd124dc787de078->enter($__internal_b7aea27c3f455de4002881cb04415807cfb15d54693dcfe11fd124dc787de078_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.log.php"));
 
         // line 1
         echo "<?php
@@ -97,7 +97,7 @@ class Log {
 ?>
 ";
         
-        $__internal_ac51dec73de321f44e7fc5375c2ac2fc2f4f90607e3c749ecb568df3e67b23f9->leave($__internal_ac51dec73de321f44e7fc5375c2ac2fc2f4f90607e3c749ecb568df3e67b23f9_prof);
+        $__internal_b7aea27c3f455de4002881cb04415807cfb15d54693dcfe11fd124dc787de078->leave($__internal_b7aea27c3f455de4002881cb04415807cfb15d54693dcfe11fd124dc787de078_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_12f2454b5e2e62fd8aa9c8314a7493fc513e1230a2d5d8974b3b69433ad
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_32c0ebfad632b10de8f3d20821ca9aaa04535f32338e5dd80e3d5f759e838f88 = $this->env->getExtension("native_profiler");
-        $__internal_32c0ebfad632b10de8f3d20821ca9aaa04535f32338e5dd80e3d5f759e838f88->enter($__internal_32c0ebfad632b10de8f3d20821ca9aaa04535f32338e5dd80e3d5f759e838f88_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/settings-autoresp.inc.php"));
+        $__internal_371564a7e88fc7fada86c3f48a6083d443ade4316998aea39f90905c3afcd1d0 = $this->env->getExtension("native_profiler");
+        $__internal_371564a7e88fc7fada86c3f48a6083d443ade4316998aea39f90905c3afcd1d0->enter($__internal_371564a7e88fc7fada86c3f48a6083d443ade4316998aea39f90905c3afcd1d0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/settings-autoresp.inc.php"));
 
         // line 1
         echo "<h2><?php echo __('Autoresponder Settings'); ?></h2>
@@ -88,7 +88,7 @@ echo \$config['overlimit_notice_active'] ? 'checked=\"checked\"' : ''; ?>/>
 </form>
 ";
         
-        $__internal_32c0ebfad632b10de8f3d20821ca9aaa04535f32338e5dd80e3d5f759e838f88->leave($__internal_32c0ebfad632b10de8f3d20821ca9aaa04535f32338e5dd80e3d5f759e838f88_prof);
+        $__internal_371564a7e88fc7fada86c3f48a6083d443ade4316998aea39f90905c3afcd1d0->leave($__internal_371564a7e88fc7fada86c3f48a6083d443ade4316998aea39f90905c3afcd1d0_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_d3a08297b82ff004755329791ec6104d6548708c3f8568795fcb5ac8df6
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_8e8054f0d8873434ce11d1471ba23b608a55eabbd5667c668cc5d470b9062ef7 = $this->env->getExtension("native_profiler");
-        $__internal_8e8054f0d8873434ce11d1471ba23b608a55eabbd5667c668cc5d470b9062ef7->enter($__internal_8e8054f0d8873434ce11d1471ba23b608a55eabbd5667c668cc5d470b9062ef7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/98ae1ed2-e342f869.task.php"));
+        $__internal_3b8f7bb5959baaeb9562ea5fb91e713894ab1a91ac0c62afb05236a267106c8d = $this->env->getExtension("native_profiler");
+        $__internal_3b8f7bb5959baaeb9562ea5fb91e713894ab1a91ac0c62afb05236a267106c8d->enter($__internal_3b8f7bb5959baaeb9562ea5fb91e713894ab1a91ac0c62afb05236a267106c8d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/98ae1ed2-e342f869.task.php"));
 
         // line 1
         echo "<?php
@@ -46,7 +46,7 @@ return 'APIKeyMigrater';
 ?>
 ";
         
-        $__internal_8e8054f0d8873434ce11d1471ba23b608a55eabbd5667c668cc5d470b9062ef7->leave($__internal_8e8054f0d8873434ce11d1471ba23b608a55eabbd5667c668cc5d470b9062ef7_prof);
+        $__internal_3b8f7bb5959baaeb9562ea5fb91e713894ab1a91ac0c62afb05236a267106c8d->leave($__internal_3b8f7bb5959baaeb9562ea5fb91e713894ab1a91ac0c62afb05236a267106c8d_prof);
 
     }
 

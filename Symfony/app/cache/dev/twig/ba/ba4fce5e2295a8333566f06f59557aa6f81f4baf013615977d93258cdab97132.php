@@ -15,8 +15,8 @@ class __TwigTemplate_fdfa6670b839d1db04ae3388e2c40ea69386575c0f9972bf4f8167313d7
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_04526794a80ee52768642504ccc04604bcd814fa2083c5d47589d23035e41e45 = $this->env->getExtension("native_profiler");
-        $__internal_04526794a80ee52768642504ccc04604bcd814fa2083c5d47589d23035e41e45->enter($__internal_04526794a80ee52768642504ccc04604bcd814fa2083c5d47589d23035e41e45_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.note.php"));
+        $__internal_88d6ecef16e98d341924f9d060286836daad061484d3a03378f6b813efd5ea16 = $this->env->getExtension("native_profiler");
+        $__internal_88d6ecef16e98d341924f9d060286836daad061484d3a03378f6b813efd5ea16->enter($__internal_88d6ecef16e98d341924f9d060286836daad061484d3a03378f6b813efd5ea16_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.note.php"));
 
         // line 1
         echo "<?php
@@ -109,7 +109,7 @@ class QuickNote extends QuickNoteModel {
 }
 ";
         
-        $__internal_04526794a80ee52768642504ccc04604bcd814fa2083c5d47589d23035e41e45->leave($__internal_04526794a80ee52768642504ccc04604bcd814fa2083c5d47589d23035e41e45_prof);
+        $__internal_88d6ecef16e98d341924f9d060286836daad061484d3a03378f6b813efd5ea16->leave($__internal_88d6ecef16e98d341924f9d060286836daad061484d3a03378f6b813efd5ea16_prof);
 
     }
 

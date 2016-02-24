@@ -15,8 +15,8 @@ class __TwigTemplate_fd730074c7f3a847d146095096ddaa4eb3158f117036566d5187cc1a7b3
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_3ad73f3253a8fe9b357060c3978b2ec356e484fae06cb7dc39823c26377156b9 = $this->env->getExtension("native_profiler");
-        $__internal_3ad73f3253a8fe9b357060c3978b2ec356e484fae06cb7dc39823c26377156b9->enter($__internal_3ad73f3253a8fe9b357060c3978b2ec356e484fae06cb7dc39823c26377156b9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/admin.php"));
+        $__internal_e0e0eb6329f6a4c85c6e73ecc7a74d78ec47487aa04851ef3c947eb29268d13a = $this->env->getExtension("native_profiler");
+        $__internal_e0e0eb6329f6a4c85c6e73ecc7a74d78ec47487aa04851ef3c947eb29268d13a->enter($__internal_e0e0eb6329f6a4c85c6e73ecc7a74d78ec47487aa04851ef3c947eb29268d13a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/admin.php"));
 
         // line 1
         echo "<?php
@@ -25,7 +25,7 @@ require('./settings.php');
 ?>
 ";
         
-        $__internal_3ad73f3253a8fe9b357060c3978b2ec356e484fae06cb7dc39823c26377156b9->leave($__internal_3ad73f3253a8fe9b357060c3978b2ec356e484fae06cb7dc39823c26377156b9_prof);
+        $__internal_e0e0eb6329f6a4c85c6e73ecc7a74d78ec47487aa04851ef3c947eb29268d13a->leave($__internal_e0e0eb6329f6a4c85c6e73ecc7a74d78ec47487aa04851ef3c947eb29268d13a_prof);
 
     }
 

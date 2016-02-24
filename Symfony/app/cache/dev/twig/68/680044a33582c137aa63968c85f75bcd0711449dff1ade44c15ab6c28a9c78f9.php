@@ -15,14 +15,14 @@ class __TwigTemplate_cd8a7bce42823b6f7524b8fb8d1f9e29b43997873ff004b31623b96b81b
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_d45cc6039ff0107c74d7a4c093d56ae85e01fb03b92004b221f70ef6f95edc4e = $this->env->getExtension("native_profiler");
-        $__internal_d45cc6039ff0107c74d7a4c093d56ae85e01fb03b92004b221f70ef6f95edc4e->enter($__internal_d45cc6039ff0107c74d7a4c093d56ae85e01fb03b92004b221f70ef6f95edc4e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/435c62c3-2e7531a2.cleanup.sql"));
+        $__internal_11ae16dcea5fea40429c6b16512cd210eaabcb72d64f299113176dbb437319fc = $this->env->getExtension("native_profiler");
+        $__internal_11ae16dcea5fea40429c6b16512cd210eaabcb72d64f299113176dbb437319fc->enter($__internal_11ae16dcea5fea40429c6b16512cd210eaabcb72d64f299113176dbb437319fc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/435c62c3-2e7531a2.cleanup.sql"));
 
         // line 1
         echo "ALTER TABLE `%TABLE_PREFIX%groups` DROP `dept_access`;
 ";
         
-        $__internal_d45cc6039ff0107c74d7a4c093d56ae85e01fb03b92004b221f70ef6f95edc4e->leave($__internal_d45cc6039ff0107c74d7a4c093d56ae85e01fb03b92004b221f70ef6f95edc4e_prof);
+        $__internal_11ae16dcea5fea40429c6b16512cd210eaabcb72d64f299113176dbb437319fc->leave($__internal_11ae16dcea5fea40429c6b16512cd210eaabcb72d64f299113176dbb437319fc_prof);
 
     }
 

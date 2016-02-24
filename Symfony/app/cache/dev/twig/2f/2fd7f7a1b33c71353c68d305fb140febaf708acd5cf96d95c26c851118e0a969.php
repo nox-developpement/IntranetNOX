@@ -15,8 +15,8 @@ class __TwigTemplate_2a74a729311c6cb4754ccc28bf435a4f6610195e173383edd8e09d81730
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_8473c37374b7af578541cfe928fc9e522f5e5220d04268d7bfcb8f548fd9631a = $this->env->getExtension("native_profiler");
-        $__internal_8473c37374b7af578541cfe928fc9e522f5e5220d04268d7bfcb8f548fd9631a->enter($__internal_8473c37374b7af578541cfe928fc9e522f5e5220d04268d7bfcb8f548fd9631a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/faq-categories.inc.php"));
+        $__internal_27ab03ad856974bfb520daaec18899b4f7f58218e9bf900167e750de89999eb7 = $this->env->getExtension("native_profiler");
+        $__internal_27ab03ad856974bfb520daaec18899b4f7f58218e9bf900167e750de89999eb7->enter($__internal_27ab03ad856974bfb520daaec18899b4f7f58218e9bf900167e750de89999eb7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/faq-categories.inc.php"));
 
         // line 1
         echo "<?php
@@ -142,7 +142,7 @@ if(\$_REQUEST['q'] || \$_REQUEST['cid'] || \$_REQUEST['topicId']) { //Search.
 </div>
 ";
         
-        $__internal_8473c37374b7af578541cfe928fc9e522f5e5220d04268d7bfcb8f548fd9631a->leave($__internal_8473c37374b7af578541cfe928fc9e522f5e5220d04268d7bfcb8f548fd9631a_prof);
+        $__internal_27ab03ad856974bfb520daaec18899b4f7f58218e9bf900167e750de89999eb7->leave($__internal_27ab03ad856974bfb520daaec18899b4f7f58218e9bf900167e750de89999eb7_prof);
 
     }
 

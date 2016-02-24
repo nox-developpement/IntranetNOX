@@ -15,8 +15,8 @@ class __TwigTemplate_eef3c5e05f65bce4236d521a8794bb4ca2b28ea585ccbf88f38b9749728
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_fd9249c222985063681f0feba5d560dd32be86d43263211b6aa38be317cc51ac = $this->env->getExtension("native_profiler");
-        $__internal_fd9249c222985063681f0feba5d560dd32be86d43263211b6aa38be317cc51ac->enter($__internal_fd9249c222985063681f0feba5d560dd32be86d43263211b6aa38be317cc51ac_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/assets/default/less/kb.less"));
+        $__internal_252f3e7f54d2d5ef868baf604b360a8a942db2d93d7c48f181573e42de104153 = $this->env->getExtension("native_profiler");
+        $__internal_252f3e7f54d2d5ef868baf604b360a8a942db2d93d7c48f181573e42de104153->enter($__internal_252f3e7f54d2d5ef868baf604b360a8a942db2d93d7c48f181573e42de104153_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/assets/default/less/kb.less"));
 
         // line 1
         echo "#kb {
@@ -109,7 +109,7 @@ class __TwigTemplate_eef3c5e05f65bce4236d521a8794bb4ca2b28ea585ccbf88f38b9749728
 }
 ";
         
-        $__internal_fd9249c222985063681f0feba5d560dd32be86d43263211b6aa38be317cc51ac->leave($__internal_fd9249c222985063681f0feba5d560dd32be86d43263211b6aa38be317cc51ac_prof);
+        $__internal_252f3e7f54d2d5ef868baf604b360a8a942db2d93d7c48f181573e42de104153->leave($__internal_252f3e7f54d2d5ef868baf604b360a8a942db2d93d7c48f181573e42de104153_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_83a7eb544eb0838b5c48254e19ea10e81974342f3e6965c604ccc6a8586
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_67dc7db042e3ee983246a8db26fda21b1bb9b31c2a913437197eb2425e9a43e2 = $this->env->getExtension("native_profiler");
-        $__internal_67dc7db042e3ee983246a8db26fda21b1bb9b31c2a913437197eb2425e9a43e2->enter($__internal_67dc7db042e3ee983246a8db26fda21b1bb9b31c2a913437197eb2425e9a43e2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.signal.php"));
+        $__internal_a99bd6b2bb116443e101a37d94fef94647619de33a7bb3bc867971555e9a4b67 = $this->env->getExtension("native_profiler");
+        $__internal_a99bd6b2bb116443e101a37d94fef94647619de33a7bb3bc867971555e9a4b67->enter($__internal_a99bd6b2bb116443e101a37d94fef94647619de33a7bb3bc867971555e9a4b67_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.signal.php"));
 
         // line 1
         echo "<?php
@@ -123,7 +123,7 @@ class Signal {
 ?>
 ";
         
-        $__internal_67dc7db042e3ee983246a8db26fda21b1bb9b31c2a913437197eb2425e9a43e2->leave($__internal_67dc7db042e3ee983246a8db26fda21b1bb9b31c2a913437197eb2425e9a43e2_prof);
+        $__internal_a99bd6b2bb116443e101a37d94fef94647619de33a7bb3bc867971555e9a4b67->leave($__internal_a99bd6b2bb116443e101a37d94fef94647619de33a7bb3bc867971555e9a4b67_prof);
 
     }
 

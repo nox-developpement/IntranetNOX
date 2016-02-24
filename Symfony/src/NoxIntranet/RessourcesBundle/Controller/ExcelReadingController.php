@@ -15,6 +15,9 @@ use NoxIntranet\RessourcesBundle\Entity\Suivis;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TexteType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Description of ExcelReadingController
@@ -150,14 +153,17 @@ class ExcelReadingController extends Controller {
                     $suivi->setAgence($form['Agence']->getData());
                     $suivi->setNumeroGX($form['NumeroGX']->getData());
                     $suivi->setProfil($form['Profil']->getData()->getNom());
+                    $suivi->setIdModele(null);
                     $suivi->setStatut('En cours');
 
                     $em->persist($suivi);
                     $em->flush();
 
+                    $IdSuivi = $suivi->getId();
+
                     $request->getSession()->getFlashBag()->add('notice', 'Le suivi ' . $form['Nom']->getData() . ' a été créé.');
 
-                    return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle');
+                    return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_modele', array('IdSuivi' => $IdSuivi));
                 } else {
                     $request->getSession()->getFlashBag()->add('noticeErreur', 'Le numéro GX ' . $form['NumeroGX']->getData() . ' est déjà attribué !');
                 }
@@ -169,11 +175,116 @@ class ExcelReadingController extends Controller {
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreation.html.twig', array('form' => $form->createView()));
     }
 
+    public function creationSuiviChoixModeleAction(Request $request, $IdSuivi) {
+        $em = $this->getDoctrine()->getManager();
+
+        $suivi = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->find($IdSuivi);
+
+        $profil = $suivi->getProfil();
+
+        $form = $this->get('form.factory')->createBuilder('form', $suivi)
+                ->add('IdModele', EntityType::class, array(
+                    'class' => 'NoxIntranetAdministrationBundle:Fichier_Suivi',
+                    'query_builder' => function (EntityRepository $er) use ($profil) {
+                        return $er->createQueryBuilder('u')
+                                ->where("u.profil = '" . $profil . "'")
+                                ->orderBy('u.chemin', 'ASC');
+                    },
+                    'choice_label' => function($value) {
+                        return pathinfo($value->getChemin(), PATHINFO_FILENAME);
+                    }
+                ))
+                ->add('Choisir', 'submit')
+                ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $suivi->setIdModele($form['IdModele']->getData()->getId());
+
+            $em->persist($suivi);
+            $em->flush();
+
+            return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi));
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreationchoixmodele.html.twig', array('form' => $form->createView(), 'profil' => $profil));
+    }
+
+    public function editionSuiviEnCoursAction(Request $request, $IdSuivi) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $suivi = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->find($IdSuivi);
+
+        $modele = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->find($suivi->getIdModele());
+
+        $liaisons = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdSuivi($modele->getId());
+
+        $formBuilder = $this->get('form.factory')->createBuilder('form');
+
+        $champsViews = array();
+
+        foreach ($liaisons as $liaison) {
+            $champ = $em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->find($liaison->getIdChamp());
+
+            if ($champ->getType() === 'Texte') {
+                $champsViews[$champ->getNom()]['Nom'] = $champ->getNom();
+                $champsViews[$champ->getNom()]['Champ'] = preg_replace('/\s+/', '', $champ->getNom());
+                $formBuilder->add(preg_replace('/\s+/', '', $champ->getNom()), TexteType::class);
+            } else if ($champ->getType() === 'Nombre') {
+                $champsViews[$champ->getNom()]['Nom'] = $champ->getNom();
+                $champsViews[$champ->getNom()]['Champ'] = preg_replace('/\s+/', '', $champ->getNom());
+                $formBuilder->add(preg_replace('/\s+/', '', $champ->getNom()), NumberType::class);
+            }
+        }
+
+        $formBuilder->add('Generate', SubmitType::class);
+
+        $formSuivi = $formBuilder->getForm();
+
+        $formSuivi->handleRequest($request);
+
+        if ($formSuivi->isValid()) {
+
+            include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
+
+            $objReader = new \PHPExcel_Reader_Excel2007();
+            $objPHPExcel = $objReader->load($modele->getChemin() . "/" . pathinfo($modele->getChemin(), PATHINFO_FILENAME) . '.xlsx');
+            $sheet = $objPHPExcel->getSheet(0);
+
+            foreach ($liaisons as $liaison) {
+                $champ = $em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->find($liaison->getIdChamp());
+
+                $sheet->setCellValue($liaison->getCoordonneesDonnees(), $formSuivi[preg_replace('/\s+/', '', $champ->getNom())]->getData());
+            }
+
+            $writer = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+
+            $fichier = "ExcelFile.xlsx";
+
+            $writer->save("ExcelGenerate/" . $fichier);
+
+            $chemin = "ExcelGenerate/"; // emplacement de votre fichier .pdf
+
+            $response = new Response();
+            $response->setContent(file_get_contents($chemin . $fichier));
+            $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); // modification du content-type pour forcer le téléchargement (sinon le navigateur internet essaie d'afficher le document)
+            $response->headers->set('Content-disposition', 'filename=' . $fichier);
+
+            unlink($chemin . $fichier);
+
+            return $response;
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig', array('form' => $formSuivi->createView(), 'champsViews' => $champsViews, 'suivi' => $suivi->getNom()));
+    }
+
     public function consulterSuiviAction(Request $request, $agence) {
 
         $em = $this->getDoctrine()->getManager();
 
-        $suivis = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findBy(array(), array('nom' => 'ASC'));
+        $suivis = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findBy(array('statut' => 'En cours'), array('nom' => 'ASC'));
 
         $agences['Toutes'] = 'Toutes';
 
@@ -191,49 +302,110 @@ class ExcelReadingController extends Controller {
                 ->getForm();
 
         if ($agence != "Toutes") {
-            $form = $this->get('form.factory')->createNamedBuilder('formSelectionSuivi', 'form', $suivis)
-                    ->add('Suivi', EntityType::class, array(
-                        'class' => 'NoxIntranetRessourcesBundle:Suivis',
-                        'query_builder' => function (EntityRepository $er) use ($agence) {
-                            return $er->createQueryBuilder('u')
-                                    ->where("u.agence ='" . $agence . "' AND u.statut = 'En cours'")
-                                    ->orderBy('u.nom', 'ASC');
-                        },
-                        'choice_label' => 'Nom',
-                    ))
-                    ->add('Editer', 'submit')
-                    ->add('Supprimer', 'submit')
-                    ->getForm();
+
+            $nbSuivi = count($em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findBy(array('statut' => 'En cours', 'agence' => $agence)));
+
+            if ($nbSuivi === 0) {
+                $formSelectionSuivi = $this->get('form.factory')->createNamedBuilder('formSelectionSuivi', 'form', $suivis)
+                        ->add('Suivi', EntityType::class, array(
+                            'class' => 'NoxIntranetRessourcesBundle:Suivis',
+                            'query_builder' => function (EntityRepository $er) use ($agence) {
+                                return $er->createQueryBuilder('u')
+                                        ->where("u.agence ='" . $agence . "' AND u.statut = 'En cours'")
+                                        ->orderBy('u.nom', 'ASC');
+                            },
+                            'disabled' => true,
+                            'choice_label' => 'Nom',
+                        ))
+                        ->add('Editer', 'submit', array(
+                            'disabled' => true
+                        ))
+                        ->add('Supprimer', 'submit', array(
+                            'disabled' => true
+                        ))
+                        ->getForm();
+            } else {
+                $formSelectionSuivi = $this->get('form.factory')->createNamedBuilder('formSelectionSuivi', 'form', $suivis)
+                        ->add('Suivi', EntityType::class, array(
+                            'class' => 'NoxIntranetRessourcesBundle:Suivis',
+                            'query_builder' => function (EntityRepository $er) use ($agence) {
+                                return $er->createQueryBuilder('u')
+                                        ->where("u.agence ='" . $agence . "' AND u.statut = 'En cours'")
+                                        ->orderBy('u.nom', 'ASC');
+                            },
+                            'choice_label' => 'Nom',
+                        ))
+                        ->add('Editer', 'submit')
+                        ->add('Supprimer', 'submit')
+                        ->getForm();
+            }
         } else {
-            $form = $this->get('form.factory')->createBuilder('form', $suivis)
-                    ->add('Suivi', EntityType::class, array(
-                        'class' => 'NoxIntranetRessourcesBundle:Suivis',
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('u')
-                                    ->where("u.statut = 'En cours'")
-                                    ->orderBy('u.nom', 'ASC');
-                        },
-                        'choice_label' => 'Nom',
-                    ))
-                    ->add('Editer', 'submit')
-                    ->add('Supprimer', 'submit')
-                    ->getForm();
+
+            $nbSuivi = count($em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByStatut('En cours'));
+
+            if ($nbSuivi === 0) {
+                $formSelectionSuivi = $this->get('form.factory')->createNamedBuilder('formSelectionSuivi', 'form', $suivis)
+                        ->add('Suivi', EntityType::class, array(
+                            'class' => 'NoxIntranetRessourcesBundle:Suivis',
+                            'query_builder' => function (EntityRepository $er) {
+                                return $er->createQueryBuilder('u')
+                                        ->where("u.statut = 'En cours'")
+                                        ->orderBy('u.nom', 'ASC');
+                            },
+                            'disabled' => true,
+                            'choice_label' => 'Nom',
+                        ))
+                        ->add('Editer', 'submit', array(
+                            'disabled' => true
+                        ))
+                        ->add('Supprimer', 'submit', array(
+                            'disabled' => true
+                        ))
+                        ->getForm();
+            } else {
+                $formSelectionSuivi = $this->get('form.factory')->createNamedBuilder('formSelectionSuivi', 'form', $suivis)
+                        ->add('Suivi', EntityType::class, array(
+                            'class' => 'NoxIntranetRessourcesBundle:Suivis',
+                            'query_builder' => function (EntityRepository $er) {
+                                return $er->createQueryBuilder('u')
+                                        ->where("u.statut = 'En cours'")
+                                        ->orderBy('u.nom', 'ASC');
+                            },
+                            'choice_label' => 'Nom',
+                        ))
+                        ->add('Editer', 'submit')
+                        ->add('Supprimer', 'submit')
+                        ->getForm();
+            }
         }
 
         if ($request->request->has('formSelectionSuivi')) {
 
-            $form->handleRequest($request);
+            $formSelectionSuivi->handleRequest($request);
 
-            if ($form->isValid()) {
+            if ($formSelectionSuivi->isValid()) {
 
-                if ($form->get('Supprimer')->isClicked()) {
+                if ($formSelectionSuivi->get('Supprimer')->isClicked()) {
 
-                    $em->remove($form['Suivi']->getData());
+                    $em->remove($formSelectionSuivi['Suivi']->getData());
                     $em->flush();
 
-                    $request->getSession()->getFlashBag()->add('notice', 'Le suivi ' . $form['Suivi']->getData()->getNom() . ' a été supprimé.');
+                    $request->getSession()->getFlashBag()->add('notice', 'Le suivi ' . $formSelectionSuivi['Suivi']->getData()->getNom() . ' a été supprimé.');
 
                     return $this->redirectToRoute('nox_intranet_assistant_affaire_parcour_suivi_en_cours');
+                }
+
+                if ($formSelectionSuivi->get('Editer')->isClicked()) {
+
+                    $IdSuivi = $formSelectionSuivi['Suivi']->getData()->getId();
+
+                    $suivi = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->find($IdSuivi);
+
+                    if ($suivi->getIdModele() === null) {
+                        return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_modele', array('IdSuivi' => $IdSuivi));
+                    } else {
+                        return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi));
+                    }
                 }
             }
         }
@@ -248,7 +420,7 @@ class ExcelReadingController extends Controller {
             }
         }
 
-        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireedition.html.twig', array('form' => $form->createView(), 'formAgence' => $formAgence->createView()));
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireedition.html.twig', array('formSelectionSuivi' => $formSelectionSuivi->createView(), 'formAgence' => $formAgence->createView()));
     }
 
     public function consulterSuiviTermineAction(Request $request, $agence) {

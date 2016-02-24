@@ -89,7 +89,7 @@ class AdministrationAffairesController extends Controller {
                 ->add('file', FileType::class)
                 ->add('Profil', EntityType::class, array(
                     'class' => 'NoxIntranetRessourcesBundle:Profils',
-                    'placeholder' => 'Selectionnez un profil',
+                    'placeholder' => 'Sélectionnez un profil',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('u')
                                 ->orderBy('u.nom', 'ASC');
@@ -138,7 +138,7 @@ class AdministrationAffairesController extends Controller {
 
         $formSelectionDossier = $this->get('form.factory')->createNamedBuilder('formSelectionDossier', 'form')
                 ->add('profil', EntityType::class, array(
-                    'placeholder' => 'Selectionnez un suivi',
+                    'placeholder' => 'Sélectionnez un profil',
                     'class' => 'NoxIntranetRessourcesBundle:Profils',
                     'choice_label' => 'Nom',
                     'data' => $profilActuel
@@ -322,7 +322,10 @@ class AdministrationAffairesController extends Controller {
             if ($formSelectionVersion->isValid()) {
 
                 if ($formSelectionVersion->get('Editer')->isClicked()) {
-                    return $this->redirectToRoute('nox_intranet_administration_affaires_edition', array('file' => $formSelectionVersion['Suivi']->getData()->getChemin(), 'profil' => $profil));
+
+                    $fichier = '/' . pathinfo($formSelectionVersion['Suivi']->getData()->getChemin(), PATHINFO_FILENAME) . '.xlsx';
+
+                    return $this->redirectToRoute('nox_intranet_administration_affaires_edition', array('file' => str_replace('\\', '/', $formSelectionVersion['Suivi']->getData()->getChemin()) . $fichier, 'profil' => $profil));
                 }
 
                 if ($formSelectionVersion->get('Supprimer')->isClicked()) {
@@ -383,8 +386,8 @@ class AdministrationAffairesController extends Controller {
                                 ->orderBy('u.nom', 'ASC');
                     },
                 ))
-                ->add('Ligne', IntegerType::class)
-                ->add('Colonne', TextType::class)
+                ->add('CoordonneesLabel', TextType::class)
+                ->add('CoordonneesDonnees', TextType::class)
                 ->add('Placer', SubmitType::class)
                 ->getForm();
 
@@ -399,7 +402,8 @@ class AdministrationAffairesController extends Controller {
                 if ($liaisonsSuivi != null) {
                     foreach ($liaisonsSuivi as $liaisonSuivi) {
                         if ($liaisonSuivi->getIdChamp() === $formPlacementChamp['IdChamp']->getData()->getId()) {
-                            $anciennePosition = $liaisonSuivi->getColonne() . $liaisonSuivi->getLigne();
+                            $anciennePositionLabel = $liaisonSuivi->getCoordonneesLabel();
+                            $anciennePositionDonnees = $liaisonSuivi->getCoordonneesDonnees();
                             $em->remove($liaisonSuivi);
                         }
                     }
@@ -408,23 +412,25 @@ class AdministrationAffairesController extends Controller {
 
                 $newLiaisonSuiviChamp->setIdSuivi($suivi->getId());
                 $newLiaisonSuiviChamp->setIdChamp($formPlacementChamp['IdChamp']->getData()->getId());
-                $newLiaisonSuiviChamp->setLigne($formPlacementChamp['Ligne']->getData());
-                $newLiaisonSuiviChamp->setColonne($formPlacementChamp['Colonne']->getData());
+                $newLiaisonSuiviChamp->setCoordonneesLabel($formPlacementChamp['CoordonneesLabel']->getData());
+                $newLiaisonSuiviChamp->setCoordonneesDonnees($formPlacementChamp['CoordonneesDonnees']->getData());
                 $em->persist($newLiaisonSuiviChamp);
                 $em->flush();
 
-                if (isset($anciennePosition)) {
-                    $sheet->getCell($anciennePosition)->setValue(null);
+                if (isset($anciennePositionLabel) && isset($anciennePositionDonnees)) {
+                    $sheet->getCell($anciennePositionLabel)->setValue(null);
+                    $sheet->getCell($anciennePositionDonnees)->setValue(null);
                     $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $formPlacementChamp['IdChamp']->getData()->getNom() .
-                            ' a été ajouté à la position ' . $formPlacementChamp['Colonne']->getData() . "," . $formPlacementChamp['Ligne']->getData() .
-                            ", il remplace celui se trouvant à la position (" . $anciennePosition . ").");
+                            ' a été ajouté à la position (' . $formPlacementChamp['CoordonneesLabel']->getData() .
+                            ") et ses données à la position (" . $formPlacementChamp['CoordonneesDonnees']->getData() . "), il remplace le champ " . $formPlacementChamp['IdChamp']->getData()->getNom() . " précédent.");
                 } else {
                     $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $formPlacementChamp['IdChamp']->getData()->getNom() .
-                            ' a été ajouté à la position (' . $formPlacementChamp['Colonne']->getData() . $formPlacementChamp['Ligne']->getData() .
-                            ").");
+                            ' a été ajouté à la position (' . $formPlacementChamp['CoordonneesLabel']->getData() .
+                            ") et ses données à la position (" . $formPlacementChamp['CoordonneesDonnees']->getData() . ").");
                 }
 
-                $sheet->setCellValue($formPlacementChamp['Colonne']->getData() . $formPlacementChamp['Ligne']->getData(), $formPlacementChamp['IdChamp']->getData()->getNom());
+                $sheet->setCellValue($formPlacementChamp['CoordonneesLabel']->getData(), $formPlacementChamp['IdChamp']->getData()->getNom());
+                $sheet->setCellValue($formPlacementChamp['CoordonneesDonnees']->getData(), 'Données: ' . $formPlacementChamp['IdChamp']->getData()->getNom());
                 $writer->save($file);
             }
         }

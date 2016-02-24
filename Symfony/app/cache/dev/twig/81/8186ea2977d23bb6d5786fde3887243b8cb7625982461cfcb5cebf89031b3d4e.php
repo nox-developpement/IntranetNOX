@@ -15,8 +15,8 @@ class __TwigTemplate_c921b1629b9ee01f921e66121a779423c35c4144e722dc1a9a1075857e7
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b07774901f8b62d8be6995956edbc721012188fbd3fa7d424f119aa692d59e6e = $this->env->getExtension("native_profiler");
-        $__internal_b07774901f8b62d8be6995956edbc721012188fbd3fa7d424f119aa692d59e6e->enter($__internal_b07774901f8b62d8be6995956edbc721012188fbd3fa7d424f119aa692d59e6e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/02decaa2-60fcbee1.patch.sql"));
+        $__internal_6d49a66e392c7c3285e926e8cccb9916f70358a9a12b18bbe6ed73c3942d51db = $this->env->getExtension("native_profiler");
+        $__internal_6d49a66e392c7c3285e926e8cccb9916f70358a9a12b18bbe6ed73c3942d51db->enter($__internal_6d49a66e392c7c3285e926e8cccb9916f70358a9a12b18bbe6ed73c3942d51db_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/02decaa2-60fcbee1.patch.sql"));
 
         // line 1
         echo "-- Update all temlates with the new wording.
@@ -27,7 +27,7 @@ UPDATE `%TABLE_PREFIX%config`
     SET `schema_signature`='60fcbee1da3180d1b690187aa5006c88';
 ";
         
-        $__internal_b07774901f8b62d8be6995956edbc721012188fbd3fa7d424f119aa692d59e6e->leave($__internal_b07774901f8b62d8be6995956edbc721012188fbd3fa7d424f119aa692d59e6e_prof);
+        $__internal_6d49a66e392c7c3285e926e8cccb9916f70358a9a12b18bbe6ed73c3942d51db->leave($__internal_6d49a66e392c7c3285e926e8cccb9916f70358a9a12b18bbe6ed73c3942d51db_prof);
 
     }
 

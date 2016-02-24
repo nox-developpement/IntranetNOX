@@ -15,8 +15,8 @@ class __TwigTemplate_51dd097b17e761f38a9c98e0d9bd3a8c393bc5fe2fe0900cb1468116cad
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_4dc24d0a97b37911ddc8f760c056f9ffd029ecebf8809532c89fa29e2eeb9bff = $this->env->getExtension("native_profiler");
-        $__internal_4dc24d0a97b37911ddc8f760c056f9ffd029ecebf8809532c89fa29e2eeb9bff->enter($__internal_4dc24d0a97b37911ddc8f760c056f9ffd029ecebf8809532c89fa29e2eeb9bff_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.kbase.php"));
+        $__internal_f4e369cffa5a75ed178cafbb3effe12b63f98c6dc17ae98e94d6e6d0147b58b6 = $this->env->getExtension("native_profiler");
+        $__internal_f4e369cffa5a75ed178cafbb3effe12b63f98c6dc17ae98e94d6e6d0147b58b6->enter($__internal_f4e369cffa5a75ed178cafbb3effe12b63f98c6dc17ae98e94d6e6d0147b58b6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.kbase.php"));
 
         // line 1
         echo "<?php
@@ -87,7 +87,7 @@ class KbaseAjaxAPI extends AjaxController {
 ?>
 ";
         
-        $__internal_4dc24d0a97b37911ddc8f760c056f9ffd029ecebf8809532c89fa29e2eeb9bff->leave($__internal_4dc24d0a97b37911ddc8f760c056f9ffd029ecebf8809532c89fa29e2eeb9bff_prof);
+        $__internal_f4e369cffa5a75ed178cafbb3effe12b63f98c6dc17ae98e94d6e6d0147b58b6->leave($__internal_f4e369cffa5a75ed178cafbb3effe12b63f98c6dc17ae98e94d6e6d0147b58b6_prof);
 
     }
 

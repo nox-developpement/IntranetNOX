@@ -15,8 +15,8 @@ class __TwigTemplate_a03befe5d970dbc40aa26e7a67af1ce11b10795380a7bc2102e9565b50a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_ed69897c9c925541e15d10683ecf242174a20bae1d42bfdc38bb6200871bcd41 = $this->env->getExtension("native_profiler");
-        $__internal_ed69897c9c925541e15d10683ecf242174a20bae1d42bfdc38bb6200871bcd41->enter($__internal_ed69897c9c925541e15d10683ecf242174a20bae1d42bfdc38bb6200871bcd41_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/user-view.inc.php"));
+        $__internal_956e746a021308d6cac366a0de67684e6f9bb59390c1e319b9a601a824eb6e24 = $this->env->getExtension("native_profiler");
+        $__internal_956e746a021308d6cac366a0de67684e6f9bb59390c1e319b9a601a824eb6e24->enter($__internal_956e746a021308d6cac366a0de67684e6f9bb59390c1e319b9a601a824eb6e24_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/user-view.inc.php"));
 
         // line 1
         echo "<?php
@@ -224,7 +224,7 @@ include STAFFINC_DIR . 'templates/notes.tmpl.php';
 </script>
 ";
         
-        $__internal_ed69897c9c925541e15d10683ecf242174a20bae1d42bfdc38bb6200871bcd41->leave($__internal_ed69897c9c925541e15d10683ecf242174a20bae1d42bfdc38bb6200871bcd41_prof);
+        $__internal_956e746a021308d6cac366a0de67684e6f9bb59390c1e319b9a601a824eb6e24->leave($__internal_956e746a021308d6cac366a0de67684e6f9bb59390c1e319b9a601a824eb6e24_prof);
 
     }
 

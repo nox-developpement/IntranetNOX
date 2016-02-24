@@ -15,8 +15,8 @@ class __TwigTemplate_8bf1f2ff53254c40355ddb8240e6073ec862cadb1a5f6c5db2ce8bc870a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_1a5f780377c40427f2c7af582c72d8de4c9741b4d1f6934e22fe8bda9aa3e4d7 = $this->env->getExtension("native_profiler");
-        $__internal_1a5f780377c40427f2c7af582c72d8de4c9741b4d1f6934e22fe8bda9aa3e4d7->enter($__internal_1a5f780377c40427f2c7af582c72d8de4c9741b4d1f6934e22fe8bda9aa3e4d7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.category.php"));
+        $__internal_06bf5cc91fcd302abb36dd591e9a6477eea20db32d59127f4312cc569151116d = $this->env->getExtension("native_profiler");
+        $__internal_06bf5cc91fcd302abb36dd591e9a6477eea20db32d59127f4312cc569151116d->enter($__internal_06bf5cc91fcd302abb36dd591e9a6477eea20db32d59127f4312cc569151116d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.category.php"));
 
         // line 1
         echo "<?php
@@ -189,7 +189,7 @@ class Category {
 ?>
 ";
         
-        $__internal_1a5f780377c40427f2c7af582c72d8de4c9741b4d1f6934e22fe8bda9aa3e4d7->leave($__internal_1a5f780377c40427f2c7af582c72d8de4c9741b4d1f6934e22fe8bda9aa3e4d7_prof);
+        $__internal_06bf5cc91fcd302abb36dd591e9a6477eea20db32d59127f4312cc569151116d->leave($__internal_06bf5cc91fcd302abb36dd591e9a6477eea20db32d59127f4312cc569151116d_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_54904710fb94b12b8c0592f718b981cce8de11c1fe996120dfb6ecfc058
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_5dfe7bcdf639f46de1b2b85311229a636b8d85723c2069dadbe320d390d126b5 = $this->env->getExtension("native_profiler");
-        $__internal_5dfe7bcdf639f46de1b2b85311229a636b8d85723c2069dadbe320d390d126b5->enter($__internal_5dfe7bcdf639f46de1b2b85311229a636b8d85723c2069dadbe320d390d126b5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/apps/dispatcher.php"));
+        $__internal_4ce02ef499cbe444cabdf92c36fa9637b560c44cbc8254b4fafac9114a2f51ae = $this->env->getExtension("native_profiler");
+        $__internal_4ce02ef499cbe444cabdf92c36fa9637b560c44cbc8254b4fafac9114a2f51ae->enter($__internal_4ce02ef499cbe444cabdf92c36fa9637b560c44cbc8254b4fafac9114a2f51ae_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/apps/dispatcher.php"));
 
         // line 1
         echo "<?php
@@ -52,7 +52,7 @@ Signal::send('ajax.client', \$dispatcher);
 print \$dispatcher->resolve(\$ost->get_path_info());
 ";
         
-        $__internal_5dfe7bcdf639f46de1b2b85311229a636b8d85723c2069dadbe320d390d126b5->leave($__internal_5dfe7bcdf639f46de1b2b85311229a636b8d85723c2069dadbe320d390d126b5_prof);
+        $__internal_4ce02ef499cbe444cabdf92c36fa9637b560c44cbc8254b4fafac9114a2f51ae->leave($__internal_4ce02ef499cbe444cabdf92c36fa9637b560c44cbc8254b4fafac9114a2f51ae_prof);
 
     }
 

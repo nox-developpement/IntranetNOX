@@ -15,8 +15,8 @@ class __TwigTemplate_e4a7839b129d3ba762ba2427acaab71b9998d67405e6945d58fd84f7ef4
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_0d11f2bc66c71c1c9998235506fb804206b773169347bff68a204d9456d773eb = $this->env->getExtension("native_profiler");
-        $__internal_0d11f2bc66c71c1c9998235506fb804206b773169347bff68a204d9456d773eb->enter($__internal_0d11f2bc66c71c1c9998235506fb804206b773169347bff68a204d9456d773eb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/header.inc.php"));
+        $__internal_aedf92c35bec427019423ba1d6c6c63a32f3d1d8abcc69abb8ac8fc6b54eb370 = $this->env->getExtension("native_profiler");
+        $__internal_aedf92c35bec427019423ba1d6c6c63a32f3d1d8abcc69abb8ac8fc6b54eb370->enter($__internal_aedf92c35bec427019423ba1d6c6c63a32f3d1d8abcc69abb8ac8fc6b54eb370_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/header.inc.php"));
 
         // line 1
         echo "<?php
@@ -129,7 +129,7 @@ if ((\$lang = Internationalization::getCurrentLanguage())
         <?php } ?>
 ";
         
-        $__internal_0d11f2bc66c71c1c9998235506fb804206b773169347bff68a204d9456d773eb->leave($__internal_0d11f2bc66c71c1c9998235506fb804206b773169347bff68a204d9456d773eb_prof);
+        $__internal_aedf92c35bec427019423ba1d6c6c63a32f3d1d8abcc69abb8ac8fc6b54eb370->leave($__internal_aedf92c35bec427019423ba1d6c6c63a32f3d1d8abcc69abb8ac8fc6b54eb370_prof);
 
     }
 

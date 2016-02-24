@@ -15,8 +15,8 @@ class __TwigTemplate_c05405c147d485822e817d7316e23c57eb6a04184540460ff59551c9dad
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_19fd3806ae02e2b2b15a261edea6d7f52643629b2531996f9b7a19789b745d98 = $this->env->getExtension("native_profiler");
-        $__internal_19fd3806ae02e2b2b15a261edea6d7f52643629b2531996f9b7a19789b745d98->enter($__internal_19fd3806ae02e2b2b15a261edea6d7f52643629b2531996f9b7a19789b745d98_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/faq.inc.php"));
+        $__internal_02e33834ac363c8b93356beb2e88cb41b197451183368fc14866e60497c621ab = $this->env->getExtension("native_profiler");
+        $__internal_02e33834ac363c8b93356beb2e88cb41b197451183368fc14866e60497c621ab->enter($__internal_02e33834ac363c8b93356beb2e88cb41b197451183368fc14866e60497c621ab_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/faq.inc.php"));
 
         // line 1
         echo "<?php
@@ -53,7 +53,7 @@ if(\$faq->getNumAttachments()) { ?>
 <div class=\"faded\">&nbsp;<?php echo __('Last updated').' '.Format::db_daydatetime(\$category->getUpdateDate()); ?></div>
 ";
         
-        $__internal_19fd3806ae02e2b2b15a261edea6d7f52643629b2531996f9b7a19789b745d98->leave($__internal_19fd3806ae02e2b2b15a261edea6d7f52643629b2531996f9b7a19789b745d98_prof);
+        $__internal_02e33834ac363c8b93356beb2e88cb41b197451183368fc14866e60497c621ab->leave($__internal_02e33834ac363c8b93356beb2e88cb41b197451183368fc14866e60497c621ab_prof);
 
     }
 

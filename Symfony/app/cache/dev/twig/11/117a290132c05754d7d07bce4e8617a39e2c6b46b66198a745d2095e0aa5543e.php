@@ -15,8 +15,8 @@ class __TwigTemplate_ddfef62fa0062d19c5597b238fb27af9e7c9c96eba4fd4141ca4b247f7c
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_906549dd3dd2f8672d750a135552e7437e8b25f9e6d1dec8abb98de6634b3308 = $this->env->getExtension("native_profiler");
-        $__internal_906549dd3dd2f8672d750a135552e7437e8b25f9e6d1dec8abb98de6634b3308->enter($__internal_906549dd3dd2f8672d750a135552e7437e8b25f9e6d1dec8abb98de6634b3308_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.thread.php"));
+        $__internal_cf2012f76339a120f785c21c35fd0fcd9ff86a9e236aaa17a3bb619859f1042f = $this->env->getExtension("native_profiler");
+        $__internal_cf2012f76339a120f785c21c35fd0fcd9ff86a9e236aaa17a3bb619859f1042f->enter($__internal_cf2012f76339a120f785c21c35fd0fcd9ff86a9e236aaa17a3bb619859f1042f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.thread.php"));
 
         // line 1
         echo "<?php
@@ -1580,7 +1580,7 @@ class HtmlThreadBody extends ThreadBody {
 ?>
 ";
         
-        $__internal_906549dd3dd2f8672d750a135552e7437e8b25f9e6d1dec8abb98de6634b3308->leave($__internal_906549dd3dd2f8672d750a135552e7437e8b25f9e6d1dec8abb98de6634b3308_prof);
+        $__internal_cf2012f76339a120f785c21c35fd0fcd9ff86a9e236aaa17a3bb619859f1042f->leave($__internal_cf2012f76339a120f785c21c35fd0fcd9ff86a9e236aaa17a3bb619859f1042f_prof);
 
     }
 

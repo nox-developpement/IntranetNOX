@@ -15,8 +15,8 @@ class __TwigTemplate_a4b882d1703c5ff8e14c183e30b72b6ea497202d665bbf6312b4d718fd9
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_6900513e51f8996105ae571c6e1019fc1aafad3512d55a96476fc024b9fc8b7d = $this->env->getExtension("native_profiler");
-        $__internal_6900513e51f8996105ae571c6e1019fc1aafad3512d55a96476fc024b9fc8b7d->enter($__internal_6900513e51f8996105ae571c6e1019fc1aafad3512d55a96476fc024b9fc8b7d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.canned.php"));
+        $__internal_862f003b7b654e1fcaedae605953eb2446748728b2ec817f969f1eccaafa6e0a = $this->env->getExtension("native_profiler");
+        $__internal_862f003b7b654e1fcaedae605953eb2446748728b2ec817f969f1eccaafa6e0a->enter($__internal_862f003b7b654e1fcaedae605953eb2446748728b2ec817f969f1eccaafa6e0a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.canned.php"));
 
         // line 1
         echo "<?php
@@ -306,7 +306,7 @@ class Canned {
 ?>
 ";
         
-        $__internal_6900513e51f8996105ae571c6e1019fc1aafad3512d55a96476fc024b9fc8b7d->leave($__internal_6900513e51f8996105ae571c6e1019fc1aafad3512d55a96476fc024b9fc8b7d_prof);
+        $__internal_862f003b7b654e1fcaedae605953eb2446748728b2ec817f969f1eccaafa6e0a->leave($__internal_862f003b7b654e1fcaedae605953eb2446748728b2ec817f969f1eccaafa6e0a_prof);
 
     }
 

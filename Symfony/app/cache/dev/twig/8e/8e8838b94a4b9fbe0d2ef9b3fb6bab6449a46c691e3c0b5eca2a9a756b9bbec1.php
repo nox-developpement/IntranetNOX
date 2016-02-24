@@ -15,8 +15,8 @@ class __TwigTemplate_8349ce718822625739f59522c6544dad9e9c3cf48aebe307ba09afbdf56
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_2b545c8a8efd91c11b42ea1176c101fa5ad2461afec4b5b4bbad509dad183283 = $this->env->getExtension("native_profiler");
-        $__internal_2b545c8a8efd91c11b42ea1176c101fa5ad2461afec4b5b4bbad509dad183283->enter($__internal_2b545c8a8efd91c11b42ea1176c101fa5ad2461afec4b5b4bbad509dad183283_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/ticket-preview.tmpl.php"));
+        $__internal_0ce9ccad672458e5e44b567cc3a6340ec5fbcbe67ad31bba4fdb20b52812401d = $this->env->getExtension("native_profiler");
+        $__internal_0ce9ccad672458e5e44b567cc3a6340ec5fbcbe67ad31bba4fdb20b52812401d->enter($__internal_0ce9ccad672458e5e44b567cc3a6340ec5fbcbe67ad31bba4fdb20b52812401d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/ticket-preview.tmpl.php"));
 
         // line 1
         echo "<?php
@@ -197,7 +197,7 @@ echo '</div>';
 ?>
 ";
         
-        $__internal_2b545c8a8efd91c11b42ea1176c101fa5ad2461afec4b5b4bbad509dad183283->leave($__internal_2b545c8a8efd91c11b42ea1176c101fa5ad2461afec4b5b4bbad509dad183283_prof);
+        $__internal_0ce9ccad672458e5e44b567cc3a6340ec5fbcbe67ad31bba4fdb20b52812401d->leave($__internal_0ce9ccad672458e5e44b567cc3a6340ec5fbcbe67ad31bba4fdb20b52812401d_prof);
 
     }
 

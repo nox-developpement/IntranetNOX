@@ -15,8 +15,8 @@ class __TwigTemplate_698c994febf9a506a3523e9625370a3160ae5137af5372f39504c76e373
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_4bb293ba9cbe08c1f4454bc1b37ebe5c00f8a8c93599977aaabe1cd74c4adcae = $this->env->getExtension("native_profiler");
-        $__internal_4bb293ba9cbe08c1f4454bc1b37ebe5c00f8a8c93599977aaabe1cd74c4adcae->enter($__internal_4bb293ba9cbe08c1f4454bc1b37ebe5c00f8a8c93599977aaabe1cd74c4adcae_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/css/dashboard.css"));
+        $__internal_698f8c94d0bc3a5f7abeda3c94ca41728b9c4a3b4619ad592ed7334876f9bfe7 = $this->env->getExtension("native_profiler");
+        $__internal_698f8c94d0bc3a5f7abeda3c94ca41728b9c4a3b4619ad592ed7334876f9bfe7->enter($__internal_698f8c94d0bc3a5f7abeda3c94ca41728b9c4a3b4619ad592ed7334876f9bfe7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/css/dashboard.css"));
 
         // line 1
         echo "#line-chart-here {
@@ -67,7 +67,7 @@ span.label {
 
 ";
         
-        $__internal_4bb293ba9cbe08c1f4454bc1b37ebe5c00f8a8c93599977aaabe1cd74c4adcae->leave($__internal_4bb293ba9cbe08c1f4454bc1b37ebe5c00f8a8c93599977aaabe1cd74c4adcae_prof);
+        $__internal_698f8c94d0bc3a5f7abeda3c94ca41728b9c4a3b4619ad592ed7334876f9bfe7->leave($__internal_698f8c94d0bc3a5f7abeda3c94ca41728b9c4a3b4619ad592ed7334876f9bfe7_prof);
 
     }
 

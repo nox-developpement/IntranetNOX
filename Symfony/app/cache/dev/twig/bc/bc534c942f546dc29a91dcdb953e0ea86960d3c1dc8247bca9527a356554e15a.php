@@ -15,8 +15,8 @@ class __TwigTemplate_0bba7c9323b9c9d2ff3c772c08ce12fab97dc0961769a56aa3b49f36e29
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_c97499771ea6dedfa3f75087900ca7b26d051bb254e3255de6409ef5cba3c2e1 = $this->env->getExtension("native_profiler");
-        $__internal_c97499771ea6dedfa3f75087900ca7b26d051bb254e3255de6409ef5cba3c2e1->enter($__internal_c97499771ea6dedfa3f75087900ca7b26d051bb254e3255de6409ef5cba3c2e1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/15b30765-dd0022fb.cleanup.sql"));
+        $__internal_3c12a45308e94fb290d75894687d845ef33fb7f0c1c3dfff22a1670c8b7e65f9 = $this->env->getExtension("native_profiler");
+        $__internal_3c12a45308e94fb290d75894687d845ef33fb7f0c1c3dfff22a1670c8b7e65f9->enter($__internal_3c12a45308e94fb290d75894687d845ef33fb7f0c1c3dfff22a1670c8b7e65f9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/15b30765-dd0022fb.cleanup.sql"));
 
         // line 1
         echo "
@@ -31,7 +31,7 @@ ALTER TABLE `%TABLE_PREFIX%ticket_attachment`
     DROP `deleted`;
 ";
         
-        $__internal_c97499771ea6dedfa3f75087900ca7b26d051bb254e3255de6409ef5cba3c2e1->leave($__internal_c97499771ea6dedfa3f75087900ca7b26d051bb254e3255de6409ef5cba3c2e1_prof);
+        $__internal_3c12a45308e94fb290d75894687d845ef33fb7f0c1c3dfff22a1670c8b7e65f9->leave($__internal_3c12a45308e94fb290d75894687d845ef33fb7f0c1c3dfff22a1670c8b7e65f9_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_d2bbbcffb81ab8f65fa5e2a261172e1a3189ff8e4b893b2b3dc761ab83e
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_29bcf51b24795ce3a60fbdbf56d0a711bdd88bc4d35d70940e17fd521d0d668a = $this->env->getExtension("native_profiler");
-        $__internal_29bcf51b24795ce3a60fbdbf56d0a711bdd88bc4d35d70940e17fd521d0d668a->enter($__internal_29bcf51b24795ce3a60fbdbf56d0a711bdd88bc4d35d70940e17fd521d0d668a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/dashboard.system_logs.yaml"));
+        $__internal_3498f4f7bef3bc85ca6d7a5d7962a3d511d865fcd620fb629f4f5e5c8517484c = $this->env->getExtension("native_profiler");
+        $__internal_3498f4f7bef3bc85ca6d7a5d7962a3d511d865fcd620fb629f4f5e5c8517484c->enter($__internal_3498f4f7bef3bc85ca6d7a5d7962a3d511d865fcd620fb629f4f5e5c8517484c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/dashboard.system_logs.yaml"));
 
         // line 1
         echo "#
@@ -96,7 +96,7 @@ ip_address:
         was using osTicket at the time the log was generated.
 ";
         
-        $__internal_29bcf51b24795ce3a60fbdbf56d0a711bdd88bc4d35d70940e17fd521d0d668a->leave($__internal_29bcf51b24795ce3a60fbdbf56d0a711bdd88bc4d35d70940e17fd521d0d668a_prof);
+        $__internal_3498f4f7bef3bc85ca6d7a5d7962a3d511d865fcd620fb629f4f5e5c8517484c->leave($__internal_3498f4f7bef3bc85ca6d7a5d7962a3d511d865fcd620fb629f4f5e5c8517484c_prof);
 
     }
 

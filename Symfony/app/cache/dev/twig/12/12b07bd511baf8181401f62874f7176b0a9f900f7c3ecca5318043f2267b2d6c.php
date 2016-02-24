@@ -15,8 +15,8 @@ class __TwigTemplate_a09f0c27f9edc3bc53a74683661246047958e160b050109ecb2434b4a3e
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_3fa41d8acff0e6f26e6743ef0cd7dee45cfca6e636de973f084f5e8976fc79f6 = $this->env->getExtension("native_profiler");
-        $__internal_3fa41d8acff0e6f26e6743ef0cd7dee45cfca6e636de973f084f5e8976fc79f6->enter($__internal_3fa41d8acff0e6f26e6743ef0cd7dee45cfca6e636de973f084f5e8976fc79f6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.plugin.php"));
+        $__internal_306200399aadba0cbc98ade445c4efd90c6759bdc790c01bf39ce4ec79637599 = $this->env->getExtension("native_profiler");
+        $__internal_306200399aadba0cbc98ade445c4efd90c6759bdc790c01bf39ce4ec79637599->enter($__internal_306200399aadba0cbc98ade445c4efd90c6759bdc790c01bf39ce4ec79637599_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.plugin.php"));
 
         // line 1
         echo "<?php
@@ -705,7 +705,7 @@ abstract class Plugin {
 ?>
 ";
         
-        $__internal_3fa41d8acff0e6f26e6743ef0cd7dee45cfca6e636de973f084f5e8976fc79f6->leave($__internal_3fa41d8acff0e6f26e6743ef0cd7dee45cfca6e636de973f084f5e8976fc79f6_prof);
+        $__internal_306200399aadba0cbc98ade445c4efd90c6759bdc790c01bf39ce4ec79637599->leave($__internal_306200399aadba0cbc98ade445c4efd90c6759bdc790c01bf39ce4ec79637599_prof);
 
     }
 

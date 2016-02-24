@@ -15,8 +15,8 @@ class __TwigTemplate_11c5609c978482b163c3df0b55254ac10055308e2e7788ecfbabed732d9
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_be0f3dc41f5ab8143653c7632c249a410b6c2994fe2e8ece4e0b267a826f0eec = $this->env->getExtension("native_profiler");
-        $__internal_be0f3dc41f5ab8143653c7632c249a410b6c2994fe2e8ece4e0b267a826f0eec->enter($__internal_be0f3dc41f5ab8143653c7632c249a410b6c2994fe2e8ece4e0b267a826f0eec_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/knowledgebase.inc.php"));
+        $__internal_96c5acb60f39221f014a9869e0cbfa9450a697f917dfcbe5eb51a0d9d9fe6689 = $this->env->getExtension("native_profiler");
+        $__internal_96c5acb60f39221f014a9869e0cbfa9450a697f917dfcbe5eb51a0d9d9fe6689->enter($__internal_96c5acb60f39221f014a9869e0cbfa9450a697f917dfcbe5eb51a0d9d9fe6689_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/knowledgebase.inc.php"));
 
         // line 1
         echo "<?php
@@ -145,7 +145,7 @@ if(\$_REQUEST['q'] || \$_REQUEST['cid'] || \$_REQUEST['topicId']) { //Search.
 </div>
 ";
         
-        $__internal_be0f3dc41f5ab8143653c7632c249a410b6c2994fe2e8ece4e0b267a826f0eec->leave($__internal_be0f3dc41f5ab8143653c7632c249a410b6c2994fe2e8ece4e0b267a826f0eec_prof);
+        $__internal_96c5acb60f39221f014a9869e0cbfa9450a697f917dfcbe5eb51a0d9d9fe6689->leave($__internal_96c5acb60f39221f014a9869e0cbfa9450a697f917dfcbe5eb51a0d9d9fe6689_prof);
 
     }
 

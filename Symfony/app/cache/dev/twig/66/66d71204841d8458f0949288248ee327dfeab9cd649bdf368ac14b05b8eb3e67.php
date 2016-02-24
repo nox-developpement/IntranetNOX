@@ -15,8 +15,8 @@ class __TwigTemplate_a286d8d7c23988ad6763cde0164a916a15e8553c4b9b1f25d72b32bdea1
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_ad2e39bdb6cd144a43e4c5f3cb648a851c5c4d6be6303e917ebd5c01a6ad421a = $this->env->getExtension("native_profiler");
-        $__internal_ad2e39bdb6cd144a43e4c5f3cb648a851c5c4d6be6303e917ebd5c01a6ad421a->enter($__internal_ad2e39bdb6cd144a43e4c5f3cb648a851c5c4d6be6303e917ebd5c01a6ad421a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.csrf.php"));
+        $__internal_9f7cb7087738d6408bd94bcfa24723498013103cabcd46879da8ca4b3cce014a = $this->env->getExtension("native_profiler");
+        $__internal_9f7cb7087738d6408bd94bcfa24723498013103cabcd46879da8ca4b3cce014a->enter($__internal_9f7cb7087738d6408bd94bcfa24723498013103cabcd46879da8ca4b3cce014a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.csrf.php"));
 
         // line 1
         echo "<?php
@@ -112,7 +112,7 @@ function csrf_token() {
 ?>
 ";
         
-        $__internal_ad2e39bdb6cd144a43e4c5f3cb648a851c5c4d6be6303e917ebd5c01a6ad421a->leave($__internal_ad2e39bdb6cd144a43e4c5f3cb648a851c5c4d6be6303e917ebd5c01a6ad421a_prof);
+        $__internal_9f7cb7087738d6408bd94bcfa24723498013103cabcd46879da8ca4b3cce014a->leave($__internal_9f7cb7087738d6408bd94bcfa24723498013103cabcd46879da8ca4b3cce014a_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_cbb844a16aef8a3b27635a965f44f9f0536a9e3229a297929e4c3834831
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_708091a80fa2e6ec8761bb4efc8843c1e28e474666172eaf0545b28bff5fc11c = $this->env->getExtension("native_profiler");
-        $__internal_708091a80fa2e6ec8761bb4efc8843c1e28e474666172eaf0545b28bff5fc11c->enter($__internal_708091a80fa2e6ec8761bb4efc8843c1e28e474666172eaf0545b28bff5fc11c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.topic.php"));
+        $__internal_e9d5433bb401b0cfbf8cd693b7a7245548720f390d3c37766fe6936f066a919b = $this->env->getExtension("native_profiler");
+        $__internal_e9d5433bb401b0cfbf8cd693b7a7245548720f390d3c37766fe6936f066a919b->enter($__internal_e9d5433bb401b0cfbf8cd693b7a7245548720f390d3c37766fe6936f066a919b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.topic.php"));
 
         // line 1
         echo "<?php
@@ -457,7 +457,7 @@ class Topic {
 Filter::addSupportedMatches(/* @trans */ 'Help Topic', array('topicId' => 'Topic ID'), 100);
 ";
         
-        $__internal_708091a80fa2e6ec8761bb4efc8843c1e28e474666172eaf0545b28bff5fc11c->leave($__internal_708091a80fa2e6ec8761bb4efc8843c1e28e474666172eaf0545b28bff5fc11c_prof);
+        $__internal_e9d5433bb401b0cfbf8cd693b7a7245548720f390d3c37766fe6936f066a919b->leave($__internal_e9d5433bb401b0cfbf8cd693b7a7245548720f390d3c37766fe6936f066a919b_prof);
 
     }
 

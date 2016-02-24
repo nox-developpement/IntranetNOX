@@ -15,8 +15,8 @@ class __TwigTemplate_b15185b7ea82135679c422e5884dddb7167e93a7f762b1e60c6fa56d38b
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_61aac18e85888534a74778917f6b15327120d42aa076ee57aca50df581aa7e47 = $this->env->getExtension("native_profiler");
-        $__internal_61aac18e85888534a74778917f6b15327120d42aa076ee57aca50df581aa7e47->enter($__internal_61aac18e85888534a74778917f6b15327120d42aa076ee57aca50df581aa7e47_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/settings-alerts.inc.php"));
+        $__internal_c99286c058cc98b73a439928ce894a49621a613a50a950fc69512db4cf10d96b = $this->env->getExtension("native_profiler");
+        $__internal_c99286c058cc98b73a439928ce894a49621a613a50a950fc69512db4cf10d96b->enter($__internal_c99286c058cc98b73a439928ce894a49621a613a50a950fc69512db4cf10d96b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/settings-alerts.inc.php"));
 
         // line 1
         echo "<h2><?php echo __('Alerts and Notices'); ?>
@@ -261,7 +261,7 @@ class __TwigTemplate_b15185b7ea82135679c422e5884dddb7167e93a7f762b1e60c6fa56d38b
 </form>
 ";
         
-        $__internal_61aac18e85888534a74778917f6b15327120d42aa076ee57aca50df581aa7e47->leave($__internal_61aac18e85888534a74778917f6b15327120d42aa076ee57aca50df581aa7e47_prof);
+        $__internal_c99286c058cc98b73a439928ce894a49621a613a50a950fc69512db4cf10d96b->leave($__internal_c99286c058cc98b73a439928ce894a49621a613a50a950fc69512db4cf10d96b_prof);
 
     }
 

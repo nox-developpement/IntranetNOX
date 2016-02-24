@@ -15,8 +15,8 @@ class __TwigTemplate_61f10e6f3e5cd9b3ee4a20a26daec7e5087474cf846eb00424bf0417609
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_93b68f56f1901efa7e6a862dfcca0693c12bbc5038de6225d4b60389143f9e7f = $this->env->getExtension("native_profiler");
-        $__internal_93b68f56f1901efa7e6a862dfcca0693c12bbc5038de6225d4b60389143f9e7f->enter($__internal_93b68f56f1901efa7e6a862dfcca0693c12bbc5038de6225d4b60389143f9e7f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.knowledgebase.php"));
+        $__internal_a373b2098d92ca19df280ca99ca9772f65b7b3da15c9ff8323679e93334eddfb = $this->env->getExtension("native_profiler");
+        $__internal_a373b2098d92ca19df280ca99ca9772f65b7b3da15c9ff8323679e93334eddfb->enter($__internal_a373b2098d92ca19df280ca99ca9772f65b7b3da15c9ff8323679e93334eddfb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.knowledgebase.php"));
 
         // line 1
         echo "<?php
@@ -176,7 +176,7 @@ class Knowledgebase {
 }
 ";
         
-        $__internal_93b68f56f1901efa7e6a862dfcca0693c12bbc5038de6225d4b60389143f9e7f->leave($__internal_93b68f56f1901efa7e6a862dfcca0693c12bbc5038de6225d4b60389143f9e7f_prof);
+        $__internal_a373b2098d92ca19df280ca99ca9772f65b7b3da15c9ff8323679e93334eddfb->leave($__internal_a373b2098d92ca19df280ca99ca9772f65b7b3da15c9ff8323679e93334eddfb_prof);
 
     }
 

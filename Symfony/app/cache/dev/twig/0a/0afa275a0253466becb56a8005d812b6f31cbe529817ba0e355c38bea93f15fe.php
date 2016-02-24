@@ -15,8 +15,8 @@ class __TwigTemplate_8047327f3fc4ad2c1f911e25049c32afa5f0b57afe52a22e650906ab001
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b51d682cd7f7c021bd9f4504cc793989cf0045e69706cb465d8989cea7a7b947 = $this->env->getExtension("native_profiler");
-        $__internal_b51d682cd7f7c021bd9f4504cc793989cf0045e69706cb465d8989cea7a7b947->enter($__internal_b51d682cd7f7c021bd9f4504cc793989cf0045e69706cb465d8989cea7a7b947_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/settings.autoresponder.yaml"));
+        $__internal_b3759fbd013e29575957cfa0b22e2ecb0a27550619b396dbef289cdcb798983b = $this->env->getExtension("native_profiler");
+        $__internal_b3759fbd013e29575957cfa0b22e2ecb0a27550619b396dbef289cdcb798983b->enter($__internal_b3759fbd013e29575957cfa0b22e2ecb0a27550619b396dbef289cdcb798983b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/settings.autoresponder.yaml"));
 
         // line 1
         echo "#
@@ -82,7 +82,7 @@ overlimit_notice:
         href: /scp/settings.php?t=tickets
 ";
         
-        $__internal_b51d682cd7f7c021bd9f4504cc793989cf0045e69706cb465d8989cea7a7b947->leave($__internal_b51d682cd7f7c021bd9f4504cc793989cf0045e69706cb465d8989cea7a7b947_prof);
+        $__internal_b3759fbd013e29575957cfa0b22e2ecb0a27550619b396dbef289cdcb798983b->leave($__internal_b3759fbd013e29575957cfa0b22e2ecb0a27550619b396dbef289cdcb798983b_prof);
 
     }
 

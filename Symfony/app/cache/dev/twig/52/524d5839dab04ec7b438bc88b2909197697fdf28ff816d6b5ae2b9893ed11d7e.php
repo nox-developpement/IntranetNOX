@@ -15,8 +15,8 @@ class __TwigTemplate_175d33a224f2371107e123b75a0a7c79d5b65b653292e53140b7d1365f7
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_5a95dcbcea4a79c5cf62e3cfa1d5a58cfba0dac9ddbe94ac495aec346a9f7564 = $this->env->getExtension("native_profiler");
-        $__internal_5a95dcbcea4a79c5cf62e3cfa1d5a58cfba0dac9ddbe94ac495aec346a9f7564->enter($__internal_5a95dcbcea4a79c5cf62e3cfa1d5a58cfba0dac9ddbe94ac495aec346a9f7564_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/logout.php"));
+        $__internal_db052eac74aaa7ca634e66ec412a49b6541a9246c8f8106d682ab7985f6ccec0 = $this->env->getExtension("native_profiler");
+        $__internal_db052eac74aaa7ca634e66ec412a49b6541a9246c8f8106d682ab7985f6ccec0->enter($__internal_db052eac74aaa7ca634e66ec412a49b6541a9246c8f8106d682ab7985f6ccec0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/logout.php"));
 
         // line 1
         echo "<?php
@@ -46,7 +46,7 @@ Http::redirect('index.php');
 ?>
 ";
         
-        $__internal_5a95dcbcea4a79c5cf62e3cfa1d5a58cfba0dac9ddbe94ac495aec346a9f7564->leave($__internal_5a95dcbcea4a79c5cf62e3cfa1d5a58cfba0dac9ddbe94ac495aec346a9f7564_prof);
+        $__internal_db052eac74aaa7ca634e66ec412a49b6541a9246c8f8106d682ab7985f6ccec0->leave($__internal_db052eac74aaa7ca634e66ec412a49b6541a9246c8f8106d682ab7985f6ccec0_prof);
 
     }
 

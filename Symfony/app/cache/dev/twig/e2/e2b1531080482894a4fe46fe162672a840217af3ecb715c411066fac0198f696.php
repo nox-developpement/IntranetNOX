@@ -15,8 +15,8 @@ class __TwigTemplate_b5c0ac048a3ecba2764d10abcce347f9f026117a2cb0ef6b37b8bf1a2f4
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_896ed3d8112eebb79e214b7f011ff6d6835c974296698a5f089498eae8604593 = $this->env->getExtension("native_profiler");
-        $__internal_896ed3d8112eebb79e214b7f011ff6d6835c974296698a5f089498eae8604593->enter($__internal_896ed3d8112eebb79e214b7f011ff6d6835c974296698a5f089498eae8604593_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/page/banner-client.yaml"));
+        $__internal_e275136d04b524c8b022dd342ec87795eaa097e0fc72f1cae07627094a2f7b67 = $this->env->getExtension("native_profiler");
+        $__internal_e275136d04b524c8b022dd342ec87795eaa097e0fc72f1cae07627094a2f7b67->enter($__internal_e275136d04b524c8b022dd342ec87795eaa097e0fc72f1cae07627094a2f7b67_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/page/banner-client.yaml"));
 
         // line 1
         echo "#
@@ -32,7 +32,7 @@ name: \"Sign in to %{company.name}\"
 body: >
     To better serve you, we encourage our Clients to register for an account.";
         
-        $__internal_896ed3d8112eebb79e214b7f011ff6d6835c974296698a5f089498eae8604593->leave($__internal_896ed3d8112eebb79e214b7f011ff6d6835c974296698a5f089498eae8604593_prof);
+        $__internal_e275136d04b524c8b022dd342ec87795eaa097e0fc72f1cae07627094a2f7b67->leave($__internal_e275136d04b524c8b022dd342ec87795eaa097e0fc72f1cae07627094a2f7b67_prof);
 
     }
 

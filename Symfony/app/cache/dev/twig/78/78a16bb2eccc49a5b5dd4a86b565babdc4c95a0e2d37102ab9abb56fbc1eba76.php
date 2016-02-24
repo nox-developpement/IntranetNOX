@@ -15,8 +15,8 @@ class __TwigTemplate_f483ca9a50a4af444696904d901eafc2dfe9183cab5bdaae634574e2e9c
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_462b370cc24eb160dbfa3974b5101a438d426c0a50a944140df56c8f9532907b = $this->env->getExtension("native_profiler");
-        $__internal_462b370cc24eb160dbfa3974b5101a438d426c0a50a944140df56c8f9532907b->enter($__internal_462b370cc24eb160dbfa3974b5101a438d426c0a50a944140df56c8f9532907b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/sequence-manage.tmpl.php"));
+        $__internal_86beef9e0fa4890311a48dc1e8a60210fa2aa4a4ea52d00777096b5729113652 = $this->env->getExtension("native_profiler");
+        $__internal_86beef9e0fa4890311a48dc1e8a60210fa2aa4a4ea52d00777096b5729113652->enter($__internal_86beef9e0fa4890311a48dc1e8a60210fa2aa4a4ea52d00777096b5729113652_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/sequence-manage.tmpl.php"));
 
         // line 1
         echo "<h3><i class=\"icon-wrench\"></i> <?php echo __('Manage Sequences'); ?></i></h3>
@@ -163,7 +163,7 @@ foreach (\$sequences as \$e) {
 </script>
 ";
         
-        $__internal_462b370cc24eb160dbfa3974b5101a438d426c0a50a944140df56c8f9532907b->leave($__internal_462b370cc24eb160dbfa3974b5101a438d426c0a50a944140df56c8f9532907b_prof);
+        $__internal_86beef9e0fa4890311a48dc1e8a60210fa2aa4a4ea52d00777096b5729113652->leave($__internal_86beef9e0fa4890311a48dc1e8a60210fa2aa4a4ea52d00777096b5729113652_prof);
 
     }
 

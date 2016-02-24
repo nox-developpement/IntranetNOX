@@ -15,8 +15,8 @@ class __TwigTemplate_f3ad9c415465958933acf5ed4beacbc85c4f6419c8026266eb16cf3f482
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_bbd84b072bb0266f6bacb731ee215cbf31d2a275cda74be0e96485110feff79e = $this->env->getExtension("native_profiler");
-        $__internal_bbd84b072bb0266f6bacb731ee215cbf31d2a275cda74be0e96485110feff79e->enter($__internal_bbd84b072bb0266f6bacb731ee215cbf31d2a275cda74be0e96485110feff79e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/knowledgebase.category.yaml"));
+        $__internal_813808a0b53c39499775c47740c123cd0548c024e83c9951edc11ff47d258d11 = $this->env->getExtension("native_profiler");
+        $__internal_813808a0b53c39499775c47740c123cd0548c024e83c9951edc11ff47d258d11->enter($__internal_813808a0b53c39499775c47740c123cd0548c024e83c9951edc11ff47d258d11_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/knowledgebase.category.yaml"));
 
         // line 1
         echo "#
@@ -36,7 +36,7 @@ class __TwigTemplate_f3ad9c415465958933acf5ed4beacbc85c4f6419c8026266eb16cf3f482
 ---
 ";
         
-        $__internal_bbd84b072bb0266f6bacb731ee215cbf31d2a275cda74be0e96485110feff79e->leave($__internal_bbd84b072bb0266f6bacb731ee215cbf31d2a275cda74be0e96485110feff79e_prof);
+        $__internal_813808a0b53c39499775c47740c123cd0548c024e83c9951edc11ff47d258d11->leave($__internal_813808a0b53c39499775c47740c123cd0548c024e83c9951edc11ff47d258d11_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_691ef493070f1744df3982b24ee003c4e3dfc38cc97525ae9a0ced60206
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_f2195b722a22f3835cbafffc40a4eafbf12521d587ec450a966840572996afb5 = $this->env->getExtension("native_profiler");
-        $__internal_f2195b722a22f3835cbafffc40a4eafbf12521d587ec450a966840572996afb5->enter($__internal_f2195b722a22f3835cbafffc40a4eafbf12521d587ec450a966840572996afb5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/index.php"));
+        $__internal_b5b61dcbcc20cdb030efc0e8f54f5db75e8309c5da905fe813a90970e87d7ac1 = $this->env->getExtension("native_profiler");
+        $__internal_b5b61dcbcc20cdb030efc0e8f54f5db75e8309c5da905fe813a90970e87d7ac1->enter($__internal_b5b61dcbcc20cdb030efc0e8f54f5db75e8309c5da905fe813a90970e87d7ac1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/index.php"));
 
         // line 1
         echo "<?php
@@ -89,7 +89,7 @@ if(\$cfg && \$cfg->isKnowledgebaseEnabled()){
 <?php require(CLIENTINC_DIR.'footer.inc.php'); ?>
 ";
         
-        $__internal_f2195b722a22f3835cbafffc40a4eafbf12521d587ec450a966840572996afb5->leave($__internal_f2195b722a22f3835cbafffc40a4eafbf12521d587ec450a966840572996afb5_prof);
+        $__internal_b5b61dcbcc20cdb030efc0e8f54f5db75e8309c5da905fe813a90970e87d7ac1->leave($__internal_b5b61dcbcc20cdb030efc0e8f54f5db75e8309c5da905fe813a90970e87d7ac1_prof);
 
     }
 

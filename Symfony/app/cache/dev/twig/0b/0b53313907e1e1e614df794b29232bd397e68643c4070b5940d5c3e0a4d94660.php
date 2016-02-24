@@ -15,8 +15,8 @@ class __TwigTemplate_b60e5cdc37d5414d36be4837ea7c31d2071ff8c22fb231328ee37e48299
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_d78e937d1fb79de446ece34c1b04305c81728ce70ccac02e3dbf9a7329cf6c83 = $this->env->getExtension("native_profiler");
-        $__internal_d78e937d1fb79de446ece34c1b04305c81728ce70ccac02e3dbf9a7329cf6c83->enter($__internal_d78e937d1fb79de446ece34c1b04305c81728ce70ccac02e3dbf9a7329cf6c83_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.reports.php"));
+        $__internal_1a07a71dcecf00c01b8cede7ab655a04665d7727bd2cfdae3c9fe93f2e66dd24 = $this->env->getExtension("native_profiler");
+        $__internal_1a07a71dcecf00c01b8cede7ab655a04665d7727bd2cfdae3c9fe93f2e66dd24->enter($__internal_1a07a71dcecf00c01b8cede7ab655a04665d7727bd2cfdae3c9fe93f2e66dd24_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.reports.php"));
 
         // line 1
         echo "<?php
@@ -260,7 +260,7 @@ class OverviewReportAjaxAPI extends AjaxController {
 }
 ";
         
-        $__internal_d78e937d1fb79de446ece34c1b04305c81728ce70ccac02e3dbf9a7329cf6c83->leave($__internal_d78e937d1fb79de446ece34c1b04305c81728ce70ccac02e3dbf9a7329cf6c83_prof);
+        $__internal_1a07a71dcecf00c01b8cede7ab655a04665d7727bd2cfdae3c9fe93f2e66dd24->leave($__internal_1a07a71dcecf00c01b8cede7ab655a04665d7727bd2cfdae3c9fe93f2e66dd24_prof);
 
     }
 

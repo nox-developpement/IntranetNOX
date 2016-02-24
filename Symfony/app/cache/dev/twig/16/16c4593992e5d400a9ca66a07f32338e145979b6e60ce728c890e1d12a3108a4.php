@@ -15,8 +15,8 @@ class __TwigTemplate_9fe73eccdb3b7568e1db807a74799b435588579507daa350784cf49d196
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_9efd187dc0e381df1d567b7b4588db183937fbf71f52efb6303b062cd3555b37 = $this->env->getExtension("native_profiler");
-        $__internal_9efd187dc0e381df1d567b7b4588db183937fbf71f52efb6303b062cd3555b37->enter($__internal_9efd187dc0e381df1d567b7b4588db183937fbf71f52efb6303b062cd3555b37_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/js/redactor-fonts.js"));
+        $__internal_8f469ecab7d6c049a944ceb313a8bd78cea8d2a62dc9d1b224ea00f4e3380674 = $this->env->getExtension("native_profiler");
+        $__internal_8f469ecab7d6c049a944ceb313a8bd78cea8d2a62dc9d1b224ea00f4e3380674->enter($__internal_8f469ecab7d6c049a944ceb313a8bd78cea8d2a62dc9d1b224ea00f4e3380674_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/js/redactor-fonts.js"));
 
         // line 1
         echo "if (!RedactorPlugins) var RedactorPlugins = {};
@@ -208,7 +208,7 @@ RedactorPlugins.textdirection = {
 };
 ";
         
-        $__internal_9efd187dc0e381df1d567b7b4588db183937fbf71f52efb6303b062cd3555b37->leave($__internal_9efd187dc0e381df1d567b7b4588db183937fbf71f52efb6303b062cd3555b37_prof);
+        $__internal_8f469ecab7d6c049a944ceb313a8bd78cea8d2a62dc9d1b224ea00f4e3380674->leave($__internal_8f469ecab7d6c049a944ceb313a8bd78cea8d2a62dc9d1b224ea00f4e3380674_prof);
 
     }
 

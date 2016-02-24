@@ -15,8 +15,8 @@ class __TwigTemplate_c486bd220c76e8e78107a8387da51d020e71cc5d93f728776c3b0f154d2
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_7169df6c83366d7ebcda4aa6b72c5700abb52a08cf06c47b073229368af6bfa0 = $this->env->getExtension("native_profiler");
-        $__internal_7169df6c83366d7ebcda4aa6b72c5700abb52a08cf06c47b073229368af6bfa0->enter($__internal_7169df6c83366d7ebcda4aa6b72c5700abb52a08cf06c47b073229368af6bfa0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.error.php"));
+        $__internal_8d427641b864797d5c0520a5f48ca4640ffcfab1d5b69676fb33069d63481e75 = $this->env->getExtension("native_profiler");
+        $__internal_8d427641b864797d5c0520a5f48ca4640ffcfab1d5b69676fb33069d63481e75->enter($__internal_8d427641b864797d5c0520a5f48ca4640ffcfab1d5b69676fb33069d63481e75_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.error.php"));
 
         // line 1
         echo "<?php
@@ -80,7 +80,7 @@ class IOException extends Error {
 ?>
 ";
         
-        $__internal_7169df6c83366d7ebcda4aa6b72c5700abb52a08cf06c47b073229368af6bfa0->leave($__internal_7169df6c83366d7ebcda4aa6b72c5700abb52a08cf06c47b073229368af6bfa0_prof);
+        $__internal_8d427641b864797d5c0520a5f48ca4640ffcfab1d5b69676fb33069d63481e75->leave($__internal_8d427641b864797d5c0520a5f48ca4640ffcfab1d5b69676fb33069d63481e75_prof);
 
     }
 

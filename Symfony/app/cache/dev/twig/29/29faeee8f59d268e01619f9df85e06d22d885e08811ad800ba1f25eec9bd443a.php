@@ -15,8 +15,8 @@ class __TwigTemplate_9a0d7d0f0138f6dadf981c1f97dc04454a685b90514ac36699eb7005f06
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_889ec3316c0503034f77c8edee3a49515c4ee34fefda8a94e3a099fe4d336c93 = $this->env->getExtension("native_profiler");
-        $__internal_889ec3316c0503034f77c8edee3a49515c4ee34fefda8a94e3a099fe4d336c93->enter($__internal_889ec3316c0503034f77c8edee3a49515c4ee34fefda8a94e3a099fe4d336c93_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/email/ticket.activity.notice.yaml"));
+        $__internal_670436be73f905ca94d216d5f787325cc6b8b7811ebe7074a182ed095ce5508d = $this->env->getExtension("native_profiler");
+        $__internal_670436be73f905ca94d216d5f787325cc6b8b7811ebe7074a182ed095ce5508d->enter($__internal_670436be73f905ca94d216d5f787325cc6b8b7811ebe7074a182ed095ce5508d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/email/ticket.activity.notice.yaml"));
 
         // line 1
         echo "#
@@ -49,7 +49,7 @@ body: |
     </div>
 ";
         
-        $__internal_889ec3316c0503034f77c8edee3a49515c4ee34fefda8a94e3a099fe4d336c93->leave($__internal_889ec3316c0503034f77c8edee3a49515c4ee34fefda8a94e3a099fe4d336c93_prof);
+        $__internal_670436be73f905ca94d216d5f787325cc6b8b7811ebe7074a182ed095ce5508d->leave($__internal_670436be73f905ca94d216d5f787325cc6b8b7811ebe7074a182ed095ce5508d_prof);
 
     }
 

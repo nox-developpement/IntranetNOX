@@ -15,8 +15,8 @@ class __TwigTemplate_ee2ce7d63e64fbe1a3184825b610071ac39c2d7683c34e14d0dc9f6e33f
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_47e5f7579e2c6988c26203ea594c8267b5a5b0d74f9226f4c39536bc456db9e3 = $this->env->getExtension("native_profiler");
-        $__internal_47e5f7579e2c6988c26203ea594c8267b5a5b0d74f9226f4c39536bc456db9e3->enter($__internal_47e5f7579e2c6988c26203ea594c8267b5a5b0d74f9226f4c39536bc456db9e3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/org-delete.tmpl.php"));
+        $__internal_bef03c4499451d8a7a3a108b41191129e87fcabf9cf1cab047024c0eae784c19 = $this->env->getExtension("native_profiler");
+        $__internal_bef03c4499451d8a7a3a108b41191129e87fcabf9cf1cab047024c0eae784c19->enter($__internal_bef03c4499451d8a7a3a108b41191129e87fcabf9cf1cab047024c0eae784c19_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/org-delete.tmpl.php"));
 
         // line 1
         echo "<?php
@@ -85,7 +85,7 @@ if (\$info['error']) {
 <div class=\"clear\"></div>
 ";
         
-        $__internal_47e5f7579e2c6988c26203ea594c8267b5a5b0d74f9226f4c39536bc456db9e3->leave($__internal_47e5f7579e2c6988c26203ea594c8267b5a5b0d74f9226f4c39536bc456db9e3_prof);
+        $__internal_bef03c4499451d8a7a3a108b41191129e87fcabf9cf1cab047024c0eae784c19->leave($__internal_bef03c4499451d8a7a3a108b41191129e87fcabf9cf1cab047024c0eae784c19_prof);
 
     }
 

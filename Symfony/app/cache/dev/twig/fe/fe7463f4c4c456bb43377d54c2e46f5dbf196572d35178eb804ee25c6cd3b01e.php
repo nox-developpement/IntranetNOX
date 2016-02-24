@@ -15,8 +15,8 @@ class __TwigTemplate_b56d22ac62922390d338820b7c18a74d837eedf5257a440310c82ae02cf
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_abf972d185ee68205e9c0d6ea867052870eb1db17f20a09ba09d44f5db8a5e8b = $this->env->getExtension("native_profiler");
-        $__internal_abf972d185ee68205e9c0d6ea867052870eb1db17f20a09ba09d44f5db8a5e8b->enter($__internal_abf972d185ee68205e9c0d6ea867052870eb1db17f20a09ba09d44f5db8a5e8b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@FMElfinder/Elfinder/helper/_tinymce4.html.twig"));
+        $__internal_11b1cc26ef1800def828b3bf5781f287a4a43ed6d04bb9931f9e0b0046910eb6 = $this->env->getExtension("native_profiler");
+        $__internal_11b1cc26ef1800def828b3bf5781f287a4a43ed6d04bb9931f9e0b0046910eb6->enter($__internal_11b1cc26ef1800def828b3bf5781f287a4a43ed6d04bb9931f9e0b0046910eb6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@FMElfinder/Elfinder/helper/_tinymce4.html.twig"));
 
         // line 1
         echo "<script type=\"text/javascript\">
@@ -49,7 +49,7 @@ class __TwigTemplate_b56d22ac62922390d338820b7c18a74d837eedf5257a440310c82ae02cf
 </script>
 ";
         
-        $__internal_abf972d185ee68205e9c0d6ea867052870eb1db17f20a09ba09d44f5db8a5e8b->leave($__internal_abf972d185ee68205e9c0d6ea867052870eb1db17f20a09ba09d44f5db8a5e8b_prof);
+        $__internal_11b1cc26ef1800def828b3bf5781f287a4a43ed6d04bb9931f9e0b0046910eb6->leave($__internal_11b1cc26ef1800def828b3bf5781f287a4a43ed6d04bb9931f9e0b0046910eb6_prof);
 
     }
 

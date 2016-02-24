@@ -15,8 +15,8 @@ class __TwigTemplate_22f98e66d1589fa1a084d5a9dcbe5e1f58652e0bb9d541af494657c8efd
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_fd577c1fe59987d3b1d1b1add279185503e18eb350082b9c209dd24cffe34c10 = $this->env->getExtension("native_profiler");
-        $__internal_fd577c1fe59987d3b1d1b1add279185503e18eb350082b9c209dd24cffe34c10->enter($__internal_fd577c1fe59987d3b1d1b1add279185503e18eb350082b9c209dd24cffe34c10_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/settings.pages.yaml"));
+        $__internal_de1d35f576864cba115bb225b525fb0d6ba61603db90fbf28587ebf1b024303b = $this->env->getExtension("native_profiler");
+        $__internal_de1d35f576864cba115bb225b525fb0d6ba61603db90fbf28587ebf1b024303b->enter($__internal_de1d35f576864cba115bb225b525fb0d6ba61603db90fbf28587ebf1b024303b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/settings.pages.yaml"));
 
         // line 1
         echo "#
@@ -83,7 +83,7 @@ upload_a_new_logo:
         image close to the default image size (817px &times; 170px).
 ";
         
-        $__internal_fd577c1fe59987d3b1d1b1add279185503e18eb350082b9c209dd24cffe34c10->leave($__internal_fd577c1fe59987d3b1d1b1add279185503e18eb350082b9c209dd24cffe34c10_prof);
+        $__internal_de1d35f576864cba115bb225b525fb0d6ba61603db90fbf28587ebf1b024303b->leave($__internal_de1d35f576864cba115bb225b525fb0d6ba61603db90fbf28587ebf1b024303b_prof);
 
     }
 

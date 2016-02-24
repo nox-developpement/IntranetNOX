@@ -15,8 +15,8 @@ class __TwigTemplate_eb26cda01064b6f354b4c558293cece4916205c3cb05e01daa3cb4339a3
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_297f50f6d595e3fefb0883e222bc9d113fd092c4b47cedf0c144167b23615574 = $this->env->getExtension("native_profiler");
-        $__internal_297f50f6d595e3fefb0883e222bc9d113fd092c4b47cedf0c144167b23615574->enter($__internal_297f50f6d595e3fefb0883e222bc9d113fd092c4b47cedf0c144167b23615574_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/manage.pages.yaml"));
+        $__internal_42f0204b73d129ca707e9501a8e562f63dc35a50868973fccd0b9801495d9c61 = $this->env->getExtension("native_profiler");
+        $__internal_42f0204b73d129ca707e9501a8e562f63dc35a50868973fccd0b9801495d9c61->enter($__internal_42f0204b73d129ca707e9501a8e562f63dc35a50868973fccd0b9801495d9c61_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/manage.pages.yaml"));
 
         // line 1
         echo "#
@@ -56,7 +56,7 @@ type:
         content management system (CMS).
 ";
         
-        $__internal_297f50f6d595e3fefb0883e222bc9d113fd092c4b47cedf0c144167b23615574->leave($__internal_297f50f6d595e3fefb0883e222bc9d113fd092c4b47cedf0c144167b23615574_prof);
+        $__internal_42f0204b73d129ca707e9501a8e562f63dc35a50868973fccd0b9801495d9c61->leave($__internal_42f0204b73d129ca707e9501a8e562f63dc35a50868973fccd0b9801495d9c61_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_b104f7dd0854be90a4ae6d7a40f342f801ad75c99c5e21c31f723062039
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_da850b6da609d988c1ff62518e0b03300495df6977e390813fd08d9841a419ad = $this->env->getExtension("native_profiler");
-        $__internal_da850b6da609d988c1ff62518e0b03300495df6977e390813fd08d9841a419ad->enter($__internal_da850b6da609d988c1ff62518e0b03300495df6977e390813fd08d9841a419ad_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/helptopics.inc.php"));
+        $__internal_d4f22a79864bb15a7e519e5b4f43b5c59d0882564625585a1b6f415e8d7fa8aa = $this->env->getExtension("native_profiler");
+        $__internal_d4f22a79864bb15a7e519e5b4f43b5c59d0882564625585a1b6f415e8d7fa8aa->enter($__internal_d4f22a79864bb15a7e519e5b4f43b5c59d0882564625585a1b6f415e8d7fa8aa_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/helptopics.inc.php"));
 
         // line 1
         echo "<?php
@@ -196,7 +196,7 @@ endif;
 
 ";
         
-        $__internal_da850b6da609d988c1ff62518e0b03300495df6977e390813fd08d9841a419ad->leave($__internal_da850b6da609d988c1ff62518e0b03300495df6977e390813fd08d9841a419ad_prof);
+        $__internal_d4f22a79864bb15a7e519e5b4f43b5c59d0882564625585a1b6f415e8d7fa8aa->leave($__internal_d4f22a79864bb15a7e519e5b4f43b5c59d0882564625585a1b6f415e8d7fa8aa_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_c5401dd006bf8428f34307bd493424a16a41cb3134de94f52be8597d933
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_c6a03a546cc2953007a16caf90656fa35c60f9a67456e1ebc6d401155a759126 = $this->env->getExtension("native_profiler");
-        $__internal_c6a03a546cc2953007a16caf90656fa35c60f9a67456e1ebc6d401155a759126->enter($__internal_c6a03a546cc2953007a16caf90656fa35c60f9a67456e1ebc6d401155a759126_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/pwreset.php"));
+        $__internal_b19768ff05db1754844a852d7534078c8af0e03d66620f8468f6125a9a2affdc = $this->env->getExtension("native_profiler");
+        $__internal_b19768ff05db1754844a852d7534078c8af0e03d66620f8468f6125a9a2affdc->enter($__internal_b19768ff05db1754844a852d7534078c8af0e03d66620f8468f6125a9a2affdc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/pwreset.php"));
 
         // line 1
         echo "<?php
@@ -107,7 +107,7 @@ define(\"OSTSCPINC\",TRUE); //Make includes happy!
 include_once(INCLUDE_DIR.'staff/'. \$tpl);
 ";
         
-        $__internal_c6a03a546cc2953007a16caf90656fa35c60f9a67456e1ebc6d401155a759126->leave($__internal_c6a03a546cc2953007a16caf90656fa35c60f9a67456e1ebc6d401155a759126_prof);
+        $__internal_b19768ff05db1754844a852d7534078c8af0e03d66620f8468f6125a9a2affdc->leave($__internal_b19768ff05db1754844a852d7534078c8af0e03d66620f8468f6125a9a2affdc_prof);
 
     }
 

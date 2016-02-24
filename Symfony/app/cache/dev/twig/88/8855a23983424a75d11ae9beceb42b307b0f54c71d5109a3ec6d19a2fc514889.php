@@ -15,8 +15,8 @@ class __TwigTemplate_1cc4ab8ffe677eb64c8a1776d9336358b4876b5629d7f1e34c6df92751a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_e4bb5065df071a0248d930b64bbd001a5f5a128efb86db1cdd81609811e7a1ed = $this->env->getExtension("native_profiler");
-        $__internal_e4bb5065df071a0248d930b64bbd001a5f5a128efb86db1cdd81609811e7a1ed->enter($__internal_e4bb5065df071a0248d930b64bbd001a5f5a128efb86db1cdd81609811e7a1ed_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/d51f303a-dad45ca2.task.php"));
+        $__internal_dd537335e2ecb7e27d6e240fb57352d91d863bcc83e0f5b7397f3a32d0a75adb = $this->env->getExtension("native_profiler");
+        $__internal_dd537335e2ecb7e27d6e240fb57352d91d863bcc83e0f5b7397f3a32d0a75adb->enter($__internal_dd537335e2ecb7e27d6e240fb57352d91d863bcc83e0f5b7397f3a32d0a75adb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/d51f303a-dad45ca2.task.php"));
 
         // line 1
         echo "<?php
@@ -54,7 +54,7 @@ return 'NewHtmlTemplate';
 ?>
 ";
         
-        $__internal_e4bb5065df071a0248d930b64bbd001a5f5a128efb86db1cdd81609811e7a1ed->leave($__internal_e4bb5065df071a0248d930b64bbd001a5f5a128efb86db1cdd81609811e7a1ed_prof);
+        $__internal_dd537335e2ecb7e27d6e240fb57352d91d863bcc83e0f5b7397f3a32d0a75adb->leave($__internal_dd537335e2ecb7e27d6e240fb57352d91d863bcc83e0f5b7397f3a32d0a75adb_prof);
 
     }
 

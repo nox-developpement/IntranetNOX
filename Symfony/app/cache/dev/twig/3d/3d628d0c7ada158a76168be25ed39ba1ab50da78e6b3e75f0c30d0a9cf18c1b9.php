@@ -15,8 +15,8 @@ class __TwigTemplate_2bfd1446f95c73a1a73f7ea8196459a77edb912f8e3b8570bcbbdbbcd01
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_3d6dc2d895e2c978ffafd240f838969a44f3acf623b39e9d8e98fdddabda239c = $this->env->getExtension("native_profiler");
-        $__internal_3d6dc2d895e2c978ffafd240f838969a44f3acf623b39e9d8e98fdddabda239c->enter($__internal_3d6dc2d895e2c978ffafd240f838969a44f3acf623b39e9d8e98fdddabda239c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/pwreset.login.php"));
+        $__internal_2ca6bd4e20242c0d0244b75a6a15083c4074e8b3cfa28bc624059ae597b19ff6 = $this->env->getExtension("native_profiler");
+        $__internal_2ca6bd4e20242c0d0244b75a6a15083c4074e8b3cfa28bc624059ae597b19ff6->enter($__internal_2ca6bd4e20242c0d0244b75a6a15083c4074e8b3cfa28bc624059ae597b19ff6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/pwreset.login.php"));
 
         // line 1
         echo "<?php
@@ -46,7 +46,7 @@ if(!defined('OSTCLIENTINC')) die('Access Denied');
 </form>
 ";
         
-        $__internal_3d6dc2d895e2c978ffafd240f838969a44f3acf623b39e9d8e98fdddabda239c->leave($__internal_3d6dc2d895e2c978ffafd240f838969a44f3acf623b39e9d8e98fdddabda239c_prof);
+        $__internal_2ca6bd4e20242c0d0244b75a6a15083c4074e8b3cfa28bc624059ae597b19ff6->leave($__internal_2ca6bd4e20242c0d0244b75a6a15083c4074e8b3cfa28bc624059ae597b19ff6_prof);
 
     }
 

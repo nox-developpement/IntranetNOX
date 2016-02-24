@@ -15,8 +15,8 @@ class __TwigTemplate_6c6279f0a0cd15a505caafaa4b1d1e6e6f2a5ab8229d1f8d12796260155
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b915b5157874533097fe905798eb719158f0c893b6531ff47b54ce1cbc38ecd9 = $this->env->getExtension("native_profiler");
-        $__internal_b915b5157874533097fe905798eb719158f0c893b6531ff47b54ce1cbc38ecd9->enter($__internal_b915b5157874533097fe905798eb719158f0c893b6531ff47b54ce1cbc38ecd9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/categories.inc.php"));
+        $__internal_c26ccf00439aadda9b85c68e893fbffe30d44dc4c538e8d5e6e04bcec6e77482 = $this->env->getExtension("native_profiler");
+        $__internal_c26ccf00439aadda9b85c68e893fbffe30d44dc4c538e8d5e6e04bcec6e77482->enter($__internal_c26ccf00439aadda9b85c68e893fbffe30d44dc4c538e8d5e6e04bcec6e77482_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/categories.inc.php"));
 
         // line 1
         echo "<?php
@@ -169,7 +169,7 @@ endif;
 </div>
 ";
         
-        $__internal_b915b5157874533097fe905798eb719158f0c893b6531ff47b54ce1cbc38ecd9->leave($__internal_b915b5157874533097fe905798eb719158f0c893b6531ff47b54ce1cbc38ecd9_prof);
+        $__internal_c26ccf00439aadda9b85c68e893fbffe30d44dc4c538e8d5e6e04bcec6e77482->leave($__internal_c26ccf00439aadda9b85c68e893fbffe30d44dc4c538e8d5e6e04bcec6e77482_prof);
 
     }
 

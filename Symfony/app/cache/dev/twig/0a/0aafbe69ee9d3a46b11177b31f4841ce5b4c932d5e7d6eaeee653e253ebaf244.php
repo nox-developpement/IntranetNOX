@@ -15,8 +15,8 @@ class __TwigTemplate_fe48cd72dab4ac0d51fee01d4db4ac77db6003584506dbb32af3bb41c4c
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_574e1a4665381f129c29b9be1a05c9779d4240a0b88d56f0af75d91154b167fd = $this->env->getExtension("native_profiler");
-        $__internal_574e1a4665381f129c29b9be1a05c9779d4240a0b88d56f0af75d91154b167fd->enter($__internal_574e1a4665381f129c29b9be1a05c9779d4240a0b88d56f0af75d91154b167fd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/view.inc.php"));
+        $__internal_5e3f132482b6af78d1b0f32a0d25c5898caec4ec429ea839250348f48f552fde = $this->env->getExtension("native_profiler");
+        $__internal_5e3f132482b6af78d1b0f32a0d25c5898caec4ec429ea839250348f48f552fde->enter($__internal_5e3f132482b6af78d1b0f32a0d25c5898caec4ec429ea839250348f48f552fde_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/view.inc.php"));
 
         // line 1
         echo "<?php
@@ -217,7 +217,7 @@ if (!\$ticket->isClosed() || \$ticket->isReopenable()) { ?>
 } ?>
 ";
         
-        $__internal_574e1a4665381f129c29b9be1a05c9779d4240a0b88d56f0af75d91154b167fd->leave($__internal_574e1a4665381f129c29b9be1a05c9779d4240a0b88d56f0af75d91154b167fd_prof);
+        $__internal_5e3f132482b6af78d1b0f32a0d25c5898caec4ec429ea839250348f48f552fde->leave($__internal_5e3f132482b6af78d1b0f32a0d25c5898caec4ec429ea839250348f48f552fde_prof);
 
     }
 

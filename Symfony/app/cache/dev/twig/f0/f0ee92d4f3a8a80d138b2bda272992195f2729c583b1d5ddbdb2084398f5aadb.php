@@ -15,8 +15,8 @@ class __TwigTemplate_b2d88fbbaf72affff56eba20da3c343d3cb7ca0329bca6aac21030a4569
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_4bc37452fc9a62a13eeede66e370e5ba4d2d4d46dc2bd148ea064275603919ab = $this->env->getExtension("native_profiler");
-        $__internal_4bc37452fc9a62a13eeede66e370e5ba4d2d4d46dc2bd148ea064275603919ab->enter($__internal_4bc37452fc9a62a13eeede66e370e5ba4d2d4d46dc2bd148ea064275603919ab_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/8f99b8bf-03ff59bf.cleanup.sql"));
+        $__internal_1c4c0ae656fc8b93cd2a6c6946ba72a1b835c5b16657708217c2ac5abf7fc2f6 = $this->env->getExtension("native_profiler");
+        $__internal_1c4c0ae656fc8b93cd2a6c6946ba72a1b835c5b16657708217c2ac5abf7fc2f6->enter($__internal_1c4c0ae656fc8b93cd2a6c6946ba72a1b835c5b16657708217c2ac5abf7fc2f6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/8f99b8bf-03ff59bf.cleanup.sql"));
 
         // line 1
         echo "DELETE FROM `%TABLE_PREFIX%config`
@@ -31,7 +31,7 @@ DROP TABLE `%TABLE_PREFIX%ticket__cdata`;
 OPTIMIZE TABLE `%TABLE_PREFIX%ticket`;
 ";
         
-        $__internal_4bc37452fc9a62a13eeede66e370e5ba4d2d4d46dc2bd148ea064275603919ab->leave($__internal_4bc37452fc9a62a13eeede66e370e5ba4d2d4d46dc2bd148ea064275603919ab_prof);
+        $__internal_1c4c0ae656fc8b93cd2a6c6946ba72a1b835c5b16657708217c2ac5abf7fc2f6->leave($__internal_1c4c0ae656fc8b93cd2a6c6946ba72a1b835c5b16657708217c2ac5abf7fc2f6_prof);
 
     }
 

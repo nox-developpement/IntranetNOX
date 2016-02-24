@@ -15,8 +15,8 @@ class __TwigTemplate_59f9a7f158e395b35dcdc1f9f75af990d1ac2277d56f87339bf6c81d98c
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_4c7eb2ad774036d6dcd1fa0cc67e1d19379841a5c8ce7398e7463dc7cee096fa = $this->env->getExtension("native_profiler");
-        $__internal_4c7eb2ad774036d6dcd1fa0cc67e1d19379841a5c8ce7398e7463dc7cee096fa->enter($__internal_4c7eb2ad774036d6dcd1fa0cc67e1d19379841a5c8ce7398e7463dc7cee096fa_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/settings-emails.inc.php"));
+        $__internal_35cfb060b118f8a0858dc79e91ffd6f08a713f5f4e42c8a5d4fdba03d56f011e = $this->env->getExtension("native_profiler");
+        $__internal_35cfb060b118f8a0858dc79e91ffd6f08a713f5f4e42c8a5d4fdba03d56f011e->enter($__internal_35cfb060b118f8a0858dc79e91ffd6f08a713f5f4e42c8a5d4fdba03d56f011e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/settings-emails.inc.php"));
 
         // line 1
         echo "<?php
@@ -200,7 +200,7 @@ if(!defined('OSTADMININC') || !\$thisstaff || !\$thisstaff->isAdmin() || !\$conf
 </form>
 ";
         
-        $__internal_4c7eb2ad774036d6dcd1fa0cc67e1d19379841a5c8ce7398e7463dc7cee096fa->leave($__internal_4c7eb2ad774036d6dcd1fa0cc67e1d19379841a5c8ce7398e7463dc7cee096fa_prof);
+        $__internal_35cfb060b118f8a0858dc79e91ffd6f08a713f5f4e42c8a5d4fdba03d56f011e->leave($__internal_35cfb060b118f8a0858dc79e91ffd6f08a713f5f4e42c8a5d4fdba03d56f011e_prof);
 
     }
 

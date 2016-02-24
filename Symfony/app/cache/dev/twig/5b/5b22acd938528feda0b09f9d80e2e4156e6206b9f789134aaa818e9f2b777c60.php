@@ -15,8 +15,8 @@ class __TwigTemplate_4b0fc07299b17ea9b7998fa41d92a6f8c53aa04f1f551681015421dfd3b
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_5da1a026699ae7f9e0b5a2610de6c1d4c35daec7699c68dd55430e750ddf78f0 = $this->env->getExtension("native_profiler");
-        $__internal_5da1a026699ae7f9e0b5a2610de6c1d4c35daec7699c68dd55430e750ddf78f0->enter($__internal_5da1a026699ae7f9e0b5a2610de6c1d4c35daec7699c68dd55430e750ddf78f0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/login.inc.php"));
+        $__internal_9a763756b156c37b7a07d899c816467865c651ba1942b4c50852303eec4a4554 = $this->env->getExtension("native_profiler");
+        $__internal_9a763756b156c37b7a07d899c816467865c651ba1942b4c50852303eec4a4554->enter($__internal_9a763756b156c37b7a07d899c816467865c651ba1942b4c50852303eec4a4554_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/login.inc.php"));
 
         // line 1
         echo "<?php
@@ -91,7 +91,7 @@ if (\$cfg && \$cfg->isClientRegistrationEnabled()) {
 </p>
 ";
         
-        $__internal_5da1a026699ae7f9e0b5a2610de6c1d4c35daec7699c68dd55430e750ddf78f0->leave($__internal_5da1a026699ae7f9e0b5a2610de6c1d4c35daec7699c68dd55430e750ddf78f0_prof);
+        $__internal_9a763756b156c37b7a07d899c816467865c651ba1942b4c50852303eec4a4554->leave($__internal_9a763756b156c37b7a07d899c816467865c651ba1942b4c50852303eec4a4554_prof);
 
     }
 

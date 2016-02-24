@@ -15,8 +15,8 @@ class __TwigTemplate_e8cc847b9755a56f35a78f1a97bf971dd28ff88d3edc2b9c2967d4aefc4
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_cad18a0452eb251d439314c6c6ba3c1bbdb20cc58fea34dd794f3cdfd56aab84 = $this->env->getExtension("native_profiler");
-        $__internal_cad18a0452eb251d439314c6c6ba3c1bbdb20cc58fea34dd794f3cdfd56aab84->enter($__internal_cad18a0452eb251d439314c6c6ba3c1bbdb20cc58fea34dd794f3cdfd56aab84_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.draft.php"));
+        $__internal_540d8f82fb65f76150246432d6091798080d614af7187f93b6ccfc05044c1dd5 = $this->env->getExtension("native_profiler");
+        $__internal_540d8f82fb65f76150246432d6091798080d614af7187f93b6ccfc05044c1dd5->enter($__internal_540d8f82fb65f76150246432d6091798080d614af7187f93b6ccfc05044c1dd5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.draft.php"));
 
         // line 1
         echo "<?php
@@ -186,7 +186,7 @@ class Draft {
 ?>
 ";
         
-        $__internal_cad18a0452eb251d439314c6c6ba3c1bbdb20cc58fea34dd794f3cdfd56aab84->leave($__internal_cad18a0452eb251d439314c6c6ba3c1bbdb20cc58fea34dd794f3cdfd56aab84_prof);
+        $__internal_540d8f82fb65f76150246432d6091798080d614af7187f93b6ccfc05044c1dd5->leave($__internal_540d8f82fb65f76150246432d6091798080d614af7187f93b6ccfc05044c1dd5_prof);
 
     }
 

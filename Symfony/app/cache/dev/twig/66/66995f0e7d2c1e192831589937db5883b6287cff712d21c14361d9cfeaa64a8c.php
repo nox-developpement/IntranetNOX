@@ -15,8 +15,8 @@ class __TwigTemplate_f62994331f0407f3da51087c0336cf0273fe60cae34c7425b2f57b8dc0d
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_ddb56d776924dc871501b29b33a68f7df136f0d293ea65466028c3b7843b0b62 = $this->env->getExtension("native_profiler");
-        $__internal_ddb56d776924dc871501b29b33a68f7df136f0d293ea65466028c3b7843b0b62->enter($__internal_ddb56d776924dc871501b29b33a68f7df136f0d293ea65466028c3b7843b0b62_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "FMElfinderBundle:Elfinder:summernote.html.twig"));
+        $__internal_0f07ce9c417ba5c9f1666b2899d7ac7ca451f0a2b3d04e24f99a729c9bf263e0 = $this->env->getExtension("native_profiler");
+        $__internal_0f07ce9c417ba5c9f1666b2899d7ac7ca451f0a2b3d04e24f99a729c9bf263e0->enter($__internal_0f07ce9c417ba5c9f1666b2899d7ac7ca451f0a2b3d04e24f99a729c9bf263e0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "FMElfinderBundle:Elfinder:summernote.html.twig"));
 
         // line 1
         echo "<!DOCTYPE html>
@@ -66,7 +66,7 @@ class __TwigTemplate_f62994331f0407f3da51087c0336cf0273fe60cae34c7425b2f57b8dc0d
 </html>
 ";
         
-        $__internal_ddb56d776924dc871501b29b33a68f7df136f0d293ea65466028c3b7843b0b62->leave($__internal_ddb56d776924dc871501b29b33a68f7df136f0d293ea65466028c3b7843b0b62_prof);
+        $__internal_0f07ce9c417ba5c9f1666b2899d7ac7ca451f0a2b3d04e24f99a729c9bf263e0->leave($__internal_0f07ce9c417ba5c9f1666b2899d7ac7ca451f0a2b3d04e24f99a729c9bf263e0_prof);
 
     }
 

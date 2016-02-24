@@ -15,8 +15,8 @@ class __TwigTemplate_0ab7ba4957a70e27bd4cd9895c2e421c8c90e5f7911347746e059929cde
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_f4b012468afb5d0dcf6c20cb3c3ce6b76e709dfaf050f8ad98db5537227b3fa7 = $this->env->getExtension("native_profiler");
-        $__internal_f4b012468afb5d0dcf6c20cb3c3ce6b76e709dfaf050f8ad98db5537227b3fa7->enter($__internal_f4b012468afb5d0dcf6c20cb3c3ce6b76e709dfaf050f8ad98db5537227b3fa7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/settings.email.yaml"));
+        $__internal_cee000b88e136d3ecc744222b702442b78136c7233766fa156ff0740a79fe10e = $this->env->getExtension("native_profiler");
+        $__internal_cee000b88e136d3ecc744222b702442b78136c7233766fa156ff0740a79fe10e->enter($__internal_cee000b88e136d3ecc744222b702442b78136c7233766fa156ff0740a79fe10e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/settings.email.yaml"));
 
         // line 1
         echo "#
@@ -154,7 +154,7 @@ verify_email_addrs:
         checking the email address wellformedness.
 ";
         
-        $__internal_f4b012468afb5d0dcf6c20cb3c3ce6b76e709dfaf050f8ad98db5537227b3fa7->leave($__internal_f4b012468afb5d0dcf6c20cb3c3ce6b76e709dfaf050f8ad98db5537227b3fa7_prof);
+        $__internal_cee000b88e136d3ecc744222b702442b78136c7233766fa156ff0740a79fe10e->leave($__internal_cee000b88e136d3ecc744222b702442b78136c7233766fa156ff0740a79fe10e_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_f177830a4db74df1597b2b571397e77f19e7ee52a8250066053decae963
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_ceb4ec6c52d9319bcf9539affa03b0e443ead719503d58d24a258cb0f27aa203 = $this->env->getExtension("native_profiler");
-        $__internal_ceb4ec6c52d9319bcf9539affa03b0e443ead719503d58d24a258cb0f27aa203->enter($__internal_ceb4ec6c52d9319bcf9539affa03b0e443ead719503d58d24a258cb0f27aa203_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/faq.inc.php"));
+        $__internal_dc7b7a8702903b3ab17748e54ffbd65747147492235998ae19a885cc129f6d9d = $this->env->getExtension("native_profiler");
+        $__internal_dc7b7a8702903b3ab17748e54ffbd65747147492235998ae19a885cc129f6d9d->enter($__internal_dc7b7a8702903b3ab17748e54ffbd65747147492235998ae19a885cc129f6d9d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/faq.inc.php"));
 
         // line 1
         echo "<?php
@@ -177,7 +177,7 @@ if(\$faq){
 </form>
 ";
         
-        $__internal_ceb4ec6c52d9319bcf9539affa03b0e443ead719503d58d24a258cb0f27aa203->leave($__internal_ceb4ec6c52d9319bcf9539affa03b0e443ead719503d58d24a258cb0f27aa203_prof);
+        $__internal_dc7b7a8702903b3ab17748e54ffbd65747147492235998ae19a885cc129f6d9d->leave($__internal_dc7b7a8702903b3ab17748e54ffbd65747147492235998ae19a885cc129f6d9d_prof);
 
     }
 

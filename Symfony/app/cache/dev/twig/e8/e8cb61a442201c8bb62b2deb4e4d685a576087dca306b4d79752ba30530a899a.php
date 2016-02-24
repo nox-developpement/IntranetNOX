@@ -15,8 +15,8 @@ class __TwigTemplate_d86b99b65bb8b03b83e0789c8c162f8e70ffa99cbf513bed191da94571c
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_3d68e411f3744f7552108a2e73c04415a9fa79201235001eb4b378cadb89907d = $this->env->getExtension("native_profiler");
-        $__internal_3d68e411f3744f7552108a2e73c04415a9fa79201235001eb4b378cadb89907d->enter($__internal_3d68e411f3744f7552108a2e73c04415a9fa79201235001eb4b378cadb89907d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/logo.php"));
+        $__internal_c78381f494e154cbf167b842b6c6870a8a53f0dda03e25740b0c0fd2b14c3acb = $this->env->getExtension("native_profiler");
+        $__internal_c78381f494e154cbf167b842b6c6870a8a53f0dda03e25740b0c0fd2b14c3acb->enter($__internal_c78381f494e154cbf167b842b6c6870a8a53f0dda03e25740b0c0fd2b14c3acb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/logo.php"));
 
         // line 1
         echo "<?php
@@ -53,7 +53,7 @@ if ((\$logo = \$ost->getConfig()->getClientLogo())) {
 ?>
 ";
         
-        $__internal_3d68e411f3744f7552108a2e73c04415a9fa79201235001eb4b378cadb89907d->leave($__internal_3d68e411f3744f7552108a2e73c04415a9fa79201235001eb4b378cadb89907d_prof);
+        $__internal_c78381f494e154cbf167b842b6c6870a8a53f0dda03e25740b0c0fd2b14c3acb->leave($__internal_c78381f494e154cbf167b842b6c6870a8a53f0dda03e25740b0c0fd2b14c3acb_prof);
 
     }
 

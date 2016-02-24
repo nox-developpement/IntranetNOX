@@ -15,8 +15,8 @@ class __TwigTemplate_e03ee634422a92f97d11507a697cd0bb73f79e1827dbfae64dd78a844ba
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_56cd2304c8d1b5ea7632e2be47123ad7260cc2f365d7310b275f163d56c579bb = $this->env->getExtension("native_profiler");
-        $__internal_56cd2304c8d1b5ea7632e2be47123ad7260cc2f365d7310b275f163d56c579bb->enter($__internal_56cd2304c8d1b5ea7632e2be47123ad7260cc2f365d7310b275f163d56c579bb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/notes.tmpl.php"));
+        $__internal_efb0ac2e42cfee4dff5492bbea895a464e99164eea4a633f704ccccdf056a141 = $this->env->getExtension("native_profiler");
+        $__internal_efb0ac2e42cfee4dff5492bbea895a464e99164eea4a633f704ccccdf056a141->enter($__internal_efb0ac2e42cfee4dff5492bbea895a464e99164eea4a633f704ccccdf056a141_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/notes.tmpl.php"));
 
         // line 1
         echo "<div id=\"quick-notes\">
@@ -36,7 +36,7 @@ foreach (\$notes as \$note) {
 </div>
 ";
         
-        $__internal_56cd2304c8d1b5ea7632e2be47123ad7260cc2f365d7310b275f163d56c579bb->leave($__internal_56cd2304c8d1b5ea7632e2be47123ad7260cc2f365d7310b275f163d56c579bb_prof);
+        $__internal_efb0ac2e42cfee4dff5492bbea895a464e99164eea4a633f704ccccdf056a141->leave($__internal_efb0ac2e42cfee4dff5492bbea895a464e99164eea4a633f704ccccdf056a141_prof);
 
     }
 

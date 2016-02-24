@@ -15,8 +15,8 @@ class __TwigTemplate_d33e4d93120bcf7f64c7aa9434b1582776f5ce464ff5ab39fefbaa77363
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_cfa4775b7dc8c933cdca3f572ba72102e127ac4a5deb22dd0ee952c5ee49013d = $this->env->getExtension("native_profiler");
-        $__internal_cfa4775b7dc8c933cdca3f572ba72102e127ac4a5deb22dd0ee952c5ee49013d->enter($__internal_cfa4775b7dc8c933cdca3f572ba72102e127ac4a5deb22dd0ee952c5ee49013d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/staff.yaml"));
+        $__internal_df4e72cefc27b3f01a3f01bd3ed5e6b8d75976d9a138f1e47375ede67f164c83 = $this->env->getExtension("native_profiler");
+        $__internal_df4e72cefc27b3f01a3f01bd3ed5e6b8d75976d9a138f1e47375ede67f164c83->enter($__internal_df4e72cefc27b3f01a3f01bd3ed5e6b8d75976d9a138f1e47375ede67f164c83_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/staff.yaml"));
 
         // line 1
         echo "#
@@ -56,7 +56,7 @@ notes:
         staff whose account type is Admin
 ";
         
-        $__internal_cfa4775b7dc8c933cdca3f572ba72102e127ac4a5deb22dd0ee952c5ee49013d->leave($__internal_cfa4775b7dc8c933cdca3f572ba72102e127ac4a5deb22dd0ee952c5ee49013d_prof);
+        $__internal_df4e72cefc27b3f01a3f01bd3ed5e6b8d75976d9a138f1e47375ede67f164c83->leave($__internal_df4e72cefc27b3f01a3f01bd3ed5e6b8d75976d9a138f1e47375ede67f164c83_prof);
 
     }
 

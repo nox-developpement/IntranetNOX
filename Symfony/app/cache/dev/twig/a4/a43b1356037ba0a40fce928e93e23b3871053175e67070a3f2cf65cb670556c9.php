@@ -15,8 +15,8 @@ class __TwigTemplate_45dc57e6d8f129bace9dad852574b30e0025ae9d1c218474d5407108357
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_1e26f08eab5130fe00e89258abe7db56d54b65e7e814ae651eba5febb6e96cda = $this->env->getExtension("native_profiler");
-        $__internal_1e26f08eab5130fe00e89258abe7db56d54b65e7e814ae651eba5febb6e96cda->enter($__internal_1e26f08eab5130fe00e89258abe7db56d54b65e7e814ae651eba5febb6e96cda_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/logout.php"));
+        $__internal_6215b4cb9e3d1aba13303539f912b790214df46114a44c2d46c1482760e9bae3 = $this->env->getExtension("native_profiler");
+        $__internal_6215b4cb9e3d1aba13303539f912b790214df46114a44c2d46c1482760e9bae3->enter($__internal_6215b4cb9e3d1aba13303539f912b790214df46114a44c2d46c1482760e9bae3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/logout.php"));
 
         // line 1
         echo "<?php
@@ -59,7 +59,7 @@ require('login.php');
 ?>
 ";
         
-        $__internal_1e26f08eab5130fe00e89258abe7db56d54b65e7e814ae651eba5febb6e96cda->leave($__internal_1e26f08eab5130fe00e89258abe7db56d54b65e7e814ae651eba5febb6e96cda_prof);
+        $__internal_6215b4cb9e3d1aba13303539f912b790214df46114a44c2d46c1482760e9bae3->leave($__internal_6215b4cb9e3d1aba13303539f912b790214df46114a44c2d46c1482760e9bae3_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_1ff5357a73386db91cbc8a8abcd0bcb07c6ea8b8778be5fca36ffb58a83
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_95dfbb22916a1c8a9117a8c0dae4eb1c7731e8dfc6d4c8613a6fec3ef597d8f7 = $this->env->getExtension("native_profiler");
-        $__internal_95dfbb22916a1c8a9117a8c0dae4eb1c7731e8dfc6d4c8613a6fec3ef597d8f7->enter($__internal_95dfbb22916a1c8a9117a8c0dae4eb1c7731e8dfc6d4c8613a6fec3ef597d8f7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/user-delete.tmpl.php"));
+        $__internal_e4d2bd62473e5c34b26a4aa0363ac4657e0075b4208ed8c54080c9f780fce997 = $this->env->getExtension("native_profiler");
+        $__internal_e4d2bd62473e5c34b26a4aa0363ac4657e0075b4208ed8c54080c9f780fce997->enter($__internal_e4d2bd62473e5c34b26a4aa0363ac4657e0075b4208ed8c54080c9f780fce997_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/user-delete.tmpl.php"));
 
         // line 1
         echo "<?php
@@ -116,7 +116,7 @@ if (\$info['error']) {
 </script>
 ";
         
-        $__internal_95dfbb22916a1c8a9117a8c0dae4eb1c7731e8dfc6d4c8613a6fec3ef597d8f7->leave($__internal_95dfbb22916a1c8a9117a8c0dae4eb1c7731e8dfc6d4c8613a6fec3ef597d8f7_prof);
+        $__internal_e4d2bd62473e5c34b26a4aa0363ac4657e0075b4208ed8c54080c9f780fce997->leave($__internal_e4d2bd62473e5c34b26a4aa0363ac4657e0075b4208ed8c54080c9f780fce997_prof);
 
     }
 

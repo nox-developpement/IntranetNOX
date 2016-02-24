@@ -15,8 +15,8 @@ class __TwigTemplate_95b59ae6377c1e65bc42402b8ee26afc5044fdcffb1ded1c2026dbeaad3
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_7c351b2d19cd102e446c0a77619b3fe5f992847622fcb7b8b29269cd05e777d6 = $this->env->getExtension("native_profiler");
-        $__internal_7c351b2d19cd102e446c0a77619b3fe5f992847622fcb7b8b29269cd05e777d6->enter($__internal_7c351b2d19cd102e446c0a77619b3fe5f992847622fcb7b8b29269cd05e777d6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/pwreset.php"));
+        $__internal_0f22e3a362df4bf80bc7553363d284867f7a66bb2bec419c18d3a2c40a18ba29 = $this->env->getExtension("native_profiler");
+        $__internal_0f22e3a362df4bf80bc7553363d284867f7a66bb2bec419c18d3a2c40a18ba29->enter($__internal_0f22e3a362df4bf80bc7553363d284867f7a66bb2bec419c18d3a2c40a18ba29_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/pwreset.php"));
 
         // line 1
         echo "<?php
@@ -49,7 +49,7 @@ defined('OSTSCPINC') or die('Invalid path');
 </html>
 ";
         
-        $__internal_7c351b2d19cd102e446c0a77619b3fe5f992847622fcb7b8b29269cd05e777d6->leave($__internal_7c351b2d19cd102e446c0a77619b3fe5f992847622fcb7b8b29269cd05e777d6_prof);
+        $__internal_0f22e3a362df4bf80bc7553363d284867f7a66bb2bec419c18d3a2c40a18ba29->leave($__internal_0f22e3a362df4bf80bc7553363d284867f7a66bb2bec419c18d3a2c40a18ba29_prof);
 
     }
 

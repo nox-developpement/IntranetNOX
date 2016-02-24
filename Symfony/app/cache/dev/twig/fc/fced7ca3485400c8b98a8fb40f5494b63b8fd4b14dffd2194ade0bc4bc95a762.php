@@ -15,8 +15,8 @@ class __TwigTemplate_334e22fb788476c9fcedb2c7620c11da88f832536c8f50a8f92c4b6a959
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_03564c5af978cc5af39bf0108becff7cce19b92dff2925a160b17b553852e2ef = $this->env->getExtension("native_profiler");
-        $__internal_03564c5af978cc5af39bf0108becff7cce19b92dff2925a160b17b553852e2ef->enter($__internal_03564c5af978cc5af39bf0108becff7cce19b92dff2925a160b17b553852e2ef_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/ticket-status.tmpl.php"));
+        $__internal_a0d57451d2dac1e1c6d912fc5a0ffe50d10af0aef62df3f313b1a1c80f873b74 = $this->env->getExtension("native_profiler");
+        $__internal_a0d57451d2dac1e1c6d912fc5a0ffe50d10af0aef62df3f313b1a1c80f873b74->enter($__internal_a0d57451d2dac1e1c6d912fc5a0ffe50d10af0aef62df3f313b1a1c80f873b74_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/ticket-status.tmpl.php"));
 
         // line 1
         echo "<?php
@@ -142,7 +142,7 @@ if (\$info['error']) {
 </script>
 ";
         
-        $__internal_03564c5af978cc5af39bf0108becff7cce19b92dff2925a160b17b553852e2ef->leave($__internal_03564c5af978cc5af39bf0108becff7cce19b92dff2925a160b17b553852e2ef_prof);
+        $__internal_a0d57451d2dac1e1c6d912fc5a0ffe50d10af0aef62df3f313b1a1c80f873b74->leave($__internal_a0d57451d2dac1e1c6d912fc5a0ffe50d10af0aef62df3f313b1a1c80f873b74_prof);
 
     }
 

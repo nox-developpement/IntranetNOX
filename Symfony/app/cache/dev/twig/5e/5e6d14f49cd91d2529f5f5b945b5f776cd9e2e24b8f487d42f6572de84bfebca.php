@@ -15,8 +15,8 @@ class __TwigTemplate_e96d6d3d6a79ba16abdd6646477dcc6eb94d9c9e9a63baec3dbd214f5f7
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b307e276b2a132c90fae73407635d770dc6eb93b608737ae86c0f567c2910fd2 = $this->env->getExtension("native_profiler");
-        $__internal_b307e276b2a132c90fae73407635d770dc6eb93b608737ae86c0f567c2910fd2->enter($__internal_b307e276b2a132c90fae73407635d770dc6eb93b608737ae86c0f567c2910fd2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/plugins.inc.php"));
+        $__internal_947b93d66038084f3d413fc7bb96b64fd9ec66bac25a5414a46b9dedbf885c9d = $this->env->getExtension("native_profiler");
+        $__internal_947b93d66038084f3d413fc7bb96b64fd9ec66bac25a5414a46b9dedbf885c9d->enter($__internal_947b93d66038084f3d413fc7bb96b64fd9ec66bac25a5414a46b9dedbf885c9d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/plugins.inc.php"));
 
         // line 1
         echo "<div class=\"pull-left\" style=\"width:700;padding-top:5px;\">
@@ -126,7 +126,7 @@ if (\$count) //Show options..
 </div>
 ";
         
-        $__internal_b307e276b2a132c90fae73407635d770dc6eb93b608737ae86c0f567c2910fd2->leave($__internal_b307e276b2a132c90fae73407635d770dc6eb93b608737ae86c0f567c2910fd2_prof);
+        $__internal_947b93d66038084f3d413fc7bb96b64fd9ec66bac25a5414a46b9dedbf885c9d->leave($__internal_947b93d66038084f3d413fc7bb96b64fd9ec66bac25a5414a46b9dedbf885c9d_prof);
 
     }
 

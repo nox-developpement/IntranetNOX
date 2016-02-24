@@ -15,8 +15,8 @@ class __TwigTemplate_91f56ba7ec9c8a08bb6eb2873f8af31f5f29f79d869005abff6e85f1db5
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_0f689e194b720469b1efd7ed86b4c8eed246a0f8d4da86dd382a231321ffa99f = $this->env->getExtension("native_profiler");
-        $__internal_0f689e194b720469b1efd7ed86b4c8eed246a0f8d4da86dd382a231321ffa99f->enter($__internal_0f689e194b720469b1efd7ed86b4c8eed246a0f8d4da86dd382a231321ffa99f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/content-manage.tmpl.php"));
+        $__internal_3fe5947bb0a19d9ba38f5ddbfd24a3896b695cd8f28bf90e0d50299b404797a2 = $this->env->getExtension("native_profiler");
+        $__internal_3fe5947bb0a19d9ba38f5ddbfd24a3896b695cd8f28bf90e0d50299b404797a2->enter($__internal_3fe5947bb0a19d9ba38f5ddbfd24a3896b695cd8f28bf90e0d50299b404797a2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/content-manage.tmpl.php"));
 
         // line 1
         echo "<h3><?php echo __('Manage Content'); ?> &mdash; <?php echo Format::htmlchars(\$content->getName()); ?></h3>
@@ -55,7 +55,7 @@ echo \$content->getNotes(); ?></div>
 <div class=\"clear\"></div>
 ";
         
-        $__internal_0f689e194b720469b1efd7ed86b4c8eed246a0f8d4da86dd382a231321ffa99f->leave($__internal_0f689e194b720469b1efd7ed86b4c8eed246a0f8d4da86dd382a231321ffa99f_prof);
+        $__internal_3fe5947bb0a19d9ba38f5ddbfd24a3896b695cd8f28bf90e0d50299b404797a2->leave($__internal_3fe5947bb0a19d9ba38f5ddbfd24a3896b695cd8f28bf90e0d50299b404797a2_prof);
 
     }
 

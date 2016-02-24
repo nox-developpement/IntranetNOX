@@ -15,8 +15,8 @@ class __TwigTemplate_20f3ac45f1ba7ad4a4d469f26b7431923e0c553ff657b950f03fc4b47fe
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_31fcef7cf2fe94b3dcfc6a62cf4d56b5791039376168d5ae47c61ad4cba7ff35 = $this->env->getExtension("native_profiler");
-        $__internal_31fcef7cf2fe94b3dcfc6a62cf4d56b5791039376168d5ae47c61ad4cba7ff35->enter($__internal_31fcef7cf2fe94b3dcfc6a62cf4d56b5791039376168d5ae47c61ad4cba7ff35_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/email.inc.php"));
+        $__internal_26a78cc6562dce8f9668d7c6161807e350e1775f155bbd93683e1fac212ff2a3 = $this->env->getExtension("native_profiler");
+        $__internal_26a78cc6562dce8f9668d7c6161807e350e1775f155bbd93683e1fac212ff2a3->enter($__internal_26a78cc6562dce8f9668d7c6161807e350e1775f155bbd93683e1fac212ff2a3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/email.inc.php"));
 
         // line 1
         echo "<?php
@@ -358,7 +358,7 @@ if(\$email && \$_REQUEST['a']!='add'){
 </form>
 ";
         
-        $__internal_31fcef7cf2fe94b3dcfc6a62cf4d56b5791039376168d5ae47c61ad4cba7ff35->leave($__internal_31fcef7cf2fe94b3dcfc6a62cf4d56b5791039376168d5ae47c61ad4cba7ff35_prof);
+        $__internal_26a78cc6562dce8f9668d7c6161807e350e1775f155bbd93683e1fac212ff2a3->leave($__internal_26a78cc6562dce8f9668d7c6161807e350e1775f155bbd93683e1fac212ff2a3_prof);
 
     }
 

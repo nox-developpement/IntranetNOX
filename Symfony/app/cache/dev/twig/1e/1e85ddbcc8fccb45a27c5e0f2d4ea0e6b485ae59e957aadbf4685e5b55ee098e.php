@@ -15,8 +15,8 @@ class __TwigTemplate_983c7f85c67f5822ce3a0693e1594beca534232c8db3a4471dc9f474790
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_a9b4938a8b89242e947c045e4d9cd693f2404e004a6e102dcbeb61bf733cc967 = $this->env->getExtension("native_profiler");
-        $__internal_a9b4938a8b89242e947c045e4d9cd693f2404e004a6e102dcbeb61bf733cc967->enter($__internal_a9b4938a8b89242e947c045e4d9cd693f2404e004a6e102dcbeb61bf733cc967_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/dashboard.my_profile.yaml"));
+        $__internal_c977da00537b7ddac7800b35b678076a05d269a8c431c13818f77b966a7c33c1 = $this->env->getExtension("native_profiler");
+        $__internal_c977da00537b7ddac7800b35b678076a05d269a8c431c13818f77b966a7c33c1->enter($__internal_c977da00537b7ddac7800b35b678076a05d269a8c431c13818f77b966a7c33c1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/dashboard.my_profile.yaml"));
 
         // line 1
         echo "#
@@ -109,7 +109,7 @@ signature:
         href: /scp/templates.php
 ";
         
-        $__internal_a9b4938a8b89242e947c045e4d9cd693f2404e004a6e102dcbeb61bf733cc967->leave($__internal_a9b4938a8b89242e947c045e4d9cd693f2404e004a6e102dcbeb61bf733cc967_prof);
+        $__internal_c977da00537b7ddac7800b35b678076a05d269a8c431c13818f77b966a7c33c1->leave($__internal_c977da00537b7ddac7800b35b678076a05d269a8c431c13818f77b966a7c33c1_prof);
 
     }
 

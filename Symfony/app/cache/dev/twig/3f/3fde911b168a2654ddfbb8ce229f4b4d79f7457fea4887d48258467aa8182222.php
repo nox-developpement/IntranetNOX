@@ -15,8 +15,8 @@ class __TwigTemplate_d1bbc7db4f3b58dfdd32bcb8387f84f483b022229b7a0a0e08f401142a5
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_2201398cc0c6985dcf958732b4100032f217c4de93113fb919f73050cffdcf36 = $this->env->getExtension("native_profiler");
-        $__internal_2201398cc0c6985dcf958732b4100032f217c4de93113fb919f73050cffdcf36->enter($__internal_2201398cc0c6985dcf958732b4100032f217c4de93113fb919f73050cffdcf36_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/banlist.php"));
+        $__internal_e0e3a1bd357bca987ebabca73be7009ac51eb976d76d2d5eb9dc1b73203fdabe = $this->env->getExtension("native_profiler");
+        $__internal_e0e3a1bd357bca987ebabca73be7009ac51eb976d76d2d5eb9dc1b73203fdabe->enter($__internal_e0e3a1bd357bca987ebabca73be7009ac51eb976d76d2d5eb9dc1b73203fdabe_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/banlist.php"));
 
         // line 1
         echo "<?php
@@ -166,7 +166,7 @@ include(STAFFINC_DIR.'footer.inc.php');
 ?>
 ";
         
-        $__internal_2201398cc0c6985dcf958732b4100032f217c4de93113fb919f73050cffdcf36->leave($__internal_2201398cc0c6985dcf958732b4100032f217c4de93113fb919f73050cffdcf36_prof);
+        $__internal_e0e3a1bd357bca987ebabca73be7009ac51eb976d76d2d5eb9dc1b73203fdabe->leave($__internal_e0e3a1bd357bca987ebabca73be7009ac51eb976d76d2d5eb9dc1b73203fdabe_prof);
 
     }
 

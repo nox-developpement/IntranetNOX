@@ -15,8 +15,8 @@ class __TwigTemplate_eee18cfe058adc6972c8b38627e96e316c6d0ed4943d7ce231a19acb284
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_fca4dd37582c4290a44215d2a7ea23a5a73d263926ff88441cac570785bcc9de = $this->env->getExtension("native_profiler");
-        $__internal_fca4dd37582c4290a44215d2a7ea23a5a73d263926ff88441cac570785bcc9de->enter($__internal_fca4dd37582c4290a44215d2a7ea23a5a73d263926ff88441cac570785bcc9de_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/faq-category.inc.php"));
+        $__internal_98cc1e54f4562ccb0b0b11d7cefc4bd0a5099e664f7e4f2b2dfe22ec17454d97 = $this->env->getExtension("native_profiler");
+        $__internal_98cc1e54f4562ccb0b0b11d7cefc4bd0a5099e664f7e4f2b2dfe22ec17454d97->enter($__internal_98cc1e54f4562ccb0b0b11d7cefc4bd0a5099e664f7e4f2b2dfe22ec17454d97_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/faq-category.inc.php"));
 
         // line 1
         echo "<?php
@@ -55,7 +55,7 @@ if((\$res=db_query(\$sql)) && db_num_rows(\$res)) {
 ?>
 ";
         
-        $__internal_fca4dd37582c4290a44215d2a7ea23a5a73d263926ff88441cac570785bcc9de->leave($__internal_fca4dd37582c4290a44215d2a7ea23a5a73d263926ff88441cac570785bcc9de_prof);
+        $__internal_98cc1e54f4562ccb0b0b11d7cefc4bd0a5099e664f7e4f2b2dfe22ec17454d97->leave($__internal_98cc1e54f4562ccb0b0b11d7cefc4bd0a5099e664f7e4f2b2dfe22ec17454d97_prof);
 
     }
 

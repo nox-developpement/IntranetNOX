@@ -15,8 +15,8 @@ class __TwigTemplate_72da1e1734c1aed8b1fbd73923864ad290e690dec3e5988ad7e36d54de8
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_50ec61402cde33ab48b764e70d88bd5d8ab626556cbaba800e4f2f4d353982fa = $this->env->getExtension("native_profiler");
-        $__internal_50ec61402cde33ab48b764e70d88bd5d8ab626556cbaba800e4f2f4d353982fa->enter($__internal_50ec61402cde33ab48b764e70d88bd5d8ab626556cbaba800e4f2f4d353982fa_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/settings.access.yaml"));
+        $__internal_19979f1234452f507f23e43c582eed147970a8876b58df3325c9deb9ceb1a2ac = $this->env->getExtension("native_profiler");
+        $__internal_19979f1234452f507f23e43c582eed147970a8876b58df3325c9deb9ceb1a2ac->enter($__internal_19979f1234452f507f23e43c582eed147970a8876b58df3325c9deb9ceb1a2ac_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/settings.access.yaml"));
 
         // line 1
         echo "#
@@ -134,7 +134,7 @@ client_verify_email:
         collaborators) to impersonate the ticket owner.
 ";
         
-        $__internal_50ec61402cde33ab48b764e70d88bd5d8ab626556cbaba800e4f2f4d353982fa->leave($__internal_50ec61402cde33ab48b764e70d88bd5d8ab626556cbaba800e4f2f4d353982fa_prof);
+        $__internal_19979f1234452f507f23e43c582eed147970a8876b58df3325c9deb9ceb1a2ac->leave($__internal_19979f1234452f507f23e43c582eed147970a8876b58df3325c9deb9ceb1a2ac_prof);
 
     }
 

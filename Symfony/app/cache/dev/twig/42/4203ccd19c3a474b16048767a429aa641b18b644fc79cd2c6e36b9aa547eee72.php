@@ -15,8 +15,8 @@ class __TwigTemplate_b17d81baf0b8734e4d3a14a11c945fe680f7ec9b5eac3fd2062b236c2f1
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b0952e96dda78b9a59c0a452f61fd3751252921865ed9ad4b2b64bd53a74e237 = $this->env->getExtension("native_profiler");
-        $__internal_b0952e96dda78b9a59c0a452f61fd3751252921865ed9ad4b2b64bd53a74e237->enter($__internal_b0952e96dda78b9a59c0a452f61fd3751252921865ed9ad4b2b64bd53a74e237_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/staff.inc.php"));
+        $__internal_b36eb5b6821ef3474164721599eff87c30023e70bc9403734982f0bd6bf71176 = $this->env->getExtension("native_profiler");
+        $__internal_b36eb5b6821ef3474164721599eff87c30023e70bc9403734982f0bd6bf71176->enter($__internal_b36eb5b6821ef3474164721599eff87c30023e70bc9403734982f0bd6bf71176_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/staff.inc.php"));
 
         // line 1
         echo "<?php
@@ -388,7 +388,7 @@ if(\$staff && \$_REQUEST['a']!='add'){
 </form>
 ";
         
-        $__internal_b0952e96dda78b9a59c0a452f61fd3751252921865ed9ad4b2b64bd53a74e237->leave($__internal_b0952e96dda78b9a59c0a452f61fd3751252921865ed9ad4b2b64bd53a74e237_prof);
+        $__internal_b36eb5b6821ef3474164721599eff87c30023e70bc9403734982f0bd6bf71176->leave($__internal_b36eb5b6821ef3474164721599eff87c30023e70bc9403734982f0bd6bf71176_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_ea0a5961353f34e17ca9977464215ce238a9355bbfe9c6563a32ab66865
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_4cf11c43c0e4a89246898512c85c52eaa1e42c3530a1b6ee1721eff30053f4f2 = $this->env->getExtension("native_profiler");
-        $__internal_4cf11c43c0e4a89246898512c85c52eaa1e42c3530a1b6ee1721eff30053f4f2->enter($__internal_4cf11c43c0e4a89246898512c85c52eaa1e42c3530a1b6ee1721eff30053f4f2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/note.tmpl.php"));
+        $__internal_abd2facbffabd086ef61a8375e261de9bbb7d1356473ee4c50c59043d21628ef = $this->env->getExtension("native_profiler");
+        $__internal_abd2facbffabd086ef61a8375e261de9bbb7d1356473ee4c50c59043d21628ef->enter($__internal_abd2facbffabd086ef61a8375e261de9bbb7d1356473ee4c50c59043d21628ef_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/note.tmpl.php"));
 
         // line 1
         echo "<div class=\"quicknote\" data-id=\"<?php echo \$note->id; ?>\">
@@ -45,7 +45,7 @@ if (isset(\$show_options) && \$show_options) { ?>
 </div>
 ";
         
-        $__internal_4cf11c43c0e4a89246898512c85c52eaa1e42c3530a1b6ee1721eff30053f4f2->leave($__internal_4cf11c43c0e4a89246898512c85c52eaa1e42c3530a1b6ee1721eff30053f4f2_prof);
+        $__internal_abd2facbffabd086ef61a8375e261de9bbb7d1356473ee4c50c59043d21628ef->leave($__internal_abd2facbffabd086ef61a8375e261de9bbb7d1356473ee4c50c59043d21628ef_prof);
 
     }
 

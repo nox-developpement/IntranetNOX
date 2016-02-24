@@ -15,8 +15,8 @@ class __TwigTemplate_a2a0bf583d2561469167a34966cd93be435337abd8d66ab274af79195cf
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_d5ca160cb2eff07c04f52ed2d054204ce0ac8a6f05a84e92aa89d7e32d02e44e = $this->env->getExtension("native_profiler");
-        $__internal_d5ca160cb2eff07c04f52ed2d054204ce0ac8a6f05a84e92aa89d7e32d02e44e->enter($__internal_d5ca160cb2eff07c04f52ed2d054204ce0ac8a6f05a84e92aa89d7e32d02e44e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.charset.php"));
+        $__internal_80babdb23316abfebf7be64fb8c1f59d3ecbbe37edeae95b72d2493b22a1e168 = $this->env->getExtension("native_profiler");
+        $__internal_80babdb23316abfebf7be64fb8c1f59d3ecbbe37edeae95b72d2493b22a1e168->enter($__internal_80babdb23316abfebf7be64fb8c1f59d3ecbbe37edeae95b72d2493b22a1e168_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.charset.php"));
 
         // line 1
         echo "<?php
@@ -101,7 +101,7 @@ class Charset {
 ?>
 ";
         
-        $__internal_d5ca160cb2eff07c04f52ed2d054204ce0ac8a6f05a84e92aa89d7e32d02e44e->leave($__internal_d5ca160cb2eff07c04f52ed2d054204ce0ac8a6f05a84e92aa89d7e32d02e44e_prof);
+        $__internal_80babdb23316abfebf7be64fb8c1f59d3ecbbe37edeae95b72d2493b22a1e168->leave($__internal_80babdb23316abfebf7be64fb8c1f59d3ecbbe37edeae95b72d2493b22a1e168_prof);
 
     }
 

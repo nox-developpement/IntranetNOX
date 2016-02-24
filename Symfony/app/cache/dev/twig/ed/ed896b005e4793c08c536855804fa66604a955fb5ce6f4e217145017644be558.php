@@ -15,8 +15,8 @@ class __TwigTemplate_b5803e2827a4a4d4406110480b84e789bba1bd414c708ccdb23a3d71696
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_d0180dad0e068cefb8b708432d0398e86252e7e0f07683d305feb0da4d084ef9 = $this->env->getExtension("native_profiler");
-        $__internal_d0180dad0e068cefb8b708432d0398e86252e7e0f07683d305feb0da4d084ef9->enter($__internal_d0180dad0e068cefb8b708432d0398e86252e7e0f07683d305feb0da4d084ef9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/register.inc.php"));
+        $__internal_dafaab9a1d37ca03bf1c50292227afae8b91d628a30aa0f2b36a651abff21ed8 = $this->env->getExtension("native_profiler");
+        $__internal_dafaab9a1d37ca03bf1c50292227afae8b91d628a30aa0f2b36a651abff21ed8->enter($__internal_dafaab9a1d37ca03bf1c50292227afae8b91d628a30aa0f2b36a651abff21ed8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/register.inc.php"));
 
         // line 1
         echo "<?php
@@ -138,7 +138,7 @@ if (isset(\$user) && \$user instanceof ClientCreateRequest) {
 
 ";
         
-        $__internal_d0180dad0e068cefb8b708432d0398e86252e7e0f07683d305feb0da4d084ef9->leave($__internal_d0180dad0e068cefb8b708432d0398e86252e7e0f07683d305feb0da4d084ef9_prof);
+        $__internal_dafaab9a1d37ca03bf1c50292227afae8b91d628a30aa0f2b36a651abff21ed8->leave($__internal_dafaab9a1d37ca03bf1c50292227afae8b91d628a30aa0f2b36a651abff21ed8_prof);
 
     }
 

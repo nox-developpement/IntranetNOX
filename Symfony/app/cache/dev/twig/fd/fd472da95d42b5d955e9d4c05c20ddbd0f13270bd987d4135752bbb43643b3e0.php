@@ -15,8 +15,8 @@ class __TwigTemplate_8df11a9c12e901f76f6ce26c5d2c115954b926a2100830b7c7f055cfdfb
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_eaf1f1cfcafe91067c43df8a2ddc685094a8750ff62a6a715fc3cca12c6878b8 = $this->env->getExtension("native_profiler");
-        $__internal_eaf1f1cfcafe91067c43df8a2ddc685094a8750ff62a6a715fc3cca12c6878b8->enter($__internal_eaf1f1cfcafe91067c43df8a2ddc685094a8750ff62a6a715fc3cca12c6878b8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.tickets.php"));
+        $__internal_42a8678909e7ccc6b19124b5362203baeaa947404c639df4df37c4dea41ffe0a = $this->env->getExtension("native_profiler");
+        $__internal_42a8678909e7ccc6b19124b5362203baeaa947404c639df4df37c4dea41ffe0a->enter($__internal_42a8678909e7ccc6b19124b5362203baeaa947404c639df4df37c4dea41ffe0a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.tickets.php"));
 
         // line 1
         echo "<?php
@@ -1055,7 +1055,7 @@ class TicketsAjaxAPI extends AjaxController {
 ?>
 ";
         
-        $__internal_eaf1f1cfcafe91067c43df8a2ddc685094a8750ff62a6a715fc3cca12c6878b8->leave($__internal_eaf1f1cfcafe91067c43df8a2ddc685094a8750ff62a6a715fc3cca12c6878b8_prof);
+        $__internal_42a8678909e7ccc6b19124b5362203baeaa947404c639df4df37c4dea41ffe0a->leave($__internal_42a8678909e7ccc6b19124b5362203baeaa947404c639df4df37c4dea41ffe0a_prof);
 
     }
 

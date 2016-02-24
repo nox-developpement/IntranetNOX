@@ -15,8 +15,8 @@ class __TwigTemplate_58057709674ce768956cfdbe6ef27cc78b9b23a0ef4e9d07dd48f34506d
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_1bcb650ef03ee1c7856454bf7834706bcadd4823ab6846cf4716ccdb1e8ef61a = $this->env->getExtension("native_profiler");
-        $__internal_1bcb650ef03ee1c7856454bf7834706bcadd4823ab6846cf4716ccdb1e8ef61a->enter($__internal_1bcb650ef03ee1c7856454bf7834706bcadd4823ab6846cf4716ccdb1e8ef61a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.auth.php"));
+        $__internal_27e5bca46847d98a43bd6f0b323425ac8c0e8d6587557e904ffb7c60cfcb0cbb = $this->env->getExtension("native_profiler");
+        $__internal_27e5bca46847d98a43bd6f0b323425ac8c0e8d6587557e904ffb7c60cfcb0cbb->enter($__internal_27e5bca46847d98a43bd6f0b323425ac8c0e8d6587557e904ffb7c60cfcb0cbb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.auth.php"));
 
         // line 1
         echo "<?php
@@ -1229,7 +1229,7 @@ UserAuthenticationBackend::register('ClientAcctConfirmationTokenBackend');
 ?>
 ";
         
-        $__internal_1bcb650ef03ee1c7856454bf7834706bcadd4823ab6846cf4716ccdb1e8ef61a->leave($__internal_1bcb650ef03ee1c7856454bf7834706bcadd4823ab6846cf4716ccdb1e8ef61a_prof);
+        $__internal_27e5bca46847d98a43bd6f0b323425ac8c0e8d6587557e904ffb7c60cfcb0cbb->leave($__internal_27e5bca46847d98a43bd6f0b323425ac8c0e8d6587557e904ffb7c60cfcb0cbb_prof);
 
     }
 

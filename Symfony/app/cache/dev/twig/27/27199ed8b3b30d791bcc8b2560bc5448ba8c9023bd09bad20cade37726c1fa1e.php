@@ -15,8 +15,8 @@ class __TwigTemplate_cd33f7ca269d68e16701f84a06cda29ef30e062fed24ea5b25b88e1ba9a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_88361620a05b8a9da83390970553c914c68fe70a4f01b19754d44f3c64894574 = $this->env->getExtension("native_profiler");
-        $__internal_88361620a05b8a9da83390970553c914c68fe70a4f01b19754d44f3c64894574->enter($__internal_88361620a05b8a9da83390970553c914c68fe70a4f01b19754d44f3c64894574_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/list-item-properties.tmpl.php"));
+        $__internal_f387fed8b61ec5fbe2cd92c4ee259970c2eda4967ff8c4dc9d853a09e428043d = $this->env->getExtension("native_profiler");
+        $__internal_f387fed8b61ec5fbe2cd92c4ee259970c2eda4967ff8c4dc9d853a09e428043d->enter($__internal_f387fed8b61ec5fbe2cd92c4ee259970c2eda4967ff8c4dc9d853a09e428043d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/list-item-properties.tmpl.php"));
 
         // line 1
         echo "    <h3><?php echo __('Item Properties'); ?> &mdash; <?php echo \$item->getValue() ?></h3>
@@ -84,7 +84,7 @@ class __TwigTemplate_cd33f7ca269d68e16701f84a06cda29ef30e062fed24ea5b25b88e1ba9a
 
 ";
         
-        $__internal_88361620a05b8a9da83390970553c914c68fe70a4f01b19754d44f3c64894574->leave($__internal_88361620a05b8a9da83390970553c914c68fe70a4f01b19754d44f3c64894574_prof);
+        $__internal_f387fed8b61ec5fbe2cd92c4ee259970c2eda4967ff8c4dc9d853a09e428043d->leave($__internal_f387fed8b61ec5fbe2cd92c4ee259970c2eda4967ff8c4dc9d853a09e428043d_prof);
 
     }
 

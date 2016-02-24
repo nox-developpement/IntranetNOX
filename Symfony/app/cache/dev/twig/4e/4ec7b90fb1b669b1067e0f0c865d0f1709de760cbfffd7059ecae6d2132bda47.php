@@ -15,8 +15,8 @@ class __TwigTemplate_62fb7a47a8dd00de5f59402f4e877a4bd6deab6ed23d63933c473b80ea1
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_ac4424b3cba98607d4301ffdd3096b83d7204389b9958e032c74e841fafc7f31 = $this->env->getExtension("native_profiler");
-        $__internal_ac4424b3cba98607d4301ffdd3096b83d7204389b9958e032c74e841fafc7f31->enter($__internal_ac4424b3cba98607d4301ffdd3096b83d7204389b9958e032c74e841fafc7f31_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/banrule.inc.php"));
+        $__internal_33d43a29793b75c6ac5800231cbfc76dbe5d913dd4c1a24a1144938fb626eef1 = $this->env->getExtension("native_profiler");
+        $__internal_33d43a29793b75c6ac5800231cbfc76dbe5d913dd4c1a24a1144938fb626eef1->enter($__internal_33d43a29793b75c6ac5800231cbfc76dbe5d913dd4c1a24a1144938fb626eef1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/banrule.inc.php"));
 
         // line 1
         echo "<?php
@@ -98,7 +98,7 @@ if(\$rule && \$_REQUEST['a']!='add'){
 </form>
 ";
         
-        $__internal_ac4424b3cba98607d4301ffdd3096b83d7204389b9958e032c74e841fafc7f31->leave($__internal_ac4424b3cba98607d4301ffdd3096b83d7204389b9958e032c74e841fafc7f31_prof);
+        $__internal_33d43a29793b75c6ac5800231cbfc76dbe5d913dd4c1a24a1144938fb626eef1->leave($__internal_33d43a29793b75c6ac5800231cbfc76dbe5d913dd4c1a24a1144938fb626eef1_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_54f523260ba9b5fc9e9b006c8e8dc95cd4a972ca20d79662c2d1a56cfc6
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_43148229833fd8c10773c16cf6ffe6788da2482c856f9651b98c2379623409a3 = $this->env->getExtension("native_profiler");
-        $__internal_43148229833fd8c10773c16cf6ffe6788da2482c856f9651b98c2379623409a3->enter($__internal_43148229833fd8c10773c16cf6ffe6788da2482c856f9651b98c2379623409a3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/c00511c7-7be60a84.task.php"));
+        $__internal_e5e030e3a65c70d0da423da04880350797860044751ba68b3675738b1e8ebee5 = $this->env->getExtension("native_profiler");
+        $__internal_e5e030e3a65c70d0da423da04880350797860044751ba68b3675738b1e8ebee5->enter($__internal_e5e030e3a65c70d0da423da04880350797860044751ba68b3675738b1e8ebee5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/c00511c7-7be60a84.task.php"));
 
         // line 1
         echo "<?php
@@ -36,7 +36,7 @@ return 'MigrateDbSession';
 ?>
 ";
         
-        $__internal_43148229833fd8c10773c16cf6ffe6788da2482c856f9651b98c2379623409a3->leave($__internal_43148229833fd8c10773c16cf6ffe6788da2482c856f9651b98c2379623409a3_prof);
+        $__internal_e5e030e3a65c70d0da423da04880350797860044751ba68b3675738b1e8ebee5->leave($__internal_e5e030e3a65c70d0da423da04880350797860044751ba68b3675738b1e8ebee5_prof);
 
     }
 

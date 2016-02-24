@@ -15,8 +15,8 @@ class __TwigTemplate_e414e557d864dc1feeeb5fc4af4d679d6f5110cd7ea0bf0f071349e154e
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_851e233c2132d64fde4f6ed2b5b814a52ba99e36c8cff7f03b1259d0c5a0a734 = $this->env->getExtension("native_profiler");
-        $__internal_851e233c2132d64fde4f6ed2b5b814a52ba99e36c8cff7f03b1259d0c5a0a734->enter($__internal_851e233c2132d64fde4f6ed2b5b814a52ba99e36c8cff7f03b1259d0c5a0a734_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/apps/dispatcher.php"));
+        $__internal_f1f6acdeadcf6fb60def0eac2a67d00f0b159dc4eb6e9bd0f3cb2c2404e134c6 = $this->env->getExtension("native_profiler");
+        $__internal_f1f6acdeadcf6fb60def0eac2a67d00f0b159dc4eb6e9bd0f3cb2c2404e134c6->enter($__internal_f1f6acdeadcf6fb60def0eac2a67d00f0b159dc4eb6e9bd0f3cb2c2404e134c6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/apps/dispatcher.php"));
 
         // line 1
         echo "<?php
@@ -61,7 +61,7 @@ Signal::send('apps.scp', \$dispatcher);
 print \$dispatcher->resolve(\$ost->get_path_info());
 ";
         
-        $__internal_851e233c2132d64fde4f6ed2b5b814a52ba99e36c8cff7f03b1259d0c5a0a734->leave($__internal_851e233c2132d64fde4f6ed2b5b814a52ba99e36c8cff7f03b1259d0c5a0a734_prof);
+        $__internal_f1f6acdeadcf6fb60def0eac2a67d00f0b159dc4eb6e9bd0f3cb2c2404e134c6->leave($__internal_f1f6acdeadcf6fb60def0eac2a67d00f0b159dc4eb6e9bd0f3cb2c2404e134c6_prof);
 
     }
 

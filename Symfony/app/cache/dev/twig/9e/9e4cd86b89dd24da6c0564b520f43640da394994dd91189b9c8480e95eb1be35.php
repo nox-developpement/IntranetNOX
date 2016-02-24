@@ -15,8 +15,8 @@ class __TwigTemplate_5add8afbda84a3a697d2bff5b5cd35e6d517abc55e98f91c68d7666fb76
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_9ca75450b44caa86fcc9ca7f148c56907088eb35cc79c6cfd3ff2c6cc3fdb076 = $this->env->getExtension("native_profiler");
-        $__internal_9ca75450b44caa86fcc9ca7f148c56907088eb35cc79c6cfd3ff2c6cc3fdb076->enter($__internal_9ca75450b44caa86fcc9ca7f148c56907088eb35cc79c6cfd3ff2c6cc3fdb076_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/manage.helptopic.yaml"));
+        $__internal_95297f621d653d1a2d11ab54ac0846f8a1fe6d2c8d6fb222a220ca1da7f8dfd1 = $this->env->getExtension("native_profiler");
+        $__internal_95297f621d653d1a2d11ab54ac0846f8a1fe6d2c8d6fb222a220ca1da7f8dfd1->enter($__internal_95297f621d653d1a2d11ab54ac0846f8a1fe6d2c8d6fb222a220ca1da7f8dfd1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/manage.helptopic.yaml"));
 
         // line 1
         echo "#
@@ -142,7 +142,7 @@ custom_numbers:
         the Settings / Tickets page for more details on the settings.
 ";
         
-        $__internal_9ca75450b44caa86fcc9ca7f148c56907088eb35cc79c6cfd3ff2c6cc3fdb076->leave($__internal_9ca75450b44caa86fcc9ca7f148c56907088eb35cc79c6cfd3ff2c6cc3fdb076_prof);
+        $__internal_95297f621d653d1a2d11ab54ac0846f8a1fe6d2c8d6fb222a220ca1da7f8dfd1->leave($__internal_95297f621d653d1a2d11ab54ac0846f8a1fe6d2c8d6fb222a220ca1da7f8dfd1_prof);
 
     }
 

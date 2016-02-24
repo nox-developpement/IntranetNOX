@@ -15,8 +15,8 @@ class __TwigTemplate_9e7e7042bac4a4532af608448897f098dec4d89945df617184ba4d9019f
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_f602ca74a0bbca6e3e1ec08c983999c5b655fecd027c5caee50b787db4a609ae = $this->env->getExtension("native_profiler");
-        $__internal_f602ca74a0bbca6e3e1ec08c983999c5b655fecd027c5caee50b787db4a609ae->enter($__internal_f602ca74a0bbca6e3e1ec08c983999c5b655fecd027c5caee50b787db4a609ae_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/knowledgebase.faq.yaml"));
+        $__internal_5e7b86fcac4055ba56db7e946a2656f7d961c280e7ed252cbb1405a39ab5ac8c = $this->env->getExtension("native_profiler");
+        $__internal_5e7b86fcac4055ba56db7e946a2656f7d961c280e7ed252cbb1405a39ab5ac8c->enter($__internal_5e7b86fcac4055ba56db7e946a2656f7d961c280e7ed252cbb1405a39ab5ac8c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/knowledgebase.faq.yaml"));
 
         // line 1
         echo "#
@@ -44,7 +44,7 @@ listing_type:
         href: /scp/settings.php?t=kb
 ";
         
-        $__internal_f602ca74a0bbca6e3e1ec08c983999c5b655fecd027c5caee50b787db4a609ae->leave($__internal_f602ca74a0bbca6e3e1ec08c983999c5b655fecd027c5caee50b787db4a609ae_prof);
+        $__internal_5e7b86fcac4055ba56db7e946a2656f7d961c280e7ed252cbb1405a39ab5ac8c->leave($__internal_5e7b86fcac4055ba56db7e946a2656f7d961c280e7ed252cbb1405a39ab5ac8c_prof);
 
     }
 

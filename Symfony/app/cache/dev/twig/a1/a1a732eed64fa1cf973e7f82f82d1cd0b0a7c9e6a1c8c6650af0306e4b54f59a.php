@@ -15,8 +15,8 @@ class __TwigTemplate_e3252ec2b53dd5b410abd337f9d10dd7fd91baf96076fd320f6db5a9559
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_44ddde6959504968dff9903932c19a13c5b56181f1f965ca3a29209293f8806b = $this->env->getExtension("native_profiler");
-        $__internal_44ddde6959504968dff9903932c19a13c5b56181f1f965ca3a29209293f8806b->enter($__internal_44ddde6959504968dff9903932c19a13c5b56181f1f965ca3a29209293f8806b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/staff.groups.yaml"));
+        $__internal_e947e4e693121f01f7fa9ce333b87b6a9d8ffa1318b69c100e849514dd6b3076 = $this->env->getExtension("native_profiler");
+        $__internal_e947e4e693121f01f7fa9ce333b87b6a9d8ffa1318b69c100e849514dd6b3076->enter($__internal_e947e4e693121f01f7fa9ce333b87b6a9d8ffa1318b69c100e849514dd6b3076_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/staff.groups.yaml"));
 
         // line 1
         echo "#
@@ -54,7 +54,7 @@ department_access:
         Check all departments to which the Group members are allowed access.
 ";
         
-        $__internal_44ddde6959504968dff9903932c19a13c5b56181f1f965ca3a29209293f8806b->leave($__internal_44ddde6959504968dff9903932c19a13c5b56181f1f965ca3a29209293f8806b_prof);
+        $__internal_e947e4e693121f01f7fa9ce333b87b6a9d8ffa1318b69c100e849514dd6b3076->leave($__internal_e947e4e693121f01f7fa9ce333b87b6a9d8ffa1318b69c100e849514dd6b3076_prof);
 
     }
 

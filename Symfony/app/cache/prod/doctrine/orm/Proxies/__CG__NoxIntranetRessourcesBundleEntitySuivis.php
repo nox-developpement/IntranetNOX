@@ -64,10 +64,10 @@ class Suivis extends \NoxIntranet\RessourcesBundle\Entity\Suivis implements \Doc
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'agence', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'numeroGX', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'profil', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'statut'];
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'agence', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'numeroGX', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'profil', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'statut', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'idModele'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'agence', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'numeroGX', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'profil', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'statut'];
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'agence', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'numeroGX', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'profil', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'statut', '' . "\0" . 'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' . "\0" . 'idModele'];
     }
 
     /**
@@ -296,6 +296,28 @@ class Suivis extends \NoxIntranet\RessourcesBundle\Entity\Suivis implements \Doc
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatut', []);
 
         return parent::getStatut();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setIdModele($idModele)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIdModele', [$idModele]);
+
+        return parent::setIdModele($idModele);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIdModele()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIdModele', []);
+
+        return parent::getIdModele();
     }
 
 }

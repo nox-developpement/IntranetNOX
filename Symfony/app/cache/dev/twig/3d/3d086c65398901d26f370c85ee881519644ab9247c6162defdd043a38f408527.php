@@ -15,8 +15,8 @@ class __TwigTemplate_294904324a0c36cb2db26525aae2a765d10b4a0bec9a1f9f74348145fa4
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_47050af6a7973d2e3a54e03cf456da2f8f3ac590d5ba96a11a79adf5ddb01828 = $this->env->getExtension("native_profiler");
-        $__internal_47050af6a7973d2e3a54e03cf456da2f8f3ac590d5ba96a11a79adf5ddb01828->enter($__internal_47050af6a7973d2e3a54e03cf456da2f8f3ac590d5ba96a11a79adf5ddb01828_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/helptopics.php"));
+        $__internal_ec539a3ce391869c149adddb8d4c2536dd042bcd649e45220195831c1de9d541 = $this->env->getExtension("native_profiler");
+        $__internal_ec539a3ce391869c149adddb8d4c2536dd042bcd649e45220195831c1de9d541->enter($__internal_ec539a3ce391869c149adddb8d4c2536dd042bcd649e45220195831c1de9d541_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/helptopics.php"));
 
         // line 1
         echo "<?php
@@ -174,7 +174,7 @@ include(STAFFINC_DIR.'footer.inc.php');
 ?>
 ";
         
-        $__internal_47050af6a7973d2e3a54e03cf456da2f8f3ac590d5ba96a11a79adf5ddb01828->leave($__internal_47050af6a7973d2e3a54e03cf456da2f8f3ac590d5ba96a11a79adf5ddb01828_prof);
+        $__internal_ec539a3ce391869c149adddb8d4c2536dd042bcd649e45220195831c1de9d541->leave($__internal_ec539a3ce391869c149adddb8d4c2536dd042bcd649e45220195831c1de9d541_prof);
 
     }
 

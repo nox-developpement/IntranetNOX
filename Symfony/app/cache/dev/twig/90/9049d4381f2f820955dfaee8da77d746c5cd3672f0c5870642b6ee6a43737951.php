@@ -15,8 +15,8 @@ class __TwigTemplate_208003d059e51868cea47d4256c4ba5bcb0d21e02e82e4ddec0bf20846d
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_43ea70cfdec06e4260ef2117fcf279465e85452d6b12e5e74403ddaf7b38a4c0 = $this->env->getExtension("native_profiler");
-        $__internal_43ea70cfdec06e4260ef2117fcf279465e85452d6b12e5e74403ddaf7b38a4c0->enter($__internal_43ea70cfdec06e4260ef2117fcf279465e85452d6b12e5e74403ddaf7b38a4c0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/faq-category.inc.php"));
+        $__internal_17057c27a027ef4d0c38cadf8fdf30b8a740df555ea2ea924f6049c4d1012724 = $this->env->getExtension("native_profiler");
+        $__internal_17057c27a027ef4d0c38cadf8fdf30b8a740df555ea2ea924f6049c4d1012724->enter($__internal_17057c27a027ef4d0c38cadf8fdf30b8a740df555ea2ea924f6049c4d1012724_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/faq-category.inc.php"));
 
         // line 1
         echo "<?php
@@ -72,7 +72,7 @@ if((\$res=db_query(\$sql)) && db_num_rows(\$res)) {
 ?>
 ";
         
-        $__internal_43ea70cfdec06e4260ef2117fcf279465e85452d6b12e5e74403ddaf7b38a4c0->leave($__internal_43ea70cfdec06e4260ef2117fcf279465e85452d6b12e5e74403ddaf7b38a4c0_prof);
+        $__internal_17057c27a027ef4d0c38cadf8fdf30b8a740df555ea2ea924f6049c4d1012724->leave($__internal_17057c27a027ef4d0c38cadf8fdf30b8a740df555ea2ea924f6049c4d1012724_prof);
 
     }
 

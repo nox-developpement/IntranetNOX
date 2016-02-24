@@ -15,8 +15,8 @@ class __TwigTemplate_c3a17ba2bfc4cef0b2cd0342e558eb701a2e447848ceda22869e92a10f0
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b7115837d660e3ad6a364012b27a917baf8268e06a5c05aa34aeec41095f5205 = $this->env->getExtension("native_profiler");
-        $__internal_b7115837d660e3ad6a364012b27a917baf8268e06a5c05aa34aeec41095f5205->enter($__internal_b7115837d660e3ad6a364012b27a917baf8268e06a5c05aa34aeec41095f5205_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/settings-pages.inc.php"));
+        $__internal_831ca816a94acc3b7c8b5cb626f9e658f9908bf035cbcce2b29b060713644466 = $this->env->getExtension("native_profiler");
+        $__internal_831ca816a94acc3b7c8b5cb626f9e658f9908bf035cbcce2b29b060713644466->enter($__internal_831ca816a94acc3b7c8b5cb626f9e658f9908bf035cbcce2b29b060713644466_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/settings-pages.inc.php"));
 
         // line 1
         echo "<?php
@@ -261,7 +261,7 @@ if(!defined('OSTADMININC') || !\$thisstaff || !\$thisstaff->isAdmin() || !\$conf
 </script>
 ";
         
-        $__internal_b7115837d660e3ad6a364012b27a917baf8268e06a5c05aa34aeec41095f5205->leave($__internal_b7115837d660e3ad6a364012b27a917baf8268e06a5c05aa34aeec41095f5205_prof);
+        $__internal_831ca816a94acc3b7c8b5cb626f9e658f9908bf035cbcce2b29b060713644466->leave($__internal_831ca816a94acc3b7c8b5cb626f9e658f9908bf035cbcce2b29b060713644466_prof);
 
     }
 

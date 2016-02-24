@@ -15,8 +15,8 @@ class __TwigTemplate_cf7227286bcad9d19a4266e6f2ea7f0f7606fd742728389062328019f56
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_2571ed13dd929ec993bbda5030883cd869e0042a5678f8e00178b8716bdcdda3 = $this->env->getExtension("native_profiler");
-        $__internal_2571ed13dd929ec993bbda5030883cd869e0042a5678f8e00178b8716bdcdda3->enter($__internal_2571ed13dd929ec993bbda5030883cd869e0042a5678f8e00178b8716bdcdda3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/dashboard.dashboard.yaml"));
+        $__internal_fb0abf224b8eb0a551ae28f66a0d1d5398eba392cc52058672bfbb940307921a = $this->env->getExtension("native_profiler");
+        $__internal_fb0abf224b8eb0a551ae28f66a0d1d5398eba392cc52058672bfbb940307921a->enter($__internal_fb0abf224b8eb0a551ae28f66a0d1d5398eba392cc52058672bfbb940307921a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/dashboard.dashboard.yaml"));
 
         // line 1
         echo "#
@@ -113,7 +113,7 @@ response_time:
         discourse originating with a Client.
 ";
         
-        $__internal_2571ed13dd929ec993bbda5030883cd869e0042a5678f8e00178b8716bdcdda3->leave($__internal_2571ed13dd929ec993bbda5030883cd869e0042a5678f8e00178b8716bdcdda3_prof);
+        $__internal_fb0abf224b8eb0a551ae28f66a0d1d5398eba392cc52058672bfbb940307921a->leave($__internal_fb0abf224b8eb0a551ae28f66a0d1d5398eba392cc52058672bfbb940307921a_prof);
 
     }
 

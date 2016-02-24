@@ -15,8 +15,8 @@ class __TwigTemplate_5d11d595be6a4486c7a3f648a934cdcb173a3acd7832d22fc879773d370
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_7a1fa8a4df3d8f1316483688a179f2bbc340557bdcd9cb47ef854646cafc10cd = $this->env->getExtension("native_profiler");
-        $__internal_7a1fa8a4df3d8f1316483688a179f2bbc340557bdcd9cb47ef854646cafc10cd->enter($__internal_7a1fa8a4df3d8f1316483688a179f2bbc340557bdcd9cb47ef854646cafc10cd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/staff.staff_members.yaml"));
+        $__internal_f7119f337b41b8fc007d98ae3adf16878931d85262e009cb8e4fb073a47394c1 = $this->env->getExtension("native_profiler");
+        $__internal_f7119f337b41b8fc007d98ae3adf16878931d85262e009cb8e4fb073a47394c1->enter($__internal_f7119f337b41b8fc007d98ae3adf16878931d85262e009cb8e4fb073a47394c1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/staff.staff_members.yaml"));
 
         // line 1
         echo "#
@@ -50,7 +50,7 @@ status:
         Locked, Active, or Active (Vacation).
 ";
         
-        $__internal_7a1fa8a4df3d8f1316483688a179f2bbc340557bdcd9cb47ef854646cafc10cd->leave($__internal_7a1fa8a4df3d8f1316483688a179f2bbc340557bdcd9cb47ef854646cafc10cd_prof);
+        $__internal_f7119f337b41b8fc007d98ae3adf16878931d85262e009cb8e4fb073a47394c1->leave($__internal_f7119f337b41b8fc007d98ae3adf16878931d85262e009cb8e4fb073a47394c1_prof);
 
     }
 

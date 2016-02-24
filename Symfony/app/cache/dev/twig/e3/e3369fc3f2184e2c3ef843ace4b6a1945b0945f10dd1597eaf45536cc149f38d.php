@@ -15,8 +15,8 @@ class __TwigTemplate_d31f54ffe432a764afd8f9d365ed997ccc72bf9c8b0ccfb6952c485b4f9
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_dc68e4618033b5c6b08f2e8c8174527ecb3455fad624f9c2a36d65525bd37fa0 = $this->env->getExtension("native_profiler");
-        $__internal_dc68e4618033b5c6b08f2e8c8174527ecb3455fad624f9c2a36d65525bd37fa0->enter($__internal_dc68e4618033b5c6b08f2e8c8174527ecb3455fad624f9c2a36d65525bd37fa0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/60fcbee1-f8856d56.patch.sql"));
+        $__internal_18cdbe93d617890cb92e77f0c026244062990a4d000fac8301abe6c3e8185072 = $this->env->getExtension("native_profiler");
+        $__internal_18cdbe93d617890cb92e77f0c026244062990a4d000fac8301abe6c3e8185072->enter($__internal_18cdbe93d617890cb92e77f0c026244062990a4d000fac8301abe6c3e8185072_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/60fcbee1-f8856d56.patch.sql"));
 
         // line 1
         echo "DROP TABLE IF EXISTS `%TABLE_PREFIX%ticket_event`;
@@ -82,7 +82,7 @@ UPDATE `%TABLE_PREFIX%config`
     SET `schema_signature`='f8856d56e51c5cc3416389de78b54515';
 ";
         
-        $__internal_dc68e4618033b5c6b08f2e8c8174527ecb3455fad624f9c2a36d65525bd37fa0->leave($__internal_dc68e4618033b5c6b08f2e8c8174527ecb3455fad624f9c2a36d65525bd37fa0_prof);
+        $__internal_18cdbe93d617890cb92e77f0c026244062990a4d000fac8301abe6c3e8185072->leave($__internal_18cdbe93d617890cb92e77f0c026244062990a4d000fac8301abe6c3e8185072_prof);
 
     }
 

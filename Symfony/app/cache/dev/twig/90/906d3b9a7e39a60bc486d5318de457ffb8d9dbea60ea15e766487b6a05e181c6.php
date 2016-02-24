@@ -15,8 +15,8 @@ class __TwigTemplate_8cbab65741c4638fd04de407f25cc0d5103415e9d633859a6f4f07c75ad
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b1e844c01535e87f9cc9321000fb3730b2858cb076ef9c862d5e22c00617cc99 = $this->env->getExtension("native_profiler");
-        $__internal_b1e844c01535e87f9cc9321000fb3730b2858cb076ef9c862d5e22c00617cc99->enter($__internal_b1e844c01535e87f9cc9321000fb3730b2858cb076ef9c862d5e22c00617cc99_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.tips.php"));
+        $__internal_a0176cc32f2530fc977d5e584bb450f095e0a36668dd8983963e6fcd98b61d39 = $this->env->getExtension("native_profiler");
+        $__internal_a0176cc32f2530fc977d5e584bb450f095e0a36668dd8983963e6fcd98b61d39->enter($__internal_a0176cc32f2530fc977d5e584bb450f095e0a36668dd8983963e6fcd98b61d39_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.tips.php"));
 
         // line 1
         echo "<?php
@@ -74,7 +74,7 @@ class HelpTipAjaxAPI extends AjaxController {
 ?>
 ";
         
-        $__internal_b1e844c01535e87f9cc9321000fb3730b2858cb076ef9c862d5e22c00617cc99->leave($__internal_b1e844c01535e87f9cc9321000fb3730b2858cb076ef9c862d5e22c00617cc99_prof);
+        $__internal_a0176cc32f2530fc977d5e584bb450f095e0a36668dd8983963e6fcd98b61d39->leave($__internal_a0176cc32f2530fc977d5e584bb450f095e0a36668dd8983963e6fcd98b61d39_prof);
 
     }
 

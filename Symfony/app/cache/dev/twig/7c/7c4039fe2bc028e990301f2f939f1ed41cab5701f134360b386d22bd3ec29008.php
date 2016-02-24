@@ -15,8 +15,8 @@ class __TwigTemplate_44fff6afaae2fb51b7fe65f03e91922e61ce46ccc3e9363bfa602380948
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_75cae2067a086cf7e6ce45ac0cbc3782be33f4457fb1028c2098bbbf1daf1d37 = $this->env->getExtension("native_profiler");
-        $__internal_75cae2067a086cf7e6ce45ac0cbc3782be33f4457fb1028c2098bbbf1daf1d37->enter($__internal_75cae2067a086cf7e6ce45ac0cbc3782be33f4457fb1028c2098bbbf1daf1d37_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/upgrade.php"));
+        $__internal_4d254c82acb6fafcc8950664b8c423c7596b6e262b60f8d16fad2a1387666466 = $this->env->getExtension("native_profiler");
+        $__internal_4d254c82acb6fafcc8950664b8c423c7596b6e262b60f8d16fad2a1387666466->enter($__internal_4d254c82acb6fafcc8950664b8c423c7596b6e262b60f8d16fad2a1387666466_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/upgrade.php"));
 
         // line 1
         echo "<?php
@@ -110,7 +110,7 @@ require(STAFFINC_DIR.'footer.inc.php');
 ?>
 ";
         
-        $__internal_75cae2067a086cf7e6ce45ac0cbc3782be33f4457fb1028c2098bbbf1daf1d37->leave($__internal_75cae2067a086cf7e6ce45ac0cbc3782be33f4457fb1028c2098bbbf1daf1d37_prof);
+        $__internal_4d254c82acb6fafcc8950664b8c423c7596b6e262b60f8d16fad2a1387666466->leave($__internal_4d254c82acb6fafcc8950664b8c423c7596b6e262b60f8d16fad2a1387666466_prof);
 
     }
 

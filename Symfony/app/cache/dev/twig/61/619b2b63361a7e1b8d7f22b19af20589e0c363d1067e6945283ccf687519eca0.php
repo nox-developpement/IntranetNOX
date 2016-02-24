@@ -15,8 +15,8 @@ class __TwigTemplate_953386c0fbeb5cdeb85de24ecd020695d2b00ed10939d7990a836d1dc77
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_05a73907d3fbfa0d14988e095064baa355f27714a70e8d0ba9f2808205c1bc71 = $this->env->getExtension("native_profiler");
-        $__internal_05a73907d3fbfa0d14988e095064baa355f27714a70e8d0ba9f2808205c1bc71->enter($__internal_05a73907d3fbfa0d14988e095064baa355f27714a70e8d0ba9f2808205c1bc71_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.note.php"));
+        $__internal_8ffd41e534f8a273ec50c701fb1b3f93a6538cab8dcfc1144117529b9d1c3d8e = $this->env->getExtension("native_profiler");
+        $__internal_8ffd41e534f8a273ec50c701fb1b3f93a6538cab8dcfc1144117529b9d1c3d8e->enter($__internal_8ffd41e534f8a273ec50c701fb1b3f93a6538cab8dcfc1144117529b9d1c3d8e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.note.php"));
 
         // line 1
         echo "<?php
@@ -91,7 +91,7 @@ class NoteAjaxAPI extends AjaxController {
 }
 ";
         
-        $__internal_05a73907d3fbfa0d14988e095064baa355f27714a70e8d0ba9f2808205c1bc71->leave($__internal_05a73907d3fbfa0d14988e095064baa355f27714a70e8d0ba9f2808205c1bc71_prof);
+        $__internal_8ffd41e534f8a273ec50c701fb1b3f93a6538cab8dcfc1144117529b9d1c3d8e->leave($__internal_8ffd41e534f8a273ec50c701fb1b3f93a6538cab8dcfc1144117529b9d1c3d8e_prof);
 
     }
 

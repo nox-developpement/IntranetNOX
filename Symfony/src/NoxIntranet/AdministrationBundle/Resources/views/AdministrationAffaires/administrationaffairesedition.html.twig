@@ -18,24 +18,22 @@
             <p>
                 {{ form_label(formPlacementChamp.IdChamp, "Nom :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}
                 {{ form_errors(formPlacementChamp.IdChamp) }}
-                {{ form_widget(formPlacementChamp.IdChamp, {'attr': {'class': 'texteFormulairePlacementChamp' }}) }}
-            </p>
+                {{ form_widget(formPlacementChamp.IdChamp, {'attr': {'class': 'texteFormulairePlacementChamp' }}) }} 
 
-            <p>
-                {{ form_label(formPlacementChamp.Colonne, "Colonne :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}
-                {{ form_errors(formPlacementChamp.Colonne) }}
-                {{ form_widget(formPlacementChamp.Colonne, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}
+                <br />
 
-                {{ form_widget(formPlacementChamp._token) }}
-            </p>
+                {{ form_label(formPlacementChamp.CoordonneesLabel, "Coordonnees label :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}
+                {{ form_errors(formPlacementChamp.CoordonneesLabel) }}
+                {{ form_widget(formPlacementChamp.CoordonneesLabel, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}
 
-            <p>
-                {{ form_label(formPlacementChamp.Ligne, "Ligne :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}
-                {{ form_errors(formPlacementChamp.Ligne) }}
-                {{ form_widget(formPlacementChamp.Ligne, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}
-            </p>
+                <br />
 
-            <p>
+                {{ form_label(formPlacementChamp.CoordonneesDonnees, "Coordonnees données :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}
+                {{ form_errors(formPlacementChamp.CoordonneesDonnees) }}
+                {{ form_widget(formPlacementChamp.CoordonneesDonnees, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}
+
+                <br />
+
                 {{ form_widget(formPlacementChamp.Placer, {'attr': {'class': 'submitFormulairePlacementChamp', 'class': 'boutonFormulaire' }}) }}
             </p>
 

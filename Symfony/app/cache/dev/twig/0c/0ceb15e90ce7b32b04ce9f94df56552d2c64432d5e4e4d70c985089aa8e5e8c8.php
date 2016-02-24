@@ -15,8 +15,8 @@ class __TwigTemplate_14367db9cac3b2f6f9fec983b4dafd128f2a033015e8fd8864e1d8155e5
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_28d6a83a0b29768ab87c64040360e2472655ee7d88a024674725efbbd38db673 = $this->env->getExtension("native_profiler");
-        $__internal_28d6a83a0b29768ab87c64040360e2472655ee7d88a024674725efbbd38db673->enter($__internal_28d6a83a0b29768ab87c64040360e2472655ee7d88a024674725efbbd38db673_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.banlist.php"));
+        $__internal_89552eb9dea71c017557d89b98dde2b769baedb0933bcd527859537fab28492b = $this->env->getExtension("native_profiler");
+        $__internal_89552eb9dea71c017557d89b98dde2b769baedb0933bcd527859537fab28492b->enter($__internal_89552eb9dea71c017557d89b98dde2b769baedb0933bcd527859537fab28492b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.banlist.php"));
 
         // line 1
         echo "<?php
@@ -86,7 +86,7 @@ class Banlist {
 }
 ";
         
-        $__internal_28d6a83a0b29768ab87c64040360e2472655ee7d88a024674725efbbd38db673->leave($__internal_28d6a83a0b29768ab87c64040360e2472655ee7d88a024674725efbbd38db673_prof);
+        $__internal_89552eb9dea71c017557d89b98dde2b769baedb0933bcd527859537fab28492b->leave($__internal_89552eb9dea71c017557d89b98dde2b769baedb0933bcd527859537fab28492b_prof);
 
     }
 

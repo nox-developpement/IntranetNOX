@@ -15,8 +15,8 @@ class __TwigTemplate_1fc933ca3ece9496d0fe51f704de92110947cc1cde34484c4ceba23df94
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_82b8f8680ed06802a708d428c4d25ba3223196841a30eedb3e50bc0112821347 = $this->env->getExtension("native_profiler");
-        $__internal_82b8f8680ed06802a708d428c4d25ba3223196841a30eedb3e50bc0112821347->enter($__internal_82b8f8680ed06802a708d428c4d25ba3223196841a30eedb3e50bc0112821347_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.usersession.php"));
+        $__internal_032d8aa612476234dc47ead09623a2e32e12cdce77d14f3dd5ecfc4cc58a9a17 = $this->env->getExtension("native_profiler");
+        $__internal_032d8aa612476234dc47ead09623a2e32e12cdce77d14f3dd5ecfc4cc58a9a17->enter($__internal_032d8aa612476234dc47ead09623a2e32e12cdce77d14f3dd5ecfc4cc58a9a17_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.usersession.php"));
 
         // line 1
         echo "<?php
@@ -231,7 +231,7 @@ class StaffSession extends Staff {
 ?>
 ";
         
-        $__internal_82b8f8680ed06802a708d428c4d25ba3223196841a30eedb3e50bc0112821347->leave($__internal_82b8f8680ed06802a708d428c4d25ba3223196841a30eedb3e50bc0112821347_prof);
+        $__internal_032d8aa612476234dc47ead09623a2e32e12cdce77d14f3dd5ecfc4cc58a9a17->leave($__internal_032d8aa612476234dc47ead09623a2e32e12cdce77d14f3dd5ecfc4cc58a9a17_prof);
 
     }
 

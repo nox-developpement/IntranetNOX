@@ -15,8 +15,8 @@ class __TwigTemplate_5bf2683d127d3cb30947e698f1aa44667f7af0f8cd21b1ee36b7be0bef6
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_a2c67cdd1fa77aab4296af996c9ecdb6dc5cb8c9207a599311dc042ae339fbb5 = $this->env->getExtension("native_profiler");
-        $__internal_a2c67cdd1fa77aab4296af996c9ecdb6dc5cb8c9207a599311dc042ae339fbb5->enter($__internal_a2c67cdd1fa77aab4296af996c9ecdb6dc5cb8c9207a599311dc042ae339fbb5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.xml.php"));
+        $__internal_0b314878921bda2c0784e468e44016c1cd40a223e65d11ee9595779287f088e2 = $this->env->getExtension("native_profiler");
+        $__internal_0b314878921bda2c0784e468e44016c1cd40a223e65d11ee9595779287f088e2->enter($__internal_0b314878921bda2c0784e468e44016c1cd40a223e65d11ee9595779287f088e2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.xml.php"));
 
         // line 1
         echo "<?php
@@ -116,7 +116,7 @@ class XmlDataParser {
 ?>
 ";
         
-        $__internal_a2c67cdd1fa77aab4296af996c9ecdb6dc5cb8c9207a599311dc042ae339fbb5->leave($__internal_a2c67cdd1fa77aab4296af996c9ecdb6dc5cb8c9207a599311dc042ae339fbb5_prof);
+        $__internal_0b314878921bda2c0784e468e44016c1cd40a223e65d11ee9595779287f088e2->leave($__internal_0b314878921bda2c0784e468e44016c1cd40a223e65d11ee9595779287f088e2_prof);
 
     }
 

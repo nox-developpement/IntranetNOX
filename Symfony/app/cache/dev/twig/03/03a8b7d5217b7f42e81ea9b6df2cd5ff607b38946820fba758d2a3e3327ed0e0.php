@@ -15,8 +15,8 @@ class __TwigTemplate_4bef1a3d01c2ebf673b9fd3ff5c2df51ff80c3797877a563aae40d0945d
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_f315ff298e38d3bb34bc622e558ca0219ef9aedac8b2626f2494c3508fc79aad = $this->env->getExtension("native_profiler");
-        $__internal_f315ff298e38d3bb34bc622e558ca0219ef9aedac8b2626f2494c3508fc79aad->enter($__internal_f315ff298e38d3bb34bc622e558ca0219ef9aedac8b2626f2494c3508fc79aad_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.captcha.php"));
+        $__internal_ad0fab5cf8a36ccc28150a7c8a76ee65c7d14c28ba244414338b03c31f2f27e4 = $this->env->getExtension("native_profiler");
+        $__internal_ad0fab5cf8a36ccc28150a7c8a76ee65c7d14c28ba244414338b03c31f2f27e4->enter($__internal_ad0fab5cf8a36ccc28150a7c8a76ee65c7d14c28ba244414338b03c31f2f27e4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.captcha.php"));
 
         // line 1
         echo "<?php
@@ -75,7 +75,7 @@ class Captcha {
 ?>
 ";
         
-        $__internal_f315ff298e38d3bb34bc622e558ca0219ef9aedac8b2626f2494c3508fc79aad->leave($__internal_f315ff298e38d3bb34bc622e558ca0219ef9aedac8b2626f2494c3508fc79aad_prof);
+        $__internal_ad0fab5cf8a36ccc28150a7c8a76ee65c7d14c28ba244414338b03c31f2f27e4->leave($__internal_ad0fab5cf8a36ccc28150a7c8a76ee65c7d14c28ba244414338b03c31f2f27e4_prof);
 
     }
 

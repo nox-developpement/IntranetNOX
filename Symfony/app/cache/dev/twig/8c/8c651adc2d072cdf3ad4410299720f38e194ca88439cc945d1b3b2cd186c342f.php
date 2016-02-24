@@ -15,8 +15,8 @@ class __TwigTemplate_2188cdedb6d2c10ec7d949cdcbd75a3e37486d105e706aec2224d75d16a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_c1ca70fdef5cd37fdc7f956176c73f5581b19aa7468229186ae14cbdd19e20fc = $this->env->getExtension("native_profiler");
-        $__internal_c1ca70fdef5cd37fdc7f956176c73f5581b19aa7468229186ae14cbdd19e20fc->enter($__internal_c1ca70fdef5cd37fdc7f956176c73f5581b19aa7468229186ae14cbdd19e20fc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/emails.diagnostic.yaml"));
+        $__internal_519c3a67dd06983bd474a97e4137c42de4b481d6766d5d3d11f6bd25d575cd4d = $this->env->getExtension("native_profiler");
+        $__internal_519c3a67dd06983bd474a97e4137c42de4b481d6766d5d3d11f6bd25d575cd4d->enter($__internal_519c3a67dd06983bd474a97e4137c42de4b481d6766d5d3d11f6bd25d575cd4d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/emails.diagnostic.yaml"));
 
         // line 1
         echo "#
@@ -60,7 +60,7 @@ message:
     content: >
 ";
         
-        $__internal_c1ca70fdef5cd37fdc7f956176c73f5581b19aa7468229186ae14cbdd19e20fc->leave($__internal_c1ca70fdef5cd37fdc7f956176c73f5581b19aa7468229186ae14cbdd19e20fc_prof);
+        $__internal_519c3a67dd06983bd474a97e4137c42de4b481d6766d5d3d11f6bd25d575cd4d->leave($__internal_519c3a67dd06983bd474a97e4137c42de4b481d6766d5d3d11f6bd25d575cd4d_prof);
 
     }
 

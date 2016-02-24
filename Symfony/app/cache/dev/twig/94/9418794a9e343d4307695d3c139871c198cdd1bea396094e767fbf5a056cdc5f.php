@@ -15,8 +15,8 @@ class __TwigTemplate_a1b9258ffc48d92ae21be47d53a2e07d201a88efdc9634d72d0c1f2ccf4
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_156df12ab80ed62697dc1cdb7ca92b28eea1f04176831f844aa1de766aec39f7 = $this->env->getExtension("native_profiler");
-        $__internal_156df12ab80ed62697dc1cdb7ca92b28eea1f04176831f844aa1de766aec39f7->enter($__internal_156df12ab80ed62697dc1cdb7ca92b28eea1f04176831f844aa1de766aec39f7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/kb/kb.inc.php"));
+        $__internal_0a7c8ed97e053e5346905a642746426d478155c5f04213e34906bf5a4ca888f5 = $this->env->getExtension("native_profiler");
+        $__internal_0a7c8ed97e053e5346905a642746426d478155c5f04213e34906bf5a4ca888f5->enter($__internal_0a7c8ed97e053e5346905a642746426d478155c5f04213e34906bf5a4ca888f5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/kb/kb.inc.php"));
 
         // line 1
         echo "<?php
@@ -46,7 +46,7 @@ if(!\$cfg || !\$cfg->isKnowledgebaseEnabled() || !FAQ::countPublishedFAQs()) {
 ?>
 ";
         
-        $__internal_156df12ab80ed62697dc1cdb7ca92b28eea1f04176831f844aa1de766aec39f7->leave($__internal_156df12ab80ed62697dc1cdb7ca92b28eea1f04176831f844aa1de766aec39f7_prof);
+        $__internal_0a7c8ed97e053e5346905a642746426d478155c5f04213e34906bf5a4ca888f5->leave($__internal_0a7c8ed97e053e5346905a642746426d478155c5f04213e34906bf5a4ca888f5_prof);
 
     }
 

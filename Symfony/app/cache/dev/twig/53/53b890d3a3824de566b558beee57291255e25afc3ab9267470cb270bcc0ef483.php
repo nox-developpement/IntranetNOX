@@ -15,8 +15,8 @@ class __TwigTemplate_9b22b64047cd0fde98d9bb9eba8102bd3a0a8f09a22a082b9b1f2f6b6db
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_67ae439b151597d403c1ab4728d3f8731dc486a365e51ca1110c44c4b632edb0 = $this->env->getExtension("native_profiler");
-        $__internal_67ae439b151597d403c1ab4728d3f8731dc486a365e51ca1110c44c4b632edb0->enter($__internal_67ae439b151597d403c1ab4728d3f8731dc486a365e51ca1110c44c4b632edb0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/emails.template.yaml"));
+        $__internal_a0f0888256b33da2716e9e9fde0e82948669c01c1f0596c2c9499253def976ea = $this->env->getExtension("native_profiler");
+        $__internal_a0f0888256b33da2716e9e9fde0e82948669c01c1f0596c2c9499253def976ea->enter($__internal_a0f0888256b33da2716e9e9fde0e82948669c01c1f0596c2c9499253def976ea_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/emails.template.yaml"));
 
         // line 1
         echo "#
@@ -66,7 +66,7 @@ status:
         class=\"doc-desc-opt\">Disabled</span>.
 ";
         
-        $__internal_67ae439b151597d403c1ab4728d3f8731dc486a365e51ca1110c44c4b632edb0->leave($__internal_67ae439b151597d403c1ab4728d3f8731dc486a365e51ca1110c44c4b632edb0_prof);
+        $__internal_a0f0888256b33da2716e9e9fde0e82948669c01c1f0596c2c9499253def976ea->leave($__internal_a0f0888256b33da2716e9e9fde0e82948669c01c1f0596c2c9499253def976ea_prof);
 
     }
 

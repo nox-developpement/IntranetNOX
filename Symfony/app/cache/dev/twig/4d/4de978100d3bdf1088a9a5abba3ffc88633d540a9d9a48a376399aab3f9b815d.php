@@ -15,8 +15,8 @@ class __TwigTemplate_b3a8f2b0a428ee87936c4a94cef58c673acba9774aed5a2956517f05d21
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_ceec7ad06a83251b5c40fcae2412208913d12b24b82463912d449e933246e717 = $this->env->getExtension("native_profiler");
-        $__internal_ceec7ad06a83251b5c40fcae2412208913d12b24b82463912d449e933246e717->enter($__internal_ceec7ad06a83251b5c40fcae2412208913d12b24b82463912d449e933246e717_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/assets/default/less/print.less"));
+        $__internal_40a3aaec049153f9e8442712f13f1f445cc0d7b61f7056597c8b59cb60aa4839 = $this->env->getExtension("native_profiler");
+        $__internal_40a3aaec049153f9e8442712f13f1f445cc0d7b61f7056597c8b59cb60aa4839->enter($__internal_40a3aaec049153f9e8442712f13f1f445cc0d7b61f7056597c8b59cb60aa4839_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/assets/default/less/print.less"));
 
         // line 1
         echo "#header, #nav, #meta, #footer, #reply, #pagination, .reload, .refresh, form, .thread, hr, #kbAttachments, .back {
@@ -51,7 +51,7 @@ caption {
 }
 ";
         
-        $__internal_ceec7ad06a83251b5c40fcae2412208913d12b24b82463912d449e933246e717->leave($__internal_ceec7ad06a83251b5c40fcae2412208913d12b24b82463912d449e933246e717_prof);
+        $__internal_40a3aaec049153f9e8442712f13f1f445cc0d7b61f7056597c8b59cb60aa4839->leave($__internal_40a3aaec049153f9e8442712f13f1f445cc0d7b61f7056597c8b59cb60aa4839_prof);
 
     }
 

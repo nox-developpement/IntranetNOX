@@ -15,8 +15,8 @@ class __TwigTemplate_79bdea8c704658ea08eccfd2221383364de18734c450d0157879cec9c82
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_13acb8b048f53030674688161963f09ec1676c6fe79e0c1262fd38d57df0af99 = $this->env->getExtension("native_profiler");
-        $__internal_13acb8b048f53030674688161963f09ec1676c6fe79e0c1262fd38d57df0af99->enter($__internal_13acb8b048f53030674688161963f09ec1676c6fe79e0c1262fd38d57df0af99_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@FMElfinder/Elfinder/summernote.html.twig"));
+        $__internal_04e14002d705ae89d2f236c243a36d74a1bbf807d88d7cc60dd7a33853e016c5 = $this->env->getExtension("native_profiler");
+        $__internal_04e14002d705ae89d2f236c243a36d74a1bbf807d88d7cc60dd7a33853e016c5->enter($__internal_04e14002d705ae89d2f236c243a36d74a1bbf807d88d7cc60dd7a33853e016c5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@FMElfinder/Elfinder/summernote.html.twig"));
 
         // line 1
         echo "<!DOCTYPE html>
@@ -66,7 +66,7 @@ class __TwigTemplate_79bdea8c704658ea08eccfd2221383364de18734c450d0157879cec9c82
 </html>
 ";
         
-        $__internal_13acb8b048f53030674688161963f09ec1676c6fe79e0c1262fd38d57df0af99->leave($__internal_13acb8b048f53030674688161963f09ec1676c6fe79e0c1262fd38d57df0af99_prof);
+        $__internal_04e14002d705ae89d2f236c243a36d74a1bbf807d88d7cc60dd7a33853e016c5->leave($__internal_04e14002d705ae89d2f236c243a36d74a1bbf807d88d7cc60dd7a33853e016c5_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_20352ca5bd6e1828ae946664ece5dfa6f34b6daad254ec10cf0b8dbfdaa
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_3ce13f5cd6db0af7b065ade30132b22be68c9e7111bcebd9d898c013ed0624ed = $this->env->getExtension("native_profiler");
-        $__internal_3ce13f5cd6db0af7b065ade30132b22be68c9e7111bcebd9d898c013ed0624ed->enter($__internal_3ce13f5cd6db0af7b065ade30132b22be68c9e7111bcebd9d898c013ed0624ed_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/pear/Mail/mock.php"));
+        $__internal_86b6926a4a11b85823e12850ea711d2b0c999f1160af0a3c12b53edefd2b8b8f = $this->env->getExtension("native_profiler");
+        $__internal_86b6926a4a11b85823e12850ea711d2b0c999f1160af0a3c12b53edefd2b8b8f->enter($__internal_86b6926a4a11b85823e12850ea711d2b0c999f1160af0a3c12b53edefd2b8b8f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/pear/Mail/mock.php"));
 
         // line 1
         echo "<?php
@@ -164,7 +164,7 @@ class Mail_mock extends Mail {
 }
 ";
         
-        $__internal_3ce13f5cd6db0af7b065ade30132b22be68c9e7111bcebd9d898c013ed0624ed->leave($__internal_3ce13f5cd6db0af7b065ade30132b22be68c9e7111bcebd9d898c013ed0624ed_prof);
+        $__internal_86b6926a4a11b85823e12850ea711d2b0c999f1160af0a3c12b53edefd2b8b8f->leave($__internal_86b6926a4a11b85823e12850ea711d2b0c999f1160af0a3c12b53edefd2b8b8f_prof);
 
     }
 

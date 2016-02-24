@@ -61,56 +61,51 @@ class __TwigTemplate_3942a5d7ae1e655a7818a7676e0b0b22e2e75271cfe4a788b205480b1f3
             <p>
                 ";
         // line 19
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "Champ", array()), 'label', array("label_attr" => array("class" => "labelFormulairePlacementChamp"), "label" => "Nom :"));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "IdChamp", array()), 'label', array("label_attr" => array("class" => "labelFormulairePlacementChamp"), "label" => "Nom :"));
         echo "
                 ";
         // line 20
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "Champ", array()), 'errors');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "IdChamp", array()), 'errors');
         echo "
                 ";
         // line 21
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "Champ", array()), 'widget', array("attr" => array("class" => "texteFormulairePlacementChamp")));
-        echo "
-            </p>
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "IdChamp", array()), 'widget', array("attr" => array("class" => "texteFormulairePlacementChamp")));
+        echo " 
 
-            <p>
+                <br />
+
                 ";
         // line 25
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "Colonne", array()), 'label', array("label_attr" => array("class" => "labelFormulairePlacementChamp"), "label" => "Colonne :"));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "CoordonneesLabel", array()), 'label', array("label_attr" => array("class" => "labelFormulairePlacementChamp"), "label" => "Coordonnees label :"));
         echo "
                 ";
         // line 26
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "Colonne", array()), 'errors');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "CoordonneesLabel", array()), 'errors');
         echo "
                 ";
         // line 27
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "Colonne", array()), 'widget', array("attr" => array("class" => "textFormulairePlacementChamp")));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "CoordonneesLabel", array()), 'widget', array("attr" => array("class" => "textFormulairePlacementChamp")));
         echo "
+
+                <br />
 
                 ";
-        // line 29
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "_token", array()), 'widget');
+        // line 31
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "CoordonneesDonnees", array()), 'label', array("label_attr" => array("class" => "labelFormulairePlacementChamp"), "label" => "Coordonnees données :"));
         echo "
-            </p>
-
-            <p>
+                ";
+        // line 32
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "CoordonneesDonnees", array()), 'errors');
+        echo "
                 ";
         // line 33
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "Ligne", array()), 'label', array("label_attr" => array("class" => "labelFormulairePlacementChamp"), "label" => "Ligne :"));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "CoordonneesDonnees", array()), 'widget', array("attr" => array("class" => "textFormulairePlacementChamp")));
         echo "
-                ";
-        // line 34
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "Ligne", array()), 'errors');
-        echo "
-                ";
-        // line 35
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "Ligne", array()), 'widget', array("attr" => array("class" => "textFormulairePlacementChamp")));
-        echo "
-            </p>
 
-            <p>
+                <br />
+
                 ";
-        // line 39
+        // line 37
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), "Placer", array()), 'widget', array("attr" => array("class" => "submitFormulairePlacementChamp", "class" => "boutonFormulaire")));
         echo "
             </p>
@@ -118,7 +113,7 @@ class __TwigTemplate_3942a5d7ae1e655a7818a7676e0b0b22e2e75271cfe4a788b205480b1f3
         </fieldset> 
 
         ";
-        // line 44
+        // line 42
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : null), 'form_end');
         echo "
 
@@ -126,17 +121,19 @@ class __TwigTemplate_3942a5d7ae1e655a7818a7676e0b0b22e2e75271cfe4a788b205480b1f3
 
     <div id='tableauExcel'>
 
+        <!--
         <div>
             <p>";
-        // line 51
+        // line 50
         echo twig_escape_filter($this->env, (isset($context["filename"]) ? $context["filename"] : null), "html", null, true);
         echo "</p>
             <p> <button class=\"boutonFormulaire\" onclick=\"location.reload();\"> Annuler </button> <button class=\"boutonFormulaire\" onclick=\"exctractionTableau();
                     window.location.href = '";
-        // line 53
+        // line 52
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_affaires_edition_sauvegarde", array("filename" => (isset($context["file"]) ? $context["file"] : null))), "html", null, true);
         echo "';\"> Sauvegarder </button> </p>
         </div>
+        -->
 
         <table>
             <tr>
@@ -157,11 +154,13 @@ class __TwigTemplate_3942a5d7ae1e655a7818a7676e0b0b22e2e75271cfe4a788b205480b1f3
         $context = array_intersect_key($context, $_parent) + $_parent;
         // line 62
         echo "
+                <!--
                 <th style='font-weight: bold' class=\"ajoutColonne\">+</th>
+                -->
             </tr>
 
             ";
-        // line 66
+        // line 68
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["sheet"]) ? $context["sheet"] : null), "getRowIterator", array()));
         $context['loop'] = array(
@@ -181,16 +180,16 @@ class __TwigTemplate_3942a5d7ae1e655a7818a7676e0b0b22e2e75271cfe4a788b205480b1f3
             echo " 
                 <tr>
                     <th style='font-weight: bold'>";
-            // line 68
+            // line 70
             echo twig_escape_filter($this->env, $this->getAttribute($context["loop"], "index", array()), "html", null, true);
             echo "</th>
 
                     ";
-            // line 70
+            // line 72
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["row"], "getCellIterator", array()));
             foreach ($context['_seq'] as $context["_key"] => $context["cell"]) {
-                // line 71
+                // line 73
                 echo "                        <td>";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["cell"], "getValue", array()), "html", null, true);
                 echo "</td>
@@ -199,7 +198,7 @@ class __TwigTemplate_3942a5d7ae1e655a7818a7676e0b0b22e2e75271cfe4a788b205480b1f3
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['cell'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 73
+            // line 75
             echo "
                 </tr>
 
@@ -216,11 +215,13 @@ class __TwigTemplate_3942a5d7ae1e655a7818a7676e0b0b22e2e75271cfe4a788b205480b1f3
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['row'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 77
+        // line 79
         echo "
+            <!--
             <tr>
                 <th style='font-weight: bold' class=\"ajoutLigne\">+</th>
             </tr>
+            -->
 
         </table>
 
@@ -241,7 +242,7 @@ class __TwigTemplate_3942a5d7ae1e655a7818a7676e0b0b22e2e75271cfe4a788b205480b1f3
 
     public function getDebugInfo()
     {
-        return array (  220 => 77,  203 => 73,  194 => 71,  190 => 70,  185 => 68,  165 => 66,  159 => 62,  150 => 60,  146 => 59,  137 => 53,  132 => 51,  122 => 44,  114 => 39,  107 => 35,  103 => 34,  99 => 33,  92 => 29,  87 => 27,  83 => 26,  79 => 25,  72 => 21,  68 => 20,  64 => 19,  54 => 12,  50 => 11,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  219 => 79,  202 => 75,  193 => 73,  189 => 72,  184 => 70,  164 => 68,  156 => 62,  147 => 60,  143 => 59,  133 => 52,  128 => 50,  117 => 42,  109 => 37,  102 => 33,  98 => 32,  94 => 31,  87 => 27,  83 => 26,  79 => 25,  72 => 21,  68 => 20,  64 => 19,  54 => 12,  50 => 11,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -262,26 +263,24 @@ class __TwigTemplate_3942a5d7ae1e655a7818a7676e0b0b22e2e75271cfe4a788b205480b1f3
 /*             <legend>Placer un champ</legend>*/
 /* */
 /*             <p>*/
-/*                 {{ form_label(formPlacementChamp.Champ, "Nom :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}*/
-/*                 {{ form_errors(formPlacementChamp.Champ) }}*/
-/*                 {{ form_widget(formPlacementChamp.Champ, {'attr': {'class': 'texteFormulairePlacementChamp' }}) }}*/
-/*             </p>*/
+/*                 {{ form_label(formPlacementChamp.IdChamp, "Nom :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}*/
+/*                 {{ form_errors(formPlacementChamp.IdChamp) }}*/
+/*                 {{ form_widget(formPlacementChamp.IdChamp, {'attr': {'class': 'texteFormulairePlacementChamp' }}) }} */
 /* */
-/*             <p>*/
-/*                 {{ form_label(formPlacementChamp.Colonne, "Colonne :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}*/
-/*                 {{ form_errors(formPlacementChamp.Colonne) }}*/
-/*                 {{ form_widget(formPlacementChamp.Colonne, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}*/
+/*                 <br />*/
 /* */
-/*                 {{ form_widget(formPlacementChamp._token) }}*/
-/*             </p>*/
+/*                 {{ form_label(formPlacementChamp.CoordonneesLabel, "Coordonnees label :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}*/
+/*                 {{ form_errors(formPlacementChamp.CoordonneesLabel) }}*/
+/*                 {{ form_widget(formPlacementChamp.CoordonneesLabel, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}*/
 /* */
-/*             <p>*/
-/*                 {{ form_label(formPlacementChamp.Ligne, "Ligne :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}*/
-/*                 {{ form_errors(formPlacementChamp.Ligne) }}*/
-/*                 {{ form_widget(formPlacementChamp.Ligne, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}*/
-/*             </p>*/
+/*                 <br />*/
 /* */
-/*             <p>*/
+/*                 {{ form_label(formPlacementChamp.CoordonneesDonnees, "Coordonnees données :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}*/
+/*                 {{ form_errors(formPlacementChamp.CoordonneesDonnees) }}*/
+/*                 {{ form_widget(formPlacementChamp.CoordonneesDonnees, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}*/
+/* */
+/*                 <br />*/
+/* */
 /*                 {{ form_widget(formPlacementChamp.Placer, {'attr': {'class': 'submitFormulairePlacementChamp', 'class': 'boutonFormulaire' }}) }}*/
 /*             </p>*/
 /* */
@@ -293,11 +292,13 @@ class __TwigTemplate_3942a5d7ae1e655a7818a7676e0b0b22e2e75271cfe4a788b205480b1f3
 /* */
 /*     <div id='tableauExcel'>*/
 /* */
+/*         <!--*/
 /*         <div>*/
 /*             <p>{{ filename }}</p>*/
 /*             <p> <button class="boutonFormulaire" onclick="location.reload();"> Annuler </button> <button class="boutonFormulaire" onclick="exctractionTableau();*/
 /*                     window.location.href = '{{ path('nox_intranet_administration_affaires_edition_sauvegarde', { 'filename': file }) }}';"> Sauvegarder </button> </p>*/
 /*         </div>*/
+/*         -->*/
 /* */
 /*         <table>*/
 /*             <tr>*/
@@ -306,7 +307,9 @@ class __TwigTemplate_3942a5d7ae1e655a7818a7676e0b0b22e2e75271cfe4a788b205480b1f3
 /*                     <th style='font-weight: bold'>{{ i }}</th>*/
 /*                     {% endfor %}*/
 /* */
+/*                 <!--*/
 /*                 <th style='font-weight: bold' class="ajoutColonne">+</th>*/
+/*                 -->*/
 /*             </tr>*/
 /* */
 /*             {% for row in sheet.getRowIterator %} */
@@ -321,9 +324,11 @@ class __TwigTemplate_3942a5d7ae1e655a7818a7676e0b0b22e2e75271cfe4a788b205480b1f3
 /* */
 /*             {% endfor %}*/
 /* */
+/*             <!--*/
 /*             <tr>*/
 /*                 <th style='font-weight: bold' class="ajoutLigne">+</th>*/
 /*             </tr>*/
+/*             -->*/
 /* */
 /*         </table>*/
 /* */

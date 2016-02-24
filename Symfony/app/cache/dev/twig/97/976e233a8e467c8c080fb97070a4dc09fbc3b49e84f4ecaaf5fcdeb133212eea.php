@@ -15,8 +15,8 @@ class __TwigTemplate_f1d17c5adbb0a27220534a6a5bd28dd377287143d385605f52c54c728ed
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_7be8333883052df977a5d88280992a9fb15da38ee5def5ada7cf5c7f3baa9c0e = $this->env->getExtension("native_profiler");
-        $__internal_7be8333883052df977a5d88280992a9fb15da38ee5def5ada7cf5c7f3baa9c0e->enter($__internal_7be8333883052df977a5d88280992a9fb15da38ee5def5ada7cf5c7f3baa9c0e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/js/upgrader.js"));
+        $__internal_6667110d1559d134f91a58030608f97c7eee9e5e8cf96ff44d57908c0b722cf3 = $this->env->getExtension("native_profiler");
+        $__internal_6667110d1559d134f91a58030608f97c7eee9e5e8cf96ff44d57908c0b722cf3->enter($__internal_6667110d1559d134f91a58030608f97c7eee9e5e8cf96ff44d57908c0b722cf3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/js/upgrader.js"));
 
         // line 1
         echo "jQuery(function(\$) {
@@ -90,7 +90,7 @@ class __TwigTemplate_f1d17c5adbb0a27220534a6a5bd28dd377287143d385605f52c54c728ed
 });
 ";
         
-        $__internal_7be8333883052df977a5d88280992a9fb15da38ee5def5ada7cf5c7f3baa9c0e->leave($__internal_7be8333883052df977a5d88280992a9fb15da38ee5def5ada7cf5c7f3baa9c0e_prof);
+        $__internal_6667110d1559d134f91a58030608f97c7eee9e5e8cf96ff44d57908c0b722cf3->leave($__internal_6667110d1559d134f91a58030608f97c7eee9e5e8cf96ff44d57908c0b722cf3_prof);
 
     }
 

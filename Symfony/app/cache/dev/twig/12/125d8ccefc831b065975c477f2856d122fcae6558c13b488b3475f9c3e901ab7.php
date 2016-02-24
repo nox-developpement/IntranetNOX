@@ -15,8 +15,8 @@ class __TwigTemplate_6280c6db40d4cc68571d17b7524bb26135bf10fcd526ffbfb8469ad75f7
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_19d0d8df5b49010b26b7aff5bf3aa782ae126c745bb82bbcbd4a1eed16ffbc78 = $this->env->getExtension("native_profiler");
-        $__internal_19d0d8df5b49010b26b7aff5bf3aa782ae126c745bb82bbcbd4a1eed16ffbc78->enter($__internal_19d0d8df5b49010b26b7aff5bf3aa782ae126c745bb82bbcbd4a1eed16ffbc78_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/49478749-c2d2fabf.patch.sql"));
+        $__internal_1364ac2d0a1602919f208a37ff7504bf4dd39e35c056be5b06da8998ef4c77d0 = $this->env->getExtension("native_profiler");
+        $__internal_1364ac2d0a1602919f208a37ff7504bf4dd39e35c056be5b06da8998ef4c77d0->enter($__internal_1364ac2d0a1602919f208a37ff7504bf4dd39e35c056be5b06da8998ef4c77d0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/49478749-c2d2fabf.patch.sql"));
 
         // line 1
         echo "ALTER TABLE  `%TABLE_PREFIX%config` CHANGE  `show_answered_tickets`  `show_answered_tickets` TINYINT( 1 ) UNSIGNED NOT NULL DEFAULT  '0';
@@ -26,7 +26,7 @@ UPDATE `%TABLE_PREFIX%config`
     SET `schema_signature`='c2d2fabfdf15e1632f00850ffb361558';
 ";
         
-        $__internal_19d0d8df5b49010b26b7aff5bf3aa782ae126c745bb82bbcbd4a1eed16ffbc78->leave($__internal_19d0d8df5b49010b26b7aff5bf3aa782ae126c745bb82bbcbd4a1eed16ffbc78_prof);
+        $__internal_1364ac2d0a1602919f208a37ff7504bf4dd39e35c056be5b06da8998ef4c77d0->leave($__internal_1364ac2d0a1602919f208a37ff7504bf4dd39e35c056be5b06da8998ef4c77d0_prof);
 
     }
 

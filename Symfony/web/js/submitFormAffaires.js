@@ -5,14 +5,18 @@ $(window).ready(function () {
 
     $('.selectFormulaireSelectionDossier').change(function () {
         $('.formulaireSelectionDossier').submit();
+        $(document).ready(function () {
+            $(this).scrollTop(300);
+        });
     });
+
+    if ($('.selectFormulaireSelectionDossier').val() !== '') {
+        $('#contenu').scrollTop($('#contenu').height());
+    }
 
     $('#formSelectionVersion_Supprimer').click(function () {
-        return confirm('Voulez vous vraiment supprimer le fichier ' + $('.selectFormulaireSelectionVersion').val().replace(/.*(\/|\\)/, '') + " ?");
+        return confirm('Voulez vous vraiment supprimer le suivi ' + $('.selectFormulaireSelectionVersion:selected').text() + " ?");
     });
 
-    $('#formSelectionDossier_Supprimer').click(function () {
-        return confirm('Voulez vous vraiment supprimer le suivi ' + $('.selectFormulaireSelectionDossier option:selected').text().replace(/.*(\/|\\)/, '') + " ?");
-    });
 });
 

@@ -84,11 +84,11 @@ class __TwigTemplate_cbbfeb877fc02f9d5a0d18e16d74feea166b149617dd2a9ba4b68104669
     <div id='DivFormulaireParcourSuiviEnCours'>
         ";
         // line 30
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["form"]) ? $context["form"] : null), 'form_start', array("attr" => array("class" => "formulaireParcourSuiviEnCours")));
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : null), 'form_start', array("attr" => array("class" => "formulaireParcourSuiviEnCours")));
         echo "
         ";
         // line 31
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["form"]) ? $context["form"] : null), 'errors');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : null), 'errors');
         echo "
 
         <fieldset>
@@ -98,35 +98,30 @@ class __TwigTemplate_cbbfeb877fc02f9d5a0d18e16d74feea166b149617dd2a9ba4b68104669
             <p>
                 ";
         // line 38
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "Suivi", array()), 'errors');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : null), "Suivi", array()), 'errors');
         echo "
                 ";
         // line 39
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "Suivi", array()), 'widget', array("attr" => array("class" => "selectFormulaireAdministrationAjoutProfil", "size" => 15)));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : null), "Suivi", array()), 'widget', array("attr" => array("class" => "selectFormulaireAdministrationAjoutProfil", "size" => 15)));
         echo "
             </p>
 
-            ";
-        // line 42
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "_token", array()), 'widget');
-        echo "
-
             <p>
                 ";
-        // line 45
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "Editer", array()), 'widget', array("attr" => array("class" => "submitFormulaireParcourSuiviEnCours")));
+        // line 43
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : null), "Editer", array()), 'widget', array("attr" => array("class" => "submitFormulaireParcourSuiviEnCours")));
         echo "
                 ";
-        // line 46
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "Supprimer", array()), 'widget', array("attr" => array("class" => "submitFormulaireParcourSuiviEnCours")));
+        // line 44
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : null), "Supprimer", array()), 'widget', array("attr" => array("class" => "submitFormulaireParcourSuiviEnCours")));
         echo "
             </p>
 
         </fieldset>
 
         ";
-        // line 51
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["form"]) ? $context["form"] : null), 'form_end');
+        // line 49
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : null), 'form_end');
         echo "
 
     </div>
@@ -146,7 +141,7 @@ class __TwigTemplate_cbbfeb877fc02f9d5a0d18e16d74feea166b149617dd2a9ba4b68104669
 
     public function getDebugInfo()
     {
-        return array (  129 => 51,  121 => 46,  117 => 45,  111 => 42,  105 => 39,  101 => 38,  91 => 31,  87 => 30,  78 => 24,  71 => 20,  67 => 19,  63 => 18,  54 => 12,  50 => 11,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  124 => 49,  116 => 44,  112 => 43,  105 => 39,  101 => 38,  91 => 31,  87 => 30,  78 => 24,  71 => 20,  67 => 19,  63 => 18,  54 => 12,  50 => 11,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -178,28 +173,26 @@ class __TwigTemplate_cbbfeb877fc02f9d5a0d18e16d74feea166b149617dd2a9ba4b68104669
 /* */
 /* */
 /*     <div id='DivFormulaireParcourSuiviEnCours'>*/
-/*         {{ form_start(form, {'attr': {'class': 'formulaireParcourSuiviEnCours'}}) }}*/
-/*         {{ form_errors(form) }}*/
+/*         {{ form_start(formSelectionSuivi, {'attr': {'class': 'formulaireParcourSuiviEnCours'}}) }}*/
+/*         {{ form_errors(formSelectionSuivi) }}*/
 /* */
 /*         <fieldset>*/
 /* */
 /*             <legend>Selection du suivi</legend>*/
 /* */
 /*             <p>*/
-/*                 {{ form_errors(form.Suivi) }}*/
-/*                 {{ form_widget(form.Suivi, {'attr': {'class': 'selectFormulaireAdministrationAjoutProfil', 'size': 15}}) }}*/
+/*                 {{ form_errors(formSelectionSuivi.Suivi) }}*/
+/*                 {{ form_widget(formSelectionSuivi.Suivi, {'attr': {'class': 'selectFormulaireAdministrationAjoutProfil', 'size': 15}}) }}*/
 /*             </p>*/
 /* */
-/*             {{ form_widget(form._token) }}*/
-/* */
 /*             <p>*/
-/*                 {{ form_widget(form.Editer, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}*/
-/*                 {{ form_widget(form.Supprimer, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}*/
+/*                 {{ form_widget(formSelectionSuivi.Editer, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}*/
+/*                 {{ form_widget(formSelectionSuivi.Supprimer, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}*/
 /*             </p>*/
 /* */
 /*         </fieldset>*/
 /* */
-/*         {{ form_end(form) }}*/
+/*         {{ form_end(formSelectionSuivi) }}*/
 /* */
 /*     </div>*/
 /* */

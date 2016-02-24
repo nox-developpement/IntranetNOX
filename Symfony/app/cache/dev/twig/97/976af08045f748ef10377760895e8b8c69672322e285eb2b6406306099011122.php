@@ -15,8 +15,8 @@ class __TwigTemplate_3fce130f21f5bae231ac5a27857f223bbd272d7a8b08ad5e3f760d7c25f
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_e773667bdcd483b2cd5f1e56d6cd3c1f8622d9e59936f8642cafc618c64645e3 = $this->env->getExtension("native_profiler");
-        $__internal_e773667bdcd483b2cd5f1e56d6cd3c1f8622d9e59936f8642cafc618c64645e3->enter($__internal_e773667bdcd483b2cd5f1e56d6cd3c1f8622d9e59936f8642cafc618c64645e3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/category.inc.php"));
+        $__internal_c94c6ab5f6cfb3fd1c1bedc2f1e321a7e0ce68b88d90d01f4e68a2ffb6a0d9b2 = $this->env->getExtension("native_profiler");
+        $__internal_c94c6ab5f6cfb3fd1c1bedc2f1e321a7e0ce68b88d90d01f4e68a2ffb6a0d9b2->enter($__internal_c94c6ab5f6cfb3fd1c1bedc2f1e321a7e0ce68b88d90d01f4e68a2ffb6a0d9b2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/category.inc.php"));
 
         // line 1
         echo "<?php
@@ -104,7 +104,7 @@ if(\$category && \$_REQUEST['a']!='add'){
 </form>
 ";
         
-        $__internal_e773667bdcd483b2cd5f1e56d6cd3c1f8622d9e59936f8642cafc618c64645e3->leave($__internal_e773667bdcd483b2cd5f1e56d6cd3c1f8622d9e59936f8642cafc618c64645e3_prof);
+        $__internal_c94c6ab5f6cfb3fd1c1bedc2f1e321a7e0ce68b88d90d01f4e68a2ffb6a0d9b2->leave($__internal_c94c6ab5f6cfb3fd1c1bedc2f1e321a7e0ce68b88d90d01f4e68a2ffb6a0d9b2_prof);
 
     }
 

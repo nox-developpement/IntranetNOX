@@ -15,8 +15,8 @@ class __TwigTemplate_461e43f31ffb14034a878d81352082a7544f0240152232e0567c0752fd1
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_f406d8a2f256965a7a20289a7bc1c820ea7f023499efcaa446b049a8ec4b35d4 = $this->env->getExtension("native_profiler");
-        $__internal_f406d8a2f256965a7a20289a7bc1c820ea7f023499efcaa446b049a8ec4b35d4->enter($__internal_f406d8a2f256965a7a20289a7bc1c820ea7f023499efcaa446b049a8ec4b35d4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/banlist.inc.php"));
+        $__internal_cd110c7f087668c7ada39114a4b11a6d0eeb1085742fad32cca53ad809c3a755 = $this->env->getExtension("native_profiler");
+        $__internal_cd110c7f087668c7ada39114a4b11a6d0eeb1085742fad32cca53ad809c3a755->enter($__internal_cd110c7f087668c7ada39114a4b11a6d0eeb1085742fad32cca53ad809c3a755_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/banlist.inc.php"));
 
         // line 1
         echo "<?php
@@ -192,7 +192,7 @@ endif;
 
 ";
         
-        $__internal_f406d8a2f256965a7a20289a7bc1c820ea7f023499efcaa446b049a8ec4b35d4->leave($__internal_f406d8a2f256965a7a20289a7bc1c820ea7f023499efcaa446b049a8ec4b35d4_prof);
+        $__internal_cd110c7f087668c7ada39114a4b11a6d0eeb1085742fad32cca53ad809c3a755->leave($__internal_cd110c7f087668c7ada39114a4b11a6d0eeb1085742fad32cca53ad809c3a755_prof);
 
     }
 

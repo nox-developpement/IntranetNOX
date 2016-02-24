@@ -15,8 +15,8 @@ class __TwigTemplate_de905c2f03946a9265461af9735399dec9869d4e62e98a53c1609b2a2e5
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_0e2d4616b47980d762b99e99ebbdf2982bac839af4785adfcc99109086b7a5a9 = $this->env->getExtension("native_profiler");
-        $__internal_0e2d4616b47980d762b99e99ebbdf2982bac839af4785adfcc99109086b7a5a9->enter($__internal_0e2d4616b47980d762b99e99ebbdf2982bac839af4785adfcc99109086b7a5a9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/pear/Net/DNS2/RR/HINFO.php"));
+        $__internal_7edaddcf51b96cd64b7b9f9c9671620c55fd12a1ea973fcdb54724a91f207f8b = $this->env->getExtension("native_profiler");
+        $__internal_7edaddcf51b96cd64b7b9f9c9671620c55fd12a1ea973fcdb54724a91f207f8b->enter($__internal_7edaddcf51b96cd64b7b9f9c9671620c55fd12a1ea973fcdb54724a91f207f8b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/pear/Net/DNS2/RR/HINFO.php"));
 
         // line 1
         echo "<?php
@@ -196,7 +196,7 @@ class Net_DNS2_RR_HINFO extends Net_DNS2_RR
 ?>
 ";
         
-        $__internal_0e2d4616b47980d762b99e99ebbdf2982bac839af4785adfcc99109086b7a5a9->leave($__internal_0e2d4616b47980d762b99e99ebbdf2982bac839af4785adfcc99109086b7a5a9_prof);
+        $__internal_7edaddcf51b96cd64b7b9f9c9671620c55fd12a1ea973fcdb54724a91f207f8b->leave($__internal_7edaddcf51b96cd64b7b9f9c9671620c55fd12a1ea973fcdb54724a91f207f8b_prof);
 
     }
 

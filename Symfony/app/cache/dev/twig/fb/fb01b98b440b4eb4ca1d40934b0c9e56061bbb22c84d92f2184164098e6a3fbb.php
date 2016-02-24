@@ -15,8 +15,8 @@ class __TwigTemplate_f4fea4876910a54642f856867781d6fb3dc9a78ca02b803567d73cf8fc5
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_81672f6a998ca8f07022be0c624a2f4664d7a014fc8995a9819e10d78226ae10 = $this->env->getExtension("native_profiler");
-        $__internal_81672f6a998ca8f07022be0c624a2f4664d7a014fc8995a9819e10d78226ae10->enter($__internal_81672f6a998ca8f07022be0c624a2f4664d7a014fc8995a9819e10d78226ae10_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.draft.php"));
+        $__internal_b606fd39194995113f538958729a2b71ae5457aeddab0345f849acf54c69edc4 = $this->env->getExtension("native_profiler");
+        $__internal_b606fd39194995113f538958729a2b71ae5457aeddab0345f849acf54c69edc4->enter($__internal_b606fd39194995113f538958729a2b71ae5457aeddab0345f849acf54c69edc4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.draft.php"));
 
         // line 1
         echo "<?php
@@ -345,7 +345,7 @@ class DraftAjaxAPI extends AjaxController {
 ?>
 ";
         
-        $__internal_81672f6a998ca8f07022be0c624a2f4664d7a014fc8995a9819e10d78226ae10->leave($__internal_81672f6a998ca8f07022be0c624a2f4664d7a014fc8995a9819e10d78226ae10_prof);
+        $__internal_b606fd39194995113f538958729a2b71ae5457aeddab0345f849acf54c69edc4->leave($__internal_b606fd39194995113f538958729a2b71ae5457aeddab0345f849acf54c69edc4_prof);
 
     }
 

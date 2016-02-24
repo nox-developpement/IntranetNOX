@@ -15,8 +15,8 @@ class __TwigTemplate_0b2b041f05f6b30c12deca5ab22c4458ecfe961f9fcf5bd181d8b75da0e
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_82183cfcd63d54c9af4399d32bcd7d00d54dcd6bb6f7cd8e14693b3a84141a55 = $this->env->getExtension("native_profiler");
-        $__internal_82183cfcd63d54c9af4399d32bcd7d00d54dcd6bb6f7cd8e14693b3a84141a55->enter($__internal_82183cfcd63d54c9af4399d32bcd7d00d54dcd6bb6f7cd8e14693b3a84141a55_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/register.confirm.inc.php"));
+        $__internal_c9b74aa3d454e6e8fc27abf370425d8a104bf7766ae8952b6c36d9bae7ddb958 = $this->env->getExtension("native_profiler");
+        $__internal_c9b74aa3d454e6e8fc27abf370425d8a104bf7766ae8952b6c36d9bae7ddb958->enter($__internal_c9b74aa3d454e6e8fc27abf370425d8a104bf7766ae8952b6c36d9bae7ddb958_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/register.confirm.inc.php"));
 
         // line 1
         echo "<?php if (\$content) {
@@ -38,7 +38,7 @@ echo Format::display(\$body); ?>
 <?php } ?>
 ";
         
-        $__internal_82183cfcd63d54c9af4399d32bcd7d00d54dcd6bb6f7cd8e14693b3a84141a55->leave($__internal_82183cfcd63d54c9af4399d32bcd7d00d54dcd6bb6f7cd8e14693b3a84141a55_prof);
+        $__internal_c9b74aa3d454e6e8fc27abf370425d8a104bf7766ae8952b6c36d9bae7ddb958->leave($__internal_c9b74aa3d454e6e8fc27abf370425d8a104bf7766ae8952b6c36d9bae7ddb958_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_17889c8fe82ade87b23496a4bac4d90d749361654d7d0aa5225c51b05aa
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_a6f0918951b16d7c5c8598af33516883860e3f7b6fdf883e1cca0684358ddd94 = $this->env->getExtension("native_profiler");
-        $__internal_a6f0918951b16d7c5c8598af33516883860e3f7b6fdf883e1cca0684358ddd94->enter($__internal_a6f0918951b16d7c5c8598af33516883860e3f7b6fdf883e1cca0684358ddd94_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/staff.departments.yaml"));
+        $__internal_6e26332644ccd146712edf785b912967db2e8870a941ef3374632b23e43882cf = $this->env->getExtension("native_profiler");
+        $__internal_6e26332644ccd146712edf785b912967db2e8870a941ef3374632b23e43882cf->enter($__internal_6e26332644ccd146712edf785b912967db2e8870a941ef3374632b23e43882cf_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/staff.departments.yaml"));
 
         // line 1
         echo "#
@@ -46,7 +46,7 @@ dept_manager:
 \t\tAgents do not have to be members of the Department to be the Manager of the Department
 ";
         
-        $__internal_a6f0918951b16d7c5c8598af33516883860e3f7b6fdf883e1cca0684358ddd94->leave($__internal_a6f0918951b16d7c5c8598af33516883860e3f7b6fdf883e1cca0684358ddd94_prof);
+        $__internal_6e26332644ccd146712edf785b912967db2e8870a941ef3374632b23e43882cf->leave($__internal_6e26332644ccd146712edf785b912967db2e8870a941ef3374632b23e43882cf_prof);
 
     }
 

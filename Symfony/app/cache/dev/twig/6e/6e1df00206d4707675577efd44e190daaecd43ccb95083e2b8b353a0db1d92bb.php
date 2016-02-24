@@ -15,8 +15,8 @@ class __TwigTemplate_99b99f19a452d0d8e425affc3d56196925c6e246abc8247d921ea6ad0af
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b6b9820378212457a19e9f050f471d3f25c8032db867016ad0d5a676e26993eb = $this->env->getExtension("native_profiler");
-        $__internal_b6b9820378212457a19e9f050f471d3f25c8032db867016ad0d5a676e26993eb->enter($__internal_b6b9820378212457a19e9f050f471d3f25c8032db867016ad0d5a676e26993eb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/canned.php"));
+        $__internal_9fda8a7c0a3a68b9627bb2e2db031cd820c07a209b290ea62162ecdebda79533 = $this->env->getExtension("native_profiler");
+        $__internal_9fda8a7c0a3a68b9627bb2e2db031cd820c07a209b290ea62162ecdebda79533->enter($__internal_9fda8a7c0a3a68b9627bb2e2db031cd820c07a209b290ea62162ecdebda79533_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/scp/canned.php"));
 
         // line 1
         echo "<?php
@@ -205,7 +205,7 @@ include(STAFFINC_DIR.'footer.inc.php');
 ?>
 ";
         
-        $__internal_b6b9820378212457a19e9f050f471d3f25c8032db867016ad0d5a676e26993eb->leave($__internal_b6b9820378212457a19e9f050f471d3f25c8032db867016ad0d5a676e26993eb_prof);
+        $__internal_9fda8a7c0a3a68b9627bb2e2db031cd820c07a209b290ea62162ecdebda79533->leave($__internal_9fda8a7c0a3a68b9627bb2e2db031cd820c07a209b290ea62162ecdebda79533_prof);
 
     }
 

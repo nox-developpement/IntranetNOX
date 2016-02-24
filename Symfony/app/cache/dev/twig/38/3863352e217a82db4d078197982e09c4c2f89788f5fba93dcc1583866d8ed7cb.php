@@ -15,8 +15,8 @@ class __TwigTemplate_f156ecd4c453f6e23929716de7aa11572d4ee4d51a9a2aa4d365113b557
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_0be70dc34d6aa1c5d8bd78dd6ebb14bec5676775a7e7fbc744944cfa62457992 = $this->env->getExtension("native_profiler");
-        $__internal_0be70dc34d6aa1c5d8bd78dd6ebb14bec5676775a7e7fbc744944cfa62457992->enter($__internal_0be70dc34d6aa1c5d8bd78dd6ebb14bec5676775a7e7fbc744944cfa62457992_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/pear/Auth/SASL/SCRAM.php"));
+        $__internal_a8fb7a6ae46bc2212172365652c0415bec50118d8874196fc8e024920749ced5 = $this->env->getExtension("native_profiler");
+        $__internal_a8fb7a6ae46bc2212172365652c0415bec50118d8874196fc8e024920749ced5->enter($__internal_a8fb7a6ae46bc2212172365652c0415bec50118d8874196fc8e024920749ced5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/pear/Auth/SASL/SCRAM.php"));
 
         // line 1
         echo "<?php
@@ -327,7 +327,7 @@ class Auth_SASL_SCRAM extends Auth_SASL_Common
 ?>
 ";
         
-        $__internal_0be70dc34d6aa1c5d8bd78dd6ebb14bec5676775a7e7fbc744944cfa62457992->leave($__internal_0be70dc34d6aa1c5d8bd78dd6ebb14bec5676775a7e7fbc744944cfa62457992_prof);
+        $__internal_a8fb7a6ae46bc2212172365652c0415bec50118d8874196fc8e024920749ced5->leave($__internal_a8fb7a6ae46bc2212172365652c0415bec50118d8874196fc8e024920749ced5_prof);
 
     }
 

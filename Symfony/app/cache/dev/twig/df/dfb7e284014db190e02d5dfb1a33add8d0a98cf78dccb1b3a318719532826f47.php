@@ -15,8 +15,8 @@ class __TwigTemplate_b3bde85aaa40caa62c88cb32fa81b5951db15e3e81ce95b77c158b0671d
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_0e5af7a4f387c010a1b3e9b7091866f26ed8b29e52cb11dacb9a31a608d6ad53 = $this->env->getExtension("native_profiler");
-        $__internal_0e5af7a4f387c010a1b3e9b7091866f26ed8b29e52cb11dacb9a31a608d6ad53->enter($__internal_0e5af7a4f387c010a1b3e9b7091866f26ed8b29e52cb11dacb9a31a608d6ad53_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/cannedresponses.inc.php"));
+        $__internal_2d037817aaa3be5e9a97fb3c5f62426fc2863eb24f0fed39765fa6fceeae5d0e = $this->env->getExtension("native_profiler");
+        $__internal_2d037817aaa3be5e9a97fb3c5f62426fc2863eb24f0fed39765fa6fceeae5d0e->enter($__internal_2d037817aaa3be5e9a97fb3c5f62426fc2863eb24f0fed39765fa6fceeae5d0e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/cannedresponses.inc.php"));
 
         // line 1
         echo "<?php
@@ -177,7 +177,7 @@ endif;
 </div>
 ";
         
-        $__internal_0e5af7a4f387c010a1b3e9b7091866f26ed8b29e52cb11dacb9a31a608d6ad53->leave($__internal_0e5af7a4f387c010a1b3e9b7091866f26ed8b29e52cb11dacb9a31a608d6ad53_prof);
+        $__internal_2d037817aaa3be5e9a97fb3c5f62426fc2863eb24f0fed39765fa6fceeae5d0e->leave($__internal_2d037817aaa3be5e9a97fb3c5f62426fc2863eb24f0fed39765fa6fceeae5d0e_prof);
 
     }
 

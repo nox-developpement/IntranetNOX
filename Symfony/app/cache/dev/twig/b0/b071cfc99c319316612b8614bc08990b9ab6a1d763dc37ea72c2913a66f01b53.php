@@ -15,8 +15,8 @@ class __TwigTemplate_934bdfa7f40ece4f9ad8a1c6379df4a95072fd19212784bf23f23ffe99a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_910951955d9c5f53ccd075b281caad42de5a82446fea431fddc83b9e231136eb = $this->env->getExtension("native_profiler");
-        $__internal_910951955d9c5f53ccd075b281caad42de5a82446fea431fddc83b9e231136eb->enter($__internal_910951955d9c5f53ccd075b281caad42de5a82446fea431fddc83b9e231136eb_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/a67ba35e-98ae1ed2.patch.sql"));
+        $__internal_399d5d0822891c57f763755034f52aa831a09a7220ec597aa1b2772d34293d28 = $this->env->getExtension("native_profiler");
+        $__internal_399d5d0822891c57f763755034f52aa831a09a7220ec597aa1b2772d34293d28->enter($__internal_399d5d0822891c57f763755034f52aa831a09a7220ec597aa1b2772d34293d28_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/a67ba35e-98ae1ed2.patch.sql"));
 
         // line 1
         echo "/*
@@ -29,7 +29,7 @@ UPDATE `%TABLE_PREFIX%config`
     SET `ostversion`='1.6 RC1-4';
 ";
         
-        $__internal_910951955d9c5f53ccd075b281caad42de5a82446fea431fddc83b9e231136eb->leave($__internal_910951955d9c5f53ccd075b281caad42de5a82446fea431fddc83b9e231136eb_prof);
+        $__internal_399d5d0822891c57f763755034f52aa831a09a7220ec597aa1b2772d34293d28->leave($__internal_399d5d0822891c57f763755034f52aa831a09a7220ec597aa1b2772d34293d28_prof);
 
     }
 

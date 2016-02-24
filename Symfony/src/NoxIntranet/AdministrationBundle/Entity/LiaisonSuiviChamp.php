@@ -38,16 +38,16 @@ class LiaisonSuiviChamp {
     /**
      * @var string
      *
-     * @ORM\Column(name="Colonne", type="string", length=255)
+     * @ORM\Column(name="CoordonneesLabel", type="string", length=255)
      */
-    private $colonne;
+    private $coordonneesLabel;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="Ligne", type="integer", length=255)
+     * @ORM\Column(name="CoordonneesDonnees", type="string", length=255)
      */
-    private $ligne;
+    private $coordonneesDonnees;
 
     /**
      * Get id
@@ -81,50 +81,6 @@ class LiaisonSuiviChamp {
     }
 
     /**
-     * Set colonne
-     *
-     * @param string $colonne
-     *
-     * @return LiaisonSuiviChamp
-     */
-    public function setColonne($colonne) {
-        $this->colonne = $colonne;
-
-        return $this;
-    }
-
-    /**
-     * Get colonne
-     *
-     * @return string
-     */
-    public function getColonne() {
-        return $this->colonne;
-    }
-
-    /**
-     * Set ligne
-     *
-     * @param string $ligne
-     *
-     * @return LiaisonSuiviChamp
-     */
-    public function setLigne($ligne) {
-        $this->ligne = $ligne;
-
-        return $this;
-    }
-
-    /**
-     * Get ligne
-     *
-     * @return string
-     */
-    public function getLigne() {
-        return $this->ligne;
-    }
-
-    /**
      * Set idSuivi
      *
      * @param integer $idSuivi
@@ -144,6 +100,50 @@ class LiaisonSuiviChamp {
      */
     public function getIdSuivi() {
         return $this->idSuivi;
+    }
+
+    /**
+     * Set coordonneesLabel
+     *
+     * @param string $coordonneesLabel
+     *
+     * @return LiaisonSuiviChamp
+     */
+    public function setCoordonneesLabel($coordonneesLabel) {
+        $this->coordonneesLabel = $coordonneesLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get coordonneesLabel
+     *
+     * @return string
+     */
+    public function getCoordonneesLabel() {
+        return $this->coordonneesLabel;
+    }
+
+    /**
+     * Set coordonneesDonnees
+     *
+     * @param string $coordonneesDonnees
+     *
+     * @return LiaisonSuiviChamp
+     */
+    public function setCoordonneesDonnees($coordonneesDonnees) {
+        $this->coordonneesDonnees = $coordonneesDonnees;
+
+        return $this;
+    }
+
+    /**
+     * Get coordonneesDonnees
+     *
+     * @return string
+     */
+    public function getCoordonneesDonnees() {
+        return $this->coordonneesDonnees;
     }
 
 }

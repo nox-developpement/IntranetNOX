@@ -15,8 +15,8 @@ class __TwigTemplate_82710948120091a20e6a71142c71577855a342c31a5fa6ff41be441d16f
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_69c72fb69b0e2fe38669a08c6ecf74433c5f269f4edcdf586665217b53292555 = $this->env->getExtension("native_profiler");
-        $__internal_69c72fb69b0e2fe38669a08c6ecf74433c5f269f4edcdf586665217b53292555->enter($__internal_69c72fb69b0e2fe38669a08c6ecf74433c5f269f4edcdf586665217b53292555_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/user.tmpl.php"));
+        $__internal_45d7a91c364eb2d2bf1fd42980007ef3639524eee23a4973c4a752b60bba46ff = $this->env->getExtension("native_profiler");
+        $__internal_45d7a91c364eb2d2bf1fd42980007ef3639524eee23a4973c4a752b60bba46ff->enter($__internal_45d7a91c364eb2d2bf1fd42980007ef3639524eee23a4973c4a752b60bba46ff_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/user.tmpl.php"));
 
         // line 1
         echo "<?php
@@ -191,7 +191,7 @@ if (\$ticket && \$ticket->getOwnerId() == \$user->getId())
 </script>
 ";
         
-        $__internal_69c72fb69b0e2fe38669a08c6ecf74433c5f269f4edcdf586665217b53292555->leave($__internal_69c72fb69b0e2fe38669a08c6ecf74433c5f269f4edcdf586665217b53292555_prof);
+        $__internal_45d7a91c364eb2d2bf1fd42980007ef3639524eee23a4973c4a752b60bba46ff->leave($__internal_45d7a91c364eb2d2bf1fd42980007ef3639524eee23a4973c4a752b60bba46ff_prof);
 
     }
 

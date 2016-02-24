@@ -15,8 +15,8 @@ class __TwigTemplate_0f690075cd4cd29424fae323d660e234c7ea9de37a79c5ab55989cd2519
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_cebb5215579aa437e643c1b0acec96933b0a08f643981a1c1509e8cd28c1c78d = $this->env->getExtension("native_profiler");
-        $__internal_cebb5215579aa437e643c1b0acec96933b0a08f643981a1c1509e8cd28c1c78d->enter($__internal_cebb5215579aa437e643c1b0acec96933b0a08f643981a1c1509e8cd28c1c78d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/open.inc.php"));
+        $__internal_fc0d682b4f7abfb70803341d6d750fa91d1e8e803c243717a2e3b333b85ccd36 = $this->env->getExtension("native_profiler");
+        $__internal_fc0d682b4f7abfb70803341d6d750fa91d1e8e803c243717a2e3b333b85ccd36->enter($__internal_fc0d682b4f7abfb70803341d6d750fa91d1e8e803c243717a2e3b333b85ccd36_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/open.inc.php"));
 
         // line 1
         echo "<?php
@@ -140,7 +140,7 @@ if (\$info['topicId'] && (\$topic=Topic::lookup(\$info['topicId']))) {
 </form>
 ";
         
-        $__internal_cebb5215579aa437e643c1b0acec96933b0a08f643981a1c1509e8cd28c1c78d->leave($__internal_cebb5215579aa437e643c1b0acec96933b0a08f643981a1c1509e8cd28c1c78d_prof);
+        $__internal_fc0d682b4f7abfb70803341d6d750fa91d1e8e803c243717a2e3b333b85ccd36->leave($__internal_fc0d682b4f7abfb70803341d6d750fa91d1e8e803c243717a2e3b333b85ccd36_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_08d9b31bb5ca9169ac8cbedcf89cad847c5365712a9fb6abb06cb0ebdca
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_d3757b63d4b96d94022429c3ec60fd84a914002e52a633345a70f56cde639373 = $this->env->getExtension("native_profiler");
-        $__internal_d3757b63d4b96d94022429c3ec60fd84a914002e52a633345a70f56cde639373->enter($__internal_d3757b63d4b96d94022429c3ec60fd84a914002e52a633345a70f56cde639373_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.upgrader.php"));
+        $__internal_b083845885b059cddf222a0d7f1871832500e50180704e4fafb7050b26266665 = $this->env->getExtension("native_profiler");
+        $__internal_b083845885b059cddf222a0d7f1871832500e50180704e4fafb7050b26266665->enter($__internal_b083845885b059cddf222a0d7f1871832500e50180704e4fafb7050b26266665_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.upgrader.php"));
 
         // line 1
         echo "<?php
@@ -485,7 +485,7 @@ class StreamUpgrader extends SetupWizard {
 ?>
 ";
         
-        $__internal_d3757b63d4b96d94022429c3ec60fd84a914002e52a633345a70f56cde639373->leave($__internal_d3757b63d4b96d94022429c3ec60fd84a914002e52a633345a70f56cde639373_prof);
+        $__internal_b083845885b059cddf222a0d7f1871832500e50180704e4fafb7050b26266665->leave($__internal_b083845885b059cddf222a0d7f1871832500e50180704e4fafb7050b26266665_prof);
 
     }
 

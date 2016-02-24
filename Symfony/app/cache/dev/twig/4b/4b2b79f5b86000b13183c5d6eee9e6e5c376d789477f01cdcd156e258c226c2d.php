@@ -15,8 +15,8 @@ class __TwigTemplate_ea112d152907ea58a2deac224a9614148aad0dc8938ade87a41297d8e74
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_1cfc58df97916821eeedd3932482dcf2334cb964490ad76df74d73870ff1df7a = $this->env->getExtension("native_profiler");
-        $__internal_1cfc58df97916821eeedd3932482dcf2334cb964490ad76df74d73870ff1df7a->enter($__internal_1cfc58df97916821eeedd3932482dcf2334cb964490ad76df74d73870ff1df7a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/file.php"));
+        $__internal_780d4124d1798364f289720dfc087b28774416247dc533c1fd9928f4555793f6 = $this->env->getExtension("native_profiler");
+        $__internal_780d4124d1798364f289720dfc087b28774416247dc533c1fd9928f4555793f6->enter($__internal_780d4124d1798364f289720dfc087b28774416247dc533c1fd9928f4555793f6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/file.php"));
 
         // line 1
         echo "<?php
@@ -60,7 +60,7 @@ if (\$file->verifySignature(\$_GET['signature'], \$_GET['expires'])) {
 Http::response(404, __('Unknown or invalid file'));
 ";
         
-        $__internal_1cfc58df97916821eeedd3932482dcf2334cb964490ad76df74d73870ff1df7a->leave($__internal_1cfc58df97916821eeedd3932482dcf2334cb964490ad76df74d73870ff1df7a_prof);
+        $__internal_780d4124d1798364f289720dfc087b28774416247dc533c1fd9928f4555793f6->leave($__internal_780d4124d1798364f289720dfc087b28774416247dc533c1fd9928f4555793f6_prof);
 
     }
 

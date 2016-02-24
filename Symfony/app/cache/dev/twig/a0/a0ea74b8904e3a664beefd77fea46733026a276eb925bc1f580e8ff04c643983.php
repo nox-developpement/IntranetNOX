@@ -15,8 +15,8 @@ class __TwigTemplate_46d8da9b7d4de93ff9e055d959bc978cd7ca5af9c13f875d3877238ca7e
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_376fec7da61f860e7b27cd49ea053fea96989d7958de7ea8829a1362801aa32f = $this->env->getExtension("native_profiler");
-        $__internal_376fec7da61f860e7b27cd49ea053fea96989d7958de7ea8829a1362801aa32f->enter($__internal_376fec7da61f860e7b27cd49ea053fea96989d7958de7ea8829a1362801aa32f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/emails.banlist.yaml"));
+        $__internal_36b4be8f26ae7a02feadfd93e6055789a1772c0d0a98fe6ae6d25449569c26ca = $this->env->getExtension("native_profiler");
+        $__internal_36b4be8f26ae7a02feadfd93e6055789a1772c0d0a98fe6ae6d25449569c26ca->enter($__internal_36b4be8f26ae7a02feadfd93e6055789a1772c0d0a98fe6ae6d25449569c26ca_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/emails.banlist.yaml"));
 
         // line 1
         echo "#
@@ -41,7 +41,7 @@ ban_list:
         will be automatically rejected.
 ";
         
-        $__internal_376fec7da61f860e7b27cd49ea053fea96989d7958de7ea8829a1362801aa32f->leave($__internal_376fec7da61f860e7b27cd49ea053fea96989d7958de7ea8829a1362801aa32f_prof);
+        $__internal_36b4be8f26ae7a02feadfd93e6055789a1772c0d0a98fe6ae6d25449569c26ca->leave($__internal_36b4be8f26ae7a02feadfd93e6055789a1772c0d0a98fe6ae6d25449569c26ca_prof);
 
     }
 

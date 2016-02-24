@@ -15,8 +15,8 @@ class __TwigTemplate_ef2b4ccb1cd5d2904e98b4fa2d3211c6b526a9c635aef19c718364d2f39
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_ca8e11290c67cec0a2768b1a04bd63f84cd167311c4a66588b1f596d8d2fceda = $this->env->getExtension("native_profiler");
-        $__internal_ca8e11290c67cec0a2768b1a04bd63f84cd167311c4a66588b1f596d8d2fceda->enter($__internal_ca8e11290c67cec0a2768b1a04bd63f84cd167311c4a66588b1f596d8d2fceda_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/settings-tickets.inc.php"));
+        $__internal_3941512b1f4d355ef35bd2260c1394b9195ffb3c7cc10b40b48b30c02b55b3fd = $this->env->getExtension("native_profiler");
+        $__internal_3941512b1f4d355ef35bd2260c1394b9195ffb3c7cc10b40b48b30c02b55b3fd->enter($__internal_3941512b1f4d355ef35bd2260c1394b9195ffb3c7cc10b40b48b30c02b55b3fd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/settings-tickets.inc.php"));
 
         // line 1
         echo "<?php
@@ -329,7 +329,7 @@ if(!(\$maxfileuploads=ini_get('max_file_uploads')))
 </script>
 ";
         
-        $__internal_ca8e11290c67cec0a2768b1a04bd63f84cd167311c4a66588b1f596d8d2fceda->leave($__internal_ca8e11290c67cec0a2768b1a04bd63f84cd167311c4a66588b1f596d8d2fceda_prof);
+        $__internal_3941512b1f4d355ef35bd2260c1394b9195ffb3c7cc10b40b48b30c02b55b3fd->leave($__internal_3941512b1f4d355ef35bd2260c1394b9195ffb3c7cc10b40b48b30c02b55b3fd_prof);
 
     }
 

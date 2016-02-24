@@ -15,8 +15,8 @@ class __TwigTemplate_5ea54005929c513045237183671b649d2c9e45e3fb4b9154fbbb1d688d6
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_df719d6c16a3386c2fa5148c931a6009af1771d3d5647103d61f6d753bc8f369 = $this->env->getExtension("native_profiler");
-        $__internal_df719d6c16a3386c2fa5148c931a6009af1771d3d5647103d61f6d753bc8f369->enter($__internal_df719d6c16a3386c2fa5148c931a6009af1771d3d5647103d61f6d753bc8f369_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/login.tpl.php"));
+        $__internal_d4892ac8347cdf3e5de3b51396c0af653228de22068c5a51d494ffa20b2d603e = $this->env->getExtension("native_profiler");
+        $__internal_d4892ac8347cdf3e5de3b51396c0af653228de22068c5a51d494ffa20b2d603e->enter($__internal_d4892ac8347cdf3e5de3b51396c0af653228de22068c5a51d494ffa20b2d603e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/login.tpl.php"));
 
         // line 1
         echo "<?php
@@ -63,7 +63,7 @@ if (count(\$ext_bks)) { ?>
 </html>
 ";
         
-        $__internal_df719d6c16a3386c2fa5148c931a6009af1771d3d5647103d61f6d753bc8f369->leave($__internal_df719d6c16a3386c2fa5148c931a6009af1771d3d5647103d61f6d753bc8f369_prof);
+        $__internal_d4892ac8347cdf3e5de3b51396c0af653228de22068c5a51d494ffa20b2d603e->leave($__internal_d4892ac8347cdf3e5de3b51396c0af653228de22068c5a51d494ffa20b2d603e_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_0354f63b0758497f46f566b772a559fb2eb4747945d10b02afbf39a34ca
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_f5be45e2711052120fa25748bf1f6f34a9dda540577f00104d2c547f8e18f8ee = $this->env->getExtension("native_profiler");
-        $__internal_f5be45e2711052120fa25748bf1f6f34a9dda540577f00104d2c547f8e18f8ee->enter($__internal_f5be45e2711052120fa25748bf1f6f34a9dda540577f00104d2c547f8e18f8ee_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.group.php"));
+        $__internal_aa313f49e27f0536a15e40a30a1c9b845dad2d0bc09fb39b454e796ff778a262 = $this->env->getExtension("native_profiler");
+        $__internal_aa313f49e27f0536a15e40a30a1c9b845dad2d0bc09fb39b454e796ff778a262->enter($__internal_aa313f49e27f0536a15e40a30a1c9b845dad2d0bc09fb39b454e796ff778a262_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.group.php"));
 
         // line 1
         echo "<?php
@@ -257,7 +257,7 @@ class Group {
 ?>
 ";
         
-        $__internal_f5be45e2711052120fa25748bf1f6f34a9dda540577f00104d2c547f8e18f8ee->leave($__internal_f5be45e2711052120fa25748bf1f6f34a9dda540577f00104d2c547f8e18f8ee_prof);
+        $__internal_aa313f49e27f0536a15e40a30a1c9b845dad2d0bc09fb39b454e796ff778a262->leave($__internal_aa313f49e27f0536a15e40a30a1c9b845dad2d0bc09fb39b454e796ff778a262_prof);
 
     }
 

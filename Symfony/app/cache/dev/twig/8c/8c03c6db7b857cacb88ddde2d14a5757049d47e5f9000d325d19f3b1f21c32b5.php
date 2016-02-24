@@ -15,8 +15,8 @@ class __TwigTemplate_38e929a2374275b1ca9f22168333897789d2e4f683188940788635bdc8a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_06e76476375e0f16b223709aed4d96f81154715677cb85bb3b4cbebafdcb0dc6 = $this->env->getExtension("native_profiler");
-        $__internal_06e76476375e0f16b223709aed4d96f81154715677cb85bb3b4cbebafdcb0dc6->enter($__internal_06e76476375e0f16b223709aed4d96f81154715677cb85bb3b4cbebafdcb0dc6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/install.yaml"));
+        $__internal_ac60bcbd6f720be489875142b4e5ae499938a4b25b7b5698dcc44c80409893c6 = $this->env->getExtension("native_profiler");
+        $__internal_ac60bcbd6f720be489875142b4e5ae499938a4b25b7b5698dcc44c80409893c6->enter($__internal_ac60bcbd6f720be489875142b4e5ae499938a4b25b7b5698dcc44c80409893c6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/install.yaml"));
 
         // line 1
         echo "#
@@ -116,7 +116,7 @@ db_password:
         <p>MySQL password associated with above user.</p>
 ";
         
-        $__internal_06e76476375e0f16b223709aed4d96f81154715677cb85bb3b4cbebafdcb0dc6->leave($__internal_06e76476375e0f16b223709aed4d96f81154715677cb85bb3b4cbebafdcb0dc6_prof);
+        $__internal_ac60bcbd6f720be489875142b4e5ae499938a4b25b7b5698dcc44c80409893c6->leave($__internal_ac60bcbd6f720be489875142b4e5ae499938a4b25b7b5698dcc44c80409893c6_prof);
 
     }
 

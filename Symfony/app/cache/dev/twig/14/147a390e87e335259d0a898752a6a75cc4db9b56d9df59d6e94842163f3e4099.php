@@ -15,8 +15,8 @@ class __TwigTemplate_ab7e7434d79e17a326dd9f948cbb0ec14f8cd6da2e823a83d8c05ff7bf4
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b7592ad62ad525bb7d2719b2679d84c81190eb609464ec7e7aa5140ca0d11d41 = $this->env->getExtension("native_profiler");
-        $__internal_b7592ad62ad525bb7d2719b2679d84c81190eb609464ec7e7aa5140ca0d11d41->enter($__internal_b7592ad62ad525bb7d2719b2679d84c81190eb609464ec7e7aa5140ca0d11d41_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/collaborators-preview.tmpl.php"));
+        $__internal_01d976b4c22531fa4e5bbcff1be097e790f62d893c1c726ab04e3d26352c094d = $this->env->getExtension("native_profiler");
+        $__internal_01d976b4c22531fa4e5bbcff1be097e790f62d893c1c726ab04e3d26352c094d->enter($__internal_01d976b4c22531fa4e5bbcff1be097e790f62d893c1c726ab04e3d26352c094d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/collaborators-preview.tmpl.php"));
 
         // line 1
         echo "<div>
@@ -65,7 +65,7 @@ if (\$options) {
 </script>
 ";
         
-        $__internal_b7592ad62ad525bb7d2719b2679d84c81190eb609464ec7e7aa5140ca0d11d41->leave($__internal_b7592ad62ad525bb7d2719b2679d84c81190eb609464ec7e7aa5140ca0d11d41_prof);
+        $__internal_01d976b4c22531fa4e5bbcff1be097e790f62d893c1c726ab04e3d26352c094d->leave($__internal_01d976b4c22531fa4e5bbcff1be097e790f62d893c1c726ab04e3d26352c094d_prof);
 
     }
 

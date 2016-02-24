@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="NoxIntranet\RessourcesBundle\Entity\SuivisRepository")
  */
-class Suivis
-{
+class Suivis {
+
     /**
      * @var integer
      *
@@ -38,7 +38,7 @@ class Suivis
     /**
      * @var integer
      *
-     * @ORM\Column(name="NumeroGX", type="integer", length=255)
+     * @ORM\Column(name="NumeroGX", type="integer")
      */
     private $numeroGX;
 
@@ -48,7 +48,7 @@ class Suivis
      * @ORM\Column(name="Profil", type="string", length=255)
      */
     private $profil;
-    
+
     /**
      * @var string
      *
@@ -56,14 +56,19 @@ class Suivis
      */
     private $statut;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="IdModele", type="integer", nullable=true)
+     */
+    private $idModele;
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -74,8 +79,7 @@ class Suivis
      *
      * @return Suivis
      */
-    public function setNom($nom)
-    {
+    public function setNom($nom) {
         $this->nom = $nom;
 
         return $this;
@@ -86,8 +90,7 @@ class Suivis
      *
      * @return string
      */
-    public function getNom()
-    {
+    public function getNom() {
         return $this->nom;
     }
 
@@ -98,8 +101,7 @@ class Suivis
      *
      * @return Suivis
      */
-    public function setAgence($agence)
-    {
+    public function setAgence($agence) {
         $this->agence = $agence;
 
         return $this;
@@ -110,8 +112,7 @@ class Suivis
      *
      * @return string
      */
-    public function getAgence()
-    {
+    public function getAgence() {
         return $this->agence;
     }
 
@@ -122,8 +123,7 @@ class Suivis
      *
      * @return Suivis
      */
-    public function setNumeroGX($numeroGX)
-    {
+    public function setNumeroGX($numeroGX) {
         $this->numeroGX = $numeroGX;
 
         return $this;
@@ -134,8 +134,7 @@ class Suivis
      *
      * @return string
      */
-    public function getNumeroGX()
-    {
+    public function getNumeroGX() {
         return $this->numeroGX;
     }
 
@@ -146,8 +145,7 @@ class Suivis
      *
      * @return Suivis
      */
-    public function setProfil($profil)
-    {
+    public function setProfil($profil) {
         $this->profil = $profil;
 
         return $this;
@@ -158,8 +156,7 @@ class Suivis
      *
      * @return string
      */
-    public function getProfil()
-    {
+    public function getProfil() {
         return $this->profil;
     }
 
@@ -170,8 +167,7 @@ class Suivis
      *
      * @return Suivis
      */
-    public function setStatut($statut)
-    {
+    public function setStatut($statut) {
         $this->statut = $statut;
 
         return $this;
@@ -182,8 +178,30 @@ class Suivis
      *
      * @return string
      */
-    public function getStatut()
-    {
+    public function getStatut() {
         return $this->statut;
     }
+
+    /**
+     * Set idModele
+     *
+     * @param integer $idModele
+     *
+     * @return Suivis
+     */
+    public function setIdModele($idModele) {
+        $this->idModele = $idModele;
+
+        return $this;
+    }
+
+    /**
+     * Get idModele
+     *
+     * @return integer
+     */
+    public function getIdModele() {
+        return $this->idModele;
+    }
+
 }

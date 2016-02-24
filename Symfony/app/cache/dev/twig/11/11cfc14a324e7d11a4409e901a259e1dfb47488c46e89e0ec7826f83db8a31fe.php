@@ -15,8 +15,8 @@ class __TwigTemplate_da5dfc8717bb876fbe8bb874d1085a4553aec787e3cd9ce6cc40ad391ba
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_67e3ac23d4de173b5c76dee243911ac58b196fca3de220f906a59d1b6764e783 = $this->env->getExtension("native_profiler");
-        $__internal_67e3ac23d4de173b5c76dee243911ac58b196fca3de220f906a59d1b6764e783->enter($__internal_67e3ac23d4de173b5c76dee243911ac58b196fca3de220f906a59d1b6764e783_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/helptopic.inc.php"));
+        $__internal_2f537fe917d5d635f97e43bc6c8cb81cdc67e6f21f340f82fb7fe1fc859c4baf = $this->env->getExtension("native_profiler");
+        $__internal_2f537fe917d5d635f97e43bc6c8cb81cdc67e6f21f340f82fb7fe1fc859c4baf->enter($__internal_2f537fe917d5d635f97e43bc6c8cb81cdc67e6f21f340f82fb7fe1fc859c4baf_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/helptopic.inc.php"));
 
         // line 1
         echo "<?php
@@ -384,7 +384,7 @@ if (\$info['form_id'] == Topic::FORM_USE_PARENT) echo 'selected=\"selected\"';
 </script>
 ";
         
-        $__internal_67e3ac23d4de173b5c76dee243911ac58b196fca3de220f906a59d1b6764e783->leave($__internal_67e3ac23d4de173b5c76dee243911ac58b196fca3de220f906a59d1b6764e783_prof);
+        $__internal_2f537fe917d5d635f97e43bc6c8cb81cdc67e6f21f340f82fb7fe1fc859c4baf->leave($__internal_2f537fe917d5d635f97e43bc6c8cb81cdc67e6f21f340f82fb7fe1fc859c4baf_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_cad98b526386824ebd4ad7f1c8e717482e04ffb00f52635f6f7a1410383
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_0f1f99f81c2631056fd2819ea07c98b17f772cea0e8c131795110b2621deab02 = $this->env->getExtension("native_profiler");
-        $__internal_0f1f99f81c2631056fd2819ea07c98b17f772cea0e8c131795110b2621deab02->enter($__internal_0f1f99f81c2631056fd2819ea07c98b17f772cea0e8c131795110b2621deab02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.collaborator.php"));
+        $__internal_149da8eadacace582b49fcd1b794ae9f6674196e9201b471242fe8f812ecb1e8 = $this->env->getExtension("native_profiler");
+        $__internal_149da8eadacace582b49fcd1b794ae9f6674196e9201b471242fe8f812ecb1e8->enter($__internal_149da8eadacace582b49fcd1b794ae9f6674196e9201b471242fe8f812ecb1e8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.collaborator.php"));
 
         // line 1
         echo "<?php
@@ -180,7 +180,7 @@ class Collaborator extends TicketUser {
 ?>
 ";
         
-        $__internal_0f1f99f81c2631056fd2819ea07c98b17f772cea0e8c131795110b2621deab02->leave($__internal_0f1f99f81c2631056fd2819ea07c98b17f772cea0e8c131795110b2621deab02_prof);
+        $__internal_149da8eadacace582b49fcd1b794ae9f6674196e9201b471242fe8f812ecb1e8->leave($__internal_149da8eadacace582b49fcd1b794ae9f6674196e9201b471242fe8f812ecb1e8_prof);
 
     }
 

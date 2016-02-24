@@ -15,8 +15,8 @@ class __TwigTemplate_2c871ab12fb4faf5b564897df315a41baeaacad59a4cee6f770f60a45d9
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_f21fd307ffd3551cb6113a195834d8bfafbfedf02e353321a1d343f9cb6be74e = $this->env->getExtension("native_profiler");
-        $__internal_f21fd307ffd3551cb6113a195834d8bfafbfedf02e353321a1d343f9cb6be74e->enter($__internal_f21fd307ffd3551cb6113a195834d8bfafbfedf02e353321a1d343f9cb6be74e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/upgrade.inc.php"));
+        $__internal_d2abd7356b6a8849c976a90b77d6dc1242c6134785247f78f693c6d006e5e2b0 = $this->env->getExtension("native_profiler");
+        $__internal_d2abd7356b6a8849c976a90b77d6dc1242c6134785247f78f693c6d006e5e2b0->enter($__internal_d2abd7356b6a8849c976a90b77d6dc1242c6134785247f78f693c6d006e5e2b0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/upgrade.inc.php"));
 
         // line 1
         echo "<?php
@@ -79,7 +79,7 @@ if((\$mode = \$ost->get_var('m', \$_GET)) &&  \$mode!=\$upgrader->getMode()) {
 <div class=\"clear\"></div>
 ";
         
-        $__internal_f21fd307ffd3551cb6113a195834d8bfafbfedf02e353321a1d343f9cb6be74e->leave($__internal_f21fd307ffd3551cb6113a195834d8bfafbfedf02e353321a1d343f9cb6be74e_prof);
+        $__internal_d2abd7356b6a8849c976a90b77d6dc1242c6134785247f78f693c6d006e5e2b0->leave($__internal_d2abd7356b6a8849c976a90b77d6dc1242c6134785247f78f693c6d006e5e2b0_prof);
 
     }
 

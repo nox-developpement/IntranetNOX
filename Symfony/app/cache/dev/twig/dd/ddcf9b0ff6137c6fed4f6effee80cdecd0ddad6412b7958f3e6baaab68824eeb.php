@@ -15,8 +15,8 @@ class __TwigTemplate_9dc2fd445cf74073a633c2f167338029f895e0b642a8ebf69a100c7498d
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_ee6ec1723055a67d755f544653c4e1f94d87b936f9b57dd4de84305265676a08 = $this->env->getExtension("native_profiler");
-        $__internal_ee6ec1723055a67d755f544653c4e1f94d87b936f9b57dd4de84305265676a08->enter($__internal_ee6ec1723055a67d755f544653c4e1f94d87b936f9b57dd4de84305265676a08_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/profile.inc.php"));
+        $__internal_b10b00d80a432051c1018513066306d2710240b59c5467ac2690ddfbaddfdad9 = $this->env->getExtension("native_profiler");
+        $__internal_b10b00d80a432051c1018513066306d2710240b59c5467ac2690ddfbaddfdad9->enter($__internal_b10b00d80a432051c1018513066306d2710240b59c5467ac2690ddfbaddfdad9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/profile.inc.php"));
 
         // line 1
         echo "<h1><?php echo __('Manage Your Profile Information'); ?></h1>
@@ -135,7 +135,7 @@ if (\$acct = \$thisclient->getAccount()) {
 </form>
 ";
         
-        $__internal_ee6ec1723055a67d755f544653c4e1f94d87b936f9b57dd4de84305265676a08->leave($__internal_ee6ec1723055a67d755f544653c4e1f94d87b936f9b57dd4de84305265676a08_prof);
+        $__internal_b10b00d80a432051c1018513066306d2710240b59c5467ac2690ddfbaddfdad9->leave($__internal_b10b00d80a432051c1018513066306d2710240b59c5467ac2690ddfbaddfdad9_prof);
 
     }
 

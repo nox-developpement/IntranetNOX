@@ -15,8 +15,8 @@ class __TwigTemplate_85d5619b95fff1250a4938bccc7b99d097f4176389b530ad42034af910f
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_a9170a2b026982cd8e9f4061ee6a3088afabad2c18d20701a527d1eb7c617650 = $this->env->getExtension("native_profiler");
-        $__internal_a9170a2b026982cd8e9f4061ee6a3088afabad2c18d20701a527d1eb7c617650->enter($__internal_a9170a2b026982cd8e9f4061ee6a3088afabad2c18d20701a527d1eb7c617650_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/page/registration-confirm.yaml"));
+        $__internal_79edbf4e3452313125807e4d4507b46c750fd8204da3feefbbf301fb279badca = $this->env->getExtension("native_profiler");
+        $__internal_79edbf4e3452313125807e4d4507b46c750fd8204da3feefbbf301fb279badca->enter($__internal_79edbf4e3452313125807e4d4507b46c750fd8204da3feefbbf301fb279badca_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/page/registration-confirm.yaml"));
 
         // line 1
         echo "#
@@ -43,7 +43,7 @@ body: >
     </div>
 ";
         
-        $__internal_a9170a2b026982cd8e9f4061ee6a3088afabad2c18d20701a527d1eb7c617650->leave($__internal_a9170a2b026982cd8e9f4061ee6a3088afabad2c18d20701a527d1eb7c617650_prof);
+        $__internal_79edbf4e3452313125807e4d4507b46c750fd8204da3feefbbf301fb279badca->leave($__internal_79edbf4e3452313125807e4d4507b46c750fd8204da3feefbbf301fb279badca_prof);
 
     }
 

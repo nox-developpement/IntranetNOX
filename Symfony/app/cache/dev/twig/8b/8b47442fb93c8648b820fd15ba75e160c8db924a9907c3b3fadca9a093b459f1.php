@@ -15,8 +15,8 @@ class __TwigTemplate_80a2c7aaadb63cca75ec3373dadbe6359e2137a8674fc3a1d116aacd190
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_3183ad451cb91a35583a44dcd857cc0e6dc1d7c723097cf0300664816b461c77 = $this->env->getExtension("native_profiler");
-        $__internal_3183ad451cb91a35583a44dcd857cc0e6dc1d7c723097cf0300664816b461c77->enter($__internal_3183ad451cb91a35583a44dcd857cc0e6dc1d7c723097cf0300664816b461c77_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/cannedresponse.inc.php"));
+        $__internal_42d41ee1f5458ab3fcfcf92432c027579eb4fff684a5e157d831a8d8dd4d8cb4 = $this->env->getExtension("native_profiler");
+        $__internal_42d41ee1f5458ab3fcfcf92432c027579eb4fff684a5e157d831a8d8dd4d8cb4->enter($__internal_42d41ee1f5458ab3fcfcf92432c027579eb4fff684a5e157d831a8d8dd4d8cb4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/cannedresponse.inc.php"));
 
         // line 1
         echo "<?php
@@ -152,7 +152,7 @@ if(\$canned && \$_REQUEST['a']!='add'){
 </form>
 ";
         
-        $__internal_3183ad451cb91a35583a44dcd857cc0e6dc1d7c723097cf0300664816b461c77->leave($__internal_3183ad451cb91a35583a44dcd857cc0e6dc1d7c723097cf0300664816b461c77_prof);
+        $__internal_42d41ee1f5458ab3fcfcf92432c027579eb4fff684a5e157d831a8d8dd4d8cb4->leave($__internal_42d41ee1f5458ab3fcfcf92432c027579eb4fff684a5e157d831a8d8dd4d8cb4_prof);
 
     }
 

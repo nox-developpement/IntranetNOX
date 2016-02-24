@@ -15,8 +15,8 @@ class __TwigTemplate_23764257c3a8980c3fa13e226e4b7b0d683504988061cc56af8ddb03402
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_e8b66268da22224db1e7f78eed70588f6dd812540118391efc235888f6be7be9 = $this->env->getExtension("native_profiler");
-        $__internal_e8b66268da22224db1e7f78eed70588f6dd812540118391efc235888f6be7be9->enter($__internal_e8b66268da22224db1e7f78eed70588f6dd812540118391efc235888f6be7be9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/kb/faq.php"));
+        $__internal_e3ed420cc0d804878af9fb355bfac65bd470703dc7d50328164a984a77b4d340 = $this->env->getExtension("native_profiler");
+        $__internal_e3ed420cc0d804878af9fb355bfac65bd470703dc7d50328164a984a77b4d340->enter($__internal_e3ed420cc0d804878af9fb355bfac65bd470703dc7d50328164a984a77b4d340_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/kb/faq.php"));
 
         // line 1
         echo "<?php
@@ -57,7 +57,7 @@ require_once(CLIENTINC_DIR.'footer.inc.php');
 ?>
 ";
         
-        $__internal_e8b66268da22224db1e7f78eed70588f6dd812540118391efc235888f6be7be9->leave($__internal_e8b66268da22224db1e7f78eed70588f6dd812540118391efc235888f6be7be9_prof);
+        $__internal_e3ed420cc0d804878af9fb355bfac65bd470703dc7d50328164a984a77b4d340->leave($__internal_e3ed420cc0d804878af9fb355bfac65bd470703dc7d50328164a984a77b4d340_prof);
 
     }
 

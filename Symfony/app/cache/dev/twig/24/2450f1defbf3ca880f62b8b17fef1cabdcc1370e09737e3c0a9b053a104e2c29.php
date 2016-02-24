@@ -15,8 +15,8 @@ class __TwigTemplate_4beffb8343baf5203a5efea0ca9e77d62217c268670928303be8181b826
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_29ab043193c772f026db1ca3270fdf59f24675482ef924e5c16c41a504e89d2b = $this->env->getExtension("native_profiler");
-        $__internal_29ab043193c772f026db1ca3270fdf59f24675482ef924e5c16c41a504e89d2b->enter($__internal_29ab043193c772f026db1ca3270fdf59f24675482ef924e5c16c41a504e89d2b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/user-register.tmpl.php"));
+        $__internal_86e1b1f0719ff68547c66e402f9d06ec0b4f04e7409c406dc34b6f9c46b5d50e = $this->env->getExtension("native_profiler");
+        $__internal_86e1b1f0719ff68547c66e402f9d06ec0b4f04e7409c406dc34b6f9c46b5d50e->enter($__internal_86e1b1f0719ff68547c66e402f9d06ec0b4f04e7409c406dc34b6f9c46b5d50e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/user-register.tmpl.php"));
 
         // line 1
         echo "<?php
@@ -209,7 +209,7 @@ echo sprintf(__(
 </script>
 ";
         
-        $__internal_29ab043193c772f026db1ca3270fdf59f24675482ef924e5c16c41a504e89d2b->leave($__internal_29ab043193c772f026db1ca3270fdf59f24675482ef924e5c16c41a504e89d2b_prof);
+        $__internal_86e1b1f0719ff68547c66e402f9d06ec0b4f04e7409c406dc34b6f9c46b5d50e->leave($__internal_86e1b1f0719ff68547c66e402f9d06ec0b4f04e7409c406dc34b6f9c46b5d50e_prof);
 
     }
 

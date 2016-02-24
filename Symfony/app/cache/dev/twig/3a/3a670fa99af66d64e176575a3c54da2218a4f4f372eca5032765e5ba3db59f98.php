@@ -15,8 +15,8 @@ class __TwigTemplate_ec6a404734395a964909f35e102b275c977f0cce741d342d04340e8cc2b
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_a09e1e36081518bdc20ecafed35698de25d28d6045031d2fbec01acd8dc8618e = $this->env->getExtension("native_profiler");
-        $__internal_a09e1e36081518bdc20ecafed35698de25d28d6045031d2fbec01acd8dc8618e->enter($__internal_a09e1e36081518bdc20ecafed35698de25d28d6045031d2fbec01acd8dc8618e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/c00511c7-7be60a84.cleanup.sql"));
+        $__internal_080e3f7db76896452877b8d44f5df8b627143f51b03341c15e16e1c1834b577c = $this->env->getExtension("native_profiler");
+        $__internal_080e3f7db76896452877b8d44f5df8b627143f51b03341c15e16e1c1834b577c->enter($__internal_080e3f7db76896452877b8d44f5df8b627143f51b03341c15e16e1c1834b577c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/c00511c7-7be60a84.cleanup.sql"));
 
         // line 1
         echo "-- Drop columns we nolonger need - (must be at the very bottom or after session table is created)
@@ -38,7 +38,7 @@ ALTER TABLE `%TABLE_PREFIX%department`
 DROP TABLE `%TABLE_PREFIX%email_banlist`;
 ";
         
-        $__internal_a09e1e36081518bdc20ecafed35698de25d28d6045031d2fbec01acd8dc8618e->leave($__internal_a09e1e36081518bdc20ecafed35698de25d28d6045031d2fbec01acd8dc8618e_prof);
+        $__internal_080e3f7db76896452877b8d44f5df8b627143f51b03341c15e16e1c1834b577c->leave($__internal_080e3f7db76896452877b8d44f5df8b627143f51b03341c15e16e1c1834b577c_prof);
 
     }
 

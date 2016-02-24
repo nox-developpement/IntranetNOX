@@ -157,7 +157,7 @@ nox_intranet_administration_affaires:
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:administrationAffairesAccueil, profil: '' }
     
 nox_intranet_administration_affaires_edition:
-    path: /administration/assistant-affaires/{profil}/edition-fichier/{file}
+    path: /administration/assistant-affaires-edition-fichier/{profil}/{file}
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:administrationAffairesEdition, profil: '' }
     requirements:
         file: .+

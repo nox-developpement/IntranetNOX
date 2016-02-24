@@ -15,8 +15,8 @@ class __TwigTemplate_b9dcb6282e4d95175fab632f939a18ec7fca6aa9ba5a08a191e7068e5e1
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_7e94cbf76e57a2e36321cc696f6dfe4ca0f1f6445e1e640b2448f85aa0849a9f = $this->env->getExtension("native_profiler");
-        $__internal_7e94cbf76e57a2e36321cc696f6dfe4ca0f1f6445e1e640b2448f85aa0849a9f->enter($__internal_7e94cbf76e57a2e36321cc696f6dfe4ca0f1f6445e1e640b2448f85aa0849a9f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/prereq.inc.php"));
+        $__internal_f48ddb2e51cb26886b4201becfdd422a92a5cdb21e12f368ebd1f6b2c59f840d = $this->env->getExtension("native_profiler");
+        $__internal_f48ddb2e51cb26886b4201becfdd422a92a5cdb21e12f368ebd1f6b2c59f840d->enter($__internal_f48ddb2e51cb26886b4201becfdd422a92a5cdb21e12f368ebd1f6b2c59f840d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/prereq.inc.php"));
 
         // line 1
         echo "<?php
@@ -76,7 +76,7 @@ if(!defined('OSTSCPINC') || !\$thisstaff || !\$thisstaff->isAdmin()) die('Access
 </div>
 ";
         
-        $__internal_7e94cbf76e57a2e36321cc696f6dfe4ca0f1f6445e1e640b2448f85aa0849a9f->leave($__internal_7e94cbf76e57a2e36321cc696f6dfe4ca0f1f6445e1e640b2448f85aa0849a9f_prof);
+        $__internal_f48ddb2e51cb26886b4201becfdd422a92a5cdb21e12f368ebd1f6b2c59f840d->leave($__internal_f48ddb2e51cb26886b4201becfdd422a92a5cdb21e12f368ebd1f6b2c59f840d_prof);
 
     }
 

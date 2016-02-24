@@ -15,8 +15,8 @@ class __TwigTemplate_8b6cd1d386eb1b77943bc8695102d942de769f70021dedb638ccacf4c71
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_76a5c3477d6b8e69423f7d29fca00d1fc46375222a1c053e1cb2585c26aaefbd = $this->env->getExtension("native_profiler");
-        $__internal_76a5c3477d6b8e69423f7d29fca00d1fc46375222a1c053e1cb2585c26aaefbd->enter($__internal_76a5c3477d6b8e69423f7d29fca00d1fc46375222a1c053e1cb2585c26aaefbd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/plugins/updates.pem"));
+        $__internal_dab23be95326ab2d070c72c438d1c6c68d41c721a6b5b7febd51a10ce5986872 = $this->env->getExtension("native_profiler");
+        $__internal_dab23be95326ab2d070c72c438d1c6c68d41c721a6b5b7febd51a10ce5986872->enter($__internal_dab23be95326ab2d070c72c438d1c6c68d41c721a6b5b7febd51a10ce5986872_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/plugins/updates.pem"));
 
         // line 1
         echo "-----BEGIN PUBLIC KEY-----
@@ -41,7 +41,7 @@ WR3uNkh7bT7dIfJDDmLsRuQ5fegdQ9mQ/7nLvMZha4pitwTlaI6P0c76fRN1Al27
 -----END PUBLIC KEY-----
 ";
         
-        $__internal_76a5c3477d6b8e69423f7d29fca00d1fc46375222a1c053e1cb2585c26aaefbd->leave($__internal_76a5c3477d6b8e69423f7d29fca00d1fc46375222a1c053e1cb2585c26aaefbd_prof);
+        $__internal_dab23be95326ab2d070c72c438d1c6c68d41c721a6b5b7febd51a10ce5986872->leave($__internal_dab23be95326ab2d070c72c438d1c6c68d41c721a6b5b7febd51a10ce5986872_prof);
 
     }
 

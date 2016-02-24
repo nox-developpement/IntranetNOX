@@ -15,8 +15,8 @@ class __TwigTemplate_e094c338ee9eb506f59039eb373b1e86b385c51079ea68615ddffff9d1a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_771dbad16e563c4638f66a4005dedd9d98c697ba2795685add0ef6f30aba61a5 = $this->env->getExtension("native_profiler");
-        $__internal_771dbad16e563c4638f66a4005dedd9d98c697ba2795685add0ef6f30aba61a5->enter($__internal_771dbad16e563c4638f66a4005dedd9d98c697ba2795685add0ef6f30aba61a5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/plugin-add.inc.php"));
+        $__internal_0beeac0c955a2a528b8d0a1881fc54136881990faea6555b465c75e320d46e83 = $this->env->getExtension("native_profiler");
+        $__internal_0beeac0c955a2a528b8d0a1881fc54136881990faea6555b465c75e320d46e83->enter($__internal_0beeac0c955a2a528b8d0a1881fc54136881990faea6555b465c75e320d46e83_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/plugin-add.inc.php"));
 
         // line 1
         echo "
@@ -55,7 +55,7 @@ foreach (\$ost->plugins->allInfos() as \$info) {
 </form>
 ";
         
-        $__internal_771dbad16e563c4638f66a4005dedd9d98c697ba2795685add0ef6f30aba61a5->leave($__internal_771dbad16e563c4638f66a4005dedd9d98c697ba2795685add0ef6f30aba61a5_prof);
+        $__internal_0beeac0c955a2a528b8d0a1881fc54136881990faea6555b465c75e320d46e83->leave($__internal_0beeac0c955a2a528b8d0a1881fc54136881990faea6555b465c75e320d46e83_prof);
 
     }
 

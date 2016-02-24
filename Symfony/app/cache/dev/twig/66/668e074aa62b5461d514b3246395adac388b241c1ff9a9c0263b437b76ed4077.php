@@ -15,8 +15,8 @@ class __TwigTemplate_25ac84f15c55f82dd52f9a830132dd48c4ae251ca6d1291a7cef96c3881
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_8ff45d94edf210e4d797beb385e182754621ec8a89105516cb21f07a4c271dfd = $this->env->getExtension("native_profiler");
-        $__internal_8ff45d94edf210e4d797beb385e182754621ec8a89105516cb21f07a4c271dfd->enter($__internal_8ff45d94edf210e4d797beb385e182754621ec8a89105516cb21f07a4c271dfd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ost-config.php"));
+        $__internal_83dc3b0953e4410502047c8eb840dfdf856202ad195607d1df13f7d5107ca4cc = $this->env->getExtension("native_profiler");
+        $__internal_83dc3b0953e4410502047c8eb840dfdf856202ad195607d1df13f7d5107ca4cc->enter($__internal_83dc3b0953e4410502047c8eb840dfdf856202ad195607d1df13f7d5107ca4cc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ost-config.php"));
 
         // line 1
         echo "<?php
@@ -150,7 +150,7 @@ define('TABLE_PREFIX','ost_');
 ?>
 ";
         
-        $__internal_8ff45d94edf210e4d797beb385e182754621ec8a89105516cb21f07a4c271dfd->leave($__internal_8ff45d94edf210e4d797beb385e182754621ec8a89105516cb21f07a4c271dfd_prof);
+        $__internal_83dc3b0953e4410502047c8eb840dfdf856202ad195607d1df13f7d5107ca4cc->leave($__internal_83dc3b0953e4410502047c8eb840dfdf856202ad195607d1df13f7d5107ca4cc_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_b7649e77d6645e4f4ef75386931b1d9351d9b32b332c56c3214bc627ece
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_1db5cc35f4f9e7db3f6f57a6843ee2a726ed324770e69da4ded4955294bf7203 = $this->env->getExtension("native_profiler");
-        $__internal_1db5cc35f4f9e7db3f6f57a6843ee2a726ed324770e69da4ded4955294bf7203->enter($__internal_1db5cc35f4f9e7db3f6f57a6843ee2a726ed324770e69da4ded4955294bf7203_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/manage.filter.yaml"));
+        $__internal_601fe4514e8f4248820d669d95fb2ab0e8c87db6d088cc2fc2fb32f0686daf92 = $this->env->getExtension("native_profiler");
+        $__internal_601fe4514e8f4248820d669d95fb2ab0e8c87db6d088cc2fc2fb32f0686daf92->enter($__internal_601fe4514e8f4248820d669d95fb2ab0e8c87db6d088cc2fc2fb32f0686daf92_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/manage.filter.yaml"));
 
         // line 1
         echo "#
@@ -165,7 +165,7 @@ admin_notes:
         class=\"doc-desc-title\">Admin</span>.’
 ";
         
-        $__internal_1db5cc35f4f9e7db3f6f57a6843ee2a726ed324770e69da4ded4955294bf7203->leave($__internal_1db5cc35f4f9e7db3f6f57a6843ee2a726ed324770e69da4ded4955294bf7203_prof);
+        $__internal_601fe4514e8f4248820d669d95fb2ab0e8c87db6d088cc2fc2fb32f0686daf92->leave($__internal_601fe4514e8f4248820d669d95fb2ab0e8c87db6d088cc2fc2fb32f0686daf92_prof);
 
     }
 

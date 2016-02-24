@@ -15,8 +15,8 @@ class __TwigTemplate_8aecfadeeee514c2e72ae64dc352456cd918e8741e1d3875732eced3eaa
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_6636a670de85415f278ef5a4d9e854eafd7b8bdeb964e6f5b3ea02c3e60a618a = $this->env->getExtension("native_profiler");
-        $__internal_6636a670de85415f278ef5a4d9e854eafd7b8bdeb964e6f5b3ea02c3e60a618a->enter($__internal_6636a670de85415f278ef5a4d9e854eafd7b8bdeb964e6f5b3ea02c3e60a618a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/form-manage.tmpl.php"));
+        $__internal_8c618c549d387e3a560257a8b613b377358c9af00ac5287a74f2d92d4e4f2ecc = $this->env->getExtension("native_profiler");
+        $__internal_8c618c549d387e3a560257a8b613b377358c9af00ac5287a74f2d92d4e4f2ecc->enter($__internal_8c618c549d387e3a560257a8b613b377358c9af00ac5287a74f2d92d4e4f2ecc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/form-manage.tmpl.php"));
 
         // line 1
         echo "<h3><i class=\"icon-paste\"></i> <?php echo __('Manage Forms'); ?></i></h3>
@@ -103,7 +103,7 @@ foreach (\$forms as \$e) { ?>
 </script>
 ";
         
-        $__internal_6636a670de85415f278ef5a4d9e854eafd7b8bdeb964e6f5b3ea02c3e60a618a->leave($__internal_6636a670de85415f278ef5a4d9e854eafd7b8bdeb964e6f5b3ea02c3e60a618a_prof);
+        $__internal_8c618c549d387e3a560257a8b613b377358c9af00ac5287a74f2d92d4e4f2ecc->leave($__internal_8c618c549d387e3a560257a8b613b377358c9af00ac5287a74f2d92d4e4f2ecc_prof);
 
     }
 

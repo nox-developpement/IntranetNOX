@@ -15,8 +15,8 @@ class __TwigTemplate_be85012fe398eebbb86b3063b7627aa2b0d404ef9b43d408700dd729641
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_39fe99640dd2b6f1b0d7e155bcd41c0654d0f679b1992fe0ce5ba71aaea61ba3 = $this->env->getExtension("native_profiler");
-        $__internal_39fe99640dd2b6f1b0d7e155bcd41c0654d0f679b1992fe0ce5ba71aaea61ba3->enter($__internal_39fe99640dd2b6f1b0d7e155bcd41c0654d0f679b1992fe0ce5ba71aaea61ba3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/page/registration-client.yaml"));
+        $__internal_0a385a2a6733219642308f49d5cb42b247604cd819cf99bb28e655035fcab198 = $this->env->getExtension("native_profiler");
+        $__internal_0a385a2a6733219642308f49d5cb42b247604cd819cf99bb28e655035fcab198->enter($__internal_0a385a2a6733219642308f49d5cb42b247604cd819cf99bb28e655035fcab198_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/page/registration-client.yaml"));
 
         // line 1
         echo "#
@@ -48,7 +48,7 @@ body: >
     </div>
 ";
         
-        $__internal_39fe99640dd2b6f1b0d7e155bcd41c0654d0f679b1992fe0ce5ba71aaea61ba3->leave($__internal_39fe99640dd2b6f1b0d7e155bcd41c0654d0f679b1992fe0ce5ba71aaea61ba3_prof);
+        $__internal_0a385a2a6733219642308f49d5cb42b247604cd819cf99bb28e655035fcab198->leave($__internal_0a385a2a6733219642308f49d5cb42b247604cd819cf99bb28e655035fcab198_prof);
 
     }
 

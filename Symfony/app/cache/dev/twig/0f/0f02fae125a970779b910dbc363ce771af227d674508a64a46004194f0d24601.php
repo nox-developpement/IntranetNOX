@@ -15,8 +15,8 @@ class __TwigTemplate_176d42e3b6b809d545100551a297a562c84e64902c06a767b89baf43cb4
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_931ae30b0fe8ec1e1420aa6d0904392122190829d42bbfeac21bf412b0945fb3 = $this->env->getExtension("native_profiler");
-        $__internal_931ae30b0fe8ec1e1420aa6d0904392122190829d42bbfeac21bf412b0945fb3->enter($__internal_931ae30b0fe8ec1e1420aa6d0904392122190829d42bbfeac21bf412b0945fb3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/collaborators.tmpl.php"));
+        $__internal_88a03d9dc0d178724b000315e6f3e19bcfe8f9337685c578b83882d3c8bdb73d = $this->env->getExtension("native_profiler");
+        $__internal_88a03d9dc0d178724b000315e6f3e19bcfe8f9337685c578b83882d3c8bdb73d->enter($__internal_88a03d9dc0d178724b000315e6f3e19bcfe8f9337685c578b83882d3c8bdb73d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/templates/collaborators.tmpl.php"));
 
         // line 1
         echo "<h3><?php echo __('Ticket Collaborators'); ?></h3>
@@ -148,7 +148,7 @@ if (\$_POST && \$ticket && \$ticket->getNumCollaborators()) {
 </script>
 ";
         
-        $__internal_931ae30b0fe8ec1e1420aa6d0904392122190829d42bbfeac21bf412b0945fb3->leave($__internal_931ae30b0fe8ec1e1420aa6d0904392122190829d42bbfeac21bf412b0945fb3_prof);
+        $__internal_88a03d9dc0d178724b000315e6f3e19bcfe8f9337685c578b83882d3c8bdb73d->leave($__internal_88a03d9dc0d178724b000315e6f3e19bcfe8f9337685c578b83882d3c8bdb73d_prof);
 
     }
 

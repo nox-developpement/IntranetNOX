@@ -15,8 +15,8 @@ class __TwigTemplate_99ff221604558c3dbb1b558f641ae69468f8bfd28bb55869215807fa11f
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_668d321b0f17ca2966983a5a727bcb4b9b6821b7b8cbe17a675c74a555e96992 = $this->env->getExtension("native_profiler");
-        $__internal_668d321b0f17ca2966983a5a727bcb4b9b6821b7b8cbe17a675c74a555e96992->enter($__internal_668d321b0f17ca2966983a5a727bcb4b9b6821b7b8cbe17a675c74a555e96992_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/ticket-view.inc.php"));
+        $__internal_66cefd6d56f96d70895c4038022636ce436fdeafd0bbd74f40f60467733b8e93 = $this->env->getExtension("native_profiler");
+        $__internal_66cefd6d56f96d70895c4038022636ce436fdeafd0bbd74f40f60467733b8e93->enter($__internal_66cefd6d56f96d70895c4038022636ce436fdeafd0bbd74f40f60467733b8e93_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/staff/ticket-view.inc.php"));
 
         // line 1
         echo "<?php
@@ -1036,7 +1036,7 @@ print \$note_form->getField('attachments')->render();
 </script>
 ";
         
-        $__internal_668d321b0f17ca2966983a5a727bcb4b9b6821b7b8cbe17a675c74a555e96992->leave($__internal_668d321b0f17ca2966983a5a727bcb4b9b6821b7b8cbe17a675c74a555e96992_prof);
+        $__internal_66cefd6d56f96d70895c4038022636ce436fdeafd0bbd74f40f60467733b8e93->leave($__internal_66cefd6d56f96d70895c4038022636ce436fdeafd0bbd74f40f60467733b8e93_prof);
 
     }
 

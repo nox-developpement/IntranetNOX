@@ -15,8 +15,8 @@ class __TwigTemplate_3a4b8cfc7f0209051a3c19e03b3128e1a9565e001de41625e39bc8b1cd3
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_e36f933f83a163f4e4f871a9eab076ec6e85cb05526dfc066c31c33207178336 = $this->env->getExtension("native_profiler");
-        $__internal_e36f933f83a163f4e4f871a9eab076ec6e85cb05526dfc066c31c33207178336->enter($__internal_e36f933f83a163f4e4f871a9eab076ec6e85cb05526dfc066c31c33207178336_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/staff.team.yaml"));
+        $__internal_41b440fcfd6c254043954fbdba39e54fee87c2d7eee5983edd97f9d5afc1b188 = $this->env->getExtension("native_profiler");
+        $__internal_41b440fcfd6c254043954fbdba39e54fee87c2d7eee5983edd97f9d5afc1b188->enter($__internal_41b440fcfd6c254043954fbdba39e54fee87c2d7eee5983edd97f9d5afc1b188_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/staff.team.yaml"));
 
         // line 1
         echo "#
@@ -76,7 +76,7 @@ members:
         href: /scp/staff.php
 ";
         
-        $__internal_e36f933f83a163f4e4f871a9eab076ec6e85cb05526dfc066c31c33207178336->leave($__internal_e36f933f83a163f4e4f871a9eab076ec6e85cb05526dfc066c31c33207178336_prof);
+        $__internal_41b440fcfd6c254043954fbdba39e54fee87c2d7eee5983edd97f9d5afc1b188->leave($__internal_41b440fcfd6c254043954fbdba39e54fee87c2d7eee5983edd97f9d5afc1b188_prof);
 
     }
 

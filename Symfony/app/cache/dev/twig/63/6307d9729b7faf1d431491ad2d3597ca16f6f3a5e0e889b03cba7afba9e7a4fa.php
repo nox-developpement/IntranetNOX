@@ -15,8 +15,8 @@ class __TwigTemplate_0d218f45e7db3eb2317e15b20f14e0e634a398f415917c7fa25547bdd3d
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_409a03634890757776c342d773454022a9017e0b87c1f0f83f4ef4b8ae02f7fa = $this->env->getExtension("native_profiler");
-        $__internal_409a03634890757776c342d773454022a9017e0b87c1f0f83f4ef4b8ae02f7fa->enter($__internal_409a03634890757776c342d773454022a9017e0b87c1f0f83f4ef4b8ae02f7fa_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.users.php"));
+        $__internal_b7ec3af5f0572a20f092f4ea447e6f383de834d70dd63e85b0df9cedcd0122ca = $this->env->getExtension("native_profiler");
+        $__internal_b7ec3af5f0572a20f092f4ea447e6f383de834d70dd63e85b0df9cedcd0122ca->enter($__internal_b7ec3af5f0572a20f092f4ea447e6f383de834d70dd63e85b0df9cedcd0122ca_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/ajax.users.php"));
 
         // line 1
         echo "<?php
@@ -480,7 +480,7 @@ class UsersAjaxAPI extends AjaxController {
 ?>
 ";
         
-        $__internal_409a03634890757776c342d773454022a9017e0b87c1f0f83f4ef4b8ae02f7fa->leave($__internal_409a03634890757776c342d773454022a9017e0b87c1f0f83f4ef4b8ae02f7fa_prof);
+        $__internal_b7ec3af5f0572a20f092f4ea447e6f383de834d70dd63e85b0df9cedcd0122ca->leave($__internal_b7ec3af5f0572a20f092f4ea447e6f383de834d70dd63e85b0df9cedcd0122ca_prof);
 
     }
 

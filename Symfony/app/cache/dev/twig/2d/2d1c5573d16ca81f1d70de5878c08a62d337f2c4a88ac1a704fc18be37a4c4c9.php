@@ -15,8 +15,8 @@ class __TwigTemplate_22cbaca46ef28dd5816b0858a2b7453d9d61876f117a00ca2020f7261ec
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_34ed177eec4745b0e40afa4d08f65f1c547421133e32ab04f92a79f893484bb8 = $this->env->getExtension("native_profiler");
-        $__internal_34ed177eec4745b0e40afa4d08f65f1c547421133e32ab04f92a79f893484bb8->enter($__internal_34ed177eec4745b0e40afa4d08f65f1c547421133e32ab04f92a79f893484bb8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/settings.alerts.yaml"));
+        $__internal_839f49fee14669924efd912837b8a7666df662576ebac11b428ecde0d5b8ae5d = $this->env->getExtension("native_profiler");
+        $__internal_839f49fee14669924efd912837b8a7666df662576ebac11b428ecde0d5b8ae5d->enter($__internal_839f49fee14669924efd912837b8a7666df662576ebac11b428ecde0d5b8ae5d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/settings.alerts.yaml"));
 
         // line 1
         echo "#
@@ -114,7 +114,7 @@ system_alerts:
         href: /scp/settings.php?t=emails
 ";
         
-        $__internal_34ed177eec4745b0e40afa4d08f65f1c547421133e32ab04f92a79f893484bb8->leave($__internal_34ed177eec4745b0e40afa4d08f65f1c547421133e32ab04f92a79f893484bb8_prof);
+        $__internal_839f49fee14669924efd912837b8a7666df662576ebac11b428ecde0d5b8ae5d->leave($__internal_839f49fee14669924efd912837b8a7666df662576ebac11b428ecde0d5b8ae5d_prof);
 
     }
 

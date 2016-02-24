@@ -15,8 +15,8 @@ class __TwigTemplate_afaa03d0a393363c0ef0d797a3dcf0fb6d3ef1740d2c69d9d325ff2aaa5
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_d346d70bb41fc5ae4514af986f88c6c98d05661fa3d3e276da2294b0c406acac = $this->env->getExtension("native_profiler");
-        $__internal_d346d70bb41fc5ae4514af986f88c6c98d05661fa3d3e276da2294b0c406acac->enter($__internal_d346d70bb41fc5ae4514af986f88c6c98d05661fa3d3e276da2294b0c406acac_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/knowledgebase.canned_response.yaml"));
+        $__internal_37e9832a97964e3ec41cb3a3db2471f41540c3768c06da01158d6ef05c924b5f = $this->env->getExtension("native_profiler");
+        $__internal_37e9832a97964e3ec41cb3a3db2471f41540c3768c06da01158d6ef05c924b5f->enter($__internal_37e9832a97964e3ec41cb3a3db2471f41540c3768c06da01158d6ef05c924b5f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/knowledgebase.canned_response.yaml"));
 
         // line 1
         echo "#
@@ -53,7 +53,7 @@ canned_attachments:
         Canned Response</span>.
 ";
         
-        $__internal_d346d70bb41fc5ae4514af986f88c6c98d05661fa3d3e276da2294b0c406acac->leave($__internal_d346d70bb41fc5ae4514af986f88c6c98d05661fa3d3e276da2294b0c406acac_prof);
+        $__internal_37e9832a97964e3ec41cb3a3db2471f41540c3768c06da01158d6ef05c924b5f->leave($__internal_37e9832a97964e3ec41cb3a3db2471f41540c3768c06da01158d6ef05c924b5f_prof);
 
     }
 

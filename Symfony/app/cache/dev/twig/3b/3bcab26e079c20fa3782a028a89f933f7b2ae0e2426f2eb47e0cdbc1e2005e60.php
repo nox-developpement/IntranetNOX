@@ -15,8 +15,8 @@ class __TwigTemplate_9198c5109cb806d1e8963205124e8ef23f3b9287cc420181baf1b5c0605
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_6738df30d91bd7cb3555503c3947ebf65f27963eccfe1f634d1a3683833e44dc = $this->env->getExtension("native_profiler");
-        $__internal_6738df30d91bd7cb3555503c3947ebf65f27963eccfe1f634d1a3683833e44dc->enter($__internal_6738df30d91bd7cb3555503c3947ebf65f27963eccfe1f634d1a3683833e44dc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/pear/BUNDLE"));
+        $__internal_1dcf582923589a05456898bbfaf685be8fce47f4a05cd4cef56c6d0ab5e6d11f = $this->env->getExtension("native_profiler");
+        $__internal_1dcf582923589a05456898bbfaf685be8fce47f4a05cd4cef56c6d0ab5e6d11f->enter($__internal_1dcf582923589a05456898bbfaf685be8fce47f4a05cd4cef56c6d0ab5e6d11f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/pear/BUNDLE"));
 
         // line 1
         echo "Log of pear packages bundled with osTicket
@@ -34,7 +34,7 @@ class __TwigTemplate_9198c5109cb806d1e8963205124e8ef23f3b9287cc420181baf1b5c0605
 * Add connect() function to Mail/smtp.php
 ";
         
-        $__internal_6738df30d91bd7cb3555503c3947ebf65f27963eccfe1f634d1a3683833e44dc->leave($__internal_6738df30d91bd7cb3555503c3947ebf65f27963eccfe1f634d1a3683833e44dc_prof);
+        $__internal_1dcf582923589a05456898bbfaf685be8fce47f4a05cd4cef56c6d0ab5e6d11f->leave($__internal_1dcf582923589a05456898bbfaf685be8fce47f4a05cd4cef56c6d0ab5e6d11f_prof);
 
     }
 

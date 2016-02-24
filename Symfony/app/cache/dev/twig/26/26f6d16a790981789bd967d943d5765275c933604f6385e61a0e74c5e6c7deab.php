@@ -15,8 +15,8 @@ class __TwigTemplate_21ad4edf7f6d5d14302f5be3a5291986f2395e159fd00be07cbee18a348
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_0908f3dc0eb6f5af34f2e34077bda3f7aae7509289640883a99f10554508765e = $this->env->getExtension("native_profiler");
-        $__internal_0908f3dc0eb6f5af34f2e34077bda3f7aae7509289640883a99f10554508765e->enter($__internal_0908f3dc0eb6f5af34f2e34077bda3f7aae7509289640883a99f10554508765e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/dad45ca2-61c9d5d7.cleanup.sql"));
+        $__internal_2e3d06bcd03ed9669f5b34403a495080f8cb1c2e879fff1186769bda0381d61f = $this->env->getExtension("native_profiler");
+        $__internal_2e3d06bcd03ed9669f5b34403a495080f8cb1c2e879fff1186769bda0381d61f->enter($__internal_2e3d06bcd03ed9669f5b34403a495080f8cb1c2e879fff1186769bda0381d61f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/dad45ca2-61c9d5d7.cleanup.sql"));
 
         // line 1
         echo "-- Port data from the ticket table
@@ -124,7 +124,7 @@ ALTER TABLE `%TABLE_PREFIX%ticket`
 OPTIMIZE TABLE `%TABLE_PREFIX%ticket`;
 ";
         
-        $__internal_0908f3dc0eb6f5af34f2e34077bda3f7aae7509289640883a99f10554508765e->leave($__internal_0908f3dc0eb6f5af34f2e34077bda3f7aae7509289640883a99f10554508765e_prof);
+        $__internal_2e3d06bcd03ed9669f5b34403a495080f8cb1c2e879fff1186769bda0381d61f->leave($__internal_2e3d06bcd03ed9669f5b34403a495080f8cb1c2e879fff1186769bda0381d61f_prof);
 
     }
 

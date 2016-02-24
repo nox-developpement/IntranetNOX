@@ -15,8 +15,8 @@ class __TwigTemplate_4c19f5552af17421c5688b583c24fd2d3ffcd9b693612143398f66f12c3
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_97acf3bfdda9362d28a9d2efe22d0dd8c438b8dfd704be3e48b074cc1f939648 = $this->env->getExtension("native_profiler");
-        $__internal_97acf3bfdda9362d28a9d2efe22d0dd8c438b8dfd704be3e48b074cc1f939648->enter($__internal_97acf3bfdda9362d28a9d2efe22d0dd8c438b8dfd704be3e48b074cc1f939648_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/footer.inc.php"));
+        $__internal_9bb19a2cec6fc22a971fa11ffd80e29e94b14bc4ddb40c8c5733e66636269c0d = $this->env->getExtension("native_profiler");
+        $__internal_9bb19a2cec6fc22a971fa11ffd80e29e94b14bc4ddb40c8c5733e66636269c0d->enter($__internal_9bb19a2cec6fc22a971fa11ffd80e29e94b14bc4ddb40c8c5733e66636269c0d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/footer.inc.php"));
 
         // line 1
         echo "        </div>
@@ -39,7 +39,7 @@ if ((\$lang = Internationalization::getCurrentLanguage()) && \$lang != 'en_US') 
 </html>
 ";
         
-        $__internal_97acf3bfdda9362d28a9d2efe22d0dd8c438b8dfd704be3e48b074cc1f939648->leave($__internal_97acf3bfdda9362d28a9d2efe22d0dd8c438b8dfd704be3e48b074cc1f939648_prof);
+        $__internal_9bb19a2cec6fc22a971fa11ffd80e29e94b14bc4ddb40c8c5733e66636269c0d->leave($__internal_9bb19a2cec6fc22a971fa11ffd80e29e94b14bc4ddb40c8c5733e66636269c0d_prof);
 
     }
 

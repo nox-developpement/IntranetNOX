@@ -23,44 +23,44 @@ class __TwigTemplate_845d4d419b5d399c76e7ff823a78d361549c40ac5d15b2150305d5dcea9
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_60ad58e1e442d39617c1a73369e20da9f6635172e6303f323a456c88a44a483c = $this->env->getExtension("native_profiler");
-        $__internal_60ad58e1e442d39617c1a73369e20da9f6635172e6303f323a456c88a44a483c->enter($__internal_60ad58e1e442d39617c1a73369e20da9f6635172e6303f323a456c88a44a483c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireedition.html.twig"));
+        $__internal_aff2611866b0a30bd6b2736c7a33d0097317562a3969083a37788d3a9198e427 = $this->env->getExtension("native_profiler");
+        $__internal_aff2611866b0a30bd6b2736c7a33d0097317562a3969083a37788d3a9198e427->enter($__internal_aff2611866b0a30bd6b2736c7a33d0097317562a3969083a37788d3a9198e427_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireedition.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_60ad58e1e442d39617c1a73369e20da9f6635172e6303f323a456c88a44a483c->leave($__internal_60ad58e1e442d39617c1a73369e20da9f6635172e6303f323a456c88a44a483c_prof);
+        $__internal_aff2611866b0a30bd6b2736c7a33d0097317562a3969083a37788d3a9198e427->leave($__internal_aff2611866b0a30bd6b2736c7a33d0097317562a3969083a37788d3a9198e427_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_8957353f458fc27a73f12f2d8f43d42c8d7756650de6870db2abdf46f2a9b43e = $this->env->getExtension("native_profiler");
-        $__internal_8957353f458fc27a73f12f2d8f43d42c8d7756650de6870db2abdf46f2a9b43e->enter($__internal_8957353f458fc27a73f12f2d8f43d42c8d7756650de6870db2abdf46f2a9b43e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_5f358bbfb874cf79990c259450253ec4c003245fdfe043f50ff9e8b25b3019f3 = $this->env->getExtension("native_profiler");
+        $__internal_5f358bbfb874cf79990c259450253ec4c003245fdfe043f50ff9e8b25b3019f3->enter($__internal_5f358bbfb874cf79990c259450253ec4c003245fdfe043f50ff9e8b25b3019f3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Parcourirs les suivis en cours ";
         
-        $__internal_8957353f458fc27a73f12f2d8f43d42c8d7756650de6870db2abdf46f2a9b43e->leave($__internal_8957353f458fc27a73f12f2d8f43d42c8d7756650de6870db2abdf46f2a9b43e_prof);
+        $__internal_5f358bbfb874cf79990c259450253ec4c003245fdfe043f50ff9e8b25b3019f3->leave($__internal_5f358bbfb874cf79990c259450253ec4c003245fdfe043f50ff9e8b25b3019f3_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_f53945f740d13e227074c8808216244b15ef1a1eb175263a6b42aa7228a101a6 = $this->env->getExtension("native_profiler");
-        $__internal_f53945f740d13e227074c8808216244b15ef1a1eb175263a6b42aa7228a101a6->enter($__internal_f53945f740d13e227074c8808216244b15ef1a1eb175263a6b42aa7228a101a6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_79acf65d5b44e41a030ca988cdc7c42d507a73c445afd7fe47cf58f83ad94c69 = $this->env->getExtension("native_profiler");
+        $__internal_79acf65d5b44e41a030ca988cdc7c42d507a73c445afd7fe47cf58f83ad94c69->enter($__internal_79acf65d5b44e41a030ca988cdc7c42d507a73c445afd7fe47cf58f83ad94c69_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Parcourirs les suivis en cours";
         
-        $__internal_f53945f740d13e227074c8808216244b15ef1a1eb175263a6b42aa7228a101a6->leave($__internal_f53945f740d13e227074c8808216244b15ef1a1eb175263a6b42aa7228a101a6_prof);
+        $__internal_79acf65d5b44e41a030ca988cdc7c42d507a73c445afd7fe47cf58f83ad94c69->leave($__internal_79acf65d5b44e41a030ca988cdc7c42d507a73c445afd7fe47cf58f83ad94c69_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_c462e7fa5c2ce1477d5f5f0c99b210b82010fefd9a9e9d4a1734ba536c142207 = $this->env->getExtension("native_profiler");
-        $__internal_c462e7fa5c2ce1477d5f5f0c99b210b82010fefd9a9e9d4a1734ba536c142207->enter($__internal_c462e7fa5c2ce1477d5f5f0c99b210b82010fefd9a9e9d4a1734ba536c142207_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_5b94803ec9ff327b67b476cd291fdfddfc80afc32582fada0e016fab3912c2ea = $this->env->getExtension("native_profiler");
+        $__internal_5b94803ec9ff327b67b476cd291fdfddfc80afc32582fada0e016fab3912c2ea->enter($__internal_5b94803ec9ff327b67b476cd291fdfddfc80afc32582fada0e016fab3912c2ea_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -105,11 +105,11 @@ class __TwigTemplate_845d4d419b5d399c76e7ff823a78d361549c40ac5d15b2150305d5dcea9
     <div id='DivFormulaireParcourSuiviEnCours'>
         ";
         // line 30
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'form_start', array("attr" => array("class" => "formulaireParcourSuiviEnCours")));
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : $this->getContext($context, "formSelectionSuivi")), 'form_start', array("attr" => array("class" => "formulaireParcourSuiviEnCours")));
         echo "
         ";
         // line 31
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'errors');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : $this->getContext($context, "formSelectionSuivi")), 'errors');
         echo "
 
         <fieldset>
@@ -119,42 +119,37 @@ class __TwigTemplate_845d4d419b5d399c76e7ff823a78d361549c40ac5d15b2150305d5dcea9
             <p>
                 ";
         // line 38
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "Suivi", array()), 'errors');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : $this->getContext($context, "formSelectionSuivi")), "Suivi", array()), 'errors');
         echo "
                 ";
         // line 39
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "Suivi", array()), 'widget', array("attr" => array("class" => "selectFormulaireAdministrationAjoutProfil", "size" => 15)));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : $this->getContext($context, "formSelectionSuivi")), "Suivi", array()), 'widget', array("attr" => array("class" => "selectFormulaireAdministrationAjoutProfil", "size" => 15)));
         echo "
             </p>
 
-            ";
-        // line 42
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "_token", array()), 'widget');
-        echo "
-
             <p>
                 ";
-        // line 45
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "Editer", array()), 'widget', array("attr" => array("class" => "submitFormulaireParcourSuiviEnCours")));
+        // line 43
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : $this->getContext($context, "formSelectionSuivi")), "Editer", array()), 'widget', array("attr" => array("class" => "submitFormulaireParcourSuiviEnCours")));
         echo "
                 ";
-        // line 46
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "Supprimer", array()), 'widget', array("attr" => array("class" => "submitFormulaireParcourSuiviEnCours")));
+        // line 44
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : $this->getContext($context, "formSelectionSuivi")), "Supprimer", array()), 'widget', array("attr" => array("class" => "submitFormulaireParcourSuiviEnCours")));
         echo "
             </p>
 
         </fieldset>
 
         ";
-        // line 51
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'form_end');
+        // line 49
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : $this->getContext($context, "formSelectionSuivi")), 'form_end');
         echo "
 
     </div>
 
 ";
         
-        $__internal_c462e7fa5c2ce1477d5f5f0c99b210b82010fefd9a9e9d4a1734ba536c142207->leave($__internal_c462e7fa5c2ce1477d5f5f0c99b210b82010fefd9a9e9d4a1734ba536c142207_prof);
+        $__internal_5b94803ec9ff327b67b476cd291fdfddfc80afc32582fada0e016fab3912c2ea->leave($__internal_5b94803ec9ff327b67b476cd291fdfddfc80afc32582fada0e016fab3912c2ea_prof);
 
     }
 
@@ -170,7 +165,7 @@ class __TwigTemplate_845d4d419b5d399c76e7ff823a78d361549c40ac5d15b2150305d5dcea9
 
     public function getDebugInfo()
     {
-        return array (  150 => 51,  142 => 46,  138 => 45,  132 => 42,  126 => 39,  122 => 38,  112 => 31,  108 => 30,  99 => 24,  92 => 20,  88 => 19,  84 => 18,  75 => 12,  71 => 11,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
+        return array (  145 => 49,  137 => 44,  133 => 43,  126 => 39,  122 => 38,  112 => 31,  108 => 30,  99 => 24,  92 => 20,  88 => 19,  84 => 18,  75 => 12,  71 => 11,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -202,28 +197,26 @@ class __TwigTemplate_845d4d419b5d399c76e7ff823a78d361549c40ac5d15b2150305d5dcea9
 /* */
 /* */
 /*     <div id='DivFormulaireParcourSuiviEnCours'>*/
-/*         {{ form_start(form, {'attr': {'class': 'formulaireParcourSuiviEnCours'}}) }}*/
-/*         {{ form_errors(form) }}*/
+/*         {{ form_start(formSelectionSuivi, {'attr': {'class': 'formulaireParcourSuiviEnCours'}}) }}*/
+/*         {{ form_errors(formSelectionSuivi) }}*/
 /* */
 /*         <fieldset>*/
 /* */
 /*             <legend>Selection du suivi</legend>*/
 /* */
 /*             <p>*/
-/*                 {{ form_errors(form.Suivi) }}*/
-/*                 {{ form_widget(form.Suivi, {'attr': {'class': 'selectFormulaireAdministrationAjoutProfil', 'size': 15}}) }}*/
+/*                 {{ form_errors(formSelectionSuivi.Suivi) }}*/
+/*                 {{ form_widget(formSelectionSuivi.Suivi, {'attr': {'class': 'selectFormulaireAdministrationAjoutProfil', 'size': 15}}) }}*/
 /*             </p>*/
 /* */
-/*             {{ form_widget(form._token) }}*/
-/* */
 /*             <p>*/
-/*                 {{ form_widget(form.Editer, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}*/
-/*                 {{ form_widget(form.Supprimer, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}*/
+/*                 {{ form_widget(formSelectionSuivi.Editer, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}*/
+/*                 {{ form_widget(formSelectionSuivi.Supprimer, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}*/
 /*             </p>*/
 /* */
 /*         </fieldset>*/
 /* */
-/*         {{ form_end(form) }}*/
+/*         {{ form_end(formSelectionSuivi) }}*/
 /* */
 /*     </div>*/
 /* */

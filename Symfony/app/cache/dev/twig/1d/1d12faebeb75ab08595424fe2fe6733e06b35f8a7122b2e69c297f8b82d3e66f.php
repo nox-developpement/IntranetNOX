@@ -15,8 +15,8 @@ class __TwigTemplate_bba08cf7ec50e8ec8d22aa3ce06ce15944ba0bd4706ba97efb474a143ff
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_803973e30f5d031d716a77c17cf3ab8b7cc91cdb25a2a8bd5e1b1ca6a2c4998f = $this->env->getExtension("native_profiler");
-        $__internal_803973e30f5d031d716a77c17cf3ab8b7cc91cdb25a2a8bd5e1b1ca6a2c4998f->enter($__internal_803973e30f5d031d716a77c17cf3ab8b7cc91cdb25a2a8bd5e1b1ca6a2c4998f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/settings.kb.yaml"));
+        $__internal_bf000fcaa1be974839f800b733975d879152414a6deccd60bba8e47e61fd3b6a = $this->env->getExtension("native_profiler");
+        $__internal_bf000fcaa1be974839f800b733975d879152414a6deccd60bba8e47e61fd3b6a->enter($__internal_bf000fcaa1be974839f800b733975d879152414a6deccd60bba8e47e61fd3b6a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/settings.kb.yaml"));
 
         // line 1
         echo "#
@@ -69,7 +69,7 @@ canned_responses:
         href: /scp/canned.php
 ";
         
-        $__internal_803973e30f5d031d716a77c17cf3ab8b7cc91cdb25a2a8bd5e1b1ca6a2c4998f->leave($__internal_803973e30f5d031d716a77c17cf3ab8b7cc91cdb25a2a8bd5e1b1ca6a2c4998f_prof);
+        $__internal_bf000fcaa1be974839f800b733975d879152414a6deccd60bba8e47e61fd3b6a->leave($__internal_bf000fcaa1be974839f800b733975d879152414a6deccd60bba8e47e61fd3b6a_prof);
 
     }
 

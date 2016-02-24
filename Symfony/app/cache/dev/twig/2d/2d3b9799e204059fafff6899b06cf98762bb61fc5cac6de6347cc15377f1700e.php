@@ -15,8 +15,8 @@ class __TwigTemplate_ccc3f8449db612517d93a97809aa2716b698edabfba01f1bb3ab786c533
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_66eda077484b7fe61867c3f25ad3618ad9e2e1cae10ba85b16b6d5750a55fd78 = $this->env->getExtension("native_profiler");
-        $__internal_66eda077484b7fe61867c3f25ad3618ad9e2e1cae10ba85b16b6d5750a55fd78->enter($__internal_66eda077484b7fe61867c3f25ad3618ad9e2e1cae10ba85b16b6d5750a55fd78_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/staff.department.yaml"));
+        $__internal_9e39b1e0daf62d8466ad7400981051a35a616d1da176f27c147c31ab3ab91f98 = $this->env->getExtension("native_profiler");
+        $__internal_9e39b1e0daf62d8466ad7400981051a35a616d1da176f27c147c31ab3ab91f98->enter($__internal_9e39b1e0daf62d8466ad7400981051a35a616d1da176f27c147c31ab3ab91f98_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/help/tips/staff.department.yaml"));
 
         // line 1
         echo "#
@@ -135,7 +135,7 @@ department_signature:
         class=\"doc-desc-opt\">Public</span> Departments, on Agent Responses.
 ";
         
-        $__internal_66eda077484b7fe61867c3f25ad3618ad9e2e1cae10ba85b16b6d5750a55fd78->leave($__internal_66eda077484b7fe61867c3f25ad3618ad9e2e1cae10ba85b16b6d5750a55fd78_prof);
+        $__internal_9e39b1e0daf62d8466ad7400981051a35a616d1da176f27c147c31ab3ab91f98->leave($__internal_9e39b1e0daf62d8466ad7400981051a35a616d1da176f27c147c31ab3ab91f98_prof);
 
     }
 

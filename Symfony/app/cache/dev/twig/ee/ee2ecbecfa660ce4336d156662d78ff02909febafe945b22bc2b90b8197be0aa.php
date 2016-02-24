@@ -15,8 +15,8 @@ class __TwigTemplate_4d431dad113bbc2c50c5afff4a1dd5b4260d6da2a58d36e0319f8247934
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b9900d14802ec11a7f8c54ed2b4e44f03969fa586f92aea083134530c544a3ac = $this->env->getExtension("native_profiler");
-        $__internal_b9900d14802ec11a7f8c54ed2b4e44f03969fa586f92aea083134530c544a3ac->enter($__internal_b9900d14802ec11a7f8c54ed2b4e44f03969fa586f92aea083134530c544a3ac_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/header.inc.php"));
+        $__internal_953a99541a10446ef05d903ef9653e885639c1e9683152580479b607a0c841cc = $this->env->getExtension("native_profiler");
+        $__internal_953a99541a10446ef05d903ef9653e885639c1e9683152580479b607a0c841cc->enter($__internal_953a99541a10446ef05d903ef9653e885639c1e9683152580479b607a0c841cc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/header.inc.php"));
 
         // line 1
         echo "<?php
@@ -146,7 +146,7 @@ if ((\$all_langs = Internationalization::availableLanguages())
          <?php } ?>
 ";
         
-        $__internal_b9900d14802ec11a7f8c54ed2b4e44f03969fa586f92aea083134530c544a3ac->leave($__internal_b9900d14802ec11a7f8c54ed2b4e44f03969fa586f92aea083134530c544a3ac_prof);
+        $__internal_953a99541a10446ef05d903ef9653e885639c1e9683152580479b607a0c841cc->leave($__internal_953a99541a10446ef05d903ef9653e885639c1e9683152580479b607a0c841cc_prof);
 
     }
 

@@ -38,16 +38,16 @@ class LiaisonSuiviChamp {
     /**
      * @var string
      *
-     * @ORM\Column(name="Colonne", type="string", length=255)
+     * @ORM\Column(name="CoordonneesLabel", type="string", length=255)
      */
-    private $colonne;
+    private $coordonneesLabel;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="Ligne", type="integer", length=255)
+     * @ORM\Column(name="CoordonneesDonnees", type="string", length=255)
      */
-    private $ligne;
+    private $coordonneesDonnees;
 
     /**
      * Get id
@@ -56,28 +56,6 @@ class LiaisonSuiviChamp {
      */
     public function getId() {
         return $this->id;
-    }
-
-    /**
-     * Set suivi
-     *
-     * @param string $suivi
-     *
-     * @return LiaisonSuiviChamp
-     */
-    public function setSuivi($suivi) {
-        $this->suivi = $suivi;
-
-        return $this;
-    }
-
-    /**
-     * Get suivi
-     *
-     * @return string
-     */
-    public function getSuivi() {
-        return $this->suivi;
     }
 
     /**
@@ -103,47 +81,47 @@ class LiaisonSuiviChamp {
     }
 
     /**
-     * Set colonne
+     * Set idSuivi
      *
-     * @param string $colonne
+     * @param integer $idSuivi
      *
      * @return LiaisonSuiviChamp
      */
-    public function setColonne($colonne) {
-        $this->colonne = $colonne;
+    public function setIdSuivi($idSuivi) {
+        $this->idSuivi = $idSuivi;
 
         return $this;
     }
 
     /**
-     * Get colonne
+     * Get idSuivi
      *
-     * @return string
+     * @return integer
      */
-    public function getColonne() {
-        return $this->colonne;
+    public function getIdSuivi() {
+        return $this->idSuivi;
     }
 
     /**
-     * Set ligne
+     * Set coordonnees
      *
-     * @param string $ligne
+     * @param string $coordonnees
      *
      * @return LiaisonSuiviChamp
      */
-    public function setLigne($ligne) {
-        $this->ligne = $ligne;
+    public function setCoordonnees($coordonnees) {
+        $this->coordonnees = $coordonnees;
 
         return $this;
     }
 
     /**
-     * Get ligne
+     * Get coordonnees
      *
      * @return string
      */
-    public function getLigne() {
-        return $this->ligne;
+    public function getCoordonnees() {
+        return $this->coordonnees;
     }
 
 }

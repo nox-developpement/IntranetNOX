@@ -15,8 +15,8 @@ class __TwigTemplate_69bcdcca6bfbc2b692aa36af60e9e02cf48387d7485b171d056a9221f24
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b94b8659e3efa1315a9cfddd67160ed521c98ee5d56ed093bb444f98c74482dd = $this->env->getExtension("native_profiler");
-        $__internal_b94b8659e3efa1315a9cfddd67160ed521c98ee5d56ed093bb444f98c74482dd->enter($__internal_b94b8659e3efa1315a9cfddd67160ed521c98ee5d56ed093bb444f98c74482dd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.setup.php"));
+        $__internal_6f2d8f79ce1af48f93c24930ead7daf6d8b4f0ea91cf67e3d835eed72e19e511 = $this->env->getExtension("native_profiler");
+        $__internal_6f2d8f79ce1af48f93c24930ead7daf6d8b4f0ea91cf67e3d835eed72e19e511->enter($__internal_6f2d8f79ce1af48f93c24930ead7daf6d8b4f0ea91cf67e3d835eed72e19e511_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/class.setup.php"));
 
         // line 1
         echo "<?php
@@ -152,7 +152,7 @@ Class SetupWizard {
 ?>
 ";
         
-        $__internal_b94b8659e3efa1315a9cfddd67160ed521c98ee5d56ed093bb444f98c74482dd->leave($__internal_b94b8659e3efa1315a9cfddd67160ed521c98ee5d56ed093bb444f98c74482dd_prof);
+        $__internal_6f2d8f79ce1af48f93c24930ead7daf6d8b4f0ea91cf67e3d835eed72e19e511->leave($__internal_6f2d8f79ce1af48f93c24930ead7daf6d8b4f0ea91cf67e3d835eed72e19e511_prof);
 
     }
 

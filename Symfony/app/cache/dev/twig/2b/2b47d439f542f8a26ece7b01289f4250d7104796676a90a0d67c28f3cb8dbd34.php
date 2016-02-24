@@ -15,8 +15,8 @@ class __TwigTemplate_21f67ce7f64ac45e30ce1cc7d4b05fb87d8cc019bd207f4d61787039148
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_e20ac4ea33883f7d050d167bf6019af639d8323c9779c76d16cabe2efcdce413 = $this->env->getExtension("native_profiler");
-        $__internal_e20ac4ea33883f7d050d167bf6019af639d8323c9779c76d16cabe2efcdce413->enter($__internal_e20ac4ea33883f7d050d167bf6019af639d8323c9779c76d16cabe2efcdce413_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/pwreset.sent.php"));
+        $__internal_6c31cfcc51499065957f50d6acb5036d22ba4f4c9e39f056fd4594bacf104fad = $this->env->getExtension("native_profiler");
+        $__internal_6c31cfcc51499065957f50d6acb5036d22ba4f4c9e39f056fd4594bacf104fad->enter($__internal_6c31cfcc51499065957f50d6acb5036d22ba4f4c9e39f056fd4594bacf104fad_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/pwreset.sent.php"));
 
         // line 1
         echo "<h1><?php echo __('Forgot My Password'); ?></h1>
@@ -32,7 +32,7 @@ class __TwigTemplate_21f67ce7f64ac45e30ce1cc7d4b05fb87d8cc019bd207f4d61787039148
 </form>
 ";
         
-        $__internal_e20ac4ea33883f7d050d167bf6019af639d8323c9779c76d16cabe2efcdce413->leave($__internal_e20ac4ea33883f7d050d167bf6019af639d8323c9779c76d16cabe2efcdce413_prof);
+        $__internal_6c31cfcc51499065957f50d6acb5036d22ba4f4c9e39f056fd4594bacf104fad->leave($__internal_6c31cfcc51499065957f50d6acb5036d22ba4f4c9e39f056fd4594bacf104fad_prof);
 
     }
 

@@ -15,8 +15,8 @@ class __TwigTemplate_74b743879d91805a44f9fce124cdde78cc004192a1591e009f1de16b980
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_4c980ab18de18e500b5fd3d71c5d7b869d901660b68be36d6fc945a9bf396bb3 = $this->env->getExtension("native_profiler");
-        $__internal_4c980ab18de18e500b5fd3d71c5d7b869d901660b68be36d6fc945a9bf396bb3->enter($__internal_4c980ab18de18e500b5fd3d71c5d7b869d901660b68be36d6fc945a9bf396bb3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/page/banner-staff.yaml"));
+        $__internal_2a03d2349d973ef41dbe2fa66c5be57ecd018c517f0c8a8ba80044a0ac64fe48 = $this->env->getExtension("native_profiler");
+        $__internal_2a03d2349d973ef41dbe2fa66c5be57ecd018c517f0c8a8ba80044a0ac64fe48->enter($__internal_2a03d2349d973ef41dbe2fa66c5be57ecd018c517f0c8a8ba80044a0ac64fe48_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/i18n/en_US/templates/page/banner-staff.yaml"));
 
         // line 1
         echo "#
@@ -32,7 +32,7 @@ name: \"Authentication Required\"
 body: \"\"
 ";
         
-        $__internal_4c980ab18de18e500b5fd3d71c5d7b869d901660b68be36d6fc945a9bf396bb3->leave($__internal_4c980ab18de18e500b5fd3d71c5d7b869d901660b68be36d6fc945a9bf396bb3_prof);
+        $__internal_2a03d2349d973ef41dbe2fa66c5be57ecd018c517f0c8a8ba80044a0ac64fe48->leave($__internal_2a03d2349d973ef41dbe2fa66c5be57ecd018c517f0c8a8ba80044a0ac64fe48_prof);
 
     }
 

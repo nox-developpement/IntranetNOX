@@ -15,8 +15,8 @@ class __TwigTemplate_2a53455de084b98df7b743325f68056220ea6d7ef0de9f016f7bece44de
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_670c80363f6fa057c6b98056f21a89242be6942db310567addca2d91a43341a7 = $this->env->getExtension("native_profiler");
-        $__internal_670c80363f6fa057c6b98056f21a89242be6942db310567addca2d91a43341a7->enter($__internal_670c80363f6fa057c6b98056f21a89242be6942db310567addca2d91a43341a7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/register.confirmed.inc.php"));
+        $__internal_a0ea8af735c30eb1eadc15ee1def86e477bc01a86b99b2efef46aa6c83e224ea = $this->env->getExtension("native_profiler");
+        $__internal_a0ea8af735c30eb1eadc15ee1def86e477bc01a86b99b2efef46aa6c83e224ea->enter($__internal_a0ea8af735c30eb1eadc15ee1def86e477bc01a86b99b2efef46aa6c83e224ea_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/client/register.confirmed.inc.php"));
 
         // line 1
         echo "<?php if (\$content) {
@@ -39,7 +39,7 @@ echo Format::display(\$body); ?>
 <?php } ?>
 ";
         
-        $__internal_670c80363f6fa057c6b98056f21a89242be6942db310567addca2d91a43341a7->leave($__internal_670c80363f6fa057c6b98056f21a89242be6942db310567addca2d91a43341a7_prof);
+        $__internal_a0ea8af735c30eb1eadc15ee1def86e477bc01a86b99b2efef46aa6c83e224ea->leave($__internal_a0ea8af735c30eb1eadc15ee1def86e477bc01a86b99b2efef46aa6c83e224ea_prof);
 
     }
 

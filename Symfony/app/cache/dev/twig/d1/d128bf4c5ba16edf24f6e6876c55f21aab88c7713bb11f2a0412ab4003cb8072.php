@@ -15,8 +15,8 @@ class __TwigTemplate_3f1a580d902a2cd81c6454d48058ced64b0f733e681e61f4e05609a2b7d
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_672ed761230f035f79a4d4e016c56bb1159a158b8063faaca9c750673bbe08f7 = $this->env->getExtension("native_profiler");
-        $__internal_672ed761230f035f79a4d4e016c56bb1159a158b8063faaca9c750673bbe08f7->enter($__internal_672ed761230f035f79a4d4e016c56bb1159a158b8063faaca9c750673bbe08f7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/aa4664af-b19dc97d.patch.sql"));
+        $__internal_e741ae24dad3592dd660358e61ff84b000e6fb4643d13d925d411717dd46f502 = $this->env->getExtension("native_profiler");
+        $__internal_e741ae24dad3592dd660358e61ff84b000e6fb4643d13d925d411717dd46f502->enter($__internal_e741ae24dad3592dd660358e61ff84b000e6fb4643d13d925d411717dd46f502_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "support/include/upgrader/streams/core/aa4664af-b19dc97d.patch.sql"));
 
         // line 1
         echo "/**
@@ -44,7 +44,7 @@ UPDATE `%TABLE_PREFIX%config`
     SET `schema_signature`='b19dc97d19f7a30f59663c812d1f3ddc';
 ";
         
-        $__internal_672ed761230f035f79a4d4e016c56bb1159a158b8063faaca9c750673bbe08f7->leave($__internal_672ed761230f035f79a4d4e016c56bb1159a158b8063faaca9c750673bbe08f7_prof);
+        $__internal_e741ae24dad3592dd660358e61ff84b000e6fb4643d13d925d411717dd46f502->leave($__internal_e741ae24dad3592dd660358e61ff84b000e6fb4643d13d925d411717dd46f502_prof);
 
     }
 
