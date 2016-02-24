@@ -628,7 +628,7 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
                 }
 
                 // nox_intranet_administration_affaires_edition
-                if (0 === strpos($pathinfo, '/administration/assistant-affaires/edition-fichier') && preg_match('#^/administration/assistant\\-affaires/edition\\-fichier/(?P<file>.+)$#s', $pathinfo, $matches)) {
+                if (0 === strpos($pathinfo, '/administration/assistant-affaires/edition-fichier') && preg_match('#^/administration/assistant\\-affaires/edition\\-fichier/(?P<profil>[^/]++)/(?P<file>.+)$#s', $pathinfo, $matches)) {
                     return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_administration_affaires_edition')), array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesEditionAction',));
                 }
 

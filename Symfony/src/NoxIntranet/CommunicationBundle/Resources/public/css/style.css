@@ -1926,7 +1926,7 @@ divAdministrationUtilisateur {
 #DivFormulaireAjoutProfil, #DivFormulaireSuppressionProfil, #DivCreationSuivi, #DivFormulaireParcourSuiviEnCours, 
 .DivAjoutFeuilleSuivi, .DivFormulaireSuppressionFormulaire, .DivFormulaireAjoutFichier, 
 #DivFormulaireSelectionAgence, #DivFormulaireSelectionDossier, #DivFormulaireSelectionVersion, 
-.DivFormulaireAjoutChamp, .DivFormulaireSuppressionChamp {
+.DivFormulaireAjoutChamp, .DivFormulaireSuppressionChamp, .DivFormulairePlacementChamp {
     margin: 0% 25% 0% 25%;
     margin-bottom: 2%;
     font-size: 0.8vw;
@@ -1935,7 +1935,7 @@ divAdministrationUtilisateur {
 .formulaireAdministrationAjoutProfil, .formulaireAdministrationSuppressionProfil, .formulaireCreationSuivi, 
 .formulaireParcourSuiviEnCours, .formulaireAjoutFeuilleSuivi, .formulaireAdministrationSuppressionFormulaire, 
 .formulaireSelectionAgence, .formulaireAjoutFichier, .formulaireSelectionDossier, .formulaireSelectionVersion,
-.formulaireAjoutChamp, .formulaireSuppressionChamp {
+.formulaireAjoutChamp, .formulaireSuppressionChamp, .formulairePlacementChamp {
     padding: 0px;
     border: none;
     width: 80%;
@@ -1944,7 +1944,8 @@ divAdministrationUtilisateur {
 .formulaireAdministrationAjoutProfil fieldset, .formulaireAdministrationSuppressionProfil fieldset, 
 .formulaireCreationSuivi fieldset, .formulaireParcourSuiviEnCours fieldset, .formulaireAjoutFeuilleSuivi fieldset, 
 .formulaireAdministrationSuppressionFormulaire fieldset, .formulaireSelectionAgence fieldset, .formulaireAjoutFichier fieldset, 
-.formulaireSelectionDossier fieldset, .formulaireSelectionVersion fieldset, .formulaireAjoutChamp fieldset, .formulaireSuppressionChamp fieldset {
+.formulaireSelectionDossier fieldset, .formulaireSelectionVersion fieldset, .formulaireAjoutChamp fieldset, .formulaireSuppressionChamp fieldset,
+.formulairePlacementChamp fieldset {
     text-align: center;
     border-color: rgb(31,78,121);
     border-width: 1px;
@@ -1959,13 +1960,14 @@ divAdministrationUtilisateur {
 .formulaireAjoutFeuilleSuivi fieldset legend, .formulaireAdministrationSuppressionFormulaire fieldset legend, 
 .formulaireSelectionAgence fieldset legend, .formulaireAjoutFichier fieldset legend, 
 .formulaireSelectionDossier fieldset legend, .formulaireSelectionVersion fieldset legend, .formulaireAjoutChamp fieldset legend,
-.formulaireSuppressionChamp fieldset legend {
+.formulaireSuppressionChamp fieldset legend, .formulairePlacementChamp fieldset legend {
     color: rgb(31,78,121);
     background-color: white;
     border: solid 1px rgb(31,78,121);
     padding: 0% 0.5% 0% 0.5%;
     white-space: nowrap;
     text-align: left;
+    min-width: auto;
 }
 
 .selectFormulaireAdministrationSuppressionProfil, .textFormulaireAdministrationAjoutProfil {
@@ -2225,11 +2227,6 @@ divAdministrationUtilisateur {
     max-width: 98%;
     resize: vertical;
     font-size: 0.8vw;
-}
-
-legend>p {
-    margin: 0px;
-    text-align: center;
 }
 
 .boutonAnnonce {

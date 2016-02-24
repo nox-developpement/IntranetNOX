@@ -56,7 +56,7 @@ class __TwigTemplate_e084e3abd318d9ca004e3cf666cc8062218f82a227ec84964601f997fb5
 
         <fieldset>
 
-            <legend><p>Agence</p></legend>
+            <legend>Agence</legend>
 
             ";
         // line 18
@@ -93,7 +93,7 @@ class __TwigTemplate_e084e3abd318d9ca004e3cf666cc8062218f82a227ec84964601f997fb5
 
         <fieldset>
 
-            <legend><p>Selection du suivi</p></legend>
+            <legend>Selection du suivi</legend>
 
             <p>
                 ";
@@ -164,7 +164,7 @@ class __TwigTemplate_e084e3abd318d9ca004e3cf666cc8062218f82a227ec84964601f997fb5
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend><p>Agence</p></legend>*/
+/*             <legend>Agence</legend>*/
 /* */
 /*             {{ form_label(formAgence.Agences, "Selection de l'agence :", {'label_attr': {'class': 'labelFormulaireSelectionAgence'}}) }}*/
 /*             {{ form_errors(formAgence.Agences) }}*/
@@ -183,7 +183,7 @@ class __TwigTemplate_e084e3abd318d9ca004e3cf666cc8062218f82a227ec84964601f997fb5
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend><p>Selection du suivi</p></legend>*/
+/*             <legend>Selection du suivi</legend>*/
 /* */
 /*             <p>*/
 /*                 {{ form_errors(form.Suivi) }}*/

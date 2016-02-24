@@ -752,13 +752,13 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             if (0 === strpos($pathinfo, '/administration/assistant-affaires')) {
                 // nox_intranet_administration_affaires
-                if (preg_match('#^/administration/assistant\\-affaires(?:/(?P<dossier>[^/]++))?$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_administration_affaires')), array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesAccueilAction',  'dossier' => '',));
+                if (preg_match('#^/administration/assistant\\-affaires(?:/(?P<profil>[^/]++))?$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_administration_affaires')), array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesAccueilAction',  'profil' => '',));
                 }
 
                 // nox_intranet_administration_affaires_edition
-                if (0 === strpos($pathinfo, '/administration/assistant-affaires/edition-fichier') && preg_match('#^/administration/assistant\\-affaires/edition\\-fichier/(?P<file>.+)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_administration_affaires_edition')), array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesEditionAction',));
+                if (preg_match('#^/administration/assistant\\-affaires/(?P<profil>[^/]++)/edition\\-fichier/(?P<file>.+)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_administration_affaires_edition')), array (  '_controller' => 'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController::administrationAffairesEditionAction',  'profil' => '',));
                 }
 
                 // nox_intranet_administration_affaires_edition_sauvegarde

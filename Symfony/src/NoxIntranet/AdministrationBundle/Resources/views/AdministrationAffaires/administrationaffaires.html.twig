@@ -17,7 +17,7 @@
 
         <fieldset>
 
-            <legend><p>Ajouter un profil</p></legend>
+            <legend>Ajouter un profil</legend>
 
             {{ form_label(formAjoutProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutProfil'}}) }}
             {{ form_errors(formAjoutProfil.Nom) }}
@@ -40,7 +40,7 @@
 
         <fieldset>
 
-            <legend><p>Supprimer un profil</p></legend>
+            <legend>Supprimer un profil</legend>
 
             {{ form_label(formSuppresionProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionProfil'}}) }}
             {{ form_errors(formSuppresionProfil.Nom) }}
@@ -74,7 +74,7 @@
                 {{ form_widget(formAjoutFichier.Profil, {'attr': {'class': 'fileFormulaireAjoutFichier' }}) }}
             </p>
 
-            <legend><p>Ajouter un fichier</p></legend>
+            <legend>Ajouter un fichier</legend>
 
             <p>
                 {{ form_errors(formAjoutFichier.file) }}
@@ -102,7 +102,7 @@
 
         <fieldset>
 
-            <legend><p>Ajouter un champ</p></legend>
+            <legend>Ajouter un champ</legend>
 
             <p>
                 {{ form_label(formAjoutChamp.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
@@ -114,6 +114,14 @@
                 {{ form_label(formAjoutChamp.Type, "Type :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
                 {{ form_errors(formAjoutChamp.Type) }}
                 {{ form_widget(formAjoutChamp.Type, {'attr': {'class': 'selectFormulaireAjoutChamp' }}) }}
+
+                {{ form_widget(formAjoutChamp._token) }}
+            </p>
+
+            <p>
+                {{ form_label(formAjoutChamp.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
+                {{ form_errors(formAjoutChamp.Profil) }}
+                {{ form_widget(formAjoutChamp.Profil, {'attr': {'class': 'selectFormulaireAjoutChamp' }}) }}
 
                 {{ form_widget(formAjoutChamp._token) }}
             </p>
@@ -135,7 +143,7 @@
 
         <fieldset>
 
-            <legend><p>Supprimer un champ</p></legend>       
+            <legend>Supprimer un champ</legend>       
 
             <p>
                 {{ form_label(formSuppressionChamp.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireSuppressionChamp'}}) }}
@@ -167,13 +175,11 @@
 
         <fieldset>
 
-            <legend><p>Suivi</p></legend>
+            <legend>Profil</legend>
 
-            {{ form_label(formSelectionDossier.dossiers, "Selection du suivi :", {'label_attr': {'class': 'labelFormulaireSelectionDossier'}}) }}
-            {{ form_errors(formSelectionDossier.dossiers) }}
-            {{ form_widget(formSelectionDossier.dossiers, {'attr': {'class': 'selectFormulaireSelectionDossier'}}) }}
-
-            {{ form_widget(formSelectionDossier.Supprimer, { 'label': 'Supprimer le suivi', 'attr': {'class': 'boutonFormulaire'}}) }}
+            {{ form_label(formSelectionDossier.profil, "Selection du profil :", {'label_attr': {'class': 'labelFormulaireSelectionDossier'}}) }}
+            {{ form_errors(formSelectionDossier.profil) }}
+            {{ form_widget(formSelectionDossier.profil, {'attr': {'class': 'selectFormulaireSelectionDossier'}}) }}
 
         </fieldset>
 
@@ -187,11 +193,11 @@
 
         <fieldset>
 
-            <legend><p>Selection de la version</p></legend>
+            <legend>Selection du suivi</legend>
 
             <p>
-                {{ form_errors(formSelectionVersion.versions) }}
-                {{ form_widget(formSelectionVersion.versions, {'attr': {'class': 'selectFormulaireSelectionVersion', 'size': 15}}) }}
+                {{ form_errors(formSelectionVersion.Suivi) }}
+                {{ form_widget(formSelectionVersion.Suivi, {'attr': {'class': 'selectFormulaireSelectionVersion', 'size': 15}}) }}
             </p>
 
             {{ form_widget(formSelectionVersion._token) }}

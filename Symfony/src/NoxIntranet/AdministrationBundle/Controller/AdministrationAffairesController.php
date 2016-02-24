@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NoxIntranet\RessourcesBundle\Entity\Profils;
 use NoxIntranet\AdministrationBundle\Entity\Fichier_Suivi;
 use NoxIntranet\AdministrationBundle\Entity\Formulaires;
+use NoxIntranet\AdministrationBundle\Entity\LiaisonSuiviChamp;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
@@ -19,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 /**
  * Description of AdministrationAffairesController
@@ -53,7 +55,7 @@ class AdministrationAffairesController extends Controller {
         }
     }
 
-    public function administrationAffairesAccueilAction(Request $request, $dossier) {
+    public function administrationAffairesAccueilAction(Request $request, $profil) {
 
         $em = $this->getDoctrine()->getManager();
 
@@ -104,76 +106,74 @@ class AdministrationAffairesController extends Controller {
                 ->add('Nom', TextType::class)
                 ->add('Type', ChoiceType::class, array(
                     'choices' => array(
-                        'texte' => 'Texte',
-                        'nombre' => 'Nombre',
-                        'donnees' => 'Données'
+                        'Texte' => 'Texte',
+                        'Nombre' => 'Nombre',
+                        'Données' => 'Données'
                     ),
+                ))
+                ->add('Profil', EntityType::class, array(
+                    'class' => 'NoxIntranetRessourcesBundle:Profils',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                                ->orderBy('u.nom', 'ASC');
+                    },
+                    'choice_label' => 'Nom',
                 ))
                 ->add('Ajouter', SubmitType::class)
                 ->getForm();
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération formulaire de suppression de champ
-        $formSuppresionChamp = $this->get('form.factory')->createNamedBuilder('formSuppresionChamp', 'form')
+        $formSuppressionChamp = $this->get('form.factory')->createNamedBuilder('formSuppressionChamp', 'form')
                 ->add('Nom', EntityType::class, array(
                     'class' => 'NoxIntranetAdministrationBundle:Formulaires',
-                    'choice_label' => 'Nom'
+                    'choice_label' => function($value) {
+                        return $value->getNom() . " - " . $value->getType() . ' - ' . $value->getProfil();
+                    }
                 ))
                 ->add('Supprimer', SubmitType::class)
                 ->getForm();
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération formulaire de séléction du suivi  
-        $path = 'C:/wamp/www/Symfony/web/uploads/AssistantAffaires/FeuillesSuivis/';
-
-        $idSuivi = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findOneByChemin('C:\wamp\www\Symfony\web\uploads\AssistantAffaires\FeuillesSuivis\\' . $dossier);
+        $profilActuel = $em->getRepository('NoxIntranetRessourcesBundle:Profils')->findOneByNom($profil);
 
         $formSelectionDossier = $this->get('form.factory')->createNamedBuilder('formSelectionDossier', 'form')
-                ->add('dossiers', EntityType::class, array(
+                ->add('profil', EntityType::class, array(
                     'placeholder' => 'Selectionnez un suivi',
-                    'class' => 'NoxIntranetAdministrationBundle:Fichier_Suivi',
-                    'choice_label' => function($value) {
-                        return pathinfo($value->getChemin(), PATHINFO_BASENAME) . ' - ' . $value->getProfil();
-                    },
-                    'data' => $idSuivi
+                    'class' => 'NoxIntranetRessourcesBundle:Profils',
+                    'choice_label' => 'Nom',
+                    'data' => $profilActuel
                 ))
-                ->add('Supprimer', SubmitType::class)
                 ->getForm();
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération formulaire de séléction de la version du suivi
-        if ($dossier !== "") {
+        if ($profil !== "") {
 
-            $fichiersVersion = scandir($path . $dossier);
-            foreach ($fichiersVersion as $fichier) {
-                if (!is_dir($path . $fichier)) {
-                    $versions[$path . $dossier . "/" . $fichier] = $fichier;
-                }
-            }
-
-            if (isset($versions)) {
-                end($versions);
-                $key = key($versions);
-            } else {
-                $versions = array();
-                $key = "";
-            }
-
-            $formSelectionVersion = $this->get('form.factory')->createNamedBuilder('formSelectionVersion', 'form', $versions)
-                    ->add('versions', ChoiceType::class, array(
-                        'choices' => $versions,
-//                        'choice_label' => function ($value) {
-//                            return $value;
-//                        },
-                        'data' => $key
+            $formSelectionVersion = $this->get('form.factory')->createNamedBuilder('formSelectionVersion', 'form')
+                    ->add('Suivi', EntityType::class, array(
+                        'class' => 'NoxIntranetAdministrationBundle:Fichier_Suivi',
+                        'query_builder' => function (EntityRepository $er) use ($profil) {
+                            return $er->createQueryBuilder('u')
+                                    ->where("u.profil = '" . $profil . "'")
+                                    ->orderBy('u.profil', 'ASC');
+                        },
+                        'choice_label' => function($value) {
+                            return pathinfo($value->getChemin(), PATHINFO_FILENAME);
+                        }
                     ))
                     ->add('Editer', SubmitType::class)
                     ->add('Supprimer', SubmitType::class)
                     ->getForm();
         } else {
             $formSelectionVersion = $this->get('form.factory')->createNamedBuilder('formSelectionVersion', 'form')
-                    ->add('versions', ChoiceType::class, array(
-                        'placeholder' => 'Veuillez séléctionner un suivi.'
+                    ->add('Suivi', ChoiceType::class, array(
+                        'disabled' => true
                     ))
-                    ->add('Editer', SubmitType::class)
-                    ->add('Supprimer', SubmitType::class)
+                    ->add('Editer', SubmitType::class, array(
+                        'disabled' => true
+                    ))
+                    ->add('Supprimer', SubmitType::class, array(
+                        'disabled' => true
+                    ))
                     ->getForm();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -227,7 +227,9 @@ class AdministrationAffairesController extends Controller {
 
                 $extension = $file->guessExtension();
 
-                if ($extension === 'xlsx') {
+                var_dump($extension);
+
+                if ($extension === 'xlsx' OR $extension === 'xls') {
                     if (!is_dir($dir . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))) {
                         $em = $this->getDoctrine()->getManager();
 
@@ -269,6 +271,7 @@ class AdministrationAffairesController extends Controller {
                 if ($em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findByNom($formAjoutChamp['Nom']->getData()) == null) {
                     $nouveauChamp->setNom($formAjoutChamp['Nom']->getData());
                     $nouveauChamp->setType($formAjoutChamp['Type']->getData());
+                    $nouveauChamp->setProfil($formAjoutChamp['Profil']->getData()->getNom());
 
                     $em->persist($nouveauChamp);
                     $em->flush();
@@ -285,13 +288,14 @@ class AdministrationAffairesController extends Controller {
         // Traitement du formulaire de suppression de champ
         if ($request->request->has('formSuppressionChamp')) {
 
-            $formSuppresionChamp->handleRequest($request);
+            $formSuppressionChamp->handleRequest($request);
 
-            if ($formSuppresionChamp->isValid()) {
+            if ($formSuppressionChamp->isValid()) {
 
-                $em->remove($formSuppresionChamp->getData());
+                $em->remove($formSuppressionChamp['Nom']->getData());
+                $em->flush();
 
-                $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $formSuppresionChamp->getData()->getNom() . ' à été supprimé.');
+                $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $formSuppressionChamp['Nom']->getData()->getNom() . ' à été supprimé.');
 
                 return $this->redirectToRoute('nox_intranet_administration_affaires');
             }
@@ -302,16 +306,9 @@ class AdministrationAffairesController extends Controller {
             $formSelectionDossier->handleRequest($request);
 
             if ($formSelectionDossier->isValid()) {
-                if ($formSelectionDossier->get('Supprimer')->isClicked()) {
-                    $em->remove($formSelectionDossier['dossiers']->getData());
-                    $em->flush();
-                    $this->delete_directory($formSelectionDossier['dossiers']->getData()->getChemin() . '/');
-                    $request->getSession()->getFlashBag()->add('notice', 'Le suivi ' . pathinfo($formSelectionDossier['dossiers']->getData()->getChemin(), PATHINFO_BASENAME) . ' a été supprimé.');
-                    return $this->redirectToRoute('nox_intranet_administration_affaires');
-                }
 
-                if ($formSelectionDossier['dossiers']->getData() !== null) {
-                    return $this->redirectToRoute('nox_intranet_administration_affaires', array('dossier' => pathinfo($formSelectionDossier['dossiers']->getData()->getChemin(), PATHINFO_BASENAME)));
+                if ($formSelectionDossier['profil']->getData() !== null) {
+                    return $this->redirectToRoute('nox_intranet_administration_affaires', array('profil' => $formSelectionDossier['profil']->getData()->getNom()));
                 }
 
                 return $this->redirectToRoute('nox_intranet_administration_affaires');
@@ -324,34 +321,26 @@ class AdministrationAffairesController extends Controller {
 
             if ($formSelectionVersion->isValid()) {
 
-                var_dump($formSelectionVersion['versions']->getData());
-
-                if ($formSelectionVersion['versions']->getData() !== null) {
-                    if ($formSelectionVersion->get('Editer')->isClicked()) {
-                        return $this->redirectToRoute('nox_intranet_administration_affaires_edition', array('file' => $formSelectionVersion['versions']->getData()));
-                    }
-                    if ($formSelectionVersion->get('Supprimer')->isClicked()) {
-
-                        $fileNumber = count(array_diff(scandir($path . $dossier), array(".", "..")));
-
-                        if ($fileNumber === 1) {
-                            $suivi = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findOneByChemin("C:\wamp\www\Symfony\web\uploads\AssistantAffaires\FeuillesSuivis\\" . $dossier);
-                            $em->remove($suivi);
-                            $em->flush();
-                            unlink($formSelectionVersion['versions']->getData());
-                            rmdir("C:\wamp\www\Symfony\web\uploads\AssistantAffaires\FeuillesSuivis\\" . $dossier);
-                            $request->getSession()->getFlashBag()->add('notice', 'Le fichier ' . pathinfo($formSelectionVersion['versions']->getData(), PATHINFO_BASENAME) . ' et le suivi associé ont été supprimé.');
-                            return $this->redirectToRoute('nox_intranet_administration_affaires');
-                        } else {
-                            $request->getSession()->getFlashBag()->add('notice', 'Le fichier ' . pathinfo($formSelectionVersion['versions']->getData(), PATHINFO_BASENAME) . ' a été supprimé.');
-                            unlink($formSelectionVersion['versions']->getData());
-                        }
-
-                        return $this->redirectToRoute('nox_intranet_administration_affaires', array('dossier' => $dossier));
-                    }
+                if ($formSelectionVersion->get('Editer')->isClicked()) {
+                    return $this->redirectToRoute('nox_intranet_administration_affaires_edition', array('file' => $formSelectionVersion['Suivi']->getData()->getChemin(), 'profil' => $profil));
                 }
 
-                $request->getSession()->getFlashBag()->add('noticeErreur', 'Veuillez séléctionner un suivi valide !');
+                if ($formSelectionVersion->get('Supprimer')->isClicked()) {
+
+                    $chemin = $formSelectionVersion['Suivi']->getData()->getChemin() . '/';
+
+                    $files = array_diff(scandir($chemin), array('.', '..'));
+
+                    foreach ($files as $file) {
+                        unlink($chemin . $file);
+                    }
+                    rmdir($chemin);
+                    $em->remove($formSelectionVersion['Suivi']->getData());
+                    $em->flush();
+                    $request->getSession()->getFlashBag()->add('notice', 'Le suivi ' . pathinfo($formSelectionVersion['Suivi']->getData()->getChemin(), PATHINFO_FILENAME) . ' a été supprimé.');
+                    return $this->redirectToRoute('nox_intranet_administration_affaires', array('profil' => $profil));
+                }
+
                 return $this->redirectToRoute('nox_intranet_administration_affaires');
             }
         }
@@ -361,12 +350,14 @@ class AdministrationAffairesController extends Controller {
                     'formAjoutProfil' => $formAjoutProfil->createView(), 'profils' => $profils, 'formSuppresionProfil' => $formSuppresionProfil->createView(),
                     'formAjoutFichier' => $formAjoutFichier->createView(), 'formSelectionDossier' => $formSelectionDossier->createView(),
                     'formSelectionVersion' => $formSelectionVersion->createView(), 'formAjoutChamp' => $formAjoutChamp->createView(),
-                    'formSuppressionChamp' => $formSuppresionChamp->createView()
+                    'formSuppressionChamp' => $formSuppressionChamp->createView()
         ));
         ////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
-    public function administrationAffairesEditionAction($file) {
+    public function administrationAffairesEditionAction(Request $request, $file, $profil) {
+
+        $em = $this->getDoctrine()->getManager();
 
         include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
 
@@ -378,7 +369,67 @@ class AdministrationAffairesController extends Controller {
 
         $sheet = $objPHPExcel->getSheet(0);
 
-        return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig', array('sheet' => $sheet, 'filename' => $filename, 'file' => $file));
+        $writer = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+
+        $newLiaisonSuiviChamp = new LiaisonSuiviChamp();
+
+        $formPlacementChamp = $this->get('form.factory')->createNamedBuilder('formPlacementChamp', 'form', $newLiaisonSuiviChamp)
+                ->add('IdChamp', EntityType::class, array(
+                    'class' => 'NoxIntranetAdministrationBundle:Formulaires',
+                    'choice_label' => 'Nom',
+                    'query_builder' => function (EntityRepository $er) use ($profil) {
+                        return $er->createQueryBuilder('u')
+                                ->where("u.profil = '" . $profil . "'")
+                                ->orderBy('u.nom', 'ASC');
+                    },
+                ))
+                ->add('Ligne', IntegerType::class)
+                ->add('Colonne', TextType::class)
+                ->add('Placer', SubmitType::class)
+                ->getForm();
+
+        if ($request->request->has('formPlacementChamp')) {
+            $formPlacementChamp->handleRequest($request);
+
+            if ($formPlacementChamp->isValid()) {
+
+                $suivi = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findOneByChemin(str_replace('/', '\\', pathinfo($file, PATHINFO_DIRNAME)));
+                $liaisonsSuivi = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdSuivi($suivi->getId());
+
+                if ($liaisonsSuivi != null) {
+                    foreach ($liaisonsSuivi as $liaisonSuivi) {
+                        if ($liaisonSuivi->getIdChamp() === $formPlacementChamp['IdChamp']->getData()->getId()) {
+                            $anciennePosition = $liaisonSuivi->getColonne() . $liaisonSuivi->getLigne();
+                            $em->remove($liaisonSuivi);
+                        }
+                    }
+                    $em->flush();
+                }
+
+                $newLiaisonSuiviChamp->setIdSuivi($suivi->getId());
+                $newLiaisonSuiviChamp->setIdChamp($formPlacementChamp['IdChamp']->getData()->getId());
+                $newLiaisonSuiviChamp->setLigne($formPlacementChamp['Ligne']->getData());
+                $newLiaisonSuiviChamp->setColonne($formPlacementChamp['Colonne']->getData());
+                $em->persist($newLiaisonSuiviChamp);
+                $em->flush();
+
+                if (isset($anciennePosition)) {
+                    $sheet->getCell($anciennePosition)->setValue(null);
+                    $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $formPlacementChamp['IdChamp']->getData()->getNom() .
+                            ' a été ajouté à la position ' . $formPlacementChamp['Colonne']->getData() . "," . $formPlacementChamp['Ligne']->getData() .
+                            ", il remplace celui se trouvant à la position (" . $anciennePosition . ").");
+                } else {
+                    $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $formPlacementChamp['IdChamp']->getData()->getNom() .
+                            ' a été ajouté à la position (' . $formPlacementChamp['Colonne']->getData() . $formPlacementChamp['Ligne']->getData() .
+                            ").");
+                }
+
+                $sheet->setCellValue($formPlacementChamp['Colonne']->getData() . $formPlacementChamp['Ligne']->getData(), $formPlacementChamp['IdChamp']->getData()->getNom());
+                $writer->save($file);
+            }
+        }
+
+        return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig', array('sheet' => $sheet, 'filename' => $filename, 'file' => $file, 'formPlacementChamp' => $formPlacementChamp->createView()));
     }
 
     public function administrationAffaireSauvegardeModificationAction(Request $request, $filename) {
@@ -389,9 +440,7 @@ class AdministrationAffairesController extends Controller {
 
         if ($cookies->get('editionCellules') == true) {
 
-
             $cellules = json_decode($cookies->get('cellules'));
-
 
             $workbook = new \PHPExcel;
 

@@ -58,7 +58,7 @@ class __TwigTemplate_4753d9b7d632e119dd6465d834cbd42e0cfa6b3e64456386624f8eca699
 
         <fieldset>
 
-            <legend><p>Supprimer annonce</p></legend>
+            <legend>Supprimer annonce</legend>
 
             ";
         // line 17
@@ -100,7 +100,7 @@ class __TwigTemplate_4753d9b7d632e119dd6465d834cbd42e0cfa6b3e64456386624f8eca699
 
         <fieldset>
 
-            <legend><p>Ajouter annonce</p></legend>
+            <legend>Ajouter annonce</legend>
 
             ";
         // line 38
@@ -162,7 +162,7 @@ class __TwigTemplate_4753d9b7d632e119dd6465d834cbd42e0cfa6b3e64456386624f8eca699
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend><p>Supprimer annonce</p></legend>*/
+/*             <legend>Supprimer annonce</legend>*/
 /* */
 /*             {{ form_errors(formSuppressionAnnonce.Message) }}*/
 /*             {{ form_widget(formSuppressionAnnonce.Message, {'attr': {'class': 'selectFormulaireSuppressionAnnonce', 'size': 15}}) }}*/
@@ -183,7 +183,7 @@ class __TwigTemplate_4753d9b7d632e119dd6465d834cbd42e0cfa6b3e64456386624f8eca699
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend><p>Ajouter annonce</p></legend>*/
+/*             <legend>Ajouter annonce</legend>*/
 /* */
 /*             {{ form_errors(formAjoutAnnonce.Message) }}*/
 /*             {{ form_widget(formAjoutAnnonce.Message, {'attr': {'class': 'textFormulaireAjoutAnnonce', 'width': '98%'}}) }}*/

@@ -6,13 +6,54 @@
 
 {% block contenu %}
 
+    <div class='DivFormulairePlacementChamp'>
+
+        {{ form_start(formPlacementChamp, {'attr': {'class': 'formulairePlacementChamp'}}) }}
+        {{ form_errors(formPlacementChamp) }}
+
+        <fieldset>
+
+            <legend>Placer un champ</legend>
+
+            <p>
+                {{ form_label(formPlacementChamp.IdChamp, "Nom :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}
+                {{ form_errors(formPlacementChamp.IdChamp) }}
+                {{ form_widget(formPlacementChamp.IdChamp, {'attr': {'class': 'texteFormulairePlacementChamp' }}) }}
+            </p>
+
+            <p>
+                {{ form_label(formPlacementChamp.Colonne, "Colonne :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}
+                {{ form_errors(formPlacementChamp.Colonne) }}
+                {{ form_widget(formPlacementChamp.Colonne, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}
+
+                {{ form_widget(formPlacementChamp._token) }}
+            </p>
+
+            <p>
+                {{ form_label(formPlacementChamp.Ligne, "Ligne :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}
+                {{ form_errors(formPlacementChamp.Ligne) }}
+                {{ form_widget(formPlacementChamp.Ligne, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}
+            </p>
+
+            <p>
+                {{ form_widget(formPlacementChamp.Placer, {'attr': {'class': 'submitFormulairePlacementChamp', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(formPlacementChamp) }}
+
+    </div>
+
     <div id='tableauExcel'>
 
+        <!--
         <div>
             <p>{{ filename }}</p>
             <p> <button class="boutonFormulaire" onclick="location.reload();"> Annuler </button> <button class="boutonFormulaire" onclick="exctractionTableau();
                     window.location.href = '{{ path('nox_intranet_administration_affaires_edition_sauvegarde', { 'filename': file }) }}';"> Sauvegarder </button> </p>
         </div>
+        -->
 
         <table>
             <tr>
@@ -21,7 +62,9 @@
                     <th style='font-weight: bold'>{{ i }}</th>
                     {% endfor %}
 
+                <!--
                 <th style='font-weight: bold' class="ajoutColonne">+</th>
+                -->
             </tr>
 
             {% for row in sheet.getRowIterator %} 
@@ -36,9 +79,11 @@
 
             {% endfor %}
 
+            <!--
             <tr>
                 <th style='font-weight: bold' class="ajoutLigne">+</th>
             </tr>
+            -->
 
         </table>
 

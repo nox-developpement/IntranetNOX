@@ -608,3 +608,4 @@ DN,sAMAccountName
 "CN=PINTOR Dja'far,OU=Nantes,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",d.pintor
 "CN=LE BRUN Blandine,OU=Nantes,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",b.lebrun
 "CN=PEDRA Steven,OU=Brest,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",s.pedra
+"CN=BOUSCAUD Nicolas,OU=Boulogne,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",n.bouscaud

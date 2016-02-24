@@ -56,7 +56,7 @@ class __TwigTemplate_cb62de792a2df447bbc1983dfd1728c8b345f14caf2ae86c45262450975
 
         <fieldset>
 
-            <legend><p>Ajouter un suivi</p></legend>
+            <legend>Ajouter un suivi</legend>
 
             <p>
 
@@ -174,7 +174,7 @@ class __TwigTemplate_cb62de792a2df447bbc1983dfd1728c8b345f14caf2ae86c45262450975
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend><p>Ajouter un suivi</p></legend>*/
+/*             <legend>Ajouter un suivi</legend>*/
 /* */
 /*             <p>*/
 /* */

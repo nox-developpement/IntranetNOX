@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="NoxIntranet\AdministrationBundle\Entity\FormulairesRepository")
  */
-class Formulaires
-{
+class Formulaires {
+
     /**
      * @var integer
      *
@@ -35,14 +35,19 @@ class Formulaires
      */
     private $type;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Profil", type="string", length=255)
+     */
+    private $profil;
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -53,8 +58,7 @@ class Formulaires
      *
      * @return Formulaires
      */
-    public function setNom($nom)
-    {
+    public function setNom($nom) {
         $this->nom = $nom;
 
         return $this;
@@ -65,8 +69,7 @@ class Formulaires
      *
      * @return string
      */
-    public function getNom()
-    {
+    public function getNom() {
         return $this->nom;
     }
 
@@ -77,8 +80,7 @@ class Formulaires
      *
      * @return Formulaires
      */
-    public function setType($type)
-    {
+    public function setType($type) {
         $this->type = $type;
 
         return $this;
@@ -89,9 +91,30 @@ class Formulaires
      *
      * @return string
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
     }
-}
 
+    /**
+     * Set profil
+     *
+     * @param string $profil
+     *
+     * @return Formulaires
+     */
+    public function setProfil($profil) {
+        $this->profil = $profil;
+
+        return $this;
+    }
+
+    /**
+     * Get profil
+     *
+     * @return string
+     */
+    public function getProfil() {
+        return $this->profil;
+    }
+
+}
