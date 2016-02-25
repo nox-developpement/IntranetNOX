@@ -18,5 +18,9 @@ $(window).ready(function () {
         return confirm('Voulez vous vraiment supprimer le suivi ' + $('.selectFormulaireSelectionVersion:selected').text() + " ?");
     });
 
+    $('.selectFormulaireSelectionVersionSuivi').change(function () {
+        $('.formulaireSelectionVersionSuivi').submit();
+    });
+
 });
 

@@ -12,10 +12,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use NoxIntranet\RessourcesBundle\Entity\Suivis;
+use NoxIntranet\RessourcesBundle\Entity\DonneesSuivi;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TexteType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -182,20 +183,28 @@ class ExcelReadingController extends Controller {
 
         $profil = $suivi->getProfil();
 
-        $form = $this->get('form.factory')->createBuilder('form', $suivi)
-                ->add('IdModele', EntityType::class, array(
-                    'class' => 'NoxIntranetAdministrationBundle:Fichier_Suivi',
-                    'query_builder' => function (EntityRepository $er) use ($profil) {
-                        return $er->createQueryBuilder('u')
-                                ->where("u.profil = '" . $profil . "'")
-                                ->orderBy('u.chemin', 'ASC');
-                    },
-                    'choice_label' => function($value) {
-                        return pathinfo($value->getChemin(), PATHINFO_FILENAME);
-                    }
-                ))
-                ->add('Choisir', 'submit')
-                ->getForm();
+        $Fichier_Suivi = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findByProfil($profil);
+
+        if (!empty($Fichier_Suivi)) {
+            $form = $this->get('form.factory')->createBuilder('form', $suivi)
+                    ->add('IdModele', EntityType::class, array(
+                        'class' => 'NoxIntranetAdministrationBundle:Fichier_Suivi',
+                        'query_builder' => function (EntityRepository $er) use ($profil) {
+                            return $er->createQueryBuilder('u')
+                                    ->where("u.profil = '" . $profil . "'")
+                                    ->orderBy('u.chemin', 'ASC');
+                        },
+                        'choice_label' => function($value) {
+                            return pathinfo($value->getChemin(), PATHINFO_FILENAME);
+                        }
+                    ))
+                    ->add('Choisir', 'submit')
+                    ->getForm();
+        } else {
+            $request->getSession()->getFlashBag()->add('noticeErreur', 'Il n\'y a aucun modèle disponible pour ce profil de suivi !');
+
+            return $this->redirectToRoute('nox_intranet_assistant_affaire_parcour_suivi_en_cours');
+        }
 
         $form->handleRequest($request);
 
@@ -211,8 +220,7 @@ class ExcelReadingController extends Controller {
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreationchoixmodele.html.twig', array('form' => $form->createView(), 'profil' => $profil));
     }
 
-    public function editionSuiviEnCoursAction(Request $request, $IdSuivi) {
-
+    public function editionSuiviEnCoursAction(Request $request, $IdSuivi, $version) {
         $em = $this->getDoctrine()->getManager();
 
         $suivi = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->find($IdSuivi);
@@ -221,63 +229,173 @@ class ExcelReadingController extends Controller {
 
         $liaisons = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdSuivi($modele->getId());
 
-        $formBuilder = $this->get('form.factory')->createBuilder('form');
-
         $champsViews = array();
+
+        function wd_remove_accents($str, $charset = 'utf-8') {
+            $str = htmlentities($str, ENT_NOQUOTES, $charset);
+
+            $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
+            $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
+            $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
+
+            return $str;
+        }
+
+        // Génération du formulaire de séléction de la version du suivi
+
+        if ($version !== '') {
+            $IdDonneesSuivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneBy(array('idSuivi' => $IdSuivi, 'version' => $version));
+        } else {
+            $IdDonneesSuivi = null;
+        }
+
+        $formSelectionVersionSuivi = $this->get('form.factory')->createNamedBuilder('formSelectionVersionSuivi', 'form')
+                ->add('version', EntityType::class, array(
+                    'class' => 'NoxIntranetRessourcesBundle:DonneesSuivi',
+                    'query_builder' => function (EntityRepository $er) use ($IdSuivi) {
+                        return $er->createQueryBuilder('u')
+                                ->where("u.idSuivi = '" . $IdSuivi . "'")
+                                ->orderBy('u.version', 'DESC');
+                    },
+                    'choice_label' => function($value) {
+                        return "v" . $value->getVersion();
+                    },
+                    'placeholder' => 'Nouvelle version',
+                    'data' => $IdDonneesSuivi
+                ))
+                ->getForm();
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Génération du formulaire de complétion du suivi
+        $formBuilder = $this->get('form.factory')->createNamedBuilder('formDonneesSuivi', 'form');
 
         foreach ($liaisons as $liaison) {
             $champ = $em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->find($liaison->getIdChamp());
 
             if ($champ->getType() === 'Texte') {
                 $champsViews[$champ->getNom()]['Nom'] = $champ->getNom();
-                $champsViews[$champ->getNom()]['Champ'] = preg_replace('/\s+/', '', $champ->getNom());
-                $formBuilder->add(preg_replace('/\s+/', '', $champ->getNom()), TexteType::class);
+                $champsViews[$champ->getNom()]['Champ'] = wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom()));
+                $formBuilder->add(wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())), TextType::class);
             } else if ($champ->getType() === 'Nombre') {
                 $champsViews[$champ->getNom()]['Nom'] = $champ->getNom();
-                $champsViews[$champ->getNom()]['Champ'] = preg_replace('/\s+/', '', $champ->getNom());
-                $formBuilder->add(preg_replace('/\s+/', '', $champ->getNom()), NumberType::class);
+                $champsViews[$champ->getNom()]['Champ'] = wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom()));
+                $formBuilder->add(wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())), NumberType::class);
             }
         }
 
         $formBuilder->add('Generate', SubmitType::class);
+        $formBuilder->add('Save', SubmitType::class);
 
         $formSuivi = $formBuilder->getForm();
 
-        $formSuivi->handleRequest($request);
+        if ($version != null) {
 
-        if ($formSuivi->isValid()) {
+            $donneeSuivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneBy(array('idSuivi' => $IdSuivi, 'version' => $version));
 
-            include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
+            $donneesVersion = $donneeSuivi->getDonnees();
 
-            $objReader = new \PHPExcel_Reader_Excel2007();
-            $objPHPExcel = $objReader->load($modele->getChemin() . "/" . pathinfo($modele->getChemin(), PATHINFO_FILENAME) . '.xlsx');
-            $sheet = $objPHPExcel->getSheet(0);
+            foreach ($donneesVersion as $key => $value) {
+                $formSuivi->get($key)->setData($value);
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Traitement du formulaire de séléction de la version du suivi
+        if ($request->request->has('formSelectionVersionSuivi')) {
+            $formSelectionVersionSuivi->handleRequest($request);
 
-            foreach ($liaisons as $liaison) {
-                $champ = $em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->find($liaison->getIdChamp());
+            if ($formSelectionVersionSuivi->isValid()) {
 
-                $sheet->setCellValue($liaison->getCoordonneesDonnees(), $formSuivi[preg_replace('/\s+/', '', $champ->getNom())]->getData());
+                if ($formSelectionVersionSuivi['version']->getData() !== null) {
+                    return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi, 'version' => $formSelectionVersionSuivi['version']->getData()->getVersion()));
+                } else {
+                    return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi));
+                }
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Traitement du formulaire de complétion du suivi
+        if ($request->request->has('formDonneesSuivi')) {
+            $formSuivi->handleRequest($request);
+
+            $donnees_suivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneBy(array('idSuivi' => $IdSuivi), array('version' => 'DESC'));
+            if ($donnees_suivi !== null) {
+                $version = $donnees_suivi->getVersion() + 0.1;
+            } else {
+                $version = 1.0;
             }
 
-            $writer = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+            if ($formSuivi->isValid()) {
 
-            $fichier = "ExcelFile.xlsx";
+                if ($formSuivi->get('Save')->isClicked()) {
 
-            $writer->save("ExcelGenerate/" . $fichier);
+                    $donnees_existantes = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findByIdSuivi($IdSuivi);
 
-            $chemin = "ExcelGenerate/"; // emplacement de votre fichier .pdf
+                    foreach ($formSuivi->getData() as $key => $data) {
+                        $donnees[$key] = $data;
+                    }
 
-            $response = new Response();
-            $response->setContent(file_get_contents($chemin . $fichier));
-            $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); // modification du content-type pour forcer le téléchargement (sinon le navigateur internet essaie d'afficher le document)
-            $response->headers->set('Content-disposition', 'filename=' . $fichier);
+                    foreach ($donnees_existantes as $donnee_existante) {
+                        if (empty(array_diff_assoc($donnee_existante->getDonnees(), $donnees))) {
+                            $request->getSession()->getFlashBag()->add('notice', 'Le suivi ' . $suivi->getNom() . ' n\'a pas été sauvegardé car ses donnéees son identiques à la version ' . $donnee_existante->getVersion() . '.');
+                            return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi));
+                        }
+                    }
 
-            unlink($chemin . $fichier);
+                    $NewDonneesSuivi = new DonneesSuivi();
 
-            return $response;
+                    $NewDonneesSuivi->setIdSuivi($IdSuivi);
+                    $NewDonneesSuivi->setNom($suivi->getNom() . "_v" . $version);
+                    $NewDonneesSuivi->setDonnees($donnees);
+                    $NewDonneesSuivi->setVersion($version);
+
+                    $em->persist($NewDonneesSuivi);
+                    $em->flush();
+
+                    $request->getSession()->getFlashBag()->add('notice', 'Le suivi ' . $suivi->getNom() . ' a été sauvegardé sous le nom ' . $suivi->getNom() . "_v" . $version . '.');
+
+                    return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi));
+                }
+
+
+                if ($formSuivi->get('Generate')->isClicked()) {
+
+                    include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
+
+                    $objReader = new \PHPExcel_Reader_Excel2007();
+                    $objPHPExcel = $objReader->load($modele->getChemin() . "/" . pathinfo($modele->getChemin(), PATHINFO_FILENAME) . '.xlsx');
+                    $sheet = $objPHPExcel->getSheet(0);
+
+                    foreach ($liaisons as $liaison) {
+                        $champ = $em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->find($liaison->getIdChamp());
+                        $sheet->setCellValue($liaison->getCoordonneesDonnees(), $formSuivi[wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom()))]->getData());
+                    }
+
+                    $writer = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+
+                    $fichierVersion = $suivi->getNom() . "_v" . $version;
+
+                    $fichier = $fichierVersion . ".xlsx";
+
+                    $chemin = 'C:\wamp\www\Symfony\web\ExcelGenerate\\';
+
+                    $writer->save($chemin . $fichier);
+
+                    $response = new Response();
+                    $response->setContent(file_get_contents($chemin . $fichier));
+                    $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); // modification du content-type pour forcer le téléchargement (sinon le navigateur internet essaie d'afficher le document)
+                    $response->headers->set('Content-disposition', 'filename=' . $fichier);
+
+                    unlink($chemin . $fichier);
+
+                    return $response;
+                }
+            }
         }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
 
-        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig', array('form' => $formSuivi->createView(), 'champsViews' => $champsViews, 'suivi' => $suivi->getNom()));
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig', array(
+                    'formDonneesSuivi' => $formSuivi->createView(), 'champsViews' => $champsViews, 'suivi' => $suivi->getNom(),
+                    'formSelectionVersionSuivi' => $formSelectionVersionSuivi->createView()
+        ));
     }
 
     public function consulterSuiviAction(Request $request, $agence) {

@@ -197,8 +197,8 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
                         }
 
                         // nox_intranet_assistant_affaire_edition
-                        if (0 === strpos($pathinfo, '/ressources/assistant-affaires/edition-suivi') && preg_match('#^/ressources/assistant\\-affaires/edition\\-suivi/(?P<IdSuivi>[^/]++)$#s', $pathinfo, $matches)) {
-                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_assistant_affaire_edition')), array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController::editionSuiviEnCoursAction',));
+                        if (0 === strpos($pathinfo, '/ressources/assistant-affaires/edition-suivi') && preg_match('#^/ressources/assistant\\-affaires/edition\\-suivi/(?P<IdSuivi>[^/]++)(?:/(?P<version>[^/]++))?$#s', $pathinfo, $matches)) {
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_assistant_affaire_edition')), array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController::editionSuiviEnCoursAction',  'version' => '',));
                         }
 
                     }

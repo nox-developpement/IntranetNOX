@@ -313,6 +313,27 @@ class __TwigTemplate_2ee25e983497edcda86592547e9752e39e1cdbb4021e987b6958e6ab40e
             </figure>
         </a>
 
+        <!-- Visioconférence -->            
+        <a href=\"http://visio.groupe-nox.com\" target=\"_blank\" class=\"icon\">
+            <figure>
+                <img 
+                    src=\"";
+        // line 151
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Conference-Call-01-128.png"), "html", null, true);
+        echo "\" 
+                    onmouseover=\"this.src = '";
+        // line 152
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Conference-Call-01-128-hover.png"), "html", null, true);
+        echo "';\" 
+                    onmouseout=\"this.src = '";
+        // line 153
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetressources/images/Conference-Call-01-128.png"), "html", null, true);
+        echo "';\"
+                    > 
+                <figcaption>Visioconférence</figcaption>
+            </figure>
+        </a>
+
     </div>
 
 ";
@@ -330,7 +351,7 @@ class __TwigTemplate_2ee25e983497edcda86592547e9752e39e1cdbb4021e987b6958e6ab40e
 
     public function getDebugInfo()
     {
-        return array (  309 => 141,  305 => 140,  301 => 139,  295 => 136,  285 => 129,  281 => 128,  277 => 127,  271 => 124,  261 => 117,  257 => 116,  253 => 115,  247 => 112,  236 => 104,  232 => 103,  228 => 102,  222 => 99,  212 => 92,  208 => 91,  204 => 90,  198 => 87,  187 => 79,  183 => 78,  179 => 77,  173 => 74,  161 => 65,  157 => 64,  153 => 63,  147 => 60,  136 => 52,  132 => 51,  128 => 50,  122 => 47,  112 => 40,  108 => 39,  104 => 38,  98 => 35,  88 => 28,  84 => 27,  80 => 26,  74 => 23,  64 => 16,  60 => 15,  56 => 14,  50 => 11,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  330 => 153,  326 => 152,  322 => 151,  309 => 141,  305 => 140,  301 => 139,  295 => 136,  285 => 129,  281 => 128,  277 => 127,  271 => 124,  261 => 117,  257 => 116,  253 => 115,  247 => 112,  236 => 104,  232 => 103,  228 => 102,  222 => 99,  212 => 92,  208 => 91,  204 => 90,  198 => 87,  187 => 79,  183 => 78,  179 => 77,  173 => 74,  161 => 65,  157 => 64,  153 => 63,  147 => 60,  136 => 52,  132 => 51,  128 => 50,  122 => 47,  112 => 40,  108 => 39,  104 => 38,  98 => 35,  88 => 28,  84 => 27,  80 => 26,  74 => 23,  64 => 16,  60 => 15,  56 => 14,  50 => 11,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -476,6 +497,18 @@ class __TwigTemplate_2ee25e983497edcda86592547e9752e39e1cdbb4021e987b6958e6ab40e
 /*                     onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Server-02-128.png') }}';"*/
 /*                     > */
 /*                 <figcaption>Serveurs</figcaption>*/
+/*             </figure>*/
+/*         </a>*/
+/* */
+/*         <!-- Visioconférence -->            */
+/*         <a href="http://visio.groupe-nox.com" target="_blank" class="icon">*/
+/*             <figure>*/
+/*                 <img */
+/*                     src="{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}" */
+/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128-hover.png') }}';" */
+/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}';"*/
+/*                     > */
+/*                 <figcaption>Visioconférence</figcaption>*/
 /*             </figure>*/
 /*         </a>*/
 /* */

@@ -94,7 +94,7 @@ CREATE TABLE `compteur` (
 
 LOCK TABLES `compteur` WRITE;
 /*!40000 ALTER TABLE `compteur` DISABLE KEYS */;
-INSERT INTO `compteur` VALUES (1,'Accueil','1197');
+INSERT INTO `compteur` VALUES (1,'Accueil','1228');
 /*!40000 ALTER TABLE `compteur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +161,7 @@ CREATE TABLE `formulaires` (
   `Type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Profil` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +170,7 @@ CREATE TABLE `formulaires` (
 
 LOCK TABLES `formulaires` WRITE;
 /*!40000 ALTER TABLE `formulaires` DISABLE KEYS */;
-INSERT INTO `formulaires` VALUES (9,'NewProfil','Texte','Distrib'),(10,'ChampRTE','Nombre','RTE');
+INSERT INTO `formulaires` VALUES (9,'NewProfil','Texte','Distrib'),(10,'ChampRTE','Nombre','RTE'),(11,'Prix Total','Nombre','RTE');
 /*!40000 ALTER TABLE `formulaires` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,11 +240,11 @@ DROP TABLE IF EXISTS `liaison_suivi_champ`;
 CREATE TABLE `liaison_suivi_champ` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `IdChamp` int(11) NOT NULL,
-  `Colonne` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Ligne` int(11) NOT NULL,
+  `CoordonneesLabel` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `IdSuivi` int(11) NOT NULL,
+  `CoordonneesDonnees` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +253,7 @@ CREATE TABLE `liaison_suivi_champ` (
 
 LOCK TABLES `liaison_suivi_champ` WRITE;
 /*!40000 ALTER TABLE `liaison_suivi_champ` DISABLE KEYS */;
-INSERT INTO `liaison_suivi_champ` VALUES (14,10,'A',1,21),(15,10,'b',2,20),(22,10,'B',4,22);
+INSERT INTO `liaison_suivi_champ` VALUES (31,10,'A2',25,'B2'),(32,11,'A3',25,'B3');
 /*!40000 ALTER TABLE `liaison_suivi_champ` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,7 +304,7 @@ CREATE TABLE `pdf` (
   `dateEnvoi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Lien` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9912 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10512 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -352,7 +352,7 @@ CREATE TABLE `references_keywords` (
   `Keyword` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Nombre` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2853 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3069 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -361,7 +361,7 @@ CREATE TABLE `references_keywords` (
 
 LOCK TABLES `references_keywords` WRITE;
 /*!40000 ALTER TABLE `references_keywords` DISABLE KEYS */;
-INSERT INTO `references_keywords` VALUES (2844,'Env',1),(2845,'Montagne',1),(2846,'Ecologie',1),(2847,'Méthodologie',1),(2848,'Références',1),(2849,'Ajout',1),(2850,'Suppression',1),(2851,'Documents',1),(2852,'Mots-clés',1);
+INSERT INTO `references_keywords` VALUES (3060,'Env',1),(3061,'Montagne',1),(3062,'Ecologie',1),(3063,'Méthodologie',1),(3064,'Références',1),(3065,'Ajout',1),(3066,'Suppression',1),(3067,'Documents',1),(3068,'Mots-clés',1);
 /*!40000 ALTER TABLE `references_keywords` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -405,8 +405,9 @@ CREATE TABLE `suivis` (
   `NumeroGX` int(11) NOT NULL,
   `Profil` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Statut` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `IdModele` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -415,7 +416,7 @@ CREATE TABLE `suivis` (
 
 LOCK TABLES `suivis` WRITE;
 /*!40000 ALTER TABLE `suivis` DISABLE KEYS */;
-INSERT INTO `suivis` VALUES (3,'Suivi 3','Bron',452213,'RTE','Terminé'),(5,'Suivi 4','Rennes',45674,'Distrib','En cours');
+INSERT INTO `suivis` VALUES (13,'SuiviRennes','Rennes',44545,'Distrib','En cours',NULL),(14,'SuiviNantes','Nantes',88955,'RTE','En cours',25);
 /*!40000 ALTER TABLE `suivis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -513,4 +514,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-24  8:00:02
+-- Dump completed on 2016-02-25  8:00:02

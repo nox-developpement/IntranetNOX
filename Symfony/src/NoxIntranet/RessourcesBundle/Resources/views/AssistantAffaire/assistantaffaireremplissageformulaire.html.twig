@@ -2,14 +2,33 @@
 
 {% block titrePage %} Edition de feuille de suivi {% endblock %}
 
-{% block messageAccueil %}Edition de feuille de suivi{% endblock %}
+{% block messageAccueil %}Edition de feuille de suivi - {{ suivi }}{% endblock %}
 
 {% block contenu %}
 
+    <div id='DivFormulaireSelectionVersionSuivi'>
+
+        {{ form_start(formSelectionVersionSuivi, {'attr': {'class': 'formulaireSelectionVersionSuivi'}}) }}
+        {{ form_errors(formSelectionVersionSuivi) }}
+
+        <fieldset>
+
+            <legend>Version</legend>
+
+            {{ form_label(formSelectionVersionSuivi.version, "Selection de la version :", {'label_attr': {'class': 'labelFormulaireSelectionVersionSuivi'}}) }}
+            {{ form_errors(formSelectionVersionSuivi.version) }}
+            {{ form_widget(formSelectionVersionSuivi.version, {'attr': {'class': 'selectFormulaireSelectionVersionSuivi'}}) }}
+
+        </fieldset>
+
+        {{ form_end(formSelectionVersionSuivi) }}
+
+    </div>
+
     <div id="DivFormulaireRemplissageSuivi">
 
-        {{ form_start(form, {'attr': {'class': 'formulaireRemplissageSuivi'}}) }}
-        {{ form_errors(form) }}
+        {{ form_start(formDonneesSuivi, {'attr': {'class': 'formulaireRemplissageSuivi'}}) }}
+        {{ form_errors(formDonneesSuivi) }}
 
         <fieldset>
 
@@ -17,19 +36,19 @@
 
             <p>
                 {% for champ in champsViews %}
-
-                    {{ form_label(attribute(form, champ.Champ), champ.Nom ~ " : ", {'label_attr': {'class': 'labelFormulaireRemplissageSuivi'}}) }}
-                    {{ form_errors(attribute(form, champ.Champ)) }}
-                    {{ form_widget(attribute(form, champ.Champ), {'attr': {'class': 'champFormulaireRemplissageSuivi'}}) }}
+                    {{ form_label(attribute(formDonneesSuivi, champ.Champ), champ.Nom ~ " : ", {'label_attr': {'class': 'labelFormulaireRemplissageSuivi'}}) }}
+                    {{ form_errors(attribute(formDonneesSuivi, champ.Champ)) }}
+                    {{ form_widget(attribute(formDonneesSuivi, champ.Champ), {'attr': {'class': 'champFormulaireRemplissageSuivi'}}) }}
                     <br />
                 {% endfor %}
 
-                {{ form_widget(form.Generate, {'label': 'Générer fichier Excel', 'attr': {'class': 'boutonFormulaire'}}) }}
+                {{ form_widget(formDonneesSuivi.Generate, {'label': 'Générer fichier Excel', 'attr': {'class': 'boutonFormulaire'}}) }}
+                {{ form_widget(formDonneesSuivi.Save, {'label': 'Sauvegarder le suivi', 'attr': {'class': 'boutonFormulaire'}}) }}
             </p>
 
         </fieldset> 
 
-        {{ form_end(form) }}
+        {{ form_end(formDonneesSuivi) }}
     </div>
 
 {% endblock %}

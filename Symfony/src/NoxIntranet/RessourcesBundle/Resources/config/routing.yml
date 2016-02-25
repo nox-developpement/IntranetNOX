@@ -85,8 +85,8 @@ nox_intranet_assistant_affaire_nouvelle_choix_modele:
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviChoixModele }
     
 nox_intranet_assistant_affaire_edition:
-    path: /ressources/assistant-affaires/edition-suivi/{IdSuivi}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:editionSuiviEnCours }
+    path: /ressources/assistant-affaires/edition-suivi/{IdSuivi}/{version}
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:editionSuiviEnCours, version: "" }
     
 nox_intranet_assistant_affaire_generation:
     path: /ressources/assistantAffaireGeneration

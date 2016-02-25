@@ -38,7 +38,7 @@ class Suivis {
     /**
      * @var integer
      *
-     * @ORM\Column(name="NumeroGX", type="integer", length=255)
+     * @ORM\Column(name="NumeroGX", type="integer")
      */
     private $numeroGX;
 
@@ -59,7 +59,7 @@ class Suivis {
     /**
      * @var integer
      *
-     * @ORM\Column(name="IdModele", type="integer", length=255)
+     * @ORM\Column(name="IdModele", type="integer", nullable=true)
      */
     private $idModele;
 
@@ -180,6 +180,28 @@ class Suivis {
      */
     public function getStatut() {
         return $this->statut;
+    }
+
+    /**
+     * Set idModele
+     *
+     * @param integer $idModele
+     *
+     * @return Suivis
+     */
+    public function setIdModele($idModele) {
+        $this->idModele = $idModele;
+
+        return $this;
+    }
+
+    /**
+     * Get idModele
+     *
+     * @return integer
+     */
+    public function getIdModele() {
+        return $this->idModele;
     }
 
 }

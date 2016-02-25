@@ -70,19 +70,35 @@ class AdministrationAffairesController extends Controller {
                 ->getForm();
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération formulaire de suppresion de profil
-        $profilASupprimer = new Profils();
-
-        $formSuppresionProfil = $this->get('form.factory')->createNamedBuilder('formSuppresionProfil', 'form', $profilASupprimer)
-                ->add('Nom', EntityType::class, array(
-                    'class' => 'NoxIntranetRessourcesBundle:Profils',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                                ->orderBy('u.nom', 'ASC');
-                    },
-                    'choice_label' => 'Nom',
-                ))
-                ->add('Supprimer', 'submit')
-                ->getForm();
+        if (!empty($em->getRepository('NoxIntranetRessourcesBundle:Profils')->findAll())) {
+            $formSuppresionProfil = $this->get('form.factory')->createNamedBuilder('formSuppresionProfil', 'form')
+                    ->add('Nom', EntityType::class, array(
+                        'class' => 'NoxIntranetRessourcesBundle:Profils',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('u')
+                                    ->orderBy('u.nom', 'ASC');
+                        },
+                        'choice_label' => 'Nom',
+                    ))
+                    ->add('Supprimer', SubmitType::class)
+                    ->getForm();
+        } else {
+            $formSuppresionProfil = $this->get('form.factory')->createNamedBuilder('formSuppresionProfil', 'form')
+                    ->add('Nom', EntityType::class, array(
+                        'class' => 'NoxIntranetRessourcesBundle:Profils',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('u')
+                                    ->orderBy('u.nom', 'ASC');
+                        },
+                        'choice_label' => 'Nom',
+                        'placeholder' => 'Il n\'y a aucun profil à supprimer.',
+                        'disabled' => true
+                    ))
+                    ->add('Supprimer', SubmitType::class, array(
+                        'disabled' => true
+                    ))
+                    ->getForm();
+        }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération formulaire ajout de fichier
         $formAjoutFichier = $this->get('form.factory')->createNamedBuilder('formAjoutFichier', 'form')
@@ -123,15 +139,34 @@ class AdministrationAffairesController extends Controller {
                 ->getForm();
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération formulaire de suppression de champ
-        $formSuppressionChamp = $this->get('form.factory')->createNamedBuilder('formSuppressionChamp', 'form')
-                ->add('Nom', EntityType::class, array(
-                    'class' => 'NoxIntranetAdministrationBundle:Formulaires',
-                    'choice_label' => function($value) {
-                        return $value->getNom() . " - " . $value->getType() . ' - ' . $value->getProfil();
-                    }
-                ))
-                ->add('Supprimer', SubmitType::class)
-                ->getForm();
+
+        if (!empty($em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findAll())) {
+            $formSuppressionChamp = $this->get('form.factory')->createNamedBuilder('formSuppressionChamp', 'form')
+                    ->add('Nom', EntityType::class, array(
+                        'class' => 'NoxIntranetAdministrationBundle:Formulaires',
+                        'choice_label' => function($value) {
+                            return $value->getNom() . " - " . $value->getType() . ' - ' . $value->getProfil();
+                        }
+                    ))
+                    ->add('Supprimer', SubmitType::class)
+                    ->getForm();
+        } else {
+            $formSuppressionChamp = $this->get('form.factory')->createNamedBuilder('formSuppressionChamp', 'form')
+                    ->add('Nom', EntityType::class, array(
+                        'class' => 'NoxIntranetAdministrationBundle:Formulaires',
+                        'choice_label' => function($value) {
+                            return $value->getNom() . " - " . $value->getType() . ' - ' . $value->getProfil();
+                        },
+                        'placeholder' => 'Il n\'y a aucun champ à supprimer.',
+                        'disabled' => true
+                    ))
+                    ->add('Supprimer', SubmitType::class, array(
+                        'disabled' => true
+                    ))
+                    ->getForm();
+        }
+
+
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération formulaire de séléction du suivi  
         $profilActuel = $em->getRepository('NoxIntranetRessourcesBundle:Profils')->findOneByNom($profil);
