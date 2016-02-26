@@ -124,7 +124,8 @@ class AdministrationAffairesController extends Controller {
                     'choices' => array(
                         'Texte' => 'Texte',
                         'Nombre' => 'Nombre',
-                        'Données' => 'Données'
+                        'Données' => 'Données',
+                        'Calcule' => 'Calcule'
                     ),
                 ))
                 ->add('Profil', EntityType::class, array(
@@ -139,7 +140,6 @@ class AdministrationAffairesController extends Controller {
                 ->getForm();
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération formulaire de suppression de champ
-
         if (!empty($em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findAll())) {
             $formSuppressionChamp = $this->get('form.factory')->createNamedBuilder('formSuppressionChamp', 'form')
                     ->add('Nom', EntityType::class, array(
@@ -240,6 +240,42 @@ class AdministrationAffairesController extends Controller {
 
             if ($formSuppresionProfil->isValid()) {
 
+                $fichiersSuiviAssocies = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findByProfil($formSuppresionProfil['Nom']->getData()->getNom());
+
+                foreach ($fichiersSuiviAssocies as $fichier) {
+                    $liaisonsAssocies = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdSuivi($fichier->getId());
+
+                    foreach ($liaisonsAssocies as $liaison) {
+                        $em->remove($liaison);
+                    }
+
+                    foreach (glob($fichier->getChemin() . "/*.*") as $filename) {
+                        if (is_file($filename)) {
+                            unlink($filename);
+                        }
+                    }
+                    rmdir($fichier->getChemin());
+                    $em->remove($fichier);
+                }
+
+                $champsAssocies = $em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findByProfil($formSuppresionProfil['Nom']->getData()->getNom());
+
+                foreach ($champsAssocies as $champ) {
+                    $em->remove($champ);
+                }
+
+                $suivisAssocies = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByProfil($formSuppresionProfil['Nom']->getData()->getNom());
+
+                foreach ($suivisAssocies as $suivi) {
+                    $donneesSuivisAssocies = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findByIdSuivi($suivi->getId());
+
+                    foreach ($donneesSuivisAssocies as $donnees) {
+                        $em->remove($donnees);
+                    }
+
+                    $em->remove($suivi);
+                }
+
                 $em->remove($formSuppresionProfil['Nom']->getData());
                 $em->flush();
 
@@ -290,8 +326,6 @@ class AdministrationAffairesController extends Controller {
                     $request->getSession()->getFlashBag()->add('noticeErreur', 'Le fichier doit être un fichier Excel (.xlsx) !');
                 }
 
-
-
                 return $this->redirectToRoute('nox_intranet_administration_affaires');
             }
         }
@@ -327,13 +361,37 @@ class AdministrationAffairesController extends Controller {
 
             if ($formSuppressionChamp->isValid()) {
 
-                $em->remove($formSuppressionChamp['Nom']->getData());
-                $em->flush();
+                $liaisonsAssocies = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdChamp($formSuppressionChamp['Nom']->getData()->getId());
 
-                $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $formSuppressionChamp['Nom']->getData()->getNom() . ' à été supprimé.');
+                foreach ($liaisonsAssocies as $liaison) {
 
-                return $this->redirectToRoute('nox_intranet_administration_affaires');
+                    $fichierSuiviAssocies = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findById($liaison->getIdSuivi());
+
+                    foreach ($fichierSuiviAssocies as $fichierSuivi) {
+
+                        $suiviAssocies = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByIdModele($fichierSuivi->getId());
+
+                        foreach ($suiviAssocies as $suivi) {
+                            $em->remove($suivi);
+                        }
+                        foreach (glob($fichierSuivi->getChemin() . "/*.*") as $filename) {
+                            if (is_file($filename)) {
+                                unlink($filename);
+                            }
+                        }
+                        rmdir($fichierSuivi->getChemin());
+                        $em->remove($fichierSuivi);
+                    }
+                    $em->remove($liaison);
+                }
             }
+
+            $em->remove($formSuppressionChamp['Nom']->getData());
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $formSuppressionChamp['Nom']->getData()->getNom() . ' à été supprimé.');
+
+            return $this->redirectToRoute('nox_intranet_administration_affaires');
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Traitement du formulaire de séléction du suivi
@@ -364,6 +422,18 @@ class AdministrationAffairesController extends Controller {
                 }
 
                 if ($formSelectionVersion->get('Supprimer')->isClicked()) {
+
+                    $liaisonsAssocies = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdSuivi($formSelectionVersion['Suivi']->getData()->getId());
+
+                    foreach ($liaisonsAssocies as $liaison) {
+                        $em->remove($liaison);
+                    }
+
+                    $suiviAssocies = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByIdModele($formSelectionVersion['Suivi']->getData()->getId());
+
+                    foreach ($suiviAssocies as $suivi) {
+                        $em->remove($suivi);
+                    }
 
                     $chemin = $formSelectionVersion['Suivi']->getData()->getChemin() . '/';
 

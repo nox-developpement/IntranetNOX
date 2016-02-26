@@ -25,6 +25,23 @@
 
     </div>
 
+    <div id="DivFormulaireCloturationSuivi">
+
+        {{ form_start(formCloturationSuivi, {'attr': {'class': 'formulaireCloturationSuivi'}}) }}
+        {{ form_errors(formCloturationSuivi) }}
+
+        <fieldset>
+
+            <legend>Cloturation</legend>
+
+            {{ form_widget(formCloturationSuivi.Cloturer, {'label': 'Cloturer le suivi', 'attr': {'class': 'boutonFormulaire'}}) }}
+
+        </fieldset> 
+
+        {{ form_widget(formCloturationSuivi._token) }}
+        {{ form_end(formCloturationSuivi) }}
+    </div>
+
     <div id="DivFormulaireRemplissageSuivi">
 
         {{ form_start(formDonneesSuivi, {'attr': {'class': 'formulaireRemplissageSuivi'}}) }}
@@ -42,7 +59,7 @@
                     <br />
                 {% endfor %}
 
-                {{ form_widget(formDonneesSuivi.Generate, {'label': 'Générer fichier Excel', 'attr': {'class': 'boutonFormulaire'}}) }}
+                {{ form_widget(formDonneesSuivi.Generate, {'label': 'Générer fichier Excel', 'attr': {'class': 'boutonFormulaire', 'title': 'Sauvegardez le suivi pour pouvoir générer un fichier Excel.' }}) }}
                 {{ form_widget(formDonneesSuivi.Save, {'label': 'Sauvegarder le suivi', 'attr': {'class': 'boutonFormulaire'}}) }}
             </p>
 

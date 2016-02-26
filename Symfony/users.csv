@@ -284,7 +284,7 @@ DN,sAMAccountName
 "CN=LINIGER Daniel,OU=Brest,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",d.liniger
 "CN=CADIOU Herve,OU=Brest,OU=_Old,OU=NOX,DC=nox,DC=local",h.cadiou
 "CN=AIRBAT,OU=_Generique,OU=NOX,DC=nox,DC=local",airbat
-"CN=DEBEAUVOIS Xavier,OU=Boulogne,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",x.debeauvois
+"CN=DEBEAUVOIS Xavier,OU=Paris,OU=Developpement Immobilier,OU=France,OU=NOX,DC=nox,DC=local",x.debeauvois
 "CN=PLENARD Jerome,OU=Commerce,OU=Siège,OU=NOX,DC=nox,DC=local",j.plenard
 "CN=KLEBER Frederic,OU=Paris,OU=Developpement Immobilier,OU=France,OU=NOX,DC=nox,DC=local",f.kleber
 "CN=COUACH Yannick,OU=Paris,OU=Developpement Immobilier,OU=France,OU=NOX,DC=nox,DC=local",y.couach

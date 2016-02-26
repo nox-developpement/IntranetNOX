@@ -1927,7 +1927,7 @@ divAdministrationUtilisateur {
 .DivAjoutFeuilleSuivi, .DivFormulaireSuppressionFormulaire, .DivFormulaireAjoutFichier, 
 #DivFormulaireSelectionAgence, #DivFormulaireSelectionDossier, #DivFormulaireSelectionVersion, 
 .DivFormulaireAjoutChamp, .DivFormulaireSuppressionChamp, .DivFormulairePlacementChamp, #DivFormulaireChoixModele, 
-#DivFormulaireRemplissageSuivi, #DivFormulaireSelectionVersionSuivi {
+#DivFormulaireRemplissageSuivi, #DivFormulaireSelectionVersionSuivi, #DivFormulaireCloturationSuivi {
     margin: 0% 25% 0% 25%;
     margin-bottom: 2%;
     font-size: 0.8vw;
@@ -1937,7 +1937,7 @@ divAdministrationUtilisateur {
 .formulaireParcourSuiviEnCours, .formulaireAjoutFeuilleSuivi, .formulaireAdministrationSuppressionFormulaire, 
 .formulaireSelectionAgence, .formulaireAjoutFichier, .formulaireSelectionDossier, .formulaireSelectionVersion,
 .formulaireAjoutChamp, .formulaireSuppressionChamp, .formulairePlacementChamp, .formulaireChoixModele, 
-.formulaireRemplissageSuivi, .formulaireSelectionVersionSuivi {
+.formulaireRemplissageSuivi, .formulaireSelectionVersionSuivi, .formulaireCloturationSuivi {
     padding: 0px;
     border: none;
     width: 80%;
@@ -1947,7 +1947,8 @@ divAdministrationUtilisateur {
 .formulaireCreationSuivi fieldset, .formulaireParcourSuiviEnCours fieldset, .formulaireAjoutFeuilleSuivi fieldset, 
 .formulaireAdministrationSuppressionFormulaire fieldset, .formulaireSelectionAgence fieldset, .formulaireAjoutFichier fieldset, 
 .formulaireSelectionDossier fieldset, .formulaireSelectionVersion fieldset, .formulaireAjoutChamp fieldset, .formulaireSuppressionChamp fieldset,
-.formulairePlacementChamp fieldset, .formulaireChoixModele fieldset, .formulaireRemplissageSuivi fieldset, .formulaireSelectionVersionSuivi fieldset {
+.formulairePlacementChamp fieldset, .formulaireChoixModele fieldset, .formulaireRemplissageSuivi fieldset, .formulaireSelectionVersionSuivi fieldset,
+.formulaireCloturationSuivi fieldset {
     text-align: center;
     border-color: rgb(31,78,121);
     border-width: 1px;
@@ -1963,7 +1964,7 @@ divAdministrationUtilisateur {
 .formulaireSelectionAgence fieldset legend, .formulaireAjoutFichier fieldset legend, 
 .formulaireSelectionDossier fieldset legend, .formulaireSelectionVersion fieldset legend, .formulaireAjoutChamp fieldset legend,
 .formulaireSuppressionChamp fieldset legend, .formulairePlacementChamp fieldset legend, .formulaireChoixModele fieldset legend, 
-.formulaireRemplissageSuivi fieldset legend, .formulaireSelectionVersionSuivi fieldset legend {
+.formulaireRemplissageSuivi fieldset legend, .formulaireSelectionVersionSuivi fieldset legend, .formulaireCloturationSuivi fieldset legend {
     color: rgb(31,78,121);
     background-color: white;
     border: solid 1px rgb(31,78,121);
@@ -2289,7 +2290,7 @@ divAdministrationUtilisateur {
     text-align: center;
 }
 
-.submitFormulaireParcourSuiviEnCours:disabled, #formSuppressionChamp_Supprimer {
+.submitFormulaireParcourSuiviEnCours:disabled, #formSuppressionChamp_Supprimer:disabled {
     background-color: gray;
     color: black;
     cursor: not-allowed;
@@ -2299,4 +2300,9 @@ divAdministrationUtilisateur {
     background-color: gray;
     color: black;
     cursor: not-allowed;
+}
+
+#rechercehSuivi {
+    margin-bottom: 5%;
+    text-align: center;
 }

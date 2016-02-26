@@ -24,58 +24,58 @@ class __TwigTemplate_be6cc45ff63db9c5fbff4cde4afb9112a454ebeb10bed339eae46460fb4
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_dfc43ac787f8ce0a999d90faf03787a3e0fdbfe767296748e8dcd5eebc166806 = $this->env->getExtension("native_profiler");
-        $__internal_dfc43ac787f8ce0a999d90faf03787a3e0fdbfe767296748e8dcd5eebc166806->enter($__internal_dfc43ac787f8ce0a999d90faf03787a3e0fdbfe767296748e8dcd5eebc166806_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:Administration:administration.html.twig"));
+        $__internal_2f0daa10f3ef81704d891ceafba7ce8c9821cbcab7c1a538300f4280ca72fb54 = $this->env->getExtension("native_profiler");
+        $__internal_2f0daa10f3ef81704d891ceafba7ce8c9821cbcab7c1a538300f4280ca72fb54->enter($__internal_2f0daa10f3ef81704d891ceafba7ce8c9821cbcab7c1a538300f4280ca72fb54_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:Administration:administration.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_dfc43ac787f8ce0a999d90faf03787a3e0fdbfe767296748e8dcd5eebc166806->leave($__internal_dfc43ac787f8ce0a999d90faf03787a3e0fdbfe767296748e8dcd5eebc166806_prof);
+        $__internal_2f0daa10f3ef81704d891ceafba7ce8c9821cbcab7c1a538300f4280ca72fb54->leave($__internal_2f0daa10f3ef81704d891ceafba7ce8c9821cbcab7c1a538300f4280ca72fb54_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_154b5e012a34cf322617290386cb2ac7d96ed15865055ee8e53362043421c901 = $this->env->getExtension("native_profiler");
-        $__internal_154b5e012a34cf322617290386cb2ac7d96ed15865055ee8e53362043421c901->enter($__internal_154b5e012a34cf322617290386cb2ac7d96ed15865055ee8e53362043421c901_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_5109e2ae65085d44293dcf23d54dc4a7330d084da267067126c26904a54e059c = $this->env->getExtension("native_profiler");
+        $__internal_5109e2ae65085d44293dcf23d54dc4a7330d084da267067126c26904a54e059c->enter($__internal_5109e2ae65085d44293dcf23d54dc4a7330d084da267067126c26904a54e059c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         // line 4
         echo "    Administration
 ";
         
-        $__internal_154b5e012a34cf322617290386cb2ac7d96ed15865055ee8e53362043421c901->leave($__internal_154b5e012a34cf322617290386cb2ac7d96ed15865055ee8e53362043421c901_prof);
+        $__internal_5109e2ae65085d44293dcf23d54dc4a7330d084da267067126c26904a54e059c->leave($__internal_5109e2ae65085d44293dcf23d54dc4a7330d084da267067126c26904a54e059c_prof);
 
     }
 
     // line 7
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_2304df4b6b6355f9c5b5b3432f5ccf9572d2bb2935893dd9c977a8f80291573a = $this->env->getExtension("native_profiler");
-        $__internal_2304df4b6b6355f9c5b5b3432f5ccf9572d2bb2935893dd9c977a8f80291573a->enter($__internal_2304df4b6b6355f9c5b5b3432f5ccf9572d2bb2935893dd9c977a8f80291573a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_b35d467cf6585a7901fbb649f1b9e0936b5fca3adb75a6eb4c4b7fc61f86eec6 = $this->env->getExtension("native_profiler");
+        $__internal_b35d467cf6585a7901fbb649f1b9e0936b5fca3adb75a6eb4c4b7fc61f86eec6->enter($__internal_b35d467cf6585a7901fbb649f1b9e0936b5fca3adb75a6eb4c4b7fc61f86eec6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Administration";
         
-        $__internal_2304df4b6b6355f9c5b5b3432f5ccf9572d2bb2935893dd9c977a8f80291573a->leave($__internal_2304df4b6b6355f9c5b5b3432f5ccf9572d2bb2935893dd9c977a8f80291573a_prof);
+        $__internal_b35d467cf6585a7901fbb649f1b9e0936b5fca3adb75a6eb4c4b7fc61f86eec6->leave($__internal_b35d467cf6585a7901fbb649f1b9e0936b5fca3adb75a6eb4c4b7fc61f86eec6_prof);
 
     }
 
     // line 8
     public function block_sousMessageAccueil($context, array $blocks = array())
     {
-        $__internal_3d34418389e4d7056032028db7d0baa87741e048fadbc778b17af85ec1958637 = $this->env->getExtension("native_profiler");
-        $__internal_3d34418389e4d7056032028db7d0baa87741e048fadbc778b17af85ec1958637->enter($__internal_3d34418389e4d7056032028db7d0baa87741e048fadbc778b17af85ec1958637_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
+        $__internal_e0b1568688bd1db56c19c9da7d3800165f26d7af2c789b33022aae3e9efe3470 = $this->env->getExtension("native_profiler");
+        $__internal_e0b1568688bd1db56c19c9da7d3800165f26d7af2c789b33022aae3e9efe3470->enter($__internal_e0b1568688bd1db56c19c9da7d3800165f26d7af2c789b33022aae3e9efe3470_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
 
         echo "Veuillez sélectionner le type de contenu à gérer.";
         
-        $__internal_3d34418389e4d7056032028db7d0baa87741e048fadbc778b17af85ec1958637->leave($__internal_3d34418389e4d7056032028db7d0baa87741e048fadbc778b17af85ec1958637_prof);
+        $__internal_e0b1568688bd1db56c19c9da7d3800165f26d7af2c789b33022aae3e9efe3470->leave($__internal_e0b1568688bd1db56c19c9da7d3800165f26d7af2c789b33022aae3e9efe3470_prof);
 
     }
 
     // line 11
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_6a14793adecbd005e166c9747881d2aa2045c25cdbb2fff3573134f937d885e4 = $this->env->getExtension("native_profiler");
-        $__internal_6a14793adecbd005e166c9747881d2aa2045c25cdbb2fff3573134f937d885e4->enter($__internal_6a14793adecbd005e166c9747881d2aa2045c25cdbb2fff3573134f937d885e4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_917b4eb9886dce2b32b099509960e0bd1e543c8eb48cbc113d13a9f757c4284c = $this->env->getExtension("native_profiler");
+        $__internal_917b4eb9886dce2b32b099509960e0bd1e543c8eb48cbc113d13a9f757c4284c->enter($__internal_917b4eb9886dce2b32b099509960e0bd1e543c8eb48cbc113d13a9f757c4284c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 12
         echo "
@@ -413,7 +413,7 @@ class __TwigTemplate_be6cc45ff63db9c5fbff4cde4afb9112a454ebeb10bed339eae46460fb4
         <div class=\"sousMessageAcceuil\"> 
             <h4> Publication Collaborateurs :  </h4>
         </div>
-        
+
         <!-- Assistant d'affaire -->
         <a href=\"";
         // line 190
@@ -423,21 +423,21 @@ class __TwigTemplate_be6cc45ff63db9c5fbff4cde4afb9112a454ebeb10bed339eae46460fb4
                 <img 
                     src=\"";
         // line 193
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Document-Zoom-In-03-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Business-Man-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
         // line 194
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Document-Zoom-In-03-128-hover.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Business-Man-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
         // line 195
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Document-Zoom-In-03-128.png"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Business-Man-128.png"), "html", null, true);
         echo "';\"
                     > 
                 <figcaption>Assistant d'affaire</figcaption>
             </figure>
         </a>
-        
+
         <!-- Assurance qualité -->
         <a href=\"";
         // line 202
@@ -511,7 +511,7 @@ class __TwigTemplate_be6cc45ff63db9c5fbff4cde4afb9112a454ebeb10bed339eae46460fb4
         </a>
         <!------------------------>      
 
-            <br>
+        <br>
 
         ";
         // line 240
@@ -540,7 +540,7 @@ class __TwigTemplate_be6cc45ff63db9c5fbff4cde4afb9112a454ebeb10bed339eae46460fb4
                     <figcaption>FAQ</figcaption>
                 </figure>
             </a>
-                        
+
         ";
         }
         // line 254
@@ -646,7 +646,7 @@ class __TwigTemplate_be6cc45ff63db9c5fbff4cde4afb9112a454ebeb10bed339eae46460fb4
 
 ";
         
-        $__internal_6a14793adecbd005e166c9747881d2aa2045c25cdbb2fff3573134f937d885e4->leave($__internal_6a14793adecbd005e166c9747881d2aa2045c25cdbb2fff3573134f937d885e4_prof);
+        $__internal_917b4eb9886dce2b32b099509960e0bd1e543c8eb48cbc113d13a9f757c4284c->leave($__internal_917b4eb9886dce2b32b099509960e0bd1e543c8eb48cbc113d13a9f757c4284c_prof);
 
     }
 
@@ -852,19 +852,19 @@ class __TwigTemplate_be6cc45ff63db9c5fbff4cde4afb9112a454ebeb10bed339eae46460fb4
 /*         <div class="sousMessageAcceuil"> */
 /*             <h4> Publication Collaborateurs :  </h4>*/
 /*         </div>*/
-/*         */
+/* */
 /*         <!-- Assistant d'affaire -->*/
 /*         <a href="{{ path('nox_intranet_administration_affaires') }}" class="icon">*/
 /*             <figure>*/
 /*                 <img */
-/*                     src="{{ asset('bundles/noxintranetadministration/images/Document-Zoom-In-03-128.png') }}" */
-/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Document-Zoom-In-03-128-hover.png') }}';" */
-/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Document-Zoom-In-03-128.png') }}';"*/
+/*                     src="{{ asset('bundles/noxintranetadministration/images/Business-Man-128.png') }}" */
+/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Business-Man-128-hover.png') }}';" */
+/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Business-Man-128.png') }}';"*/
 /*                     > */
 /*                 <figcaption>Assistant d'affaire</figcaption>*/
 /*             </figure>*/
 /*         </a>*/
-/*         */
+/* */
 /*         <!-- Assurance qualité -->*/
 /*         <a href="{{ path('nox_intranet_aq') }}" class="icon">*/
 /*             <figure>*/
@@ -902,7 +902,7 @@ class __TwigTemplate_be6cc45ff63db9c5fbff4cde4afb9112a454ebeb10bed339eae46460fb4
 /*         </a>*/
 /*         <!------------------------>      */
 /* */
-/*             <br>*/
+/*         <br>*/
 /* */
 /*         {% if app.user and is_granted('ROLE_FAQ') %}        */
 /*             <!-- FAQ -->*/
@@ -916,7 +916,7 @@ class __TwigTemplate_be6cc45ff63db9c5fbff4cde4afb9112a454ebeb10bed339eae46460fb4
 /*                     <figcaption>FAQ</figcaption>*/
 /*                 </figure>*/
 /*             </a>*/
-/*                         */
+/* */
 /*         {% endif %}*/
 /* */
 /*         <!-- Liens -->*/

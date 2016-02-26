@@ -185,19 +185,19 @@
         <div class="sousMessageAcceuil"> 
             <h4> Publication Collaborateurs :  </h4>
         </div>
-        
+
         <!-- Assistant d'affaire -->
         <a href="{{ path('nox_intranet_administration_affaires') }}" class="icon">
             <figure>
                 <img 
-                    src="{{ asset('bundles/noxintranetadministration/images/Document-Zoom-In-03-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Document-Zoom-In-03-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Document-Zoom-In-03-128.png') }}';"
+                    src="{{ asset('bundles/noxintranetadministration/images/Business-Man-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Business-Man-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Business-Man-128.png') }}';"
                     > 
                 <figcaption>Assistant d'affaire</figcaption>
             </figure>
         </a>
-        
+
         <!-- Assurance qualité -->
         <a href="{{ path('nox_intranet_aq') }}" class="icon">
             <figure>
@@ -235,7 +235,7 @@
         </a>
         <!------------------------>      
 
-            <br>
+        <br>
 
         {% if app.user and is_granted('ROLE_FAQ') %}        
             <!-- FAQ -->
@@ -249,7 +249,7 @@
                     <figcaption>FAQ</figcaption>
                 </figure>
             </a>
-                        
+
         {% endif %}
 
         <!-- Liens -->

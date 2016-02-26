@@ -196,6 +196,8 @@
             <legend>Selection du suivi</legend>
 
             <p>
+                <label for="rechercehSuivi">Recherche</label>
+                <input placeholder="Ex : Ventes 2016" type="text" id="rechercehSuivi"/>
                 {{ form_errors(formSelectionVersion.Suivi) }}
                 {{ form_widget(formSelectionVersion.Suivi, {'attr': {'class': 'selectFormulaireSelectionVersion', 'size': 15}}) }}
             </p>

@@ -23,44 +23,44 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_0dfcb2fbf6a028b7df0b3e290804cd1cc8618f06142c4c97ad53c2a8ba8a053d = $this->env->getExtension("native_profiler");
-        $__internal_0dfcb2fbf6a028b7df0b3e290804cd1cc8618f06142c4c97ad53c2a8ba8a053d->enter($__internal_0dfcb2fbf6a028b7df0b3e290804cd1cc8618f06142c4c97ad53c2a8ba8a053d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig"));
+        $__internal_7ab41e5eefde25870bd90bcd1631826551d39151592dc40e9fff6eefe36becdd = $this->env->getExtension("native_profiler");
+        $__internal_7ab41e5eefde25870bd90bcd1631826551d39151592dc40e9fff6eefe36becdd->enter($__internal_7ab41e5eefde25870bd90bcd1631826551d39151592dc40e9fff6eefe36becdd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_0dfcb2fbf6a028b7df0b3e290804cd1cc8618f06142c4c97ad53c2a8ba8a053d->leave($__internal_0dfcb2fbf6a028b7df0b3e290804cd1cc8618f06142c4c97ad53c2a8ba8a053d_prof);
+        $__internal_7ab41e5eefde25870bd90bcd1631826551d39151592dc40e9fff6eefe36becdd->leave($__internal_7ab41e5eefde25870bd90bcd1631826551d39151592dc40e9fff6eefe36becdd_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_a1f4b3f82ce9a74d418c530447d5f168986f4f663e2e19df87ae50cc6ad2daad = $this->env->getExtension("native_profiler");
-        $__internal_a1f4b3f82ce9a74d418c530447d5f168986f4f663e2e19df87ae50cc6ad2daad->enter($__internal_a1f4b3f82ce9a74d418c530447d5f168986f4f663e2e19df87ae50cc6ad2daad_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_e5dc2e57ddf1a3d0544a2679637f2b8479e21733befa1daac41bf08904f82fcd = $this->env->getExtension("native_profiler");
+        $__internal_e5dc2e57ddf1a3d0544a2679637f2b8479e21733befa1daac41bf08904f82fcd->enter($__internal_e5dc2e57ddf1a3d0544a2679637f2b8479e21733befa1daac41bf08904f82fcd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Administration assistant d'affaires ";
         
-        $__internal_a1f4b3f82ce9a74d418c530447d5f168986f4f663e2e19df87ae50cc6ad2daad->leave($__internal_a1f4b3f82ce9a74d418c530447d5f168986f4f663e2e19df87ae50cc6ad2daad_prof);
+        $__internal_e5dc2e57ddf1a3d0544a2679637f2b8479e21733befa1daac41bf08904f82fcd->leave($__internal_e5dc2e57ddf1a3d0544a2679637f2b8479e21733befa1daac41bf08904f82fcd_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_65cdc6a47be5fb8cf5aa5c4cc9d99e8af7dfa1d76e7433daa282eea76655d481 = $this->env->getExtension("native_profiler");
-        $__internal_65cdc6a47be5fb8cf5aa5c4cc9d99e8af7dfa1d76e7433daa282eea76655d481->enter($__internal_65cdc6a47be5fb8cf5aa5c4cc9d99e8af7dfa1d76e7433daa282eea76655d481_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_e3ef7f9ffe4ea6a6092183d2d60725c5d9432916d7bfffe2d91ded29a5d599c3 = $this->env->getExtension("native_profiler");
+        $__internal_e3ef7f9ffe4ea6a6092183d2d60725c5d9432916d7bfffe2d91ded29a5d599c3->enter($__internal_e3ef7f9ffe4ea6a6092183d2d60725c5d9432916d7bfffe2d91ded29a5d599c3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Administration assistant d'affaires";
         
-        $__internal_65cdc6a47be5fb8cf5aa5c4cc9d99e8af7dfa1d76e7433daa282eea76655d481->leave($__internal_65cdc6a47be5fb8cf5aa5c4cc9d99e8af7dfa1d76e7433daa282eea76655d481_prof);
+        $__internal_e3ef7f9ffe4ea6a6092183d2d60725c5d9432916d7bfffe2d91ded29a5d599c3->leave($__internal_e3ef7f9ffe4ea6a6092183d2d60725c5d9432916d7bfffe2d91ded29a5d599c3_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_d3f45bb5e672b17b1a24c7399080c57690f40662719fb0004961314bc82db899 = $this->env->getExtension("native_profiler");
-        $__internal_d3f45bb5e672b17b1a24c7399080c57690f40662719fb0004961314bc82db899->enter($__internal_d3f45bb5e672b17b1a24c7399080c57690f40662719fb0004961314bc82db899_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_804c68353b0b6c42c9fce28ce2e59cdc01929f9dc9854ce0d963a8e606c64439 = $this->env->getExtension("native_profiler");
+        $__internal_804c68353b0b6c42c9fce28ce2e59cdc01929f9dc9854ce0d963a8e606c64439->enter($__internal_804c68353b0b6c42c9fce28ce2e59cdc01929f9dc9854ce0d963a8e606c64439_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -425,28 +425,30 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
             <legend>Selection du suivi</legend>
 
             <p>
+                <label for=\"rechercehSuivi\">Recherche</label>
+                <input placeholder=\"Ex : Ventes 2016\" type=\"text\" id=\"rechercehSuivi\"/>
                 ";
-        // line 199
+        // line 201
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : $this->getContext($context, "formSelectionVersion")), "Suivi", array()), 'errors');
         echo "
                 ";
-        // line 200
+        // line 202
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : $this->getContext($context, "formSelectionVersion")), "Suivi", array()), 'widget', array("attr" => array("class" => "selectFormulaireSelectionVersion", "size" => 15)));
         echo "
             </p>
 
             ";
-        // line 203
+        // line 205
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : $this->getContext($context, "formSelectionVersion")), "_token", array()), 'widget');
         echo "
 
             <p>
                 ";
-        // line 206
+        // line 208
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : $this->getContext($context, "formSelectionVersion")), "Editer", array()), 'widget', array("attr" => array("class" => "submitFormulaireSelectionVersion")));
         echo "
                 ";
-        // line 207
+        // line 209
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : $this->getContext($context, "formSelectionVersion")), "Supprimer", array()), 'widget', array("attr" => array("class" => "submitFormulaireSelectionVersion")));
         echo "
             </p>
@@ -454,7 +456,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
         </fieldset>
 
         ";
-        // line 212
+        // line 214
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : $this->getContext($context, "formSelectionVersion")), 'form_end');
         echo "
 
@@ -462,7 +464,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
 ";
         
-        $__internal_d3f45bb5e672b17b1a24c7399080c57690f40662719fb0004961314bc82db899->leave($__internal_d3f45bb5e672b17b1a24c7399080c57690f40662719fb0004961314bc82db899_prof);
+        $__internal_804c68353b0b6c42c9fce28ce2e59cdc01929f9dc9854ce0d963a8e606c64439->leave($__internal_804c68353b0b6c42c9fce28ce2e59cdc01929f9dc9854ce0d963a8e606c64439_prof);
 
     }
 
@@ -478,7 +480,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
     public function getDebugInfo()
     {
-        return array (  458 => 212,  450 => 207,  446 => 206,  440 => 203,  434 => 200,  430 => 199,  420 => 192,  416 => 191,  408 => 186,  401 => 182,  397 => 181,  393 => 180,  384 => 174,  380 => 173,  366 => 162,  358 => 157,  353 => 155,  346 => 151,  342 => 150,  338 => 149,  328 => 142,  324 => 141,  315 => 135,  307 => 130,  300 => 126,  295 => 124,  291 => 123,  287 => 122,  280 => 118,  275 => 116,  271 => 115,  267 => 114,  260 => 110,  256 => 109,  252 => 108,  242 => 101,  238 => 100,  225 => 90,  217 => 85,  212 => 83,  207 => 81,  203 => 80,  194 => 74,  190 => 73,  186 => 72,  178 => 67,  174 => 66,  160 => 55,  153 => 51,  148 => 49,  143 => 47,  139 => 46,  135 => 45,  126 => 39,  122 => 38,  113 => 32,  106 => 28,  101 => 26,  96 => 24,  92 => 23,  88 => 22,  79 => 16,  75 => 15,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
+        return array (  460 => 214,  452 => 209,  448 => 208,  442 => 205,  436 => 202,  432 => 201,  420 => 192,  416 => 191,  408 => 186,  401 => 182,  397 => 181,  393 => 180,  384 => 174,  380 => 173,  366 => 162,  358 => 157,  353 => 155,  346 => 151,  342 => 150,  338 => 149,  328 => 142,  324 => 141,  315 => 135,  307 => 130,  300 => 126,  295 => 124,  291 => 123,  287 => 122,  280 => 118,  275 => 116,  271 => 115,  267 => 114,  260 => 110,  256 => 109,  252 => 108,  242 => 101,  238 => 100,  225 => 90,  217 => 85,  212 => 83,  207 => 81,  203 => 80,  194 => 74,  190 => 73,  186 => 72,  178 => 67,  174 => 66,  160 => 55,  153 => 51,  148 => 49,  143 => 47,  139 => 46,  135 => 45,  126 => 39,  122 => 38,  113 => 32,  106 => 28,  101 => 26,  96 => 24,  92 => 23,  88 => 22,  79 => 16,  75 => 15,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -679,6 +681,8 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /*             <legend>Selection du suivi</legend>*/
 /* */
 /*             <p>*/
+/*                 <label for="rechercehSuivi">Recherche</label>*/
+/*                 <input placeholder="Ex : Ventes 2016" type="text" id="rechercehSuivi"/>*/
 /*                 {{ form_errors(formSelectionVersion.Suivi) }}*/
 /*                 {{ form_widget(formSelectionVersion.Suivi, {'attr': {'class': 'selectFormulaireSelectionVersion', 'size': 15}}) }}*/
 /*             </p>*/

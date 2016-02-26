@@ -282,7 +282,16 @@ class ExcelReadingController extends Controller {
             }
         }
 
-        $formBuilder->add('Generate', SubmitType::class);
+        if ($version !== '') {
+            $formBuilder->add('Generate', SubmitType::class);
+        } else {
+
+            $formBuilder->add('Generate', SubmitType::class, array(
+                'disabled' => true
+            ));
+        }
+
+
         $formBuilder->add('Save', SubmitType::class);
 
         $formSuivi = $formBuilder->getForm();
@@ -296,6 +305,23 @@ class ExcelReadingController extends Controller {
             foreach ($donneesVersion as $key => $value) {
                 $formSuivi->get($key)->setData($value);
             }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Génération du formulaire de cloturation du suivi
+
+        $donnees_suivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneBy(array('idSuivi' => $IdSuivi), array('version' => 'DESC'));
+
+        if (!empty($donnees_suivi)) {
+            $formCloturationSuivi = $this->get('form.factory')->createNamedBuilder('formCloturationSuivi', 'form')
+                    ->add('Cloturer', SubmitType::class)
+                    ->getForm();
+            $version = null;
+        } else {
+            $formCloturationSuivi = $this->get('form.factory')->createNamedBuilder('formCloturationSuivi', 'form')
+                    ->add('Cloturer', SubmitType::class, array(
+                        'disabled' => true
+                    ))
+                    ->getForm();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Traitement du formulaire de séléction de la version du suivi
@@ -316,16 +342,16 @@ class ExcelReadingController extends Controller {
         if ($request->request->has('formDonneesSuivi')) {
             $formSuivi->handleRequest($request);
 
-            $donnees_suivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneBy(array('idSuivi' => $IdSuivi), array('version' => 'DESC'));
-            if ($donnees_suivi !== null) {
-                $version = $donnees_suivi->getVersion() + 0.1;
-            } else {
-                $version = 1.0;
-            }
-
             if ($formSuivi->isValid()) {
 
                 if ($formSuivi->get('Save')->isClicked()) {
+
+                    $donnees_suivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneBy(array('idSuivi' => $IdSuivi), array('version' => 'DESC'));
+                    if ($donnees_suivi !== null) {
+                        $version = $donnees_suivi->getVersion() + 0.1;
+                    } else {
+                        $version = 1.0;
+                    }
 
                     $donnees_existantes = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findByIdSuivi($IdSuivi);
 
@@ -352,7 +378,7 @@ class ExcelReadingController extends Controller {
 
                     $request->getSession()->getFlashBag()->add('notice', 'Le suivi ' . $suivi->getNom() . ' a été sauvegardé sous le nom ' . $suivi->getNom() . "_v" . $version . '.');
 
-                    return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi));
+                    return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi, 'version' => $version));
                 }
 
 
@@ -391,10 +417,28 @@ class ExcelReadingController extends Controller {
             }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Traitement du formulaire de cloturation de suivi
+        if ($request->request->has('formCloturationSuivi')) {
+            $formCloturationSuivi->handleRequest($request);
+
+            if ($formCloturationSuivi->isValid()) {
+
+                $suivi = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->find($IdSuivi);
+                $suivi->setStatut('Cloturé');
+
+                $em->persist($suivi);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'Le suivi a été cloturé.');
+
+                return $this->redirectToRoute('nox_intranet_assistant_affaire_parcour_suivi_termine');
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
 
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig', array(
                     'formDonneesSuivi' => $formSuivi->createView(), 'champsViews' => $champsViews, 'suivi' => $suivi->getNom(),
-                    'formSelectionVersionSuivi' => $formSelectionVersionSuivi->createView()
+                    'formSelectionVersionSuivi' => $formSelectionVersionSuivi->createView(), 'formCloturationSuivi' => $formCloturationSuivi->createView()
         ));
     }
 
@@ -435,10 +479,10 @@ class ExcelReadingController extends Controller {
                             'disabled' => true,
                             'choice_label' => 'Nom',
                         ))
-                        ->add('Editer', 'submit', array(
+                        ->add('Editer', SubmitType::class, array(
                             'disabled' => true
                         ))
-                        ->add('Supprimer', 'submit', array(
+                        ->add('Supprimer', SubmitType::class, array(
                             'disabled' => true
                         ))
                         ->getForm();
@@ -453,8 +497,8 @@ class ExcelReadingController extends Controller {
                             },
                             'choice_label' => 'Nom',
                         ))
-                        ->add('Editer', 'submit')
-                        ->add('Supprimer', 'submit')
+                        ->add('Editer', SubmitType::class)
+                        ->add('Supprimer', SubmitType::class)
                         ->getForm();
             }
         } else {
@@ -505,6 +549,12 @@ class ExcelReadingController extends Controller {
 
                 if ($formSelectionSuivi->get('Supprimer')->isClicked()) {
 
+                    $donneesAssocies = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findByIdSuivi($formSelectionSuivi['Suivi']->getData()->getId());
+
+                    foreach ($donneesAssocies as $donne) {
+                        $em->remove($donne);
+                    }
+
                     $em->remove($formSelectionSuivi['Suivi']->getData());
                     $em->flush();
 
@@ -544,7 +594,7 @@ class ExcelReadingController extends Controller {
     public function consulterSuiviTermineAction(Request $request, $agence) {
         $em = $this->getDoctrine()->getManager();
 
-        $suivis = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findBy(array(), array('nom' => 'ASC'));
+        $suivis = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findBy(array('statut' => 'Cloturé'), array('nom' => 'ASC'));
 
         $agences['Toutes'] = 'Toutes';
 
@@ -574,7 +624,7 @@ class ExcelReadingController extends Controller {
                         'class' => 'NoxIntranetRessourcesBundle:Suivis',
                         'query_builder' => function (EntityRepository $er) use ($agence) {
                             return $er->createQueryBuilder('u')
-                                    ->where("u.agence ='" . $agence . "' AND u.statut = 'Terminé'")
+                                    ->where("u.agence ='" . $agence . "' AND u.statut = 'Cloturé'")
                                     ->orderBy('u.nom', 'ASC');
                         },
                         'choice_label' => 'Nom',
@@ -587,7 +637,7 @@ class ExcelReadingController extends Controller {
                         'class' => 'NoxIntranetRessourcesBundle:Suivis',
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('u')
-                                    ->where("u.statut = 'Terminé'")
+                                    ->where("u.statut = 'Cloturé'")
                                     ->orderBy('u.nom', 'ASC');
                         },
                         'choice_label' => 'Nom',
