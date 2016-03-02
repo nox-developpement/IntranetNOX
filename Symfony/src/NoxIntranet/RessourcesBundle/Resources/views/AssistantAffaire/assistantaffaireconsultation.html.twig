@@ -38,7 +38,7 @@
                 {% for champ in champsViews %}
                     {{ form_label(attribute(formDonneesSuivi, champ.Champ), champ.Nom ~ " : ", {'label_attr': {'class': 'labelFormulaireRemplissageSuivi'}}) }}
                     {{ form_errors(attribute(formDonneesSuivi, champ.Champ)) }}
-                    {{ form_widget(attribute(formDonneesSuivi, champ.Champ), {'attr': {'class': 'champFormulaireRemplissageSuivi', 'readonly':'readonly'}}) }}
+                    {{ form_widget(attribute(formDonneesSuivi, champ.Champ), {'attr': {'class': 'champFormulaireRemplissageSuivi', 'disabled':'disabled'}}) }}
                     <br />
                 {% endfor %}
 

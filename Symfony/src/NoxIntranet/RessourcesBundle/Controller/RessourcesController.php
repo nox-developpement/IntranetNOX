@@ -716,4 +716,127 @@ class RessourcesController extends Controller {
         return $this->render('NoxIntranetRessourcesBundle:AQ:citations.html.twig', array('texte' => $texte, 'formulaire' => $form->createView()));
     }
 
+    public function AQProceduresAction(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $texteEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Procedures');
+
+        if ($texteEncart == null) {
+            $texteEncart = new texteEncart();
+            $texteEncart->setSection('Procedures');
+            $em->persist($texteEncart);
+            $em->flush();
+        }
+
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $texteEncart);
+
+        $formBuilder
+                ->add('text', 'ckeditor')
+                ->add('modifier', 'submit')
+        ;
+
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+
+        // On vérifie que les valeurs entrées sont correctes
+        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+        if ($form->isValid()) {
+            // On l'enregistre notre objet $advert dans la base de données, par exemple
+
+            $em->persist($texteEncart);
+            $em->flush();
+
+            // On redirige vers la page de visualisation de l'annonce nouvellement créée
+            return $this->redirectToRoute('nox_intranet_aq_procedures');
+        }
+
+        $texte = $texteEncart->getText();
+
+        return $this->render('NoxIntranetRessourcesBundle:AQ:procedures.html.twig', array('texte' => $texte, 'formulaire' => $form->createView()));
+    }
+
+    public function modesOperatoiresAction(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $texteEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('ModesOperatoires');
+
+        if ($texteEncart == null) {
+            $texteEncart = new texteEncart();
+            $texteEncart->setSection('ModesOperatoires');
+            $em->persist($texteEncart);
+            $em->flush();
+        }
+
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $texteEncart);
+
+        $formBuilder
+                ->add('text', 'ckeditor')
+                ->add('modifier', 'submit')
+        ;
+
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+
+        // On vérifie que les valeurs entrées sont correctes
+        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+        if ($form->isValid()) {
+            // On l'enregistre notre objet $advert dans la base de données, par exemple
+
+            $em->persist($texteEncart);
+            $em->flush();
+
+            // On redirige vers la page de visualisation de l'annonce nouvellement créée
+            return $this->redirectToRoute('nox_intranet_aq_modes_operatoires');
+        }
+
+        $texte = $texteEncart->getText();
+
+        return $this->render('NoxIntranetRessourcesBundle:AQ:modesOperatoires.html.twig', array('texte' => $texte, 'formulaire' => $form->createView()));
+    }
+
+    public function formulairesEtDocumentsTypesAction(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $texteEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('FormulairesEtDocumentTypes');
+
+        if ($texteEncart == null) {
+            $texteEncart = new texteEncart();
+            $texteEncart->setSection('FormulairesEtDocumentTypes');
+            $em->persist($texteEncart);
+            $em->flush();
+        }
+
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $texteEncart);
+
+        $formBuilder
+                ->add('text', 'ckeditor')
+                ->add('modifier', 'submit')
+        ;
+
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+
+        // On vérifie que les valeurs entrées sont correctes
+        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+        if ($form->isValid()) {
+            // On l'enregistre notre objet $advert dans la base de données, par exemple
+
+            $em->persist($texteEncart);
+            $em->flush();
+
+            // On redirige vers la page de visualisation de l'annonce nouvellement créée
+            return $this->redirectToRoute('nox_intranet_aq_formulaires_et_documents_types');
+        }
+
+        $texte = $texteEncart->getText();
+
+        return $this->render('NoxIntranetRessourcesBundle:AQ:formulairesEtDocumentsTypes.html.twig', array('texte' => $texte, 'formulaire' => $form->createView()));
+    }
+
 }

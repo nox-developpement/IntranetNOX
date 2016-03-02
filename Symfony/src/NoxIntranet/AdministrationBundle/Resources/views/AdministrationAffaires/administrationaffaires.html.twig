@@ -58,7 +58,7 @@
 
 
     <div class="sousMessageAcceuil">
-        <h4> Feuilles de suivis : </h4>
+        <h4> Feuilles de modèle : </h4>
     </div>
 
     <div class='DivFormulaireAjoutFichier'>
@@ -146,7 +146,7 @@
             <legend>Supprimer un champ</legend>       
 
             <p>
-                {{ form_label(formSuppressionChamp.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireSuppressionChamp'}}) }}
+                {{ form_label(formSuppressionChamp.Nom, "Nom - Type - Profil", {'label_attr': {'class': 'labelFormulaireSuppressionChamp'}}) }} <br />
                 {{ form_errors(formSuppressionChamp.Nom) }}
                 {{ form_widget(formSuppressionChamp.Nom, {'attr': {'class': 'selectFormulaireSuppressionChamp' }}) }}
             </p>
@@ -191,7 +191,7 @@
     </div>
 
     <div class="sousMessageAcceuil">
-        <h4> Suivis : </h4>
+        <h4> Modèles : </h4>
     </div>
 
     <div id='DivFormulaireSelectionDossier'>
@@ -219,7 +219,7 @@
 
         <fieldset>
 
-            <legend>Selection du suivi</legend>
+            <legend>Selection du modèle</legend>
 
             <p>
                 <label for="rechercehSuivi">Recherche</label>

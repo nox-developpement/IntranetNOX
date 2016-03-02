@@ -1,9 +1,10 @@
 
-$('#formulaireTexte').hide();
-$('#formulaireTexte #form_modifier').hide();
-$('#formulaireTexte').prev().css('display', 'inline-block');
-
 $(document).ready(function () {
+
+    $('#formulaireTexte').hide();
+    $('#formulaireTexte #form_modifier').hide();
+    $('#formulaireTexte').prev().css('display', 'inline-block');
+
     var edit = false;
 
     $('#texteEditButton').click(function () {

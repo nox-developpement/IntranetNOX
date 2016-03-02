@@ -634,18 +634,6 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/ImagesPublication</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>image/png</parameter>
-                  <parameter>image/jpg</parameter>
-                  <parameter>image/jpeg</parameter>
-                  <parameter>image/gif</parameter>
-                  <parameter>application/zip</parameter>
-                  <parameter>audio/mpeg</parameter>
-                  <parameter>text/csv</parameter>
-                  <parameter>video/mp4</parameter>
-                  <parameter>video/webm</parameter>
-                  <parameter>application/pdf</parameter>
-                </parameter>
-                <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
                 </parameter>
                 <parameter key="upload_max_size">5M</parameter>
@@ -667,6 +655,9 @@
                 <parameter key="copy_from">true</parameter>
                 <parameter key="copy_to">true</parameter>
                 <parameter key="upload_overwrite">true</parameter>
+                <parameter key="upload_deny" type="collection">
+                  <parameter>all</parameter>
+                </parameter>
                 <parameter key="upload_order" type="collection">
                   <parameter>deny</parameter>
                   <parameter>allow</parameter>
@@ -9722,7 +9713,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>56d59b186dcf73.44451532</argument>
+            <argument>56d6e6539b7bb5.08617462</argument>
           </service>
         </argument>
       </argument>
@@ -10223,7 +10214,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>56d59b186dcf73.44451532</argument>
+            <argument>56d6e6539b7bb5.08617462</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -11285,18 +11276,6 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/ImagesPublication</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>image/png</argument>
-                    <argument>image/jpg</argument>
-                    <argument>image/jpeg</argument>
-                    <argument>image/gif</argument>
-                    <argument>application/zip</argument>
-                    <argument>audio/mpeg</argument>
-                    <argument>text/csv</argument>
-                    <argument>video/mp4</argument>
-                    <argument>video/webm</argument>
-                    <argument>application/pdf</argument>
-                  </argument>
-                  <argument key="upload_deny" type="collection">
                     <argument>all</argument>
                   </argument>
                   <argument key="upload_max_size">5M</argument>
@@ -11318,6 +11297,9 @@
                   <argument key="copy_from">true</argument>
                   <argument key="copy_to">true</argument>
                   <argument key="upload_overwrite">true</argument>
+                  <argument key="upload_deny" type="collection">
+                    <argument>all</argument>
+                  </argument>
                   <argument key="upload_order" type="collection">
                     <argument>deny</argument>
                     <argument>allow</argument>

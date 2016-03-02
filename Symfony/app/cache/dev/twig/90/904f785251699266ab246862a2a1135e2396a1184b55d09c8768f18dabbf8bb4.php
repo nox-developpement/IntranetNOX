@@ -23,44 +23,44 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_278d505a45659b9f4349522ef03824ebb14f0b03e6eb4feebdde9cabc8a5dec6 = $this->env->getExtension("native_profiler");
-        $__internal_278d505a45659b9f4349522ef03824ebb14f0b03e6eb4feebdde9cabc8a5dec6->enter($__internal_278d505a45659b9f4349522ef03824ebb14f0b03e6eb4feebdde9cabc8a5dec6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig"));
+        $__internal_2460f09cc73ad6da04155843d7ea3c9fde4d46391faed8ff67ef63952ba8da0c = $this->env->getExtension("native_profiler");
+        $__internal_2460f09cc73ad6da04155843d7ea3c9fde4d46391faed8ff67ef63952ba8da0c->enter($__internal_2460f09cc73ad6da04155843d7ea3c9fde4d46391faed8ff67ef63952ba8da0c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_278d505a45659b9f4349522ef03824ebb14f0b03e6eb4feebdde9cabc8a5dec6->leave($__internal_278d505a45659b9f4349522ef03824ebb14f0b03e6eb4feebdde9cabc8a5dec6_prof);
+        $__internal_2460f09cc73ad6da04155843d7ea3c9fde4d46391faed8ff67ef63952ba8da0c->leave($__internal_2460f09cc73ad6da04155843d7ea3c9fde4d46391faed8ff67ef63952ba8da0c_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_ad1f5ba390a17073ea5fb90d90e31cfac63da35d126e9fc77fae3211c40b3ef1 = $this->env->getExtension("native_profiler");
-        $__internal_ad1f5ba390a17073ea5fb90d90e31cfac63da35d126e9fc77fae3211c40b3ef1->enter($__internal_ad1f5ba390a17073ea5fb90d90e31cfac63da35d126e9fc77fae3211c40b3ef1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_088405c41f89f4247e5a6b3d08d97da9d61a87027dbf6fd0ea4b3970e187df0b = $this->env->getExtension("native_profiler");
+        $__internal_088405c41f89f4247e5a6b3d08d97da9d61a87027dbf6fd0ea4b3970e187df0b->enter($__internal_088405c41f89f4247e5a6b3d08d97da9d61a87027dbf6fd0ea4b3970e187df0b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Administration assistant d'affaires ";
         
-        $__internal_ad1f5ba390a17073ea5fb90d90e31cfac63da35d126e9fc77fae3211c40b3ef1->leave($__internal_ad1f5ba390a17073ea5fb90d90e31cfac63da35d126e9fc77fae3211c40b3ef1_prof);
+        $__internal_088405c41f89f4247e5a6b3d08d97da9d61a87027dbf6fd0ea4b3970e187df0b->leave($__internal_088405c41f89f4247e5a6b3d08d97da9d61a87027dbf6fd0ea4b3970e187df0b_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_1efe490e9fd83eeb473e093e901e61a4aca063f2c559c8d5ab4369e1aed36cc3 = $this->env->getExtension("native_profiler");
-        $__internal_1efe490e9fd83eeb473e093e901e61a4aca063f2c559c8d5ab4369e1aed36cc3->enter($__internal_1efe490e9fd83eeb473e093e901e61a4aca063f2c559c8d5ab4369e1aed36cc3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_f6ee5f0b29fd17d8f75d3d17a6cbefcb482f8a0fee110dd4f0b18ddd206b4909 = $this->env->getExtension("native_profiler");
+        $__internal_f6ee5f0b29fd17d8f75d3d17a6cbefcb482f8a0fee110dd4f0b18ddd206b4909->enter($__internal_f6ee5f0b29fd17d8f75d3d17a6cbefcb482f8a0fee110dd4f0b18ddd206b4909_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Administration assistant d'affaires";
         
-        $__internal_1efe490e9fd83eeb473e093e901e61a4aca063f2c559c8d5ab4369e1aed36cc3->leave($__internal_1efe490e9fd83eeb473e093e901e61a4aca063f2c559c8d5ab4369e1aed36cc3_prof);
+        $__internal_f6ee5f0b29fd17d8f75d3d17a6cbefcb482f8a0fee110dd4f0b18ddd206b4909->leave($__internal_f6ee5f0b29fd17d8f75d3d17a6cbefcb482f8a0fee110dd4f0b18ddd206b4909_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_70ab5f196625d6345f41b8ab3acb8ba802764a8828bc236f606c31b0f92cf097 = $this->env->getExtension("native_profiler");
-        $__internal_70ab5f196625d6345f41b8ab3acb8ba802764a8828bc236f606c31b0f92cf097->enter($__internal_70ab5f196625d6345f41b8ab3acb8ba802764a8828bc236f606c31b0f92cf097_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_de9041ac263cfb389183aa0d45b1d926c9b6c73557e14ed05366949f58483367 = $this->env->getExtension("native_profiler");
+        $__internal_de9041ac263cfb389183aa0d45b1d926c9b6c73557e14ed05366949f58483367->enter($__internal_de9041ac263cfb389183aa0d45b1d926c9b6c73557e14ed05366949f58483367_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -164,7 +164,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
 
     <div class=\"sousMessageAcceuil\">
-        <h4> Feuilles de suivis : </h4>
+        <h4> Feuilles de modèle : </h4>
     </div>
 
     <div class='DivFormulaireAjoutFichier'>
@@ -335,8 +335,8 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
             <p>
                 ";
         // line 149
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSuppressionChamp"]) ? $context["formSuppressionChamp"] : $this->getContext($context, "formSuppressionChamp")), "Nom", array()), 'label', array("label_attr" => array("class" => "labelFormulaireSuppressionChamp"), "label" => "Nom :"));
-        echo "
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSuppressionChamp"]) ? $context["formSuppressionChamp"] : $this->getContext($context, "formSuppressionChamp")), "Nom", array()), 'label', array("label_attr" => array("class" => "labelFormulaireSuppressionChamp"), "label" => "Nom - Type - Profil"));
+        echo " <br />
                 ";
         // line 150
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSuppressionChamp"]) ? $context["formSuppressionChamp"] : $this->getContext($context, "formSuppressionChamp")), "Nom", array()), 'errors');
@@ -420,7 +420,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
     </div>
 
     <div class=\"sousMessageAcceuil\">
-        <h4> Suivis : </h4>
+        <h4> Modèles : </h4>
     </div>
 
     <div id='DivFormulaireSelectionDossier'>
@@ -472,7 +472,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
         <fieldset>
 
-            <legend>Selection du suivi</legend>
+            <legend>Selection du modèle</legend>
 
             <p>
                 <label for=\"rechercehSuivi\">Recherche</label>
@@ -514,7 +514,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
 ";
         
-        $__internal_70ab5f196625d6345f41b8ab3acb8ba802764a8828bc236f606c31b0f92cf097->leave($__internal_70ab5f196625d6345f41b8ab3acb8ba802764a8828bc236f606c31b0f92cf097_prof);
+        $__internal_de9041ac263cfb389183aa0d45b1d926c9b6c73557e14ed05366949f58483367->leave($__internal_de9041ac263cfb389183aa0d45b1d926c9b6c73557e14ed05366949f58483367_prof);
 
     }
 
@@ -593,7 +593,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /* */
 /* */
 /*     <div class="sousMessageAcceuil">*/
-/*         <h4> Feuilles de suivis : </h4>*/
+/*         <h4> Feuilles de modèle : </h4>*/
 /*     </div>*/
 /* */
 /*     <div class='DivFormulaireAjoutFichier'>*/
@@ -681,7 +681,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /*             <legend>Supprimer un champ</legend>       */
 /* */
 /*             <p>*/
-/*                 {{ form_label(formSuppressionChamp.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireSuppressionChamp'}}) }}*/
+/*                 {{ form_label(formSuppressionChamp.Nom, "Nom - Type - Profil", {'label_attr': {'class': 'labelFormulaireSuppressionChamp'}}) }} <br />*/
 /*                 {{ form_errors(formSuppressionChamp.Nom) }}*/
 /*                 {{ form_widget(formSuppressionChamp.Nom, {'attr': {'class': 'selectFormulaireSuppressionChamp' }}) }}*/
 /*             </p>*/
@@ -726,7 +726,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /*     </div>*/
 /* */
 /*     <div class="sousMessageAcceuil">*/
-/*         <h4> Suivis : </h4>*/
+/*         <h4> Modèles : </h4>*/
 /*     </div>*/
 /* */
 /*     <div id='DivFormulaireSelectionDossier'>*/
@@ -754,7 +754,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /* */
 /*         <fieldset>*/
 /* */
-/*             <legend>Selection du suivi</legend>*/
+/*             <legend>Selection du modèle</legend>*/
 /* */
 /*             <p>*/
 /*                 <label for="rechercehSuivi">Recherche</label>*/

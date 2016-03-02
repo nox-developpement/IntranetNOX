@@ -375,9 +375,30 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             }
 
-            // nox_intranet_aq_citations
-            if ($pathinfo === '/ressources/aq/citations') {
-                return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::citationsAction',  '_route' => 'nox_intranet_aq_citations',);
+            if (0 === strpos($pathinfo, '/ressources/aq')) {
+                // nox_intranet_aq_citations
+                if ($pathinfo === '/ressources/aq/infoQSE/citations') {
+                    return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::citationsAction',  '_route' => 'nox_intranet_aq_citations',);
+                }
+
+                if (0 === strpos($pathinfo, '/ressources/aq/documentsQSE')) {
+                    // nox_intranet_aq_procedures
+                    if ($pathinfo === '/ressources/aq/documentsQSE/procédures') {
+                        return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::AQProceduresAction',  '_route' => 'nox_intranet_aq_procedures',);
+                    }
+
+                    // nox_intranet_aq_modes_operatoires
+                    if ($pathinfo === '/ressources/aq/documentsQSE/modes-opératoires') {
+                        return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::modesOperatoiresAction',  '_route' => 'nox_intranet_aq_modes_operatoires',);
+                    }
+
+                    // nox_intranet_aq_formulaires_et_documents_types
+                    if ($pathinfo === '/ressources/aq/documentsQSE/formulaires-et-documents-types') {
+                        return array (  '_controller' => 'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController::formulairesEtDocumentsTypesAction',  '_route' => 'nox_intranet_aq_formulaires_et_documents_types',);
+                    }
+
+                }
+
             }
 
         }

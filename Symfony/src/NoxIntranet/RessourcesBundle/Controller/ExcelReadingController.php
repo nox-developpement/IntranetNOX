@@ -18,7 +18,9 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\DataTransformer\IntegerToLocalizedStringTransformer;
 
 /**
  * Description of ExcelReadingController
@@ -507,7 +509,7 @@ class ExcelReadingController extends Controller {
                     if ($donnees_suivi !== null) {
                         $version = $donnees_suivi->getVersion();
                     } else {
-                        $version = 1.0;
+                        $version = '';
                     }
 
                     return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi, 'version' => $version));
@@ -539,6 +541,21 @@ class ExcelReadingController extends Controller {
                     $i = 0;
 
                     foreach ($formSuivi->getData() as $key => $data) {
+
+                        if ($formSuivi[$key]->getConfig()->getType()->getName() === 'number') {
+                            if (is_numeric($data)) {
+                                var_dump('YES !');
+                                $donnees[$key]['Data'] = $data;
+                                $donnees[$key]['Type'] = $formSuivi[$key]->getConfig()->getType()->getName();
+                                $donnees[$key]['Position'] = $liaisons[$i]->getCoordonneesDonnees();
+                            } else {
+                                return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig', array(
+                                            'formDonneesSuivi' => $formSuivi->createView(), 'champsViews' => $champsViews, 'suivi' => $suivi->getNom(),
+                                            'formSelectionVersionSuivi' => $formSelectionVersionSuivi->createView(), 'formCloturationSuivi' => $formCloturationSuivi->createView()
+                                ));
+                            }
+                        }
+
                         $donnees[$key]['Data'] = $data;
                         $donnees[$key]['Type'] = $formSuivi[$key]->getConfig()->getType()->getName();
                         $donnees[$key]['Position'] = $liaisons[$i]->getCoordonneesDonnees();
@@ -646,6 +663,8 @@ class ExcelReadingController extends Controller {
                 ->getForm();
 
         if ($agence != "Toutes") {
+
+
             $formSelectionSuivi = $this->get('form.factory')->createNamedBuilder('formSelectionSuivi', 'form', $suivis)
                     ->add('Suivi', EntityType::class, array(
                         'class' => 'NoxIntranetRessourcesBundle:Suivis',
@@ -696,7 +715,7 @@ class ExcelReadingController extends Controller {
 
             if ($formAgence->isValid()) {
 
-                return $this->redirectToRoute('nox_intranet_assistant_affaire_parcour_suivi_en_cours', array('agence' => $formAgence['Agences']->getData()));
+                return $this->redirectToRoute('nox_intranet_assistant_affaire_parcour_suivi_termine', array('agence' => $formAgence['Agences']->getData()));
             }
         }
 

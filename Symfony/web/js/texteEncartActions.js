@@ -1,9 +1,10 @@
 
-$('#formulaireTexteEncart').hide();
-$('#formulaireTexteEncart #form_modifier').hide();
-$('#formulaireTexteEncart').prev().css('display','inline-block');
-
 $(document).ready(function () {
+
+    $('#formulaireTexteEncart').hide();
+    $('#formulaireTexteEncart #form_modifier').hide();
+    $('#formulaireTexteEncart').prev().css('display', 'inline-block');
+
     var edit = false;
 
     $('#texteEncartImg').click(function () {

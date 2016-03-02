@@ -115,6 +115,18 @@ nox_intranet_affichageRH:
          chemin: .+
          
 nox_intranet_aq_citations:
-    path: /ressources/aq/citations
+    path: /ressources/aq/infoQSE/citations
     defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:citations }
+    
+nox_intranet_aq_procedures:
+    path: /ressources/aq/documentsQSE/procédures
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:AQProcedures }
+    
+nox_intranet_aq_modes_operatoires:
+    path: /ressources/aq/documentsQSE/modes-opératoires
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:modesOperatoires }
+    
+nox_intranet_aq_formulaires_et_documents_types:
+    path: /ressources/aq/documentsQSE/formulaires-et-documents-types
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:formulairesEtDocumentsTypes }
     

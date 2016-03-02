@@ -115,7 +115,7 @@ class __TwigTemplate_17469f328c40b3e25706592ded1d75c4c36e509e7485f26b12bdc5dd319
             echo "
                     ";
             // line 41
-            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), $this->getAttribute($context["champ"], "Champ", array())), 'widget', array("attr" => array("class" => "champFormulaireRemplissageSuivi", "readonly" => "readonly")));
+            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), $this->getAttribute($context["champ"], "Champ", array())), 'widget', array("attr" => array("class" => "champFormulaireRemplissageSuivi", "disabled" => "disabled")));
             echo "
                     <br />
                 ";
@@ -197,7 +197,7 @@ class __TwigTemplate_17469f328c40b3e25706592ded1d75c4c36e509e7485f26b12bdc5dd319
 /*                 {% for champ in champsViews %}*/
 /*                     {{ form_label(attribute(formDonneesSuivi, champ.Champ), champ.Nom ~ " : ", {'label_attr': {'class': 'labelFormulaireRemplissageSuivi'}}) }}*/
 /*                     {{ form_errors(attribute(formDonneesSuivi, champ.Champ)) }}*/
-/*                     {{ form_widget(attribute(formDonneesSuivi, champ.Champ), {'attr': {'class': 'champFormulaireRemplissageSuivi', 'readonly':'readonly'}}) }}*/
+/*                     {{ form_widget(attribute(formDonneesSuivi, champ.Champ), {'attr': {'class': 'champFormulaireRemplissageSuivi', 'disabled':'disabled'}}) }}*/
 /*                     <br />*/
 /*                 {% endfor %}*/
 /* */

@@ -102,42 +102,95 @@ class AdministrationAffairesController extends Controller {
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération formulaire ajout de fichier
-        $formAjoutFichier = $this->get('form.factory')->createNamedBuilder('formAjoutFichier', 'form')
-                ->add('file', FileType::class)
-                ->add('Profil', EntityType::class, array(
-                    'class' => 'NoxIntranetRessourcesBundle:Profils',
-                    'placeholder' => 'Sélectionnez un profil',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                                ->orderBy('u.nom', 'ASC');
-                    },
-                    'choice_label' => 'Nom',
-                ))
-                ->add('Ajouter', 'submit')
-                ->getForm();
+        if (!empty($em->getRepository('NoxIntranetRessourcesBundle:Profils')->findAll())) {
+            $formAjoutFichier = $this->get('form.factory')->createNamedBuilder('formAjoutFichier', 'form')
+                    ->add('file', FileType::class)
+                    ->add('Profil', EntityType::class, array(
+                        'class' => 'NoxIntranetRessourcesBundle:Profils',
+                        'placeholder' => 'Sélectionnez un profil',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('u')
+                                    ->orderBy('u.nom', 'ASC');
+                        },
+                        'choice_label' => 'Nom',
+                    ))
+                    ->add('Ajouter', 'submit')
+                    ->getForm();
+        } else {
+            $formAjoutFichier = $this->get('form.factory')->createNamedBuilder('formAjoutFichier', 'form')
+                    ->add('file', FileType::class, array(
+                        'disabled' => true
+                    ))
+                    ->add('Profil', EntityType::class, array(
+                        'class' => 'NoxIntranetRessourcesBundle:Profils',
+                        'placeholder' => 'Sélectionnez un profil',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('u')
+                                    ->orderBy('u.nom', 'ASC');
+                        },
+                        'choice_label' => 'Nom',
+                        'disabled' => true,
+                        'placeholder' => 'Il n\'y a aucun profil à séléctionner.'
+                    ))
+                    ->add('Ajouter', SubmitType::class, array(
+                        'disabled' => true,
+                        'attr' => array('title' => 'Veuillez créez un profil pour pouvoir uploader un modèle.')
+                    ))
+                    ->getForm();
+        }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération formulaire d'ajout de champ
         $nouveauChamp = new Formulaires();
 
-        $formAjoutChamp = $this->get('form.factory')->createNamedBuilder('formAjoutChamp', 'form', $nouveauChamp)
-                ->add('Nom', TextType::class)
-                ->add('Type', ChoiceType::class, array(
-                    'choices' => array(
-                        'Texte' => 'Texte',
-                        'Nombre' => 'Nombre',
-                        'Données' => 'Données',
-                    ),
-                ))
-                ->add('Profil', EntityType::class, array(
-                    'class' => 'NoxIntranetRessourcesBundle:Profils',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                                ->orderBy('u.nom', 'ASC');
-                    },
-                    'choice_label' => 'Nom',
-                ))
-                ->add('Ajouter', SubmitType::class)
-                ->getForm();
+        if (!empty($em->getRepository('NoxIntranetRessourcesBundle:Profils')->findAll())) {
+            $formAjoutChamp = $this->get('form.factory')->createNamedBuilder('formAjoutChamp', 'form', $nouveauChamp)
+                    ->add('Nom', TextType::class)
+                    ->add('Type', ChoiceType::class, array(
+                        'choices' => array(
+                            'Texte' => 'Texte',
+                            'Nombre' => 'Nombre',
+                            'Données' => 'Données',
+                        ),
+                    ))
+                    ->add('Profil', EntityType::class, array(
+                        'class' => 'NoxIntranetRessourcesBundle:Profils',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('u')
+                                    ->orderBy('u.nom', 'ASC');
+                        },
+                        'choice_label' => 'Nom',
+                    ))
+                    ->add('Ajouter', SubmitType::class)
+                    ->getForm();
+        } else {
+            $formAjoutChamp = $this->get('form.factory')->createNamedBuilder('formAjoutChamp', 'form', $nouveauChamp)
+                    ->add('Nom', TextType::class, array(
+                        'disabled' => true
+                    ))
+                    ->add('Type', ChoiceType::class, array(
+                        'choices' => array(
+                            'Texte' => 'Texte',
+                            'Nombre' => 'Nombre',
+                            'Données' => 'Données',
+                        ),
+                        'disabled' => true
+                    ))
+                    ->add('Profil', EntityType::class, array(
+                        'class' => 'NoxIntranetRessourcesBundle:Profils',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('u')
+                                    ->orderBy('u.nom', 'ASC');
+                        },
+                        'choice_label' => 'Nom',
+                        'disabled' => true,
+                        'placeholder' => 'Il n\'y a aucun profil à séléctionner.'
+                    ))
+                    ->add('Ajouter', SubmitType::class, array(
+                        'disabled' => true,
+                        'attr' => array('title' => 'Veuillez créez un profil pour pouvoir ajouter un champ.')
+                    ))
+                    ->getForm();
+        }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération formulaire de suppression de champ
         if (!empty($em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findAll())) {
@@ -167,32 +220,68 @@ class AdministrationAffairesController extends Controller {
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération du formulaire de séléction de champ
-        $formSelectionChamp = $this->get('form.factory')->createNamedBuilder('formSelectionChamp', 'form')
-                ->add('Champs', EntityType::class, array(
-                    'class' => 'NoxIntranetAdministrationBundle:Formulaires',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                                ->where("u.type = 'Données'")
-                                ->orderBy('u.nom', 'ASC');
-                    },
-                    'choice_label' => function($value) {
-                        return $value->getNom() . " - " . $value->getType() . ' - ' . $value->getProfil();
-                    }
-                ))
-                ->add('Editer', SubmitType::class)
-                ->getForm();
+        if (!empty($em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findByType('Données'))) {
+            $formSelectionChamp = $this->get('form.factory')->createNamedBuilder('formSelectionChamp', 'form')
+                    ->add('Champs', EntityType::class, array(
+                        'class' => 'NoxIntranetAdministrationBundle:Formulaires',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('u')
+                                    ->where("u.type = 'Données'")
+                                    ->orderBy('u.nom', 'ASC');
+                        },
+                        'choice_label' => function($value) {
+                            return $value->getNom() . " - " . $value->getType() . ' - ' . $value->getProfil();
+                        }
+                    ))
+                    ->add('Editer', SubmitType::class)
+                    ->getForm();
+        } else {
+            $formSelectionChamp = $this->get('form.factory')->createNamedBuilder('formSelectionChamp', 'form')
+                    ->add('Champs', EntityType::class, array(
+                        'class' => 'NoxIntranetAdministrationBundle:Formulaires',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('u')
+                                    ->where("u.type = 'Données'")
+                                    ->orderBy('u.nom', 'ASC');
+                        },
+                        'choice_label' => function($value) {
+                            return $value->getNom() . " - " . $value->getType() . ' - ' . $value->getProfil();
+                        },
+                        'disabled' => true,
+                        'placeholder' => 'Il n\'y a aucun champ éditable.'
+                    ))
+                    ->add('Editer', SubmitType::class, array(
+                        'disabled' => true
+                    ))
+                    ->getForm();
+        }
         //////////////////////////////////////////////////////////////////////////////////////////////// 
-        // Génération formulaire de séléction du suivi  
-        $profilActuel = $em->getRepository('NoxIntranetRessourcesBundle:Profils')->findOneByNom($profil);
+        // Génération formulaire de séléction du suivi
+        if (!empty($em->getRepository('NoxIntranetRessourcesBundle:Profils')->findAll())) {
+            $profilActuel = $em->getRepository('NoxIntranetRessourcesBundle:Profils')->findOneByNom($profil);
 
-        $formSelectionDossier = $this->get('form.factory')->createNamedBuilder('formSelectionDossier', 'form')
-                ->add('profil', EntityType::class, array(
-                    'placeholder' => 'Sélectionnez un profil',
-                    'class' => 'NoxIntranetRessourcesBundle:Profils',
-                    'choice_label' => 'Nom',
-                    'data' => $profilActuel
-                ))
-                ->getForm();
+            $formSelectionDossier = $this->get('form.factory')->createNamedBuilder('formSelectionDossier', 'form')
+                    ->add('profil', EntityType::class, array(
+                        'placeholder' => 'Sélectionnez un profil',
+                        'class' => 'NoxIntranetRessourcesBundle:Profils',
+                        'choice_label' => 'Nom',
+                        'data' => $profilActuel
+                    ))
+                    ->getForm();
+        } else {
+            $profilActuel = $em->getRepository('NoxIntranetRessourcesBundle:Profils')->findOneByNom($profil);
+
+            $formSelectionDossier = $this->get('form.factory')->createNamedBuilder('formSelectionDossier', 'form')
+                    ->add('profil', EntityType::class, array(
+                        'placeholder' => 'Sélectionnez un profil',
+                        'class' => 'NoxIntranetRessourcesBundle:Profils',
+                        'choice_label' => 'Nom',
+                        'data' => $profilActuel,
+                        'disabled' => true,
+                        'placeholder' => 'Il n\'y a aucun profil à séléctionner.'
+                    ))
+                    ->getForm();
+        }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération formulaire de séléction de la version du suivi
         if ($profil !== "") {
@@ -213,17 +302,35 @@ class AdministrationAffairesController extends Controller {
                     ->add('Supprimer', SubmitType::class)
                     ->getForm();
         } else {
-            $formSelectionVersion = $this->get('form.factory')->createNamedBuilder('formSelectionVersion', 'form')
-                    ->add('Suivi', ChoiceType::class, array(
-                        'disabled' => true
-                    ))
-                    ->add('Editer', SubmitType::class, array(
-                        'disabled' => true
-                    ))
-                    ->add('Supprimer', SubmitType::class, array(
-                        'disabled' => true
-                    ))
-                    ->getForm();
+
+            if (!empty($em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findAll())) {
+                $formSelectionVersion = $this->get('form.factory')->createNamedBuilder('formSelectionVersion', 'form')
+                        ->add('Suivi', EntityType::class, array(
+                            'class' => 'NoxIntranetAdministrationBundle:Fichier_Suivi',
+                            'query_builder' => function (EntityRepository $er) use ($profil) {
+                                return $er->createQueryBuilder('u')
+                                        ->orderBy('u.profil', 'ASC');
+                            },
+                            'choice_label' => function($value) {
+                                return pathinfo($value->getChemin(), PATHINFO_FILENAME);
+                            }
+                        ))
+                        ->add('Editer', SubmitType::class)
+                        ->add('Supprimer', SubmitType::class)
+                        ->getForm();
+            } else {
+                $formSelectionVersion = $this->get('form.factory')->createNamedBuilder('formSelectionVersion', 'form')
+                        ->add('Suivi', ChoiceType::class, array(
+                            'disabled' => true
+                        ))
+                        ->add('Editer', SubmitType::class, array(
+                            'disabled' => true
+                        ))
+                        ->add('Supprimer', SubmitType::class, array(
+                            'disabled' => true
+                        ))
+                        ->getForm();
+            }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Traitement du formulaire d'ajout de profil
@@ -386,6 +493,11 @@ class AdministrationAffairesController extends Controller {
                         $suiviAssocies = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByIdModele($fichierSuivi->getId());
 
                         foreach ($suiviAssocies as $suivi) {
+
+                            $donneesSuivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneByIdSuivi($suivi->getId());
+
+                            $em->remove($donneesSuivi);
+
                             $em->remove($suivi);
                         }
                         foreach (glob($fichierSuivi->getChemin() . "/*.*") as $filename) {
@@ -430,6 +542,11 @@ class AdministrationAffairesController extends Controller {
 
                 if ($formSelectionVersion->get('Editer')->isClicked()) {
 
+                    if (empty($profil)) {
+
+                        $profil = $formSelectionVersion['Suivi']->getData()->getProfil();
+                    }
+
                     $fichier = '/' . pathinfo($formSelectionVersion['Suivi']->getData()->getChemin(), PATHINFO_FILENAME) . '.xlsx';
 
                     return $this->redirectToRoute('nox_intranet_administration_affaires_edition', array('file' => str_replace('\\', '/', $formSelectionVersion['Suivi']->getData()->getChemin()) . $fichier, 'profil' => $profil));
@@ -446,6 +563,11 @@ class AdministrationAffairesController extends Controller {
                     $suiviAssocies = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByIdModele($formSelectionVersion['Suivi']->getData()->getId());
 
                     foreach ($suiviAssocies as $suivi) {
+
+                        $donneesSuivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneByIdSuivi($suivi->getId());
+
+                        $em->remove($donneesSuivi);
+
                         $em->remove($suivi);
                     }
 
@@ -503,19 +625,40 @@ class AdministrationAffairesController extends Controller {
 
         $newLiaisonSuiviChamp = new LiaisonSuiviChamp();
 
-        $formPlacementChamp = $this->get('form.factory')->createNamedBuilder('formPlacementChamp', 'form', $newLiaisonSuiviChamp)
-                ->add('IdChamp', EntityType::class, array(
-                    'class' => 'NoxIntranetAdministrationBundle:Formulaires',
-                    'choice_label' => 'Nom',
-                    'query_builder' => function (EntityRepository $er) use ($profil) {
-                        return $er->createQueryBuilder('u')
-                                ->where("u.profil = '" . $profil . "'")
-                                ->orderBy('u.nom', 'ASC');
-                    },
-                ))
-                ->add('CoordonneesDonnees', TextType::class)
-                ->add('Placer', SubmitType::class)
-                ->getForm();
+        if (!empty($em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findByProfil($profil))) {
+            $formPlacementChamp = $this->get('form.factory')->createNamedBuilder('formPlacementChamp', 'form', $newLiaisonSuiviChamp)
+                    ->add('IdChamp', EntityType::class, array(
+                        'class' => 'NoxIntranetAdministrationBundle:Formulaires',
+                        'choice_label' => 'Nom',
+                        'query_builder' => function (EntityRepository $er) use ($profil) {
+                            return $er->createQueryBuilder('u')
+                                    ->where("u.profil = '" . $profil . "'")
+                                    ->orderBy('u.nom', 'ASC');
+                        },
+                    ))
+                    ->add('CoordonneesDonnees', TextType::class)
+                    ->add('Placer', SubmitType::class)
+                    ->getForm();
+        } else {
+            $formPlacementChamp = $this->get('form.factory')->createNamedBuilder('formPlacementChamp', 'form', $newLiaisonSuiviChamp)
+                    ->add('IdChamp', EntityType::class, array(
+                        'class' => 'NoxIntranetAdministrationBundle:Formulaires',
+                        'choice_label' => 'Nom',
+                        'query_builder' => function (EntityRepository $er) use ($profil) {
+                            return $er->createQueryBuilder('u')
+                                    ->where("u.profil = '" . $profil . "'")
+                                    ->orderBy('u.nom', 'ASC');
+                        },
+                        'disabled' => true
+                    ))
+                    ->add('CoordonneesDonnees', TextType::class, array(
+                        'disabled' => true,
+                    ))
+                    ->add('Placer', SubmitType::class, array(
+                        'disabled' => true
+                    ))
+                    ->getForm();
+        }
 
         if ($request->request->has('formPlacementChamp')) {
             $formPlacementChamp->handleRequest($request);
