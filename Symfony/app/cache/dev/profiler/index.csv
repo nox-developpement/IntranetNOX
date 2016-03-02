@@ -3322,3 +3322,10 @@ e02faa,::1,GET,http://localhost/Symfony/web/app_dev.php/ressources/assistant-aff
 d43937,::1,GET,http://localhost/Symfony/web/app_dev.php/js/routing?callback=fos.Router.setData,1456935592,,200
 9eb894,::1,GET,http://localhost/Symfony/web/app_dev.php/ressources/assistant-affaires/edition-suivi/62,1456935598,f597b2,200
 f597b2,::1,POST,http://localhost/Symfony/web/app_dev.php/ressources/assistant-affaires/edition-suivi/62,1456935599,,500
+cdcf15,::1,GET,http://localhost/Symfony/web/app_dev.php/ressources/assistant-affaires,1456936013,,200
+86bd04,::1,GET,http://localhost/Symfony/web/app_dev.php/js/routing?callback=fos.Router.setData,1456936015,,200
+beb492,::1,GET,http://localhost/Symfony/web/app_dev.php/ressources/assistant-affaires/parcours-suivis-en-cours,1456936021,,200
+76f878,::1,GET,http://localhost/Symfony/web/app_dev.php/js/routing?callback=fos.Router.setData,1456936022,,200
+77aba3,::1,POST,http://localhost/Symfony/web/app_dev.php/ressources/assistant-affaires/parcours-suivis-en-cours,1456936027,,302
+039039,::1,GET,http://localhost/Symfony/web/app_dev.php/ressources/assistant-affaires/edition-suivi/62,1456936029,,200
+d489c8,::1,GET,http://localhost/Symfony/web/app_dev.php/js/routing?callback=fos.Router.setData,1456936030,,200
