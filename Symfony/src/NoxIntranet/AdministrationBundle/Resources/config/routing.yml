@@ -167,3 +167,7 @@ nox_intranet_administration_affaires_edition_sauvegarde:
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:administrationAffaireSauvegardeModification }
     requirements:
         filename: .+
+        
+nox_intranet_administration_affaires_edition_champ:
+    path: /administration/assistant-affaires-edition-champ/{IdChamp}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:administrationAffairesEditionChamp }

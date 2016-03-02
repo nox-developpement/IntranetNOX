@@ -90,11 +90,17 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
-            <a href='#'> <h4> Pointage </h4> </a>
+            <a href='";
+        // line 37
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageRH", array("chemin" => "RHQuotidien/Pointage", "dossier" => "Pointage", "config" => "pointage")), "html", null, true);
+        echo "'> <h4> Pointage </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
-            <a href='#'> <h4> Note de frais </h4> </a>
+            <a href='";
+        // line 41
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageRH", array("chemin" => "RHQuotidien/NoteDeFrais", "dossier" => "NoteDeFrais", "config" => "noteDeFrais")), "html", null, true);
+        echo "'> <h4> Note de frais </h4> </a>
         </div>
 
     </div>
@@ -112,7 +118,10 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
     <div id='sousMenuReglementationRH' class='menu'>
 
         <div class=\"sousMessageAcceuil\"> 
-            <a href='#'> <h4> Convention collective </h4> </a>
+            <a href='";
+        // line 54
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageRH", array("chemin" => "ReglementationRH/ConventionCollective", "dossier" => "Convention collective", "config" => "conventionCollective")), "html", null, true);
+        echo "'> <h4> Convention collective </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
@@ -155,7 +164,7 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
 
     public function getDebugInfo()
     {
-        return array (  135 => 66,  128 => 62,  121 => 58,  106 => 48,  84 => 29,  77 => 25,  68 => 21,  61 => 17,  50 => 11,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  144 => 66,  137 => 62,  130 => 58,  123 => 54,  112 => 48,  102 => 41,  95 => 37,  84 => 29,  77 => 25,  68 => 21,  61 => 17,  50 => 11,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -194,11 +203,11 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href='#'> <h4> Pointage </h4> </a>*/
+/*             <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/Pointage', 'dossier': 'Pointage', 'config': 'pointage' }) }}'> <h4> Pointage </h4> </a>*/
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href='#'> <h4> Note de frais </h4> </a>*/
+/*             <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/NoteDeFrais', 'dossier': 'NoteDeFrais', 'config': 'noteDeFrais' }) }}'> <h4> Note de frais </h4> </a>*/
 /*         </div>*/
 /* */
 /*     </div>*/
@@ -211,7 +220,7 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
 /*     <div id='sousMenuReglementationRH' class='menu'>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href='#'> <h4> Convention collective </h4> </a>*/
+/*             <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/ConventionCollective', 'dossier': 'Convention collective', 'config': 'conventionCollective' }) }}'> <h4> Convention collective </h4> </a>*/
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */

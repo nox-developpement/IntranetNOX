@@ -623,7 +623,7 @@ fm_elfinder:
                 roots:
                     uploads:
                         driver:           LocalFileSystem
-                        path:             uploads/AQ/CERTIFICATSISOETOPQIBI/EQUIPEQSE
+                        path:             uploads/AQ/INFOSQSE/EQUIPEQSE
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  5M     
@@ -651,7 +651,7 @@ fm_elfinder:
                 roots:
                     uploads:
                         driver:           LocalFileSystem
-                        path:             uploads/AQ/CERTIFICATSISOETOPQIBI/EVENEMENTS
+                        path:             uploads/AQ/INFOSQSE/EVENEMENTS
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  5M   
@@ -750,6 +750,48 @@ fm_elfinder:
                     uploads:
                         driver:           LocalFileSystem
                         path:             uploads/RH/RHQuotidien/ProcessLogement
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M  
+        pointage:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/RH/RHQuotidien/Pointage
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M  
+        noteDeFrais:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/RH/RHQuotidien/NoteDeFrais
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  5M  
+        conventionCollective:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/RH/ReglementationRH/ConventionCollective
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  5M  

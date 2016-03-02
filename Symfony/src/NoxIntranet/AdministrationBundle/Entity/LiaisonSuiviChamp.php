@@ -38,13 +38,6 @@ class LiaisonSuiviChamp {
     /**
      * @var string
      *
-     * @ORM\Column(name="CoordonneesLabel", type="string", length=255)
-     */
-    private $coordonneesLabel;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="CoordonneesDonnees", type="string", length=255)
      */
     private $coordonneesDonnees;
@@ -100,28 +93,6 @@ class LiaisonSuiviChamp {
      */
     public function getIdSuivi() {
         return $this->idSuivi;
-    }
-
-    /**
-     * Set coordonneesLabel
-     *
-     * @param string $coordonneesLabel
-     *
-     * @return LiaisonSuiviChamp
-     */
-    public function setCoordonneesLabel($coordonneesLabel) {
-        $this->coordonneesLabel = $coordonneesLabel;
-
-        return $this;
-    }
-
-    /**
-     * Get coordonneesLabel
-     *
-     * @return string
-     */
-    public function getCoordonneesLabel() {
-        return $this->coordonneesLabel;
     }
 
     /**

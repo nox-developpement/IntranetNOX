@@ -100,6 +100,10 @@ nox_intranet_assistant_affaire_parcour_suivi_termine:
     path: /ressources/assistant-affaires/parcours-suivis-terminés/{agence}
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:consulterSuiviTermine, agence: Toutes }
     
+nox_intranet_assistant_affaire_consultation:
+    path: /ressources/assistant-affaires/consulter-suivi/{IdSuivi}/{version}
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:suiviTermine, version: "" }
+    
 nox_intranet_rh:
     path: /ressources/rh
     defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:rh }

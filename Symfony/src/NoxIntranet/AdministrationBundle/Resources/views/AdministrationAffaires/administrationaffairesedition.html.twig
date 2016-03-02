@@ -22,12 +22,6 @@
 
                 <br />
 
-                {{ form_label(formPlacementChamp.CoordonneesLabel, "Coordonnees label :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}
-                {{ form_errors(formPlacementChamp.CoordonneesLabel) }}
-                {{ form_widget(formPlacementChamp.CoordonneesLabel, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}
-
-                <br />
-
                 {{ form_label(formPlacementChamp.CoordonneesDonnees, "Coordonnees données :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}
                 {{ form_errors(formPlacementChamp.CoordonneesDonnees) }}
                 {{ form_widget(formPlacementChamp.CoordonneesDonnees, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}
@@ -45,14 +39,6 @@
 
     <div id='tableauExcel'>
 
-        <!--
-        <div>
-            <p>{{ filename }}</p>
-            <p> <button class="boutonFormulaire" onclick="location.reload();"> Annuler </button> <button class="boutonFormulaire" onclick="exctractionTableau();
-                    window.location.href = '{{ path('nox_intranet_administration_affaires_edition_sauvegarde', { 'filename': file }) }}';"> Sauvegarder </button> </p>
-        </div>
-        -->
-
         <table>
             <tr>
                 <th></th>
@@ -60,9 +46,6 @@
                     <th style='font-weight: bold'>{{ i }}</th>
                     {% endfor %}
 
-                <!--
-                <th style='font-weight: bold' class="ajoutColonne">+</th>
-                -->
             </tr>
 
             {% for row in sheet.getRowIterator %} 
@@ -76,12 +59,6 @@
                 </tr>
 
             {% endfor %}
-
-            <!--
-            <tr>
-                <th style='font-weight: bold' class="ajoutLigne">+</th>
-            </tr>
-            -->
 
         </table>
 

@@ -23,44 +23,44 @@ class __TwigTemplate_0537a535386aa341c3ea8c69cea835bbe77f888a6326201cec7107de7bd
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_3a13198fc2aef120c21b485f0e83641f556f82344ae86fbe11df54fa8e513455 = $this->env->getExtension("native_profiler");
-        $__internal_3a13198fc2aef120c21b485f0e83641f556f82344ae86fbe11df54fa8e513455->enter($__internal_3a13198fc2aef120c21b485f0e83641f556f82344ae86fbe11df54fa8e513455_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairetermine.html.twig"));
+        $__internal_d16ed676cea355c73741e5800067076e3893d6ecd7c49acc4861f53d45b6f5df = $this->env->getExtension("native_profiler");
+        $__internal_d16ed676cea355c73741e5800067076e3893d6ecd7c49acc4861f53d45b6f5df->enter($__internal_d16ed676cea355c73741e5800067076e3893d6ecd7c49acc4861f53d45b6f5df_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairetermine.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_3a13198fc2aef120c21b485f0e83641f556f82344ae86fbe11df54fa8e513455->leave($__internal_3a13198fc2aef120c21b485f0e83641f556f82344ae86fbe11df54fa8e513455_prof);
+        $__internal_d16ed676cea355c73741e5800067076e3893d6ecd7c49acc4861f53d45b6f5df->leave($__internal_d16ed676cea355c73741e5800067076e3893d6ecd7c49acc4861f53d45b6f5df_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_6abcd1fa1d6e2d358e0847c172f45c241a6652d4ff7ce2839374ebec8ac25978 = $this->env->getExtension("native_profiler");
-        $__internal_6abcd1fa1d6e2d358e0847c172f45c241a6652d4ff7ce2839374ebec8ac25978->enter($__internal_6abcd1fa1d6e2d358e0847c172f45c241a6652d4ff7ce2839374ebec8ac25978_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_f1841070d2fe2386033995a678638af77b00096d683e95eaa77cb1e9249493e1 = $this->env->getExtension("native_profiler");
+        $__internal_f1841070d2fe2386033995a678638af77b00096d683e95eaa77cb1e9249493e1->enter($__internal_f1841070d2fe2386033995a678638af77b00096d683e95eaa77cb1e9249493e1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Parcourirs les suivis terminés ";
         
-        $__internal_6abcd1fa1d6e2d358e0847c172f45c241a6652d4ff7ce2839374ebec8ac25978->leave($__internal_6abcd1fa1d6e2d358e0847c172f45c241a6652d4ff7ce2839374ebec8ac25978_prof);
+        $__internal_f1841070d2fe2386033995a678638af77b00096d683e95eaa77cb1e9249493e1->leave($__internal_f1841070d2fe2386033995a678638af77b00096d683e95eaa77cb1e9249493e1_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_f461cf6aeec76fc86267382e51b99b4ed774d9766b1e1414272980337bfc1f14 = $this->env->getExtension("native_profiler");
-        $__internal_f461cf6aeec76fc86267382e51b99b4ed774d9766b1e1414272980337bfc1f14->enter($__internal_f461cf6aeec76fc86267382e51b99b4ed774d9766b1e1414272980337bfc1f14_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_a06cfd421bee771b0b26639b14f5134a39aa44df7c9fa4b33a2631c047ac76d5 = $this->env->getExtension("native_profiler");
+        $__internal_a06cfd421bee771b0b26639b14f5134a39aa44df7c9fa4b33a2631c047ac76d5->enter($__internal_a06cfd421bee771b0b26639b14f5134a39aa44df7c9fa4b33a2631c047ac76d5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Parcourirs les suivis terminés";
         
-        $__internal_f461cf6aeec76fc86267382e51b99b4ed774d9766b1e1414272980337bfc1f14->leave($__internal_f461cf6aeec76fc86267382e51b99b4ed774d9766b1e1414272980337bfc1f14_prof);
+        $__internal_a06cfd421bee771b0b26639b14f5134a39aa44df7c9fa4b33a2631c047ac76d5->leave($__internal_a06cfd421bee771b0b26639b14f5134a39aa44df7c9fa4b33a2631c047ac76d5_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_2d2e38708d3903e0ac6a6c31eeacf2d27faada3e3fe3510cc77b1f5e87d27ebd = $this->env->getExtension("native_profiler");
-        $__internal_2d2e38708d3903e0ac6a6c31eeacf2d27faada3e3fe3510cc77b1f5e87d27ebd->enter($__internal_2d2e38708d3903e0ac6a6c31eeacf2d27faada3e3fe3510cc77b1f5e87d27ebd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_467132dc6dc619e104fa7a51288d721eea969bae020775e5d60f7c027fb499ed = $this->env->getExtension("native_profiler");
+        $__internal_467132dc6dc619e104fa7a51288d721eea969bae020775e5d60f7c027fb499ed->enter($__internal_467132dc6dc619e104fa7a51288d721eea969bae020775e5d60f7c027fb499ed_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -68,11 +68,11 @@ class __TwigTemplate_0537a535386aa341c3ea8c69cea835bbe77f888a6326201cec7107de7bd
 
         ";
         // line 11
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formAgence"]) ? $context["formAgence"] : $this->getContext($context, "formAgence")), 'form_start', array("attr" => array("class" => "formulaireSelectionAgence")));
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionAgence"]) ? $context["formSelectionAgence"] : $this->getContext($context, "formSelectionAgence")), 'form_start', array("attr" => array("class" => "formulaireSelectionAgence")));
         echo "
         ";
         // line 12
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formAgence"]) ? $context["formAgence"] : $this->getContext($context, "formAgence")), 'errors');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formSelectionAgence"]) ? $context["formSelectionAgence"] : $this->getContext($context, "formSelectionAgence")), 'errors');
         echo "
 
         <fieldset>
@@ -81,22 +81,22 @@ class __TwigTemplate_0537a535386aa341c3ea8c69cea835bbe77f888a6326201cec7107de7bd
 
             ";
         // line 18
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAgence"]) ? $context["formAgence"] : $this->getContext($context, "formAgence")), "Agences", array()), 'label', array("label_attr" => array("class" => "labelFormulaireSelectionAgence"), "label" => "Selection de l'agence :"));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionAgence"]) ? $context["formSelectionAgence"] : $this->getContext($context, "formSelectionAgence")), "Agences", array()), 'label', array("label_attr" => array("class" => "labelFormulaireSelectionAgence"), "label" => "Selection de l'agence :"));
         echo "
             ";
         // line 19
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAgence"]) ? $context["formAgence"] : $this->getContext($context, "formAgence")), "Agences", array()), 'errors');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionAgence"]) ? $context["formSelectionAgence"] : $this->getContext($context, "formSelectionAgence")), "Agences", array()), 'errors');
         echo "
             ";
         // line 20
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAgence"]) ? $context["formAgence"] : $this->getContext($context, "formAgence")), "Agences", array()), 'widget', array("attr" => array("class" => "selectFormulaireSelectionAgence")));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionAgence"]) ? $context["formSelectionAgence"] : $this->getContext($context, "formSelectionAgence")), "Agences", array()), 'widget', array("attr" => array("class" => "selectFormulaireSelectionAgence")));
         echo "
 
         </fieldset>
 
         ";
         // line 24
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formAgence"]) ? $context["formAgence"] : $this->getContext($context, "formAgence")), 'form_end');
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionAgence"]) ? $context["formSelectionAgence"] : $this->getContext($context, "formSelectionAgence")), 'form_end');
         echo "
 
     </div>
@@ -105,11 +105,11 @@ class __TwigTemplate_0537a535386aa341c3ea8c69cea835bbe77f888a6326201cec7107de7bd
     <div id='DivFormulaireParcourSuiviEnCours'>
         ";
         // line 30
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'form_start', array("attr" => array("class" => "formulaireParcourSuiviEnCours")));
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : $this->getContext($context, "formSelectionSuivi")), 'form_start', array("attr" => array("class" => "formulaireParcourSuiviEnCours")));
         echo "
         ";
         // line 31
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'errors');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : $this->getContext($context, "formSelectionSuivi")), 'errors');
         echo "
 
         <fieldset>
@@ -117,33 +117,35 @@ class __TwigTemplate_0537a535386aa341c3ea8c69cea835bbe77f888a6326201cec7107de7bd
             <legend>Selection du suivi</legend>
 
             <p>
+                <label for=\"rechercehSuivi\">Recherche</label>
+                <input placeholder=\"Ex : Ventes 2016\" type=\"text\" id=\"rechercehSuivi\"/>
                 ";
-        // line 38
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "Suivi", array()), 'errors');
+        // line 40
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : $this->getContext($context, "formSelectionSuivi")), "Suivi", array()), 'errors');
         echo "
                 ";
-        // line 39
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "Suivi", array()), 'widget', array("attr" => array("class" => "selectFormulaireAdministrationAjoutProfil", "size" => 15)));
+        // line 41
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : $this->getContext($context, "formSelectionSuivi")), "Suivi", array()), 'widget', array("attr" => array("class" => "selectFormulaireAdministrationAjoutProfil", "size" => 15)));
         echo "
             </p>
 
             ";
-        // line 42
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "_token", array()), 'widget');
+        // line 44
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : $this->getContext($context, "formSelectionSuivi")), "_token", array()), 'widget');
         echo "
 
             <p>
                 ";
-        // line 45
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "Consulter", array()), 'widget', array("attr" => array("class" => "submitFormulaireParcourSuiviEnCours")));
+        // line 47
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : $this->getContext($context, "formSelectionSuivi")), "Consulter", array()), 'widget', array("attr" => array("class" => "submitFormulaireParcourSuiviEnCours")));
         echo "
             </p>
 
         </fieldset>
 
         ";
-        // line 50
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'form_end');
+        // line 52
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionSuivi"]) ? $context["formSelectionSuivi"] : $this->getContext($context, "formSelectionSuivi")), 'form_end');
         echo "
 
     </div>
@@ -154,7 +156,7 @@ class __TwigTemplate_0537a535386aa341c3ea8c69cea835bbe77f888a6326201cec7107de7bd
 
 ";
         
-        $__internal_2d2e38708d3903e0ac6a6c31eeacf2d27faada3e3fe3510cc77b1f5e87d27ebd->leave($__internal_2d2e38708d3903e0ac6a6c31eeacf2d27faada3e3fe3510cc77b1f5e87d27ebd_prof);
+        $__internal_467132dc6dc619e104fa7a51288d721eea969bae020775e5d60f7c027fb499ed->leave($__internal_467132dc6dc619e104fa7a51288d721eea969bae020775e5d60f7c027fb499ed_prof);
 
     }
 
@@ -170,7 +172,7 @@ class __TwigTemplate_0537a535386aa341c3ea8c69cea835bbe77f888a6326201cec7107de7bd
 
     public function getDebugInfo()
     {
-        return array (  146 => 50,  138 => 45,  132 => 42,  126 => 39,  122 => 38,  112 => 31,  108 => 30,  99 => 24,  92 => 20,  88 => 19,  84 => 18,  75 => 12,  71 => 11,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
+        return array (  148 => 52,  140 => 47,  134 => 44,  128 => 41,  124 => 40,  112 => 31,  108 => 30,  99 => 24,  92 => 20,  88 => 19,  84 => 18,  75 => 12,  71 => 11,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -183,46 +185,48 @@ class __TwigTemplate_0537a535386aa341c3ea8c69cea835bbe77f888a6326201cec7107de7bd
 /* */
 /*     <div id='DivFormulaireSelectionAgence'>*/
 /* */
-/*         {{ form_start(formAgence, {'attr': {'class': 'formulaireSelectionAgence'}}) }}*/
-/*         {{ form_errors(formAgence) }}*/
+/*         {{ form_start(formSelectionAgence, {'attr': {'class': 'formulaireSelectionAgence'}}) }}*/
+/*         {{ form_errors(formSelectionAgence) }}*/
 /* */
 /*         <fieldset>*/
 /* */
 /*             <legend><span>Agence</legend>*/
 /* */
-/*             {{ form_label(formAgence.Agences, "Selection de l'agence :", {'label_attr': {'class': 'labelFormulaireSelectionAgence'}}) }}*/
-/*             {{ form_errors(formAgence.Agences) }}*/
-/*             {{ form_widget(formAgence.Agences, {'attr': {'class': 'selectFormulaireSelectionAgence'}}) }}*/
+/*             {{ form_label(formSelectionAgence.Agences, "Selection de l'agence :", {'label_attr': {'class': 'labelFormulaireSelectionAgence'}}) }}*/
+/*             {{ form_errors(formSelectionAgence.Agences) }}*/
+/*             {{ form_widget(formSelectionAgence.Agences, {'attr': {'class': 'selectFormulaireSelectionAgence'}}) }}*/
 /* */
 /*         </fieldset>*/
 /* */
-/*         {{ form_end(formAgence) }}*/
+/*         {{ form_end(formSelectionAgence) }}*/
 /* */
 /*     </div>*/
 /* */
 /* */
 /*     <div id='DivFormulaireParcourSuiviEnCours'>*/
-/*         {{ form_start(form, {'attr': {'class': 'formulaireParcourSuiviEnCours'}}) }}*/
-/*         {{ form_errors(form) }}*/
+/*         {{ form_start(formSelectionSuivi, {'attr': {'class': 'formulaireParcourSuiviEnCours'}}) }}*/
+/*         {{ form_errors(formSelectionSuivi) }}*/
 /* */
 /*         <fieldset>*/
 /* */
 /*             <legend>Selection du suivi</legend>*/
 /* */
 /*             <p>*/
-/*                 {{ form_errors(form.Suivi) }}*/
-/*                 {{ form_widget(form.Suivi, {'attr': {'class': 'selectFormulaireAdministrationAjoutProfil', 'size': 15}}) }}*/
+/*                 <label for="rechercehSuivi">Recherche</label>*/
+/*                 <input placeholder="Ex : Ventes 2016" type="text" id="rechercehSuivi"/>*/
+/*                 {{ form_errors(formSelectionSuivi.Suivi) }}*/
+/*                 {{ form_widget(formSelectionSuivi.Suivi, {'attr': {'class': 'selectFormulaireAdministrationAjoutProfil', 'size': 15}}) }}*/
 /*             </p>*/
 /* */
-/*             {{ form_widget(form._token) }}*/
+/*             {{ form_widget(formSelectionSuivi._token) }}*/
 /* */
 /*             <p>*/
-/*                 {{ form_widget(form.Consulter, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}*/
+/*                 {{ form_widget(formSelectionSuivi.Consulter, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}*/
 /*             </p>*/
 /* */
 /*         </fieldset>*/
 /* */
-/*         {{ form_end(form) }}*/
+/*         {{ form_end(formSelectionSuivi) }}*/
 /* */
 /*     </div>*/
 /* */

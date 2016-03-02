@@ -72,10 +72,15 @@ class __TwigTemplate_f9b4821c405fd2b73dbca3513f36fdad6fd32d34b3cde19be7aa02f3df2
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersionSuivi"]) ? $context["formSelectionVersionSuivi"] : null), "version", array()), 'widget', array("attr" => array("class" => "selectFormulaireSelectionVersionSuivi")));
         echo "
 
+            ";
+        // line 22
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersionSuivi"]) ? $context["formSelectionVersionSuivi"] : null), "Supprimer", array()), 'widget', array("attr" => array("class" => "boutonFormulaire")));
+        echo "
+
         </fieldset>
 
         ";
-        // line 24
+        // line 26
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionVersionSuivi"]) ? $context["formSelectionVersionSuivi"] : null), 'form_end');
         echo "
 
@@ -84,11 +89,11 @@ class __TwigTemplate_f9b4821c405fd2b73dbca3513f36fdad6fd32d34b3cde19be7aa02f3df2
     <div id=\"DivFormulaireCloturationSuivi\">
 
         ";
-        // line 30
+        // line 32
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formCloturationSuivi"]) ? $context["formCloturationSuivi"] : null), 'form_start', array("attr" => array("class" => "formulaireCloturationSuivi")));
         echo "
         ";
-        // line 31
+        // line 33
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formCloturationSuivi"]) ? $context["formCloturationSuivi"] : null), 'errors');
         echo "
 
@@ -97,18 +102,18 @@ class __TwigTemplate_f9b4821c405fd2b73dbca3513f36fdad6fd32d34b3cde19be7aa02f3df2
             <legend>Cloturation</legend>
 
             ";
-        // line 37
+        // line 39
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formCloturationSuivi"]) ? $context["formCloturationSuivi"] : null), "Cloturer", array()), 'widget', array("label" => "Cloturer le suivi", "attr" => array("class" => "boutonFormulaire")));
         echo "
 
         </fieldset> 
 
         ";
-        // line 41
+        // line 43
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formCloturationSuivi"]) ? $context["formCloturationSuivi"] : null), "_token", array()), 'widget');
         echo "
         ";
-        // line 42
+        // line 44
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formCloturationSuivi"]) ? $context["formCloturationSuivi"] : null), 'form_end');
         echo "
     </div>
@@ -116,37 +121,37 @@ class __TwigTemplate_f9b4821c405fd2b73dbca3513f36fdad6fd32d34b3cde19be7aa02f3df2
     <div id=\"DivFormulaireRemplissageSuivi\">
 
         ";
-        // line 47
+        // line 49
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), 'form_start', array("attr" => array("class" => "formulaireRemplissageSuivi")));
         echo "
         ";
-        // line 48
+        // line 50
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), 'errors');
         echo "
 
         <fieldset>
 
             <legend>";
-        // line 52
+        // line 54
         echo twig_escape_filter($this->env, (isset($context["suivi"]) ? $context["suivi"] : null), "html", null, true);
         echo "</legend>
 
             <p>
                 ";
-        // line 55
+        // line 57
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["champsViews"]) ? $context["champsViews"] : null));
         foreach ($context['_seq'] as $context["_key"] => $context["champ"]) {
-            // line 56
+            // line 58
             echo "                    ";
             echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), $this->getAttribute($context["champ"], "Champ", array())), 'label', array("label_attr" => array("class" => "labelFormulaireRemplissageSuivi")) + (twig_test_empty($_label_ = ($this->getAttribute($context["champ"], "Nom", array()) . " : ")) ? array() : array("label" => $_label_)));
             echo "
                     ";
-            // line 57
+            // line 59
             echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), $this->getAttribute($context["champ"], "Champ", array())), 'errors');
             echo "
                     ";
-            // line 58
+            // line 60
             echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), $this->getAttribute($context["champ"], "Champ", array())), 'widget', array("attr" => array("class" => "champFormulaireRemplissageSuivi")));
             echo "
                     <br />
@@ -155,14 +160,14 @@ class __TwigTemplate_f9b4821c405fd2b73dbca3513f36fdad6fd32d34b3cde19be7aa02f3df2
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['champ'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 61
+        // line 63
         echo "
                 ";
-        // line 62
+        // line 64
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), "Generate", array()), 'widget', array("label" => "Générer fichier Excel", "attr" => array("class" => "boutonFormulaire", "title" => "Sauvegardez le suivi pour pouvoir générer un fichier Excel.")));
         echo "
                 ";
-        // line 63
+        // line 65
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), "Save", array()), 'widget', array("label" => "Sauvegarder le suivi", "attr" => array("class" => "boutonFormulaire")));
         echo "
             </p>
@@ -170,7 +175,7 @@ class __TwigTemplate_f9b4821c405fd2b73dbca3513f36fdad6fd32d34b3cde19be7aa02f3df2
         </fieldset> 
 
         ";
-        // line 68
+        // line 70
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), 'form_end');
         echo "
     </div>
@@ -190,7 +195,7 @@ class __TwigTemplate_f9b4821c405fd2b73dbca3513f36fdad6fd32d34b3cde19be7aa02f3df2
 
     public function getDebugInfo()
     {
-        return array (  174 => 68,  166 => 63,  162 => 62,  159 => 61,  150 => 58,  146 => 57,  141 => 56,  137 => 55,  131 => 52,  124 => 48,  120 => 47,  112 => 42,  108 => 41,  101 => 37,  92 => 31,  88 => 30,  79 => 24,  72 => 20,  68 => 19,  64 => 18,  55 => 12,  51 => 11,  46 => 8,  43 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  179 => 70,  171 => 65,  167 => 64,  164 => 63,  155 => 60,  151 => 59,  146 => 58,  142 => 57,  136 => 54,  129 => 50,  125 => 49,  117 => 44,  113 => 43,  106 => 39,  97 => 33,  93 => 32,  84 => 26,  77 => 22,  72 => 20,  68 => 19,  64 => 18,  55 => 12,  51 => 11,  46 => 8,  43 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -213,6 +218,8 @@ class __TwigTemplate_f9b4821c405fd2b73dbca3513f36fdad6fd32d34b3cde19be7aa02f3df2
 /*             {{ form_label(formSelectionVersionSuivi.version, "Selection de la version :", {'label_attr': {'class': 'labelFormulaireSelectionVersionSuivi'}}) }}*/
 /*             {{ form_errors(formSelectionVersionSuivi.version) }}*/
 /*             {{ form_widget(formSelectionVersionSuivi.version, {'attr': {'class': 'selectFormulaireSelectionVersionSuivi'}}) }}*/
+/* */
+/*             {{ form_widget(formSelectionVersionSuivi.Supprimer, {'attr': {'class': 'boutonFormulaire' }}) }}*/
 /* */
 /*         </fieldset>*/
 /* */

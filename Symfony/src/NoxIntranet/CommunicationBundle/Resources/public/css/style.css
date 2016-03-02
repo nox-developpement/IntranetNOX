@@ -1927,7 +1927,8 @@ divAdministrationUtilisateur {
 .DivAjoutFeuilleSuivi, .DivFormulaireSuppressionFormulaire, .DivFormulaireAjoutFichier, 
 #DivFormulaireSelectionAgence, #DivFormulaireSelectionDossier, #DivFormulaireSelectionVersion, 
 .DivFormulaireAjoutChamp, .DivFormulaireSuppressionChamp, .DivFormulairePlacementChamp, #DivFormulaireChoixModele, 
-#DivFormulaireRemplissageSuivi, #DivFormulaireSelectionVersionSuivi, #DivFormulaireCloturationSuivi {
+#DivFormulaireRemplissageSuivi, #DivFormulaireSelectionVersionSuivi, #DivFormulaireCloturationSuivi, .DivFormulaireSelectionChamp,
+.DivFormulaireAjoutDonnee, .DivFormulaireSuppressionDonnee {
     margin: 0% 25% 0% 25%;
     margin-bottom: 2%;
     font-size: 0.8vw;
@@ -1937,7 +1938,8 @@ divAdministrationUtilisateur {
 .formulaireParcourSuiviEnCours, .formulaireAjoutFeuilleSuivi, .formulaireAdministrationSuppressionFormulaire, 
 .formulaireSelectionAgence, .formulaireAjoutFichier, .formulaireSelectionDossier, .formulaireSelectionVersion,
 .formulaireAjoutChamp, .formulaireSuppressionChamp, .formulairePlacementChamp, .formulaireChoixModele, 
-.formulaireRemplissageSuivi, .formulaireSelectionVersionSuivi, .formulaireCloturationSuivi {
+.formulaireRemplissageSuivi, .formulaireSelectionVersionSuivi, .formulaireCloturationSuivi, .formulaireSelectionChamp, .formulaireAjoutDonnee,
+.formulaireSuppresionDonnee {
     padding: 0px;
     border: none;
     width: 80%;
@@ -1948,7 +1950,7 @@ divAdministrationUtilisateur {
 .formulaireAdministrationSuppressionFormulaire fieldset, .formulaireSelectionAgence fieldset, .formulaireAjoutFichier fieldset, 
 .formulaireSelectionDossier fieldset, .formulaireSelectionVersion fieldset, .formulaireAjoutChamp fieldset, .formulaireSuppressionChamp fieldset,
 .formulairePlacementChamp fieldset, .formulaireChoixModele fieldset, .formulaireRemplissageSuivi fieldset, .formulaireSelectionVersionSuivi fieldset,
-.formulaireCloturationSuivi fieldset {
+.formulaireCloturationSuivi fieldset, .formulaireSelectionChamp fieldset, .formulaireAjoutDonnee fieldset, .formulaireSuppresionDonnee fieldset {
     text-align: center;
     border-color: rgb(31,78,121);
     border-width: 1px;
@@ -1964,7 +1966,8 @@ divAdministrationUtilisateur {
 .formulaireSelectionAgence fieldset legend, .formulaireAjoutFichier fieldset legend, 
 .formulaireSelectionDossier fieldset legend, .formulaireSelectionVersion fieldset legend, .formulaireAjoutChamp fieldset legend,
 .formulaireSuppressionChamp fieldset legend, .formulairePlacementChamp fieldset legend, .formulaireChoixModele fieldset legend, 
-.formulaireRemplissageSuivi fieldset legend, .formulaireSelectionVersionSuivi fieldset legend, .formulaireCloturationSuivi fieldset legend {
+.formulaireRemplissageSuivi fieldset legend, .formulaireSelectionVersionSuivi fieldset legend, .formulaireCloturationSuivi fieldset legend,
+.formulaireSelectionChamp fieldset legend, .formulaireAjoutDonnee fieldset legend, .formulaireSuppresionDonnee fieldset legend {
     color: rgb(31,78,121);
     background-color: white;
     border: solid 1px rgb(31,78,121);

@@ -163,6 +163,32 @@
 
     </div>
 
+    <div class='DivFormulaireSelectionChamp'>
+
+        {{ form_start(formSelectionChamp, {'attr': {'class': 'formulaireSelectionChamp'}}) }}
+        {{ form_errors(formSelectionChamp) }}
+
+        <fieldset>
+
+            <legend>Editer un champ de données</legend>       
+
+            <p>
+                {{ form_label(formSelectionChamp.Champs, "Champ :", {'label_attr': {'class': 'labelFormulaireSelectionChamp'}}) }}
+                {{ form_errors(formSelectionChamp.Champs) }}
+                {{ form_widget(formSelectionChamp.Champs, {'attr': {'class': 'selectFormulaireSelectionChamp' }}) }}
+            </p>
+
+            <p>
+                {{ form_widget(formSelectionChamp._token) }} 
+
+                {{ form_widget(formSelectionChamp.Editer, {'attr': {'class': 'submitFormulaireSelectionChamp', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(formSelectionChamp) }}
+
+    </div>
 
     <div class="sousMessageAcceuil">
         <h4> Suivis : </h4>

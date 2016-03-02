@@ -347,6 +347,56 @@ class __TwigTemplate_9f75fb3e2e5cebc68deecb60bfb6b5f282301b11c47db4f7f4643119f1d
 
     </div>
 
+    <div class='DivFormulaireSelectionChamp'>
+
+        ";
+        // line 168
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionChamp"]) ? $context["formSelectionChamp"] : null), 'form_start', array("attr" => array("class" => "formulaireSelectionChamp")));
+        echo "
+        ";
+        // line 169
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formSelectionChamp"]) ? $context["formSelectionChamp"] : null), 'errors');
+        echo "
+
+        <fieldset>
+
+            <legend>Editer un champ de données</legend>       
+
+            <p>
+                ";
+        // line 176
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionChamp"]) ? $context["formSelectionChamp"] : null), "Champs", array()), 'label', array("label_attr" => array("class" => "labelFormulaireSelectionChamp"), "label" => "Champ :"));
+        echo "
+                ";
+        // line 177
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionChamp"]) ? $context["formSelectionChamp"] : null), "Champs", array()), 'errors');
+        echo "
+                ";
+        // line 178
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionChamp"]) ? $context["formSelectionChamp"] : null), "Champs", array()), 'widget', array("attr" => array("class" => "selectFormulaireSelectionChamp")));
+        echo "
+            </p>
+
+            <p>
+                ";
+        // line 182
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionChamp"]) ? $context["formSelectionChamp"] : null), "_token", array()), 'widget');
+        echo " 
+
+                ";
+        // line 184
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionChamp"]) ? $context["formSelectionChamp"] : null), "Editer", array()), 'widget', array("attr" => array("class" => "submitFormulaireSelectionChamp", "class" => "boutonFormulaire")));
+        echo "
+            </p>
+
+        </fieldset> 
+
+        ";
+        // line 189
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionChamp"]) ? $context["formSelectionChamp"] : null), 'form_end');
+        echo "
+
+    </div>
 
     <div class=\"sousMessageAcceuil\">
         <h4> Suivis : </h4>
@@ -355,11 +405,11 @@ class __TwigTemplate_9f75fb3e2e5cebc68deecb60bfb6b5f282301b11c47db4f7f4643119f1d
     <div id='DivFormulaireSelectionDossier'>
 
         ";
-        // line 173
+        // line 199
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionDossier"]) ? $context["formSelectionDossier"] : null), 'form_start', array("attr" => array("class" => "formulaireSelectionDossier")));
         echo "
         ";
-        // line 174
+        // line 200
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formSelectionDossier"]) ? $context["formSelectionDossier"] : null), 'errors');
         echo "
 
@@ -368,22 +418,22 @@ class __TwigTemplate_9f75fb3e2e5cebc68deecb60bfb6b5f282301b11c47db4f7f4643119f1d
             <legend>Profil</legend>
 
             ";
-        // line 180
+        // line 206
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionDossier"]) ? $context["formSelectionDossier"] : null), "profil", array()), 'label', array("label_attr" => array("class" => "labelFormulaireSelectionDossier"), "label" => "Selection du profil :"));
         echo "
             ";
-        // line 181
+        // line 207
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionDossier"]) ? $context["formSelectionDossier"] : null), "profil", array()), 'errors');
         echo "
             ";
-        // line 182
+        // line 208
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionDossier"]) ? $context["formSelectionDossier"] : null), "profil", array()), 'widget', array("attr" => array("class" => "selectFormulaireSelectionDossier")));
         echo "
 
         </fieldset>
 
         ";
-        // line 186
+        // line 212
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionDossier"]) ? $context["formSelectionDossier"] : null), 'form_end');
         echo "
 
@@ -391,11 +441,11 @@ class __TwigTemplate_9f75fb3e2e5cebc68deecb60bfb6b5f282301b11c47db4f7f4643119f1d
 
     <div id='DivFormulaireSelectionVersion'>
         ";
-        // line 191
+        // line 217
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : null), 'form_start', array("attr" => array("class" => "formulaireSelectionVersion")));
         echo "
         ";
-        // line 192
+        // line 218
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : null), 'errors');
         echo "
 
@@ -407,27 +457,27 @@ class __TwigTemplate_9f75fb3e2e5cebc68deecb60bfb6b5f282301b11c47db4f7f4643119f1d
                 <label for=\"rechercehSuivi\">Recherche</label>
                 <input placeholder=\"Ex : Ventes 2016\" type=\"text\" id=\"rechercehSuivi\"/>
                 ";
-        // line 201
+        // line 227
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : null), "Suivi", array()), 'errors');
         echo "
                 ";
-        // line 202
+        // line 228
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : null), "Suivi", array()), 'widget', array("attr" => array("class" => "selectFormulaireSelectionVersion", "size" => 15)));
         echo "
             </p>
 
             ";
-        // line 205
+        // line 231
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : null), "_token", array()), 'widget');
         echo "
 
             <p>
                 ";
-        // line 208
+        // line 234
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : null), "Editer", array()), 'widget', array("attr" => array("class" => "submitFormulaireSelectionVersion")));
         echo "
                 ";
-        // line 209
+        // line 235
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : null), "Supprimer", array()), 'widget', array("attr" => array("class" => "submitFormulaireSelectionVersion")));
         echo "
             </p>
@@ -435,7 +485,7 @@ class __TwigTemplate_9f75fb3e2e5cebc68deecb60bfb6b5f282301b11c47db4f7f4643119f1d
         </fieldset>
 
         ";
-        // line 214
+        // line 240
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formSelectionVersion"]) ? $context["formSelectionVersion"] : null), 'form_end');
         echo "
 
@@ -456,7 +506,7 @@ class __TwigTemplate_9f75fb3e2e5cebc68deecb60bfb6b5f282301b11c47db4f7f4643119f1d
 
     public function getDebugInfo()
     {
-        return array (  439 => 214,  431 => 209,  427 => 208,  421 => 205,  415 => 202,  411 => 201,  399 => 192,  395 => 191,  387 => 186,  380 => 182,  376 => 181,  372 => 180,  363 => 174,  359 => 173,  345 => 162,  337 => 157,  332 => 155,  325 => 151,  321 => 150,  317 => 149,  307 => 142,  303 => 141,  294 => 135,  286 => 130,  279 => 126,  274 => 124,  270 => 123,  266 => 122,  259 => 118,  254 => 116,  250 => 115,  246 => 114,  239 => 110,  235 => 109,  231 => 108,  221 => 101,  217 => 100,  204 => 90,  196 => 85,  191 => 83,  186 => 81,  182 => 80,  173 => 74,  169 => 73,  165 => 72,  157 => 67,  153 => 66,  139 => 55,  132 => 51,  127 => 49,  122 => 47,  118 => 46,  114 => 45,  105 => 39,  101 => 38,  92 => 32,  85 => 28,  80 => 26,  75 => 24,  71 => 23,  67 => 22,  58 => 16,  54 => 15,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  489 => 240,  481 => 235,  477 => 234,  471 => 231,  465 => 228,  461 => 227,  449 => 218,  445 => 217,  437 => 212,  430 => 208,  426 => 207,  422 => 206,  413 => 200,  409 => 199,  396 => 189,  388 => 184,  383 => 182,  376 => 178,  372 => 177,  368 => 176,  358 => 169,  354 => 168,  345 => 162,  337 => 157,  332 => 155,  325 => 151,  321 => 150,  317 => 149,  307 => 142,  303 => 141,  294 => 135,  286 => 130,  279 => 126,  274 => 124,  270 => 123,  266 => 122,  259 => 118,  254 => 116,  250 => 115,  246 => 114,  239 => 110,  235 => 109,  231 => 108,  221 => 101,  217 => 100,  204 => 90,  196 => 85,  191 => 83,  186 => 81,  182 => 80,  173 => 74,  169 => 73,  165 => 72,  157 => 67,  153 => 66,  139 => 55,  132 => 51,  127 => 49,  122 => 47,  118 => 46,  114 => 45,  105 => 39,  101 => 38,  92 => 32,  85 => 28,  80 => 26,  75 => 24,  71 => 23,  67 => 22,  58 => 16,  54 => 15,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -624,6 +674,32 @@ class __TwigTemplate_9f75fb3e2e5cebc68deecb60bfb6b5f282301b11c47db4f7f4643119f1d
 /* */
 /*     </div>*/
 /* */
+/*     <div class='DivFormulaireSelectionChamp'>*/
+/* */
+/*         {{ form_start(formSelectionChamp, {'attr': {'class': 'formulaireSelectionChamp'}}) }}*/
+/*         {{ form_errors(formSelectionChamp) }}*/
+/* */
+/*         <fieldset>*/
+/* */
+/*             <legend>Editer un champ de données</legend>       */
+/* */
+/*             <p>*/
+/*                 {{ form_label(formSelectionChamp.Champs, "Champ :", {'label_attr': {'class': 'labelFormulaireSelectionChamp'}}) }}*/
+/*                 {{ form_errors(formSelectionChamp.Champs) }}*/
+/*                 {{ form_widget(formSelectionChamp.Champs, {'attr': {'class': 'selectFormulaireSelectionChamp' }}) }}*/
+/*             </p>*/
+/* */
+/*             <p>*/
+/*                 {{ form_widget(formSelectionChamp._token) }} */
+/* */
+/*                 {{ form_widget(formSelectionChamp.Editer, {'attr': {'class': 'submitFormulaireSelectionChamp', 'class': 'boutonFormulaire' }}) }}*/
+/*             </p>*/
+/* */
+/*         </fieldset> */
+/* */
+/*         {{ form_end(formSelectionChamp) }}*/
+/* */
+/*     </div>*/
 /* */
 /*     <div class="sousMessageAcceuil">*/
 /*         <h4> Suivis : </h4>*/

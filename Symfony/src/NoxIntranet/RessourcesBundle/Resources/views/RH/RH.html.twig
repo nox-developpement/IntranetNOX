@@ -34,11 +34,11 @@
         </div>
 
         <div class="sousMessageAcceuil"> 
-            <a href='#'> <h4> Pointage </h4> </a>
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/Pointage', 'dossier': 'Pointage', 'config': 'pointage' }) }}'> <h4> Pointage </h4> </a>
         </div>
 
         <div class="sousMessageAcceuil"> 
-            <a href='#'> <h4> Note de frais </h4> </a>
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/NoteDeFrais', 'dossier': 'NoteDeFrais', 'config': 'noteDeFrais' }) }}'> <h4> Note de frais </h4> </a>
         </div>
 
     </div>
@@ -51,7 +51,7 @@
     <div id='sousMenuReglementationRH' class='menu'>
 
         <div class="sousMessageAcceuil"> 
-            <a href='#'> <h4> Convention collective </h4> </a>
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/ConventionCollective', 'dossier': 'Convention collective', 'config': 'conventionCollective' }) }}'> <h4> Convention collective </h4> </a>
         </div>
 
         <div class="sousMessageAcceuil"> 

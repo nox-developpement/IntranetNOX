@@ -23,44 +23,44 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_f0d72c771a9bfcc84a0c0f8ebaed5943aef7bf0a337a51802e58c0ca3ba51ce7 = $this->env->getExtension("native_profiler");
-        $__internal_f0d72c771a9bfcc84a0c0f8ebaed5943aef7bf0a337a51802e58c0ca3ba51ce7->enter($__internal_f0d72c771a9bfcc84a0c0f8ebaed5943aef7bf0a337a51802e58c0ca3ba51ce7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig"));
+        $__internal_88f4265182109c4044c9da8d8eec7b722170a0b897f504437320af8de577fab8 = $this->env->getExtension("native_profiler");
+        $__internal_88f4265182109c4044c9da8d8eec7b722170a0b897f504437320af8de577fab8->enter($__internal_88f4265182109c4044c9da8d8eec7b722170a0b897f504437320af8de577fab8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_f0d72c771a9bfcc84a0c0f8ebaed5943aef7bf0a337a51802e58c0ca3ba51ce7->leave($__internal_f0d72c771a9bfcc84a0c0f8ebaed5943aef7bf0a337a51802e58c0ca3ba51ce7_prof);
+        $__internal_88f4265182109c4044c9da8d8eec7b722170a0b897f504437320af8de577fab8->leave($__internal_88f4265182109c4044c9da8d8eec7b722170a0b897f504437320af8de577fab8_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_94e55f70b0a69420136e4ca08f82e32b3f877403b505eb60a3d10f2deee6a3fd = $this->env->getExtension("native_profiler");
-        $__internal_94e55f70b0a69420136e4ca08f82e32b3f877403b505eb60a3d10f2deee6a3fd->enter($__internal_94e55f70b0a69420136e4ca08f82e32b3f877403b505eb60a3d10f2deee6a3fd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_053b16d424da5c4edc4fcdec71b2a7f5f034a7d893c44e27244fee4dab19be2e = $this->env->getExtension("native_profiler");
+        $__internal_053b16d424da5c4edc4fcdec71b2a7f5f034a7d893c44e27244fee4dab19be2e->enter($__internal_053b16d424da5c4edc4fcdec71b2a7f5f034a7d893c44e27244fee4dab19be2e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Edition ";
         
-        $__internal_94e55f70b0a69420136e4ca08f82e32b3f877403b505eb60a3d10f2deee6a3fd->leave($__internal_94e55f70b0a69420136e4ca08f82e32b3f877403b505eb60a3d10f2deee6a3fd_prof);
+        $__internal_053b16d424da5c4edc4fcdec71b2a7f5f034a7d893c44e27244fee4dab19be2e->leave($__internal_053b16d424da5c4edc4fcdec71b2a7f5f034a7d893c44e27244fee4dab19be2e_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_982f6c1f29398d8880507678406abe511b56fad501a24c93070066f26cfd056f = $this->env->getExtension("native_profiler");
-        $__internal_982f6c1f29398d8880507678406abe511b56fad501a24c93070066f26cfd056f->enter($__internal_982f6c1f29398d8880507678406abe511b56fad501a24c93070066f26cfd056f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_9fc67303c1ce9c7d5463d7a6c57a10227e54aec08d53697766dd2e6fd9c6a786 = $this->env->getExtension("native_profiler");
+        $__internal_9fc67303c1ce9c7d5463d7a6c57a10227e54aec08d53697766dd2e6fd9c6a786->enter($__internal_9fc67303c1ce9c7d5463d7a6c57a10227e54aec08d53697766dd2e6fd9c6a786_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Administration assistant d'affaires";
         
-        $__internal_982f6c1f29398d8880507678406abe511b56fad501a24c93070066f26cfd056f->leave($__internal_982f6c1f29398d8880507678406abe511b56fad501a24c93070066f26cfd056f_prof);
+        $__internal_9fc67303c1ce9c7d5463d7a6c57a10227e54aec08d53697766dd2e6fd9c6a786->leave($__internal_9fc67303c1ce9c7d5463d7a6c57a10227e54aec08d53697766dd2e6fd9c6a786_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_2ec83c63415d1e98b345623fe43bc7e9229f5d478b5324fd87e4c53eff6fe896 = $this->env->getExtension("native_profiler");
-        $__internal_2ec83c63415d1e98b345623fe43bc7e9229f5d478b5324fd87e4c53eff6fe896->enter($__internal_2ec83c63415d1e98b345623fe43bc7e9229f5d478b5324fd87e4c53eff6fe896_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_93f83c710bf05538bd4fe94f6dba21f203dbfcd56c88588804778a87be3eb626 = $this->env->getExtension("native_profiler");
+        $__internal_93f83c710bf05538bd4fe94f6dba21f203dbfcd56c88588804778a87be3eb626->enter($__internal_93f83c710bf05538bd4fe94f6dba21f203dbfcd56c88588804778a87be3eb626_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -97,36 +97,21 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
 
                 ";
         // line 25
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : $this->getContext($context, "formPlacementChamp")), "CoordonneesLabel", array()), 'label', array("label_attr" => array("class" => "labelFormulairePlacementChamp"), "label" => "Coordonnees label :"));
-        echo "
-                ";
-        // line 26
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : $this->getContext($context, "formPlacementChamp")), "CoordonneesLabel", array()), 'errors');
-        echo "
-                ";
-        // line 27
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : $this->getContext($context, "formPlacementChamp")), "CoordonneesLabel", array()), 'widget', array("attr" => array("class" => "textFormulairePlacementChamp")));
-        echo "
-
-                <br />
-
-                ";
-        // line 31
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : $this->getContext($context, "formPlacementChamp")), "CoordonneesDonnees", array()), 'label', array("label_attr" => array("class" => "labelFormulairePlacementChamp"), "label" => "Coordonnees données :"));
         echo "
                 ";
-        // line 32
+        // line 26
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : $this->getContext($context, "formPlacementChamp")), "CoordonneesDonnees", array()), 'errors');
         echo "
                 ";
-        // line 33
+        // line 27
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : $this->getContext($context, "formPlacementChamp")), "CoordonneesDonnees", array()), 'widget', array("attr" => array("class" => "textFormulairePlacementChamp")));
         echo "
 
                 <br />
 
                 ";
-        // line 37
+        // line 31
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : $this->getContext($context, "formPlacementChamp")), "Placer", array()), 'widget', array("attr" => array("class" => "submitFormulairePlacementChamp", "class" => "boutonFormulaire")));
         echo "
             </p>
@@ -134,7 +119,7 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
         </fieldset> 
 
         ";
-        // line 42
+        // line 36
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formPlacementChamp"]) ? $context["formPlacementChamp"] : $this->getContext($context, "formPlacementChamp")), 'form_end');
         echo "
 
@@ -145,12 +130,12 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
         <!--
         <div>
             <p>";
-        // line 50
+        // line 44
         echo twig_escape_filter($this->env, (isset($context["filename"]) ? $context["filename"] : $this->getContext($context, "filename")), "html", null, true);
         echo "</p>
             <p> <button class=\"boutonFormulaire\" onclick=\"location.reload();\"> Annuler </button> <button class=\"boutonFormulaire\" onclick=\"exctractionTableau();
                     window.location.href = '";
-        // line 52
+        // line 46
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_administration_affaires_edition_sauvegarde", array("filename" => (isset($context["file"]) ? $context["file"] : $this->getContext($context, "file")))), "html", null, true);
         echo "';\"> Sauvegarder </button> </p>
         </div>
@@ -160,11 +145,11 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
             <tr>
                 <th></th>
                     ";
-        // line 59
+        // line 53
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable(range(twig_upper_filter($this->env, "a"), $this->getAttribute((isset($context["sheet"]) ? $context["sheet"] : $this->getContext($context, "sheet")), "getHighestColumn", array())));
         foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-            // line 60
+            // line 54
             echo "                    <th style='font-weight: bold'>";
             echo twig_escape_filter($this->env, $context["i"], "html", null, true);
             echo "</th>
@@ -173,7 +158,7 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 62
+        // line 56
         echo "
                 <!--
                 <th style='font-weight: bold' class=\"ajoutColonne\">+</th>
@@ -181,7 +166,7 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
             </tr>
 
             ";
-        // line 68
+        // line 62
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["sheet"]) ? $context["sheet"] : $this->getContext($context, "sheet")), "getRowIterator", array()));
         $context['loop'] = array(
@@ -201,16 +186,16 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
             echo " 
                 <tr>
                     <th style='font-weight: bold'>";
-            // line 70
+            // line 64
             echo twig_escape_filter($this->env, $this->getAttribute($context["loop"], "index", array()), "html", null, true);
             echo "</th>
 
                     ";
-            // line 72
+            // line 66
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["row"], "getCellIterator", array()));
             foreach ($context['_seq'] as $context["_key"] => $context["cell"]) {
-                // line 73
+                // line 67
                 echo "                        <td>";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["cell"], "getValue", array()), "html", null, true);
                 echo "</td>
@@ -219,7 +204,7 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['cell'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 75
+            // line 69
             echo "
                 </tr>
 
@@ -236,7 +221,7 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['row'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 79
+        // line 73
         echo "
             <!--
             <tr>
@@ -250,7 +235,7 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
 
 ";
         
-        $__internal_2ec83c63415d1e98b345623fe43bc7e9229f5d478b5324fd87e4c53eff6fe896->leave($__internal_2ec83c63415d1e98b345623fe43bc7e9229f5d478b5324fd87e4c53eff6fe896_prof);
+        $__internal_93f83c710bf05538bd4fe94f6dba21f203dbfcd56c88588804778a87be3eb626->leave($__internal_93f83c710bf05538bd4fe94f6dba21f203dbfcd56c88588804778a87be3eb626_prof);
 
     }
 
@@ -266,7 +251,7 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
 
     public function getDebugInfo()
     {
-        return array (  240 => 79,  223 => 75,  214 => 73,  210 => 72,  205 => 70,  185 => 68,  177 => 62,  168 => 60,  164 => 59,  154 => 52,  149 => 50,  138 => 42,  130 => 37,  123 => 33,  119 => 32,  115 => 31,  108 => 27,  104 => 26,  100 => 25,  93 => 21,  89 => 20,  85 => 19,  75 => 12,  71 => 11,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
+        return array (  225 => 73,  208 => 69,  199 => 67,  195 => 66,  190 => 64,  170 => 62,  162 => 56,  153 => 54,  149 => 53,  139 => 46,  134 => 44,  123 => 36,  115 => 31,  108 => 27,  104 => 26,  100 => 25,  93 => 21,  89 => 20,  85 => 19,  75 => 12,  71 => 11,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -290,12 +275,6 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
 /*                 {{ form_label(formPlacementChamp.IdChamp, "Nom :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}*/
 /*                 {{ form_errors(formPlacementChamp.IdChamp) }}*/
 /*                 {{ form_widget(formPlacementChamp.IdChamp, {'attr': {'class': 'texteFormulairePlacementChamp' }}) }} */
-/* */
-/*                 <br />*/
-/* */
-/*                 {{ form_label(formPlacementChamp.CoordonneesLabel, "Coordonnees label :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}*/
-/*                 {{ form_errors(formPlacementChamp.CoordonneesLabel) }}*/
-/*                 {{ form_widget(formPlacementChamp.CoordonneesLabel, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}*/
 /* */
 /*                 <br />*/
 /* */

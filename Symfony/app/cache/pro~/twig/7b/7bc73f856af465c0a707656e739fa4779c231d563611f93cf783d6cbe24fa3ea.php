@@ -58,7 +58,7 @@ class __TwigTemplate_3cdde2b6484ed697866959d9563e06e771c658dc23eabca5212f947c42a
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
         // line 17
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "CERTIFICATSISOETOPQIBI/EQUIPEQSE", "dossier" => "Equipe QSE", "config" => "equipeQSE")), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "INFOSQSE/EQUIPEQSE", "dossier" => "Equipe QSE", "config" => "equipeQSE")), "html", null, true);
         echo "'> <h4> Equipe QSE </h4> </a>
         </div>
 
@@ -72,7 +72,7 @@ class __TwigTemplate_3cdde2b6484ed697866959d9563e06e771c658dc23eabca5212f947c42a
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
         // line 25
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "CERTIFICATSISOETOPQIBI/EVENEMENTS", "dossier" => "Evénements", "config" => "evenements")), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "INFOSQSE/EVENEMENTS", "dossier" => "Evénements", "config" => "evenements")), "html", null, true);
         echo "'> <h4> Evénements </h4> </a>
         </div>
     </div>
@@ -195,7 +195,7 @@ class __TwigTemplate_3cdde2b6484ed697866959d9563e06e771c658dc23eabca5212f947c42a
 /* */
 /*     <div id="sousMenuInfoQSE" class="menu">*/
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/EQUIPEQSE', 'dossier': 'Equipe QSE', 'config': 'equipeQSE' }) }}'> <h4> Equipe QSE </h4> </a>*/
+/*             <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'INFOSQSE/EQUIPEQSE', 'dossier': 'Equipe QSE', 'config': 'equipeQSE' }) }}'> <h4> Equipe QSE </h4> </a>*/
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
@@ -203,7 +203,7 @@ class __TwigTemplate_3cdde2b6484ed697866959d9563e06e771c658dc23eabca5212f947c42a
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/EVENEMENTS', 'dossier': 'Evénements', 'config': 'evenements' }) }}'> <h4> Evénements </h4> </a>*/
+/*             <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'INFOSQSE/EVENEMENTS', 'dossier': 'Evénements', 'config': 'evenements' }) }}'> <h4> Evénements </h4> </a>*/
 /*         </div>*/
 /*     </div>*/
 /* */

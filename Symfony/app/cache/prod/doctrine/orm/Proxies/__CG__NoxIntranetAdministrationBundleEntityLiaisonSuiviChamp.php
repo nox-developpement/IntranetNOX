@@ -64,10 +64,10 @@ class LiaisonSuiviChamp extends \NoxIntranet\AdministrationBundle\Entity\Liaison
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'idSuivi', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'idChamp', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'coordonneesLabel', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'coordonneesDonnees'];
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'idSuivi', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'idChamp', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'coordonneesDonnees'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'idSuivi', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'idChamp', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'coordonneesLabel', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'coordonneesDonnees'];
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'idSuivi', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'idChamp', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\LiaisonSuiviChamp' . "\0" . 'coordonneesDonnees'];
     }
 
     /**
@@ -230,28 +230,6 @@ class LiaisonSuiviChamp extends \NoxIntranet\AdministrationBundle\Entity\Liaison
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIdSuivi', []);
 
         return parent::getIdSuivi();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setCoordonneesLabel($coordonneesLabel)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCoordonneesLabel', [$coordonneesLabel]);
-
-        return parent::setCoordonneesLabel($coordonneesLabel);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCoordonneesLabel()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCoordonneesLabel', []);
-
-        return parent::getCoordonneesLabel();
     }
 
     /**

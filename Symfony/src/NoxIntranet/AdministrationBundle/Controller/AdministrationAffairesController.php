@@ -13,6 +13,7 @@ use NoxIntranet\RessourcesBundle\Entity\Profils;
 use NoxIntranet\AdministrationBundle\Entity\Fichier_Suivi;
 use NoxIntranet\AdministrationBundle\Entity\Formulaires;
 use NoxIntranet\AdministrationBundle\Entity\LiaisonSuiviChamp;
+use NoxIntranet\AdministrationBundle\Entity\DonneesFormulaire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
@@ -125,7 +126,6 @@ class AdministrationAffairesController extends Controller {
                         'Texte' => 'Texte',
                         'Nombre' => 'Nombre',
                         'Données' => 'Données',
-                        'Calcule' => 'Calcule'
                     ),
                 ))
                 ->add('Profil', EntityType::class, array(
@@ -165,9 +165,23 @@ class AdministrationAffairesController extends Controller {
                     ))
                     ->getForm();
         }
-
-
         ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Génération du formulaire de séléction de champ
+        $formSelectionChamp = $this->get('form.factory')->createNamedBuilder('formSelectionChamp', 'form')
+                ->add('Champs', EntityType::class, array(
+                    'class' => 'NoxIntranetAdministrationBundle:Formulaires',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                                ->where("u.type = 'Données'")
+                                ->orderBy('u.nom', 'ASC');
+                    },
+                    'choice_label' => function($value) {
+                        return $value->getNom() . " - " . $value->getType() . ' - ' . $value->getProfil();
+                    }
+                ))
+                ->add('Editer', SubmitType::class)
+                ->getForm();
+        //////////////////////////////////////////////////////////////////////////////////////////////// 
         // Génération formulaire de séléction du suivi  
         $profilActuel = $em->getRepository('NoxIntranetRessourcesBundle:Profils')->findOneByNom($profil);
 
@@ -453,12 +467,20 @@ class AdministrationAffairesController extends Controller {
             }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Traitement du formulaire de séléction du champ
+        if ($request->request->has('formSelectionChamp')) {
+            $formSelectionChamp->handleRequest($request);
+
+            if ($formSelectionChamp->isValid()) {
+                return $this->redirectToRoute('nox_intranet_administration_affaires_edition_champ', array('IdChamp' => $formSelectionChamp['Champs']->getData()->getId()));
+            }
+        }
         // Génération de l'affichage
         return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig', array(
                     'formAjoutProfil' => $formAjoutProfil->createView(), 'profils' => $profils, 'formSuppresionProfil' => $formSuppresionProfil->createView(),
                     'formAjoutFichier' => $formAjoutFichier->createView(), 'formSelectionDossier' => $formSelectionDossier->createView(),
                     'formSelectionVersion' => $formSelectionVersion->createView(), 'formAjoutChamp' => $formAjoutChamp->createView(),
-                    'formSuppressionChamp' => $formSuppressionChamp->createView()
+                    'formSuppressionChamp' => $formSuppressionChamp->createView(), 'formSelectionChamp' => $formSelectionChamp->createView()
         ));
         ////////////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -491,7 +513,6 @@ class AdministrationAffairesController extends Controller {
                                 ->orderBy('u.nom', 'ASC');
                     },
                 ))
-                ->add('CoordonneesLabel', TextType::class)
                 ->add('CoordonneesDonnees', TextType::class)
                 ->add('Placer', SubmitType::class)
                 ->getForm();
@@ -507,7 +528,6 @@ class AdministrationAffairesController extends Controller {
                 if ($liaisonsSuivi != null) {
                     foreach ($liaisonsSuivi as $liaisonSuivi) {
                         if ($liaisonSuivi->getIdChamp() === $formPlacementChamp['IdChamp']->getData()->getId()) {
-                            $anciennePositionLabel = $liaisonSuivi->getCoordonneesLabel();
                             $anciennePositionDonnees = $liaisonSuivi->getCoordonneesDonnees();
                             $em->remove($liaisonSuivi);
                         }
@@ -515,28 +535,37 @@ class AdministrationAffairesController extends Controller {
                     $em->flush();
                 }
 
+                $liaisonPositionIdentique = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findOneBy(array('idSuivi' => $suivi->getId(), 'coordonneesDonnees' => $formPlacementChamp['CoordonneesDonnees']->getData()));
+
+                var_dump($liaisonPositionIdentique);
+
+                if (!empty($liaisonPositionIdentique)) {
+                    $sheet->setCellValue($liaisonPositionIdentique->getCoordonneesDonnees(), null);
+                    $em->remove($liaisonPositionIdentique);
+                    $em->flush();
+
+                    $request->getSession()->getFlashBag()->add('notice', 'Le champ précédemment situé à la position (' . $liaisonPositionIdentique->getCoordonneesDonnees() . ') a été supprimé.');
+                }
+
                 $newLiaisonSuiviChamp->setIdSuivi($suivi->getId());
                 $newLiaisonSuiviChamp->setIdChamp($formPlacementChamp['IdChamp']->getData()->getId());
-                $newLiaisonSuiviChamp->setCoordonneesLabel($formPlacementChamp['CoordonneesLabel']->getData());
                 $newLiaisonSuiviChamp->setCoordonneesDonnees($formPlacementChamp['CoordonneesDonnees']->getData());
                 $em->persist($newLiaisonSuiviChamp);
                 $em->flush();
 
-                if (isset($anciennePositionLabel) && isset($anciennePositionDonnees)) {
-                    $sheet->getCell($anciennePositionLabel)->setValue(null);
+                if (isset($anciennePositionDonnees)) {
                     $sheet->getCell($anciennePositionDonnees)->setValue(null);
                     $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $formPlacementChamp['IdChamp']->getData()->getNom() .
-                            ' a été ajouté à la position (' . $formPlacementChamp['CoordonneesLabel']->getData() .
-                            ") et ses données à la position (" . $formPlacementChamp['CoordonneesDonnees']->getData() . "), il remplace le champ " . $formPlacementChamp['IdChamp']->getData()->getNom() . " précédent.");
+                            ' a été ajouté à la position (' . $formPlacementChamp['CoordonneesDonnees']->getData() . "), il remplace le champ " . $formPlacementChamp['IdChamp']->getData()->getNom() . " précédent.");
                 } else {
                     $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $formPlacementChamp['IdChamp']->getData()->getNom() .
-                            ' a été ajouté à la position (' . $formPlacementChamp['CoordonneesLabel']->getData() .
-                            ") et ses données à la position (" . $formPlacementChamp['CoordonneesDonnees']->getData() . ").");
+                            ' a été ajouté à la position (' . $formPlacementChamp['CoordonneesDonnees']->getData() . ").");
                 }
 
-                $sheet->setCellValue($formPlacementChamp['CoordonneesLabel']->getData(), $formPlacementChamp['IdChamp']->getData()->getNom());
                 $sheet->setCellValue($formPlacementChamp['CoordonneesDonnees']->getData(), 'Données: ' . $formPlacementChamp['IdChamp']->getData()->getNom());
                 $writer->save($file);
+
+                return $this->redirectToRoute('nox_intranet_administration_affaires_edition', array('profil' => $profil, 'file' => $file));
             }
         }
 
@@ -601,6 +630,74 @@ class AdministrationAffairesController extends Controller {
 
             return $this->redirectToRoute('nox_intranet_administration_affaires_edition', array('filename' => $filename));
         }
+    }
+
+    public function administrationAffairesEditionChampAction(Request $request, $IdChamp) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $champ = $em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->find($IdChamp);
+
+        $formAjoutDonnee = $this->get('form.factory')->createNamedBuilder('formAjoutDonnee', 'form')
+                ->add('Donnee', TextType::class)
+                ->add('Ajouter', SubmitType::class)
+                ->getForm();
+
+        $formSuppressionDonnee = $this->get('form.factory')->createNamedBuilder('formSuppressionDonnee', 'form')
+                ->add('Donnees', EntityType::class, array(
+                    'class' => 'NoxIntranetAdministrationBundle:DonneesFormulaire',
+                    'choice_label' => 'Donnee',
+                    'query_builder' => function (EntityRepository $er) use ($IdChamp) {
+                        return $er->createQueryBuilder('u')
+                                ->where("u.idFormulaire = '" . $IdChamp . "'")
+                                ->orderBy('u.donnee', 'ASC');
+                    },
+                ))
+                ->add('Supprimer', SubmitType::class)
+                ->getForm();
+
+        if ($request->request->has('formAjoutDonnee')) {
+            $formAjoutDonnee->handleRequest($request);
+
+            if ($formAjoutDonnee->isValid()) {
+                $newDonnee = new DonneesFormulaire();
+
+                $donnéesExistantes = $em->getRepository('NoxIntranetAdministrationBundle:DonneesFormulaire')->findByIdFormulaire($IdChamp);
+
+                if ($donnéesExistantes !== null) {
+                    foreach ($donnéesExistantes as $donnéeExistante) {
+                        if ($donnéeExistante->getDonnee() === $formAjoutDonnee['Donnee']->getData()) {
+                            $request->getSession()->getFlashBag()->add('noticeErreur', 'La donnée ' . $formAjoutDonnee['Donnee']->getData() . ' existe déjà pour ce champ.');
+
+                            return $this->redirectToRoute('nox_intranet_administration_affaires_edition_champ', array('IdChamp' => $IdChamp));
+                        }
+                    }
+                }
+
+                $newDonnee->setIdFormulaire($IdChamp);
+                $newDonnee->setDonnee($formAjoutDonnee['Donnee']->getData());
+
+                $em->persist($newDonnee);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'La donnée ' . $formAjoutDonnee['Donnee']->getData() . ' a été ajouter au champ.');
+
+                return $this->redirectToRoute('nox_intranet_administration_affaires_edition_champ', array('IdChamp' => $IdChamp));
+            }
+        }
+
+        if ($request->request->has('formSuppressionDonnee')) {
+            $formSuppressionDonnee->handleRequest($request);
+
+            if ($formSuppressionDonnee->isValid()) {
+                $em->remove($formSuppressionDonnee['Donnees']->getData());
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'La donnée ' . $formSuppressionDonnee['Donnees']->getData()->getDonnee() . ' a été supprimé');
+            }
+        }
+
+        return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaireseditionchamp.html.twig', array('formAjoutDonnee' => $formAjoutDonnee->createView(), 'formSuppressionDonnee' => $formSuppressionDonnee->createView(), 'champ' => $champ->getNom()));
     }
 
 }

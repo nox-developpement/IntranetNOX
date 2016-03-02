@@ -8,46 +8,48 @@
 
     <div id='DivFormulaireSelectionAgence'>
 
-        {{ form_start(formAgence, {'attr': {'class': 'formulaireSelectionAgence'}}) }}
-        {{ form_errors(formAgence) }}
+        {{ form_start(formSelectionAgence, {'attr': {'class': 'formulaireSelectionAgence'}}) }}
+        {{ form_errors(formSelectionAgence) }}
 
         <fieldset>
 
             <legend><span>Agence</legend>
 
-            {{ form_label(formAgence.Agences, "Selection de l'agence :", {'label_attr': {'class': 'labelFormulaireSelectionAgence'}}) }}
-            {{ form_errors(formAgence.Agences) }}
-            {{ form_widget(formAgence.Agences, {'attr': {'class': 'selectFormulaireSelectionAgence'}}) }}
+            {{ form_label(formSelectionAgence.Agences, "Selection de l'agence :", {'label_attr': {'class': 'labelFormulaireSelectionAgence'}}) }}
+            {{ form_errors(formSelectionAgence.Agences) }}
+            {{ form_widget(formSelectionAgence.Agences, {'attr': {'class': 'selectFormulaireSelectionAgence'}}) }}
 
         </fieldset>
 
-        {{ form_end(formAgence) }}
+        {{ form_end(formSelectionAgence) }}
 
     </div>
 
 
     <div id='DivFormulaireParcourSuiviEnCours'>
-        {{ form_start(form, {'attr': {'class': 'formulaireParcourSuiviEnCours'}}) }}
-        {{ form_errors(form) }}
+        {{ form_start(formSelectionSuivi, {'attr': {'class': 'formulaireParcourSuiviEnCours'}}) }}
+        {{ form_errors(formSelectionSuivi) }}
 
         <fieldset>
 
             <legend>Selection du suivi</legend>
 
             <p>
-                {{ form_errors(form.Suivi) }}
-                {{ form_widget(form.Suivi, {'attr': {'class': 'selectFormulaireAdministrationAjoutProfil', 'size': 15}}) }}
+                <label for="rechercehSuivi">Recherche</label>
+                <input placeholder="Ex : Ventes 2016" type="text" id="rechercehSuivi"/>
+                {{ form_errors(formSelectionSuivi.Suivi) }}
+                {{ form_widget(formSelectionSuivi.Suivi, {'attr': {'class': 'selectFormulaireAdministrationAjoutProfil', 'size': 15}}) }}
             </p>
 
-            {{ form_widget(form._token) }}
+            {{ form_widget(formSelectionSuivi._token) }}
 
             <p>
-                {{ form_widget(form.Consulter, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}
+                {{ form_widget(formSelectionSuivi.Consulter, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}
             </p>
 
         </fieldset>
 
-        {{ form_end(form) }}
+        {{ form_end(formSelectionSuivi) }}
 
     </div>
 
