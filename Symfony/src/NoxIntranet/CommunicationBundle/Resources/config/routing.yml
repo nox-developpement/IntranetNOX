@@ -42,3 +42,17 @@ nox_intranet_affichageContenu:
     defaults: { _controller: NoxIntranetCommunicationBundle:Communication:affichageContenu }
     requirements:
          chemin: .+
+         
+nox_intranet_affichageImages:
+    path:   /communication/images/{dossier}/{config}/{chemin}
+    defaults: { _controller: NoxIntranetCommunicationBundle:Communication:affichageImages }
+    requirements:
+         chemin: .+
+         
+#nox_intranet_downloadImages:
+#    path:   /communication/images-download/{image}
+#    defaults: { _controller: NoxIntranetCommunicationBundle:Communication:downloadImages }
+#    requirements:
+#         chemin: .+
+#    options:
+#        expose: true

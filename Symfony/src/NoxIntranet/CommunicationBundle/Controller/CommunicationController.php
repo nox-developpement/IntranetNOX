@@ -203,52 +203,6 @@ class CommunicationController extends Controller {
     }
 
     function affichageContenuAction($chemin, $dossier, $config) {
-//        $parser = new \Smalot\PdfParser\Parser();
-//
-//        $Path = 'C:/wamp/www/Symfony/web/uploads/Communication/' . $chemin;
-//
-//        $files = $this->getDirContents($Path);
-//
-//        $news = null;
-//
-//        if ($files != null) {
-//            foreach ($files as $file) {
-//                if (!is_dir($file)) {
-//                    $propriete = null;
-//
-//                    $pdf = $parser->parseFile($file);
-//                    $details = $pdf->getDetails();
-//
-//                    foreach ($details as $property => $value) {
-//
-//                        if (is_array($value)) {
-//                            $value = implode(', ', $value);
-//                        }
-//
-//                        $propriete[] = array('label' => $property, 'valeur' => $value);
-//                    }
-//
-//                    $dateModification = date("Y/m/d H:i:s", filemtime($file));
-//                    $nom = str_replace('.pdf', '', basename($file));
-//                    $lien = str_replace("C:\wamp\www", '', $file);
-//                    $lien = str_replace("\\", "/", $lien);
-//                    $news[] = array('lien' => $lien, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
-//                }
-//            }
-//
-//            foreach ($news as $k => $v) {
-//                $date[$k] = $v['dateEnvoi'];
-//            }
-//
-//            array_multisort($date, SORT_DESC, $news);
-//        }
-//
-//        if ($news != null) {
-//            foreach ($news as $key => $value) {
-//                $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
-//            }
-//        }
-
         $news = $this->getPDF("C:/wamp/www/Symfony/web/uploads/Communication/" . $chemin);
 
         return $this->render('NoxIntranetCommunicationBundle:Accueil:affichageContenu.html.twig', array('news' => $news, 'dossier' => $dossier, 'config' => $config));
@@ -280,6 +234,32 @@ class CommunicationController extends Controller {
             }
         }
         return $listePDF;
+    }
+
+    function affichageImagesAction($chemin, $dossier, $config) {
+        $imagesChemin = $this->getDirContents("C:/wamp/www/Symfony/web/uploads/Communication/" . $chemin);
+
+        if (!empty($imagesChemin)) {
+            foreach ($imagesChemin as $image) {
+                $images[] = "uploads/Communication/" . $chemin . "/" . pathinfo($image, PATHINFO_BASENAME);
+            }
+        } else {
+            $images = null;
+        }
+
+        return $this->render('NoxIntranetCommunicationBundle:Accueil:affichageImage.html.twig', array('images' => $images, 'dossier' => $dossier, 'config' => $config));
+    }
+
+    function downloadImageAction($image) {
+
+        $chemin = "C:/wamp/www/Symfony/web";
+
+        $response = new Response();
+        $response->setContent(file_get_contents($chemin . $image));
+        $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); // modification du content-type pour forcer le téléchargement (sinon le navigateur internet essaie d'afficher le document)
+        $response->headers->set('Content-disposition', 'filename=' . $fichier);
+
+        return $response;
     }
 
 }

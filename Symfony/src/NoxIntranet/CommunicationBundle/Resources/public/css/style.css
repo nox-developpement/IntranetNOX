@@ -2309,3 +2309,14 @@ divAdministrationUtilisateur {
     margin-bottom: 5%;
     text-align: center;
 }
+
+#divAffichageImages {
+    width: 70%;
+    margin: auto;
+    text-align: center;
+}
+
+#divAffichageImages img {
+    max-width: 100%;
+    cursor: url("../images/Plus-32.png"), auto;
+}

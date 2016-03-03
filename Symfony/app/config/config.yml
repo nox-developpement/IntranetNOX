@@ -93,7 +93,7 @@ fm_elfinder:
                         driver:           LocalFileSystem
                         path:             uploads/ImagesPublication
                         upload_allow:     ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         archives:
             locale:           %locale%
             editor:           ckeditor
@@ -107,7 +107,7 @@ fm_elfinder:
                         path:             uploads/Archives
                         upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         competences:
             locale:           %locale%
             editor:           ckeditor
@@ -121,7 +121,7 @@ fm_elfinder:
                         path:             uploads/Competences
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         newsSI:
             locale:           %locale%
             editor:           ckeditor
@@ -135,7 +135,7 @@ fm_elfinder:
                         path:             uploads/Communication/SI/NewsSI
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         noxNews:
             locale:           %locale%
             editor:           ckeditor
@@ -149,7 +149,7 @@ fm_elfinder:
                         path:             uploads/Communication/Interne/NoxNews
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         noxLetters:
             locale:           %locale%
             editor:           ckeditor
@@ -163,7 +163,7 @@ fm_elfinder:
                         path:             uploads/Communication/Externe/NoxLetters
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         references:
             locale:           %locale%
             editor:           ckeditor
@@ -191,7 +191,7 @@ fm_elfinder:
                         path:             uploads/Communication/Externe/Supports/PlaquettesInstitutionnelle
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         presentationPowerPoint:
             locale:           %locale%
             editor:           ckeditor
@@ -205,7 +205,7 @@ fm_elfinder:
                         path:             uploads/Communication/Externe/Supports/PresentationPowerpoint
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         fichesMetier:
             locale:           %locale%
             editor:           ckeditor
@@ -219,7 +219,7 @@ fm_elfinder:
                         path:             uploads/Communication/Externe/Supports/FichesMetier
                         upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         dossierTypeAppelOffre:
             locale:           %locale%
             editor:           ckeditor
@@ -233,7 +233,7 @@ fm_elfinder:
                         path:             uploads/Communication/Externe/Supports/DossierTypeAppelOffre
                         upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         CVType:
             locale:           %locale%
             editor:           ckeditor
@@ -247,7 +247,7 @@ fm_elfinder:
                         path:             uploads/Communication/Externe/Supports/CVType
                         upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         courriersType:
             locale:           %locale%
             editor:           ckeditor
@@ -261,7 +261,7 @@ fm_elfinder:
                         path:             uploads/Communication/Externe/Supports/CourriersType
                         upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         papierEntete:
             locale:           %locale%
             editor:           ckeditor
@@ -275,7 +275,7 @@ fm_elfinder:
                         path:             uploads/Communication/Externe/Supports/PapierEntete
                         upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         noxDansLaPresse:
             locale:           %locale%
             editor:           ckeditor
@@ -289,7 +289,7 @@ fm_elfinder:
                         path:             uploads/Communication/Externe/NoxDansLaPresse
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         logoNox:
             locale:           %locale%
             editor:           ckeditor
@@ -303,7 +303,7 @@ fm_elfinder:
                         path:             uploads/Communication/Externe/BanqueImages/LogoNox
                         upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         cellesDuSiteInternet:
             locale:           %locale%
             editor:           ckeditor
@@ -317,7 +317,7 @@ fm_elfinder:
                         path:             uploads/Communication/Externe/BanqueImages/CellesDuSiteInternet
                         upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         cellesDesSupports:
             locale:           %locale%
             editor:           ckeditor
@@ -331,7 +331,7 @@ fm_elfinder:
                         path:             uploads/Communication/Externe/BanqueImages/CellesDesSupports
                         upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         trombinoscope:
             locale:           %locale%
             editor:           ckeditor
@@ -345,7 +345,7 @@ fm_elfinder:
                         path:             uploads/Communication/Interne/Trombinoscope
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  1000M
+                        upload_max_size:  10M
         organigrammeStrategique:
             locale:           %locale%
             editor:           ckeditor
@@ -359,7 +359,7 @@ fm_elfinder:
                         path:             uploads/Communication/Interne/Organigrammes/OrganigrammeStrategique
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         organigrammeFonctionnel:
             locale:           %locale%
             editor:           ckeditor
@@ -373,7 +373,7 @@ fm_elfinder:
                         path:             uploads/Communication/Interne/Organigrammes/OrganigrammeFonctionnel
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         organigrammeAgence:
             locale:           %locale%
             editor:           ckeditor
@@ -387,7 +387,7 @@ fm_elfinder:
                         path:             uploads/Communication/Interne/Organigrammes/OrganigrammeAgence
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         annuaireAgences:
             locale:           %locale%
             editor:           ckeditor
@@ -401,7 +401,7 @@ fm_elfinder:
                         path:             uploads/Communication/Interne/AnnuaireAgences
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         CE:
             locale:           %locale%
             editor:           ckeditor
@@ -415,7 +415,7 @@ fm_elfinder:
                         path:             uploads/Communication/Interne/CE
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         CHSCT:
             locale:           %locale%
             editor:           ckeditor
@@ -429,7 +429,7 @@ fm_elfinder:
                         path:             uploads/Communication/Interne/CHSCT
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         mailingInterne:
             locale:           %locale%
             editor:           ckeditor
@@ -443,7 +443,7 @@ fm_elfinder:
                         path:             uploads/Communication/Interne/MailingInterne
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         noxALaConquete:
             locale:           %locale%
             editor:           ckeditor
@@ -455,9 +455,9 @@ fm_elfinder:
                     uploads:
                         driver:           LocalFileSystem
                         path:             uploads/Communication/Marketing/NoxALaConquete
-                        upload_allow:     ['application/pdf']
+                        upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         ilYAForcementPlusSimple:
             locale:           %locale%
             editor:           ckeditor
@@ -469,9 +469,9 @@ fm_elfinder:
                     uploads:
                         driver:           LocalFileSystem
                         path:             uploads/Communication/Marketing/IlYAForcementPlusSimple
-                        upload_allow:     ['application/pdf']
+                        upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         noxFournisseurDeTalents:
             locale:           %locale%
             editor:           ckeditor
@@ -483,9 +483,9 @@ fm_elfinder:
                     uploads:
                         driver:           LocalFileSystem
                         path:             uploads/Communication/Marketing/NoxFournisseurDeTalents
-                        upload_allow:     ['application/pdf']
+                        upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         nos5Valeurs:
             locale:           %locale%
             editor:           ckeditor
@@ -497,9 +497,9 @@ fm_elfinder:
                     uploads:
                         driver:           LocalFileSystem
                         path:             uploads/Communication/Marketing/Nos5Valeurs
-                        upload_allow:     ['application/pdf']
+                        upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         ISO9001:
             locale:           %locale%
             editor:           ckeditor
@@ -513,7 +513,7 @@ fm_elfinder:
                         path:             uploads/AQ/CERTIFICATSISOETOPQIBI/ISO9001
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         ISO14001&18001:
             locale:           %locale%
             editor:           ckeditor
@@ -527,7 +527,7 @@ fm_elfinder:
                         path:             uploads/AQ/CERTIFICATSISOETOPQIBI/ISO14001&18001
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         OPQIBI:
             locale:           %locale%
             editor:           ckeditor
@@ -541,7 +541,7 @@ fm_elfinder:
                         path:             uploads/AQ/CERTIFICATSISOETOPQIBI/OPQIBI
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         manuelQualite:
             locale:           %locale%
             editor:           ckeditor
@@ -555,7 +555,7 @@ fm_elfinder:
                         path:             uploads/AQ/DOCUMENTQSE/MANUELQUALITE
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         procedures:
             locale:           %locale%
             editor:           ckeditor
@@ -569,7 +569,7 @@ fm_elfinder:
                         path:             uploads/AQ/DOCUMENTQSE/PROCEDURES
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         modesOperatoires:
             locale:           %locale%
             editor:           ckeditor
@@ -583,7 +583,7 @@ fm_elfinder:
                         path:             uploads/AQ/DOCUMENTQSE/MODESOPERATOIRES
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         formulairesEtDocumentsTypes:
             locale:           %locale%
             editor:           ckeditor
@@ -597,7 +597,7 @@ fm_elfinder:
                         path:             uploads/AQ/DOCUMENTQSE/FORMULAIRESETDOCUMENTSTYPES
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M       
+                        upload_max_size:  10M       
         indicateurs:
             locale:           %locale%
             editor:           ckeditor
@@ -611,7 +611,7 @@ fm_elfinder:
                         path:             uploads/AQ/DOCUMENTQSE/INDICATEURS
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M      
+                        upload_max_size:  10M      
         equipeQSE:
             locale:           %locale%
             editor:           ckeditor
@@ -625,7 +625,7 @@ fm_elfinder:
                         path:             uploads/AQ/INFOSQSE/EQUIPEQSE
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M     
+                        upload_max_size:  10M     
         citations:
             locale:           %locale%
             editor:           ckeditor
@@ -639,7 +639,7 @@ fm_elfinder:
                         path:             uploads/AQ/CERTIFICATSISOETOPQIBI/CITATIONS
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M    
+                        upload_max_size:  10M    
         evenements:
             locale:           %locale%
             editor:           ckeditor
@@ -653,7 +653,7 @@ fm_elfinder:
                         path:             uploads/AQ/INFOSQSE/EVENEMENTS
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M   
+                        upload_max_size:  10M   
         feuillesSuivis:
             locale:           %locale%
             editor:           ckeditor
@@ -667,7 +667,7 @@ fm_elfinder:
                         path:             uploads/AssistantAffaires/FeuillesSuivis
                         upload_allow:     ['application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
                         upload_deny:      ['all']
-                        upload_max_size:  5M   
+                        upload_max_size:  10M   
         notePersonnel:
             locale:           %locale%
             editor:           ckeditor
@@ -681,7 +681,7 @@ fm_elfinder:
                         path:             uploads/Communication/Interne/VieDeLentreprise/NotePersonnel
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M   
+                        upload_max_size:  10M   
         organigrammesSocietes:
             locale:           %locale%
             editor:           ckeditor
@@ -695,7 +695,7 @@ fm_elfinder:
                         path:             uploads/Communication/Interne/VieDeLentreprise/OrganigrammesSocietes
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M   
+                        upload_max_size:  10M   
         organigrammesHierarchique:
             locale:           %locale%
             editor:           ckeditor
@@ -709,7 +709,7 @@ fm_elfinder:
                         path:             uploads/Communication/Interne/VieDeLentreprise/OrganigrammesHierarchique
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         livretAccueil:
             locale:           %locale%
             editor:           ckeditor
@@ -723,7 +723,7 @@ fm_elfinder:
                         path:             uploads/RH/RHQuotidien/LivretAccueil
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M     
+                        upload_max_size:  10M     
         formulaireCP:
             locale:           %locale%
             editor:           ckeditor
@@ -737,7 +737,7 @@ fm_elfinder:
                         path:             uploads/RH/RHQuotidien/FormulaireCP
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M    
+                        upload_max_size:  10M    
         processLogement:
             locale:           %locale%
             editor:           ckeditor
@@ -751,7 +751,7 @@ fm_elfinder:
                         path:             uploads/RH/RHQuotidien/ProcessLogement
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M  
+                        upload_max_size:  10M  
         pointage:
             locale:           %locale%
             editor:           ckeditor
@@ -765,7 +765,7 @@ fm_elfinder:
                         path:             uploads/RH/RHQuotidien/Pointage
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M  
+                        upload_max_size:  10M  
         noteDeFrais:
             locale:           %locale%
             editor:           ckeditor
@@ -779,7 +779,7 @@ fm_elfinder:
                         path:             uploads/RH/RHQuotidien/NoteDeFrais
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M  
+                        upload_max_size:  10M  
         conventionCollective:
             locale:           %locale%
             editor:           ckeditor
@@ -793,7 +793,7 @@ fm_elfinder:
                         path:             uploads/RH/ReglementationRH/ConventionCollective
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M  
+                        upload_max_size:  10M  
         reglementInterieur:
             locale:           %locale%
             editor:           ckeditor
@@ -807,7 +807,7 @@ fm_elfinder:
                         path:             uploads/RH/ReglementationRH/ReglementInterieur
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M  
+                        upload_max_size:  10M  
         ACCORDS:
             locale:           %locale%
             editor:           ckeditor
@@ -821,7 +821,7 @@ fm_elfinder:
                         path:             uploads/RH/ReglementationRH/ACCORDS
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M  
+                        upload_max_size:  10M  
         notesTypePolitiqueDeplacement:
             locale:           %locale%
             editor:           ckeditor
@@ -835,7 +835,7 @@ fm_elfinder:
                         path:             uploads/RH/ReglementationRH/NotesTypePolitiqueDeplacement
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M  
+                        upload_max_size:  10M  
         plaquettesInstitutionnelleLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -851,7 +851,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         presentationPowerPointLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -867,7 +867,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         fichesMetierLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -883,7 +883,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         dossierTypeAppelOffreLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -899,7 +899,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         CVTypeLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -915,7 +915,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         courriersTypeLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -931,7 +931,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         papierEnteteLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -947,7 +947,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         noxDansLaPresseLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -963,7 +963,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         logoNoxLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -979,7 +979,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         cellesDuSiteInternetLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -995,7 +995,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         cellesDesSupportsLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1011,7 +1011,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         trombinoscopeLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1027,7 +1027,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         organigrammeStrategiqueLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1043,7 +1043,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         organigrammeFonctionnelLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1059,7 +1059,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:   ['all']
                         upload_deny:    
-                        upload_max_size:  5M                
+                        upload_max_size:  10M                
         organigrammeAgenceLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1075,7 +1075,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         annuaireAgencesLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1092,7 +1092,7 @@ fm_elfinder:
                         upload_allow:
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         CELecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1108,7 +1108,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         CHSCTLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1124,7 +1124,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         noxALaConqueteLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1140,7 +1140,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         ilYAForcementPlusSimpleLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1156,7 +1156,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         noxFournisseurDeTalentsLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1172,7 +1172,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         nos5ValeursLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1188,7 +1188,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         ISO9001Lecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1204,7 +1204,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         ISO14001&18001Lecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1220,7 +1220,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         OPQIBILecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1236,7 +1236,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         manuelQualiteLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1252,7 +1252,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         proceduresLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1268,7 +1268,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         modesOperatoiresLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1284,7 +1284,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M
+                        upload_max_size:  10M
         formulairesEtDocumentsTypesLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1300,7 +1300,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M         
+                        upload_max_size:  10M         
         indicateursLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1316,7 +1316,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M   
+                        upload_max_size:  10M   
         equipeQSELecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1332,7 +1332,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M     
+                        upload_max_size:  10M     
         citationsLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1348,7 +1348,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M    
+                        upload_max_size:  10M    
         evenementsLecture:
             locale:           %locale%
             editor:           ckeditor
@@ -1364,7 +1364,7 @@ fm_elfinder:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  5M     
+                        upload_max_size:  10M     
                         
 ivory_ck_editor:
     default_config:    my_custom_config
