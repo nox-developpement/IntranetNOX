@@ -113,18 +113,6 @@ class AccueilController extends Controller {
 
     public function majCommunicationAction(Request $request) {
 
-//        $filesExterne = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/Externe/');
-//
-//        $filesInterne = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/Interne');
-//
-//        $filesMarketing = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/Marketing');
-//
-//        $filesSI = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/Communication/SI');
-//
-//        $filesAQ = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/AQ');
-//
-//        $filesReferences = $this->getDirContents('C:/wamp/www/Symfony/web/uploads/References');
-
         $em = $this->getDoctrine()->getManager();
 
         $compteurVue = $em->getRepository('NoxIntranetAccueilBundle:Compteur')->findOneByCompteur('Accueil');
@@ -185,19 +173,6 @@ class AccueilController extends Controller {
         }
 
         $texte = $texteEncart->getText();
-
-
-//        $majExterne = $this->getMaj($filesExterne);
-//
-//        $majInterne = $this->getMaj($filesInterne);
-//
-//        $majMarketing = $this->getMaj($filesMarketing);
-//
-//        $majSI = $this->getMaj($filesSI);
-//
-//        $majAQ = $this->getMaj($filesAQ);
-//
-//        $majReferences = $this->getMaj($filesReferences);
 
         $majExterne = $this->getPDF('C:/wamp/www/Symfony/web/uploads/Communication/Externe/');
 

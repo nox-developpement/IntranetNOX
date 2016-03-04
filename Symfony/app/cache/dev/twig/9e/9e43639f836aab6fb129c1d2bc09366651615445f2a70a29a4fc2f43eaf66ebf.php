@@ -23,45 +23,45 @@ class __TwigTemplate_3ed563a9bbb26a4c72b92044aff74251c661dae33454afed5b733113309
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_c96859be560f1c830d3ff9fde7a3cc9b3fc44030001bf154f0b661b2433a8984 = $this->env->getExtension("native_profiler");
-        $__internal_c96859be560f1c830d3ff9fde7a3cc9b3fc44030001bf154f0b661b2433a8984->enter($__internal_c96859be560f1c830d3ff9fde7a3cc9b3fc44030001bf154f0b661b2433a8984_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig"));
+        $__internal_88e5a8e09f36fde047111cecb2efa555d525789f02ebe304101b7877051ba0e5 = $this->env->getExtension("native_profiler");
+        $__internal_88e5a8e09f36fde047111cecb2efa555d525789f02ebe304101b7877051ba0e5->enter($__internal_88e5a8e09f36fde047111cecb2efa555d525789f02ebe304101b7877051ba0e5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_c96859be560f1c830d3ff9fde7a3cc9b3fc44030001bf154f0b661b2433a8984->leave($__internal_c96859be560f1c830d3ff9fde7a3cc9b3fc44030001bf154f0b661b2433a8984_prof);
+        $__internal_88e5a8e09f36fde047111cecb2efa555d525789f02ebe304101b7877051ba0e5->leave($__internal_88e5a8e09f36fde047111cecb2efa555d525789f02ebe304101b7877051ba0e5_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_ccd1a333a8aee820cf86f231cbde4fb8f51bac16eb5e902608c40e05216b1260 = $this->env->getExtension("native_profiler");
-        $__internal_ccd1a333a8aee820cf86f231cbde4fb8f51bac16eb5e902608c40e05216b1260->enter($__internal_ccd1a333a8aee820cf86f231cbde4fb8f51bac16eb5e902608c40e05216b1260_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_93ec89456d48fa1b1602b43714e585878315848b546669c65cb3fc6a2d8440e6 = $this->env->getExtension("native_profiler");
+        $__internal_93ec89456d48fa1b1602b43714e585878315848b546669c65cb3fc6a2d8440e6->enter($__internal_93ec89456d48fa1b1602b43714e585878315848b546669c65cb3fc6a2d8440e6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Edition de feuille de suivi ";
         
-        $__internal_ccd1a333a8aee820cf86f231cbde4fb8f51bac16eb5e902608c40e05216b1260->leave($__internal_ccd1a333a8aee820cf86f231cbde4fb8f51bac16eb5e902608c40e05216b1260_prof);
+        $__internal_93ec89456d48fa1b1602b43714e585878315848b546669c65cb3fc6a2d8440e6->leave($__internal_93ec89456d48fa1b1602b43714e585878315848b546669c65cb3fc6a2d8440e6_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_ec5494a14f239908f322492abfe4a6317f09f27b67f9d38125f9db4a329b4358 = $this->env->getExtension("native_profiler");
-        $__internal_ec5494a14f239908f322492abfe4a6317f09f27b67f9d38125f9db4a329b4358->enter($__internal_ec5494a14f239908f322492abfe4a6317f09f27b67f9d38125f9db4a329b4358_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_a2c808fb69412e0e010bc242899d2c1e2c002ed7925de97d83aedf129d05f073 = $this->env->getExtension("native_profiler");
+        $__internal_a2c808fb69412e0e010bc242899d2c1e2c002ed7925de97d83aedf129d05f073->enter($__internal_a2c808fb69412e0e010bc242899d2c1e2c002ed7925de97d83aedf129d05f073_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Edition de feuille de suivi - ";
         echo twig_escape_filter($this->env, (isset($context["suivi"]) ? $context["suivi"] : $this->getContext($context, "suivi")), "html", null, true);
         
-        $__internal_ec5494a14f239908f322492abfe4a6317f09f27b67f9d38125f9db4a329b4358->leave($__internal_ec5494a14f239908f322492abfe4a6317f09f27b67f9d38125f9db4a329b4358_prof);
+        $__internal_a2c808fb69412e0e010bc242899d2c1e2c002ed7925de97d83aedf129d05f073->leave($__internal_a2c808fb69412e0e010bc242899d2c1e2c002ed7925de97d83aedf129d05f073_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_21c50a5b3838c2301085092a69cbccdb064a1e5cb36d24ada2211d05dc1358e0 = $this->env->getExtension("native_profiler");
-        $__internal_21c50a5b3838c2301085092a69cbccdb064a1e5cb36d24ada2211d05dc1358e0->enter($__internal_21c50a5b3838c2301085092a69cbccdb064a1e5cb36d24ada2211d05dc1358e0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_fb5492893f0e188941dfc9c971d38499fa422618a78dd917855e490a200d2193 = $this->env->getExtension("native_profiler");
+        $__internal_fb5492893f0e188941dfc9c971d38499fa422618a78dd917855e490a200d2193->enter($__internal_fb5492893f0e188941dfc9c971d38499fa422618a78dd917855e490a200d2193_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -157,23 +157,35 @@ class __TwigTemplate_3ed563a9bbb26a4c72b92044aff74251c661dae33454afed5b733113309
         echo twig_escape_filter($this->env, (isset($context["suivi"]) ? $context["suivi"] : $this->getContext($context, "suivi")), "html", null, true);
         echo "</legend>
 
-            <p>
-                ";
-        // line 57
+            ";
+        // line 56
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["champsViews"]) ? $context["champsViews"] : $this->getContext($context, "champsViews")));
         foreach ($context['_seq'] as $context["_key"] => $context["champ"]) {
-            // line 58
-            echo "                    ";
-            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : $this->getContext($context, "formDonneesSuivi")), $this->getAttribute($context["champ"], "Champ", array())), 'label', array("label_attr" => array("class" => "labelFormulaireRemplissageSuivi")) + (twig_test_empty($_label_ = ($this->getAttribute($context["champ"], "Nom", array()) . " : ")) ? array() : array("label" => $_label_)));
-            echo "
-                    ";
-            // line 59
+            // line 57
+            echo "                ";
             echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : $this->getContext($context, "formDonneesSuivi")), $this->getAttribute($context["champ"], "Champ", array())), 'errors');
             echo "
+            ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['champ'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 59
+        echo "
+            <p>
+                ";
+        // line 61
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["champsViews"]) ? $context["champsViews"] : $this->getContext($context, "champsViews")));
+        foreach ($context['_seq'] as $context["_key"] => $context["champ"]) {
+            // line 62
+            echo "                    ";
+            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : $this->getContext($context, "formDonneesSuivi")), $this->getAttribute($context["champ"], "Champ", array())), 'label', array("label_attr" => array("class" => "labelFormulaireRemplissageSuivi")) + (twig_test_empty($_label_ = ($this->getAttribute($context["champ"], "Nom", array()) . " : ")) ? array() : array("label" => $_label_)));
+            echo "   
                     ";
-            // line 60
-            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : $this->getContext($context, "formDonneesSuivi")), $this->getAttribute($context["champ"], "Champ", array())), 'widget', array("attr" => array("class" => "champFormulaireRemplissageSuivi")));
+            // line 63
+            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : $this->getContext($context, "formDonneesSuivi")), $this->getAttribute($context["champ"], "Champ", array())), 'widget');
             echo "
                     <br />
                 ";
@@ -181,29 +193,29 @@ class __TwigTemplate_3ed563a9bbb26a4c72b92044aff74251c661dae33454afed5b733113309
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['champ'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 63
+        // line 66
         echo "
                 ";
-        // line 64
+        // line 67
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : $this->getContext($context, "formDonneesSuivi")), "Generate", array()), 'widget', array("label" => "Générer fichier Excel", "attr" => array("class" => "boutonFormulaire", "title" => "Sauvegardez le suivi pour pouvoir générer un fichier Excel.")));
         echo "
                 ";
-        // line 65
+        // line 68
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : $this->getContext($context, "formDonneesSuivi")), "Save", array()), 'widget', array("label" => "Sauvegarder le suivi", "attr" => array("class" => "boutonFormulaire")));
         echo "
-            </p>
 
+            </p>
         </fieldset> 
 
         ";
-        // line 70
+        // line 73
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : $this->getContext($context, "formDonneesSuivi")), 'form_end');
         echo "
     </div>
 
 ";
         
-        $__internal_21c50a5b3838c2301085092a69cbccdb064a1e5cb36d24ada2211d05dc1358e0->leave($__internal_21c50a5b3838c2301085092a69cbccdb064a1e5cb36d24ada2211d05dc1358e0_prof);
+        $__internal_fb5492893f0e188941dfc9c971d38499fa422618a78dd917855e490a200d2193->leave($__internal_fb5492893f0e188941dfc9c971d38499fa422618a78dd917855e490a200d2193_prof);
 
     }
 
@@ -219,7 +231,7 @@ class __TwigTemplate_3ed563a9bbb26a4c72b92044aff74251c661dae33454afed5b733113309
 
     public function getDebugInfo()
     {
-        return array (  200 => 70,  192 => 65,  188 => 64,  185 => 63,  176 => 60,  172 => 59,  167 => 58,  163 => 57,  157 => 54,  150 => 50,  146 => 49,  138 => 44,  134 => 43,  127 => 39,  118 => 33,  114 => 32,  105 => 26,  98 => 22,  93 => 20,  89 => 19,  85 => 18,  76 => 12,  72 => 11,  67 => 8,  61 => 7,  48 => 5,  36 => 3,  11 => 1,);
+        return array (  212 => 73,  204 => 68,  200 => 67,  197 => 66,  188 => 63,  183 => 62,  179 => 61,  175 => 59,  166 => 57,  162 => 56,  157 => 54,  150 => 50,  146 => 49,  138 => 44,  134 => 43,  127 => 39,  118 => 33,  114 => 32,  105 => 26,  98 => 22,  93 => 20,  89 => 19,  85 => 18,  76 => 12,  72 => 11,  67 => 8,  61 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -277,18 +289,21 @@ class __TwigTemplate_3ed563a9bbb26a4c72b92044aff74251c661dae33454afed5b733113309
 /* */
 /*             <legend>{{ suivi }}</legend>*/
 /* */
+/*             {% for champ in champsViews %}*/
+/*                 {{ form_errors(attribute(formDonneesSuivi, champ.Champ)) }}*/
+/*             {% endfor %}*/
+/* */
 /*             <p>*/
 /*                 {% for champ in champsViews %}*/
-/*                     {{ form_label(attribute(formDonneesSuivi, champ.Champ), champ.Nom ~ " : ", {'label_attr': {'class': 'labelFormulaireRemplissageSuivi'}}) }}*/
-/*                     {{ form_errors(attribute(formDonneesSuivi, champ.Champ)) }}*/
-/*                     {{ form_widget(attribute(formDonneesSuivi, champ.Champ), {'attr': {'class': 'champFormulaireRemplissageSuivi'}}) }}*/
+/*                     {{ form_label(attribute(formDonneesSuivi, champ.Champ), champ.Nom ~ " : ", {'label_attr': {'class': 'labelFormulaireRemplissageSuivi'}}) }}   */
+/*                     {{ form_widget(attribute(formDonneesSuivi, champ.Champ)) }}*/
 /*                     <br />*/
 /*                 {% endfor %}*/
 /* */
 /*                 {{ form_widget(formDonneesSuivi.Generate, {'label': 'Générer fichier Excel', 'attr': {'class': 'boutonFormulaire', 'title': 'Sauvegardez le suivi pour pouvoir générer un fichier Excel.' }}) }}*/
 /*                 {{ form_widget(formDonneesSuivi.Save, {'label': 'Sauvegarder le suivi', 'attr': {'class': 'boutonFormulaire'}}) }}*/
-/*             </p>*/
 /* */
+/*             </p>*/
 /*         </fieldset> */
 /* */
 /*         {{ form_end(formDonneesSuivi) }}*/

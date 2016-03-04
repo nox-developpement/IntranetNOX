@@ -557,17 +557,9 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_affichageContenu')), array (  '_controller' => 'NoxIntranet\\CommunicationBundle\\Controller\\CommunicationController::affichageContenuAction',));
             }
 
-            if (0 === strpos($pathinfo, '/communication/images')) {
-                // nox_intranet_affichageImages
-                if (preg_match('#^/communication/images/(?P<dossier>[^/]++)/(?P<config>[^/]++)/(?P<chemin>.+)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_affichageImages')), array (  '_controller' => 'NoxIntranet\\CommunicationBundle\\Controller\\CommunicationController::affichageImagesAction',));
-                }
-
-                // nox_intranet_downloadImages
-                if (0 === strpos($pathinfo, '/communication/images-download') && preg_match('#^/communication/images\\-download/(?P<image>[^/]++)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_downloadImages')), array (  '_controller' => 'NoxIntranet\\CommunicationBundle\\Controller\\CommunicationController::downloadImagesAction',));
-                }
-
+            // nox_intranet_affichageImages
+            if (0 === strpos($pathinfo, '/communication/images') && preg_match('#^/communication/images/(?P<dossier>[^/]++)/(?P<config>[^/]++)/(?P<chemin>.+)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_affichageImages')), array (  '_controller' => 'NoxIntranet\\CommunicationBundle\\Controller\\CommunicationController::affichageImagesAction',));
             }
 
         }

@@ -106,31 +106,17 @@
 
         <div id="sousMenuBanqueImages" class='sousMenu'>
 
-            {% if is_granted('ROLE_COMMUNICATION') %} 
-                <div class="sousSousMessageAcceuil"> 
-                    <h5 onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/logoNox', 'Logo Nox');"> Logo Nox </h5>
-                </div>
+            <div class="sousSousMessageAcceuil"> 
+                <a href='{{ path('nox_intranet_affichageImages', { 'chemin': 'Externe/BanqueImages/logoNox', 'dossier': 'Logo Nox', 'config': 'logoNox' }) }}'> <h5> Logo Nox </h5> </a>
+            </div>
 
-                <div class="sousSousMessageAcceuil"> 
-                    <h5 onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDuSiteInternet', 'Celles du site internet');"> Celles du site internet </h5>
-                </div>
+            <div class="sousSousMessageAcceuil"> 
+                <a href='{{ path('nox_intranet_affichageImages', { 'chemin': 'Externe/BanqueImages/cellesDuSiteInternet', 'dossier': 'Celles du site internet', 'config': 'cellesDuSiteInternet' }) }}'> <h5> Celles du site internet </h5> </a>
+            </div>
 
-                <div class="sousSousMessageAcceuil"> 
-                    <h5 onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDesSupports', 'Celles des supports');"> Celles des supports </h5>
-                </div>
-            {% else %}
-                <div class="sousSousMessageAcceuil"> 
-                    <h5 onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/logoNoxLecture', 'Logo Nox');"> Logo Nox </h5>
-                </div>
-
-                <div class="sousSousMessageAcceuil"> 
-                    <h5 onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDuSiteInternetLecture', 'Celles du site internet');"> Celles du site internet </h5>
-                </div>
-
-                <div class="sousSousMessageAcceuil"> 
-                    <h5 onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/cellesDesSupportsLecture', 'Celles des supports');"> Celles des supports </h5>
-                </div>
-            {% endif %}
+            <div class="sousSousMessageAcceuil"> 
+                <a href='{{ path('nox_intranet_affichageImages', { 'chemin': 'Externe/BanqueImages/cellesDesSupports', 'dossier': 'Celles des supports', 'config': 'cellesDesSupports' }) }}'> <h5> Celles des supports </h5> </a>
+            </div>
 
         </div>
     </div>
@@ -226,12 +212,13 @@
             <a href='{{ path('nox_intranet_affichageImages', { 'chemin': 'Marketing/ilYAForcementPlusSimple', 'dossier': 'Il y a forcément plus simple', 'config': 'ilYAForcementPlusSimple' }) }}'> <h4> Il y a forcément plus simple </h4> </a>
         </div>
 
+
         <div class="sousMessageAcceuil"> 
-            <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/noxFournisseurDeTalents', 'NOX fournisseur de talents');"> <h4> NOX fournisseur de talents </h4> </a>
+            <a href='{{ path('nox_intranet_affichageImages', { 'chemin': 'Marketing/noxFournisseurDeTalents', 'dossier': 'NOX fournisseur de talents', 'config': 'noxFournisseurDeTalents' }) }}'> <h4> NOX fournisseur de talents </h4> </a>
         </div>
 
         <div class="sousMessageAcceuil"> 
-            <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/nos5Valeurs', 'Nos 5 valeurs');"> <h4> Nos 5 valeurs </h4> </a>
+            <a href='{{ path('nox_intranet_affichageImages', { 'chemin': 'Marketing/nos5Valeurs', 'dossier': 'Nos 5 valeurs', 'config': 'nos5Valeurs' }) }}'> <h4> Nos 5 valeurs </h4> </a>
         </div>
 
     </div>

@@ -752,6 +752,20 @@ fm_elfinder:
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  10M  
+        processMutuelle:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/RH/RHQuotidien/ProcessMutuelle
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  10M  
         pointage:
             locale:           %locale%
             editor:           ckeditor

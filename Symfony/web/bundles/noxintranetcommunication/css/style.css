@@ -2316,7 +2316,12 @@ divAdministrationUtilisateur {
     text-align: center;
 }
 
-#divAffichageImages img {
-    max-width: 100%;
-    cursor: url("../images/Plus-32.png"), auto;
+.formulaireRemplissageSuivi fieldset ul {
+    padding: 0px;
+}
+
+.formulaireRemplissageSuivi fieldset ul li {
+    color: red;
+    text-align: center;
+    list-style-type: none;
 }

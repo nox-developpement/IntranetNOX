@@ -53,18 +53,21 @@
 
             <legend>{{ suivi }}</legend>
 
+            {% for champ in champsViews %}
+                {{ form_errors(attribute(formDonneesSuivi, champ.Champ)) }}
+            {% endfor %}
+
             <p>
                 {% for champ in champsViews %}
-                    {{ form_label(attribute(formDonneesSuivi, champ.Champ), champ.Nom ~ " : ", {'label_attr': {'class': 'labelFormulaireRemplissageSuivi'}}) }}
-                    {{ form_errors(attribute(formDonneesSuivi, champ.Champ)) }}
-                    {{ form_widget(attribute(formDonneesSuivi, champ.Champ), {'attr': {'class': 'champFormulaireRemplissageSuivi'}}) }}
+                    {{ form_label(attribute(formDonneesSuivi, champ.Champ), champ.Nom ~ " : ", {'label_attr': {'class': 'labelFormulaireRemplissageSuivi'}}) }}   
+                    {{ form_widget(attribute(formDonneesSuivi, champ.Champ)) }}
                     <br />
                 {% endfor %}
 
                 {{ form_widget(formDonneesSuivi.Generate, {'label': 'Générer fichier Excel', 'attr': {'class': 'boutonFormulaire', 'title': 'Sauvegardez le suivi pour pouvoir générer un fichier Excel.' }}) }}
                 {{ form_widget(formDonneesSuivi.Save, {'label': 'Sauvegarder le suivi', 'attr': {'class': 'boutonFormulaire'}}) }}
-            </p>
 
+            </p>
         </fieldset> 
 
         {{ form_end(formDonneesSuivi) }}

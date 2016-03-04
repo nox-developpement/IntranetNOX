@@ -23,44 +23,44 @@ class __TwigTemplate_3d0fffd8360f32530bfb0f28280a42d2b3cde14b6bfa97e374e9f4dd907
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_87308c81c3ce8029122b39cc6f46f4278e79ad8b3aa008f425c09cb5c37fef1b = $this->env->getExtension("native_profiler");
-        $__internal_87308c81c3ce8029122b39cc6f46f4278e79ad8b3aa008f425c09cb5c37fef1b->enter($__internal_87308c81c3ce8029122b39cc6f46f4278e79ad8b3aa008f425c09cb5c37fef1b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:Accueil:accueilRessources.html.twig"));
+        $__internal_c243267a32ef2c2fcbdd5ce3da16612ed0b7b101da8d21c4389c8c386934951e = $this->env->getExtension("native_profiler");
+        $__internal_c243267a32ef2c2fcbdd5ce3da16612ed0b7b101da8d21c4389c8c386934951e->enter($__internal_c243267a32ef2c2fcbdd5ce3da16612ed0b7b101da8d21c4389c8c386934951e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:Accueil:accueilRessources.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_87308c81c3ce8029122b39cc6f46f4278e79ad8b3aa008f425c09cb5c37fef1b->leave($__internal_87308c81c3ce8029122b39cc6f46f4278e79ad8b3aa008f425c09cb5c37fef1b_prof);
+        $__internal_c243267a32ef2c2fcbdd5ce3da16612ed0b7b101da8d21c4389c8c386934951e->leave($__internal_c243267a32ef2c2fcbdd5ce3da16612ed0b7b101da8d21c4389c8c386934951e_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_a26af6d4784142355c651ee8fd1926002b9694426aec8450b5274205c5f7427f = $this->env->getExtension("native_profiler");
-        $__internal_a26af6d4784142355c651ee8fd1926002b9694426aec8450b5274205c5f7427f->enter($__internal_a26af6d4784142355c651ee8fd1926002b9694426aec8450b5274205c5f7427f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_1271c753c8d206d5d38438d7f7bd49834bfd0deb275a42b51c0a410e24a27b10 = $this->env->getExtension("native_profiler");
+        $__internal_1271c753c8d206d5d38438d7f7bd49834bfd0deb275a42b51c0a410e24a27b10->enter($__internal_1271c753c8d206d5d38438d7f7bd49834bfd0deb275a42b51c0a410e24a27b10_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Ressources ";
         
-        $__internal_a26af6d4784142355c651ee8fd1926002b9694426aec8450b5274205c5f7427f->leave($__internal_a26af6d4784142355c651ee8fd1926002b9694426aec8450b5274205c5f7427f_prof);
+        $__internal_1271c753c8d206d5d38438d7f7bd49834bfd0deb275a42b51c0a410e24a27b10->leave($__internal_1271c753c8d206d5d38438d7f7bd49834bfd0deb275a42b51c0a410e24a27b10_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_5a4a0d01c416a8e5bf9773b538b5e734c8efb3ff1ece8e12fc0a443336b69c75 = $this->env->getExtension("native_profiler");
-        $__internal_5a4a0d01c416a8e5bf9773b538b5e734c8efb3ff1ece8e12fc0a443336b69c75->enter($__internal_5a4a0d01c416a8e5bf9773b538b5e734c8efb3ff1ece8e12fc0a443336b69c75_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_c2fdb048e561bfb681d603894385d8f408f204963d8dc8917ba545433bb74a0a = $this->env->getExtension("native_profiler");
+        $__internal_c2fdb048e561bfb681d603894385d8f408f204963d8dc8917ba545433bb74a0a->enter($__internal_c2fdb048e561bfb681d603894385d8f408f204963d8dc8917ba545433bb74a0a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Ressources";
         
-        $__internal_5a4a0d01c416a8e5bf9773b538b5e734c8efb3ff1ece8e12fc0a443336b69c75->leave($__internal_5a4a0d01c416a8e5bf9773b538b5e734c8efb3ff1ece8e12fc0a443336b69c75_prof);
+        $__internal_c2fdb048e561bfb681d603894385d8f408f204963d8dc8917ba545433bb74a0a->leave($__internal_c2fdb048e561bfb681d603894385d8f408f204963d8dc8917ba545433bb74a0a_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_c27ef5ec9613a089d414189780301ac2a020e21ee01ce62a312ff2a61c61126f = $this->env->getExtension("native_profiler");
-        $__internal_c27ef5ec9613a089d414189780301ac2a020e21ee01ce62a312ff2a61c61126f->enter($__internal_c27ef5ec9613a089d414189780301ac2a020e21ee01ce62a312ff2a61c61126f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_516ff3c8c2df4c72ce5408a113ad814b457eab963baecda158e5f68d67f30c06 = $this->env->getExtension("native_profiler");
+        $__internal_516ff3c8c2df4c72ce5408a113ad814b457eab963baecda158e5f68d67f30c06->enter($__internal_516ff3c8c2df4c72ce5408a113ad814b457eab963baecda158e5f68d67f30c06_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         echo " 
     <div class=\"iconContener\">
@@ -335,7 +335,7 @@ class __TwigTemplate_3d0fffd8360f32530bfb0f28280a42d2b3cde14b6bfa97e374e9f4dd907
         </a>
 
         <!-- Visioconférence -->            
-        <a href=\"http://visio.groupe-nox.com\" target=\"_blank\" class=\"icon\">
+        <a href=\"https://myeasy.vision/guest\" target=\"_blank\" class=\"icon\">
             <figure>
                 <img 
                     src=\"";
@@ -359,7 +359,7 @@ class __TwigTemplate_3d0fffd8360f32530bfb0f28280a42d2b3cde14b6bfa97e374e9f4dd907
 
 ";
         
-        $__internal_c27ef5ec9613a089d414189780301ac2a020e21ee01ce62a312ff2a61c61126f->leave($__internal_c27ef5ec9613a089d414189780301ac2a020e21ee01ce62a312ff2a61c61126f_prof);
+        $__internal_516ff3c8c2df4c72ce5408a113ad814b457eab963baecda158e5f68d67f30c06->leave($__internal_516ff3c8c2df4c72ce5408a113ad814b457eab963baecda158e5f68d67f30c06_prof);
 
     }
 
@@ -525,7 +525,7 @@ class __TwigTemplate_3d0fffd8360f32530bfb0f28280a42d2b3cde14b6bfa97e374e9f4dd907
 /*         </a>*/
 /* */
 /*         <!-- Visioconférence -->            */
-/*         <a href="http://visio.groupe-nox.com" target="_blank" class="icon">*/
+/*         <a href="https://myeasy.vision/guest" target="_blank" class="icon">*/
 /*             <figure>*/
 /*                 <img */
 /*                     src="{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}" */

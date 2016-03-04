@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use NoxIntranet\RessourcesBundle\Entity\Suivis;
 use NoxIntranet\RessourcesBundle\Entity\DonneesSuivi;
+use NoxIntranet\AdministrationBundle\Entity\DonneesFormulaire;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -393,7 +394,7 @@ class ExcelReadingController extends Controller {
 
         $champsViews = array();
 
-        // Génération du formulaire de séléction de la version du suivi
+// Génération du formulaire de séléction de la version du suivi
 
         if ($version !== '') {
             $IdDonneesSuivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneBy(array('idSuivi' => $IdSuivi, 'version' => $version));
@@ -417,8 +418,8 @@ class ExcelReadingController extends Controller {
                 ))
                 ->add('Supprimer', SubmitType::class)
                 ->getForm();
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        // Génération du formulaire de complétion du suivi
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Génération du formulaire de complétion du suivi
         $formBuilder = $this->get('form.factory')->createNamedBuilder('formDonneesSuivi', 'form');
 
         foreach ($liaisons as $liaison) {
@@ -428,12 +429,22 @@ class ExcelReadingController extends Controller {
                 $champsViews[$champ->getNom()]['Nom'] = $champ->getNom();
                 $champsViews[$champ->getNom()]['Champ'] = $this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom()));
                 $champsViews[$champ->getNom()]['Type'] = $champ->getType();
-                $formBuilder->add($this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())), TextType::class);
+                $formBuilder->add($this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())), TextType::class, array(
+                    'attr' => array(
+                        'class' => 'newData champFormulaireRemplissageSuivi'
+                    )
+                ));
             } else if ($champ->getType() === 'Nombre') {
                 $champsViews[$champ->getNom()]['Nom'] = $champ->getNom();
                 $champsViews[$champ->getNom()]['Champ'] = $this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom()));
                 $champsViews[$champ->getNom()]['Type'] = $champ->getType();
-                $formBuilder->add($this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())), NumberType::class);
+                $formBuilder->add($this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())), NumberType::class, array(
+                    'invalid_message' => 'Veuillez renseigner une valeur de type %type% pour le champ %nom%.',
+                    'invalid_message_parameters' => array('%type%' => $champ->getType(), '%nom%' => $champ->getNom()),
+                    'attr' => array(
+                        'class' => 'newData champFormulaireRemplissageSuivi'
+                    )
+                ));
             } else if ($champ->getType() === 'Données') {
                 $champsViews[$champ->getNom()]['Nom'] = $champ->getNom();
                 $champsViews[$champ->getNom()]['Type'] = $champ->getType();
@@ -445,7 +456,22 @@ class ExcelReadingController extends Controller {
                                         ->where("u.idFormulaire = '" . $champ->getId() . "'")
                                         ->orderBy('u.donnee', 'ASC');
                     },
-                    'choice_label' => 'Donnee'
+                    'placeholder' => 'Autre',
+                    'choice_label' => 'Donnee',
+                    'empty_data' => null,
+                    'required' => false,
+                    'attr' => array(
+                        'class' => 'newData champFormulaireRemplissageSuivi'
+                    )
+                ));
+                $champsViews[$champ->getNom() . 'newData']['Nom'] = 'Autre ' . $champ->getNom();
+                $champsViews[$champ->getNom() . 'newData']['Champ'] = $this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())) . 'newData';
+                $champsViews[$champ->getNom() . 'newData']['Type'] = 'Texte';
+                $formBuilder->add($this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())) . 'newData', TextType::class, array(
+                    'required' => false,
+                    'attr' => array(
+                        'class' => $champ->getNom() . 'newData champFormulaireRemplissageSuivi'
+                    ),
                 ));
             }
         }
@@ -479,8 +505,8 @@ class ExcelReadingController extends Controller {
             }
         }
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        // Génération du formulaire de cloturation du suivi
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Génération du formulaire de cloturation du suivi
         $donnees_suivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneBy(array('idSuivi' => $IdSuivi), array('version' => 'DESC'));
 
         if (!empty($donnees_suivi)) {
@@ -494,8 +520,8 @@ class ExcelReadingController extends Controller {
                     ))
                     ->getForm();
         }
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        // Traitement du formulaire de séléction de la version du suivi
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Traitement du formulaire de séléction de la version du suivi
         if ($request->request->has('formSelectionVersionSuivi')) {
             $formSelectionVersionSuivi->handleRequest($request);
 
@@ -522,10 +548,16 @@ class ExcelReadingController extends Controller {
                 }
             }
         }
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        // Traitement du formulaire de complétion du suivi
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Traitement du formulaire de complétion du suivi
         if ($request->request->has('formDonneesSuivi')) {
-            $formSuivi->handleRequest($request);
+
+            try {
+                $formSuivi->handleRequest($request);
+            } catch (Exception $ex) {
+                echo 'test';
+            }
+
 
             if ($formSuivi->isValid()) {
 
@@ -540,26 +572,37 @@ class ExcelReadingController extends Controller {
 
                     $i = 0;
 
+                    $vide = false;
+
                     foreach ($formSuivi->getData() as $key => $data) {
 
-                        if ($formSuivi[$key]->getConfig()->getType()->getName() === 'number') {
-                            if (is_numeric($data)) {
-                                var_dump('YES !');
+                        if ($vide) {
+                            var_dump('Pas normal !');
+                            $newData = new DonneesFormulaire();
+
+                            $newData->setIdFormulaire($liaisons[$i]->getIdChamp());
+                            $newData->setDonnee($data);
+
+                            $em->persist($newData);
+                            $em->flush();
+
+                            $donnees[$key]['Data'] = $newData;
+                            $donnees[$key]['Type'] = 'entity';
+                            $donnees[$key]['Position'] = $liaisons[$i]->getCoordonneesDonnees();
+                            $vide = false;
+                            $i++;
+                        } else {
+
+                            if ($data === null) {
+                                var_dump('Ca merde ici !');
+                                $vide = true;
+                            } else {
                                 $donnees[$key]['Data'] = $data;
                                 $donnees[$key]['Type'] = $formSuivi[$key]->getConfig()->getType()->getName();
                                 $donnees[$key]['Position'] = $liaisons[$i]->getCoordonneesDonnees();
-                            } else {
-                                return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig', array(
-                                            'formDonneesSuivi' => $formSuivi->createView(), 'champsViews' => $champsViews, 'suivi' => $suivi->getNom(),
-                                            'formSelectionVersionSuivi' => $formSelectionVersionSuivi->createView(), 'formCloturationSuivi' => $formCloturationSuivi->createView()
-                                ));
+                                $i++;
                             }
                         }
-
-                        $donnees[$key]['Data'] = $data;
-                        $donnees[$key]['Type'] = $formSuivi[$key]->getConfig()->getType()->getName();
-                        $donnees[$key]['Position'] = $liaisons[$i]->getCoordonneesDonnees();
-                        $i++;
                     }
 
                     $NewDonneesSuivi = new DonneesSuivi();
@@ -616,8 +659,8 @@ class ExcelReadingController extends Controller {
                 }
             }
         }
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        // Traitement du formulaire de cloturation de suivi
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Traitement du formulaire de cloturation de suivi
         if ($request->request->has('formCloturationSuivi')) {
             $formCloturationSuivi->handleRequest($request);
 
@@ -634,7 +677,7 @@ class ExcelReadingController extends Controller {
                 return $this->redirectToRoute('nox_intranet_assistant_affaire_parcour_suivi_termine');
             }
         }
-        ////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig', array(
                     'formDonneesSuivi' => $formSuivi->createView(), 'champsViews' => $champsViews, 'suivi' => $suivi->getNom(),
@@ -735,7 +778,7 @@ class ExcelReadingController extends Controller {
 
         $champsViews = array();
 
-        // Génération du formulaire de séléction de la version du suivi
+// Génération du formulaire de séléction de la version du suivi
 
         if ($version !== '') {
             $IdDonneesSuivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneBy(array('idSuivi' => $IdSuivi, 'version' => $version));
@@ -757,8 +800,8 @@ class ExcelReadingController extends Controller {
                     'data' => $IdDonneesSuivi
                 ))
                 ->getForm();
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        // Génération du formulaire de complétion du suivi
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Génération du formulaire de complétion du suivi
         $formBuilder = $this->get('form.factory')->createNamedBuilder('formDonneesSuivi', 'form');
 
         foreach ($liaisons as $liaison) {
@@ -830,8 +873,8 @@ class ExcelReadingController extends Controller {
 
 
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        // Traitement du formulaire de séléction de la version du suivi
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Traitement du formulaire de séléction de la version du suivi
         if ($request->request->has('formSelectionVersionSuivi')) {
             $formSelectionVersionSuivi->handleRequest($request);
 
@@ -844,8 +887,8 @@ class ExcelReadingController extends Controller {
                 }
             }
         }
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        // Traitement du formulaire de complétion du suivi
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Traitement du formulaire de complétion du suivi
         if ($request->request->has('formDonneesSuivi')) {
             $formSuivi->handleRequest($request);
 
@@ -890,7 +933,7 @@ class ExcelReadingController extends Controller {
                 }
             }
         }
-        //////////////////////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////////////////////// 
 
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireconsultation.html.twig', array(
                     'formDonneesSuivi' => $formSuivi->createView(), 'champsViews' => $champsViews, 'suivi' => $suivi->getNom(),
