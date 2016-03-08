@@ -23,44 +23,44 @@ class __TwigTemplate_5e65ab79b4e2b27837867646f3fd02f17df8a0d56f7770c256e708f6cbb
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_a91dbfb4b1b4ecdd5b896ef0eead8cdcaab57282a8250b791b6e5b87d9bffe65 = $this->env->getExtension("native_profiler");
-        $__internal_a91dbfb4b1b4ecdd5b896ef0eead8cdcaab57282a8250b791b6e5b87d9bffe65->enter($__internal_a91dbfb4b1b4ecdd5b896ef0eead8cdcaab57282a8250b791b6e5b87d9bffe65_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetCommunicationBundle:Accueil:affichageContenu.html.twig"));
+        $__internal_deb85851a89282384172f9777da4840ee4c6c2eaa8c46d466715b1deb26052c7 = $this->env->getExtension("native_profiler");
+        $__internal_deb85851a89282384172f9777da4840ee4c6c2eaa8c46d466715b1deb26052c7->enter($__internal_deb85851a89282384172f9777da4840ee4c6c2eaa8c46d466715b1deb26052c7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetCommunicationBundle:Accueil:affichageContenu.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_a91dbfb4b1b4ecdd5b896ef0eead8cdcaab57282a8250b791b6e5b87d9bffe65->leave($__internal_a91dbfb4b1b4ecdd5b896ef0eead8cdcaab57282a8250b791b6e5b87d9bffe65_prof);
+        $__internal_deb85851a89282384172f9777da4840ee4c6c2eaa8c46d466715b1deb26052c7->leave($__internal_deb85851a89282384172f9777da4840ee4c6c2eaa8c46d466715b1deb26052c7_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_f9261f503c24e7e2d614038c27fbcfe3f1698b97a90d9f765de1e5a64844ffb5 = $this->env->getExtension("native_profiler");
-        $__internal_f9261f503c24e7e2d614038c27fbcfe3f1698b97a90d9f765de1e5a64844ffb5->enter($__internal_f9261f503c24e7e2d614038c27fbcfe3f1698b97a90d9f765de1e5a64844ffb5_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_97b14ff103958f73ae43ede7d5d84f77d1b97bd93721b1470c823c3181960a8f = $this->env->getExtension("native_profiler");
+        $__internal_97b14ff103958f73ae43ede7d5d84f77d1b97bd93721b1470c823c3181960a8f->enter($__internal_97b14ff103958f73ae43ede7d5d84f77d1b97bd93721b1470c823c3181960a8f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
-        echo twig_escape_filter($this->env, (isset($context["dossier"]) ? $context["dossier"] : $this->getContext($context, "dossier")), "html", null, true);
+        echo (isset($context["dossier"]) ? $context["dossier"] : $this->getContext($context, "dossier"));
         
-        $__internal_f9261f503c24e7e2d614038c27fbcfe3f1698b97a90d9f765de1e5a64844ffb5->leave($__internal_f9261f503c24e7e2d614038c27fbcfe3f1698b97a90d9f765de1e5a64844ffb5_prof);
+        $__internal_97b14ff103958f73ae43ede7d5d84f77d1b97bd93721b1470c823c3181960a8f->leave($__internal_97b14ff103958f73ae43ede7d5d84f77d1b97bd93721b1470c823c3181960a8f_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_a2fd7c7aae44c1c5b43913b8cd7fc839a9e6696def7d3bc52f05f071c3f9c1f7 = $this->env->getExtension("native_profiler");
-        $__internal_a2fd7c7aae44c1c5b43913b8cd7fc839a9e6696def7d3bc52f05f071c3f9c1f7->enter($__internal_a2fd7c7aae44c1c5b43913b8cd7fc839a9e6696def7d3bc52f05f071c3f9c1f7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_ce5f8acc906b2a8885c2ad8e020573fe2fb0a9be1d48ab8f3343f1f058b5b740 = $this->env->getExtension("native_profiler");
+        $__internal_ce5f8acc906b2a8885c2ad8e020573fe2fb0a9be1d48ab8f3343f1f058b5b740->enter($__internal_ce5f8acc906b2a8885c2ad8e020573fe2fb0a9be1d48ab8f3343f1f058b5b740_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
-        echo twig_escape_filter($this->env, (isset($context["dossier"]) ? $context["dossier"] : $this->getContext($context, "dossier")), "html", null, true);
+        echo (isset($context["dossier"]) ? $context["dossier"] : $this->getContext($context, "dossier"));
         
-        $__internal_a2fd7c7aae44c1c5b43913b8cd7fc839a9e6696def7d3bc52f05f071c3f9c1f7->leave($__internal_a2fd7c7aae44c1c5b43913b8cd7fc839a9e6696def7d3bc52f05f071c3f9c1f7_prof);
+        $__internal_ce5f8acc906b2a8885c2ad8e020573fe2fb0a9be1d48ab8f3343f1f058b5b740->leave($__internal_ce5f8acc906b2a8885c2ad8e020573fe2fb0a9be1d48ab8f3343f1f058b5b740_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_68f3f94236fc40040acf69edb990069b489d836c4946f00a2ef3c7d4e9f87c00 = $this->env->getExtension("native_profiler");
-        $__internal_68f3f94236fc40040acf69edb990069b489d836c4946f00a2ef3c7d4e9f87c00->enter($__internal_68f3f94236fc40040acf69edb990069b489d836c4946f00a2ef3c7d4e9f87c00_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_980002caf39e0163d27f0b0bec7b85b21c8ccab64098d9d5656a601b3f4b5294 = $this->env->getExtension("native_profiler");
+        $__internal_980002caf39e0163d27f0b0bec7b85b21c8ccab64098d9d5656a601b3f4b5294->enter($__internal_980002caf39e0163d27f0b0bec7b85b21c8ccab64098d9d5656a601b3f4b5294_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -75,7 +75,7 @@ class __TwigTemplate_5e65ab79b4e2b27837867646f3fd02f17df8a0d56f7770c256e708f6cbb
             // line 13
             echo twig_escape_filter($this->env, (isset($context["config"]) ? $context["config"] : $this->getContext($context, "config")), "html", null, true);
             echo "', 'Gestionnaire de fichiers - ";
-            echo twig_escape_filter($this->env, (isset($context["dossier"]) ? $context["dossier"] : $this->getContext($context, "dossier")), "html", null, true);
+            echo (isset($context["dossier"]) ? $context["dossier"] : $this->getContext($context, "dossier"));
             echo "');\"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>
         </div>
 
@@ -99,16 +99,12 @@ class __TwigTemplate_5e65ab79b4e2b27837867646f3fd02f17df8a0d56f7770c256e708f6cbb
                 <img 
                     src=\"";
             // line 24
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png"), "html", null, true);
-            echo "\" alt=\"PDF\" 
-                    onmouseover=\"this.src = '";
-            // line 25
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png"), "html", null, true);
-            echo "';\" 
-                    onmouseout=\"this.src = '";
-            // line 26
-            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png"), "html", null, true);
-            echo "';\"
+            echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "request", array()), "schemeAndHttpHost", array()), "html", null, true);
+            echo "/Symfony/web/ImagePDF/";
+            echo twig_escape_filter($this->env, twig_convert_encoding($this->getAttribute($context["new"], "Nom", array()), "UTF-8", "ISO-8859-1"), "html", null, true);
+            echo ".png\" alt=\"PDF\" 
+                    onmouseover=\"\$(this).css('box-shadow', '0px 0px 10px #1F4E79');\" 
+                    onmouseout=\"\$(this).css('box-shadow', 'none');\"
                     >
             </a>
 
@@ -182,7 +178,7 @@ class __TwigTemplate_5e65ab79b4e2b27837867646f3fd02f17df8a0d56f7770c256e708f6cbb
         echo "
 ";
         
-        $__internal_68f3f94236fc40040acf69edb990069b489d836c4946f00a2ef3c7d4e9f87c00->leave($__internal_68f3f94236fc40040acf69edb990069b489d836c4946f00a2ef3c7d4e9f87c00_prof);
+        $__internal_980002caf39e0163d27f0b0bec7b85b21c8ccab64098d9d5656a601b3f4b5294->leave($__internal_980002caf39e0163d27f0b0bec7b85b21c8ccab64098d9d5656a601b3f4b5294_prof);
 
     }
 
@@ -198,14 +194,14 @@ class __TwigTemplate_5e65ab79b4e2b27837867646f3fd02f17df8a0d56f7770c256e708f6cbb
 
     public function getDebugInfo()
     {
-        return array (  182 => 51,  169 => 44,  166 => 43,  160 => 42,  157 => 41,  151 => 40,  148 => 39,  142 => 38,  139 => 37,  133 => 36,  130 => 35,  124 => 34,  119 => 32,  110 => 26,  106 => 25,  102 => 24,  97 => 22,  88 => 18,  85 => 17,  76 => 13,  69 => 9,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
+        return array (  178 => 51,  165 => 44,  162 => 43,  156 => 42,  153 => 41,  147 => 40,  144 => 39,  138 => 38,  135 => 37,  129 => 36,  126 => 35,  120 => 34,  115 => 32,  102 => 24,  97 => 22,  88 => 18,  85 => 17,  76 => 13,  69 => 9,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
 /* */
-/* {% block titrePage %}{{ dossier }}{% endblock %}*/
+/* {% block titrePage %}{{ dossier|raw }}{% endblock %}*/
 /* */
-/* {% block messageAccueil %}{{ dossier }}{% endblock %}*/
+/* {% block messageAccueil %}{{ dossier|raw }}{% endblock %}*/
 /* */
 /* {% block contenu %}*/
 /* */
@@ -213,7 +209,7 @@ class __TwigTemplate_5e65ab79b4e2b27837867646f3fd02f17df8a0d56f7770c256e708f6cbb
 /* */
 /*         <div id="menuAdminNewsSI" class='menuAdmin'>*/
 /*             <h3> Interface de gestion de contenu </h3>*/
-/*             <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/{{ config }}', 'Gestionnaire de fichiers - {{ dossier }}');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>*/
+/*             <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/{{ config }}', 'Gestionnaire de fichiers - {{ dossier|raw }}');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>*/
 /*         </div>*/
 /* */
 /*     {% endif %}*/
@@ -224,9 +220,9 @@ class __TwigTemplate_5e65ab79b4e2b27837867646f3fd02f17df8a0d56f7770c256e708f6cbb
 /* */
 /*             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new.Lien }}', 'Nox Letters');">*/
 /*                 <img */
-/*                     src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" */
-/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" */
-/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}';"*/
+/*                     src="{{ app.request.schemeAndHttpHost }}/Symfony/web/ImagePDF/{{ new.Nom|convert_encoding('UTF-8', 'ISO-8859-1') }}.png" alt="PDF" */
+/*                     onmouseover="$(this).css('box-shadow', '0px 0px 10px #1F4E79');" */
+/*                     onmouseout="$(this).css('box-shadow', 'none');"*/
 /*                     >*/
 /*             </a>*/
 /* */

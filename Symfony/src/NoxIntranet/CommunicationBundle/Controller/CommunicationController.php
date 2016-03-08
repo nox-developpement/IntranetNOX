@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Smalot\PdfParser\Parser;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use NoxIntranet\AdministrationBundle\Entity\texteEncart;
 
 class CommunicationController extends Controller {
 
@@ -260,6 +261,47 @@ class CommunicationController extends Controller {
         $response->headers->set('Content-disposition', 'filename=' . $fichier);
 
         return $response;
+    }
+
+    public function BIMAction(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $texteEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('BIM');
+
+        if ($texteEncart == null) {
+            $texteEncart = new texteEncart();
+            $texteEncart->setSection('BIM');
+            $em->persist($texteEncart);
+            $em->flush();
+        }
+
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $texteEncart);
+
+        $formBuilder
+                ->add('text', 'ckeditor')
+                ->add('modifier', 'submit')
+        ;
+
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+
+        // On vérifie que les valeurs entrées sont correctes
+        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+        if ($form->isValid()) {
+            // On l'enregistre notre objet $advert dans la base de données, par exemple
+
+            $em->persist($texteEncart);
+            $em->flush();
+
+            // On redirige vers la page de visualisation de l'annonce nouvellement créée
+            return $this->redirectToRoute('nox_intranet_communication_bim');
+        }
+
+        $texte = $texteEncart->getText();
+
+        return $this->render('NoxIntranetCommunicationBundle:Accueil:BIM.html.twig', array('texte' => $texte, 'formulaire' => $form->createView()));
     }
 
 }

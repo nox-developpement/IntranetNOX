@@ -434,11 +434,6 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'NoxIntranet\\AccueilBundle\\Controller\\AccueilController::connexionRequiseAction',  '_route' => 'nox_intranet_connexionRequise',);
         }
 
-        // nox_intranet_edition_annonces
-        if (0 === strpos($pathinfo, '/accueil/edition-annonces') && preg_match('#^/accueil/edition\\-annonces/(?P<categorie>.+)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_edition_annonces')), array (  '_controller' => 'NoxIntranet\\AccueilBundle\\Controller\\AccueilController::setAnnoncesAction',));
-        }
-
         if (0 === strpos($pathinfo, '/ticket')) {
             // nox_intranet_support
             if ($pathinfo === '/ticket') {
@@ -560,6 +555,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             // nox_intranet_affichageImages
             if (0 === strpos($pathinfo, '/communication/images') && preg_match('#^/communication/images/(?P<dossier>[^/]++)/(?P<config>[^/]++)/(?P<chemin>.+)$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_affichageImages')), array (  '_controller' => 'NoxIntranet\\CommunicationBundle\\Controller\\CommunicationController::affichageImagesAction',));
+            }
+
+            // nox_intranet_communication_bim
+            if ($pathinfo === '/communication/BIM') {
+                return array (  '_controller' => 'NoxIntranet\\CommunicationBundle\\Controller\\CommunicationController::BIMAction',  '_route' => 'nox_intranet_communication_bim',);
             }
 
         }

@@ -2,7 +2,7 @@
 
 {% block titrePage %} Ressources humaines {% endblock %}
 
-{% block messageAccueil %}Ressources humaines{% endblock %}
+{% block messageAccueil %}Ressources humaines<div id="DivRHMail"><div style="float: right;"><p style="font-size: 0.8vw;" ><a style="text-decoration: none; display: inline-block; width: 110%; color: rgb(31,78,121);" href="mailto:drh@groupe-nox.com"><span style="vertical-align:middle; margin-right: 3%; display: inline-block;">Contact</span><img style="vertical-align: middle; width: 25%;" src="{{ asset('bundles/noxintranetressources/images/Message-Mail-32.png') }}"></a></p></div></div>{% endblock %}
 
 {% block contenu %}
 
@@ -14,23 +14,11 @@
     <div id='sousMenuRHQuotidien' class='menu'>
 
         <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/LivretAccueil', 'dossier': "Livret accueil", 'config': 'livretAccueil' }) }}'> <h4> Livret d'accueil </h4> </a>
+            <a href="mailto:drh@groupe-nox.com?subject=attestation employeur {{ app.user.firstname }} {{ app.user.lastname }}"> <h4> Attestation employeur </h4> </a>
         </div>
 
         <div class="sousMessageAcceuil"> 
-            <a href="mailto:rh@groupe-nox.com?subject=Demande d'attestation employeur {{ app.user.firstname }} {{ app.user.lastname }}"> <h4> Demande d'attestation employeur </h4> </a>
-        </div>
-
-        <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/FormulaireCP', 'dossier': 'Formulaire CP ou Absence', 'config': 'formulaireCP' }) }}'> <h4> Formulaire CP ou Absence </h4> </a>
-        </div>
-
-        <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/ProcessLogement', 'dossier': 'Process 1% Logement + GRILLE', 'config': 'processLogement' }) }}'> <h4> Process 1% Logement + GRILLE </h4> </a>
-        </div>
-
-        <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/ProcessMutuelle', 'dossier': 'Process Mutuelle + prévoyance + GRILLE', 'config': 'processMutuelle' }) }}'> <h4> Process Mutuelle + prévoyance + GRILLE </h4> </a>
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/FormulaireCP', 'dossier': 'Formulaire absence', 'config': 'formulaireCP' }) }}'> <h4> Formulaire absence </h4> </a>
         </div>
 
         <div class="sousMessageAcceuil"> 
@@ -38,7 +26,19 @@
         </div>
 
         <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/NoteDeFrais', 'dossier': 'NoteDeFrais', 'config': 'noteDeFrais' }) }}'> <h4> Note de frais </h4> </a>
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/NoteDeFrais', 'dossier': 'Note de frais', 'config': 'noteDeFrais' }) }}'> <h4> Note de frais </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/LivretAccueil', 'dossier': "Livret accueil", 'config': 'livretAccueil' }) }}'> <h4> Livret d'accueil </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/ProcessMutuelle', 'dossier': 'Mutuelle', 'config': 'processMutuelle' }) }}'> <h4> Mutuelle </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/ProcessLogement', 'dossier': '1% Logement', 'config': 'processLogement' }) }}'> <h4> 1% Logement </h4> </a>
         </div>
 
     </div>
@@ -59,12 +59,13 @@
         </div>
 
         <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/ACCORDS', 'dossier': 'ACCORDS voir disctinction par entreprise', 'config': 'ACCORDS' }) }}'> <h4> ACCORDS voir disctinction par entreprise </h4> </a>
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/ACCORDS', 'dossier': 'ACCORDS', 'config': 'ACCORDS' }) }}'> <h4> ACCORDS </h4> </a>
         </div>
 
         <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/NotesTypePolitiqueDeplacement', 'dossier': 'Notes type politique déplacement', 'config': 'notesTypePolitiqueDeplacement' }) }}'> <h4> Notes type politique déplacement </h4> </a>
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/ProceduresInternes', 'dossier': 'Procédures internes', 'config': 'proceduresInternes' }) }}'> <h4> Procédures internes </h4> </a>
         </div>
+
 
     </div>
 

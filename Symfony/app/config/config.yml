@@ -388,6 +388,20 @@ fm_elfinder:
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  10M
+        organigrammesSocietes:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/Communication/Interne/Organigrammes/OrganigrammesSocietes
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  10M   
         annuaireAgences:
             locale:           %locale%
             editor:           ckeditor
@@ -682,7 +696,7 @@ fm_elfinder:
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  10M   
-        organigrammesSocietes:
+        posteAPourvoir:
             locale:           %locale%
             editor:           ckeditor
             fullscreen:       true
@@ -692,11 +706,11 @@ fm_elfinder:
                 roots:
                     uploads:
                         driver:           LocalFileSystem
-                        path:             uploads/Communication/Interne/VieDeLentreprise/OrganigrammesSocietes
+                        path:             uploads/Communication/Interne/VieDeLentreprise/PosteAPourvoir
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  10M   
-        organigrammesHierarchique:
+                        upload_max_size:  10M  
+        nominationOrganisation:
             locale:           %locale%
             editor:           ckeditor
             fullscreen:       true
@@ -706,10 +720,10 @@ fm_elfinder:
                 roots:
                     uploads:
                         driver:           LocalFileSystem
-                        path:             uploads/Communication/Interne/VieDeLentreprise/OrganigrammesHierarchique
+                        path:             uploads/Communication/Interne/VieDeLentreprise/NominationOrganisation
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
-                        upload_max_size:  10M
+                        upload_max_size:  10M  
         livretAccueil:
             locale:           %locale%
             editor:           ckeditor
@@ -836,7 +850,7 @@ fm_elfinder:
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  10M  
-        notesTypePolitiqueDeplacement:
+        proceduresInternes:
             locale:           %locale%
             editor:           ckeditor
             fullscreen:       true
@@ -846,7 +860,7 @@ fm_elfinder:
                 roots:
                     uploads:
                         driver:           LocalFileSystem
-                        path:             uploads/RH/ReglementationRH/NotesTypePolitiqueDeplacement
+                        path:             uploads/RH/ReglementationRH/ProceduresInternes
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  10M  

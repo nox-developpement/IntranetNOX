@@ -41,5 +41,35 @@ $(window).ready(function () {
     $('#formSelectionVersionSuivi_Supprimer').click(function () {
         return confirm('Voulez-vous vraiment supprimer cette version du suivi ? Vous ne pourez pas la récupérer.');
     });
+
+    $('.formulaireRemplissageSuivi select').each(function () {
+        if ($(this).val() === '') {
+            $(this).next().next().show();
+            $(this).next().next().next().attr('required', 'required');
+            $(this).next().next().next().show();
+        } else {
+            $(this).next().next().hide();
+            $(this).next().next().next().val('');
+            $(this).next().next().next().removeAttr('required');
+            $(this).next().next().next().hide();
+        }
+    });
+
+    $('.formulaireRemplissageSuivi select').change(function () {
+        if ($(this).val() === '') {
+            $(this).next().next().show();
+            $(this).next().next().next().attr('required', 'required');
+            $(this).next().next().next().show();
+        } else {
+            $(this).next().next().hide();
+            $(this).next().next().next().val('');
+            $(this).next().next().next().removeAttr('required');
+            $(this).next().next().next().hide();
+        }
+    });
+
+    $('#formSuppresionPositionChamp_Supprimer').click(function () {
+        return confirm('Attention, si vous modifiez ce modèle toutes les données des suivis associés seront supprimées !');
+    });
 });
 

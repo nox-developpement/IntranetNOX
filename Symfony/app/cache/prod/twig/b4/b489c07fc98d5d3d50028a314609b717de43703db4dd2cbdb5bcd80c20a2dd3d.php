@@ -61,162 +61,43 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
     {
         // line 9
         echo "
-    <!--
-    ";
-        // line 11
-        if (array_key_exists("news", $context)) {
-            // line 12
-            echo "        ";
-            $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable((isset($context["news"]) ? $context["news"] : null));
-            foreach ($context['_seq'] as $context["_key"] => $context["new"]) {
-                // line 13
-                echo "
-            <div class=\"divNews\">
-
-                <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
-                // line 16
-                echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "lien", array(), "array"), "html", null, true);
-                echo "', 'News SI');\">
-                    <img 
-                        src=\"";
-                // line 18
-                echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png"), "html", null, true);
-                echo "\" alt=\"PDF\" 
-                        onmouseover=\"this.src = '";
-                // line 19
-                echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png"), "html", null, true);
-                echo "';\" 
-                        onmouseout=\"this.src = '";
-                // line 20
-                echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png"), "html", null, true);
-                echo "';\"
-                        >
-                </a>
-
-                <ul>
-
-                    <li> Nom du fichier : ";
-                // line 26
-                echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "nom", array(), "array"), "html", null, true);
-                echo " </li>
-
-            ";
-                // line 28
-                $context['_parent'] = $context;
-                $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["new"], "proprietes", array(), "array"));
-                foreach ($context['_seq'] as $context["_key"] => $context["propriete"]) {
-                    // line 29
-                    echo "
-                ";
-                    // line 30
-                    if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Title")) {
-                        echo " <li> Titre : ";
-                        echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
-                        echo " </li> ";
-                    }
-                    // line 31
-                    echo "
-                ";
-                    // line 32
-                    if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Author")) {
-                        echo " <li> Auteur : ";
-                        echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
-                        echo " </li> ";
-                    }
-                    // line 33
-                    echo "
-                ";
-                    // line 34
-                    if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Subject")) {
-                        echo " <li> Sujet : ";
-                        echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
-                        echo " </li> ";
-                    }
-                    // line 35
-                    echo "
-                ";
-                    // line 36
-                    if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Keywords")) {
-                        echo " <li> Mots clés : ";
-                        echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
-                        echo " </li> ";
-                    }
-                    // line 37
-                    echo "
-                ";
-                    // line 38
-                    if (($this->getAttribute($context["propriete"], "label", array(), "array") == "Pages")) {
-                        echo " <li> Nombre de page(s) : ";
-                        echo twig_escape_filter($this->env, $this->getAttribute($context["propriete"], "valeur", array(), "array"), "html", null, true);
-                        echo " </li> ";
-                    }
-                    // line 39
-                    echo "
-            ";
-                }
-                $_parent = $context['_parent'];
-                unset($context['_seq'], $context['_iterated'], $context['_key'], $context['propriete'], $context['_parent'], $context['loop']);
-                $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 41
-                echo "
-            <li> Posté le : ";
-                // line 42
-                echo twig_escape_filter($this->env, $this->getAttribute($context["new"], "dateEnvoi", array(), "array"), "html", null, true);
-                echo " </li>
-
-        </ul>
-
-    </div>
-
-        ";
-            }
-            $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['new'], $context['_parent'], $context['loop']);
-            $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 49
-            echo "    ";
-        }
-        // line 50
-        echo "    -->
-
     <div class='zoneEditionAccueil'>
 
         ";
-        // line 54
+        // line 12
         if ($this->env->getExtension('security')->isGranted("ROLE_ADMIN")) {
-            // line 55
+            // line 13
             echo "
             <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
 
         ";
         }
-        // line 59
+        // line 17
         echo "
         ";
-        // line 60
+        // line 18
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formulaire"]) ? $context["formulaire"] : null), 'form_start', array("attr" => array("id" => "formulaireTexte")));
         echo "
 
         ";
-        // line 62
+        // line 20
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formulaire"]) ? $context["formulaire"] : null), 'errors');
         echo "
 
         ";
-        // line 65
+        // line 23
         echo "        ";
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formulaire"]) ? $context["formulaire"] : null), "text", array()), 'errors');
         echo "
 
         ";
-        // line 68
+        // line 26
         echo "        ";
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formulaire"]) ? $context["formulaire"] : null), "text", array()), 'widget', array("attr" => array("class" => "textField")));
         echo "
 
         ";
-        // line 70
+        // line 28
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formulaire"]) ? $context["formulaire"] : null), 'form_end');
         echo "
 
@@ -227,7 +108,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
         <p id='edito'> Edito </p>
         <div id='texteAccueil'>
             ";
-        // line 78
+        // line 36
         echo (isset($context["texte"]) ? $context["texte"] : null);
         echo "
         </div>
@@ -236,15 +117,15 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
     <div id=\"zoneNewsAccueil\">
 
         <script src=";
-        // line 84
+        // line 42
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("./js/jquery-2.2.0.min.js"), "html", null, true);
         echo "></script>
 
         <!-- Affichage défilant mise à jours Externe -->
         ";
-        // line 87
+        // line 45
         if ((array_key_exists("majExterne", $context) && ((isset($context["majExterne"]) ? $context["majExterne"] : null) != null))) {
-            // line 88
+            // line 46
             echo "            <p class=\"maj\"> Mises à jour Externe </p>
 
             <div id='majExterne'>
@@ -256,11 +137,11 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
                 var newsExterne = new Array();
 
                 ";
-            // line 98
+            // line 56
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majExterne"]) ? $context["majExterne"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 99
+                // line 57
                 echo "                    newsExterne.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -275,7 +156,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 101
+            // line 59
             echo "
                     function showNews(arr) {
                         \$('#majExterne p').fadeTo(3000, 100);
@@ -298,14 +179,14 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             </script>
         ";
         }
-        // line 122
+        // line 80
         echo "        <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours Interne -->
         ";
-        // line 125
+        // line 83
         if ((array_key_exists("majInterne", $context) && ((isset($context["majInterne"]) ? $context["majInterne"] : null) != null))) {
-            // line 126
+            // line 84
             echo "            <p class=\"maj\"> Mises à jour Interne </p>
             <div id='majInterne'>
                 <p></p>
@@ -316,11 +197,11 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
                 var newsInterne = new Array();
 
                 ";
-            // line 135
+            // line 93
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majInterne"]) ? $context["majInterne"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 136
+                // line 94
                 echo "                    newsInterne.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -335,7 +216,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 138
+            // line 96
             echo "
                     function showNews(arr) {
                         \$('#majInterne p').fadeTo(3000, 100);
@@ -358,14 +239,14 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             </script>
         ";
         }
-        // line 159
+        // line 117
         echo "        <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours Marketing -->
         ";
-        // line 162
+        // line 120
         if ((array_key_exists("majMarketing", $context) && ((isset($context["majMarketing"]) ? $context["majMarketing"] : null) != null))) {
-            // line 163
+            // line 121
             echo "            <p class=\"maj\"> Mises à jour Marketing </p>
             <div id='majMarketing'>
                 <p></p>
@@ -376,11 +257,11 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
                 var newsMarketing = new Array();
 
                 ";
-            // line 172
+            // line 130
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majMarketing"]) ? $context["majMarketing"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 173
+                // line 131
                 echo "                    newsMarketing.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -395,7 +276,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 175
+            // line 133
             echo "
                     function showNews(arr) {
                         \$('#majMarketing p').fadeTo(3000, 100);
@@ -418,14 +299,14 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             </script>
         ";
         }
-        // line 196
+        // line 154
         echo "        <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours SI -->
         ";
-        // line 199
+        // line 157
         if ((array_key_exists("majSI", $context) && ((isset($context["majSI"]) ? $context["majSI"] : null) != null))) {
-            // line 200
+            // line 158
             echo "            <p class=\"maj\"> Mises à jour SI </p>
             <div id='majSI'>
                 <p></p>
@@ -436,11 +317,11 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
                 var newsSI = new Array();
 
                 ";
-            // line 209
+            // line 167
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majSI"]) ? $context["majSI"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 210
+                // line 168
                 echo "                    newsSI.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -455,7 +336,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 212
+            // line 170
             echo "
                     function showNews(arr) {
                         \$('#majSI p').fadeTo(3000, 100);
@@ -478,14 +359,14 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             </script>
         ";
         }
-        // line 233
+        // line 191
         echo "        <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours AQ -->
         ";
-        // line 236
+        // line 194
         if ((array_key_exists("majAQ", $context) && ((isset($context["majAQ"]) ? $context["majAQ"] : null) != null))) {
-            // line 237
+            // line 195
             echo "            <p class=\"maj\"> Mises à jour Assurance qualité </p>
             <div id='majAQ'>
                 <p></p>
@@ -496,11 +377,11 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
                 var newsAQ = new Array();
 
                 ";
-            // line 246
+            // line 204
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majAQ"]) ? $context["majAQ"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 247
+                // line 205
                 echo "                    newsAQ.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -515,7 +396,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 249
+            // line 207
             echo "
                     function showNews(arr) {
                         \$('#majAQ p').fadeTo(3000, 100);
@@ -538,14 +419,14 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             </script>
         ";
         }
-        // line 270
+        // line 228
         echo "        <!-------------------------------------------------->
 
         <!-- Affichage défilant mise à jours RH -->
         ";
-        // line 273
+        // line 231
         if ((array_key_exists("majRH", $context) && ((isset($context["majRH"]) ? $context["majRH"] : null) != null))) {
-            // line 274
+            // line 232
             echo "            <p class=\"maj\"> Mises à jour RH </p>
             <div id='majRH'>
                 <p></p>
@@ -556,11 +437,11 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
                 var newsRH = new Array();
 
                 ";
-            // line 283
+            // line 241
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["majRH"]) ? $context["majRH"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 284
+                // line 242
                 echo "                    newsRH.push(\"<span class='dateMaj'>";
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
                 echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
@@ -575,7 +456,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 286
+            // line 244
             echo "
                     function showNews(arr) {
                         \$('#majRH p').fadeTo(3000, 100);
@@ -598,50 +479,44 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             </script>
         ";
         }
-        // line 307
+        // line 265
         echo "        <!-------------------------------------------------->
 
         <!-- Affichage défilant Poste à pourvoir -->
-
-        <p class=\"maj\"> Poste à pourvoir ";
-        // line 311
-        if ($this->env->getExtension('security')->isGranted("ROLE_RH")) {
-            echo " - <a class='editionAnnonces' href='";
-            echo $this->env->getExtension('routing')->getPath("nox_intranet_edition_annonces", array("categorie" => "Poste à pourvoir"));
-            echo "'> Editer </a>";
-        }
-        echo "</p>
-        <div id='posteAPourvoir'>
-            <p>";
-        // line 313
-        if ((array_key_exists("posteAPourvoir", $context) && ((isset($context["posteAPourvoir"]) ? $context["posteAPourvoir"] : null) == null))) {
-            echo "Pas de message pour le moment";
-        }
-        echo "</p>
-        </div>
         ";
-        // line 315
+        // line 268
         if ((array_key_exists("posteAPourvoir", $context) && ((isset($context["posteAPourvoir"]) ? $context["posteAPourvoir"] : null) != null))) {
-            // line 316
-            echo "            <script type=\"text/javascript\">
+            // line 269
+            echo "            <p class=\"maj\"> Poste à pourvoir </p>
+            <div id='posteAPourvoir'>
+                <p></p>
+            </div>
+
+            <script type=\"text/javascript\">
 
                 var newsPosteAPourvoir = new Array();
 
                 ";
-            // line 320
+            // line 278
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["posteAPourvoir"]) ? $context["posteAPourvoir"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 321
-                echo "                    newsPosteAPourvoir.push(\"<a style='cursor: default'>";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Message", array()), "html", null, true);
+                // line 279
+                echo "                    newsPosteAPourvoir.push(\"<span class='dateMaj'>";
+                echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
+                echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Lien", array()), "html", null, true);
+                echo "', '";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
+                echo "');\\\">";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
                 echo "</a>\");
                 ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 323
+            // line 281
             echo "
                     function showNews(arr) {
                         \$('#posteAPourvoir p').fadeTo(3000, 100);
@@ -664,50 +539,44 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             </script>
         ";
         }
-        // line 344
+        // line 302
         echo "        <!-------------------------------------------------->
 
-        <!-- Affichage défilant Poste à pourvoir -->
-
-        <p class=\"maj\"> Nomination / organisation ";
-        // line 348
-        if ($this->env->getExtension('security')->isGranted("ROLE_RH")) {
-            echo " - <a class='editionAnnonces' href='";
-            echo $this->env->getExtension('routing')->getPath("nox_intranet_edition_annonces", array("categorie" => "Nomination/organisation"));
-            echo "'> Editer </a>";
-        }
-        echo "</p>
-        <div id='nominationOrganisation'>
-            <p>";
-        // line 350
-        if ((array_key_exists("nominationOrganisation", $context) && ((isset($context["nominationOrganisation"]) ? $context["nominationOrganisation"] : null) == null))) {
-            echo "Pas de message pour le moment";
-        }
-        echo "</p>
-        </div>
+        <!-- Affichage défilant Nomination / organisation -->
         ";
-        // line 352
+        // line 305
         if ((array_key_exists("nominationOrganisation", $context) && ((isset($context["nominationOrganisation"]) ? $context["nominationOrganisation"] : null) != null))) {
-            // line 353
-            echo "            <script type=\"text/javascript\">
+            // line 306
+            echo "            <p class=\"maj\"> Nomination / organisation </p>
+            <div id='nominationOrganisation'>
+                <p></p>
+            </div>
+
+            <script type=\"text/javascript\">
 
                 var newsNominationOrganisation = new Array();
 
                 ";
-            // line 357
+            // line 315
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["nominationOrganisation"]) ? $context["nominationOrganisation"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["maj"]) {
-                // line 358
-                echo "                    newsNominationOrganisation.push(\"<a style='cursor: default'>";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Message", array()), "html", null, true);
+                // line 316
+                echo "                    newsNominationOrganisation.push(\"<span class='dateMaj'>";
+                echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute($context["maj"], "dateEnvoi", array()), "d/m/Y"), "html", null, true);
+                echo "</span> <br /> <a onclick=\\\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Lien", array()), "html", null, true);
+                echo "', '";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
+                echo "');\\\">";
+                echo twig_escape_filter($this->env, $this->getAttribute($context["maj"], "Nom", array()), "html", null, true);
                 echo "</a>\");
                 ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['maj'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 360
+            // line 318
             echo "
                     function showNews(arr) {
                         \$('#nominationOrganisation p').fadeTo(3000, 100);
@@ -730,7 +599,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
             </script>
         ";
         }
-        // line 381
+        // line 339
         echo "        <!-------------------------------------------------->
 
     </div>
@@ -750,7 +619,7 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 
     public function getDebugInfo()
     {
-        return array (  734 => 381,  711 => 360,  702 => 358,  698 => 357,  692 => 353,  690 => 352,  683 => 350,  674 => 348,  668 => 344,  645 => 323,  636 => 321,  632 => 320,  626 => 316,  624 => 315,  617 => 313,  608 => 311,  602 => 307,  579 => 286,  564 => 284,  560 => 283,  549 => 274,  547 => 273,  542 => 270,  519 => 249,  504 => 247,  500 => 246,  489 => 237,  487 => 236,  482 => 233,  459 => 212,  444 => 210,  440 => 209,  429 => 200,  427 => 199,  422 => 196,  399 => 175,  384 => 173,  380 => 172,  369 => 163,  367 => 162,  362 => 159,  339 => 138,  324 => 136,  320 => 135,  309 => 126,  307 => 125,  302 => 122,  279 => 101,  264 => 99,  260 => 98,  248 => 88,  246 => 87,  240 => 84,  231 => 78,  220 => 70,  214 => 68,  208 => 65,  203 => 62,  198 => 60,  195 => 59,  189 => 55,  187 => 54,  181 => 50,  178 => 49,  165 => 42,  162 => 41,  155 => 39,  149 => 38,  146 => 37,  140 => 36,  137 => 35,  131 => 34,  128 => 33,  122 => 32,  119 => 31,  113 => 30,  110 => 29,  106 => 28,  101 => 26,  92 => 20,  88 => 19,  84 => 18,  79 => 16,  74 => 13,  69 => 12,  67 => 11,  63 => 9,  60 => 8,  50 => 6,  37 => 5,  31 => 3,  11 => 1,);
+        return array (  603 => 339,  580 => 318,  565 => 316,  561 => 315,  550 => 306,  548 => 305,  543 => 302,  520 => 281,  505 => 279,  501 => 278,  490 => 269,  488 => 268,  483 => 265,  460 => 244,  445 => 242,  441 => 241,  430 => 232,  428 => 231,  423 => 228,  400 => 207,  385 => 205,  381 => 204,  370 => 195,  368 => 194,  363 => 191,  340 => 170,  325 => 168,  321 => 167,  310 => 158,  308 => 157,  303 => 154,  280 => 133,  265 => 131,  261 => 130,  250 => 121,  248 => 120,  243 => 117,  220 => 96,  205 => 94,  201 => 93,  190 => 84,  188 => 83,  183 => 80,  160 => 59,  145 => 57,  141 => 56,  129 => 46,  127 => 45,  121 => 42,  112 => 36,  101 => 28,  95 => 26,  89 => 23,  84 => 20,  79 => 18,  76 => 17,  70 => 13,  68 => 12,  63 => 9,  60 => 8,  50 => 6,  37 => 5,  31 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -761,48 +630,6 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /* {% block sousMessageAccueil %}Nous sommes le {{ date()|date("d/m/Y") }}, l'intranet a été visité {{ nombreVues }} fois.{% endblock %}*/
 /* */
 /* {% block contenu %}*/
-/* */
-/*     <!--*/
-/*     {% if news is defined %}*/
-/*         {% for new in news %}*/
-/* */
-/*             <div class="divNews">*/
-/* */
-/*                 <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new['lien'] }}', 'News SI');">*/
-/*                     <img */
-/*                         src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" */
-/*                         onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" */
-/*                         onmouseout="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}';"*/
-/*                         >*/
-/*                 </a>*/
-/* */
-/*                 <ul>*/
-/* */
-/*                     <li> Nom du fichier : {{ new['nom'] }} </li>*/
-/* */
-/*             {% for propriete in new['proprietes'] %}*/
-/* */
-/*                 {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}*/
-/* */
-/*                 {% if propriete['label'] == 'Author' %} <li> Auteur : {{ propriete['valeur'] }} </li> {% endif %}*/
-/* */
-/*                 {% if propriete['label'] == 'Subject' %} <li> Sujet : {{ propriete['valeur'] }} </li> {% endif %}*/
-/* */
-/*                 {% if propriete['label'] == 'Keywords' %} <li> Mots clés : {{ propriete['valeur'] }} </li> {% endif %}*/
-/* */
-/*                 {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}*/
-/* */
-/*             {% endfor %}*/
-/* */
-/*             <li> Posté le : {{ new['dateEnvoi'] }} </li>*/
-/* */
-/*         </ul>*/
-/* */
-/*     </div>*/
-/* */
-/*         {% endfor %}*/
-/*     {% endif %}*/
-/*     -->*/
 /* */
 /*     <div class='zoneEditionAccueil'>*/
 /* */
@@ -1062,18 +889,18 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*         <!-------------------------------------------------->*/
 /* */
 /*         <!-- Affichage défilant Poste à pourvoir -->*/
-/* */
-/*         <p class="maj"> Poste à pourvoir {% if is_granted('ROLE_RH') %} - <a class='editionAnnonces' href='{{ path('nox_intranet_edition_annonces', { 'categorie': 'Poste à pourvoir' }) }}'> Editer </a>{% endif %}</p>*/
-/*         <div id='posteAPourvoir'>*/
-/*             <p>{% if posteAPourvoir is defined and posteAPourvoir == null %}Pas de message pour le moment{% endif %}</p>*/
-/*         </div>*/
 /*         {% if posteAPourvoir is defined and posteAPourvoir != null %}*/
+/*             <p class="maj"> Poste à pourvoir </p>*/
+/*             <div id='posteAPourvoir'>*/
+/*                 <p></p>*/
+/*             </div>*/
+/* */
 /*             <script type="text/javascript">*/
 /* */
 /*                 var newsPosteAPourvoir = new Array();*/
 /* */
 /*                 {% for maj in posteAPourvoir %}*/
-/*                     newsPosteAPourvoir.push("<a style='cursor: default'>{{ maj.Message }}</a>");*/
+/*                     newsPosteAPourvoir.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");*/
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/
@@ -1098,19 +925,19 @@ class __TwigTemplate_34d2cb5b1b0895a4907ee1817d5dc6d0fa3fd5a42c038c1d5c5313f1ea1
 /*         {% endif %}*/
 /*         <!-------------------------------------------------->*/
 /* */
-/*         <!-- Affichage défilant Poste à pourvoir -->*/
-/* */
-/*         <p class="maj"> Nomination / organisation {% if is_granted('ROLE_RH') %} - <a class='editionAnnonces' href='{{ path('nox_intranet_edition_annonces', { 'categorie': 'Nomination/organisation' }) }}'> Editer </a>{% endif %}</p>*/
-/*         <div id='nominationOrganisation'>*/
-/*             <p>{% if nominationOrganisation is defined and nominationOrganisation == null %}Pas de message pour le moment{% endif %}</p>*/
-/*         </div>*/
+/*         <!-- Affichage défilant Nomination / organisation -->*/
 /*         {% if nominationOrganisation is defined and nominationOrganisation != null %}*/
+/*             <p class="maj"> Nomination / organisation </p>*/
+/*             <div id='nominationOrganisation'>*/
+/*                 <p></p>*/
+/*             </div>*/
+/* */
 /*             <script type="text/javascript">*/
 /* */
 /*                 var newsNominationOrganisation = new Array();*/
 /* */
 /*                 {% for maj in nominationOrganisation %}*/
-/*                     newsNominationOrganisation.push("<a style='cursor: default'>{{ maj.Message }}</a>");*/
+/*                     newsNominationOrganisation.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");*/
 /*                 {% endfor %}*/
 /* */
 /*                     function showNews(arr) {*/

@@ -40,8 +40,16 @@ class ControllerGeneratorCommand extends ContainerAwareCommand {
 
         $pdfs = $parsePDF->parsePDF();
 
+        $fileToDelete = glob('C:/wamp/www/Symfony/web/ImagePDF/*');
+        foreach ($fileToDelete as $file) {
+            if (is_file($file)) {
+                unlink($file);
+            }
+        }
+
         if ($pdfs != null) {
             foreach ($pdfs as $pdf) {
+                exec("convert \"C:/wamp/www" . $pdf['lien'] . "[0]\" -resize 200x200 -strip -interlace line \"C:/wamp/www/Symfony/web/ImagePDF/" . pathinfo($pdf['lien'], PATHINFO_FILENAME) . ".png\"");
                 $output->writeln("Nom : " . $pdf['nom']);
                 $output->writeln("Chemin : " . $pdf['lien']);
                 $output->writeln("Date : " . $pdf['dateEnvoi']);

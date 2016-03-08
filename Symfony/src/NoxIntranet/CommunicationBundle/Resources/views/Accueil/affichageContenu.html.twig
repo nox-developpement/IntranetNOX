@@ -1,8 +1,8 @@
 {% extends "::layout.html.twig" %}
 
-{% block titrePage %}{{ dossier }}{% endblock %}
+{% block titrePage %}{{ dossier|raw }}{% endblock %}
 
-{% block messageAccueil %}{{ dossier }}{% endblock %}
+{% block messageAccueil %}{{ dossier|raw }}{% endblock %}
 
 {% block contenu %}
 
@@ -10,7 +10,7 @@
 
         <div id="menuAdminNewsSI" class='menuAdmin'>
             <h3> Interface de gestion de contenu </h3>
-            <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/{{ config }}', 'Gestionnaire de fichiers - {{ dossier }}');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>
+            <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/{{ config }}', 'Gestionnaire de fichiers - {{ dossier|raw }}');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>
         </div>
 
     {% endif %}
@@ -21,9 +21,9 @@
 
             <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new.Lien }}', 'Nox Letters');">
                 <img 
-                    src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}';"
+                    src="{{ app.request.schemeAndHttpHost }}/Symfony/web/ImagePDF/{{ new.Nom|convert_encoding('UTF-8', 'ISO-8859-1') }}.png" alt="PDF" 
+                    onmouseover="$(this).css('box-shadow', '0px 0px 10px #1F4E79');" 
+                    onmouseout="$(this).css('box-shadow', 'none');"
                     >
             </a>
 

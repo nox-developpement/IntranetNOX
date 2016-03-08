@@ -139,15 +139,19 @@
         <div id="sousMenuOrganigrammes" class='sousMenu'>
 
             <div class="sousSousMessageAcceuil"> 
-                <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/Organigrammes/OrganigrammeStrategique', 'dossier': 'Organigramme Stratégique', 'config': 'organigrammeStrategique' }) }}'> <h5> Organigramme Stratégique </h5> </a>
+                <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/Organigrammes/OrganigrammeStrategique', 'dossier': 'Organigramme stratégique', 'config': 'organigrammeStrategique' }) }}'> <h5> Organigramme stratégique </h5> </a>
             </div>
 
             <div class="sousSousMessageAcceuil"> 
-                <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/Organigrammes/OrganigrammeFonctionnel', 'dossier': 'Organigramme Fonctionnel', 'config': 'organigrammeFonctionnel' }) }}'> <h5> Organigramme Fonctionnel </h5> </a>
+                <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/Organigrammes/OrganigrammeFonctionnel', 'dossier': 'Organigramme fonctionnel', 'config': 'organigrammeFonctionnel' }) }}'> <h5> Organigramme fonctionnel </h5> </a>
             </div>
 
             <div class="sousSousMessageAcceuil"> 
-                <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/Organigrammes/OrganigrammeAgence', 'dossier': 'Organigramme Agence', 'config': 'organigrammeAgence' }) }}'> <h5> Organigramme Agence </h5> </a>
+                <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/Organigrammes/OrganigrammeAgence', 'dossier': 'Organigramme agence', 'config': 'organigrammeAgence' }) }}'> <h5> Organigramme agence </h5> </a>
+            </div>
+
+            <div class="sousSousMessageAcceuil"> 
+                <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/Organigrammes/OrganigrammesSocietes', 'dossier': 'Organigrammes sociétés', 'config': 'organigrammesSocietes' }) }}'> <h5> Organigrammes sociétés </h5> </a>
             </div>
 
         </div>
@@ -185,11 +189,11 @@
             </div>
 
             <div class="sousSousMessageAcceuil"> 
-                <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/OrganigrammesSocietes', 'dossier': 'Organigrammes sociétés', 'config': 'organigrammesSocietes' }) }}'> <h5> Organigrammes sociétés </h5> </a>
+                <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/PosteAPourvoir', 'dossier': 'Poste à pourvoir', 'config': 'posteAPourvoir' }) }}'> <h5> Poste à pourvoir </h5> </a>
             </div>
 
             <div class="sousSousMessageAcceuil"> 
-                <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/OrganigrammesHierarchique', 'dossier': 'Organigrammes hiérarchique', 'config': 'organigrammesHierarchique' }) }}'> <h5> Organigrammes Hiérarchique </h5> </a>
+                <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/NominationOrganisation', 'dossier': 'Nomination &#47; Organisation', 'config': 'nominationOrganisation' }) }}'> <h5> Nomination / organisation </h5> </a>
             </div>
 
         </div>
@@ -231,7 +235,10 @@
     <!-- SI -->
     <div id='sousMenuSI' class='menu'>
         <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'SI/NewsSI', 'dossier': 'News SI', 'config': 'newsSI' }) }}'> <h4>  News SI </h4> </a>
+            <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'SI/NewsSI', 'dossier': 'News SI', 'config': 'newsSI' }) }}'> <h4> News SI </h4> </a>
+        </div>
+        <div class="sousMessageAcceuil">  
+            <a href='{{ path('nox_intranet_communication_bim') }}'> <h4> BIM </h4> </a>
         </div>
     </div>
     <!-- FIn SI -->

@@ -37,6 +37,31 @@
 
     </div>
 
+    <div class='DivFormulaireSuppressionPositionChamp'>
+
+        {{ form_start(formSuppresionPositionChamp, {'attr': {'class': 'formulaireSuppressionPositionChamp'}}) }}
+        {{ form_errors(formSuppresionPositionChamp) }}
+
+        <fieldset>
+
+            <legend>Supprimer un champ</legend>
+
+            <p>
+                {{ form_label(formSuppresionPositionChamp.IdChamp, "Nom - Position", {'label_attr': {'class': 'labelFormulaireSuppressionPositionChamp'}}) }} <br />
+                {{ form_errors(formSuppresionPositionChamp.IdChamp) }}
+                {{ form_widget(formSuppresionPositionChamp.IdChamp, {'attr': {'class': 'texteFormulaireSuppressionPositionChamp' }}) }} 
+
+                <br />
+
+                {{ form_widget(formSuppresionPositionChamp.Supprimer, {'attr': {'class': 'submitFormulaireSuppressionPositionChamp', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(formSuppresionPositionChamp) }}
+
+    </div>
+
     <div id='tableauExcel'>
 
         <table>

@@ -7,48 +7,6 @@
 
 {% block contenu %}
 
-    <!--
-    {% if news is defined %}
-        {% for new in news %}
-
-            <div class="divNews">
-
-                <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new['lien'] }}', 'News SI');">
-                    <img 
-                        src="{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}" alt="PDF" 
-                        onmouseover="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128-hover.png') }}';" 
-                        onmouseout="this.src = '{{ asset('bundles/noxintranetcommunication/images/Adobe-PDF-Export-128.png') }}';"
-                        >
-                </a>
-
-                <ul>
-
-                    <li> Nom du fichier : {{ new['nom'] }} </li>
-
-            {% for propriete in new['proprietes'] %}
-
-                {% if propriete['label'] == 'Title' %} <li> Titre : {{ propriete['valeur'] }} </li> {% endif %}
-
-                {% if propriete['label'] == 'Author' %} <li> Auteur : {{ propriete['valeur'] }} </li> {% endif %}
-
-                {% if propriete['label'] == 'Subject' %} <li> Sujet : {{ propriete['valeur'] }} </li> {% endif %}
-
-                {% if propriete['label'] == 'Keywords' %} <li> Mots clés : {{ propriete['valeur'] }} </li> {% endif %}
-
-                {% if propriete['label'] == 'Pages' %} <li> Nombre de page(s) : {{ propriete['valeur'] }} </li> {% endif %}
-
-            {% endfor %}
-
-            <li> Posté le : {{ new['dateEnvoi'] }} </li>
-
-        </ul>
-
-    </div>
-
-        {% endfor %}
-    {% endif %}
-    -->
-
     <div class='zoneEditionAccueil'>
 
         {% if is_granted('ROLE_ADMIN') %}
@@ -307,18 +265,18 @@
         <!-------------------------------------------------->
 
         <!-- Affichage défilant Poste à pourvoir -->
-
-        <p class="maj"> Poste à pourvoir {% if is_granted('ROLE_RH') %} - <a class='editionAnnonces' href='{{ path('nox_intranet_edition_annonces', { 'categorie': 'Poste à pourvoir' }) }}'> Editer </a>{% endif %}</p>
-        <div id='posteAPourvoir'>
-            <p>{% if posteAPourvoir is defined and posteAPourvoir == null %}Pas de message pour le moment{% endif %}</p>
-        </div>
         {% if posteAPourvoir is defined and posteAPourvoir != null %}
+            <p class="maj"> Poste à pourvoir </p>
+            <div id='posteAPourvoir'>
+                <p></p>
+            </div>
+
             <script type="text/javascript">
 
                 var newsPosteAPourvoir = new Array();
 
                 {% for maj in posteAPourvoir %}
-                    newsPosteAPourvoir.push("<a style='cursor: default'>{{ maj.Message }}</a>");
+                    newsPosteAPourvoir.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
                 {% endfor %}
 
                     function showNews(arr) {
@@ -343,19 +301,19 @@
         {% endif %}
         <!-------------------------------------------------->
 
-        <!-- Affichage défilant Poste à pourvoir -->
-
-        <p class="maj"> Nomination / organisation {% if is_granted('ROLE_RH') %} - <a class='editionAnnonces' href='{{ path('nox_intranet_edition_annonces', { 'categorie': 'Nomination/organisation' }) }}'> Editer </a>{% endif %}</p>
-        <div id='nominationOrganisation'>
-            <p>{% if nominationOrganisation is defined and nominationOrganisation == null %}Pas de message pour le moment{% endif %}</p>
-        </div>
+        <!-- Affichage défilant Nomination / organisation -->
         {% if nominationOrganisation is defined and nominationOrganisation != null %}
+            <p class="maj"> Nomination / organisation </p>
+            <div id='nominationOrganisation'>
+                <p></p>
+            </div>
+
             <script type="text/javascript">
 
                 var newsNominationOrganisation = new Array();
 
                 {% for maj in nominationOrganisation %}
-                    newsNominationOrganisation.push("<a style='cursor: default'>{{ maj.Message }}</a>");
+                    newsNominationOrganisation.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
                 {% endfor %}
 
                     function showNews(arr) {

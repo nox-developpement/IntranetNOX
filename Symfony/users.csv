@@ -210,12 +210,10 @@ DN,sAMAccountName
 "CN=LABBE Sandra,OU=INGENIERIE,OU=Bron,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",s.labbe
 "CN=MIDALI Eric,OU=INGENIERIE,OU=Bron,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",e.midali
 "CN=BENNETT Ian,OU=International,OU=NOX,DC=nox,DC=local",i.bennett
-"CN=NOX69USER,OU=INGENIERIE,OU=Bron,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",nox69user
 "CN=NOX INFO,OU=_Old,OU=NOX,DC=nox,DC=local",noxinfo
 "CN=PERIN Chloe,OU=Laval,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",c.barret
 "CN=ROEDER Stefan,OU=Rennes,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",s.roeder
 "CN=NOX63USER,OU=Clermont,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",nox63user
-"CN=NOX65USER,OU=ENERGIE,OU=Bron,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",nox65user
 "CN=NOX62USER,OU=Bourg,OU=_Old,OU=NOX,DC=nox,DC=local",nox62user
 "CN=mfpsoft,OU=Externe,OU=NOX,DC=nox,DC=local",mfpsoft
 "CN=BALOGUN Stephen,OU=Belfort,OU=_Old,OU=NOX,DC=nox,DC=local",s.balogun
@@ -445,7 +443,6 @@ DN,sAMAccountName
 "CN=nox63scan,OU=Clermont,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",nox63scan
 "CN=Nox62scan,OU=Bourg,OU=_Old,OU=NOX,DC=nox,DC=local",Nox62scan
 "CN=Nox64scan,OU=Auxerre,OU=_Old,OU=NOX,DC=nox,DC=local",Nox64scan
-"CN=Nox65scan,OU=ENERGIE,OU=Bron,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",Nox65scan
 "CN=BAIT Marc,OU=CVO France,OU=Nantes,OU=_Old,OU=NOX,DC=nox,DC=local",m.bait
 "CN=GROSDIDIER Maxime,OU=Paris,OU=Developpement Immobilier,OU=France,OU=NOX,DC=nox,DC=local",m.grosdidier
 "CN=SMAIL Sami,OU=Paris,OU=Juridique,OU=Siège,OU=NOX,DC=nox,DC=local",s.smail
@@ -611,3 +608,4 @@ DN,sAMAccountName
 "CN=BOUSCAUD Nicolas,OU=Boulogne,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",n.bouscaud
 "CN=SLING François,OU=Angouleme,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",f.sling
 "CN=RICHARD Matthieu,OU=INGENIERIE,OU=Bron,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",m.richard
+"CN=JULLIEN Valérie,OU=INGENIERIE,OU=Bron,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",v.jullien

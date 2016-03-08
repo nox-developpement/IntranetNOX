@@ -56,3 +56,7 @@ nox_intranet_affichageImages:
 #         chemin: .+
 #    options:
 #        expose: true
+
+nox_intranet_communication_bim:
+    path:   /communication/BIM
+    defaults: { _controller: NoxIntranetCommunicationBundle:Communication:BIM }

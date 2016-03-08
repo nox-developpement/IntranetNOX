@@ -431,7 +431,7 @@ class ExcelReadingController extends Controller {
                 $champsViews[$champ->getNom()]['Type'] = $champ->getType();
                 $formBuilder->add($this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())), TextType::class, array(
                     'attr' => array(
-                        'class' => 'newData champFormulaireRemplissageSuivi'
+                        'class' => 'champFormulaireRemplissageSuivi'
                     )
                 ));
             } else if ($champ->getType() === 'Nombre') {
@@ -442,7 +442,7 @@ class ExcelReadingController extends Controller {
                     'invalid_message' => 'Veuillez renseigner une valeur de type %type% pour le champ %nom%.',
                     'invalid_message_parameters' => array('%type%' => $champ->getType(), '%nom%' => $champ->getNom()),
                     'attr' => array(
-                        'class' => 'newData champFormulaireRemplissageSuivi'
+                        'class' => 'champFormulaireRemplissageSuivi'
                     )
                 ));
             } else if ($champ->getType() === 'Données') {
@@ -461,7 +461,7 @@ class ExcelReadingController extends Controller {
                     'empty_data' => null,
                     'required' => false,
                     'attr' => array(
-                        'class' => 'newData champFormulaireRemplissageSuivi'
+                        'class' => 'champFormulaireRemplissageSuivi'
                     )
                 ));
                 $champsViews[$champ->getNom() . 'newData']['Nom'] = 'Autre ' . $champ->getNom();
@@ -470,7 +470,7 @@ class ExcelReadingController extends Controller {
                 $formBuilder->add($this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())) . 'newData', TextType::class, array(
                     'required' => false,
                     'attr' => array(
-                        'class' => $champ->getNom() . 'newData champFormulaireRemplissageSuivi'
+                        'class' => 'newData champFormulaireRemplissageSuivi'
                     ),
                 ));
             }
@@ -577,25 +577,33 @@ class ExcelReadingController extends Controller {
                     foreach ($formSuivi->getData() as $key => $data) {
 
                         if ($vide) {
-                            var_dump('Pas normal !');
                             $newData = new DonneesFormulaire();
 
+                            if (!empty($em->getRepository('NoxIntranetAdministrationBundle:DonneesFormulaire')->findOneBy(array('idFormulaire' => $liaisons[$i]->getIdChamp(), 'donnee' => $data)))) {
+                                $request->getSession()->getFlashBag()->add('noticeErreur', 'Le choix ' . $data . ' existe déjà !');
+
+                                return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig', array(
+                                            'formDonneesSuivi' => $formSuivi->createView(), 'champsViews' => $champsViews, 'suivi' => $suivi->getNom(),
+                                            'formSelectionVersionSuivi' => $formSelectionVersionSuivi->createView(), 'formCloturationSuivi' => $formCloturationSuivi->createView()
+                                ));
+                            }
                             $newData->setIdFormulaire($liaisons[$i]->getIdChamp());
                             $newData->setDonnee($data);
 
                             $em->persist($newData);
                             $em->flush();
 
-                            $donnees[$key]['Data'] = $newData;
-                            $donnees[$key]['Type'] = 'entity';
-                            $donnees[$key]['Position'] = $liaisons[$i]->getCoordonneesDonnees();
+                            $donnees[$previousKey]['Data'] = $newData;
+                            $donnees[$previousKey]['Type'] = 'entity';
+                            $donnees[$previousKey]['Position'] = $liaisons[$i]->getCoordonneesDonnees();
                             $vide = false;
                             $i++;
                         } else {
-
                             if ($data === null) {
-                                var_dump('Ca merde ici !');
-                                $vide = true;
+                                if ($formSuivi[$key]->getConfig()->getType()->getName() === 'entity') {
+                                    $vide = true;
+                                    $previousKey = $key;
+                                }
                             } else {
                                 $donnees[$key]['Data'] = $data;
                                 $donnees[$key]['Type'] = $formSuivi[$key]->getConfig()->getType()->getName();

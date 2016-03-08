@@ -164,7 +164,7 @@ class __TwigTemplate_f9b4821c405fd2b73dbca3513f36fdad6fd32d34b3cde19be7aa02f3df2
             echo "   
                     ";
             // line 63
-            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), $this->getAttribute($context["champ"], "Champ", array())), 'widget', array("attr" => array("class" => "champFormulaireRemplissageSuivi")));
+            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), $this->getAttribute($context["champ"], "Champ", array())), 'widget');
             echo "
                     <br />
                 ";
@@ -272,7 +272,7 @@ class __TwigTemplate_f9b4821c405fd2b73dbca3513f36fdad6fd32d34b3cde19be7aa02f3df2
 /*             <p>*/
 /*                 {% for champ in champsViews %}*/
 /*                     {{ form_label(attribute(formDonneesSuivi, champ.Champ), champ.Nom ~ " : ", {'label_attr': {'class': 'labelFormulaireRemplissageSuivi'}}) }}   */
-/*                     {{ form_widget(attribute(formDonneesSuivi, champ.Champ), {'attr': {'class': 'champFormulaireRemplissageSuivi'}}) }}*/
+/*                     {{ form_widget(attribute(formDonneesSuivi, champ.Champ)) }}*/
 /*                     <br />*/
 /*                 {% endfor %}*/
 /* */

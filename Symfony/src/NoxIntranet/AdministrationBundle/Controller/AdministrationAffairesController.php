@@ -557,18 +557,25 @@ class AdministrationAffairesController extends Controller {
                     $liaisonsAssocies = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdSuivi($formSelectionVersion['Suivi']->getData()->getId());
 
                     foreach ($liaisonsAssocies as $liaison) {
-                        $em->remove($liaison);
+
+                        if (!empty($liaison)) {
+                            $em->remove($liaison);
+                        }
                     }
 
                     $suiviAssocies = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByIdModele($formSelectionVersion['Suivi']->getData()->getId());
 
                     foreach ($suiviAssocies as $suivi) {
 
-                        $donneesSuivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneByIdSuivi($suivi->getId());
+                        if (!empty($suivi)) {
+                            $donneesSuivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneByIdSuivi($suivi->getId());
 
-                        $em->remove($donneesSuivi);
+                            if (!empty($donneesSuivi)) {
+                                $em->remove($donneesSuivi);
+                            }
 
-                        $em->remove($suivi);
+                            $em->remove($suivi);
+                        }
                     }
 
                     $chemin = $formSelectionVersion['Suivi']->getData()->getChemin() . '/';
@@ -625,6 +632,7 @@ class AdministrationAffairesController extends Controller {
 
         $newLiaisonSuiviChamp = new LiaisonSuiviChamp();
 
+        // Génération du formulaire de positionnement des champ
         if (!empty($em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findByProfil($profil))) {
             $formPlacementChamp = $this->get('form.factory')->createNamedBuilder('formPlacementChamp', 'form', $newLiaisonSuiviChamp)
                     ->add('IdChamp', EntityType::class, array(
@@ -659,7 +667,35 @@ class AdministrationAffairesController extends Controller {
                     ))
                     ->getForm();
         }
+        ////////////////////////////////////////////////////////////////////////
+        // Génération du formulaire de suppression des champs
+        $suivi = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findOneByChemin(str_replace('/', '\\', pathinfo($file, PATHINFO_DIRNAME)));
 
+        if (!empty($em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdSuivi($suivi->getId()))) {
+            $formSuppresionPositionChamp = $this->get('form.factory')->createNamedBuilder('formSuppresionPositionChamp', 'form')
+                    ->add('IdChamp', EntityType::class, array(
+                        'class' => 'NoxIntranetAdministrationBundle:LiaisonSuiviChamp',
+                        'choice_label' => function($value) use ($em) {
+                            return $em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->find($value->getIdChamp())->getNom() . ' - ' . $value->getCoordonneesDonnees();
+                        },
+                    ))
+                    ->add('Supprimer', SubmitType::class)
+                    ->getForm();
+        } else {
+            $formSuppresionPositionChamp = $this->get('form.factory')->createNamedBuilder('formSuppresionPositionChamp', 'form')
+                    ->add('IdChamp', EntityType::class, array(
+                        'class' => 'NoxIntranetAdministrationBundle:LiaisonSuiviChamp',
+                        'choice_label' => function($value) use ($em) {
+                            return $em->getRepository('NoxIntranetAdministrationBundle:Formulaire')->find($value->getIdChamp())->getNom();
+                        },
+                        'disabled' => true,
+                        'placeholder' => 'Il n\'y a aucun champ à supprimer.'
+                    ))
+                    ->add('Supprimer', SubmitType::class)
+                    ->getForm();
+        }
+        ////////////////////////////////////////////////////////////////////////
+        // Traitement du formulaire de positionnement des champ
         if ($request->request->has('formPlacementChamp')) {
             $formPlacementChamp->handleRequest($request);
 
@@ -679,8 +715,6 @@ class AdministrationAffairesController extends Controller {
                 }
 
                 $liaisonPositionIdentique = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findOneBy(array('idSuivi' => $suivi->getId(), 'coordonneesDonnees' => $formPlacementChamp['CoordonneesDonnees']->getData()));
-
-                var_dump($liaisonPositionIdentique);
 
                 if (!empty($liaisonPositionIdentique)) {
                     $sheet->setCellValue($liaisonPositionIdentique->getCoordonneesDonnees(), null);
@@ -711,8 +745,42 @@ class AdministrationAffairesController extends Controller {
                 return $this->redirectToRoute('nox_intranet_administration_affaires_edition', array('profil' => $profil, 'file' => $file));
             }
         }
+        ////////////////////////////////////////////////////////////////////////
+        // Traitement du formulaire des suppression de la position des champs
+        if ($request->request->has('formSuppresionPositionChamp')) {
+            $formSuppresionPositionChamp->handleRequest($request);
 
-        return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig', array('sheet' => $sheet, 'filename' => $filename, 'file' => $file, 'formPlacementChamp' => $formPlacementChamp->createView()));
+            if ($formSuppresionPositionChamp->isValid()) {
+
+                $champ = $em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->find($formSuppresionPositionChamp['IdChamp']->getData()->getIdChamp());
+
+                $modele = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->find($formSuppresionPositionChamp['IdChamp']->getData()->getIdSuivi());
+
+                $suivis = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByIdModele($modele->getId());
+
+                foreach ($suivis as $suivi) {
+
+                    $donneesSuivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findByIdSuivi($suivi->getId());
+
+                    foreach ($donneesSuivi as $donne) {
+                        $em->remove($donne);
+                    }
+                }
+
+                $sheet->setCellValue($formSuppresionPositionChamp['IdChamp']->getData()->getCoordonneesDonnees(), null);
+                $writer->save($file);
+
+                $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $champ->getNom() . ' a été supprimé de la position ' . $formSuppresionPositionChamp['IdChamp']->getData()->getCoordonneesDonnees());
+
+                $em->remove($formSuppresionPositionChamp['IdChamp']->getData());
+                $em->flush();
+
+                return $this->redirectToRoute('nox_intranet_administration_affaires_edition', array('profil' => $profil, 'file' => $file));
+            }
+        }
+
+        return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig', array('sheet' => $sheet,
+                    'filename' => $filename, 'file' => $file, 'formPlacementChamp' => $formPlacementChamp->createView(), 'formSuppresionPositionChamp' => $formSuppresionPositionChamp->createView()));
     }
 
     public function administrationAffaireSauvegardeModificationAction(Request $request, $filename) {
