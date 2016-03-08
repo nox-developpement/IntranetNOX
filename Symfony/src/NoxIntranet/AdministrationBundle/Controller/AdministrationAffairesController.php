@@ -630,6 +630,15 @@ class AdministrationAffairesController extends Controller {
 
         $writer = new \PHPExcel_Writer_Excel2007($objPHPExcel);
 
+        $suivi = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findOneByChemin(str_replace('/', '\\', pathinfo($file, PATHINFO_DIRNAME)));
+        $liaisonsSuivi = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdSuivi($suivi->getId());
+
+        $requette = null;
+
+        foreach ($liaisonsSuivi as $liaison) {
+            $requette = $requette . " AND u.id != '" . $liaison->getIdChamp() . "'";
+        }
+
         $newLiaisonSuiviChamp = new LiaisonSuiviChamp();
 
         // Génération du formulaire de positionnement des champ
@@ -638,9 +647,10 @@ class AdministrationAffairesController extends Controller {
                     ->add('IdChamp', EntityType::class, array(
                         'class' => 'NoxIntranetAdministrationBundle:Formulaires',
                         'choice_label' => 'Nom',
-                        'query_builder' => function (EntityRepository $er) use ($profil) {
+                        'query_builder' => function (EntityRepository $er) use ($profil, $requette) {
+
                             return $er->createQueryBuilder('u')
-                                    ->where("u.profil = '" . $profil . "'")
+                                    ->where("u.profil = '" . $profil . "'" . $requette)
                                     ->orderBy('u.nom', 'ASC');
                         },
                     ))
