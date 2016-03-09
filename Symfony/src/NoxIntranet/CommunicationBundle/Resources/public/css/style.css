@@ -84,7 +84,7 @@ h2 {
 #DivRHMail {
     display:inline-block;
     vertical-align:bottom;
-    width:57%;
+    width:56%;
 }
 
 #bandeau {
@@ -1308,6 +1308,7 @@ divAdministrationUtilisateur {
     width: 65%;
     text-align: center;
     margin-top: 1%;
+    margin-bottom: 1%;
 }
 
 #choixPage a, #choixPage a:checked {

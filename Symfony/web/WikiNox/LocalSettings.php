@@ -38,7 +38,7 @@ $wgResourceBasePath = $wgScriptPath;
 
 ## The URL path to the logo.  Make sure you change this from the default,
 ## or else you'll overwrite your logo when you upgrade!
-$wgLogo = "C:\wamp\www\Symfony\web\WikiNox\images\GROUPE_NOX_AVATAR.png";
+$wgLogo = $wgServer . "\Symfony\web\WikiNox\images\GROUPE_NOX_AVATAR.png";
 
 ## UPO means: this is also a user preference option
 
@@ -140,4 +140,20 @@ wfLoadSkin( 'Vector' );
 
 # End of automatically generated settings.
 # Add more configuration options below.
+wfLoadExtension( 'Gadgets' );
+
+require_once("$IP/extensions/secure-include.php");
+
+# Including local paths requires uncommenting the following line
+$wg_include_allowed_features['local'] = true;
+$wg_include_allowed_parent_paths = $_SERVER['DOCUMENT_ROOT'];
+$wg_include_disallowed_regex = array('/.*LocalSettings.php/', '/.*\.conf/', '/.*\/\.ht/');
+
+# Including remote URLs requires to uncomment the following line
+$wg_include_allowed_features['remote'] = true;
+$wg_include_allowed_url_regexp = array('/^http:\/\/.*$/');
+$wg_include_disallowed_url_regexp = array('/^.*:\/\/intranet/');
+
+$wg_include_allowed_features['highlight'] = true;
+$wg_include_allowed_features['iframe'] = true;
 

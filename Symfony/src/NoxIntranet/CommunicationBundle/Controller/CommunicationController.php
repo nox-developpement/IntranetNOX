@@ -237,18 +237,36 @@ class CommunicationController extends Controller {
         return $listePDF;
     }
 
-    function affichageImagesAction($chemin, $dossier, $config) {
+    function affichageImagesAction($chemin, $dossier, $config, $page) {
         $imagesChemin = $this->getDirContents("C:/wamp/www/Symfony/web/uploads/Communication/" . $chemin);
 
         if (!empty($imagesChemin)) {
+
             foreach ($imagesChemin as $image) {
+                $imagesEnCoursDeTrie[$image] = filemtime($image);
+            }
+
+            arsort($imagesEnCoursDeTrie);
+
+            $imageTriee = array_keys($imagesEnCoursDeTrie);
+            
+
+            foreach ($imageTriee as $image) {
                 $images[] = "uploads/Communication/" . $chemin . "/" . pathinfo($image, PATHINFO_BASENAME);
             }
         } else {
             $images = null;
         }
 
-        return $this->render('NoxIntranetCommunicationBundle:Accueil:affichageImage.html.twig', array('images' => $images, 'dossier' => $dossier, 'config' => $config));
+        if ($images == null) {
+            $nbPages = 1;
+            $images10 = null;
+        } else {
+            $nbPages = intval(ceil(sizeof($images) / 10));
+            $images10 = array_chunk($images, 10);
+        }
+
+        return $this->render('NoxIntranetCommunicationBundle:Accueil:affichageImage.html.twig', array('page' => $page, 'nbPage' => $nbPages, 'images' => $images10[$page - 1], 'dossier' => $dossier, 'config' => $config, 'chemin' => $chemin));
     }
 
     function downloadImageAction($image) {
