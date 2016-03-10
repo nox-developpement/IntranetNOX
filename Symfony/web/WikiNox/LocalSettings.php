@@ -157,3 +157,90 @@ $wg_include_disallowed_url_regexp = array('/^.*:\/\/intranet/');
 $wg_include_allowed_features['highlight'] = true;
 $wg_include_allowed_features['iframe'] = true;
 
+// Licence WTFPL 2.0
+$wgHooks['BaseTemplateToolbox'][] = 'modifyToolbox';
+
+function modifyToolbox( BaseTemplate $baseTemplate, array &$toolbox ) {
+
+	static $keywords = array( 'WHATLINKSHERE', 'RECENTCHANGESLINKED', 'FEEDS', 'CONTRIBUTIONS', 'LOG', 'BLOCKIP', 'EMAILUSER', 'USERRIGHTS', 'UPLOAD', 'SPECIALPAGES', 'PRINT', 'PERMALINK', 'INFO' );
+
+	$modifiedToolbox = array();
+
+	// Walk in the MediaWiki:Sidebar message, section toolbox
+	foreach ( $baseTemplate->data['sidebar']['TOOLBOX'] as $value ) {
+		$specialLink = false;
+
+		// Search if the keyword exists
+		foreach ( $keywords as $key ) {
+			if ( $value['href'] == Title::newFromText($key)->fixSpecialName()->getLinkURL() ) {
+				$specialLink = true;
+
+				// This is a keyword, hence add this special link
+				if ( array_key_exists( strtolower($key), $toolbox ) ) {
+					$modifiedToolbox[strtolower($key)] = $toolbox[strtolower($key)];
+					break;
+				}
+			}
+		}
+
+		// This is a normal link
+		if ( !$specialLink ) {
+			$modifiedToolbox[] = $value;
+		}
+	}
+
+	$toolbox = $modifiedToolbox;
+
+	return true;
+}
+
+$wgUseAjax = true;
+require_once("{$IP}/extensions/CategoryTree/CategoryTree.php");
+
+$wgCategoryTreeSidebarRoot = 'Général';
+$wgCategoryTreeSidebarOptions = array('mode' => 'all', 'hideroot' => 'on');
+
+require_once( "$IP/extensions/LdapAuthentication/LdapAuthentication.php" );
+$wgAuth = new LdapAuthenticationPlugin();
+
+// Option for getting debug output from the plugin. 1-3 available. 1 will show
+// non-sensitive info, 2 will show possibly sensitive user info, 3+ will show
+// sensitive system info. Setting this on a live public site is probably a bad
+// idea.
+// Default: 0
+$wgLDAPDebug = 1;
+
+$wgDebugLogGroups['ldap'] = 'C:/wamp/www/Debug/debug.log';
+
+// The names of one or more domains you wish to use
+// These names will be used for the other options, it is freely choosable and not dependent
+// on your system. These names will show in the Login-Screen, so it is important that the user 
+// understands the meaning.
+//
+// REQUIRED
+//
+// Default: none
+$wgLDAPDomainNames = array(
+  'nox.local'
+);
+
+// The fully qualified name of one or more servers per domain you wish to use. If you are
+// going to use SSL or StartTLS, it is important that the server names provided here exactly
+// match the name provided by the SSL certificate returned by the server; otherwise, you may
+// have problems.
+// REQUIRED
+// Default: none
+$wgLDAPServerNames = array(
+  'nox.local' => 'SRV-NOX.nox.local'
+);
+
+// The type of encryption you would like to use when connecting to the LDAP server.
+// Available options are 'tls', 'ssl', and 'clear'
+// Default: tls
+$wgLDAPEncryptionType = array(
+  'nox.local' => 'clear'
+);
+
+$wgLDAPSearchStrings = array(
+  'nox.local' => "NOX\USER-NAME"
+);

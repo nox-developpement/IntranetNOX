@@ -12,7 +12,11 @@ $(window).ready(function () {
     $('#divAffichageImages img').click(function () {
         if ($(this).css('max-height') !== 'none') {
             $(this).removeAttr('style');
-            $(this).css('width', $(this).naturalHeight);
+            if ($(this)[0].naturalHeight > $('#divAffichageImages').width()) {
+                $(this).css('width', '100%');
+            } else {
+                $(this).css('width', $(this)[0].naturalHeight);
+            }
             $(this).css('cursor', "url('http://" + $(location).attr('host') + "/Symfony/web/images/Minus-32.cur'), auto");
         } else {
             $(this).removeAttr('style');
