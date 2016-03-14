@@ -119,6 +119,12 @@
             </p>
 
             <p>
+                {{ form_label(formAjoutChamp.AjoutDonnees, "Permettre l'ajout de donnée supplémentaire par l'utilisateur", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
+                {{ form_errors(formAjoutChamp.AjoutDonnees) }}
+                {{ form_widget(formAjoutChamp.AjoutDonnees, {'attr': {'class': 'checkboxFormulaireAjoutChamp' }}) }}
+            </p>
+
+            <p>
                 {{ form_label(formAjoutChamp.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
                 {{ form_errors(formAjoutChamp.Profil) }}
                 {{ form_widget(formAjoutChamp.Profil, {'attr': {'class': 'selectFormulaireAjoutChamp' }}) }}

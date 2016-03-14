@@ -442,7 +442,8 @@ class ExcelReadingController extends Controller {
                     'invalid_message' => 'Veuillez renseigner une valeur de type %type% pour le champ %nom%.',
                     'invalid_message_parameters' => array('%type%' => $champ->getType(), '%nom%' => $champ->getNom()),
                     'attr' => array(
-                        'class' => 'champFormulaireRemplissageSuivi'
+                        'class' => 'champFormulaireRemplissageSuivi',
+                        'pattern' => '[-+]?(\d*[.])?\d+'
                     )
                 ));
             } else if ($champ->getType() === 'Données') {
@@ -824,7 +825,11 @@ class ExcelReadingController extends Controller {
                 $champsViews[$champ->getNom()]['Nom'] = $champ->getNom();
                 $champsViews[$champ->getNom()]['Champ'] = $this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom()));
                 $champsViews[$champ->getNom()]['Type'] = $champ->getType();
-                $formBuilder->add($this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())), NumberType::class);
+                $formBuilder->add($this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())), NumberType::class, array(
+                    'attr' => array(
+                        'pattern' => '[0-9]'
+                    )
+                ));
             } else if ($champ->getType() === 'Données') {
                 $champsViews[$champ->getNom()]['Nom'] = $champ->getNom();
                 $champsViews[$champ->getNom()]['Type'] = $champ->getType();

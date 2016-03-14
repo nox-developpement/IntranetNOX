@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
 use Smalot\PdfParser\Parser;
+use Symfony\Component\HttpFoundation\Response;
 
 class RessourcesController extends Controller {
 
@@ -118,7 +119,7 @@ class RessourcesController extends Controller {
         return $this->render('NoxIntranetRessourcesBundle:Archives:archives.html.twig', array('texte' => $texte, 'formulaire' => $form->createView()));
     }
 
-    public function referencesAction(Request $request) {
+    public function referencesAction(Request $request, $page) {
 
         $em = $this->getDoctrine()->getManager();
 
@@ -177,10 +178,18 @@ class RessourcesController extends Controller {
 
         $news = $this->getPDF("C:/wamp/www/Symfony/web/uploads/References");
 
-        return $this->render('NoxIntranetRessourcesBundle:References:references.html.twig', array('references' => $news, 'text' => $text, 'keywords' => $keywords5, 'nombreMax' => $keywordNombreMax, 'formulaire' => $form->createView()));
+        if ($news == null) {
+            $nbPages = 1;
+            $news5 = null;
+        } else {
+            $nbPages = intval(ceil(sizeof($news) / 5));
+            $news5 = array_chunk($news, 5);
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:References:references.html.twig', array('page' => $page, 'nbPage' => $nbPages, 'references' => $news5[$page - 1], 'text' => $text, 'keywords' => $keywords5, 'nombreMax' => $keywordNombreMax, 'formulaire' => $form->createView()));
     }
 
-    public function referencesKeywordAction(Request $request) {
+    public function referencesKeywordAction(Request $request, $page) {
 
         $em = $this->getDoctrine()->getManager();
 
@@ -273,7 +282,15 @@ class RessourcesController extends Controller {
             }
         }
 
-        return $this->render('NoxIntranetRessourcesBundle:References:References.html.twig', array('references' => $competencesRecherche, 'text' => $text, 'keywords' => $keywords5, 'nombreMax' => $keywordNombreMax, 'formulaire' => $form->createView()));
+        if ($competencesRecherche == null) {
+            $nbPages = 1;
+            $competencesRecherche5 = null;
+        } else {
+            $nbPages = intval(ceil(sizeof($competencesRecherche) / 5));
+            $competencesRecherche5 = array_chunk($competencesRecherche, 5);
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:References:References.html.twig', array('page' => $page, 'nbPage' => $nbPages, 'references' => $competencesRecherche5[$page - 1], 'text' => $text, 'keywords' => $keywords5, 'nombreMax' => $keywordNombreMax, 'formulaire' => $form->createView()));
     }
 
     public function proceduresAction() {
@@ -625,11 +642,19 @@ class RessourcesController extends Controller {
         return $this->render('NoxIntranetRessourcesBundle:AQ:AQ.html.twig');
     }
 
-    public function affichageAQAction($chemin, $dossier, $config) {
+    public function affichageAQAction($chemin, $dossier, $config, $page) {
 
         $news = $this->getPDF("C:/wamp/www/Symfony/web/uploads/AQ/" . $chemin);
 
-        return $this->render('NoxIntranetRessourcesBundle:AQ:affichageContenu.html.twig', array('news' => $news, 'dossier' => $dossier, 'config' => $config));
+        if ($news == null) {
+            $nbPages = 1;
+            $news10 = null;
+        } else {
+            $nbPages = intval(ceil(sizeof($news) / 5));
+            $news10 = array_chunk($news, 5);
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:AQ:affichageContenu.html.twig', array('chemin' => $chemin, 'page' => $page, 'nbPage' => $nbPages, 'news' => $news10[$page - 1], 'dossier' => $dossier, 'config' => $config));
     }
 
     public function getPDF($chemin) {
@@ -668,11 +693,19 @@ class RessourcesController extends Controller {
         return $this->render('NoxIntranetRessourcesBundle:RH:RH.html.twig');
     }
 
-    public function affichageRHAction($chemin, $dossier, $config) {
+    public function affichageRHAction($chemin, $dossier, $config, $page) {
 
         $news = $this->getPDF("C:/wamp/www/Symfony/web/uploads/RH/" . $chemin);
 
-        return $this->render('NoxIntranetRessourcesBundle:RH:affichageContenu.html.twig', array('news' => $news, 'dossier' => $dossier, 'config' => $config));
+        if ($news == null) {
+            $nbPages = 1;
+            $news10 = null;
+        } else {
+            $nbPages = intval(ceil(sizeof($news) / 5));
+            $news10 = array_chunk($news, 5);
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:RH:affichageContenu.html.twig', array('nbPage' => $nbPages, 'chemin' => $chemin, 'page' => $page, 'news' => $news10[$page - 1], 'dossier' => $dossier, 'config' => $config));
     }
 
     public function citationsAction(Request $request) {
@@ -837,6 +870,49 @@ class RessourcesController extends Controller {
         $texte = $texteEncart->getText();
 
         return $this->render('NoxIntranetRessourcesBundle:AQ:formulairesEtDocumentsTypes.html.twig', array('texte' => $texte, 'formulaire' => $form->createView()));
+    }
+
+    public function excelParsingAction($chemin, $dossier, $config) {
+
+        include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
+
+        $excelFiles = $this->getDirContents("C:/wamp/www/Symfony/web/uploads/RH/" . $chemin);
+
+        if (!empty($excelFiles)) {
+            foreach ($excelFiles as $file) {
+                $objReader = \PHPExcel_IOFactory::createReaderForFile($file);
+                $objReader->setReadDataOnly(true);
+                $objPHPExcel = $objReader->load($file);
+
+                $fichierExcel[$file]['proprietes'] = $objPHPExcel->getProperties();
+                $fichierExcel[$file]['Lien'] = '/Symfony/web/uploads/RH/' . $chemin . '/' . pathinfo($file, PATHINFO_BASENAME);
+                $fichierExcel[$file]['Nom'] = pathinfo($file, PATHINFO_FILENAME);
+                $fichierExcel[$file]['dateEnvoi'] = date("Y/m/d", filemtime($file));
+
+                if (!is_file("C:/wamp/www/Symfony/web/ExcelToPDF/" . pathinfo($file, PATHINFO_FILENAME) . ".pdf") || !is_file("C:/wamp/www/Symfony/web/ImagePDF/" . pathinfo($file, PATHINFO_FILENAME) . ".png")) {
+                    exec("soffice --headless --convert-to pdf --outdir \"C:/wamp/www/Symfony/web/ExcelToPDF\" \"" . $file . "\"");
+                    exec("convert \"C:/wamp/www/Symfony/web/ExcelToPDF/" . pathinfo($file, PATHINFO_FILENAME) . ".pdf[0]\" -resize 500x500 -strip -interlace line \"C:/wamp/www/Symfony/web/ImagePDF/" . pathinfo($file, PATHINFO_FILENAME) . ".png\"");
+                }
+            }
+        } else {
+            $fichierExcel = array();
+        }
+
+        if ($fichierExcel != null) {
+            foreach ($fichierExcel as $k => $v) {
+                $date[$k] = $v['dateEnvoi'];
+            }
+
+            array_multisort($date, SORT_DESC, $fichierExcel);
+        }
+
+        if ($fichierExcel != null) {
+            foreach ($fichierExcel as $key => $value) {
+                $fichierExcel[$key]['dateEnvoi'] = date("d/m/Y", strtotime($value['dateEnvoi']));
+            }
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:RH:affichageExcel.html.twig', array('news' => $fichierExcel, 'dossier' => $dossier, 'chemin' => $chemin, 'config' => $config));
     }
 
 }

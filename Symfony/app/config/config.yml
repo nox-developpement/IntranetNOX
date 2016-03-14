@@ -570,7 +570,7 @@ fm_elfinder:
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  10M
-        procedures:
+        processus:
             locale:           %locale%
             editor:           ckeditor
             fullscreen:       true
@@ -580,7 +580,21 @@ fm_elfinder:
                 roots:
                     uploads:
                         driver:           LocalFileSystem
-                        path:             uploads/AQ/DOCUMENTQSE/PROCEDURES
+                        path:             uploads/AQ/DOCUMENTQSE/PROCESSUS
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  10M
+        indicateurs:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/AQ/DOCUMENTQSE/INDICATEURS
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  10M
@@ -791,7 +805,7 @@ fm_elfinder:
                     uploads:
                         driver:           LocalFileSystem
                         path:             uploads/RH/RHQuotidien/Pointage
-                        upload_allow:     ['application/pdf']
+                        upload_allow:     ['application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
                         upload_deny:      ['all']
                         upload_max_size:  10M  
         noteDeFrais:
@@ -805,7 +819,7 @@ fm_elfinder:
                     uploads:
                         driver:           LocalFileSystem
                         path:             uploads/RH/RHQuotidien/NoteDeFrais
-                        upload_allow:     ['application/pdf']
+                        upload_allow:     ['application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
                         upload_deny:      ['all']
                         upload_max_size:  10M  
         conventionCollective:
@@ -836,7 +850,7 @@ fm_elfinder:
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  10M  
-        ACCORDS:
+        Accords:
             locale:           %locale%
             editor:           ckeditor
             fullscreen:       true
@@ -846,7 +860,7 @@ fm_elfinder:
                 roots:
                     uploads:
                         driver:           LocalFileSystem
-                        path:             uploads/RH/ReglementationRH/ACCORDS
+                        path:             uploads/RH/ReglementationRH/Accords
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  10M  

@@ -322,21 +322,21 @@ class __TwigTemplate_54be1d1a7298196b5c190302df71600658fdf3845708ab8a2c87e2c3166
                 <a href='";
         // line 188
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Interne/VieDeLentreprise/NotePersonnel", "dossier" => "Note au personnel", "config" => "notePersonnel")), "html", null, true);
-        echo "'> <h5> Note au personnel </h5> </a>
+        echo "'> <h5> Notes au personnel </h5> </a>
             </div>
 
             <div class=\"sousSousMessageAcceuil\"> 
                 <a href='";
         // line 192
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Interne/VieDeLentreprise/PosteAPourvoir", "dossier" => "Poste à pourvoir", "config" => "posteAPourvoir")), "html", null, true);
-        echo "'> <h5> Poste à pourvoir </h5> </a>
+        echo "'> <h5> Postes à pourvoir </h5> </a>
             </div>
 
             <div class=\"sousSousMessageAcceuil\"> 
                 <a href='";
         // line 196
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Interne/VieDeLentreprise/NominationOrganisation", "dossier" => "Nomination &#47; Organisation", "config" => "nominationOrganisation")), "html", null, true);
-        echo "'> <h5> Nomination / organisation </h5> </a>
+        echo "'> <h5> Nominations / organisation </h5> </a>
             </div>
 
         </div>
@@ -621,15 +621,15 @@ class __TwigTemplate_54be1d1a7298196b5c190302df71600658fdf3845708ab8a2c87e2c3166
 /*         <div id="sousMenuVieDeLentreprise" class='sousMenu'>*/
 /* */
 /*             <div class="sousSousMessageAcceuil"> */
-/*                 <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/NotePersonnel', 'dossier': 'Note au personnel', 'config': 'notePersonnel' }) }}'> <h5> Note au personnel </h5> </a>*/
+/*                 <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/NotePersonnel', 'dossier': 'Note au personnel', 'config': 'notePersonnel' }) }}'> <h5> Notes au personnel </h5> </a>*/
 /*             </div>*/
 /* */
 /*             <div class="sousSousMessageAcceuil"> */
-/*                 <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/PosteAPourvoir', 'dossier': 'Poste à pourvoir', 'config': 'posteAPourvoir' }) }}'> <h5> Poste à pourvoir </h5> </a>*/
+/*                 <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/PosteAPourvoir', 'dossier': 'Poste à pourvoir', 'config': 'posteAPourvoir' }) }}'> <h5> Postes à pourvoir </h5> </a>*/
 /*             </div>*/
 /* */
 /*             <div class="sousSousMessageAcceuil"> */
-/*                 <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/NominationOrganisation', 'dossier': 'Nomination &#47; Organisation', 'config': 'nominationOrganisation' }) }}'> <h5> Nomination / organisation </h5> </a>*/
+/*                 <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/NominationOrganisation', 'dossier': 'Nomination &#47; Organisation', 'config': 'nominationOrganisation' }) }}'> <h5> Nominations / organisation </h5> </a>*/
 /*             </div>*/
 /* */
 /*         </div>*/

@@ -23,44 +23,44 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_0a658325c886448258d3f11a55b03c49e55c0fe752cc77d5f7823422ec692918 = $this->env->getExtension("native_profiler");
-        $__internal_0a658325c886448258d3f11a55b03c49e55c0fe752cc77d5f7823422ec692918->enter($__internal_0a658325c886448258d3f11a55b03c49e55c0fe752cc77d5f7823422ec692918_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetCommunicationBundle:Accueil:accueilCommunication.html.twig"));
+        $__internal_5c7fdd91ee4d1f12062419a7750abfa033d9020fbe0379d1edf5084da4b72d2b = $this->env->getExtension("native_profiler");
+        $__internal_5c7fdd91ee4d1f12062419a7750abfa033d9020fbe0379d1edf5084da4b72d2b->enter($__internal_5c7fdd91ee4d1f12062419a7750abfa033d9020fbe0379d1edf5084da4b72d2b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetCommunicationBundle:Accueil:accueilCommunication.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_0a658325c886448258d3f11a55b03c49e55c0fe752cc77d5f7823422ec692918->leave($__internal_0a658325c886448258d3f11a55b03c49e55c0fe752cc77d5f7823422ec692918_prof);
+        $__internal_5c7fdd91ee4d1f12062419a7750abfa033d9020fbe0379d1edf5084da4b72d2b->leave($__internal_5c7fdd91ee4d1f12062419a7750abfa033d9020fbe0379d1edf5084da4b72d2b_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_ce3e3c6e846b22347bc283ed654da5033800dc76a1532c3aa75568c3bc5e6057 = $this->env->getExtension("native_profiler");
-        $__internal_ce3e3c6e846b22347bc283ed654da5033800dc76a1532c3aa75568c3bc5e6057->enter($__internal_ce3e3c6e846b22347bc283ed654da5033800dc76a1532c3aa75568c3bc5e6057_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_33481887951c2164328a333b3715f03482786f4de62e442597153be9f68488d4 = $this->env->getExtension("native_profiler");
+        $__internal_33481887951c2164328a333b3715f03482786f4de62e442597153be9f68488d4->enter($__internal_33481887951c2164328a333b3715f03482786f4de62e442597153be9f68488d4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Communication ";
         
-        $__internal_ce3e3c6e846b22347bc283ed654da5033800dc76a1532c3aa75568c3bc5e6057->leave($__internal_ce3e3c6e846b22347bc283ed654da5033800dc76a1532c3aa75568c3bc5e6057_prof);
+        $__internal_33481887951c2164328a333b3715f03482786f4de62e442597153be9f68488d4->leave($__internal_33481887951c2164328a333b3715f03482786f4de62e442597153be9f68488d4_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_619239b1d9e14ab0e066264ccbd5fb68263098fa273913425dba014075f3bb3f = $this->env->getExtension("native_profiler");
-        $__internal_619239b1d9e14ab0e066264ccbd5fb68263098fa273913425dba014075f3bb3f->enter($__internal_619239b1d9e14ab0e066264ccbd5fb68263098fa273913425dba014075f3bb3f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_a81a42ac76f61814b5af567d907a79360c7e99fa5cd5aafef086f5ee1232e3b6 = $this->env->getExtension("native_profiler");
+        $__internal_a81a42ac76f61814b5af567d907a79360c7e99fa5cd5aafef086f5ee1232e3b6->enter($__internal_a81a42ac76f61814b5af567d907a79360c7e99fa5cd5aafef086f5ee1232e3b6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Communication";
         
-        $__internal_619239b1d9e14ab0e066264ccbd5fb68263098fa273913425dba014075f3bb3f->leave($__internal_619239b1d9e14ab0e066264ccbd5fb68263098fa273913425dba014075f3bb3f_prof);
+        $__internal_a81a42ac76f61814b5af567d907a79360c7e99fa5cd5aafef086f5ee1232e3b6->leave($__internal_a81a42ac76f61814b5af567d907a79360c7e99fa5cd5aafef086f5ee1232e3b6_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_72ac89764b7d8b1525ae29af8034033d628950befbb5b94cfe37de8839723db0 = $this->env->getExtension("native_profiler");
-        $__internal_72ac89764b7d8b1525ae29af8034033d628950befbb5b94cfe37de8839723db0->enter($__internal_72ac89764b7d8b1525ae29af8034033d628950befbb5b94cfe37de8839723db0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_6838fc4b6f119e35dd6eab55656b15caa6e722538fb4e05eebe7a02a31b1047f = $this->env->getExtension("native_profiler");
+        $__internal_6838fc4b6f119e35dd6eab55656b15caa6e722538fb4e05eebe7a02a31b1047f->enter($__internal_6838fc4b6f119e35dd6eab55656b15caa6e722538fb4e05eebe7a02a31b1047f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -343,21 +343,21 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
                 <a href='";
         // line 188
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Interne/VieDeLentreprise/NotePersonnel", "dossier" => "Note au personnel", "config" => "notePersonnel")), "html", null, true);
-        echo "'> <h5> Note au personnel </h5> </a>
+        echo "'> <h5> Notes au personnel </h5> </a>
             </div>
 
             <div class=\"sousSousMessageAcceuil\"> 
                 <a href='";
         // line 192
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Interne/VieDeLentreprise/PosteAPourvoir", "dossier" => "Poste à pourvoir", "config" => "posteAPourvoir")), "html", null, true);
-        echo "'> <h5> Poste à pourvoir </h5> </a>
+        echo "'> <h5> Postes à pourvoir </h5> </a>
             </div>
 
             <div class=\"sousSousMessageAcceuil\"> 
                 <a href='";
         // line 196
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "Interne/VieDeLentreprise/NominationOrganisation", "dossier" => "Nomination &#47; Organisation", "config" => "nominationOrganisation")), "html", null, true);
-        echo "'> <h5> Nomination / organisation </h5> </a>
+        echo "'> <h5> Nominations / organisation </h5> </a>
             </div>
 
         </div>
@@ -439,7 +439,7 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 
 ";
         
-        $__internal_72ac89764b7d8b1525ae29af8034033d628950befbb5b94cfe37de8839723db0->leave($__internal_72ac89764b7d8b1525ae29af8034033d628950befbb5b94cfe37de8839723db0_prof);
+        $__internal_6838fc4b6f119e35dd6eab55656b15caa6e722538fb4e05eebe7a02a31b1047f->leave($__internal_6838fc4b6f119e35dd6eab55656b15caa6e722538fb4e05eebe7a02a31b1047f_prof);
 
     }
 
@@ -645,15 +645,15 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 /*         <div id="sousMenuVieDeLentreprise" class='sousMenu'>*/
 /* */
 /*             <div class="sousSousMessageAcceuil"> */
-/*                 <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/NotePersonnel', 'dossier': 'Note au personnel', 'config': 'notePersonnel' }) }}'> <h5> Note au personnel </h5> </a>*/
+/*                 <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/NotePersonnel', 'dossier': 'Note au personnel', 'config': 'notePersonnel' }) }}'> <h5> Notes au personnel </h5> </a>*/
 /*             </div>*/
 /* */
 /*             <div class="sousSousMessageAcceuil"> */
-/*                 <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/PosteAPourvoir', 'dossier': 'Poste à pourvoir', 'config': 'posteAPourvoir' }) }}'> <h5> Poste à pourvoir </h5> </a>*/
+/*                 <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/PosteAPourvoir', 'dossier': 'Poste à pourvoir', 'config': 'posteAPourvoir' }) }}'> <h5> Postes à pourvoir </h5> </a>*/
 /*             </div>*/
 /* */
 /*             <div class="sousSousMessageAcceuil"> */
-/*                 <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/NominationOrganisation', 'dossier': 'Nomination &#47; Organisation', 'config': 'nominationOrganisation' }) }}'> <h5> Nomination / organisation </h5> </a>*/
+/*                 <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/VieDeLentreprise/NominationOrganisation', 'dossier': 'Nomination &#47; Organisation', 'config': 'nominationOrganisation' }) }}'> <h5> Nominations / organisation </h5> </a>*/
 /*             </div>*/
 /* */
 /*         </div>*/

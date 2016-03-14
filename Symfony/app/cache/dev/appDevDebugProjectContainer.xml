@@ -3644,7 +3644,7 @@
           <parameter key="relative_path">true</parameter>
           <parameter key="path_prefix">/</parameter>
         </parameter>
-        <parameter key="procedures" type="collection">
+        <parameter key="processus" type="collection">
           <parameter key="locale">fr</parameter>
           <parameter key="editor">ckeditor</parameter>
           <parameter key="fullscreen">true</parameter>
@@ -3654,7 +3654,90 @@
             <parameter key="roots" type="collection">
               <parameter key="uploads" type="collection">
                 <parameter key="driver">LocalFileSystem</parameter>
-                <parameter key="path">uploads/AQ/DOCUMENTQSE/PROCEDURES</parameter>
+                <parameter key="path">uploads/AQ/DOCUMENTQSE/PROCESSUS</parameter>
+                <parameter key="upload_allow" type="collection">
+                  <parameter>application/pdf</parameter>
+                </parameter>
+                <parameter key="upload_deny" type="collection">
+                  <parameter>all</parameter>
+                </parameter>
+                <parameter key="upload_max_size">10M</parameter>
+                <parameter key="volume_id">0</parameter>
+                <parameter key="start_path"></parameter>
+                <parameter key="url"></parameter>
+                <parameter key="alias"></parameter>
+                <parameter key="mime_detect">auto</parameter>
+                <parameter key="mimefile"></parameter>
+                <parameter key="img_lib">auto</parameter>
+                <parameter key="tmb_path">.tmb</parameter>
+                <parameter key="tmb_path_mode">511</parameter>
+                <parameter key="tmb_url"></parameter>
+                <parameter key="tmb_size">48</parameter>
+                <parameter key="tmb_crop">true</parameter>
+                <parameter key="tmb_bg_color">#ffffff</parameter>
+                <parameter key="copy_overwrite">true</parameter>
+                <parameter key="copy_join">true</parameter>
+                <parameter key="copy_from">true</parameter>
+                <parameter key="copy_to">true</parameter>
+                <parameter key="upload_overwrite">true</parameter>
+                <parameter key="upload_order" type="collection">
+                  <parameter>deny</parameter>
+                  <parameter>allow</parameter>
+                </parameter>
+                <parameter key="defaults" type="collection">
+                  <parameter key="read">true</parameter>
+                  <parameter key="write">true</parameter>
+                </parameter>
+                <parameter key="attributes" type="collection"/>
+                <parameter key="accepted_name">/^\w[\w\s\.\%\-]*$/u</parameter>
+                <parameter key="show_hidden">false</parameter>
+                <parameter key="disabled_commands" type="collection"/>
+                <parameter key="tree_deep">0</parameter>
+                <parameter key="check_subfolders">true</parameter>
+                <parameter key="separator">\</parameter>
+                <parameter key="date_format">j M Y H:i</parameter>
+                <parameter key="time_format">H:i</parameter>
+                <parameter key="archive_mimes" type="collection"/>
+                <parameter key="archivers" type="collection"/>
+                <parameter key="flysystem" type="collection">
+                  <parameter key="enabled">false</parameter>
+                  <parameter key="type"></parameter>
+                </parameter>
+                <parameter key="glide_url"></parameter>
+                <parameter key="glide_key"></parameter>
+                <parameter key="plugins" type="collection"/>
+                <parameter key="dropbox_settings" type="collection">
+                  <parameter key="enabled">false</parameter>
+                </parameter>
+                <parameter key="ftp_settings" type="collection">
+                  <parameter key="enabled">false</parameter>
+                </parameter>
+                <parameter key="s3_settings" type="collection">
+                  <parameter key="enabled">false</parameter>
+                </parameter>
+              </parameter>
+            </parameter>
+            <parameter key="binds" type="collection"/>
+            <parameter key="plugins" type="collection"/>
+          </parameter>
+          <parameter key="cors_support">false</parameter>
+          <parameter key="editor_template">null</parameter>
+          <parameter key="theme">smoothness</parameter>
+          <parameter key="tinymce_popup_path"></parameter>
+          <parameter key="relative_path">true</parameter>
+          <parameter key="path_prefix">/</parameter>
+        </parameter>
+        <parameter key="indicateurs" type="collection">
+          <parameter key="locale">fr</parameter>
+          <parameter key="editor">ckeditor</parameter>
+          <parameter key="fullscreen">true</parameter>
+          <parameter key="include_assets">true</parameter>
+          <parameter key="connector" type="collection">
+            <parameter key="debug">true</parameter>
+            <parameter key="roots" type="collection">
+              <parameter key="uploads" type="collection">
+                <parameter key="driver">LocalFileSystem</parameter>
+                <parameter key="path">uploads/AQ/DOCUMENTQSE/INDICATEURS</parameter>
                 <parameter key="upload_allow" type="collection">
                   <parameter>application/pdf</parameter>
                 </parameter>
@@ -3821,89 +3904,6 @@
               <parameter key="uploads" type="collection">
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/AQ/DOCUMENTQSE/FORMULAIRESETDOCUMENTSTYPES</parameter>
-                <parameter key="upload_allow" type="collection">
-                  <parameter>application/pdf</parameter>
-                </parameter>
-                <parameter key="upload_deny" type="collection">
-                  <parameter>all</parameter>
-                </parameter>
-                <parameter key="upload_max_size">10M</parameter>
-                <parameter key="volume_id">0</parameter>
-                <parameter key="start_path"></parameter>
-                <parameter key="url"></parameter>
-                <parameter key="alias"></parameter>
-                <parameter key="mime_detect">auto</parameter>
-                <parameter key="mimefile"></parameter>
-                <parameter key="img_lib">auto</parameter>
-                <parameter key="tmb_path">.tmb</parameter>
-                <parameter key="tmb_path_mode">511</parameter>
-                <parameter key="tmb_url"></parameter>
-                <parameter key="tmb_size">48</parameter>
-                <parameter key="tmb_crop">true</parameter>
-                <parameter key="tmb_bg_color">#ffffff</parameter>
-                <parameter key="copy_overwrite">true</parameter>
-                <parameter key="copy_join">true</parameter>
-                <parameter key="copy_from">true</parameter>
-                <parameter key="copy_to">true</parameter>
-                <parameter key="upload_overwrite">true</parameter>
-                <parameter key="upload_order" type="collection">
-                  <parameter>deny</parameter>
-                  <parameter>allow</parameter>
-                </parameter>
-                <parameter key="defaults" type="collection">
-                  <parameter key="read">true</parameter>
-                  <parameter key="write">true</parameter>
-                </parameter>
-                <parameter key="attributes" type="collection"/>
-                <parameter key="accepted_name">/^\w[\w\s\.\%\-]*$/u</parameter>
-                <parameter key="show_hidden">false</parameter>
-                <parameter key="disabled_commands" type="collection"/>
-                <parameter key="tree_deep">0</parameter>
-                <parameter key="check_subfolders">true</parameter>
-                <parameter key="separator">\</parameter>
-                <parameter key="date_format">j M Y H:i</parameter>
-                <parameter key="time_format">H:i</parameter>
-                <parameter key="archive_mimes" type="collection"/>
-                <parameter key="archivers" type="collection"/>
-                <parameter key="flysystem" type="collection">
-                  <parameter key="enabled">false</parameter>
-                  <parameter key="type"></parameter>
-                </parameter>
-                <parameter key="glide_url"></parameter>
-                <parameter key="glide_key"></parameter>
-                <parameter key="plugins" type="collection"/>
-                <parameter key="dropbox_settings" type="collection">
-                  <parameter key="enabled">false</parameter>
-                </parameter>
-                <parameter key="ftp_settings" type="collection">
-                  <parameter key="enabled">false</parameter>
-                </parameter>
-                <parameter key="s3_settings" type="collection">
-                  <parameter key="enabled">false</parameter>
-                </parameter>
-              </parameter>
-            </parameter>
-            <parameter key="binds" type="collection"/>
-            <parameter key="plugins" type="collection"/>
-          </parameter>
-          <parameter key="cors_support">false</parameter>
-          <parameter key="editor_template">null</parameter>
-          <parameter key="theme">smoothness</parameter>
-          <parameter key="tinymce_popup_path"></parameter>
-          <parameter key="relative_path">true</parameter>
-          <parameter key="path_prefix">/</parameter>
-        </parameter>
-        <parameter key="indicateurs" type="collection">
-          <parameter key="locale">fr</parameter>
-          <parameter key="editor">ckeditor</parameter>
-          <parameter key="fullscreen">true</parameter>
-          <parameter key="include_assets">true</parameter>
-          <parameter key="connector" type="collection">
-            <parameter key="debug">true</parameter>
-            <parameter key="roots" type="collection">
-              <parameter key="uploads" type="collection">
-                <parameter key="driver">LocalFileSystem</parameter>
-                <parameter key="path">uploads/AQ/DOCUMENTQSE/INDICATEURS</parameter>
                 <parameter key="upload_allow" type="collection">
                   <parameter>application/pdf</parameter>
                 </parameter>
@@ -4902,7 +4902,8 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/RH/RHQuotidien/Pointage</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>application/pdf</parameter>
+                  <parameter>application/vnd.ms-excel</parameter>
+                  <parameter>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
@@ -4985,7 +4986,8 @@
                 <parameter key="driver">LocalFileSystem</parameter>
                 <parameter key="path">uploads/RH/RHQuotidien/NoteDeFrais</parameter>
                 <parameter key="upload_allow" type="collection">
-                  <parameter>application/pdf</parameter>
+                  <parameter>application/vnd.ms-excel</parameter>
+                  <parameter>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</parameter>
                 </parameter>
                 <parameter key="upload_deny" type="collection">
                   <parameter>all</parameter>
@@ -5222,7 +5224,7 @@
           <parameter key="relative_path">true</parameter>
           <parameter key="path_prefix">/</parameter>
         </parameter>
-        <parameter key="ACCORDS" type="collection">
+        <parameter key="Accords" type="collection">
           <parameter key="locale">fr</parameter>
           <parameter key="editor">ckeditor</parameter>
           <parameter key="fullscreen">true</parameter>
@@ -5232,7 +5234,7 @@
             <parameter key="roots" type="collection">
               <parameter key="uploads" type="collection">
                 <parameter key="driver">LocalFileSystem</parameter>
-                <parameter key="path">uploads/RH/ReglementationRH/ACCORDS</parameter>
+                <parameter key="path">uploads/RH/ReglementationRH/Accords</parameter>
                 <parameter key="upload_allow" type="collection">
                   <parameter>application/pdf</parameter>
                 </parameter>
@@ -9915,7 +9917,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>56dee641cad701.09845225</argument>
+            <argument>56e6b6a0741b31.20276157</argument>
           </service>
         </argument>
       </argument>
@@ -10416,7 +10418,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>56dee641cad701.09845225</argument>
+            <argument>56e6b6a0741b31.20276157</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -14488,7 +14490,7 @@
             <argument key="relative_path">true</argument>
             <argument key="path_prefix">/</argument>
           </argument>
-          <argument key="procedures" type="collection">
+          <argument key="processus" type="collection">
             <argument key="locale">fr</argument>
             <argument key="editor">ckeditor</argument>
             <argument key="fullscreen">true</argument>
@@ -14498,7 +14500,90 @@
               <argument key="roots" type="collection">
                 <argument key="uploads" type="collection">
                   <argument key="driver">LocalFileSystem</argument>
-                  <argument key="path">uploads/AQ/DOCUMENTQSE/PROCEDURES</argument>
+                  <argument key="path">uploads/AQ/DOCUMENTQSE/PROCESSUS</argument>
+                  <argument key="upload_allow" type="collection">
+                    <argument>application/pdf</argument>
+                  </argument>
+                  <argument key="upload_deny" type="collection">
+                    <argument>all</argument>
+                  </argument>
+                  <argument key="upload_max_size">10M</argument>
+                  <argument key="volume_id">0</argument>
+                  <argument key="start_path"></argument>
+                  <argument key="url"></argument>
+                  <argument key="alias"></argument>
+                  <argument key="mime_detect">auto</argument>
+                  <argument key="mimefile"></argument>
+                  <argument key="img_lib">auto</argument>
+                  <argument key="tmb_path">.tmb</argument>
+                  <argument key="tmb_path_mode">511</argument>
+                  <argument key="tmb_url"></argument>
+                  <argument key="tmb_size">48</argument>
+                  <argument key="tmb_crop">true</argument>
+                  <argument key="tmb_bg_color">#ffffff</argument>
+                  <argument key="copy_overwrite">true</argument>
+                  <argument key="copy_join">true</argument>
+                  <argument key="copy_from">true</argument>
+                  <argument key="copy_to">true</argument>
+                  <argument key="upload_overwrite">true</argument>
+                  <argument key="upload_order" type="collection">
+                    <argument>deny</argument>
+                    <argument>allow</argument>
+                  </argument>
+                  <argument key="defaults" type="collection">
+                    <argument key="read">true</argument>
+                    <argument key="write">true</argument>
+                  </argument>
+                  <argument key="attributes" type="collection"/>
+                  <argument key="accepted_name">/^\w[\w\s\.\%\-]*$/u</argument>
+                  <argument key="show_hidden">false</argument>
+                  <argument key="disabled_commands" type="collection"/>
+                  <argument key="tree_deep">0</argument>
+                  <argument key="check_subfolders">true</argument>
+                  <argument key="separator">\</argument>
+                  <argument key="date_format">j M Y H:i</argument>
+                  <argument key="time_format">H:i</argument>
+                  <argument key="archive_mimes" type="collection"/>
+                  <argument key="archivers" type="collection"/>
+                  <argument key="flysystem" type="collection">
+                    <argument key="enabled">false</argument>
+                    <argument key="type"></argument>
+                  </argument>
+                  <argument key="glide_url"></argument>
+                  <argument key="glide_key"></argument>
+                  <argument key="plugins" type="collection"/>
+                  <argument key="dropbox_settings" type="collection">
+                    <argument key="enabled">false</argument>
+                  </argument>
+                  <argument key="ftp_settings" type="collection">
+                    <argument key="enabled">false</argument>
+                  </argument>
+                  <argument key="s3_settings" type="collection">
+                    <argument key="enabled">false</argument>
+                  </argument>
+                </argument>
+              </argument>
+              <argument key="binds" type="collection"/>
+              <argument key="plugins" type="collection"/>
+            </argument>
+            <argument key="cors_support">false</argument>
+            <argument key="editor_template">null</argument>
+            <argument key="theme">smoothness</argument>
+            <argument key="tinymce_popup_path"></argument>
+            <argument key="relative_path">true</argument>
+            <argument key="path_prefix">/</argument>
+          </argument>
+          <argument key="indicateurs" type="collection">
+            <argument key="locale">fr</argument>
+            <argument key="editor">ckeditor</argument>
+            <argument key="fullscreen">true</argument>
+            <argument key="include_assets">true</argument>
+            <argument key="connector" type="collection">
+              <argument key="debug">true</argument>
+              <argument key="roots" type="collection">
+                <argument key="uploads" type="collection">
+                  <argument key="driver">LocalFileSystem</argument>
+                  <argument key="path">uploads/AQ/DOCUMENTQSE/INDICATEURS</argument>
                   <argument key="upload_allow" type="collection">
                     <argument>application/pdf</argument>
                   </argument>
@@ -14665,89 +14750,6 @@
                 <argument key="uploads" type="collection">
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/AQ/DOCUMENTQSE/FORMULAIRESETDOCUMENTSTYPES</argument>
-                  <argument key="upload_allow" type="collection">
-                    <argument>application/pdf</argument>
-                  </argument>
-                  <argument key="upload_deny" type="collection">
-                    <argument>all</argument>
-                  </argument>
-                  <argument key="upload_max_size">10M</argument>
-                  <argument key="volume_id">0</argument>
-                  <argument key="start_path"></argument>
-                  <argument key="url"></argument>
-                  <argument key="alias"></argument>
-                  <argument key="mime_detect">auto</argument>
-                  <argument key="mimefile"></argument>
-                  <argument key="img_lib">auto</argument>
-                  <argument key="tmb_path">.tmb</argument>
-                  <argument key="tmb_path_mode">511</argument>
-                  <argument key="tmb_url"></argument>
-                  <argument key="tmb_size">48</argument>
-                  <argument key="tmb_crop">true</argument>
-                  <argument key="tmb_bg_color">#ffffff</argument>
-                  <argument key="copy_overwrite">true</argument>
-                  <argument key="copy_join">true</argument>
-                  <argument key="copy_from">true</argument>
-                  <argument key="copy_to">true</argument>
-                  <argument key="upload_overwrite">true</argument>
-                  <argument key="upload_order" type="collection">
-                    <argument>deny</argument>
-                    <argument>allow</argument>
-                  </argument>
-                  <argument key="defaults" type="collection">
-                    <argument key="read">true</argument>
-                    <argument key="write">true</argument>
-                  </argument>
-                  <argument key="attributes" type="collection"/>
-                  <argument key="accepted_name">/^\w[\w\s\.\%\-]*$/u</argument>
-                  <argument key="show_hidden">false</argument>
-                  <argument key="disabled_commands" type="collection"/>
-                  <argument key="tree_deep">0</argument>
-                  <argument key="check_subfolders">true</argument>
-                  <argument key="separator">\</argument>
-                  <argument key="date_format">j M Y H:i</argument>
-                  <argument key="time_format">H:i</argument>
-                  <argument key="archive_mimes" type="collection"/>
-                  <argument key="archivers" type="collection"/>
-                  <argument key="flysystem" type="collection">
-                    <argument key="enabled">false</argument>
-                    <argument key="type"></argument>
-                  </argument>
-                  <argument key="glide_url"></argument>
-                  <argument key="glide_key"></argument>
-                  <argument key="plugins" type="collection"/>
-                  <argument key="dropbox_settings" type="collection">
-                    <argument key="enabled">false</argument>
-                  </argument>
-                  <argument key="ftp_settings" type="collection">
-                    <argument key="enabled">false</argument>
-                  </argument>
-                  <argument key="s3_settings" type="collection">
-                    <argument key="enabled">false</argument>
-                  </argument>
-                </argument>
-              </argument>
-              <argument key="binds" type="collection"/>
-              <argument key="plugins" type="collection"/>
-            </argument>
-            <argument key="cors_support">false</argument>
-            <argument key="editor_template">null</argument>
-            <argument key="theme">smoothness</argument>
-            <argument key="tinymce_popup_path"></argument>
-            <argument key="relative_path">true</argument>
-            <argument key="path_prefix">/</argument>
-          </argument>
-          <argument key="indicateurs" type="collection">
-            <argument key="locale">fr</argument>
-            <argument key="editor">ckeditor</argument>
-            <argument key="fullscreen">true</argument>
-            <argument key="include_assets">true</argument>
-            <argument key="connector" type="collection">
-              <argument key="debug">true</argument>
-              <argument key="roots" type="collection">
-                <argument key="uploads" type="collection">
-                  <argument key="driver">LocalFileSystem</argument>
-                  <argument key="path">uploads/AQ/DOCUMENTQSE/INDICATEURS</argument>
                   <argument key="upload_allow" type="collection">
                     <argument>application/pdf</argument>
                   </argument>
@@ -15746,7 +15748,8 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/RH/RHQuotidien/Pointage</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>application/pdf</argument>
+                    <argument>application/vnd.ms-excel</argument>
+                    <argument>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
@@ -15829,7 +15832,8 @@
                   <argument key="driver">LocalFileSystem</argument>
                   <argument key="path">uploads/RH/RHQuotidien/NoteDeFrais</argument>
                   <argument key="upload_allow" type="collection">
-                    <argument>application/pdf</argument>
+                    <argument>application/vnd.ms-excel</argument>
+                    <argument>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</argument>
                   </argument>
                   <argument key="upload_deny" type="collection">
                     <argument>all</argument>
@@ -16066,7 +16070,7 @@
             <argument key="relative_path">true</argument>
             <argument key="path_prefix">/</argument>
           </argument>
-          <argument key="ACCORDS" type="collection">
+          <argument key="Accords" type="collection">
             <argument key="locale">fr</argument>
             <argument key="editor">ckeditor</argument>
             <argument key="fullscreen">true</argument>
@@ -16076,7 +16080,7 @@
               <argument key="roots" type="collection">
                 <argument key="uploads" type="collection">
                   <argument key="driver">LocalFileSystem</argument>
-                  <argument key="path">uploads/RH/ReglementationRH/ACCORDS</argument>
+                  <argument key="path">uploads/RH/ReglementationRH/Accords</argument>
                   <argument key="upload_allow" type="collection">
                     <argument>application/pdf</argument>
                   </argument>

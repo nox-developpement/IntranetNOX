@@ -43,6 +43,13 @@ class Formulaires {
     private $profil;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="AjoutDonnees", type="boolean", nullable=true)
+     */
+    private $ajoutDonnees;
+
+    /**
      * Get id
      *
      * @return integer
@@ -117,4 +124,28 @@ class Formulaires {
         return $this->profil;
     }
 
+
+    /**
+     * Set ajoutDonnees
+     *
+     * @param boolean $ajoutDonnees
+     *
+     * @return Formulaires
+     */
+    public function setAjoutDonnees($ajoutDonnees)
+    {
+        $this->ajoutDonnees = $ajoutDonnees;
+
+        return $this;
+    }
+
+    /**
+     * Get ajoutDonnees
+     *
+     * @return boolean
+     */
+    public function getAjoutDonnees()
+    {
+        return $this->ajoutDonnees;
+    }
 }

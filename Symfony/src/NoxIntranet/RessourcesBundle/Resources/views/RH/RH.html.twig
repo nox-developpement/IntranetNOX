@@ -14,7 +14,7 @@
     <div id='sousMenuRHQuotidien' class='menu'>
 
         <div class="sousMessageAcceuil"> 
-            <a href="mailto:drh@groupe-nox.com?subject=Attestation employeur {{ app.user.firstname }} {{ app.user.lastname }}"> <h4> Attestation employeur </h4> </a>
+            <a href="mailto:drh@groupe-nox.com?subject=Demande d’attestation employeur"> <h4 class='tooltip'> <span class="tooltiptext">Envoi de mail à la DRH</span> Attestation employeur </h4> </a>
         </div>
 
         <div class="sousMessageAcceuil"> 
@@ -22,11 +22,11 @@
         </div>
 
         <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/Pointage', 'dossier': 'Pointage', 'config': 'pointage' }) }}'> <h4> Pointage </h4> </a>
+            <a href='{{ path('nox_intranet_rh_excel', { 'chemin': 'RHQuotidien/Pointage', 'dossier': 'Pointage', 'config': 'pointage'}) }}'> <h4> Pointage </h4> </a>
         </div>
 
         <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/NoteDeFrais', 'dossier': 'Note de frais', 'config': 'noteDeFrais' }) }}'> <h4> Note de frais </h4> </a>
+            <a href='{{ path('nox_intranet_rh_excel', { 'chemin': 'RHQuotidien/NoteDeFrais', 'dossier': 'Note de frais', 'config': 'noteDeFrais'}) }}'> <h4> Note de frais </h4> </a>
         </div>
 
         <div class="sousMessageAcceuil"> 
@@ -34,11 +34,11 @@
         </div>
 
         <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/ProcessMutuelle', 'dossier': 'Mutuelle', 'config': 'processMutuelle' }) }}'> <h4> Mutuelle </h4> </a>
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/ProcessMutuelle', 'dossier': 'Mutuelle', 'config': 'processMutuelle' }) }}'> <h4> Mutuelle et Prévoyance </h4> </a>
         </div>
 
         <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/ProcessLogement', 'dossier': '1% Logement', 'config': 'processLogement' }) }}'> <h4> 1% Logement </h4> </a>
+            <a href='http://www.actionlogement.fr/' target="_blank"> <h4> 1% Logement </h4> </a>
         </div>
 
     </div>
@@ -51,7 +51,7 @@
     <div id='sousMenuReglementationRH' class='menu'>
 
         <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/ConventionCollective', 'dossier': 'Convention collective', 'config': 'conventionCollective' }) }}'> <h4> Convention collective </h4> </a>
+            <a href='http://www.syntec.fr/1-federation-syntec/128-negociation-collective/154-convention-collective.aspx' target='_blank'> <h4> Convention collective </h4> </a>
         </div>
 
         <div class="sousMessageAcceuil"> 
@@ -59,7 +59,7 @@
         </div>
 
         <div class="sousMessageAcceuil"> 
-            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/ACCORDS', 'dossier': 'ACCORDS', 'config': 'ACCORDS' }) }}'> <h4> ACCORDS </h4> </a>
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/Accords', 'dossier': 'Accords', 'config': 'Accords' }) }}'> <h4> Accords </h4> </a>
         </div>
 
         <div class="sousMessageAcceuil"> 

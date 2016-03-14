@@ -68,8 +68,26 @@ $(window).ready(function () {
         }
     });
 
+    toggleCheckboxAjoutDonnees();
+
+    $('#formAjoutChamp_Type').change(function () {
+        toggleCheckboxAjoutDonnees();
+    });
+
     $('#formSuppresionPositionChamp_Supprimer').click(function () {
         return confirm('Attention, si vous modifiez ce modèle toutes les données des suivis associés seront supprimées !');
     });
 });
+
+function toggleCheckboxAjoutDonnees() {
+    if ($('#formAjoutChamp_Type option:selected').text() === 'Données') {
+        $('label[for="formAjoutChamp_AjoutDonnees"]').show();
+        $('#formAjoutChamp_AjoutDonnees').show();
+        $('#formAjoutChamp_AjoutDonnees').attr('requierd', 'required');
+    } else {
+        $('label[for="formAjoutChamp_AjoutDonnees"]').hide();
+        $('#formAjoutChamp_AjoutDonnees').hide();
+        $('#formAjoutChamp_AjoutDonnees').removeAttr('requieed');
+    }
+}
 

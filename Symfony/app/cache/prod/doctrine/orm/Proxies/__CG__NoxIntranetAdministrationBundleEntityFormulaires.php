@@ -64,10 +64,10 @@ class Formulaires extends \NoxIntranet\AdministrationBundle\Entity\Formulaires i
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'type', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'profil'];
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'type', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'profil', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'ajoutDonnees'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'type', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'profil'];
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'nom', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'type', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'profil', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Formulaires' . "\0" . 'ajoutDonnees'];
     }
 
     /**
@@ -252,6 +252,28 @@ class Formulaires extends \NoxIntranet\AdministrationBundle\Entity\Formulaires i
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getProfil', []);
 
         return parent::getProfil();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAjoutDonnees($ajoutDonnees)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAjoutDonnees', [$ajoutDonnees]);
+
+        return parent::setAjoutDonnees($ajoutDonnees);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAjoutDonnees()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAjoutDonnees', []);
+
+        return parent::getAjoutDonnees();
     }
 
 }

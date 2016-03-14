@@ -23,12 +23,12 @@ nox_intranet_competences_recherche:
     defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:competencesKeyword }
     
 nox_intranet_references:
-    path:   /ressources/references
-    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:references }
+    path:   /ressources/references/{page}
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:references, page: 1 }
     
 nox_intranet_references_recherche:
-    path:   /ressources/references/recherche
-    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:referencesKeyword }
+    path:   /ressources/references/{page}/recherche
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:referencesKeyword, page: 1 }
     
 nox_intranet_procedures:
     path: /ressources/procedures
@@ -67,8 +67,8 @@ nox_intranet_aq:
     defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:aq }
     
 nox_intranet_affichageAQ:
-    path:   /ressources/aq/{dossier}/{config}/{chemin}
-    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:affichageAQ }
+    path:   /ressources/aq/{page}/{dossier}/{config}/{chemin}
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:affichageAQ, page: 1 }
     requirements:
          chemin: .+
          
@@ -109,8 +109,8 @@ nox_intranet_rh:
     defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:rh }
     
 nox_intranet_affichageRH:
-    path:   /ressources/rh/{dossier}/{config}/{chemin}
-    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:affichageRH }
+    path:   /ressources/rh/{page}/{dossier}/{config}/{chemin}
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:affichageRH, page: 1 }
     requirements:
          chemin: .+
          
@@ -129,4 +129,10 @@ nox_intranet_aq_modes_operatoires:
 nox_intranet_aq_formulaires_et_documents_types:
     path: /ressources/aq/documentsQSE/formulaires-et-documents-types
     defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:formulairesEtDocumentsTypes }
+    
+nox_intranet_rh_excel:
+    path: /ressources/rh-excel/{dossier}/{config}/{chemin}
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:ExcelParsing }
+    requirements:
+        chemin: .+
     

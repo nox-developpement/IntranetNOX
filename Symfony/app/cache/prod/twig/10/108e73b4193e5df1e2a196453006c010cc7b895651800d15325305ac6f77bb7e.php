@@ -58,12 +58,7 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
     <div id='sousMenuRHQuotidien' class='menu'>
 
         <div class=\"sousMessageAcceuil\"> 
-            <a href=\"mailto:drh@groupe-nox.com?subject=Attestation employeur ";
-        // line 17
-        echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : null), "user", array()), "firstname", array()), "html", null, true);
-        echo " ";
-        echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : null), "user", array()), "lastname", array()), "html", null, true);
-        echo "\"> <h4> Attestation employeur </h4> </a>
+            <a href=\"mailto:drh@groupe-nox.com?subject=Demande d’attestation employeur\"> <h4 class='tooltip'> <span class=\"tooltiptext\">Envoi de mail à la DRH</span> Attestation employeur </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
@@ -76,14 +71,14 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
         // line 25
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageRH", array("chemin" => "RHQuotidien/Pointage", "dossier" => "Pointage", "config" => "pointage")), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_rh_excel", array("chemin" => "RHQuotidien/Pointage", "dossier" => "Pointage", "config" => "pointage")), "html", null, true);
         echo "'> <h4> Pointage </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
         // line 29
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageRH", array("chemin" => "RHQuotidien/NoteDeFrais", "dossier" => "Note de frais", "config" => "noteDeFrais")), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_rh_excel", array("chemin" => "RHQuotidien/NoteDeFrais", "dossier" => "Note de frais", "config" => "noteDeFrais")), "html", null, true);
         echo "'> <h4> Note de frais </h4> </a>
         </div>
 
@@ -98,14 +93,11 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
             <a href='";
         // line 37
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageRH", array("chemin" => "RHQuotidien/ProcessMutuelle", "dossier" => "Mutuelle", "config" => "processMutuelle")), "html", null, true);
-        echo "'> <h4> Mutuelle </h4> </a>
+        echo "'> <h4> Mutuelle et Prévoyance </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
-            <a href='";
-        // line 41
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageRH", array("chemin" => "RHQuotidien/ProcessLogement", "dossier" => "1% Logement", "config" => "processLogement")), "html", null, true);
-        echo "'> <h4> 1% Logement </h4> </a>
+            <a href='http://www.actionlogement.fr/' target=\"_blank\"> <h4> 1% Logement </h4> </a>
         </div>
 
     </div>
@@ -123,10 +115,7 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
     <div id='sousMenuReglementationRH' class='menu'>
 
         <div class=\"sousMessageAcceuil\"> 
-            <a href='";
-        // line 54
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageRH", array("chemin" => "ReglementationRH/ConventionCollective", "dossier" => "Convention collective", "config" => "conventionCollective")), "html", null, true);
-        echo "'> <h4> Convention collective </h4> </a>
+            <a href='http://www.syntec.fr/1-federation-syntec/128-negociation-collective/154-convention-collective.aspx' target='_blank'> <h4> Convention collective </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
@@ -139,8 +128,8 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
         // line 62
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageRH", array("chemin" => "ReglementationRH/ACCORDS", "dossier" => "ACCORDS", "config" => "ACCORDS")), "html", null, true);
-        echo "'> <h4> ACCORDS </h4> </a>
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageRH", array("chemin" => "ReglementationRH/Accords", "dossier" => "Accords", "config" => "Accords")), "html", null, true);
+        echo "'> <h4> Accords </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
@@ -170,7 +159,7 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
 
     public function getDebugInfo()
     {
-        return array (  149 => 66,  142 => 62,  135 => 58,  128 => 54,  117 => 48,  107 => 41,  100 => 37,  93 => 33,  86 => 29,  79 => 25,  72 => 21,  63 => 17,  52 => 11,  47 => 8,  44 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  138 => 66,  131 => 62,  124 => 58,  109 => 48,  95 => 37,  88 => 33,  81 => 29,  74 => 25,  67 => 21,  52 => 11,  47 => 8,  44 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -189,7 +178,7 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
 /*     <div id='sousMenuRHQuotidien' class='menu'>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href="mailto:drh@groupe-nox.com?subject=Attestation employeur {{ app.user.firstname }} {{ app.user.lastname }}"> <h4> Attestation employeur </h4> </a>*/
+/*             <a href="mailto:drh@groupe-nox.com?subject=Demande d’attestation employeur"> <h4 class='tooltip'> <span class="tooltiptext">Envoi de mail à la DRH</span> Attestation employeur </h4> </a>*/
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
@@ -197,11 +186,11 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/Pointage', 'dossier': 'Pointage', 'config': 'pointage' }) }}'> <h4> Pointage </h4> </a>*/
+/*             <a href='{{ path('nox_intranet_rh_excel', { 'chemin': 'RHQuotidien/Pointage', 'dossier': 'Pointage', 'config': 'pointage'}) }}'> <h4> Pointage </h4> </a>*/
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/NoteDeFrais', 'dossier': 'Note de frais', 'config': 'noteDeFrais' }) }}'> <h4> Note de frais </h4> </a>*/
+/*             <a href='{{ path('nox_intranet_rh_excel', { 'chemin': 'RHQuotidien/NoteDeFrais', 'dossier': 'Note de frais', 'config': 'noteDeFrais'}) }}'> <h4> Note de frais </h4> </a>*/
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
@@ -209,11 +198,11 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/ProcessMutuelle', 'dossier': 'Mutuelle', 'config': 'processMutuelle' }) }}'> <h4> Mutuelle </h4> </a>*/
+/*             <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/ProcessMutuelle', 'dossier': 'Mutuelle', 'config': 'processMutuelle' }) }}'> <h4> Mutuelle et Prévoyance </h4> </a>*/
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/ProcessLogement', 'dossier': '1% Logement', 'config': 'processLogement' }) }}'> <h4> 1% Logement </h4> </a>*/
+/*             <a href='http://www.actionlogement.fr/' target="_blank"> <h4> 1% Logement </h4> </a>*/
 /*         </div>*/
 /* */
 /*     </div>*/
@@ -226,7 +215,7 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
 /*     <div id='sousMenuReglementationRH' class='menu'>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/ConventionCollective', 'dossier': 'Convention collective', 'config': 'conventionCollective' }) }}'> <h4> Convention collective </h4> </a>*/
+/*             <a href='http://www.syntec.fr/1-federation-syntec/128-negociation-collective/154-convention-collective.aspx' target='_blank'> <h4> Convention collective </h4> </a>*/
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
@@ -234,7 +223,7 @@ class __TwigTemplate_dff457e6f0647a66fb93b789185a876859a0c3a9ddcb65809696b13241f
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/ACCORDS', 'dossier': 'ACCORDS', 'config': 'ACCORDS' }) }}'> <h4> ACCORDS </h4> </a>*/
+/*             <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/Accords', 'dossier': 'Accords', 'config': 'Accords' }) }}'> <h4> Accords </h4> </a>*/
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */

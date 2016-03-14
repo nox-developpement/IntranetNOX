@@ -223,10 +223,10 @@ class __TwigTemplate_ab5c40be05ad6797b940552c452231bce56cb0a155bf90bdd1b2270f7b9
         echo $this->env->getExtension('routing')->getPath("nox_intranet_ressources");
         echo "\" class=\"liens\"> Ressources </a> </li> 
 
-                    <li class=\"menuElement\"> <a href=\"";
+                    <li class=\"menuElement tooltipSupportSI\">  <span class=\"tooltipSupportSIText\">Aide pour les problèmes informatiques.</span> <a href=\"";
         // line 94
         echo $this->env->getExtension('routing')->getPath("nox_intranet_support_si");
-        echo "\" class=\"liens\" title='Aide pour les problèmes informatiques.'> Support SI </a> </li> 
+        echo "\" class=\"liens\"> Support SI </a> </li> 
 
                     <li id=\"google_search\"> 
                         <form id=\"google_form\">
@@ -570,7 +570,7 @@ class __TwigTemplate_ab5c40be05ad6797b940552c452231bce56cb0a155bf90bdd1b2270f7b9
 /* */
 /*                     <li class="menuElement"> <a href="{{ path('nox_intranet_ressources') }}" class="liens"> Ressources </a> </li> */
 /* */
-/*                     <li class="menuElement"> <a href="{{ path('nox_intranet_support_si') }}" class="liens" title='Aide pour les problèmes informatiques.'> Support SI </a> </li> */
+/*                     <li class="menuElement tooltipSupportSI">  <span class="tooltipSupportSIText">Aide pour les problèmes informatiques.</span> <a href="{{ path('nox_intranet_support_si') }}" class="liens"> Support SI </a> </li> */
 /* */
 /*                     <li id="google_search"> */
 /*                         <form id="google_form">*/

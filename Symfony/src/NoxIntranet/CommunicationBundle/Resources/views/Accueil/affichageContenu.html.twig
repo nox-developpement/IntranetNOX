@@ -15,6 +15,66 @@
 
     {% endif %}
 
+    <div id="choixPage">
+
+        {% if nbPage > 1 %}
+
+            <!-- Affiche un lien vers la première page si ce n'est pas la page actuel -->
+            {% if page > 1 %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': 1, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> << </a>
+            {% endif %}
+            <!-------------------------------------------------------------------------->
+
+            <!-- Affiche un lien vers la page précédente si elle existe -->
+            {% if page-1  >= 1 %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': page-1, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> < </a>
+            {% endif %}
+            <!---------------------------------------------------------->
+
+            <!-- Affichage des liens vers les pages précédente. -->
+            {% if page-1  >= 1 %}
+                {% for i in 1..page-1 %}
+
+                    {% if i >= (page - 2) %}
+                        <a href="{{ path('nox_intranet_affichageContenu', { 'page': i, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> {{ i }} </a>
+                    {% endif %}
+
+                {% endfor %}
+            {% endif %}
+            <!--------------------------------------------------->
+
+            <!-- Page courante -->
+            <a href="{{ path('nox_intranet_affichageContenu', { 'page': page, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> <p id="pageActuel">{{ page }}</p> </a>
+            <!------------------->
+
+            <!-- Affichage des liens vers les pages suivantes. -->
+            {% if page+1  <= nbPage %}
+                {% for i in page+1..nbPage %}
+
+                    {% if i <= (page + 2) %}
+                        <a href="{{ path('nox_intranet_affichageContenu', { 'page': i, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> {{ i }} </a>
+                    {% endif %}
+
+                {% endfor %}
+            {% endif %}
+            <!--------------------------------------------------->
+
+            <!-- Affiche un lien vers la page suivante si elle existe -->
+            {% if page+1  <= nbPage %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': page+1, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> > </a>
+            {% endif %}
+            <!------------------------------------------------------------>
+
+            <!-- Affiche un lien vers la dernière page si ce n'est pas la page actuel -->
+            {% if page < nbPage %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': nbPage, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> >> </a>
+            {% endif %}
+            <!-------------------------------------------------------------------------->
+
+        {% endif %}
+
+    </div>
+
     {% for new in news %} 
 
         <div class="divNews">
@@ -48,5 +108,65 @@
         </div>
 
     {% endfor %}
+
+    <div id="choixPage">
+
+        {% if nbPage > 1 %}
+
+            <!-- Affiche un lien vers la première page si ce n'est pas la page actuel -->
+            {% if page > 1 %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': 1, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> << </a>
+            {% endif %}
+            <!-------------------------------------------------------------------------->
+
+            <!-- Affiche un lien vers la page précédente si elle existe -->
+            {% if page-1  >= 1 %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': page-1, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> < </a>
+            {% endif %}
+            <!---------------------------------------------------------->
+
+            <!-- Affichage des liens vers les pages précédente. -->
+            {% if page-1  >= 1 %}
+                {% for i in 1..page-1 %}
+
+                    {% if i >= (page - 2) %}
+                        <a href="{{ path('nox_intranet_affichageContenu', { 'page': i, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> {{ i }} </a>
+                    {% endif %}
+
+                {% endfor %}
+            {% endif %}
+            <!--------------------------------------------------->
+
+            <!-- Page courante -->
+            <a href="{{ path('nox_intranet_affichageContenu', { 'page': page, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> <p id="pageActuel">{{ page }}</p> </a>
+            <!------------------->
+
+            <!-- Affichage des liens vers les pages suivantes. -->
+            {% if page+1  <= nbPage %}
+                {% for i in page+1..nbPage %}
+
+                    {% if i <= (page + 2) %}
+                        <a href="{{ path('nox_intranet_affichageContenu', { 'page': i, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> {{ i }} </a>
+                    {% endif %}
+
+                {% endfor %}
+            {% endif %}
+            <!--------------------------------------------------->
+
+            <!-- Affiche un lien vers la page suivante si elle existe -->
+            {% if page+1  <= nbPage %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': page+1, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> > </a>
+            {% endif %}
+            <!------------------------------------------------------------>
+
+            <!-- Affiche un lien vers la dernière page si ce n'est pas la page actuel -->
+            {% if page < nbPage %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': nbPage, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> >> </a>
+            {% endif %}
+            <!-------------------------------------------------------------------------->
+
+        {% endif %}
+
+    </div>
 
 {% endblock %}

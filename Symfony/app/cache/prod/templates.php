@@ -143,6 +143,7 @@
   'NoxIntranetRessourcesBundle:Procedures:procedures.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/Procedures/procedures.html.twig',
   'NoxIntranetRessourcesBundle:References:References.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/References/References.html.twig',
   'NoxIntranetRessourcesBundle:RH:affichageContenu.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/RH/affichageContenu.html.twig',
+  'NoxIntranetRessourcesBundle:RH:affichageExcel.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/RH/affichageExcel.html.twig',
   'NoxIntranetRessourcesBundle:RH:RH.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/RH/RH.html.twig',
   'NoxIntranetRessourcesBundle:Serveurs:serveurs.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\RessourcesBundle/Resources/views/Serveurs/serveurs.html.twig',
   'NoxIntranetSupportSIBundle:Support:accueilSupport.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\SupportSIBundle/Resources/views/Support/accueilSupport.html.twig',

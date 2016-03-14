@@ -201,7 +201,8 @@ $wgCategoryTreeSidebarRoot = 'Général';
 $wgCategoryTreeSidebarOptions = array('mode' => 'all', 'hideroot' => 'on');
 
 require_once( "$IP/extensions/LdapAuthentication/LdapAuthentication.php" );
-$wgAuth = new LdapAuthenticationPlugin();
+require_once( "$IP/extensions/LdapAuthentication/LdapAutoAuthentication.php" );
+// options go here
 
 // Option for getting debug output from the plugin. 1-3 available. 1 will show
 // non-sensitive info, 2 will show possibly sensitive user info, 3+ will show
@@ -244,3 +245,5 @@ $wgLDAPEncryptionType = array(
 $wgLDAPSearchStrings = array(
   'nox.local' => "NOX\USER-NAME"
 );
+
+AutoAuthSetup();;

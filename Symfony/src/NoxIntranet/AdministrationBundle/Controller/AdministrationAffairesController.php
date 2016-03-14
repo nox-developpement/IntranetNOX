@@ -21,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Description of AdministrationAffairesController
@@ -160,6 +160,9 @@ class AdministrationAffairesController extends Controller {
                         },
                         'choice_label' => 'Nom',
                     ))
+                    ->add('AjoutDonnees', CheckboxType::class, array(
+                        'required' => false
+                    ))
                     ->add('Ajouter', SubmitType::class)
                     ->getForm();
         } else {
@@ -188,6 +191,9 @@ class AdministrationAffairesController extends Controller {
                     ->add('Ajouter', SubmitType::class, array(
                         'disabled' => true,
                         'attr' => array('title' => 'Veuillez créez un profil pour pouvoir ajouter un champ.')
+                    ))
+                    ->add('AjoutDonnees', CheckboxType::class, array(
+                        'disabled' => true
                     ))
                     ->getForm();
         }

@@ -1980,11 +1980,11 @@ divAdministrationUtilisateur {
 .formulaireSuppressionPositionChamp fieldset legend {
     color: rgb(31,78,121);
     background-color: white;
-    border: solid 1px rgb(31,78,121);
     padding: 0% 0.5% 0% 0.5%;
     white-space: nowrap;
-    text-align: left;
+    text-align: center;
     min-width: auto;
+    border: solid 1px #1F4E79;
 }
 
 .selectFormulaireAdministrationSuppressionProfil, .textFormulaireAdministrationAjoutProfil {
@@ -2009,6 +2009,10 @@ divAdministrationUtilisateur {
     width: 40%;
     float: left;
     text-align: right;
+}
+
+form input[type='checkbox'] {
+    vertical-align: middle;
 }
 
 .labelFormulaireAjoutFormulaire {
@@ -2188,10 +2192,10 @@ divAdministrationUtilisateur {
 .formulaireSuppressionAnnonce fieldset legend {
     color: rgb(31,78,121);
     background-color: white;
-    border: solid 1px rgb(31,78,121);
     padding: 0% 0.5% 0% 0.5%;
     white-space: nowrap;
-    text-align: left;
+    text-align: center;
+    border: solid 1px #1F4E79;
 }
 
 .selectFormulaireSuppressionAnnonce {
@@ -2238,10 +2242,10 @@ divAdministrationUtilisateur {
 .formulaireAjoutAnnonce fieldset legend {
     color: rgb(31,78,121);
     background-color: white;
-    border: solid 1px rgb(31,78,121);
     padding: 0% 0.5% 0% 0.5%;
     white-space: nowrap;
-    text-align: left;
+    text-align: center;
+    border: solid 1px #1F4E79;
 }
 
 .textFormulaireAjoutAnnonce {
@@ -2338,4 +2342,95 @@ divAdministrationUtilisateur {
 
 #formSuppresionPositionChamp_IdChamp {
     margin-bottom: 2%;
+}
+
+.tooltip {
+    position: relative;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 35%;
+    background-color: #1F4E79;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    font-size: 1vw;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: 102%; 
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.8s, background-color 0.8s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 100%; /* To the right of the tooltip */
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent rgba(31,78,121,0.8);
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    background-color: rgba(31,78,121,0.8);
+}
+
+/* Tooltip container */
+.tooltipSupportSI {
+    position: relative;
+}
+
+/* Tooltip text */
+.tooltipSupportSI .tooltipSupportSIText {
+    visibility: hidden;
+    width: 200%;
+    background-color: rgba(31,78,121,0);
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    font-size: 1vw;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 50%;
+    margin-left: -100%;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.8s, background-color 0.8s;
+}
+
+/* Tooltip arrow */
+.tooltipSupportSI .tooltipSupportSIText::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgba(31,78,121,0.8) transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltipSupportSI:hover .tooltipSupportSIText {
+    visibility: visible;
+    background-color: rgba(31,78,121,0.8);
+    opacity: 1;
 }

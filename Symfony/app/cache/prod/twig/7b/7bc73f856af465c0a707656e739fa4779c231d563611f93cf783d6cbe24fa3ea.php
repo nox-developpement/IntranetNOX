@@ -134,27 +134,13 @@ class __TwigTemplate_3cdde2b6484ed697866959d9563e06e771c658dc23eabca5212f947c42a
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
         // line 60
-        echo $this->env->getExtension('routing')->getPath("nox_intranet_aq_procedures");
-        echo "'> <h4> Procédures </h4> </a>
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "DOCUMENTQSE/PROCESSUS", "dossier" => "Nos Processus", "config" => "processus")), "html", null, true);
+        echo "'> <h4> Nos Processus </h4> </a>
         </div>
 
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
         // line 64
-        echo $this->env->getExtension('routing')->getPath("nox_intranet_aq_modes_operatoires");
-        echo "'> <h4> Modes opératoires </h4> </a>
-        </div>
-
-        <div class=\"sousMessageAcceuil\"> 
-            <a href='";
-        // line 68
-        echo $this->env->getExtension('routing')->getPath("nox_intranet_aq_formulaires_et_documents_types");
-        echo "'> <h4> Formulaires et documents types </h4> </a>
-        </div>
-
-        <div class=\"sousMessageAcceuil\"> 
-            <a href='";
-        // line 72
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageAQ", array("chemin" => "DOCUMENTQSE/INDICATEURS", "dossier" => "Indicateurs", "config" => "indicateurs")), "html", null, true);
         echo "'> <h4> Indicateurs </h4> </a>
         </div>
@@ -176,7 +162,7 @@ class __TwigTemplate_3cdde2b6484ed697866959d9563e06e771c658dc23eabca5212f947c42a
 
     public function getDebugInfo()
     {
-        return array (  158 => 72,  151 => 68,  144 => 64,  137 => 60,  130 => 56,  119 => 50,  110 => 44,  103 => 40,  96 => 36,  84 => 29,  75 => 23,  68 => 19,  61 => 15,  51 => 10,  47 => 8,  44 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  144 => 64,  137 => 60,  130 => 56,  119 => 50,  110 => 44,  103 => 40,  96 => 36,  84 => 29,  75 => 23,  68 => 19,  61 => 15,  51 => 10,  47 => 8,  44 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -238,15 +224,7 @@ class __TwigTemplate_3cdde2b6484ed697866959d9563e06e771c658dc23eabca5212f947c42a
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */
-/*             <a href='{{ path('nox_intranet_aq_procedures') }}'> <h4> Procédures </h4> </a>*/
-/*         </div>*/
-/* */
-/*         <div class="sousMessageAcceuil"> */
-/*             <a href='{{ path('nox_intranet_aq_modes_operatoires') }}'> <h4> Modes opératoires </h4> </a>*/
-/*         </div>*/
-/* */
-/*         <div class="sousMessageAcceuil"> */
-/*             <a href='{{ path('nox_intranet_aq_formulaires_et_documents_types') }}'> <h4> Formulaires et documents types </h4> </a>*/
+/*             <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'DOCUMENTQSE/PROCESSUS', 'dossier': 'Nos Processus', 'config': 'processus' }) }}'> <h4> Nos Processus </h4> </a>*/
 /*         </div>*/
 /* */
 /*         <div class="sousMessageAcceuil"> */

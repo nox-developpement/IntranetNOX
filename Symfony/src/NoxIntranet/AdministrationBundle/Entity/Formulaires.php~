@@ -43,11 +43,11 @@ class Formulaires {
     private $profil;
 
     /**
-     * @var array
+     * @var string
      *
-     * @ORM\Column(name="Donnees", type="array", nullable=true)
+     * @ORM\Column(name="AjoutDonnees", type="boolean", nullable=true)
      */
-    private $donnees;
+    private $ajoutDonnees;
 
     /**
      * Get id
