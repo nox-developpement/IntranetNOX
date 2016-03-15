@@ -75,6 +75,10 @@ h2 {
     font-size: 1.5vw;
 }
 
+form select, form input[type=number], form input[type=text] {
+    font-size: 0.7vw;
+}
+
 #DivAQMail {
     display:inline-block;
     vertical-align:bottom;
@@ -2115,7 +2119,15 @@ form input[type='checkbox'] {
     width: 70%;
     margin: auto;
     overflow: auto;
+    border: solid 1px #1F4E79;
 }
+
+#tableauExcel img {
+    width: 100%;
+    background-color: white;
+}
+
+/*
 
 #tableauExcel p {
     font-size: 0.8vw;
@@ -2155,7 +2167,7 @@ form input[type='checkbox'] {
 #tableauExcel table tr td {
     background-color: white;
     padding: 0px;
-}
+}*/
 
 .ajoutColonne, .ajoutLigne {
     background-color: #f1f1f1;
@@ -2291,9 +2303,10 @@ form input[type='checkbox'] {
 
 .labelFormulaireRemplissageSuivi {
     display: block;
-    width: 40%;
+    /*    width: 40%;*/
     float: left;
     text-align: right;
+    white-space: nowrap;
 }
 
 .formulaireRemplissageSuivi fieldset p {
@@ -2302,7 +2315,7 @@ form input[type='checkbox'] {
 }
 
 .champFormulaireRemplissageSuivi {
-    width: 55%;
+    /*    width: 55%;*/
     margin-bottom: 2%;
     text-align: center;
 }
@@ -2432,5 +2445,66 @@ form input[type='checkbox'] {
 .tooltipSupportSI:hover .tooltipSupportSIText {
     visibility: visible;
     background-color: rgba(31,78,121,0.8);
+    opacity: 1;
+}
+
+.tooltipButtonAACloturer, .tooltipButtonAAGenerate {
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.tooltipButtonAACloturer .tooltipButtonAACloturerText, .tooltipButtonAAGenerate .tooltipButtonAAGenerateText {
+    visibility: hidden;
+    background-color: rgba(31,78,121,0);
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 50%;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    background-color: rgba(31,78,121,0.8);
+    transition: opacity 0.8s, background-color 0.8s;
+}
+
+.tooltipButtonAACloturer .tooltipButtonAACloturerText {
+    width: 200%;
+    margin-left: -100%;
+}
+
+.tooltipButtonAAGenerate .tooltipButtonAAGenerateText {
+    width: 150%;
+    margin-left: -75%;
+}
+
+.tooltipButtonAACloturer .tooltipButtonAACloturerText::after, .tooltipButtonAAGenerate .tooltipButtonAAGenerateText::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgba(31,78,121,0.8) transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltipButtonAACloturer:hover .tooltipButtonAACloturerText {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltipButtonAAGenerate:hover .tooltipButtonAAGenerateText {
+    visibility: visible;
     opacity: 1;
 }

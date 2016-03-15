@@ -385,12 +385,19 @@ class __TwigTemplate_05c244d63fd273374c26725e3e67d0a4a7f62a98e0164e40055bd38219f
         echo "'> <h4> Nos 5 valeurs </h4> </a>
         </div>
 
+        <div class=\"sousMessageAcceuil\"> 
+            <a href='";
+        // line 229
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageImages", array("chemin" => "Marketing/BuildYourFuture", "dossier" => "Build your future", "config" => "buildYourFuture")), "html", null, true);
+        echo "'> <h4> Build your future </h4> </a>
+        </div>
+
     </div>
     <!-- Fin Marketing -->
 
     <div class=\"surMessageAcceuil\" id='menuSI' onclick=\"showSubMenu2('#sousMenuSI', this);\"> 
         <h4> SI <img src='";
-        // line 232
+        // line 236
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
         echo "' class='menuImg'><img src='";
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
@@ -401,13 +408,13 @@ class __TwigTemplate_05c244d63fd273374c26725e3e67d0a4a7f62a98e0164e40055bd38219f
     <div id='sousMenuSI' class='menu'>
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 238
+        // line 242
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "SI/NewsSI", "dossier" => "News SI", "config" => "newsSI")), "html", null, true);
         echo "'> <h4> News SI </h4> </a>
         </div>
         <div class=\"sousMessageAcceuil\">  
             <a href='";
-        // line 241
+        // line 245
         echo $this->env->getExtension('routing')->getPath("nox_intranet_communication_bim");
         echo "'> <h4> BIM </h4> </a>
         </div>
@@ -431,7 +438,7 @@ class __TwigTemplate_05c244d63fd273374c26725e3e67d0a4a7f62a98e0164e40055bd38219f
 
     public function getDebugInfo()
     {
-        return array (  411 => 241,  405 => 238,  394 => 232,  384 => 225,  377 => 221,  369 => 216,  362 => 212,  351 => 206,  338 => 196,  331 => 192,  324 => 188,  313 => 182,  306 => 178,  298 => 173,  291 => 169,  283 => 164,  276 => 160,  267 => 154,  260 => 150,  253 => 146,  246 => 142,  235 => 136,  228 => 132,  218 => 127,  206 => 118,  199 => 114,  192 => 110,  181 => 104,  172 => 98,  165 => 94,  158 => 90,  151 => 86,  140 => 80,  133 => 76,  126 => 72,  104 => 55,  62 => 18,  50 => 11,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  418 => 245,  412 => 242,  401 => 236,  391 => 229,  384 => 225,  377 => 221,  369 => 216,  362 => 212,  351 => 206,  338 => 196,  331 => 192,  324 => 188,  313 => 182,  306 => 178,  298 => 173,  291 => 169,  283 => 164,  276 => 160,  267 => 154,  260 => 150,  253 => 146,  246 => 142,  235 => 136,  228 => 132,  218 => 127,  206 => 118,  199 => 114,  192 => 110,  181 => 104,  172 => 98,  165 => 94,  158 => 90,  151 => 86,  140 => 80,  133 => 76,  126 => 72,  104 => 55,  62 => 18,  50 => 11,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -659,6 +666,10 @@ class __TwigTemplate_05c244d63fd273374c26725e3e67d0a4a7f62a98e0164e40055bd38219f
 /* */
 /*         <div class="sousMessageAcceuil"> */
 /*             <a href='{{ path('nox_intranet_affichageImages', { 'chemin': 'Marketing/nos5Valeurs', 'dossier': 'Nos 5 valeurs', 'config': 'nos5Valeurs' }) }}'> <h4> Nos 5 valeurs </h4> </a>*/
+/*         </div>*/
+/* */
+/*         <div class="sousMessageAcceuil"> */
+/*             <a href='{{ path('nox_intranet_affichageImages', { 'chemin': 'Marketing/BuildYourFuture', 'dossier': 'Build your future', 'config': 'buildYourFuture' }) }}'> <h4> Build your future </h4> </a>*/
 /*         </div>*/
 /* */
 /*     </div>*/

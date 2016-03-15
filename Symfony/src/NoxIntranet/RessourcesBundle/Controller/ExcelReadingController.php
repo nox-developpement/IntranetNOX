@@ -19,9 +19,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\DataTransformer\IntegerToLocalizedStringTransformer;
 
 /**
  * Description of ExcelReadingController
@@ -447,33 +445,58 @@ class ExcelReadingController extends Controller {
                     )
                 ));
             } else if ($champ->getType() === 'Données') {
-                $champsViews[$champ->getNom()]['Nom'] = $champ->getNom();
-                $champsViews[$champ->getNom()]['Type'] = $champ->getType();
-                $champsViews[$champ->getNom()]['Champ'] = $this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom()));
-                $formBuilder->add($this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())), EntityType::class, array(
-                    'class' => 'NoxIntranetAdministrationBundle:DonneesFormulaire',
-                    'query_builder' => function (EntityRepository $er) use ($champ) {
-                        return $er->createQueryBuilder('u')
-                                        ->where("u.idFormulaire = '" . $champ->getId() . "'")
-                                        ->orderBy('u.donnee', 'ASC');
-                    },
-                    'placeholder' => 'Autre',
-                    'choice_label' => 'Donnee',
-                    'empty_data' => null,
-                    'required' => false,
-                    'attr' => array(
-                        'class' => 'champFormulaireRemplissageSuivi'
-                    )
-                ));
-                $champsViews[$champ->getNom() . 'newData']['Nom'] = 'Autre ' . $champ->getNom();
-                $champsViews[$champ->getNom() . 'newData']['Champ'] = $this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())) . 'newData';
-                $champsViews[$champ->getNom() . 'newData']['Type'] = 'Texte';
-                $formBuilder->add($this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())) . 'newData', TextType::class, array(
-                    'required' => false,
-                    'attr' => array(
-                        'class' => 'newData champFormulaireRemplissageSuivi'
-                    ),
-                ));
+                if ($champ->getAjoutDonnees() === true) {
+                    $champsViews[$champ->getNom()]['Nom'] = $champ->getNom();
+                    $champsViews[$champ->getNom()]['Type'] = $champ->getType();
+                    $champsViews[$champ->getNom()]['Champ'] = $this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom()));
+                    $formBuilder->add($this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())), EntityType::class, array(
+                        'class' => 'NoxIntranetAdministrationBundle:DonneesFormulaire',
+                        'query_builder' => function (EntityRepository $er) use ($champ) {
+                            return $er->createQueryBuilder('u')
+                                            ->where("u.idFormulaire = '" . $champ->getId() . "'")
+                                            ->orderBy('u.donnee', 'ASC');
+                        },
+                        'placeholder' => 'Autre',
+                        'choice_label' => 'Donnee',
+                        'empty_data' => null,
+                        'required' => false,
+                        'attr' => array(
+                            'class' => 'champFormulaireRemplissageSuivi'
+                        )
+                    ));
+
+                    $champsViews[$champ->getNom() . 'newData']['Nom'] = 'Autre ' . $champ->getNom();
+                    $champsViews[$champ->getNom() . 'newData']['Champ'] = $this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())) . 'newData';
+                    $champsViews[$champ->getNom() . 'newData']['Type'] = 'Texte';
+                    $formBuilder->add($this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())) . 'newData', TextType::class, array(
+                        'required' => false,
+                        'attr' => array(
+                            'class' => 'newData champFormulaireRemplissageSuivi'
+                        ),
+                    ));
+                } else {
+                    $donneesChamp = $em->getRepository('NoxIntranetAdministrationBundle:DonneesFormulaire')->findByIdFormulaire($champ->getId());
+
+                    if (!empty($donneesChamp)) {
+                        $champsViews[$champ->getNom()]['Nom'] = $champ->getNom();
+                        $champsViews[$champ->getNom()]['Type'] = $champ->getType();
+                        $champsViews[$champ->getNom()]['Champ'] = $this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom()));
+                        $formBuilder->add($this->wd_remove_accents(preg_replace('/\s+/', '', $champ->getNom())), EntityType::class, array(
+                            'class' => 'NoxIntranetAdministrationBundle:DonneesFormulaire',
+                            'query_builder' => function (EntityRepository $er) use ($champ) {
+                                return $er->createQueryBuilder('u')
+                                                ->where("u.idFormulaire = '" . $champ->getId() . "'")
+                                                ->orderBy('u.donnee', 'ASC');
+                            },
+                            'choice_label' => 'Donnee',
+                            'empty_data' => null,
+                            'required' => false,
+                            'attr' => array(
+                                'class' => 'champFormulaireRemplissageSuivi'
+                            )
+                        ));
+                    }
+                }
             }
         }
 

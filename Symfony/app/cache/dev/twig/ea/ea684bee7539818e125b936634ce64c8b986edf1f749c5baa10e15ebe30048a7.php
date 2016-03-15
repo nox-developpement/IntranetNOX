@@ -24,32 +24,32 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_f664c216b7f9d24a4ebe381240125409106c2888c69cc35008c87ed16740d059 = $this->env->getExtension("native_profiler");
-        $__internal_f664c216b7f9d24a4ebe381240125409106c2888c69cc35008c87ed16740d059->enter($__internal_f664c216b7f9d24a4ebe381240125409106c2888c69cc35008c87ed16740d059_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAccueilBundle:Accueil:accueil.html.twig"));
+        $__internal_27fc777c3da7b2516e55880c390611dd5bff92aabbd8557d061aca732e4dd31c = $this->env->getExtension("native_profiler");
+        $__internal_27fc777c3da7b2516e55880c390611dd5bff92aabbd8557d061aca732e4dd31c->enter($__internal_27fc777c3da7b2516e55880c390611dd5bff92aabbd8557d061aca732e4dd31c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAccueilBundle:Accueil:accueil.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_f664c216b7f9d24a4ebe381240125409106c2888c69cc35008c87ed16740d059->leave($__internal_f664c216b7f9d24a4ebe381240125409106c2888c69cc35008c87ed16740d059_prof);
+        $__internal_27fc777c3da7b2516e55880c390611dd5bff92aabbd8557d061aca732e4dd31c->leave($__internal_27fc777c3da7b2516e55880c390611dd5bff92aabbd8557d061aca732e4dd31c_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_5166f6617f3ccaf106ffaad5e83a3434d853db2801f588931c4c62262df59a97 = $this->env->getExtension("native_profiler");
-        $__internal_5166f6617f3ccaf106ffaad5e83a3434d853db2801f588931c4c62262df59a97->enter($__internal_5166f6617f3ccaf106ffaad5e83a3434d853db2801f588931c4c62262df59a97_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_54599003411ee5802c0f15512c9f8d193788f85b43d901cc380bb978411bffaa = $this->env->getExtension("native_profiler");
+        $__internal_54599003411ee5802c0f15512c9f8d193788f85b43d901cc380bb978411bffaa->enter($__internal_54599003411ee5802c0f15512c9f8d193788f85b43d901cc380bb978411bffaa_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Accueil ";
         
-        $__internal_5166f6617f3ccaf106ffaad5e83a3434d853db2801f588931c4c62262df59a97->leave($__internal_5166f6617f3ccaf106ffaad5e83a3434d853db2801f588931c4c62262df59a97_prof);
+        $__internal_54599003411ee5802c0f15512c9f8d193788f85b43d901cc380bb978411bffaa->leave($__internal_54599003411ee5802c0f15512c9f8d193788f85b43d901cc380bb978411bffaa_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_6dc822e05a39236a98ce7b01fca003dd39c171c38e4d9174962f244cd799f4b9 = $this->env->getExtension("native_profiler");
-        $__internal_6dc822e05a39236a98ce7b01fca003dd39c171c38e4d9174962f244cd799f4b9->enter($__internal_6dc822e05a39236a98ce7b01fca003dd39c171c38e4d9174962f244cd799f4b9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_e9c236cba553e658884011ef7823adbf5fc6808724ead3d55a4238a39f78e8ec = $this->env->getExtension("native_profiler");
+        $__internal_e9c236cba553e658884011ef7823adbf5fc6808724ead3d55a4238a39f78e8ec->enter($__internal_e9c236cba553e658884011ef7823adbf5fc6808724ead3d55a4238a39f78e8ec_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Bienvenue ";
         if (($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()) != null)) {
@@ -60,15 +60,15 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
             echo " ";
         }
         
-        $__internal_6dc822e05a39236a98ce7b01fca003dd39c171c38e4d9174962f244cd799f4b9->leave($__internal_6dc822e05a39236a98ce7b01fca003dd39c171c38e4d9174962f244cd799f4b9_prof);
+        $__internal_e9c236cba553e658884011ef7823adbf5fc6808724ead3d55a4238a39f78e8ec->leave($__internal_e9c236cba553e658884011ef7823adbf5fc6808724ead3d55a4238a39f78e8ec_prof);
 
     }
 
     // line 6
     public function block_sousMessageAccueil($context, array $blocks = array())
     {
-        $__internal_2f44f811d43d91f5f076fe9f51930e7738f323b6a5b1dee91c9d94ca7591dd85 = $this->env->getExtension("native_profiler");
-        $__internal_2f44f811d43d91f5f076fe9f51930e7738f323b6a5b1dee91c9d94ca7591dd85->enter($__internal_2f44f811d43d91f5f076fe9f51930e7738f323b6a5b1dee91c9d94ca7591dd85_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
+        $__internal_e35acb028b23cdb7faadd8f3df45141635f402fafd72be56bc733c1371d138f6 = $this->env->getExtension("native_profiler");
+        $__internal_e35acb028b23cdb7faadd8f3df45141635f402fafd72be56bc733c1371d138f6->enter($__internal_e35acb028b23cdb7faadd8f3df45141635f402fafd72be56bc733c1371d138f6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "sousMessageAccueil"));
 
         echo "Nous sommes le ";
         echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_date_converter($this->env), "d/m/Y"), "html", null, true);
@@ -76,15 +76,15 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
         echo twig_escape_filter($this->env, (isset($context["nombreVues"]) ? $context["nombreVues"] : $this->getContext($context, "nombreVues")), "html", null, true);
         echo " fois.";
         
-        $__internal_2f44f811d43d91f5f076fe9f51930e7738f323b6a5b1dee91c9d94ca7591dd85->leave($__internal_2f44f811d43d91f5f076fe9f51930e7738f323b6a5b1dee91c9d94ca7591dd85_prof);
+        $__internal_e35acb028b23cdb7faadd8f3df45141635f402fafd72be56bc733c1371d138f6->leave($__internal_e35acb028b23cdb7faadd8f3df45141635f402fafd72be56bc733c1371d138f6_prof);
 
     }
 
     // line 8
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_47c3f6218f04983745a572276a1f2d7654fea7ef13913a647e0358bebd1b96ae = $this->env->getExtension("native_profiler");
-        $__internal_47c3f6218f04983745a572276a1f2d7654fea7ef13913a647e0358bebd1b96ae->enter($__internal_47c3f6218f04983745a572276a1f2d7654fea7ef13913a647e0358bebd1b96ae_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_edc03e6de7c340fc0faf848928199c8229a3fb311c3d7869f09eba24543c7214 = $this->env->getExtension("native_profiler");
+        $__internal_edc03e6de7c340fc0faf848928199c8229a3fb311c3d7869f09eba24543c7214->enter($__internal_edc03e6de7c340fc0faf848928199c8229a3fb311c3d7869f09eba24543c7214_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 9
         echo "
@@ -92,7 +92,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 
         ";
         // line 12
-        if ($this->env->getExtension('security')->isGranted("ROLE_ADMIN")) {
+        if ($this->env->getExtension('security')->isGranted("ROLE_COMMUNICATION")) {
             // line 13
             echo "
             <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
@@ -633,7 +633,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 
 ";
         
-        $__internal_47c3f6218f04983745a572276a1f2d7654fea7ef13913a647e0358bebd1b96ae->leave($__internal_47c3f6218f04983745a572276a1f2d7654fea7ef13913a647e0358bebd1b96ae_prof);
+        $__internal_edc03e6de7c340fc0faf848928199c8229a3fb311c3d7869f09eba24543c7214->leave($__internal_edc03e6de7c340fc0faf848928199c8229a3fb311c3d7869f09eba24543c7214_prof);
 
     }
 
@@ -663,7 +663,7 @@ class __TwigTemplate_d57e7b2cf90f6764b1b0c30011a96aa50174b5d164bf7c87747897765e6
 /* */
 /*     <div class='zoneEditionAccueil'>*/
 /* */
-/*         {% if is_granted('ROLE_ADMIN') %}*/
+/*         {% if is_granted('ROLE_COMMUNICATION') %}*/
 /* */
 /*             <button id='texteEditButton' class='boutonFormulaire'>Editer</button>*/
 /* */

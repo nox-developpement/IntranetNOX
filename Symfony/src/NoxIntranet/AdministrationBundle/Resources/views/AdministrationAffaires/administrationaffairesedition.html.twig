@@ -63,30 +63,7 @@
     </div>
 
     <div id='tableauExcel'>
-
-        <table>
-            <tr>
-                <th></th>
-                    {% for i in 'a'|upper..sheet.getHighestColumn %}
-                    <th style='font-weight: bold'>{{ i }}</th>
-                    {% endfor %}
-
-            </tr>
-
-            {% for row in sheet.getRowIterator %} 
-                <tr>
-                    <th style='font-weight: bold'>{{ loop.index }}</th>
-
-                    {% for cell in row.getCellIterator %}
-                        <td>{{ cell.getValue }}</td>
-                    {% endfor %}
-
-                </tr>
-
-            {% endfor %}
-
-        </table>
-
+        <img src="{{ imagePDF }}" alt="Aperçu du fichier Excel">
     </div>
 
 {% endblock %}

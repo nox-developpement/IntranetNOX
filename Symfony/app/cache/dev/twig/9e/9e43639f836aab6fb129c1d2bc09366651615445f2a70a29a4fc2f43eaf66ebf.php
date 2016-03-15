@@ -23,45 +23,45 @@ class __TwigTemplate_3ed563a9bbb26a4c72b92044aff74251c661dae33454afed5b733113309
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_8debc431581fb70a9d3fdefe7b7ba25c71341a7fa309abd91c314582160015d2 = $this->env->getExtension("native_profiler");
-        $__internal_8debc431581fb70a9d3fdefe7b7ba25c71341a7fa309abd91c314582160015d2->enter($__internal_8debc431581fb70a9d3fdefe7b7ba25c71341a7fa309abd91c314582160015d2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig"));
+        $__internal_d41c222963762673368b10e38c58a8c4f74cac776485196f8ec1bc4d2489460b = $this->env->getExtension("native_profiler");
+        $__internal_d41c222963762673368b10e38c58a8c4f74cac776485196f8ec1bc4d2489460b->enter($__internal_d41c222963762673368b10e38c58a8c4f74cac776485196f8ec1bc4d2489460b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_8debc431581fb70a9d3fdefe7b7ba25c71341a7fa309abd91c314582160015d2->leave($__internal_8debc431581fb70a9d3fdefe7b7ba25c71341a7fa309abd91c314582160015d2_prof);
+        $__internal_d41c222963762673368b10e38c58a8c4f74cac776485196f8ec1bc4d2489460b->leave($__internal_d41c222963762673368b10e38c58a8c4f74cac776485196f8ec1bc4d2489460b_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_c534101efde1de541ef5b328589c1ae18530371fc27d9b5cf4e8f61464cca468 = $this->env->getExtension("native_profiler");
-        $__internal_c534101efde1de541ef5b328589c1ae18530371fc27d9b5cf4e8f61464cca468->enter($__internal_c534101efde1de541ef5b328589c1ae18530371fc27d9b5cf4e8f61464cca468_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_f7977fec36327a643c8ff37acc5bc27bd1b8cbe093c5c756bc94d50ff6d203fe = $this->env->getExtension("native_profiler");
+        $__internal_f7977fec36327a643c8ff37acc5bc27bd1b8cbe093c5c756bc94d50ff6d203fe->enter($__internal_f7977fec36327a643c8ff37acc5bc27bd1b8cbe093c5c756bc94d50ff6d203fe_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Edition de feuille de suivi ";
         
-        $__internal_c534101efde1de541ef5b328589c1ae18530371fc27d9b5cf4e8f61464cca468->leave($__internal_c534101efde1de541ef5b328589c1ae18530371fc27d9b5cf4e8f61464cca468_prof);
+        $__internal_f7977fec36327a643c8ff37acc5bc27bd1b8cbe093c5c756bc94d50ff6d203fe->leave($__internal_f7977fec36327a643c8ff37acc5bc27bd1b8cbe093c5c756bc94d50ff6d203fe_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_f935de475603d632077af32706beb680d362dbb0ae81e13ab9f4fedd8b8e729c = $this->env->getExtension("native_profiler");
-        $__internal_f935de475603d632077af32706beb680d362dbb0ae81e13ab9f4fedd8b8e729c->enter($__internal_f935de475603d632077af32706beb680d362dbb0ae81e13ab9f4fedd8b8e729c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_6cce913002815e3cb4bb1e2cb74ec62ab7495b3ec054191dd8f3abf4f752f28c = $this->env->getExtension("native_profiler");
+        $__internal_6cce913002815e3cb4bb1e2cb74ec62ab7495b3ec054191dd8f3abf4f752f28c->enter($__internal_6cce913002815e3cb4bb1e2cb74ec62ab7495b3ec054191dd8f3abf4f752f28c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Edition de feuille de suivi - ";
         echo twig_escape_filter($this->env, (isset($context["suivi"]) ? $context["suivi"] : $this->getContext($context, "suivi")), "html", null, true);
         
-        $__internal_f935de475603d632077af32706beb680d362dbb0ae81e13ab9f4fedd8b8e729c->leave($__internal_f935de475603d632077af32706beb680d362dbb0ae81e13ab9f4fedd8b8e729c_prof);
+        $__internal_6cce913002815e3cb4bb1e2cb74ec62ab7495b3ec054191dd8f3abf4f752f28c->leave($__internal_6cce913002815e3cb4bb1e2cb74ec62ab7495b3ec054191dd8f3abf4f752f28c_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_43a22ec244573c28bfee482cc36bf6bc1508c0ca2848d876f79f66fa0efc320e = $this->env->getExtension("native_profiler");
-        $__internal_43a22ec244573c28bfee482cc36bf6bc1508c0ca2848d876f79f66fa0efc320e->enter($__internal_43a22ec244573c28bfee482cc36bf6bc1508c0ca2848d876f79f66fa0efc320e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_a0bf06d0a38747563950738fe08cd34e877fb928bf0f351cbe0920b18619cd9c = $this->env->getExtension("native_profiler");
+        $__internal_a0bf06d0a38747563950738fe08cd34e877fb928bf0f351cbe0920b18619cd9c->enter($__internal_a0bf06d0a38747563950738fe08cd34e877fb928bf0f351cbe0920b18619cd9c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -197,7 +197,7 @@ class __TwigTemplate_3ed563a9bbb26a4c72b92044aff74251c661dae33454afed5b733113309
         echo "
                 ";
         // line 67
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : $this->getContext($context, "formDonneesSuivi")), "Generate", array()), 'widget', array("label" => "Générer fichier Excel", "attr" => array("class" => "boutonFormulaire", "title" => "Sauvegardez le suivi pour pouvoir générer un fichier Excel.")));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : $this->getContext($context, "formDonneesSuivi")), "Generate", array()), 'widget', array("label" => "Générer fichier Excel", "attr" => array("class" => "boutonFormulaire")));
         echo "
                 ";
         // line 68
@@ -215,7 +215,7 @@ class __TwigTemplate_3ed563a9bbb26a4c72b92044aff74251c661dae33454afed5b733113309
 
 ";
         
-        $__internal_43a22ec244573c28bfee482cc36bf6bc1508c0ca2848d876f79f66fa0efc320e->leave($__internal_43a22ec244573c28bfee482cc36bf6bc1508c0ca2848d876f79f66fa0efc320e_prof);
+        $__internal_a0bf06d0a38747563950738fe08cd34e877fb928bf0f351cbe0920b18619cd9c->leave($__internal_a0bf06d0a38747563950738fe08cd34e877fb928bf0f351cbe0920b18619cd9c_prof);
 
     }
 
@@ -300,7 +300,7 @@ class __TwigTemplate_3ed563a9bbb26a4c72b92044aff74251c661dae33454afed5b733113309
 /*                     <br />*/
 /*                 {% endfor %}*/
 /* */
-/*                 {{ form_widget(formDonneesSuivi.Generate, {'label': 'Générer fichier Excel', 'attr': {'class': 'boutonFormulaire', 'title': 'Sauvegardez le suivi pour pouvoir générer un fichier Excel.' }}) }}*/
+/*                 {{ form_widget(formDonneesSuivi.Generate, {'label': 'Générer fichier Excel', 'attr': {'class': 'boutonFormulaire' }}) }}*/
 /*                 {{ form_widget(formDonneesSuivi.Save, {'label': 'Sauvegarder le suivi', 'attr': {'class': 'boutonFormulaire'}}) }}*/
 /* */
 /*             </p>*/

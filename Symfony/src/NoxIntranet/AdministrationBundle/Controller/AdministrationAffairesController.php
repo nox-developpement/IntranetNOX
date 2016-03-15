@@ -490,31 +490,40 @@ class AdministrationAffairesController extends Controller {
 
                 $liaisonsAssocies = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdChamp($formSuppressionChamp['Nom']->getData()->getId());
 
-                foreach ($liaisonsAssocies as $liaison) {
+                if (!empty($liaisonsAssocies)) {
+                    foreach ($liaisonsAssocies as $liaison) {
 
-                    $fichierSuiviAssocies = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findById($liaison->getIdSuivi());
+                        $fichierSuiviAssocies = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findById($liaison->getIdSuivi());
 
-                    foreach ($fichierSuiviAssocies as $fichierSuivi) {
+                        if (!empty($fichierSuiviAssocies)) {
+                            foreach ($fichierSuiviAssocies as $fichierSuivi) {
 
-                        $suiviAssocies = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByIdModele($fichierSuivi->getId());
+                                $suiviAssocies = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByIdModele($fichierSuivi->getId());
 
-                        foreach ($suiviAssocies as $suivi) {
+                                if (!empty($suiviAssocies)) {
+                                    foreach ($suiviAssocies as $suivi) {
 
-                            $donneesSuivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneByIdSuivi($suivi->getId());
+                                        $donneesSuivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneByIdSuivi($suivi->getId());
 
-                            $em->remove($donneesSuivi);
+                                        if (!empty($donneesSuivi)) {
+                                            $em->remove($donneesSuivi);
+                                        }
 
-                            $em->remove($suivi);
-                        }
-                        foreach (glob($fichierSuivi->getChemin() . "/*.*") as $filename) {
-                            if (is_file($filename)) {
-                                unlink($filename);
+
+                                        $em->remove($suivi);
+                                    }
+                                }
+                                foreach (glob($fichierSuivi->getChemin() . "/*.*") as $filename) {
+                                    if (is_file($filename)) {
+                                        unlink($filename);
+                                    }
+                                }
+                                rmdir($fichierSuivi->getChemin());
+                                $em->remove($fichierSuivi);
                             }
+                            $em->remove($liaison);
                         }
-                        rmdir($fichierSuivi->getChemin());
-                        $em->remove($fichierSuivi);
                     }
-                    $em->remove($liaison);
                 }
             }
 
@@ -636,6 +645,16 @@ class AdministrationAffairesController extends Controller {
 
         $writer = new \PHPExcel_Writer_Excel2007($objPHPExcel);
 
+        exec("soffice --headless --convert-to pdf --outdir \"C:/wamp/www/Symfony/web/ExcelToPDF\" \"" . $file . "\"");
+
+        $pdf = "C:/wamp/www/Symfony/web/ExcelToPDF/" . $filename . ".pdf";
+
+        $imagePDFChemin = "C:/wamp/www/Symfony/web/ImagePDF/" . $filename . ".png";
+
+        exec("convert \"" . $pdf . "\" -strip \"" . $imagePDFChemin . "\"");
+
+        $imagePDFLien = "http://" . $_SERVER['HTTP_HOST'] . "/Symfony/web/ImagePDF/" . $filename . ".png";
+
         $suivi = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findOneByChemin(str_replace('/', '\\', pathinfo($file, PATHINFO_DIRNAME)));
         $liaisonsSuivi = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdSuivi($suivi->getId());
 
@@ -701,9 +720,7 @@ class AdministrationAffairesController extends Controller {
             $formSuppresionPositionChamp = $this->get('form.factory')->createNamedBuilder('formSuppresionPositionChamp', 'form')
                     ->add('IdChamp', EntityType::class, array(
                         'class' => 'NoxIntranetAdministrationBundle:LiaisonSuiviChamp',
-                        'choice_label' => function($value) use ($em) {
-                            return $em->getRepository('NoxIntranetAdministrationBundle:Formulaire')->find($value->getIdChamp())->getNom();
-                        },
+                        'choice_label' => null,
                         'disabled' => true,
                         'placeholder' => 'Il n\'y a aucun champ à supprimer.'
                     ))
@@ -795,8 +812,9 @@ class AdministrationAffairesController extends Controller {
             }
         }
 
-        return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig', array('sheet' => $sheet,
-                    'filename' => $filename, 'file' => $file, 'formPlacementChamp' => $formPlacementChamp->createView(), 'formSuppresionPositionChamp' => $formSuppresionPositionChamp->createView()));
+        return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig', array(
+                    'filename' => $filename, 'file' => $file, 'formPlacementChamp' => $formPlacementChamp->createView(),
+                    'formSuppresionPositionChamp' => $formSuppresionPositionChamp->createView(), 'imagePDF' => $imagePDFLien));
     }
 
     public function administrationAffaireSauvegardeModificationAction(Request $request, $filename) {
@@ -870,18 +888,39 @@ class AdministrationAffairesController extends Controller {
                 ->add('Ajouter', SubmitType::class)
                 ->getForm();
 
-        $formSuppressionDonnee = $this->get('form.factory')->createNamedBuilder('formSuppressionDonnee', 'form')
-                ->add('Donnees', EntityType::class, array(
-                    'class' => 'NoxIntranetAdministrationBundle:DonneesFormulaire',
-                    'choice_label' => 'Donnee',
-                    'query_builder' => function (EntityRepository $er) use ($IdChamp) {
-                        return $er->createQueryBuilder('u')
-                                ->where("u.idFormulaire = '" . $IdChamp . "'")
-                                ->orderBy('u.donnee', 'ASC');
-                    },
-                ))
-                ->add('Supprimer', SubmitType::class)
-                ->getForm();
+        $donneesFormulaire = $em->getRepository('NoxIntranetAdministrationBundle:DonneesFormulaire')->find($IdChamp);
+
+        if (!empty($donneesFormulaire)) {
+            $formSuppressionDonnee = $this->get('form.factory')->createNamedBuilder('formSuppressionDonnee', 'form')
+                    ->add('Donnees', EntityType::class, array(
+                        'class' => 'NoxIntranetAdministrationBundle:DonneesFormulaire',
+                        'choice_label' => 'Donnee',
+                        'query_builder' => function (EntityRepository $er) use ($IdChamp) {
+                            return $er->createQueryBuilder('u')
+                                    ->where("u.idFormulaire = '" . $IdChamp . "'")
+                                    ->orderBy('u.donnee', 'ASC');
+                        },
+                    ))
+                    ->add('Supprimer', SubmitType::class)
+                    ->getForm();
+        } else {
+            $formSuppressionDonnee = $this->get('form.factory')->createNamedBuilder('formSuppressionDonnee', 'form')
+                    ->add('Donnees', EntityType::class, array(
+                        'class' => 'NoxIntranetAdministrationBundle:DonneesFormulaire',
+                        'choice_label' => 'Donnee',
+                        'query_builder' => function (EntityRepository $er) use ($IdChamp) {
+                            return $er->createQueryBuilder('u')
+                                    ->where("u.idFormulaire = '" . $IdChamp . "'")
+                                    ->orderBy('u.donnee', 'ASC');
+                        },
+                        'placeholder' => 'Il n\'y a aucune donnée à supprimer.',
+                        'disabled' => true
+                    ))
+                    ->add('Supprimer', SubmitType::class, array(
+                        'disabled' => true
+                    ))
+                    ->getForm();
+        }
 
         if ($request->request->has('formAjoutDonnee')) {
             $formAjoutDonnee->handleRequest($request);

@@ -23,44 +23,44 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_5674310be745c216e25cfaa1be77a4d23e944af8192305e18cf0acfe333d9295 = $this->env->getExtension("native_profiler");
-        $__internal_5674310be745c216e25cfaa1be77a4d23e944af8192305e18cf0acfe333d9295->enter($__internal_5674310be745c216e25cfaa1be77a4d23e944af8192305e18cf0acfe333d9295_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig"));
+        $__internal_490e59a6b0b162be13a7e8dec9a66e2c5e63ca2b2af019dc56f1a4db1b1da029 = $this->env->getExtension("native_profiler");
+        $__internal_490e59a6b0b162be13a7e8dec9a66e2c5e63ca2b2af019dc56f1a4db1b1da029->enter($__internal_490e59a6b0b162be13a7e8dec9a66e2c5e63ca2b2af019dc56f1a4db1b1da029_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffairesedition.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_5674310be745c216e25cfaa1be77a4d23e944af8192305e18cf0acfe333d9295->leave($__internal_5674310be745c216e25cfaa1be77a4d23e944af8192305e18cf0acfe333d9295_prof);
+        $__internal_490e59a6b0b162be13a7e8dec9a66e2c5e63ca2b2af019dc56f1a4db1b1da029->leave($__internal_490e59a6b0b162be13a7e8dec9a66e2c5e63ca2b2af019dc56f1a4db1b1da029_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_b7c96bf395f3cb62b7e98293abce4df549e968b44e229d184287527d4b7a0fff = $this->env->getExtension("native_profiler");
-        $__internal_b7c96bf395f3cb62b7e98293abce4df549e968b44e229d184287527d4b7a0fff->enter($__internal_b7c96bf395f3cb62b7e98293abce4df549e968b44e229d184287527d4b7a0fff_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_f1be3adfedcc420756fb6a46ef5f1493aa95521455fe0c8e6742f984e3c6dc69 = $this->env->getExtension("native_profiler");
+        $__internal_f1be3adfedcc420756fb6a46ef5f1493aa95521455fe0c8e6742f984e3c6dc69->enter($__internal_f1be3adfedcc420756fb6a46ef5f1493aa95521455fe0c8e6742f984e3c6dc69_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Edition ";
         
-        $__internal_b7c96bf395f3cb62b7e98293abce4df549e968b44e229d184287527d4b7a0fff->leave($__internal_b7c96bf395f3cb62b7e98293abce4df549e968b44e229d184287527d4b7a0fff_prof);
+        $__internal_f1be3adfedcc420756fb6a46ef5f1493aa95521455fe0c8e6742f984e3c6dc69->leave($__internal_f1be3adfedcc420756fb6a46ef5f1493aa95521455fe0c8e6742f984e3c6dc69_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_06355d39671c0b0756fc9106e7913b5385f0b3245ff3871910509b9be980b718 = $this->env->getExtension("native_profiler");
-        $__internal_06355d39671c0b0756fc9106e7913b5385f0b3245ff3871910509b9be980b718->enter($__internal_06355d39671c0b0756fc9106e7913b5385f0b3245ff3871910509b9be980b718_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_fb2bb0b0fc9ef460d07ef42ca60797bfbcac4ca08ff2616b577b4cf666523577 = $this->env->getExtension("native_profiler");
+        $__internal_fb2bb0b0fc9ef460d07ef42ca60797bfbcac4ca08ff2616b577b4cf666523577->enter($__internal_fb2bb0b0fc9ef460d07ef42ca60797bfbcac4ca08ff2616b577b4cf666523577_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Administration assistant d'affaires";
         
-        $__internal_06355d39671c0b0756fc9106e7913b5385f0b3245ff3871910509b9be980b718->leave($__internal_06355d39671c0b0756fc9106e7913b5385f0b3245ff3871910509b9be980b718_prof);
+        $__internal_fb2bb0b0fc9ef460d07ef42ca60797bfbcac4ca08ff2616b577b4cf666523577->leave($__internal_fb2bb0b0fc9ef460d07ef42ca60797bfbcac4ca08ff2616b577b4cf666523577_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_d6eb6da30a79839838d7d65e64396f6f6056a15719dabafc28b51367957a292a = $this->env->getExtension("native_profiler");
-        $__internal_d6eb6da30a79839838d7d65e64396f6f6056a15719dabafc28b51367957a292a->enter($__internal_d6eb6da30a79839838d7d65e64396f6f6056a15719dabafc28b51367957a292a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_989b9ee7384f7da2fa1d5ac1c871ce8bf738c03910b7232203869ddf0bec4153 = $this->env->getExtension("native_profiler");
+        $__internal_989b9ee7384f7da2fa1d5ac1c871ce8bf738c03910b7232203869ddf0bec4153->enter($__internal_989b9ee7384f7da2fa1d5ac1c871ce8bf738c03910b7232203869ddf0bec4153_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -172,93 +172,15 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
     </div>
 
     <div id='tableauExcel'>
-
-        <table>
-            <tr>
-                <th></th>
-                    ";
-        // line 70
-        $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(range(twig_upper_filter($this->env, "a"), $this->getAttribute((isset($context["sheet"]) ? $context["sheet"] : $this->getContext($context, "sheet")), "getHighestColumn", array())));
-        foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-            // line 71
-            echo "                    <th style='font-weight: bold'>";
-            echo twig_escape_filter($this->env, $context["i"], "html", null, true);
-            echo "</th>
-                    ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 73
-        echo "
-            </tr>
-
-            ";
-        // line 76
-        $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["sheet"]) ? $context["sheet"] : $this->getContext($context, "sheet")), "getRowIterator", array()));
-        $context['loop'] = array(
-          'parent' => $context['_parent'],
-          'index0' => 0,
-          'index'  => 1,
-          'first'  => true,
-        );
-        if (is_array($context['_seq']) || (is_object($context['_seq']) && $context['_seq'] instanceof Countable)) {
-            $length = count($context['_seq']);
-            $context['loop']['revindex0'] = $length - 1;
-            $context['loop']['revindex'] = $length;
-            $context['loop']['length'] = $length;
-            $context['loop']['last'] = 1 === $length;
-        }
-        foreach ($context['_seq'] as $context["_key"] => $context["row"]) {
-            echo " 
-                <tr>
-                    <th style='font-weight: bold'>";
-            // line 78
-            echo twig_escape_filter($this->env, $this->getAttribute($context["loop"], "index", array()), "html", null, true);
-            echo "</th>
-
-                    ";
-            // line 80
-            $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["row"], "getCellIterator", array()));
-            foreach ($context['_seq'] as $context["_key"] => $context["cell"]) {
-                // line 81
-                echo "                        <td>";
-                echo twig_escape_filter($this->env, $this->getAttribute($context["cell"], "getValue", array()), "html", null, true);
-                echo "</td>
-                    ";
-            }
-            $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['cell'], $context['_parent'], $context['loop']);
-            $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 83
-            echo "
-                </tr>
-
-            ";
-            ++$context['loop']['index0'];
-            ++$context['loop']['index'];
-            $context['loop']['first'] = false;
-            if (isset($context['loop']['length'])) {
-                --$context['loop']['revindex0'];
-                --$context['loop']['revindex'];
-                $context['loop']['last'] = 0 === $context['loop']['revindex0'];
-            }
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['row'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 87
-        echo "
-        </table>
-
+        <img src=\"";
+        // line 66
+        echo twig_escape_filter($this->env, (isset($context["imagePDF"]) ? $context["imagePDF"] : $this->getContext($context, "imagePDF")), "html", null, true);
+        echo "\" alt=\"Aperçu du fichier Excel\">
     </div>
 
 ";
         
-        $__internal_d6eb6da30a79839838d7d65e64396f6f6056a15719dabafc28b51367957a292a->leave($__internal_d6eb6da30a79839838d7d65e64396f6f6056a15719dabafc28b51367957a292a_prof);
+        $__internal_989b9ee7384f7da2fa1d5ac1c871ce8bf738c03910b7232203869ddf0bec4153->leave($__internal_989b9ee7384f7da2fa1d5ac1c871ce8bf738c03910b7232203869ddf0bec4153_prof);
 
     }
 
@@ -274,7 +196,7 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
 
     public function getDebugInfo()
     {
-        return array (  254 => 87,  237 => 83,  228 => 81,  224 => 80,  219 => 78,  199 => 76,  194 => 73,  185 => 71,  181 => 70,  169 => 61,  161 => 56,  154 => 52,  150 => 51,  146 => 50,  136 => 43,  132 => 42,  123 => 36,  115 => 31,  108 => 27,  104 => 26,  100 => 25,  93 => 21,  89 => 20,  85 => 19,  75 => 12,  71 => 11,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
+        return array (  177 => 66,  169 => 61,  161 => 56,  154 => 52,  150 => 51,  146 => 50,  136 => 43,  132 => 42,  123 => 36,  115 => 31,  108 => 27,  104 => 26,  100 => 25,  93 => 21,  89 => 20,  85 => 19,  75 => 12,  71 => 11,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -342,30 +264,7 @@ class __TwigTemplate_d0ac075ec6a13b7ceea52c00724820e3a3d84dccb24e8bd975d7193b723
 /*     </div>*/
 /* */
 /*     <div id='tableauExcel'>*/
-/* */
-/*         <table>*/
-/*             <tr>*/
-/*                 <th></th>*/
-/*                     {% for i in 'a'|upper..sheet.getHighestColumn %}*/
-/*                     <th style='font-weight: bold'>{{ i }}</th>*/
-/*                     {% endfor %}*/
-/* */
-/*             </tr>*/
-/* */
-/*             {% for row in sheet.getRowIterator %} */
-/*                 <tr>*/
-/*                     <th style='font-weight: bold'>{{ loop.index }}</th>*/
-/* */
-/*                     {% for cell in row.getCellIterator %}*/
-/*                         <td>{{ cell.getValue }}</td>*/
-/*                     {% endfor %}*/
-/* */
-/*                 </tr>*/
-/* */
-/*             {% endfor %}*/
-/* */
-/*         </table>*/
-/* */
+/*         <img src="{{ imagePDF }}" alt="Aperçu du fichier Excel">*/
 /*     </div>*/
 /* */
 /* {% endblock %}*/

@@ -1,4 +1,4 @@
-$(window).ready(function () {
+$(window).load(function () {
     $('.selectFormulaireSelectionAgence').change(function () {
         $('.formulaireSelectionAgence').submit();
     });
@@ -77,6 +77,23 @@ $(window).ready(function () {
     $('#formSuppresionPositionChamp_Supprimer').click(function () {
         return confirm('Attention, si vous modifiez ce modèle toutes les données des suivis associés seront supprimées !');
     });
+
+    resizeFormLabelAndData($('.labelFormulaireRemplissageSuivi'), $('.champFormulaireRemplissageSuivi'), $('.formulaireRemplissageSuivi p'));
+
+    $(window).resize(function () {
+        location.reload();
+    });
+
+    if ($('#formCloturationSuivi_Cloturer').attr('disabled') === "disabled") {
+        $('#formCloturationSuivi_Cloturer').wrap("<span class='tooltipButtonAACloturer'></span>");
+        $('.tooltipButtonAACloturer').prepend("<span class='tooltipButtonAACloturerText'>Le suivi doit contenir au moins une sauvegarde pour être clôturé.</span>");
+    }
+
+    if ($('#formDonneesSuivi_Generate').attr('disabled') === "disabled") {
+        $('#formDonneesSuivi_Generate').wrap("<span class='tooltipButtonAAGenerate'></span>");
+        $('.tooltipButtonAAGenerate').prepend("<span class='tooltipButtonAAGenerateText'>Sauvegardez le suivi pour pouvoir générer un fichier Excel.</span>");
+    }
+
 });
 
 function toggleCheckboxAjoutDonnees() {
@@ -91,3 +108,18 @@ function toggleCheckboxAjoutDonnees() {
     }
 }
 
+function getMaxChildWidth(sel) {
+    max = 0;
+    sel.each(function () {
+        c_width = ($(this).width());
+        if (c_width > max) {
+            max = c_width;
+        }
+    });
+    return max;
+}
+
+function resizeFormLabelAndData(label, data, formParagraph) {
+    label.width(getMaxChildWidth(label));
+    data.width((formParagraph.width() - label.width()) * 0.9);
+}

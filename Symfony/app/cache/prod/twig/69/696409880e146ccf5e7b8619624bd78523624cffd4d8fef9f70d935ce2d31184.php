@@ -65,7 +65,7 @@ class __TwigTemplate_823524504e555d9920e2e769c910ff4a85b104dec25e111fc3e3604c600
 
         ";
         // line 12
-        if ($this->env->getExtension('security')->isGranted("ROLE_ADMIN")) {
+        if ($this->env->getExtension('security')->isGranted("ROLE_COMMUNICATION")) {
             // line 13
             echo "
             <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
@@ -633,7 +633,7 @@ class __TwigTemplate_823524504e555d9920e2e769c910ff4a85b104dec25e111fc3e3604c600
 /* */
 /*     <div class='zoneEditionAccueil'>*/
 /* */
-/*         {% if is_granted('ROLE_ADMIN') %}*/
+/*         {% if is_granted('ROLE_COMMUNICATION') %}*/
 /* */
 /*             <button id='texteEditButton' class='boutonFormulaire'>Editer</button>*/
 /* */
