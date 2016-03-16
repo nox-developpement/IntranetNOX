@@ -27,31 +27,15 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         $context = $this->context;
         $request = $this->request;
 
-        if (0 === strpos($pathinfo, '/css')) {
-            if (0 === strpos($pathinfo, '/css/fc3b92b')) {
-                // _assetic_fc3b92b
-                if ($pathinfo === '/css/fc3b92b.css') {
-                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'fc3b92b',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_fc3b92b',);
-                }
-
-                // _assetic_fc3b92b_0
-                if ($pathinfo === '/css/fc3b92b_style_1.css') {
-                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'fc3b92b',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_fc3b92b_0',);
-                }
-
+        if (0 === strpos($pathinfo, '/css/fc3b92b')) {
+            // _assetic_fc3b92b
+            if ($pathinfo === '/css/fc3b92b.css') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'fc3b92b',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_fc3b92b',);
             }
 
-            if (0 === strpos($pathinfo, '/css/9cd9840')) {
-                // _assetic_9cd9840
-                if ($pathinfo === '/css/9cd9840.css') {
-                    return array (  '_controller' => 'assetic.controller:render',  'name' => '9cd9840',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_9cd9840',);
-                }
-
-                // _assetic_9cd9840_0
-                if ($pathinfo === '/css/9cd9840_style_bammez_1.css') {
-                    return array (  '_controller' => 'assetic.controller:render',  'name' => '9cd9840',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_9cd9840_0',);
-                }
-
+            // _assetic_fc3b92b_0
+            if ($pathinfo === '/css/fc3b92b_style_1.css') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'fc3b92b',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_fc3b92b_0',);
             }
 
         }

@@ -40,13 +40,21 @@
     <div id="zoneNewsAccueil">
 
         <script src={{ asset('./js/jquery-2.2.0.min.js') }}></script>
+        <script src={{ asset('./js/menuAnimation.js') }}></script>
+        <script type="text/javascript">
+            $(window).load(function () {
+                DivNewsSliding();
+            });
+        </script>
 
         <!-- Affichage défilant mise à jours Externe -->
         {% if majExterne is defined and majExterne != null %}
-            <p class="maj"> Mises à jour Externe </p>
+            <div class="DivMaj">
+                <p class="maj"> Mises à jour Externe </p>
 
-            <div id='majExterne'>
-                <p></p>
+                <div id='majExterne'>
+                    <p></p>
+                </div>
             </div>
 
             <script type="text/javascript">
@@ -81,9 +89,11 @@
 
         <!-- Affichage défilant mise à jours Interne -->
         {% if majInterne is defined and majInterne != null %}
-            <p class="maj"> Mises à jour Interne </p>
-            <div id='majInterne'>
-                <p></p>
+            <div class="DivMaj">
+                <p class="maj"> Mises à jour Interne </p>
+                <div id='majInterne'>
+                    <p></p>
+                </div>
             </div>
 
             <script type="text/javascript">
@@ -118,9 +128,11 @@
 
         <!-- Affichage défilant mise à jours Marketing -->
         {% if majMarketing is defined and majMarketing != null %}
-            <p class="maj"> Mises à jour Marketing </p>
-            <div id='majMarketing'>
-                <p></p>
+            <div class="DivMaj">
+                <p class="maj"> Mises à jour Marketing </p>
+                <div id='majMarketing'>
+                    <p></p>
+                </div>
             </div>
 
             <script type="text/javascript">
@@ -155,9 +167,11 @@
 
         <!-- Affichage défilant mise à jours SI -->
         {% if majSI is defined and majSI != null %}
-            <p class="maj"> Mises à jour SI </p>
-            <div id='majSI'>
-                <p></p>
+            <div class="DivMaj">
+                <p class="maj"> Mises à jour SI </p>
+                <div id='majSI'>
+                    <p></p>
+                </div>
             </div>
 
             <script type="text/javascript">
@@ -192,9 +206,11 @@
 
         <!-- Affichage défilant mise à jours AQ -->
         {% if majAQ is defined and majAQ != null %}
-            <p class="maj"> Mises à jour Assurance qualité </p>
-            <div id='majAQ'>
-                <p></p>
+            <div class="DivMaj">
+                <p class="maj"> Mises à jour Assurance qualité </p>
+                <div id='majAQ'>
+                    <p></p>
+                </div>
             </div>
 
             <script type="text/javascript">
@@ -229,9 +245,11 @@
 
         <!-- Affichage défilant mise à jours RH -->
         {% if majRH is defined and majRH != null %}
-            <p class="maj"> Mises à jour RH </p>
-            <div id='majRH'>
-                <p></p>
+            <div class="DivMaj">
+                <p class="maj"> Mises à jour RH </p>
+                <div id='majRH'>
+                    <p></p>
+                </div>
             </div>
 
             <script type="text/javascript">
@@ -266,9 +284,11 @@
 
         <!-- Affichage défilant Poste à pourvoir -->
         {% if posteAPourvoir is defined and posteAPourvoir != null %}
-            <p class="maj"> Poste à pourvoir </p>
-            <div id='posteAPourvoir'>
-                <p></p>
+            <div class="DivMaj">
+                <p class="maj"> Poste à pourvoir </p>
+                <div id='posteAPourvoir'>
+                    <p></p>
+                </div>
             </div>
 
             <script type="text/javascript">
@@ -303,9 +323,11 @@
 
         <!-- Affichage défilant Nomination / organisation -->
         {% if nominationOrganisation is defined and nominationOrganisation != null %}
-            <p class="maj"> Nomination / organisation </p>
-            <div id='nominationOrganisation'>
-                <p></p>
+            <div class="DivMaj">
+                <p class="maj"> Nomination / organisation </p>
+                <div id='nominationOrganisation'>
+                    <p></p>
+                </div>
             </div>
 
             <script type="text/javascript">

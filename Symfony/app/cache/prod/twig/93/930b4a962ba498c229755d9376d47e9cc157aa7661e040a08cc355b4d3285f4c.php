@@ -81,11 +81,11 @@ class __TwigTemplate_0c816dfffb4764f0aa00275f1bc0f24f2e49c7506736d0ac8fa1dac7466
 
     </div>
 
-    <div id=\"DivFormulaireRemplissageSuivi\">
+    <div id=\"DivFormulaireRemplissageSuiviCloture\">
 
         ";
         // line 30
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), 'form_start', array("attr" => array("class" => "formulaireRemplissageSuivi")));
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), 'form_start', array("attr" => array("class" => "formulaireRemplissageSuiviCloture")));
         echo "
         ";
         // line 31
@@ -107,7 +107,7 @@ class __TwigTemplate_0c816dfffb4764f0aa00275f1bc0f24f2e49c7506736d0ac8fa1dac7466
         foreach ($context['_seq'] as $context["_key"] => $context["champ"]) {
             // line 39
             echo "                    ";
-            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), $this->getAttribute($context["champ"], "Champ", array())), 'label', array("label_attr" => array("class" => "labelFormulaireRemplissageSuivi")) + (twig_test_empty($_label_ = ($this->getAttribute($context["champ"], "Nom", array()) . " : ")) ? array() : array("label" => $_label_)));
+            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), $this->getAttribute($context["champ"], "Champ", array())), 'label', array("label_attr" => array("class" => "labelFormulaireRemplissageSuiviCloture")) + (twig_test_empty($_label_ = ($this->getAttribute($context["champ"], "Nom", array()) . " : ")) ? array() : array("label" => $_label_)));
             echo "
                     ";
             // line 40
@@ -115,7 +115,7 @@ class __TwigTemplate_0c816dfffb4764f0aa00275f1bc0f24f2e49c7506736d0ac8fa1dac7466
             echo "
                     ";
             // line 41
-            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), $this->getAttribute($context["champ"], "Champ", array())), 'widget', array("attr" => array("class" => "champFormulaireRemplissageSuivi", "disabled" => "disabled")));
+            echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), $this->getAttribute($context["champ"], "Champ", array())), 'widget', array("attr" => array("class" => "champFormulaireRemplissageSuiviCloture", "disabled" => "disabled")));
             echo "
                     <br />
                 ";
@@ -127,7 +127,7 @@ class __TwigTemplate_0c816dfffb4764f0aa00275f1bc0f24f2e49c7506736d0ac8fa1dac7466
         echo "
                 ";
         // line 45
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), "Generate", array()), 'widget', array("label" => "Générer fichier Excel", "attr" => array("class" => "boutonFormulaire", "title" => "Sauvegardez le suivi pour pouvoir générer un fichier Excel.")));
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), "Generate", array()), 'widget', array("label" => "Générer fichier Excel", "attr" => array("class" => "boutonFormulaire")));
         echo "
             </p>
 
@@ -184,9 +184,9 @@ class __TwigTemplate_0c816dfffb4764f0aa00275f1bc0f24f2e49c7506736d0ac8fa1dac7466
 /* */
 /*     </div>*/
 /* */
-/*     <div id="DivFormulaireRemplissageSuivi">*/
+/*     <div id="DivFormulaireRemplissageSuiviCloture">*/
 /* */
-/*         {{ form_start(formDonneesSuivi, {'attr': {'class': 'formulaireRemplissageSuivi'}}) }}*/
+/*         {{ form_start(formDonneesSuivi, {'attr': {'class': 'formulaireRemplissageSuiviCloture'}}) }}*/
 /*         {{ form_errors(formDonneesSuivi) }}*/
 /* */
 /*         <fieldset>*/
@@ -195,13 +195,13 @@ class __TwigTemplate_0c816dfffb4764f0aa00275f1bc0f24f2e49c7506736d0ac8fa1dac7466
 /* */
 /*             <p>*/
 /*                 {% for champ in champsViews %}*/
-/*                     {{ form_label(attribute(formDonneesSuivi, champ.Champ), champ.Nom ~ " : ", {'label_attr': {'class': 'labelFormulaireRemplissageSuivi'}}) }}*/
+/*                     {{ form_label(attribute(formDonneesSuivi, champ.Champ), champ.Nom ~ " : ", {'label_attr': {'class': 'labelFormulaireRemplissageSuiviCloture'}}) }}*/
 /*                     {{ form_errors(attribute(formDonneesSuivi, champ.Champ)) }}*/
-/*                     {{ form_widget(attribute(formDonneesSuivi, champ.Champ), {'attr': {'class': 'champFormulaireRemplissageSuivi', 'disabled':'disabled'}}) }}*/
+/*                     {{ form_widget(attribute(formDonneesSuivi, champ.Champ), {'attr': {'class': 'champFormulaireRemplissageSuiviCloture', 'disabled':'disabled'}}) }}*/
 /*                     <br />*/
 /*                 {% endfor %}*/
 /* */
-/*                 {{ form_widget(formDonneesSuivi.Generate, {'label': 'Générer fichier Excel', 'attr': {'class': 'boutonFormulaire', 'title': 'Sauvegardez le suivi pour pouvoir générer un fichier Excel.' }}) }}*/
+/*                 {{ form_widget(formDonneesSuivi.Generate, {'label': 'Générer fichier Excel', 'attr': {'class': 'boutonFormulaire' }}) }}*/
 /*             </p>*/
 /* */
 /*         </fieldset> */

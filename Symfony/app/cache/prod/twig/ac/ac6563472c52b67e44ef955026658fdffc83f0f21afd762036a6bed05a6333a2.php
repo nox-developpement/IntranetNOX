@@ -46,8 +46,9 @@ class __TwigTemplate_5c31d0f02fb11a759da43a6a07d65f7e182513c811e4ec6493509f3fc1b
     <div style=\"width: 70%; margin: auto;\">
         <p style=\"font-size: 0.9vw;\">
             La page à laquelle vous essayez d'accédé n'existe pas. <br />
-            Si vous pensez que ce n'est pas normal, vous pouvez contacter l'administrateur de l'intranet<br />à l'adresse <a href=\"mailto:t.besson@groupe-nox.com?subject=Erreur: ";
-        // line 12
+            <br/>
+            Si vous pensez que ce n'est pas normal, vous pouvez contacter l'administrateur de l'intranet à l'adresse <a href=\"mailto:t.besson@groupe-nox.com?subject=Erreur: ";
+        // line 13
         echo twig_escape_filter($this->env, (isset($context["status_code"]) ? $context["status_code"] : null), "html", null, true);
         echo "&body=%0D%0A%0D%0ACode erreur: ";
         echo twig_escape_filter($this->env, (isset($context["status_code"]) ? $context["status_code"] : null), "html", null, true);
@@ -72,7 +73,7 @@ class __TwigTemplate_5c31d0f02fb11a759da43a6a07d65f7e182513c811e4ec6493509f3fc1b
 
     public function getDebugInfo()
     {
-        return array (  51 => 12,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  52 => 13,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -86,7 +87,8 @@ class __TwigTemplate_5c31d0f02fb11a759da43a6a07d65f7e182513c811e4ec6493509f3fc1b
 /*     <div style="width: 70%; margin: auto;">*/
 /*         <p style="font-size: 0.9vw;">*/
 /*             La page à laquelle vous essayez d'accédé n'existe pas. <br />*/
-/*             Si vous pensez que ce n'est pas normal, vous pouvez contacter l'administrateur de l'intranet<br />à l'adresse <a href="mailto:t.besson@groupe-nox.com?subject=Erreur: {{ status_code }}&body=%0D%0A%0D%0ACode erreur: {{ status_code }}%0D%0ATexte erreur: {{ status_text }}">t.besson@groupe-nox.com</a>.*/
+/*             <br/>*/
+/*             Si vous pensez que ce n'est pas normal, vous pouvez contacter l'administrateur de l'intranet à l'adresse <a href="mailto:t.besson@groupe-nox.com?subject=Erreur: {{ status_code }}&body=%0D%0A%0D%0ACode erreur: {{ status_code }}%0D%0ATexte erreur: {{ status_text }}">t.besson@groupe-nox.com</a>.*/
 /*         </p>*/
 /*     </div>*/
 /* */

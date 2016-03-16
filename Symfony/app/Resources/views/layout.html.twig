@@ -9,35 +9,10 @@
 
         <script src={{ asset('./js/jquery-2.2.0.min.js') }}></script>
         <script src={{ asset('./js/js.cookie.js') }}></script>
-        <script type="text/javascript">
-            function changementSkin($skin) {
-                if ($skin === 'normal') {
-                    Cookies.set("skin", "normal");
-                    location.reload();
-                } else if ($skin === 'bammez') {
-                    Cookies.set("skin", "bammez");
-                    location.reload();
-                }
-            }
-        </script>
 
-        {% if app.request.cookies.get('skin') == null %}
-            {% set skin = 'normal' %}
-        {% elseif app.request.cookies.get('skin') == 'normal' %}
-            {% set skin = 'normal' %}
-        {% elseif app.request.cookies.get('skin') == 'bammez' %}
-            {% set skin = 'bammez' %}
-        {% endif %}
-
-        {% if skin == 'normal' %}
-            {% stylesheets '@NoxIntranetCommunicationBundle/Resources/public/css/style.css' %}
-            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-            {% endstylesheets %}
-        {% else %} 
-            {% stylesheets '@NoxIntranetCommunicationBundle/Resources/public/css/style_bammez.css' %}
-            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-            {% endstylesheets %}
-        {% endif %}
+        {% stylesheets '@NoxIntranetCommunicationBundle/Resources/public/css/style.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
 
         <link rel="icon" type="image/png" href="{{ asset('bundles/noxintranetcommunication/images/favicon.ico') }}" />
         <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet">
@@ -49,7 +24,7 @@
         </style>
     </head>
 
-    <body onload="{% if skin == 'normal' %}menuAnimation();{% else %}menuAnimationBammez();{% endif %}">
+    <body onload="menuAnimation();">
 
         <header>
 
@@ -58,11 +33,7 @@
                     });"> Plan du site <br /><img style="width: 10%;" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}" onmousedown="return false;"> </a> </div><!--
 
             --><div id ="bandeau">  
-                {% if skin == 'normal' %}
-                    <img src="{{ asset('bundles/noxintranetcommunication/images/bandeau.png') }}" id ="image_bandeau" alt="bandeau" onmousedown="return false;">
-                {% else %} 
-                    <img src="{{ asset('bundles/noxintranetcommunication/images/bandeau_bammez.png') }}" id ="image_bandeau" alt="bandeau" onmousedown="return false;">
-                {% endif %}
+                <img src="{{ asset('bundles/noxintranetcommunication/images/bandeau.png') }}" id ="image_bandeau" alt="bandeau" onmousedown="return false;">
             </div>
 
             {{ include('NoxIntranetUserBundle:Security:ADlogin.html.twig') }}
@@ -95,12 +66,7 @@
 
                     <li id="google_search"> 
                         <form id="google_form">
-                            {% if skin == 'normal' %}
-                                <img src ="{{ asset('bundles/noxintranetcommunication/images/logoRecherche.png') }}" alt="Logo Google" onmousedown="return false;">
-                            {% else %} 
-                                <img src ="{{ asset('bundles/noxintranetcommunication/images/logoRecherche.png') }}" alt="Logo Google" onmousedown="return false;">
-                            {% endif %}
-
+                            <img src ="{{ asset('bundles/noxintranetcommunication/images/logoRecherche.png') }}" alt="Logo Recherche" onmousedown="return false;">
                             <input type="text" id="search_input" name="seach_input" placeholder="Rechercher sur Google">
                             <button id="search" onclick="googleSearch(this)
                                             ;"> Rechercher </button>

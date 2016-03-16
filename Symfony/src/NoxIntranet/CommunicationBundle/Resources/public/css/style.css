@@ -1725,6 +1725,8 @@ divAdministrationUtilisateur {
     display: inline-block;
     width: 29.5%;
     vertical-align: top;
+    height: 72%;
+    overflow: auto;
 }
 
 #menuSupport, #menuVideoInstitutionnelle, #menuReseauxSociaux, #menuBanqueImages, #menuOrganigrammes, #menuVieDeLentreprise, 
@@ -1831,14 +1833,14 @@ divAdministrationUtilisateur {
     background-color: rgb(31,78,121);
     color: white;
     padding: 1% 0% 1% 1%;
-    width: 99%;
+    /*    width: 99%;*/
     border-left: solid 1px rgb(31,78,121);
     border-right: solid 1px rgb(31,78,121);
     font-size: 0.8vw;
 }
 
 #majExterne, #majInterne, #majMarketing, #majSI, #majAQ, #majRH, #posteAPourvoir, #nominationOrganisation {
-    width: 100%;
+/*    width: 90%;*/
     border: black 1px solid;
     margin-bottom: 5%;
 }
@@ -1940,7 +1942,7 @@ divAdministrationUtilisateur {
 #DivFormulaireSelectionAgence, #DivFormulaireSelectionDossier, #DivFormulaireSelectionVersion, 
 .DivFormulaireAjoutChamp, .DivFormulaireSuppressionChamp, .DivFormulairePlacementChamp, #DivFormulaireChoixModele, 
 #DivFormulaireRemplissageSuivi, #DivFormulaireSelectionVersionSuivi, #DivFormulaireCloturationSuivi, .DivFormulaireSelectionChamp,
-.DivFormulaireAjoutDonnee, .DivFormulaireSuppressionDonnee, .DivFormulaireSuppressionPositionChamp {
+.DivFormulaireAjoutDonnee, .DivFormulaireSuppressionDonnee, .DivFormulaireSuppressionPositionChamp, #DivFormulaireRemplissageSuiviCloture {
     margin: 0% 25% 0% 25%;
     margin-bottom: 2%;
     font-size: 0.8vw;
@@ -1951,7 +1953,7 @@ divAdministrationUtilisateur {
 .formulaireSelectionAgence, .formulaireAjoutFichier, .formulaireSelectionDossier, .formulaireSelectionVersion,
 .formulaireAjoutChamp, .formulaireSuppressionChamp, .formulairePlacementChamp, .formulaireChoixModele, 
 .formulaireRemplissageSuivi, .formulaireSelectionVersionSuivi, .formulaireCloturationSuivi, .formulaireSelectionChamp, .formulaireAjoutDonnee,
-.formulaireSuppresionDonnee, .formulaireSuppressionPositionChamp {
+.formulaireSuppresionDonnee, .formulaireSuppressionPositionChamp, .formulaireRemplissageSuiviCloture {
     padding: 0px;
     border: none;
     width: 80%;
@@ -1963,7 +1965,7 @@ divAdministrationUtilisateur {
 .formulaireSelectionDossier fieldset, .formulaireSelectionVersion fieldset, .formulaireAjoutChamp fieldset, .formulaireSuppressionChamp fieldset,
 .formulairePlacementChamp fieldset, .formulaireChoixModele fieldset, .formulaireRemplissageSuivi fieldset, .formulaireSelectionVersionSuivi fieldset,
 .formulaireCloturationSuivi fieldset, .formulaireSelectionChamp fieldset, .formulaireAjoutDonnee fieldset, .formulaireSuppresionDonnee fieldset,
-.formulaireSuppressionPositionChamp fieldset {
+.formulaireSuppressionPositionChamp fieldset, .formulaireRemplissageSuiviCloture fieldset {
     text-align: center;
     border-color: rgb(31,78,121);
     border-width: 1px;
@@ -1981,13 +1983,13 @@ divAdministrationUtilisateur {
 .formulaireSuppressionChamp fieldset legend, .formulairePlacementChamp fieldset legend, .formulaireChoixModele fieldset legend, 
 .formulaireRemplissageSuivi fieldset legend, .formulaireSelectionVersionSuivi fieldset legend, .formulaireCloturationSuivi fieldset legend,
 .formulaireSelectionChamp fieldset legend, .formulaireAjoutDonnee fieldset legend, .formulaireSuppresionDonnee fieldset legend, 
-.formulaireSuppressionPositionChamp fieldset legend {
+.formulaireSuppressionPositionChamp fieldset legend, .formulaireRemplissageSuiviCloture fieldset legend {
     color: rgb(31,78,121);
     background-color: white;
     padding: 0% 0.5% 0% 0.5%;
     white-space: nowrap;
     text-align: center;
-    min-width: auto;
+    /*    min-width: auto;*/
     border: solid 1px #1F4E79;
 }
 
@@ -2102,6 +2104,11 @@ form input[type='checkbox'] {
 .formulaireAjoutFeuilleSuivi p:hover {
     background-color: white; 
     color: rgb(31,78,121); ;
+}
+
+.selectFormulaireChoixModèle {
+    margin-bottom: 2%;
+    margin-top: 1%;
 }
 
 #licencesIframe {
@@ -2301,7 +2308,7 @@ form input[type='checkbox'] {
     text-align: center;
 }
 
-.labelFormulaireRemplissageSuivi {
+.labelFormulaireRemplissageSuivi, .labelFormulaireRemplissageSuiviCloture {
     display: block;
     /*    width: 40%;*/
     float: left;
@@ -2309,12 +2316,12 @@ form input[type='checkbox'] {
     white-space: nowrap;
 }
 
-.formulaireRemplissageSuivi fieldset p {
+.formulaireRemplissageSuivi fieldset p, .formulaireRemplissageSuiviCloture fieldset p {
     width: 70%;
     margin: auto;
 }
 
-.champFormulaireRemplissageSuivi {
+.champFormulaireRemplissageSuivi, .champFormulaireRemplissageSuiviCloture {
     /*    width: 55%;*/
     margin-bottom: 2%;
     text-align: center;
@@ -2507,4 +2514,9 @@ form input[type='checkbox'] {
 .tooltipButtonAAGenerate:hover .tooltipButtonAAGenerateText {
     visibility: visible;
     opacity: 1;
+}
+
+.DivMaj {
+    padding: 0px;
+    margin: 0px;
 }

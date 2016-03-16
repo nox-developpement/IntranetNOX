@@ -23,44 +23,44 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_5c7fdd91ee4d1f12062419a7750abfa033d9020fbe0379d1edf5084da4b72d2b = $this->env->getExtension("native_profiler");
-        $__internal_5c7fdd91ee4d1f12062419a7750abfa033d9020fbe0379d1edf5084da4b72d2b->enter($__internal_5c7fdd91ee4d1f12062419a7750abfa033d9020fbe0379d1edf5084da4b72d2b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetCommunicationBundle:Accueil:accueilCommunication.html.twig"));
+        $__internal_a8872a7fb2f868cb12f3336425582f8098b28e434f5cbcb1bf1d2fb0eef717ce = $this->env->getExtension("native_profiler");
+        $__internal_a8872a7fb2f868cb12f3336425582f8098b28e434f5cbcb1bf1d2fb0eef717ce->enter($__internal_a8872a7fb2f868cb12f3336425582f8098b28e434f5cbcb1bf1d2fb0eef717ce_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetCommunicationBundle:Accueil:accueilCommunication.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_5c7fdd91ee4d1f12062419a7750abfa033d9020fbe0379d1edf5084da4b72d2b->leave($__internal_5c7fdd91ee4d1f12062419a7750abfa033d9020fbe0379d1edf5084da4b72d2b_prof);
+        $__internal_a8872a7fb2f868cb12f3336425582f8098b28e434f5cbcb1bf1d2fb0eef717ce->leave($__internal_a8872a7fb2f868cb12f3336425582f8098b28e434f5cbcb1bf1d2fb0eef717ce_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_33481887951c2164328a333b3715f03482786f4de62e442597153be9f68488d4 = $this->env->getExtension("native_profiler");
-        $__internal_33481887951c2164328a333b3715f03482786f4de62e442597153be9f68488d4->enter($__internal_33481887951c2164328a333b3715f03482786f4de62e442597153be9f68488d4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_b9e457c70ea02991e2503aeff4a1617fc05d342a08b38e2154cf39e1601fbb91 = $this->env->getExtension("native_profiler");
+        $__internal_b9e457c70ea02991e2503aeff4a1617fc05d342a08b38e2154cf39e1601fbb91->enter($__internal_b9e457c70ea02991e2503aeff4a1617fc05d342a08b38e2154cf39e1601fbb91_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Communication ";
         
-        $__internal_33481887951c2164328a333b3715f03482786f4de62e442597153be9f68488d4->leave($__internal_33481887951c2164328a333b3715f03482786f4de62e442597153be9f68488d4_prof);
+        $__internal_b9e457c70ea02991e2503aeff4a1617fc05d342a08b38e2154cf39e1601fbb91->leave($__internal_b9e457c70ea02991e2503aeff4a1617fc05d342a08b38e2154cf39e1601fbb91_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_a81a42ac76f61814b5af567d907a79360c7e99fa5cd5aafef086f5ee1232e3b6 = $this->env->getExtension("native_profiler");
-        $__internal_a81a42ac76f61814b5af567d907a79360c7e99fa5cd5aafef086f5ee1232e3b6->enter($__internal_a81a42ac76f61814b5af567d907a79360c7e99fa5cd5aafef086f5ee1232e3b6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_82875ccc42c625df5fb56de2d075e0aaed485e6706f543a9166a4e006611d325 = $this->env->getExtension("native_profiler");
+        $__internal_82875ccc42c625df5fb56de2d075e0aaed485e6706f543a9166a4e006611d325->enter($__internal_82875ccc42c625df5fb56de2d075e0aaed485e6706f543a9166a4e006611d325_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Communication";
         
-        $__internal_a81a42ac76f61814b5af567d907a79360c7e99fa5cd5aafef086f5ee1232e3b6->leave($__internal_a81a42ac76f61814b5af567d907a79360c7e99fa5cd5aafef086f5ee1232e3b6_prof);
+        $__internal_82875ccc42c625df5fb56de2d075e0aaed485e6706f543a9166a4e006611d325->leave($__internal_82875ccc42c625df5fb56de2d075e0aaed485e6706f543a9166a4e006611d325_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_6838fc4b6f119e35dd6eab55656b15caa6e722538fb4e05eebe7a02a31b1047f = $this->env->getExtension("native_profiler");
-        $__internal_6838fc4b6f119e35dd6eab55656b15caa6e722538fb4e05eebe7a02a31b1047f->enter($__internal_6838fc4b6f119e35dd6eab55656b15caa6e722538fb4e05eebe7a02a31b1047f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_d3ea7268e7e9ab56d3eb037c20730689d037d073b7ff872c960418d28fb985e0 = $this->env->getExtension("native_profiler");
+        $__internal_d3ea7268e7e9ab56d3eb037c20730689d037d073b7ff872c960418d28fb985e0->enter($__internal_d3ea7268e7e9ab56d3eb037c20730689d037d073b7ff872c960418d28fb985e0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -406,12 +406,19 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
         echo "'> <h4> Nos 5 valeurs </h4> </a>
         </div>
 
+        <div class=\"sousMessageAcceuil\"> 
+            <a href='";
+        // line 229
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageImages", array("chemin" => "Marketing/BuildYourFuture", "dossier" => "Build your future", "config" => "buildYourFuture")), "html", null, true);
+        echo "'> <h4> Build your future </h4> </a>
+        </div>
+
     </div>
     <!-- Fin Marketing -->
 
     <div class=\"surMessageAcceuil\" id='menuSI' onclick=\"showSubMenu2('#sousMenuSI', this);\"> 
         <h4> SI <img src='";
-        // line 232
+        // line 236
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
         echo "' class='menuImg'><img src='";
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
@@ -422,13 +429,13 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
     <div id='sousMenuSI' class='menu'>
         <div class=\"sousMessageAcceuil\"> 
             <a href='";
-        // line 238
+        // line 242
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_affichageContenu", array("chemin" => "SI/NewsSI", "dossier" => "News SI", "config" => "newsSI")), "html", null, true);
         echo "'> <h4> News SI </h4> </a>
         </div>
         <div class=\"sousMessageAcceuil\">  
             <a href='";
-        // line 241
+        // line 245
         echo $this->env->getExtension('routing')->getPath("nox_intranet_communication_bim");
         echo "'> <h4> BIM </h4> </a>
         </div>
@@ -439,7 +446,7 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 
 ";
         
-        $__internal_6838fc4b6f119e35dd6eab55656b15caa6e722538fb4e05eebe7a02a31b1047f->leave($__internal_6838fc4b6f119e35dd6eab55656b15caa6e722538fb4e05eebe7a02a31b1047f_prof);
+        $__internal_d3ea7268e7e9ab56d3eb037c20730689d037d073b7ff872c960418d28fb985e0->leave($__internal_d3ea7268e7e9ab56d3eb037c20730689d037d073b7ff872c960418d28fb985e0_prof);
 
     }
 
@@ -455,7 +462,7 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 
     public function getDebugInfo()
     {
-        return array (  432 => 241,  426 => 238,  415 => 232,  405 => 225,  398 => 221,  390 => 216,  383 => 212,  372 => 206,  359 => 196,  352 => 192,  345 => 188,  334 => 182,  327 => 178,  319 => 173,  312 => 169,  304 => 164,  297 => 160,  288 => 154,  281 => 150,  274 => 146,  267 => 142,  256 => 136,  249 => 132,  239 => 127,  227 => 118,  220 => 114,  213 => 110,  202 => 104,  193 => 98,  186 => 94,  179 => 90,  172 => 86,  161 => 80,  154 => 76,  147 => 72,  125 => 55,  83 => 18,  71 => 11,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
+        return array (  439 => 245,  433 => 242,  422 => 236,  412 => 229,  405 => 225,  398 => 221,  390 => 216,  383 => 212,  372 => 206,  359 => 196,  352 => 192,  345 => 188,  334 => 182,  327 => 178,  319 => 173,  312 => 169,  304 => 164,  297 => 160,  288 => 154,  281 => 150,  274 => 146,  267 => 142,  256 => 136,  249 => 132,  239 => 127,  227 => 118,  220 => 114,  213 => 110,  202 => 104,  193 => 98,  186 => 94,  179 => 90,  172 => 86,  161 => 80,  154 => 76,  147 => 72,  125 => 55,  83 => 18,  71 => 11,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -683,6 +690,10 @@ class __TwigTemplate_8412099ba0554766dcdd9a4c9e65084b9289ebf8bc9941c9b641c184fef
 /* */
 /*         <div class="sousMessageAcceuil"> */
 /*             <a href='{{ path('nox_intranet_affichageImages', { 'chemin': 'Marketing/nos5Valeurs', 'dossier': 'Nos 5 valeurs', 'config': 'nos5Valeurs' }) }}'> <h4> Nos 5 valeurs </h4> </a>*/
+/*         </div>*/
+/* */
+/*         <div class="sousMessageAcceuil"> */
+/*             <a href='{{ path('nox_intranet_affichageImages', { 'chemin': 'Marketing/BuildYourFuture', 'dossier': 'Build your future', 'config': 'buildYourFuture' }) }}'> <h4> Build your future </h4> </a>*/
 /*         </div>*/
 /* */
 /*     </div>*/

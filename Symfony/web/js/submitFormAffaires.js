@@ -47,11 +47,13 @@ $(window).load(function () {
             $(this).next().next().show();
             $(this).next().next().next().attr('required', 'required');
             $(this).next().next().next().show();
+            $(this).next().next().next().next().show();
         } else {
             $(this).next().next().hide();
             $(this).next().next().next().val('');
             $(this).next().next().next().removeAttr('required');
             $(this).next().next().next().hide();
+            $(this).next().next().next().next().hide();
         }
     });
 
@@ -60,11 +62,13 @@ $(window).load(function () {
             $(this).next().next().show();
             $(this).next().next().next().attr('required', 'required');
             $(this).next().next().next().show();
+            $(this).next().next().next().next().show();
         } else {
             $(this).next().next().hide();
             $(this).next().next().next().val('');
             $(this).next().next().next().removeAttr('required');
             $(this).next().next().next().hide();
+            $(this).next().next().next().next().hide();
         }
     });
 
@@ -79,6 +83,7 @@ $(window).load(function () {
     });
 
     resizeFormLabelAndData($('.labelFormulaireRemplissageSuivi'), $('.champFormulaireRemplissageSuivi'), $('.formulaireRemplissageSuivi p'));
+    resizeFormLabelAndData($('.labelFormulaireRemplissageSuiviCloture'), $('.champFormulaireRemplissageSuiviCloture'), $('.formulaireRemplissageSuiviCloture p'));
 
     $(window).resize(function () {
         location.reload();
@@ -93,7 +98,6 @@ $(window).load(function () {
         $('#formDonneesSuivi_Generate').wrap("<span class='tooltipButtonAAGenerate'></span>");
         $('.tooltipButtonAAGenerate').prepend("<span class='tooltipButtonAAGenerateText'>Sauvegardez le suivi pour pouvoir générer un fichier Excel.</span>");
     }
-
 });
 
 function toggleCheckboxAjoutDonnees() {

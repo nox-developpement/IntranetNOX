@@ -75,7 +75,7 @@ class __TwigTemplate_857a5144110e349eb661a1b648c4bd1a808cfd383dbc4b3b5c1ab253ef4
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "IdModele", array()), 'widget', array("attr" => array("class" => "selectFormulaireChoixModèle")));
         echo "
 
-            <br /> <br />
+            <br />
 
             ";
         // line 24
@@ -131,7 +131,7 @@ class __TwigTemplate_857a5144110e349eb661a1b648c4bd1a808cfd383dbc4b3b5c1ab253ef4
 /*             {{ form_errors(form.IdModele) }}*/
 /*             {{ form_widget(form.IdModele, {'attr': {'class': 'selectFormulaireChoixModèle'}}) }}*/
 /* */
-/*             <br /> <br />*/
+/*             <br />*/
 /* */
 /*             {{ form_widget(form.Choisir, {'label': 'Choisir ce modèle', 'attr': {'class': 'boutonFormulaire' }}) }}*/
 /* */
