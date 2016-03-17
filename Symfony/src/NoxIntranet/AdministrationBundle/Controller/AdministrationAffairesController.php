@@ -149,7 +149,7 @@ class AdministrationAffairesController extends Controller {
                         'choices' => array(
                             'Texte' => 'Texte',
                             'Nombre' => 'Nombre',
-                            'Données' => 'Données',
+                            'Données' => 'Données'
                         ),
                     ))
                     ->add('Profil', EntityType::class, array(

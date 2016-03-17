@@ -10003,7 +10003,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>56e7cac71933f9.15508563</argument>
+            <argument>56e987fdd76822.30784674</argument>
           </service>
         </argument>
       </argument>
@@ -10220,28 +10220,6 @@
                 <call method="add">
                   <argument type="service">
                     <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-                      <argument>^/elfinder/CE</argument>
-                    </service>
-                  </argument>
-                  <argument type="collection">
-                    <argument>ROLE_CE</argument>
-                  </argument>
-                  <argument>null</argument>
-                </call>
-                <call method="add">
-                  <argument type="service">
-                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-                      <argument>^/elfinder/CHSCT</argument>
-                    </service>
-                  </argument>
-                  <argument type="collection">
-                    <argument>ROLE_CHSCT</argument>
-                  </argument>
-                  <argument>null</argument>
-                </call>
-                <call method="add">
-                  <argument type="service">
-                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
                       <argument>^/efconnect</argument>
                     </service>
                   </argument>
@@ -10258,6 +10236,17 @@
                   </argument>
                   <argument type="collection">
                     <argument>ROLE_USER</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/administration/assistant-affaires</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_SUPER_ADMIN</argument>
                   </argument>
                   <argument>null</argument>
                 </call>
@@ -10302,8 +10291,6 @@
                   </argument>
                   <argument type="collection">
                     <argument>ROLE_COMMUNICATION</argument>
-                    <argument>ROLE_CE</argument>
-                    <argument>ROLE_CHSCT</argument>
                   </argument>
                   <argument>null</argument>
                 </call>
@@ -10319,11 +10306,10 @@
                     <argument>ROLE_COMPETENCES</argument>
                     <argument>ROLE_COMMUNICATION</argument>
                     <argument>ROLE_PROCEDURES</argument>
-                    <argument>ROLE_CE</argument>
-                    <argument>ROLE_CHSCT</argument>
                     <argument>ROLE_FAQ</argument>
                     <argument>ROLE_LIENS</argument>
                     <argument>ROLE_QUALITE</argument>
+                    <argument>ROLE_RH</argument>
                   </argument>
                   <argument>null</argument>
                 </call>
@@ -10335,6 +10321,17 @@
                   </argument>
                   <argument type="collection">
                     <argument>ROLE_USER</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/ressources/assistant-affaires</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_SUPER_ADMIN</argument>
                   </argument>
                   <argument>null</argument>
                 </call>
@@ -10357,17 +10354,6 @@
                   </argument>
                   <argument type="collection">
                     <argument>ROLE_USER</argument>
-                  </argument>
-                  <argument>null</argument>
-                </call>
-                <call method="add">
-                  <argument type="service">
-                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-                      <argument>^/accueil/edition-annonces</argument>
-                    </service>
-                  </argument>
-                  <argument type="collection">
-                    <argument>ROLE_ADMIN</argument>
                   </argument>
                   <argument>null</argument>
                 </call>
@@ -10504,7 +10490,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>56e7cac71933f9.15508563</argument>
+            <argument>56e987fdd76822.30784674</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -10563,28 +10549,6 @@
                 <call method="add">
                   <argument type="service">
                     <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-                      <argument>^/elfinder/CE</argument>
-                    </service>
-                  </argument>
-                  <argument type="collection">
-                    <argument>ROLE_CE</argument>
-                  </argument>
-                  <argument>null</argument>
-                </call>
-                <call method="add">
-                  <argument type="service">
-                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-                      <argument>^/elfinder/CHSCT</argument>
-                    </service>
-                  </argument>
-                  <argument type="collection">
-                    <argument>ROLE_CHSCT</argument>
-                  </argument>
-                  <argument>null</argument>
-                </call>
-                <call method="add">
-                  <argument type="service">
-                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
                       <argument>^/efconnect</argument>
                     </service>
                   </argument>
@@ -10601,6 +10565,17 @@
                   </argument>
                   <argument type="collection">
                     <argument>ROLE_USER</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/administration/assistant-affaires</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_SUPER_ADMIN</argument>
                   </argument>
                   <argument>null</argument>
                 </call>
@@ -10645,8 +10620,6 @@
                   </argument>
                   <argument type="collection">
                     <argument>ROLE_COMMUNICATION</argument>
-                    <argument>ROLE_CE</argument>
-                    <argument>ROLE_CHSCT</argument>
                   </argument>
                   <argument>null</argument>
                 </call>
@@ -10662,11 +10635,10 @@
                     <argument>ROLE_COMPETENCES</argument>
                     <argument>ROLE_COMMUNICATION</argument>
                     <argument>ROLE_PROCEDURES</argument>
-                    <argument>ROLE_CE</argument>
-                    <argument>ROLE_CHSCT</argument>
                     <argument>ROLE_FAQ</argument>
                     <argument>ROLE_LIENS</argument>
                     <argument>ROLE_QUALITE</argument>
+                    <argument>ROLE_RH</argument>
                   </argument>
                   <argument>null</argument>
                 </call>
@@ -10678,6 +10650,17 @@
                   </argument>
                   <argument type="collection">
                     <argument>ROLE_USER</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/ressources/assistant-affaires</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_SUPER_ADMIN</argument>
                   </argument>
                   <argument>null</argument>
                 </call>
@@ -10700,17 +10683,6 @@
                   </argument>
                   <argument type="collection">
                     <argument>ROLE_USER</argument>
-                  </argument>
-                  <argument>null</argument>
-                </call>
-                <call method="add">
-                  <argument type="service">
-                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-                      <argument>^/accueil/edition-annonces</argument>
-                    </service>
-                  </argument>
-                  <argument type="collection">
-                    <argument>ROLE_ADMIN</argument>
                   </argument>
                   <argument>null</argument>
                 </call>

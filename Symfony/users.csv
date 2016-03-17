@@ -611,3 +611,4 @@ DN,sAMAccountName
 "CN=JULLIEN Valérie,OU=INGENIERIE,OU=Bron,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",v.jullien
 "CN=GRANDGIRARD Luc,OU=Dijon,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",l.grandgirard
 "CN=BUENO GABANELLI Léonardo,OU=Woippy,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",l.buenogabanelli
+"CN=FARIA Paulo,OU=Ecuisses,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",p.faria

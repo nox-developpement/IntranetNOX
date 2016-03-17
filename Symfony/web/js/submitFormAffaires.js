@@ -1,4 +1,8 @@
 $(window).load(function () {
+
+//    $('form fieldset legend').delay(500).css('text-align', 'left');
+//    $('form fieldset legend').delay(500).css('padding', '0% 0.5% 0% 0.5%');
+
     $('.selectFormulaireSelectionAgence').change(function () {
         $('.formulaireSelectionAgence').submit();
     });
@@ -11,6 +15,7 @@ $(window).load(function () {
     });
 
     if ($('.selectFormulaireSelectionDossier').val() !== '' && $('.selectFormulaireSelectionDossier').val() !== undefined) {
+        $('#DivFormulaireAAModele').toggle();
         $('#contenu').scrollTop($('#contenu')[0].scrollHeight);
     }
 

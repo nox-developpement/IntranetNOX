@@ -105,7 +105,7 @@ class __TwigTemplate_823524504e555d9920e2e769c910ff4a85b104dec25e111fc3e3604c600
 
 
     <div class='zoneTexteAccueil'>
-        <p id='edito'> Edito </p>
+        <p id='edito'> Édito </p>
         <div id='texteAccueil'>
             ";
         // line 36
@@ -680,7 +680,7 @@ class __TwigTemplate_823524504e555d9920e2e769c910ff4a85b104dec25e111fc3e3604c600
 /* */
 /* */
 /*     <div class='zoneTexteAccueil'>*/
-/*         <p id='edito'> Edito </p>*/
+/*         <p id='edito'> Édito </p>*/
 /*         <div id='texteAccueil'>*/
 /*             {{ texte|raw }}*/
 /*         </div>*/

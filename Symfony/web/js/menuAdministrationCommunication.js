@@ -38,7 +38,7 @@ function showSubMenu2(sousMenu, contexte) {
         }
     });
 
-    $(sousMenu).slideToggle(function () {
+    $(sousMenu).slideToggle(1000, 'easeOutQuart', function () {
         if ($(sousMenu).is(':visible')) {
             $(contexte).find('.menuImg').hide();
             $(contexte).find('.menuImgDown').show();

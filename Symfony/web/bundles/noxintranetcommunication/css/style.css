@@ -1840,7 +1840,7 @@ divAdministrationUtilisateur {
 }
 
 #majExterne, #majInterne, #majMarketing, #majSI, #majAQ, #majRH, #posteAPourvoir, #nominationOrganisation {
-/*    width: 90%;*/
+    /*    width: 90%;*/
     border: black 1px solid;
     margin-bottom: 5%;
 }
@@ -2519,4 +2519,31 @@ form input[type='checkbox'] {
 .DivMaj {
     padding: 0px;
     margin: 0px;
+}
+
+.formulaireAA {
+    display: none;
+}
+
+.titreFormulaireAA {
+    margin: 0% 25% 1% 25%;
+    padding: 1%;
+    border-bottom: solid 1px rgb(31,78,121);
+}
+
+.titreFormulaireAA h4 {
+    text-align: left;
+    color: rgb(31,78,121);
+    font-size: 1vw;
+    margin: auto;
+    cursor: pointer;
+}
+
+.formulaireAAImg, .formulaireAAImgDown {
+    vertical-align: middle;
+    width: 2.5%;
+}
+
+.formulaireAAImgDown {
+    display: none;
 }

@@ -26,15 +26,13 @@
 
             <tr>
                 <td> Utilisateurs </td>
-                <td colspan=12> Rôle </td>
+                <td colspan=10> Rôle </td>
 
                 <td> Action </td>
             </tr>
             <tr>
                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_USER'}) }}' class='tous'> <p>{% if roleUser == 'ROLE_USER' %}<img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %}Tous</p> </a> </div> </div> </td>
                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_ADMIN'}) }}' class='admin'> <p>{% if roleUser == 'ROLE_ADMIN' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %}Admin </p> </a> </div></div></td>
-                <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_CE'}) }}' class='ce'>  <p>{% if roleUser == 'ROLE_CE' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %} CE </p>  </a> </div></div></td>
-                <td><div class="vertical-text"> <div class="vertical-text__inner"> <a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_CHSCT'}) }}' class='CHSCT'>  <p>{% if roleUser == 'ROLE_CHSCT' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %} CHSCT </p>  </a> </div></div></td>
                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_COMMUNICATION'}) }}' class='communication'> <p> {% if roleUser == 'ROLE_COMMUNICATION' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %}Communication  </p></a> </div></div></td>
                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_COMPETENCES'}) }}' class='competences'> <p>{% if roleUser == 'ROLE_COMPETENCES' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %}Compétences </p> </a></div></div> </td>
                 <td> <div class="vertical-text"> <div class="vertical-text__inner"><a href='{{ path('nox_intranet_administration_user', {'roleUser': 'ROLE_FAQ'}) }}' class='faq'> <p>{% if roleUser == 'ROLE_FAQ' %} <img src="{{ asset('bundles/noxintranetadministration/images/Arrow-Left-32.png') }}" class="imgRole"> {% endif %} FAQ </p> </a> </div></div></td>
@@ -62,26 +60,6 @@
                                        {% endif %}
                                    {% endfor %}    
                                    >
-                            </td>
-
-                            <td>
-                                <input type='checkbox' name='CE' value='CE' id='CE' onclick='checkboxPublicateurClick(this);'
-                                       {% for role in user.roles %}
-                                           {% if role == "ROLE_CE" %}
-                                               checked
-                                           {% endif %}
-                                       {% endfor %}   
-                                       >
-                            </td>
-
-                            <td>
-                                <input type='checkbox' name='CHSCT' value='CHSCT' id='CHSCT' onclick='checkboxPublicateurClick(this);'
-                                       {% for role in user.roles %}
-                                           {% if role == "ROLE_CHSCT" %}
-                                               checked
-                                           {% endif %}
-                                       {% endfor %}   
-                                       >
                             </td>
 
                             <td>
