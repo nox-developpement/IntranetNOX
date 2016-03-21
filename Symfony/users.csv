@@ -612,3 +612,6 @@ DN,sAMAccountName
 "CN=GRANDGIRARD Luc,OU=Dijon,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",l.grandgirard
 "CN=BUENO GABANELLI Léonardo,OU=Woippy,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",l.buenogabanelli
 "CN=FARIA Paulo,OU=Ecuisses,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",p.faria
+"CN=BOUJUT Fabrice,OU=Angouleme,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",f.boujut
+"CN=BRISSON Florian,OU=Saint Malo,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",f.brisson
+"CN=BENGHALEM Aya,OU=Paris,OU=Developpement Immobilier,OU=France,OU=NOX,DC=nox,DC=local",a.benghalem

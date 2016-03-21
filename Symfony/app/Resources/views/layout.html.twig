@@ -15,7 +15,7 @@
         {% endstylesheets %}
 
         <link rel="icon" type="image/png" href="{{ asset('bundles/noxintranetcommunication/images/favicon.ico') }}" />
-        <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet">
+        <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet" />
         <style type="text/css">
             @font-face {
                 font-family: 'NoxFont'; 
@@ -30,8 +30,9 @@
 
             <div style="border: none; width: 15%; display:inline-block; text-align: center; vertical-align: middle; margin-top: 2.5%;"> <a style="cursor: pointer; font-size: 0.85vw;" onclick="$(function () {
                         $('#dialog').dialog({width: 970, height: 600});
-                    });"> Plan du site <br /><img style="width: 10%;" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}" onmousedown="return false;"> </a> </div><!--
-
+                    });"> Plan du site <br /><img style="width: 10%;" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}" onmousedown="return false;"> </a> 
+            </div><!-- 
+            
             --><div id ="bandeau">  
                 <img src="{{ asset('bundles/noxintranetcommunication/images/bandeau.png') }}" id ="image_bandeau" alt="bandeau" onmousedown="return false;">
             </div>
@@ -41,16 +42,10 @@
         </header>
 
         <div id="dialog" title="Plan du site" style="display: none;">
-
             <img src="{{ asset('bundles/noxintranetaccueil/images/PlanIntranet.svg') }}">
-
         </div>
 
         <div id="bar_menu">
-
-            <div id="selectionSkinBouton" >
-
-            </div>
 
             <div id="div_menu">
 
@@ -69,7 +64,8 @@
                             <img src ="{{ asset('bundles/noxintranetcommunication/images/logoRecherche.png') }}" alt="Logo Recherche" onmousedown="return false;">
                             <input type="text" id="search_input" name="seach_input" placeholder="Rechercher sur Google">
                             <button id="search" onclick="googleSearch(this)
-                                            ;"> Rechercher </button>
+                                            ;"> Rechercher 
+                            </button>
                         </form>
                     </li>
                 </ul>
@@ -85,7 +81,6 @@
         </div>
 
         <div id ="section_principal">
-
 
             <div id="contenu">
 
@@ -104,37 +99,82 @@
                 <div class="messageAcceuil"> 
                     <h2> {% block messageAccueil %} {% endblock %} </h2>
                     <h3> {% block sousMessageAccueil %} {% endblock %} </h3>
-                {% block textEncart %}{% endblock %}
-            </div>
+                    <span>{% block textEncart %}{% endblock %}</span>
+                </div>
 
-            {% block contenu %}
+                {% block contenu %}
 
-            {% endblock %}
+                {% endblock %}
+
+            </div>  
 
         </div>
-    </div>
 
-    <script src={{ asset('./js/jquery-ui.min.js') }}></script>
+        <footer> 
+            <div>
+                <p> @Copyright 2016 - GROUPE NOX - IT Dpt, All rights reserved </p> 
+            </div>
+        </footer>
+
+        <script>
+
+            function footerAlign() {
+                $('footer').css('display', 'block');
+                $('footer').css('height', 'auto');
+                var footerHeight = $('footer').outerHeight();
+
+                $('footer').css('height', footerHeight);
+
+
+            }
+
+            function resizeContenu() {
+                $('#contenu').height($('footer').offset().top - $('header').height() - $('#bar_menu').height() - $('footer').height()/5);
+            }
+
+
+            function centerContent()
+            {
+                var container = $('footer div');
+                var content = $('footer div p');
+                content.css("left", (container.width() - content.width()) / 2);
+                content.css("top", (container.height() - content.height()) / 2);
+            }
+
+            $(document).ready(function () {
+                footerAlign();
+                centerContent();
+                resizeContenu();
+            });
+
+            $(window).resize(function () {
+                footerAlign();
+                centerContent();
+                resizeContenu();
+            });
+
+        </script>
+
+        <script src="{{ asset('./js/affichageImageResizing.js') }}"/></script>
+    <script src="{{ asset('./js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-    <script src={{ asset('./js/googleSearch.js') }}></script>
-    <script src={{ asset('./js/menuAnimation.js') }}></script>
-    <script src={{ asset('./js/positionement.js') }}></script>
-    <script src={{ asset('./js/checkboxClick.js') }}></script>   
-    <!-- <script src={{ asset('./js/communicationMenu.js') }}></script> -->
-    <script src={{ asset('./js/textareaLogiciel.js') }}></script>  
+    <script src="{{ asset('./js/googleSearch.js') }}"></script>
+    <script src="{{ asset('./js/menuAnimation.js') }}"></script>
+    <script src="{{ asset('./js/positionement.js') }}"></script>
+    <script src="{{ asset('./js/checkboxClick.js') }}"></script>   
+    <script src="{{ asset('./js/textareaLogiciel.js') }}"></script>  
     <script src="{{ asset('./js/gestionFichiersPopup.js') }}"></script>
-    <script src={{ asset('./js/texteEncartActions.js') }}></script>
-    <script src={{ asset('./js/popupDownloadArchive.js') }}></script>
-    <script src={{ asset('./js/texteActions.js') }}></script>
-    <script src={{ asset('./js/menuAdministrationCommunication.js') }}></script>
-    <script src={{ asset('./js/formImprimanteScript.js') }}></script>
-    <script src={{ asset('./js/editionLiens.js') }}></script>
-    <script src={{ asset('./js/jscroller2-1.61.js') }}></script>
-    <script src={{ asset('./js/submitFormAffaires.js') }}></script>
+    <script src="{{ asset('./js/texteEncartActions.js') }}"></script>
+    <script src="{{ asset('./js/popupDownloadArchive.js') }}"></script>
+    <script src="{{ asset('./js/texteActions.js') }}"></script>
+    <script src="{{ asset('./js/menuAdministrationCommunication.js') }}"></script>
+    <script src="{{ asset('./js/formImprimanteScript.js') }}"></script>
+    <script src="{{ asset('./js/editionLiens.js') }}"></script>
+    <script src="{{ asset('./js/jscroller2-1.61.js') }}"></script>
+    <script src="{{ asset('./js/submitFormAffaires.js') }}"></script>
     <script src="{{ asset('./js/tableurEdition.js') }}"/></script>
 <script src="{{ asset('./js/suiviRecherche.js') }}"/></script>
-<script src="{{ asset('./js/affichageImageResizing.js') }}"/></script>
 
 </body>
 </html>

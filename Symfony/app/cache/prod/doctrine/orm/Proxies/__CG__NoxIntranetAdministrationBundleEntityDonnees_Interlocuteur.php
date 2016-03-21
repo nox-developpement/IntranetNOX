@@ -64,10 +64,10 @@ class Donnees_Interlocuteur extends \NoxIntranet\AdministrationBundle\Entity\Don
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'idInterlocuteur', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'email', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'telephone', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'fax', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'portable'];
+            return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'client', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'email', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'telephone', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'fax', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'portable'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'idInterlocuteur', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'email', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'telephone', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'fax', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'portable'];
+        return ['__isInitialized__', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'id', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'client', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'email', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'telephone', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'fax', '' . "\0" . 'NoxIntranet\\AdministrationBundle\\Entity\\Donnees_Interlocuteur' . "\0" . 'portable'];
     }
 
     /**
@@ -191,28 +191,6 @@ class Donnees_Interlocuteur extends \NoxIntranet\AdministrationBundle\Entity\Don
     /**
      * {@inheritDoc}
      */
-    public function setIdInterlocuteur($idInterlocuteur)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIdInterlocuteur', [$idInterlocuteur]);
-
-        return parent::setIdInterlocuteur($idInterlocuteur);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getIdInterlocuteur()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIdInterlocuteur', []);
-
-        return parent::getIdInterlocuteur();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setEMail($eMail)
     {
 
@@ -296,6 +274,28 @@ class Donnees_Interlocuteur extends \NoxIntranet\AdministrationBundle\Entity\Don
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPortable', []);
 
         return parent::getPortable();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setClient($client)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setClient', [$client]);
+
+        return parent::setClient($client);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getClient()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getClient', []);
+
+        return parent::getClient();
     }
 
 }

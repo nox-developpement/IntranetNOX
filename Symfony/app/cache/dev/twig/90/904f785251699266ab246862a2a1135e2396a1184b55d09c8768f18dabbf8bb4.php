@@ -23,44 +23,44 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_8c8d7626fa8540032107c47c7bf6d503bd22e07e54f3022171f0039b4670c062 = $this->env->getExtension("native_profiler");
-        $__internal_8c8d7626fa8540032107c47c7bf6d503bd22e07e54f3022171f0039b4670c062->enter($__internal_8c8d7626fa8540032107c47c7bf6d503bd22e07e54f3022171f0039b4670c062_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig"));
+        $__internal_3a94bd7c17212acd3aeb560ed871e277a5670f3aa5a6675efe88cb11f7a08be9 = $this->env->getExtension("native_profiler");
+        $__internal_3a94bd7c17212acd3aeb560ed871e277a5670f3aa5a6675efe88cb11f7a08be9->enter($__internal_3a94bd7c17212acd3aeb560ed871e277a5670f3aa5a6675efe88cb11f7a08be9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_8c8d7626fa8540032107c47c7bf6d503bd22e07e54f3022171f0039b4670c062->leave($__internal_8c8d7626fa8540032107c47c7bf6d503bd22e07e54f3022171f0039b4670c062_prof);
+        $__internal_3a94bd7c17212acd3aeb560ed871e277a5670f3aa5a6675efe88cb11f7a08be9->leave($__internal_3a94bd7c17212acd3aeb560ed871e277a5670f3aa5a6675efe88cb11f7a08be9_prof);
 
     }
 
     // line 3
     public function block_titrePage($context, array $blocks = array())
     {
-        $__internal_794a24a72e12880f7040a4e6b45547e665be513b7861bb0521ee10fdec95696f = $this->env->getExtension("native_profiler");
-        $__internal_794a24a72e12880f7040a4e6b45547e665be513b7861bb0521ee10fdec95696f->enter($__internal_794a24a72e12880f7040a4e6b45547e665be513b7861bb0521ee10fdec95696f_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
+        $__internal_ab96302e828ef29ff3f28b21cc02f4f70fca7d3cdcf5fdd0c4cd581520ec2891 = $this->env->getExtension("native_profiler");
+        $__internal_ab96302e828ef29ff3f28b21cc02f4f70fca7d3cdcf5fdd0c4cd581520ec2891->enter($__internal_ab96302e828ef29ff3f28b21cc02f4f70fca7d3cdcf5fdd0c4cd581520ec2891_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "titrePage"));
 
         echo " Administration assistant d'affaires ";
         
-        $__internal_794a24a72e12880f7040a4e6b45547e665be513b7861bb0521ee10fdec95696f->leave($__internal_794a24a72e12880f7040a4e6b45547e665be513b7861bb0521ee10fdec95696f_prof);
+        $__internal_ab96302e828ef29ff3f28b21cc02f4f70fca7d3cdcf5fdd0c4cd581520ec2891->leave($__internal_ab96302e828ef29ff3f28b21cc02f4f70fca7d3cdcf5fdd0c4cd581520ec2891_prof);
 
     }
 
     // line 5
     public function block_messageAccueil($context, array $blocks = array())
     {
-        $__internal_bfd5783fc9f89e88ef63aad5aaf2d1b45d02773fc17d6e770479162550dffb40 = $this->env->getExtension("native_profiler");
-        $__internal_bfd5783fc9f89e88ef63aad5aaf2d1b45d02773fc17d6e770479162550dffb40->enter($__internal_bfd5783fc9f89e88ef63aad5aaf2d1b45d02773fc17d6e770479162550dffb40_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
+        $__internal_9c7f0ac56918b1ef748b4f2edf170a09d4856cdf6a95bffb6949f69f211c6201 = $this->env->getExtension("native_profiler");
+        $__internal_9c7f0ac56918b1ef748b4f2edf170a09d4856cdf6a95bffb6949f69f211c6201->enter($__internal_9c7f0ac56918b1ef748b4f2edf170a09d4856cdf6a95bffb6949f69f211c6201_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "messageAccueil"));
 
         echo "Administration assistant d'affaires";
         
-        $__internal_bfd5783fc9f89e88ef63aad5aaf2d1b45d02773fc17d6e770479162550dffb40->leave($__internal_bfd5783fc9f89e88ef63aad5aaf2d1b45d02773fc17d6e770479162550dffb40_prof);
+        $__internal_9c7f0ac56918b1ef748b4f2edf170a09d4856cdf6a95bffb6949f69f211c6201->leave($__internal_9c7f0ac56918b1ef748b4f2edf170a09d4856cdf6a95bffb6949f69f211c6201_prof);
 
     }
 
     // line 7
     public function block_contenu($context, array $blocks = array())
     {
-        $__internal_c72e874a4f29c1fcc6ae6ea03d8b0cdbc1490ebc11c91df0ce6127ad34002601 = $this->env->getExtension("native_profiler");
-        $__internal_c72e874a4f29c1fcc6ae6ea03d8b0cdbc1490ebc11c91df0ce6127ad34002601->enter($__internal_c72e874a4f29c1fcc6ae6ea03d8b0cdbc1490ebc11c91df0ce6127ad34002601_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
+        $__internal_cdc9acc9b92bd70f2b178e09ded2efba54dc25d194090ad13520f3d28dbb116b = $this->env->getExtension("native_profiler");
+        $__internal_cdc9acc9b92bd70f2b178e09ded2efba54dc25d194090ad13520f3d28dbb116b->enter($__internal_cdc9acc9b92bd70f2b178e09ded2efba54dc25d194090ad13520f3d28dbb116b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "contenu"));
 
         // line 8
         echo "
@@ -176,9 +176,11 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
                 \$('.DivFormulaireAjoutChamp'),
                 \$('.DivFormulaireSuppressionChamp'),
                 \$('.DivFormulaireSelectionChamp')
-            ], \$(this));\">
+            ], \$(this));
+            resizeFormLabelAndData(\$('.labelFormulaireAjoutChamp'), \$('.champFormulaireAjoutChamp'), \$('.formulaireAjoutChamp p:nth-child(2)'));
+         \">
         <h4> Champs <img src='";
-        // line 69
+        // line 71
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
         echo "' class='formulaireAAImg'><img src='";
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
@@ -188,11 +190,11 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
     <div class='DivFormulaireAjoutChamp formulaireAA'>
 
         ";
-        // line 74
+        // line 76
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), 'form_start', array("attr" => array("class" => "formulaireAjoutChamp")));
         echo "
         ";
-        // line 75
+        // line 77
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), 'errors');
         echo "
 
@@ -202,75 +204,70 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
             <p>
                 ";
-        // line 82
+        // line 84
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "Type", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAjoutChamp"), "label" => "Type :"));
         echo "
                 ";
-        // line 83
+        // line 85
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "Type", array()), 'errors');
         echo "
                 ";
-        // line 84
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "Type", array()), 'widget', array("attr" => array("class" => "selectFormulaireAjoutChamp")));
-        echo "
-
-                ";
         // line 86
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "_token", array()), 'widget');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "Type", array()), 'widget', array("attr" => array("class" => "selectFormulaireAjoutChamp champFormulaireAjoutChamp")));
         echo "
-            </p>
 
-            <p>
+                <br />
+
                 ";
         // line 90
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "_token", array()), 'widget');
+        echo "
+
+                ";
+        // line 92
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "Nom", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAjoutChamp"), "label" => "Nom :"));
         echo "
                 ";
-        // line 91
+        // line 93
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "Nom", array()), 'errors');
         echo "
                 ";
-        // line 92
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "Nom", array()), 'widget', array("attr" => array("class" => "texteFormulaireAjoutChamp")));
+        // line 94
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "Nom", array()), 'widget', array("attr" => array("class" => "texteFormulaireAjoutChamp champFormulaireAjoutChamp")));
         echo "
-            </p>
 
-            <p>
+                <br />
+
                 ";
-        // line 96
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "AjoutDonnees", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAjoutChamp"), "label" => "Permettre l'ajout de donnée supplémentaire par l'utilisateur"));
+        // line 98
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "AjoutDonnees", array()), 'label', array("label" => "Permettre l'ajout de donnée supplémentaire par l'utilisateur"));
         echo "
                 ";
-        // line 97
+        // line 99
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "AjoutDonnees", array()), 'errors');
         echo "
                 ";
-        // line 98
+        // line 100
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "AjoutDonnees", array()), 'widget', array("attr" => array("class" => "checkboxFormulaireAjoutChamp")));
         echo "
-            </p>
 
-            <p>
+                <br />
+
                 ";
-        // line 102
+        // line 104
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "Profil", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAjoutChamp"), "label" => "Profil :"));
         echo "
                 ";
-        // line 103
+        // line 105
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "Profil", array()), 'errors');
         echo "
                 ";
-        // line 104
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "Profil", array()), 'widget', array("attr" => array("class" => "selectFormulaireAjoutChamp")));
-        echo "
-
-                ";
         // line 106
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "_token", array()), 'widget');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "Profil", array()), 'widget', array("attr" => array("class" => "selectFormulaireAjoutChamp champFormulaireAjoutChamp")));
         echo "
-            </p>
 
-            <p>
+                <br />
+
                 ";
         // line 110
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutChamp"]) ? $context["formAjoutChamp"] : $this->getContext($context, "formAjoutChamp")), "Ajouter", array()), 'widget', array("attr" => array("class" => "submitFormulaireAjoutChamp", "class" => "boutonFormulaire")));
@@ -552,9 +549,269 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
     </div>
 
+    <div id=\"DivFormulaireAAModele\" class=\"titreFormulaireAA\" onclick=\"
+            assistantAffaireToggle([
+                \$('#DivFormulaireAjoutClient')
+            ], \$(this));
+            Recherche('.selectFormulaireSelectionVersion');
+            resizeFormLabelAndData(\$('.labelFormulaireAdministrationAjoutClient'), \$('.champFormulaireRemplissageAjoutClient'), \$('.formulaireAdministrationAjoutClient p'));\"
+         >
+        <h4> Clients <img src='";
+        // line 267
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
+        echo "' class='formulaireAAImg'><img src='";
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
+        echo "' class='formulaireAAImgDown'> </h4>
+    </div>
+
+    <div id='DivFormulaireAjoutClient' class='formulaireAA'>
+
+        ";
+        // line 272
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), 'form_start', array("attr" => array("class" => "formulaireAdministrationAjoutClient")));
+        echo "
+        ";
+        // line 273
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), 'errors');
+        echo "
+
+        <fieldset>
+
+            <legend>Ajouter un client</legend>
+
+            <p>
+                ";
+        // line 280
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), "Nom", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAdministrationAjoutClient"), "label" => "Nom :"));
+        echo "
+                ";
+        // line 281
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), "Nom", array()), 'errors');
+        echo "
+                ";
+        // line 282
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), "Nom", array()), 'widget', array("attr" => array("class" => "textFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutClient")));
+        echo "
+
+                <br />
+
+                ";
+        // line 286
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), "Adresse", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAdministrationAjoutClient"), "label" => "Adresse :"));
+        echo "
+                ";
+        // line 287
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), "Adresse", array()), 'errors');
+        echo "
+                ";
+        // line 288
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), "Adresse", array()), 'widget', array("attr" => array("class" => "textFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutClient")));
+        echo "
+
+                <br />
+
+                ";
+        // line 292
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), "Fax", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAdministrationAjoutClient"), "label" => "Fax :"));
+        echo "
+                ";
+        // line 293
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), "Fax", array()), 'errors');
+        echo "
+                ";
+        // line 294
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), "Fax", array()), 'widget', array("attr" => array("class" => "textFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutClient")));
+        echo "
+
+                ";
+        // line 296
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), "_token", array()), 'widget');
+        echo "
+
+                <br />
+
+                ";
+        // line 300
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), "Ajouter", array()), 'widget', array("attr" => array("class" => "submitFormulaireAdministrationAjoutClient", "class" => "boutonFormulaire")));
+        echo "
+            </p>
+
+        </fieldset>
+
+        ";
+        // line 305
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), 'form_end');
+        echo "
+
+        <script>
+            function checkConstraint(Champ, regexp, message) {
+
+                var reg = new RegExp(regexp);
+
+                Champ.keyup(function () {
+                    if (!reg.test(Champ.val())) {
+                        Champ.css('border-color', 'red');
+                        Champ[0].setCustomValidity(message);
+                    } else {
+                        Champ.css('border-color', 'initial');
+                        Champ[0].setCustomValidity('');
+                    }
+                });
+            }
+            checkConstraint(\$('#formAjoutClient_Fax'), /(0|(\\\\+33))[1-9][0-9]{8}/, \"Le numéro dois être de la forme '0634691934' ou '+330634691934'.\");
+        </script>
+
+    </div>
+
+    <div id=\"DivFormulaireAAModele\" class=\"titreFormulaireAA\" onclick=\"
+            assistantAffaireToggle([
+                \$('#DivFormulaireAjoutInterlocuteur')
+            ], \$(this));
+            resizeFormLabelAndData(\$('.labelFormulaireAdministrationAjoutInterlocuteur'), \$('.champFormulaireRemplissageAjoutInterlocuteur'), \$('.formulaireAdministrationAjoutInterlocuteur p'));\"
+         >
+        <h4> Interlocuteurs <img src='";
+        // line 333
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Right-32.png"), "html", null, true);
+        echo "' class='formulaireAAImg'><img src='";
+        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetadministration/images/Arrow-Down-32.png"), "html", null, true);
+        echo "' class='formulaireAAImgDown'> </h4>
+    </div>
+
+    <div id='DivFormulaireAjoutInterlocuteur' class='formulaireAA'>
+
+        ";
+        // line 338
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), 'form_start', array("attr" => array("class" => "formulaireAdministrationAjoutInterlocuteur")));
+        echo "
+        ";
+        // line 339
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), 'errors');
+        echo "
+
+        <fieldset>
+
+            <legend>Ajouter un interlocuteur</legend>
+
+            <p>
+                ";
+        // line 346
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Client", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAdministrationAjoutInterlocuteur"), "label" => "Client :"));
+        echo "
+                ";
+        // line 347
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Client", array()), 'errors');
+        echo "
+                ";
+        // line 348
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Client", array()), 'widget', array("attr" => array("class" => "selectFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutInterlocuteur")));
+        echo "
+
+                <br />
+
+                ";
+        // line 352
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Email", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAdministrationAjoutInterlocuteur"), "label" => "Email :"));
+        echo "
+                ";
+        // line 353
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Email", array()), 'errors');
+        echo "
+                ";
+        // line 354
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Email", array()), 'widget', array("attr" => array("class" => "textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur")));
+        echo "
+
+                <br />
+
+                ";
+        // line 358
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Fax", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAdministrationAjoutInterlocuteur"), "label" => "Fax :"));
+        echo "
+                ";
+        // line 359
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Fax", array()), 'errors');
+        echo "
+                ";
+        // line 360
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Fax", array()), 'widget', array("attr" => array("class" => "textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur")));
+        echo "
+
+                ";
+        // line 362
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "_token", array()), 'widget');
+        echo "
+
+                <br />
+
+                ";
+        // line 366
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Telephone", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAdministrationAjoutInterlocuteur"), "label" => "Téléphone :"));
+        echo "
+                ";
+        // line 367
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Telephone", array()), 'errors');
+        echo "
+                ";
+        // line 368
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Telephone", array()), 'widget', array("attr" => array("class" => "textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur")));
+        echo "
+
+                <br />
+
+                ";
+        // line 372
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Portable", array()), 'label', array("label_attr" => array("class" => "labelFormulaireAdministrationAjoutInterlocuteur"), "label" => "Portable :"));
+        echo "
+                ";
+        // line 373
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Portable", array()), 'errors');
+        echo "
+                ";
+        // line 374
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Portable", array()), 'widget', array("attr" => array("class" => "textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur")));
+        echo "
+
+                <br />
+
+                ";
+        // line 378
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formAjoutInterlocuteur"]) ? $context["formAjoutInterlocuteur"] : $this->getContext($context, "formAjoutInterlocuteur")), "Ajouter", array()), 'widget', array("attr" => array("class" => "submitFormulaireAdministrationAjoutClient", "class" => "boutonFormulaire")));
+        echo "
+            </p>
+
+        </fieldset>
+
+        ";
+        // line 383
+        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formAjoutClient"]) ? $context["formAjoutClient"] : $this->getContext($context, "formAjoutClient")), 'form_end');
+        echo "
+
+        <script>
+            function checkConstraint(Champ, regexp, message) {
+
+                var reg = new RegExp(regexp);
+
+                Champ.keyup(function () {
+                    if (!reg.test(Champ.val())) {
+                        Champ.css('border-color', 'red');
+                        Champ[0].setCustomValidity(message);
+                    } else {
+                        Champ.css('border-color', 'initial');
+                        Champ[0].setCustomValidity('');
+                    }
+                });
+            }
+            checkConstraint(\$('#formAjoutInterlocuteur_Fax'), /(0|(\\\\+33)|(0033))[1-9][0-9]{8}/, \"Le numéro dois être de la forme '0634691934' ou '+33634691934'.\");
+            checkConstraint(\$('#formAjoutInterlocuteur_Telephone'), /(0|(\\\\+33)|(0033))[1-9][0-9]{8}/, \"Le numéro dois être de la forme '0634691934' ou '+33634691934'.\");
+            checkConstraint(\$('#formAjoutInterlocuteur_Portable'), /(0|(\\\\+33)|(0033))[1-9][0-9]{8}/, \"Le numéro dois être de la forme '0634691934' ou '+33634691934'.\");
+            checkConstraint(\$('#formAjoutInterlocuteur_Email'), /^[-a-z0-9~!\$%^&*_=+}{\\'?]+(\\.[-a-z0-9~!\$%^&*_=+}{\\'?]+)*@([a-z0-9_][-a-z0-9_]*(\\.[-a-z0-9_]+)*\\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}))(:[0-9]{1,5})?\$/i, \"L'adresse email doit être de la forme 'prénom.nom@domain.fr'.\");
+        </script>
+
+    </div>
+
 ";
         
-        $__internal_c72e874a4f29c1fcc6ae6ea03d8b0cdbc1490ebc11c91df0ce6127ad34002601->leave($__internal_c72e874a4f29c1fcc6ae6ea03d8b0cdbc1490ebc11c91df0ce6127ad34002601_prof);
+        $__internal_cdc9acc9b92bd70f2b178e09ded2efba54dc25d194090ad13520f3d28dbb116b->leave($__internal_cdc9acc9b92bd70f2b178e09ded2efba54dc25d194090ad13520f3d28dbb116b_prof);
 
     }
 
@@ -570,7 +827,7 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 
     public function getDebugInfo()
     {
-        return array (  550 => 256,  542 => 251,  538 => 250,  532 => 247,  526 => 244,  522 => 243,  510 => 234,  506 => 233,  498 => 228,  491 => 224,  487 => 223,  483 => 222,  474 => 216,  470 => 215,  461 => 209,  453 => 204,  448 => 202,  443 => 200,  439 => 199,  430 => 193,  426 => 192,  422 => 191,  414 => 186,  410 => 185,  400 => 180,  386 => 169,  378 => 164,  373 => 162,  366 => 158,  362 => 157,  358 => 156,  348 => 149,  344 => 148,  335 => 142,  327 => 137,  322 => 135,  315 => 131,  311 => 130,  307 => 129,  297 => 122,  293 => 121,  284 => 115,  276 => 110,  269 => 106,  264 => 104,  260 => 103,  256 => 102,  249 => 98,  245 => 97,  241 => 96,  234 => 92,  230 => 91,  226 => 90,  219 => 86,  214 => 84,  210 => 83,  206 => 82,  196 => 75,  192 => 74,  182 => 69,  169 => 59,  162 => 55,  157 => 53,  152 => 51,  148 => 50,  144 => 49,  135 => 43,  131 => 42,  122 => 36,  115 => 32,  110 => 30,  105 => 28,  101 => 27,  97 => 26,  88 => 20,  84 => 19,  74 => 14,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
+        return array (  786 => 383,  778 => 378,  771 => 374,  767 => 373,  763 => 372,  756 => 368,  752 => 367,  748 => 366,  741 => 362,  736 => 360,  732 => 359,  728 => 358,  721 => 354,  717 => 353,  713 => 352,  706 => 348,  702 => 347,  698 => 346,  688 => 339,  684 => 338,  674 => 333,  643 => 305,  635 => 300,  628 => 296,  623 => 294,  619 => 293,  615 => 292,  608 => 288,  604 => 287,  600 => 286,  593 => 282,  589 => 281,  585 => 280,  575 => 273,  571 => 272,  561 => 267,  547 => 256,  539 => 251,  535 => 250,  529 => 247,  523 => 244,  519 => 243,  507 => 234,  503 => 233,  495 => 228,  488 => 224,  484 => 223,  480 => 222,  471 => 216,  467 => 215,  458 => 209,  450 => 204,  445 => 202,  440 => 200,  436 => 199,  427 => 193,  423 => 192,  419 => 191,  411 => 186,  407 => 185,  397 => 180,  383 => 169,  375 => 164,  370 => 162,  363 => 158,  359 => 157,  355 => 156,  345 => 149,  341 => 148,  332 => 142,  324 => 137,  319 => 135,  312 => 131,  308 => 130,  304 => 129,  294 => 122,  290 => 121,  281 => 115,  273 => 110,  266 => 106,  262 => 105,  258 => 104,  251 => 100,  247 => 99,  243 => 98,  236 => 94,  232 => 93,  228 => 92,  223 => 90,  216 => 86,  212 => 85,  208 => 84,  198 => 77,  194 => 76,  184 => 71,  169 => 59,  162 => 55,  157 => 53,  152 => 51,  148 => 50,  144 => 49,  135 => 43,  131 => 42,  122 => 36,  115 => 32,  110 => 30,  105 => 28,  101 => 27,  97 => 26,  88 => 20,  84 => 19,  74 => 14,  66 => 8,  60 => 7,  48 => 5,  36 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -640,7 +897,9 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /*                 $('.DivFormulaireAjoutChamp'),*/
 /*                 $('.DivFormulaireSuppressionChamp'),*/
 /*                 $('.DivFormulaireSelectionChamp')*/
-/*             ], $(this));">*/
+/*             ], $(this));*/
+/*             resizeFormLabelAndData($('.labelFormulaireAjoutChamp'), $('.champFormulaireAjoutChamp'), $('.formulaireAjoutChamp p:nth-child(2)'));*/
+/*          ">*/
 /*         <h4> Champs <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='formulaireAAImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='formulaireAAImgDown'> </h4>*/
 /*     </div>*/
 /* */
@@ -656,32 +915,30 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /*             <p>*/
 /*                 {{ form_label(formAjoutChamp.Type, "Type :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}*/
 /*                 {{ form_errors(formAjoutChamp.Type) }}*/
-/*                 {{ form_widget(formAjoutChamp.Type, {'attr': {'class': 'selectFormulaireAjoutChamp' }}) }}*/
+/*                 {{ form_widget(formAjoutChamp.Type, {'attr': {'class': 'selectFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}*/
+/* */
+/*                 <br />*/
 /* */
 /*                 {{ form_widget(formAjoutChamp._token) }}*/
-/*             </p>*/
 /* */
-/*             <p>*/
 /*                 {{ form_label(formAjoutChamp.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}*/
 /*                 {{ form_errors(formAjoutChamp.Nom) }}*/
-/*                 {{ form_widget(formAjoutChamp.Nom, {'attr': {'class': 'texteFormulaireAjoutChamp' }}) }}*/
-/*             </p>*/
+/*                 {{ form_widget(formAjoutChamp.Nom, {'attr': {'class': 'texteFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}*/
 /* */
-/*             <p>*/
-/*                 {{ form_label(formAjoutChamp.AjoutDonnees, "Permettre l'ajout de donnée supplémentaire par l'utilisateur", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}*/
+/*                 <br />*/
+/* */
+/*                 {{ form_label(formAjoutChamp.AjoutDonnees, "Permettre l'ajout de donnée supplémentaire par l'utilisateur") }}*/
 /*                 {{ form_errors(formAjoutChamp.AjoutDonnees) }}*/
 /*                 {{ form_widget(formAjoutChamp.AjoutDonnees, {'attr': {'class': 'checkboxFormulaireAjoutChamp' }}) }}*/
-/*             </p>*/
 /* */
-/*             <p>*/
+/*                 <br />*/
+/* */
 /*                 {{ form_label(formAjoutChamp.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}*/
 /*                 {{ form_errors(formAjoutChamp.Profil) }}*/
-/*                 {{ form_widget(formAjoutChamp.Profil, {'attr': {'class': 'selectFormulaireAjoutChamp' }}) }}*/
+/*                 {{ form_widget(formAjoutChamp.Profil, {'attr': {'class': 'selectFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}*/
 /* */
-/*                 {{ form_widget(formAjoutChamp._token) }}*/
-/*             </p>*/
+/*                 <br />*/
 /* */
-/*             <p>*/
 /*                 {{ form_widget(formAjoutChamp.Ajouter, {'attr': {'class': 'submitFormulaireAjoutChamp', 'class': 'boutonFormulaire' }}) }}*/
 /*             </p>*/
 /* */
@@ -829,6 +1086,154 @@ class __TwigTemplate_2d450b1fc2a22438d0d7eed63504cbe0ebf43345682f2162848a250dc9d
 /*         </fieldset>*/
 /* */
 /*         {{ form_end(formSelectionVersion) }}*/
+/* */
+/*     </div>*/
+/* */
+/*     <div id="DivFormulaireAAModele" class="titreFormulaireAA" onclick="*/
+/*             assistantAffaireToggle([*/
+/*                 $('#DivFormulaireAjoutClient')*/
+/*             ], $(this));*/
+/*             Recherche('.selectFormulaireSelectionVersion');*/
+/*             resizeFormLabelAndData($('.labelFormulaireAdministrationAjoutClient'), $('.champFormulaireRemplissageAjoutClient'), $('.formulaireAdministrationAjoutClient p'));"*/
+/*          >*/
+/*         <h4> Clients <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='formulaireAAImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='formulaireAAImgDown'> </h4>*/
+/*     </div>*/
+/* */
+/*     <div id='DivFormulaireAjoutClient' class='formulaireAA'>*/
+/* */
+/*         {{ form_start(formAjoutClient, {'attr': {'class': 'formulaireAdministrationAjoutClient'}}) }}*/
+/*         {{ form_errors(formAjoutClient) }}*/
+/* */
+/*         <fieldset>*/
+/* */
+/*             <legend>Ajouter un client</legend>*/
+/* */
+/*             <p>*/
+/*                 {{ form_label(formAjoutClient.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutClient'}}) }}*/
+/*                 {{ form_errors(formAjoutClient.Nom) }}*/
+/*                 {{ form_widget(formAjoutClient.Nom, {'attr': {'class': 'textFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutClient'}}) }}*/
+/* */
+/*                 <br />*/
+/* */
+/*                 {{ form_label(formAjoutClient.Adresse, "Adresse :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutClient'}}) }}*/
+/*                 {{ form_errors(formAjoutClient.Adresse) }}*/
+/*                 {{ form_widget(formAjoutClient.Adresse, {'attr': {'class': 'textFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutClient'}}) }}*/
+/* */
+/*                 <br />*/
+/* */
+/*                 {{ form_label(formAjoutClient.Fax, "Fax :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutClient'}}) }}*/
+/*                 {{ form_errors(formAjoutClient.Fax) }}*/
+/*                 {{ form_widget(formAjoutClient.Fax, {'attr': {'class': 'textFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutClient'}}) }}*/
+/* */
+/*                 {{ form_widget(formAjoutClient._token) }}*/
+/* */
+/*                 <br />*/
+/* */
+/*                 {{ form_widget(formAjoutClient.Ajouter, {'attr': {'class': 'submitFormulaireAdministrationAjoutClient', 'class': 'boutonFormulaire' }}) }}*/
+/*             </p>*/
+/* */
+/*         </fieldset>*/
+/* */
+/*         {{ form_end(formAjoutClient) }}*/
+/* */
+/*         <script>*/
+/*             function checkConstraint(Champ, regexp, message) {*/
+/* */
+/*                 var reg = new RegExp(regexp);*/
+/* */
+/*                 Champ.keyup(function () {*/
+/*                     if (!reg.test(Champ.val())) {*/
+/*                         Champ.css('border-color', 'red');*/
+/*                         Champ[0].setCustomValidity(message);*/
+/*                     } else {*/
+/*                         Champ.css('border-color', 'initial');*/
+/*                         Champ[0].setCustomValidity('');*/
+/*                     }*/
+/*                 });*/
+/*             }*/
+/*             checkConstraint($('#formAjoutClient_Fax'), /(0|(\\+33))[1-9][0-9]{8}/, "Le numéro dois être de la forme '0634691934' ou '+330634691934'.");*/
+/*         </script>*/
+/* */
+/*     </div>*/
+/* */
+/*     <div id="DivFormulaireAAModele" class="titreFormulaireAA" onclick="*/
+/*             assistantAffaireToggle([*/
+/*                 $('#DivFormulaireAjoutInterlocuteur')*/
+/*             ], $(this));*/
+/*             resizeFormLabelAndData($('.labelFormulaireAdministrationAjoutInterlocuteur'), $('.champFormulaireRemplissageAjoutInterlocuteur'), $('.formulaireAdministrationAjoutInterlocuteur p'));"*/
+/*          >*/
+/*         <h4> Interlocuteurs <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='formulaireAAImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='formulaireAAImgDown'> </h4>*/
+/*     </div>*/
+/* */
+/*     <div id='DivFormulaireAjoutInterlocuteur' class='formulaireAA'>*/
+/* */
+/*         {{ form_start(formAjoutInterlocuteur, {'attr': {'class': 'formulaireAdministrationAjoutInterlocuteur'}}) }}*/
+/*         {{ form_errors(formAjoutInterlocuteur) }}*/
+/* */
+/*         <fieldset>*/
+/* */
+/*             <legend>Ajouter un interlocuteur</legend>*/
+/* */
+/*             <p>*/
+/*                 {{ form_label(formAjoutInterlocuteur.Client, "Client :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}*/
+/*                 {{ form_errors(formAjoutInterlocuteur.Client) }}*/
+/*                 {{ form_widget(formAjoutInterlocuteur.Client, {'attr': {'class': 'selectFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutInterlocuteur'}}) }}*/
+/* */
+/*                 <br />*/
+/* */
+/*                 {{ form_label(formAjoutInterlocuteur.Email, "Email :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}*/
+/*                 {{ form_errors(formAjoutInterlocuteur.Email) }}*/
+/*                 {{ form_widget(formAjoutInterlocuteur.Email, {'attr': {'class': 'textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur'}}) }}*/
+/* */
+/*                 <br />*/
+/* */
+/*                 {{ form_label(formAjoutInterlocuteur.Fax, "Fax :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}*/
+/*                 {{ form_errors(formAjoutInterlocuteur.Fax) }}*/
+/*                 {{ form_widget(formAjoutInterlocuteur.Fax, {'attr': {'class': 'textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur'}}) }}*/
+/* */
+/*                 {{ form_widget(formAjoutInterlocuteur._token) }}*/
+/* */
+/*                 <br />*/
+/* */
+/*                 {{ form_label(formAjoutInterlocuteur.Telephone, "Téléphone :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}*/
+/*                 {{ form_errors(formAjoutInterlocuteur.Telephone) }}*/
+/*                 {{ form_widget(formAjoutInterlocuteur.Telephone, {'attr': {'class': 'textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur'}}) }}*/
+/* */
+/*                 <br />*/
+/* */
+/*                 {{ form_label(formAjoutInterlocuteur.Portable, "Portable :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}*/
+/*                 {{ form_errors(formAjoutInterlocuteur.Portable) }}*/
+/*                 {{ form_widget(formAjoutInterlocuteur.Portable, {'attr': {'class': 'textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur'}}) }}*/
+/* */
+/*                 <br />*/
+/* */
+/*                 {{ form_widget(formAjoutInterlocuteur.Ajouter, {'attr': {'class': 'submitFormulaireAdministrationAjoutClient', 'class': 'boutonFormulaire' }}) }}*/
+/*             </p>*/
+/* */
+/*         </fieldset>*/
+/* */
+/*         {{ form_end(formAjoutClient) }}*/
+/* */
+/*         <script>*/
+/*             function checkConstraint(Champ, regexp, message) {*/
+/* */
+/*                 var reg = new RegExp(regexp);*/
+/* */
+/*                 Champ.keyup(function () {*/
+/*                     if (!reg.test(Champ.val())) {*/
+/*                         Champ.css('border-color', 'red');*/
+/*                         Champ[0].setCustomValidity(message);*/
+/*                     } else {*/
+/*                         Champ.css('border-color', 'initial');*/
+/*                         Champ[0].setCustomValidity('');*/
+/*                     }*/
+/*                 });*/
+/*             }*/
+/*             checkConstraint($('#formAjoutInterlocuteur_Fax'), /(0|(\\+33)|(0033))[1-9][0-9]{8}/, "Le numéro dois être de la forme '0634691934' ou '+33634691934'.");*/
+/*             checkConstraint($('#formAjoutInterlocuteur_Telephone'), /(0|(\\+33)|(0033))[1-9][0-9]{8}/, "Le numéro dois être de la forme '0634691934' ou '+33634691934'.");*/
+/*             checkConstraint($('#formAjoutInterlocuteur_Portable'), /(0|(\\+33)|(0033))[1-9][0-9]{8}/, "Le numéro dois être de la forme '0634691934' ou '+33634691934'.");*/
+/*             checkConstraint($('#formAjoutInterlocuteur_Email'), /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i, "L'adresse email doit être de la forme 'prénom.nom@domain.fr'.");*/
+/*         </script>*/
 /* */
 /*     </div>*/
 /* */

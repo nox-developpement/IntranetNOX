@@ -2,7 +2,8 @@
 html {
     margin: 0px;
     padding: 0px;
-    height: 79%;
+    height: 100%;
+    position: relative;
 }
 
 body {
@@ -13,22 +14,24 @@ body {
     height: 100%;
     background-color:rgb(242,242,242);
     font-family: 'NoxFont';
+    overflow: hidden;
 }
 
 #section_principal {
     width: 70%;
-    height: 100%;
+    height: 90%;
     margin: auto;
+    padding-top: 0%;
     background-color:white;
-    padding-bottom: 2%;
+    padding-bottom: 0%;
     background-image: url('../images/fond2.png');
     background-repeat: no-repeat;
     background-size: 100%;
 }
 
 #contenu {
-    padding: 2% 0% 2% 0%;
-    height: 95%;
+    padding: 0% 0% 0% 0%;
+    height: 98.5%;
     margin:0px 0px 0px 0px;
     background-color:transparent;
     border-top: solid 1px white;
@@ -49,24 +52,38 @@ header {
 }
 
 footer {
-    height: 40px; 
-    width:100%;
-    color:#FEFEFE;
-    padding:0px;
-    margin:0px;
-    display: inline-block;
+    display:none;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    width: 70%;
+    margin-left: 15%;
     background-color: rgb(31,78,121);
+    text-align: center;
+    box-shadow: 0px -10px 10px white;
 }
 
-footer p {
+footer div {
+    width: 100%;
+    height: 30px;
+    position:relative;
+}
+
+footer div p {
+    position:absolute;
+    display: inline-block;
+    background-color: rgb(31,78,121);
+    width:70%;
+    height:auto;
     margin: 0px;
-    padding: 0px;
-    width: auto;
-    height:40px;
-    line-height:40px;
-    text-align: center;
-    font-size: 0.7vw;
-    font-family: "NoxFont";
+    color: white;
+    font-size : 0.8vw;
+}
+
+footer div p img {
+    width: 10%;
+    vertical-align: middle;
 }
 
 h2 {
@@ -221,7 +238,7 @@ form select, form input[type=number], form input[type=text] {
     width: 70%;
     height: 100%;
     padding: 0px;
-    margin: auto;
+    margin-left: 15%;
     background-color: rgb(31,78,121);
 }
 
@@ -578,7 +595,7 @@ form {
     font-weight: bold;
     text-align: center;
     padding: 0.5% 0% 0.5% 0%;
-    margin: 1% 0% 0% 0%;
+    margin: 2% 0% 0% 0%;
     background-color:#EEF1F3;
 }
 
@@ -589,7 +606,7 @@ form {
     font-weight: bold;
     text-align: center;
     padding: 0.5% 0% 0.5% 0%;
-    margin: 1% 0% 0% 0%;
+    margin: 2% 0% 0% 0%;
     background-color:#EEF1F3;
 }
 
@@ -1726,7 +1743,8 @@ divAdministrationUtilisateur {
     width: 29.5%;
     vertical-align: top;
     height: 72%;
-    overflow: auto;
+    overflow-y: scroll;
+    box-shadow: inset -5px -5px 10px #1F4E79;
 }
 
 #menuSupport, #menuVideoInstitutionnelle, #menuReseauxSociaux, #menuBanqueImages, #menuOrganigrammes, #menuVieDeLentreprise, 
@@ -1942,7 +1960,8 @@ divAdministrationUtilisateur {
 #DivFormulaireSelectionAgence, #DivFormulaireSelectionDossier, #DivFormulaireSelectionVersion, 
 .DivFormulaireAjoutChamp, .DivFormulaireSuppressionChamp, .DivFormulairePlacementChamp, #DivFormulaireChoixModele, 
 #DivFormulaireRemplissageSuivi, #DivFormulaireSelectionVersionSuivi, #DivFormulaireCloturationSuivi, .DivFormulaireSelectionChamp,
-.DivFormulaireAjoutDonnee, .DivFormulaireSuppressionDonnee, .DivFormulaireSuppressionPositionChamp, #DivFormulaireRemplissageSuiviCloture {
+.DivFormulaireAjoutDonnee, .DivFormulaireSuppressionDonnee, .DivFormulaireSuppressionPositionChamp, #DivFormulaireRemplissageSuiviCloture,
+#DivFormulaireAjoutClient, #DivFormulaireAjoutInterlocuteur {
     margin: 0% 25% 0% 25%;
     margin-bottom: 2%;
     font-size: 0.8vw;
@@ -1953,7 +1972,8 @@ divAdministrationUtilisateur {
 .formulaireSelectionAgence, .formulaireAjoutFichier, .formulaireSelectionDossier, .formulaireSelectionVersion,
 .formulaireAjoutChamp, .formulaireSuppressionChamp, .formulairePlacementChamp, .formulaireChoixModele, 
 .formulaireRemplissageSuivi, .formulaireSelectionVersionSuivi, .formulaireCloturationSuivi, .formulaireSelectionChamp, .formulaireAjoutDonnee,
-.formulaireSuppresionDonnee, .formulaireSuppressionPositionChamp, .formulaireRemplissageSuiviCloture {
+.formulaireSuppresionDonnee, .formulaireSuppressionPositionChamp, .formulaireRemplissageSuiviCloture, .formulaireAdministrationAjoutClient,
+.formulaireAdministrationAjoutInterlocuteur {
     padding: 0px;
     border: none;
     width: 80%;
@@ -1965,7 +1985,8 @@ divAdministrationUtilisateur {
 .formulaireSelectionDossier fieldset, .formulaireSelectionVersion fieldset, .formulaireAjoutChamp fieldset, .formulaireSuppressionChamp fieldset,
 .formulairePlacementChamp fieldset, .formulaireChoixModele fieldset, .formulaireRemplissageSuivi fieldset, .formulaireSelectionVersionSuivi fieldset,
 .formulaireCloturationSuivi fieldset, .formulaireSelectionChamp fieldset, .formulaireAjoutDonnee fieldset, .formulaireSuppresionDonnee fieldset,
-.formulaireSuppressionPositionChamp fieldset, .formulaireRemplissageSuiviCloture fieldset {
+.formulaireSuppressionPositionChamp fieldset, .formulaireRemplissageSuiviCloture fieldset, .formulaireAdministrationAjoutClient fieldset,
+.formulaireAdministrationAjoutInterlocuteur fieldset {
     text-align: center;
     border-color: rgb(31,78,121);
     border-width: 1px;
@@ -1983,14 +2004,30 @@ divAdministrationUtilisateur {
 .formulaireSuppressionChamp fieldset legend, .formulairePlacementChamp fieldset legend, .formulaireChoixModele fieldset legend, 
 .formulaireRemplissageSuivi fieldset legend, .formulaireSelectionVersionSuivi fieldset legend, .formulaireCloturationSuivi fieldset legend,
 .formulaireSelectionChamp fieldset legend, .formulaireAjoutDonnee fieldset legend, .formulaireSuppresionDonnee fieldset legend, 
-.formulaireSuppressionPositionChamp fieldset legend, .formulaireRemplissageSuiviCloture fieldset legend {
+.formulaireSuppressionPositionChamp fieldset legend, .formulaireRemplissageSuiviCloture fieldset legend, .formulaireAdministrationAjoutClient fieldset legend,
+.formulaireAdministrationAjoutInterlocuteur fieldset legend {
     color: rgb(31,78,121);
     background-color: white;
-    padding: 0% 0.5% 0% 0.5%;
     white-space: nowrap;
-    text-align: center;
     /*    min-width: auto;*/
     border: solid 1px #1F4E79;
+    text-align: left;
+    /*    padding: 0% 0.5% 0% 0.5%;*/
+    display: inline-block;
+}
+
+.formulaireAdministrationAjoutProfil fieldset legend p, .formulaireAdministrationSuppressionProfil fieldset legend p, 
+.formulaireCreationSuivi fieldset legend p, .formulaireParcourSuiviEnCours fieldset legend p, 
+.formulaireAjoutFeuilleSuivi fieldset legend p, .formulaireAdministrationSuppressionFormulaire fieldset legend p, 
+.formulaireSelectionAgence fieldset legend p, .formulaireAjoutFichier fieldset legend p, 
+.formulaireSelectionDossier fieldset legend p, .formulaireSelectionVersion fieldset legend p, .formulaireAjoutChamp fieldset legend p,
+.formulaireSuppressionChamp fieldset legend p, .formulairePlacementChamp fieldset legend p, .formulaireChoixModele fieldset legend p, 
+.formulaireRemplissageSuivi fieldset legend p, .formulaireSelectionVersionSuivi fieldset legend p, .formulaireCloturationSuivi fieldset legend p,
+.formulaireSelectionChamp fieldset legend p, .formulaireAjoutDonnee fieldset legend p, .formulaireSuppresionDonnee fieldset legend p, 
+.formulaireSuppressionPositionChamp fieldset legend p, .formulaireRemplissageSuiviCloture fieldset legend p, .formulaireAdministrationAjoutClient fieldset legend p,
+formulaireAdministrationAjoutInterlocuteur fieldset legend p { 
+    padding: 0% 0.5% 0% 0.5%;
+    margin: 0px;
 }
 
 .selectFormulaireAdministrationSuppressionProfil, .textFormulaireAdministrationAjoutProfil {
@@ -2308,7 +2345,8 @@ form input[type='checkbox'] {
     text-align: center;
 }
 
-.labelFormulaireRemplissageSuivi, .labelFormulaireRemplissageSuiviCloture {
+.labelFormulaireRemplissageSuivi, .labelFormulaireRemplissageSuiviCloture, .labelFormulaireAdministrationAjoutClient, .labelFormulaireAjoutChamp, 
+.labelFormulaireAdministrationAjoutInterlocuteur {
     display: block;
     /*    width: 40%;*/
     float: left;
@@ -2316,12 +2354,14 @@ form input[type='checkbox'] {
     white-space: nowrap;
 }
 
-.formulaireRemplissageSuivi fieldset p, .formulaireRemplissageSuiviCloture fieldset p {
+.formulaireRemplissageSuivi fieldset p, .formulaireRemplissageSuiviCloture fieldset p, .formulaireAdministrationAjoutClient fieldset p, 
+.formulaireAjoutChamp fieldset p, .formulaireAdministrationAjoutInterlocuteur fieldset p {
     width: 70%;
     margin: auto;
 }
 
-.champFormulaireRemplissageSuivi, .champFormulaireRemplissageSuiviCloture {
+.champFormulaireRemplissageSuivi, .champFormulaireRemplissageSuiviCloture, .champFormulaireRemplissageAjoutClient, 
+.champFormulaireAjoutChamp, .champFormulaireRemplissageAjoutInterlocuteur {
     /*    width: 55%;*/
     margin-bottom: 2%;
     text-align: center;
@@ -2342,6 +2382,8 @@ form input[type='checkbox'] {
 #rechercehSuivi {
     margin-bottom: 5%;
     text-align: center;
+    padding: 1%;
+    border: 1px solid rgb(169, 169, 169);
 }
 
 #divAffichageImages {

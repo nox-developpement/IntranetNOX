@@ -91,7 +91,9 @@ $(window).load(function () {
     resizeFormLabelAndData($('.labelFormulaireRemplissageSuiviCloture'), $('.champFormulaireRemplissageSuiviCloture'), $('.formulaireRemplissageSuiviCloture p'));
 
     $(window).resize(function () {
-        location.reload();
+        if ($('.formulaireRemplissageSuivi').length) {
+            location.reload();
+        }
     });
 
     if ($('#formCloturationSuivi_Cloturer').attr('disabled') === "disabled") {

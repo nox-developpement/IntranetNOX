@@ -14,6 +14,8 @@ use NoxIntranet\AdministrationBundle\Entity\Fichier_Suivi;
 use NoxIntranet\AdministrationBundle\Entity\Formulaires;
 use NoxIntranet\AdministrationBundle\Entity\LiaisonSuiviChamp;
 use NoxIntranet\AdministrationBundle\Entity\DonneesFormulaire;
+use NoxIntranet\AdministrationBundle\Entity\Donnees_Client;
+use NoxIntranet\AdministrationBundle\Entity\Donnees_Interlocuteur;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
@@ -352,6 +354,57 @@ class AdministrationAffairesController extends Controller {
             }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Génération du formulaire d'ajout de client
+        $newClient = new Donnees_Client();
+
+        $formAjoutClient = $this->get('form.factory')->createNamedBuilder('formAjoutClient', 'form', $newClient)
+                ->add('Nom', TextType::class)
+                ->add('Adresse', TextType::class)
+                ->add('Fax', TextType::class, array(
+                    'attr' => array(
+                        'pattern' => '(0|(\\+33)|(0033))[1-9][0-9]{8}'
+                    )
+                ))
+                ->add('Ajouter', SubmitType::class)
+                ->getForm();
+        //////////////////////////////////////////////////////////////////////////////////////////////// 
+        // Génération du formulaire d'ajout de client
+        $formSuppressionClient = $this->get('form.factory')->createNamedBuilder('formSuppressionClient', 'form')
+                ->add('Nom', TextType::class)
+                ->add('Supprimmer', SubmitType::class)
+                ->getForm();
+        //////////////////////////////////////////////////////////////////////////////////////////////// 
+        //// Génération du formulaire d'ajout d'interlocuteur
+        $newInterlocuteur = new Donnees_Interlocuteur();
+
+        $formAjoutInterlocuteur = $this->get('form.factory')->createNamedBuilder('formAjoutInterlocuteur', 'form', $newInterlocuteur)
+                ->add('Client', EntityType::class, array(
+                    'class' => 'NoxIntranetAdministrationBundle:Donnees_Client',
+                    'choice_label' => 'Nom',
+                ))
+                ->add('Email', TextType::class, array(
+                    'attr' => array(
+                        'pattern' => '[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}'
+                    )
+                ))
+                ->add('Fax', TextType::class, array(
+                    'attr' => array(
+                        'pattern' => '(0|(\\+33)|(0033))[1-9][0-9]{8}'
+                    )
+                ))
+                ->add('Telephone', TextType::class, array(
+                    'attr' => array(
+                        'pattern' => '(0|(\\+33)|(0033))[1-9][0-9]{8}'
+                    )
+                ))
+                ->add('Portable', TextType::class, array(
+                    'attr' => array(
+                        'pattern' => '(0|(\\+33)|(0033))[1-9][0-9]{8}'
+                    )
+                ))
+                ->add('Ajouter', SubmitType::class)
+                ->getForm();
+        //////////////////////////////////////////////////////////////////////////////////////////////// 
         // Traitement du formulaire d'ajout de profil
         if ($request->request->has('formAjoutProfil')) {
 
@@ -637,12 +690,56 @@ class AdministrationAffairesController extends Controller {
                 return $this->redirectToRoute('nox_intranet_administration_affaires_edition_champ', array('IdChamp' => $formSelectionChamp['Champs']->getData()->getId()));
             }
         }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Traitement du formulaire d'ajout de client
+        if ($request->request->has('formAjoutClient')) {
+            $formAjoutClient->handleRequest($request);
+
+            if ($formAjoutClient->isValid()) {
+
+                $clientExistant = $em->getRepository('NoxIntranetAdministrationBundle:Donnees_Client')->findOneBy(array('nom' => $newClient->getNom(), 'adresse' => $newClient->getAdresse(), 'fax' => $newClient->getFax()));
+
+                if (empty($clientExistant)) {
+                    $request->getSession()->getFlashBag()->add('notice', 'Le client ' . $newClient->getNom() . ' a été ajouté.');
+                    $em->persist($newClient);
+                    $em->flush();
+
+                    return $this->redirectToRoute('nox_intranet_administration_affaires');
+                } else {
+                    $request->getSession()->getFlashBag()->add('noticeErreur', 'Un client avec les mêmes données existe déjà !');
+                }
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Traitement du formulaire d'ajout d'interlocuteur
+        if ($request->request->has('formAjoutInterlocuteur')) {
+            $formAjoutInterlocuteur->handleRequest($request);
+
+            if ($formAjoutInterlocuteur->isValid()) {
+
+                $interlocuteurExistant = $em->getRepository('NoxIntranetAdministrationBundle:Donnees_Interlocuteur')->findOneBy(array(
+                    'client' => $newInterlocuteur->getClient(), 'email' => $newInterlocuteur->getEmail(), 'fax' => $newInterlocuteur->getFax(),
+                    'telephone' => $newInterlocuteur->getTelephone(), 'portable' => $newInterlocuteur->getPortable()));
+
+                if (empty($interlocuteurExistant)) {
+                    $request->getSession()->getFlashBag()->add('notice', 'L\'interlocuteur ' . $newInterlocuteur->getNom() . ' a été ajouté.');
+                    $em->persist($newInterlocuteur);
+                    $em->flush();
+
+                    return $this->redirectToRoute('nox_intranet_administration_affaires');
+                } else {
+                    $request->getSession()->getFlashBag()->add('noticeErreur', 'Un interlocuteur avec les mêmes données existe déjà !');
+                }
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération de l'affichage
         return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig', array(
                     'formAjoutProfil' => $formAjoutProfil->createView(), 'profils' => $profils, 'formSuppresionProfil' => $formSuppresionProfil->createView(),
                     'formAjoutFichier' => $formAjoutFichier->createView(), 'formSelectionDossier' => $formSelectionDossier->createView(),
                     'formSelectionVersion' => $formSelectionVersion->createView(), 'formAjoutChamp' => $formAjoutChamp->createView(),
-                    'formSuppressionChamp' => $formSuppressionChamp->createView(), 'formSelectionChamp' => $formSelectionChamp->createView()
+                    'formSuppressionChamp' => $formSuppressionChamp->createView(), 'formSelectionChamp' => $formSelectionChamp->createView(),
+                    'formAjoutClient' => $formAjoutClient->createView(), 'formAjoutInterlocuteur' => $formAjoutInterlocuteur->createView()
         ));
         ////////////////////////////////////////////////////////////////////////////////////////////////
     }

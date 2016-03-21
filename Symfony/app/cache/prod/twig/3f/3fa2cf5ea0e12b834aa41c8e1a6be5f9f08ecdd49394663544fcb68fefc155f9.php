@@ -167,19 +167,50 @@ class __TwigTemplate_1620a27d89aaccc4fb08947d4dc009a06a364fa4181921c8bab6263f347
             echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), $this->getAttribute($context["champ"], "Champ", array())), 'widget');
             echo "
                     <br />
+
+                    ";
+            // line 66
+            if (($this->getAttribute($context["champ"], "Type", array()) == "Nombre")) {
+                // line 67
+                echo "                        <script>
+                            var fax = document.getElementById('formDonneesSuivi_";
+                // line 68
+                echo twig_escape_filter($this->env, $this->getAttribute($context["champ"], "Champ", array()), "html", null, true);
+                echo "');
+                            var phoneRegex = new RegExp(/^[-+]?[0-9]*\\.?[0-9]+\$/);
+                            var checkValidPhoneNumber = function () {
+                                if (!phoneRegex.test(fax.value)) {
+                                    fax.style.borderColor = 'red';
+                                    fax.setCustomValidity(\"Veuillez entrer un nombre. Les décimaux doivent être séparé par un point.\");
+                                } else {
+                                    fax.style.borderColor = 'initial';
+                                    fax.setCustomValidity('');
+                                }
+                            };
+                            \$('#formDonneesSuivi_";
+                // line 79
+                echo twig_escape_filter($this->env, $this->getAttribute($context["champ"], "Champ", array()), "html", null, true);
+                echo "').keyup(function () {
+                                checkValidPhoneNumber();
+                            });
+                        </script>
+                    ";
+            }
+            // line 84
+            echo "
                 ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['champ'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 66
+        // line 86
         echo "
                 ";
-        // line 67
+        // line 87
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), "Generate", array()), 'widget', array("label" => "Générer fichier Excel", "attr" => array("class" => "boutonFormulaire")));
         echo "
                 ";
-        // line 68
+        // line 88
         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), "Save", array()), 'widget', array("label" => "Sauvegarder le suivi", "attr" => array("class" => "boutonFormulaire")));
         echo "
 
@@ -187,7 +218,7 @@ class __TwigTemplate_1620a27d89aaccc4fb08947d4dc009a06a364fa4181921c8bab6263f347
         </fieldset> 
 
         ";
-        // line 73
+        // line 93
         echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["formDonneesSuivi"]) ? $context["formDonneesSuivi"] : null), 'form_end');
         echo "
     </div>
@@ -207,7 +238,7 @@ class __TwigTemplate_1620a27d89aaccc4fb08947d4dc009a06a364fa4181921c8bab6263f347
 
     public function getDebugInfo()
     {
-        return array (  191 => 73,  183 => 68,  179 => 67,  176 => 66,  167 => 63,  162 => 62,  158 => 61,  154 => 59,  145 => 57,  141 => 56,  136 => 54,  129 => 50,  125 => 49,  117 => 44,  113 => 43,  106 => 39,  97 => 33,  93 => 32,  84 => 26,  77 => 22,  72 => 20,  68 => 19,  64 => 18,  55 => 12,  51 => 11,  46 => 8,  43 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  222 => 93,  214 => 88,  210 => 87,  207 => 86,  200 => 84,  192 => 79,  178 => 68,  175 => 67,  173 => 66,  167 => 63,  162 => 62,  158 => 61,  154 => 59,  145 => 57,  141 => 56,  136 => 54,  129 => 50,  125 => 49,  117 => 44,  113 => 43,  106 => 39,  97 => 33,  93 => 32,  84 => 26,  77 => 22,  72 => 20,  68 => 19,  64 => 18,  55 => 12,  51 => 11,  46 => 8,  43 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -274,6 +305,26 @@ class __TwigTemplate_1620a27d89aaccc4fb08947d4dc009a06a364fa4181921c8bab6263f347
 /*                     {{ form_label(attribute(formDonneesSuivi, champ.Champ), champ.Nom ~ " : ", {'label_attr': {'class': 'labelFormulaireRemplissageSuivi'}}) }}   */
 /*                     {{ form_widget(attribute(formDonneesSuivi, champ.Champ)) }}*/
 /*                     <br />*/
+/* */
+/*                     {% if champ.Type == 'Nombre' %}*/
+/*                         <script>*/
+/*                             var fax = document.getElementById('formDonneesSuivi_{{ champ.Champ }}');*/
+/*                             var phoneRegex = new RegExp(/^[-+]?[0-9]*\.?[0-9]+$/);*/
+/*                             var checkValidPhoneNumber = function () {*/
+/*                                 if (!phoneRegex.test(fax.value)) {*/
+/*                                     fax.style.borderColor = 'red';*/
+/*                                     fax.setCustomValidity("Veuillez entrer un nombre. Les décimaux doivent être séparé par un point.");*/
+/*                                 } else {*/
+/*                                     fax.style.borderColor = 'initial';*/
+/*                                     fax.setCustomValidity('');*/
+/*                                 }*/
+/*                             };*/
+/*                             $('#formDonneesSuivi_{{ champ.Champ }}').keyup(function () {*/
+/*                                 checkValidPhoneNumber();*/
+/*                             });*/
+/*                         </script>*/
+/*                     {% endif %}*/
+/* */
 /*                 {% endfor %}*/
 /* */
 /*                 {{ form_widget(formDonneesSuivi.Generate, {'label': 'Générer fichier Excel', 'attr': {'class': 'boutonFormulaire' }}) }}*/

@@ -15,7 +15,7 @@ $(document).ready(function () {
         } else {
             edit = true;
             $('.textEncartField').text($('.messageAcceuil h3').nextUntil("#formulaireTexteEncart"));
-            $('.messageAcceuil h3').next().text('');
+            $('.messageAcceuil h3').next().find('p').html('');
             $('#formulaireTexteEncart').toggle();
         }
     });

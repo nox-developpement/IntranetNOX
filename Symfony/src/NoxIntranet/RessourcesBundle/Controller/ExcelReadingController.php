@@ -441,7 +441,7 @@ class ExcelReadingController extends Controller {
                     'invalid_message_parameters' => array('%type%' => $champ->getType(), '%nom%' => $champ->getNom()),
                     'attr' => array(
                         'class' => 'champFormulaireRemplissageSuivi',
-                        'pattern' => '[-+]?(\d*[.])?\d+'
+                        'pattern' => '^[-+]?[0-9]*\.?[0-9]+$'
                     )
                 ));
             } else if ($champ->getType() === 'Données') {

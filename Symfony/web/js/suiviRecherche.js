@@ -8,9 +8,7 @@ $(window).ready(function () {
 
 function Recherche(selecteur) {
 
-    alert($("'" + selecteur + "'").width());
-
-    if ($(selecteur) !== 'undefined') {
+    if ($(selecteur).width() !== null) {
         var options = $(selecteur + ' option');
 
         var champRecherche = $('#rechercehSuivi');

@@ -62,6 +62,26 @@
                     {{ form_label(attribute(formDonneesSuivi, champ.Champ), champ.Nom ~ " : ", {'label_attr': {'class': 'labelFormulaireRemplissageSuivi'}}) }}   
                     {{ form_widget(attribute(formDonneesSuivi, champ.Champ)) }}
                     <br />
+
+                    {% if champ.Type == 'Nombre' %}
+                        <script>
+                            var fax = document.getElementById('formDonneesSuivi_{{ champ.Champ }}');
+                            var phoneRegex = new RegExp(/^[-+]?[0-9]*\.?[0-9]+$/);
+                            var checkValidPhoneNumber = function () {
+                                if (!phoneRegex.test(fax.value)) {
+                                    fax.style.borderColor = 'red';
+                                    fax.setCustomValidity("Veuillez entrer un nombre. Les décimaux doivent être séparé par un point.");
+                                } else {
+                                    fax.style.borderColor = 'initial';
+                                    fax.setCustomValidity('');
+                                }
+                            };
+                            $('#formDonneesSuivi_{{ champ.Champ }}').keyup(function () {
+                                checkValidPhoneNumber();
+                            });
+                        </script>
+                    {% endif %}
+
                 {% endfor %}
 
                 {{ form_widget(formDonneesSuivi.Generate, {'label': 'Générer fichier Excel', 'attr': {'class': 'boutonFormulaire' }}) }}

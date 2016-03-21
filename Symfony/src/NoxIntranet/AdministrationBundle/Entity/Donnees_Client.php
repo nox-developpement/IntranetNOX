@@ -24,7 +24,7 @@ class Donnees_Client {
     /**
      * @var string
      *
-     * @ORM\Column(name="Nom", type="integer")
+     * @ORM\Column(name="Nom", type="string")
      */
     private $nom;
 

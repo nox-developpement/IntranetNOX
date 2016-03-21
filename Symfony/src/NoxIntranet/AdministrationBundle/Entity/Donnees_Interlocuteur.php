@@ -24,9 +24,9 @@ class Donnees_Interlocuteur {
     /**
      * @var integer
      *
-     * @ORM\Column(name="IdInterlocuteur", type="integer")
+     * @ORM\Column(name="Client", type="integer")
      */
-    private $idInterlocuteur;
+    private $client;
 
     /**
      * @var string
@@ -63,28 +63,6 @@ class Donnees_Interlocuteur {
      */
     public function getId() {
         return $this->id;
-    }
-
-    /**
-     * Set idInterlocuteur
-     *
-     * @param integer $idInterlocuteur
-     *
-     * @return Donnees_Interlocuteur
-     */
-    public function setIdInterlocuteur($idInterlocuteur) {
-        $this->idInterlocuteur = $idInterlocuteur;
-
-        return $this;
-    }
-
-    /**
-     * Get idInterlocuteur
-     *
-     * @return integer
-     */
-    public function getIdInterlocuteur() {
-        return $this->idInterlocuteur;
     }
 
     /**
@@ -175,4 +153,28 @@ class Donnees_Interlocuteur {
         return $this->portable;
     }
 
+
+    /**
+     * Set client
+     *
+     * @param integer $client
+     *
+     * @return Donnees_Interlocuteur
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return integer
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
 }
