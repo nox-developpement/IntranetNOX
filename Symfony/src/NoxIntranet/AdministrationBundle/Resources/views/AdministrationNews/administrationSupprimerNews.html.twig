@@ -1,0 +1,46 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}
+    Suppresion News
+{% endblock %}
+
+{% block contenu %}
+
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <p class="flashbag"> 
+            {{ flashMessage }}
+        </p>
+    {% endfor %} 
+
+
+    <div id="divFormulaireNews" >
+
+        {{ form_start(formulaire, {'attr': {'id': 'formulaireSuppressionNews'}}) }}
+
+        <h2> Supprimer une news </h2>
+
+        {{ form_errors(formulaire) }} 
+
+        <div>
+            {{ form_label(formulaire.news, "News : ", {'label_attr': {'class': 'label'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(formulaire.news) }}
+
+            {# Génération de l'input. #}
+            {{ form_widget(formulaire.news, {'attr': {'class': 'combobox'}}) }}
+
+        </div>
+
+        <p id="submitFormulaireSuppressionNews">
+
+            {{ form_widget(formulaire.supprimer, {'attr': {'class': 'boutonFormulaire'}}) }}
+
+            {{ form_end(formulaire) }}
+
+        </p>
+
+    </div>
+
+{% endblock %}

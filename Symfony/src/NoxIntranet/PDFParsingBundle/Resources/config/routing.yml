@@ -1,0 +1,3 @@
+nox_intranet_pdf_parsing_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: NoxIntranetPDFParsingBundle:Default:index }

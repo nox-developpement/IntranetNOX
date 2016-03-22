@@ -1,0 +1,28 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}
+    Administration communication marketing
+{% endblock %}
+
+{% block messageAccueil %}Administration communication marketing{% endblock %}
+
+{% block contenu %}
+
+    <div class="sousMessageAcceuil"> 
+        <h4 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/noxALaConquete', 'Nox à la conquête');"> Nox à la conquête </h4>
+    </div>
+    
+    <div class="sousMessageAcceuil"> 
+        <h4 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/ilYAForcementPlusSimple', 'Il y a forcément plus simple');"> Il y a forcément plus simple </h4>
+    </div>
+    
+    <div class="sousMessageAcceuil"> 
+        <h4 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/noxFournisseurDeTalents', 'Nox fournisseur de talents');"> Nox fournisseur de talents </h4>
+    </div>
+    
+    <div class="sousMessageAcceuil"> 
+        <h4 onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/nos5Valeurs', 'Nos 5 valeurs');"> Nos 5 valeurs </h4>
+    </div>
+
+{% endblock %}
+

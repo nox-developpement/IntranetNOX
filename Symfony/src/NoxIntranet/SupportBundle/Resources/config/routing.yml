@@ -1,0 +1,11 @@
+nox_intranet_support:
+    path:   /ticket
+    defaults: { _controller: NoxIntranetSupportBundle:Ticket:index }
+
+nox_intranet_ticket_new:
+    path:   /ticket/new
+    defaults: { _controller: NoxIntranetSupportBundle:Ticket:ajouterTicket }
+    
+nox_intranet_mes_tickets:
+    path:   /ticket/consulter
+    defaults: { _controller: NoxIntranetSupportBundle:Ticket:mesTickets }

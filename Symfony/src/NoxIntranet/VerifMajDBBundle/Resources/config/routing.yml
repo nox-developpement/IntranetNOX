@@ -1,0 +1,3 @@
+nox_intranet_verif_maj_db_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: NoxIntranetVerifMajDBBundle:Default:index }

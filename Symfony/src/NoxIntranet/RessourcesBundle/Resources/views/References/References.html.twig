@@ -1,0 +1,231 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}
+    Références
+{% endblock %}
+
+{% block messageAccueil %}Références{% endblock %}
+
+{% block textEncart %}
+
+    {% if text is defined %}{{ text|raw }}{% endif %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+
+        {{ form_start(formulaire, {'attr': {'id': 'formulaireTexteEncart' }}) }}
+
+        {{ form_errors(formulaire) }}
+
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(formulaire.text) }}
+
+        {# Génération de l'input. #}
+        {{ form_widget(formulaire.text, {'attr': {'class': 'textEncartField'}}) }}
+
+        {{ form_end(formulaire) }}
+
+        <img src='{{ asset('bundles/noxintranetressources/images/Text-Editor-32.png') }}' id='texteEncartImg'>
+
+    {% endif %}
+
+{% endblock %}
+
+{% block contenu %}
+
+    {% if is_granted('ROLE_REFERENCES') %} 
+
+        <div id="menuAdminReferences" class='menuAdmin'>
+            <h3> Interface de gestion de contenu </h3>
+            <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/references', 'Gestionnaire de fichiers - Références');"> <h3>  Ouvrir le gestionnaire de fichier </h3> </a>
+        </div>
+
+    {% endif %}
+
+    <div id="Keywords">
+        <p> <span style="font-size: 0.8vw; color: #1F4E79;"> Les mots-clés les plus présents : </span> </p>
+        <p>
+            {% for keyword in keywords %}
+                <span style="font-size: calc(0.7vw + {% if keyword.Nombre/nombreMax < 1 %}{{ keyword.Nombre/nombreMax }}{% else %}1{% endif %}vw)">
+                    <a href="{{ path('nox_intranet_references_recherche') }}?keyword={{ keyword.Keyword }}"> {{ keyword.Keyword }}</a>
+                </span>
+            {% endfor %}
+        </p>
+    </div>
+
+    <div id="rechercheUser">
+        <div id="rechercheCompetencesDiv">
+            <form action='{{ path('nox_intranet_references_recherche') }}' type='GET'>
+                <label for="keyword"> Rechercher par mots-clés : </label>
+                <input type="text" name='keyword' id="keyword" placeholder="{{ app.request.get('keyword') }}"/>
+                <input type="submit" name="Rechercher" value="Rechercher" class="boutonFormulaire" >
+                <button value="Annuler" class="boutonFormulaire" id="boutonAnnuler" onclick="{{ path('nox_intranet_references') }}"> RAZ </button>
+            </form>
+        </div>
+    </div>
+
+    {% if references == null %}
+
+        <div class="divNews">
+
+            Votre recherche n'a retourné aucun résultat.
+
+        </div>
+
+    {% endif %}
+
+    <div id="choixPage">
+
+        {% if nbPage > 1 %}
+
+            <!-- Affiche un lien vers la première page si ce n'est pas la page actuel -->
+            {% if page > 1 %}
+                <a href="{{ path('nox_intranet_references', { 'page': 1}) }}"> << </a>
+            {% endif %}
+            <!-------------------------------------------------------------------------->
+
+            <!-- Affiche un lien vers la page précédente si elle existe -->
+            {% if page-1  >= 1 %}
+                <a href="{{ path('nox_intranet_references', { 'page': page-1}) }}"> < </a>
+            {% endif %}
+            <!---------------------------------------------------------->
+
+            <!-- Affichage des liens vers les pages précédente. -->
+            {% if page-1  >= 1 %}
+                {% for i in 1..page-1 %}
+
+                    {% if i >= (page - 2) %}
+                        <a href="{{ path('nox_intranet_references', { 'page': i}) }}"> {{ i }} </a>
+                    {% endif %}
+
+                {% endfor %}
+            {% endif %}
+            <!--------------------------------------------------->
+
+            <!-- Page courante -->
+            <a href="{{ path('nox_intranet_references', { 'page': page}) }}"> <p id="pageActuel">{{ page }}</p> </a>
+            <!------------------->
+
+            <!-- Affichage des liens vers les pages suivantes. -->
+            {% if page+1  <= nbPage %}
+                {% for i in page+1..nbPage %}
+
+                    {% if i <= (page + 2) %}
+                        <a href="{{ path('nox_intranet_references', { 'page': i}) }}"> {{ i }} </a>
+                    {% endif %}
+
+                {% endfor %}
+            {% endif %}
+            <!--------------------------------------------------->
+
+            <!-- Affiche un lien vers la page suivante si elle existe -->
+            {% if page+1  <= nbPage %}
+                <a href="{{ path('nox_intranet_references', { 'page': page+1}) }}"> > </a>
+            {% endif %}
+            <!------------------------------------------------------------>
+
+            <!-- Affiche un lien vers la dernière page si ce n'est pas la page actuel -->
+            {% if page < nbPage %}
+                <a href="{{ path('nox_intranet_references', { 'page': nbPage}) }}"> >> </a>
+            {% endif %}
+            <!-------------------------------------------------------------------------->
+
+        {% endif %}
+
+    </div>
+
+    {% for reference in references %}
+
+        <div class="divNews">
+
+            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ reference.Lien }}', 'RH');">
+                <img 
+                    src="{{ app.request.schemeAndHttpHost }}/Symfony/web/ImagePDF/{{ reference.Nom|convert_encoding('UTF-8', 'ISO-8859-1') }}.png" alt="PDF" 
+                    onmouseover="$(this).css('box-shadow', '0px 0px 10px #1F4E79');" 
+                    onmouseout="$(this).css('box-shadow', 'none');"
+                    >
+            </a>
+
+            <ul>
+
+                <li> Nom du fichier : {{ reference.Nom }} </li>
+
+                {% if reference.Title != null %} <li> Titre : {{ reference.Title }} </li> {% endif %}
+
+                {% if reference.Author != null %} <li> Auteur : {{ reference.Author }} </li> {% endif %}
+
+                {% if reference.Subject != null %} <li> Sujet : {{ reference.Subject }} </li> {% endif %}
+
+                {% if reference.Keywords != null %} <li> Mots : {{ reference.Keywords }} </li> {% endif %}
+
+                {% if reference.Pages != null %} <li> Nombre de page(s) : {{ reference.Pages }} </li> {% endif %}
+
+                <li> Posté le : {{ reference.dateEnvoi }} </li>
+
+            </ul>
+
+        </div>
+
+    {% endfor %}
+
+    <div id="choixPage">
+
+        {% if nbPage > 1 %}
+
+            <!-- Affiche un lien vers la première page si ce n'est pas la page actuel -->
+            {% if page > 1 %}
+                <a href="{{ path('nox_intranet_references', { 'page': 1}) }}"> << </a>
+            {% endif %}
+            <!-------------------------------------------------------------------------->
+
+            <!-- Affiche un lien vers la page précédente si elle existe -->
+            {% if page-1  >= 1 %}
+                <a href="{{ path('nox_intranet_references', { 'page': page-1}) }}"> < </a>
+            {% endif %}
+            <!---------------------------------------------------------->
+
+            <!-- Affichage des liens vers les pages précédente. -->
+            {% if page-1  >= 1 %}
+                {% for i in 1..page-1 %}
+
+                    {% if i >= (page - 2) %}
+                        <a href="{{ path('nox_intranet_references', { 'page': i}) }}"> {{ i }} </a>
+                    {% endif %}
+
+                {% endfor %}
+            {% endif %}
+            <!--------------------------------------------------->
+
+            <!-- Page courante -->
+            <a href="{{ path('nox_intranet_references', { 'page': page}) }}"> <p id="pageActuel">{{ page }}</p> </a>
+            <!------------------->
+
+            <!-- Affichage des liens vers les pages suivantes. -->
+            {% if page+1  <= nbPage %}
+                {% for i in page+1..nbPage %}
+
+                    {% if i <= (page + 2) %}
+                        <a href="{{ path('nox_intranet_references', { 'page': i}) }}"> {{ i }} </a>
+                    {% endif %}
+
+                {% endfor %}
+            {% endif %}
+            <!--------------------------------------------------->
+
+            <!-- Affiche un lien vers la page suivante si elle existe -->
+            {% if page+1  <= nbPage %}
+                <a href="{{ path('nox_intranet_references', { 'page': page+1}) }}"> > </a>
+            {% endif %}
+            <!------------------------------------------------------------>
+
+            <!-- Affiche un lien vers la dernière page si ce n'est pas la page actuel -->
+            {% if page < nbPage %}
+                <a href="{{ path('nox_intranet_references', { 'page': nbPage}) }}"> >> </a>
+            {% endif %}
+            <!-------------------------------------------------------------------------->
+
+        {% endif %}
+
+    </div>
+
+{% endblock %}
+{# empty Twig template #}

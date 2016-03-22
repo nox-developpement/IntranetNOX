@@ -1,0 +1,4 @@
+services:
+    noxintranet_references.putkeywordsnumber:
+        class: NoxIntranet\RessourcesBundle\GetKeywordsReferences\NoxIntranetGetKeywordsReferences
+        arguments: [ @doctrine.orm.entity_manager ]

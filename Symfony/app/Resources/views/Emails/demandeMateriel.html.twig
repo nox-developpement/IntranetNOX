@@ -1,0 +1,18 @@
+N° ordre : {{ numOrdre }} <br /><br />
+
+Bonjour, <br />
+
+L'utilisateur <strong>{{ demandeur }}</strong> situé dans l'agence de <strong>{{ agence }}</strong> à fait
+la/les demande(s) suivante(s) : <br/><br/>
+{% if materiel == 'materiel' %}
+   - Matériel :  <strong>{{ categorie }}</strong>. <br />
+{% endif %}
+{% if logicielCheckbox == 'logicielCheckbox' %}
+   - Logiciel : <strong>{{ logiciel }}.</strong> <br />
+{% endif %}
+<br />
+Raison de la demande : {{ raison }}
+<br /><br />
+Date désirée : <strong>{{ date }}</strong>
+<br /><br />
+Nom du supérieur : <strong>{{ superieur }}.</strong>

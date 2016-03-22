@@ -1,0 +1,63 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Edition de champ {% endblock %}
+
+{% block messageAccueil %}Edition de champ - {{ champ }}{% endblock %}
+
+{% block contenu %}
+
+    <div class='DivFormulaireAjoutDonnee'>
+
+        {{ form_start(formAjoutDonnee, {'attr': {'class': 'formulaireAjoutDonnee'}}) }}
+        {{ form_errors(formAjoutDonnee) }}
+
+        <fieldset>
+
+            <legend>Ajouter une donnée</legend>       
+
+            <p>
+                {{ form_label(formAjoutDonnee.Donnee, "Donnée :", {'label_attr': {'class': 'labelFormulaireAjoutDonnee'}}) }}
+                {{ form_errors(formAjoutDonnee.Donnee) }}
+                {{ form_widget(formAjoutDonnee.Donnee, {'attr': {'class': 'selectFormulaireAjoutDonnee' }}) }}
+            </p>
+
+            <p>
+                {{ form_widget(formAjoutDonnee._token) }} 
+
+                {{ form_widget(formAjoutDonnee.Ajouter, {'attr': {'class': 'submitFormulaireAjoutDonne', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(formAjoutDonnee) }}
+
+    </div>
+
+    <div class='DivFormulaireSuppressionDonnee'>
+
+        {{ form_start(formSuppressionDonnee, {'attr': {'class': 'formulaireSuppresionDonnee'}}) }}
+        {{ form_errors(formSuppressionDonnee) }}
+
+        <fieldset>
+
+            <legend>Supprimer une donnée</legend>       
+
+            <p>
+                {{ form_label(formSuppressionDonnee.Donnees, "Donnée :", {'label_attr': {'class': 'labelFormulaireSuppressionDonnee'}}) }}
+                {{ form_errors(formSuppressionDonnee.Donnees) }}
+                {{ form_widget(formSuppressionDonnee.Donnees, {'attr': {'class': 'selectFormulaireSuppressionDonnee' }}) }}
+            </p>
+
+            <p>
+                {{ form_widget(formSuppressionDonnee._token) }} 
+
+                {{ form_widget(formSuppressionDonnee.Supprimer, {'attr': {'class': 'submitFormulaireSuppressionDonne', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(formSuppressionDonnee) }}
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Page introuvable {% endblock %}
+
+{% block messageAccueil %}Page introuvable{% endblock %}
+
+{% block contenu %}
+
+    <div style="width: 70%; margin: auto;">
+        <p style="font-size: 0.9vw;">
+            La page à laquelle vous essayez d'accédé n'existe pas. <br />
+            <br/>
+            Si vous pensez que ce n'est pas normal, vous pouvez contacter l'administrateur de l'intranet à l'adresse <a href="mailto:t.besson@groupe-nox.com?subject=Erreur: {{ status_code }}&body=%0D%0A%0D%0ACode erreur: {{ status_code }}%0D%0ATexte erreur: {{ status_text }}">t.besson@groupe-nox.com</a>.
+        </p>
+    </div>
+
+{% endblock %}

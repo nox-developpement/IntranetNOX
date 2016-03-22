@@ -1,0 +1,4 @@
+services:
+#    nox_intranet_accueil.example:
+#        class: NoxIntranet\AccueilBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

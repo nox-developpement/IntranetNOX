@@ -1,0 +1,3 @@
+ImageMagick : Conversion image par ligne de commande pour les vignettes des PDF.
+
+Ghostscript : Prise en charge du format PDF par ImageMagick.

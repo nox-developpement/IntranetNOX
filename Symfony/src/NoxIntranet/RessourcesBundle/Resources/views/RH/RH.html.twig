@@ -1,0 +1,74 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Ressources humaines {% endblock %}
+
+{% block messageAccueil %}Ressources humaines<div id="DivRHMail"><div style="float: right;"><p style="font-size: 0.8vw;" ><a style="text-decoration: none; display: inline-block; width: 110%; color: rgb(31,78,121);" href="mailto:drh@groupe-nox.com"><span style="vertical-align:middle; margin-right: 3%; display: inline-block;">Contact</span><img style="vertical-align: middle; width: 25%;" src="{{ asset('bundles/noxintranetressources/images/Message-Mail-32.png') }}"></a></p></div></div>{% endblock %}
+
+{% block contenu %}
+
+    <!-- RH au quotidien -->
+    <div class="surMessageAcceuil" id='menuRHQuotidien' onclick="showSubMenu2('#sousMenuRHQuotidien', this);"> 
+        <h4> RH au quotidien <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
+    </div>
+
+    <div id='sousMenuRHQuotidien' class='menu'>
+
+        <div class="sousMessageAcceuil"> 
+            <a href="mailto:drh@groupe-nox.com?subject=Demande d’attestation employeur"> <h4 class='tooltip'> <span class="tooltiptext">Envoi de mail à la DRH</span> Attestation employeur </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/FormulaireCP', 'dossier': 'Formulaire absence', 'config': 'formulaireCP' }) }}'> <h4> Formulaire absence </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_rh_excel', { 'chemin': 'RHQuotidien/Pointage', 'dossier': 'Pointage', 'config': 'pointage'}) }}'> <h4> Pointage </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_rh_excel', { 'chemin': 'RHQuotidien/NoteDeFrais', 'dossier': 'Note de frais', 'config': 'noteDeFrais'}) }}'> <h4> Note de frais </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/LivretAccueil', 'dossier': "Livret accueil", 'config': 'livretAccueil' }) }}'> <h4> Livret d'accueil </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'RHQuotidien/ProcessMutuelle', 'dossier': 'Mutuelle', 'config': 'processMutuelle' }) }}'> <h4> Mutuelle et Prévoyance </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='http://www.actionlogement.fr/' target="_blank"> <h4> 1% Logement </h4> </a>
+        </div>
+
+    </div>
+
+    <!-- Règlementation RH -->
+    <div class="surMessageAcceuil" id='menuReglementationRH' onclick="showSubMenu2('#sousMenuReglementationRH', this);"> 
+        <h4> Règlementation RH <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
+    </div>
+
+    <div id='sousMenuReglementationRH' class='menu'>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='http://www.syntec.fr/1-federation-syntec/128-negociation-collective/154-convention-collective.aspx' target='_blank'> <h4> Convention collective </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/ReglementInterieur', 'dossier': 'Réglement intérieur', 'config': 'reglementInterieur' }) }}'> <h4> Réglement intérieur </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/Accords', 'dossier': 'Accords', 'config': 'Accords' }) }}'> <h4> Accords </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageRH', { 'chemin': 'ReglementationRH/ProceduresInternes', 'dossier': 'Procédures internes', 'config': 'proceduresInternes' }) }}'> <h4> Procédures internes </h4> </a>
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

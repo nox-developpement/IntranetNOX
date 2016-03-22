@@ -1,0 +1,55 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Parcourirs les suivis en cours {% endblock %}
+
+{% block messageAccueil %}Parcourirs les suivis en cours{% endblock %}
+
+{% block contenu %}
+
+    <div id='DivFormulaireSelectionAgence'>
+
+        {{ form_start(formAgence, {'attr': {'class': 'formulaireSelectionAgence'}}) }}
+        {{ form_errors(formAgence) }}
+
+        <fieldset>
+
+            <legend>Agence</legend>
+
+            {{ form_label(formAgence.Agences, "Selection de l'agence :", {'label_attr': {'class': 'labelFormulaireSelectionAgence'}}) }}
+            {{ form_errors(formAgence.Agences) }}
+            {{ form_widget(formAgence.Agences, {'attr': {'class': 'selectFormulaireSelectionAgence'}}) }}
+
+        </fieldset>
+
+        {{ form_end(formAgence) }}
+
+    </div>
+
+
+    <div id='DivFormulaireParcourSuiviEnCours'>
+        {{ form_start(formSelectionSuivi, {'attr': {'class': 'formulaireParcourSuiviEnCours'}}) }}
+        {{ form_errors(formSelectionSuivi) }}
+
+        <fieldset>
+
+            <legend>Selection du suivi</legend>
+
+            <p>
+                <label for="rechercehSuivi">Recherche</label>
+                <input placeholder="Ex : Ventes 2016" type="text" id="rechercehSuivi"/>
+                {{ form_errors(formSelectionSuivi.Suivi) }}
+                {{ form_widget(formSelectionSuivi.Suivi, {'attr': {'class': 'selectFormulaireAdministrationAjoutProfil', 'size': 15}}) }}
+            </p>
+
+            <p>
+                {{ form_widget(formSelectionSuivi.Editer, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}
+                {{ form_widget(formSelectionSuivi.Supprimer, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}
+            </p>
+
+        </fieldset>
+
+        {{ form_end(formSelectionSuivi) }}
+
+    </div>
+
+{% endblock %}

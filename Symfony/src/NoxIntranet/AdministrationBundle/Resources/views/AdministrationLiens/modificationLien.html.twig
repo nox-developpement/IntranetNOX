@@ -1,0 +1,51 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}Modification Lien{% endblock %}
+
+{% block messageAccueil %}Modification Lien{% endblock %}
+
+{% block contenu %}
+
+    <div id="divAdministrationUtilisateur">
+
+        <div id="administrationLien">
+            <form action='{{ path('nox_intranet_modification_lien_check', {'lienID':lienID} ) }}' >            
+                <label for="type"> Type : </label>
+                <input type="radio" name="type" value="lien" id="radioLien" {% if lien.type == 'Lien' %} checked {% endif %}> Lien </input>
+                <input type="radio" name="type" value="categorie" id="radioCategorie" {% if lien.type == 'Catégorie' %} checked {% endif %}> Catégorie </input> <br /> <br />
+                <label for="lienlibelle"> Libellé : </label>
+                <input type="text" name='lienlibelle' id="lienlibelle" value="{{ lien.libelle }}"/> <br /> <br />
+                <label for="lien"> Lien : </label>
+                <input type="text" name='lien' id="lien"  value="{{ lien.liens }}" /> <br /> <br />
+                <label for="categorie"> Catégorie : </label>
+                <select name="categorie" id="categorie">
+                    <option value="Aucune">Aucune</option>
+                    {% for categorie in catégories %}
+                        <option value="{{ categorie.libelle }}" {% if categorie.libelle == lien.parent %} selected {% endif %}>{{ categorie.libelle }}</option>
+                    {% endfor %}
+                </select>
+
+
+                <select name="position" id="position">
+
+                    {% if position == null %}
+
+                        <option value="{{ positionMax+1 }}" readonly>{{ positionMax+1 }}</option>
+
+                    {% else %}
+
+                        {% for i in 1..positionMax %}
+                            <option value="{{ i }}" {% if position == i %} selected {% endif %}>{{ i }}</option>
+                        {% endfor %}
+
+                    {% endif %}
+                </select>
+                <br /> <br />
+
+                <input type="submit" name="Modifier" value="Modifier" class="boutonFormulaire" >
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
+{# empty Twig template #}

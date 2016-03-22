@@ -1,0 +1,138 @@
+nox_intranet_ressources:
+    path:     /ressources
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:accueil }
+    
+nox_intranet_liens:
+    path:   /ressources/liens
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:liens }
+    
+nox_intranet_faq:
+    path: /ressources/faq
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:faq }
+    
+nox_intranet_archives:
+    path:   /ressources/archives
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:archives }
+    
+nox_intranet_competences:
+    path:   /ressources/competences
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:competences }
+    
+nox_intranet_competences_recherche:
+    path:   /ressources/competences/recherche
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:competencesKeyword }
+    
+nox_intranet_references:
+    path:   /ressources/references/{page}
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:references, page: 1 }
+    
+nox_intranet_references_recherche:
+    path:   /ressources/references/{page}/recherche
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:referencesKeyword, page: 1 }
+    
+nox_intranet_procedures:
+    path: /ressources/procedures
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:procedures }
+    
+nox_intranet_download_script_connexion:
+    path: /ressources/archives/connexion/{agence}
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptConnexionDownload }
+    
+nox_intranet_download_script_deconnexion:
+    path: /ressources/archives/deconnexion
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptDeconnexionDownload }
+    
+nox_intranet_imprimantes:
+    path: /ressources/imprimantes
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:imprimantes }
+    
+nox_intranet_imprimantes_download:
+    path: /ressources/imprimantes/{agence}/{nom}
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptImprimanteDownload }
+    
+nox_intranet_serveurs:
+    path: /ressources/serveurs
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:serveurs }
+    
+nox_intranet_serveur_download_script_connexion:
+    path: /ressources/serveurs/connexion/{agence}
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptServeurConnexionDownload }
+    
+nox_intranet_serveur_download_script_deconnexion:
+    path: /ressources/serveurs/deconnexion
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptServeurDeconnexionDownload }
+    
+nox_intranet_aq:
+    path: /ressources/aq
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:aq }
+    
+nox_intranet_affichageAQ:
+    path:   /ressources/aq/{page}/{dossier}/{config}/{chemin}
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:affichageAQ, page: 1 }
+    requirements:
+         chemin: .+
+         
+nox_intranet_assistant_affaire:
+    path: /ressources/assistant-affaires
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:accueilAssistantAffaire }
+    
+nox_intranet_assistant_affaire_nouvelle:
+    path: /ressources/assistant-affaires/creation-suivi
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuivi }
+    
+nox_intranet_assistant_affaire_nouvelle_choix_modele:
+    path: /ressources/assistant-affaires/creation-suivi/choix-modèle/{IdSuivi}
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviChoixModele }
+    
+nox_intranet_assistant_affaire_edition:
+    path: /ressources/assistant-affaires/edition-suivi/{IdSuivi}/{version}
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:editionSuiviEnCours, version: "" }
+    
+nox_intranet_assistant_affaire_generation:
+    path: /ressources/assistantAffaireGeneration
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:generateExcelFile }
+    
+nox_intranet_assistant_affaire_parcour_suivi_en_cours:
+    path: /ressources/assistant-affaires/parcours-suivis-en-cours/{agence}
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:consulterSuivi, agence: Toutes }
+    
+nox_intranet_assistant_affaire_parcour_suivi_termine:
+    path: /ressources/assistant-affaires/parcours-suivis-terminés/{agence}
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:consulterSuiviTermine, agence: Toutes }
+    
+nox_intranet_assistant_affaire_consultation:
+    path: /ressources/assistant-affaires/consulter-suivi/{IdSuivi}/{version}
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:suiviTermine, version: "" }
+    
+nox_intranet_rh:
+    path: /ressources/rh
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:rh }
+    
+nox_intranet_affichageRH:
+    path:   /ressources/rh/{page}/{dossier}/{config}/{chemin}
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:affichageRH, page: 1 }
+    requirements:
+         chemin: .+
+         
+nox_intranet_aq_citations:
+    path: /ressources/aq/infoQSE/citations
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:citations }
+    
+nox_intranet_aq_procedures:
+    path: /ressources/aq/documentsQSE/procédures
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:AQProcedures }
+    
+nox_intranet_aq_modes_operatoires:
+    path: /ressources/aq/documentsQSE/modes-opératoires
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:modesOperatoires }
+    
+nox_intranet_aq_formulaires_et_documents_types:
+    path: /ressources/aq/documentsQSE/formulaires-et-documents-types
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:formulairesEtDocumentsTypes }
+    
+nox_intranet_rh_excel:
+    path: /ressources/rh-excel/{dossier}/{config}/{chemin}
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:ExcelParsing }
+    requirements:
+        chemin: .+
+    

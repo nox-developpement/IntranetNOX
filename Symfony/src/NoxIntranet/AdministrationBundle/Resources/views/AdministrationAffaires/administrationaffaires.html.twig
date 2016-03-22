@@ -1,0 +1,408 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Administration assistant d'affaires {% endblock %}
+
+{% block messageAccueil %}Administration assistant d'affaires{% endblock %}
+
+{% block contenu %}
+
+    <div class="titreFormulaireAA" onclick="
+            assistantAffaireToggle([
+                $('#DivFormulaireAjoutProfil'),
+                $('#DivFormulaireSuppressionProfil')
+            ], $(this));">
+        <h4> Profils <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='formulaireAAImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='formulaireAAImgDown'></h4>
+    </div>
+
+    <div id='DivFormulaireAjoutProfil' class='formulaireAA'>
+
+        {{ form_start(formAjoutProfil, {'attr': {'class': 'formulaireAdministrationAjoutProfil'}}) }}
+        {{ form_errors(formAjoutProfil) }}
+
+        <fieldset>
+
+            <legend>Ajouter un profil</legend>
+
+            {{ form_label(formAjoutProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutProfil'}}) }}
+            {{ form_errors(formAjoutProfil.Nom) }}
+            {{ form_widget(formAjoutProfil.Nom, {'attr': {'class': 'textFormulaireAdministrationAjoutProfil'}}) }}
+
+            {{ form_widget(formAjoutProfil._token) }}
+
+            {{ form_widget(formAjoutProfil.Ajouter, {'attr': {'class': 'submitFormulaireAdministrationAjoutProfil', 'class': 'boutonFormulaire' }}) }}
+
+        </fieldset>
+
+        {{ form_end(formAjoutProfil) }}
+
+    </div>
+
+    <div id='DivFormulaireSuppressionProfil' class='formulaireAA'>
+
+        {{ form_start(formSuppresionProfil, {'attr': {'class': 'formulaireAdministrationSuppressionProfil'}}) }}
+        {{ form_errors(formSuppresionProfil) }}
+
+        <fieldset>
+
+            <legend>Supprimer un profil</legend>
+
+            {{ form_label(formSuppresionProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionProfil'}}) }}
+            {{ form_errors(formSuppresionProfil.Nom) }}
+            {{ form_widget(formSuppresionProfil.Nom, {'attr': {'class': 'selectFormulaireAdministrationSuppressionProfil'}}) }}
+
+            {{ form_widget(formSuppresionProfil._token) }}
+
+            {{ form_widget(formSuppresionProfil.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationSuppressionProfil', 'class': 'boutonFormulaire' }}) }}
+
+        </fieldset> 
+
+        {{ form_end(formSuppresionProfil) }}
+
+    </div>
+
+    <div class="titreFormulaireAA" onclick="
+            assistantAffaireToggle([
+                $('.DivFormulaireAjoutChamp'),
+                $('.DivFormulaireSuppressionChamp'),
+                $('.DivFormulaireSelectionChamp')
+            ], $(this));
+            resizeFormLabelAndData($('.labelFormulaireAjoutChamp'), $('.champFormulaireAjoutChamp'), $('.formulaireAjoutChamp p:nth-child(2)'));
+         ">
+        <h4> Champs <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='formulaireAAImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='formulaireAAImgDown'> </h4>
+    </div>
+
+    <div class='DivFormulaireAjoutChamp formulaireAA'>
+
+        {{ form_start(formAjoutChamp, {'attr': {'class': 'formulaireAjoutChamp'}}) }}
+        {{ form_errors(formAjoutChamp) }}
+
+        <fieldset>
+
+            <legend><p>Ajouter un champ</p></legend>
+
+            <p>
+                {{ form_label(formAjoutChamp.Type, "Type :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
+                {{ form_errors(formAjoutChamp.Type) }}
+                {{ form_widget(formAjoutChamp.Type, {'attr': {'class': 'selectFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}
+
+                <br />
+
+                {{ form_widget(formAjoutChamp._token) }}
+
+                {{ form_label(formAjoutChamp.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
+                {{ form_errors(formAjoutChamp.Nom) }}
+                {{ form_widget(formAjoutChamp.Nom, {'attr': {'class': 'texteFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}
+
+                <br />
+
+                {{ form_label(formAjoutChamp.AjoutDonnees, "Permettre l'ajout de donnée supplémentaire par l'utilisateur") }}
+                {{ form_errors(formAjoutChamp.AjoutDonnees) }}
+                {{ form_widget(formAjoutChamp.AjoutDonnees, {'attr': {'class': 'checkboxFormulaireAjoutChamp' }}) }}
+
+                <br />
+
+                {{ form_label(formAjoutChamp.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
+                {{ form_errors(formAjoutChamp.Profil) }}
+                {{ form_widget(formAjoutChamp.Profil, {'attr': {'class': 'selectFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}
+
+                <br />
+
+                {{ form_widget(formAjoutChamp.Ajouter, {'attr': {'class': 'submitFormulaireAjoutChamp', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(formAjoutChamp) }}
+
+    </div>
+
+    <div class='DivFormulaireSuppressionChamp formulaireAA'>
+
+        {{ form_start(formSuppressionChamp, {'attr': {'class': 'formulaireSuppressionChamp'}}) }}
+        {{ form_errors(formSuppressionChamp) }}
+
+        <fieldset>
+
+            <legend>Supprimer un champ</legend>       
+
+            <p>
+                {{ form_label(formSuppressionChamp.Nom, "Nom - Type - Profil", {'label_attr': {'class': 'labelFormulaireSuppressionChamp'}}) }} <br />
+                {{ form_errors(formSuppressionChamp.Nom) }}
+                {{ form_widget(formSuppressionChamp.Nom, {'attr': {'class': 'selectFormulaireSuppressionChamp' }}) }}
+            </p>
+
+            <p>
+                {{ form_widget(formSuppressionChamp._token) }} 
+
+                {{ form_widget(formSuppressionChamp.Supprimer, {'attr': {'class': 'submitFormulaireSuppressionChamp', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(formSuppressionChamp) }}
+
+    </div>
+
+    <div class='DivFormulaireSelectionChamp formulaireAA'>
+
+        {{ form_start(formSelectionChamp, {'attr': {'class': 'formulaireSelectionChamp'}}) }}
+        {{ form_errors(formSelectionChamp) }}
+
+        <fieldset>
+
+            <legend>Editer un champ de données</legend>       
+
+            <p>
+                {{ form_label(formSelectionChamp.Champs, "Champ :", {'label_attr': {'class': 'labelFormulaireSelectionChamp'}}) }}
+                {{ form_errors(formSelectionChamp.Champs) }}
+                {{ form_widget(formSelectionChamp.Champs, {'attr': {'class': 'selectFormulaireSelectionChamp' }}) }}
+            </p>
+
+            <p>
+                {{ form_widget(formSelectionChamp._token) }} 
+
+                {{ form_widget(formSelectionChamp.Editer, {'attr': {'class': 'submitFormulaireSelectionChamp', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(formSelectionChamp) }}
+
+    </div>
+
+    <div id="DivFormulaireAAModele" class="titreFormulaireAA" onclick="
+            assistantAffaireToggle([
+                $('#DivFormulaireSelectionDossier'),
+                $('#DivFormulaireSelectionVersion'),
+                $('.DivFormulaireAjoutFichier')
+            ], $(this));
+            Recherche('.selectFormulaireSelectionVersion');">
+        <h4> Modèles <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='formulaireAAImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='formulaireAAImgDown'> </h4>
+    </div>
+
+    <div class='DivFormulaireAjoutFichier formulaireAA'>
+
+        {{ form_start(formAjoutFichier, {'attr': {'class': 'formulaireAjoutFichier'}}) }}
+        {{ form_errors(formAjoutFichier) }}
+
+        <fieldset>
+
+            <p>
+                {{ form_label(formAjoutFichier.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireAjoutFichier'}}) }}
+                {{ form_errors(formAjoutFichier.Profil) }}
+                {{ form_widget(formAjoutFichier.Profil, {'attr': {'class': 'fileFormulaireAjoutFichier' }}) }}
+            </p>
+
+            <legend>Ajouter un fichier</legend>
+
+            <p>
+                {{ form_errors(formAjoutFichier.file) }}
+                {{ form_widget(formAjoutFichier.file, {'attr': {'class': 'fileFormulaireAjoutFichier' }}) }}
+
+                {{ form_widget(formAjoutFichier._token) }} <br /><br />
+
+                {{ form_widget(formAjoutFichier.Ajouter, {'attr': {'class': 'submitFormulaireAjoutFichier', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(formAjoutFichier) }}
+
+    </div>
+
+    <div id='DivFormulaireSelectionDossier' class="formulaireAA">
+
+        {{ form_start(formSelectionDossier, {'attr': {'class': 'formulaireSelectionDossier'}}) }}
+        {{ form_errors(formSelectionDossier) }}
+
+        <fieldset>
+
+            <legend>Profil</legend>
+
+            {{ form_label(formSelectionDossier.profil, "Selection du profil :", {'label_attr': {'class': 'labelFormulaireSelectionDossier'}}) }}
+            {{ form_errors(formSelectionDossier.profil) }}
+            {{ form_widget(formSelectionDossier.profil, {'attr': {'class': 'selectFormulaireSelectionDossier'}}) }}
+
+        </fieldset>
+
+        {{ form_end(formSelectionDossier) }}
+
+    </div>
+
+    <div id='DivFormulaireSelectionVersion' class="formulaireAA">
+        {{ form_start(formSelectionVersion, {'attr': {'class': 'formulaireSelectionVersion'}}) }}
+        {{ form_errors(formSelectionVersion) }}
+
+        <fieldset>
+
+            <legend>Selection du modèle</legend>
+
+            <p>
+                <label for="rechercehSuivi">Recherche</label>
+                <input placeholder="Ex : Ventes 2016" type="text" id="rechercehSuivi"/>
+                {{ form_errors(formSelectionVersion.Suivi) }}
+                {{ form_widget(formSelectionVersion.Suivi, {'attr': {'class': 'selectFormulaireSelectionVersion', 'size': 15}}) }}
+            </p>
+
+            {{ form_widget(formSelectionVersion._token) }}
+
+            <p>
+                {{ form_widget(formSelectionVersion.Editer, {'attr': {'class': 'submitFormulaireSelectionVersion' }}) }}
+                {{ form_widget(formSelectionVersion.Supprimer, {'attr': {'class': 'submitFormulaireSelectionVersion' }}) }}
+            </p>
+
+        </fieldset>
+
+        {{ form_end(formSelectionVersion) }}
+
+    </div>
+
+    <div id="DivFormulaireAAModele" class="titreFormulaireAA" onclick="
+            assistantAffaireToggle([
+                $('#DivFormulaireAjoutClient')
+            ], $(this));
+            Recherche('.selectFormulaireSelectionVersion');
+            resizeFormLabelAndData($('.labelFormulaireAdministrationAjoutClient'), $('.champFormulaireRemplissageAjoutClient'), $('.formulaireAdministrationAjoutClient p'));"
+         >
+        <h4> Clients <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='formulaireAAImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='formulaireAAImgDown'> </h4>
+    </div>
+
+    <div id='DivFormulaireAjoutClient' class='formulaireAA'>
+
+        {{ form_start(formAjoutClient, {'attr': {'class': 'formulaireAdministrationAjoutClient'}}) }}
+        {{ form_errors(formAjoutClient) }}
+
+        <fieldset>
+
+            <legend>Ajouter un client</legend>
+
+            <p>
+                {{ form_label(formAjoutClient.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutClient'}}) }}
+                {{ form_errors(formAjoutClient.Nom) }}
+                {{ form_widget(formAjoutClient.Nom, {'attr': {'class': 'textFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutClient'}}) }}
+
+                <br />
+
+                {{ form_label(formAjoutClient.Adresse, "Adresse :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutClient'}}) }}
+                {{ form_errors(formAjoutClient.Adresse) }}
+                {{ form_widget(formAjoutClient.Adresse, {'attr': {'class': 'textFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutClient'}}) }}
+
+                <br />
+
+                {{ form_label(formAjoutClient.Fax, "Fax :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutClient'}}) }}
+                {{ form_errors(formAjoutClient.Fax) }}
+                {{ form_widget(formAjoutClient.Fax, {'attr': {'class': 'textFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutClient'}}) }}
+
+                {{ form_widget(formAjoutClient._token) }}
+
+                <br />
+
+                {{ form_widget(formAjoutClient.Ajouter, {'attr': {'class': 'submitFormulaireAdministrationAjoutClient', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset>
+
+        {{ form_end(formAjoutClient) }}
+
+        <script>
+            function checkConstraint(Champ, regexp, message) {
+
+                var reg = new RegExp(regexp);
+
+                Champ.keyup(function () {
+                    if (!reg.test(Champ.val())) {
+                        Champ.css('border-color', 'red');
+                        Champ[0].setCustomValidity(message);
+                    } else {
+                        Champ.css('border-color', 'initial');
+                        Champ[0].setCustomValidity('');
+                    }
+                });
+            }
+            checkConstraint($('#formAjoutClient_Fax'), /(0|(\\+33))[1-9][0-9]{8}/, "Le numéro dois être de la forme '0634691934' ou '+330634691934'.");
+        </script>
+
+    </div>
+
+    <div id="DivFormulaireAAModele" class="titreFormulaireAA" onclick="
+            assistantAffaireToggle([
+                $('#DivFormulaireAjoutInterlocuteur')
+            ], $(this));
+            resizeFormLabelAndData($('.labelFormulaireAdministrationAjoutInterlocuteur'), $('.champFormulaireRemplissageAjoutInterlocuteur'), $('.formulaireAdministrationAjoutInterlocuteur p'));"
+         >
+        <h4> Interlocuteurs <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='formulaireAAImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='formulaireAAImgDown'> </h4>
+    </div>
+
+    <div id='DivFormulaireAjoutInterlocuteur' class='formulaireAA'>
+
+        {{ form_start(formAjoutInterlocuteur, {'attr': {'class': 'formulaireAdministrationAjoutInterlocuteur'}}) }}
+        {{ form_errors(formAjoutInterlocuteur) }}
+
+        <fieldset>
+
+            <legend>Ajouter un interlocuteur</legend>
+
+            <p>
+                {{ form_label(formAjoutInterlocuteur.Client, "Client :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}
+                {{ form_errors(formAjoutInterlocuteur.Client) }}
+                {{ form_widget(formAjoutInterlocuteur.Client, {'attr': {'class': 'selectFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutInterlocuteur'}}) }}
+
+                <br />
+
+                {{ form_label(formAjoutInterlocuteur.Email, "Email :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}
+                {{ form_errors(formAjoutInterlocuteur.Email) }}
+                {{ form_widget(formAjoutInterlocuteur.Email, {'attr': {'class': 'textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur'}}) }}
+
+                <br />
+
+                {{ form_label(formAjoutInterlocuteur.Fax, "Fax :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}
+                {{ form_errors(formAjoutInterlocuteur.Fax) }}
+                {{ form_widget(formAjoutInterlocuteur.Fax, {'attr': {'class': 'textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur'}}) }}
+
+                {{ form_widget(formAjoutInterlocuteur._token) }}
+
+                <br />
+
+                {{ form_label(formAjoutInterlocuteur.Telephone, "Téléphone :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}
+                {{ form_errors(formAjoutInterlocuteur.Telephone) }}
+                {{ form_widget(formAjoutInterlocuteur.Telephone, {'attr': {'class': 'textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur'}}) }}
+
+                <br />
+
+                {{ form_label(formAjoutInterlocuteur.Portable, "Portable :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}
+                {{ form_errors(formAjoutInterlocuteur.Portable) }}
+                {{ form_widget(formAjoutInterlocuteur.Portable, {'attr': {'class': 'textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur'}}) }}
+
+                <br />
+
+                {{ form_widget(formAjoutInterlocuteur.Ajouter, {'attr': {'class': 'submitFormulaireAdministrationAjoutClient', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset>
+
+        {{ form_end(formAjoutClient) }}
+
+        <script>
+            function checkConstraint(Champ, regexp, message) {
+
+                var reg = new RegExp(regexp);
+
+                Champ.keyup(function () {
+                    if (!reg.test(Champ.val())) {
+                        Champ.css('border-color', 'red');
+                        Champ[0].setCustomValidity(message);
+                    } else {
+                        Champ.css('border-color', 'initial');
+                        Champ[0].setCustomValidity('');
+                    }
+                });
+            }
+            checkConstraint($('#formAjoutInterlocuteur_Fax'), /(0|(\\+33)|(0033))[1-9][0-9]{8}/, "Le numéro dois être de la forme '0634691934' ou '+33634691934'.");
+            checkConstraint($('#formAjoutInterlocuteur_Telephone'), /(0|(\\+33)|(0033))[1-9][0-9]{8}/, "Le numéro dois être de la forme '0634691934' ou '+33634691934'.");
+            checkConstraint($('#formAjoutInterlocuteur_Portable'), /(0|(\\+33)|(0033))[1-9][0-9]{8}/, "Le numéro dois être de la forme '0634691934' ou '+33634691934'.");
+            checkConstraint($('#formAjoutInterlocuteur_Email'), /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i, "L'adresse email doit être de la forme 'prénom.nom@domain.fr'.");
+        </script>
+
+    </div>
+
+{% endblock %}

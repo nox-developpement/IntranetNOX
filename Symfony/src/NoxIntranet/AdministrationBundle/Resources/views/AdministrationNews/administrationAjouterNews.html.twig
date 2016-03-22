@@ -1,0 +1,70 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}Administration{% endblock %}
+
+{% block contenu %}
+    
+    <div class="messageAcceuil"> 
+        <h2>Ajout news</h2> <br>
+    </div>
+
+    <div id="divAdministrationNews">
+
+        <div id="divNews">
+
+            {{ form_start(formulaire, {'attr': {'id': 'formulaireNews'}}) }}
+
+            <h2> Ajouter une news </h2>
+
+            {{ form_errors(formulaire) }}
+
+
+            {# Label et champ titre. #}
+            {# Génération du label. #}
+
+            <div>
+                {{ form_label(formulaire.titre, "Titre de la news : ", {'label_attr': {'class': 'label'}}) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(formulaire.titre) }}
+
+                {# Génération de l'input. #}
+                {{ form_widget(formulaire.titre, {'attr': {'class': 'text'}}) }}
+
+            </div>
+
+            <div id="contenuNews">
+
+                {# Label et champ contenu. #}
+                
+
+                {{ form_widget(formulaire.contenu, {'attr': {'class': 'textArea'}}) }}
+
+                {{ form_errors(formulaire.contenu) }}
+
+            </div>
+
+            <div>
+
+                {# Label et champ auteur. #}
+                {{ form_label(formulaire.auteur, "Auteur de la news : ", {'label_attr': {'class': 'label'}}) }}
+
+                {{ form_widget(formulaire.auteur, {'attr': {'class': 'text'}}) }}
+
+                {{ form_errors(formulaire.auteur) }}
+
+            </div>
+
+            <p id="submitAdministrationUtilisateur">
+
+                {{ form_widget(formulaire.valider, {'attr': {'class': 'boutonFormulaire'}}) }}
+
+                {{ form_end(formulaire) }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+{% endblock %}

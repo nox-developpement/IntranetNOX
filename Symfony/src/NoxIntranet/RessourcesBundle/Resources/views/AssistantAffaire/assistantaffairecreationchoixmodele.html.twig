@@ -1,0 +1,34 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Choix du modèle {% endblock %}
+
+{% block messageAccueil %}Choix du modèle - {{ profil }}{% endblock %}
+
+{% block contenu %}
+
+    <div id="DivFormulaireChoixModele">
+
+        {{ form_start(form, {'attr': {'class': 'formulaireChoixModele'}}) }}
+        {{ form_errors(form) }}
+
+        <fieldset>
+
+            <legend>Choix du modèle - {{ profil }}</legend>
+
+            {{ form_label(form.IdModele, "Modèle du suivi :", {'label_attr': {'class': 'labelFormulaireChoixModele'}}) }}
+            {{ form_errors(form.IdModele) }}
+            {{ form_widget(form.IdModele, {'attr': {'class': 'selectFormulaireChoixModèle'}}) }}
+
+            <br />
+
+            {{ form_widget(form.Choisir, {'label': 'Choisir ce modèle', 'attr': {'class': 'boutonFormulaire' }}) }}
+
+
+        </fieldset> 
+
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}
+{# empty Twig template #}
