@@ -117,13 +117,14 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
         // line 43
         echo "
     <div id=\"Keywords\">
+        <p> <span style=\"font-size: 0.8vw; color: #1F4E79;\"> Les mots-clés les plus présents : </span> </p>
         <p>
             ";
-        // line 46
+        // line 47
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["keywords"]) ? $context["keywords"] : null));
         foreach ($context['_seq'] as $context["_key"] => $context["keyword"]) {
-            // line 47
+            // line 48
             echo "                <span style=\"font-size: calc(0.7vw + ";
             if ((($this->getAttribute($context["keyword"], "Nombre", array()) / (isset($context["nombreMax"]) ? $context["nombreMax"] : null)) < 1)) {
                 echo twig_escape_filter($this->env, ($this->getAttribute($context["keyword"], "Nombre", array()) / (isset($context["nombreMax"]) ? $context["nombreMax"] : null)), "html", null, true);
@@ -132,7 +133,7 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
             }
             echo "vw)\">
                     <a href=\"";
-            // line 48
+            // line 49
             echo $this->env->getExtension('routing')->getPath("nox_intranet_references_recherche");
             echo "?keyword=";
             echo twig_escape_filter($this->env, $this->getAttribute($context["keyword"], "Keyword", array()), "html", null, true);
@@ -145,24 +146,24 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['keyword'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 51
+        // line 52
         echo "        </p>
     </div>
 
     <div id=\"rechercheUser\">
         <div id=\"rechercheCompetencesDiv\">
             <form action='";
-        // line 56
+        // line 57
         echo $this->env->getExtension('routing')->getPath("nox_intranet_references_recherche");
         echo "' type='GET'>
                 <label for=\"keyword\"> Rechercher par mots-clés : </label>
                 <input type=\"text\" name='keyword' id=\"keyword\" placeholder=\"";
-        // line 58
+        // line 59
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : null), "request", array()), "get", array(0 => "keyword"), "method"), "html", null, true);
         echo "\"/>
                 <input type=\"submit\" name=\"Rechercher\" value=\"Rechercher\" class=\"boutonFormulaire\" >
                 <button value=\"Annuler\" class=\"boutonFormulaire\" id=\"boutonAnnuler\" onclick=\"";
-        // line 60
+        // line 61
         echo $this->env->getExtension('routing')->getPath("nox_intranet_references");
         echo "\"> RAZ </button>
             </form>
@@ -170,9 +171,9 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
     </div>
 
     ";
-        // line 65
+        // line 66
         if (((isset($context["references"]) ? $context["references"] : null) == null)) {
-            // line 66
+            // line 67
             echo "
         <div class=\"divNews\">
 
@@ -182,56 +183,56 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
 
     ";
         }
-        // line 74
+        // line 75
         echo "
     <div id=\"choixPage\">
 
         ";
-        // line 77
+        // line 78
         if (((isset($context["nbPage"]) ? $context["nbPage"] : null) > 1)) {
-            // line 78
+            // line 79
             echo "
             <!-- Affiche un lien vers la première page si ce n'est pas la page actuel -->
             ";
-            // line 80
+            // line 81
             if (((isset($context["page"]) ? $context["page"] : null) > 1)) {
-                // line 81
+                // line 82
                 echo "                <a href=\"";
                 echo $this->env->getExtension('routing')->getPath("nox_intranet_references", array("page" => 1));
                 echo "\"> << </a>
             ";
             }
-            // line 83
+            // line 84
             echo "            <!-------------------------------------------------------------------------->
 
             <!-- Affiche un lien vers la page précédente si elle existe -->
             ";
-            // line 86
+            // line 87
             if ((((isset($context["page"]) ? $context["page"] : null) - 1) >= 1)) {
-                // line 87
+                // line 88
                 echo "                <a href=\"";
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_references", array("page" => ((isset($context["page"]) ? $context["page"] : null) - 1))), "html", null, true);
                 echo "\"> < </a>
             ";
             }
-            // line 89
+            // line 90
             echo "            <!---------------------------------------------------------->
 
             <!-- Affichage des liens vers les pages précédente. -->
             ";
-            // line 92
+            // line 93
             if ((((isset($context["page"]) ? $context["page"] : null) - 1) >= 1)) {
-                // line 93
+                // line 94
                 echo "                ";
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable(range(1, ((isset($context["page"]) ? $context["page"] : null) - 1)));
                 foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-                    // line 94
+                    // line 95
                     echo "
                     ";
-                    // line 95
+                    // line 96
                     if (($context["i"] >= ((isset($context["page"]) ? $context["page"] : null) - 2))) {
-                        // line 96
+                        // line 97
                         echo "                        <a href=\"";
                         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_references", array("page" => $context["i"])), "html", null, true);
                         echo "\"> ";
@@ -239,22 +240,22 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
                         echo " </a>
                     ";
                     }
-                    // line 98
+                    // line 99
                     echo "
                 ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 100
+                // line 101
                 echo "            ";
             }
-            // line 101
+            // line 102
             echo "            <!--------------------------------------------------->
 
             <!-- Page courante -->
             <a href=\"";
-            // line 104
+            // line 105
             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_references", array("page" => (isset($context["page"]) ? $context["page"] : null))), "html", null, true);
             echo "\"> <p id=\"pageActuel\">";
             echo twig_escape_filter($this->env, (isset($context["page"]) ? $context["page"] : null), "html", null, true);
@@ -263,19 +264,19 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
 
             <!-- Affichage des liens vers les pages suivantes. -->
             ";
-            // line 108
+            // line 109
             if ((((isset($context["page"]) ? $context["page"] : null) + 1) <= (isset($context["nbPage"]) ? $context["nbPage"] : null))) {
-                // line 109
+                // line 110
                 echo "                ";
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable(range(((isset($context["page"]) ? $context["page"] : null) + 1), (isset($context["nbPage"]) ? $context["nbPage"] : null)));
                 foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-                    // line 110
+                    // line 111
                     echo "
                     ";
-                    // line 111
+                    // line 112
                     if (($context["i"] <= ((isset($context["page"]) ? $context["page"] : null) + 2))) {
-                        // line 112
+                        // line 113
                         echo "                        <a href=\"";
                         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_references", array("page" => $context["i"])), "html", null, true);
                         echo "\"> ";
@@ -283,67 +284,67 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
                         echo " </a>
                     ";
                     }
-                    // line 114
+                    // line 115
                     echo "
                 ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 116
+                // line 117
                 echo "            ";
             }
-            // line 117
+            // line 118
             echo "            <!--------------------------------------------------->
 
             <!-- Affiche un lien vers la page suivante si elle existe -->
             ";
-            // line 120
+            // line 121
             if ((((isset($context["page"]) ? $context["page"] : null) + 1) <= (isset($context["nbPage"]) ? $context["nbPage"] : null))) {
-                // line 121
+                // line 122
                 echo "                <a href=\"";
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_references", array("page" => ((isset($context["page"]) ? $context["page"] : null) + 1))), "html", null, true);
                 echo "\"> > </a>
             ";
             }
-            // line 123
+            // line 124
             echo "            <!------------------------------------------------------------>
 
             <!-- Affiche un lien vers la dernière page si ce n'est pas la page actuel -->
             ";
-            // line 126
+            // line 127
             if (((isset($context["page"]) ? $context["page"] : null) < (isset($context["nbPage"]) ? $context["nbPage"] : null))) {
-                // line 127
+                // line 128
                 echo "                <a href=\"";
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_references", array("page" => (isset($context["nbPage"]) ? $context["nbPage"] : null))), "html", null, true);
                 echo "\"> >> </a>
             ";
             }
-            // line 129
+            // line 130
             echo "            <!-------------------------------------------------------------------------->
 
         ";
         }
-        // line 132
+        // line 133
         echo "
     </div>
 
     ";
-        // line 135
+        // line 136
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["references"]) ? $context["references"] : null));
         foreach ($context['_seq'] as $context["_key"] => $context["reference"]) {
-            // line 136
+            // line 137
             echo "
         <div class=\"divNews\">
 
             <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '";
-            // line 139
+            // line 140
             echo twig_escape_filter($this->env, $this->getAttribute($context["reference"], "Lien", array()), "html", null, true);
             echo "', 'RH');\">
                 <img 
                     src=\"";
-            // line 141
+            // line 142
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : null), "request", array()), "schemeAndHttpHost", array()), "html", null, true);
             echo "/Symfony/web/ImagePDF/";
             echo twig_escape_filter($this->env, twig_convert_encoding($this->getAttribute($context["reference"], "Nom", array()), "UTF-8", "ISO-8859-1"), "html", null, true);
@@ -356,57 +357,57 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
             <ul>
 
                 <li> Nom du fichier : ";
-            // line 149
+            // line 150
             echo twig_escape_filter($this->env, $this->getAttribute($context["reference"], "Nom", array()), "html", null, true);
             echo " </li>
 
                 ";
-            // line 151
+            // line 152
             if (($this->getAttribute($context["reference"], "Title", array()) != null)) {
                 echo " <li> Titre : ";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["reference"], "Title", array()), "html", null, true);
                 echo " </li> ";
             }
-            // line 152
+            // line 153
             echo "
                 ";
-            // line 153
+            // line 154
             if (($this->getAttribute($context["reference"], "Author", array()) != null)) {
                 echo " <li> Auteur : ";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["reference"], "Author", array()), "html", null, true);
                 echo " </li> ";
             }
-            // line 154
+            // line 155
             echo "
                 ";
-            // line 155
+            // line 156
             if (($this->getAttribute($context["reference"], "Subject", array()) != null)) {
                 echo " <li> Sujet : ";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["reference"], "Subject", array()), "html", null, true);
                 echo " </li> ";
             }
-            // line 156
+            // line 157
             echo "
                 ";
-            // line 157
+            // line 158
             if (($this->getAttribute($context["reference"], "Keywords", array()) != null)) {
                 echo " <li> Mots : ";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["reference"], "Keywords", array()), "html", null, true);
                 echo " </li> ";
             }
-            // line 158
+            // line 159
             echo "
                 ";
-            // line 159
+            // line 160
             if (($this->getAttribute($context["reference"], "Pages", array()) != null)) {
                 echo " <li> Nombre de page(s) : ";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["reference"], "Pages", array()), "html", null, true);
                 echo " </li> ";
             }
-            // line 160
+            // line 161
             echo "
                 <li> Posté le : ";
-            // line 161
+            // line 162
             echo twig_escape_filter($this->env, $this->getAttribute($context["reference"], "dateEnvoi", array()), "html", null, true);
             echo " </li>
 
@@ -419,56 +420,56 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['reference'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 168
+        // line 169
         echo "
     <div id=\"choixPage\">
 
         ";
-        // line 171
+        // line 172
         if (((isset($context["nbPage"]) ? $context["nbPage"] : null) > 1)) {
-            // line 172
+            // line 173
             echo "
             <!-- Affiche un lien vers la première page si ce n'est pas la page actuel -->
             ";
-            // line 174
+            // line 175
             if (((isset($context["page"]) ? $context["page"] : null) > 1)) {
-                // line 175
+                // line 176
                 echo "                <a href=\"";
                 echo $this->env->getExtension('routing')->getPath("nox_intranet_references", array("page" => 1));
                 echo "\"> << </a>
             ";
             }
-            // line 177
+            // line 178
             echo "            <!-------------------------------------------------------------------------->
 
             <!-- Affiche un lien vers la page précédente si elle existe -->
             ";
-            // line 180
+            // line 181
             if ((((isset($context["page"]) ? $context["page"] : null) - 1) >= 1)) {
-                // line 181
+                // line 182
                 echo "                <a href=\"";
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_references", array("page" => ((isset($context["page"]) ? $context["page"] : null) - 1))), "html", null, true);
                 echo "\"> < </a>
             ";
             }
-            // line 183
+            // line 184
             echo "            <!---------------------------------------------------------->
 
             <!-- Affichage des liens vers les pages précédente. -->
             ";
-            // line 186
+            // line 187
             if ((((isset($context["page"]) ? $context["page"] : null) - 1) >= 1)) {
-                // line 187
+                // line 188
                 echo "                ";
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable(range(1, ((isset($context["page"]) ? $context["page"] : null) - 1)));
                 foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-                    // line 188
+                    // line 189
                     echo "
                     ";
-                    // line 189
+                    // line 190
                     if (($context["i"] >= ((isset($context["page"]) ? $context["page"] : null) - 2))) {
-                        // line 190
+                        // line 191
                         echo "                        <a href=\"";
                         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_references", array("page" => $context["i"])), "html", null, true);
                         echo "\"> ";
@@ -476,22 +477,22 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
                         echo " </a>
                     ";
                     }
-                    // line 192
+                    // line 193
                     echo "
                 ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 194
+                // line 195
                 echo "            ";
             }
-            // line 195
+            // line 196
             echo "            <!--------------------------------------------------->
 
             <!-- Page courante -->
             <a href=\"";
-            // line 198
+            // line 199
             echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_references", array("page" => (isset($context["page"]) ? $context["page"] : null))), "html", null, true);
             echo "\"> <p id=\"pageActuel\">";
             echo twig_escape_filter($this->env, (isset($context["page"]) ? $context["page"] : null), "html", null, true);
@@ -500,19 +501,19 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
 
             <!-- Affichage des liens vers les pages suivantes. -->
             ";
-            // line 202
+            // line 203
             if ((((isset($context["page"]) ? $context["page"] : null) + 1) <= (isset($context["nbPage"]) ? $context["nbPage"] : null))) {
-                // line 203
+                // line 204
                 echo "                ";
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable(range(((isset($context["page"]) ? $context["page"] : null) + 1), (isset($context["nbPage"]) ? $context["nbPage"] : null)));
                 foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-                    // line 204
+                    // line 205
                     echo "
                     ";
-                    // line 205
+                    // line 206
                     if (($context["i"] <= ((isset($context["page"]) ? $context["page"] : null) + 2))) {
-                        // line 206
+                        // line 207
                         echo "                        <a href=\"";
                         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_references", array("page" => $context["i"])), "html", null, true);
                         echo "\"> ";
@@ -520,48 +521,48 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
                         echo " </a>
                     ";
                     }
-                    // line 208
+                    // line 209
                     echo "
                 ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 210
+                // line 211
                 echo "            ";
             }
-            // line 211
+            // line 212
             echo "            <!--------------------------------------------------->
 
             <!-- Affiche un lien vers la page suivante si elle existe -->
             ";
-            // line 214
+            // line 215
             if ((((isset($context["page"]) ? $context["page"] : null) + 1) <= (isset($context["nbPage"]) ? $context["nbPage"] : null))) {
-                // line 215
+                // line 216
                 echo "                <a href=\"";
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_references", array("page" => ((isset($context["page"]) ? $context["page"] : null) + 1))), "html", null, true);
                 echo "\"> > </a>
             ";
             }
-            // line 217
+            // line 218
             echo "            <!------------------------------------------------------------>
 
             <!-- Affiche un lien vers la dernière page si ce n'est pas la page actuel -->
             ";
-            // line 220
+            // line 221
             if (((isset($context["page"]) ? $context["page"] : null) < (isset($context["nbPage"]) ? $context["nbPage"] : null))) {
-                // line 221
+                // line 222
                 echo "                <a href=\"";
                 echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("nox_intranet_references", array("page" => (isset($context["nbPage"]) ? $context["nbPage"] : null))), "html", null, true);
                 echo "\"> >> </a>
             ";
             }
-            // line 223
+            // line 224
             echo "            <!-------------------------------------------------------------------------->
 
         ";
         }
-        // line 226
+        // line 227
         echo "
     </div>
 
@@ -580,7 +581,7 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
 
     public function getDebugInfo()
     {
-        return array (  565 => 226,  560 => 223,  554 => 221,  552 => 220,  547 => 217,  541 => 215,  539 => 214,  534 => 211,  531 => 210,  524 => 208,  516 => 206,  514 => 205,  511 => 204,  506 => 203,  504 => 202,  495 => 198,  490 => 195,  487 => 194,  480 => 192,  472 => 190,  470 => 189,  467 => 188,  462 => 187,  460 => 186,  455 => 183,  449 => 181,  447 => 180,  442 => 177,  436 => 175,  434 => 174,  430 => 172,  428 => 171,  423 => 168,  410 => 161,  407 => 160,  401 => 159,  398 => 158,  392 => 157,  389 => 156,  383 => 155,  380 => 154,  374 => 153,  371 => 152,  365 => 151,  360 => 149,  347 => 141,  342 => 139,  337 => 136,  333 => 135,  328 => 132,  323 => 129,  317 => 127,  315 => 126,  310 => 123,  304 => 121,  302 => 120,  297 => 117,  294 => 116,  287 => 114,  279 => 112,  277 => 111,  274 => 110,  269 => 109,  267 => 108,  258 => 104,  253 => 101,  250 => 100,  243 => 98,  235 => 96,  233 => 95,  230 => 94,  225 => 93,  223 => 92,  218 => 89,  212 => 87,  210 => 86,  205 => 83,  199 => 81,  197 => 80,  193 => 78,  191 => 77,  186 => 74,  176 => 66,  174 => 65,  166 => 60,  161 => 58,  156 => 56,  149 => 51,  136 => 48,  127 => 47,  123 => 46,  118 => 43,  107 => 35,  104 => 34,  101 => 33,  96 => 30,  90 => 27,  85 => 25,  79 => 23,  73 => 20,  68 => 17,  63 => 15,  60 => 14,  58 => 13,  55 => 12,  51 => 11,  48 => 10,  45 => 9,  39 => 7,  34 => 4,  31 => 3,  11 => 1,);
+        return array (  566 => 227,  561 => 224,  555 => 222,  553 => 221,  548 => 218,  542 => 216,  540 => 215,  535 => 212,  532 => 211,  525 => 209,  517 => 207,  515 => 206,  512 => 205,  507 => 204,  505 => 203,  496 => 199,  491 => 196,  488 => 195,  481 => 193,  473 => 191,  471 => 190,  468 => 189,  463 => 188,  461 => 187,  456 => 184,  450 => 182,  448 => 181,  443 => 178,  437 => 176,  435 => 175,  431 => 173,  429 => 172,  424 => 169,  411 => 162,  408 => 161,  402 => 160,  399 => 159,  393 => 158,  390 => 157,  384 => 156,  381 => 155,  375 => 154,  372 => 153,  366 => 152,  361 => 150,  348 => 142,  343 => 140,  338 => 137,  334 => 136,  329 => 133,  324 => 130,  318 => 128,  316 => 127,  311 => 124,  305 => 122,  303 => 121,  298 => 118,  295 => 117,  288 => 115,  280 => 113,  278 => 112,  275 => 111,  270 => 110,  268 => 109,  259 => 105,  254 => 102,  251 => 101,  244 => 99,  236 => 97,  234 => 96,  231 => 95,  226 => 94,  224 => 93,  219 => 90,  213 => 88,  211 => 87,  206 => 84,  200 => 82,  198 => 81,  194 => 79,  192 => 78,  187 => 75,  177 => 67,  175 => 66,  167 => 61,  162 => 59,  157 => 57,  150 => 52,  137 => 49,  128 => 48,  124 => 47,  118 => 43,  107 => 35,  104 => 34,  101 => 33,  96 => 30,  90 => 27,  85 => 25,  79 => 23,  73 => 20,  68 => 17,  63 => 15,  60 => 14,  58 => 13,  55 => 12,  51 => 11,  48 => 10,  45 => 9,  39 => 7,  34 => 4,  31 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -627,6 +628,7 @@ class __TwigTemplate_6e15b6e5cfff7773d2a20daf679a7312c44a6ddf6f1d927f74cd7bc7ba5
 /*     {% endif %}*/
 /* */
 /*     <div id="Keywords">*/
+/*         <p> <span style="font-size: 0.8vw; color: #1F4E79;"> Les mots-clés les plus présents : </span> </p>*/
 /*         <p>*/
 /*             {% for keyword in keywords %}*/
 /*                 <span style="font-size: calc(0.7vw + {% if keyword.Nombre/nombreMax < 1 %}{{ keyword.Nombre/nombreMax }}{% else %}1{% endif %}vw)">*/

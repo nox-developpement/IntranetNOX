@@ -19,19 +19,6 @@
             </figure>
         </a>
 
-<<<<<<< HEAD
-        <!-- Assistant d'affaire -->
-        <a href="{{ path('nox_intranet_assistant_affaire') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Business-Man-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Business-Man-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Business-Man-128.png') }}';"
-                    > 
-                <figcaption>Assistant d'affaire</figcaption>
-            </figure>
-        </a>
-=======
         {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
             <!-- Assistant d'affaire -->
             <a href="{{ path('nox_intranet_assistant_affaire') }}" class="icon">
@@ -45,7 +32,6 @@
                 </figure>
             </a>
         {% endif %}
->>>>>>> prod
 
         <!-- Assurance qualité -->
         <a href="{{ path('nox_intranet_aq') }}" class="icon">
@@ -172,19 +158,6 @@
             </figure>
         </a>
 
-<<<<<<< HEAD
-        <!-- Visioconférence -->            
-        <a href="https://myeasy.vision/guest" target="_blank" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}';"
-                    > 
-                <figcaption>Visioconférence</figcaption>
-            </figure>
-        </a>
-=======
         {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
             <!-- Visioconférence -->            
             <a href="https://myeasy.vision/guest" target="_blank" class="icon">
@@ -198,7 +171,6 @@
                 </figure>
             </a>
         {% endif %}
->>>>>>> prod
 
     </div>
 

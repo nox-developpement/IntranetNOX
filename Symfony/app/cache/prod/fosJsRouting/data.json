@@ -1,1 +1,0 @@
-{"nox_intranet_communication_download":{"tokens":[["text","\/communication\/telechargemenet"]],"defaults":[],"requirements":[],"hosttokens":[]},"nox_intranet_administration_texteEncart":{"tokens":[["variable","\/","[^\/]++","newText"],["variable","\/","[^\/]++","section"],["text","\/administration\/texteEncart"]],"defaults":{"newText":""},"requirements":[],"hosttokens":[]}}

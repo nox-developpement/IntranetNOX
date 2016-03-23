@@ -119,46 +119,54 @@ class __TwigTemplate_6cab3ec3640bd37a5125d0862d003868e335b315e7f22eb6b1b095d58aa
 
         <br>
 
-        <a href=\"";
+        ";
         // line 49
-        echo $this->env->getExtension('routing')->getPath("nox_intranet_support_licenses");
-        echo "\" class=\"icon\">
-            <figure>
-                <img 
-                    src=\"";
-        // line 52
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Verify-128.png"), "html", null, true);
-        echo "\" 
-                    onmouseover=\"this.src = '";
-        // line 53
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Verify-128-hover.png"), "html", null, true);
-        echo "';\" 
-                    onmouseout=\"this.src = '";
-        // line 54
-        echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Verify-128.png"), "html", null, true);
-        echo "';\"
-                    > 
-                <figcaption>Licences</figcaption>
-            </figure>
-        </a>
-
+        if ($this->env->getExtension('security')->isGranted("ROLE_SUPER_ADMIN")) {
+            echo " 
+            <!-- Licences -->
+            <a href=\"";
+            // line 51
+            echo $this->env->getExtension('routing')->getPath("nox_intranet_support_licenses");
+            echo "\" class=\"icon\">
+                <figure>
+                    <img 
+                        src=\"";
+            // line 54
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Verify-128.png"), "html", null, true);
+            echo "\" 
+                        onmouseover=\"this.src = '";
+            // line 55
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Verify-128-hover.png"), "html", null, true);
+            echo "';\" 
+                        onmouseout=\"this.src = '";
+            // line 56
+            echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Verify-128.png"), "html", null, true);
+            echo "';\"
+                        > 
+                    <figcaption>Licences</figcaption>
+                </figure>
+            </a>
+        ";
+        }
+        // line 62
+        echo "
         <!-- Ticketing -->
         <a href=\"";
-        // line 61
+        // line 64
         echo $this->env->getExtension('routing')->getPath("nox_intranet_support_ticketing");
         echo "\" class=\"icon\" target='_blank'>
             <figure>
                 <img 
                     src=\"";
-        // line 64
+        // line 67
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Ticketing-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
-        // line 65
+        // line 68
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Ticketing-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
-        // line 66
+        // line 69
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Ticketing-128.png"), "html", null, true);
         echo "';\"
                     > 
@@ -168,21 +176,21 @@ class __TwigTemplate_6cab3ec3640bd37a5125d0862d003868e335b315e7f22eb6b1b095d58aa
 
         <!-- Wiki -->
         <a href=\"";
-        // line 73
+        // line 76
         echo $this->env->getExtension('routing')->getPath("nox_intranet_support_wiki");
         echo "\" class=\"icon\" target='_blank'>
             <figure>
                 <img 
                     src=\"";
-        // line 76
+        // line 79
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Book-Open-128.png"), "html", null, true);
         echo "\" 
                     onmouseover=\"this.src = '";
-        // line 77
+        // line 80
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Book-Open-128-hover.png"), "html", null, true);
         echo "';\" 
                     onmouseout=\"this.src = '";
-        // line 78
+        // line 81
         echo twig_escape_filter($this->env, $this->env->getExtension('asset')->getAssetUrl("bundles/noxintranetsupportsi/images/Book-Open-128.png"), "html", null, true);
         echo "';\"
                     > 
@@ -207,7 +215,7 @@ class __TwigTemplate_6cab3ec3640bd37a5125d0862d003868e335b315e7f22eb6b1b095d58aa
 
     public function getDebugInfo()
     {
-        return array (  186 => 78,  182 => 77,  178 => 76,  172 => 73,  162 => 66,  158 => 65,  154 => 64,  148 => 61,  138 => 54,  134 => 53,  130 => 52,  124 => 49,  113 => 41,  109 => 40,  105 => 39,  99 => 36,  89 => 29,  85 => 28,  81 => 27,  75 => 24,  65 => 17,  61 => 16,  57 => 15,  51 => 12,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
+        return array (  194 => 81,  190 => 80,  186 => 79,  180 => 76,  170 => 69,  166 => 68,  162 => 67,  156 => 64,  152 => 62,  143 => 56,  139 => 55,  135 => 54,  129 => 51,  124 => 49,  113 => 41,  109 => 40,  105 => 39,  99 => 36,  89 => 29,  85 => 28,  81 => 27,  75 => 24,  65 => 17,  61 => 16,  57 => 15,  51 => 12,  45 => 8,  42 => 7,  36 => 5,  30 => 3,  11 => 1,);
     }
 }
 /* {% extends "::layout.html.twig" %}*/
@@ -258,16 +266,19 @@ class __TwigTemplate_6cab3ec3640bd37a5125d0862d003868e335b315e7f22eb6b1b095d58aa
 /* */
 /*         <br>*/
 /* */
-/*         <a href="{{ path('nox_intranet_support_licenses') }}" class="icon">*/
-/*             <figure>*/
-/*                 <img */
-/*                     src="{{ asset('bundles/noxintranetsupportsi/images/Verify-128.png') }}" */
-/*                     onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Verify-128-hover.png') }}';" */
-/*                     onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Verify-128.png') }}';"*/
-/*                     > */
-/*                 <figcaption>Licences</figcaption>*/
-/*             </figure>*/
-/*         </a>*/
+/*         {% if is_granted('ROLE_SUPER_ADMIN') %} */
+/*             <!-- Licences -->*/
+/*             <a href="{{ path('nox_intranet_support_licenses') }}" class="icon">*/
+/*                 <figure>*/
+/*                     <img */
+/*                         src="{{ asset('bundles/noxintranetsupportsi/images/Verify-128.png') }}" */
+/*                         onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Verify-128-hover.png') }}';" */
+/*                         onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Verify-128.png') }}';"*/
+/*                         > */
+/*                     <figcaption>Licences</figcaption>*/
+/*                 </figure>*/
+/*             </a>*/
+/*         {% endif %}*/
 /* */
 /*         <!-- Ticketing -->*/
 /*         <a href="{{ path('nox_intranet_support_ticketing') }}" class="icon" target='_blank'>*/
