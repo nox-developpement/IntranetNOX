@@ -238,8 +238,31 @@ form select, form input[type=number], form input[type=text] {
     width: 70%;
     height: 100%;
     padding: 0px;
-    margin-left: 15%;
     background-color: rgb(31,78,121);
+}
+
+#EmailHelpdesk {
+    display: inline-block;
+    float: left;
+    width: 15%;
+    height: 100%;
+    padding: 0px;
+    background-color: rgb(31,78,121);
+    text-align: center;
+    line-height: 40px;
+}
+
+#EmailHelpdesk a, #EmailHelpdesk a:checked { 
+    font-size: 0.8vw;
+    margin: 0px;
+    padding: 0px;
+    color: white;
+    text-decoration: none;
+}
+
+#EmailHelpdesk a:hover {
+    color: white;
+    text-shadow: 0px 0px 10px white;
 }
 
 #administrationBouton {

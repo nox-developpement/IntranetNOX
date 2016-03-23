@@ -6,6 +6,30 @@
 
 {% block messageAccueil %}Serveurs{% endblock %}
 
+{% block textEncart %}
+
+    {% if text is defined %}{{ text|raw }}{% endif %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+
+        {{ form_start(formulaire, {'attr': {'id': 'formulaireTexteEncart' }}) }}
+
+        {{ form_errors(formulaire) }}
+
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(formulaire.text) }}
+
+        {# Génération de l'input. #}
+        {{ form_widget(formulaire.text, {'attr': {'class': 'textEncartField'}}) }}
+
+        {{ form_end(formulaire) }}
+
+        <img src='{{ asset('bundles/noxintranetressources/images/Text-Editor-32.png') }}' id='texteEncartImg'>
+
+    {% endif %}
+
+{% endblock %}
+
 {% block contenu %}
 
     <div id="divAdministrationAdmin">

@@ -10,7 +10,7 @@
 
     {% if text is defined %}{{ text|raw }}{% endif %}
 
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_REFERENCES') %}
 
         {{ form_start(formulaire, {'attr': {'id': 'formulaireTexteEncart' }}) }}
 

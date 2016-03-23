@@ -48,14 +48,14 @@ class __TwigTemplate_613dc890f8f35f556a7848d63a003044c95953e35f70118a7f5461ce6f8
         echo "
     <div style=\"width: 70%; margin: auto;\">
         <p style=\"font-size: 0.9vw;\">
-            Une erreur s'est produite, vous pouvez contacter l'administateur de l'intranet à l'adresse <a href=\"mailto:t.besson@groupe-nox.com?subject=Erreur: ";
+            Une erreur s'est produite, vous pouvez contacter le support informatique à l'adresse <a href=\"mailto:helpdesk@groupe-nox.com?subject=Erreur: ";
         // line 11
         echo twig_escape_filter($this->env, (isset($context["status_code"]) ? $context["status_code"] : null), "html", null, true);
         echo "&body=%0D%0A%0D%0ACode erreur: ";
         echo twig_escape_filter($this->env, (isset($context["status_code"]) ? $context["status_code"] : null), "html", null, true);
         echo "%0D%0ATexte erreur: ";
         echo twig_escape_filter($this->env, (isset($context["status_text"]) ? $context["status_text"] : null), "html", null, true);
-        echo "\">t.besson@groupe-nox.com</a> en lui précisant ce que vous étiez en train de faire au moment de l'erreur.
+        echo "\">helpdesk@groupe-nox.com</a> en lui précisant ce que vous étiez en train de faire au moment de l'erreur.
         </p>
     </div>
 
@@ -87,7 +87,7 @@ class __TwigTemplate_613dc890f8f35f556a7848d63a003044c95953e35f70118a7f5461ce6f8
 /* */
 /*     <div style="width: 70%; margin: auto;">*/
 /*         <p style="font-size: 0.9vw;">*/
-/*             Une erreur s'est produite, vous pouvez contacter l'administateur de l'intranet à l'adresse <a href="mailto:t.besson@groupe-nox.com?subject=Erreur: {{ status_code }}&body=%0D%0A%0D%0ACode erreur: {{ status_code }}%0D%0ATexte erreur: {{ status_text }}">t.besson@groupe-nox.com</a> en lui précisant ce que vous étiez en train de faire au moment de l'erreur.*/
+/*             Une erreur s'est produite, vous pouvez contacter le support informatique à l'adresse <a href="mailto:helpdesk@groupe-nox.com?subject=Erreur: {{ status_code }}&body=%0D%0A%0D%0ACode erreur: {{ status_code }}%0D%0ATexte erreur: {{ status_text }}">helpdesk@groupe-nox.com</a> en lui précisant ce que vous étiez en train de faire au moment de l'erreur.*/
 /*         </p>*/
 /*     </div>*/
 /* */
