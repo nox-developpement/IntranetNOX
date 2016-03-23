@@ -37,11 +37,6 @@ body {
     border-top: solid 1px white;
     color: rgb(31,78,121);
     overflow: auto;
-    scrollbar-face-color: red; 
-    scrollbar-arrow-color: #C71585; 
-    scrollbar-track-color: #BDB76B; 
-    scrollbar-3dlight-color: #4B0082; 
-    scrollbar-darkshadow-color: #006400; 
 }
 
 header {

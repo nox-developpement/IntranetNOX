@@ -42,6 +42,7 @@
     {% endif %}
 
     <div id="Keywords">
+        <p> <span style="font-size: 0.8vw; color: #1F4E79;"> Les mots-clés les plus présents : </span> </p>
         <p>
             {% for keyword in keywords %}
                 <span style="font-size: calc(0.7vw + {% if keyword.Nombre/nombreMax < 1 %}{{ keyword.Nombre/nombreMax }}{% else %}1{% endif %}vw)">

@@ -186,17 +186,21 @@
             <h4> Publication Collaborateurs :  </h4>
         </div>
 
-        <!-- Assistant d'affaire -->
-        <a href="{{ path('nox_intranet_administration_affaires') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetadministration/images/Business-Man-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Business-Man-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Business-Man-128.png') }}';"
-                    > 
-                <figcaption>Assistant d'affaire</figcaption>
-            </figure>
-        </a>
+        {% if app.user and is_granted('ROLE_ADMIN') %}
+
+            <!-- Assistant d'affaire -->
+            <a href="{{ path('nox_intranet_administration_affaires') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Business-Man-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Business-Man-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Business-Man-128.png') }}';"
+                        > 
+                    <figcaption>Assistant d'affaire</figcaption>
+                </figure>
+            </a>
+
+        {% endif %}
 
         <!-- Assurance qualité -->
         <a href="{{ path('nox_intranet_aq') }}" class="icon">

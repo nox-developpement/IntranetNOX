@@ -46,16 +46,19 @@
 
         <br>
 
-        <a href="{{ path('nox_intranet_support_licenses') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetsupportsi/images/Verify-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Verify-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Verify-128.png') }}';"
-                    > 
-                <figcaption>Licences</figcaption>
-            </figure>
-        </a>
+        {% if is_granted('ROLE_SUPER_ADMIN') %} 
+            <!-- Licences -->
+            <a href="{{ path('nox_intranet_support_licenses') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetsupportsi/images/Verify-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Verify-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetsupportsi/images/Verify-128.png') }}';"
+                        > 
+                    <figcaption>Licences</figcaption>
+                </figure>
+            </a>
+        {% endif %}
 
         <!-- Ticketing -->
         <a href="{{ path('nox_intranet_support_ticketing') }}" class="icon" target='_blank'>

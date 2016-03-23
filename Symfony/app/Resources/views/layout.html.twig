@@ -14,7 +14,8 @@
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
         {% endstylesheets %}
 
-        <link rel="icon" type="image/png" href="{{ asset('bundles/noxintranetcommunication/images/favicon.ico') }}" />
+        <link rel="icon" type="image/png" href="{{ app.request.getSchemeAndHttpHost() }}/Symfony/web/favicon.ico" />
+
         <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet" />
         <style type="text/css">
             @font-face {
@@ -41,8 +42,9 @@
 
         </header>
 
-        <div id="dialog" title="Plan du site" style="display: none;">
-            <img src="{{ asset('bundles/noxintranetaccueil/images/PlanIntranet.svg') }}">
+        <div id="dialog" title="Plan du site" style="display: none; text-align: center;">
+            <img src="{{ asset('bundles/noxintranetaccueil/images/PlanIntranet.png') }}" style="width: 100%; vertical-align: middle;
+                 text-align: center;">
         </div>
 
         <div id="bar_menu">
@@ -129,7 +131,11 @@
             }
 
             function resizeContenu() {
-                $('#contenu').height($('footer').offset().top - $('header').height() - $('#bar_menu').height() - $('footer').height()/5);
+                << << << < HEAD
+                        $('#contenu').height($('footer').offset().top - $('header').height() - $('#bar_menu').height() - $('footer').height() / 5);
+                === === =
+                        $('#contenu').height($('footer').offset().top - $('header').height() - $('#bar_menu').height() - $('footer').height() / 5);
+                >>> >>> > prod
             }
 
 
