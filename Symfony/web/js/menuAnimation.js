@@ -16,8 +16,8 @@ function menuAnimation() {
 }
 
 function DivNewsSliding() {
-    $('.DivMaj').delay(5000).each(function (index) {
-        $(this).delay(5000 * index).slideToggle(1500, 'easeOutQuart', function () {
+    $('.DivMaj').delay(10000).each(function (index) {
+        $(this).delay(10000 * index).slideToggle(1500, 'easeOutQuart', function () {
             $('#zoneNewsAccueil').append($(this));
             $(this).slideToggle();
         });
