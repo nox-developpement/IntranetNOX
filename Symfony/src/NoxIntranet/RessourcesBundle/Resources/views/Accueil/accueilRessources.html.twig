@@ -158,19 +158,31 @@
             </figure>
         </a>
 
-        {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
-            <!-- Visioconférence -->            
-            <a href="https://myeasy.vision/guest" target="_blank" class="icon">
-                <figure>
-                    <img 
-                        src="{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}" 
-                        onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128-hover.png') }}';" 
-                        onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}';"
-                        > 
-                    <figcaption>Visioconférence</figcaption>
-                </figure>
-            </a>
-        {% endif %}
+        <br />
+
+        <!-- Visioconférence salle 1 -->            
+        <a href="https://webrtc.g2j.vc/g2j/#/?conference=669644327" target="_blank" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}';"
+                    > 
+                <figcaption>Visioconférence salle 1</figcaption>
+            </figure>
+        </a>
+
+        <!-- Visioconférence salle 2 -->            
+        <a href="https://webrtc.g2j.vc/g2j/#/?conference=669644328" target="_blank" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}';"
+                    > 
+                <figcaption>Visioconférence salle 2</figcaption>
+            </figure>
+        </a>
 
     </div>
 

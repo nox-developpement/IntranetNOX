@@ -117,16 +117,10 @@ class AccueilController extends Controller {
 
         $compteurVue = $em->getRepository('NoxIntranetAccueilBundle:Compteur')->findOneByCompteur('Accueil');
 
-        if ($compteurVue == null) {
-            $compteurVue = new Compteur();
-            $compteurVue->setCompteur('Accueil');
-            $compteurVue->setVue(1);
-            $em->persist($compteurVue);
-            $em->flush();
+        if (isset($compteurVue)) {
+            $nombreVues = $compteurVue->getVue();
         } else {
-            $compteurVue->setVue($compteurVue->getVue() + 1);
-            $em->persist($compteurVue);
-            $em->flush();
+            $nombreVues = 1;
         }
 
         if ($em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findBy(array('section' => 'Edito')) != null) {
@@ -193,7 +187,7 @@ class AccueilController extends Controller {
         return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('texte' => $texte, 'formulaire' => $form->createView(),
                     'majExterne' => $majExterne, 'majInterne' => $majInterne, 'majMarketing' => $majMarketing, 'majSI' => $majSI,
                     'majAQ' => $majAQ, 'majRH' => $majRH, 'posteAPourvoir' => $annoncesPoste,
-                    'nominationOrganisation' => $annoncesNomination, 'nombreVues' => $compteurVue->getVue()));
+                    'nominationOrganisation' => $annoncesNomination, 'nombreVues' => $nombreVues));
     }
 
     public function getPDF($chemin) {
