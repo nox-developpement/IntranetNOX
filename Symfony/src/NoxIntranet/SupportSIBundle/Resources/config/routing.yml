@@ -22,6 +22,10 @@ nox_intranet_demande_materiel_check:
     path: /supportSI/demandeCheck
     defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:demandeCheck }
     
+nox_intranet_demande_materiel_confirmation:
+    path: /supportSI/confirmation-demande/{cleDemande}/{reponse}
+    defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:demandeConfirmation }
+    
 nox_intranet_avancement_projet:
     path: /supportSI/avancementProjet
     defaults: { _controller: NoxIntranetSupportSIBundle:AvancementProjet:avancementProjet }

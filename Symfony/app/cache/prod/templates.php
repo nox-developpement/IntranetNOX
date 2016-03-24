@@ -173,6 +173,7 @@
   'NoxIntranetPDFParsingBundle:Default:index.html.twig' => 'C:\\wamp\\www\\Symfony\\src\\NoxIntranet\\PDFParsingBundle/Resources/views/Default/index.html.twig',
   '::base.html.twig' => 'C:\\wamp\\www\\Symfony\\app/Resources\\views/base.html.twig',
   ':default:index.html.twig' => 'C:\\wamp\\www\\Symfony\\app/Resources\\views/default/index.html.twig',
+  ':Emails:confirmationDemandeMateriel.html.twig' => 'C:\\wamp\\www\\Symfony\\app/Resources\\views/Emails/confirmationDemandeMateriel.html.twig',
   ':Emails:demandeMateriel.html.twig' => 'C:\\wamp\\www\\Symfony\\app/Resources\\views/Emails/demandeMateriel.html.twig',
   '::layout.html.twig' => 'C:\\wamp\\www\\Symfony\\app/Resources\\views/layout.html.twig',
   ':support/api:api.inc.php' => 'C:\\wamp\\www\\Symfony\\app/Resources\\views/support/api/api.inc.php',

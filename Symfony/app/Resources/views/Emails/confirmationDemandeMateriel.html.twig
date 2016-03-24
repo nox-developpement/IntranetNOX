@@ -1,0 +1,19 @@
+N° ordre : {{ numOrdre }} <br /><br />
+
+Bonjour, <br />
+
+L'utilisateur <strong>{{ demandeur }}</strong> situé dans l'agence de <strong>{{ agence }}</strong> à fait
+la/les demande(s) suivante(s) : <br/><br/>
+{% if materiel == 'materiel' %}
+    - Matériel :  <strong>{{ categorie }}</strong>. <br />
+{% endif %}
+{% if logicielCheckbox == 'logicielCheckbox' %}
+    - Logiciel : <strong>{{ logiciel }}.</strong> <br />
+{% endif %}
+<br />
+Raison de la demande : {{ raison }}
+<br /><br />
+Date désirée : <strong>{{ date }}</strong>
+<br /><br />
+Pour <span style="color: green;">valider</span> cette demande merci de <a style="color: green;" href="{{ app.request.schemeAndHttpHost }}/intranet/supportSI/confirmation-demande/{{ lienConfirmation }}/valide"> cliquer ici </a>,
+pour <span style="color: red;">refuser</span> cette demande merci de <a style="color: red;" href="{{ app.request.schemeAndHttpHost }}/intranet/supportSI/confirmation-demande/{{ lienConfirmation }}/refuse"> cliquer ici </a>.

@@ -3,10 +3,9 @@
 namespace NoxIntranet\SupportSIBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use NoxIntranet\SupportSIBundle\Controller\TicketingController;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\SupportSIBundle\Entity\CompteurDemande;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use NoxIntranet\SupportSIBundle\Entity\DemandeMateriel;
 
 class SupportSIController extends Controller {
 
@@ -50,10 +49,13 @@ class SupportSIController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
 
-        $adresseHelpdesk = $em->getRepository('NoxIntranetAdministrationBundle:Helpdesk')->findOneBySection('Helpdesk')->getEmail();
-
         $name = $usr->getUsername();
         $agence = $usr->getAgence();
+
+        date_default_timezone_set('Europe/Paris');
+        $date = new \DateTime(date('Y/m/d'));
+
+        $emailDemandeur = preg_replace('/-.*/', '', $request->query->get('demandeur')) . "@groupe-nox.com";
 
         if ($request->query->get('materiel') == null && $request->query->get('logicielCheckbox') == null) {
             $request->getSession()->getFlashBag()->add('noticeErreur', "Veuillez choisir au moins un type de demande !");
@@ -63,8 +65,10 @@ class SupportSIController extends Controller {
             $request->getSession()->getFlashBag()->add('noticeErreur', "Veuillez renseigner la raison de votre demande !");
         } elseif ($request->query->get('dateLivraison') == null) {
             $request->getSession()->getFlashBag()->add('noticeErreur', "Veuillez renseigner la date de livraison désirée !");
-        } elseif ($request->query->get('nomSuperieur') == null) {
-            $request->getSession()->getFlashBag()->add('noticeErreur', "Veuillez renseigner le nom de votre supérieur hiérarchique !");
+        } elseif ($request->query->get('emailSuperieur') == null) {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Veuillez renseigner l'email de votre supérieur hiérarchique !");
+        } elseif ($emailDemandeur === $request->query->get('emailSuperieur')) {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Veuillez un email valide pour votre supérieur hiérarchique !");
         } else {
 
             $dateDemande = $request->query->get('dateLivraison');
@@ -72,9 +76,6 @@ class SupportSIController extends Controller {
             $em = $this->getDoctrine()->getManager();
 
             $compteur = $em->getRepository('NoxIntranetSupportSIBundle:CompteurDemande')->find(6);
-
-            date_default_timezone_set('Europe/Paris');
-            $date = new \DateTime(date('Y/m/d'));
 
             if ($compteur == null) {
                 $compteur = new CompteurDemande();
@@ -94,43 +95,110 @@ class SupportSIController extends Controller {
             }
 
             $numRequette = $date->format('d/m/Y') . "-" . $compteur->getCompteur();
-            $superieur = $request->query->get('nomSuperieur');
+            $superieur = $request->query->get('emailSuperieur');
+
+            $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($request->query->get('demandeur'));
+            $nomDemandeur = $demandeur->getFirstname() . " " . $demandeur->getLastname();
+
+            $cle = md5(uniqid(rand(), true));
+            while (!(empty($em->getRepository('NoxIntranetSupportSIBundle:DemandeMateriel')->findOneByCleDemande($cle)))) {
+                $cle = md5(uniqid(rand(), true));
+            }
 
             $message = \Swift_Message::newInstance()
-                    ->setSubject('Demande de matériel/logiciel ' . $request->query->get('demandeur'))
+                    ->setSubject('Demande de matériel/logiciel ' . $nomDemandeur)
                     ->setFrom('noreply@groupe-nox.com')
-                    ->setTo($adresseHelpdesk)
+                    ->setTo($superieur)
                     ->setBody(
                     $this->renderView(
-// app/Resources/views/Emails/registration.html.twig
-                            'Emails/demandeMateriel.html.twig', array('materiel' => $request->query->get('materiel'), 'logicielCheckbox' => $request->query->get('logicielCheckbox'), 'demandeur' => $request->query->get('demandeur'), 'agence' => $request->query->get('agence'),
-                        'numOrdre' => $numRequette, 'categorie' => $request->query->get('categorie'), 'logiciel' => $request->query->get('logiciel'), 'superieur' => $superieur, 'raison' => $request->query->get('raisonDemande'),
-                        'date' => $dateDemande
+                            'Emails/confirmationDemandeMateriel.html.twig', array('materiel' => $request->query->get('materiel'), 'logicielCheckbox' => $request->query->get('logicielCheckbox'), 'demandeur' => $nomDemandeur, 'agence' => $request->query->get('agence'),
+                        'numOrdre' => $numRequette, 'categorie' => $request->query->get('categorie'), 'logiciel' => $request->query->get('logiciel'), 'date' => $dateDemande, 'lienConfirmation' => $cle, 'raison' => $request->query->get('raisonDemande')
                             )
                     ), 'text/html'
-                    )
-            /*
-             * If you also want to include a plaintext version of the message
-              ->addPart(
-              $this->renderView(
-              'Emails/registration.txt.twig',
-              array('name' => $name)
-              ),
-              'text/plain'
-              )
-             */
-            ;
+            );
             $this->get('mailer')->send($message);
 
             $compteur->setCompteur($compteur->getCompteur() + 1);
             $em->persist($compteur);
+
+            $donneesMessage = array('materiel' => $request->query->get('materiel'), 'logicielCheckbox' => $request->query->get('logicielCheckbox'), 'demandeur' => $nomDemandeur, 'agence' => $request->query->get('agence'),
+                'numOrdre' => $numRequette, 'categorie' => $request->query->get('categorie'), 'logiciel' => $request->query->get('logiciel'), 'emailSuperieur' => $superieur, 'raison' => $request->query->get('raisonDemande'),
+                'date' => $dateDemande, 'lienConfirmation' => $cle, 'emailDemandeur' => $emailDemandeur
+            );
+
+            $newDemandeMateriel = new DemandeMateriel();
+
+            $newDemandeMateriel->setMailSuperieur($superieur);
+            $newDemandeMateriel->setMessage($donneesMessage);
+            $newDemandeMateriel->setCleDemande($cle);
+            $em->persist($newDemandeMateriel);
+
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', "Votre demande a été transmise au service Helpdesk.");
+            $request->getSession()->getFlashBag()->add('notice', "Votre demande a été transmise a votre supérieur et est en attente de validation.");
             return $this->render('NoxIntranetSupportSIBundle:Support:demandeMateriel.html.twig', array('username' => $name, 'agence' => $agence, 'date' => $date));
         }
 
         return $this->render('NoxIntranetSupportSIBundle:Support:demandeMateriel.html.twig', array('username' => $name, 'agence' => $agence, 'date' => $date));
+    }
+
+    public function demandeConfirmationAction(Request $request, $cleDemande, $reponse) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $adresseHelpdesk = $em->getRepository('NoxIntranetAdministrationBundle:Helpdesk')->findOneBySection('Helpdesk')->getEmail();
+
+        $demande = $em->getRepository('NoxIntranetSupportSIBundle:DemandeMateriel')->findOneByCleDemande($cleDemande);
+
+        $donneesMessage = $demande->getMessage();
+
+        if (!empty($demande)) {
+            if ($reponse === 'valide') {
+
+                $messageHelpdesk = \Swift_Message::newInstance()
+                        ->setSubject('Demande de matériel/logiciel ' . $donneesMessage['demandeur'])
+                        ->setFrom('noreply@groupe-nox.com')
+                        ->setTo($adresseHelpdesk)
+                        ->setBody(
+                        $this->renderView(
+                                'Emails/demandeMateriel.html.twig', array('donneesMessage' => $donneesMessage)
+                        ), 'text/html'
+                );
+                $this->get('mailer')->send($messageHelpdesk);
+
+                $messageDemandeur = $messageDemandeur = \Swift_Message::newInstance()
+                        ->setSubject('Validation de votre demande de matériel')
+                        ->setFrom('noreply@groupe-nox.com')
+                        ->setTo($donneesMessage['emailDemandeur'])
+                        ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été validée par votre supérieur et transmise au service Helpdesk."
+                        , 'text/html'
+                );
+                $this->get('mailer')->send($messageDemandeur);
+
+                $em->remove($demande);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', "La demande de matériel de " . $donneesMessage['demandeur'] . " a été validée.");
+            } else {
+                $messageDemandeur = $messageDemandeur = \Swift_Message::newInstance()
+                        ->setSubject('Rejet de votre demande de matériel')
+                        ->setFrom('noreply@groupe-nox.com')
+                        ->setTo($donneesMessage['emailDemandeur'])
+                        ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été rejeté par votre supérieur."
+                        , 'text/html'
+                );
+                $this->get('mailer')->send($messageDemandeur);
+
+                $em->remove($demande);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', "La demande de matériel de " . $donneesMessage['demandeur'] . " a été rejeté.");
+            }
+        } else {
+            $request->getSession()->getFlashBag()->add('notice', "Cette demande de matériel a déjà été traitée.");
+        }
+
+        return $this->redirectToRoute('nox_intranet_accueil');
     }
 
 }

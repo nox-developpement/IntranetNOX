@@ -475,6 +475,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             }
 
+            // nox_intranet_demande_materiel_confirmation
+            if (0 === strpos($pathinfo, '/supportSI/confirmation-demande') && preg_match('#^/supportSI/confirmation\\-demande/(?P<cleDemande>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'nox_intranet_demande_materiel_confirmation')), array (  '_controller' => 'NoxIntranet\\SupportSIBundle\\Controller\\SupportSIController::demandeConfirmationAction',));
+            }
+
             // nox_intranet_avancement_projet
             if ($pathinfo === '/supportSI/avancementProjet') {
                 return array (  '_controller' => 'NoxIntranet\\SupportSIBundle\\Controller\\AvancementProjetController::avancementProjetAction',  '_route' => 'nox_intranet_avancement_projet',);

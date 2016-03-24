@@ -55,7 +55,7 @@ class __TwigTemplate_569dcd85d8d30f5b877481a4dbc81f622554bd68606383e00ff8f0f1731
         echo "
     ";
         // line 13
-        if ($this->env->getExtension('security')->isGranted("ROLE_ADMIN")) {
+        if ($this->env->getExtension('security')->isGranted("ROLE_REFERENCES")) {
             // line 14
             echo "
         ";
@@ -596,7 +596,7 @@ class __TwigTemplate_569dcd85d8d30f5b877481a4dbc81f622554bd68606383e00ff8f0f1731
 /* */
 /*     {% if text is defined %}{{ text|raw }}{% endif %}*/
 /* */
-/*     {% if is_granted('ROLE_ADMIN') %}*/
+/*     {% if is_granted('ROLE_REFERENCES') %}*/
 /* */
 /*         {{ form_start(formulaire, {'attr': {'id': 'formulaireTexteEncart' }}) }}*/
 /* */

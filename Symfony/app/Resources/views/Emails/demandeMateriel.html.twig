@@ -1,18 +1,18 @@
-N° ordre : {{ numOrdre }} <br /><br />
+N° ordre : {{ donneesMessage.numOrdre }} <br /><br />
 
 Bonjour, <br />
 
-L'utilisateur <strong>{{ demandeur }}</strong> situé dans l'agence de <strong>{{ agence }}</strong> à fait
+L'utilisateur <strong>{{ donneesMessage.demandeur }}</strong> situé dans l'agence de <strong>{{ donneesMessage.agence }}</strong> à fait
 la/les demande(s) suivante(s) : <br/><br/>
-{% if materiel == 'materiel' %}
-   - Matériel :  <strong>{{ categorie }}</strong>. <br />
+{% if donneesMessage.materiel == 'materiel' %}
+    - Matériel :  <strong>{{ donneesMessage.categorie }}</strong>. <br />
 {% endif %}
-{% if logicielCheckbox == 'logicielCheckbox' %}
-   - Logiciel : <strong>{{ logiciel }}.</strong> <br />
+{% if donneesMessage.logicielCheckbox == 'logicielCheckbox' %}
+    - Logiciel : <strong>{{ donneesMessage.logiciel }}.</strong> <br />
 {% endif %}
 <br />
-Raison de la demande : {{ raison }}
+Raison de la demande : {{ donneesMessage.raison }}
 <br /><br />
-Date désirée : <strong>{{ date }}</strong>
+Date désirée : <strong>{{ donneesMessage.date }}</strong>
 <br /><br />
-Nom du supérieur : <strong>{{ superieur }}.</strong>
+Demande validée par : <strong>{{ donneesMessage.emailSuperieur }}</strong>
