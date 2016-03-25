@@ -40,6 +40,7 @@
     <div id="zoneNewsAccueil">
 
         <script src={{ asset('./js/jquery-2.2.0.min.js') }}></script>
+        <script src="{{ asset('./js/jquery-ui.min.js') }}"></script>
         <script src={{ asset('./js/menuAnimation.js') }}></script>
         <script type="text/javascript">
             $(window).load(function () {
@@ -66,19 +67,19 @@
                 {% endfor %}
 
                     function showNews(arr) {
-                        $('#majExterne p').fadeTo(5000, 100);
+                        $('#majExterne p').fadeTo(500, 100, 'linear');
                         $('#majExterne p').html(arr[0]);
-                        $('#majExterne p').fadeTo(5000, 0); // fade to "0" with a 1000ms duration
+                        $('#majExterne p').fadeTo(4500, 0, 'easeInExpo'); // fade to "0" with a 100, easeInExpo0ms duration
                         var i = 1;
                         setInterval(
                                 function () {
-                                    $('#majExterne p').fadeTo(5000, 100);
+                                    $('#majExterne p').fadeTo(500, 100, 'linear');
                                     $('#majExterne p').html(arr[i]);
-                                    $('#majExterne p').fadeTo(5000, 0); // fade to "0" with a 1000ms duration
+                                    $('#majExterne p').fadeTo(4500, 0, 'easeInExpo'); // fade to "0" with a 100, easeInExpo0ms duration
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 10000);
+                                }, 6000);
                     }
 
                     showNews(newsExterne);
@@ -105,19 +106,19 @@
                 {% endfor %}
 
                     function showNews(arr) {
-                        $('#majInterne p').fadeTo(5000, 100);
+                        $('#majInterne p').fadeTo(500, 100, 'linear');
                         $('#majInterne p').html(arr[0]);
-                        $('#majInterne p').fadeTo(5000, 0);
+                        $('#majInterne p').fadeTo(4500, 0, 'easeInExpo');
                         var i = 1;
                         setInterval(
                                 function () {
-                                    $('#majInterne p').fadeTo(5000, 100);
+                                    $('#majInterne p').fadeTo(500, 100, 'linear');
                                     $('#majInterne p').html(arr[i]);
-                                    $('#majInterne p').fadeTo(5000, 0);
+                                    $('#majInterne p').fadeTo(4500, 0, 'easeInExpo');
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 10000);
+                                }, 6000);
                     }
 
                     showNews(newsInterne);
@@ -144,19 +145,19 @@
                 {% endfor %}
 
                     function showNews(arr) {
-                        $('#majMarketing p').fadeTo(5000, 100);
+                        $('#majMarketing p').fadeTo(500, 100, 'linear');
                         $('#majMarketing p').html(arr[0]);
-                        $('#majMarketing p').fadeTo(5000, 0);
+                        $('#majMarketing p').fadeTo(4500, 0, 'easeInExpo');
                         var i = 1;
                         setInterval(
                                 function () {
-                                    $('#majMarketing p').fadeTo(5000, 100);
+                                    $('#majMarketing p').fadeTo(500, 100, 'linear');
                                     $('#majMarketing p').html(arr[i]);
-                                    $('#majMarketing p').fadeTo(5000, 0);
+                                    $('#majMarketing p').fadeTo(4500, 0, 'easeInExpo');
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 10000);
+                                }, 6000);
                     }
 
                     showNews(newsMarketing);
@@ -183,19 +184,19 @@
                 {% endfor %}
 
                     function showNews(arr) {
-                        $('#majSI p').fadeTo(5000, 100);
+                        $('#majSI p').fadeTo(500, 100, 'linear');
                         $('#majSI p').html(arr[0]);
-                        $('#majSI p').fadeTo(5000, 0);
+                        $('#majSI p').fadeTo(4500, 0, 'easeInExpo');
                         var i = 1;
                         setInterval(
                                 function () {
-                                    $('#majSI p').fadeTo(5000, 100);
+                                    $('#majSI p').fadeTo(500, 100, 'linear');
                                     $('#majSI p').html(arr[i]);
-                                    $('#majSI p').fadeTo(5000, 0);
+                                    $('#majSI p').fadeTo(4500, 0, 'easeInExpo');
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 10000);
+                                }, 6000);
                     }
 
                     showNews(newsSI);
@@ -222,19 +223,19 @@
                 {% endfor %}
 
                     function showNews(arr) {
-                        $('#majAQ p').fadeTo(5000, 100);
+                        $('#majAQ p').fadeTo(500, 100, 'linear');
                         $('#majAQ p').html(arr[0]);
-                        $('#majAQ p').fadeTo(5000, 0);
+                        $('#majAQ p').fadeTo(4500, 0, 'easeInExpo');
                         var i = 1;
                         setInterval(
                                 function () {
-                                    $('#majAQ p').fadeTo(5000, 100);
+                                    $('#majAQ p').fadeTo(500, 100, 'linear');
                                     $('#majAQ p').html(arr[i]);
-                                    $('#majAQ p').fadeTo(5000, 0);
+                                    $('#majAQ p').fadeTo(4500, 0, 'easeInExpo');
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 10000);
+                                }, 6000);
                     }
 
                     showNews(newsAQ);
@@ -261,19 +262,19 @@
                 {% endfor %}
 
                     function showNews(arr) {
-                        $('#majRH p').fadeTo(5000, 100);
+                        $('#majRH p').fadeTo(500, 100, 'linear');
                         $('#majRH p').html(arr[0]);
-                        $('#majRH p').fadeTo(5000, 0);
+                        $('#majRH p').fadeTo(4500, 0, 'easeInExpo');
                         var i = 1;
                         setInterval(
                                 function () {
-                                    $('#majRH p').fadeTo(5000, 100);
+                                    $('#majRH p').fadeTo(500, 100, 'linear');
                                     $('#majRH p').html(arr[i]);
-                                    $('#majRH p').fadeTo(5000, 0);
+                                    $('#majRH p').fadeTo(4500, 0, 'easeInExpo');
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 10000);
+                                }, 6000);
                     }
 
                     showNews(newsRH);
@@ -300,19 +301,19 @@
                 {% endfor %}
 
                     function showNews(arr) {
-                        $('#posteAPourvoir p').fadeTo(5000, 100);
+                        $('#posteAPourvoir p').fadeTo(500, 100, 'linear');
                         $('#posteAPourvoir p').html(arr[0]);
-                        $('#posteAPourvoir p').fadeTo(5000, 0);
+                        $('#posteAPourvoir p').fadeTo(4500, 0, 'easeInExpo');
                         var i = 1;
                         setInterval(
                                 function () {
-                                    $('#posteAPourvoir p').fadeTo(5000, 100);
+                                    $('#posteAPourvoir p').fadeTo(500, 100, 'linear');
                                     $('#posteAPourvoir p').html(arr[i]);
-                                    $('#posteAPourvoir p').fadeTo(5000, 0);
+                                    $('#posteAPourvoir p').fadeTo(4500, 0, 'easeInExpo');
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 10000);
+                                }, 6000);
                     }
 
                     showNews(newsPosteAPourvoir);
@@ -339,19 +340,19 @@
                 {% endfor %}
 
                     function showNews(arr) {
-                        $('#nominationOrganisation p').fadeTo(5000, 100);
+                        $('#nominationOrganisation p').fadeTo(500, 100, 'linear');
                         $('#nominationOrganisation p').html(arr[0]);
-                        $('#nominationOrganisation p').fadeTo(5000, 0);
+                        $('#nominationOrganisation p').fadeTo(4500, 0, 'easeInExpo');
                         var i = 1;
                         setInterval(
                                 function () {
-                                    $('#nominationOrganisation p').fadeTo(5000, 100);
+                                    $('#nominationOrganisation p').fadeTo(500, 100, 'linear');
                                     $('#nominationOrganisation p').html(arr[i]);
-                                    $('#nominationOrganisation p').fadeTo(5000, 0);
+                                    $('#nominationOrganisation p').fadeTo(4500, 0, 'easeInExpo');
                                     i++;
                                     if (i >= arr.length)
                                         i = 0;
-                                }, 10000);
+                                }, 6000);
                     }
 
                     showNews(newsNominationOrganisation);
