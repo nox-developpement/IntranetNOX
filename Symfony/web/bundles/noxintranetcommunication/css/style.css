@@ -86,6 +86,11 @@ footer div p img {
     vertical-align: middle;
 }
 
+footer a, footer a:hover, footer a:visited {
+    color: white;
+    text-decoration: none;
+}
+
 h2 {
     margin-top: 0px;
     margin-left: 3%;
@@ -125,8 +130,6 @@ form select, form input[type=number], form input[type=text] {
     color: #FEFEFE;
     width: 15%;
     padding: 0px;
-
-    overflow: auto;
 }
 
 #login form {
@@ -2611,4 +2614,48 @@ form input[type='checkbox'] {
 
 .formulaireAAImgDown {
     display: none;
+}
+
+.tooltipLogin {
+    position: relative;
+}
+
+/* Tooltip text */
+.tooltipLogin .tooltipLoginText {
+    visibility: hidden;
+    width: 100%;
+    background-color: rgba(31,78,121,0);
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    font-size: 0.8vw;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    right: 103%;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.8s, background-color 0.8s;
+}
+
+/* Tooltip arrow */
+.tooltipLogin .tooltipLoginText::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent rgba(31,78,121,0.8);
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltipLogin:hover .tooltipLoginText {
+    visibility: visible;
+    background-color: rgba(31,78,121,0.8);
+    opacity: 1;
 }
