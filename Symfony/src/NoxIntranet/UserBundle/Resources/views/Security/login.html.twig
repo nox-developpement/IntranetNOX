@@ -14,7 +14,11 @@
     </div>
 {% else %}
 
-    <div id='login'>
+    <div id='login' class="tooltipLogin">
+        <span class="tooltipLoginText">
+            Utilisez les mêmes identifiants que pour votre session Windows. <br />
+            ex: Vous êtes 'Henry Martin', votre login est 'h.martin'.
+        </span>
         <form action="{{ path('login_check') }}" method="post">
 
             <input type="text" id="username" name="_username" placeholder="Nom d'utilisateur" />

@@ -12,15 +12,27 @@ function resizeLogin() {
 
 }
 
+function resizeTootltipLogin() {
+
+    // Taille du Login/2 - taille de la Tooltip/2 - padding supérieur de la Tooltip.
+    var top = $('.tooltipLogin').height() / 2 - $('.tooltipLogin .tooltipLoginText').height() / 2 - 5;
+
+    $('.tooltipLogin .tooltipLoginText').css('top', top);
+}
+
 $(window).ready(function () {
     setTimeout(function () {
         resizeLogin();
     }, 10);
-    
+    setTimeout(function () {
+        resizeTootltipLogin();
+    }, 10);
+
     $('#Keywords p').css('font-size', $('#Keywords p').height());
 });
 
 $(window).resize(function () {
     resizeLogin();
+    resizeTootltipLogin();
 });
 
