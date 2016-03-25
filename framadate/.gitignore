@@ -1,0 +1,23 @@
+.htaccess
+.htpasswd
+admin/stdout.log
+composer.phar
+framanav
+nav
+app/inc/config.php
+vendor
+cache/
+tpl_c/
+
+# Temp files
+*~
+\#*\#
+
+# Cache
+Thumbs.db
+
+# IDE
+.settings/
+.project
+.idea/
+*.iml
