@@ -1015,6 +1015,10 @@ divAdministrationUtilisateur {
 
 }
 
+#divAdministrationAdmin {
+    margin-bottom: 2%;
+}
+
 #divAdministrationAdmin table {
     width: 65%;
     margin: auto; 

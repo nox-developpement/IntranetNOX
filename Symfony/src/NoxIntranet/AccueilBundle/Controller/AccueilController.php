@@ -11,11 +11,6 @@ namespace NoxIntranet\AccueilBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
-use NoxIntranet\AccueilBundle\Entity\Compteur;
-use NoxIntranet\AccueilBundle\Entity\Annonces;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Doctrine\ORM\EntityRepository;
 
 /**
  * Description of AccueilController
@@ -198,6 +193,9 @@ class AccueilController extends Controller {
 
         $PDFs = array();
 
+        $dateActuel = new \DateTime();
+        $dateActuel->format('Y/m/d');
+
         $em = $this->getDoctrine()->getManager();
 
         foreach ($files as $file) {
@@ -206,15 +204,25 @@ class AccueilController extends Controller {
 
             if ($fileExist != null) {
 
-                $listePDF[] = $fileExist;
 
-                foreach ($listePDF as $k => $v) {
-                    $date[$k] = $v->getDateEnvoi();
+                $dateEnvoi = new \DateTime($fileExist->getDateEnvoi());
+
+                $ecart = $dateEnvoi->diff($dateActuel);
+
+                if ($ecart->days <= 15) {
+                    $listePDF[] = $fileExist;
                 }
-
-                array_multisort($date, SORT_DESC, $listePDF);
             }
         }
+
+        if (!empty($listePDF)) {
+            foreach ($listePDF as $k => $v) {
+                $date[$k] = $v->getDateEnvoi();
+            }
+
+            array_multisort($date, SORT_DESC, $listePDF);
+        }
+
         return $listePDF;
     }
 

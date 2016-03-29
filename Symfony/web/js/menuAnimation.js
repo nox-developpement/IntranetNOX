@@ -19,7 +19,7 @@ function DivNewsSliding() {
     $('.DivMaj').delay(10000).each(function (index) {
         $(this).delay(10000 * index).slideToggle(1500, 'easeOutQuart', function () {
             $('#zoneNewsAccueil').append($(this));
-            $(this).slideToggle();
+            $(this).slideToggle(1500, 'easeOutQuart');
         });
     }).promise().done(function () {
         DivNewsSliding();
