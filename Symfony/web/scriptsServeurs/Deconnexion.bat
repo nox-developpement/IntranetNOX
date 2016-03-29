@@ -1,1 +1,0 @@
-net use y: /delete /y
