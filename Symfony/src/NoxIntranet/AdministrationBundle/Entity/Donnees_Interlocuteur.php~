@@ -24,9 +24,9 @@ class Donnees_Interlocuteur {
     /**
      * @var integer
      *
-     * @ORM\Column(name="Client", type="integer")
+     * @ORM\Column(name="IdClient", type="integer")
      */
-    private $client;
+    private $idClient;
 
     /**
      * @var string

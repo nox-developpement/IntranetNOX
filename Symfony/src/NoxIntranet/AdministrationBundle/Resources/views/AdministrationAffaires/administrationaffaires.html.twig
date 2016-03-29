@@ -259,10 +259,12 @@
 
     <div id="DivFormulaireAAModele" class="titreFormulaireAA" onclick="
             assistantAffaireToggle([
-                $('#DivFormulaireAjoutClient')
+                $('#DivFormulaireAjoutClient'),
+                $('#DivFormulaireSuppressionClient')
             ], $(this));
             Recherche('.selectFormulaireSelectionVersion');
-            resizeFormLabelAndData($('.labelFormulaireAdministrationAjoutClient'), $('.champFormulaireRemplissageAjoutClient'), $('.formulaireAdministrationAjoutClient p'));"
+            resizeFormLabelAndData($('.labelFormulaireAdministrationAjoutClient'), $('.champFormulaireRemplissageAjoutClient'), $('.formulaireAdministrationAjoutClient p'));
+            resizeFormLabelAndData($('.labelFormulaireAdministrationSuppressionClient'), $('.champFormulaireRemplissageSuppresionClient'), $('.formulaireAdministrationSuppressionClient p'));"
          >
         <h4> Clients <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='formulaireAAImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='formulaireAAImgDown'> </h4>
     </div>
@@ -324,9 +326,35 @@
 
     </div>
 
+    <div id='DivFormulaireSuppressionClient' class='formulaireAA'>
+
+        {{ form_start(formSuppressionClient, {'attr': {'class': 'formulaireAdministrationSuppressionClient'}}) }}
+        {{ form_errors(formSuppressionClient) }}
+
+        <fieldset>
+
+            <legend>Supprimer un client</legend>
+
+            <p>
+                {{ form_label(formSuppressionClient.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionClient'}}) }}
+                {{ form_errors(formSuppressionClient.Nom) }}
+                {{ form_widget(formSuppressionClient.Nom, {'attr': {'class': 'textFormulaireAdministrationSuppressionClient champFormulaireRemplissageSuppresionClient'}}) }}
+
+                <br />
+
+                {{ form_widget(formSuppressionClient.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationSuppressionClient', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset>
+
+        {{ form_end(formSuppressionClient) }}
+
+    </div>
+
     <div id="DivFormulaireAAModele" class="titreFormulaireAA" onclick="
             assistantAffaireToggle([
-                $('#DivFormulaireAjoutInterlocuteur')
+                $('#DivFormulaireAjoutInterlocuteur'),
+                $('#DivFormulaireSuppressionInterlocuteur')
             ], $(this));
             resizeFormLabelAndData($('.labelFormulaireAdministrationAjoutInterlocuteur'), $('.champFormulaireRemplissageAjoutInterlocuteur'), $('.formulaireAdministrationAjoutInterlocuteur p'));"
          >
@@ -343,9 +371,9 @@
             <legend>Ajouter un interlocuteur</legend>
 
             <p>
-                {{ form_label(formAjoutInterlocuteur.Client, "Client :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}
-                {{ form_errors(formAjoutInterlocuteur.Client) }}
-                {{ form_widget(formAjoutInterlocuteur.Client, {'attr': {'class': 'selectFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutInterlocuteur'}}) }}
+                {{ form_label(formAjoutInterlocuteur.IdClient, "Client :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}
+                {{ form_errors(formAjoutInterlocuteur.IdClient) }}
+                {{ form_widget(formAjoutInterlocuteur.IdClient, {'attr': {'class': 'selectFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutInterlocuteur'}}) }}
 
                 <br />
 
@@ -380,7 +408,7 @@
 
         </fieldset>
 
-        {{ form_end(formAjoutClient) }}
+        {{ form_end(formAjoutInterlocuteur) }}
 
         <script>
             function checkConstraint(Champ, regexp, message) {
@@ -402,6 +430,33 @@
             checkConstraint($('#formAjoutInterlocuteur_Portable'), /(0|(\\+33)|(0033))[1-9][0-9]{8}/, "Le numéro dois être de la forme '0634691934' ou '+33634691934'.");
             checkConstraint($('#formAjoutInterlocuteur_Email'), /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i, "L'adresse email doit être de la forme 'prénom.nom@domain.fr'.");
         </script>
+
+    </div>
+
+    <div id='DivFormulaireSuppressionInterlocuteur' class='formulaireAA'>
+
+        {{ form_start(formSuppressionInterlocuteur, {'attr': {'class': 'formulaireAdministrationAjoutInterlocuteur'}}) }}
+        {{ form_errors(formSuppressionInterlocuteur) }}
+
+        <fieldset>
+
+            <legend>Supprimer un interlocuteur</legend>
+
+            <p>
+                {{ form_label(formSuppressionInterlocuteur.Interlocuteur, "Client :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}
+                {{ form_errors(formSuppressionInterlocuteur.Interlocuteur) }}
+                {{ form_widget(formSuppressionInterlocuteur.Interlocuteur, {'attr': {'class': 'selectFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutInterlocuteur'}}) }}
+
+                {{ form_widget(formSuppressionInterlocuteur._token) }}
+
+                <br />
+
+                {{ form_widget(formSuppressionInterlocuteur.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationAjoutClient', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset>
+
+        {{ form_end(formSuppressionInterlocuteur) }}
 
     </div>
 

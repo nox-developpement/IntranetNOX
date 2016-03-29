@@ -24,9 +24,9 @@ class Donnees_Interlocuteur {
     /**
      * @var integer
      *
-     * @ORM\Column(name="Client", type="integer")
+     * @ORM\Column(name="IdClient", type="integer")
      */
-    private $client;
+    private $idClient;
 
     /**
      * @var string
@@ -155,26 +155,26 @@ class Donnees_Interlocuteur {
 
 
     /**
-     * Set client
+     * Set idClient
      *
-     * @param integer $client
+     * @param integer $idClient
      *
      * @return Donnees_Interlocuteur
      */
-    public function setClient($client)
+    public function setIdClient($idClient)
     {
-        $this->client = $client;
+        $this->idClient = $idClient;
 
         return $this;
     }
 
     /**
-     * Get client
+     * Get idClient
      *
      * @return integer
      */
-    public function getClient()
+    public function getIdClient()
     {
-        return $this->client;
+        return $this->idClient;
     }
 }
