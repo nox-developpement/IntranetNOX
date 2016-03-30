@@ -1,0 +1,27 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Choix du client {% endblock %}
+
+{% block messageAccueil %}Choix du client{% endblock %}
+
+{% block contenu %}
+
+    <div id="DivFormulaireChoixClient">
+
+        {{ form_start(form, {'attr': {'class': 'formulaireChoixClient'}}) }}
+        {{ form_errors(form) }}
+
+        <fieldset>
+
+            <legend>Informations sur le suivi</legend>
+
+
+        </fieldset> 
+
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}
+
+

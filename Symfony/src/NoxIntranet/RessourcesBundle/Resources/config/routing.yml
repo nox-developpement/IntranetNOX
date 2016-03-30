@@ -84,6 +84,14 @@ nox_intranet_assistant_affaire_nouvelle_choix_modele:
     path: /ressources/assistant-affaires/creation-suivi/choix-modèle/{IdSuivi}
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviChoixModele }
     
+nox_intranet_assistant_affaire_nouvelle_choix_client:
+    path: /ressources/assistant-affaires/creation-suivi/choix-client/{IdSuivi}
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviChoixClient }
+    
+nox_intranet_assistant_affaire_nouvelle_infos:
+    path: /ressources/assistant-affaires/creation-suivi/info-suivi/{IdSuivi}
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviInfos }
+    
 nox_intranet_assistant_affaire_edition:
     path: /ressources/assistant-affaires/edition-suivi/{IdSuivi}/{version}
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:editionSuiviEnCours, version: "" }
