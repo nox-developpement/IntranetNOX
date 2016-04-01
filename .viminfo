@@ -8,6 +8,7 @@
 # hlsearch on (H) or off (h):
 ~h
 # Command Line History (newest to oldest):
+:wq
 
 # Search String History (newest to oldest):
 
@@ -20,12 +21,23 @@
 # Registers:
 
 # File marks:
-'0  1  0  ~/.bashrc
+'0  10  52  ~/.git/MERGE_MSG
+'1  1  0  ~/.bashrc
 
 # Jumplist (newest first):
+-'  10  52  ~/.git/MERGE_MSG
+-'  1  0  ~/.git/MERGE_MSG
+-'  1  0  ~/.bashrc
 -'  1  0  ~/.bashrc
 
 # History of marks within files (newest to oldest):
+
+> ~/.git/MERGE_MSG
+	"	10	52
+	^	10	53
+	.	10	52
+	+	2	0
+	+	10	52
 
 > ~/.bashrc
 	"	1	0
