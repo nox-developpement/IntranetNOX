@@ -1774,7 +1774,8 @@ divAdministrationUtilisateur {
     vertical-align: top;
     height: 72%;
     overflow-y: scroll;
-    box-shadow: inset -5px -5px 10px #1F4E79;
+    border-top: solid 1px rgb(31,78,121);
+    border-right: solid 1px rgb(31,78,121);
 }
 
 #menuSupport, #menuVideoInstitutionnelle, #menuReseauxSociaux, #menuBanqueImages, #menuOrganigrammes, #menuVieDeLentreprise, 
