@@ -14,13 +14,14 @@
 
 namespace NoxIntranet\PDFParsingBundle\ExtractPDFMetadatas;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NoxIntranet\PDFParsingBundle\Entity\PDF;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class NoxIntranetExtractPDFMetadatas {
 
-    public function __construct(\Doctrine\ORM\EntityManager $entityManager) {
+    public function __construct(\Doctrine\ORM\EntityManager $entityManager, Container $container) {
         $this->em = $entityManager;
+        $this->container = $container;
     }
 
     function getDirContents($dir, &$results = array()) {
@@ -49,13 +50,19 @@ class NoxIntranetExtractPDFMetadatas {
 
     function parsePDF() {
 
+        $root = $this->container->getParameter('kernel.root_dir') . '\..';
+
+        $rootLetter = str_replace(':\wamp\www\Symfony\app\..', '', $root);
+
+        strstr($root . ':', ':', true);
+
         $parser = new \Smalot\PdfParser\Parser();
 
         $PDFem = $this->em;
 
         $PDFPresents = $PDFem->getRepository('NoxIntranetPDFParsingBundle:PDF')->findAll();
 
-        $files = $this->getDirContents('C:\wamp\www\Symfony\web\uploads');
+        $files = $this->getDirContents($root . '\web\uploads');
 
         if ($PDFPresents != null) {
             foreach ($PDFPresents as $PDFPresent) {
@@ -86,8 +93,9 @@ class NoxIntranetExtractPDFMetadatas {
 
                     $dateModification = date("Y/m/d", filemtime($file));
                     $nom = str_replace('.pdf', '', basename($file));
-                    $lien = str_replace("C:\wamp\www", '', $file);
+                    $lien = str_replace($rootLetter . ":\wamp\www", '', $file);
                     $lien = str_replace("\\", "/", $lien);
+
                     $news[] = array('lien' => $lien, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
                 }
             }
@@ -99,7 +107,7 @@ class NoxIntranetExtractPDFMetadatas {
                 $newPDF->setNom($new['nom']);
                 $newPDF->setDateEnvoi($new['dateEnvoi']);
                 $newPDF->setLien($new['lien']);
-                $newPDF->setChemin("C:\wamp\www" . str_replace("/", "\\", $new['lien']));
+                $newPDF->setChemin($rootLetter . ":\wamp\www" . str_replace("/", "\\", $new['lien']));
 
                 if (array_key_exists('Title', $new['proprietes'])) {
                     $newPDF->setTitle($new['proprietes']['Title']);

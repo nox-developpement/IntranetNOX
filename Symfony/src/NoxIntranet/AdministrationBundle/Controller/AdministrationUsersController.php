@@ -137,11 +137,14 @@ class AdministrationUsersController extends Controller {
     }
 
     function exportUserAction(Request $request) {
+
+        $root = $this->get('kernel')->getRootDir() . '\..';
+
         $em = $this->getDoctrine()->getManager();
 
         $users = $em->getRepository('NoxIntranetUserBundle:User')->findBy(array(), array('username' => 'ASC'));
 
-        $listeUsers = fopen('C:\wamp\www\Symfony\utilisateurs.csv', 'w');
+        $listeUsers = fopen($root . '\utilisateurs.csv', 'w');
 
         fputcsv($listeUsers, array('Nom D\'utilisateur', 'Roles', 'Local'), ';');
 
@@ -168,9 +171,9 @@ class AdministrationUsersController extends Controller {
             fputcsv($listeUsers, array($username, $role, $local), ';');
         }
 
-        $file = 'C:\wamp\www\Symfony\utilisateurs.csv';
+        $file = $root . '\utilisateurs.csv';
 
-        if (file_exists('C:\wamp\www\Symfony\utilisateurs.csv')) {
+        if (file_exists($root . '\utilisateurs.csv')) {
             header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
             header('Content-Disposition: attachment; filename="' . basename($file) . '"');

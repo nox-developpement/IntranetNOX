@@ -38,14 +38,17 @@ class AdministrationArchivesController extends Controller {
     }
 
     public function creationBat() {
-        $this->clearFolder('C:/wamp/www/Symfony/web/scriptsArchives/');
+        
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+        
+        $this->clearFolder($root . '/web/scriptsArchives/');
 
         $em = $this->getDoctrine()->getManager();
 
         $archives = $em->getRepository('NoxIntranetRessourcesBundle:Archive')->findBy(array(), array('agence' => 'ASC'));
 
         foreach ($archives as $archive2) {
-            $scriptBat = fopen('C:/wamp/www/Symfony/web/scriptsArchives/' . $archive2->getAgence() . '.bat', 'a+');
+            $scriptBat = fopen($root . '/web/scriptsArchives/' . $archive2->getAgence() . '.bat', 'a+');
 
             fputs($scriptBat, 'net use /persistent:no');
             fputs($scriptBat, "\n");
@@ -58,6 +61,8 @@ class AdministrationArchivesController extends Controller {
     }
 
     public function administrationArchiveAction(Request $request) {
+        
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
 
         $em = $this->getDoctrine()->getManager();
 
@@ -83,7 +88,7 @@ class AdministrationArchivesController extends Controller {
                 return $this->render('NoxIntranetAdministrationBundle:AdministrationArchives:accueilarchives.html.twig', array('form' => $form->createView(), 'archives' => $archives));
             }
 
-            $archive->setChemin('C:/wamp/www/Symfony/web/scriptsArchives/' . $form['agence']->getData() . '.bat');
+            $archive->setChemin($root . '/web/scriptsArchives/' . $form['agence']->getData() . '.bat');
             $em->persist($archive);
             $em->flush();
 

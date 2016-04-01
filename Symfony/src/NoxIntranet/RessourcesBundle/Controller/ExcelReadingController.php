@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use NoxIntranet\RessourcesBundle\Entity\Suivis;
 use NoxIntranet\RessourcesBundle\Entity\DonneesSuivi;
 use NoxIntranet\AdministrationBundle\Entity\DonneesFormulaire;
+use NoxIntranet\AdministrationBundle\Entity\Donnees_Client;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -40,6 +41,8 @@ class ExcelReadingController extends Controller {
 
     public function readXlsAction() {
 
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+
         include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
 
         $rendererName = \PHPExcel_Settings::PDF_RENDERER_TCPDF;
@@ -56,33 +59,6 @@ class ExcelReadingController extends Controller {
             );
         }
 
-//        $objReader = new \PHPExcel_Reader_Excel2007();
-//        $objPHPExcel = $objReader->load("C:\wamp\www\Classeur1.xlsx");
-//
-////        $objWriter = new \PHPExcel_Writer_PDF($objPHPExcel);
-////        $objWriter->save("C:/wamp/www/05featuredemo.pdf");
-//        $sheet = $objPHPExcel->getSheet(0);
-////
-////        echo '<table border="1">';
-////
-////        // On boucle sur les lignes
-////        foreach ($sheet->getRowIterator() as $row) {
-////
-////            echo '<tr>';
-////
-////            // On boucle sur les cellule de la ligne
-////            foreach ($row->getCellIterator() as $cell) {
-////                echo '<td>';
-////                print_r($cell->getValue());
-////                echo '</td>';
-////            }
-////
-////            echo '</tr>';
-////        }
-////        echo '</table>';
-//
-//        $rows = $sheet->getRowIterator();
-
         $workbook = new \PHPExcel;
 
         $sheet = $workbook->getActiveSheet();
@@ -90,7 +66,7 @@ class ExcelReadingController extends Controller {
         $sheet->setCellValue('A1', 'Test ajout de valeur');
 
         $objWriter = new \PHPExcel_Writer_PDF($workbook);
-        $objWriter->save("C:/wamp/www/testRendu.pdf");
+        $objWriter->save($root . "../testRendu.pdf");
 
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaire.html.twig');
     }
@@ -187,6 +163,55 @@ class ExcelReadingController extends Controller {
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreation.html.twig', array('form' => $form->createView()));
     }
 
+    public function creationSuiviChoixClientAction(Request $request, $IdSuivi) {
+        $em = $this->getDoctrine()->getManager();
+
+        $suivi = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->find($IdSuivi);
+
+        $form = $this->get('form.factory')->createBuilder('form')
+                ->add('Client', EntityType::class, array(
+                    'class' => 'NoxIntranetAdministrationBundle:Donnees_Client',
+                    'placeholder' => 'Nouveau client',
+                    'choice_label' => 'Nom'
+                ))
+                ->add('Nom', TextType::class)
+                ->add('Adresse', TextType::class)
+                ->add('Fax', TextType::class)
+                ->add('Choisir', SubmitType::class)
+                ->add('Créer', SubmitType::class)
+                ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            if ($form['Choisir']->isClicked()) {
+                $suivi->setIdClient($form['Client']->getData()->getId());
+            }
+
+            if ($form['Créer']->isClicked()) {
+                $newClient = new Donnees_Client();
+                $newClient->setNom($form['Nom']->getData());
+                $newClient->setAdresse($form['Adresse']->getData());
+                $newClient->setFax($form['Fax']->getData());
+
+                $em->persist($newClient);
+                $em->flush();
+
+                $suivi->setIdClient($newClient->getId());
+
+                $request->getSession()->getFlashBag()->add('notice', 'Nouveau client ajouté.');
+            }
+
+            $em->persist($suivi);
+            $em->flush();
+
+            return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_infos', array('IdSuivi' => $IdSuivi, 'form' => $form));
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreationchoixclient.html.twig', array('form' => $form->createView()));
+    }
+
     public function creationSuiviChoixModeleAction(Request $request, $IdSuivi) {
         $em = $this->getDoctrine()->getManager();
 
@@ -214,7 +239,7 @@ class ExcelReadingController extends Controller {
         } else {
             $request->getSession()->getFlashBag()->add('noticeErreur', 'Il n\'y a aucun modèle disponible pour ce profil de suivi !');
 
-            return $this->redirectToRoute('nox_intranet_assistant_affaire_parcour_suivi_en_cours');
+            return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_client');
         }
 
         $form->handleRequest($request);
@@ -225,10 +250,31 @@ class ExcelReadingController extends Controller {
             $em->persist($suivi);
             $em->flush();
 
-            return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi));
+            return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_client', array('IdSuivi' => $IdSuivi));
         }
 
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreationchoixmodele.html.twig', array('form' => $form->createView(), 'profil' => $profil));
+    }
+
+    public function creationSuiviInfosAction(Request $request, $IdSuivi) {
+        $em = $this->getDoctrine()->getManager();
+
+        $suivi = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->find($IdSuivi);
+
+        $form = $this->get('form.factory')->createBuilder('form', $suivi)
+                ->add('Marche', TextType::class)
+                ->add('NoCommande', TextType::class)
+                ->add('NoClient', TextType::class)
+                ->add('Commune', TextType::class)
+                ->add('Objet', TextType::class)
+                ->add('NoINGEDIABEP', TextType::class)
+                ->add('Estimatif', TextType::class)
+                ->add('Valider', SubmitType::class)
+                ->getForm();
+
+        $form->handleRequest($request);
+
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreationinfos.html.twig', array('form' => $form->createView()));
     }
 
     public function consulterSuiviAction(Request $request, $agence) {
@@ -361,7 +407,11 @@ class ExcelReadingController extends Controller {
                     if ($suivi->getIdModele() === null) {
                         return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_modele', array('IdSuivi' => $IdSuivi));
                     } else {
-                        return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi));
+                        if ($suivi->getIdClient() === null) {
+                            return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_client', array('IdSuivi' => $IdSuivi));
+                        } else {
+                            return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi));
+                        }
                     }
                 }
             }
@@ -381,6 +431,9 @@ class ExcelReadingController extends Controller {
     }
 
     public function editionSuiviEnCoursAction(Request $request, $IdSuivi, $version) {
+
+        $root = $this->get('kernel')->getRootDir() . '\..';
+
         $em = $this->getDoctrine()->getManager();
         $emChampDonnees = $this->getDoctrine()->getManager();
 
@@ -413,6 +466,15 @@ class ExcelReadingController extends Controller {
                     },
                     'placeholder' => 'Nouvelle version',
                     'data' => $IdDonneesSuivi
+                ))
+                ->add('Supprimer', SubmitType::class)
+                ->getForm();
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Génération du formulaire de selection du client
+        $formSelectionCreationClient = $this->get('form.factory')->createNamedBuilder('formSelectionCreationClient', 'form')
+                ->add('version', EntityType::class, array(
+                    'class' => 'NoxIntranetAdministrationBundle:Donnees_Client',
+                    'choice_label' => 'Nom',
                 ))
                 ->add('Supprimer', SubmitType::class)
                 ->getForm();
@@ -676,7 +738,7 @@ class ExcelReadingController extends Controller {
 
                     $fichier = $fichierVersion . ".xlsx";
 
-                    $chemin = 'C:\wamp\www\Symfony\web\ExcelGenerate\\';
+                    $chemin = $root . '\web\ExcelGenerate\\';
 
                     $writer->save($chemin . $fichier);
 
@@ -954,7 +1016,7 @@ class ExcelReadingController extends Controller {
 
                     $fichier = $fichierVersion . ".xlsx";
 
-                    $chemin = 'C:\wamp\www\Symfony\web\ExcelGenerate\\';
+                    $chemin = $root . '\web\ExcelGenerate\\';
 
                     $writer->save($chemin . $fichier);
 

@@ -116,9 +116,11 @@ class AdministrationController extends Controller {
 
     public function administrationUserDBMajAction(Request $request) {
 
+        $root = $this->get('kernel')->getRootDir() . '\..';
+
         $output = null;
 
-        exec('C:\wamp\www\Symfony\recupUsers.bat', $output);
+        exec($root . '\recupUsers.bat', $output);
 
         for ($i = 0; $i < 17; $i++) {
             unset($output[$i]);
@@ -130,11 +132,13 @@ class AdministrationController extends Controller {
         //, array('usernames' => $newUserNames, 'ajout' => 'true'));
     }
 
-    public function administrationUserVerifDBMajAction(Request $request) {
+    public function administrationUserVerifDBMajAction() {
+
+        $root = $this->get('kernel')->getRootDir() . '\..';
 
         $output = null;
 
-        exec('C:\wamp\www\Symfony\verifRecupUsers.bat', $output);
+        exec($root . '\verifRecupUsers.bat', $output);
 
         for ($i = 0; $i < 17; $i++) {
             unset($output[$i]);
@@ -144,16 +148,18 @@ class AdministrationController extends Controller {
         //, array('usernames' => $newUserNames, 'ajout' => 'true'));
     }
 
-    public function administrationBDDRestaurationAction(Request $request) {
+    public function administrationBDDRestaurationAction() {
 
         return $this->render('NoxIntranetAdministrationBundle:Administration:administrationUserDB.html.twig', array('ajout' => false, 'confirmationRestauration' => true));
     }
-    
+
     public function administrationBDDRestaurationConfirmationAction(Request $request) {
+
+        $root = $this->get('kernel')->getRootDir() . '\..';
 
         $output = null;
 
-        exec('C:\wamp\www\Symfony\RestaurationBDD.bat', $output);
+        exec($root . '\RestaurationBDD.bat', $output);
 
         if ($output != null) {
             $request->getSession()->getFlashBag()->add('noticeErreur', "La restauration a échoué !");
@@ -165,9 +171,12 @@ class AdministrationController extends Controller {
     }
 
     public function sauvegardeBDDAction(Request $request) {
+
+        $root = $this->get('kernel')->getRootDir() . '\..';
+
         $output = null;
 
-        exec('C:\wamp\www\Symfony\BDDDump.bat', $output);
+        exec($root . '\BDDDump.bat', $output);
 
         if ($output != null) {
             $request->getSession()->getFlashBag()->add('noticeErreur', "La sauvegarde a échoué !");
@@ -290,7 +299,7 @@ class AdministrationController extends Controller {
     }
 
     public function administrationLiensAction() {
-        
+
         return $this->redirectToRoute('nox_intranet_liens');
     }
 

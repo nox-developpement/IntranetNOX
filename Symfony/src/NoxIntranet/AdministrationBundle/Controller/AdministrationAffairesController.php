@@ -60,6 +60,8 @@ class AdministrationAffairesController extends Controller {
 
     public function administrationAffairesAccueilAction(Request $request, $profil) {
 
+        $root = $this->get('kernel')->getRootDir() . '\..';
+
         $em = $this->getDoctrine()->getManager();
 
         // Génération formulaire d'ajout de profil
@@ -508,7 +510,7 @@ class AdministrationAffairesController extends Controller {
 
             if ($formAjoutFichier->isValid()) {
 
-                $dir = "C:\wamp\www\Symfony\web\uploads\AssistantAffaires\FeuillesSuivis\\";
+                $dir = $root . "\web\uploads\AssistantAffaires\FeuillesSuivis\\";
 
                 $file = $formAjoutFichier['file']->getData();
 
@@ -797,6 +799,8 @@ class AdministrationAffairesController extends Controller {
 
     public function administrationAffairesEditionAction(Request $request, $file, $profil) {
 
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+
         $em = $this->getDoctrine()->getManager();
 
         include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
@@ -811,11 +815,11 @@ class AdministrationAffairesController extends Controller {
 
         $writer = new \PHPExcel_Writer_Excel2007($objPHPExcel);
 
-        exec("soffice --headless --convert-to pdf --outdir \"C:/wamp/www/Symfony/web/ExcelToPDF\" \"" . $file . "\"");
+        exec("soffice --headless --convert-to pdf --outdir \"" . $root . "/web/ExcelToPDF\" \"" . $file . "\"");
 
-        $pdf = "C:/wamp/www/Symfony/web/ExcelToPDF/" . $filename . ".pdf";
+        $pdf = $root . "/web/ExcelToPDF/" . $filename . ".pdf";
 
-        $imagePDFChemin = "C:/wamp/www/Symfony/web/ImagePDF/" . $filename . ".png";
+        $imagePDFChemin = $root . "/web/ImagePDF/" . $filename . ".png";
 
         exec("convert \"" . $pdf . "[0]\" -strip \"" . $imagePDFChemin . "\"");
 

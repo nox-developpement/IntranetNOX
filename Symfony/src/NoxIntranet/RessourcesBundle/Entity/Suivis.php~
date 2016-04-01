@@ -52,6 +52,13 @@ class Suivis {
     /**
      * @var string
      *
+     * @ORM\Column(name="IdClient", type="integer")
+     */
+    private $idClient;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="Statut", type="string", length=255)
      */
     private $statut;
@@ -62,6 +69,55 @@ class Suivis {
      * @ORM\Column(name="IdModele", type="integer", nullable=true)
      */
     private $idModele;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Commune", type="string", length=255)
+     */
+    private $commune;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Marche", type="string", length=255)
+     */
+    private $marche;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="NoCommande", type="string", length=255)
+     */
+    private $nocommande;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="NoClient", type="string", length=255)
+     */
+    private $noclient;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Objet", type="string", length=255)
+     */
+    private $objet;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="NoINGEDIABEP", type="string", length=255)
+     */
+    private $noINGEDIABEP;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Estimatif", type="string", length=255)
+     */
+    private $estimatif;
 
     /**
      * Get id
@@ -202,6 +258,182 @@ class Suivis {
      */
     public function getIdModele() {
         return $this->idModele;
+    }
+
+    /**
+     * Set commune
+     *
+     * @param string $commune
+     *
+     * @return Suivis
+     */
+    public function setCommune($commune) {
+        $this->commune = $commune;
+
+        return $this;
+    }
+
+    /**
+     * Get commune
+     *
+     * @return string
+     */
+    public function getCommune() {
+        return $this->commune;
+    }
+
+    /**
+     * Set marche
+     *
+     * @param string $marche
+     *
+     * @return Suivis
+     */
+    public function setMarche($marche) {
+        $this->marche = $marche;
+
+        return $this;
+    }
+
+    /**
+     * Get marche
+     *
+     * @return string
+     */
+    public function getMarche() {
+        return $this->marche;
+    }
+
+    /**
+     * Set nocommande
+     *
+     * @param string $nocommande
+     *
+     * @return Suivis
+     */
+    public function setNocommande($nocommande) {
+        $this->nocommande = $nocommande;
+
+        return $this;
+    }
+
+    /**
+     * Get nocommande
+     *
+     * @return string
+     */
+    public function getNocommande() {
+        return $this->nocommande;
+    }
+
+    /**
+     * Set noclient
+     *
+     * @param string $noclient
+     *
+     * @return Suivis
+     */
+    public function setNoclient($noclient) {
+        $this->noclient = $noclient;
+
+        return $this;
+    }
+
+    /**
+     * Get noclient
+     *
+     * @return string
+     */
+    public function getNoclient() {
+        return $this->noclient;
+    }
+
+    /**
+     * Set objet
+     *
+     * @param string $objet
+     *
+     * @return Suivis
+     */
+    public function setObjet($objet) {
+        $this->objet = $objet;
+
+        return $this;
+    }
+
+    /**
+     * Get objet
+     *
+     * @return string
+     */
+    public function getObjet() {
+        return $this->objet;
+    }
+
+    /**
+     * Set noINGEDIABEP
+     *
+     * @param string $noINGEDIABEP
+     *
+     * @return Suivis
+     */
+    public function setNoINGEDIABEP($noINGEDIABEP) {
+        $this->noINGEDIABEP = $noINGEDIABEP;
+
+        return $this;
+    }
+
+    /**
+     * Get noINGEDIABEP
+     *
+     * @return string
+     */
+    public function getNoINGEDIABEP() {
+        return $this->noINGEDIABEP;
+    }
+
+    /**
+     * Set estimatif
+     *
+     * @param string $estimatif
+     *
+     * @return Suivis
+     */
+    public function setEstimatif($estimatif) {
+        $this->estimatif = $estimatif;
+
+        return $this;
+    }
+
+    /**
+     * Get estimatif
+     *
+     * @return string
+     */
+    public function getEstimatif() {
+        return $this->estimatif;
+    }
+
+    /**
+     * Set client
+     *
+     * @param \Client $client
+     *
+     * @return Suivis
+     */
+    public function setClient(\Client $client) {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return \Client
+     */
+    public function getClient() {
+        return $this->client;
     }
 
 }

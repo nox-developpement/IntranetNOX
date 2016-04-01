@@ -12,15 +12,7 @@ nox_intranet_faq:
     
 nox_intranet_archives:
     path:   /ressources/archives
-    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:archives }
-    
-nox_intranet_competences:
-    path:   /ressources/competences
-    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:competences }
-    
-nox_intranet_competences_recherche:
-    path:   /ressources/competences/recherche
-    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:competencesKeyword }
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:archives } 
     
 nox_intranet_references:
     path:   /ressources/references/{page}
@@ -83,6 +75,14 @@ nox_intranet_assistant_affaire_nouvelle:
 nox_intranet_assistant_affaire_nouvelle_choix_modele:
     path: /ressources/assistant-affaires/creation-suivi/choix-modèle/{IdSuivi}
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviChoixModele }
+    
+nox_intranet_assistant_affaire_nouvelle_choix_client:
+    path: /ressources/assistant-affaires/creation-suivi/choix-client/{IdSuivi}
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviChoixClient }
+    
+nox_intranet_assistant_affaire_nouvelle_infos:
+    path: /ressources/assistant-affaires/creation-suivi/info-suivi/{IdSuivi}
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviInfos }
     
 nox_intranet_assistant_affaire_edition:
     path: /ressources/assistant-affaires/edition-suivi/{IdSuivi}/{version}

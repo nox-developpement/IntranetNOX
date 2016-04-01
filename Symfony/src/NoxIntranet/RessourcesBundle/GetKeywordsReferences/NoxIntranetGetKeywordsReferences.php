@@ -88,9 +88,11 @@ class NoxIntranetGetKeywordsReferences extends Controller {
 
     public function putKeywordsNumber() {
 
+        $root = $this->get('kernel')->getRootDir() . '\..';
+
         $referencesEm = $this->em;
 
-        $filesReferences = $this->getDirContents('C:\wamp\www\Symfony\web\uploads\References');
+        $filesReferences = $this->getDirContents($root . '\web\uploads\References');
 
         $keywordsExistants = $referencesEm->getRepository('NoxIntranetRessourcesBundle:ReferencesKeywords')->findAll();
 

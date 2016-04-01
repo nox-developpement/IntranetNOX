@@ -35,7 +35,10 @@ class CommunicationController extends Controller {
     }
 
     function affichageContenuAction($chemin, $dossier, $config, $page) {
-        $news = $this->getPDF("C:/wamp/www/Symfony/web/uploads/Communication/" . $chemin);
+
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+
+        $news = $this->getPDF($root . "/web/uploads/Communication/" . $chemin);
 
         if ($news == null) {
             $nbPages = 1;
@@ -77,7 +80,10 @@ class CommunicationController extends Controller {
     }
 
     function affichageImagesAction($chemin, $dossier, $config, $page) {
-        $imagesChemin = $this->getDirContents("C:/wamp/www/Symfony/web/uploads/Communication/" . $chemin);
+
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+
+        $imagesChemin = $this->getDirContents($root . "/web/uploads/Communication/" . $chemin);
 
         if (!empty($imagesChemin)) {
 
@@ -110,7 +116,9 @@ class CommunicationController extends Controller {
 
     function downloadImageAction($image) {
 
-        $chemin = "C:/wamp/www/Symfony/web";
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+
+        $chemin = $root . "/web";
 
         $response = new Response();
         $response->setContent(file_get_contents($chemin . $image));

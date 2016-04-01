@@ -37,14 +37,17 @@ class AdministrationServeursController extends Controller {
     }
 
     public function creationBat() {
-        $this->clearFolder('C:/wamp/www/Symfony/web/scriptsServeurs/');
+        
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+        
+        $this->clearFolder($root . '/web/scriptsServeurs/');
 
         $em = $this->getDoctrine()->getManager();
 
         $serveurs = $em->getRepository('NoxIntranetRessourcesBundle:Serveur')->findBy(array(), array('agence' => 'ASC'));
 
         foreach ($serveurs as $serveur2) {
-            $scriptBat = fopen('C:/wamp/www/Symfony/web/scriptsServeurs/' . $serveur2->getAgence() . '.bat', 'a+');
+            $scriptBat = fopen($root . '/web/scriptsServeurs/' . $serveur2->getAgence() . '.bat', 'a+');
 
             fputs($scriptBat, 'net use /persistent:no');
             fputs($scriptBat, "\n");
@@ -57,6 +60,8 @@ class AdministrationServeursController extends Controller {
     }
 
     public function administrationServeurAction(Request $request) {
+        
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
 
         $em = $this->getDoctrine()->getManager();
 
@@ -82,7 +87,7 @@ class AdministrationServeursController extends Controller {
                 return $this->render('NoxIntranetAdministrationBundle:AdministrationServeurs:administrationserveurs.html.twig', array('form' => $form->createView(), 'serveurs' => $serveurs));
             }
 
-            $serveur->setChemin('C:/wamp/www/Symfony/web/scriptsServeurs/' . $form['agence']->getData() . '.bat');
+            $serveur->setChemin($root .'/web/scriptsServeurs/' . $form['agence']->getData() . '.bat');
             $em->persist($serveur);
             $em->flush();
 

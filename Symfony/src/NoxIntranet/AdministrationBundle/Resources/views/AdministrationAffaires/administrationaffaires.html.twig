@@ -435,7 +435,7 @@
 
     <div id='DivFormulaireSuppressionInterlocuteur' class='formulaireAA'>
 
-        {{ form_start(formSuppressionInterlocuteur, {'attr': {'class': 'formulaireAdministrationAjoutInterlocuteur'}}) }}
+        {{ form_start(formSuppressionInterlocuteur, {'attr': {'class': 'formulaireAdministrationSuppressionInterlocuteur'}}) }}
         {{ form_errors(formSuppressionInterlocuteur) }}
 
         <fieldset>
@@ -443,15 +443,15 @@
             <legend>Supprimer un interlocuteur</legend>
 
             <p>
-                {{ form_label(formSuppressionInterlocuteur.Interlocuteur, "Client :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}
+                {{ form_label(formSuppressionInterlocuteur.Interlocuteur, "Client :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionInterlocuteur'}}) }}
                 {{ form_errors(formSuppressionInterlocuteur.Interlocuteur) }}
-                {{ form_widget(formSuppressionInterlocuteur.Interlocuteur, {'attr': {'class': 'selectFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutInterlocuteur'}}) }}
+                {{ form_widget(formSuppressionInterlocuteur.Interlocuteur, {'attr': {'class': 'selectFormulaireAdministrationSuppressionClient champFormulaireRemplissageAjoutInterlocuteur'}}) }}
 
                 {{ form_widget(formSuppressionInterlocuteur._token) }}
 
                 <br />
 
-                {{ form_widget(formSuppressionInterlocuteur.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationAjoutClient', 'class': 'boutonFormulaire' }}) }}
+                {{ form_widget(formSuppressionInterlocuteur.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationSuppressionClient', 'class': 'boutonFormulaire' }}) }}
             </p>
 
         </fieldset>
