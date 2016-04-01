@@ -36,18 +36,21 @@ class ControllerGeneratorCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
+
+        $root = str_replace('\\', '/', $this->getContainer()->getParameter('kernel.root_dir') . '/..');
+
         $parsePDF = $this->getContainer()->get('noxintranet_pdfparsing.parsepdf');
 
         $pdfs = $parsePDF->parsePDF();
 
-        $fileToDelete = glob('C:/wamp/www/Symfony/web/ImagePDF/*');
+        $fileToDelete = glob($root . '/Symfony/web/ImagePDF/*');
 
         if ($pdfs != null) {
             foreach ($pdfs as $pdf) {
-                if (is_file("C:/wamp/www/Symfony/web/ImagePDF/" . pathinfo($pdf['lien'], PATHINFO_FILENAME) . ".png")) {
-                    unlink("C:/wamp/www/Symfony/web/ImagePDF/" . pathinfo($pdf['lien'], PATHINFO_FILENAME) . ".png");
+                if (is_file($root . "/web/ImagePDF/" . pathinfo($pdf['lien'], PATHINFO_FILENAME) . ".png")) {
+                    unlink($root . "/web/ImagePDF/" . pathinfo($pdf['lien'], PATHINFO_FILENAME) . ".png");
                 }
-                exec("convert \"C:/wamp/www" . $pdf['lien'] . "[0]\" -resize 500x500 -strip -interlace line \"C:/wamp/www/Symfony/web/ImagePDF/" . pathinfo($pdf['lien'], PATHINFO_FILENAME) . ".png\"");
+                exec("convert \"" . $root . "/.." . $pdf['lien'] . "[0]\" -resize 500x500 -strip -interlace line \"" . $root . "/web/ImagePDF/" . pathinfo($pdf['lien'], PATHINFO_FILENAME) . ".png\"");
                 $output->writeln("Nom : " . $pdf['nom']);
                 $output->writeln("Chemin : " . $pdf['lien']);
                 $output->writeln("Date : " . $pdf['dateEnvoi']);

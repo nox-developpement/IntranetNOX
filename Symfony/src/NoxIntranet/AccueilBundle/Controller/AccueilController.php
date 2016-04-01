@@ -54,59 +54,9 @@ class AccueilController extends Controller {
         return $results;
     }
 
-    function getMaj($files) {
-
-        $parser = new \Smalot\PdfParser\Parser();
-
-        $news = null;
-
-        $news5 = null;
-
-        if ($files != null) {
-            foreach ($files as $file) {
-                if (!is_dir($file)) {
-                    $propriete = null;
-
-                    $pdf = $parser->parseFile($file);
-                    $details = $pdf->getDetails();
-
-                    foreach ($details as $property => $value) {
-
-                        if (is_array($value)) {
-                            $value = implode(', ', $value);
-                        }
-
-                        $propriete[] = array('label' => $property, 'valeur' => $value);
-                    }
-
-                    $dateModification = date("Y/m/d H:i:s", filemtime($file));
-                    $nom = str_replace('.pdf', '', basename($file));
-                    $lien = str_replace("C:\wamp\www", '', $file);
-                    $lien = str_replace("\\", "/", $lien);
-                    $news[] = array('lien' => $lien, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
-                }
-            }
-
-            if ($news != null) {
-                foreach ($news as $k => $v) {
-                    $date[$k] = $v['dateEnvoi'];
-                }
-                array_multisort($date, SORT_DESC, $news);
-
-                $news5 = array_slice($news, 0, 5);
-
-                if ($news5 != null) {
-                    foreach ($news5 as $key => $value) {
-                        $news5[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
-                    }
-                }
-            }
-        }
-
-        return $news5;
-    }
-
     public function majCommunicationAction(Request $request) {
+
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
 
         $em = $this->getDoctrine()->getManager();
 
@@ -163,21 +113,21 @@ class AccueilController extends Controller {
 
         $texte = $texteEncart->getText();
 
-        $majExterne = $this->getPDF('C:/wamp/www/Symfony/web/uploads/Communication/Externe/');
+        $majExterne = $this->getPDF($root . '/web/uploads/Communication/Externe/');
 
-        $majInterne = $this->getPDF('C:/wamp/www/Symfony/web/uploads/Communication/Interne/');
+        $majInterne = $this->getPDF($root . '/web/uploads/Communication/Interne/');
 
-        $majMarketing = $this->getPDF('C:/wamp/www/Symfony/web/uploads/Communication/Marketing/');
+        $majMarketing = $this->getPDF($root . '/web/uploads/Communication/Marketing/');
 
-        $majSI = $this->getPDF('C:/wamp/www/Symfony/web/uploads/Communication/SI/');
+        $majSI = $this->getPDF($root . '/web/uploads/Communication/SI/');
 
-        $majAQ = $this->getPDF('C:/wamp/www/Symfony/web/uploads/AQ/');
+        $majAQ = $this->getPDF($root . '/web/uploads/AQ/');
 
-        $majRH = $this->getPDF('C:/wamp/www/Symfony/web/uploads/RH/');
+        $majRH = $this->getPDF($root . '/web/uploads/RH/');
 
-        $annoncesPoste = $this->getPDF('C:/wamp/www/Symfony/web/uploads/Communication/Interne/VieDeLentreprise/PosteAPourvoir/');
+        $annoncesPoste = $this->getPDF($root . '/web/uploads/Communication/Interne/VieDeLentreprise/PosteAPourvoir/');
 
-        $annoncesNomination = $this->getPDF('C:/wamp/www/Symfony/web//uploads/Communication/Interne/VieDeLentreprise/NominationOrganisation/');
+        $annoncesNomination = $this->getPDF($root . '/web//uploads/Communication/Interne/VieDeLentreprise/NominationOrganisation/');
 
         return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('texte' => $texte, 'formulaire' => $form->createView(),
                     'majExterne' => $majExterne, 'majInterne' => $majInterne, 'majMarketing' => $majMarketing, 'majSI' => $majSI,

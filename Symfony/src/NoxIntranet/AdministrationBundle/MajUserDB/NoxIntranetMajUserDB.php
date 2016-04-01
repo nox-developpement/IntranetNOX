@@ -36,11 +36,13 @@ class NoxIntranetMajUserDB extends Controller {
 
     public function majUserDB() {
 
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+
         $users = null;
 
         $newUsersNames = null;
 
-        if (($handle = fopen("c:/wamp/www/Symfony/users.csv", "r")) !== FALSE) {
+        if (($handle = fopen($root . "/users.csv", "r")) !== FALSE) {
             while (($data = fgetcsv($handle, ",")) !== FALSE) {
                 if (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') != false) {
                     $name = $data[1];
@@ -156,11 +158,14 @@ class NoxIntranetMajUserDB extends Controller {
     }
 
     public function verifMajUserDB() {
+
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+
         $users = null;
 
         $newUsersNames = null;
 
-        if (($handle = fopen("c:/wamp/www/Symfony/users.csv", "r")) !== FALSE) {
+        if (($handle = fopen($root . "/users.csv", "r")) !== FALSE) {
             while (($data = fgetcsv($handle, ",")) !== FALSE) {
                 if (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') != false) {
                     $name = $data[1];

@@ -121,6 +121,8 @@ class RessourcesController extends Controller {
 
     public function referencesAction(Request $request, $page) {
 
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+
         $em = $this->getDoctrine()->getManager();
 
         $textEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('References');
@@ -176,7 +178,7 @@ class RessourcesController extends Controller {
         $textEncartAffichage = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('References');
         $text = $textEncartAffichage->getText();
 
-        $news = $this->getPDF("C:/wamp/www/Symfony/web/uploads/References");
+        $news = $this->getPDF($root . "/web/uploads/References");
 
         if ($news == null) {
             $nbPages = 1;
@@ -190,6 +192,8 @@ class RessourcesController extends Controller {
     }
 
     public function referencesKeywordAction(Request $request, $page) {
+
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
 
         $em = $this->getDoctrine()->getManager();
 
@@ -250,7 +254,7 @@ class RessourcesController extends Controller {
 
         $competences = null;
 
-        $competences = $this->getPDF('C:/wamp/www/Symfony/web/uploads/References');
+        $competences = $this->getPDF($root . '/web/uploads/References');
 
         if (strcmp($request->query->get('keyword'), '') == 0) {
             $competencesRecherche = $competences;
@@ -321,14 +325,17 @@ class RessourcesController extends Controller {
 
     public function scriptDeconnexionDownloadAction() {
 
-        $file = "C:\wamp\www\Symfony\web\scriptsArchives\Deconnexion.bat";
+        $root = $this->get('kernel')->getRootDir() . '\..';
+
+        $file = $root . "\web\scriptsArchives\Deconnexion.bat";
 
         if (file_exists($file)) {
             header('Content-Type: application/octet-stream');
             header('Content-Length: ' . filesize($file));
-            header('Content-disposition: attachment; filename="' . basename($file) . '"');
+            header('Content-disposition: attachment;
+        filename = "' . basename($file) . '"');
             header('Pragma: no-cache');
-            header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+            header('Cache-Control: no-store, no-cache, must-revalidate, post-check = 0, pre-check = 0');
             header('Expires: 0');
             readfile($file);
             exit();
@@ -357,236 +364,16 @@ class RessourcesController extends Controller {
         if (file_exists($file)) {
             header('Content-Type: application/octet-stream');
             header('Content-Length: ' . filesize($file));
-            header('Content-disposition: attachment; filename="' . basename($file) . '"');
+            header('Content-disposition: attachment;
+        filename = "' . basename($file) . '"');
             header('Pragma: no-cache');
-            header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+            header('Cache-Control: no-store, no-cache, must-revalidate, post-check = 0, pre-check = 0');
             header('Expires: 0');
             readfile($file);
             exit();
         }
 
         return $this->redirectToRoute('nox_intranet_imprimantes');
-    }
-
-    public function competencesAction(Request $request) {
-
-        $em = $this->getDoctrine()->getManager();
-
-        $textEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Competences');
-
-        if ($textEncart == null) {
-            $textEncart = new texteEncart();
-            $textEncart->setSection('Competences');
-            $em->persist($textEncart);
-            $em->flush();
-        }
-
-        $formBuilder = $this->get('form.factory')->createBuilder('form', $textEncart);
-
-        $formBuilder
-                ->add('text', 'ckeditor')
-                ->add('modifier', 'submit')
-        ;
-
-        $form = $formBuilder->getForm();
-
-        $form->handleRequest($request);
-
-        // On vérifie que les valeurs entrées sont correctes
-        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
-        if ($form->isValid()) {
-            // On l'enregistre notre objet $advert dans la base de données, par exemple
-
-            $em->persist($textEncart);
-            $em->flush();
-
-            // On redirige vers la page de visualisation de l'annonce nouvellement créée
-            return $this->redirectToRoute('nox_intranet_competences');
-        }
-
-        $textEncartAffichage = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Competences');
-        $text = $textEncartAffichage->getText();
-
-        $parser = new \Smalot\PdfParser\Parser();
-
-        $dir = 'C:/wamp/www/Symfony/web/uploads/Competences';
-
-        $news = null;
-
-        $files = $this->getDirContents($dir);
-
-        if ($files != null) {
-            foreach ($files as $file) {
-                if (!is_dir($file)) {
-                    $propriete = null;
-
-                    $pdf = $parser->parseFile($file);
-                    $details = $pdf->getDetails();
-
-                    foreach ($details as $property => $value) {
-
-                        if (is_array($value)) {
-                            $value = implode(', ', $value);
-                        }
-
-                        $propriete[] = array('label' => $property, 'valeur' => $value);
-                    }
-
-                    $dateModification = date("Y/m/d H:i:s", filemtime($file));
-                    $nom = str_replace('.pdf', '', basename($file));
-                    $lien = str_replace("C:\wamp\www", '', $file);
-                    $lien = str_replace("\\", "/", $lien);
-                    $news[] = array('lien' => $lien, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
-                }
-            }
-
-            foreach ($news as $k => $v) {
-                $date[$k] = $v['dateEnvoi'];
-            }
-            array_multisort($date, SORT_DESC, $news);
-        }
-
-        if ($news != null) {
-            foreach ($news as $key => $value) {
-                $news[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
-            }
-        }
-
-        return $this->render('NoxIntranetRessourcesBundle:Competences:competences.html.twig', array('competences' => $news, 'text' => $text, 'formulaire' => $form->createView()));
-    }
-
-    public function competencesKeywordAction(Request $request) {
-
-        $em = $this->getDoctrine()->getManager();
-
-        $textEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Competences');
-
-        if ($textEncart == null) {
-            $textEncart = new texteEncart();
-            $textEncart->setSection('Competences');
-            $em->persist($textEncart);
-            $em->flush();
-        }
-
-        $formBuilder = $this->get('form.factory')->createBuilder('form', $textEncart);
-
-        $formBuilder
-                ->add('text', 'ckeditor')
-                ->add('modifier', 'submit')
-        ;
-
-        $form = $formBuilder->getForm();
-
-        $form->handleRequest($request);
-
-        // On vérifie que les valeurs entrées sont correctes
-        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
-        if ($form->isValid()) {
-            // On l'enregistre notre objet $advert dans la base de données, par exemple
-
-            $em->persist($textEncart);
-            $em->flush();
-
-            // On redirige vers la page de visualisation de l'annonce nouvellement créée
-            return $this->redirectToRoute('nox_intranet_competences');
-        }
-
-        $textEncartAffichage = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Competences');
-        $text = $textEncartAffichage->getText();
-
-        $keywords = explode(" ", $request->query->get('keyword'));
-
-        $parser = new \Smalot\PdfParser\Parser();
-
-        $dir = 'C:/wamp/www/Symfony/web/uploads/Competences';
-
-        $news = null;
-
-        $files = $this->getDirContents($dir);
-
-        if ($files != null) {
-            foreach ($files as $file) {
-                if (!is_dir($file)) {
-                    $propriete = null;
-
-                    $pdf = $parser->parseFile($file);
-                    $details = $pdf->getDetails();
-
-                    foreach ($details as $property => $value) {
-
-                        if (is_array($value)) {
-                            $value = implode(', ', $value);
-                        }
-
-                        $propriete[] = array('label' => $property, 'valeur' => $value);
-                    }
-
-                    $dateModification = date("Y/m/d H:i:s", filemtime($file));
-                    $nom = str_replace('.pdf', '', basename($file));
-                    $lien = str_replace("C:\wamp\www", '', $file);
-                    $lien = str_replace("\\", "/", $lien);
-                    $competences[] = array('lien' => $lien, 'nom' => $nom, 'proprietes' => $propriete, 'dateEnvoi' => $dateModification);
-                }
-            }
-        } else {
-            $competences = null;
-        }
-
-        if (strcmp($request->query->get('keyword'), '') == 0) {
-            $competencesRecherche = $competences;
-        } else {
-            $competencesRecherche = null;
-
-            if ($competences != null) {
-                foreach ($competences as $competence) {
-
-                    $labelKeyword = false;
-                    $find = true;
-
-                    foreach ($competence['proprietes'] as $propriete) {
-                        if ($propriete['label'] === 'Keywords') {
-                            $labelKeyword = true;
-                            foreach ($keywords as $keyword) {
-                                if (stripos($propriete['valeur'], $keyword) === false) {
-                                    $find = false;
-                                }
-                            }
-                        }
-                    }
-
-                    if ($labelKeyword) {
-                        if ($find) {
-                            $competencesRecherche[] = array('lien' => $competence['lien'], 'nom' => $competence['nom'], 'proprietes' => $competence['proprietes'], 'dateEnvoi' => $competence['dateEnvoi']);
-                        }
-                    }
-                }
-            }
-
-
-            if ($competencesRecherche != null) {
-                foreach ($competencesRecherche as $k => $v) {
-                    $date[$k] = $v['dateEnvoi'];
-                }
-            }
-        }
-
-        if ($competencesRecherche != null) {
-            foreach ($competencesRecherche as $k => $v) {
-                $date[$k] = $v['dateEnvoi'];
-            }
-
-            array_multisort($date, SORT_DESC, $competencesRecherche);
-        }
-
-
-
-        if ($competences != null) {
-            foreach ($competences as $key => $value) {
-                $competences[$key]['dateEnvoi'] = date("d/m/Y à H:i:s", strtotime($value['dateEnvoi']));
-            }
-        }
-
-        return $this->render('NoxIntranetRessourcesBundle:Competences:competences.html.twig', array('competences' => $competencesRecherche, 'text' => $text, 'formulaire' => $form->createView()));
     }
 
     public function serveursAction(Request $request) {
@@ -675,7 +462,9 @@ class RessourcesController extends Controller {
 
     public function scriptServeurDeconnexionDownloadAction() {
 
-        $file = "C:\wamp\www\Symfony\web\scriptsServeurs\Deconnexion.bat";
+        $root = $this->get('kernel')->getRootDir() . '\..';
+
+        $file = $root . "\web\scriptsServeurs\Deconnexion.bat";
 
         if (file_exists($file)) {
             header('Content-Type: application/octet-stream');
@@ -697,7 +486,9 @@ class RessourcesController extends Controller {
 
     public function affichageAQAction($chemin, $dossier, $config, $page) {
 
-        $news = $this->getPDF("C:/wamp/www/Symfony/web/uploads/AQ/" . $chemin);
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+
+        $news = $this->getPDF($root . "/web/uploads/AQ/" . $chemin);
 
         if ($news == null) {
             $nbPages = 1;
@@ -748,7 +539,9 @@ class RessourcesController extends Controller {
 
     public function affichageRHAction($chemin, $dossier, $config, $page) {
 
-        $news = $this->getPDF("C:/wamp/www/Symfony/web/uploads/RH/" . $chemin);
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+
+        $news = $this->getPDF($root . "/web/uploads/RH/" . $chemin);
 
         if ($news == null) {
             $nbPages = 1;
@@ -927,9 +720,11 @@ class RessourcesController extends Controller {
 
     public function excelParsingAction($chemin, $dossier, $config) {
 
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+
         include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
 
-        $excelFiles = $this->getDirContents("C:/wamp/www/Symfony/web/uploads/RH/" . $chemin);
+        $excelFiles = $this->getDirContents($root . "/web/uploads/RH/" . $chemin);
 
         if (!empty($excelFiles)) {
             foreach ($excelFiles as $file) {
@@ -942,9 +737,9 @@ class RessourcesController extends Controller {
                 $fichierExcel[$file]['Nom'] = pathinfo($file, PATHINFO_FILENAME);
                 $fichierExcel[$file]['dateEnvoi'] = date("Y/m/d", filemtime($file));
 
-                if (!is_file("C:/wamp/www/Symfony/web/ExcelToPDF/" . pathinfo($file, PATHINFO_FILENAME) . ".pdf") || !is_file("C:/wamp/www/Symfony/web/ImagePDF/" . pathinfo($file, PATHINFO_FILENAME) . ".png")) {
-                    exec("soffice --headless --convert-to pdf --outdir \"C:/wamp/www/Symfony/web/ExcelToPDF\" \"" . $file . "\"");
-                    exec("convert \"C:/wamp/www/Symfony/web/ExcelToPDF/" . pathinfo($file, PATHINFO_FILENAME) . ".pdf[0]\" -resize 500x500 -strip -interlace line \"C:/wamp/www/Symfony/web/ImagePDF/" . pathinfo($file, PATHINFO_FILENAME) . ".png\"");
+                if (!is_file($root . "/web/ExcelToPDF/" . pathinfo($file, PATHINFO_FILENAME) . ".pdf") || !is_file($root . "/web/ImagePDF/" . pathinfo($file, PATHINFO_FILENAME) . ".png")) {
+                    exec("soffice --headless --convert-to pdf --outdir \"" . $root . "/web/ExcelToPDF\" \"" . $file . "\"");
+                    exec("convert \"" . $root . "/web/ExcelToPDF/" . pathinfo($file, PATHINFO_FILENAME) . ".pdf[0]\" -resize 500x500 -strip -interlace line \"" . $root . "/web/ImagePDF/" . pathinfo($file, PATHINFO_FILENAME) . ".png\"");
                 }
             }
         } else {

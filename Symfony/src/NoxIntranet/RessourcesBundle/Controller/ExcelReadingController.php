@@ -41,6 +41,8 @@ class ExcelReadingController extends Controller {
 
     public function readXlsAction() {
 
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+
         include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
 
         $rendererName = \PHPExcel_Settings::PDF_RENDERER_TCPDF;
@@ -57,33 +59,6 @@ class ExcelReadingController extends Controller {
             );
         }
 
-//        $objReader = new \PHPExcel_Reader_Excel2007();
-//        $objPHPExcel = $objReader->load("C:\wamp\www\Classeur1.xlsx");
-//
-////        $objWriter = new \PHPExcel_Writer_PDF($objPHPExcel);
-////        $objWriter->save("C:/wamp/www/05featuredemo.pdf");
-//        $sheet = $objPHPExcel->getSheet(0);
-////
-////        echo '<table border="1">';
-////
-////        // On boucle sur les lignes
-////        foreach ($sheet->getRowIterator() as $row) {
-////
-////            echo '<tr>';
-////
-////            // On boucle sur les cellule de la ligne
-////            foreach ($row->getCellIterator() as $cell) {
-////                echo '<td>';
-////                print_r($cell->getValue());
-////                echo '</td>';
-////            }
-////
-////            echo '</tr>';
-////        }
-////        echo '</table>';
-//
-//        $rows = $sheet->getRowIterator();
-
         $workbook = new \PHPExcel;
 
         $sheet = $workbook->getActiveSheet();
@@ -91,7 +66,7 @@ class ExcelReadingController extends Controller {
         $sheet->setCellValue('A1', 'Test ajout de valeur');
 
         $objWriter = new \PHPExcel_Writer_PDF($workbook);
-        $objWriter->save("C:/wamp/www/testRendu.pdf");
+        $objWriter->save($root . "../testRendu.pdf");
 
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaire.html.twig');
     }
@@ -456,6 +431,9 @@ class ExcelReadingController extends Controller {
     }
 
     public function editionSuiviEnCoursAction(Request $request, $IdSuivi, $version) {
+
+        $root = $this->get('kernel')->getRootDir() . '\..';
+
         $em = $this->getDoctrine()->getManager();
         $emChampDonnees = $this->getDoctrine()->getManager();
 
@@ -760,7 +738,7 @@ class ExcelReadingController extends Controller {
 
                     $fichier = $fichierVersion . ".xlsx";
 
-                    $chemin = 'C:\wamp\www\Symfony\web\ExcelGenerate\\';
+                    $chemin = $root . '\web\ExcelGenerate\\';
 
                     $writer->save($chemin . $fichier);
 
@@ -1038,7 +1016,7 @@ class ExcelReadingController extends Controller {
 
                     $fichier = $fichierVersion . ".xlsx";
 
-                    $chemin = 'C:\wamp\www\Symfony\web\ExcelGenerate\\';
+                    $chemin = $root . '\web\ExcelGenerate\\';
 
                     $writer->save($chemin . $fichier);
 

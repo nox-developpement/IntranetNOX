@@ -12,15 +12,7 @@ nox_intranet_faq:
     
 nox_intranet_archives:
     path:   /ressources/archives
-    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:archives }
-    
-nox_intranet_competences:
-    path:   /ressources/competences
-    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:competences }
-    
-nox_intranet_competences_recherche:
-    path:   /ressources/competences/recherche
-    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:competencesKeyword }
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:archives } 
     
 nox_intranet_references:
     path:   /ressources/references/{page}
