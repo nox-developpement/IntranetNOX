@@ -131,6 +131,22 @@ function getMaxChildWidth(sel) {
 }
 
 function resizeFormLabelAndData(label, data, formParagraph) {
+    label.css({
+        'display': 'block',
+        /*    width: 40%;*/
+        'float': 'left',
+        'text-align': 'right',
+        'white-space': 'nowrap'
+    });
+    formParagraph.css({
+        'width': '70%',
+        'margin': 'auto'
+    });
+    data.css({
+        'margin-bottom': '2%',
+        'text-align': 'center'
+    });
+
     label.width(getMaxChildWidth(label));
     data.width((formParagraph.width() - label.width()) * 0.9);
 }

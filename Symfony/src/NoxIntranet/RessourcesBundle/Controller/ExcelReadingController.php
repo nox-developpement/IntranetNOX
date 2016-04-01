@@ -171,7 +171,7 @@ class ExcelReadingController extends Controller {
         $form = $this->get('form.factory')->createBuilder('form')
                 ->add('Client', EntityType::class, array(
                     'class' => 'NoxIntranetAdministrationBundle:Donnees_Client',
-                    'placeholder' => 'Nouveau',
+                    'placeholder' => 'Nouveau client',
                     'choice_label' => 'Nom'
                 ))
                 ->add('Nom', TextType::class)

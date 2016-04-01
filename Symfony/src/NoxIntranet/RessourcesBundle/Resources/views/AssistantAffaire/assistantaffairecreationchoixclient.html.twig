@@ -13,57 +13,42 @@
 
         <fieldset>
 
-            <legend>Choix du client</legend>
+            <legend>Client</legend>
 
-            {{ form_label(form.Client, "Client :", {'label_attr': {'class': 'labelFormulaireChoixSClient'}}) }}
-            {{ form_errors(form.Client) }}
-            {{ form_widget(form.Client, {'attr': {'class': 'selectFormulaireChoixModèle'}}) }}
+            <p>
 
-            <br />
+                {{ form_label(form.Client, "Client :", {'label_attr': {'class': 'labelFormulaireChoixClient'}}) }}
+                {{ form_errors(form.Client) }}
+                {{ form_widget(form.Client, {'attr': {'class': 'selectFormulaireChoixClient champChoixClient'}}) }}
 
-            {{ form_widget(form.Choisir, {'label': 'Choisir ce client', 'attr': {'class': 'boutonFormulaire' }}) }}
+                <br />
 
-            <br />
+                {{ form_widget(form.Choisir, {'label': 'Choisir ce client', 'attr': {'class': 'boutonFormulaire' }}) }}
 
-            OU
+                <br class="champNouveauClient">
 
-            <br />
+                {{ form_label(form.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireChoixClient champNouveauClient'}}) }}
+                {{ form_errors(form.Nom) }}
+                {{ form_widget(form.Nom, {'attr': {'class': 'textFormulaireChoixClient champNouveauClient champChoixClient'}}) }}
 
-            {{ form_label(form.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireChoixSClient champNouveauClient'}}) }}
-            {{ form_errors(form.Nom) }}
-            {{ form_widget(form.Nom, {'attr': {'class': 'textFormulaireChoixModèle champNouveauClient'}}) }}
+                <br />
 
-            <br />
+                {{ form_label(form.Adresse, "Adresse :", {'label_attr': {'class': 'labelFormulaireChoixClient champNouveauClient'}}) }}
+                {{ form_errors(form.Adresse) }}
+                {{ form_widget(form.Adresse, {'attr': {'class': 'textFormulaireChoixClient champNouveauClient champChoixClient'}}) }}
 
-            {{ form_label(form.Adresse, "Adresse :", {'label_attr': {'class': 'labelFormulaireChoixSClient champNouveauClient'}}) }}
-            {{ form_errors(form.Adresse) }}
-            {{ form_widget(form.Adresse, {'attr': {'class': 'textFormulaireChoixModèle champNouveauClient'}}) }}
+                <br class="champNouveauClient">
 
-            <br />
+                {{ form_label(form.Fax, "Fax :", {'label_attr': {'class': 'labelFormulaireChoixClient champNouveauClient'}}) }}
+                {{ form_errors(form.Fax) }}
+                {{ form_widget(form.Fax, {'attr': {'class': 'textFormulaireChoixClient champNouveauClient champChoixClient'}}) }}
 
-            {{ form_label(form.Fax, "Fax :", {'label_attr': {'class': 'labelFormulaireChoixSClient champNouveauClient'}}) }}
-            {{ form_errors(form.Fax) }}
-            {{ form_widget(form.Fax, {'attr': {'class': 'textFormulaireChoixModèle champNouveauClient'}}) }}
+                <br class="champNouveauClient">
 
-            <br />
+                {{ form_widget(form.Créer, {'label': 'Créer', 'attr': {'class': 'boutonFormulaire champNouveauClient' }}) }}
 
-            {{ form_widget(form.Créer, {'label': 'Créer', 'attr': {'class': 'boutonFormulaire champNouveauClient' }}) }}
-
-            <script>
-                $(window).load(function () {
-                    if ($('#form_Client').val() === '') {
-                        $('#form_Client').removeAttr('required');
-                        $('.champNouveauClient').attr('required', 'required');
-                        $('.champNouveauClient').show();
-                        $('#form_Choisir').hide();
-                    } else {
-                        $('#form_Client').attr('required', 'required');
-                        $('.champNouveauClient').hide();
-                        $('#form_Choisir').show();
-                        $('.champNouveauClient').removeAttr('required');
-                    }
-
-                    $('#form_Client').change(function () {
+                <script>
+                    $(window).load(function () {
                         if ($('#form_Client').val() === '') {
                             $('#form_Client').removeAttr('required');
                             $('.champNouveauClient').attr('required', 'required');
@@ -75,9 +60,26 @@
                             $('#form_Choisir').show();
                             $('.champNouveauClient').removeAttr('required');
                         }
+
+                        $('#form_Client').change(function () {
+                            if ($('#form_Client').val() === '') {
+                                $('#form_Client').removeAttr('required');
+                                $('.champNouveauClient').attr('required', 'required');
+                                $('.champNouveauClient').show();
+                                $('#form_Choisir').hide();
+                            } else {
+                                $('#form_Client').attr('required', 'required');
+                                $('.champNouveauClient').hide();
+                                $('#form_Choisir').show();
+                                $('.champNouveauClient').removeAttr('required');
+                            }
+                        });
+
+                        resizeFormLabelAndData($('.labelFormulaireChoixClient'), $('.champChoixClient'), $('.formulaireChoixClient p'));
                     });
-                });
-            </script>
+                </script>
+
+            </p>
 
         </fieldset> 
 

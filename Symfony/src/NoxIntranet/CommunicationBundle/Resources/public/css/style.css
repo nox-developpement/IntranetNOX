@@ -1992,7 +1992,8 @@ divAdministrationUtilisateur {
 .DivFormulaireAjoutChamp, .DivFormulaireSuppressionChamp, .DivFormulairePlacementChamp, #DivFormulaireChoixModele, 
 #DivFormulaireRemplissageSuivi, #DivFormulaireSelectionVersionSuivi, #DivFormulaireCloturationSuivi, .DivFormulaireSelectionChamp,
 .DivFormulaireAjoutDonnee, .DivFormulaireSuppressionDonnee, .DivFormulaireSuppressionPositionChamp, #DivFormulaireRemplissageSuiviCloture,
-#DivFormulaireAjoutClient, #DivFormulaireAjoutInterlocuteur, #DivFormulaireSuppressionClient, #DivFormulaireSuppressionInterlocuteur {
+#DivFormulaireAjoutClient, #DivFormulaireAjoutInterlocuteur, #DivFormulaireSuppressionClient, #DivFormulaireSuppressionInterlocuteur,
+#DivFormulaireChoixClient, #DivFormulaireInfoSuivi {
     margin: 0% 25% 0% 25%;
     margin-bottom: 2%;
     font-size: 0.8vw;
@@ -2004,7 +2005,8 @@ divAdministrationUtilisateur {
 .formulaireAjoutChamp, .formulaireSuppressionChamp, .formulairePlacementChamp, .formulaireChoixModele, 
 .formulaireRemplissageSuivi, .formulaireSelectionVersionSuivi, .formulaireCloturationSuivi, .formulaireSelectionChamp, .formulaireAjoutDonnee,
 .formulaireSuppresionDonnee, .formulaireSuppressionPositionChamp, .formulaireRemplissageSuiviCloture, .formulaireAdministrationAjoutClient,
-.formulaireAdministrationAjoutInterlocuteur, .formulaireAdministrationSuppressionClient, .formulaireAdministrationSuppressionInterlocuteur {
+.formulaireAdministrationAjoutInterlocuteur, .formulaireAdministrationSuppressionClient, .formulaireAdministrationSuppressionInterlocuteur,
+.formulaireChoixClient, .formulaireInfoSuivi {
     padding: 0px;
     border: none;
     width: 80%;
@@ -2017,7 +2019,8 @@ divAdministrationUtilisateur {
 .formulairePlacementChamp fieldset, .formulaireChoixModele fieldset, .formulaireRemplissageSuivi fieldset, .formulaireSelectionVersionSuivi fieldset,
 .formulaireCloturationSuivi fieldset, .formulaireSelectionChamp fieldset, .formulaireAjoutDonnee fieldset, .formulaireSuppresionDonnee fieldset,
 .formulaireSuppressionPositionChamp fieldset, .formulaireRemplissageSuiviCloture fieldset, .formulaireAdministrationAjoutClient fieldset,
-.formulaireAdministrationAjoutInterlocuteur fieldset, .formulaireAdministrationSuppressionClient fieldset, .formulaireAdministrationSuppressionInterlocuteur fieldset {
+.formulaireAdministrationAjoutInterlocuteur fieldset, .formulaireAdministrationSuppressionClient fieldset, .formulaireAdministrationSuppressionInterlocuteur fieldset,
+.formulaireChoixClient fieldset, .formulaireInfoSuivi fieldset {
     text-align: center;
     border-color: rgb(31,78,121);
     border-width: 1px;
@@ -2037,7 +2040,7 @@ divAdministrationUtilisateur {
 .formulaireSelectionChamp fieldset legend, .formulaireAjoutDonnee fieldset legend, .formulaireSuppresionDonnee fieldset legend, 
 .formulaireSuppressionPositionChamp fieldset legend, .formulaireRemplissageSuiviCloture fieldset legend, .formulaireAdministrationAjoutClient fieldset legend,
 .formulaireAdministrationAjoutInterlocuteur fieldset legend, .formulaireAdministrationSuppressionClient fieldset legend, 
-.formulaireAdministrationSuppressionInterlocuteur fieldset legend {
+.formulaireAdministrationSuppressionInterlocuteur fieldset legend, .formulaireChoixClient fieldset legend, .formulaireInfoSuivi fieldset legend {
     color: rgb(31,78,121);
     background-color: white;
     white-space: nowrap;
@@ -2057,7 +2060,8 @@ divAdministrationUtilisateur {
 .formulaireRemplissageSuivi fieldset legend p, .formulaireSelectionVersionSuivi fieldset legend p, .formulaireCloturationSuivi fieldset legend p,
 .formulaireSelectionChamp fieldset legend p, .formulaireAjoutDonnee fieldset legend p, .formulaireSuppresionDonnee fieldset legend p, 
 .formulaireSuppressionPositionChamp fieldset legend p, .formulaireRemplissageSuiviCloture fieldset legend p, .formulaireAdministrationAjoutClient fieldset legend p,
-formulaireAdministrationAjoutInterlocuteur fieldset legend p, .formulaireAdministrationSuppressionClient fieldset legend p { 
+formulaireAdministrationAjoutInterlocuteur fieldset legend p, .formulaireAdministrationSuppressionClient fieldset legend p, .formulaireChoixClient fieldset legend p,
+.formulaireInfoSuivi fieldset legend p { 
     padding: 0% 0.5% 0% 0.5%;
     margin: 0px;
 }
