@@ -1,3 +1,7 @@
+nox_intranet_gx:
+    resource: "@NoxIntranetGXBundle/Resources/config/routing.yml"
+    prefix:   /
+
 nox_intranet_pdf_parsing:
     resource: "@NoxIntranetPDFParsingBundle/Resources/config/routing.yml"
     prefix:   /
@@ -35,10 +39,6 @@ nox_intranet_users:
 nox_intranet_accueil:
     resource: "@NoxIntranetAccueilBundle/Resources/config/routing.yml"
     prefix:   /
-
-nox_intranet_support:
-    resource: "@NoxIntranetSupportBundle/Resources/config/routing.yml"
-    prefix:   /
     
 nox_intranet_support_si:
     resource:  "@NoxIntranetSupportSIBundle/Resources/config/routing.yml"
@@ -51,11 +51,7 @@ nox_intranet_communication:
 nox_intranet_administration:
     resource: "@NoxIntranetAdministrationBundle/Resources/config/routing.yml"
     prefix:   /
-    
-nox_intranet_menu:
-    resource: "@NoxIntranetMenuBundle/Resources/config/routing.yml"
-    prefix:   /
-    
+      
 nox_intranet_administration:
     resource: "@AdministrationBundle/Controller/"
     type:     annotation

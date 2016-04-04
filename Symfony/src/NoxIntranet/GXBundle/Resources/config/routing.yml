@@ -1,0 +1,3 @@
+nox_intranet_gx_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: NoxIntranetGXBundle:Default:index }

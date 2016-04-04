@@ -11,6 +11,7 @@ namespace NoxIntranet\AccueilBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Description of AccueilController
@@ -237,4 +238,13 @@ class AccueilController extends Controller {
 //
 //        return $this->render('NoxIntranetAccueilBundle:EditionAnnonces:editionAnnonces.html.twig', array('categorie' => $categorie, 'formSuppressionAnnonce' => $formSuppressionAnnonce->createView(), 'formAjoutAnnonce' => $formAjoutAnnonce->createView()));
 //    }
+
+    public function debugAction() {
+
+        $response = new Response();
+        $response->setContent(var_dump(phpinfo()));
+        
+        return $response;
+    }
+
 }

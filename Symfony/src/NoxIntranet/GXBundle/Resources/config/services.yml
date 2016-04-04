@@ -1,0 +1,4 @@
+services:
+#    nox_intranet_gx.example:
+#        class: NoxIntranet\GXBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

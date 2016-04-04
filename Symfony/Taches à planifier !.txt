@@ -2,6 +2,8 @@ Execution du script "recupUsers" -> 1 fois par jours
 
 Execution du script "BDDDump" -> 1 fois par jours
 
+Execution du script "AccueilRandomImage" -> 1 fois pas jours
+
 Execution du script "listingKeywordsReferences" -> 1 fois par heures
 
 Execution du script "pdfParsing" -> 1 fois par heures
