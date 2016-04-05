@@ -10,11 +10,13 @@ namespace NoxIntranet\RessourcesBundle\GetKeywordsReferences;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NoxIntranet\RessourcesBundle\Entity\ReferencesKeywords;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class NoxIntranetGetKeywordsReferences extends Controller {
 
-    public function __construct(\Doctrine\ORM\EntityManager $entityManager) {
+    public function __construct(\Doctrine\ORM\EntityManager $entityManager, Container $container) {
         $this->em = $entityManager;
+        $this->container = $container;
     }
 
     function getDirContents($dir, &$results = array()) {
@@ -88,7 +90,8 @@ class NoxIntranetGetKeywordsReferences extends Controller {
 
     public function putKeywordsNumber() {
 
-        $root = $this->get('kernel')->getRootDir() . '\..';
+        //$root = $this->get('kernel')->getRootDir() . '\..';
+        $root = $this->container->getParameter('kernel.root_dir') . '\..';
 
         $referencesEm = $this->em;
 

@@ -1,5 +1,5 @@
-cd C:\wamp\www\Symfony
+cd %~d0\wamp\www\Symfony
 
-csvde -f c:/wamp/www/Symfony/users.csv -d "dc=nox,dc=local" -r "(&(objectClass=User)(objectCategory=person)(!objectCategory=computer))" -l "sAMAccountName"
+csvde -f %~d0/wamp/www/Symfony/users.csv -d "dc=nox,dc=local" -r "(&(objectClass=User)(objectCategory=person)(!objectCategory=computer))" -l "sAMAccountName"
 
 php app/console noxintranet:verifmajdb

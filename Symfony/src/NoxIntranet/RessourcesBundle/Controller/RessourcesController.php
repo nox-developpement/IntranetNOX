@@ -4,10 +4,7 @@ namespace NoxIntranet\RessourcesBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
-use Smalot\PdfParser\Parser;
-use Symfony\Component\HttpFoundation\Response;
 
 class RessourcesController extends Controller {
 

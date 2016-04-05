@@ -1,3 +1,5 @@
-cd C:\wamp\www\Symfony
+cd %~d0\wamp\www\Symfony
 
 php app/console noxintranet:listingkeywordsreferences
+
+pause

@@ -36,7 +36,7 @@ class ControllerGeneratorCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $getKeywordsReferences = $this->getContainer()->get('noxintranet_references.putkeywordsnumber');
+        $getKeywordsReferences = $this->getContainer()->get('noxintranet_ressources.putkeywordsnumber');
 
         $keywordsListe = $getKeywordsReferences->putKeywordsNumber();
 
