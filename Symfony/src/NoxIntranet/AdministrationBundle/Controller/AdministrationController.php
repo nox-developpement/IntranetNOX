@@ -120,7 +120,7 @@ class AdministrationController extends Controller {
 
         $output = null;
 
-        exec($root . '\recupUsers.bat', $output);
+        exec($root . '\scripts\recupUsers.bat', $output);
 
         for ($i = 0; $i < 17; $i++) {
             unset($output[$i]);
@@ -138,7 +138,7 @@ class AdministrationController extends Controller {
 
         $output = null;
 
-        exec($root . '\verifRecupUsers.bat', $output);
+        exec($root . '\scripts\verifRecupUsers.bat', $output);
 
         for ($i = 0; $i < 17; $i++) {
             unset($output[$i]);
@@ -159,7 +159,7 @@ class AdministrationController extends Controller {
 
         $output = null;
 
-        exec($root . '\RestaurationBDD.bat', $output);
+        exec($root . '\scripts\RestaurationBDD.bat', $output);
 
         if ($output != null) {
             $request->getSession()->getFlashBag()->add('noticeErreur', "La restauration a échoué !");
@@ -176,7 +176,7 @@ class AdministrationController extends Controller {
 
         $output = null;
 
-        exec($root . '\BDDDump.bat', $output);
+        exec($root . '\scripts\BDDDump.bat', $output);
 
         if ($output != null) {
             $request->getSession()->getFlashBag()->add('noticeErreur', "La sauvegarde a échoué !");

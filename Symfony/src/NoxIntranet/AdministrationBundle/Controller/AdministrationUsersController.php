@@ -172,6 +172,8 @@ class AdministrationUsersController extends Controller {
         }
 
         $file = $root . '\utilisateurs.csv';
+        
+        var_dump($file);
 
         if (file_exists($root . '\utilisateurs.csv')) {
             header('Content-Description: File Transfer');
@@ -182,6 +184,7 @@ class AdministrationUsersController extends Controller {
             header('Pragma: public');
             header('Content-Length: ' . filesize($file));
             readfile($file);
+            unlink($file);
         }
 
         return $this->redirect($request->server->get('HTTP_REFERER'));
