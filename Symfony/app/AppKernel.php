@@ -17,10 +17,8 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new NoxIntranet\CommunicationBundle\NoxIntranetCommunicationBundle(),
-            new NoxIntranet\MenuBundle\NoxIntranetMenuBundle(),
             new NoxIntranet\AdministrationBundle\NoxIntranetAdministrationBundle(),
             new NoxIntranet\UserBundle\NoxIntranetUserBundle(),
-            new NoxIntranet\SupportBundle\NoxIntranetSupportBundle(),
             new NoxIntranet\AccueilBundle\NoxIntranetAccueilBundle(),
             new NoxIntranet\RessourcesBundle\NoxIntranetRessourcesBundle(),
             new NoxIntranet\SupportSIBundle\NoxIntranetSupportSIBundle(),
@@ -31,6 +29,7 @@ class AppKernel extends Kernel
 			new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new NoxIntranet\ListingKeywordsReferencesBundle\NoxIntranetListingKeywordsReferencesBundle(),
             new NoxIntranet\PDFParsingBundle\NoxIntranetPDFParsingBundle(),
+            new NoxIntranet\GXBundle\NoxIntranetGXBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

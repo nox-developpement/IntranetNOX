@@ -1,4 +1,0 @@
-nox_intranet_menu_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: NoxIntranetMenuBundle:Default:index }
-

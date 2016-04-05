@@ -16,11 +16,13 @@ namespace NoxIntranet\AdministrationBundle\MajUserDB;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NoxIntranet\UserBundle\Entity\User;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class NoxIntranetMajUserDB extends Controller {
 
-    public function __construct(\Doctrine\ORM\EntityManager $entityManager) {
+    public function __construct(\Doctrine\ORM\EntityManager $entityManager, Container $container) {
         $this->em = $entityManager;
+        $this->container = $container;
     }
 
     public function GetBetween($var1 = "", $var2 = "", $pool) {
@@ -36,7 +38,7 @@ class NoxIntranetMajUserDB extends Controller {
 
     public function majUserDB() {
 
-        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+        $root = str_replace('\\', '/', $this->container->getParameter('kernel.root_dir')) . '/..';
 
         $users = null;
 
@@ -159,7 +161,7 @@ class NoxIntranetMajUserDB extends Controller {
 
     public function verifMajUserDB() {
 
-        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+        $root = str_replace('\\', '/', $this->container->getParameter('kernel.root_dir')) . '/..';
 
         $users = null;
 
