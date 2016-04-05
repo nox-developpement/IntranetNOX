@@ -32,7 +32,7 @@ class NoxIntranetExtractPDFMetadatas {
             if (!is_dir($path)) {
                 $results[] = $path;
             } else if ($value != "." && $value != ".." && $value != ".quarantine" && $value != ".tmb" && $value != "ImagesPublication" &&
-                    $value != "BanqueImages") {
+                    $value != "BanqueImages" && $value != ".gitignore") {
                 $this->getDirContents($path, $results);
                 $results[] = $path;
             }

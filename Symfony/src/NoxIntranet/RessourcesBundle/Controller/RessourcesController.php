@@ -69,7 +69,7 @@ class RessourcesController extends Controller {
             $path = realpath($dir . DIRECTORY_SEPARATOR . $value);
             if (!is_dir($path)) {
                 $results[] = $path;
-            } else if ($value != "." && $value != ".." && $value != ".quarantine" && $value != ".tmb") {
+            } else if ($value != "." && $value != ".." && $value != ".quarantine" && $value != ".tmb" && $value != ".gitignore") {
                 $this->getDirContents($path, $results);
                 $results[] = $path;
             }
