@@ -67,7 +67,7 @@ class RessourcesController extends Controller {
 
         foreach ($files as $key => $value) {
             $path = realpath($dir . DIRECTORY_SEPARATOR . $value);
-            if (!is_dir($path)) {
+            if (!is_dir($path) && $value != ".gitignore") {
                 $results[] = $path;
             } else if ($value != "." && $value != ".." && $value != ".quarantine" && $value != ".tmb" && $value != ".gitignore") {
                 $this->getDirContents($path, $results);
