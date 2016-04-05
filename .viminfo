@@ -9,6 +9,8 @@
 ~h
 # Command Line History (newest to oldest):
 :wq
+:i
+:wq
 
 # Search String History (newest to oldest):
 
@@ -19,12 +21,21 @@
 # Input Line History (newest to oldest):
 
 # Registers:
+""-	CHAR	0
+	i
 
 # File marks:
-'0  10  52  ~/.git/MERGE_MSG
-'1  1  0  ~/.bashrc
+'0  11  11  ~/.git/MERGE_MSG
+'1  10  52  ~/.git/MERGE_MSG
+'2  1  0  ~/.bashrc
 
 # Jumplist (newest first):
+-'  11  11  ~/.git/MERGE_MSG
+-'  1  0  ~/.git/MERGE_MSG
+-'  10  52  ~/.git/MERGE_MSG
+-'  1  0  ~/.git/MERGE_MSG
+-'  1  0  ~/.bashrc
+-'  1  0  ~/.bashrc
 -'  10  52  ~/.git/MERGE_MSG
 -'  1  0  ~/.git/MERGE_MSG
 -'  1  0  ~/.bashrc
@@ -33,11 +44,15 @@
 # History of marks within files (newest to oldest):
 
 > ~/.git/MERGE_MSG
-	"	10	52
-	^	10	53
-	.	10	52
+	"	11	11
+	^	11	12
+	.	11	11
 	+	2	0
-	+	10	52
+	+	14	52
+	+	6	70
+	+	6	70
+	+	7	13
+	+	11	11
 
 > ~/.bashrc
 	"	1	0
