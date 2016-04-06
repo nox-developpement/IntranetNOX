@@ -15,6 +15,14 @@ body {
     background-color:rgb(242,242,242);
     font-family: 'NoxFont';
     overflow: hidden;
+
+    scrollbar-base-color: rgba(31,78,121,0.8);
+    scrollbar-highlight-color: white;
+    scrollbar-3dlight-color: white;
+    scrollbar-track-color: lightgray;
+    scrollbar-shadow-color: white;
+    scrollbar-dark-shadow-color: gray;
+    scrollbar-arrow-color: gray;
 }
 
 #section_principal {
@@ -2672,13 +2680,13 @@ form input[type='checkbox'] {
 }
 
 ::-webkit-scrollbar {
-    width: auto;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-thumb  {
     -webkit-border-radius: 5px;
     border-radius: 5px;
-    background: rgba(31,78,121,0.9);
+    background: rgba(31,78,121,1);
     -webkit-box-shadow: inset 0 0 6px rgba(255,255,255,0.5); 
 }
 
