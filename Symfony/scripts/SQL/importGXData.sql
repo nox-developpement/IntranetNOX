@@ -1,0 +1,12 @@
+LOAD DATA LOCAL INFILE 'C:/wamp/www/Symfony/GX_DB/Clients.csv' 
+INTO TABLE AA_Client 
+FIELDS TERMINATED BY ';' 
+LINES TERMINATED BY '\n'; 
+LOAD DATA LOCAL INFILE 'C:/wamp/www/Symfony/GX_DB/ClientsAdr.csv' 
+INTO TABLE AA_Client_Adr 
+FIELDS TERMINATED BY ';' 
+LINES TERMINATED BY '\n'; 
+LOAD DATA LOCAL INFILE 'C:/wamp/www/Symfony/GX_DB/Contacts.csv' 
+INTO TABLE AA_Contact 
+FIELDS TERMINATED BY ';' 
+LINES TERMINATED BY '\n'; 
