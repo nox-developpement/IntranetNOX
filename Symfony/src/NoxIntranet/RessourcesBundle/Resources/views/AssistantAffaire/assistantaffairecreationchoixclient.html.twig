@@ -8,82 +8,109 @@
 
     <div id="DivFormulaireChoixClient">
 
-        {{ form_start(form, {'attr': {'class': 'formulaireChoixClient'}}) }}
-        {{ form_errors(form) }}
+        {{ form_start(formClient, {'attr': {'class': 'formulaireChoixClient'}}) }}
+        {{ form_errors(formClient) }}
 
         <fieldset>
 
             <legend>Client</legend>
 
             <p>
-
-                {{ form_label(form.Client, "Client :", {'label_attr': {'class': 'labelFormulaireChoixClient'}}) }}
-                {{ form_errors(form.Client) }}
-                {{ form_widget(form.Client, {'attr': {'class': 'selectFormulaireChoixClient champChoixClient'}}) }}
-
-                <br />
-
-                {{ form_widget(form.Choisir, {'label': 'Choisir ce client', 'attr': {'class': 'boutonFormulaire' }}) }}
-
-                <br class="champNouveauClient">
-
-                {{ form_label(form.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireChoixClient champNouveauClient'}}) }}
-                {{ form_errors(form.Nom) }}
-                {{ form_widget(form.Nom, {'attr': {'class': 'textFormulaireChoixClient champNouveauClient champChoixClient'}}) }}
+                <label for="rechercehSuivi">Recherche</label>
+                <input placeholder="Ex : Ventes 2016" type="text" id="rechercehSuivi"/>
+                {{ form_errors(formClient.noClient) }}
+                {{ form_widget(formClient.noClient, {'attr': {'class': 'selectFormulaireChoixClient champChoixClient', 'size':'15'}}) }}
 
                 <br />
 
-                {{ form_label(form.Adresse, "Adresse :", {'label_attr': {'class': 'labelFormulaireChoixClient champNouveauClient'}}) }}
-                {{ form_errors(form.Adresse) }}
-                {{ form_widget(form.Adresse, {'attr': {'class': 'textFormulaireChoixClient champNouveauClient champChoixClient'}}) }}
-
-                <br class="champNouveauClient">
-
-                {{ form_label(form.Fax, "Fax :", {'label_attr': {'class': 'labelFormulaireChoixClient champNouveauClient'}}) }}
-                {{ form_errors(form.Fax) }}
-                {{ form_widget(form.Fax, {'attr': {'class': 'textFormulaireChoixClient champNouveauClient champChoixClient'}}) }}
-
-                <br class="champNouveauClient">
-
-                {{ form_widget(form.Créer, {'label': 'Créer', 'attr': {'class': 'boutonFormulaire champNouveauClient' }}) }}
+                {{ form_widget(formClient.Choisir, {'label': 'Choisir ce client', 'attr': {'class': 'boutonFormulaire' }}) }}
 
                 <script>
                     $(window).load(function () {
-                        if ($('#form_Client').val() === '') {
-                            $('#form_Client').removeAttr('required');
-                            $('.champNouveauClient').attr('required', 'required');
-                            $('.champNouveauClient').show();
-                            $('#form_Choisir').hide();
-                        } else {
-                            $('#form_Client').attr('required', 'required');
-                            $('.champNouveauClient').hide();
-                            $('#form_Choisir').show();
-                            $('.champNouveauClient').removeAttr('required');
-                        }
+                        resizeFormLabelAndData($('.labelFormulaireChoixClient'), $('.champChoixClient'), $('.formulaireChoixClient p'));
+                        Recherche('.selectFormulaireChoixClient');
+                    });
+                    //#form_pays représente la liste déroulante des pays, on lui indique de lancer une fonction au changement de choix dans la liste déroulante grâce à ".change(...). 
 
-                        $('#form_Client').change(function () {
-                            if ($('#form_Client').val() === '') {
-                                $('#form_Client').removeAttr('required');
-                                $('.champNouveauClient').attr('required', 'required');
-                                $('.champNouveauClient').show();
-                                $('#form_Choisir').hide();
-                            } else {
-                                $('#form_Client').attr('required', 'required');
-                                $('.champNouveauClient').hide();
-                                $('#form_Choisir').show();
-                                $('.champNouveauClient').removeAttr('required');
+                    var request;
+                    $("#rechercehSuivi").keyup(function () {
+                        getClientsByCritere();
+                    });
+
+                    function getClientsByCritere() {
+
+                        $('#formClient_noClient').find("option").remove();
+                        $('#formClient_noClient').css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.svg') }}" + "') no-repeat center");
+                        $('#formClient_noClient').css('background-size', '50%');
+                        if (typeof request !== 'undefined') {
+                            request.abort();
+                        }
+                        request = $.ajax({
+                            //On lui indique le type d'envoie des informations
+
+                            type: 'POST',
+                            //On lui indique le chemin de la fonction
+
+                            url: '{{ path('nox_intranet_assistant_affaire_ajax_client_getter') }}',
+                            //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
+
+                            data: 'critere=' + $("#rechercehSuivi").val(),
+                            //Enfin nous lui disons de remplir notre formulaire avec le resultat  
+
+                            success: function (response) {
+
+                                $('#formClient_noClient').css('background', 'white');
+                                $('#formClient_noClient').find("option").remove();
+                                $.each(response, function (i, item) {
+                                    $('#formClient_noClient').append(new Option(item, i));
+                                });
+                                $('#formClient_noClient option:nth-child(even)').css('background', 'SeaShell');
+                                $('#formClient_noClient option').each(function () {
+                                    $(this).attr('title', $(this).text());
+                                });
                             }
                         });
-
-                        resizeFormLabelAndData($('.labelFormulaireChoixClient'), $('.champChoixClient'), $('.formulaireChoixClient p'));
-                    });
+                    }
                 </script>
-
             </p>
-
         </fieldset> 
 
-        {{ form_end(form) }}
+        {{ form_end(formClient) }}
+
+    </div>
+
+    <div id="DivFormulaireClientAdr">
+
+        {{ form_start(formClientAdr, {'attr': {'class': 'formulaireChoixClient'}}) }}
+        {{ form_errors(formClientAdr) }}
+
+        <fieldset>
+
+            <legend>Client</legend>
+
+            <p>
+                {{ form_label(formClientAdr.Telephone, "Téléphone :", {'label_attr': {'class': 'labelFormulaireClientAdr'}}) }}
+                {{ form_errors(formClientAdr.Telephone) }}
+                {{ form_widget(formClientAdr.Telephone, {'attr': {'class': 'textFormulaireClientAdr champClientAdr', 'readonly': 'readonly'}}) }}
+
+                <br />
+
+                {{ form_label(formClientAdr.Fax, "Fax :", {'label_attr': {'class': 'labelFormulaireClientAdr'}}) }}
+                {{ form_errors(formClientAdr.Fax) }}
+                {{ form_widget(formClientAdr.Fax, {'attr': {'class': 'textFormulaireClientAdr champClientAdr', 'readonly': 'readonly'}}) }}
+
+                <br />
+
+                {{ form_label(formClientAdr.Email, "Email :", {'label_attr': {'class': 'labelFormulaireClientAdr'}}) }}
+                {{ form_errors(formClientAdr.Email) }}
+                {{ form_widget(formClientAdr.Email, {'attr': {'class': 'textFormulaireClientAdr champClientAdr', 'readonly': 'readonly'}}) }}
+
+
+
+            </p>
+        </fieldset> 
+
+        {{ form_end(formClientAdr) }}
 
     </div>
 

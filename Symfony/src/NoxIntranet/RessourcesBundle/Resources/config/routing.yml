@@ -135,4 +135,9 @@ nox_intranet_rh_excel:
     defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:ExcelParsing }
     requirements:
         chemin: .+
+        
+nox_intranet_assistant_affaire_ajax_client_getter:
+    path: /ressources/assistant-affaires/creation-suivi/getClient
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:ajaxClientGetter }
+
     

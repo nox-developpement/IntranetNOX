@@ -6,10 +6,11 @@
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/Controller/RessourcesController.php</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/Resources/config/services.yml</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/GetKeywordsReferences/NoxIntranetGetKeywordsReferences.php</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/PDFParsingBundle/Resources/config/services.yml</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/PDFParsingBundle/ExtractPDFMetadatas/NoxIntranetExtractPDFMetadatas.php</file>
+            <file>file:/C:/wamp/www/Symfony/app/Resources/views/layout.html.twig</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/CommunicationBundle/Resources/public/css/style.css</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/ListingKeywordsReferencesBundle/Command/ControllerGeneratorCommand.php</file>
+            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/AccueilBundle/Resources/views/Accueil/accueil.html.twig</file>
         </group>
     </open-files>
 </project-private>

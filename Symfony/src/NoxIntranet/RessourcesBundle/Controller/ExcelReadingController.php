@@ -14,13 +14,13 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use NoxIntranet\RessourcesBundle\Entity\Suivis;
 use NoxIntranet\RessourcesBundle\Entity\DonneesSuivi;
 use NoxIntranet\AdministrationBundle\Entity\DonneesFormulaire;
-use NoxIntranet\AdministrationBundle\Entity\Donnees_Client;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 /**
  * Description of ExcelReadingController
@@ -168,48 +168,80 @@ class ExcelReadingController extends Controller {
 
         $suivi = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->find($IdSuivi);
 
-        $form = $this->get('form.factory')->createBuilder('form')
-                ->add('Client', EntityType::class, array(
-                    'class' => 'NoxIntranetAdministrationBundle:Donnees_Client',
-                    'placeholder' => 'Nouveau client',
-                    'choice_label' => 'Nom'
+        $formClient = $this->get('form.factory')->createNamedBuilder('formClient', 'form', $suivi)
+                ->add('noClient', EntityType::class, array(
+                    'class' => 'NoxIntranetRessourcesBundle:AA_Client',
+                    'choice_label' => 'Nom_Client'
                 ))
-                ->add('Nom', TextType::class)
-                ->add('Adresse', TextType::class)
-                ->add('Fax', TextType::class)
                 ->add('Choisir', SubmitType::class)
-                ->add('Créer', SubmitType::class)
                 ->getForm();
 
-        $form->handleRequest($request);
+        $formClientAdr = $this->get('form.factory')->createNamedBuilder('formClientAdr', 'form')
+                ->add('Telephone', TextType::class)
+                ->add('Fax', TextType::class)
+                ->add('Email', TextType::class)
+                ->add('Code_Postal', IntegerType::class)
+                ->add('Nom_Ville', TextType::class)
+                ->add('Nom_Pays', TextType::class)
+                ->getForm();
 
-        if ($form->isValid()) {
+        if ($request->request->has('formSelectionSuivi')) {
+            $formClient->handleRequest($request);
 
-            if ($form['Choisir']->isClicked()) {
-                $suivi->setIdClient($form['Client']->getData()->getId());
-            }
+            if ($formClient->isValid()) {
 
-            if ($form['Créer']->isClicked()) {
-                $newClient = new Donnees_Client();
-                $newClient->setNom($form['Nom']->getData());
-                $newClient->setAdresse($form['Adresse']->getData());
-                $newClient->setFax($form['Fax']->getData());
+                if ($formClient['Choisir']->isClicked()) {
+                    $suivi->setNoClient($form['noClient']->getData()->getNClient());
+                }
 
-                $em->persist($newClient);
+//            if ($form['Créer']->isClicked()) {
+//                $newClient = new Donnees_Client();
+//                $newClient->setNom($form['Nom']->getData());
+//                $newClient->setAdresse($form['Adresse']->getData());
+//                $newClient->setFax($form['Fax']->getData());
+//
+//                $em->persist($newClient);
+//                $em->flush();
+//
+//                $suivi->setIdClient($newClient->getId());
+//
+//                $request->getSession()->getFlashBag()->add('notice', 'Nouveau client ajouté.');
+//            }
+
+                $em->persist($suivi);
                 $em->flush();
 
-                $suivi->setIdClient($newClient->getId());
-
-                $request->getSession()->getFlashBag()->add('notice', 'Nouveau client ajouté.');
+                return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_infos', array('IdSuivi' => $IdSuivi));
             }
-
-            $em->persist($suivi);
-            $em->flush();
-
-            return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_infos', array('IdSuivi' => $IdSuivi, 'form' => $form));
         }
 
-        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreationchoixclient.html.twig', array('form' => $form->createView()));
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreationchoixclient.html.twig', array('formClient' => $formClient->createView(), 'formClientAdr' => $formClientAdr->createView()));
+    }
+
+    public function ajaxClientGetterAction(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $listeClients = array();
+
+        if ($request->isXmlHttpRequest()) {
+            $critere = $request->get('critere');
+
+            $clients = $em->getRepository("NoxIntranetRessourcesBundle:AA_Client")->createQueryBuilder('o')
+                    ->where('o.nomClient LIKE :critere')
+                    ->setParameter('critere', "%" . $critere . "%")
+                    ->getQuery()
+                    ->getResult();
+
+            foreach ($clients as $client) {
+                $listeClients[$client->getId()] = $client->getNomClient();
+            }
+        }
+
+        $response = new Response(json_encode($listeClients));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
     public function creationSuiviChoixModeleAction(Request $request, $IdSuivi) {

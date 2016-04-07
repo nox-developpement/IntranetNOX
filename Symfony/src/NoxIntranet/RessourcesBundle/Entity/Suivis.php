@@ -52,13 +52,6 @@ class Suivis {
     /**
      * @var string
      *
-     * @ORM\Column(name="IdClient", type="integer", nullable=true)
-     */
-    private $idClient;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="Statut", type="string", length=255)
      */
     private $statut;
@@ -412,28 +405,6 @@ class Suivis {
      */
     public function getEstimatif() {
         return $this->estimatif;
-    }
-
-    /**
-     * Set idClient
-     *
-     * @param integer $idClient
-     *
-     * @return Suivis
-     */
-    public function setIdClient($idClient) {
-        $this->idClient = $idClient;
-
-        return $this;
-    }
-
-    /**
-     * Get idClient
-     *
-     * @return integer
-     */
-    public function getIdClient() {
-        return $this->idClient;
     }
 
 }
