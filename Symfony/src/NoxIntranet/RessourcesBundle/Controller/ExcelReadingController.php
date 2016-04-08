@@ -171,18 +171,16 @@ class ExcelReadingController extends Controller {
         $formClient = $this->get('form.factory')->createNamedBuilder('formClient', 'form', $suivi)
                 ->add('noClient', EntityType::class, array(
                     'class' => 'NoxIntranetRessourcesBundle:AA_Client',
-                    'choice_label' => 'Nom_Client'
+                    'choice_label' => 'Nom_Client',
+                    'choice_value' => 'N_Client'
                 ))
                 ->add('Choisir', SubmitType::class)
                 ->getForm();
 
         $formClientAdr = $this->get('form.factory')->createNamedBuilder('formClientAdr', 'form')
-                ->add('Telephone', TextType::class)
+                ->add('Adresse', TextType::class)
                 ->add('Fax', TextType::class)
-                ->add('Email', TextType::class)
-                ->add('Code_Postal', IntegerType::class)
-                ->add('Nom_Ville', TextType::class)
-                ->add('Nom_Pays', TextType::class)
+                ->add('Commune', TextType::class)
                 ->getForm();
 
         if ($request->request->has('formSelectionSuivi')) {
@@ -191,7 +189,7 @@ class ExcelReadingController extends Controller {
             if ($formClient->isValid()) {
 
                 if ($formClient['Choisir']->isClicked()) {
-                    $suivi->setNoClient($form['noClient']->getData()->getNClient());
+                    $suivi->setNoClient($formClient['noClient']->getData()->getNClient());
                 }
 
 //            if ($form['Créer']->isClicked()) {
@@ -234,11 +232,72 @@ class ExcelReadingController extends Controller {
                     ->getResult();
 
             foreach ($clients as $client) {
-                $listeClients[$client->getId()] = $client->getNomClient();
+                $listeClients[$client->getNClient()] = $client->getNomClient();
             }
         }
 
         $response = new Response(json_encode($listeClients));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    public function ajaxClientAdrGetterAction(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $resultatsAdresse = array();
+
+        if ($request->isXmlHttpRequest()) {
+            $nclient = $request->get('NClient');
+
+            $coordonnees = $em->getRepository("NoxIntranetRessourcesBundle:AA_Client_Adr")->createQueryBuilder('o')
+                    ->where('o.nClient LIKE :nclient')
+                    ->setParameter('nclient', $nclient)
+                    ->getQuery()
+                    ->getResult();
+
+            $i = 0;
+            foreach ($coordonnees as $coordonnee) {
+
+                if ($coordonnee->getAdresse1() === 'NULL') {
+                    $adresse1 = '';
+                } else {
+                    $adresse1 = $coordonnee->getAdresse1();
+                }
+
+                if ($coordonnee->getAdresse2() === 'NULL') {
+                    $adresse2 = '';
+                } else {
+                    $adresse2 = $coordonnee->getAdresse2();
+                }
+
+                if ($coordonnee->getAdresse3() === 'NULL') {
+                    $adresse3 = '';
+                } else {
+                    $adresse3 = $coordonnee->getAdresse3();
+                }
+
+                if ($coordonnee->getFax() === 'NULL') {
+                    $fax = '';
+                } else {
+                    $fax = $coordonnee->getFax();
+                }
+
+                if ($coordonnee->getNomVille() === 'NULL') {
+                    $commune = '';
+                } else {
+                    $commune = $coordonnee->getNomVille();
+                }
+
+                $resultatsAdresse[$i]['Adresse'] = $adresse1 . " " . $adresse2 . " " . $adresse3;
+                $resultatsAdresse[$i]['Fax'] = $fax;
+                $resultatsAdresse[$i]['Commune'] = $commune;
+                $i++;
+            }
+        }
+
+        $response = new Response(json_encode($resultatsAdresse));
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;

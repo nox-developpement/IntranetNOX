@@ -26,7 +26,7 @@ class AdministrationServeursController extends Controller {
         //2)Tant que le dossier est aps vide
         while ($fichier = readdir($dossier)) {
             //3) Sans compter . et ..
-            if ($fichier != "." && $fichier != ".." && $fichier != "Deconnexion.bat") {
+            if ($fichier != "." && $fichier != ".." && $fichier != ".gitignore") {
                 //On selectionne le fichier et on le supprime
                 $Vidage = $folder . $fichier;
                 unlink($Vidage);
@@ -37,9 +37,9 @@ class AdministrationServeursController extends Controller {
     }
 
     public function creationBat() {
-        
+
         $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
-        
+
         $this->clearFolder($root . '/web/scriptsServeurs/');
 
         $em = $this->getDoctrine()->getManager();
@@ -53,14 +53,26 @@ class AdministrationServeursController extends Controller {
             fputs($scriptBat, "\n");
             fputs($scriptBat, 'net use y: /delete /y');
             fputs($scriptBat, "\n");
+            fputs($scriptBat, 'timeout 5');
+            fputs($scriptBat, "\n");
             fputs($scriptBat, 'net use y: ' . $serveur2->getLien());
+            fputs($scriptBat, "\n");
 
             fclose($scriptBat);
         }
+
+        $scriptSuppressionBat = fopen($root . '/web/scriptsServeurs/Deconnexion.bat', 'a+');
+
+        fputs($scriptSuppressionBat, 'net use /persistent:no');
+        fputs($scriptSuppressionBat, "\n");
+        fputs($scriptSuppressionBat, 'net use y: /delete /y');
+        fputs($scriptSuppressionBat, "\n");
+
+        fclose($scriptSuppressionBat);
     }
 
     public function administrationServeurAction(Request $request) {
-        
+
         $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
 
         $em = $this->getDoctrine()->getManager();
@@ -87,7 +99,7 @@ class AdministrationServeursController extends Controller {
                 return $this->render('NoxIntranetAdministrationBundle:AdministrationServeurs:administrationserveurs.html.twig', array('form' => $form->createView(), 'serveurs' => $serveurs));
             }
 
-            $serveur->setChemin($root .'/web/scriptsServeurs/' . $form['agence']->getData() . '.bat');
+            $serveur->setChemin($root . '/web/scriptsServeurs/' . $form['agence']->getData() . '.bat');
             $em->persist($serveur);
             $em->flush();
 

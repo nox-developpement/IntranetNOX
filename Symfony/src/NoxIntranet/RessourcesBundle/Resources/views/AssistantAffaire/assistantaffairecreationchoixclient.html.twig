@@ -33,10 +33,9 @@
                     //#form_pays représente la liste déroulante des pays, on lui indique de lancer une fonction au changement de choix dans la liste déroulante grâce à ".change(...). 
 
                     var request;
-                    $("#rechercehSuivi").keyup(function () {
+                    $("#rechercehSuivi").on("keyup paste input", function () {
                         getClientsByCritere();
                     });
-
                     function getClientsByCritere() {
 
                         $('#formClient_noClient').find("option").remove();
@@ -81,38 +80,54 @@
 
     <div id="DivFormulaireClientAdr">
 
-        {{ form_start(formClientAdr, {'attr': {'class': 'formulaireChoixClient'}}) }}
-        {{ form_errors(formClientAdr) }}
-
-        <fieldset>
-
-            <legend>Client</legend>
-
-            <p>
-                {{ form_label(formClientAdr.Telephone, "Téléphone :", {'label_attr': {'class': 'labelFormulaireClientAdr'}}) }}
-                {{ form_errors(formClientAdr.Telephone) }}
-                {{ form_widget(formClientAdr.Telephone, {'attr': {'class': 'textFormulaireClientAdr champClientAdr', 'readonly': 'readonly'}}) }}
-
-                <br />
-
-                {{ form_label(formClientAdr.Fax, "Fax :", {'label_attr': {'class': 'labelFormulaireClientAdr'}}) }}
-                {{ form_errors(formClientAdr.Fax) }}
-                {{ form_widget(formClientAdr.Fax, {'attr': {'class': 'textFormulaireClientAdr champClientAdr', 'readonly': 'readonly'}}) }}
-
-                <br />
-
-                {{ form_label(formClientAdr.Email, "Email :", {'label_attr': {'class': 'labelFormulaireClientAdr'}}) }}
-                {{ form_errors(formClientAdr.Email) }}
-                {{ form_widget(formClientAdr.Email, {'attr': {'class': 'textFormulaireClientAdr champClientAdr', 'readonly': 'readonly'}}) }}
-
-
-
-            </p>
-        </fieldset> 
-
-        {{ form_end(formClientAdr) }}
-
     </div>
+
+    <script>
+        $(window).load(function () {
+            $('#formClient_noClient').change(function () {
+                $('#DivFormulaireClientAdr').html('');
+                getClientAdrByNClient($('#formClient_noClient').val());
+            });
+        });
+        function getClientAdrByNClient(Nclient) {
+
+            $.ajax({
+                //On lui indique le type d'envoie des informations
+
+                type: 'POST',
+                //On lui indique le chemin de la fonction
+
+                url: '{{ path('nox_intranet_assistant_affaire_ajax_client_adr_getter') }}',
+                //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
+
+                data: 'NClient=' + Nclient,
+                //Enfin nous lui disons de remplir notre formulaire avec le resultat  
+
+                success: function (response) {
+                    //$('.formulaireClientAdr p').append("<input type='text' title='" + response.Adresse + "' value='" + response.Adresse + "'>");
+                    var newInput = "";
+                    var compteurCoordonnees = 1;
+
+                    $.each(response, function () {
+                        newInput += "<form class='formulaireClientAdr'> <fieldset> <legend>Coordonnées " + compteurCoordonnees + "</legend> <p>";
+                        $.each(this, function (key, value) {
+                            if (value === '') {
+                                value = 'Aucune donnée.';
+                            }
+                            newInput += "<label for=\"" + key + "\" class='labelFormulaireClientAdr'>" + key + " : </label>";
+                            newInput += "<input name=\"" + key + "\" type=\"text\" title=\"" + value + "\" value=\"" + value + "\" class='champClientAdr' readonly> <br />";
+                        });
+                        newInput += "</p> </fieldset> </form> <br />";
+                        compteurCoordonnees++;
+                    });
+
+                    $('#DivFormulaireClientAdr').html(newInput);
+                    resizeFormLabelAndData($('.labelFormulaireClientAdr'), $('.champClientAdr'), $('.formulaireClientAdr p'));
+                }
+            });
+        }
+
+    </script>
 
 {% endblock %}
 

@@ -1,14 +1,4 @@
 services:
     noxintranet_ressources.putkeywordsnumber:
         class: NoxIntranet\RessourcesBundle\GetKeywordsReferences\NoxIntranetGetKeywordsReferences
-        arguments: [ @doctrine.orm.entity_manager, '@service_container' ]
-        
-    noxintranet_ressources.extractionGX:
-        class: NoxIntranet\RessourcesBundle\ExtractionGX\ExtractionGX
-        arguments: ['@service_container']
-
-    noxintranet_ressources.extractionGX.listener:
-        class: NoxIntranet\RessourcesBundle\ExtractionGX\ExtractionGXListener
-        arguments: [@noxintranet_ressources.extractionGX, '@service_container']
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: processExtractionGX }
+        arguments: [ @doctrine.orm.entity_manager, '@service_container' ]  
