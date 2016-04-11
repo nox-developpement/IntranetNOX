@@ -47,36 +47,6 @@ $(window).load(function () {
         return confirm('Voulez-vous vraiment supprimer cette version du suivi ? Vous ne pourez pas la récupérer.');
     });
 
-    $('.formulaireRemplissageSuivi select').each(function () {
-        if ($(this).val() === '') {
-            $(this).next().next().show();
-            $(this).next().next().next().attr('required', 'required');
-            $(this).next().next().next().show();
-            $(this).next().next().next().next().show();
-        } else {
-            $(this).next().next().hide();
-            $(this).next().next().next().val('');
-            $(this).next().next().next().removeAttr('required');
-            $(this).next().next().next().hide();
-            $(this).next().next().next().next().hide();
-        }
-    });
-
-    $('.formulaireRemplissageSuivi select').change(function () {
-        if ($(this).val() === '') {
-            $(this).next().next().show();
-            $(this).next().next().next().attr('required', 'required');
-            $(this).next().next().next().show();
-            $(this).next().next().next().next().show();
-        } else {
-            $(this).next().next().hide();
-            $(this).next().next().next().val('');
-            $(this).next().next().next().removeAttr('required');
-            $(this).next().next().next().hide();
-            $(this).next().next().next().next().hide();
-        }
-    });
-
     toggleCheckboxAjoutDonnees();
 
     $('#formAjoutChamp_Type').change(function () {
@@ -87,7 +57,6 @@ $(window).load(function () {
         return confirm('Attention, si vous modifiez ce modèle toutes les données des suivis associés seront supprimées !');
     });
 
-    resizeFormLabelAndData($('.labelFormulaireRemplissageSuivi'), $('.champFormulaireRemplissageSuivi'), $('.formulaireRemplissageSuivi p'));
     resizeFormLabelAndData($('.labelFormulaireRemplissageSuiviCloture'), $('.champFormulaireRemplissageSuiviCloture'), $('.formulaireRemplissageSuiviCloture p'));
 
     $(window).resize(function () {
@@ -149,4 +118,38 @@ function resizeFormLabelAndData(label, data, formParagraph) {
 
     label.width(getMaxChildWidth(label));
     data.width((formParagraph.width() - label.width()) * 0.9);
+}
+
+function hideAndShowDataAdding() {
+
+    $('.formulaireRemplissageSuivi select').each(function () {
+
+        if ($(this).val() === '') {
+            $("label[for='" + $(this).attr('id') + "newData']").show();
+            $("#" + $(this).attr('id') + "newData").attr('required', 'required');
+            $("#" + $(this).attr('id') + "newData").show();
+            //$(this).next().next().next().next().show();
+        } else {
+            alert($("label[for='" + $(this).attr('id') + "newData]'").css('display'));
+            //$(this).next().next().next().val('');
+            $("#" + $(this).attr('id') + "newData").removeAttr('required');
+            $("#" + $(this).attr('id') + "newData").hide();
+            //$(this).next().next().next().next().hide();
+        }
+    });
+
+    $('.formulaireRemplissageSuivi select').change(function () {
+        if ($(this).val() === '') {
+            $("label[for='" + $(this).attr('id') + "newData']").show();
+            $("#" + $(this).attr('id') + "newData").attr('required', 'required');
+            $("#" + $(this).attr('id') + "newData").show();
+            //$(this).next().next().next().next().show();
+        } else {
+            $("label[for='" + $(this).attr('id') + "newData']").hide();
+            $(this).next().next().next().val('');
+            $("#" + $(this).attr('id') + "newData").removeAttr('required');
+            $("#" + $(this).attr('id') + "newData").hide();
+            //$(this).next().next().next().next().hide();
+        }
+    });
 }

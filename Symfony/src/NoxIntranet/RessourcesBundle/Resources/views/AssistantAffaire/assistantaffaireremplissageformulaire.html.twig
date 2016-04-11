@@ -2,7 +2,7 @@
 
 {% block titrePage %} Edition de feuille de suivi {% endblock %}
 
-{% block messageAccueil %}Edition de feuille de suivi - {{ suivi }}{% endblock %}
+{% block messageAccueil %}Edition de feuille de suivi - {{ suivi.Nom }}{% endblock %}
 
 {% block contenu %}
 
@@ -44,6 +44,27 @@
         {{ form_end(formCloturationSuivi) }}
     </div>
 
+    <div id="DivInfoSuivi">
+
+        <form class="formInfo">
+            <fieldset>
+                <legend>Infos suivi</legend>
+
+                <p>Agence: <span>{{ suivi.Agence }}</span></p>
+                <p>Numéro GX: <span>{{ suivi.NumeroGX }}</span></p>
+                <p>Commune: <span>{{ suivi.Commune }}</span></p>
+                <p>Marché: <span>{{ suivi.Marche }}</span></p>
+                <p>N° de Commande: <span>{{ suivi.NoCommande }}</span></p>
+                <p>N° Client: <span>{{ suivi.NoClient }}</span></p>
+                <p>Objet: <span>{{ suivi.Objet }}</span></p>
+                <p>N° INGEDIA BEP: <span>{{ suivi.NoINGEDIABEP }}</span></p>
+                <p>Estimatif: <span>{{ suivi.Estimatif }}</span></p>
+                <p>Client: <span class="tooltipClient">{{ client.NomCLient }}{% if clientAdr != null %}<span class="tooltipClientText"><span class="tooltipTag">Téléphone:</span> {{ clientAdr.Tel }}<br /><span class="tooltipTag">Fax:</span> {{ clientAdr.Fax }}<br /><span class="tooltipTag">Email:</span> {{ clientAdr.Email }}<br /><span class="tooltipTag">Ville:</span> {{ clientAdr.NomVille }}<br /><span class="tooltipTag">Pays:</span> {{ clientAdr.NomPays }}<br />{{ clientAdr.Adresse1 }} {{ clientAdr.Adresse2 }} {{ clientAdr.Adresse3 }}</span>{% endif %}</span></p>
+            </fieldset>
+        </form>
+
+    </div>
+
     <div id="DivFormulaireRemplissageSuivi">
 
         {{ form_start(formDonneesSuivi, {'attr': {'class': 'formulaireRemplissageSuivi'}}) }}
@@ -51,7 +72,7 @@
 
         <fieldset>
 
-            <legend>{{ suivi }}</legend>
+            <legend>{{ suivi.Nom }}</legend>
 
             {% for champ in champsViews %}
                 {{ form_errors(attribute(formDonneesSuivi, champ.Champ)) }}
@@ -92,6 +113,13 @@
 
         {{ form_end(formDonneesSuivi) }}
     </div>
+
+    <script>
+        $(document).ready(function () {
+            resizeFormLabelAndData($('.labelFormulaireRemplissageSuivi'), $('.champFormulaireRemplissageSuivi'), $('.formulaireRemplissageSuivi p'));
+            hideAndShowDataAdding();
+        });
+    </script>
 
 {% endblock %}
 {# empty Twig template #}

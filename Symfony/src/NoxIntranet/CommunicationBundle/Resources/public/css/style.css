@@ -2001,7 +2001,7 @@ divAdministrationUtilisateur {
 #DivFormulaireRemplissageSuivi, #DivFormulaireSelectionVersionSuivi, #DivFormulaireCloturationSuivi, .DivFormulaireSelectionChamp,
 .DivFormulaireAjoutDonnee, .DivFormulaireSuppressionDonnee, .DivFormulaireSuppressionPositionChamp, #DivFormulaireRemplissageSuiviCloture,
 #DivFormulaireAjoutClient, #DivFormulaireAjoutInterlocuteur, #DivFormulaireSuppressionClient, #DivFormulaireSuppressionInterlocuteur,
-#DivFormulaireChoixClient, #DivFormulaireInfoSuivi, #DivFormulaireClientAdr {
+#DivFormulaireChoixClient, #DivFormulaireInfoSuivi, #DivFormulaireClientAdr, #DivInfoSuivi {
     margin: 0% 25% 0% 25%;
     margin-bottom: 2%;
     font-size: 0.8vw;
@@ -2014,7 +2014,7 @@ divAdministrationUtilisateur {
 .formulaireRemplissageSuivi, .formulaireSelectionVersionSuivi, .formulaireCloturationSuivi, .formulaireSelectionChamp, .formulaireAjoutDonnee,
 .formulaireSuppresionDonnee, .formulaireSuppressionPositionChamp, .formulaireRemplissageSuiviCloture, .formulaireAdministrationAjoutClient,
 .formulaireAdministrationAjoutInterlocuteur, .formulaireAdministrationSuppressionClient, .formulaireAdministrationSuppressionInterlocuteur,
-.formulaireChoixClient, .formulaireInfoSuivi, .formulaireClientAdr {
+.formulaireChoixClient, .formulaireInfoSuivi, .formulaireClientAdr, .formInfo {
     padding: 0px;
     border: none;
     width: 80%;
@@ -2028,7 +2028,7 @@ divAdministrationUtilisateur {
 .formulaireCloturationSuivi fieldset, .formulaireSelectionChamp fieldset, .formulaireAjoutDonnee fieldset, .formulaireSuppresionDonnee fieldset,
 .formulaireSuppressionPositionChamp fieldset, .formulaireRemplissageSuiviCloture fieldset, .formulaireAdministrationAjoutClient fieldset,
 .formulaireAdministrationAjoutInterlocuteur fieldset, .formulaireAdministrationSuppressionClient fieldset, .formulaireAdministrationSuppressionInterlocuteur fieldset,
-.formulaireChoixClient fieldset, .formulaireInfoSuivi fieldset, .formulaireClientAdr fieldset {
+.formulaireChoixClient fieldset, .formulaireInfoSuivi fieldset, .formulaireClientAdr fieldset, .formInfo fieldset {
     text-align: center;
     border-color: rgb(31,78,121);
     border-width: 1px;
@@ -2049,7 +2049,7 @@ divAdministrationUtilisateur {
 .formulaireSuppressionPositionChamp fieldset legend, .formulaireRemplissageSuiviCloture fieldset legend, .formulaireAdministrationAjoutClient fieldset legend,
 .formulaireAdministrationAjoutInterlocuteur fieldset legend, .formulaireAdministrationSuppressionClient fieldset legend, 
 .formulaireAdministrationSuppressionInterlocuteur fieldset legend, .formulaireChoixClient fieldset legend, .formulaireInfoSuivi fieldset legend, 
-.formulaireClientAdr fieldset legend {
+.formulaireClientAdr fieldset legend, .formInfo fieldset legend {
     color: rgb(31,78,121);
     background-color: white;
     white-space: nowrap;
@@ -2073,6 +2073,18 @@ formulaireAdministrationAjoutInterlocuteur fieldset legend p, .formulaireAdminis
 .formulaireInfoSuivi fieldset legend p, .formulaireClientAdr fieldset legend p { 
     padding: 0% 0.5% 0% 0.5%;
     margin: 0px;
+}
+
+.formInfo fieldset p>span {
+    background: white;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.formInfo fieldset p {
+    display: inline-block;
+    margin-right: 5%;
+    white-space: nowrap;
 }
 
 .selectFormulaireAdministrationSuppressionProfil, .textFormulaireAdministrationAjoutProfil {
@@ -2705,4 +2717,52 @@ form input[type='checkbox'] {
 
 input[type=text]:read-only {
     background: #E6E6E6;
+}
+
+.tooltipClient {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltipClient .tooltipClientText {
+    visibility: hidden;
+    width: 150%;
+    background-color: rgba(31,78,121,0);
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 5px 10% 0 10%;
+    bottom: 150%;
+    left: 50%; 
+    margin-left: -85%;
+    white-space: normal;
+    line-height: 2;
+
+    transition: opacity 0.8s, background-color 0.8s;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltipClient .tooltipClientText::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(31,78,121,1) transparent transparent transparent;
+}
+
+.tooltipClient:hover .tooltipClientText {
+    visibility: visible;
+    background-color: rgba(31,78,121,0.8);
+    opacity: 1;
+}
+
+.tooltipTag {
+    font-weight: bold;
+    text-decoration: underline;
 }

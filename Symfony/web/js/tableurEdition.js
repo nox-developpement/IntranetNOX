@@ -1,20 +1,20 @@
-
-$(window).ready(function () {
-
-    $('#formPlacementChamp_Colonne').on("keydown", function (event) {
-// Allow controls such as backspace
-        var arr = [8, 16, 17, 20, 35, 36, 37, 38, 39, 40, 45, 46];
-        // Allow letters
-        for (var i = 65; i <= 90; i++) {
-            arr.push(i);
-        }
-
-// Prevent default if not in array
-        if (jQuery.inArray(event.which, arr) === -1) {
-            event.preventDefault();
-        }
-    });
-});
+//
+//$(window).ready(function () {
+//
+//    $('#formPlacementChamp_Colonne').on("keydown", function (event) {
+//// Allow controls such as backspace
+//        var arr = [8, 16, 17, 20, 35, 36, 37, 38, 39, 40, 45, 46];
+//        // Allow letters
+//        for (var i = 65; i <= 90; i++) {
+//            arr.push(i);
+//        }
+//
+//// Prevent default if not in array
+//        if (jQuery.inArray(event.which, arr) === -1) {
+//            event.preventDefault();
+//        }
+//    });
+//});
 //    ajoutLigne();
 //    ajoutColonne();
 //    editionCellule();
