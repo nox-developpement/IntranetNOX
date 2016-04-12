@@ -171,3 +171,11 @@ nox_intranet_administration_affaires_edition_sauvegarde:
 nox_intranet_administration_affaires_edition_champ:
     path: /administration/assistant-affaires-edition-champ/{IdChamp}
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:administrationAffairesEditionChamp }
+    
+nox_intranet_administration_affaires_ajax_get_modele_by_profil:
+    path: /administration/assistant-affaires-get-modele-by-profil
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:ajaxGetModeleByProfil }
+    
+nox_intranet_administration_affaires_ajax_get_modele_by_profil_and_name:
+    path: /administration/assistant-affaires-get-modele-by-profil-and-name
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:ajaxGetModeleByProfilAndName }

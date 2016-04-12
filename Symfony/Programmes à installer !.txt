@@ -1,3 +1,7 @@
 ImageMagick : Conversion image par ligne de commande pour les vignettes des PDF.
 
 Ghostscript : Prise en charge du format PDF par ImageMagick.
+
+Microsoft® SQL Server® 2012 Express : Pour l'accès à la base de données SQL Server de GX.
+
+Microsoft® SQL Server® 2012 Management Studio : Pour les commandes cmd d'import/export de la base de donnée SQL Server de GX.

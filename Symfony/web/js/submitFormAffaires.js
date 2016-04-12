@@ -7,18 +7,6 @@ $(window).load(function () {
         $('.formulaireSelectionAgence').submit();
     });
 
-    $('.selectFormulaireSelectionDossier').change(function () {
-        $('.formulaireSelectionDossier').submit();
-//        $(document).ready(function () {
-//            $(this).scrollTop(300);
-//        });
-    });
-
-    if ($('.selectFormulaireSelectionDossier').val() !== '' && $('.selectFormulaireSelectionDossier').val() !== undefined) {
-        $('#DivFormulaireAAModele').toggle();
-        $('#contenu').scrollTop($('#contenu')[0].scrollHeight);
-    }
-
     $('#formSelectionSuivi_Supprimer').click(function () {
         return confirm('Voulez-vous vraiment supprimer le suivi ' + $('#formSelectionSuivi_Suivi option:selected').text() + " ?");
     });
@@ -125,31 +113,31 @@ function hideAndShowDataAdding() {
     $('.formulaireRemplissageSuivi select').each(function () {
 
         if ($(this).val() === '') {
-            $("label[for='" + $(this).attr('id') + "newData']").show();
+            $('label[for=' + $(this).attr('id') + 'newData]').show();
             $("#" + $(this).attr('id') + "newData").attr('required', 'required');
             $("#" + $(this).attr('id') + "newData").show();
-            //$(this).next().next().next().next().show();
+            $("#" + $(this).attr('id') + "newData").next().show();
         } else {
-            alert($("label[for='" + $(this).attr('id') + "newData]'").css('display'));
-            //$(this).next().next().next().val('');
+            $('label[for=' + $(this).attr('id') + 'newData]').hide();
+            $("#" + $(this).attr('id') + "newData").val('');
             $("#" + $(this).attr('id') + "newData").removeAttr('required');
             $("#" + $(this).attr('id') + "newData").hide();
-            //$(this).next().next().next().next().hide();
+            $("#" + $(this).attr('id') + "newData").next().hide();
         }
     });
 
     $('.formulaireRemplissageSuivi select').change(function () {
         if ($(this).val() === '') {
-            $("label[for='" + $(this).attr('id') + "newData']").show();
+            $('label[for=' + $(this).attr('id') + 'newData]').show();
             $("#" + $(this).attr('id') + "newData").attr('required', 'required');
             $("#" + $(this).attr('id') + "newData").show();
-            //$(this).next().next().next().next().show();
+            $("#" + $(this).attr('id') + "newData").next().show();
         } else {
-            $("label[for='" + $(this).attr('id') + "newData']").hide();
-            $(this).next().next().next().val('');
+            $('label[for=' + $(this).attr('id') + 'newData]').hide();
+            $("#" + $(this).attr('id') + "newData").val('');
             $("#" + $(this).attr('id') + "newData").removeAttr('required');
             $("#" + $(this).attr('id') + "newData").hide();
-            //$(this).next().next().next().next().hide();
+            $("#" + $(this).attr('id') + "newData").next().hide();
         }
     });
 }

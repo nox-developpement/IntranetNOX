@@ -7,3 +7,5 @@ Execution du script "AccueilRandomImage" -> 1 fois pas jours
 Execution du script "listingKeywordsReferences" -> 1 fois par heures
 
 Execution du script "pdfParsing" -> 1 fois par heures
+
+Execution du script "GXDataUpdating" -> 1 fois par heures

@@ -37,13 +37,13 @@
                         getClientsByCritere();
                     });
                     function getClientsByCritere() {
-
-                        $('#formClient_noClient').find("option").remove();
-                        $('#formClient_noClient').css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.svg') }}" + "') no-repeat center");
-                        $('#formClient_noClient').css('background-size', '50%');
                         if (typeof request !== 'undefined') {
                             request.abort();
                         }
+                        $('#formClient_noClient').find("option").remove();
+                        $('#formClient_noClient').css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.gif') }}" + "') no-repeat center");
+                        $('#formClient_noClient').css('background-size', '50%');
+
                         request = $.ajax({
                             //On lui indique le type d'envoie des informations
 

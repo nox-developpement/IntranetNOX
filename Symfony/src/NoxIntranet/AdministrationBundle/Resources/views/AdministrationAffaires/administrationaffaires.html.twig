@@ -255,208 +255,103 @@
 
         {{ form_end(formSelectionVersion) }}
 
-    </div>
-
-    <div id="DivFormulaireAAModele" class="titreFormulaireAA" onclick="
-            assistantAffaireToggle([
-                $('#DivFormulaireAjoutClient'),
-                $('#DivFormulaireSuppressionClient')
-            ], $(this));
-            Recherche('.selectFormulaireSelectionVersion');
-            resizeFormLabelAndData($('.labelFormulaireAdministrationAjoutClient'), $('.champFormulaireRemplissageAjoutClient'), $('.formulaireAdministrationAjoutClient p'));
-            resizeFormLabelAndData($('.labelFormulaireAdministrationSuppressionClient'), $('.champFormulaireRemplissageSuppresionClient'), $('.formulaireAdministrationSuppressionClient p'));"
-         >
-        <h4> Clients <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='formulaireAAImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='formulaireAAImgDown'> </h4>
-    </div>
-
-    <div id='DivFormulaireAjoutClient' class='formulaireAA'>
-
-        {{ form_start(formAjoutClient, {'attr': {'class': 'formulaireAdministrationAjoutClient'}}) }}
-        {{ form_errors(formAjoutClient) }}
-
-        <fieldset>
-
-            <legend>Ajouter un client</legend>
-
-            <p>
-                {{ form_label(formAjoutClient.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutClient'}}) }}
-                {{ form_errors(formAjoutClient.Nom) }}
-                {{ form_widget(formAjoutClient.Nom, {'attr': {'class': 'textFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutClient'}}) }}
-
-                <br />
-
-                {{ form_label(formAjoutClient.Adresse, "Adresse :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutClient'}}) }}
-                {{ form_errors(formAjoutClient.Adresse) }}
-                {{ form_widget(formAjoutClient.Adresse, {'attr': {'class': 'textFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutClient'}}) }}
-
-                <br />
-
-                {{ form_label(formAjoutClient.Fax, "Fax :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutClient'}}) }}
-                {{ form_errors(formAjoutClient.Fax) }}
-                {{ form_widget(formAjoutClient.Fax, {'attr': {'class': 'textFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutClient'}}) }}
-
-                {{ form_widget(formAjoutClient._token) }}
-
-                <br />
-
-                {{ form_widget(formAjoutClient.Ajouter, {'attr': {'class': 'submitFormulaireAdministrationAjoutClient', 'class': 'boutonFormulaire' }}) }}
-            </p>
-
-        </fieldset>
-
-        {{ form_end(formAjoutClient) }}
-
         <script>
-            function checkConstraint(Champ, regexp, message) {
+            var request;
+            var request2;
+            $("#formSelectionDossier_profil").change(function () {
+                getModelesByProfil();
+            });
+            $("#rechercehSuivi").on("keyup paste input", function () {
+                getModelesByProfilAndName();
+            });
 
-                var reg = new RegExp(regexp);
+            function getModelesByProfil() {
 
-                Champ.keyup(function () {
-                    if (!reg.test(Champ.val())) {
-                        Champ.css('border-color', 'red');
-                        Champ[0].setCustomValidity(message);
-                    } else {
-                        Champ.css('border-color', 'initial');
-                        Champ[0].setCustomValidity('');
+                if (typeof request !== 'undefined') {
+                    request.abort();
+                }
+                $("#rechercehSuivi").val('');
+                $('#formSelectionVersion_Suivi').find("option").remove();
+                $('#formSelectionVersion_Suivi').css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.gif') }}" + "') no-repeat center");
+                $('#formSelectionVersion_Suivi').css('background-size', '50%');
+                request = $.ajax({
+                    //On lui indique le type d'envoie des informations
+
+                    type: 'POST',
+                    //On lui indique le chemin de la fonction
+
+                    url: '{{ path('nox_intranet_administration_affaires_ajax_get_modele_by_profil') }}',
+                    //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
+
+                    data: 'profil=' + $("#formSelectionDossier_profil").val(),
+                    //Enfin nous lui disons de remplir notre formulaire avec le resultat  
+
+                    success: function (response) {
+
+                        $('#formSelectionVersion_Suivi').css('background', 'white');
+                        if (response.length !== 0) {
+                            $.each(response, function (i, item) {
+                                $('#formSelectionVersion_Suivi').append(new Option(item, i));
+                            });
+                            $('#formSelectionVersion_Suivi option:nth-child(even)').css('background', 'SeaShell');
+                            $('#formSelectionVersion_Suivi option').each(function () {
+                                $(this).attr('title', $(this).text());
+                            });
+                            $('#formSelectionVersion_Suivi').removeAttr('disabled');
+                            $('#formSelectionVersion_Editer').removeAttr('disabled');
+                            $('#formSelectionVersion_Supprimer').removeAttr('disabled');
+                        } else {
+                            $('#formSelectionVersion_Suivi').attr('disabled', 'disabled');
+                            $('#formSelectionVersion_Editer').attr('disabled', 'disabled');
+                            $('#formSelectionVersion_Supprimer').attr('disabled', 'disabled');
+                        }
                     }
                 });
             }
-            checkConstraint($('#formAjoutClient_Fax'), /(0|(\\+33))[1-9][0-9]{8}/, "Le numéro dois être de la forme '0634691934' ou '+330634691934'.");
-        </script>
+            function getModelesByProfilAndName() {
 
-    </div>
+                if (typeof request2 !== 'undefined') {
+                    request2.abort();
+                }
+                $('#formSelectionVersion_Suivi').find("option").remove();
+                $('#formSelectionVersion_Suivi').css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.gif') }}" + "') no-repeat center");
+                $('#formSelectionVersion_Suivi').css('background-size', '50%');
+                request2 = $.ajax({
+                    //On lui indique le type d'envoie des informations
 
-    <div id='DivFormulaireSuppressionClient' class='formulaireAA'>
+                    type: 'POST',
+                    //On lui indique le chemin de la fonction
 
-        {{ form_start(formSuppressionClient, {'attr': {'class': 'formulaireAdministrationSuppressionClient'}}) }}
-        {{ form_errors(formSuppressionClient) }}
+                    url: '{{ path('nox_intranet_administration_affaires_ajax_get_modele_by_profil_and_name') }}',
+                    //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
 
-        <fieldset>
+                    data: {profil: $("#formSelectionDossier_profil").val(), nom: $("#rechercehSuivi").val()},
+                    //Enfin nous lui disons de remplir notre formulaire avec le resultat  
 
-            <legend>Supprimer un client</legend>
+                    success: function (response) {
 
-            <p>
-                {{ form_label(formSuppressionClient.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionClient'}}) }}
-                {{ form_errors(formSuppressionClient.Nom) }}
-                {{ form_widget(formSuppressionClient.Nom, {'attr': {'class': 'textFormulaireAdministrationSuppressionClient champFormulaireRemplissageSuppresionClient'}}) }}
-
-                <br />
-
-                {{ form_widget(formSuppressionClient.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationSuppressionClient', 'class': 'boutonFormulaire' }}) }}
-            </p>
-
-        </fieldset>
-
-        {{ form_end(formSuppressionClient) }}
-
-    </div>
-
-    <div id="DivFormulaireAAModele" class="titreFormulaireAA" onclick="
-            assistantAffaireToggle([
-                $('#DivFormulaireAjoutInterlocuteur'),
-                $('#DivFormulaireSuppressionInterlocuteur')
-            ], $(this));
-            resizeFormLabelAndData($('.labelFormulaireAdministrationAjoutInterlocuteur'), $('.champFormulaireRemplissageAjoutInterlocuteur'), $('.formulaireAdministrationAjoutInterlocuteur p'));"
-         >
-        <h4> Interlocuteurs <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='formulaireAAImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='formulaireAAImgDown'> </h4>
-    </div>
-
-    <div id='DivFormulaireAjoutInterlocuteur' class='formulaireAA'>
-
-        {{ form_start(formAjoutInterlocuteur, {'attr': {'class': 'formulaireAdministrationAjoutInterlocuteur'}}) }}
-        {{ form_errors(formAjoutInterlocuteur) }}
-
-        <fieldset>
-
-            <legend>Ajouter un interlocuteur</legend>
-
-            <p>
-                {{ form_label(formAjoutInterlocuteur.IdClient, "Client :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}
-                {{ form_errors(formAjoutInterlocuteur.IdClient) }}
-                {{ form_widget(formAjoutInterlocuteur.IdClient, {'attr': {'class': 'selectFormulaireAdministrationAjoutClient champFormulaireRemplissageAjoutInterlocuteur'}}) }}
-
-                <br />
-
-                {{ form_label(formAjoutInterlocuteur.Email, "Email :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}
-                {{ form_errors(formAjoutInterlocuteur.Email) }}
-                {{ form_widget(formAjoutInterlocuteur.Email, {'attr': {'class': 'textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur'}}) }}
-
-                <br />
-
-                {{ form_label(formAjoutInterlocuteur.Fax, "Fax :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}
-                {{ form_errors(formAjoutInterlocuteur.Fax) }}
-                {{ form_widget(formAjoutInterlocuteur.Fax, {'attr': {'class': 'textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur'}}) }}
-
-                {{ form_widget(formAjoutInterlocuteur._token) }}
-
-                <br />
-
-                {{ form_label(formAjoutInterlocuteur.Telephone, "Téléphone :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}
-                {{ form_errors(formAjoutInterlocuteur.Telephone) }}
-                {{ form_widget(formAjoutInterlocuteur.Telephone, {'attr': {'class': 'textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur'}}) }}
-
-                <br />
-
-                {{ form_label(formAjoutInterlocuteur.Portable, "Portable :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutInterlocuteur'}}) }}
-                {{ form_errors(formAjoutInterlocuteur.Portable) }}
-                {{ form_widget(formAjoutInterlocuteur.Portable, {'attr': {'class': 'textFormulaireAdministrationAjoutInterlocuteur champFormulaireRemplissageAjoutInterlocuteur'}}) }}
-
-                <br />
-
-                {{ form_widget(formAjoutInterlocuteur.Ajouter, {'attr': {'class': 'submitFormulaireAdministrationAjoutClient', 'class': 'boutonFormulaire' }}) }}
-            </p>
-
-        </fieldset>
-
-        {{ form_end(formAjoutInterlocuteur) }}
-
-        <script>
-            function checkConstraint(Champ, regexp, message) {
-
-                var reg = new RegExp(regexp);
-
-                Champ.keyup(function () {
-                    if (!reg.test(Champ.val())) {
-                        Champ.css('border-color', 'red');
-                        Champ[0].setCustomValidity(message);
-                    } else {
-                        Champ.css('border-color', 'initial');
-                        Champ[0].setCustomValidity('');
+                        $('#formSelectionVersion_Suivi').css('background', 'white');
+                        if (response.length !== 0) {
+                            $.each(response, function (i, item) {
+                                $('#formSelectionVersion_Suivi').append(new Option(item, i));
+                            });
+                            $('#formSelectionVersion_Suivi option:nth-child(even)').css('background', 'SeaShell');
+                            $('#formSelectionVersion_Suivi option').each(function () {
+                                $(this).attr('title', $(this).text());
+                            });
+                            $('#formSelectionVersion_Suivi').removeAttr('disabled');
+                            $('#formSelectionVersion_Editer').removeAttr('disabled');
+                            $('#formSelectionVersion_Supprimer').removeAttr('disabled');
+                        } else {
+                            $('#formSelectionVersion_Suivi').attr('disabled', 'disabled');
+                            $('#formSelectionVersion_Editer').attr('disabled', 'disabled');
+                            $('#formSelectionVersion_Supprimer').attr('disabled', 'disabled');
+                        }
                     }
-                });
+                }
+                );
             }
-            checkConstraint($('#formAjoutInterlocuteur_Fax'), /(0|(\\+33)|(0033))[1-9][0-9]{8}/, "Le numéro dois être de la forme '0634691934' ou '+33634691934'.");
-            checkConstraint($('#formAjoutInterlocuteur_Telephone'), /(0|(\\+33)|(0033))[1-9][0-9]{8}/, "Le numéro dois être de la forme '0634691934' ou '+33634691934'.");
-            checkConstraint($('#formAjoutInterlocuteur_Portable'), /(0|(\\+33)|(0033))[1-9][0-9]{8}/, "Le numéro dois être de la forme '0634691934' ou '+33634691934'.");
-            checkConstraint($('#formAjoutInterlocuteur_Email'), /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i, "L'adresse email doit être de la forme 'prénom.nom@domain.fr'.");
         </script>
-
-    </div>
-
-    <div id='DivFormulaireSuppressionInterlocuteur' class='formulaireAA'>
-
-        {{ form_start(formSuppressionInterlocuteur, {'attr': {'class': 'formulaireAdministrationSuppressionInterlocuteur'}}) }}
-        {{ form_errors(formSuppressionInterlocuteur) }}
-
-        <fieldset>
-
-            <legend>Supprimer un interlocuteur</legend>
-
-            <p>
-                {{ form_label(formSuppressionInterlocuteur.Interlocuteur, "Client :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionInterlocuteur'}}) }}
-                {{ form_errors(formSuppressionInterlocuteur.Interlocuteur) }}
-                {{ form_widget(formSuppressionInterlocuteur.Interlocuteur, {'attr': {'class': 'selectFormulaireAdministrationSuppressionClient champFormulaireRemplissageAjoutInterlocuteur'}}) }}
-
-                {{ form_widget(formSuppressionInterlocuteur._token) }}
-
-                <br />
-
-                {{ form_widget(formSuppressionInterlocuteur.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationSuppressionClient', 'class': 'boutonFormulaire' }}) }}
-            </p>
-
-        </fieldset>
-
-        {{ form_end(formSuppressionInterlocuteur) }}
 
     </div>
 

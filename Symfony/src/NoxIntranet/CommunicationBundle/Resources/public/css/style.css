@@ -2753,7 +2753,7 @@ input[type=text]:read-only {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: rgba(31,78,121,1) transparent transparent transparent;
+    border-color: rgba(31,78,121,0.8) transparent transparent transparent;
 }
 
 .tooltipClient:hover .tooltipClientText {
