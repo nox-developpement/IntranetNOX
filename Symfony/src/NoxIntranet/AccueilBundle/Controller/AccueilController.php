@@ -118,6 +118,12 @@ class AccueilController extends Controller {
 
         $majInterne = $this->getPDF($root . '/web/uploads/Communication/Interne/');
 
+        foreach ($majInterne as $key => $maj) {
+            if (strstr($maj->getLien(), '/web/uploads/Communication/Interne/VieDeLentreprise') !== false) {
+                unset($majInterne[$key]);
+            }
+        }
+
         $majMarketing = $this->getPDF($root . '/web/uploads/Communication/Marketing/');
 
         $majSI = $this->getPDF($root . '/web/uploads/Communication/SI/');
@@ -243,7 +249,7 @@ class AccueilController extends Controller {
 
         $response = new Response();
         $response->setContent(var_dump(phpinfo()));
-        
+
         return $response;
     }
 
