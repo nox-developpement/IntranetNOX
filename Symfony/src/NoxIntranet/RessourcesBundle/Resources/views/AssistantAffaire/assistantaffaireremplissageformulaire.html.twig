@@ -54,7 +54,18 @@
                 <p>Numéro GX: <span>{{ suivi.NumeroGX }}</span></p>
                 <p>Commune: <span>{{ suivi.Commune }}</span></p>
                 <p>Marché: <span>{{ suivi.Marche }}</span></p>
-                <p>N° de Commande: <span>{{ suivi.NoCommande }}</span></p>
+                {% for nCommande in suivi.NoCommande %}
+                    {% if loop.last %}
+                        <p id="noCommande{{ loop.index }}">
+                            N° de Commande {{ loop.index }}: <span>{{ nCommande }}</span>
+                            <img src="{{ asset('bundles/noxintranetressources/images/Add-New-32.png') }}" style="text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.5em;" onclick="addNoCommande({{ loop.index }});"/>
+                        </p>
+                    {% else %}
+                        <p id="noCommande{{ loop.index }}">
+                            N° de Commande {{ loop.index }}: <span>{{ nCommande }}</span>
+                        </p>
+                    {% endif %}
+                {% endfor %} 
                 <p>N° Client: <span>{{ suivi.NoClient }}</span></p>
                 <p>Objet: <span>{{ suivi.Objet }}</span></p>
                 <p>N° INGEDIA BEP: <span>{{ suivi.NoINGEDIABEP }}</span></p>
@@ -119,6 +130,39 @@
             resizeFormLabelAndData($('.labelFormulaireRemplissageSuivi'), $('.champFormulaireRemplissageSuivi'), $('.formulaireRemplissageSuivi p'));
             hideAndShowDataAdding();
         });
+        function addNoCommande(nbNoCommande) {
+            var newNoCommande = "<p id='noCommande" + (nbNoCommande + 1) + "' class='noCommande'> N° de Commande " + (nbNoCommande + 1) + ": <span contenteditable='true' style='white-space: nowrap;'></span><img src={{ asset('bundles/noxintranetressources/images/Add-New-32.png') }} style='text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.5em;' onclick='addNoCommande(" + (nbNoCommande + 1) + ");' /></p>";
+            $('#noCommande' + nbNoCommande).after(newNoCommande);
+            $('#noCommande' + nbNoCommande + ' img').remove();
+            ApplyBlurFunction();
+        }
+
+        function EditNoCommande(context) {
+            ajaxSaveNoCommande(context.attr('id'), $('#' + context.attr('id') + ' span').text());
+        }
+
+        function ApplyBlurFunction() {
+            $('.noCommande').each(function () {
+                $(this).keypress(function (e) {
+                    if (e.which === 13) {
+                        e.preventDefault();
+                        $('#' + $(this).attr('id')).removeAttr('contenteditable');
+                        EditNoCommande($(this));
+                    }
+                });
+                $(this).focusout(function () {
+                    EditNoCommande($(this));
+                });
+            });
+        }
+
+        function ajaxSaveNoCommande(context, value) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('nox_intranet_assistant_affaire_ajax_nocommande_save') }}',
+                data: {suiviId:{{ suivi.Id }}, idNoCommande: context, noCommandeValue: value}
+            });
+        }
     </script>
 
 {% endblock %}

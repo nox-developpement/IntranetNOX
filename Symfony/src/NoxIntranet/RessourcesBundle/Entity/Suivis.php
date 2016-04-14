@@ -78,9 +78,9 @@ class Suivis {
     private $marche;
 
     /**
-     * @var string
+     * @var array
      *
-     * @ORM\Column(name="NoCommande", type="string", length=255, nullable=true)
+     * @ORM\Column(name="NoCommande", type="array", nullable=true)
      */
     private $nocommande;
 
@@ -298,28 +298,6 @@ class Suivis {
     }
 
     /**
-     * Set nocommande
-     *
-     * @param string $nocommande
-     *
-     * @return Suivis
-     */
-    public function setNocommande($nocommande) {
-        $this->nocommande = $nocommande;
-
-        return $this;
-    }
-
-    /**
-     * Get nocommande
-     *
-     * @return string
-     */
-    public function getNocommande() {
-        return $this->nocommande;
-    }
-
-    /**
      * Set noclient
      *
      * @param string $noclient
@@ -407,4 +385,28 @@ class Suivis {
         return $this->estimatif;
     }
 
+
+    /**
+     * Set nocommande
+     *
+     * @param array $nocommande
+     *
+     * @return Suivis
+     */
+    public function setNocommande($nocommande)
+    {
+        $this->nocommande = $nocommande;
+
+        return $this;
+    }
+
+    /**
+     * Get nocommande
+     *
+     * @return array
+     */
+    public function getNocommande()
+    {
+        return $this->nocommande;
+    }
 }

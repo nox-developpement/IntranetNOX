@@ -2766,3 +2766,8 @@ input[type=text]:read-only {
     font-weight: bold;
     text-decoration: underline;
 }
+
+#alert {
+    display: none;
+    background: red;
+}

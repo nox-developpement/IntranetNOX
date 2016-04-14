@@ -52,13 +52,6 @@ class Suivis {
     /**
      * @var string
      *
-     * @ORM\Column(name="IdClient", type="integer")
-     */
-    private $idClient;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="Statut", type="string", length=255)
      */
     private $statut;
@@ -73,49 +66,49 @@ class Suivis {
     /**
      * @var string
      *
-     * @ORM\Column(name="Commune", type="string", length=255)
+     * @ORM\Column(name="Commune", type="string", length=255, nullable=true)
      */
     private $commune;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Marche", type="string", length=255)
+     * @ORM\Column(name="Marche", type="string", length=255, nullable=true)
      */
     private $marche;
 
     /**
-     * @var string
+     * @var array
      *
-     * @ORM\Column(name="NoCommande", type="string", length=255)
+     * @ORM\Column(name="NoCommande", type="array", nullable=true)
      */
     private $nocommande;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="NoClient", type="string", length=255)
+     * @ORM\Column(name="NoClient", type="string", length=255, nullable=true)
      */
     private $noclient;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Objet", type="string", length=255)
+     * @ORM\Column(name="Objet", type="string", length=255, nullable=true)
      */
     private $objet;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="NoINGEDIABEP", type="string", length=255)
+     * @ORM\Column(name="NoINGEDIABEP", type="string", length=255, nullable=true)
      */
     private $noINGEDIABEP;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Estimatif", type="string", length=255)
+     * @ORM\Column(name="Estimatif", type="string", length=255, nullable=true)
      */
     private $estimatif;
 
@@ -305,28 +298,6 @@ class Suivis {
     }
 
     /**
-     * Set nocommande
-     *
-     * @param string $nocommande
-     *
-     * @return Suivis
-     */
-    public function setNocommande($nocommande) {
-        $this->nocommande = $nocommande;
-
-        return $this;
-    }
-
-    /**
-     * Get nocommande
-     *
-     * @return string
-     */
-    public function getNocommande() {
-        return $this->nocommande;
-    }
-
-    /**
      * Set noclient
      *
      * @param string $noclient
@@ -412,28 +383,6 @@ class Suivis {
      */
     public function getEstimatif() {
         return $this->estimatif;
-    }
-
-    /**
-     * Set client
-     *
-     * @param \Client $client
-     *
-     * @return Suivis
-     */
-    public function setClient(\Client $client) {
-        $this->client = $client;
-
-        return $this;
-    }
-
-    /**
-     * Get client
-     *
-     * @return \Client
-     */
-    public function getClient() {
-        return $this->client;
     }
 
 }

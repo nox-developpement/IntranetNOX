@@ -358,7 +358,11 @@ class ExcelReadingController extends Controller {
         $form = $this->get('form.factory')->createBuilder('form', $suivi)
                 ->add('Marche', TextType::class)
                 ->add('NoCommande', TextType::class)
-                ->add('NoClient', TextType::class)
+                ->add('NoClient', TextType::class, array(
+                    'attr' => array(
+                        'readonly' => 'readonly'
+                    )
+                ))
                 ->add('Commune', TextType::class)
                 ->add('Objet', TextType::class)
                 ->add('NoINGEDIABEP', TextType::class)
@@ -369,6 +373,7 @@ class ExcelReadingController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $suivi->setNoCommande(array($suivi->getNoCommande()));
             $em->persist($suivi);
             $em->flush();
 
@@ -376,6 +381,30 @@ class ExcelReadingController extends Controller {
         }
 
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreationinfos.html.twig', array('form' => $form->createView()));
+    }
+
+    public function ajaxSaveNoCommandeAction(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->isXmlHttpRequest()) {
+            $suiviId = $request->get('suiviId');
+            $idNoCommande = $request->get('idNoCommande');
+            $noCommandeValue = $request->get('noCommandeValue');
+
+            $suivi = $em->getRepository("NoxIntranetRessourcesBundle:Suivis")->find($suiviId);
+
+            $noCommandes = $suivi->getNoCommande();
+
+            $noCommandes[$idNoCommande] = $noCommandeValue;
+
+            $suivi->setNoCommande($noCommandes);
+
+            $em->persist($suivi);
+            $em->flush();
+        }
+
+        return new Response('ok');
     }
 
     public function consulterSuiviAction(Request $request, $agence) {

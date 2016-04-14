@@ -14,8 +14,6 @@ use NoxIntranet\AdministrationBundle\Entity\Fichier_Suivi;
 use NoxIntranet\AdministrationBundle\Entity\Formulaires;
 use NoxIntranet\AdministrationBundle\Entity\LiaisonSuiviChamp;
 use NoxIntranet\AdministrationBundle\Entity\DonneesFormulaire;
-use NoxIntranet\AdministrationBundle\Entity\Donnees_Client;
-use NoxIntranet\AdministrationBundle\Entity\Donnees_Interlocuteur;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
@@ -61,7 +59,7 @@ class AdministrationAffairesController extends Controller {
 
     public function administrationAffairesAccueilAction(Request $request, $profil) {
 
-        $root = $this->get('kernel')->getRootDir() . '\..';
+        $root = realpath($this->get('kernel')->getRootDir() . '\..');
 
         $em = $this->getDoctrine()->getManager();
 
@@ -856,6 +854,7 @@ class AdministrationAffairesController extends Controller {
         $imagePDFLien = "http://" . $_SERVER['HTTP_HOST'] . "/Symfony/web/ImagePDF/" . $filename . ".png";
 
         $suivi = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findOneByChemin(str_replace('/', '\\', pathinfo($file, PATHINFO_DIRNAME)));
+
         $liaisonsSuivi = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdSuivi($suivi->getId());
 
         $requette = null;

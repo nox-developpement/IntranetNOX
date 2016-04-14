@@ -143,5 +143,9 @@ nox_intranet_assistant_affaire_ajax_client_getter:
 nox_intranet_assistant_affaire_ajax_client_adr_getter:
     path: /ressources/assistant-affaires/creation-suivi/getClientAdr
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:ajaxClientAdrGetter }
+    
+nox_intranet_assistant_affaire_ajax_nocommande_save:
+    path: /ressources/assistant-affaires/edition-suivi-sauvegarde-nocommande
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:ajaxSaveNoCommande }
 
     

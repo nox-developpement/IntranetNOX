@@ -122,6 +122,10 @@
             </div>
         </footer>
 
+        <div id="alert">
+
+        </div>
+
         <script>
 
             function footerAlign() {
@@ -182,5 +186,16 @@
     <script src="{{ asset('./js/tableurEdition.js') }}"/></script>
 <script src="{{ asset('./js/suiviRecherche.js') }}"/></script>
 
+<script>
+            $('body').keypress(function (e) {
+                if (e.which === 13) {
+                    //$('body').wrapAll("<div id='aler.hide();
+                    var contenu = $('body').contents();
+                    );
+                }
+            });
+</script>
+
 </body>
+
 </html>
