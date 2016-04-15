@@ -129,6 +129,13 @@ class AccueilController extends Controller {
             $em->flush();
         }
 
+        unset($_COOKIE["alert"]);
+        unset($_COOKIE["alertMessage"]);
+        if ($alert->getStatus()) {
+            setcookie("alert", true);
+            setrawcookie("alertMessage", rawurlencode($alert->getMessage()));
+        }
+
         $majExterne = $this->getPDF($root . '/web/uploads/Communication/Externe/');
 
         $majInterne = $this->getPDF($root . '/web/uploads/Communication/Interne/');
@@ -154,7 +161,7 @@ class AccueilController extends Controller {
         return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('texte' => $texte, 'formulaire' => $form->createView(),
                     'majExterne' => $majExterne, 'majInterne' => $majInterne, 'majMarketing' => $majMarketing, 'majSI' => $majSI,
                     'majAQ' => $majAQ, 'majRH' => $majRH, 'posteAPourvoir' => $annoncesPoste,
-                    'nominationOrganisation' => $annoncesNomination, 'nombreVues' => $nombreVues, 'alert' => $alert));
+                    'nominationOrganisation' => $annoncesNomination, 'nombreVues' => $nombreVues));
     }
 
     public function getPDF($chemin) {
@@ -204,6 +211,21 @@ class AccueilController extends Controller {
         $response->setContent(var_dump(phpinfo()));
 
         return $response;
+    }
+
+    public function ajaxGetMessageAlertAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+
+
+        if ($request->isXmlHttpRequest()) {
+            if ($em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBy(array('section' => 'Accueil')) != null) {
+                $alert = $em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBy(array('section' => 'Accueil'));
+            } else {
+                $alert = null;
+            }
+        }
+
+        return new Response($alert->getMessage());
     }
 
 }

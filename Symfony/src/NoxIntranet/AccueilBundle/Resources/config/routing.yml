@@ -14,8 +14,6 @@ nox_intranet_debug:
     path: /debug
     defaults: { _controller: NoxIntranetAccueilBundle:Accueil:debug }
     
-#nox_intranet_edition_annonces:
-#    path:     /accueil/edition-annonces/{categorie}
-#    defaults: { _controller: NoxIntranetAccueilBundle:Accueil:setAnnonces }
-#    requirements:
-#        categorie: .+
+nox_intranet_ajax_get_message_alerte:
+    path: /accueil/get-message-alerte
+    defaults: { _controller: NoxIntranetAccueilBundle:Accueil:ajaxGetMessageAlert }

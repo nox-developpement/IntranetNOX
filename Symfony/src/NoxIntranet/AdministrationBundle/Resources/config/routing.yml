@@ -179,3 +179,7 @@ nox_intranet_administration_affaires_ajax_get_modele_by_profil:
 nox_intranet_administration_affaires_ajax_get_modele_by_profil_and_name:
     path: /administration/assistant-affaires-get-modele-by-profil-and-name
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:ajaxGetModeleByProfilAndName }
+    
+nox_intranet_administration_message_alerte:
+    path: /administration/message-alerte
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationMessageAlert:editMessageAlert }

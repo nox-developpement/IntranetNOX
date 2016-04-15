@@ -25,7 +25,7 @@
             }
 
             #alert {
-                background-image: url({{ asset('bundles/noxintranetaccueil/images/AccueilIntranetBackground.jpg') }});
+                background-image: url({{ asset('bundles/noxintranetaccueil/images/AccueilIntranetBackground.png') }});
                 background-position: center; 
                 background-repeat: no-repeat;
                 background-size: 100%;
@@ -159,7 +159,7 @@
                 content.css("top", (container.height() - content.height()) / 2);
             }
 
-            $(document).ready(function () {
+            $(window).load(function () {
                 footerAlign();
                 centerContent();
                 resizeContenu();
@@ -192,6 +192,70 @@
     <script src="{{ asset('./js/submitFormAffaires.js') }}"></script>
     <script src="{{ asset('./js/tableurEdition.js') }}"/></script>
 <script src="{{ asset('./js/suiviRecherche.js') }}"/></script>
+
+<script>
+            $(window).load(function () {
+                var contenu = new Array();
+                var empty = false;
+
+                alertDisplay(contenu, empty);
+            });
+
+            function alertDisplay(contenu, empty) {
+
+                var message;
+
+                if (Cookies.get('alert') === '1' && Cookies.get('timerMessageAlert') !== 'true') {
+                    if (empty) {
+                        Cookies.set('timerMessageAlert', true, {expires: 1});
+                        $.each(contenu, function (index, value) {
+                            value.show();
+                        });
+                        $('#alertContainer').fadeOut('slow', function () {
+                            $('footer').show();
+                            $('#alert').remove();
+                            resizeLogin();
+                            resizeTootltipLogin();
+                        });
+                    } else {
+
+                        $.ajax({
+                            //On lui indique le type d'envoie des informations
+
+                            type: 'POST',
+                            //On lui indique le chemin de la fonction
+
+                            url: '{{ path('nox_intranet_ajax_get_message_alerte') }}',
+                            //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
+
+                            success: function (response) {
+                                //$('.formulaireClientAdr p').append("<input type='text' title='" + response.Adresse + "' value='" + response.Adresse + "'>");
+                                message = response;
+
+                                $('body :visible').contents().each(function () {
+                                    var attr = $(this).attr('style');
+                                    if (typeof attr !== typeof undefined && attr !== false) {
+                                        if ($(this).css('display') !== 'none') {
+                                            contenu.push($(this));
+                                        }
+                                    } else {
+                                        contenu.push($(this));
+                                    }
+                                    $(this).hide();
+                                });
+                                $('footer').hide();
+                                //$('body').empty();
+                                $('body').prepend("<div id='alert'><div id='alertContainer'><div id='alertMessage'>" + message + "<br /><p id='hideAlertButtonParagraph'><button id='hideAlertButton'>J'ai compris</button></p></div></div></div>");
+                                $('#hideAlertButton').click(function () {
+                                    alertDisplay(contenu, true);
+                                });
+                                empty = true;
+                            }
+                        });
+                    }
+                }
+            }
+</script>
 
 </body>
 
