@@ -363,4 +363,48 @@
 
     </div>
 
+    {% if alert.Status %}
+        <script>
+            $(window).load(function () {
+                var contenu = new Array();
+                var empty = false;
+
+                alertDisplay(contenu, empty);
+            });
+
+            function alertDisplay(contenu, empty) {
+
+                if (empty) {
+                    //$('body').append(contenu); 
+                    $.each(contenu, function (index, value) {
+                        value.show();
+                    });
+                    $('#alert').fadeOut('slow', function () {
+                        $('#alert').remove();
+                    });
+                } else {
+                    //contenu = $('body').contents();
+                    $('body :visible').contents().each(function () {
+                        var attr = $(this).attr('style');
+                        if (typeof attr !== typeof undefined && attr !== false) {
+                            if ($(this).css('display') !== 'none') {
+                                contenu.push($(this));
+                            }
+                        } else {
+                            contenu.push($(this));
+                        }
+                        $(this).hide();
+                    });
+                    //$('body').empty();
+                    $('body').prepend("<div id='alert'><div id='alertContainer'><div id='alertMessage'>{{ alert.Message }}<br /><button id='hideAlertButton'>J'ai compris</button></div></div></div>");
+                    $('#hideAlertButton').click(function () {
+                        alertDisplay(contenu, true);
+                    });
+                    empty = true;
+                }
+            }
+
+        </script>
+    {% endif %}
+
 {% endblock %}

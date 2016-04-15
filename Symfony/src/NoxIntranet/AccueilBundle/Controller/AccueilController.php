@@ -11,6 +11,7 @@ namespace NoxIntranet\AccueilBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
+use NoxIntranet\AccueilBundle\Entity\MessageAlert;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -114,6 +115,20 @@ class AccueilController extends Controller {
 
         $texte = $texteEncart->getText();
 
+        if ($em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBy(array('section' => 'Accueil')) != null) {
+            $alert = $em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBy(array('section' => 'Accueil'));
+        } else {
+            $alert = null;
+        }
+
+        if ($alert == null) {
+            $alert = new MessageAlert();
+            $alert->setSection('Accueil');
+            $alert->setStatus(false);
+            $em->persist($alert);
+            $em->flush();
+        }
+
         $majExterne = $this->getPDF($root . '/web/uploads/Communication/Externe/');
 
         $majInterne = $this->getPDF($root . '/web/uploads/Communication/Interne/');
@@ -139,7 +154,7 @@ class AccueilController extends Controller {
         return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('texte' => $texte, 'formulaire' => $form->createView(),
                     'majExterne' => $majExterne, 'majInterne' => $majInterne, 'majMarketing' => $majMarketing, 'majSI' => $majSI,
                     'majAQ' => $majAQ, 'majRH' => $majRH, 'posteAPourvoir' => $annoncesPoste,
-                    'nominationOrganisation' => $annoncesNomination, 'nombreVues' => $nombreVues));
+                    'nominationOrganisation' => $annoncesNomination, 'nombreVues' => $nombreVues, 'alert' => $alert));
     }
 
     public function getPDF($chemin) {
@@ -182,68 +197,6 @@ class AccueilController extends Controller {
 
         return $listePDF;
     }
-
-//    public function setAnnoncesAction(Request $request, $categorie) {
-//
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $annonces = $em->getRepository('NoxIntranetAccueilBundle:Annonces')->findByCategorie($categorie);
-//
-//        $formSuppressionAnnonce = $this->get('form.factory')->createNamedBuilder('formSuppressionAnnonce', 'form', $annonces)
-//                ->add('Message', EntityType::class, array(
-//                    'class' => 'NoxIntranetAccueilBundle:Annonces',
-//                    'query_builder' => function (EntityRepository $er) use ($categorie) {
-//                        return $er->createQueryBuilder('u')
-//                                ->where("u.categorie = '" . $categorie . "'");
-////                                ->orderBy('u.nom', 'ASC');
-//                    },
-//                    'choice_label' => 'Message',
-//                ))
-//                ->add('Supprimer', 'submit')
-//                ->getForm();
-//
-//        $newAnnonce = new Annonces();
-//
-//        $formAjoutAnnonce = $this->get('form.factory')->createNamedBuilder('formAjoutAnnonce', 'form', $newAnnonce)
-//                ->add('Message', TextareaType::class)
-//                ->add('Ajouter', 'submit')
-//                ->getForm();
-//
-//        if ($request->request->has('formSuppressionAnnonce')) {
-//
-//            $formSuppressionAnnonce->handleRequest($request);
-//
-//            if ($formSuppressionAnnonce->isValid()) {
-//
-//                $em->remove($formSuppressionAnnonce['Message']->getData());
-//                $em->flush();
-//
-//                $request->getSession()->getFlashBag()->add('notice', 'L\'annonce a été supprimé.');
-//
-//                return $this->redirectToRoute('nox_intranet_edition_annonces', array('categorie' => $categorie));
-//            }
-//        }
-//
-//        if ($request->request->has('formAjoutAnnonce')) {
-//
-//            $formAjoutAnnonce->handleRequest($request);
-//
-//            if ($formAjoutAnnonce->isValid()) {
-//
-//                $newAnnonce->setCategorie($categorie);
-//                $newAnnonce->setMessage($formAjoutAnnonce['Message']->getData());
-//
-//                $em->persist($newAnnonce);
-//                $em->flush();
-//
-//                $request->getSession()->getFlashBag()->add('notice', 'L\'annonce a été créé.');
-//
-//                return $this->redirectToRoute('nox_intranet_edition_annonces', array('categorie' => $categorie));
-//            }
-//        }
-//
-//        return $this->render('NoxIntranetAccueilBundle:EditionAnnonces:editionAnnonces.html.twig', array('categorie' => $categorie, 'formSuppressionAnnonce' => $formSuppressionAnnonce->createView(), 'formAjoutAnnonce' => $formAjoutAnnonce->createView()));
-//    }
 
     public function debugAction() {
 
