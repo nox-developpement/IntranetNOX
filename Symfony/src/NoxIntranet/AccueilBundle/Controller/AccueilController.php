@@ -130,10 +130,8 @@ class AccueilController extends Controller {
         }
 
         unset($_COOKIE["alert"]);
-        unset($_COOKIE["alertMessage"]);
         if ($alert->getStatus()) {
             setcookie("alert", true);
-            setrawcookie("alertMessage", rawurlencode($alert->getMessage()));
         }
 
         $majExterne = $this->getPDF($root . '/web/uploads/Communication/Externe/');
