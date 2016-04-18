@@ -27,5 +27,3 @@ set scriptfile=%~d0\wamp\www\Symfony\scripts\SQL\importGXData.sql
 @echo LINES TERMINATED BY '\n'; >> %scriptfile%
 
 mysql -u intranetadmin --password=intranet -D intranet < %scriptfile%
-
-pause

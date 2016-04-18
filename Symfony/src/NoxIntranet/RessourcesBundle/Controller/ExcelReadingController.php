@@ -404,7 +404,30 @@ class ExcelReadingController extends Controller {
             $em->flush();
         }
 
-        return new Response('ok');
+        return new Response('N° de commande ajouté.');
+    }
+
+    public function ajaxDeleteNoCommandeAction(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->isXmlHttpRequest()) {
+            $suiviId = $request->get('suiviId2');
+            $idNoCommande = $request->get('idNoCommande2');
+
+            $suivi = $em->getRepository("NoxIntranetRessourcesBundle:Suivis")->find($suiviId);
+
+            $noCommandes = $suivi->getNoCommande();
+
+            unset($noCommandes[$idNoCommande]);
+
+            $suivi->setNoCommande($noCommandes);
+
+            $em->persist($suivi);
+            $em->flush();
+        }
+
+        return new Response('N° de commande supprimé.');
     }
 
     public function consulterSuiviAction(Request $request, $agence) {
