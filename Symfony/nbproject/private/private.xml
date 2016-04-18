@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/Controller/ExcelReadingController.php</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/Entity/Suivis.php</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/Resources/views/AssistantAffaire/assistantaffaireremplissageformulaire.html.twig</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/Resources/config/routing.yml</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/Resources/views/AssistantAffaire/assistantaffairecreationchoixclient.html.twig</file>
+            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/AccueilBundle/Resources/config/routing.yml</file>
+            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/AdministrationBundle/Controller/AdministrationMessageAlertController.php</file>
+            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/AccueilBundle/Controller/AccueilController.php</file>
             <file>file:/C:/wamp/www/Symfony/app/Resources/views/layout.html.twig</file>
+            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/Resources/views/AssistantAffaire/assistantaffairecreationchoixclient.html.twig</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/CommunicationBundle/Resources/public/css/style.css</file>
         </group>
     </open-files>
