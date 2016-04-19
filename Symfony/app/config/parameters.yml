@@ -5,13 +5,9 @@ parameters:
     database_name: intranet
     database_user: intranetadmin
     database_password: intranet
-    database_host2: SRVM-SQL-LAB
-    database_port2: 1433
-    database_name2: NOX
-    database_user2: t.besson
-    database_password2: Chegfp95
     mailer_transport: smtp
     mailer_host: smtp.groupe-nox.com
     mailer_user: noreply@groupe-nox.com
     mailer_password: rG5xWk54
     secret: cac79ed1075f393421bc6a36836164066162caab
+    intranet_version: v1.4

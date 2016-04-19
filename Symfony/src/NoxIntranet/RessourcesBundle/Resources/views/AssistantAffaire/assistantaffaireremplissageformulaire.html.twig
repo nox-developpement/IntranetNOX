@@ -61,7 +61,7 @@
                             <img src="{{ asset('bundles/noxintranetressources/images/Minus-32.png') }}" style="text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.1em;" onclick="deleteNoCommande('{{ nCommandeKey }}');"/>
                         {% endif %}
                         {% if loop.last %}
-                            <img src="{{ asset('bundles/noxintranetressources/images/Add-New-32.png') }}" style="text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.1em;" onclick="addNoCommande({{ loop.index }});"/>
+                            <img src="{{ asset('bundles/noxintranetressources/images/Add-New-32.png') }}" style="text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.1em;" onclick="addNoCommande('{{ nCommandeKey }}', {{ loop.index }});"/>
                         {% endif %}
                     </p>
                 {% endfor %} 
@@ -130,12 +130,13 @@
             hideAndShowDataAdding();
             ApplyBlurFunction();
         });
-        function addNoCommande(nbNoCommande) {
+        function addNoCommande(nbNoCommande, loopIndex) {
             if ($('#' + nbNoCommande + ' span').text() !== '') {
-                var newNoCommande = "<p id='" + (nbNoCommande + 1) + "' class='noCommande'> N° de Commande " + (nbNoCommande + 1) + ": <span contenteditable='true' style='white-space: nowrap;'></span><img src={{ asset('bundles/noxintranetressources/images/Add-New-32.png') }} style='text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.5em;' onclick='addNoCommande(" + (nbNoCommande + 1) + ");' /></p>";
+                var newNoCommande = "<p id='" + (parseInt(nbNoCommande) + 1) + "' class='noCommande'> N° de Commande " + (loopIndex + 1) + ": <span contenteditable='true' style='white-space: nowrap;'></span><img src={{ asset('bundles/noxintranetressources/images/Add-New-32.png') }} style='text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.5em;' onclick='addNoCommande(" + (parseInt(nbNoCommande) + 1) + "," + (loopIndex + 1) + ");' /></p>";
                 $('#' + nbNoCommande).after(newNoCommande);
                 $('#' + nbNoCommande + ' img').remove();
                 ApplyBlurFunction();
+                updateNoCommandeButton(nbNoCommande, loopIndex);
             } else {
                 $('#' + nbNoCommande + ' span').focus();
             }
@@ -150,6 +151,7 @@
         function deleteNoCommande(context) {
             $('#' + context).remove();
             ajaxDeleteNoCommande(context);
+            updateNoCommandeButton($('.noCommande').last().attr('id') - 1, $('.noCommande').length);
         }
 
         function ApplyBlurFunction() {
@@ -167,6 +169,19 @@
             });
         }
 
+        function updateNoCommandeButton(key, loopIndex) {
+
+            var reg = /(N° de Commande [0-9]{1,}:)/;
+
+            $('.noCommande').find('img').remove();
+            if ($('.noCommande').length > 1) {
+                $('.noCommande').each(function (index) {
+                    $(this).html($(this).html().replace(reg, "N° de Commande " + (index + 1) + ":"));
+                    $(this).find('span').after("<img src='{{ asset('bundles/noxintranetressources/images/Minus-32.png') }}' style='text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.1em;' onclick='deleteNoCommande(" + $(this).attr('id') + ");'/>");
+                });
+            }
+            $('.noCommande').last().append("<img src='{{ asset('bundles/noxintranetressources/images/Add-New-32.png') }}' style='text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.1em;' onclick=\"addNoCommande('" + (parseInt(key) + 1) + "'," + (loopIndex + 1) + ");\"/>");
+        }
 
         function ajaxDeleteNoCommande(context2) {
             $.ajax({
@@ -177,7 +192,6 @@
         }
 
         function ajaxSaveNoCommande(context, value) {
-
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_assistant_affaire_ajax_nocommande_save') }}',
