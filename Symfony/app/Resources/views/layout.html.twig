@@ -207,7 +207,15 @@
 
                 if (Cookies.get('alert') === '1' && Cookies.get('timerMessageAlert') !== 'true') {
                     if (empty) {
-                        Cookies.set('timerMessageAlert', true, {expires: 1});
+
+                        var currentTime = new Date();
+                        var nextDay = new Date(currentTime.getYear(), currentTime.getMonth(), currentTime.getDay() + 1, 08, 00, 00, 00);
+                        var expireTime = new Date();
+                        alert(expireTime);
+                        expireTime.setTime(nextDay.getTime() - expireTime.getTime());
+                        alert(expireTime);
+
+                        Cookies.set('timerMessageAlert', true, {expires: expireTime});
                         $.each(contenu, function (index, value) {
                             value.show();
                         });
