@@ -209,12 +209,10 @@
                     if (empty) {
 
                         var currentTime = new Date();
-                        var nextDay = new Date(currentTime.getYear(), currentTime.getMonth(), currentTime.getDay() + 1, 08, 00, 00, 00);
-                        var expireTime = new Date();
-                        alert(expireTime);
-                        expireTime.setTime(nextDay.getTime() - expireTime.getTime());
-                        alert(expireTime);
-
+                        var nextDay = new Date();
+                        nextDay.setHours(08, 00, 00);
+                        nextDay.setDate(nextDay.getDate() + 1);
+                        var expireTime = (nextDay.getTime() - currentTime.getTime()) * 1.15741e-8;
                         Cookies.set('timerMessageAlert', true, {expires: expireTime});
                         $.each(contenu, function (index, value) {
                             value.show();
