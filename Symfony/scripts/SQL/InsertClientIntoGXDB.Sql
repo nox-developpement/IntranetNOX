@@ -1,0 +1,4 @@
+SET NOCOUNT ON
+INSERT INTO CLIENT (Nom_Client, Prospect) VALUES ('$(Nom_Client)','non');
+SELECT SCOPE_IDENTITY();
+GO

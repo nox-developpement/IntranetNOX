@@ -70,6 +70,7 @@
                 <p>N° INGEDIA BEP: <span>{{ suivi.NoINGEDIABEP }}</span></p>
                 <p>Estimatif: <span>{{ suivi.Estimatif }}</span></p>
                 <p style="border-bottom: 1px dotted #1F4E79;">Client: <span class="tooltipClient">{{ client.NomCLient }}{% if clientAdr != null %}<span class="tooltipClientText"><span class="tooltipTag">Téléphone</span>: {{ clientAdr.Tel }}<br /><span class="tooltipTag">Fax</span>: {{ clientAdr.Fax }}<br /><span class="tooltipTag">Email</span>: {{ clientAdr.Email }}<br /><span class="tooltipTag">Ville</span>: {{ clientAdr.NomVille }}<br /><span class="tooltipTag">Pays</span>: {{ clientAdr.NomPays }}<br /><span class="tooltipTag">Adresse</span>: {{ clientAdr.Adresse1 }} {{ clientAdr.Adresse2 }} {{ clientAdr.Adresse3 }}</span>{% endif %}</span></p>
+                <p>Interlocuteur: <span>{{ interlocuteur.PrenomContact }} {{ interlocuteur.NomContact }}</span></p>
             </fieldset>
         </form>
 

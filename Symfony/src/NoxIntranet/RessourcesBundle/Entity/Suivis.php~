@@ -113,6 +113,13 @@ class Suivis {
     private $estimatif;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="NoInterlocuteur", type="integer", nullable=true)
+     */
+    private $noInterlocuteur;
+
+    /**
      * Get id
      *
      * @return integer
@@ -383,6 +390,28 @@ class Suivis {
      */
     public function getEstimatif() {
         return $this->estimatif;
+    }
+
+    /**
+     * Set nocommande
+     *
+     * @param array $nocommande
+     *
+     * @return Suivis
+     */
+    public function setNocommande($nocommande) {
+        $this->nocommande = $nocommande;
+
+        return $this;
+    }
+
+    /**
+     * Get nocommande
+     *
+     * @return array
+     */
+    public function getNocommande() {
+        return $this->nocommande;
     }
 
 }

@@ -80,6 +80,10 @@ nox_intranet_assistant_affaire_nouvelle_choix_client:
     path: /ressources/assistant-affaires/creation-suivi/choix-client/{IdSuivi}
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviChoixClient }
     
+nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur:
+    path: /ressources/assistant-affaires/creation-suivi/choix-interlocuteur/{IdSuivi}
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviChoixInterlocuteur }
+    
 nox_intranet_assistant_affaire_nouvelle_infos:
     path: /ressources/assistant-affaires/creation-suivi/info-suivi/{IdSuivi}
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviInfos }

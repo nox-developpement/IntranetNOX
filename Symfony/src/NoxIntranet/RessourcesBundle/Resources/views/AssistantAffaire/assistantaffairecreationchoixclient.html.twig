@@ -13,7 +13,7 @@
 
         <fieldset>
 
-            <legend>Client</legend>
+            <legend>Choix client</legend>
 
             <p>
                 <label for="rechercehSuivi">Recherche</label>
@@ -79,6 +79,92 @@
     </div>
 
     <div id="DivFormulaireClientAdr">
+
+    </div>
+
+
+    <div id="DivFormulaireAjoutClient">
+
+        {{ form_start(formAjoutClient, {'attr': {'class': 'formulaireAjoutClient'}}) }}
+        {{ form_errors(formAjoutClient) }}
+
+        <fieldset>
+
+            <legend>Ajout client</legend>
+
+            <p>
+                {{ form_label(formAjoutClient.Nom_Client, "Nom du client :", {'label_attr': {'class': 'labelFormulaireAjoutClient'}}) }}
+                {{ form_errors(formAjoutClient.Nom_Client) }}
+                {{ form_widget(formAjoutClient.Nom_Client, {'attr': {'class': 'textFormulaireAjoutClient champAjoutClient'}}) }}
+
+                <br />
+
+                {{ form_label(formAjoutClient.Tel, "Téléphone :", {'label_attr': {'class': 'labelFormulaireAjoutClient'}}) }}
+                {{ form_errors(formAjoutClient.Tel) }}
+                {{ form_widget(formAjoutClient.Tel, {'attr': {'class': 'textFormulaireAjoutClient champAjoutClient'}}) }}
+
+                <br />
+
+                {{ form_label(formAjoutClient.Fax, "Fax :", {'label_attr': {'class': 'labelFormulaireAjoutClient'}}) }}
+                {{ form_errors(formAjoutClient.Fax) }}
+                {{ form_widget(formAjoutClient.Fax, {'attr': {'class': 'textFormulaireAjoutClient champAjoutClient'}}) }}
+
+                <br />
+
+                {{ form_label(formAjoutClient.Email, "Email :", {'label_attr': {'class': 'labelFormulaireAjoutClient'}}) }}
+                {{ form_errors(formAjoutClient.Email) }}
+                {{ form_widget(formAjoutClient.Email, {'attr': {'class': 'textFormulaireAjoutClient champAjoutClient'}}) }}
+
+                <br />
+
+                {{ form_label(formAjoutClient.Nom_Ville, "Ville :", {'label_attr': {'class': 'labelFormulaireAjoutClient'}}) }}
+                {{ form_errors(formAjoutClient.Nom_Ville) }}
+                {{ form_widget(formAjoutClient.Nom_Ville, {'attr': {'class': 'textFormulaireAjoutClient champAjoutClient'}}) }}
+
+                <br />
+
+                {{ form_label(formAjoutClient.Nom_Pays, "Pays :", {'label_attr': {'class': 'labelFormulaireAjoutClient'}}) }}
+                {{ form_errors(formAjoutClient.Nom_Pays) }}
+                {{ form_widget(formAjoutClient.Nom_Pays, {'attr': {'class': 'textFormulaireAjoutClient champAjoutClient'}}) }}
+
+                <br />
+
+                {{ form_label(formAjoutClient.Code_Postal, "Code Postal :", {'label_attr': {'class': 'labelFormulaireAjoutClient'}}) }}
+                {{ form_errors(formAjoutClient.Code_Postal) }}
+                {{ form_widget(formAjoutClient.Code_Postal, {'attr': {'class': 'textFormulaireAjoutClient champAjoutClient'}}) }}
+
+                <br />
+
+                {{ form_label(formAjoutClient.Adresse1, "Adresse :", {'label_attr': {'class': 'labelFormulaireAjoutClient'}}) }}
+                {{ form_errors(formAjoutClient.Adresse1) }}
+                {{ form_widget(formAjoutClient.Adresse1, {'attr': {'class': 'textFormulaireAjoutClient champAjoutClient'}}) }}
+
+                <br />
+
+                {{ form_label(formAjoutClient.Adresse2, "", {'label_attr': {'class': 'labelFormulaireAjoutClient', 'style': 'opacity: 0'}}) }}
+                {{ form_errors(formAjoutClient.Adresse2) }}
+                {{ form_widget(formAjoutClient.Adresse2, {'attr': {'class': 'textFormulaireAjoutClient champAjoutClient'}}) }}
+
+                <br />
+
+                {{ form_label(formAjoutClient.Adresse3, "", {'label_attr': {'class': 'labelFormulaireAjoutClient', 'style': 'opacity: 0'}}) }}
+                {{ form_errors(formAjoutClient.Adresse3) }}
+                {{ form_widget(formAjoutClient.Adresse3, {'attr': {'class': 'textFormulaireAjoutClient champAjoutClient'}}) }}
+
+                <br />
+
+                {{ form_widget(formAjoutClient.Ajouter, {'label': 'Ajouter un client', 'attr': {'class': 'boutonFormulaire' }}) }}
+
+
+                <script>
+                    $(window).load(function () {
+                        resizeFormLabelAndData($('.labelFormulaireAjoutClient'), $('.champAjoutClient'), $('.formulaireAjoutClient p'));
+                    });
+                </script>
+            </p>
+        </fieldset> 
+
+        {{ form_end(formAjoutClient) }}
 
     </div>
 

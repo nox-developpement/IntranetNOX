@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use NoxIntranet\RessourcesBundle\Entity\Suivis;
 use NoxIntranet\RessourcesBundle\Entity\DonneesSuivi;
+use NoxIntranet\RessourcesBundle\Entity\AA_Contact;
 use NoxIntranet\AdministrationBundle\Entity\DonneesFormulaire;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityRepository;
@@ -164,6 +165,9 @@ class ExcelReadingController extends Controller {
     }
 
     public function creationSuiviChoixClientAction(Request $request, $IdSuivi) {
+
+
+
         $em = $this->getDoctrine()->getManager();
 
         $suivi = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->find($IdSuivi);
@@ -186,6 +190,20 @@ class ExcelReadingController extends Controller {
                 ->add('Choisir', SubmitType::class)
                 ->getForm();
 
+        $formAjoutClient = $this->get('form.factory')->createNamedBuilder('formAjoutClient', 'form')
+                ->add('Nom_Client', TextType::class)
+                ->add('Tel', TextType::class)
+                ->add('Fax', TextType::class)
+                ->add('Email', TextType::class)
+                ->add('Nom_Ville', TextType::class)
+                ->add('Nom_Pays', TextType::class)
+                ->add('Code_Postal', IntegerType::class)
+                ->add('Adresse1', TextType::class)
+                ->add('Adresse2', TextType::class)
+                ->add('Adresse3', TextType::class)
+                ->add('Ajouter', SubmitType::class)
+                ->getForm();
+
         if ($request->request->has('formClient')) {
             $formClient->handleRequest($request);
 
@@ -197,26 +215,45 @@ class ExcelReadingController extends Controller {
                     $em->persist($suivi);
                     $em->flush();
 
-                    return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_infos', array('IdSuivi' => $IdSuivi));
+                    return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur', array('IdSuivi' => $IdSuivi));
                 }
-
-//            if ($form['Créer']->isClicked()) {
-//                $newClient = new Donnees_Client();
-//                $newClient->setNom($form['Nom']->getData());
-//                $newClient->setAdresse($form['Adresse']->getData());
-//                $newClient->setFax($form['Fax']->getData());
-//
-//                $em->persist($newClient);
-//                $em->flush();
-//
-//                $suivi->setIdClient($newClient->getId());
-//
-//                $request->getSession()->getFlashBag()->add('notice', 'Nouveau client ajouté.');
-//            }
             }
         }
 
-        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreationchoixclient.html.twig', array('formClient' => $formClient->createView()));
+        if ($request->request->has('formAjoutClient')) {
+            $formAjoutClient->handleRequest($request);
+
+            $root = $this->container->getParameter('kernel.root_dir') . '\..';
+            $rootLetter = str_replace(':\wamp\www\Symfony\app\..', '', $root);
+
+            $N_Client = "";
+            $return = "";
+
+            if ($formAjoutClient->isValid()) {
+                exec("C:/wamp/www/Symfony/scripts/AddClientToGXDB.bat \"" . $formAjoutClient->get('Nom_Client')->getData() . "\"", $N_Client);
+                $N_Client = intval(str_replace(' ', '', $N_Client[0]));
+
+                var_dump($N_Client);
+
+                exec("set N_Client=" . $N_Client);
+                exec("set Tel=" . $formAjoutClient->get('Tel')->getData());
+                exec("set Fax=" . $formAjoutClient->get('Fax')->getData());
+                exec("set Email=" . $formAjoutClient->get('Email')->getData());
+                exec("set Nom_Ville=" . $formAjoutClient->get('Nom_Ville')->getData());
+                exec("set Nom_Pays=" . $formAjoutClient->get('Nom_Pays')->getData());
+                exec("set Code_Postal=" . $formAjoutClient->get('Code_Postal')->getData());
+                exec("set Adresse1=" . $formAjoutClient->get('Adresse1')->getData());
+                exec("set Adresse2=" . $formAjoutClient->get('Adresse2')->getData());
+                exec("set Adresse3=" . $formAjoutClient->get('Adresse3')->getData());
+                exec("echo %N_Client%", $return);
+                exec("sqlcmd -S SRVM-SQL-LAB -d NOX -i " . $rootLetter . ":\wamp\www\Symfony\scripts\SQL\InsertClientAdrIntoGXDB.sql -v N_Client = %N_Client% Tel = %Tel% Fax = %Fax% Email = %Email% Nom_Ville = %Nom_Ville% Nom_Pays = %Nom_Pays% Code_Postal = %Code_Postal% Adresse1 = %Adresse1% Adresse2 = %Adresse2% Adresse3 = %Adresse3%");
+                //return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur', array('IdSuivi' => $IdSuivi));
+
+                var_dump($return);
+            }
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreationchoixclient.html.twig', array('formClient' => $formClient->createView(), 'formAjoutClient' => $formAjoutClient->createView()));
     }
 
     public function ajaxClientGetterAction(Request $request) {
@@ -383,6 +420,46 @@ class ExcelReadingController extends Controller {
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreationinfos.html.twig', array('form' => $form->createView()));
     }
 
+    public function creationSuiviChoixInterlocuteurAction(Request $request, $IdSuivi) {
+        $em = $this->getDoctrine()->getManager();
+
+        $suivi = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->find($IdSuivi);
+
+        $noClient = $suivi->getNoClient();
+
+        $form = $this->get('form.factory')->createBuilder('form', $suivi)
+                ->add('NoInterlocuteur', EntityType::class, array(
+                    'class' => 'NoxIntranetRessourcesBundle:AA_Contact',
+                    'query_builder' => function(EntityRepository $er) use ($noClient) {
+                        return $er->createQueryBuilder('a')
+                                ->where('a.nClient = :noClient')
+                                ->setParameter('noClient', $noClient);
+                    },
+//                    'choice_value' => function ($value) {
+//                        return $value->getNContact();
+//                    },
+                    'choice_label' => function($value) {
+                        return $value->getPrenomContact() . ' ' . $value->getNomContact();
+                    },
+                ))
+                ->add('Choisir', SubmitType::class)
+                ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            $suivi->setNoInterlocuteur($form->get('NoInterlocuteur')->getData()->getNContact());
+
+            $em->persist($suivi);
+            $em->flush();
+
+            return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_infos', array('IdSuivi' => $IdSuivi));
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffairecreationchoixinterlocuteur.html.twig', array('form' => $form->createView()));
+    }
+
     public function ajaxSaveNoCommandeAction(Request $request) {
 
         $em = $this->getDoctrine()->getManager();
@@ -461,7 +538,7 @@ class ExcelReadingController extends Controller {
                             'class' => 'NoxIntranetRessourcesBundle:Suivis',
                             'query_builder' => function (EntityRepository $er) use ($agence) {
                                 return $er->createQueryBuilder('u')
-                                        ->where("u.agence ='" . $agence . "' AND u.statut = 'En cours'")
+                                        ->where("u.agence = '" . $agence . "' AND u.statut = 'En cours'")
                                         ->orderBy('u.nom', 'ASC');
                             },
                             'disabled' => true,
@@ -480,7 +557,7 @@ class ExcelReadingController extends Controller {
                             'class' => 'NoxIntranetRessourcesBundle:Suivis',
                             'query_builder' => function (EntityRepository $er) use ($agence) {
                                 return $er->createQueryBuilder('u')
-                                        ->where("u.agence ='" . $agence . "' AND u.statut = 'En cours'")
+                                        ->where("u.agence = '" . $agence . "' AND u.statut = 'En cours'")
                                         ->orderBy('u.nom', 'ASC');
                             },
                             'choice_label' => 'Nom',
@@ -563,6 +640,9 @@ class ExcelReadingController extends Controller {
                         if ($suivi->getNoClient() === null) {
                             return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_client', array('IdSuivi' => $IdSuivi));
                         } else {
+                            if ($suivi->getNoInterlocuteur() === null) {
+                                return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur', array('IdSuivi' => $IdSuivi));
+                            }
                             return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi));
                         }
                     }
@@ -595,6 +675,8 @@ class ExcelReadingController extends Controller {
         $client = $em->getRepository('NoxIntranetRessourcesBundle:AA_Client')->findOneByN_Client($suivi->getNoClient());
 
         $clientAdr = $em->getRepository('NoxIntranetRessourcesBundle:AA_Client_Adr')->findOneByN_Client($suivi->getNoClient());
+
+        $interlocuteur = $em->getRepository('NoxIntranetRessourcesBundle:AA_Contact')->findOneByN_Contact($suivi->getNoInterlocuteur());
 
         $modele = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->find($suivi->getIdModele());
 
@@ -932,7 +1014,8 @@ class ExcelReadingController extends Controller {
 
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig', array(
                     'formDonneesSuivi' => $formSuivi->createView(), 'champsViews' => $champsViews, 'suivi' => $suivi, 'client' => $client, 'clientAdr' => $clientAdr,
-                    'formSelectionVersionSuivi' => $formSelectionVersionSuivi->createView(), 'formCloturationSuivi' => $formCloturationSuivi->createView()
+                    'formSelectionVersionSuivi' => $formSelectionVersionSuivi->createView(), 'formCloturationSuivi' => $formCloturationSuivi->createView(),
+                    'interlocuteur' => $interlocuteur
         ));
     }
 
@@ -964,7 +1047,7 @@ class ExcelReadingController extends Controller {
                         'class' => 'NoxIntranetRessourcesBundle:Suivis',
                         'query_builder' => function (EntityRepository $er) use ($agence) {
                             return $er->createQueryBuilder('u')
-                                    ->where("u.agence ='" . $agence . "' AND u.statut = 'Cloturé'")
+                                    ->where("u.agence = '" . $agence . "' AND u.statut = 'Cloturé'")
                                     ->orderBy('u.nom', 'ASC');
                         },
                         'choice_label' => 'Nom',
