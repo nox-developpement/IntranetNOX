@@ -11,20 +11,22 @@
 
 namespace Sonata\NotificationBundle\Command;
 
+use Sonata\NotificationBundle\Backend\BackendInterface;
+use Sonata\NotificationBundle\Backend\QueueDispatcherInterface;
+use Sonata\NotificationBundle\Consumer\ConsumerInterface;
 use Sonata\NotificationBundle\Event\IterateEvent;
 use Sonata\NotificationBundle\Exception\HandlingException;
 use Sonata\NotificationBundle\Model\MessageInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\Output;
-
-use Sonata\NotificationBundle\Consumer\ConsumerInterface;
-use Sonata\NotificationBundle\Backend\QueueDispatcherInterface;
 
 class ConsumerHandlerCommand extends ContainerAwareCommand
 {
+    /**
+     * {@inheritdoc}
+     */
     public function configure()
     {
         $this->setName('sonata:notification:start');
@@ -35,10 +37,7 @@ class ConsumerHandlerCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -46,7 +45,7 @@ class ConsumerHandlerCommand extends ContainerAwareCommand
 
         $output->writeln(sprintf('[%s] <info>Checking listeners</info>', $startDate->format('r')));
         foreach ($this->getNotificationDispatcher()->getListeners() as $type => $listeners) {
-            $output->writeln(sprintf(" - %s", $type));
+            $output->writeln(sprintf(' - %s', $type));
             foreach ($listeners as $listener) {
                 if (!$listener[0] instanceof ConsumerInterface) {
                     throw new \RuntimeException(sprintf('The registered service does not implement the ConsumerInterface (class=%s', get_class($listener[0])));
@@ -62,37 +61,37 @@ class ConsumerHandlerCommand extends ContainerAwareCommand
         $output->write(sprintf('[%s] <info>Retrieving backend</info> ...', $startDate->format('r')));
         $backend     = $this->getBackend($type);
 
-        $output->writeln("");
+        $output->writeln('');
         $output->write(sprintf('[%s] <info>Initialize backend</info> ...', $startDate->format('r')));
 
         // initialize the backend
         $backend->initialize();
 
-        $output->writeln(" done!");
+        $output->writeln(' done!');
 
         if ($type === null) {
-            $output->writeln(sprintf("[%s] <info>Starting the backend handler</info> - %s", $startDate->format('r'), get_class($backend)));
+            $output->writeln(sprintf('[%s] <info>Starting the backend handler</info> - %s', $startDate->format('r'), get_class($backend)));
         } else {
-            $output->writeln(sprintf("[%s] <info>Starting the backend handler</info> - %s (type: %s)", $startDate->format('r'), get_class($backend), $type));
+            $output->writeln(sprintf('[%s] <info>Starting the backend handler</info> - %s (type: %s)', $startDate->format('r'), get_class($backend), $type));
         }
 
         $startMemoryUsage = memory_get_usage(true);
         $i = 0;
         $iterator = $backend->getIterator();
         foreach ($iterator as $message) {
-            $i++;
+            ++$i;
 
             if (!$message instanceof MessageInterface) {
                 throw new \RuntimeException('The iterator must return a MessageInterface instance');
             }
 
             if (!$message->getType()) {
-                $output->write("<error>Skipping : no type defined </error>");
+                $output->write('<error>Skipping : no type defined </error>');
                 continue;
             }
 
             $date = new \DateTime();
-            $output->write(sprintf("[%s] <info>%s</info> #%s: ", $date->format('r'), $message->getType(), $i));
+            $output->write(sprintf('[%s] <info>%s</info> #%s: ', $date->format('r'), $message->getType(), $i));
             $memoryUsage = memory_get_usage(true);
 
             try {
@@ -101,7 +100,7 @@ class ConsumerHandlerCommand extends ContainerAwareCommand
 
                 $currentMemory = memory_get_usage(true);
 
-                $output->writeln(sprintf("<comment>OK! </comment> - %0.04fs, %ss, %s, %s - %s = %s, %0.02f%%",
+                $output->writeln(sprintf('<comment>OK! </comment> - %0.04fs, %ss, %s, %s - %s = %s, %0.02f%%',
                     microtime(true) - $start,
                     $date->format('U') - $message->getCreatedAt()->format('U'),
                     $this->formatMemory($currentMemory - $memoryUsage),
@@ -114,11 +113,10 @@ class ConsumerHandlerCommand extends ContainerAwareCommand
                 if ($showDetails && null !== $returnInfos) {
                     $output->writeln($returnInfos->getReturnMessage());
                 }
-
             } catch (HandlingException $e) {
-                $output->writeln(sprintf("<error>KO! - %s</error>", $e->getPrevious()->getMessage()));
+                $output->writeln(sprintf('<error>KO! - %s</error>', $e->getPrevious()->getMessage()));
             } catch (\Exception $e) {
-                $output->writeln(sprintf("<error>KO! - %s</error>", $e->getMessage()));
+                $output->writeln(sprintf('<error>KO! - %s</error>', $e->getMessage()));
             }
 
             $this->getEventDispatcher()->dispatch(IterateEvent::EVENT_NAME, new IterateEvent($iterator, $backend, $message));
@@ -139,29 +137,29 @@ class ConsumerHandlerCommand extends ContainerAwareCommand
     private function formatMemory($memory)
     {
         if ($memory < 1024) {
-            return $memory."b";
+            return $memory.'b';
         } elseif ($memory < 1048576) {
-            return round($memory / 1024, 2)."Kb";
+            return round($memory / 1024, 2).'Kb';
         }
 
-        return round($memory / 1048576, 2)."Mb";
+        return round($memory / 1048576, 2).'Mb';
     }
 
     /**
      * @param string $type
      *
-     * @return \Sonata\NotificationBundle\Backend\BackendInterface
+     * @return BackendInterface
      */
     private function getBackend($type = null)
     {
         $backend = $this->getContainer()->get('sonata.notification.backend');
 
         if ($type && !array_key_exists($type, $this->getNotificationDispatcher()->getListeners())) {
-            throw new \RuntimeException(sprintf("The type `%s` does not exist, available types: %s", $type, implode(", ", array_keys($this->getNotificationDispatcher()->getListeners()))));
+            throw new \RuntimeException(sprintf('The type `%s` does not exist, available types: %s', $type, implode(', ', array_keys($this->getNotificationDispatcher()->getListeners()))));
         }
 
         if ($type !== null && !$backend instanceof QueueDispatcherInterface) {
-            throw new \RuntimeException(sprintf("Unable to use the provided type %s with a non QueueDispatcherInterface backend", $type));
+            throw new \RuntimeException(sprintf('Unable to use the provided type %s with a non QueueDispatcherInterface backend', $type));
         }
 
         if ($backend instanceof QueueDispatcherInterface) {
@@ -179,12 +177,12 @@ class ConsumerHandlerCommand extends ContainerAwareCommand
      */
     protected function throwTypeNotFoundException($type, $backend)
     {
-        throw new \RuntimeException("The requested backend for the type '" . $type . " 'does not exist. \nMake sure the backend '" .
-                get_class($backend) . "' \nsupports multiple queues and the routing_key is defined. (Currently rabbitmq only)");
+        throw new \RuntimeException("The requested backend for the type '".$type." 'does not exist. \nMake sure the backend '".
+                get_class($backend)."' \nsupports multiple queues and the routing_key is defined. (Currently rabbitmq only)");
     }
 
     /**
-     * @return \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     * @return EventDispatcherInterface
      */
     private function getNotificationDispatcher()
     {
@@ -192,7 +190,7 @@ class ConsumerHandlerCommand extends ContainerAwareCommand
     }
 
     /**
-     * @return \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     * @return EventDispatcherInterface
      */
     private function getEventDispatcher()
     {

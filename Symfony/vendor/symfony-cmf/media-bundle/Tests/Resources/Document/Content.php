@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2013 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,10 +11,9 @@
 
 namespace Symfony\Cmf\Bundle\MediaBundle\Tests\Resources\Document;
 
-use Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image;
-use Symfony\Cmf\Bundle\MediaBundle\ImageInterface;
+use Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\File;
+use Symfony\Cmf\Bundle\MediaBundle\FileInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
 
 /**
@@ -25,7 +24,7 @@ class Content
     /**
      * @PHPCRODM\Child(cascade="persist")
      */
-    protected $image;
+    protected $file;
 
     /**
      * @PHPCRODM\Id(strategy="parent")
@@ -43,57 +42,58 @@ class Content
     protected $name;
 
     /**
-     * @PHPCRODM\String
+     * @PHPCRODM\Field(type="string")
      */
     protected $title;
 
     /**
-     * Set the image for this block.
+     * Set the file for this block.
      *
      * Setting null will do nothing, as this is what happens when you edit this
      * block in a form without uploading a replacement file.
      *
-     * If you need to delete the Image, you can use getImage and delete it with
+     * If you need to delete the file, you can use getFile and delete it with
      * the document manager. Note that this block does not make much sense
-     * without an image, though.
+     * without a file, though.
      *
-     * @param ImageInterface|UploadedFile|null $image optional the image to update
+     * @param FileInterface|UploadedFile|null $file optional the file to update
      */
-    public function setImage($image = null)
+    public function setFile($file = null)
     {
-        if (!$image) {
+        if (!$file) {
             return;
         }
 
-        if (!$image instanceof ImageInterface && !$image instanceof UploadedFile) {
-            $type = is_object($image) ? get_class($image) : gettype($image);
+        if (!$file instanceof FileInterface && !$file instanceof UploadedFile) {
+            $type = is_object($file) ? get_class($file) : gettype($file);
 
             throw new \InvalidArgumentException(sprintf(
-                'Image is not a valid type, "%s" given.',
+                'File is not a valid type, "%s" given.',
                 $type
             ));
         }
 
-        if ($this->image) {
-            // existing image, only update content
+        if ($this->file) {
+            // existing file, only update content
             // TODO: https://github.com/doctrine/phpcr-odm/pull/262
-            $this->image->copyContentFromFile($image);
-        } elseif ($image instanceof ImageInterface) {
-            $this->image = $image;
+            $this->file->copyContentFromFile($file);
+        } elseif ($file instanceof FileInterface) {
+            $file->setName('file'); // Ensure node name matches document mapping
+            $this->file = $file;
         } else {
-            $this->image = new Image();
-            $this->image->copyContentFromFile($image);
+            $this->file = new File();
+            $this->file->copyContentFromFile($file);
         }
     }
 
     /**
-     * Get image
+     * Get file.
      *
-     * @return Image
+     * @return File
      */
-    public function getImage()
+    public function getFile()
     {
-        return $this->image;
+        return $this->file;
     }
 
     public function setId($id)

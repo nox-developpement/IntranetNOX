@@ -11,23 +11,43 @@
 
 namespace Sonata\NotificationBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
+use Sonata\CoreBundle\Form\FormHelper;
 use Sonata\NotificationBundle\DependencyInjection\Compiler\NotificationCompilerPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class SonataNotificationBundle extends Bundle
 {
+    /**
+     * {@inheritdoc}
+     */
     public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new NotificationCompilerPass());
+
+        $this->registerFormMapping();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function boot()
     {
         if (!defined('AMQP_DEBUG')) {
-//            define('AMQP_DEBUG', $this->container->getParameter('kernel.debug'));
+            //            define('AMQP_DEBUG', $this->container->getParameter('kernel.debug'));
             define('AMQP_DEBUG', false);
         }
+
+        $this->registerFormMapping();
+    }
+
+    /**
+     * Register form mapping information.
+     */
+    public function registerFormMapping()
+    {
+        FormHelper::registerFormTypeMapping(array(
+            'sonata_notification_api_form_message' => 'Sonata\NotificationBundle\Form\Type\MessageSerializationType',
+        ));
     }
 }

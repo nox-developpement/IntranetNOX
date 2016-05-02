@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2014 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -22,12 +22,12 @@ interface UploadFileHelperInterface
     /**
      * Allow non-uploaded files to validate for testing purposes.
      *
-     * @param boolean $boolean
+     * @param bool $boolean
      */
     public function setAllowNonUploadedFiles($boolean);
 
     /**
-     * Add an editor helper
+     * Add an editor helper.
      *
      * @param string                      $name
      * @param UploadEditorHelperInterface $helper
@@ -35,7 +35,7 @@ interface UploadFileHelperInterface
     public function addEditorHelper($name, UploadEditorHelperInterface $helper);
 
     /**
-     * Get helper
+     * Get helper.
      *
      * @param string $name leave null to get the default helper
      *
@@ -59,7 +59,7 @@ interface UploadFileHelperInterface
     public function handleUploadedFile(UploadedFile $uploadedFile, $class = null);
 
     /**
-     * Process upload and get a response
+     * Process upload and get a response.
      *
      * @param Request        $request
      * @param UploadedFile[] $uploadedFiles optionally get the uploaded file(s)

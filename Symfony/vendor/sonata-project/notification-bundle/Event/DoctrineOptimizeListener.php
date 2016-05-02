@@ -16,29 +16,29 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 /**
  * Doctrine context optimizer
  * Used to clear the doctrine context on each command iteration.
- * Do not use with doctrine backend, use DoctrineBackendOptimizeListener instead
+ * Do not use with doctrine backend, use DoctrineBackendOptimizeListener instead.
  *
  * @author Kevin Nedelec <kevin.nedelec@ekino.com>
  *
  * Class DoctrineOptimizeListener
- * @package Sonata\NotificationBundle\Event
  */
 class DoctrineOptimizeListener implements IterationListener
 {
     /**
-     * @var \Doctrine\Bundle\DoctrineBundle\Registry
+     * @var Registry
      */
     protected $doctrine;
 
+    /**
+     * @param RegistryInterface $doctrine
+     */
     public function __construct(RegistryInterface $doctrine)
     {
         $this->doctrine = $doctrine;
     }
 
     /**
-     * Clear the doctrine context if the internal iterator buffer is empty
-     *
-     * @param IterateEvent $event
+     * {@inheritdoc}
      */
     public function iterate(IterateEvent $event)
     {

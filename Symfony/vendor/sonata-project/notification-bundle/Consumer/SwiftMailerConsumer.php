@@ -21,7 +21,7 @@ class SwiftMailerConsumer implements ConsumerInterface
     protected $mailer;
 
     /**
-     * @param $mailer
+     * @param \Swift_Mailer $mailer
      */
     public function __construct(\Swift_Mailer $mailer)
     {
@@ -52,7 +52,7 @@ class SwiftMailerConsumer implements ConsumerInterface
     }
 
     /**
-     * @param \Sonata\NotificationBundle\Model\MessageInterface $message
+     * @param MessageInterface $message
      */
     private function sendEmail(MessageInterface $message)
     {
@@ -60,6 +60,10 @@ class SwiftMailerConsumer implements ConsumerInterface
             ->setSubject($message->getValue('subject'))
             ->setFrom(array($message->getValue(array('from', 'email')) => $message->getValue(array('from', 'name'))))
             ->setTo($message->getValue('to'));
+
+        if ($replyTo = $message->getValue('replyTo')) {
+            $mail->setReplyTo($replyTo);
+        }
 
         if ($text = $message->getValue(array('message', 'text'))) {
             $mail->addPart($text, 'text/plain');

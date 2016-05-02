@@ -1,0 +1,94 @@
+{% extends "layout.html.twig" %}
+
+{% block titrePage %} Pointage {% endblock %}
+
+{% block messageAccueil %}Pointage{% endblock %}
+
+{% block contenu %}
+    <table id="tableFeuillePointage">
+        <tr>
+            <td style="border: none; vertical-align: bottom;">
+                <select id='pointage_month_selector' style="width: 100%;">
+                    {% set months = { 01: 'Janvier', 02: 'Février', 03: 'Mars', 04: 'Avril', 05: 'Mai', 06: 'Juin', 07: 'Juillet', 08: 'Août', 09: 'Septembre', 10: 'Octobre', 11: 'Novembre', 12: 'Décembre' } %}
+                    {% for index,month in months %}
+                        <option value="{{ index }}" {% if index == currentMonth %}selected{% endif %}>{{ month }}</option>  
+                    {% endfor %}
+                </select>
+            </td>
+            <td style="background: rgb(47,117,181); color: white;" colspan="2">OPERATIONNEL</td>
+            <td style="background: black;"></td>
+            <td style="background: rgb(84,130,53); color: white;" colspan="5">RESSOURCES HUMAINES</td>
+        </tr>
+        <tr>
+            <td style="border: none;">
+                <select id='pointage_year_selector' style="width: 100%;">
+                    <option value="{{ 'now'|date('Y')}}">{{ 'now'|date('Y')}}</option>
+                    <option value="{{ 'now'|date_modify('+1 year')|date('Y')}}">{{ 'now'|date_modify('+1 year')|date('Y')}}</option>
+                    <option value="{{ 'now'|date_modify('+2 year')|date('Y')}}">{{ 'now'|date_modify('+2 year')|date('Y')}}</option>
+                    <option value="{{ 'now'|date_modify('+3 year')|date('Y')}}">{{ 'now'|date_modify('+3 year')|date('Y')}}</option>
+                    <option value="{{ 'now'|date_modify('+4 year')|date('Y')}}">{{ 'now'|date_modify('+4 year')|date('Y')}}</option>
+                </select>
+            </td>
+            <td>Projet 1</td>
+            <td>TOTAL</td>
+            <td>MOD</td>
+            <td colspan="2">Absences</td>
+            <td>Titres repas</td>
+            <td>Forfaits déplacement</td>
+            <td>Primes panier</td>
+            <td rowspan="2">Commentaires</td>
+        </tr>
+        <tr>
+            <td style="background: rgb(217,217,217);">{{ app.user.firstname }} {{ app.user.lastname }}</td>
+            <td>%</td>
+            <td>%</td>
+            <td>h</td>
+            <td>Matin</td>
+            <td>Après-midi</td>
+            <td>Nombre</td>
+            <td>Montant</td>
+            <td>Nombre</td>
+        </tr>
+        {% set frenchDays = { 'Monday': 'Lundi', 'Tuesday': 'Mardi', 'Wednesday': 'Mercredi', 'Thursday': 'Jeudi', 'Friday': 'Vendredi', 'Saturday': 'Samedi', 'Sunday':'Dimanche' } %}
+        {% for date in monthDates %}
+            <tr>
+                <td class='dayDateCell' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% endif %}>{{ frenchDays[date|date('l')]}} {{ date|date('d') }}</td>
+                <td {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% endif %}></td>
+                <td {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% endif %}>0</td>
+                <td {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% endif %}></td>
+                <td {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% endif %}></td>
+                <td {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% endif %}></td>
+                <td {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% endif %}></td>
+                <td {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% endif %}></td>
+                <td {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% endif %}></td>
+                <td {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% endif %}></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            $('#pointage_month_selector').on('change', function () {
+                getNewDate();
+            });
+            $('#pointage_year_selector').on('change', function () {
+                getNewDate();
+            });
+            function getNewDate() {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '{{ path('nox_intranet_pointage_ajax_set_date') }}',
+                    data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val()},
+                    success: function (response) {
+                        $('.dayDateCell').each(function (index) {
+                            $(this).html(response[index]);
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+
+
+{% endblock %}

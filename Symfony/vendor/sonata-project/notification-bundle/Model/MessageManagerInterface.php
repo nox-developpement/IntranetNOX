@@ -12,17 +12,17 @@
 namespace Sonata\NotificationBundle\Model;
 
 use Sonata\CoreBundle\Model\ManagerInterface;
+use Sonata\CoreBundle\Model\PageableManagerInterface;
 
-interface MessageManagerInterface extends ManagerInterface
+interface MessageManagerInterface extends ManagerInterface, PageableManagerInterface
 {
     /**
-     * @return integer
+     * @return int
      */
     public function countStates();
 
     /**
      * @param $maxAge
-     * @return void
      */
     public function cleanup($maxAge);
 
@@ -30,8 +30,6 @@ interface MessageManagerInterface extends ManagerInterface
      * Cancels a given Message.
      *
      * @param MessageInterface $message
-     *
-     * @return void
      */
     public function cancel(MessageInterface $message);
 
@@ -45,11 +43,11 @@ interface MessageManagerInterface extends ManagerInterface
     public function restart(MessageInterface $message);
 
     /**
-     * @param array   $types
-     * @param integer $state
-     * @param integer $batchSize
+     * @param array $types
+     * @param int   $state
+     * @param int   $batchSize
      *
-     * @return []MessageInterface
+     * @return MessageInterface[]
      */
     public function findByTypes(array $types, $state, $batchSize);
 

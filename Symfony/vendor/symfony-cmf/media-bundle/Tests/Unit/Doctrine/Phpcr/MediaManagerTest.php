@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2013 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -144,23 +144,14 @@ class MediaManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('/test/media/mymedia', $mediaManager->mapPathToId($path, $rootPath));
     }
 
-    public function mapPathToIdExceptionProvider()
-    {
-        return array(
-            array('/test/media/mymedia', '/out/of/bound', 'OutOfBoundsException'),
-            array('/test/', null, 'Symfony\Component\Routing\Exception\ResourceNotFoundException'),
-        );
-    }
-
     /**
-     * @dataProvider mapPathToIdExceptionProvider
+     * @expectedException \OutOfBoundsException
      */
-    public function testMapPathToIdException($path, $rootPath, $exception)
+    public function testMapPathToIdException()
     {
-        $this->setExpectedException($exception);
-
         $mediaManager = $this->getMediaManager();
-        $mediaManager->mapPathToId($path, $rootPath);
+
+        $mediaManager->mapPathToId('/test/media/mymedia', '/out/of/bound');
     }
 
     public function mapUrlSafePathToIdProvider()
@@ -181,22 +172,13 @@ class MediaManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('/test/media/mymedia', $mediaManager->mapPathToId($path, $rootPath));
     }
 
-    public function mapUrlSafePathToIdExceptionProvider()
-    {
-        return array(
-            array('test/media/mymedia', '/out/of/bound', 'OutOfBoundsException'),
-            array('/test/', null, 'Symfony\Component\Routing\Exception\ResourceNotFoundException'),
-        );
-    }
-
     /**
-     * @dataProvider mapPathToIdExceptionProvider
+     * @expectedException \OutOfBoundsException
      */
-    public function testMapUrlSafePathToIdException($path, $rootPath, $exception)
+    public function testMapUrlSafePathToIdException()
     {
-        $this->setExpectedException($exception);
-
         $mediaManager = $this->getMediaManager();
-        $mediaManager->mapUrlSafePathToId($path, $rootPath);
+
+        $mediaManager->mapUrlSafePathToId('test/media/mymedia', '/out/of/bound');
     }
 }

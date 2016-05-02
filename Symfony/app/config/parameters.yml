@@ -10,4 +10,3 @@ parameters:
     mailer_user: noreply@groupe-nox.com
     mailer_password: rG5xWk54
     secret: cac79ed1075f393421bc6a36836164066162caab
-    intranet_version: v1.4

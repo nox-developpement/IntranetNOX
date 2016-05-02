@@ -11,20 +11,24 @@
 
 namespace Sonata\NotificationBundle\Backend;
 
-use Sonata\NotificationBundle\Exception\BackendNotFoundException;
+use Sonata\NotificationBundle\Model\MessageInterface;
 use Sonata\NotificationBundle\Model\MessageManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Sonata\NotificationBundle\Model\MessageInterface;
-
-use Liip\Monitor\Result\CheckResult;
+use ZendDiagnostics\Result\Success;
 
 /**
  * Producer side of the doctrine backend.
  */
 class MessageManagerBackendDispatcher extends QueueBackendDispatcher
 {
+    /**
+     * @var array
+     */
     protected $dedicatedTypes = array();
 
+    /**
+     * @var BackendInterface
+     */
     protected $default;
 
     /**
@@ -81,7 +85,7 @@ class MessageManagerBackendDispatcher extends QueueBackendDispatcher
 
         if (!empty($this->dedicatedTypes)) {
             $types = array(
-                'exclude' => $this->dedicatedTypes
+                'exclude' => $this->dedicatedTypes,
             );
         }
 
@@ -111,7 +115,7 @@ class MessageManagerBackendDispatcher extends QueueBackendDispatcher
      */
     public function getStatus()
     {
-        return $this->buildResult('Channel is running (RabbitMQ) and consumers for all queues available.', CheckResult::OK);
+        return new Success('Channel is running (RabbitMQ) and consumers for all queues available.');
     }
 
     /**
@@ -125,5 +129,7 @@ class MessageManagerBackendDispatcher extends QueueBackendDispatcher
     /**
      * {@inheritdoc}
      */
-    public function initialize() {}
+    public function initialize()
+    {
+    }
 }

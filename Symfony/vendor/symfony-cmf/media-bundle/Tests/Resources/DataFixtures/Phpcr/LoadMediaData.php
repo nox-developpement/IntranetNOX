@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2013 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -25,7 +25,7 @@ class LoadMediaData implements FixtureInterface
     {
         NodeHelper::createPath($manager->getPhpcrSession(), '/test');
 
-        $testDataDir = realpath(__DIR__ . '/../../app/Resources/data');
+        $testDataDir = realpath(__DIR__.'/../../app/Resources/data');
 
         $root = $manager->find(null, '/test');
 
@@ -53,26 +53,38 @@ class LoadMediaData implements FixtureInterface
         $image = new Image();
         $image->setParent($mediaRoot);
         $image->setName('cmf-logo.png');
-        $image->setFileContentFromFilesystem($testDataDir .'/cmf-logo.png');
+        $image->setFileContentFromFilesystem($testDataDir.'/cmf-logo.png');
         $manager->persist($image);
 
         $image2 = new Image();
         $image2->setParent($contentRoot);
         $image2->setName('cmf-logo-2.png');
-        $image2->setFileContentFromFilesystem($testDataDir .'/cmf-logo.png');
+        $image2->setFileContentFromFilesystem($testDataDir.'/cmf-logo.png');
         $manager->persist($image2);
 
-        // Content
+        // Content with image
         $content = new Content();
         $content->setParent($contentRoot);
         $content->setName('content-with-image');
         $content->setTitle('Content document with image embedded');
 
         $contentImage = new Image();
-        $contentImage->setFileContentFromFilesystem($testDataDir .'/cmf-logo.png');
+        $contentImage->setFileContentFromFilesystem($testDataDir.'/cmf-logo.png');
 
-        $content->setImage($contentImage);
+        $content->setFile($contentImage);
         $manager->persist($content);
+
+        // Content with file
+        $content2 = new Content();
+        $content2->setParent($contentRoot);
+        $content2->setName('content-with-file');
+        $content2->setTitle('Content document with file attached');
+
+        $contentFile = new File();
+        $contentFile->setFileContentFromFilesystem($testDataDir.'/testfile.txt');
+
+        $content2->setFile($contentFile);
+        $manager->persist($content2);
 
         $manager->flush();
     }

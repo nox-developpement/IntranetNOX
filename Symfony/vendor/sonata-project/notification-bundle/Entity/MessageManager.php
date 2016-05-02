@@ -11,19 +11,22 @@
 
 namespace Sonata\NotificationBundle\Entity;
 
+use Doctrine\ORM\QueryBuilder;
 use Sonata\CoreBundle\Model\BaseEntityManager;
+use Sonata\DatagridBundle\Pager\Doctrine\Pager;
+use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 use Sonata\NotificationBundle\Model\MessageInterface;
 use Sonata\NotificationBundle\Model\MessageManagerInterface;
 
 class MessageManager extends BaseEntityManager implements MessageManagerInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function save($message, $andFlush = true)
     {
         //Hack for ConsumerHandlerCommand->optimize()
-        if ($message->getId() && !$this->om->getUnitOfWork()->isInIdentityMap($message)) {
+        if ($message->getId() && !$this->em->getUnitOfWork()->isInIdentityMap($message)) {
             $this->getEntityManager()->getUnitOfWork()->merge($message);
         }
 
@@ -31,7 +34,7 @@ class MessageManager extends BaseEntityManager implements MessageManagerInterfac
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findByTypes(array $types, $state, $batchSize)
     {
@@ -44,7 +47,7 @@ class MessageManager extends BaseEntityManager implements MessageManagerInterfac
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findByAttempts(array $types, $state, $batchSize, $maxAttempts = null, $attemptDelay = 10)
     {
@@ -58,7 +61,7 @@ class MessageManager extends BaseEntityManager implements MessageManagerInterfac
 
             $params['maxAttempts'] = $maxAttempts;
             $now = new \DateTime();
-            $params['delayDate'] = $now->add(\DateInterval::createFromDateString(($attemptDelay * -1) . ' second'));
+            $params['delayDate'] = $now->add(\DateInterval::createFromDateString(($attemptDelay * -1).' second'));
         }
 
         $query->setParameters($params);
@@ -67,7 +70,7 @@ class MessageManager extends BaseEntityManager implements MessageManagerInterfac
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function countStates()
     {
@@ -90,7 +93,7 @@ class MessageManager extends BaseEntityManager implements MessageManagerInterfac
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function cleanup($maxAge)
     {
@@ -112,9 +115,9 @@ class MessageManager extends BaseEntityManager implements MessageManagerInterfac
     /**
      * {@inheritdoc}
      */
-    public function cancel(MessageInterface $message)
+    public function cancel(MessageInterface $message, $force = false)
     {
-        if ($message->isRunning() || $message->isError()) {
+        if (($message->isRunning() || $message->isError()) && !$force) {
             return;
         }
 
@@ -132,12 +135,11 @@ class MessageManager extends BaseEntityManager implements MessageManagerInterfac
             return;
         }
 
-        $message->setState(MessageInterface::STATE_CANCELLED);
-
-        $this->save($message);
+        $this->cancel($message, true);
 
         $newMessage = clone $message;
         $newMessage->setRestartCount($message->getRestartCount() + 1);
+        $newMessage->setType($message->getType());
 
         return $newMessage;
     }
@@ -148,7 +150,7 @@ class MessageManager extends BaseEntityManager implements MessageManagerInterfac
      * @param int   $batchSize
      * @param array $parameters
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
     protected function prepareStateQuery($state, $types, $batchSize, &$parameters)
     {
@@ -179,5 +181,50 @@ class MessageManager extends BaseEntityManager implements MessageManagerInterfac
         $query->setMaxResults($batchSize);
 
         return $query;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
+    {
+        $query = $this->getRepository()
+            ->createQueryBuilder('m')
+            ->select('m');
+
+        $fields = $this->getEntityManager()->getClassMetadata($this->class)->getFieldNames();
+        foreach ($sort as $field => $direction) {
+            if (!in_array($field, $fields)) {
+                throw new \RuntimeException(sprintf("Invalid sort field '%s' in '%s' class", $field, $this->class));
+            }
+        }
+        if (count($sort) == 0) {
+            $sort = array('type' => 'ASC');
+        }
+        foreach ($sort as $field => $direction) {
+            $query->orderBy(sprintf('m.%s', $field), strtoupper($direction));
+        }
+
+        $parameters = array();
+
+        if (isset($criteria['type'])) {
+            $query->andWhere('m.type = :type');
+            $parameters['type'] = $criteria['type'];
+        }
+
+        if (isset($criteria['state'])) {
+            $query->andWhere('m.state = :state');
+            $parameters['state'] = $criteria['state'];
+        }
+
+        $query->setParameters($parameters);
+        $pager = new Pager();
+
+        $pager->setMaxPerPage($limit);
+        $pager->setQuery(new ProxyQuery($query));
+        $pager->setPage($page);
+        $pager->init();
+
+        return $pager;
     }
 }

@@ -3,14 +3,13 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2014 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
 namespace Symfony\Cmf\Bundle\MediaBundle;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 /**
  * Interface containing media helper methods, these are probably persistence
@@ -21,7 +20,7 @@ interface MediaManagerInterface
     /**
      * Get path, like:
      * - /path/to/file/filename.ext
-     * - /fileId
+     * - /fileId.
      *
      * It is similar to a filesystem path only always uses "/" to separate
      * parents, and therefore allows to get the parent from the path.
@@ -33,7 +32,7 @@ interface MediaManagerInterface
     public function getPath(MediaInterface $media);
 
     /**
-     * Get an url safe path
+     * Get an url safe path.
      *
      * @param MediaInterface $media
      *
@@ -48,8 +47,6 @@ interface MediaManagerInterface
      *
      * @param MediaInterface $media
      * @param string         $parentPath optionally add the parent path
-     *
-     * @return void
      *
      * @throws \RuntimeException if the defaults could not be set
      */
@@ -78,9 +75,8 @@ interface MediaManagerInterface
      *
      * @return string
      *
-     * @throws ResourceNotFoundException if the path is invalid
-     * @throws \OutOfBoundsException     if the path is out of the root path where
-     *                                   the filesystem is located
+     * @throws \OutOfBoundsException if the path is out of the root path where
+     *                               the filesystem is located
      */
     public function mapUrlSafePathToId($path, $rootPath = null);
 }

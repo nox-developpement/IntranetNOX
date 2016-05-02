@@ -13,24 +13,54 @@ namespace Sonata\NotificationBundle\Model;
 
 class Message implements MessageInterface
 {
+    /**
+     * @var string
+     */
     protected $type;
 
+    /**
+     * @var array
+     */
     protected $body;
 
+    /**
+     * @var int
+     */
     protected $state;
 
+    /**
+     * @var int
+     */
     protected $restartCount = 0;
 
+    /**
+     * @var string
+     */
     protected $group;
 
+    /**
+     * @var \DateTime
+     */
     protected $createdAt;
 
+    /**
+     * @var \DateTime
+     */
     protected $updatedAt;
 
+    /**
+     * @var \DateTime
+     */
     protected $startedAt;
 
+    /**
+     * @var \DateTime
+     */
     protected $completedAt;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -38,10 +68,13 @@ class Message implements MessageInterface
         $this->state = self::STATE_OPEN;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function __clone()
     {
-        $this->state = self::STATE_OPEN;
-        $this->startedAt = null;
+        $this->state       = self::STATE_OPEN;
+        $this->startedAt   = null;
         $this->completedAt = null;
 
         $this->createdAt = new \DateTime();
@@ -198,7 +231,7 @@ class Message implements MessageInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string[]
      */
     public static function getStateList()
     {
@@ -207,7 +240,7 @@ class Message implements MessageInterface
             self::STATE_IN_PROGRESS     => 'in_progress',
             self::STATE_DONE            => 'done',
             self::STATE_ERROR           => 'error',
-            self::STATE_CANCELLED       => 'cancelled'
+            self::STATE_CANCELLED       => 'cancelled',
         );
     }
 

@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2014 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,9 +13,10 @@ namespace Symfony\Cmf\Bundle\MediaBundle\Doctrine;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Imagine\Exception\InvalidArgumentException;
+use Imagine\Exception\RuntimeException;
 use Imagine\Image\ImagineInterface;
 use Imagine\Image\ImageInterface;
-use Imagine\Exception\InvalidArgumentException;
 use Symfony\Cmf\Bundle\MediaBundle\BinaryInterface;
 use Symfony\Cmf\Bundle\MediaBundle\FileSystemInterface;
 use Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image;
@@ -42,7 +43,7 @@ class DoctrineImageDimensionsSubscriber implements EventSubscriber
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getSubscribedEvents()
     {
@@ -89,6 +90,8 @@ class DoctrineImageDimensionsSubscriber implements EventSubscriber
                 try {
                     $image = $this->imagine->read($stream);
                 } catch (InvalidArgumentException $e) {
+                    // ignore this exception, we will set the dimensions to 0
+                } catch (RuntimeException $e) {
                     // ignore this exception, we will set the dimensions to 0
                 }
             } elseif ($object instanceof FileSystemInterface) {

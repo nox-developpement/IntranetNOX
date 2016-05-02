@@ -14,10 +14,12 @@ namespace Sonata\NotificationBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\Output;
 
 class ListHandlerCommand extends ContainerAwareCommand
 {
+    /**
+     * {@inheritdoc}
+     */
     public function configure()
     {
         $this->setName('sonata:notification:list-handler');
@@ -25,10 +27,7 @@ class ListHandlerCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -39,7 +38,7 @@ class ListHandlerCommand extends ContainerAwareCommand
             }
         }
 
-        $output->writeln(" done!");
+        $output->writeln(' done!');
     }
 
     /**

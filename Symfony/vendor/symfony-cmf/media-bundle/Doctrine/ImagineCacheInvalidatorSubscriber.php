@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2014 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,13 +14,10 @@ namespace Symfony\Cmf\Bundle\MediaBundle\Doctrine;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ODM\PHPCR\Document\Resource;
-
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Symfony\Cmf\Bundle\MediaBundle\ImageInterface;
 use Symfony\Cmf\Bundle\MediaBundle\MediaManagerInterface;
-
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 
 /**
@@ -46,7 +43,8 @@ class ImagineCacheInvalidatorSubscriber implements EventSubscriber
     private $manager;
 
     /**
-     * Filter names to invalidate
+     * Filter names to invalidate.
+     *
      * @var array
      */
     private $filters;
@@ -65,8 +63,8 @@ class ImagineCacheInvalidatorSubscriber implements EventSubscriber
     public function __construct(MediaManagerInterface $mediaManager, CacheManager $manager, $filters)
     {
         $this->mediaManager = $mediaManager;
-        $this->manager      = $manager;
-        $this->filters      = $filters;
+        $this->manager = $manager;
+        $this->filters = $filters;
     }
 
     /**
@@ -78,7 +76,7 @@ class ImagineCacheInvalidatorSubscriber implements EventSubscriber
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getSubscribedEvents()
     {
@@ -111,7 +109,7 @@ class ImagineCacheInvalidatorSubscriber implements EventSubscriber
 
     /**
      * Check if this could mean an image document was modified (check resource,
-     * file and image)
+     * file and image).
      *
      * @param LifecycleEventArgs $args
      */
@@ -124,7 +122,7 @@ class ImagineCacheInvalidatorSubscriber implements EventSubscriber
         if ($object instanceof Resource) {
             $object = $object->getParent();
         }
-        if (! $object instanceof ImageInterface) {
+        if (!$object instanceof ImageInterface) {
             return;
         }
 

@@ -11,30 +11,39 @@
 
 namespace Sonata\NotificationBundle\Backend;
 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Sonata\NotificationBundle\Model\MessageInterface;
-use Sonata\NotificationBundle\Exception\BackendNotFoundException;
-
+use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPConnection;
-
-use Liip\Monitor\Result\CheckResult;
+use Sonata\NotificationBundle\Exception\BackendNotFoundException;
+use Sonata\NotificationBundle\Model\MessageInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use ZendDiagnostics\Result\Failure;
+use ZendDiagnostics\Result\Success;
 
 /**
  * Producer side of the rabbitmq backend.
  */
 class AMQPBackendDispatcher extends QueueBackendDispatcher
 {
+    /**
+     * @var array
+     */
     protected $settings;
 
+    /**
+     * @var AMQPChannel
+     */
     protected $channel;
 
+    /**
+     * @var AMQPConnection
+     */
     protected $connection;
 
     /**
-     * @param array   $settings
-     * @param array   $queues
-     * @param string  $defaultQueue
-     * @param array   $backends
+     * @param array  $settings
+     * @param array  $queues
+     * @param string $defaultQueue
+     * @param array  $backends
      */
     public function __construct(array $settings, array $queues, $defaultQueue, array $backends)
     {
@@ -44,7 +53,7 @@ class AMQPBackendDispatcher extends QueueBackendDispatcher
     }
 
     /**
-     * @return \PhpAmqpLib\Channel\AMQPChannel
+     * @return AMQPChannelannel
      */
     public function getChannel()
     {
@@ -95,7 +104,7 @@ class AMQPBackendDispatcher extends QueueBackendDispatcher
         }
 
         if ($default === null) {
-            throw new BackendNotFoundException('Could not find a message backend for the type ' . $type);
+            throw new BackendNotFoundException('Could not find a message backend for the type '.$type);
         }
 
         return $default;
@@ -123,7 +132,6 @@ class AMQPBackendDispatcher extends QueueBackendDispatcher
     public function getStatus()
     {
         try {
-
             $this->getChannel();
             $output = $this->getApiQueueStatus();
             $checked = 0;
@@ -132,7 +140,7 @@ class AMQPBackendDispatcher extends QueueBackendDispatcher
             foreach ($this->queues as $queue) {
                 foreach ($output as $q) {
                     if ($q['name'] === $queue['queue']) {
-                        $checked++;
+                        ++$checked;
                         if ($q['consumers'] === 0) {
                             $missingConsumers[] = $queue['queue'];
                         }
@@ -141,18 +149,17 @@ class AMQPBackendDispatcher extends QueueBackendDispatcher
             }
 
             if ($checked !== count($this->queues)) {
-                return $this->buildResult('Not all queues for the available notification types registered in the rabbitmq broker. Are the consumer commands running?', CheckResult::CRITICAL);
+                return new Failure('Not all queues for the available notification types registered in the rabbitmq broker. Are the consumer commands running?');
             }
 
             if (count($missingConsumers) > 0) {
-                return $this->buildResult('There are no rabbitmq consumers running for the queues: '. implode(', ', $missingConsumers), CheckResult::CRITICAL);
+                return new Failure('There are no rabbitmq consumers running for the queues: '.implode(', ', $missingConsumers));
             }
-
         } catch (\Exception $e) {
-            return $this->buildResult($e->getMessage(), CheckResult::CRITICAL);
+            return new Failure($e->getMessage());
         }
 
-        return $this->buildResult('Channel is running (RabbitMQ) and consumers for all queues available.', CheckResult::OK);
+        return new Success('Channel is running (RabbitMQ) and consumers for all queues available.');
     }
 
     /**
@@ -165,7 +172,7 @@ class AMQPBackendDispatcher extends QueueBackendDispatcher
     protected function getApiQueueStatus()
     {
         if (class_exists('Guzzle\Http\Client') === false) {
-            throw new \RuntimeException("The guzzle http client library is required to run rabbitmq health checks. Make sure to add guzzle/guzzle to your composer.json.");
+            throw new \RuntimeException('The guzzle http client library is required to run rabbitmq health checks. Make sure to add guzzle/guzzle to your composer.json.');
         }
 
         $client = new \Guzzle\Http\Client();
@@ -185,7 +192,6 @@ class AMQPBackendDispatcher extends QueueBackendDispatcher
     }
 
     /**
-     * @return void
      */
     public function shutdown()
     {
@@ -201,5 +207,7 @@ class AMQPBackendDispatcher extends QueueBackendDispatcher
     /**
      * {@inheritdoc}
      */
-    public function initialize() {}
+    public function initialize()
+    {
+    }
 }

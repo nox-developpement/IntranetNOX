@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2014 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -23,11 +23,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
- * Controller to handle file downloads, uploads and other things that have a route
+ * Controller to handle file downloads, uploads and other things that have a route.
  */
 class FileController
 {
@@ -38,39 +40,54 @@ class FileController
     protected $mediaManager;
     protected $uploadFileHelper;
     protected $requiredUploadRole;
+    /**
+     * When moving to 2.0, rename this to $authorizationChecker.
+     *
+     * @var null|AuthorizationCheckerInterface|SecurityContextInterface
+     */
     protected $securityContext;
 
     /**
-     * @param ManagerRegistry           $registry
-     * @param string                    $managerName
-     * @param string                    $class            fully qualified class
-     *                                                    name of file
-     * @param string                    $rootPath         path where the
-     *                                                    filesystem is located
-     * @param MediaManagerInterface     $mediaManager
-     * @param UploadFileHelperInterface $uploadFileHelper
-     * @param string                    $requiredRole     the role name for the
-     *                                                    security check
-     * @param SecurityContextInterface  $securityContext
+     * @var null|TokenStorageInterface
+     */
+    protected $tokenStorage;
+
+    /**
+     * @param ManagerRegistry                                        $registry
+     * @param string                                                 $managerName
+     * @param string                                                 $class                fully qualified class
+     *                                                                                     name of file
+     * @param string                                                 $rootPath             path where the
+     *                                                                                     filesystem is located
+     * @param MediaManagerInterface                                  $mediaManager
+     * @param UploadFileHelperInterface                              $uploadFileHelper
+     * @param string                                                 $requiredUploadRole   the role name for the security check
+     * @param AuthorizationCheckerInterface|SecurityContextInterface $authorizationChecker
+     * @param TokenStorageInterface                                  $tokenStorage
      */
     public function __construct(
         ManagerRegistry $registry,
         $managerName,
         $class,
-        $rootPath = '/',
+        $rootPath,
         MediaManagerInterface $mediaManager,
         UploadFileHelperInterface $uploadFileHelper,
         $requiredUploadRole,
-        SecurityContextInterface $securityContext = null
+        $authorizationChecker = null,
+        $tokenStorage = null
     ) {
-        $this->managerRegistry    = $registry;
-        $this->managerName        = $managerName;
-        $this->class              = $class === '' ? null : $class;
-        $this->rootPath           = $rootPath;
-        $this->mediaManager       = $mediaManager;
-        $this->uploadFileHelper   = $uploadFileHelper;
+        $this->managerRegistry = $registry;
+        $this->managerName = $managerName;
+        $this->class = $class === '' ? null : $class;
+        $this->rootPath = $rootPath;
+        $this->mediaManager = $mediaManager;
+        $this->uploadFileHelper = $uploadFileHelper;
         $this->requiredUploadRole = $requiredUploadRole;
-        $this->securityContext    = $securityContext;
+        if ($authorizationChecker instanceof AuthorizationCheckerInterface && !$tokenStorage instanceof TokenStorageInterface) {
+            throw new \InvalidArgumentException('Supply both authorization checker and token storage, or none of them');
+        }
+        $this->securityContext = $authorizationChecker;
+        $this->tokenStorage = $authorizationChecker instanceof AuthorizationCheckerInterface ? $tokenStorage : $authorizationChecker;
     }
 
     /**
@@ -108,7 +125,7 @@ class FileController
 
     /**
      * Get the object manager from the registry, based on the current
-     * managerName
+     * managerName.
      *
      * @return ObjectManager
      */
@@ -118,7 +135,7 @@ class FileController
     }
 
     /**
-     * Action to download a file object that has a route
+     * Action to download a file object that has a route.
      *
      * @param string $path
      */
@@ -132,7 +149,7 @@ class FileController
 
         $contentDocument = $this->getObjectManager()->find($this->class, $id);
 
-        if (! $contentDocument || ! $contentDocument instanceof FileInterface) {
+        if (!$contentDocument || !$contentDocument instanceof FileInterface) {
             throw new NotFoundHttpException(sprintf(
                 'Object with identifier %s cannot be resolved to a valid instance of Symfony\Cmf\Bundle\MediaBundle\FileInterface',
                 $path
@@ -167,9 +184,10 @@ class FileController
     }
 
     /**
-     * Action to upload a file
+     * Action to upload a file.
      *
-     * @param  Request  $request
+     * @param Request $request
+     *
      * @return Response
      */
     public function uploadAction(Request $request)
@@ -191,7 +209,7 @@ class FileController
             return;
         }
         if ($this->securityContext
-            && $this->securityContext->getToken()
+            && $this->tokenStorage->getToken()
             && $this->securityContext->isGranted($this->requiredUploadRole)
         ) {
             return;

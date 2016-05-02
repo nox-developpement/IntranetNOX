@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2014 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 interface UploadEditorHelperInterface
 {
     /**
-     * Set file defaults from request
+     * Set file defaults from request.
      *
      * @param Request       $request
      * @param FileInterface $file
@@ -30,7 +30,7 @@ interface UploadEditorHelperInterface
     public function setFileDefaults(Request $request, FileInterface $file);
 
     /**
-     * Get a response for the upload action of the editor
+     * Get a response for the upload action of the editor.
      *
      * @param Request         $request
      * @param FileInterface[] $files

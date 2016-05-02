@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2014 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -24,16 +24,16 @@ interface HierarchyInterface extends MediaInterface
     /**
      * Get the parent node.
      *
-     * @return Object|null
+     * @return object|null
      */
     public function getParent();
 
     /**
      * Set the parent node.
      *
-     * @param Object $parent
+     * @param object $parent
      *
-     * @return boolean
+     * @return bool
      */
     public function setParent($parent);
 }

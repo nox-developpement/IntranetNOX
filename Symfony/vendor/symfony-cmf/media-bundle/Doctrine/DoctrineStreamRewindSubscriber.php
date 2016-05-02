@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2014 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,7 +13,6 @@ namespace Symfony\Cmf\Bundle\MediaBundle\Doctrine;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-
 use Symfony\Cmf\Bundle\MediaBundle\BinaryInterface;
 
 /**
@@ -27,7 +26,7 @@ use Symfony\Cmf\Bundle\MediaBundle\BinaryInterface;
 class DoctrineStreamRewindSubscriber implements EventSubscriber
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getSubscribedEvents()
     {
@@ -67,7 +66,7 @@ class DoctrineStreamRewindSubscriber implements EventSubscriber
         }
 
         $stream = $object->getContentAsStream();
-        if (! is_resource($stream)) {
+        if (!is_resource($stream)) {
             return;
         }
 

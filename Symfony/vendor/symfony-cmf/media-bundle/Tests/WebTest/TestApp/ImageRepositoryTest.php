@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2013 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -32,12 +32,12 @@ class ImageRepositoryTest extends BaseTestCase
     }
 
     /**
-     * Test the ImageRepository search
+     * Test the ImageRepository search.
      *
-     * @param string  $rootPath
-     * @param integer $resultsCount
-     * @param string  $term
-     * @param string  $name
+     * @param string $rootPath
+     * @param int    $resultsCount
+     * @param string $term
+     * @param string $name
      *
      * @dataProvider imageSearchProvider
      */

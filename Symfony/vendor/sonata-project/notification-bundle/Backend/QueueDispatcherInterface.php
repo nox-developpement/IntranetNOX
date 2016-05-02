@@ -16,7 +16,6 @@ namespace Sonata\NotificationBundle\Backend;
  * queue types.
  *
  * @see AMQPBackendDispatcher for an eample implementation.
- *
  */
 interface QueueDispatcherInterface
 {
@@ -25,7 +24,7 @@ interface QueueDispatcherInterface
      *
      * @param string $type
      *
-     * @throws \Sonata\NotificationBundle\Exception\BackendNotFoundException
+     * @throws BackendNotFoundException
      *
      * @return BackendInterface
      */

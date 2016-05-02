@@ -11,30 +11,51 @@
 
 namespace Sonata\NotificationBundle\Backend;
 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-
-use Sonata\NotificationBundle\Model\MessageInterface;
-use Sonata\NotificationBundle\Model\MessageManagerInterface;
-use Sonata\NotificationBundle\Iterator\MessageManagerMessageIterator;
 use Sonata\NotificationBundle\Consumer\ConsumerEvent;
 use Sonata\NotificationBundle\Exception\HandlingException;
-
-use Liip\Monitor\Result\CheckResult;
+use Sonata\NotificationBundle\Iterator\MessageManagerMessageIterator;
+use Sonata\NotificationBundle\Model\MessageInterface;
+use Sonata\NotificationBundle\Model\MessageManagerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use ZendDiagnostics\Result\Failure;
+use ZendDiagnostics\Result\Success;
+use ZendDiagnostics\Result\Warning;
 
 class MessageManagerBackend implements BackendInterface
 {
+    /**
+     * @var MessageManagerInterface
+     */
     protected $messageManager;
 
+    /**
+     * @var array
+     */
     protected $checkLevel;
 
+    /**
+     * @var int
+     */
     protected $pause;
 
+    /**
+     * @var int
+     */
     protected $maxAge;
 
+    /**
+     * @var MessageManagerBackendDispatcher|null
+     */
     protected $dispatcher = null;
 
+    /**
+     * @var array
+     */
     protected $types;
 
+    /**
+     * @var int
+     */
     protected $batchSize;
 
     /**
@@ -45,7 +66,7 @@ class MessageManagerBackend implements BackendInterface
      * @param int                     $batchSize
      * @param array                   $types
      */
-    public function __construct(MessageManagerInterface $messageManager, array $checkLevel, $pause = 500000, $maxAge = 84600, $batchSize = 10, array $types = array())
+    public function __construct(MessageManagerInterface $messageManager, array $checkLevel, $pause = 500000, $maxAge = 86400, $batchSize = 10, array $types = array())
     {
         $this->messageManager = $messageManager;
         $this->checkLevel     = $checkLevel;
@@ -136,14 +157,13 @@ class MessageManagerBackend implements BackendInterface
             $this->messageManager->save($message);
 
             return $event->getReturnInfo();
-
         } catch (\Exception $e) {
             $message->setCompletedAt(new \DateTime());
             $message->setState(MessageInterface::STATE_ERROR);
 
             $this->messageManager->save($message);
 
-            throw new HandlingException("Error while handling a message", 0, $e);
+            throw new HandlingException('Error while handling a message', 0, $e);
         }
     }
 
@@ -155,26 +175,26 @@ class MessageManagerBackend implements BackendInterface
         try {
             $states = $this->messageManager->countStates();
         } catch (\Exception $e) {
-            return $this->buildResult(sprintf('Unable to retrieve message information - %s (Database)', $e->getMessage()), CheckResult::CRITICAL);
+            return new Failure(sprintf('Unable to retrieve message information - %s (Database)', $e->getMessage()));
         }
 
         if ($states[MessageInterface::STATE_IN_PROGRESS] > $this->checkLevel[MessageInterface::STATE_IN_PROGRESS]) {
-            return $this->buildResult('Too many messages processed at the same time (Database)', CheckResult::CRITICAL);
+            return new Failure('Too many messages processed at the same time (Database)');
         }
 
         if ($states[MessageInterface::STATE_ERROR] > $this->checkLevel[MessageInterface::STATE_ERROR]) {
-            return $this->buildResult('Too many errors (Database)', CheckResult::CRITICAL);
+            return new Failure('Too many errors (Database)');
         }
 
         if ($states[MessageInterface::STATE_OPEN] > $this->checkLevel[MessageInterface::STATE_OPEN]) {
-            return $this->buildResult('Too many messages waiting to be processed (Database)', CheckResult::WARNING);
+            return new Warning('Too many messages waiting to be processed (Database)');
         }
 
         if ($states[MessageInterface::STATE_DONE] > $this->checkLevel[MessageInterface::STATE_DONE]) {
-            return $this->buildResult('Too many processed messages, please clean the database (Database)', CheckResult::WARNING);
+            return new Warning('Too many processed messages, please clean the database (Database)');
         }
 
-        return $this->buildResult('Ok (Database)', CheckResult::OK);
+        return new Success('Ok (Database)');
     }
 
     /**
@@ -183,15 +203,5 @@ class MessageManagerBackend implements BackendInterface
     public function cleanup()
     {
         $this->messageManager->cleanup($this->maxAge);
-    }
-
-    /**
-     * @param  string                           $message
-     * @param  string                           $status
-     * @return \Liip\Monitor\Result\CheckResult
-     */
-    protected function buildResult($message, $status)
-    {
-        return new CheckResult("Message manager backend health check", $message, $status);
     }
 }

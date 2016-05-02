@@ -1,0 +1,8 @@
+nox_intranet_pointage:
+    path:     /ressources/pointage/{month}/{year}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:accueil, month: '', year: '' }
+    
+nox_intranet_pointage_ajax_set_date:
+    path:     /ressources/pointage-ajax-set-date
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxSetDate}
+    

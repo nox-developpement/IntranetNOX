@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2014 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,6 +15,7 @@ use JMS\Serializer\JsonSerializationVisitor;
 use Symfony\Cmf\Bundle\MediaBundle\ImageInterface;
 use Symfony\Cmf\Bundle\MediaBundle\MediaManagerInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * JmsSerializer handler to do basic serialization of image documents,
@@ -34,27 +35,27 @@ class Handler
     public function __construct(MediaManagerInterface $mediaManager, RouterInterface $router)
     {
         $this->mediaManager = $mediaManager;
-        $this->router       = $router;
+        $this->router = $router;
     }
 
     /**
-     * Handles the serialization of an Image object
+     * Handles the serialization of an Image object.
      *
-     * @param  JsonSerializationVisitor $visitor
-     * @param  ImageInterface           $image
+     * @param JsonSerializationVisitor $visitor
+     * @param ImageInterface           $image
+     *
      * @return array
      */
     public function serializeImageToArray(JsonSerializationVisitor $visitor, ImageInterface $image)
     {
         $urlSafePath = $this->mediaManager->getUrlSafePath($image);
-        $url = $this->router->generate('cmf_media_image_display', array('path' => $urlSafePath), true);
+        $url = $this->router->generate('cmf_media_image_display', array('path' => $urlSafePath), UrlGeneratorInterface::ABSOLUTE_URL);
 
         return array(
-            'id'   => $image->getId(),
+            'id' => $image->getId(),
             'name' => $image->getName(),
-            'url'  => $url,
-            'alt'  => $image->getDescription()
+            'url' => $url,
+            'alt' => $image->getDescription(),
         );
     }
-
 }

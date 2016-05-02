@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2014 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -29,8 +29,8 @@ class UploadCkeditorHelper extends UploadDefaultHelper
         }
 
         $urlSafePath = $this->mediaManager->getUrlSafePath($files[0]);
-        $url         = $this->router->generate('cmf_media_image_display', array('path' => $urlSafePath));
-        $funcNum     = $request->query->get('CKEditorFuncNum');
+        $url = $this->router->generate('cmf_media_image_display', array('path' => $urlSafePath));
+        $funcNum = $request->query->get('CKEditorFuncNum');
 
         $data = "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction(".$funcNum.", '".$url."', 'success');</script>";
 

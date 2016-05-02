@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2013 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,7 +12,6 @@
 namespace Symfony\Cmf\Bundle\MediaBundle\Tests\WebTest\TestApp;
 
 use Symfony\Cmf\Component\Testing\Functional\BaseTestCase;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class FileTest extends BaseTestCase
 {
@@ -23,29 +22,29 @@ class FileTest extends BaseTestCase
         $this->db('PHPCR')->loadFixtures(array(
             'Symfony\Cmf\Bundle\MediaBundle\Tests\Resources\DataFixtures\Phpcr\LoadMediaData',
         ));
-        $this->testDataDir = $this->getContainer()->get('kernel')->getRootDir() . '/Resources/data';
+        $this->testDataDir = $this->getContainer()->get('kernel')->getRootDir().'/Resources/data';
     }
 
     public function testPage()
     {
-        $client = $this->createClient();
+        $client = $this->getClient();
         $crawler = $client->request('get', $this->getContainer()->get('router')->generate('phpcr_file_test'));
         $resp = $client->getResponse();
 
         $this->assertEquals(200, $resp->getStatusCode());
-        // 1 file and 1 image
-        $this->assertGreaterThanOrEqual(2, $crawler->filter('.downloads li a')->count());
+        // 2 files and 2 images
+        $this->assertGreaterThanOrEqual(4, $crawler->filter('.downloads li a')->count());
     }
 
     public function testUpload()
     {
-        $client = $this->createClient();
+        $client = $this->getClient();
         $crawler = $client->request('get', $this->getContainer()->get('router')->generate('phpcr_file_test'));
         $cntDownloadLinks = $crawler->filter('.downloads li a')->count();
 
         $buttonCrawlerNode = $crawler->filter('form.standard')->selectButton('submit');
         $form = $buttonCrawlerNode->form();
-        $form['file']->upload($this->testDataDir . '/testfile.txt');
+        $form['file']->upload($this->testDataDir.'/testfile.txt');
 
         $client->submit($form);
         $crawler = $client->followRedirect();
@@ -59,14 +58,14 @@ class FileTest extends BaseTestCase
     {
         $client = $this->createClient(array(), array(
             'PHP_AUTH_USER' => 'admin',
-            'PHP_AUTH_PW'   => 'adminpass',
+            'PHP_AUTH_PW' => 'adminpass',
         ));
         $crawler = $client->request('get', $this->getContainer()->get('router')->generate('phpcr_file_test'));
         $cntDownloadLinks = $crawler->filter('.downloads li a')->count();
 
         $buttonCrawlerNode = $crawler->filter('form.editor.default')->selectButton('submit');
         $form = $buttonCrawlerNode->form();
-        $form['file']->upload($this->testDataDir . '/testfile.txt');
+        $form['file']->upload($this->testDataDir.'/testfile.txt');
 
         $client->submit($form);
         $crawler = $client->followRedirect();
@@ -78,7 +77,7 @@ class FileTest extends BaseTestCase
 
     public function testDownload()
     {
-        $client = $this->createClient();
+        $client = $this->getClient();
         $crawler = $client->request('get', $this->getContainer()->get('router')->generate('phpcr_file_test'));
 
         // find first download link

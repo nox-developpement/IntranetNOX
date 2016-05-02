@@ -11,21 +11,39 @@
 
 namespace Sonata\NotificationBundle\Iterator;
 
-use Sonata\NotificationBundle\Model\MessageManagerInterface;
 use Sonata\NotificationBundle\Model\MessageInterface;
+use Sonata\NotificationBundle\Model\MessageManagerInterface;
 
 class MessageManagerMessageIterator implements MessageIteratorInterface
 {
+    /**
+     * @var MessageManagerInterface
+     */
     protected $messageManager;
 
+    /**
+     * @var int
+     */
     protected $counter;
 
+    /**
+     * @var mixed
+     */
     protected $current;
 
+    /**
+     * @var array
+     */
     protected $types;
 
+    /**
+     * @var int
+     */
     protected $batchSize;
 
+    /**
+     * @var array
+     */
     protected $buffer = array();
 
     /**
@@ -44,7 +62,7 @@ class MessageManagerMessageIterator implements MessageIteratorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function current()
     {
@@ -52,16 +70,16 @@ class MessageManagerMessageIterator implements MessageIteratorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function next()
     {
         $this->setCurrent();
-        $this->counter++;
+        ++$this->counter;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function key()
     {
@@ -69,7 +87,7 @@ class MessageManagerMessageIterator implements MessageIteratorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function valid()
     {
@@ -77,7 +95,7 @@ class MessageManagerMessageIterator implements MessageIteratorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function rewind()
     {
@@ -85,7 +103,7 @@ class MessageManagerMessageIterator implements MessageIteratorInterface
     }
 
     /**
-     * Return true if the internal buffer is empty
+     * Return true if the internal buffer is empty.
      *
      * @return bool
      */
@@ -95,7 +113,7 @@ class MessageManagerMessageIterator implements MessageIteratorInterface
     }
 
     /**
-     * Assign current pointer a message
+     * Assign current pointer a message.
      */
     protected function setCurrent()
     {
@@ -107,7 +125,7 @@ class MessageManagerMessageIterator implements MessageIteratorInterface
     }
 
     /**
-     * Fill the inner messages buffer
+     * Fill the inner messages buffer.
      *
      * @param array $types
      */
@@ -125,7 +143,7 @@ class MessageManagerMessageIterator implements MessageIteratorInterface
     }
 
     /**
-     * Find open messages
+     * Find open messages.
      *
      * @param array $types
      *

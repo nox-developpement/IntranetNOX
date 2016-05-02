@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2014 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,11 +14,9 @@ namespace Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ODM\PHPCR\DocumentManager;
-use PHPCR\RepositoryException;
 use PHPCR\Util\PathHelper;
 use Symfony\Cmf\Bundle\MediaBundle\MediaInterface;
 use Symfony\Cmf\Bundle\MediaBundle\MediaManagerInterface;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 /**
  * A media manager suitable for doctrine phpcr-odm.
@@ -39,8 +37,8 @@ class MediaManager implements MediaManagerInterface
     public function __construct(ManagerRegistry $registry, $managerName, $rootPath = '/')
     {
         $this->managerRegistry = $registry;
-        $this->managerName     = $managerName;
-        $this->rootPath        = $rootPath;
+        $this->managerName = $managerName;
+        $this->rootPath = $rootPath;
     }
 
     /**
@@ -67,7 +65,7 @@ class MediaManager implements MediaManagerInterface
 
     /**
      * Get the object manager from the registry, based on the current
-     * managerName
+     * managerName.
      *
      * @return DocumentManager
      */
@@ -112,7 +110,7 @@ class MediaManager implements MediaManagerInterface
         }
 
         $rootPath = is_null($parentPath) ? $this->rootPath : $parentPath;
-        $path = ($rootPath === '/' ? $rootPath : $rootPath . '/') . $media->getName();
+        $path = ($rootPath === '/' ? $rootPath : $rootPath.'/').$media->getName();
 
         /** @var DocumentManager $dm */
         $dm = $this->getObjectManager();
@@ -121,7 +119,7 @@ class MediaManager implements MediaManagerInterface
         if ($dm->find($class, $path)) {
             // path already exists
             $ext = pathinfo($media->getName(), PATHINFO_EXTENSION);
-            $media->setName($media->getName() . '_' . time() . '_' . rand() . ($ext ? '.' . $ext : ''));
+            $media->setName($media->getName().'_'.time().'_'.rand().($ext ? '.'.$ext : ''));
         }
 
         if (!$media->getParent()) {
@@ -135,12 +133,8 @@ class MediaManager implements MediaManagerInterface
      */
     public function mapPathToId($path, $rootPath = null)
     {
-        try {
-            // The path is being the id
-            $id = PathHelper::absolutizePath($path, '/');
-        } catch (RepositoryException $e) {
-            throw new ResourceNotFoundException(sprintf('The PHPCR path "%s" is not valid', $path), 0, $e);
-        }
+        // The path is being the id
+        $id = PathHelper::absolutizePath($path, '/');
 
         if (is_string($rootPath) && 0 !== strpos($id, $rootPath)) {
             throw new \OutOfBoundsException(sprintf(

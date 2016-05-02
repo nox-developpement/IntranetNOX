@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2013 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -23,7 +23,7 @@ class ImageTest extends BaseTestCase
         $this->db('PHPCR')->loadFixtures(array(
             'Symfony\Cmf\Bundle\MediaBundle\Tests\Resources\DataFixtures\Phpcr\LoadMediaData',
         ));
-        $this->testDataDir = $this->getContainer()->get('kernel')->getRootDir() . '/Resources/data';
+        $this->testDataDir = $this->getContainer()->get('kernel')->getRootDir().'/Resources/data';
     }
 
     public function testPage()
@@ -35,7 +35,7 @@ class ImageTest extends BaseTestCase
         $this->assertFalse($cacheManager->isStored('test/media/cmf-logo.png', 'image_upload_thumbnail'));
 
         // get crawler
-        $client = $this->createClient();
+        $client = $this->getClient();
         $crawler = $client->request('get', $this->getContainer()->get('router')->generate('phpcr_image_test'));
         $resp = $client->getResponse();
 
@@ -67,13 +67,13 @@ class ImageTest extends BaseTestCase
 
     public function testUpload()
     {
-        $client = $this->createClient();
+        $client = $this->getClient();
         $crawler = $client->request('get', $this->getContainer()->get('router')->generate('phpcr_image_test'));
         $cntImagesLinks = $crawler->filter('.images li img')->count();
 
         $buttonCrawlerNode = $crawler->filter('form.standard')->selectButton('submit');
         $form = $buttonCrawlerNode->form();
-        $form['image']->upload($this->testDataDir . '/testimage.png');
+        $form['image']->upload($this->testDataDir.'/testimage.png');
 
         $client->submit($form);
         $crawler = $client->followRedirect();
@@ -87,14 +87,14 @@ class ImageTest extends BaseTestCase
     {
         $client = $this->createClient(array(), array(
             'PHP_AUTH_USER' => 'admin',
-            'PHP_AUTH_PW'   => 'adminpass',
+            'PHP_AUTH_PW' => 'adminpass',
         ));
         $crawler = $client->request('get', $this->getContainer()->get('router')->generate('phpcr_image_test'));
         $cntImagesLinks = $crawler->filter('.images li img')->count();
 
         $buttonCrawlerNode = $crawler->filter('form.editor.default')->selectButton('submit');
         $form = $buttonCrawlerNode->form();
-        $form['image']->upload($this->testDataDir . '/testimage.png');
+        $form['image']->upload($this->testDataDir.'/testimage.png');
 
         $client->submit($form);
         $crawler = $client->followRedirect();

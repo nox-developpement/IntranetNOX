@@ -16,29 +16,29 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * Doctrine context optimizer
- * Used with doctrine backend to clear context taking care of the batch iterations
+ * Used with doctrine backend to clear context taking care of the batch iterations.
  *
  * @author Kevin Nedelec <kevin.nedelec@ekino.com>
  *
  * Class DoctrineOptimizeListener
- * @package Sonata\NotificationBundle\Event
  */
 class DoctrineBackendOptimizeListener implements IterationListener
 {
     /**
-     * @var \Doctrine\Bundle\DoctrineBundle\Registry
+     * @var Registry
      */
     protected $doctrine;
 
+    /**
+     * @param RegistryInterface $doctrine
+     */
     public function __construct(RegistryInterface $doctrine)
     {
         $this->doctrine = $doctrine;
     }
 
     /**
-     * Clear the doctrine context if the internal iterator buffer is empty
-     *
-     * @param IterateEvent $event
+     * {@inheritdoc}
      */
     public function iterate(IterateEvent $event)
     {

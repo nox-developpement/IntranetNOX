@@ -2811,3 +2811,21 @@ input[type=text]:read-only {
     color: white;
     background-color: rgb(31,78,121);
 }
+
+#tableFeuillePointage {
+    width: 90%;
+    margin: auto;
+    margin-bottom: 5%;
+}
+
+#tableFeuillePointage, #tableFeuillePointage th, #tableFeuillePointage td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+
+#tableFeuillePointage th, #tableFeuillePointage td {
+    text-align: center;
+    color: black;
+    padding: 0.5% 1% 0.5% 1%;
+}

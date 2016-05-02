@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2013 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -41,7 +41,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
     {
         vfsStream::setup('home');
         $fileSystemFile = vfsStream::url('home/test.txt');
-        file_put_contents($fileSystemFile, "Test file content.");
+        file_put_contents($fileSystemFile, 'Test file content.');
 
         $file = new File();
         $file->setFileContentFromFilesystem($fileSystemFile);
@@ -79,7 +79,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
      */
     public function testContentAsString($content, $expectedContent)
     {
-        $file =  new File();
+        $file = new File();
 
         $file->setContentFromString($content);
 
@@ -89,19 +89,23 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function copyContentFromFileProvider()
     {
+        $data = array();
         $testContent = 'Test file content.';
 
-        vfsStream::setup('home');
-        $fileSystemFile = vfsStream::url('home/test.txt');
-        file_put_contents($fileSystemFile, $testContent);
+        if (PHP_VERSION_ID >= 50400) {
+            // SplFileObject causes a segmentation fault in PHPunit in PHP 5.3.x
+            vfsStream::setup('home');
+            $fileSystemFile = vfsStream::url('home/test.txt');
+            file_put_contents($fileSystemFile, $testContent);
+
+            $data[] = array(new \SplFileObject($fileSystemFile), $testContent, 'text/plain', 18);
+        }
 
         $binaryFile = new File();
         $binaryFile->setContentFromString($testContent);
+        $data[] = array($binaryFile, $testContent, 'application/octet-stream', 18);
 
-        return array(
-            array(new \SplFileObject($fileSystemFile), $testContent, 'text/plain', 18),
-            array($binaryFile, $testContent, 'application/octet-stream', 18),
-        );
+        return $data;
     }
 
     /**
@@ -109,7 +113,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
      */
     public function testCopyContentFromFile($fileInput, $expectedContent, $expectedContentType, $expectedSize)
     {
-        $file =  new File();
+        $file = new File();
 
         $file->copyContentFromFile($fileInput);
 
@@ -129,7 +133,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
      */
     public function testCopyContentFromFileException()
     {
-        $file =  new File();
+        $file = new File();
 
         $file->copyContentFromFile('');
     }

@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2013 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,6 +14,7 @@ namespace Symfony\Cmf\Bundle\MediaBundle\Tests\Resources\Controller;
 use Doctrine\ODM\PHPCR\Document\Generic;
 use PHPCR\Util\PathHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image;
 use Symfony\Cmf\Bundle\MediaBundle\File\UploadFileHelperInterface;
 use Symfony\Cmf\Bundle\MediaBundle\Tests\Resources\Document\Content;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,10 +22,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PhpcrImageTestController extends Controller
 {
-    protected function getUploadForm($type = null)
+    protected function getUploadForm()
     {
+        $type = method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix') ? 'Symfony\Component\Form\Extension\Core\Type\FileType' : 'file';
+
         return $this->container->get('form.factory')->createNamedBuilder(null, 'form')
-            ->add('image', 'file')
+            ->add('image', $type)
             ->getForm()
         ;
     }
@@ -34,11 +37,12 @@ class PhpcrImageTestController extends Controller
         if (is_null($contentObject)) {
             $contentObject = new Content();
         }
+        $type = method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix') ? 'Symfony\Cmf\Bundle\MediaBundle\Form\Type\ImageType' : 'cmf_media_image';
 
         return $this->createFormBuilder($contentObject)
             ->add('name')
             ->add('title')
-            ->add('image', 'cmf_media_image', array_merge(array('required' => false), $imageOptions))
+            ->add('file', $type, array_merge(array('required' => false, 'label' => 'Image'), $imageOptions))
             ->getForm()
         ;
     }
@@ -54,17 +58,30 @@ class PhpcrImageTestController extends Controller
         return PathHelper::absolutizePath($path, '/');
     }
 
+    protected function getImageContentObject($contentObjects)
+    {
+        if (is_null($contentObjects)) {
+            return;
+        }
+        /** @var Content $contentObject */
+        foreach ($contentObjects as $contentObject) {
+            if ($contentObject->getFile() instanceof Image) {
+                return $contentObject;
+            }
+        }
+    }
+
     public function indexAction(Request $request)
     {
         $dm = $this->get('doctrine_phpcr')->getManager('default');
 
         // get image(s)
         $imageClass = 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image';
-        $images     = $dm->getRepository($imageClass)->findAll();
+        $images = $dm->getRepository($imageClass)->findAll();
 
         // get content with image object
-        $contentClass  = 'Symfony\Cmf\Bundle\MediaBundle\Tests\Resources\Document\Content';
-        $contentObject = $dm->getRepository($contentClass)->findOneBy(array());
+        $contentClass = 'Symfony\Cmf\Bundle\MediaBundle\Tests\Resources\Document\Content';
+        $contentObject = $this->getImageContentObject($dm->getRepository($contentClass)->findAll());
 
         $uploadForm = $this->getUploadForm();
         $editorUploadForm = $this->getUploadForm();
@@ -84,13 +101,13 @@ class PhpcrImageTestController extends Controller
         }
 
         return $this->render('::tests/image.html.twig', array(
-            'upload_form'              => $uploadForm->createView(),
-            'editor_form'              => $editorUploadForm->createView(),
-            'content_form_new'         => $newContentForm->createView(),
-            'content_form'             => $contentForm->createView(),
-            'content_form_imagine'     => $contentFormImagine->createView(),
+            'upload_form' => $uploadForm->createView(),
+            'editor_form' => $editorUploadForm->createView(),
+            'content_form_new' => $newContentForm->createView(),
+            'content_form' => $contentForm->createView(),
+            'content_form_imagine' => $contentFormImagine->createView(),
             'content_form_edit_action' => $contentFormEditAction,
-            'images'                   => $images,
+            'images' => $images,
         ));
     }
 
@@ -98,22 +115,23 @@ class PhpcrImageTestController extends Controller
     {
         $form = $this->getUploadForm();
 
-        if ($request->isMethod('POST')) {
-            $form->bind($request);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            /* @var UploadFileHelperInterface $uploadFileHelper */
+            $uploadImageHelper = $this->get('cmf_media.upload_image_helper');
 
-            if ($form->isValid()) {
-                /** @var UploadFileHelperInterface $uploadFileHelper */
-                $uploadImageHelper = $this->get('cmf_media.upload_image_helper');
+            $uploadedFile = $request->files->get('image');
 
-                $uploadedFile = $request->files->get('image');
+            /** @var Image $image */
+            $image = $uploadImageHelper->handleUploadedFile($uploadedFile);
+            $image->setMetadataValue('a', 'b');
 
-                $image = $uploadImageHelper->handleUploadedFile($uploadedFile);
+//            $image->setMetadataValue('a', 'b');
 
-                // persist
-                $dm = $this->get('doctrine_phpcr')->getManager('default');
-                $dm->persist($image);
-                $dm->flush();
-            }
+            // persist
+            $dm = $this->get('doctrine_phpcr')->getManager('default');
+            $dm->persist($image);
+            $dm->flush();
         }
 
         return $this->redirect($this->generateUrl('phpcr_image_test'));
@@ -128,7 +146,7 @@ class PhpcrImageTestController extends Controller
             $root = $dm->find(null, '/test');
             $contentRoot = new Generic();
             $contentRoot->setNodename('content');
-            $contentRoot->setParent($root);
+            $contentRoot->setParentDocument($root);
             $dm->persist($contentRoot);
         }
 

@@ -16,19 +16,34 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class AMQPMessageIterator implements MessageIteratorInterface
 {
+    /**
+     * @var AMQPChannel
+     */
     protected $channel;
 
+    /**
+     * @var mixed
+     */
     protected $message;
 
+    /**
+     * @var AMQPMessage
+     */
     protected $AMQMessage;
 
+    /**
+     * @var mixed
+     */
     protected $queue;
 
+    /**
+     * @var int
+     */
     protected $counter;
 
     /**
-     * @param \PhpAmqpLib\Channel\AMQPChannel $channel
-     * @param $queue
+     * @param AMQPChannel $channel
+     * @param mixed       $queue
      */
     public function __construct(AMQPChannel $channel, $queue)
     {
@@ -38,7 +53,7 @@ class AMQPMessageIterator implements MessageIteratorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function current()
     {
@@ -46,7 +61,7 @@ class AMQPMessageIterator implements MessageIteratorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function next()
     {
@@ -54,7 +69,7 @@ class AMQPMessageIterator implements MessageIteratorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function key()
     {
@@ -62,7 +77,7 @@ class AMQPMessageIterator implements MessageIteratorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function valid()
     {
@@ -70,7 +85,7 @@ class AMQPMessageIterator implements MessageIteratorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function rewind()
     {
@@ -81,7 +96,7 @@ class AMQPMessageIterator implements MessageIteratorInterface
             false,
             false,
             false,
-            array($this, 'receiveMessage'
+            array($this, 'receiveMessage',
         ));
 
         $this->wait();
@@ -99,8 +114,7 @@ class AMQPMessageIterator implements MessageIteratorInterface
     }
 
     /**
-     * @param  \PhpAmqpLib\Message\AMQPMessage $AMQMessage
-     * @return void
+     * @param AMQPMessage $AMQMessage
      */
     public function receiveMessage(AMQPMessage $AMQMessage)
     {
@@ -114,8 +128,8 @@ class AMQPMessageIterator implements MessageIteratorInterface
         $message->setType($data['type']);
         $message->setState($data['state']);
 
-        $this->counter++;
+        ++$this->counter;
 
-        $this->message= $message;
+        $this->message = $message;
     }
 }

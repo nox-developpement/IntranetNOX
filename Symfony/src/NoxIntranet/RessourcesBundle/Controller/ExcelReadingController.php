@@ -235,18 +235,17 @@ class ExcelReadingController extends Controller {
 
                 var_dump($N_Client);
 
-                exec("set N_Client=" . $N_Client);
-                exec("set Tel=" . $formAjoutClient->get('Tel')->getData());
-                exec("set Fax=" . $formAjoutClient->get('Fax')->getData());
-                exec("set Email=" . $formAjoutClient->get('Email')->getData());
-                exec("set Nom_Ville=" . $formAjoutClient->get('Nom_Ville')->getData());
-                exec("set Nom_Pays=" . $formAjoutClient->get('Nom_Pays')->getData());
-                exec("set Code_Postal=" . $formAjoutClient->get('Code_Postal')->getData());
-                exec("set Adresse1=" . $formAjoutClient->get('Adresse1')->getData());
-                exec("set Adresse2=" . $formAjoutClient->get('Adresse2')->getData());
-                exec("set Adresse3=" . $formAjoutClient->get('Adresse3')->getData());
-                exec("echo %N_Client%", $return);
-                exec("sqlcmd -S SRVM-SQL-LAB -d NOX -i " . $rootLetter . ":\wamp\www\Symfony\scripts\SQL\InsertClientAdrIntoGXDB.sql -v N_Client = %N_Client% Tel = %Tel% Fax = %Fax% Email = %Email% Nom_Ville = %Nom_Ville% Nom_Pays = %Nom_Pays% Code_Postal = %Code_Postal% Adresse1 = %Adresse1% Adresse2 = %Adresse2% Adresse3 = %Adresse3%");
+                $commande = "set N_Client=" . $N_Client . "\n";
+                $commande = $commande . "set Tel=" . $formAjoutClient->get('Tel')->getData() . "\n";
+                $commande = $commande . "set Fax=" . $formAjoutClient->get('Fax')->getData() . "\n";
+                $commande = $commande . "set Email=" . $formAjoutClient->get('Email')->getData() . "\n";
+                $commande = $commande . "set Nom_Ville=" . $formAjoutClient->get('Nom_Ville')->getData() . "\n";
+                $commande = $commande . "set Nom_Pays=" . $formAjoutClient->get('Nom_Pays')->getData() . "\n";
+                $commande = $commande . "set Code_Postal=" . $formAjoutClient->get('Code_Postal')->getData() . "\n";
+                $commande = $commande . "set Adresse1=" . $formAjoutClient->get('Adresse1')->getData() . "\n";
+                $commande = $commande . "set Adresse2=" . $formAjoutClient->get('Adresse2')->getData() . "\n";
+                $commande = $commande . "set Adresse3=" . $formAjoutClient->get('Adresse3')->getData() . "\n";
+                $commande = $commande . "sqlcmd -S SRVM-SQL-LAB -d NOX -i " . $rootLetter . ":\wamp\www\Symfony\scripts\SQL\InsertClientAdrIntoGXDB.sql -v N_Client = %N_Client% Tel = %Tel% Fax = %Fax% Email = %Email% Nom_Ville = %Nom_Ville% Nom_Pays = %Nom_Pays% Code_Postal = %Code_Postal% Adresse1 = %Adresse1% Adresse2 = %Adresse2% Adresse3 = %Adresse3%";
                 //return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur', array('IdSuivi' => $IdSuivi));
 
                 var_dump($return);

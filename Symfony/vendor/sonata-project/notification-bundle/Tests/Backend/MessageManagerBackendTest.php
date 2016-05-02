@@ -12,13 +12,14 @@
 namespace Sonata\NotificationBundle\Tests\Notification;
 
 use Sonata\NotificationBundle\Backend\MessageManagerBackend;
-use \Sonata\NotificationBundle\Tests\Entity\Message;
-use Sonata\NotificationBundle\Model\MessageInterface;
 use Sonata\NotificationBundle\Exception\HandlingException;
+use Sonata\NotificationBundle\Model\MessageInterface;
+use Sonata\NotificationBundle\Tests\Entity\Message;
+use ZendDiagnostics\Result\Failure;
+use ZendDiagnostics\Result\Success;
+use ZendDiagnostics\Result\Warning;
 
-use Liip\Monitor\Result\CheckResult;
-
-class MessageManagerProducerTest extends \PHPUnit_Framework_TestCase
+class MessageManagerBackendTest extends \PHPUnit_Framework_TestCase
 {
     public function testCreateAndPublish()
     {
@@ -30,7 +31,7 @@ class MessageManagerProducerTest extends \PHPUnit_Framework_TestCase
         $backend = new MessageManagerBackend($modelManager, array());
         $message = $backend->createAndPublish('foo', array('message' => 'salut'));
 
-        $this->assertInstanceOf("Sonata\\NotificationBundle\\Model\\MessageInterface", $message);
+        $this->assertInstanceOf('Sonata\\NotificationBundle\\Model\\MessageInterface', $message);
         $this->assertEquals(MessageInterface::STATE_OPEN, $message->getState());
         $this->assertNotNull($message->getCreatedAt());
         $this->assertEquals('foo', $message->getType());
@@ -62,14 +63,13 @@ class MessageManagerProducerTest extends \PHPUnit_Framework_TestCase
         $modelManager->expects($this->exactly(2))->method('save')->will($this->returnValue($message));
 
         $dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
-        $dispatcher->expects($this->once())->method('dispatch')->will($this->throwException(new \RuntimeException));
+        $dispatcher->expects($this->once())->method('dispatch')->will($this->throwException(new \RuntimeException()));
         $backend = new MessageManagerBackend($modelManager, array());
 
         $e = false;
         try {
             $backend->handle($message, $dispatcher);
         } catch (HandlingException $e) {
-
         }
 
         $this->assertInstanceOf('Sonata\NotificationBundle\Exception\HandlingException', $e);
@@ -84,8 +84,8 @@ class MessageManagerProducerTest extends \PHPUnit_Framework_TestCase
      */
     public function testStatus($counts, $expectedStatus, $message)
     {
-        if (!class_exists('Liip\Monitor\Result\CheckResult')) {
-            $this->markTestSkipped('The class Liip\Monitor\Result\CheckResult does not exist');
+        if (!class_exists('ZendDiagnostics\Result\Success')) {
+            $this->markTestSkipped('The class ZendDiagnostics\Result\Success does not exist');
         }
 
         $modelManager = $this->getMock('Sonata\NotificationBundle\Model\MessageManagerInterface');
@@ -93,22 +93,21 @@ class MessageManagerProducerTest extends \PHPUnit_Framework_TestCase
 
         $backend = new MessageManagerBackend($modelManager, array(
             MessageInterface::STATE_IN_PROGRESS => 10,
-            MessageInterface::STATE_ERROR => 30,
-            MessageInterface::STATE_OPEN => 100,
-            MessageInterface::STATE_DONE => 10000,
+            MessageInterface::STATE_ERROR       => 30,
+            MessageInterface::STATE_OPEN        => 100,
+            MessageInterface::STATE_DONE        => 10000,
         ));
 
         $status = $backend->getStatus();
 
-        $this->assertInstanceOf('Liip\Monitor\Result\CheckResult', $status);
-        $this->assertEquals($expectedStatus, $status->getStatus());
+        $this->assertInstanceOf(get_class($expectedStatus), $status);
         $this->assertEquals($message, $status->getMessage());
     }
 
     public static function statusProvider()
     {
-        if (!class_exists('Liip\Monitor\Result\CheckResult')) {
-            return array(array(1,1,1));
+        if (!class_exists('ZendDiagnostics\Result\Success')) {
+            return array(array(1, 1, 1));
         }
 
         $data = array();
@@ -116,56 +115,56 @@ class MessageManagerProducerTest extends \PHPUnit_Framework_TestCase
         $data[] = array(
             array(
                 MessageInterface::STATE_IN_PROGRESS => 11, #here
-                MessageInterface::STATE_ERROR => 31,
-                MessageInterface::STATE_OPEN => 100,
-                MessageInterface::STATE_DONE => 10000,
+                MessageInterface::STATE_ERROR       => 31,
+                MessageInterface::STATE_OPEN        => 100,
+                MessageInterface::STATE_DONE        => 10000,
             ),
-            CheckResult::CRITICAL,
-            'Too many messages processed at the same time (Database)'
+            new Failure(),
+            'Too many messages processed at the same time (Database)',
         );
 
         $data[] = array(
             array(
                 MessageInterface::STATE_IN_PROGRESS => 1,
-                MessageInterface::STATE_ERROR => 31, #here
-                MessageInterface::STATE_OPEN => 100,
-                MessageInterface::STATE_DONE => 10000,
+                MessageInterface::STATE_ERROR       => 31, #here
+                MessageInterface::STATE_OPEN        => 100,
+                MessageInterface::STATE_DONE        => 10000,
             ),
-            CheckResult::CRITICAL,
-            'Too many errors (Database)'
+            new Failure(),
+            'Too many errors (Database)',
         );
 
         $data[] = array(
             array(
                 MessageInterface::STATE_IN_PROGRESS => 1,
-                MessageInterface::STATE_ERROR => 1,
-                MessageInterface::STATE_OPEN => 101, #here
-                MessageInterface::STATE_DONE => 10000,
+                MessageInterface::STATE_ERROR       => 1,
+                MessageInterface::STATE_OPEN        => 101, #here
+                MessageInterface::STATE_DONE        => 10000,
             ),
-            CheckResult::WARNING,
-            'Too many messages waiting to be processed (Database)'
+            new Warning(),
+            'Too many messages waiting to be processed (Database)',
         );
 
         $data[] = array(
             array(
                 MessageInterface::STATE_IN_PROGRESS => 1,
-                MessageInterface::STATE_ERROR => 1,
-                MessageInterface::STATE_OPEN => 100,
-                MessageInterface::STATE_DONE => 10001, #here
+                MessageInterface::STATE_ERROR       => 1,
+                MessageInterface::STATE_OPEN        => 100,
+                MessageInterface::STATE_DONE        => 10001, #here
             ),
-            CheckResult::WARNING,
-            'Too many processed messages, please clean the database (Database)'
+                new Warning(),
+            'Too many processed messages, please clean the database (Database)',
         );
 
         $data[] = array(
             array(
                 MessageInterface::STATE_IN_PROGRESS => 1,
-                MessageInterface::STATE_ERROR => 1,
-                MessageInterface::STATE_OPEN => 1,
-                MessageInterface::STATE_DONE => 1,
+                MessageInterface::STATE_ERROR       => 1,
+                MessageInterface::STATE_OPEN        => 1,
+                MessageInterface::STATE_DONE        => 1,
             ),
-            CheckResult::OK,
-            'Ok (Database)'
+            new Success(),
+            'Ok (Database)',
         );
 
         return $data;

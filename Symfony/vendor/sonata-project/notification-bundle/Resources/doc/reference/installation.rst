@@ -1,11 +1,15 @@
 Installation
 ============
 
-To begin, add the dependent bundles::
+To begin, add the dependent bundles:
 
-    php composer.phar require sonata-project/notification-bundle  # optional
+.. code-block:: bash
+
+    php composer.phar require sonata-project/notification-bundle
     php composer.phar require videlalvaro/php-amqplib --no-update # optional
     php composer.phar require liip/monitor-bundle --no-update     # optional
+    php composer.phar require friendsofsymfony/rest-bundle  --no-update # optional when using api
+    php composer.phar require nelmio/api-doc-bundle  --no-update # optional when using api
     php composer.phar update
 
 
@@ -41,7 +45,6 @@ Then add these bundles in the config mapping definition:
                     mappings:
                         # ...
                         SonataNotificationBundle: ~
-                        ApplicationSonataNotificationBundle: ~
 
 Configuration
 -------------
@@ -62,10 +65,21 @@ Backend availables :
     sonata_notification:
         backend: sonata.notification.backend.runtime
 
+You can disable the admin if you don't need it :
+
+.. code-block:: yaml
+
+    # app/config/config.yml
+    sonata_notification:
+        admin:
+            enabled: false
+
 Extending the Bundle
 --------------------
 At this point, the bundle is functional, but not quite ready yet. You need to
 generate the correct entities for the media:
+
+.. code-block:: bash
 
     php app/console sonata:easy-extends:generate SonataNotificationBundle
 
@@ -79,6 +93,21 @@ but you can specify the path with ``--dest=src``
     This will make Entities sharing easier as your models will allow to
     point to a global namespace. For instance the user will be
     ``Application\Sonata\NotificationBundle\Entity\Message``.
+    
+Now add your new application bundle to the config mapping definition:
+
+.. code-block:: yaml
+
+    doctrine:
+        # ...
+        orm:
+            # ...
+            entity_managers:
+                default:
+                        # ...
+                    mappings:
+                        # ...
+                        ApplicationSonataNotificationBundle: ~
 
 Now, add the new `Application` Bundle into the kernel:
 

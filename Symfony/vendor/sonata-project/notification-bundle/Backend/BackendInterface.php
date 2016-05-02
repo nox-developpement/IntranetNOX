@@ -13,6 +13,7 @@ namespace Sonata\NotificationBundle\Backend;
 
 use Sonata\NotificationBundle\Model\MessageInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use ZendDiagnostics\Result\ResultInterface;
 
 interface BackendInterface
 {
@@ -36,12 +37,12 @@ interface BackendInterface
     public function createAndPublish($type, array $body);
 
     /**
-     * @return \Sonata\NotificationBundle\Iterator\MessageIteratorInterface
+     * @return MessageIteratorInterface
      */
     public function getIterator();
 
     /**
-     * Initialize
+     * Initialize.
      */
     public function initialize();
 
@@ -54,14 +55,12 @@ interface BackendInterface
     public function handle(MessageInterface $message, EventDispatcherInterface $dispatcher);
 
     /**
-     * @return \Liip\Monitor\Result\CheckResult
+     * @return ResultInterface
      */
     public function getStatus();
 
     /**
-     * Clean up messages
-     *
-     * @return void
+     * Clean up messages.
      */
     public function cleanup();
 }

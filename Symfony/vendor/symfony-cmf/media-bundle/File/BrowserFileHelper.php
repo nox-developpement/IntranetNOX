@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2014 Symfony CMF
+ * (c) 2011-2015 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -24,7 +24,7 @@ class BrowserFileHelper
     }
 
     /**
-     * Add an editor helper
+     * Add an editor helper.
      *
      * @param string                       $name
      * @param BrowserEditorHelperInterface $helper
@@ -35,7 +35,7 @@ class BrowserFileHelper
     }
 
     /**
-     * Get helper
+     * Get helper.
      *
      * @param $name    leave null to get the default helper
      * @param $browser leave null to get the default helper
@@ -63,6 +63,6 @@ class BrowserFileHelper
             return $this->editorHelpers['default'][$this->defaultBrowser];
         }
 
-        return null;
+        return;
     }
 }
