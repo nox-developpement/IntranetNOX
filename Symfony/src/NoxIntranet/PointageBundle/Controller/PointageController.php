@@ -12,7 +12,7 @@ class PointageController extends Controller {
         $date = '01-' . $this->getMonthAndYear($month, $year)['month'] . '-' . $this->getMonthAndYear($month, $year)['year'];
         $end_date = $this->getMonthAndYear($month, $year)['days'] . '-' . $this->getMonthAndYear($month, $year)['month'] . '-' . $this->getMonthAndYear($month, $year)['year'];
 
-        $monthDates = array_fill(0, 30, '');
+        $monthDates = array();
 
         $i = 0;
         while (strtotime($date) <= strtotime($end_date)) {
@@ -50,7 +50,7 @@ class PointageController extends Controller {
             $date = '01-' . $month . '-' . $year;
             $end_date = date('t', strtotime('01-' . $month . '-' . $year)) . '-' . $month . '-' . $year;
 
-            $monthDates = array_fill(0, 30, '');
+            $monthDates = array();
             $i = 0;
             while (strtotime($date) <= strtotime($end_date)) {
                 $monthDates[$i] = $frenchDays[date('w', strtotime($date))] . ' ' . date('d', strtotime($date));
