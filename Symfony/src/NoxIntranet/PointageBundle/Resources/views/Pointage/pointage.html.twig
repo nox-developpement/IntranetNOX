@@ -19,6 +19,7 @@
                 <td style="background: rgb(47,117,181); color: white; border-width: 2px;" colspan="2">OPERATIONNEL</td>
                 <td style="background: black; border-width: 2px;"></td>
                 <td style="background: rgb(84,130,53); color: white; border-width: 2px;" colspan="5">RESSOURCES HUMAINES</td>
+                <td style="border-width: 2px;">+ Projet</td>
             </tr>
             <tr>
                 <td style="border: none;">
@@ -186,22 +187,22 @@
             </tr>
             <tr>
                 <td id='titreTransportMontant' style='border-width: 2px;' contenteditable=true></td>
-                <td id='titreTransportTotalMontant' style='border-width: 2px;'>0</td>
+                <td id='titreTransportTotalMontant' style='border-width: 2px;'>0.00</td>
             </tr>
         </table>
 
         <table id='tableFeuillePointageSignature'>
             <tr>
                 <td style='border-width: 2px;'>Signature collaborateur</td>
-                <td style='border-width: 2px;'></td>
+                <td colspan=2 style='border-width: 2px;' contenteditable=true></td>
             </tr>
             <tr>
                 <td rowspan=2 style='border-width: 2px;'>Signature supérieur hiérarchique</td>
-                <td style='border-width: 2px;'>Nom et prénom:</td>
-
+                <td style='border-width: 2px; width: 50%;'>Nom et prénom:</td>
+                <td style='border-width: 2px; width: 50%;' contenteditable=true></td>
             </tr>
             <tr>
-                <td style='border-width: 2px;'></td>
+                <td colspan=2 style='border-width: 2px; height: 2vw;' contenteditable=true></td>
             </tr>
         </table>
 
@@ -406,9 +407,10 @@
                 });
             }
 
+            // Calcule le montant de remboursement des titres de tranport.
             function displayTotalTitreTransport() {
-                var total = 0;
                 $('#titreTransportMontant').on('blur keyup paste input', function () {
+                    var total = 0;
                     if ($('#titreTransportMontant').text() !== '') {
                         total = parseFloat($('#titreTransportMontant').text(), 10) / 2;
                     }
