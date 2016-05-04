@@ -162,20 +162,54 @@
                 <td style='border-top-width: 2px; border-bottom-width: 2px;'>Code abscence</td>
                 <td style='border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px;'>Type abscence</td>
             </tr>
-            {% set typesAbscences = { 'AA': 'Abscences autorisées payées', 'TJ': 'Accident trajet', 'AT': 'Accident travail', 'MT': 'Congé de maternité', 'PA': 'Congé de paternité', 'CS': 'Congé sans solde', 'CP': 'Congés payés', 'AV': 'Evènement familial', 'JS': 'RTT', 'MA': 'Maladie', 'PM': 'Maladie professionnelle', 'RE': 'Récupération (non indiquée au bulletin)', 'Autre': 'A préciser en commentaire' } %}
+            {% set typesAbscences = { 'AA': 'Abscences autorisées payées', 'TJ': 'Accident trajet', 'AT': 'Accident travail', 'MT': 'Congé de maternité', 
+            'PA': 'Congé de paternité', 'CS': 'Congé sans solde', 'CP': 'Congés payés', 'AV': 'Evènement familial', 'JS': 'RTT', 'MA': 'Maladie', 'PM': 'Maladie professionnelle', 
+            'RE': 'Récupération (non indiquée au bulletin)', 'Autre': 'A préciser en commentaire' } 
+            %}
 
             {% for code, type in typesAbscences %}
                 <tr>
-                    <td style='border-left-width: 2px; {% if loop.last %} border-bottom-width: 2px; {% endif %}'>0</td>
+                    <td class='nbAbscences' style='border-left-width: 2px; {% if loop.last %} border-bottom-width: 2px; {% endif %}'>0</td>
                     <td  {% if loop.last %} style='border-bottom-width: 2px;' {% endif %}>{{ code}}</td>
                     <td style='border-right-width: 2px; {% if loop.last %} border-bottom-width: 2px; {% endif %}'>{{ type }}</td>
                 </tr>
             {% endfor %}
         </table>
+
+        <table id='tableFeuillePointageTitreTransport'>
+            <tr>
+                <td colspan='2' style='border-width: 2px;'>Titre de transport</td>
+            </tr>
+            <tr>
+                <td style='border-width: 2px;'>Montant total</td>
+                <td style='border-width: 2px;'>Prise en charge employeur 50%*</td>
+            </tr>
+            <tr>
+                <td id='titreTransportMontant' style='border-width: 2px;' contenteditable=true></td>
+                <td id='titreTransportTotalMontant' style='border-width: 2px;'>0</td>
+            </tr>
+        </table>
+
+        <table id='tableFeuillePointageSignature'>
+            <tr>
+                <td style='border-width: 2px;'>Signature collaborateur</td>
+                <td style='border-width: 2px;'></td>
+            </tr>
+            <tr>
+                <td rowspan=2 style='border-width: 2px;'>Signature supérieur hiérarchique</td>
+                <td style='border-width: 2px;'>Nom et prénom:</td>
+
+            </tr>
+            <tr>
+                <td style='border-width: 2px;'></td>
+            </tr>
+        </table>
+
     </div>
 
     <script>
         $(document).ready(function () {
+            typesAbscenceTopMargin();
             getNewDate();
             displayDailyProjectsTotalPercentage();
             displayMonthlyProjectTotalPercentage();
@@ -183,6 +217,8 @@
             displayMonthlyTotalTitresRepas();
             displayMonthlyTotalForfaitsDeplacement();
             displayMonthlyTotalPrimesPanier();
+            displayTotalAbscences();
+            displayTotalTitreTransport();
 
             // Affiche les jours du moi en fonction du mois et de l'année séléctionées.
             function getNewDate() {
@@ -323,6 +359,7 @@
                 });
             }
 
+            // Calcule et affiche le montant total des primes de panier pour le mois courant.
             function displayMonthlyTotalPrimesPanier() {
                 $('.primesPanierNumber').on('blur keyup paste input', function () {
                     var total = 0;
@@ -334,8 +371,51 @@
                     $('#PrimesPanierTotalNumber').text(total.toFixed(2));
                 });
             }
+
+            // Aligne les petits tableau sur la première ligne du grand.
+            function typesAbscenceTopMargin() {
+                var margin_top = $('#tableFeuillePointage tr:first-child').height();
+                $('#tableFeuillePointageTypesAbscences').css('margin-top', margin_top);
+            }
+
+            // Calcule et affiche le nombre total de chaque type d'abscences.
+            function displayTotalAbscences() {
+
+                // Calcule le total de chaque type d'abscences et affiche la valeur dans la cellule correspondante.
+                function getAbscencesCount(nbAbscencesCell) {
+                    var codeAbsences = $(nbAbscencesCell).next().text();
+                    var total = 0;
+
+                    $('.abscenceMatinSelector').each(function () {
+                        if (codeAbsences === $(this).find('select option:selected').val()) {
+                            total = parseFloat(total, 10) + parseFloat(0.5, 10);
+                        }
+                    });
+                    $('.abscenceAMSelector').each(function () {
+                        if (codeAbsences === $(this).find('select option:selected').val()) {
+                            total = parseFloat(total, 10) + parseFloat(0.5, 10);
+                        }
+                    });
+                    $(nbAbscencesCell).text(total);
+                }
+
+                $('.abscenceMatinSelector select, .abscenceAMSelector select').change(function () {
+                    $('.nbAbscences').each(function () {
+                        getAbscencesCount(this);
+                    });
+                });
+            }
+
+            function displayTotalTitreTransport() {
+                var total = 0;
+                $('#titreTransportMontant').on('blur keyup paste input', function () {
+                    if ($('#titreTransportMontant').text() !== '') {
+                        total = parseFloat($('#titreTransportMontant').text(), 10) / 2;
+                    }
+                    $('#titreTransportTotalMontant').text(total.toFixed(2));
+                });
+            }
         });
     </script>
-
 
 {% endblock %}

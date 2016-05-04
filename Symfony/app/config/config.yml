@@ -681,7 +681,7 @@ fm_elfinder:
                 roots:
                     uploads:
                         driver:           LocalFileSystem
-                        path:             uploads/AQ/CERTIFICATSISOETOPQIBI/CITATIONS
+                        path:             uploads/AQ/INFOSQSE/CITATIONS
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  10M    

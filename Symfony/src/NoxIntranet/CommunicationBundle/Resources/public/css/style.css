@@ -2816,7 +2816,7 @@ input[type=text]:read-only {
     width: 70%;
     display: inline-block;
     margin-left: 2.5%;
-    margin-right: 2.5%;
+    margin-right: 0.5%;
     margin-bottom: 5%;
 }
 
@@ -2842,16 +2842,17 @@ input[type=text]:read-only {
 }
 
 #tableFeuillePointageTypesAbscencesDivContainer {
-    width : 20%;
+    width : 22%;
     display: inline-block;
-    
     margin-left: 2.5%;
     margin-bottom: 5%;
+    vertical-align: top;
 }
 
 #tableFeuillePointageTypesAbscences {
     width: 100%;
     font-size: 0.7vw;
+    vertical-align: top;
 }
 
 #tableFeuillePointageTypesAbscences, #tableFeuillePointageTypesAbscences th, #tableFeuillePointageTypesAbscences td {
@@ -2861,6 +2862,42 @@ input[type=text]:read-only {
 
 
 #tableFeuillePointageTypesAbscences th, #tableFeuillePointageTypesAbscences td {
+    text-align: center;
+    color: black;
+    padding: 0.5% 1% 0.5% 1%;
+}
+
+#tableFeuillePointageTitreTransport {
+    width: 100%;
+    font-size: 0.7vw;
+    vertical-align: top;
+    margin-top: 5%;
+}
+
+#tableFeuillePointageTitreTransport, #tableFeuillePointageTitreTransport th, #tableFeuillePointageTitreTransport td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+#tableFeuillePointageTitreTransport th, #tableFeuillePointageTitreTransport td {
+    text-align: center;
+    color: black;
+    padding: 0.5% 1% 0.5% 1%;
+}
+
+#tableFeuillePointageSignature {
+    width: 100%;
+    font-size: 0.7vw;
+    vertical-align: top;
+    margin-top: 5%;
+}
+
+#tableFeuillePointageSignature, #tableFeuillePointageSignature th, #tableFeuillePointageSignature td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+#tableFeuillePointageSignature th, #tableFeuillePointageSignature td {
     text-align: center;
     color: black;
     padding: 0.5% 1% 0.5% 1%;
