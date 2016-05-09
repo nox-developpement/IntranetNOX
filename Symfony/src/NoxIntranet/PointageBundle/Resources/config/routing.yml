@@ -6,3 +6,11 @@ nox_intranet_pointage_ajax_set_date:
     path:     /ressources/pointage-ajax-set-date
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxSetDate}
     
+nox_intranet_pointage_ajax_save_data:
+    path:     /ressources/pointage-ajax-save-data
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxSaveData}
+    
+nox_intranet_pointage_ajax_get_data:
+    path:     /ressources/pointage-ajax-get-data
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetData}
+    

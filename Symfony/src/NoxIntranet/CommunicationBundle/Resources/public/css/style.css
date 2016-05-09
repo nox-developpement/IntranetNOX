@@ -2814,15 +2814,27 @@ input[type=text]:read-only {
 
 #tableFeuillePointageDivContainer {
     width: 70%;
+    max-width: 70%;
+    overflow: auto;
     display: inline-block;
     margin-left: 2.5%;
     margin-right: 0.5%;
     margin-bottom: 5%;
 }
 
+#tableFeuillePointageDivContainer td, #tableFeuillePointageTypesAbscencesDivContainer td {
+    background-color: white;
+}
+
+#tableFeuillePointageDivContainer td {
+    white-space: nowrap;
+}
+
 #tableFeuillePointage {
     width: 100%;
+    max-width: 100%;
     font-size: 0.7vw;
+    overflow: auto;
 }
 
 #tableFeuillePointage, #tableFeuillePointage th, #tableFeuillePointage td {
