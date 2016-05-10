@@ -2822,9 +2822,9 @@ input[type=text]:read-only {
     margin-bottom: 5%;
 }
 
-/*#tableFeuillePointageDivContainer td, #tableFeuillePointageTypesAbscencesDivContainer td {
+#tableFeuillePointageDivContainer td, #tableFeuillePointageTypesAbscencesDivContainer td {
     background-color: white;
-}*/
+}
 
 #tableFeuillePointageDivContainer td {
     white-space: nowrap;
