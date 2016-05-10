@@ -232,13 +232,16 @@
                     function checkCellContentValidity(cell) {
                         if (isNaN(parseFloat($(cell).text(), 10))) {
                             if ($(cell).text() !== '') {
-                                $(cell).css('background', 'red');
+                                $(cell).css('background-color', 'red');
                             } else {
-                                $(cell).css('background', 'white');
+                                if ($(cell).attr('contenteditable') === 'true') {
+                                    $(cell).css('background-color', 'white');
+                                } else {
+                                    $(cell).css('background-color', 'rgb(166,166,166)');
+                                }
                             }
-
                         } else {
-                            $(cell).css('background', 'white');
+                            $(cell).css('background-color', 'white');
                         }
                     }
 
@@ -586,7 +589,7 @@
                     var data = {};
                     data['contenteditable'] = [];
                     data['select'] = [];
-                    data['nbProject'] = $('tableFeuillePointage tr:nth-child(3) project').length;
+                    data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
 
                     $('td[contenteditable]').each(function (index) {
                         data['contenteditable'][index] = $(this).text();
@@ -638,13 +641,58 @@
                     success: function (response) {
                         if (response !== '') {
                             var data = JSON.parse(response);
+
+                            // Ajoute un td après chaque td du dernier projet.
+                            function addTd() {
+                                var total = $('#tableFeuillePointage').find('tr').length;
+                                $('#tableFeuillePointage').find('tr').each(function (index) {
+                                    if (index === 1) {
+                                        $(this).find('td').eq($('.project').last().index()).after("<td class='project' style='border-top-width: 2px; border-bottom-width: 2px;' contenteditable=true>Nouveau projet</td>");
+                                    } else if (index === 2) {
+                                        $(this).find('td').eq($('.project').last().index()).after("<td class='project' style='border-top-width: 2px; border-bottom-width: 2px;' contenteditable=true>%</td>");
+                                    } else if (index === total - 2) {
+                                        //$('.monthlyTotalPercentageCell').last().css('background-color', 'orange');
+                                        $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell'>0.00</td>");
+                                    } else if (index === total - 1) {
+                                        $('.monthlyTotalCell').last().after("<td class='monthlyTotalCell'>0.00</td>");
+                                        //$('.monthlyTotalCell').last().css('background-color', 'orange');
+                                    } else if (index > 1 && index < total - 3) {
+                                        var background = $(this).find('td').eq($('.project').last().index()).css('background-color');
+                                        var contenteditable = $(this).find('td').eq($('.project').last().index()).attr('contenteditable');
+                                        $(this).find('td').eq($('.project').last().index()).after("<td class='projectPercentageCell project'></td>");
+                                        $(this).find('td').eq($('.project').last().index()).next().css('background-color', background);
+                                        $(this).find('td').eq($('.project').last().index()).next().attr('contenteditable', contenteditable);
+                                    }
+                                });
+                            }
+
+                            // Incrémente le colspan du header des projets de 1.
+                            function setColSpan() {
+                                var colspan = parseInt($('#operationnel').attr('colspan'), 10);
+                                $('#operationnel').attr('colspan', colspan + 1);
+                            }
+
+                            for (var i = 0; i < data['nbProject'] - 1; i++) {
+                                addTd();
+                                setColSpan();
+                            }
+
                             $('td[contenteditable]').each(function (index) {
                                 $(this).text(data['contenteditable'][index]);
                             });
                             $('select').each(function (index) {
                                 $(this).val(data['select'][index]);
                             });
+                            ajaxSaveData();
                             tableEventHandler();
+                            displayDailyProjectsTotalPercentage();
+                            displayMonthlyProjectTotalPercentage();
+                            dispayMonthlyTotalHoursMod();
+                            displayMonthlyTotalTitresRepas();
+                            displayMonthlyTotalForfaitsDeplacement();
+                            displayMonthlyTotalPrimesPanier();
+                            displayTotalAbscences();
+                            displayTotalTitreTransport();
                         }
                     }
                 });
@@ -666,12 +714,17 @@
                             $(this).find('td').eq($('.project').last().index()).after("<td class='project' style='border-top-width: 2px; border-bottom-width: 2px;' contenteditable=true>Nouveau projet</td>");
                         } else if (index === 2) {
                             $(this).find('td').eq($('.project').last().index()).after("<td class='project' style='border-top-width: 2px; border-bottom-width: 2px;' contenteditable=true>%</td>");
-
+                        } else if (index === total - 2) {
+                            //$('.monthlyTotalPercentageCell').last().css('background-color', 'orange');
+                            $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell'>0.00</td>");
+                        } else if (index === total - 1) {
+                            $('.monthlyTotalCell').last().after("<td class='monthlyTotalCell'>0.00</td>");
+                            //$('.monthlyTotalCell').last().css('background-color', 'orange');
                         } else if (index > 1 && index < total - 3) {
-                            var background = $(this).find('td').eq($('.project').last().index()).css('background');
+                            var background = $(this).find('td').eq($('.project').last().index()).css('background-color');
                             var contenteditable = $(this).find('td').eq($('.project').last().index()).attr('contenteditable');
                             $(this).find('td').eq($('.project').last().index()).after("<td class='projectPercentageCell project'></td>");
-                            $(this).find('td').eq($('.project').last().index()).next().css('background', background);
+                            $(this).find('td').eq($('.project').last().index()).next().css('background-color', background);
                             $(this).find('td').eq($('.project').last().index()).next().attr('contenteditable', contenteditable);
                         }
                     });
@@ -688,7 +741,7 @@
                     var data = {};
                     data['contenteditable'] = [];
                     data['select'] = [];
-                    data['nbProject'] = $('tableFeuillePointage tr:nth-child(3) project').length;
+                    data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
 
                     $('td[contenteditable]').each(function (index) {
                         data['contenteditable'][index] = $(this).text();
@@ -705,6 +758,15 @@
                         url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
                         data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData}
                     });
+
+                    displayDailyProjectsTotalPercentage();
+                    displayMonthlyProjectTotalPercentage();
+                    dispayMonthlyTotalHoursMod();
+                    displayMonthlyTotalTitresRepas();
+                    displayMonthlyTotalForfaitsDeplacement();
+                    displayMonthlyTotalPrimesPanier();
+                    displayTotalAbscences();
+                    displayTotalTitreTransport();
                 }
             }
         });
