@@ -1,0 +1,478 @@
+{% extends "layout.html.twig" %}
+
+{% block titrePage %} Pointage {% endblock %}
+
+{% block messageAccueil %}Pointage{% endblock %}
+
+{% block contenu %}
+    <div id='tableFeuillePointageDivContainer'>
+        <table id="tableFeuillePointage">
+            <tr>
+                <td style="border: none;">
+                    <select id='pointage_month_selector' style="width: 100%;">
+                        {% set months = { 01: 'Janvier', 02: 'Février', 03: 'Mars', 04: 'Avril', 05: 'Mai', 06: 'Juin', 07: 'Juillet', 08: 'Août', 09: 'Septembre', 10: 'Octobre', 11: 'Novembre', 12: 'Décembre' } %}
+                        {% for index,month in months %}
+                            <option value="{{ index }}" {% if index == currentMonth %}selected{% endif %}>{{ month }}</option>  
+                        {% endfor %}
+                    </select>
+                </td>
+                <td id='operationnel' style="background: rgb(47,117,181); color: white; border-width: 2px;" colspan="2">OPERATIONNEL</td>
+                <td style="background: black; border-width: 2px;"></td>
+            </tr>
+            <tr>
+                <td style="border: none;">
+                    <select id='pointage_year_selector' style="width: 100%;">
+                        <option value="{{ 'now'|date('Y')}}">{{ 'now'|date('Y')}}</option>
+                        <option value="{{ 'now'|date_modify('+1 year')|date('Y')}}">{{ 'now'|date_modify('+1 year')|date('Y')}}</option>
+                        <option value="{{ 'now'|date_modify('+2 year')|date('Y')}}">{{ 'now'|date_modify('+2 year')|date('Y')}}</option>
+                        <option value="{{ 'now'|date_modify('+3 year')|date('Y')}}">{{ 'now'|date_modify('+3 year')|date('Y')}}</option>
+                        <option value="{{ 'now'|date_modify('+4 year')|date('Y')}}">{{ 'now'|date_modify('+4 year')|date('Y')}}</option>
+                    </select>
+                </td>
+                <td class='project' contenteditable=true style='border-left-width: 2px; border-top-width: 2px; border-bottom-width: 2px;' >Nouveau projet</td>
+                <td style='border-width: 2px;'>TOTAL</td>
+                <td style='border-width: 2px;'>MOD</td>
+            </tr>
+            <tr>
+                <td style="background: rgb(217,217,217); border-width: 2px;">{{ app.user.firstname }} {{ app.user.lastname }}</td>
+                <td class='project' style='border-left-width: 2px; border-top-width: 2px; border-bottom-width: 2px;'>%</td>
+                <td style='border-width: 2px;'>%</td>
+                <td style='border-width: 2px;'>h</td>
+            </tr>
+            {% set frenchDays = { 'Monday': 'Lundi', 'Tuesday': 'Mardi', 'Wednesday': 'Mercredi', 'Thursday': 'Jeudi', 'Friday': 'Vendredi', 'Saturday': 'Samedi', 'Sunday':'Dimanche' } %}
+            {% for date in monthDates %}
+                <tr>
+                    <td class='dayDateCell' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 2px; border-right-width: 2px;">{{ frenchDays[date|date('l')]}} {{ date|date('d') }}</td>
+                    <td class="projectPercentageCell project" {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% else %} contenteditable='true' {% endif %}></td>
+                    <td class="dailyTotalPercentageCell" style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 2px; border-right-width: 2px;">
+                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
+                            0.00
+                        {% endif %}
+                    </td>
+                    <td class='dailyHoursMod' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166); border-left-width: 2px; border-right-width: 2px;" {% else %} contenteditable='true' style="border-left-width: 2px; border-right-width: 2px;" {% endif %}></td>
+                </tr>        
+            {% endfor %}
+            <tr>
+                <td style='border: none;'></td>
+                <td style='border: none;'></td>
+                <td style='border: none;'></td>
+                <td style='border: none;'></td>
+            </tr>
+            <tr>
+                <td style='border: none;'></td>
+                <td class='monthlyTotalPercentageCell'>0.00</td>
+                <td style='border: none;'></td>
+                <td id='monthlyTotalHoursMod'>0</td>
+            </tr>
+            <tr>
+                <td style='border: none;'></td>
+                <td class='monthlyTotalCell'>0.00</td>
+                <td style='border: none;'></td>
+                <td>hmod</td>
+            </tr>
+        </table>
+    </div>
+    <div id='tableFeuillePointageTypesAbscencesDivContainer'>
+        <table id='tableFeuillePointageTypesAbscences'>
+            <tr>
+                <td colspan=3 style='border-width: 2px;'>Types d'abscences</td>
+            </tr>
+            <tr>
+                <td style='border-top-width: 2px; border-left-width: 2px; border-bottom-width: 2px;'>Nombre</td>
+                <td style='border-top-width: 2px; border-bottom-width: 2px;'>Code abscence</td>
+                <td style='border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px;'>Type abscence</td>
+            </tr>
+            {% set typesAbscences = { 'AA': 'Abscences autorisées payées', 'TJ': 'Accident trajet', 'AT': 'Accident travail', 'MT': 'Congé de maternité', 
+            'PA': 'Congé de paternité', 'CS': 'Congé sans solde', 'CP': 'Congés payés', 'AV': 'Evènement familial', 'JS': 'RTT', 'MA': 'Maladie', 'PM': 'Maladie professionnelle', 
+            'RE': 'Récupération (non indiquée au bulletin)', 'Autre': 'A préciser en commentaire' } 
+            %}
+
+            {% for code, type in typesAbscences %}
+                <tr>
+                    <td class='nbAbscences' style='border-left-width: 2px; {% if loop.last %} border-bottom-width: 2px; {% endif %}'>0</td>
+                    <td  {% if loop.last %} style='border-bottom-width: 2px;' {% endif %}>{{ code}}</td>
+                    <td style='border-right-width: 2px; {% if loop.last %} border-bottom-width: 2px; {% endif %}'>{{ type }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <table id='tableFeuillePointageTitreTransport'>
+            <tr>
+                <td colspan='2' style='border-width: 2px;'>Titre de transport</td>
+            </tr>
+            <tr>
+                <td style='border-width: 2px;'>Montant total</td>
+                <td style='border-width: 2px;'>Prise en charge employeur 50%*</td>
+            </tr>
+            <tr>
+                <td id='titreTransportMontant' style='border-width: 2px;' ></td>
+                <td id='titreTransportTotalMontant' style='border-width: 2px;'>0.00</td>
+            </tr>
+        </table>
+
+        <table id='tableFeuillePointageSignature'>
+            <tr>
+                <td style='border-width: 2px;'>Signature collaborateur</td>
+                <td id='signatureCollaborateur' colspan=2 style='border-width: 2px;' ></td>
+            </tr>
+            <tr>
+                <td rowspan=2 style='border-width: 2px;'>Signature supérieur hiérarchique</td>
+                <td style='border-width: 2px; width: 50%; border-right: none;'>Nom et prénom:</td>
+                <td style='border-width: 2px; width: 50%; border-left: none;' ></td>
+            </tr>
+            <tr>
+                <td colspan=2 style='border-width: 2px; height: 2vw;' ></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            typesAbscenceTopMargin();
+            getNewDate();
+            displayDailyProjectsTotalPercentage();
+            displayMonthlyProjectTotalPercentage();
+            dispayMonthlyTotalHoursMod();
+            ajaxGetData();
+            //ajaxSaveData();
+
+            // Met à jours les cellules des valeurs totals.
+            function tableEventHandler() {
+                displayDailyProjectsTotalPercentage();
+                function displayDailyProjectsTotalPercentage() {
+                    // Colore en rouge les cellules dont le contenu n'est pas un nombre.
+                    function checkCellContentValidity(cell) {
+                        if (isNaN(parseFloat($(cell).text(), 10)) || parseFloat($(cell).text()) > 100) {
+                            if ($(cell).text() !== '') {
+                                $(cell).css('background-color', 'red');
+                            } else {
+                                if ($(cell).attr('contenteditable') === 'true') {
+                                    $(cell).css('background-color', 'white');
+                                } else {
+                                    $(cell).css('background-color', 'rgb(166,166,166)');
+                                }
+                            }
+                        } else {
+                            $(cell).css('background-color', 'white');
+                        }
+                    }
+
+                    // Affiche la valeur total des cellules d'une même ligne ou 'Erreur' si celle-ci n'est pas valide.
+                    function checkTotalValue(cell, total) {
+                        if (isNaN(total)) {
+                            $(cell).parent('tr').find('.dailyTotalPercentageCell').text('Erreur');
+                        } else {
+                            $(cell).parent('tr').find('.dailyTotalPercentageCell').text(total.toFixed(2));
+                        }
+                    }
+
+                    $('.projectPercentageCell').each(function () {
+                        var total = 0;
+                        $(this).siblings('.projectPercentageCell').each(function () {
+                            checkCellContentValidity(this);
+                            if ($(this).text() !== '') {
+                                total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                            }
+                        });
+                        checkTotalValue(this, total);
+                    });
+                }
+
+                displayMonthlyProjectTotalPercentage();
+                function displayMonthlyProjectTotalPercentage() {
+                    // Affiche la valeur total des cellules d'une même colonne ou 'Erreur' si celle-ci n'est pas valide.
+                    function checkTotalValue(cell, total, columnNo) {
+                        if (isNaN(total) || total > 100) {
+                            $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
+                            $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
+                        } else {
+                            $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text(total.toFixed(2));
+                            var decimalTotal = parseFloat(total / 100, 10);
+                            $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text(decimalTotal.toFixed(2));
+                        }
+                    }
+
+                    $('.projectPercentageCell').each(function () {
+                        var columnNo = $(this).index();
+                        var total = 0;
+                        $(this).closest("table").find("tr .projectPercentageCell:nth-child(" + (columnNo + 1) + ")").each(function () {
+                            if ($(this).text() !== '') {
+                                total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                            }
+                        });
+                        checkTotalValue(this, total, columnNo);
+                    });
+                }
+
+                dispayMonthlyTotalHoursMod();
+                function dispayMonthlyTotalHoursMod() {
+
+                    var total = 0;
+                    $('.dailyHoursMod').each(function () {
+                        if ($(this).text() !== '') {
+                            total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                        }
+                    });
+                    $('#monthlyTotalHoursMod').text(total.toFixed(2));
+                }
+            }
+
+            // Affiche les jours du moi en fonction du mois et de l'année séléctionées.
+            function getNewDate() {
+                $('#pointage_month_selector, #pointage_year_selector').on('change', function () {
+                    deleteProjectColumn();
+                    resetCellsValues();
+                    ajaxGetNewDate();
+                });
+                // Supprime les colonnes existantes de projets suplémentaires et rétablie le colspan de "Operationnel" à 2.
+                function deleteProjectColumn() {
+
+                    var firstColumnIndex = $('#tableFeuillePointage tr:nth-child(2) .project').first().index() + 2;
+                    var lastColumnIndex = $('#tableFeuillePointage tr:nth-child(2) .project').last().index() + 1;
+                    $('#tableFeuillePointage tr:nth-child(n+2) td:nth-child(n+' + firstColumnIndex + '):nth-child(-n+' + lastColumnIndex + ')').remove();
+                    $('#operationnel').attr('colspan', 2);
+                }
+
+                // Remet à zero les valeurs de cellules.
+                function resetCellsValues() {
+                    $('[contenteditable]').text('');
+                    $('.project').first().text("Nouveau projet<img src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'>");
+                    $('.dailyTotalPercentageCell, .monthlyTotalPercentageCell, .monthlyTotalCell, #ForfaitDeplacementTotalMontant, #PrimesPanierTotalNumber, #titreTransportTotalMontant').text(0.00);
+                    $('#monthlyTotalHoursMod, #titreRepasTotalNumber, .nbAbscences').text(0);
+                    $('select:not(#pointage_month_selector, #pointage_year_selector)').val('');
+                }
+
+                // Récupère les jours en fonction du moi et de l'année.
+                function ajaxGetNewDate() {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'json',
+                        url: '{{ path('nox_intranet_pointage_ajax_set_date') }}',
+                        data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val()},
+                        success: function (response) {
+                            $('.dayDateCell').each(function (index) {
+                                $(this).transition({
+                                    rotateX: '360deg'
+                                }, function () {
+                                    $(this).css('transform', '');
+                                });
+                                if (response[index] === undefined) {
+                                    $(this).html('');
+                                    $(this).parent('tr').find('td').css('background', 'white');
+                                } else {
+                                    $(this).html(response[index]);
+                                    $(this).parent('tr').find('td').css('background', 'rgb(166,166,166)');
+                                    $(this).next('td').attr('contenteditable', false);
+                                    $(this).siblings('.dailyHoursMod').attr('contenteditable', false);
+                                }
+                            });
+                            ajaxGetData();
+                            $('td[contenteditable]').unbind('blur');
+                            $('select:not(#pointage_month_selector, #pointage_year_selector)').unbind('change');
+                            ajaxSaveData();
+                        }
+                    });
+                }
+            }
+
+            // Calcule et affiche le pourcentage total de chaque ligne de projets et vérifie la validité des donnnées.
+            function displayDailyProjectsTotalPercentage() {
+
+                // Colore en rouge les cellules dont le contenu n'est pas un nombre.
+                function checkCellContentValidity(cell) {
+                    if (isNaN(parseFloat($(cell).text(), 10)) || parseFloat($(cell).text(), 10) > 100) {
+                        if ($(cell).text() !== '') {
+                            $(cell).css('background', 'red');
+                        } else {
+                            $(cell).css('background', 'white');
+                        }
+
+                    } else {
+                        $(cell).css('background', 'white');
+                    }
+                }
+
+                // Affiche la valeur total des cellules d'une même ligne ou 'Erreur' si celle-ci n'est pas valide.
+                function checkTotalValue(cell, total) {
+                    if (isNaN(total)) {
+                        $(cell).parent('tr').find('.dailyTotalPercentageCell').text('Erreur');
+                    } else {
+                        $(cell).parent('tr').find('.dailyTotalPercentageCell').text(total.toFixed(2));
+                    }
+                }
+
+                $('.projectPercentageCell').on('blur keyup paste input', function () {
+                    var total = 0;
+                    $(this).parent('tr').find('.projectPercentageCell').each(function () {
+                        checkCellContentValidity(this);
+                        if ($(this).text() !== '') {
+                            total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                        }
+                        checkTotalValue(this, total);
+                    });
+                });
+            }
+
+            // Calcule et affiche le pourcentage total de chaque colonne de projets et vérifie la validité des données.
+            function displayMonthlyProjectTotalPercentage() {
+
+                // Affiche la valeur total des cellules d'une même colonne ou 'Erreur' si celle-ci n'est pas valide.
+                function checkTotalValue(cell, total, columnNo) {
+                    if (isNaN(total) || total > 100) {
+                        $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
+                        $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
+                    } else {
+                        $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text(total.toFixed(2));
+                        var decimalTotal = parseFloat(total / 100, 10);
+                        $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text(decimalTotal.toFixed(2));
+                    }
+                }
+
+                $('.projectPercentageCell').on('blur keyup paste input change', function () {
+                    var columnNo = $(this).index();
+                    var total = 0;
+                    $(this).closest("table").find("tr .projectPercentageCell:nth-child(" + (columnNo + 1) + ")").each(function () {
+                        if ($(this).text() !== '') {
+                            total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                        }
+                    });
+                    checkTotalValue(this, total, columnNo);
+                });
+            }
+
+            // Calcule et affiche le nombre d'heure total pour le mois courant.
+            function dispayMonthlyTotalHoursMod() {
+                $('.dailyHoursMod').on('blur keyup paste input', function () {
+                    var total = 0;
+                    $('.dailyHoursMod').each(function () {
+                        if ($(this).text() !== '') {
+                            total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                        }
+                    });
+                    $('#monthlyTotalHoursMod').text(total.toFixed(2));
+                });
+            }
+
+            // Aligne les petits tableau sur la première ligne du grand.
+            function typesAbscenceTopMargin() {
+                var margin_top = $('#tableFeuillePointage tr:first-child').height();
+                $('#tableFeuillePointageTypesAbscences').css('margin-top', margin_top);
+            }
+
+            function ajaxGetData() {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path('nox_intranet_pointage_administratif_ajax_get_data') }}',
+                    data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val()},
+                    success: function (response) {
+                        if (response !== '') {
+                            var data = JSON.parse(response);
+                            // Ajoute un td après chaque td du dernier projet.
+                            function addTd() {
+                                var total = $('#tableFeuillePointage').find('tr').length;
+                                $('#tableFeuillePointage').find('tr').each(function (index) {
+                                    if (index === 1) {
+                                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 2px; border-bottom-width: 2px;' contenteditable=true>Nouveau projet</td>");
+                                    } else if (index === 2) {
+                                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 2px; border-bottom-width: 2px;'>%</td>");
+                                    } else if (index === total - 2) {
+                                        //$('.monthlyTotalPercentageCell').last().css('background-color', 'orange');
+                                        $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell'>0.00</td>");
+                                    } else if (index === total - 1) {
+                                        $('.monthlyTotalCell').last().after("<td class='monthlyTotalCell'>0.00</td>");
+                                        //$('.monthlyTotalCell').last().css('background-color', 'orange');
+                                    } else if (index === total - 3) {
+                                        $('#titreRepasTotalNumber').before("<td style='border: none;'></td>");
+                                        //$('.monthlyTotalCell').last().css('background-color', 'orange');
+                                    } else if (index > 1 && index < total - 3) {
+                                        var background = $(this).find('.project').last().css('background-color');
+                                        var contenteditable = $(this).find('.project').last().attr('contenteditable');
+                                        //alert(contenteditable);
+                                        $(this).find('.project').last().after("<td class='projectPercentageCell project'></td>");
+                                        $(this).find('.project').last().css('background-color', background);
+                                        $(this).find('.project').last().attr('contenteditable', contenteditable);
+                                    }
+                                });
+                            }
+
+                            // Incrémente le colspan du header des projets de 1.
+                            function setColSpan() {
+                                var colspan = parseInt($('#operationnel').attr('colspan'), 10);
+                                $('#operationnel').attr('colspan', colspan + 1);
+                            }
+
+
+
+                            $('#signatureCollaborateur').text(data['signatureCollaborateur']);
+                            /*if (data['contenteditable'] !== undefined) {
+                             $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
+                             $(this).text(data['contenteditable'][index]);
+                             });
+                             }
+                             
+                             if (data['select'] !== undefined) {
+                             $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
+                             $(this).val(data['select'][index]);
+                             });
+                             }*/
+
+                            var donnees = [];
+                            var k = 0;
+                            for (var j = 0; j < nbProject - 1; j++) {
+                                addTd();
+                                setColSpan();
+                            }
+                            for (var i = 0; i < data.length; i++) {
+                                for (var j = 0; j < JSON.parse(data[i])['project'].length; j++) {
+                                    if (JSON.parse(data[i])['project'][j] !== '') {
+                                        donnees[k] = JSON.parse(data[i])['project'][j];
+                                        k++;
+                                    }
+                                }
+                            }
+
+                            $('.project[contenteditable=true]').each(function (index) {
+                                $(this).text(donnees[index]);
+                            });
+
+
+                            /*
+                             var k = 0;
+                             for (var i = 0; i < data.length; i++) {
+                             alert(data[i]);
+                             var index = 0;
+                             var nbProject = parseInt(JSON.parse(data[i])['nbProject'], 10);
+                             if (i === 0) {
+                             for (var j = 0; j < nbProject - 1; j++) {
+                             addTd();
+                             setColSpan();
+                             }
+                             } else {
+                             for (var j = 0; j < nbProject; j++) {
+                             addTd();
+                             setColSpan();
+                             }
+                             }
+                             var currentLenght = k;
+                             for (var l = 0; l < JSON.parse(data[i])['project'].length + 2; l++) {
+                             if (JSON.parse(data[i])['project'][l] !== '') {
+                             currentLenght++;
+                             }
+                             }
+                             alert(currentLenght);
+                             for (k; k < currentLenght; k++) {
+                             $('.project[contenteditable=true]').eq(k).text(JSON.parse(data[i])['project'][index]);
+                             index++;
+                             }
+                             }
+                             */
+                        }
+                        tableEventHandler();
+                    }
+                });
+            }
+        });
+    </script>
+
+{% endblock %}

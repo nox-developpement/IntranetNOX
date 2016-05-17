@@ -1,6 +1,6 @@
 nox_intranet_pointage:
-    path:     /ressources/pointage/{month}/{year}
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:accueil, month: '', year: '' }
+    path:     /ressources/pointage
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:accueil }
     
 nox_intranet_pointage_ajax_set_date:
     path:     /ressources/pointage-ajax-set-date
@@ -13,4 +13,12 @@ nox_intranet_pointage_ajax_save_data:
 nox_intranet_pointage_ajax_get_data:
     path:     /ressources/pointage-ajax-get-data
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetData}
+    
+nox_intranet_pointage_administratif:
+    path:     /ressources/pointage-administratif
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:acceuilAdministratif }
+    
+nox_intranet_pointage_administratif_ajax_get_data:
+    path:     /ressources/pointage-administratif-ajax-get-data
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetDataAdministratif }
    

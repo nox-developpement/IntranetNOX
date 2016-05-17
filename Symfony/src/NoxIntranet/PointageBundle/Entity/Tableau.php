@@ -50,6 +50,13 @@ class Tableau {
     private $data;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="SignatureCollaborateur", type="text")
+     */
+    private $signatureCollaborateur;
+
+    /**
      * Get id
      *
      * @return integer
@@ -124,7 +131,6 @@ class Tableau {
         return $this->year;
     }
 
-
     /**
      * Set user
      *
@@ -132,8 +138,7 @@ class Tableau {
      *
      * @return Tableau
      */
-    public function setUser($user)
-    {
+    public function setUser($user) {
         $this->user = $user;
 
         return $this;
@@ -144,8 +149,30 @@ class Tableau {
      *
      * @return string
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
+
+    /**
+     * Set signatureCollaborateur
+     *
+     * @param string $signatureCollaborateur
+     *
+     * @return Tableau
+     */
+    public function setSignatureCollaborateur($signatureCollaborateur) {
+        $this->signatureCollaborateur = $signatureCollaborateur;
+
+        return $this;
+    }
+
+    /**
+     * Get signatureCollaborateur
+     *
+     * @return string
+     */
+    public function getSignatureCollaborateur() {
+        return $this->signatureCollaborateur;
+    }
+
 }

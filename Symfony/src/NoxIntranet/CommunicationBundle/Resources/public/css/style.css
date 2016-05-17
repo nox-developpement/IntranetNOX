@@ -2914,3 +2914,8 @@ input[type=text]:read-only {
     color: black;
     padding: 0.5% 1% 0.5% 1%;
 }
+
+#tableFeuillePointage tr:nth-child(2) .project img {
+    vertical-align: middle;
+    cursor: pointer;
+}

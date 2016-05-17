@@ -9,9 +9,9 @@ use NoxIntranet\PointageBundle\Entity\Tableau;
 
 class PointageController extends Controller {
 
-    public function accueilAction($month, $year) {
-        $date = '01-' . $this->getMonthAndYear($month, $year)['month'] . '-' . $this->getMonthAndYear($month, $year)['year'];
-        $end_date = $this->getMonthAndYear($month, $year)['days'] . '-' . $this->getMonthAndYear($month, $year)['month'] . '-' . $this->getMonthAndYear($month, $year)['year'];
+    public function accueilAction() {
+        $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
+        $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
 
         $monthDates = array();
 
@@ -22,18 +22,15 @@ class PointageController extends Controller {
             $i++;
         }
 
-        return $this->render('NoxIntranetPointageBundle:Pointage:pointage.html.twig', array('monthDates' => $monthDates, 'currentMonth' => $this->getMonthAndYear($month, $year)['month'],
-                    'currentYear' => $this->getMonthAndYear($month, $year)['year']));
+        return $this->render('NoxIntranetPointageBundle:Pointage:pointage.html.twig', array('monthDates' => $monthDates, 'currentMonth' => $this->getMonthAndYear()['month'],
+                    'currentYear' => $this->getMonthAndYear()['year']));
     }
 
-    // Retourne la date courante si aucune date n'est passé en paramètres.
-    public function getMonthAndYear($month, $year) {
-        if (empty($month)) {
-            $month = date('m');
-        }
-        if (empty($year)) {
-            $year = date('Y');
-        }
+    // Retourne la date courante.
+    public function getMonthAndYear() {
+
+        $month = date('m');
+        $year = date('Y');
 
         $date['month'] = $month;
         $date['year'] = $year;
@@ -74,6 +71,7 @@ class PointageController extends Controller {
             $month = $request->get('month');
             $year = $request->get('year');
             $data = $request->get('data');
+            $signatureCollaborateur = $request->get('signatureCollaborateur');
 
             $em = $this->getDoctrine()->getManager();
             $user = $this->get('security.token_storage')->getToken()->getUser();
@@ -89,6 +87,7 @@ class PointageController extends Controller {
             }
 
             $tableData->setData($data);
+            $tableData->setSignatureCollaborateur($this->f_crypt('asdftred', $signatureCollaborateur));
 
             $em->persist($tableData);
             $em->flush();
@@ -98,6 +97,7 @@ class PointageController extends Controller {
         }
     }
 
+    // Retourne les données liées à l'utilisateur en fonction du moi et de l'année.
     public function ajaxGetDataAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $month = $request->get('month');
@@ -110,13 +110,102 @@ class PointageController extends Controller {
 
             if (!empty($tableData)) {
                 $data = $tableData->getData();
+                $signatureCollaborateur = $tableData->getSignatureCollaborateur();
+            } else {
+                $data = null;
+                $signatureCollaborateur = null;
+            }
+
+            $dataArray = json_decode($data, true);
+
+            $dataArray['signatureCollaborateur'] = $this->f_decrypt('asdftred', $signatureCollaborateur);
+
+            $stringData = json_encode($dataArray);
+
+            $response = new Response($stringData);
+            return $response;
+        }
+    }
+
+    public function acceuilAdministratifAction() {
+        $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
+        $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
+
+        $monthDates = array();
+
+        $i = 0;
+        while (strtotime($date) <= strtotime($end_date)) {
+            $monthDates[$i] = strtotime($date);
+            $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+            $i++;
+        }
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:pointageAdministratif.html.twig', array('monthDates' => $monthDates, 'currentMonth' => $this->getMonthAndYear()['month'],
+                    'currentYear' => $this->getMonthAndYear()['year']));
+    }
+
+    public function ajaxGetDataAdministratifAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $month = $request->get('month');
+            $year = $request->get('year');
+
+            $em = $this->getDoctrine()->getManager();
+
+            $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $month, 'year' => $year));
+
+            if (!empty($tableData)) {
+                foreach ($tableData as $table) {
+                    $data[] = $table->getData();
+                }
             } else {
                 $data = null;
             }
 
-            $response = new Response($data);
+
+
+            $response = new Response(json_encode($data));
             return $response;
         }
+    }
+
+    function f_crypt($private_key, $str_to_crypt) {
+        $private_key = md5($private_key);
+        $letter = -1;
+        $new_str = '';
+        $strlen = strlen($str_to_crypt);
+
+        for ($i = 0; $i < $strlen; $i++) {
+            $letter++;
+            if ($letter > 31) {
+                $letter = 0;
+            }
+            $neword = ord($str_to_crypt{$i}) + ord($private_key{$letter});
+            if ($neword > 255) {
+                $neword -= 256;
+            }
+            $new_str .= chr($neword);
+        }
+        return base64_encode($new_str);
+    }
+
+    function f_decrypt($private_key, $str_to_decrypt) {
+        $private_key = md5($private_key);
+        $letter = -1;
+        $new_str = '';
+        $str_to_decrypt = base64_decode($str_to_decrypt);
+        $strlen = strlen($str_to_decrypt);
+        for ($i = 0; $i < $strlen; $i++) {
+            $letter++;
+            if ($letter > 31) {
+                $letter = 0;
+            }
+            $neword = ord($str_to_decrypt{$i}) - ord($private_key{$letter});
+            if ($neword < 1) {
+                $neword += 256;
+            }
+            $new_str .= chr($neword);
+        }
+        return $new_str;
     }
 
 }

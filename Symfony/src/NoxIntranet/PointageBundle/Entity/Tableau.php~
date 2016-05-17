@@ -48,6 +48,13 @@ class Tableau {
      * @ORM\Column(name="Data", type="text")
      */
     private $data;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="SignatureCollaborateur", type="text")
+     */
+    private $signatureCollaborateur;
 
     /**
      * Get id
@@ -124,4 +131,28 @@ class Tableau {
         return $this->year;
     }
 
+
+    /**
+     * Set user
+     *
+     * @param string $user
+     *
+     * @return Tableau
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return string
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }
