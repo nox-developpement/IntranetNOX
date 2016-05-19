@@ -2812,13 +2812,26 @@ input[type=text]:read-only {
     background-color: rgb(31,78,121);
 }
 
-#tableFeuillePointageDivContainer {
-    width: 70%;
-    max-width: 70%;
+#tableursPointage {
+    width: 100%;
     overflow: auto;
+}
+
+#tableFeuillePointageDivContainer {
+    /*width: 70%;*/
+    float: left;
     display: inline-block;
     margin-left: 2.5%;
     margin-right: 0.5%;
+    margin-bottom: 5%;
+}
+
+#tableFeuillePointageDivContainerAdministratif {
+    text-align: center;
+    width: 90%;
+    max-width: 90%;
+    overflow: auto;
+    margin: auto;
     margin-bottom: 5%;
 }
 
@@ -2832,9 +2845,7 @@ input[type=text]:read-only {
 
 #tableFeuillePointage {
     width: 100%;
-    max-width: 100%;
     font-size: 0.7vw;
-    overflow: auto;
 }
 
 #tableFeuillePointage, #tableFeuillePointage th, #tableFeuillePointage td {
@@ -2918,4 +2929,13 @@ input[type=text]:read-only {
 #tableFeuillePointage tr:nth-child(2) .project img {
     vertical-align: middle;
     cursor: pointer;
+}
+
+table thead, table tbody {
+    display:inline-block;
+}
+
+table tbody {
+    width: 100px;
+    overflow-x: scroll;
 }
