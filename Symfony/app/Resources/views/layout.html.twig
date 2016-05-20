@@ -130,10 +130,6 @@
             </div>
         </footer>
 
-        <div id="alert">
-
-        </div>
-
         <script>
 
             function footerAlign() {
@@ -193,77 +189,31 @@
     <script src="{{ asset('./js/tableurEdition.js') }}"/></script>
 <script src="{{ asset('./js/suiviRecherche.js') }}"/></script>
 <script src="{{ asset('./js/jquery.transit.min.js') }}"/></script>
-<script src="{{ asset('./js/jquery.transit.min.js') }}"/></script>
 <script src="{{ asset('./js/tableHeadFixer.js') }}"/></script>
 
 <script>
-            $(window).load(function () {
-                var contenu = new Array();
-                var empty = false;
-
-                alertDisplay(contenu, empty);
+            $(document).ready(function () {
+                alertDisplay();
             });
 
-            function alertDisplay(contenu, empty) {
+            function alertDisplay() {
+                $.ajax({
+                    //On lui indique le type d'envoie des informations
+                    type: 'POST',
+                    //On lui indique le chemin de la fonction
 
-                var message;
-
-                if (Cookies.get('alert') === '1' && Cookies.get('timerMessageAlert') !== 'true') {
-                    if (empty) {
-
-                        var currentTime = new Date();
-                        var nextDay = new Date();
-                        nextDay.setHours(08, 00, 00);
-                        nextDay.setDate(nextDay.getDate() + 1);
-                        var expireTime = (nextDay.getTime() - currentTime.getTime()) * 1.15741e-8;
-                        Cookies.set('timerMessageAlert', true, {expires: expireTime});
-                        $.each(contenu, function (index, value) {
-                            value.show();
-                        });
-                        $('#alertContainer').fadeOut('slow', function () {
-                            $('footer').show();
-                            $('#alert').remove();
-                            resizeLogin();
-                            resizeTootltipLogin();
-                        });
-                    } else {
-
-                        $.ajax({
-                            //On lui indique le type d'envoie des informations
-
-                            type: 'POST',
-                            //On lui indique le chemin de la fonction
-
-                            url: '{{ path('nox_intranet_ajax_get_message_alerte') }}',
-                            //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
-
-                            success: function (response) {
-                                //$('.formulaireClientAdr p').append("<input type='text' title='" + response.Adresse + "' value='" + response.Adresse + "'>");
-                                message = response;
-
-                                $('body :visible').contents().each(function () {
-                                    var attr = $(this).attr('style');
-                                    if (typeof attr !== typeof undefined && attr !== false) {
-                                        if ($(this).css('display') !== 'none') {
-                                            contenu.push($(this));
-                                        }
-                                    } else {
-                                        contenu.push($(this));
-                                    }
-                                    $(this).hide();
-                                });
-                                $('footer').hide();
-                                //$('body').empty();
-                                $('body').prepend("<div id='alert'><div id='alertContainer'><div id='alertMessage'>" + message + "<br /><p id='hideAlertButtonParagraph'><button id='hideAlertButton'>J'ai compris</button></p></div></div></div>");
-                                $('#hideAlertButton').click(function () {
-                                    alertDisplay(contenu, true);
-                                });
-                                empty = true;
-                            }
-                        });
+                    url: '{{ path('nox_intranet_ajax_get_message_alerte') }}',
+                    success: function (response) {
+                        alert('test');
+                        if (response === '1') {
+                            alert('hello');
+                            $(location).attr('href', '{{ path('nox_intranet_connexionRequise') }}');
+                        }
                     }
-                }
+                });
             }
+
+
 </script>
 
 </body>

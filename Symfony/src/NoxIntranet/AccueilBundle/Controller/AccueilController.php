@@ -115,25 +115,6 @@ class AccueilController extends Controller {
 
         $texte = $texteEncart->getText();
 
-        if ($em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBy(array('section' => 'Accueil')) != null) {
-            $alert = $em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBy(array('section' => 'Accueil'));
-        } else {
-            $alert = null;
-        }
-
-        if ($alert == null) {
-            $alert = new MessageAlert();
-            $alert->setSection('Accueil');
-            $alert->setStatus(false);
-            $em->persist($alert);
-            $em->flush();
-        }
-
-        unset($_COOKIE["alert"]);
-        if ($alert->getStatus()) {
-            setcookie("alert", true);
-        }
-
         $majExterne = $this->getPDF($root . '/web/uploads/Communication/Externe/');
 
         $majInterne = $this->getPDF($root . '/web/uploads/Communication/Interne/');
@@ -214,18 +195,28 @@ class AccueilController extends Controller {
     public function ajaxGetMessageAlertAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
+        $messageAlerte = $em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBySection('Accueil');
+
+        if (!empty($messageAlerte)) {
+            $status = $messageAlerte->getStatus();
+        } else {
+            $status = 0;
+        }
+
         if ($request->isXmlHttpRequest()) {
-            if ($em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBy(array('section' => 'Accueil')) != null) {
-                
-                
-                
-                $alert = $em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBy(array('section' => 'Accueil'));
-            } else {
-                $alert = null;
+
+            if ($status === 1 && filter_input(INPUT_COOKIE, 'timerMessageAlert') !== 'true') {
+                setcookie("timerMessageAlert", "true", time() + mktime(08, 00, 00, date("n"), date("j") + 1, date("Y")));
+                if ($em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBy(array('section' => 'Accueil')) != null) {
+                    $alert = $em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBy(array('section' => 'Accueil'));
+                } else {
+                    $alert = null;
+                }
+                return $this->redirectToRoute('nox_intranet_connexionRequise');
             }
         }
 
-        return new Response($alert->getMessage());
+        return new Response((string) $status);
     }
 
 }
