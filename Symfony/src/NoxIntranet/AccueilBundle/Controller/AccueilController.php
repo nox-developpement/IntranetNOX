@@ -35,9 +35,9 @@ class AccueilController extends Controller {
 
     public function connexionRequiseAction(Request $request) {
 
-        $request->getSession()->getFlashBag()->add('noticeErreur', "Veuillez vous connecter pour accéder à cette section.");
+        //$request->getSession()->getFlashBag()->add('noticeErreur', "Veuillez vous connecter pour accéder à cette section.");
 
-        return $this->redirectToRoute('nox_intranet_accueil');
+        return $this->render('NoxIntranetAccueilBundle:Accueil:connexionRequise.html.twig');
     }
 
     function getDirContents($dir, &$results = array()) {
@@ -214,9 +214,11 @@ class AccueilController extends Controller {
     public function ajaxGetMessageAlertAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
-
         if ($request->isXmlHttpRequest()) {
             if ($em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBy(array('section' => 'Accueil')) != null) {
+                
+                
+                
                 $alert = $em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBy(array('section' => 'Accueil'));
             } else {
                 $alert = null;

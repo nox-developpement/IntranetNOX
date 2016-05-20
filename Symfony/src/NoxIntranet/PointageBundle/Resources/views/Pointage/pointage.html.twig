@@ -5,212 +5,211 @@
 {% block messageAccueil %}Pointage{% endblock %}
 
 {% block contenu %}
-    <div id='tableursPointage'>
-        <div id='tableFeuillePointageDivContainer'>
-            <table id="tableFeuillePointage">
+    <div id='tableFeuillePointageDivContainer'>
+        <table id="tableFeuillePointage">
+            <tr>
+                <td style="border: solid 1px black;">
+                    <select id='pointage_month_selector' style="width: 100%;">
+                        {% set months = { 01: 'Janvier', 02: 'Février', 03: 'Mars', 04: 'Avril', 05: 'Mai', 06: 'Juin', 07: 'Juillet', 08: 'Août', 09: 'Septembre', 10: 'Octobre', 11: 'Novembre', 12: 'Décembre' } %}
+                        {% for index,month in months %}
+                            <option value="{{ index }}" {% if index == currentMonth %}selected{% endif %}>{{ month }}</option>  
+                        {% endfor %}
+                    </select>
+                </td>
+                <td id='operationnel' style="background: rgb(47,117,181); color: white; border-width: 1px;" colspan="2">OPERATIONNEL</td>
+                <td style="background: black; border-width: 1px;"></td>
+                <td style="background: rgb(84,130,53); color: white; border-width: 1px;" colspan="5">RESSOURCES HUMAINES</td>
+                <td id="addProject" style="border-width: 1px;" >+ Projet</td>
+            </tr>
+            <tr>
+                <td style="border: solid 1px black;">
+                    <select id='pointage_year_selector' style="width: 100%;">
+                        <option value="{{ 'now'|date('Y')}}">{{ 'now'|date('Y')}}</option>
+                        <option value="{{ 'now'|date_modify('+1 year')|date('Y')}}">{{ 'now'|date_modify('+1 year')|date('Y')}}</option>
+                        <option value="{{ 'now'|date_modify('+2 year')|date('Y')}}">{{ 'now'|date_modify('+2 year')|date('Y')}}</option>
+                        <option value="{{ 'now'|date_modify('+3 year')|date('Y')}}">{{ 'now'|date_modify('+3 year')|date('Y')}}</option>
+                        <option value="{{ 'now'|date_modify('+4 year')|date('Y')}}">{{ 'now'|date_modify('+4 year')|date('Y')}}</option>
+                    </select>
+                </td>
+                <td class='project' style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouveau projet<img src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'></td>
+                <td style='border-width: 1px;'>TOTAL</td>
+                <td style='border-width: 1px;' >MOD</td>
+                <td style='border-width: 1px;' colspan="2">Absences</td>
+                <td style='border-width: 1px;' >Titres repas</td>
+                <td style='border-width: 1px;' >Forfaits déplacement</td>
+                <td style='border-width: 1px;' >Primes panier</td>
+                <td style='border-width: 1px;' rowspan="2" >Commentaires</td>
+            </tr>
+            <tr>
+                <td style="background: rgb(217,217,217); border-width: 1px;">{{ app.user.firstname }} {{ app.user.lastname }}</td>
+                <td class='project' style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;'>%</td>
+                <td style='border-width: 1px;'>%</td>
+                <td style='border-width: 1px;' >h</td>
+                <td style='border-width: 1px;'>Matin</td>
+                <td style='border-width: 1px;'>Après-midi</td>
+                <td style='border-width: 1px;'>Nombre</td>
+                <td style='border-width: 1px;'>Montant</td>
+                <td style='border-width: 1px;'>Nombre</td>
+            </tr>
+            {% set frenchDays = { 'Monday': 'Lundi', 'Tuesday': 'Mardi', 'Wednesday': 'Mercredi', 'Thursday': 'Jeudi', 'Friday': 'Vendredi', 'Saturday': 'Samedi', 'Sunday':'Dimanche' } %}
+            {% for date in monthDates %}
                 <tr>
-                    <td style="border: none;">
-                        <select id='pointage_month_selector' style="width: 100%;">
-                            {% set months = { 01: 'Janvier', 02: 'Février', 03: 'Mars', 04: 'Avril', 05: 'Mai', 06: 'Juin', 07: 'Juillet', 08: 'Août', 09: 'Septembre', 10: 'Octobre', 11: 'Novembre', 12: 'Décembre' } %}
-                            {% for index,month in months %}
-                                <option value="{{ index }}" {% if index == currentMonth %}selected{% endif %}>{{ month }}</option>  
-                            {% endfor %}
-                        </select>
+                    <td class='dayDateCell' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">{{ frenchDays[date|date('l')]}} {{ date|date('d') }}</td>
+                    <td class="projectPercentageCell project" {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% else %} contenteditable='true' {% endif %}></td>
+                    <td class="dailyTotalPercentageCell" style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">
+                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
+                            0.00
+                        {% endif %}
                     </td>
-                    <td id='operationnel' style="background: rgb(47,117,181); color: white; border-width: 2px;" colspan="2">OPERATIONNEL</td>
-                    <td style="background: black; border-width: 2px;"></td>
-                    <td style="background: rgb(84,130,53); color: white; border-width: 2px;" colspan="5">RESSOURCES HUMAINES</td>
-                    <td id="addProject" style="border-width: 2px;">+ Projet</td>
-                </tr>
-                <tr>
-                    <td style="border: none;">
-                        <select id='pointage_year_selector' style="width: 100%;">
-                            <option value="{{ 'now'|date('Y')}}">{{ 'now'|date('Y')}}</option>
-                            <option value="{{ 'now'|date_modify('+1 year')|date('Y')}}">{{ 'now'|date_modify('+1 year')|date('Y')}}</option>
-                            <option value="{{ 'now'|date_modify('+2 year')|date('Y')}}">{{ 'now'|date_modify('+2 year')|date('Y')}}</option>
-                            <option value="{{ 'now'|date_modify('+3 year')|date('Y')}}">{{ 'now'|date_modify('+3 year')|date('Y')}}</option>
-                            <option value="{{ 'now'|date_modify('+4 year')|date('Y')}}">{{ 'now'|date_modify('+4 year')|date('Y')}}</option>
-                        </select>
+                    <td class='dailyHoursMod' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166); border-left-width: 1px; border-right-width: 1px;" {% else %} contenteditable='true' style="border-left-width: 1px; border-right-width: 1px;" {% endif %}></td>
+                    <td class='abscenceMatinSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 1px;">
+                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
+                            <select>
+                                <option value=''></option>
+                                <option value='AA'>AA</option>
+                                <option value='TJ'>TJ</option>
+                                <option value='AT'>AT</option>
+                                <option value='MT'>MT</option>
+                                <option value='PA'>PA</option>
+                                <option value='CS'>CS</option>
+                                <option value='CP'>CP</option>
+                                <option value='AV'>AV</option>
+                                <option value='JS'>JS</option>
+                                <option value='MA'>MA</option>
+                                <option value='PM'>PM</option>
+                                <option value='RE'>RE</option>
+                                <option value='Autre'>Autre</option>
+                            </select>
+                        {% endif %}
                     </td>
-                    <td class='project' style='border-left-width: 2px; border-top-width: 2px; border-bottom-width: 2px;' contenteditable=true>Nouveau projet<img src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'></td>
-                    <td style='border-width: 2px;'>TOTAL</td>
-                    <td style='border-width: 2px;'>MOD</td>
-                    <td style='border-width: 2px;' colspan="2">Absences</td>
-                    <td style='border-width: 2px;'>Titres repas</td>
-                    <td style='border-width: 2px;'>Forfaits déplacement</td>
-                    <td style='border-width: 2px;'>Primes panier</td>
-                    <td style='border-width: 2px;' rowspan="2">Commentaires</td>
-                </tr>
-                <tr>
-                    <td style="background: rgb(217,217,217); border-width: 2px;">{{ app.user.firstname }} {{ app.user.lastname }}</td>
-                    <td class='project' style='border-left-width: 2px; border-top-width: 2px; border-bottom-width: 2px;'>%</td>
-                    <td style='border-width: 2px;'>%</td>
-                    <td style='border-width: 2px;'>h</td>
-                    <td style='border-width: 2px;'>Matin</td>
-                    <td style='border-width: 2px;'>Après-midi</td>
-                    <td style='border-width: 2px;'>Nombre</td>
-                    <td style='border-width: 2px;'>Montant</td>
-                    <td style='border-width: 2px;'>Nombre</td>
-                </tr>
-                {% set frenchDays = { 'Monday': 'Lundi', 'Tuesday': 'Mardi', 'Wednesday': 'Mercredi', 'Thursday': 'Jeudi', 'Friday': 'Vendredi', 'Saturday': 'Samedi', 'Sunday':'Dimanche' } %}
-                {% for date in monthDates %}
-                    <tr>
-                        <td class='dayDateCell' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 2px; border-right-width: 2px;">{{ frenchDays[date|date('l')]}} {{ date|date('d') }}</td>
-                        <td class="projectPercentageCell project" {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% else %} contenteditable='true' {% endif %}></td>
-                        <td class="dailyTotalPercentageCell" style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 2px; border-right-width: 2px;">
-                            {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
-                                0.00
-                            {% endif %}
-                        </td>
-                        <td class='dailyHoursMod' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166); border-left-width: 2px; border-right-width: 2px;" {% else %} contenteditable='true' style="border-left-width: 2px; border-right-width: 2px;" {% endif %}></td>
-                        <td class='abscenceMatinSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 2px;">
-                            {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
-                                <select>
-                                    <option value=''></option>
-                                    <option value='AA'>AA</option>
-                                    <option value='TJ'>TJ</option>
-                                    <option value='AT'>AT</option>
-                                    <option value='MT'>MT</option>
-                                    <option value='PA'>PA</option>
-                                    <option value='CS'>CS</option>
-                                    <option value='CP'>CP</option>
-                                    <option value='AV'>AV</option>
-                                    <option value='JS'>JS</option>
-                                    <option value='MA'>MA</option>
-                                    <option value='PM'>PM</option>
-                                    <option value='RE'>RE</option>
-                                    <option value='Autre'>Autre</option>
-                                </select>
-                            {% endif %}
-                        </td>
-                        <td  class='abscenceAMSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-right-width: 2px;">
-                            {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
-                                <select>
-                                    <option value=''></option>
-                                    <option value='AA'>AA</option>
-                                    <option value='TJ'>TJ</option>
-                                    <option value='AT'>AT</option>
-                                    <option value='MT'>MT</option>
-                                    <option value='PA'>PA</option>
-                                    <option value='CS'>CS</option>
-                                    <option value='CP'>CP</option>
-                                    <option value='AV'>AV</option>
-                                    <option value='JS'>JS</option>
-                                    <option value='MA'>MA</option>
-                                    <option value='PM'>PM</option>
-                                    <option value='RE'>RE</option>
-                                    <option value='Autre'>Autre</option>
-                                </select>
-                            {% endif %}
-                        </td>
-                        <td class='titreRepasNumberSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 2px; border-right-width: 2px;">
-                            {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
-                                <select>
-                                    <option value=''></option>
-                                    <option value='1'>1</option>
-                                </select>
-                            {% endif %}
-                        </td>
-                        <td class='forfaitsDeplacementMontant' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);  border-left-width: 2px; border-right-width: 2px;" {% else %} style="border-left-width: 2px; border-right-width: 2px;" contenteditable=true {% endif %}></td>
-                        <td class='primesPanierNumber' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);  border-left-width: 2px; border-right-width: 2px;" {% else %} style="border-left-width: 2px; border-right-width: 2px;" contenteditable=true {% endif %}></td>
-                        <td class='comments' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166); border-left-width: 2px; border-right-width: 2px;" {% else %} style="border-left-width: 2px; border-right-width: 2px;" contenteditable=true {% endif %}></td>
-                    </tr>        
-                {% endfor %}
-                <tr>
-                    <td style='border: none;'></td>
-                    <td style='border: none;' ></td>
-                    <td style='border: none;'></td>
-                    <td style='border: none;'></td>
-                    <td style='border: none;'></td>
-                    <td style='border: none;'></td>
-                    <td id='titreRepasTotalNumber' style="border-width: 2px;">0</td>
-                    <td id='ForfaitDeplacementTotalMontant' style="border-width: 2px;">0</td>
-                    <td id='PrimesPanierTotalNumber' style="border-width: 2px;">0</td>
-                    <td style='border: none;'></td>    
-                </tr>
-                <tr>
-                    <td style='border: none;'></td>
-                    <td class='monthlyTotalPercentageCell'>0.00</td>
-                    <td style='border: none;'></td>
-                    <td id='monthlyTotalHoursMod'>0</td>
-                    <td style='border: none;'></td>
-                    <td style='border: none;'></td>
-                    <td style='border: none;'></td>
-                    <td style='border: none;'></td>
-                    <td style='border: none;'></td>    
-                    <td style='border: none;'></td>    
-                </tr>
-                <tr>
-                    <td style='border: none;'></td>
-                    <td class='monthlyTotalCell'>0.00</td>
-                    <td style='border: none;'></td>
-                    <td>hmod</td>
-                    <td style='border: none;'></td>
-                    <td style='border: none;'></td>
-                    <td style='border: none;'></td>
-                    <td style='border: none;'></td>
-                    <td style='border: none;'></td>    
-                    <td style='border: none;'></td>    
-                </tr>
-            </table>
-        </div>
-        <div id='tableFeuillePointageTypesAbscencesDivContainer'>
-            <table id='tableFeuillePointageTypesAbscences'>
-                <tr>
-                    <td colspan=3 style='border-width: 2px;'>Types d'abscences</td>
-                </tr>
-                <tr>
-                    <td style='border-top-width: 2px; border-left-width: 2px; border-bottom-width: 2px;'>Nombre</td>
-                    <td style='border-top-width: 2px; border-bottom-width: 2px;'>Code abscence</td>
-                    <td style='border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px;'>Type abscence</td>
-                </tr>
-                {% set typesAbscences = { 'AA': 'Abscences autorisées payées', 'TJ': 'Accident trajet', 'AT': 'Accident travail', 'MT': 'Congé de maternité', 
+                    <td  class='abscenceAMSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-right-width: 1px;">
+                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
+                            <select>
+                                <option value=''></option>
+                                <option value='AA'>AA</option>
+                                <option value='TJ'>TJ</option>
+                                <option value='AT'>AT</option>
+                                <option value='MT'>MT</option>
+                                <option value='PA'>PA</option>
+                                <option value='CS'>CS</option>
+                                <option value='CP'>CP</option>
+                                <option value='AV'>AV</option>
+                                <option value='JS'>JS</option>
+                                <option value='MA'>MA</option>
+                                <option value='PM'>PM</option>
+                                <option value='RE'>RE</option>
+                                <option value='Autre'>Autre</option>
+                            </select>
+                        {% endif %}
+                    </td>
+                    <td class='titreRepasNumberSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">
+                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
+                            <select>
+                                <option value=''></option>
+                                <option value='1'>1</option>
+                            </select>
+                        {% endif %}
+                    </td>
+                    <td class='forfaitsDeplacementMontant' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);  border-left-width: 1px; border-right-width: 1px;" {% else %} style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true {% endif %}></td>
+                    <td class='primesPanierNumber' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);  border-left-width: 1px; border-right-width: 1px;" {% else %} style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true {% endif %}></td>
+                    <td class='comments' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166); border-left-width: 1px; border-right-width: 1px;" {% else %} style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true {% endif %}></td>
+                </tr>        
+            {% endfor %}
+            <tr>
+                <td style='border: none;'></td>
+                <td style='border: none;' ></td>
+                <td style='border: none;'></td>
+                <td style='border: none;'></td>
+                <td style='border: none;'></td>
+                <td style='border: none;'></td>
+                <td id='titreRepasTotalNumber' style="border-width: 1px;">0</td>
+                <td id='ForfaitDeplacementTotalMontant' style="border-width: 1px;">0</td>
+                <td id='PrimesPanierTotalNumber' style="border-width: 1px;">0</td>
+                <td style='border: none;'></td>    
+            </tr>
+            <tr>
+                <td style='border: none;'></td>
+                <td class='monthlyTotalPercentageCell'>0.00</td>
+                <td style='border: none;'></td>
+                <td id='monthlyTotalHoursMod'>0</td>
+                <td style='border: none;'></td>
+                <td style='border: none;'></td>
+                <td style='border: none;'></td>
+                <td style='border: none;'></td>
+                <td style='border: none;'></td>    
+                <td style='border: none;'></td>    
+            </tr>
+            <tr>
+                <td style='border: none;'></td>
+                <td class='monthlyTotalCell'>0.00</td>
+                <td style='border: none;'></td>
+                <td>hmod</td>
+                <td style='border: none;'></td>
+                <td style='border: none;'></td>
+                <td style='border: none;'></td>
+                <td style='border: none;'></td>
+                <td style='border: none;'></td>    
+                <td style='border: none;'></td>    
+            </tr>
+        </table>
+    </div>
+    <div id='tableFeuillePointageTypesAbscencesDivContainer'>
+        <table id='tableFeuillePointageTypesAbscences'>
+            <tr>
+                <td colspan=3 style='border-width: 1px;'>Types d'abscences</td>
+            </tr>
+            <tr>
+                <td style='border-top-width: 1px; border-left-width: 1px; border-bottom-width: 1px;'>Nombre</td>
+                <td style='border-top-width: 1px; border-bottom-width: 1px;'>Code abscence</td>
+                <td style='border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px;'>Type abscence</td>
+            </tr>
+            {% set typesAbscences = { 'AA': 'Abscences autorisées payées', 'TJ': 'Accident trajet', 'AT': 'Accident travail', 'MT': 'Congé de maternité', 
             'PA': 'Congé de paternité', 'CS': 'Congé sans solde', 'CP': 'Congés payés', 'AV': 'Evènement familial', 'JS': 'RTT', 'MA': 'Maladie', 'PM': 'Maladie professionnelle', 
             'RE': 'Récupération (non indiquée au bulletin)', 'Autre': 'A préciser en commentaire' } 
-                %}
+            %}
 
-                {% for code, type in typesAbscences %}
-                    <tr>
-                        <td class='nbAbscences' style='border-left-width: 2px; {% if loop.last %} border-bottom-width: 2px; {% endif %}'>0</td>
-                        <td  {% if loop.last %} style='border-bottom-width: 2px;' {% endif %}>{{ code}}</td>
-                        <td style='border-right-width: 2px; {% if loop.last %} border-bottom-width: 2px; {% endif %}'>{{ type }}</td>
-                    </tr>
-                {% endfor %}
-            </table>
+            {% for code, type in typesAbscences %}
+                <tr>
+                    <td class='nbAbscences' style='border-left-width: 1px; {% if loop.last %} border-bottom-width: 1px; {% endif %}'>0</td>
+                    <td  {% if loop.last %} style='border-bottom-width: 1px;' {% endif %}>{{ code}}</td>
+                    <td style='border-right-width: 1px; {% if loop.last %} border-bottom-width: 1px; {% endif %}'>{{ type }}</td>
+                </tr>
+            {% endfor %}
+        </table>
 
-            <table id='tableFeuillePointageTitreTransport'>
-                <tr>
-                    <td colspan='2' style='border-width: 2px;'>Titre de transport</td>
-                </tr>
-                <tr>
-                    <td style='border-width: 2px;'>Montant total</td>
-                    <td style='border-width: 2px;'>Prise en charge employeur 50%*</td>
-                </tr>
-                <tr>
-                    <td id='titreTransportMontant' style='border-width: 2px;' contenteditable=true></td>
-                    <td id='titreTransportTotalMontant' style='border-width: 2px;'>0.00</td>
-                </tr>
-            </table>
+        <table id='tableFeuillePointageTitreTransport'>
+            <tr>
+                <td colspan='2' style='border-width: 1px;'>Titre de transport</td>
+            </tr>
+            <tr>
+                <td style='border-width: 1px;'>Montant total</td>
+                <td style='border-width: 1px;'>Prise en charge employeur 50%*</td>
+            </tr>
+            <tr>
+                <td id='titreTransportMontant' style='border-width: 1px;' contenteditable=true></td>
+                <td id='titreTransportTotalMontant' style='border-width: 1px;'>0.00</td>
+            </tr>
+        </table>
 
-            <table id='tableFeuillePointageSignature'>
-                <tr>
-                    <td style='border-width: 2px;'>Signature collaborateur</td>
-                    <td id='signatureCollaborateur' colspan=2 style='border-width: 2px;' contenteditable=true></td>
-                </tr>
-                <tr>
-                    <td rowspan=2 style='border-width: 2px;'>Signature supérieur hiérarchique</td>
-                    <td style='border-width: 2px; width: 50%; border-right: none;'>Nom et prénom:</td>
-                    <td style='border-width: 2px; width: 50%; border-left: none;' contenteditable=true></td>
-                </tr>
-                <tr>
-                    <td colspan=2 style='border-width: 2px; height: 2vw;' contenteditable=true></td>
-                </tr>
-            </table>
-        </div>
+        <table id='tableFeuillePointageSignature'>
+            <tr>
+                <td style='border-width: 1px;'>Signature collaborateur</td>
+                <td id='signatureCollaborateur' colspan=2 style='border-width: 1px;' contenteditable=true></td>
+            </tr>
+            <tr>
+                <td rowspan=2 style='border-width: 1px;'>Signature supérieur hiérarchique</td>
+                <td style='border-width: 1px; width: 50%; border-right: none;'>Nom et prénom:</td>
+                <td style='border-width: 1px; width: 50%; border-left: none;' contenteditable=true></td>
+            </tr>
+            <tr>
+                <td colspan=2 style='border-width: 1px; height: 2vw;' contenteditable=true></td>
+            </tr>
+        </table>
     </div>
 
     <script>
         $(document).ready(function () {
+
             typesAbscenceTopMargin();
             getNewDate();
             displayDailyProjectsTotalPercentage();
@@ -225,6 +224,8 @@
             deleteProjectColumn();
             ajaxGetData();
             ajaxSaveData();
+
+
 
             // Met à jours les cellules des valeurs totals.
             function tableEventHandler() {
@@ -706,9 +707,9 @@
                                 var total = $('#tableFeuillePointage').find('tr').length;
                                 $('#tableFeuillePointage').find('tr').each(function (index) {
                                     if (index === 1) {
-                                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 2px; border-bottom-width: 2px;' contenteditable=true>Nouveau projet></td>");
+                                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouveau projet></td>");
                                     } else if (index === 2) {
-                                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 2px; border-bottom-width: 2px;'>%</td>");
+                                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;'>%</td>");
                                     } else if (index === total - 2) {
                                         //$('.monthlyTotalPercentageCell').last().css('background-color', 'orange');
                                         $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell'>0.00</td>");
@@ -779,8 +780,9 @@
                             displayTotalTitreTransport();
                         }
                     }
-                }
-                );
+                }).done(function () {
+                    $("#tableFeuillePointage").tableHeadFixer({'head': false, 'left': 1});
+                });
             }
 
             // Ajout une nouvelle colonne de projet au tableau.
@@ -799,9 +801,9 @@
                     var total = $('#tableFeuillePointage').find('tr').length;
                     $('#tableFeuillePointage').find('tr').each(function (index) {
                         if (index === 1) {
-                            $(this).find('.project').last().after("<td class='project' style='border-top-width: 2px; border-bottom-width: 2px;' contenteditable=true>Nouveau projet</td>");
+                            $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouveau projet</td>");
                         } else if (index === 2) {
-                            $(this).find('.project').last().after("<td class='project' style='border-top-width: 2px; border-bottom-width: 2px;'>%</td>");
+                            $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;'>%</td>");
                         } else if (index === total - 2) {
                             //$('.monthlyTotalPercentageCell').last().css('background-color', 'orange');
                             $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell'>0.00</td>");

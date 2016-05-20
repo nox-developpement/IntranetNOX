@@ -16,7 +16,7 @@
                         {% endfor %}
                     </select>
                 </td>
-                <td id='operationnel' style="background: rgb(47,117,181); color: white; border-width: 2px;" colspan="2">OPERATIONNEL</td>       
+                <td id='operationnel' style="background: rgb(47,117,181); color: white; border-width: 1px;" colspan="2">OPERATIONNEL</td>       
             </tr>
             <tr>
                 <td style="border: none;">
@@ -28,20 +28,20 @@
                         <option value="{{ 'now'|date_modify('+4 year')|date('Y')}}">{{ 'now'|date_modify('+4 year')|date('Y')}}</option>
                     </select>
                 </td>
-                <td class='project' contenteditable=true style='border-left-width: 2px; border-top-width: 2px; border-bottom-width: 2px;' >Nouveau projet</td>
-                <td style='border-width: 2px;'>TOTAL</td>
+                <td class='project' contenteditable=true style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;' >Nouveau projet</td>
+                <td style='border-width: 1px;'>TOTAL</td>
             </tr>
             <tr>
-                <td style="background: rgb(217,217,217); border-width: 2px;"></td>
-                <td class='project' style='border-left-width: 2px; border-top-width: 2px; border-bottom-width: 2px;'>%</td>
-                <td style='border-width: 2px;'>%</td>
+                <td style="background: rgb(217,217,217); border-width: 1px;"></td>
+                <td class='project' style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;'>%</td>
+                <td style='border-width: 1px;'>%</td>
             </tr>
             {% set frenchDays = { 'Monday': 'Lundi', 'Tuesday': 'Mardi', 'Wednesday': 'Mercredi', 'Thursday': 'Jeudi', 'Friday': 'Vendredi', 'Saturday': 'Samedi', 'Sunday':'Dimanche' } %}
             {% for date in monthDates %}
                 <tr>
-                    <td class='dayDateCell' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 2px; border-right-width: 2px;">{{ frenchDays[date|date('l')]}} {{ date|date('d') }}</td>
+                    <td class='dayDateCell' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">{{ frenchDays[date|date('l')]}} {{ date|date('d') }}</td>
                     <td class="projectPercentageCell project" {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% else %} contenteditable='true' {% endif %}></td>
-                    <td class="dailyTotalPercentageCell" style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 2px; border-right-width: 2px;">
+                    <td class="dailyTotalPercentageCell" style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">
                         {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
                             0.00
                         {% endif %}
@@ -241,9 +241,9 @@
                                 var total = $('#tableFeuillePointage').find('tr').length;
                                 $('#tableFeuillePointage').find('tr').each(function (index) {
                                     if (index === 1) {
-                                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 2px; border-bottom-width: 2px;' contenteditable=true>Nouveau projet</td>");
+                                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouveau projet</td>");
                                     } else if (index === 2) {
-                                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 2px; border-bottom-width: 2px;'>%</td>");
+                                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;'>%</td>");
                                     } else if (index === total - 2) {
                                         //$('.monthlyTotalPercentageCell').last().css('background-color', 'orange');
                                         $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell'>0.00</td>");
@@ -304,6 +304,8 @@
                     $('.project[contenteditable=true]').css('cursor', 'default');
                     $('.project[contenteditable=true]').attr('onkeydown', "return false");
                     // $('#tableFeuillePointage .project[contenteditable=true]').attr('contenteditable', false);
+
+                    $("#tableFeuillePointage").tableHeadFixer({'head': false, 'left': 1});
                 });
             }
         });
