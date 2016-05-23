@@ -210,7 +210,6 @@
     <script>
         $(document).ready(function () {
 
-            typesAbscenceTopMargin();
             getNewDate();
             displayDailyProjectsTotalPercentage();
             displayMonthlyProjectTotalPercentage();
@@ -224,8 +223,6 @@
             deleteProjectColumn();
             ajaxGetData();
             ajaxSaveData();
-
-
 
             // Met à jours les cellules des valeurs totals.
             function tableEventHandler() {
@@ -582,12 +579,6 @@
                 });
             }
 
-            // Aligne les petits tableau sur la première ligne du grand.
-            function typesAbscenceTopMargin() {
-                var margin_top = $('#tableFeuillePointage tr:first-child').height();
-                $('#tableFeuillePointageTypesAbscences').css('margin-top', margin_top);
-            }
-
             // Calcule et affiche le nombre total de chaque type d'abscences.
             function displayTotalAbscences() {
 
@@ -767,10 +758,8 @@
                                 $('tr:nth-child(2)').find('.project').append("<img class='deleteColumn' src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'>");
                             }
 
-                            //ajaxSaveData();
                             deleteProjectColumn();
                             tableEventHandler();
-                            //displayDailyProjectsTotalPercentage();
                             displayMonthlyProjectTotalPercentage();
                             dispayMonthlyTotalHoursMod();
                             displayMonthlyTotalTitresRepas();

@@ -6,9 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use NoxIntranet\PointageBundle\Entity\Tableau;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class PointageController extends Controller {
 
+    // Affiche le tableau de pointage vide du moi et de l'année courante.
     public function accueilAction() {
         $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
         $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
@@ -127,6 +129,7 @@ class PointageController extends Controller {
         }
     }
 
+    // Affiche le tableau administratif de pointage vide du moi et de l'année courante.
     public function acceuilAdministratifAction() {
         $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
         $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
@@ -144,6 +147,7 @@ class PointageController extends Controller {
                     'currentYear' => $this->getMonthAndYear()['year']));
     }
 
+    // Retourne les données liées à l'ensemble des utilisateurs en fonction du moi et de l'année.
     public function ajaxGetDataAdministratifAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $month = $request->get('month');
@@ -161,13 +165,12 @@ class PointageController extends Controller {
                 $data = null;
             }
 
-
-
             $response = new Response(json_encode($data));
             return $response;
         }
     }
 
+    // Crypte les données à l'aide de la clé de cryptage fournie
     function f_crypt($private_key, $str_to_crypt) {
         $private_key = md5($private_key);
         $letter = -1;
@@ -188,6 +191,7 @@ class PointageController extends Controller {
         return base64_encode($new_str);
     }
 
+    // Décrypte les données à l'aide de la clé de cryptage fournie
     function f_decrypt($private_key, $str_to_decrypt) {
         $private_key = md5($private_key);
         $letter = -1;
@@ -206,6 +210,91 @@ class PointageController extends Controller {
             $new_str .= chr($neword);
         }
         return $new_str;
+    }
+
+    // Affiche un formulaire de séléction de l'utilisateur, du moi et de l'année.
+    public function gestionPointageAction() {
+        $em = $this->getDoctrine()->getManager();
+
+        $pointages = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
+
+        $users = array();
+
+        foreach ($pointages as $pointage) {
+            if (!in_array($pointage->getUser(), $users)) {
+                $users[$pointage->getUser()] = $pointage->getUser();
+            }
+        }
+
+        sort($users);
+
+        $form = $this->createFormBuilder()
+                ->add('User', ChoiceType::class, array(
+                    'choices' => $users,
+                    'choices_as_values' => false,
+                    'placeholder' => 'Selectionnez un utilisateur'
+                ))
+                ->add('Month', ChoiceType::class, array(
+                    'placeholder' => 'Selectionnez le moi',
+                    'attr' => array(
+                        'disabled' => true
+                    )
+                ))
+                ->add('Year', ChoiceType::class, array(
+                    'placeholder' => 'Selectionnez l\'année',
+                    'attr' => array(
+                        'disabled' => true
+                    )
+                ))
+                ->getForm();
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:gestionPointage.html.twig', array('form' => $form->createView()));
+    }
+
+    // Retourne les mois en fonction de l'utilisateur
+    public function ajaxGetMonthByUserAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $username = $request->get('username');
+
+            $months = array();
+            $pointages = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('user' => $username));
+
+            if (!empty($pointages)) {
+                foreach ($pointages as $pointage) {
+                    $monthNum = $pointage->getMonth();
+                    $dateObj = \DateTime::createFromFormat('!m', $monthNum);
+                    $monthName = $dateObj->format('F'); // March
+                    if (!in_array($monthName, $months)) {
+                        $months[$pointage->getMonth()] = $monthName;
+                    }
+                }
+            }
+
+            return new Response(json_encode($months));
+        }
+    }
+
+    // Retourne les années en fonction de l'utilisateur et du moi.
+    public function ajaxGetYearByMonthAndUserAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $username = $request->get('username');
+            $month = $request->get('month');
+
+            $years = array();
+            $pointages = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('user' => $username, 'month' => $month));
+
+            if (!empty($pointages)) {
+                foreach ($pointages as $pointage) {
+                    if (!in_array($pointage->getYear(), $years)) {
+                        $years[$pointage->getYear()] = $pointage->getYear();
+                    }
+                }
+            }
+
+            return new Response(json_encode($years));
+        }
     }
 
 }

@@ -2837,6 +2837,7 @@ input[type=text]:read-only {
 #tableFeuillePointage {
     width: 100%;
     font-size: 0.7vw;
+    white-space: nowrap;
 }
 
 #tableFeuillePointage, #tableFeuillePointage th, #tableFeuillePointage td {
@@ -2857,17 +2858,17 @@ input[type=text]:read-only {
 }
 
 #tableFeuillePointageTypesAbscencesDivContainer {
-    width : 22%;
-    display: inline-block;
-    margin-left: 2.5%;
+    width: 80%;
+    height: 70%;
+    margin: auto;
     margin-bottom: 5%;
-    vertical-align: top;
 }
 
 #tableFeuillePointageTypesAbscences {
-    width: 100%;
+    float: left;
+    width: 30%;
     font-size: 0.7vw;
-    vertical-align: top;
+    margin-top: 0px;
 }
 
 #tableFeuillePointageTypesAbscences, #tableFeuillePointageTypesAbscences th, #tableFeuillePointageTypesAbscences td {
@@ -2883,10 +2884,14 @@ input[type=text]:read-only {
 }
 
 #tableFeuillePointageTitreTransport {
-    width: 100%;
+    float: left;
+    width: 30%;
     font-size: 0.7vw;
     vertical-align: top;
     margin-top: 5%;
+    margin-left: 5%;
+    vertical-align: top;
+    margin-top: 0px;
 }
 
 #tableFeuillePointageTitreTransport, #tableFeuillePointageTitreTransport th, #tableFeuillePointageTitreTransport td {
@@ -2901,10 +2906,14 @@ input[type=text]:read-only {
 }
 
 #tableFeuillePointageSignature {
-    width: 100%;
+    float: left;
+    width: 30%;
     font-size: 0.7vw;
     vertical-align: top;
     margin-top: 5%;
+    margin-left: 5%;
+    vertical-align: top;
+    margin-top: 0px;
 }
 
 #tableFeuillePointageSignature, #tableFeuillePointageSignature th, #tableFeuillePointageSignature td {

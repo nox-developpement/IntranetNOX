@@ -21,4 +21,15 @@ nox_intranet_pointage_administratif:
 nox_intranet_pointage_administratif_ajax_get_data:
     path:     /ressources/pointage-administratif-ajax-get-data
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetDataAdministratif }
+    
+nox_intranet_gestion_pointage:
+    path:   /ressources/gestion-pointage
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:gestionPointage }
+    
+nox_intranet_ajax_get_month_by_username:
+    path:   /ressources/ajax-get-month-by-username
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetMonthByUser }
    
+nox_intranet_ajax_get_year_by_month_and_username:
+    path:   /ressources/ajax-get-year-by-month-and-username
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetYearByMonthAndUser }

@@ -1,0 +1,80 @@
+{% extends "layout.html.twig" %}
+
+{% block titrePage %} Gestion pointage {% endblock %}
+
+{% block messageAccueil %}Gestion pointage{% endblock %}
+
+{% block contenu %}
+    <div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+    <script>
+        $(window).load(function () {
+            $('#form_User').change(function () {
+                ajaxGetMonthByUsername();
+            });
+            $('#form_Month').change(function () {
+                ajaxGetYearByMonthAndUsername();
+            });
+        });
+
+        // Récupère les mois en fonction du l'utilisateur.
+        function ajaxGetMonthByUsername() {
+            if ($('#form_User option:selected').val() !== '') {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path('nox_intranet_ajax_get_month_by_username') }}',
+                    data: {username: $('#form_User option:selected').text()},
+                    success: function (response) {
+                        if (response.length > 2) {
+                            var newOptions = JSON.parse(response);
+                            $.each(newOptions, function (key, value) {
+                                $('#form_Month').append($("<option/>", {
+                                    value: key,
+                                    text: value
+                                }));
+                            });
+                            $('#form_Month').removeAttr('disabled');
+                        } else {
+                            $('#form_Month').attr('disabled', true);
+                        }
+                    }
+                });
+            } else {
+                $('#form_Month').attr('disabled', true);
+            }
+        }
+
+        // Récupère les années en fonction de l'utilisateur et du moi.
+        function ajaxGetYearByMonthAndUsername() {
+            if ($('#form_Month option:selected').val() !== '') {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path('nox_intranet_ajax_get_year_by_month_and_username') }}',
+                    data: {username: $('#form_User option:selected').text(), month: $('#form_Month option:selected').val()},
+                    success: function (response) {
+                        if (response.length > 2) {
+                            var newOptions = JSON.parse(response);
+                            $.each(newOptions, function (key, value) {
+                                $('#form_Year').append($("<option/>", {
+                                    value: key,
+                                    text: value
+                                }));
+                            });
+                            $('#form_Year').removeAttr('disabled');
+                        } else {
+                            $('#form_Year').attr('disabled', true);
+                        }
+
+                    }
+                });
+            } else {
+                $('#form_Year').attr('disabled', true);
+            }
+
+        }
+    </script>
+{% endblock %}
