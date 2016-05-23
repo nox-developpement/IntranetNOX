@@ -26,14 +26,16 @@ class AccueilController extends Controller {
         return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig');
     }
 
-    public function accesInterditAction(Request $request) {
+    public function accesInterditAction() {
 
-        $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas les droits requis pour accéder à cette section !");
+        //$request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas les droits requis pour accéder à cette section !");
+
+        return $this->render('NoxIntranetAccueilBundle:Accueil:accesInterdit.html.twig');
 
         return $this->redirectToRoute('nox_intranet_accueil');
     }
 
-    public function connexionRequiseAction(Request $request) {
+    public function connexionRequiseAction() {
 
         return $this->render('NoxIntranetAccueilBundle:Accueil:connexionRequise.html.twig');
     }
