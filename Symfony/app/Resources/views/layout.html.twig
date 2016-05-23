@@ -192,10 +192,7 @@
 <script src="{{ asset('./js/tableHeadFixer.js') }}"/></script>
 
 <script>
-            $(document).ready(function () {
-                alertDisplay();
-            });
-
+            alertDisplay();
             function alertDisplay() {
                 $.ajax({
                     //On lui indique le type d'envoie des informations
@@ -204,16 +201,12 @@
 
                     url: '{{ path('nox_intranet_ajax_get_message_alerte') }}',
                     success: function (response) {
-                        alert('test');
                         if (response === '1') {
-                            alert('hello');
-                            $(location).attr('href', '{{ path('nox_intranet_connexionRequise') }}');
+                            $(location).attr('href', '{{ path('nox_intranet_message_alerte') }}');
                         }
                     }
                 });
             }
-
-
 </script>
 
 </body>

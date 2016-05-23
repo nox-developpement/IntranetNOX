@@ -17,3 +17,7 @@ nox_intranet_debug:
 nox_intranet_ajax_get_message_alerte:
     path: /accueil/get-message-alerte
     defaults: { _controller: NoxIntranetAccueilBundle:Accueil:ajaxGetMessageAlert }
+    
+nox_intranet_message_alerte:
+    path: /accueil/message-alerte
+    defaults: { _controller: NoxIntranetAccueilBundle:Accueil:messageAlerte }
