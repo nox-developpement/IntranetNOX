@@ -7,7 +7,12 @@
 {% block contenu %}
     <div>
         {{ form_start(form) }}
-        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_label(form.User, 'Utilisateur :') }}
+        {{ form_errors(form.User) }}
+        {{ form_widget(form.User) }}
+
         {{ form_end(form) }}
     </div>
 
