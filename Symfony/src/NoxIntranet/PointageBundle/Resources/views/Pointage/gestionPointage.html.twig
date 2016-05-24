@@ -5,15 +5,46 @@
 {% block messageAccueil %}Gestion pointage{% endblock %}
 
 {% block contenu %}
-    <div>
+    <div id="pointageSelection">
         {{ form_start(form) }}
         {{ form_errors(form) }}
 
-        {{ form_label(form.User, 'Utilisateur :') }}
-        {{ form_errors(form.User) }}
-        {{ form_widget(form.User) }}
+        <div>
+            {{ form_label(form.User, 'Utilisateur') }} <br />
+            <input type="text" id="pointerUserSearch" placeholder="Rechercher un utilisateur">
+            {{ form_errors(form.User) }}
+            {{ form_widget(form.User) }}
+        </div><!--
+
+        --><div>
+            {{ form_label(form.Month, 'Mois') }} <br />
+            {{ form_errors(form.Month) }}
+            {{ form_widget(form.Month) }}
+        </div><!--
+
+        --><div>
+            {{ form_label(form.Year, 'Année') }} <br />
+            {{ form_errors(form.Year) }}
+            {{ form_widget(form.Year) }}
+        </div>
 
         {{ form_end(form) }}
+    </div>
+
+    <div id="pointageStatusLabelGeneralContainer">
+        <div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Saisie Individuelle</p></div><!--
+        --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Consolidation Agence</p></div><!--
+        --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'></p>Envoi vers RH</p></div><!--
+        --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'></p>Envoi dans ADP</p></div><!--
+        --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'></p></div>
+    </div>
+    <div id="pointageStatus">
+        <div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=1></div></div><!--
+        --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=2></div></div><!--
+        --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=3></div></div><!--
+        --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=4></div></div><!--
+        --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=5></div></div>
+        <div class='pointageStatusLine'><div></div></div>
     </div>
 
     <script>
@@ -24,10 +55,17 @@
             $('#form_Month').change(function () {
                 ajaxGetYearByMonthAndUsername();
             });
-        });
 
+            $("#pointerUserSearch").on("keyup paste", function () {
+                ajaxUsernameSearch();
+            });
+            $(".pointageStatusCircle").filter(function () {
+                return  $(this).attr("step") <= 1;
+            }).css('background-color', 'green');
+        });
         // Récupère les mois en fonction du l'utilisateur.
         function ajaxGetMonthByUsername() {
+            $('#form_Month option:nth-child(n+2)').remove();
             if ($('#form_User option:selected').val() !== '') {
                 $.ajax({
                     type: 'POST',
@@ -53,8 +91,9 @@
             }
         }
 
-        // Récupère les années en fonction de l'utilisateur et du moi.
+        // Récupère les années en fonction de l'utilisateur et du mois.
         function ajaxGetYearByMonthAndUsername() {
+            $('#form_Year option:nth-child(n+2)').remove();
             if ($('#form_Month option:selected').val() !== '') {
                 $.ajax({
                     type: 'POST',
@@ -81,5 +120,43 @@
             }
 
         }
+
+        // Récupère la liste d'utilisateurs en fonction du paramètre de la recherche.
+        var request;
+        function ajaxUsernameSearch() {
+            if (typeof request !== 'undefined') {
+                request.abort();
+            }
+            $('#form_User').find("option").remove();
+            $('#form_User').css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.gif') }}" + "') no-repeat center");
+            $('#form_User').css('background-size', '25%');
+            request = $.ajax({
+                //On lui indique le type d'envoie des informations
+
+                type: 'POST',
+                //On lui indique le chemin de la fonction
+
+                url: '{{ path('nox_intranet_ajax_get_users_by_username') }}',
+                //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
+
+                data: 'username=' + $("#pointerUserSearch").val(),
+                //Enfin nous lui disons de remplir notre formulaire avec le resultat  
+
+                success: function (response) {
+                    var data = JSON.parse(response);
+                    $('#form_User').css('background', 'white');
+                    $('#form_User').find("option").remove();
+                    $.each(data, function (i, item) {
+                        $('#form_User').append(new Option(item, i));
+                    });
+                    $('#form_User option:nth-child(even)').css('background', 'SeaShell');
+                    $('#form_User option').each(function () {
+                        $(this).attr('title', $(this).text());
+                    });
+                }
+            });
+        }
     </script>
+
+</script>
 {% endblock %}

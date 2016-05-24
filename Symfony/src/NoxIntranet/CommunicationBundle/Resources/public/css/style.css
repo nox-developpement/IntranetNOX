@@ -2931,3 +2931,88 @@ input[type=text]:read-only {
     vertical-align: middle;
     cursor: pointer;
 }
+
+#pointageSelection {
+    margin-bottom: 5%;
+}
+
+#pointageSelection form {
+    width: 70%;
+    padding: 0%;
+    border: none;
+}
+
+#pointageSelection div {
+    display: inline-block;
+    width: 33.3%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#pointageSelection div label {
+    display: inline;
+    text-align: center;
+}
+
+#form_User, #pointerUserSearch {
+    width: 80%;
+    border-width: 2px;
+}
+
+#form_User option:nth-child(even) {
+    background-color: SeaShell;
+}
+
+#pointerUserSearch {
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+#pointageStatus, #pointageStatusLabelGeneralContainer {
+    position: relative;
+    width: 70%;
+    margin: auto; 
+}
+
+.pointageStatusLabel {
+    margin-top: 1%;
+    margin-bottom: 1%;
+
+}
+
+.pointageStatusLabelContainer {
+    vertical-align: middle;
+}
+
+.pointageStatusLine {
+    position: absolute;
+    top: 45%;
+    height: 10%;
+    width: 100%;
+    background-color: lightgrey;
+    border-radius: 20px;
+    z-index: 1;
+}
+
+.pointageStatusLine div {
+    height: 100%;
+    width: 10%;
+    background-color: green;
+}
+
+.pointageStatusCircleContainer, .pointageStatusLabelContainer {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+}
+
+.pointageStatusCircle {
+    position: relative;
+    display: inline-block;
+    border-radius: 50%;
+    width: 1.5vw;
+    height: 1.5vw;
+    background: lightgrey;
+    z-index: 2;
+    vertical-align: middle;
+}

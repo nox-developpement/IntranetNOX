@@ -232,7 +232,10 @@ class PointageController extends Controller {
                 ->add('User', ChoiceType::class, array(
                     'choices' => $users,
                     'choices_as_values' => false,
-                    'placeholder' => 'Selectionnez un utilisateur'
+                    'placeholder' => 'Selectionnez un utilisateur',
+                    'attr' => array(
+                        'size' => 5
+                    )
                 ))
                 ->add('Month', ChoiceType::class, array(
                     'placeholder' => 'Selectionnez le moi',
@@ -294,6 +297,27 @@ class PointageController extends Controller {
             }
 
             return new Response(json_encode($years));
+        }
+    }
+
+    // Retourne la liste d'utilisateurs en fonction du paramètre username.
+    public function ajaxGetUsersByUsernameAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $username = $request->get('username');
+
+            $users = $em->getRepository("NoxIntranetUserBundle:User")->createQueryBuilder('o')
+                    ->where('o.username LIKE :critere')
+                    ->setParameter('critere', "%" . $username . "%")
+                    ->getQuery()
+                    ->getResult();
+
+            $listeUsers = array();
+            foreach ($users as $user) {
+                $listeUsers[] = $user->getUsername();
+            }
+
+            return new Response(json_encode($listeUsers));
         }
     }
 
