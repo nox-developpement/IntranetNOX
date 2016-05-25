@@ -37,3 +37,7 @@ nox_intranet_ajax_get_year_by_month_and_username:
 nox_intranet_ajax_get_users_by_username:
     path:   /ressources/ajax-get-users-by-username
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetUsersByUsername }
+    
+nox_intranet_pointage_ajax_get_data_by_username:
+    path:     /ressources/pointage-ajax-get-data-by-username
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetDataByUsername }

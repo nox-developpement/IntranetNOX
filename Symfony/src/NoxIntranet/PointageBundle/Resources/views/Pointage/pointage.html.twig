@@ -917,16 +917,15 @@
                     }
                 }
 
-                // Ajoute un td après chaque td du dernier projet.
+                // Supprime les td de la colonne.
                 function deleteTd(column) {
-                    //$(column).parents('td').parent('tr').siblings('tr').children('td').eq(1).css('background-color', 'orange');
-                    //$(column).parents('td').parent('tr').siblings('tr').find('td').index($(column).parents('td').index()).css('background-color', 'orange');
+                    var cellIndex = $(column).parents('td').index() - 1;
+
                     $('#tableFeuillePointage tr').each(function () {
-                        $(this).find('.project').eq($(column).parents('td').index() - 1).remove();
+                        $(this).find('.project').eq(cellIndex).remove();
                     });
                     $('.monthlyTotalPercentageCell').eq($(column).parents('td').index() - 1).remove();
                     $('.monthlyTotalCell').eq($(column).parents('td').index() - 1).remove();
-                    //$(column).parents('tr').siblings('tr').find('td').index($(column).index()).css('background-color', 'orange');
                 }
 
                 // Désincrémente le colspan du header des projets de 1.

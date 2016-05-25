@@ -228,6 +228,18 @@ class PointageController extends Controller {
 
         sort($users);
 
+        $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
+        $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
+
+        $monthDates = array();
+
+        $i = 0;
+        while (strtotime($date) <= strtotime($end_date)) {
+            $monthDates[$i] = strtotime($date);
+            $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+            $i++;
+        }
+
         $form = $this->createFormBuilder()
                 ->add('User', ChoiceType::class, array(
                     'choices' => $users,
@@ -251,7 +263,8 @@ class PointageController extends Controller {
                 ))
                 ->getForm();
 
-        return $this->render('NoxIntranetPointageBundle:Pointage:gestionPointage.html.twig', array('form' => $form->createView()));
+        return $this->render('NoxIntranetPointageBundle:Pointage:gestionPointage.html.twig', array('form' => $form->createView(), 'monthDates' => $monthDates, 'currentMonth' => $this->getMonthAndYear()['month'],
+                    'currentYear' => $this->getMonthAndYear()['year']));
     }
 
     // Retourne les mois en fonction de l'utilisateur
@@ -267,7 +280,8 @@ class PointageController extends Controller {
                 foreach ($pointages as $pointage) {
                     $monthNum = $pointage->getMonth();
                     $dateObj = \DateTime::createFromFormat('!m', $monthNum);
-                    $monthName = $dateObj->format('F'); // March
+                    $frenchDate = array('January' => 'Janvier', 'February' => 'Février', 'March' => 'Mars', 'April' => 'Avril', 'May' => 'Mai', 'June' => 'Juin', 'July' => 'Juillet', 'August' => 'Août', 'September' => 'Septembre', 'October' => 'Octobre', 'November' => 'Novembre', 'December' => 'Décembre');
+                    $monthName = $frenchDate[$dateObj->format('F')]; // March
                     if (!in_array($monthName, $months)) {
                         $months[$pointage->getMonth()] = $monthName;
                     }
@@ -318,6 +332,35 @@ class PointageController extends Controller {
             }
 
             return new Response(json_encode($listeUsers));
+        }
+    }
+
+    // Retourne les données fonction de l'utilisateur, du moi et de l'année.
+    public function ajaxGetDataByUsernameAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $username = $request->get('username');
+            $month = $request->get('month');
+            $year = $request->get('year');
+
+            $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
+
+            if (!empty($tableData)) {
+                $data = $tableData->getData();
+                $signatureCollaborateur = $tableData->getSignatureCollaborateur();
+            } else {
+                $data = null;
+                $signatureCollaborateur = null;
+            }
+
+            $dataArray = json_decode($data, true);
+
+            $dataArray['signatureCollaborateur'] = $this->f_decrypt('asdftred', $signatureCollaborateur);
+
+            $stringData = json_encode($dataArray);
+
+            $response = new Response($stringData);
+            return $response;
         }
     }
 
