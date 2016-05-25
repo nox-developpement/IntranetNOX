@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class PointageController extends Controller {
 
-    // Affiche le tableau de pointage vide du moi et de l'année courante.
+    // Affiche le tableau de pointage vide du mois et de l'année courante.
     public function accueilAction() {
         $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
         $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
@@ -41,7 +41,7 @@ class PointageController extends Controller {
         return $date;
     }
 
-    // Retourne les jours et la date correspondante en fonction du moi et de l'année passés en paramètres.
+    // Retourne les jours et la date correspondante en fonction du mois et de l'année passés en paramètres.
     public function ajaxSetDateAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
 
@@ -99,7 +99,7 @@ class PointageController extends Controller {
         }
     }
 
-    // Retourne les données liées à l'utilisateur en fonction du moi et de l'année.
+    // Retourne les données liées à l'utilisateur en fonction du mois et de l'année.
     public function ajaxGetDataAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $month = $request->get('month');
@@ -129,7 +129,7 @@ class PointageController extends Controller {
         }
     }
 
-    // Affiche le tableau administratif de pointage vide du moi et de l'année courante.
+    // Affiche le tableau administratif de pointage vide du mois et de l'année courante.
     public function acceuilAdministratifAction() {
         $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
         $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
@@ -147,7 +147,7 @@ class PointageController extends Controller {
                     'currentYear' => $this->getMonthAndYear()['year']));
     }
 
-    // Retourne les données liées à l'ensemble des utilisateurs en fonction du moi et de l'année.
+    // Retourne les données liées à l'ensemble des utilisateurs en fonction du mois et de l'année.
     public function ajaxGetDataAdministratifAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $month = $request->get('month');
@@ -212,7 +212,7 @@ class PointageController extends Controller {
         return $new_str;
     }
 
-    // Affiche un formulaire de séléction de l'utilisateur, du moi et de l'année.
+    // Affiche un formulaire de séléction de l'utilisateur, du mois et de l'année.
     public function gestionPointageAction() {
         $em = $this->getDoctrine()->getManager();
 
@@ -292,7 +292,7 @@ class PointageController extends Controller {
         }
     }
 
-    // Retourne les années en fonction de l'utilisateur et du moi.
+    // Retourne les années en fonction de l'utilisateur et du mois.
     public function ajaxGetYearByMonthAndUserAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
@@ -335,7 +335,7 @@ class PointageController extends Controller {
         }
     }
 
-    // Retourne les données fonction de l'utilisateur, du moi et de l'année.
+    // Retourne les données fonction de l'utilisateur, du mois et de l'année.
     public function ajaxGetDataByUsernameAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();

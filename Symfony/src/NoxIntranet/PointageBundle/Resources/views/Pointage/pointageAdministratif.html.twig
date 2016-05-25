@@ -235,6 +235,7 @@
                     url: '{{ path('nox_intranet_pointage_administratif_ajax_get_data') }}',
                     data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val()},
                     success: function (response) {
+                        alert(response);
                         if (response !== '') {
                             var data = JSON.parse(response);
                             // Ajoute un td après chaque td du dernier projet.
@@ -280,6 +281,8 @@
                                 return nbProject;
                             }
 
+                            alert(getProjectNumber());
+
                             // Remplis le tableau avec l'emsemble des projets en cours pour le moi et l'année séléctionée.
                             function getProjectContent() {
                                 for (var i = 0; i < getProjectNumber() - 1; i++) {
@@ -291,7 +294,7 @@
                                 var currentMaxRange = 1;
                                 for (var i = 0; i < data.length; i++) {
                                     currentMaxRange = currentMinRange + parseInt(JSON.parse(data[i])['nbProject'], 10);
-                                    $('#tableFeuillePointage tr .project[contenteditable=true]:nth-child(n+' + currentMinRange + '):nth-child(-n+' + currentMaxRange + ')').each(function (index) {
+                                    $('.project[contenteditable=true]:nth-child(n+' + currentMinRange + '):nth-child(-n+' + currentMaxRange + ')').each(function (index) {
                                         $(this).text(JSON.parse(data[i])['project'][index]);
                                     });
                                     currentMinRange = currentMaxRange + 1;
@@ -304,7 +307,6 @@
                     tableEventHandler();
                     $('.project[contenteditable=true]').css('cursor', 'default');
                     $('.project[contenteditable=true]').attr('onkeydown', "return false");
-                    // $('#tableFeuillePointage .project[contenteditable=true]').attr('contenteditable', false);
 
                     $("#tableFeuillePointage").tableHeadFixer({'head': false, 'left': 1});
                 });

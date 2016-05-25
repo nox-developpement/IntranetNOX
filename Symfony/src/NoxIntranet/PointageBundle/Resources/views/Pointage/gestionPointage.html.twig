@@ -51,7 +51,7 @@
         <table id="tableFeuillePointage">
             <tr>
                 <td style="border: solid 1px black;">
-                    <select id='pointage_month_selector' style="width: 100%;">
+                    <select id='pointage_month_selector' style="width: 100%;" readonly='true'>
                         {% set months = { 01: 'Janvier', 02: 'Février', 03: 'Mars', 04: 'Avril', 05: 'Mai', 06: 'Juin', 07: 'Juillet', 08: 'Août', 09: 'Septembre', 10: 'Octobre', 11: 'Novembre', 12: 'Décembre' } %}
                         {% for index,month in months %}
                             <option value="{{ index }}" {% if index == currentMonth %}selected{% endif %}>{{ month }}</option>  
@@ -65,7 +65,7 @@
             </tr>
             <tr>
                 <td style="border: solid 1px black;">
-                    <select id='pointage_year_selector' style="width: 100%;">
+                    <select id='pointage_year_selector' style="width: 100%;" readonly='true'>
                         <option value="{{ 'now'|date('Y')}}">{{ 'now'|date('Y')}}</option>
                         <option value="{{ 'now'|date_modify('+1 year')|date('Y')}}">{{ 'now'|date_modify('+1 year')|date('Y')}}</option>
                         <option value="{{ 'now'|date_modify('+2 year')|date('Y')}}">{{ 'now'|date_modify('+2 year')|date('Y')}}</option>
@@ -164,10 +164,10 @@
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
-                <td id='titreRepasTotalNumber' style="border-width: 1px;">0</td>
-                <td id='ForfaitDeplacementTotalMontant' style="border-width: 1px;">0</td>
-                <td id='PrimesPanierTotalNumber' style="border-width: 1px;">0</td>
-                <td style='border: none;'></td>    
+                <td id='titreRepasTotalNumber' style="border-width: 2px; border-top: none; border-right-width: 1px; border-left-width: 1px;">0</td>
+                <td id='ForfaitDeplacementTotalMontant' style="border-width: 2px; border-top: none; border-left-width: 1px; border-right-width: 1px;">0</td>
+                <td id='PrimesPanierTotalNumber' style="border-width: 2px; border-top: none; border-left-width: 1px; border-right-width: 1px">0</td>
+                <td style='border: none; border-left: solid 1px black;'></td>    
             </tr>
             <tr>
                 <td style='border: none;'></td>
@@ -273,8 +273,7 @@
             getNewDate();
         });
 
-        // Cache les tables de la feuille de pointage
-
+        // Cache les tables de la feuille de pointage.
         function hidePointageTables() {
             $('#tableFeuillePointageDivContainer').hide();
             $('#tableFeuillePointageTypesAbscencesDivContainer').hide();
@@ -708,12 +707,13 @@
                             $('tr:nth-child(2)').find('.project').append("<img class='deleteColumn' src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'>");
                         }
 
-
                         tableEventHandler();
                     }
                 }
             }).done(function () {
                 $("#tableFeuillePointage").tableHeadFixer({'head': false, 'left': 1});
+                $('.project[contenteditable=true]').css('cursor', 'default');
+                $('.project[contenteditable=true]').attr('onkeydown', "return false");
                 $('#tableFeuillePointageDivContainer').show();
                 $('#tableFeuillePointageTypesAbscencesDivContainer').show();
             });
