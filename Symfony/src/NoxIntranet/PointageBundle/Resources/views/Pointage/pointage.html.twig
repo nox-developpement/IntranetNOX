@@ -5,6 +5,24 @@
 {% block messageAccueil %}Pointage{% endblock %}
 
 {% block contenu %}
+    <div id="pointageStatusDiv">
+        <div id="pointageStatusLabelGeneralContainer">
+            <div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Collaborateur</p></div><!--
+            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Assistante</p></div><!--
+            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>DA/Manager</p></div><!--
+            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>Assistantes RH/DRH</p></div><!--
+            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>Validé</p></div><!--
+            --></div>
+        <div id="pointageStatus">
+            <div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=0></div></div><!--
+            --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=1></div></div><!--
+            --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=2></div></div><!--
+            --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=3></div></div><!--
+            --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=4></div></div>
+            <div class='pointageStatusLine'><div></div></div>
+        </div>
+    </div>
+
     <div id='tableFeuillePointageDivContainer'>
         <table id="tableFeuillePointage">
             <tr>
@@ -16,10 +34,10 @@
                         {% endfor %}
                     </select>
                 </td>
-                <td id='operationnel' style="background: rgb(47,117,181); color: white; border-width: 1px;" colspan="2">OPERATIONNEL</td>
+                <td id='operationnel' style="background: rgb(47,117,181); color: white; border-width: 1px;" colspan="2">OPERATIONNEL <p id="addProject" style="margin: 0; float: right; display: inline-block; cursor: pointer;">+ Affaire</p></td>
                 <td style="background: black; border-width: 1px;"></td>
                 <td style="background: rgb(84,130,53); color: white; border-width: 1px;" colspan="5">RESSOURCES HUMAINES</td>
-                <td id="addProject" style="border-width: 1px;" >+ Projet</td>
+                <td style="border: none; border-bottom: solid 1px black;" ></td>
             </tr>
             <tr>
                 <td style="border: solid 1px black;">
@@ -31,7 +49,7 @@
                         <option value="{{ 'now'|date_modify('+4 year')|date('Y')}}">{{ 'now'|date_modify('+4 year')|date('Y')}}</option>
                     </select>
                 </td>
-                <td class='project' style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouveau projet<img src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'></td>
+                <td class='project' style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouvelle Affaire<img src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'></td>
                 <td style='border-width: 1px;'>TOTAL</td>
                 <td style='border-width: 1px;' >MOD</td>
                 <td style='border-width: 1px;' colspan="2">Absences</td>
@@ -121,7 +139,7 @@
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
-                <td style='border: none; border-right: solid 1px black;'></td>
+                <td style='border: none;'></td>
                 <td id='titreRepasTotalNumber' style="border-width: 2px; border-top: none; border-right-width: 1px; border-left-width: 1px;">0</td>
                 <td id='ForfaitDeplacementTotalMontant' style="border-width: 2px; border-top: none; border-left-width: 1px; border-right-width: 1px;">0</td>
                 <td id='PrimesPanierTotalNumber' style="border-width: 2px; border-top: none; border-left-width: 1px; border-right-width: 1px">0</td>
@@ -205,6 +223,13 @@
                 <td colspan=2 style='border-width: 1px; height: 2vw;' contenteditable=true></td>
             </tr>
         </table>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div>
+            {{ form_widget(form.Valider, {'label': 'Valider la feuille de pointage', 'attr': {'class': 'boutonFormulaire'}}) }}
+        </div>
+        {{ form_end(form) }}
     </div>
 
     <script>
@@ -247,10 +272,12 @@
 
                     // Affiche la valeur total des cellules d'une même ligne ou 'Erreur' si celle-ci n'est pas valide.
                     function checkTotalValue(cell, total) {
-                        if (isNaN(total)) {
+                        if (isNaN(total) || total > 100) {
                             $(cell).text('Erreur');
+                            $(cell).css('background', 'red');
                         } else {
                             $(cell).text(total.toFixed(2));
+                            $(cell).css('background', 'white');
                         }
                     }
 
@@ -273,11 +300,15 @@
                     function checkTotalValue(cell, total, columnNo) {
                         if (isNaN(total) || total > 100) {
                             $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
+                            $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'red');
                             $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
+                            $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'red');
                         } else {
                             $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text(total.toFixed(2));
+                            $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'white');
                             var decimalTotal = parseFloat(total / 100, 10);
                             $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text(decimalTotal.toFixed(2));
+                            $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'white');
                         }
                     }
 
@@ -401,7 +432,7 @@
                 // Remet à zero les valeurs de cellules.
                 function resetCellsValues() {
                     $('[contenteditable]').text('');
-                    $('.project').first().text("Nouveau projet");
+                    $('.project').first().text("Nouvelle Affaire");
                     $('.dailyTotalPercentageCell, .monthlyTotalPercentageCell, .monthlyTotalCell, #ForfaitDeplacementTotalMontant, #PrimesPanierTotalNumber, #titreTransportTotalMontant').text(0.00);
                     $('#monthlyTotalHoursMod, #titreRepasTotalNumber, .nbAbscences').text(0);
                     $('select:not(#pointage_month_selector, #pointage_year_selector)').val('');
@@ -478,10 +509,12 @@
 
                 // Affiche la valeur total des cellules d'une même ligne ou 'Erreur' si celle-ci n'est pas valide.
                 function checkTotalValue(cell, total) {
-                    if (isNaN(total)) {
+                    if (isNaN(total) || total > 100) {
                         $(cell).text('Erreur');
+                        $(cell).css('background', 'red');
                     } else {
                         $(cell).text(total.toFixed(2));
+                        $(cell).css('background', 'white');
                     }
                 }
 
@@ -507,11 +540,15 @@
                 function checkTotalValue(cell, total, columnNo) {
                     if (isNaN(total) || total > 100) {
                         $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
+                        $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'red');
                         $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
+                        $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'red');
                     } else {
                         $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text(total.toFixed(2));
+                        $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'white');
                         var decimalTotal = parseFloat(total / 100, 10);
                         $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text(decimalTotal.toFixed(2));
+                        $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'white');
                     }
                 }
 
@@ -698,7 +735,7 @@
                                 var total = $('#tableFeuillePointage').find('tr').length;
                                 $('#tableFeuillePointage').find('tr').each(function (index) {
                                     if (index === 1) {
-                                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouveau projet></td>");
+                                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouvelle Affaire></td>");
                                     } else if (index === 2) {
                                         $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;'>%</td>");
                                     } else if (index === total - 2) {
@@ -758,8 +795,10 @@
                                 $('tr:nth-child(2)').find('.project').append("<img class='deleteColumn' src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'>");
                             }
 
+                            ajaxGetPointageStatus();
                             deleteProjectColumn();
                             tableEventHandler();
+                            displayDailyProjectsTotalPercentage();
                             displayMonthlyProjectTotalPercentage();
                             dispayMonthlyTotalHoursMod();
                             displayMonthlyTotalTitresRepas();
@@ -767,6 +806,7 @@
                             displayMonthlyTotalPrimesPanier();
                             displayTotalAbscences();
                             displayTotalTitreTransport();
+                            ajaxSaveData();
                         }
                     }
                 }).done(function () {
@@ -790,7 +830,7 @@
                     var total = $('#tableFeuillePointage').find('tr').length;
                     $('#tableFeuillePointage').find('tr').each(function (index) {
                         if (index === 1) {
-                            $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouveau projet</td>");
+                            $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouvelle Affaire</td>");
                         } else if (index === 2) {
                             $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;'>%</td>");
                         } else if (index === total - 2) {
@@ -1003,6 +1043,27 @@
                     displayTotalAbscences();
                     displayTotalTitreTransport();
                 }
+            }
+
+            function ajaxGetPointageStatus() {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path('nox_intranet_pointage_ajax_get_status') }}',
+                    data: {username: null, month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val()},
+                    success: function (response) {
+                        var width = null;
+                        if (parseInt(response * 2, 10) * 10 + 10 === 90) {
+                            width = 100;
+                        } else {
+                            var width = parseInt(response * 2, 10) * 10 + 10;
+                        }
+
+                        $('.pointageStatusLine div').width(width + '%');
+                        $(".pointageStatusCircle").filter(function () {
+                            return  $(this).attr("step") <= response;
+                        }).css('background-color', 'green');
+                    }
+                });
             }
 
         });

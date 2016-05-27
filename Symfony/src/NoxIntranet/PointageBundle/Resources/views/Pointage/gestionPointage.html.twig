@@ -31,20 +31,20 @@
         {{ form_end(form) }}
     </div>
 
-    <div id="pointageStatusLabelGeneralContainer">
-        <div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Saisie Individuelle</p></div><!--
-        --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Consolidation Agence</p></div><!--
-        --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>Envoi vers RH</p></div><!--
-        --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>Envoi dans ADP</p></div><!--
-        --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p></p></div>
-    </div>
-    <div id="pointageStatus">
-        <div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=1></div></div><!--
-        --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=2></div></div><!--
-        --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=3></div></div><!--
-        --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=4></div></div><!--
-        --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=5></div></div>
-        <div class='pointageStatusLine'><div></div></div>
+    <div id="pointageStatusDiv">
+        <div id="pointageStatusLabelGeneralContainer">
+            <div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Collaborateur</p></div><!--
+            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Assistante</p></div><!--
+            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>DA/Manager</p></div><!--
+            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>Assistantes RH/DRH</p></div><!--
+            --></div>
+        <div id="pointageStatus">
+            <div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=1></div></div><!--
+            --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=2></div></div><!--
+            --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=3></div></div><!--
+            --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=4></div></div>
+            <div class='pointageStatusLine'><div></div></div>
+        </div>
     </div>
 
     <div id='tableFeuillePointageDivContainer'>
@@ -61,7 +61,7 @@
                 <td id='operationnel' style="background: rgb(47,117,181); color: white; border-width: 1px;" colspan="2">OPERATIONNEL</td>
                 <td style="background: black; border-width: 1px;"></td>
                 <td style="background: rgb(84,130,53); color: white; border-width: 1px;" colspan="5">RESSOURCES HUMAINES</td>
-                <td id="addProject" style="border-width: 1px;" >+ Projet</td>
+                <td style="border: none; border-bottom: solid 1px black;" ></td>
             </tr>
             <tr>
                 <td style="border: solid 1px black;">
@@ -73,7 +73,7 @@
                         <option value="{{ 'now'|date_modify('+4 year')|date('Y')}}">{{ 'now'|date_modify('+4 year')|date('Y')}}</option>
                     </select>
                 </td>
-                <td class='project' style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouveau projet<img src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'></td>
+                <td class='project' style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouvelle Affaire<img src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'></td>
                 <td style='border-width: 1px;'>TOTAL</td>
                 <td style='border-width: 1px;' >MOD</td>
                 <td style='border-width: 1px;' colspan="2">Absences</td>
@@ -253,31 +253,24 @@
         $(window).load(function () {
 
             hidePointageTables();
-
             $('#form_User').change(function () {
                 ajaxGetMonthByUsername();
             });
-
             $('#form_Month').change(function () {
                 ajaxGetYearByMonthAndUsername();
             });
-
             $("#pointerUserSearch").on("keyup paste", function () {
                 ajaxUsernameSearch();
             });
-
             $(".pointageStatusCircle").filter(function () {
                 return  $(this).attr("step") <= 1;
             }).css('background-color', 'green');
-
             getNewDate();
         });
-
         // Cache les tables de la feuille de pointage.
         function hidePointageTables() {
             $('#tableFeuillePointageDivContainer').hide();
             $('#tableFeuillePointageTypesAbscencesDivContainer').hide();
-
             $('#form_User, #form_Month, #form_Year').change(function () {
                 if ($('#form_User option:selected').val() === '' || $('#form_Month option:selected').val() === '' || $('#form_Year option:selected').val() === '') {
                     $('#tableFeuillePointageDivContainer').hide();
@@ -422,10 +415,12 @@
 
                 // Affiche la valeur total des cellules d'une même ligne ou 'Erreur' si celle-ci n'est pas valide.
                 function checkTotalValue(cell, total) {
-                    if (isNaN(total)) {
+                    if (isNaN(total) || total > 100) {
                         $(cell).text('Erreur');
+                        $(cell).css('background', 'red');
                     } else {
                         $(cell).text(total.toFixed(2));
+                        $(cell).css('background', 'white');
                     }
                 }
 
@@ -435,7 +430,6 @@
                         checkCellContentValidity(this);
                         if ($(this).text() !== '') {
                             total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
-
                         }
                     });
                     checkTotalValue(this, total);
@@ -448,11 +442,15 @@
                 function checkTotalValue(cell, total, columnNo) {
                     if (isNaN(total) || total > 100) {
                         $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
+                        $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'red');
                         $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
+                        $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'red');
                     } else {
                         $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text(total.toFixed(2));
+                        $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'white');
                         var decimalTotal = parseFloat(total / 100, 10);
                         $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text(decimalTotal.toFixed(2));
+                        $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'white');
                     }
                 }
 
@@ -478,7 +476,6 @@
                     }
                 });
                 $('#monthlyTotalHoursMod').text(total.toFixed(2));
-
             }
 
             displayMonthlyTotalTitresRepas();
@@ -521,7 +518,6 @@
                 function getAbscencesCount(nbAbscencesCell) {
                     var codeAbsences = $(nbAbscencesCell).next().text();
                     var total = 0;
-
                     $('.abscenceMatinSelector').each(function () {
                         if (codeAbsences === $(this).find('select option:selected').val()) {
                             total = parseFloat(total, 10) + parseFloat(0.5, 10);
@@ -561,13 +557,11 @@
                     ajaxGetNewDate();
                 }
             });
-
             // Supprime les colonnes existantes de projets suplémentaires et rétablie le colspan de "Operationnel" à 2.
             function deleteProjectColumn() {
 
                 var firstColumnIndex = $('#tableFeuillePointage tr:nth-child(2) .project').first().index() + 2;
                 var lastColumnIndex = $('#tableFeuillePointage tr:nth-child(2) .project').last().index() + 1;
-
                 $('#tableFeuillePointage tr:nth-child(n+2) td:nth-child(n+' + firstColumnIndex + '):nth-child(-n+' + lastColumnIndex + ')').remove();
                 $('#operationnel').attr('colspan', 2);
             }
@@ -575,7 +569,7 @@
             // Remet à zero les valeurs de cellules.
             function resetCellsValues() {
                 $('[contenteditable]').text('');
-                $('.project').first().text("Nouveau projet");
+                $('.project').first().text("Nouvelle Affaire");
                 $('.dailyTotalPercentageCell, .monthlyTotalPercentageCell, .monthlyTotalCell, #ForfaitDeplacementTotalMontant, #PrimesPanierTotalNumber, #titreTransportTotalMontant').text(0.00);
                 $('#monthlyTotalHoursMod, #titreRepasTotalNumber, .nbAbscences').text(0);
                 $('#tableFeuillePointage select:not(#pointage_month_selector, #pointage_year_selector)').val('');
@@ -641,13 +635,12 @@
                 success: function (response) {
                     if (response !== '') {
                         var data = JSON.parse(response);
-
                         // Ajoute un td après chaque td du dernier projet.
                         function addTd() {
                             var total = $('#tableFeuillePointage').find('tr').length;
                             $('#tableFeuillePointage').find('tr').each(function (index) {
                                 if (index === 1) {
-                                    $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouveau projet></td>");
+                                    $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouvelle Affaire></td>");
                                 } else if (index === 2) {
                                     $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;'>%</td>");
                                 } else if (index === total - 2) {
@@ -684,7 +677,6 @@
                         }
 
                         $('#signatureCollaborateur').text(data['signatureCollaborateur']);
-
                         if (data['contenteditable'] !== undefined) {
                             $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                                 $(this).text(data['contenteditable'][index]);
@@ -718,6 +710,12 @@
                 $('#tableFeuillePointageTypesAbscencesDivContainer').show();
             });
         }
+
+        function ajaxGetPointageStatus() {
+
+        }
+
+
     </script>
 
 </script>

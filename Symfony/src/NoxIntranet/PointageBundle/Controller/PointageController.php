@@ -7,11 +7,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use NoxIntranet\PointageBundle\Entity\Tableau;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class PointageController extends Controller {
 
     // Affiche le tableau de pointage vide du mois et de l'année courante.
-    public function accueilAction() {
+    public function accueilAction(Request $request) {
         $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
         $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
 
@@ -24,14 +25,48 @@ class PointageController extends Controller {
             $i++;
         }
 
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user->getUsername(), 'month' => $this->getMonthAndYear()['month'], 'year' => $this->getMonthAndYear()['year']));
+
+        if (empty($tableData)) {
+            $tableData = new Tableau();
+
+            $tableData->setUser($user->getUsername());
+            $tableData->setMonth($this->getMonthAndYear()['month']);
+            $tableData->setYear($this->getMonthAndYear()['year']);
+            $tableData->setData('');
+            $tableData->setSignatureCollaborateur('');
+            $tableData->setStatus(0);
+
+            $em->persist($tableData);
+            $em->flush();
+        }
+
+
+
+        $form = $this->createFormBuilder($tableData)
+                ->add('Valider', SubmitType::class)
+                ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $tableData->setData(2);
+
+            $em->persist($tableData);
+            $em->flush();
+        }
+
         return $this->render('NoxIntranetPointageBundle:Pointage:pointage.html.twig', array('monthDates' => $monthDates, 'currentMonth' => $this->getMonthAndYear()['month'],
-                    'currentYear' => $this->getMonthAndYear()['year']));
+                    'currentYear' => $this->getMonthAndYear()['year'], 'form' => $form->createView()));
     }
 
     // Retourne la date courante.
     public function getMonthAndYear() {
 
-        $month = date('m');
+        $month = date('n');
         $year = date('Y');
 
         $date['month'] = $month;
@@ -360,6 +395,31 @@ class PointageController extends Controller {
             $stringData = json_encode($dataArray);
 
             $response = new Response($stringData);
+            return $response;
+        }
+    }
+
+    public function ajaxGetPointageStatusAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            if ($request->get('username') === '') {
+                $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
+            } else {
+                $username = $request->get('username');
+            }
+
+            $month = $request->get('month');
+            $year = $request->get('year');
+
+            $pointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
+
+            if (!empty($pointage)) {
+                $status = $pointage->getStatus();
+            } else {
+                $status = null;
+            }
+
+            $response = new Response($status);
             return $response;
         }
     }

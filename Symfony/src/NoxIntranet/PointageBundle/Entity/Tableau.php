@@ -55,6 +55,13 @@ class Tableau {
      * @ORM\Column(name="SignatureCollaborateur", type="text")
      */
     private $signatureCollaborateur;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Status", type="string", length=255)
+     */
+    private $status;
 
     /**
      * Get id
@@ -175,4 +182,28 @@ class Tableau {
         return $this->signatureCollaborateur;
     }
 
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Tableau
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 }

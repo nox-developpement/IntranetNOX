@@ -28,7 +28,7 @@
                         <option value="{{ 'now'|date_modify('+4 year')|date('Y')}}">{{ 'now'|date_modify('+4 year')|date('Y')}}</option>
                     </select>
                 </td>
-                <td class='project' contenteditable=true style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;' >Nouveau projet</td>
+                <td class='project' contenteditable=true style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;' >Nouvelle Affaire</td>
                 <td style='border-width: 1px;'>TOTAL</td>
             </tr>
             <tr>
@@ -95,10 +95,12 @@
 
                     // Affiche la valeur total des cellules d'une même ligne ou 'Erreur' si celle-ci n'est pas valide.
                     function checkTotalValue(cell, total) {
-                        if (isNaN(total)) {
+                        if (isNaN(total) || total > 100) {
                             $(cell).text('Erreur');
+                            $(cell).css('background', 'red');
                         } else {
                             $(cell).text(total.toFixed(2));
+                            $(cell).css('background', 'white');
                         }
                     }
 
@@ -120,11 +122,15 @@
                     function checkTotalValue(cell, total, columnNo) {
                         if (isNaN(total) || total > 100) {
                             $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
+                            $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'red');
                             $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
+                            $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'red');
                         } else {
                             $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text(total.toFixed(2));
+                            $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'white');
                             var decimalTotal = parseFloat(total / 100, 10);
                             $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text(decimalTotal.toFixed(2));
+                            $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'white');
                         }
                     }
 
@@ -176,7 +182,7 @@
                 // Remet à zero les valeurs de cellules.
                 function resetCellsValues() {
                     $('[contenteditable]').text('');
-                    $('.project').first().text("Nouveau projet");
+                    $('.project').first().text("Nouvelle Affaire");
                     $('.dailyTotalPercentageCell, .monthlyTotalPercentageCell, .monthlyTotalCell, #ForfaitDeplacementTotalMontant, #PrimesPanierTotalNumber, #titreTransportTotalMontant').text(0.00);
                     $('#monthlyTotalHoursMod, #titreRepasTotalNumber, .nbAbscences').text(0);
                     $('select:not(#pointage_month_selector, #pointage_year_selector)').val('');
@@ -243,7 +249,7 @@
                                 var total = $('#tableFeuillePointage').find('tr').length;
                                 $('#tableFeuillePointage').find('tr').each(function (index) {
                                     if (index === 1) {
-                                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouveau projet</td>");
+                                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouvelle Affaire</td>");
                                     } else if (index === 2) {
                                         $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;'>%</td>");
                                     } else if (index === total - 2) {

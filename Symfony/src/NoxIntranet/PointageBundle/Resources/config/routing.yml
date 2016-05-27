@@ -41,3 +41,7 @@ nox_intranet_ajax_get_users_by_username:
 nox_intranet_pointage_ajax_get_data_by_username:
     path:     /ressources/pointage-ajax-get-data-by-username
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetDataByUsername }
+    
+nox_intranet_pointage_ajax_get_status:
+    path:     /ressources/pointage-ajax-get-status
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetPointageStatus }
