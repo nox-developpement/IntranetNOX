@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use NoxIntranet\PointageBundle\Entity\Tableau;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class PointageController extends Controller {
 
@@ -53,10 +55,12 @@ class PointageController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $tableData->setData(2);
+            $tableData->setStatus(1);
 
             $em->persist($tableData);
             $em->flush();
+
+            $this->redirectToRoute('nox_intranet_pointage');
         }
 
         return $this->render('NoxIntranetPointageBundle:Pointage:pointage.html.twig', array('monthDates' => $monthDates, 'currentMonth' => $this->getMonthAndYear()['month'],
@@ -121,6 +125,7 @@ class PointageController extends Controller {
                 $tableData->setUser($user->getUsername());
                 $tableData->setMonth($month);
                 $tableData->setYear($year);
+                $tableData->setStatus(0);
             }
 
             $tableData->setData($data);
@@ -298,8 +303,24 @@ class PointageController extends Controller {
                 ))
                 ->getForm();
 
+        $formToCheckPointage = $this->createFormBuilder()
+                ->add('Pointage', EntityType::class, array(
+                    'class' => 'NoxIntranetPointageBundle:Tableau',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                                ->where("u.status = '1'")
+                                ->orderBy('u.user', 'ASC');
+                    },
+                    'choice_label' => 'user',
+                    'placeholder' => 'Pointage à valider',
+                    'attr' => array(
+                        'size' => 5
+                    )
+                ))
+                ->getForm();
+
         return $this->render('NoxIntranetPointageBundle:Pointage:gestionPointage.html.twig', array('form' => $form->createView(), 'monthDates' => $monthDates, 'currentMonth' => $this->getMonthAndYear()['month'],
-                    'currentYear' => $this->getMonthAndYear()['year']));
+                    'currentYear' => $this->getMonthAndYear()['year'], 'formToCheckPointage' => $formToCheckPointage->createView()));
     }
 
     // Retourne les mois en fonction de l'utilisateur
@@ -309,7 +330,7 @@ class PointageController extends Controller {
             $username = $request->get('username');
 
             $months = array();
-            $pointages = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('user' => $username));
+            $pointages = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('user' => $username, 'status' => '1'));
 
             if (!empty($pointages)) {
                 foreach ($pointages as $pointage) {
@@ -335,7 +356,7 @@ class PointageController extends Controller {
             $month = $request->get('month');
 
             $years = array();
-            $pointages = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('user' => $username, 'month' => $month));
+            $pointages = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('user' => $username, 'month' => $month, 'status' => '1'));
 
             if (!empty($pointages)) {
                 foreach ($pointages as $pointage) {
@@ -378,7 +399,7 @@ class PointageController extends Controller {
             $month = $request->get('month');
             $year = $request->get('year');
 
-            $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
+            $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year, 'status' => '1'));
 
             if (!empty($tableData)) {
                 $data = $tableData->getData();
@@ -399,6 +420,7 @@ class PointageController extends Controller {
         }
     }
 
+    // Retourne le status du pointage en fonction de l'utilisateur, du mois et de l'année.
     public function ajaxGetPointageStatusAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();

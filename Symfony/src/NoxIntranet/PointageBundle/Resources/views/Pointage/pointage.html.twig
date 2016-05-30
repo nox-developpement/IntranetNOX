@@ -244,10 +244,15 @@
             displayMonthlyTotalPrimesPanier();
             displayTotalAbscences();
             displayTotalTitreTransport();
+            checkAbscencesTitreRepas();
             addProjectColumn();
             deleteProjectColumn();
             ajaxGetData();
             ajaxSaveData();
+
+            $('#form_Valider').click(function () {
+                return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
+            });
 
             // Met à jours les cellules des valeurs totals.
             function tableEventHandler() {
@@ -416,7 +421,6 @@
                     ajaxGetNewDate();
                     //$('td[contenteditable]').unbind('blur');
                     //$('select').unbind('change');
-
                 });
 
                 // Supprime les colonnes existantes de projets suplémentaires et rétablie le colspan de "Operationnel" à 2.
@@ -587,6 +591,29 @@
                         }
                     });
                     $('#titreRepasTotalNumber').text(total);
+                });
+            }
+
+            // Met à zéro et désactive le selecteur de titre repas lorsque le nombre d'abscence dépasse 0.
+            function checkAbscencesTitreRepas() {
+                $('.abscenceMatinSelector select').change(function () {
+                    if ($(this).val() !== '' || $(this).siblings('.abscenceAMSelector select').val() !== '') {
+                        $(this).parent('.abscenceMatinSelector').parent('tr').find('.titreRepasNumberSelector select').val('');
+                        $(this).parent('.abscenceMatinSelector').parent('tr').find('.titreRepasNumberSelector select').attr('disabled', true);
+                    } else {
+                        alert('test');
+                        $(this).parent('.abscenceMatinSelector').parent('tr').find('.titreRepasNumberSelector select').removeAttr('disabled');
+                    }
+                });
+
+                $('.abscenceAMSelector select').change(function () {
+                    if ($(this).val() !== '' || $(this).siblings('.abscenceAMSelector select').val() !== '') {
+                        $(this).parent('.abscenceAMSelector').parent('tr').find('.titreRepasNumberSelector select').val('');
+                        $(this).parent('.abscenceAMSelector').parent('tr').find('.titreRepasNumberSelector select').attr('disabled', true);
+                    } else {
+                        alert('test');
+                        $(this).parent('.abscenceAMSelector').parent('tr').find('.titreRepasNumberSelector select').removeAttr('disabled');
+                    }
                 });
             }
 
@@ -806,6 +833,7 @@
                             displayMonthlyTotalPrimesPanier();
                             displayTotalAbscences();
                             displayTotalTitreTransport();
+                            checkAbscencesTitreRepas();
                             ajaxSaveData();
                         }
                     }
@@ -938,9 +966,11 @@
                     displayMonthlyTotalPrimesPanier();
                     displayTotalAbscences();
                     displayTotalTitreTransport();
+                    checkAbscencesTitreRepas();
                 }
             }
 
+            // Supprime une colonne de projet au tableau.
             function deleteProjectColumn() {
 
                 $('.deleteColumn').click(function () {
@@ -1042,10 +1072,17 @@
                     displayMonthlyTotalPrimesPanier();
                     displayTotalAbscences();
                     displayTotalTitreTransport();
+                    checkAbscencesTitreRepas();
                 }
             }
 
+            // Vérifie le status de la feuille de pointage, colore la barre d'avancement en conséquence et vérouille la feuille si nécessaire.
             function ajaxGetPointageStatus() {
+                $('.pointageStatusLine div').width('10%');
+                $(".pointageStatusCircle").css('background-color', 'lightgrey');
+                $(".pointageStatusCircle").filter(function () {
+                    return  $(this).attr("step") <= 0;
+                }).css('background-color', 'green');
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_get_status') }}',
@@ -1062,10 +1099,16 @@
                         $(".pointageStatusCircle").filter(function () {
                             return  $(this).attr("step") <= response;
                         }).css('background-color', 'green');
+
+                        alert(response !== '0');
+                        if (response !== '0' && response !== '') {
+                            $('.project[contenteditable=true]').css('cursor', 'default');
+                            $('.project[contenteditable=true]').attr('onkeydown', "return false");
+                            $('select:not(#pointage_month_selector, #pointage_year_selector)').attr('disabled', 'disabled');
+                        }
                     }
                 });
             }
-
         });
     </script>
 

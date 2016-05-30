@@ -29,6 +29,17 @@
         </div>
 
         {{ form_end(form) }}
+
+        {{ form_start(formToCheckPointage) }}
+        {{ form_errors(formToCheckPointage) }}
+
+        <div>
+            {{ form_label(formToCheckPointage.Pointage, 'Pointage') }} <br />
+            {{ form_errors(formToCheckPointage.Pointage) }}
+            {{ form_widget(formToCheckPointage.Pointage) }}
+        </div>
+
+        {{ form_end(formToCheckPointage) }}
     </div>
 
     <div id="pointageStatusDiv">
