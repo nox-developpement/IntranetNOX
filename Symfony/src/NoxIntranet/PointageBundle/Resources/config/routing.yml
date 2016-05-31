@@ -45,3 +45,11 @@ nox_intranet_pointage_ajax_get_data_by_username:
 nox_intranet_pointage_ajax_get_status:
     path:     /ressources/pointage-ajax-get-status
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetPointageStatus }
+    
+nox_intranet_pointage_ajax_set_date_by_pointage_number:
+    path:     /ressources/pointage-ajax-set-date-by-pointage-number
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxSetDateByPointageNumber}
+    
+nox_intranet_pointage_ajax_assistante_validation:
+    path:     /ressources/pointage-ajax-assistante-validation
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxAssistanteValidation}

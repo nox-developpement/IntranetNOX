@@ -6,39 +6,43 @@
 
 {% block contenu %}
     <div id="pointageSelection">
+
         {{ form_start(form) }}
         {{ form_errors(form) }}
+        <fieldset>
+            <legend>Séléction de pointage</legend>
 
-        <div>
-            {{ form_label(form.User, 'Utilisateur') }} <br />
-            <input type="text" id="pointerUserSearch" placeholder="Rechercher un utilisateur">
-            {{ form_errors(form.User) }}
-            {{ form_widget(form.User) }}
-        </div><!--
-
-        --><div>
-            {{ form_label(form.Month, 'Mois') }} <br />
-            {{ form_errors(form.Month) }}
-            {{ form_widget(form.Month) }}
-        </div><!--
-
-        --><div>
-            {{ form_label(form.Year, 'Année') }} <br />
-            {{ form_errors(form.Year) }}
-            {{ form_widget(form.Year) }}
-        </div>
-
+            <div>
+                {{ form_label(form.User, 'Utilisateur') }} <br />
+                <input type="text" id="pointerUserSearch" placeholder="Rechercher un utilisateur">
+                {{ form_errors(form.User) }}
+                {{ form_widget(form.User) }}
+            </div><!--
+    
+            --><div>
+                {{ form_label(form.Month, 'Mois') }} <br />
+                {{ form_errors(form.Month) }}
+                {{ form_widget(form.Month) }}
+            </div><!--
+    
+            --><div>
+                {{ form_label(form.Year, 'Année') }} <br />
+                {{ form_errors(form.Year) }}
+                {{ form_widget(form.Year) }}
+            </div>
+        </fieldset>
         {{ form_end(form) }}
 
         {{ form_start(formToCheckPointage) }}
         {{ form_errors(formToCheckPointage) }}
+        <fieldset>
+            <legend>Pointage en attente de validation</legend>
 
-        <div>
-            {{ form_label(formToCheckPointage.Pointage, 'Pointage') }} <br />
-            {{ form_errors(formToCheckPointage.Pointage) }}
-            {{ form_widget(formToCheckPointage.Pointage) }}
-        </div>
-
+            <div>
+                {{ form_errors(formToCheckPointage.Pointage) }}
+                {{ form_widget(formToCheckPointage.Pointage) }}
+            </div>
+        </fieldset>
         {{ form_end(formToCheckPointage) }}
     </div>
 
@@ -48,9 +52,11 @@
             --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Assistante</p></div><!--
             --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>DA/Manager</p></div><!--
             --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>Assistantes RH/DRH</p></div><!--
+            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>Validé</p></div><!--
             --></div>
         <div id="pointageStatus">
-            <div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=1></div></div><!--
+            <div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=0></div></div><!--
+            --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=1></div></div><!--
             --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=2></div></div><!--
             --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=3></div></div><!--
             --><div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=4></div></div>
@@ -258,6 +264,12 @@
                 <td colspan=2 style='border-width: 1px; height: 2vw;' contenteditable=true></td>
             </tr>
         </table>
+
+        <form action="#">
+            <div>
+                <button type="button" id="form_Valider" name="form[Valider]" class="boutonFormulaire">Valider la feuille de pointage</button>
+            </div>
+        </form>
     </div>
 
     <script>
@@ -273,11 +285,18 @@
             $("#pointerUserSearch").on("keyup paste", function () {
                 ajaxUsernameSearch();
             });
-            $(".pointageStatusCircle").filter(function () {
-                return  $(this).attr("step") <= 1;
-            }).css('background-color', 'green');
             getNewDate();
+            displayDailyProjectsTotalPercentage();
+            displayMonthlyProjectTotalPercentage();
+            dispayMonthlyTotalHoursMod();
+            displayMonthlyTotalTitresRepas();
+            displayMonthlyTotalForfaitsDeplacement();
+            displayMonthlyTotalPrimesPanier();
+            displayTotalAbscences();
+            displayTotalTitreTransport();
+            checkAbscencesTitreRepas();
         });
+
         // Cache les tables de la feuille de pointage.
         function hidePointageTables() {
             $('#tableFeuillePointageDivContainer').hide();
@@ -441,6 +460,7 @@
                         checkCellContentValidity(this);
                         if ($(this).text() !== '') {
                             total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+
                         }
                     });
                     checkTotalValue(this, total);
@@ -487,6 +507,7 @@
                     }
                 });
                 $('#monthlyTotalHoursMod').text(total.toFixed(2));
+
             }
 
             displayMonthlyTotalTitresRepas();
@@ -529,6 +550,7 @@
                 function getAbscencesCount(nbAbscencesCell) {
                     var codeAbsences = $(nbAbscencesCell).next().text();
                     var total = 0;
+
                     $('.abscenceMatinSelector').each(function () {
                         if (codeAbsences === $(this).find('select option:selected').val()) {
                             total = parseFloat(total, 10) + parseFloat(0.5, 10);
@@ -565,9 +587,17 @@
                 if ($('#form_User option:selected').val() !== '' && $('#form_Month option:selected').val() !== '' && $('#form_Year option:selected').val() !== '') {
                     deleteProjectColumn();
                     resetCellsValues();
-                    ajaxGetNewDate();
+                    ajaxGetNewDate($('#form_User option:selected').text(), $('#form_Month option:selected').val(), $('#form_Year option:selected').val());
                 }
             });
+
+            $('#form_Pointage').change(function () {
+                deleteProjectColumn();
+                resetCellsValues();
+                ajaxGetNewDateByPointageNumber();
+            });
+
+
             // Supprime les colonnes existantes de projets suplémentaires et rétablie le colspan de "Operationnel" à 2.
             function deleteProjectColumn() {
 
@@ -587,7 +617,7 @@
             }
 
             // Récupère les jours en fonction du moi et de l'année.
-            function ajaxGetNewDate() {
+            function ajaxGetNewDate(user, month, year) {
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
@@ -631,18 +661,68 @@
                         $('td[contenteditable]').unbind('blur');
                         $('.projet[contenteditable]').unbind('blur');
                         $('#tableFeuillePointage select:not(#pointage_month_selector, #pointage_year_selector)').unbind('change');
-                        ajaxGetData();
+                        ajaxGetData(user, month, year);
+                    }
+                });
+            }
+
+            // Récupère les jours en fonction du moi et de l'année définis par la feuille de pointage sélectionnée.
+            function ajaxGetNewDateByPointageNumber() {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '{{ path('nox_intranet_pointage_ajax_set_date_by_pointage_number') }}',
+                    data: {pointageNumber: $('#form_Pointage option:selected').val()},
+                    success: function (response) {
+                        $('.dayDateCell').each(function (index) {
+                            $(this).transition({
+                                rotateX: '360deg'
+                            }, function () {
+                                $(this).css('transform', '');
+                            });
+                            if (response['dates'][index] === undefined) {
+                                $(this).html('');
+                                $(this).parent('tr').find('td').css('background', 'white');
+                            } else {
+                                $(this).html(response['dates'][index]);
+                                if (response['dates'][index].indexOf('Samedi') >= 0 || response['dates'][index].indexOf('Dimanche') >= 0) {
+                                    $(this).parent('tr').find('td').css('background', 'rgb(166,166,166)');
+                                    $(this).next('td').attr('contenteditable', false);
+                                    $(this).siblings('.dailyHoursMod').attr('contenteditable', false);
+                                    $(this).siblings('.abscenceMatinSelector').html('');
+                                    $(this).siblings('.abscenceAMSelector').html('');
+                                    $(this).siblings('.titreRepasNumberSelector').html('');
+                                    $(this).siblings('.forfaitsDeplacementMontant').attr('contenteditable', false);
+                                    $(this).siblings('.primesPanierNumber').attr('contenteditable', false);
+                                    $(this).siblings('.comments').attr('contenteditable', false);
+                                } else {
+                                    $(this).parent('tr').find('td').css('background', 'white');
+                                    $(this).next('td').attr('contenteditable', true);
+                                    $(this).siblings('.dailyHoursMod').attr('contenteditable', true);
+                                    $(this).siblings('.abscenceMatinSelector').html("<select><option value=''></option> <option value='AA'>AA</option><option value='TJ'>TJ</option><option value='AT'>AT</option><option value='MT'>MT</option> <option value='PA'>PA</option> <option value='CS'>CS</option><option value='CP'>CP</option> <option value='AV'>AV</option> <option value='JS'>JS</option> <option value='MA'>MA</option> <option value='PM'>PM</option> <option value='RE'>RE</option> <option value='Autre'>Autre</option></select>");
+                                    $(this).siblings('.abscenceAMSelector').html("<select><option value=''></option><option value='AA'>AA</option><option value='TJ'>TJ</option><option value='AT'>AT</option><option value='MT'>MT</option><option value='PA'>PA</option><option value='CS'>CS</option><option value='CP'>CP</option><option value='AV'>AV</option><option value='JS'>JS</option><option value='MA'>MA</option><option value='PM'>PM</option><option value='RE'>RE</option><option value='Autre'>Autre</option></select>");
+                                    $(this).siblings('.titreRepasNumberSelector').html("<select><option value=''></option><option value='1'>1</option></select>");
+                                    $(this).siblings('.forfaitsDeplacementMontant').attr('contenteditable', true);
+                                    $(this).siblings('.primesPanierNumber').attr('contenteditable', true);
+                                    $(this).siblings('.comments').attr('contenteditable', true);
+                                }
+                            }
+                        });
+                        $('td[contenteditable]').unbind('blur');
+                        $('.projet[contenteditable]').unbind('blur');
+                        $('#tableFeuillePointage select:not(#pointage_month_selector, #pointage_year_selector)').unbind('change');
+                        ajaxGetData(response['username'], response['month'], response['year']);
                     }
                 });
             }
         }
 
         // Récupère les données du tableau en base de données et les injectes dans les cellules.
-        function ajaxGetData() {
+        function ajaxGetData(user, month, year) {
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_get_data_by_username') }}',
-                data: {username: $('#form_User option:selected').text(), month: $('#form_Month option:selected').val(), year: $('#form_Year option:selected').val()},
+                data: {username: user, month: month, year: year},
                 success: function (response) {
                     if (response !== '') {
                         var data = JSON.parse(response);
@@ -710,24 +790,257 @@
                             $('tr:nth-child(2)').find('.project').append("<img class='deleteColumn' src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'>");
                         }
 
+                        ajaxGetPointageStatus(user, month, year);
                         tableEventHandler();
+                        displayDailyProjectsTotalPercentage();
+                        displayMonthlyProjectTotalPercentage();
+                        dispayMonthlyTotalHoursMod();
+                        displayMonthlyTotalTitresRepas();
+                        displayMonthlyTotalForfaitsDeplacement();
+                        displayMonthlyTotalPrimesPanier();
+                        displayTotalAbscences();
+                        displayTotalTitreTransport();
+                        checkAbscencesTitreRepas();
                     }
                 }
             }).done(function () {
                 $("#tableFeuillePointage").tableHeadFixer({'head': false, 'left': 1});
-                $('.project[contenteditable=true]').css('cursor', 'default');
-                $('.project[contenteditable=true]').attr('onkeydown', "return false");
                 $('#tableFeuillePointageDivContainer').show();
                 $('#tableFeuillePointageTypesAbscencesDivContainer').show();
             });
         }
 
-        function ajaxGetPointageStatus() {
+        // Vérifie le status de la feuille de pointage, colore la barre d'avancement en conséquence et vérouille la feuille si nécessaire.
+        function ajaxGetPointageStatus(user, month, year) {
+            $('.pointageStatusLine div').width('10%');
+            $(".pointageStatusCircle").css('background-color', 'lightgrey');
+            $(".pointageStatusCircle").filter(function () {
+                return  $(this).attr("step") <= 1;
+            }).css('background-color', 'green');
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('nox_intranet_pointage_ajax_get_status') }}',
+                data: {username: user, month: month, year: year},
+                success: function (response) {
+                    var width = null;
+                    if (parseInt(response * 2, 10) * 10 + 10 === 90) {
+                        width = 100;
+                    } else {
+                        var width = parseInt(response * 2, 10) * 10 + 10;
+                    }
+
+                    $('.pointageStatusLine div').width(width + '%');
+                    $(".pointageStatusCircle").filter(function () {
+                        return  $(this).attr("step") <= response;
+                    }).css('background-color', 'green');
+
+                    if (response !== '1' && response !== '') {
+                        $('td[contenteditable=true]').css('cursor', 'default');
+                        $('td[contenteditable=true]').attr('onkeydown', "return false");
+                        $('select:not(#pointage_month_selector, #pointage_year_selector)').attr('disabled', 'disabled');
+                        $('#form_Valider').hide();
+                    } else {
+                        $('#form_Valider').show();
+                        $('#form_Valider').click(function () {
+                            $.ajax({
+                                type: 'POST',
+                                url: '{{ path('nox_intranet_pointage_ajax_assistante_validation') }}',
+                                data: {username: user, month: month, year: year},
+                                success: function () {
+                                    location.reload();
+                                }
+                            });
+                        });
+                    }
+                }
+            });
+        }
+
+        // Calcule et affiche le pourcentage total de chaque ligne de projets et vérifie la validité des donnnées.
+        function displayDailyProjectsTotalPercentage() {
+
+            // Colore en rouge les cellules dont le contenu n'est pas un nombre.
+            function checkCellContentValidity(cell) {
+                if (isNaN(parseFloat($(cell).text(), 10)) || parseFloat($(cell).text(), 10) > 100) {
+                    if ($(cell).text() !== '') {
+                        $(cell).css('background', 'red');
+                    } else {
+                        $(cell).css('background', 'white');
+                    }
+
+                } else {
+                    $(cell).css('background', 'white');
+                }
+            }
+
+            // Affiche la valeur total des cellules d'une même ligne ou 'Erreur' si celle-ci n'est pas valide.
+            function checkTotalValue(cell, total) {
+                if (isNaN(total) || total > 100) {
+                    $(cell).text('Erreur');
+                    $(cell).css('background', 'red');
+                } else {
+                    $(cell).text(total.toFixed(2));
+                    $(cell).css('background', 'white');
+                }
+            }
+
+            $('.projectPercentageCell').on('blur keyup paste input', function () {
+                $('.dailyTotalPercentageCell').each(function () {
+                    var total = 0;
+                    $(this).siblings('.projectPercentageCell[contenteditable=true]').each(function () {
+                        checkCellContentValidity(this);
+                        if ($(this).text() !== '') {
+                            total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                        }
+                    });
+                    checkTotalValue(this, total);
+                });
+            });
 
         }
 
+        // Calcule et affiche le pourcentage total de chaque colonne de projets et vérifie la validité des données.
+        function displayMonthlyProjectTotalPercentage() {
+
+            // Affiche la valeur total des cellules d'une même colonne ou 'Erreur' si celle-ci n'est pas valide.
+            function checkTotalValue(cell, total, columnNo) {
+                if (isNaN(total) || total > 100) {
+                    $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
+                    $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'red');
+                    $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
+                    $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'red');
+                } else {
+                    $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text(total.toFixed(2));
+                    $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'white');
+                    var decimalTotal = parseFloat(total / 100, 10);
+                    $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text(decimalTotal.toFixed(2));
+                    $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'white');
+                }
+            }
+
+            $('.projectPercentageCell').on('blur keyup paste input change', function () {
+                var columnNo = $(this).index();
+                var total = 0;
+                $(this).closest("table").find("tr .projectPercentageCell:nth-child(" + (columnNo + 1) + ")").each(function () {
+                    if ($(this).text() !== '') {
+                        total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                    }
+                });
+                checkTotalValue(this, total, columnNo);
+            });
+        }
+
+        // Calcule et affiche le nombre d'heure total pour le mois courant.
+        function dispayMonthlyTotalHoursMod() {
+            $('.dailyHoursMod').on('blur keyup paste input', function () {
+                var total = 0;
+                $('.dailyHoursMod').each(function () {
+                    if ($(this).text() !== '') {
+                        total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                    }
+                });
+                $('#monthlyTotalHoursMod').text(total.toFixed(2));
+            });
+        }
+
+        // Calcule et affiche le nombre total de titres repas pour le mois courant.
+        function displayMonthlyTotalTitresRepas() {
+            $('.titreRepasNumberSelector select').change(function () {
+                var total = 0;
+                $('.titreRepasNumberSelector select').each(function () {
+                    if ($(this).find('option:selected').val() !== '') {
+                        total = parseInt(total, 10) + parseInt($(this).find('option:selected').val(), 10);
+                    }
+                });
+                $('#titreRepasTotalNumber').text(total);
+            });
+        }
+
+        // Met à zéro et désactive le selecteur de titre repas lorsque le nombre d'abscence dépasse 0.
+        function checkAbscencesTitreRepas() {
+            $('.abscenceMatinSelector select').change(function () {
+                if ($(this).val() !== '' || $(this).parent('.abscenceMatinSelector').siblings('.abscenceAMSelector').find('select').val() !== '') {
+                    $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').val('');
+                    $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
+                } else {
+                    $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').removeAttr('disabled');
+                }
+            });
+
+            $('.abscenceAMSelector select').change(function () {
+                if ($(this).val() !== '' || $(this).parent('.abscenceAMSelector').siblings('.abscenceMatinSelector').find('select').val() !== '') {
+                    $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').val('');
+                    $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
+                } else {
+                    $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').removeAttr('disabled');
+                }
+            });
+        }
+
+        // Calcule et affiche le montant total du forfaits de déplacement pour le mois courant.
+        function displayMonthlyTotalForfaitsDeplacement() {
+            $('.forfaitsDeplacementMontant').on('blur keyup paste input', function () {
+                var total = 0;
+                $('.forfaitsDeplacementMontant').each(function () {
+                    if ($(this).text() !== '') {
+                        total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                    }
+                });
+                $('#ForfaitDeplacementTotalMontant').text(total.toFixed(2));
+            });
+        }
+
+        // Calcule et affiche le montant total des primes de panier pour le mois courant.
+        function displayMonthlyTotalPrimesPanier() {
+            $('.primesPanierNumber').on('blur keyup paste input', function () {
+                var total = 0;
+                $('.primesPanierNumber').each(function () {
+                    if ($(this).text() !== '') {
+                        total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                    }
+                });
+                $('#PrimesPanierTotalNumber').text(total.toFixed(2));
+            });
+        }
+
+        // Calcule et affiche le nombre total de chaque type d'abscences.
+        function displayTotalAbscences() {
+
+            // Calcule le total de chaque type d'abscences et affiche la valeur dans la cellule correspondante.
+            function getAbscencesCount(nbAbscencesCell) {
+                var codeAbsences = $(nbAbscencesCell).next().text();
+                var total = 0;
+
+                $('.abscenceMatinSelector').each(function () {
+                    if (codeAbsences === $(this).find('select option:selected').val()) {
+                        total = parseFloat(total, 10) + parseFloat(0.5, 10);
+                    }
+                });
+                $('.abscenceAMSelector').each(function () {
+                    if (codeAbsences === $(this).find('select option:selected').val()) {
+                        total = parseFloat(total, 10) + parseFloat(0.5, 10);
+                    }
+                });
+                $(nbAbscencesCell).text(total);
+            }
+
+            $('.abscenceMatinSelector select, .abscenceAMSelector select').change(function () {
+                $('.nbAbscences').each(function () {
+                    getAbscencesCount(this);
+                });
+            });
+        }
+
+        // Calcule le montant de remboursement des titres de tranport.
+        function displayTotalTitreTransport() {
+            $('#titreTransportMontant').on('blur keyup paste input', function () {
+                var total = 0;
+                if ($('#titreTransportMontant').text() !== '') {
+                    total = parseFloat($('#titreTransportMontant').text(), 10) / 2;
+                }
+                $('#titreTransportTotalMontant').text(total.toFixed(2));
+            });
+        }
 
     </script>
-
-</script>
 {% endblock %}

@@ -106,6 +106,41 @@ class PointageController extends Controller {
         }
     }
 
+    // Retourne les jours et la date correspondante en fonction du mois et de l'année de la feuille de pointage passé en paramètres.
+    public function ajaxSetDateByPointageNumberAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+
+            $frenchDays = array('Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi');
+
+            $pointageNumber = $request->get('pointageNumber');
+
+            $em = $this->getDoctrine()->getManager();
+            $table = $em->getRepository('NoxIntranetPointageBundle:Tableau')->find($pointageNumber);
+
+            $month = $table->getMonth();
+            $year = $table->getYear();
+            $username = $table->getUser();
+
+            $date = '01-' . $month . '-' . $year;
+            $end_date = date('t', strtotime('01-' . $month . '-' . $year)) . '-' . $month . '-' . $year;
+
+            $monthDates = array();
+            $i = 0;
+            while (strtotime($date) <= strtotime($end_date)) {
+                $monthDates[$i] = $frenchDays[date('w', strtotime($date))] . ' ' . date('d', strtotime($date));
+                $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+                $i++;
+            }
+
+            $response['dates'] = $monthDates;
+            $response['month'] = $month;
+            $response['year'] = $year;
+            $response['username'] = $username;
+
+            return new Response(json_encode($response));
+        }
+    }
+
     // Sauvegarde le contenu des cellules du tableau en fonction de l'utilisateur et de la date.
     public function ajaxSaveDataAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
@@ -442,6 +477,25 @@ class PointageController extends Controller {
             }
 
             $response = new Response($status);
+            return $response;
+        }
+    }
+
+    public function ajaxAssistanteValidationAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $username = $request->get('username');
+            $month = $request->get('month');
+            $year = $request->get('year');
+
+            $pointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
+
+            $pointage->setStatus(2);
+            $em->persist($pointage);
+            $em->flush();
+
+            $response = new Response('Ok');
             return $response;
         }
     }
