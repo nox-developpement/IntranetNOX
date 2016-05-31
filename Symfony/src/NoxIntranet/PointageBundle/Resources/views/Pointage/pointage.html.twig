@@ -597,22 +597,20 @@
             // Met à zéro et désactive le selecteur de titre repas lorsque le nombre d'abscence dépasse 0.
             function checkAbscencesTitreRepas() {
                 $('.abscenceMatinSelector select').change(function () {
-                    if ($(this).val() !== '' || $(this).siblings('.abscenceAMSelector select').val() !== '') {
-                        $(this).parent('.abscenceMatinSelector').parent('tr').find('.titreRepasNumberSelector select').val('');
-                        $(this).parent('.abscenceMatinSelector').parent('tr').find('.titreRepasNumberSelector select').attr('disabled', true);
+                    if ($(this).val() !== '' || $(this).parent('.abscenceMatinSelector').siblings('.abscenceAMSelector').find('select').val() !== '') {
+                        $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').val('');
+                        $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
                     } else {
-                        alert('test');
-                        $(this).parent('.abscenceMatinSelector').parent('tr').find('.titreRepasNumberSelector select').removeAttr('disabled');
+                        $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').removeAttr('disabled');
                     }
                 });
 
                 $('.abscenceAMSelector select').change(function () {
-                    if ($(this).val() !== '' || $(this).siblings('.abscenceAMSelector select').val() !== '') {
-                        $(this).parent('.abscenceAMSelector').parent('tr').find('.titreRepasNumberSelector select').val('');
-                        $(this).parent('.abscenceAMSelector').parent('tr').find('.titreRepasNumberSelector select').attr('disabled', true);
+                    if ($(this).val() !== '' || $(this).parent('.abscenceAMSelector').siblings('.abscenceMatinSelector').find('select').val() !== '') {
+                        $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').val('');
+                        $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
                     } else {
-                        alert('test');
-                        $(this).parent('.abscenceAMSelector').parent('tr').find('.titreRepasNumberSelector select').removeAttr('disabled');
+                        $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').removeAttr('disabled');
                     }
                 });
             }
@@ -1100,7 +1098,6 @@
                             return  $(this).attr("step") <= response;
                         }).css('background-color', 'green');
 
-                        alert(response !== '0');
                         if (response !== '0' && response !== '') {
                             $('.project[contenteditable=true]').css('cursor', 'default');
                             $('.project[contenteditable=true]').attr('onkeydown', "return false");
