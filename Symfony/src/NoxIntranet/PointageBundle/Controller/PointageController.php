@@ -150,14 +150,19 @@ class PointageController extends Controller {
             $signatureCollaborateur = $request->get('signatureCollaborateur');
 
             $em = $this->getDoctrine()->getManager();
-            $user = $this->get('security.token_storage')->getToken()->getUser();
 
-            $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user->getUsername(), 'month' => $month, 'year' => $year));
+            if ($request->get('user') !== '' && $request->get('user') !== null) {
+                $user = $request->get('user');
+            } else {
+                $user = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
+            }
+
+            $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user, 'month' => $month, 'year' => $year));
 
             if (empty($tableData)) {
                 $tableData = new Tableau();
 
-                $tableData->setUser($user->getUsername());
+                $tableData->setUser($user);
                 $tableData->setMonth($month);
                 $tableData->setYear($year);
                 $tableData->setStatus(0);
@@ -362,10 +367,22 @@ class PointageController extends Controller {
     public function ajaxGetMonthByUserAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
-            $username = $request->get('username');
 
+            $username = $request->get('username');
             $months = array();
-            $pointages = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('user' => $username, 'status' => '1'));
+
+            $query = $em->createQuery('
+                SELECT 
+                    p
+                FROM 
+                    NoxIntranetPointageBundle:Tableau p
+                WHERE 
+                    p.user = :username AND p.status >= :statusNumber
+                ORDER BY 
+                    p.user ASC
+            ')
+                    ->setParameters(['username' => $username, 'statusNumber' => '1']);
+            $pointages = $query->getResult();
 
             if (!empty($pointages)) {
                 foreach ($pointages as $pointage) {
@@ -387,11 +404,23 @@ class PointageController extends Controller {
     public function ajaxGetYearByMonthAndUserAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
+
             $username = $request->get('username');
             $month = $request->get('month');
-
             $years = array();
-            $pointages = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('user' => $username, 'month' => $month, 'status' => '1'));
+
+            $query = $em->createQuery('
+                SELECT 
+                    p
+                FROM 
+                    NoxIntranetPointageBundle:Tableau p
+                WHERE 
+                    p.user = :username AND p.status >= :statusNumber AND p.month = :month
+                ORDER BY 
+                    p.user ASC
+            ')
+                    ->setParameters(['username' => $username, 'statusNumber' => '1', 'month' => $month]);
+            $pointages = $query->getResult();
 
             if (!empty($pointages)) {
                 foreach ($pointages as $pointage) {

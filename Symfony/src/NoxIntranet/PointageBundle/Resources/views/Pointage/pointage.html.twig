@@ -1099,9 +1099,10 @@
                         }).css('background-color', 'green');
 
                         if (response !== '0' && response !== '') {
-                            $('td[contenteditable=true]').css('cursor', 'default')
+                            $('td[contenteditable=true]').css('cursor', 'default');
                             $('td[contenteditable=true]').attr('onkeydown', "return false");
                             $('select:not(#pointage_month_selector, #pointage_year_selector)').attr('disabled', 'disabled');
+                            $('.deleteColumn').remove();
                             $('#form_Valider').hide();
                         }
                     }
