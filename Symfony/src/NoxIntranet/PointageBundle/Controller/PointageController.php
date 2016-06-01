@@ -60,6 +60,8 @@ class PointageController extends Controller {
             $em->persist($tableData);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('notice', 'Le pointage a été validé.');
+
             $this->redirectToRoute('nox_intranet_pointage');
         }
 
@@ -293,7 +295,7 @@ class PointageController extends Controller {
     }
 
     // Affiche un formulaire de séléction de l'utilisateur, du mois et de l'année.
-    public function gestionPointageAction() {
+    public function gestionPointageAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
         $pointages = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
@@ -359,8 +361,20 @@ class PointageController extends Controller {
                 ))
                 ->getForm();
 
+        $formValidationCompilation = $this->get('form.factory')->createNamedBuilder('formValidationCompilation')
+                ->add('Validation', SubmitType::class)
+                ->getForm();
+
+        if ($request->request->has('formValidationCompilation')) {
+            if ($formValidationCompilation->isValid()) {
+                $this->get('session')->getFlashBag()->add('notice', 'Les pointages ont été compilés.');
+
+                $this->redirectToRoute('nox_intranet_gestion_pointage');
+            }
+        }
+
         return $this->render('NoxIntranetPointageBundle:Pointage:gestionPointage.html.twig', array('form' => $form->createView(), 'monthDates' => $monthDates, 'currentMonth' => $this->getMonthAndYear()['month'],
-                    'currentYear' => $this->getMonthAndYear()['year'], 'formToCheckPointage' => $formToCheckPointage->createView()));
+                    'currentYear' => $this->getMonthAndYear()['year'], 'formToCheckPointage' => $formToCheckPointage->createView(), 'formValidationCompilation' => $formValidationCompilation->createView()));
     }
 
     // Retourne les mois en fonction de l'utilisateur
@@ -510,6 +524,7 @@ class PointageController extends Controller {
         }
     }
 
+    // Valide la feuille de pointage pour la compilation par agence.
     public function ajaxAssistanteValidationAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
@@ -524,9 +539,21 @@ class PointageController extends Controller {
             $em->persist($pointage);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('notice', 'Le pointage a été validé.');
+
             $response = new Response('Ok');
             return $response;
         }
+    }
+
+    // Compile les feuilles de pointages du mois courant validées par les assistantes.
+    public function compilationPointageAssistante() {
+        $em = $em = $this->getDoctrine()->getManager();
+
+        $month = getMonthAndYear()['month'];
+        $year = getMonthAndYear()['year'];
+
+        $pointagesAValider = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('status' => '2', 'month' => $month, 'year' => $year));
     }
 
 }

@@ -270,11 +270,18 @@
                 <button type="button" id="form_Valider" name="form[Valider]" class="boutonFormulaire">Valider la feuille de pointage</button>
             </div>
         </form>
+
     </div>
+
+    {{ form_start(formValidationCompilation) }}
+    {{ form_errors(formValidationCompilation) }}
+    <div>
+        {{ form_widget(formValidationCompilation.Validation, { 'label': 'Compiler les pointages','attr': {'class': 'boutonFormulaire'} }) }}
+    </div>
+    {{ form_end(formValidationCompilation) }}
 
     <script>
         $(window).load(function () {
-
             hidePointageTables();
             $('#form_User').change(function () {
                 ajaxGetMonthByUsername();
@@ -451,12 +458,14 @@
 
                 // Affiche la valeur total des cellules d'une même ligne ou 'Erreur' si celle-ci n'est pas valide.
                 function checkTotalValue(cell, total) {
-                    if (isNaN(total) || total > 100) {
-                        $(cell).text('Erreur');
-                        $(cell).css('background', 'red');
-                    } else {
-                        $(cell).text(total.toFixed(2));
-                        $(cell).css('background', 'white');
+                    if ($(cell).css('background-color') !== 'rgb(166, 166, 166)') {
+                        if (isNaN(total) || total > 100) {
+                            $(cell).text('Erreur');
+                            $(cell).css('background', 'red');
+                        } else {
+                            $(cell).text(total.toFixed(2));
+                            $(cell).css('background', 'white');
+                        }
                     }
                 }
 
@@ -505,15 +514,30 @@
 
             dispayMonthlyTotalHoursMod();
             function dispayMonthlyTotalHoursMod() {
-
                 var total = 0;
+                var error = false;
                 $('.dailyHoursMod').each(function () {
-                    if ($(this).text() !== '') {
-                        total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                    if ($(this).css('background-color') !== 'rgb(166, 166, 166)') {
+                        if ($(this).text() !== '') {
+                            if (Math.floor($(this).text()) == $(this).text() && $.isNumeric($(this).text())) {
+                                $(this).css('background-color', 'white');
+                                total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                            } else {
+                                $(this).css('background-color', 'red');
+                                error = true;
+                            }
+                        } else {
+                            $(this).css('background-color', 'white');
+                        }
                     }
                 });
-                $('#monthlyTotalHoursMod').text(total.toFixed(2));
-
+                if (error) {
+                    $('#monthlyTotalHoursMod').css('background-color', 'red');
+                    $('#monthlyTotalHoursMod').text('Erreur');
+                } else {
+                    $('#monthlyTotalHoursMod').css('background-color', 'white');
+                    $('#monthlyTotalHoursMod').text(total.toFixed(2));
+                }
             }
 
             displayMonthlyTotalTitresRepas();
@@ -850,14 +874,16 @@
                     } else {
                         $('#form_Valider').show();
                         $('#form_Valider').click(function () {
-                            $.ajax({
-                                type: 'POST',
-                                url: '{{ path('nox_intranet_pointage_ajax_assistante_validation') }}',
-                                data: {username: user, month: month, year: year},
-                                success: function () {
-                                    location.reload();
-                                }
-                            });
+                            if (confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.')) {
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '{{ path('nox_intranet_pointage_ajax_assistante_validation') }}',
+                                    data: {username: user, month: month, year: year},
+                                    success: function () {
+                                        location.reload();
+                                    }
+                                });
+                            }
                         });
                         ajaxSaveData(user, month, year);
 
@@ -950,12 +976,14 @@
 
             // Affiche la valeur total des cellules d'une même ligne ou 'Erreur' si celle-ci n'est pas valide.
             function checkTotalValue(cell, total) {
-                if (isNaN(total) || total > 100) {
-                    $(cell).text('Erreur');
-                    $(cell).css('background', 'red');
-                } else {
-                    $(cell).text(total.toFixed(2));
-                    $(cell).css('background', 'white');
+                if ($(cell).css('background-color') !== 'rgb(166, 166, 166)') {
+                    if (isNaN(total) || total > 100) {
+                        $(cell).text('Erreur');
+                        $(cell).css('background', 'red');
+                    } else {
+                        $(cell).text(total.toFixed(2));
+                        $(cell).css('background', 'white');
+                    }
                 }
             }
 
@@ -1009,12 +1037,29 @@
         function dispayMonthlyTotalHoursMod() {
             $('.dailyHoursMod').on('blur keyup paste input', function () {
                 var total = 0;
+                var error = false;
                 $('.dailyHoursMod').each(function () {
-                    if ($(this).text() !== '') {
-                        total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                    if ($(this).css('background-color') !== 'rgb(166, 166, 166)') {
+                        if ($(this).text() !== '') {
+                            if (Math.floor($(this).text()) == $(this).text() && $.isNumeric($(this).text())) {
+                                $(this).css('background-color', 'white');
+                                total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                            } else {
+                                $(this).css('background-color', 'red');
+                                error = true;
+                            }
+                        } else {
+                            $(this).css('background-color', 'white');
+                        }
                     }
                 });
-                $('#monthlyTotalHoursMod').text(total.toFixed(2));
+                if (error) {
+                    $('#monthlyTotalHoursMod').css('background-color', 'red');
+                    $('#monthlyTotalHoursMod').text('Erreur');
+                } else {
+                    $('#monthlyTotalHoursMod').css('background-color', 'white');
+                    $('#monthlyTotalHoursMod').text(total.toFixed(2));
+                }
             });
         }
 

@@ -2970,6 +2970,10 @@ input[type=text]:read-only {
     width: 60%;
 }
 
+#pointageSelection form:nth-child(2) {
+    width: 30%;
+}
+
 #pointageSelection form:last-child {
     width: 30%;
 }
@@ -2981,7 +2985,7 @@ input[type=text]:read-only {
     vertical-align: middle;
 }
 
-#pointageSelection form:last-child div {
+#pointageSelection form:nth-child(2) div {
     display: inline-block;
     text-align: center;
     vertical-align: middle;
@@ -3058,4 +3062,9 @@ input[type=text]:read-only {
     background: lightgrey;
     z-index: 2;
     vertical-align: middle;
+}
+
+form[name='formValidationCompilation'] {
+    border: none;
+    text-align: center;
 }

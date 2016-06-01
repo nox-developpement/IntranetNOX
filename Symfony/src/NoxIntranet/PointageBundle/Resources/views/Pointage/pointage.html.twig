@@ -277,12 +277,14 @@
 
                     // Affiche la valeur total des cellules d'une même ligne ou 'Erreur' si celle-ci n'est pas valide.
                     function checkTotalValue(cell, total) {
-                        if (isNaN(total) || total > 100) {
-                            $(cell).text('Erreur');
-                            $(cell).css('background', 'red');
-                        } else {
-                            $(cell).text(total.toFixed(2));
-                            $(cell).css('background', 'white');
+                        if ($(cell).css('background-color') !== 'rgb(166, 166, 166)') {
+                            if (isNaN(total) || total > 100) {
+                                $(cell).text('Erreur');
+                                $(cell).css('background', 'red');
+                            } else {
+                                $(cell).text(total.toFixed(2));
+                                $(cell).css('background', 'white');
+                            }
                         }
                     }
 
@@ -331,15 +333,30 @@
 
                 dispayMonthlyTotalHoursMod();
                 function dispayMonthlyTotalHoursMod() {
-
                     var total = 0;
+                    var error = false;
                     $('.dailyHoursMod').each(function () {
-                        if ($(this).text() !== '') {
-                            total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                        if ($(this).css('background-color') !== 'rgb(166, 166, 166)') {
+                            if ($(this).text() !== '') {
+                                if (Math.floor($(this).text()) == $(this).text() && $.isNumeric($(this).text())) {
+                                    $(this).css('background-color', 'white');
+                                    total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                                } else {
+                                    $(this).css('background-color', 'red');
+                                    error = true;
+                                }
+                            } else {
+                                $(this).css('background-color', 'white');
+                            }
                         }
                     });
-                    $('#monthlyTotalHoursMod').text(total.toFixed(2));
-
+                    if (error) {
+                        $('#monthlyTotalHoursMod').css('background-color', 'red');
+                        $('#monthlyTotalHoursMod').text('Erreur');
+                    } else {
+                        $('#monthlyTotalHoursMod').css('background-color', 'white');
+                        $('#monthlyTotalHoursMod').text(total.toFixed(2));
+                    }
                 }
 
                 displayMonthlyTotalTitresRepas();
@@ -513,12 +530,14 @@
 
                 // Affiche la valeur total des cellules d'une même ligne ou 'Erreur' si celle-ci n'est pas valide.
                 function checkTotalValue(cell, total) {
-                    if (isNaN(total) || total > 100) {
-                        $(cell).text('Erreur');
-                        $(cell).css('background', 'red');
-                    } else {
-                        $(cell).text(total.toFixed(2));
-                        $(cell).css('background', 'white');
+                    if ($(cell).css('background-color') !== 'rgb(166, 166, 166)') {
+                        if (isNaN(total) || total > 100) {
+                            $(cell).text('Erreur');
+                            $(cell).css('background', 'red');
+                        } else {
+                            $(cell).text(total.toFixed(2));
+                            $(cell).css('background', 'white');
+                        }
                     }
                 }
 
@@ -572,12 +591,29 @@
             function dispayMonthlyTotalHoursMod() {
                 $('.dailyHoursMod').on('blur keyup paste input', function () {
                     var total = 0;
+                    var error = false;
                     $('.dailyHoursMod').each(function () {
-                        if ($(this).text() !== '') {
-                            total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                        if ($(this).css('background-color') !== 'rgb(166, 166, 166)') {
+                            if ($(this).text() !== '') {
+                                if (Math.floor($(this).text()) == $(this).text() && $.isNumeric($(this).text())) {
+                                    $(this).css('background-color', 'white');
+                                    total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
+                                } else {
+                                    $(this).css('background-color', 'red');
+                                    error = true;
+                                }
+                            } else {
+                                $(this).css('background-color', 'white');
+                            }
                         }
                     });
-                    $('#monthlyTotalHoursMod').text(total.toFixed(2));
+                    if (error) {
+                        $('#monthlyTotalHoursMod').css('background-color', 'red');
+                        $('#monthlyTotalHoursMod').text('Erreur');
+                    } else {
+                        $('#monthlyTotalHoursMod').css('background-color', 'white');
+                        $('#monthlyTotalHoursMod').text(total.toFixed(2));
+                    }
                 });
             }
 
