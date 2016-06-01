@@ -992,6 +992,7 @@
                     $('#tableFeuillePointage tr').each(function () {
                         $(this).find('.project').eq(cellIndex).remove();
                     });
+                    $('#tableFeuillePointage tr:nth-last-child(3) td').eq(cellIndex).remove();
                     $('.monthlyTotalPercentageCell').eq($(column).parents('td').index() - 1).remove();
                     $('.monthlyTotalCell').eq($(column).parents('td').index() - 1).remove();
                 }

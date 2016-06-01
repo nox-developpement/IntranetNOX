@@ -75,7 +75,7 @@
                         {% endfor %}
                     </select>
                 </td>
-                <td id='operationnel' style="background: rgb(47,117,181); color: white; border-width: 1px;" colspan="2">OPERATIONNEL</td>
+                <td id='operationnel' style="background: rgb(47,117,181); color: white; border-width: 1px;" colspan="2">OPERATIONNEL <p id="addProject" style="margin: 0; float: right; display: inline-block; cursor: pointer;">+ Affaire</p></td>
                 <td style="background: black; border-width: 1px;"></td>
                 <td style="background: rgb(84,130,53); color: white; border-width: 1px;" colspan="5">RESSOURCES HUMAINES</td>
                 <td style="border: none; border-bottom: solid 1px black;" ></td>
@@ -1269,6 +1269,7 @@
                 $('#tableFeuillePointage tr').each(function () {
                     $(this).find('.project').eq(cellIndex).remove();
                 });
+                $('#tableFeuillePointage tr:nth-last-child(3) td').eq(cellIndex).remove();
                 $('.monthlyTotalPercentageCell').eq($(column).parents('td').index() - 1).remove();
                 $('.monthlyTotalCell').eq($(column).parents('td').index() - 1).remove();
             }
