@@ -13,13 +13,12 @@
         <fieldset>
             <legend>Compilation des pointages</legend>
             <div>
-                {{ form_label(form.Month, 'Mois') }} <br />
+                {{ form_label(form.Month, 'Mois:') }}
                 {{ form_errors(form.Month) }}
                 {{ form_widget(form.Month) }}
             </div><!--
-    
             --><div>
-                {{ form_label(form.Year, 'Année') }} <br />
+                {{ form_label(form.Year, 'Année:') }}
                 {{ form_errors(form.Year) }}
                 {{ form_widget(form.Year) }}
             </div>
@@ -29,6 +28,18 @@
             </div>
         </fieldset>
         {{ form_end(form) }}  
+
+        {{ form_start(formCompilationRefus) }}
+        {{ form_errors(formCompilationRefus) }}
+        <fieldset>
+            <legend>Compilation refusées</legend>
+            <div>
+                {{ form_errors(formCompilationRefus.CompilationRefus) }}
+                {{ form_widget(formCompilationRefus.CompilationRefus) }}
+            </div>
+        </fieldset>
+        {{ form_end(formCompilationRefus) }}  
+
     </div>
 
 {% endblock %}

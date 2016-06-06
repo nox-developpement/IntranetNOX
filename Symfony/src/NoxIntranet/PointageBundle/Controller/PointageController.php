@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use NoxIntranet\PointageBundle\Entity\Tableau;
+use NoxIntranet\PointageBundle\Entity\TableauCompilation;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityRepository;
@@ -568,7 +569,7 @@ class PointageController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $tableauCompilation = $em->getRepository('NoxIntranetPointageBundle:TableauPointage')->findOneBy(array('month' => $form->get('Month')->getData(), 'year' => $form->get('Year')->getData()));
+            $tableauCompilation = $em->getRepository('NoxIntranetPointageBundle:TableauCompilation')->findOneBy(array('month' => $form->get('Month')->getData(), 'year' => $form->get('Year')->getData()));
 
             $pointagesAValider = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('status' => '2', 'month' => $this->getMonthAndYear()['month'], 'year' => $this->getMonthAndYear()['year']));
 
@@ -588,23 +589,28 @@ class PointageController extends Controller {
                 $tableauCompilation->setProject(json_encode($project));
                 $tableauCompilation->setNbColumn($nbColumn);
                 $tableauCompilation->setStatus('En attente');
-                $this->get('session')->getFlashBag()->add('notice', 'Les pointage de ' . $month[$form->get('Month')->getData()] . ' ' . $form->get('Year')->getData() . 'on été compilés');
+                $em->persist($tableauCompilation);
+                $this->get('session')->getFlashBag()->add('notice', 'Les pointage de ' . $month[$form->get('Month')->getData()] . ' ' . $form->get('Year')->getData() . ' on été compilés');
             } else if ($tableauCompilation->getStatus() === 'Refusé') {
                 $tableauCompilation->setProject(json_encode($project));
                 $tableauCompilation->setNbColumn($nbColumn);
                 $tableauCompilation->setStatus('En attente');
-                $this->get('session')->getFlashBag()->add('notice', 'Les pointage de ' . $month[$form->get('Month')->getData()] . ' ' . $form->get('Year')->getData() . 'on été compilés');
+                $em->persist($tableauCompilation);
+                $this->get('session')->getFlashBag()->add('notice', 'Les pointage de ' . $month[$form->get('Month')->getData()] . ' ' . $form->get('Year')->getData() . ' on été compilés');
             } else {
                 $this->get('session')->getFlashBag()->add('noticeErreur', 'Impossible de compiler, la compilation est en attente de validation ou a déjà été validés.');
             }
+
+            $em->flush();
 
             $this->redirectToRoute('nox_intranet_pointage_compilation');
         }
 
         $formCompilationRefus = $this->createFormBuilder()
-                ->add('CompilationRefus', EntityType::class)
+                ->add('CompilationRefus', EntityType::class, array(
+                    'class' => 'NoxIntranetPointageBundle:TableauCompilation'
+                ))
                 ->getForm();
-
 
         return $this->render('NoxIntranetPointageBundle:Pointage:compilationPointage.html.twig', array('form' => $form->createView(), 'formCompilationRefus' => $formCompilationRefus->createView()));
     }
