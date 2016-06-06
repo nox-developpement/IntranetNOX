@@ -53,3 +53,7 @@ nox_intranet_pointage_ajax_set_date_by_pointage_number:
 nox_intranet_pointage_ajax_assistante_validation:
     path:     /ressources/pointage-ajax-assistante-validation
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxAssistanteValidation}
+    
+nox_intranet_pointage_compilation:
+    path:     /ressources/pointage-compilation
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationPointageAssistante}

@@ -152,47 +152,62 @@ class SupportSIController extends Controller {
 
         $donneesMessage = $demande->getMessage();
 
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $texteEncart);
+
+        $formBuilder
+                ->add('prix', TextType::class)
+                ->add('Valider', SubmitType::class)
+                ->add('Refuser', SubmitType::class)
+        ;
+
+        $form = $formBuilder->getForm();
+
+
         if (!empty($demande)) {
-            if ($reponse === 'valide') {
+            $form->handleRequest($request);
 
-                $messageHelpdesk = \Swift_Message::newInstance()
-                        ->setSubject('Demande de matériel/logiciel ' . $donneesMessage['demandeur'])
-                        ->setFrom('noreply@groupe-nox.com')
-                        ->setTo($adresseHelpdesk)
-                        ->setBody(
-                        $this->renderView(
-                                'Emails/demandeMateriel.html.twig', array('donneesMessage' => $donneesMessage)
-                        ), 'text/html'
-                );
-                $this->get('mailer')->send($messageHelpdesk);
+            if ($form->isValid()) {
+                if ($form->get('Valider')->isClicked()) {
 
-                $messageDemandeur = $messageDemandeur = \Swift_Message::newInstance()
-                        ->setSubject('Validation de votre demande de matériel')
-                        ->setFrom('noreply@groupe-nox.com')
-                        ->setTo($donneesMessage['emailDemandeur'])
-                        ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été validée par votre supérieur et transmise au service Helpdesk."
-                        , 'text/html'
-                );
-                $this->get('mailer')->send($messageDemandeur);
+                    $messageHelpdesk = \Swift_Message::newInstance()
+                            ->setSubject('Demande de matériel/logiciel ' . $donneesMessage['demandeur'])
+                            ->setFrom('noreply@groupe-nox.com')
+                            ->setTo($adresseHelpdesk)
+                            ->setBody(
+                            $this->renderView(
+                                    'Emails/demandeMateriel.html.twig', array('donneesMessage' => $donneesMessage)
+                            ), 'text/html'
+                    );
+                    $this->get('mailer')->send($messageHelpdesk);
 
-                $em->remove($demande);
-                $em->flush();
+                    $messageDemandeur = $messageDemandeur = \Swift_Message::newInstance()
+                            ->setSubject('Validation de votre demande de matériel')
+                            ->setFrom('noreply@groupe-nox.com')
+                            ->setTo($donneesMessage['emailDemandeur'])
+                            ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été validée par votre supérieur et transmise au service Helpdesk."
+                            , 'text/html'
+                    );
+                    $this->get('mailer')->send($messageDemandeur);
 
-                $request->getSession()->getFlashBag()->add('notice', "La demande de matériel de " . $donneesMessage['demandeur'] . " a été validée.");
-            } else {
-                $messageDemandeur = $messageDemandeur = \Swift_Message::newInstance()
-                        ->setSubject('Rejet de votre demande de matériel')
-                        ->setFrom('noreply@groupe-nox.com')
-                        ->setTo($donneesMessage['emailDemandeur'])
-                        ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été rejeté par votre supérieur."
-                        , 'text/html'
-                );
-                $this->get('mailer')->send($messageDemandeur);
+                    $em->remove($demande);
+                    $em->flush();
 
-                $em->remove($demande);
-                $em->flush();
+                    $request->getSession()->getFlashBag()->add('notice', "La demande de matériel de " . $donneesMessage['demandeur'] . " a été validée.");
+                } else {
+                    $messageDemandeur = $messageDemandeur = \Swift_Message::newInstance()
+                            ->setSubject('Rejet de votre demande de matériel')
+                            ->setFrom('noreply@groupe-nox.com')
+                            ->setTo($donneesMessage['emailDemandeur'])
+                            ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été rejeté par votre supérieur."
+                            , 'text/html'
+                    );
+                    $this->get('mailer')->send($messageDemandeur);
 
-                $request->getSession()->getFlashBag()->add('notice', "La demande de matériel de " . $donneesMessage['demandeur'] . " a été rejeté.");
+                    $em->remove($demande);
+                    $em->flush();
+
+                    $request->getSession()->getFlashBag()->add('notice', "La demande de matériel de " . $donneesMessage['demandeur'] . " a été rejeté.");
+                }
             }
         } else {
             $request->getSession()->getFlashBag()->add('notice', "Cette demande de matériel a déjà été traitée.");

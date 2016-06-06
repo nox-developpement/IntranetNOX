@@ -46,8 +46,6 @@ class PointageController extends Controller {
             $em->flush();
         }
 
-
-
         $form = $this->createFormBuilder($tableData)
                 ->add('Valider', SubmitType::class)
                 ->getForm();
@@ -547,13 +545,68 @@ class PointageController extends Controller {
     }
 
     // Compile les feuilles de pointages du mois courant validées par les assistantes.
-    public function compilationPointageAssistante() {
+    public function compilationPointageAssistanteAction(Request $request) {
         $em = $em = $this->getDoctrine()->getManager();
 
-        $month = getMonthAndYear()['month'];
-        $year = getMonthAndYear()['year'];
+        $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
+        for ($i = $this->getMonthAndYear()['year'] - 50; $i < $this->getMonthAndYear()['year'] + 50; $i++) {
+            $year[$i] = $i;
+        }
 
-        $pointagesAValider = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('status' => '2', 'month' => $month, 'year' => $year));
+        $form = $this->createFormBuilder()
+                ->add('Month', ChoiceType::class, array(
+                    'choices' => $month,
+                    'data' => $this->getMonthAndYear()['month']
+                ))
+                ->add('Year', ChoiceType::class, array(
+                    'choices' => $year,
+                    'data' => $this->getMonthAndYear()['year']
+                ))
+                ->add('Choisir', SubmitType::class)
+                ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $tableauCompilation = $em->getRepository('NoxIntranetPointageBundle:TableauPointage')->findOneBy(array('month' => $form->get('Month')->getData(), 'year' => $form->get('Year')->getData()));
+
+            $pointagesAValider = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('status' => '2', 'month' => $this->getMonthAndYear()['month'], 'year' => $this->getMonthAndYear()['year']));
+
+            $project = array();
+            $nbColumn = 0;
+
+            foreach ($pointagesAValider as $pointage) {
+                $project = array_merge(json_decode($pointage->getData(), true)['project'], $project);
+                $nbColumn = $nbColumn + json_decode($pointage->getData(), true)['nbProject'];
+                //$this->get('session')->getFlashBag()->add('notice', $nbProjet);
+            }
+
+            if (empty($tableauCompilation)) {
+                $tableauCompilation = new TableauCompilation();
+                $tableauCompilation->setMonth($form->get('Month')->getData());
+                $tableauCompilation->setYear($form->get('Year')->getData());
+                $tableauCompilation->setProject(json_encode($project));
+                $tableauCompilation->setNbColumn($nbColumn);
+                $tableauCompilation->setStatus('En attente');
+                $this->get('session')->getFlashBag()->add('notice', 'Les pointage de ' . $month[$form->get('Month')->getData()] . ' ' . $form->get('Year')->getData() . 'on été compilés');
+            } else if ($tableauCompilation->getStatus() === 'Refusé') {
+                $tableauCompilation->setProject(json_encode($project));
+                $tableauCompilation->setNbColumn($nbColumn);
+                $tableauCompilation->setStatus('En attente');
+                $this->get('session')->getFlashBag()->add('notice', 'Les pointage de ' . $month[$form->get('Month')->getData()] . ' ' . $form->get('Year')->getData() . 'on été compilés');
+            } else {
+                $this->get('session')->getFlashBag()->add('noticeErreur', 'Impossible de compiler, la compilation est en attente de validation ou a déjà été validés.');
+            }
+
+            $this->redirectToRoute('nox_intranet_pointage_compilation');
+        }
+
+        $formCompilationRefus = $this->createFormBuilder()
+                ->add('CompilationRefus', EntityType::class)
+                ->getForm();
+
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:compilationPointage.html.twig', array('form' => $form->createView(), 'formCompilationRefus' => $formCompilationRefus->createView()));
     }
 
 }

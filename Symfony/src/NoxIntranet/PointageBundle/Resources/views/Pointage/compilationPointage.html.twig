@@ -1,0 +1,34 @@
+{% extends "layout.html.twig" %}
+
+{% block titrePage %} Gestion pointage {% endblock %}
+
+{% block messageAccueil %}Gestion pointage{% endblock %}
+
+{% block contenu %}
+
+    <div id="pointageSelection">
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <fieldset>
+            <legend>Compilation des pointages</legend>
+            <div>
+                {{ form_label(form.Month, 'Mois') }} <br />
+                {{ form_errors(form.Month) }}
+                {{ form_widget(form.Month) }}
+            </div><!--
+    
+            --><div>
+                {{ form_label(form.Year, 'Année') }} <br />
+                {{ form_errors(form.Year) }}
+                {{ form_widget(form.Year) }}
+            </div>
+
+            <div>
+                {{ form_widget(form.Choisir, { 'label': 'Compiler les pointages','attr': {'class': 'boutonFormulaire'}}) }}
+            </div>
+        </fieldset>
+        {{ form_end(form) }}  
+    </div>
+
+{% endblock %}

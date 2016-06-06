@@ -5,16 +5,37 @@
 {% block messageAccueil %}Pointage{% endblock %}
 
 {% block contenu %}
+
+    <div id="pointageSelection">
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <fieldset>
+            <legend>Séléction de pointage</legend>
+            <div>
+                {{ form_label(form.Month, 'Mois') }} <br />
+                {{ form_errors(form.Month) }}
+                {{ form_widget(form.Month) }}
+            </div><!--
+    
+            --><div>
+                {{ form_label(form.Year, 'Année') }} <br />
+                {{ form_errors(form.Year) }}
+                {{ form_widget(form.Year) }}
+            </div>
+
+            <div>
+                {{ form_widget(form.Choisir) }}
+            </div>
+        </fieldset>
+        {{ form_end(form) }}  
+    </div>
+
     <div id='tableFeuillePointageDivContainerAdministratif'>
         <table id="tableFeuillePointage">
             <tr>
                 <td style="border: none;">
-                    <select id='pointage_month_selector' style="width: 100%;">
-                        {% set months = { 01: 'Janvier', 02: 'Février', 03: 'Mars', 04: 'Avril', 05: 'Mai', 06: 'Juin', 07: 'Juillet', 08: 'Août', 09: 'Septembre', 10: 'Octobre', 11: 'Novembre', 12: 'Décembre' } %}
-                        {% for index,month in months %}
-                            <option value="{{ index }}" {% if index == currentMonth %}selected{% endif %}>{{ month }}</option>  
-                        {% endfor %}
-                    </select>
+
                 </td>
                 <td id='operationnel' style="background: rgb(47,117,181); color: white; border-width: 1px;" colspan="2">OPERATIONNEL</td>       
             </tr>
@@ -37,17 +58,7 @@
                 <td style='border-width: 1px;'>%</td>
             </tr>
             {% set frenchDays = { 'Monday': 'Lundi', 'Tuesday': 'Mardi', 'Wednesday': 'Mercredi', 'Thursday': 'Jeudi', 'Friday': 'Vendredi', 'Saturday': 'Samedi', 'Sunday':'Dimanche' } %}
-            {% for date in monthDates %}
-                <tr>
-                    <td class='dayDateCell' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">{{ frenchDays[date|date('l')]}} {{ date|date('d') }}</td>
-                    <td class="projectPercentageCell project" {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% else %} contenteditable='true' {% endif %}></td>
-                    <td class="dailyTotalPercentageCell" style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">
-                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
-                            0.00
-                        {% endif %}
-                    </td>
-                </tr>        
-            {% endfor %}
+
             <tr>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
