@@ -273,13 +273,6 @@
 
     </div>
 
-    {{ form_start(formValidationCompilation) }}
-    {{ form_errors(formValidationCompilation) }}
-    <div>
-        {{ form_widget(formValidationCompilation.Validation, { 'label': 'Compiler les pointages','attr': {'class': 'boutonFormulaire'} }) }}
-    </div>
-    {{ form_end(formValidationCompilation) }}
-
     <script>
         $(window).load(function () {
             hidePointageTables();
@@ -329,7 +322,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_ajax_get_month_by_username') }}',
-                    data: {username: $('#form_User option:selected').text()},
+                    data: {username: $('#form_User option:selected').val()},
                     success: function (response) {
                         if (response.length > 2) {
                             var newOptions = JSON.parse(response);
@@ -357,7 +350,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_ajax_get_year_by_month_and_username') }}',
-                    data: {username: $('#form_User option:selected').text(), month: $('#form_Month option:selected').val()},
+                    data: {username: $('#form_User option:selected').val(), month: $('#form_Month option:selected').val()},
                     success: function (response) {
                         if (response.length > 2) {
                             var newOptions = JSON.parse(response);
@@ -426,7 +419,7 @@
                 url: '{{ path('nox_intranet_ajax_get_users_by_username') }}',
                 //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
 
-                data: {username: $('#form_User option:selected'), month: $('#form_Month option:selected'), year: $('#form_Year option:selected')},
+                data: {username: $('#form_User option:selected').val(), month: $('#form_Month option:selected').val(), year: $('#form_Year option:selected').val()},
                 //Enfin nous lui disons de remplir notre formulaire avec le resultat  
 
                 success: function (response) {
@@ -617,7 +610,7 @@
                 if ($('#form_User option:selected').val() !== '' && $('#form_Month option:selected').val() !== '' && $('#form_Year option:selected').val() !== '') {
                     deleteProjectColumn();
                     resetCellsValues();
-                    ajaxGetNewDate($('#form_User option:selected').text(), $('#form_Month option:selected').val(), $('#form_Year option:selected').val());
+                    ajaxGetNewDate($('#form_User option:selected').val(), $('#form_Month option:selected').val(), $('#form_Year option:selected').val());
                 }
             });
 

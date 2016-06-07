@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use NoxIntranet\PointageBundle\Entity\Tableau;
 use NoxIntranet\PointageBundle\Entity\TableauCompilation;
+use NoxIntranet\PointageBundle\Controller\AssistanteAgenceGetter;
+use NoxIntranet\PointageBundle\Controller\UsersAssistanteAgenceGetter;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityRepository;
@@ -295,85 +297,135 @@ class PointageController extends Controller {
 
     // Affiche un formulaire de séléction de l'utilisateur, du mois et de l'année.
     public function gestionPointageAction(Request $request) {
+
+        // Permet de lire les fichiers Excel.
+        include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
+
+        // Inisialisation des varibables de fonction.
+        $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
         $em = $this->getDoctrine()->getManager();
+        $excelRHFile = "C:/wamp/www/Symfony/Validation Manager WF RF MAJ NR 300516.xlsx";
 
-        $pointages = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
+        // Lis le fichier Excel de la RH et récupère le nom des assistantess d'agence.
+        function getAssistantesAgence($excelRHFile) {
+            $objReaderAssistantes = new \PHPExcel_Reader_Excel2007();
+            $objReaderAssistantes->setReadFilter(new AssistanteAgenceGetter());
+            $objPHPExcelAssistantes = $objReaderAssistantes->load($excelRHFile);
 
-        $users = array();
-
-        foreach ($pointages as $pointage) {
-            if (!in_array($pointage->getUser(), $users)) {
-                $users[$pointage->getUser()] = $pointage->getUser();
+            $assistantes = array();
+            foreach ($objPHPExcelAssistantes->getActiveSheet()->getCellCollection() as $cell) {
+                if (!in_array($objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue(), $assistantes)) {
+                    $assistantes[$objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue()] = $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue();
+                }
             }
+            $assistantes['Tristan BESSON'] = 'Tristan BESSON';
+
+            return $assistantes;
         }
 
-        sort($users);
+        // Vérifie que l'utilistateur est une assistante d'agence.
+        if (in_array($securityName, getAssistantesAgence($excelRHFile))) {
 
-        $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
-        $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
+            // Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante d'agence connectée.
+            function getUsersByAssistante($excelRHFile, $securityName, $em) {
+                $objReaderAssistantes = new \PHPExcel_Reader_Excel2007();
+                $objReaderAssistantes->setReadFilter(new AssistanteAgenceGetter());
+                $objPHPExcelAssistantes = $objReaderAssistantes->load($excelRHFile);
 
-        $monthDates = array();
+                $objReaderUsersAssistantes = new \PHPExcel_Reader_Excel2007();
+                $objPHPExcelUsersAssistantes = $objReaderUsersAssistantes->load($excelRHFile);
+                $usersAssistante = array();
+                foreach ($objPHPExcelAssistantes->getActiveSheet()->getCellCollection() as $cell) {
+                    if ($objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue() === $securityName) {
+                        $usersAssistante[$objPHPExcelUsersAssistantes->getActiveSheet()->getCell('E' . $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow())->getValue() . ' ' . $objPHPExcelUsersAssistantes->getActiveSheet()->getCell('D' . $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow())->getValue()]['firstname'] = $objPHPExcelUsersAssistantes->getActiveSheet()->getCell('E' . $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow())->getValue();
+                        $usersAssistante[$objPHPExcelUsersAssistantes->getActiveSheet()->getCell('E' . $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow())->getValue() . ' ' . $objPHPExcelUsersAssistantes->getActiveSheet()->getCell('D' . $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow())->getValue()]['lastname'] = $objPHPExcelUsersAssistantes->getActiveSheet()->getCell('D' . $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow())->getValue();
+                    }
+                }
 
-        $i = 0;
-        while (strtotime($date) <= strtotime($end_date)) {
-            $monthDates[$i] = strtotime($date);
-            $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
-            $i++;
-        }
+                $users = array();
+                foreach ($usersAssistante as $user) {
+                    //var_dump($user);
+                    //var_dump(ucfirst(strtolower($user['firstname'])) . ' ' . strtolower($user['firstname']));
+                    if (!empty($em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname'])))) {
+                        $users[$em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getUsername()] = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getFirstname() . ' ' . $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getLastname();
+                    }
+                }
 
-        $form = $this->createFormBuilder()
-                ->add('User', ChoiceType::class, array(
-                    'choices' => $users,
-                    'choices_as_values' => false,
-                    'placeholder' => 'Selectionnez un utilisateur',
-                    'attr' => array(
-                        'size' => 5
-                    )
-                ))
-                ->add('Month', ChoiceType::class, array(
-                    'placeholder' => 'Selectionnez le moi',
-                    'attr' => array(
-                        'disabled' => true
-                    )
-                ))
-                ->add('Year', ChoiceType::class, array(
-                    'placeholder' => 'Selectionnez l\'année',
-                    'attr' => array(
-                        'disabled' => true
-                    )
-                ))
-                ->getForm();
-
-        $formToCheckPointage = $this->createFormBuilder()
-                ->add('Pointage', EntityType::class, array(
-                    'class' => 'NoxIntranetPointageBundle:Tableau',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                                ->where("u.status = '1'")
-                                ->orderBy('u.user', 'ASC');
-                    },
-                    'choice_label' => 'user',
-                    'placeholder' => 'Pointage à valider',
-                    'attr' => array(
-                        'size' => 5
-                    )
-                ))
-                ->getForm();
-
-        $formValidationCompilation = $this->get('form.factory')->createNamedBuilder('formValidationCompilation')
-                ->add('Validation', SubmitType::class)
-                ->getForm();
-
-        if ($request->request->has('formValidationCompilation')) {
-            if ($formValidationCompilation->isValid()) {
-                $this->get('session')->getFlashBag()->add('notice', 'Les pointages ont été compilés.');
-
-                $this->redirectToRoute('nox_intranet_gestion_pointage');
+                return $users;
             }
-        }
 
-        return $this->render('NoxIntranetPointageBundle:Pointage:gestionPointage.html.twig', array('form' => $form->createView(), 'monthDates' => $monthDates, 'currentMonth' => $this->getMonthAndYear()['month'],
-                    'currentYear' => $this->getMonthAndYear()['year'], 'formToCheckPointage' => $formToCheckPointage->createView(), 'formValidationCompilation' => $formValidationCompilation->createView()));
+            $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
+            $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
+
+            $monthDates = array();
+
+            $i = 0;
+            while (strtotime($date) <= strtotime($end_date)) {
+                $monthDates[$i] = strtotime($date);
+                $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+                $i++;
+            }
+
+            $form = $this->createFormBuilder()
+                    ->add('User', ChoiceType::class, array(
+                        'choices' => getUsersByAssistante($excelRHFile, $securityName, $em),
+                        'choices_as_values' => false,
+                        'placeholder' => 'Selectionnez un utilisateur',
+                        'attr' => array(
+                            'size' => 5
+                        )
+                    ))
+                    ->add('Month', ChoiceType::class, array(
+                        'placeholder' => 'Selectionnez le moi',
+                        'attr' => array(
+                            'disabled' => true
+                        )
+                    ))
+                    ->add('Year', ChoiceType::class, array(
+                        'placeholder' => 'Selectionnez l\'année',
+                        'attr' => array(
+                            'disabled' => true
+                        )
+                    ))
+                    ->getForm();
+
+            $formToCheckPointage = $this->createFormBuilder()
+                    ->add('Pointage', EntityType::class, array(
+                        'class' => 'NoxIntranetPointageBundle:Tableau',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('u')
+                                    ->where("u.status = '1'")
+                                    ->orderBy('u.user', 'ASC');
+                        },
+                        'choice_label' => function($tableau) use ($em) {
+                            return $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($tableau->getUser())->getFirstname() . ' ' . $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($tableau->getUser())->getLastname();
+                        },
+                        'placeholder' => 'Pointage à valider',
+                        'attr' => array(
+                            'size' => 5
+                        )
+                    ))
+                    ->getForm();
+
+            $formValidationCompilation = $this->get('form.factory')->createNamedBuilder('formValidationCompilation')
+                    ->add('Validation', SubmitType::class)
+                    ->getForm();
+
+            if ($request->request->has('formValidationCompilation')) {
+                if ($formValidationCompilation->isValid()) {
+                    $this->get('session')->getFlashBag()->add('notice', 'Les pointages ont été compilés.');
+
+                    $this->redirectToRoute('nox_intranet_gestion_pointage');
+                }
+            }
+
+            return $this->render('NoxIntranetPointageBundle:Pointage:gestionPointage.html.twig', array('form' => $form->createView(), 'monthDates' => $monthDates,
+                        'currentMonth' => $this->getMonthAndYear()['month'], 'currentYear' => $this->getMonthAndYear()['year'],
+                        'formToCheckPointage' => $formToCheckPointage->createView(), 'formValidationCompilation' => $formValidationCompilation->createView()));
+        } else {
+            $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistantes d\'agence peuvent accéder  à cette espace.');
+            return $this->redirectToRoute('nox_intranet_accueil');
+        }
     }
 
     // Retourne les mois en fonction de l'utilisateur
@@ -579,7 +631,7 @@ class PointageController extends Controller {
             foreach ($pointagesAValider as $pointage) {
                 $project = array_merge(json_decode($pointage->getData(), true)['project'], $project);
                 $nbColumn = $nbColumn + json_decode($pointage->getData(), true)['nbProject'];
-                //$this->get('session')->getFlashBag()->add('notice', $nbProjet);
+//$this->get('session')->getFlashBag()->add('notice', $nbProjet);
             }
 
             if (empty($tableauCompilation)) {
