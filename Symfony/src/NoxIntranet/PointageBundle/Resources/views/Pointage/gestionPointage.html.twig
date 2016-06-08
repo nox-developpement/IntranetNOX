@@ -267,7 +267,7 @@
 
         <form action="#">
             <div>
-                <button type="button" id="form_Valider" name="form[Valider]" class="boutonFormulaire">Valider la feuille de pointage</button>
+                <button style='font-size: 1.5vw;' type="button" id="form_Valider" name="form[Valider]" class="boutonFormulaire">Valider la feuille de pointage</button>
             </div>
         </form>
 
@@ -335,11 +335,13 @@
                             $('#form_Month').removeAttr('disabled');
                         } else {
                             $('#form_Month').attr('disabled', true);
+                            $('#form_Year').attr('disabled', true);
                         }
                     }
                 });
             } else {
                 $('#form_Month').attr('disabled', true);
+                $('#form_Year').attr('disabled', true);
             }
         }
 
@@ -375,6 +377,8 @@
         // Récupère la liste d'utilisateurs en fonction du paramètre de la recherche.
         var request;
         function ajaxUsernameSearch() {
+            $('#form_Month').attr('disabled', true);
+            $('#form_Year').attr('disabled', true);
             if (typeof request !== 'undefined') {
                 request.abort();
             }
@@ -836,6 +840,13 @@
 
         // Vérifie le status de la feuille de pointage, colore la barre d'avancement en conséquence et vérouille la feuille si nécessaire.
         function ajaxGetPointageStatus(user, month, year) {
+            $('td[contenteditable=true]').css('cursor', 'initial');
+            $('td[contenteditable=true]').removeAttr('onkeydown');
+            $('select:not(#pointage_month_selector, #pointage_year_selector)').removeAttr('disabled');
+            $('#addProject').show();
+            $('.deleteColumn').show();
+            $('#form_Valider').show();
+
             $('.pointageStatusLine div').width('10%');
             $(".pointageStatusCircle").css('background-color', 'lightgrey');
             $(".pointageStatusCircle").filter(function () {
@@ -862,24 +873,16 @@
                         $('td[contenteditable=true]').css('cursor', 'default');
                         $('td[contenteditable=true]').attr('onkeydown', "return false");
                         $('select:not(#pointage_month_selector, #pointage_year_selector)').attr('disabled', 'disabled');
-                        $('.deleteColumn').remove();
+                        $('#addProject').hide();
+                        $('.deleteColumn').hide();
                         $('#form_Valider').hide();
                     } else {
-                        $('#form_Valider').show();
                         $('#form_Valider').click(function () {
                             if (confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.')) {
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '{{ path('nox_intranet_pointage_ajax_assistante_validation') }}',
-                                    data: {username: user, month: month, year: year},
-                                    success: function () {
-                                        location.reload();
-                                    }
-                                });
+                                ajaxPointageAssistanteAgenceValidation(user, month, year);
                             }
                         });
                         ajaxSaveData(user, month, year);
-
                     }
                 }
             });
@@ -948,6 +951,86 @@
                     });
                 });
             }
+        }
+
+        // Valide la feuille de pointage d'un collaborateur et sauvegarde les données d'absence
+        function ajaxPointageAssistanteAgenceValidation(user, month, year) {
+
+            // Retourne les absences du mois.
+            function getAbsences() {
+
+                var absences = {'matin': getAbscenceMatin(), 'am': getAbscenceAM()};
+
+                // Retourne les absences du matin par dates et les commentaires.
+                function getAbscenceMatin() {
+                    var absencesMatin = [];
+                    $('.abscenceMatinSelector').each(function () {
+                        var jour = $(this).siblings('.dayDateCell').text().slice(-2);
+                        var mois = $('#pointage_month_selector').val();
+                        if ($('#pointage_month_selector').val() < 10) {
+                            var mois = '0' + mois;
+                        }
+                        var annee = $('#pointage_year_selector').val();
+                        var absenceMatin = {};
+                        absenceMatin['valeur'] = $(this).children('select').val();
+                        absenceMatin['date'] = jour + '/' + mois + '/' + annee;
+                        absenceMatin['commentaires'] = $(this).siblings('.comments').text();
+                        absencesMatin.push(absenceMatin);
+                    });
+
+                    return absencesMatin;
+                }
+
+                // Retourne les absences de l'après-midi par dates.
+                function getAbscenceAM() {
+                    var absencesAM = [];
+                    $('.abscenceAMSelector').each(function () {
+                        var jour = $(this).siblings('.dayDateCell').text().slice(-2);
+                        var mois = $('#pointage_month_selector').val();
+                        if ($('#pointage_month_selector').val() < 10) {
+                            var mois = '0' + mois;
+                        }
+                        var annee = $('#pointage_year_selector').val();
+                        var absenceAM = {};
+                        absenceAM['valeur'] = $(this).children('select').val();
+                        absenceAM['date'] = jour + '/' + mois + '/' + annee;
+                        absencesAM.push(absenceAM);
+                    });
+
+                    return absencesAM;
+                }
+
+                return JSON.stringify(absences);
+            }
+
+            //Retourne le nombre total de titre repas du mois.
+            function getTitresRepas() {
+                return $('#titreRepasTotalNumber').text();
+            }
+
+            //Retourne le nombre total de forfaits déplacement du mois.
+            function getForfaitsDeplacement() {
+                return $('#ForfaitDeplacementTotalMontant').text();
+            }
+
+            //Retourne le nombre total de primes panier du mois.
+            function getPrimesPanier() {
+                return $('#PrimesPanierTotalNumber').text();
+            }
+
+            //Retourne le nombre total de titre de transport du mois.
+            function getTitreTransport() {
+                return $('#titreTransportTotalMontant').text();
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('nox_intranet_pointage_ajax_assistante_agence_validation') }}',
+                data: {username: user, month: month, year: year, absences: getAbsences(), titresRepas: getTitresRepas(), forfaitsDeplacement: getForfaitsDeplacement(), primesPanier: getPrimesPanier(), titreTransport: getTitreTransport()},
+                success: function () {
+                    //location.reload();
+                }
+            });
         }
 
         // Calcule et affiche le pourcentage total de chaque ligne de projets et vérifie la validité des donnnées.

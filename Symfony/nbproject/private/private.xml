@@ -4,12 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/PointageBundle/Resources/views/Pointage/pointage.html.twig</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/Controller/ExcelReadingController.php</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/PointageBundle/Resources/views/Pointage/pointageAdministratif.html.twig</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/PointageBundle/Resources/views/Pointage/compilationPointage.html.twig</file>
+            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/PointageBundle/Controller/PointageAjaxController.php</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/PointageBundle/Controller/PointageController.php</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/PointageBundle/Resources/config/routing.yml</file>
-            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/RessourcesBundle/Controller/AssistanteAgenceGetter.php</file>
             <file>file:/C:/wamp/www/Symfony/app/Resources/views/layout.html.twig</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/PointageBundle/Resources/views/Pointage/gestionPointage.html.twig</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/CommunicationBundle/Resources/public/css/style.css</file>

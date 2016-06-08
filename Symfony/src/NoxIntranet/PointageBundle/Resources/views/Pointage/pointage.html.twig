@@ -227,7 +227,7 @@
         {{ form_start(form) }}
         {{ form_errors(form) }}
         <div>
-            {{ form_widget(form.Valider, {'label': 'Valider la feuille de pointage', 'attr': {'class': 'boutonFormulaire'}}) }}
+            {{ form_widget(form.Valider, {'label': 'Valider la feuille de pointage', 'attr': {'class': 'boutonFormulaire', 'style': 'font-size: 1.5vw'}}) }}
         </div>
         {{ form_end(form) }}
     </div>
@@ -1113,6 +1113,13 @@
 
             // Vérifie le status de la feuille de pointage, colore la barre d'avancement en conséquence et vérouille la feuille si nécessaire.
             function ajaxGetPointageStatus() {
+                $('td[contenteditable=true]').css('cursor', 'initial');
+                $('td[contenteditable=true]').removeAttr('onkeydown');
+                $('select:not(#pointage_month_selector, #pointage_year_selector)').removeAttr('disabled');
+                $('#addProject').show();
+                $('.deleteColumn').show();
+                $('#form_Valider').show();
+
                 $('.pointageStatusLine div').width('10%');
                 $(".pointageStatusCircle").css('background-color', 'lightgrey');
                 $(".pointageStatusCircle").filter(function () {
@@ -1135,11 +1142,14 @@
                             return  $(this).attr("step") <= response;
                         }).css('background-color', 'green');
 
+                        alert(response);
+
                         if (response !== '0' && response !== '') {
                             $('td[contenteditable=true]').css('cursor', 'default');
                             $('td[contenteditable=true]').attr('onkeydown', "return false");
                             $('select:not(#pointage_month_selector, #pointage_year_selector)').attr('disabled', 'disabled');
-                            $('.deleteColumn').remove();
+                            $('#addProject').hide();
+                            $('.deleteColumn').hide();
                             $('#form_Valider').hide();
                         }
                     }

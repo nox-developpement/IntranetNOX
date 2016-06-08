@@ -4,15 +4,15 @@ nox_intranet_pointage:
     
 nox_intranet_pointage_ajax_set_date:
     path:     /ressources/pointage-ajax-set-date
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxSetDate}
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSetDate}
     
 nox_intranet_pointage_ajax_save_data:
     path:     /ressources/pointage-ajax-save-data
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxSaveData}
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveData}
     
 nox_intranet_pointage_ajax_get_data:
     path:     /ressources/pointage-ajax-get-data
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetData}
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetData}
     
 nox_intranet_pointage_administratif:
     path:     /ressources/pointage-administratif
@@ -20,39 +20,39 @@ nox_intranet_pointage_administratif:
     
 nox_intranet_pointage_administratif_ajax_get_data:
     path:     /ressources/pointage-administratif-ajax-get-data
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetDataAdministratif }
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetDataAdministratif }
     
-nox_intranet_gestion_pointage:
-    path:   /ressources/gestion-pointage
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:gestionPointage }
+nox_intranet_assistantes_agence_gestion_pointage:
+    path:   /ressources/assistantes-agence-gestion-pointages
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:assistantesAgenceGestionPointage }
     
 nox_intranet_ajax_get_month_by_username:
     path:   /ressources/ajax-get-month-by-username
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetMonthByUser }
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetMonthByUser }
    
 nox_intranet_ajax_get_year_by_month_and_username:
     path:   /ressources/ajax-get-year-by-month-and-username
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetYearByMonthAndUser }
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetYearByMonthAndUser }
     
 nox_intranet_ajax_get_users_by_username:
     path:   /ressources/ajax-get-users-by-username
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetUsersByUsername }
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetUsersByUsername }
     
 nox_intranet_pointage_ajax_get_data_by_username:
     path:     /ressources/pointage-ajax-get-data-by-username
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetDataByUsername }
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetDataByUsername }
     
 nox_intranet_pointage_ajax_get_status:
     path:     /ressources/pointage-ajax-get-status
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxGetPointageStatus }
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetPointageStatus }
     
 nox_intranet_pointage_ajax_set_date_by_pointage_number:
     path:     /ressources/pointage-ajax-set-date-by-pointage-number
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxSetDateByPointageNumber}
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSetDateByPointageNumber}
     
-nox_intranet_pointage_ajax_assistante_validation:
-    path:     /ressources/pointage-ajax-assistante-validation
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:ajaxAssistanteValidation}
+nox_intranet_pointage_ajax_assistante_agence_validation:
+    path:     /ressources/pointage-ajax-assistante-agence-validation
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxAssistanteValidation}
     
 nox_intranet_pointage_compilation:
     path:     /ressources/pointage-compilation
