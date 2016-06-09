@@ -1,8 +1,8 @@
 {% extends "layout.html.twig" %}
 
-{% block titrePage %} Gestion pointage {% endblock %}
+{% block titrePage %} Assistante agence: Validation pointages {% endblock %}
 
-{% block messageAccueil %}Gestion pointage{% endblock %}
+{% block messageAccueil %}Assistante agence: Validation pointages{% endblock %}
 
 {% block contenu %}
     <div id="pointageSelection">
@@ -270,7 +270,6 @@
                 <button style='font-size: 1.5vw;' type="button" id="form_Valider" name="form[Valider]" class="boutonFormulaire">Valider la feuille de pointage</button>
             </div>
         </form>
-
     </div>
 
     <script>
@@ -317,7 +316,16 @@
 
         // Récupère les mois en fonction du l'utilisateur.
         function ajaxGetMonthByUsername() {
-            $('#form_Month option:nth-child(n+2)').remove();
+            $('#form_Month').val('');
+            $('#form_Month').attr('disabled', true);
+            $('#form_Month option').filter(function () {
+                return $(this).attr('value') !== '';
+            }).remove();
+            $('#form_Year').val('');
+            $('#form_Year').attr('disabled', true);
+            $('#form_Year option').filter(function () {
+                return $(this).attr('value') !== '';
+            }).remove();
             if ($('#form_User option:selected').val() !== '') {
                 $.ajax({
                     type: 'POST',
@@ -611,6 +619,7 @@
         function getNewDate() {
 
             $('#form_User, #form_Month, #form_Year').change(function () {
+                $('#form_Pointage').val('');
                 if ($('#form_User option:selected').val() !== '' && $('#form_Month option:selected').val() !== '' && $('#form_Year option:selected').val() !== '') {
                     deleteProjectColumn();
                     resetCellsValues();
@@ -619,6 +628,17 @@
             });
 
             $('#form_Pointage').change(function () {
+                $('#form_User').val('');
+                $('#form_Month').val('');
+                $('#form_Month').attr('disabled', true);
+                $('#form_Month option').filter(function () {
+                    return $(this).attr('value') !== '';
+                }).remove();
+                $('#form_Year').val('');
+                $('#form_Year').attr('disabled', true);
+                $('#form_Year option').filter(function () {
+                    return $(this).attr('value') !== '';
+                }).remove();
                 deleteProjectColumn();
                 resetCellsValues();
                 ajaxGetNewDateByPointageNumber();
@@ -817,7 +837,6 @@
                             $('tr:nth-child(2)').find('.project').append("<img class='deleteColumn' src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'>");
                         }
 
-                        ajaxGetPointageStatus(user, month, year);
                         deleteProjectColumn();
                         tableEventHandler();
                         displayDailyProjectsTotalPercentage();
@@ -829,6 +848,7 @@
                         displayTotalAbscences();
                         displayTotalTitreTransport();
                         checkAbscencesTitreRepas();
+                        ajaxGetPointageStatus(user, month, year);
                     }
                 }
             }).done(function () {
@@ -842,7 +862,7 @@
         function ajaxGetPointageStatus(user, month, year) {
             $('td[contenteditable=true]').css('cursor', 'initial');
             $('td[contenteditable=true]').removeAttr('onkeydown');
-            $('select:not(#pointage_month_selector, #pointage_year_selector)').removeAttr('disabled');
+            $('select:not(#pointage_month_selector, #pointage_year_selector, #form_User, #form_Month, #form_Year, #form_Pointage)').removeAttr('disabled');
             $('#addProject').show();
             $('.deleteColumn').show();
             $('#form_Valider').show();
@@ -872,7 +892,7 @@
                     if (response !== '1' && response !== '') {
                         $('td[contenteditable=true]').css('cursor', 'default');
                         $('td[contenteditable=true]').attr('onkeydown', "return false");
-                        $('select:not(#pointage_month_selector, #pointage_year_selector)').attr('disabled', 'disabled');
+                        $('select:not(#pointage_month_selector, #pointage_year_selector, #form_User, #form_Month, #form_Year, #form_Pointage)').attr('disabled', 'disabled');
                         $('#addProject').hide();
                         $('.deleteColumn').hide();
                         $('#form_Valider').hide();
@@ -896,13 +916,13 @@
                     data['project'] = [];
                     data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
 
-                    $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
+                    $('#tableFeuillePointageDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project), #tableFeuillePointageTypesAbscencesDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                         data['contenteditable'][index] = $(this).text();
                         //$(this).css('background-color', 'orange');
                         //$(this).text(index);
                     });
 
-                    $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
+                    $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
                         data['select'][index] = $(this).val();
                         //$(this).css('background-color', 'orange');
                     });
@@ -920,20 +940,20 @@
                     });
                 });
 
-                $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector), #tableFeuillePointageTypesAbscencesDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').change(function () {
+                $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').change(function () {
                     var data = {};
                     data['contenteditable'] = [];
                     data['select'] = [];
                     data['project'] = [];
                     data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
 
-                    $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
+                    $('#tableFeuillePointageDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project), #tableFeuillePointageTypesAbscencesDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                         data['contenteditable'][index] = $(this).text();
                         //$(this).css('background-color', 'orange');
                         //$(this).text(index);
                     });
 
-                    $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
+                    $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
                         data['select'][index] = $(this).val();
                         //$(this).css('background-color', 'orange');
                     });
@@ -1028,7 +1048,7 @@
                 url: '{{ path('nox_intranet_pointage_ajax_assistante_agence_validation') }}',
                 data: {username: user, month: month, year: year, absences: getAbsences(), titresRepas: getTitresRepas(), forfaitsDeplacement: getForfaitsDeplacement(), primesPanier: getPrimesPanier(), titreTransport: getTitreTransport()},
                 success: function () {
-                    //location.reload();
+                    location.reload();
                 }
             });
         }
@@ -1141,7 +1161,7 @@
 
         // Calcule et affiche le nombre total de titres repas pour le mois courant.
         function displayMonthlyTotalTitresRepas() {
-            $('.titreRepasNumberSelector select').change(function () {
+            $('.titreRepasNumberSelector select, .abscenceMatinSelector select, .abscenceAMSelector select').change(function () {
                 var total = 0;
                 $('.titreRepasNumberSelector select').each(function () {
                     if ($(this).find('option:selected').val() !== '') {

@@ -17,7 +17,7 @@ class AssistanteAgenceGetter implements \PHPExcel_Reader_IReadFilter {
 
     public function readCell($column, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
-        if ($row > 5 && $column == 'G') {
+        if ($row > 5 && ($column == 'G' || $column == 'H' || $column == 'I')) {
             return true;
         }
         return false;

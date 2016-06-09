@@ -3068,3 +3068,26 @@ form[name='formValidationCompilation'] {
     border: none;
     text-align: center;
 }
+
+#compilationPointagesTable, #compilationPointagesTable th, #compilationPointagesTable td {
+    border: 1px solid black;
+}
+
+#compilationPointages {
+    width: 70%;
+    margin: auto;   
+}
+
+#compilationPointagesTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#compilationPointagesTable th {
+    color: white;
+    background-color: #1F4E79;
+}
+
+#compilationPointagesTable td {
+    text-align: center;
+}

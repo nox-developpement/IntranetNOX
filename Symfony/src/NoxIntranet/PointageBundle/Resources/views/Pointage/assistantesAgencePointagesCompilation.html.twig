@@ -1,0 +1,55 @@
+{% extends "layout.html.twig" %}
+
+{% block titrePage %} Assitante agence: Compilation des pointages {% endblock %}
+
+{% block messageAccueil %}Assitante agence: Compilation des pointages{% endblock %}
+
+{% block contenu %}
+
+    <div id="pointageSelection">
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <fieldset>
+            <legend>Compilation des pointages</legend>
+            <div>
+                {{ form_label(form.Month, 'Mois:') }}
+                {{ form_errors(form.Month) }}
+                {{ form_widget(form.Month) }}
+            </div><!--
+            --><div>
+                {{ form_label(form.Year, 'Année:') }}
+                {{ form_errors(form.Year) }}
+                {{ form_widget(form.Year) }}
+            </div>
+
+
+        </fieldset>
+        {{ form_end(form) }}  
+
+        <p>Nombre de pointage(s) non validé(s) : <a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}" style="color: red;">{{ nbPointageNonValide }}</a></p> 
+
+    </div>
+
+    <div id="compilationPointages">   
+        <table id="compilationPointagesTable">
+            {% for pointage in pointagesValides %}
+                <tr>
+                    <th id="compilationPointageNomPrenom">Nom/Prénom</th>
+                    <th id="compilationPointageTitresRepas">Titres repas</th>
+                    <th id="compilationPointageForfaitsDeplacement">Forfaits déplacement</th>
+                    <th id="compilationPointagePrimesPanier">Primes panier</th>
+                    <th id="compilationPointageTitreTransport">Titre transport</th>
+                </tr>
+                <tr class="pointageCompile">
+                    <td>{{ pointage.Lastname }} {{ pointage.Firstname }}</td>
+                    <td>{{ pointage.TitresRepas }}</td>
+                    <td>{{ pointage.ForfaitsDeplacement }} €</td>
+                    <td>{{ pointage.PrimesPanier }} €</td>
+                    <td>{{ pointage.TitreTransport }} €</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

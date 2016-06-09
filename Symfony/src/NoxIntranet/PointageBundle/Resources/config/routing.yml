@@ -55,5 +55,5 @@ nox_intranet_pointage_ajax_assistante_agence_validation:
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxAssistanteValidation}
     
 nox_intranet_pointage_compilation:
-    path:     /ressources/pointage-compilation
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationPointageAssistante}
+    path:     /ressources/assistantes-agence-pointages-compilation
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:assistantesAgencePointagesCompilation}
