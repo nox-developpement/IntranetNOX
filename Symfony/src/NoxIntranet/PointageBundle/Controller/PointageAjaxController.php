@@ -414,4 +414,91 @@ class PointageAjaxController extends Controller {
         }
     }
 
+    // Lis le fichier Excel de la RH et récupère le nom des assistantess d'agence.
+    function getAssistantesAgence($excelRHFile) {
+        $objReaderAssistantes = new \PHPExcel_Reader_Excel2007();
+        $objReaderAssistantes->setReadFilter(new AssistanteAgenceGetter());
+        $objPHPExcelAssistantes = $objReaderAssistantes->load($excelRHFile);
+
+        $assistantes = array();
+        foreach ($objPHPExcelAssistantes->getActiveSheet()->getCellCollection() as $cell) {
+            if (!in_array($objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue(), $assistantes)) {
+                $assistantes[$objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue()] = $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue();
+            }
+        }
+        $assistantes['Tristan BESSON'] = 'Tristan BESSON';
+
+        return $assistantes;
+    }
+
+    // Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante d'agence connectée.
+    function getUsersByAssistante($excelRHFile, $securityName, $em) {
+        $objReaderAssistantes = new \PHPExcel_Reader_Excel2007();
+        $objReaderAssistantes->setReadFilter(new AssistanteAgenceGetter());
+        $objPHPExcelAssistantes = $objReaderAssistantes->load($excelRHFile);
+
+        $objReaderUsersAssistantes = new \PHPExcel_Reader_Excel2007();
+        $objPHPExcelUsersAssistantes = $objReaderUsersAssistantes->load($excelRHFile);
+        $usersAssistante = array();
+        foreach ($objPHPExcelAssistantes->getActiveSheet()->getCellCollection() as $cell) {
+            if ($objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue() === $securityName) {
+                $usersAssistante[$objPHPExcelUsersAssistantes->getActiveSheet()->getCell('E' . $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow())->getValue() . ' ' . $objPHPExcelUsersAssistantes->getActiveSheet()->getCell('D' . $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow())->getValue()]['firstname'] = $objPHPExcelUsersAssistantes->getActiveSheet()->getCell('E' . $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow())->getValue();
+                $usersAssistante[$objPHPExcelUsersAssistantes->getActiveSheet()->getCell('E' . $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow())->getValue() . ' ' . $objPHPExcelUsersAssistantes->getActiveSheet()->getCell('D' . $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow())->getValue()]['lastname'] = $objPHPExcelUsersAssistantes->getActiveSheet()->getCell('D' . $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow())->getValue();
+            }
+        }
+
+        $users = array();
+        foreach ($usersAssistante as $user) {
+            if (!empty($em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname'])))) {
+                $users[$em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getUsername()] = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getFirstname() . ' ' . $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getLastname();
+            }
+        }
+
+        return $users;
+    }
+
+    public function ajaxGetAssistanceAgencePointageCompilationByMonthAndYearAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+
+            $month = $request->get('month');
+            $year = $request->get('year');
+
+            var_dump($month);
+            var_dump($year);
+
+            // Permet de lire les fichiers Excel.
+            include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
+
+            // Inisialisation des varibables de fonction.
+            $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+            $em = $this->getDoctrine()->getManager();
+            $excelRHFile = "C:/wamp/www/Symfony/Validation Manager WF RF MAJ NR 300516.xlsx";
+
+            // Retourne les pointages valides des collaborateurs de l'assistante d'agence.
+            function getPointagesValides($em, $users, $month, $year) {
+                //$pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $month, 'year' => $year));
+
+                $query = $em->createQueryBuilder()
+                        ->select('p')
+                        ->from('NoxIntranetPointageBundle:PointageValide', 'p')
+                        ->where('p.month = :month AND p.year = :year')
+                        ->setParameters(array('month' => $month, 'year' => $year))
+                        ->getQuery()
+                ;
+                $pointagesValides = $query->getArrayResult();
+
+                $pointages = array();
+                foreach ($pointagesValides as $pointage) {
+                    if (in_array($pointage['user'], array_keys($users))) {
+                        $pointages[] = $pointage;
+                    }
+                }
+
+                return $pointages;
+            }
+
+            return new Response(json_encode(getPointagesValides($em, $this->getUsersByAssistante($excelRHFile, $securityName, $em), $month, $year)));
+        }
+    }
+
 }

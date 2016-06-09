@@ -57,3 +57,7 @@ nox_intranet_pointage_ajax_assistante_agence_validation:
 nox_intranet_pointage_compilation:
     path:     /ressources/assistantes-agence-pointages-compilation
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:assistantesAgencePointagesCompilation}
+    
+nox_intranet_pointage_ajax_get_assistantes_agence_pointage_compilation_by_month_and_year:
+    path:   /ressources/ajax-get-assistantes-agence-pointage-compilation-by-month-and-year
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetAssistanceAgencePointageCompilationByMonthAndYear }

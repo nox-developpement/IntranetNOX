@@ -52,4 +52,31 @@
         </table>
     </div>
 
+    <script>
+        $(window).load(function () {
+            $('#form_Month, #form_Year').change(function () {
+                ajaxGetAssistanceAgencePointageCompilationByMonthAndYear();
+            });
+        });
+
+        function ajaxGetAssistanceAgencePointageCompilationByMonthAndYear() {
+            $.ajax({
+                //On lui indique le type d'envoie des informations
+
+                type: 'POST',
+                //On lui indique le chemin de la fonction
+
+                url: '{{ path('nox_intranet_pointage_ajax_get_assistantes_agence_pointage_compilation_by_month_and_year') }}',
+                //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
+
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val()},
+                //Enfin nous lui disons de remplir notre formulaire avec le resultat  
+
+                success: function (response) {
+                    alert(response);
+                }
+            });
+        }
+    </script>
+
 {% endblock %}
