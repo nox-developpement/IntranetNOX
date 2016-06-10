@@ -457,14 +457,12 @@ class PointageAjaxController extends Controller {
         return $users;
     }
 
+    // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
     public function ajaxGetAssistanceAgencePointageCompilationByMonthAndYearAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
 
             $month = $request->get('month');
             $year = $request->get('year');
-
-            var_dump($month);
-            var_dump($year);
 
             // Permet de lire les fichiers Excel.
             include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
@@ -490,6 +488,7 @@ class PointageAjaxController extends Controller {
                 $pointages = array();
                 foreach ($pointagesValides as $pointage) {
                     if (in_array($pointage['user'], array_keys($users))) {
+                        $pointage['absences'] = json_decode($pointage['absences'], true);
                         $pointages[] = $pointage;
                     }
                 }
@@ -498,6 +497,16 @@ class PointageAjaxController extends Controller {
             }
 
             return new Response(json_encode(getPointagesValides($em, $this->getUsersByAssistante($excelRHFile, $securityName, $em), $month, $year)));
+        }
+    }
+
+    public function ajaxSaveCompilationDataAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $username = $request->get('username');
+            $month = $request->get('month');
+            $year = $request->get('year');
+            $input = $request->get('input');
+            $value = $request->get('value');
         }
     }
 

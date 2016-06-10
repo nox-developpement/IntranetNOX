@@ -299,6 +299,7 @@ class PointageController extends Controller {
                 $pointages = array();
                 foreach ($pointagesValides as $pointage) {
                     if (in_array($pointage->getUser(), array_keys($users))) {
+                        $pointage->setAbsences(json_decode($pointage->getAbsences(), true));
                         $pointages[] = $pointage;
                     }
                 }
