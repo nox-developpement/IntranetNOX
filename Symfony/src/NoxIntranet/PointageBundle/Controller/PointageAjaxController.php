@@ -389,6 +389,7 @@ class PointageAjaxController extends Controller {
             $newPointageValide->setPrimespanier($primesPanier);
             $newPointageValide->setTitreTransport($titreTransport);
             $newPointageValide->setTitresRepas($titresRepas);
+            $newPointageValide->setStatus(2);
 
             $em->persist($newPointageValide);
             $em->flush();
@@ -479,8 +480,8 @@ class PointageAjaxController extends Controller {
                 $query = $em->createQueryBuilder()
                         ->select('p')
                         ->from('NoxIntranetPointageBundle:PointageValide', 'p')
-                        ->where('p.month = :month AND p.year = :year')
-                        ->setParameters(array('month' => $month, 'year' => $year))
+                        ->where('p.month = :month AND p.year = :year AND p.status = :status')
+                        ->setParameters(array('month' => $month, 'year' => $year, 'status' => 2))
                         ->getQuery()
                 ;
                 $pointagesValides = $query->getArrayResult();
@@ -500,6 +501,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
+    // Sauvegarde les modification sur les pointages en base de données.
     public function ajaxSaveCompilationDataAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $username = $request->get('username');
@@ -507,6 +509,41 @@ class PointageAjaxController extends Controller {
             $year = $request->get('year');
             $input = $request->get('input');
             $value = $request->get('value');
+
+            $em = $this->getDoctrine()->getManager();
+            $setter = "set" . ucwords($input);
+
+            $compilation = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
+            $compilation->$setter($value);
+            $em->persist($compilation);
+            $em->flush();
+
+            return new Response('Ok');
+        }
+    }
+
+    // Sauvegarde les modification sur les absences de pointages en base de données.
+    public function ajaxSaveCompilationAbsencesAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $username = $request->get('username');
+            $month = $request->get('month');
+            $year = $request->get('year');
+            $date = $request->get('date');
+            $data = $request->get('data');
+            $value = $request->get('value');
+
+            $em = $this->getDoctrine()->getManager();
+
+            $compilation = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
+
+            $abscences = json_decode($compilation->getAbsences(), true);
+
+            var_dump($abscences);
+
+            $em->persist($compilation);
+            $em->flush();
+
+            return new Response('Ok');
         }
     }
 

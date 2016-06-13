@@ -3073,16 +3073,16 @@ form[name='formValidationCompilation'] {
     border: 1px solid black;
 }
 
-#compilationPointagesTable tr {
-    background-color: white;
-}
-
 .compilationPointagesTableAbsences tr:nth-child(even) {
     background-color: white;
 }
 
 .compilationPointagesTableAbsences tr:nth-child(odd) {
     background-color: lightgoldenrodyellow;
+}
+
+tr {
+    background-color: white;
 }
 
 #compilationPointages {

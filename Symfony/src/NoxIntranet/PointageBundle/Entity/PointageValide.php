@@ -92,6 +92,13 @@ class PointageValide {
     private $titresRepas;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="Status", type="string", length=255)
+     */
+    private $status;
+
+    /**
      * Get id
      *
      * @return integer
@@ -276,7 +283,6 @@ class PointageValide {
         return $this->titresRepas;
     }
 
-
     /**
      * Set firstname
      *
@@ -284,8 +290,7 @@ class PointageValide {
      *
      * @return PointageValide
      */
-    public function setFirstname($firstname)
-    {
+    public function setFirstname($firstname) {
         $this->firstname = $firstname;
 
         return $this;
@@ -296,8 +301,7 @@ class PointageValide {
      *
      * @return string
      */
-    public function getFirstname()
-    {
+    public function getFirstname() {
         return $this->firstname;
     }
 
@@ -308,8 +312,7 @@ class PointageValide {
      *
      * @return PointageValide
      */
-    public function setLastname($lastname)
-    {
+    public function setLastname($lastname) {
         $this->lastname = $lastname;
 
         return $this;
@@ -320,8 +323,32 @@ class PointageValide {
      *
      * @return string
      */
-    public function getLastname()
-    {
+    public function getLastname() {
         return $this->lastname;
+    }
+
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return PointageValide
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

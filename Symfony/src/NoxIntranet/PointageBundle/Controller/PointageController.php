@@ -295,7 +295,21 @@ class PointageController extends Controller {
 
             // Retourne les pointages valides des collaborateurs de l'assistante d'agence.
             function getPointagesValides($em, $users, $context) {
-                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year']));
+                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 2));
+                $pointages = array();
+                foreach ($pointagesValides as $pointage) {
+                    if (in_array($pointage->getUser(), array_keys($users))) {
+                        $pointage->setAbsences(json_decode($pointage->getAbsences(), true));
+                        $pointages[] = $pointage;
+                    }
+                }
+
+                return $pointages;
+            }
+
+            // Retourne les pointages prêt à être compilés.
+            function getPointagesACompile($em, $users, $month, $year) {
+                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $month, 'year' => $year));
                 $pointages = array();
                 foreach ($pointagesValides as $pointage) {
                     if (in_array($pointage->getUser(), array_keys($users))) {
@@ -317,6 +331,25 @@ class PointageController extends Controller {
                         'data' => $this->getMonthAndYear()['year']
                     ))
                     ->getForm();
+
+
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+
+                $pointagesCompilation = getPointagesACompile($em, $this->getUsersByAssistante($excelRHFile, $securityName, $em), $form->get('Month')->getData(), $form->get('Year')->getData());
+
+                foreach ($pointagesCompilation as $pointage) {
+                    //var_dump($pointage);
+                    $pointage->setStatus(3);
+                    $pointage->setAbsences(json_encode($pointage->getAbsences(), true));
+                    $em->persist($pointage);
+                }
+
+                $em->flush();
+
+                return $this->redirectToRoute('nox_intranet_pointage_compilation');
+            }
 
 
             return $this->render('NoxIntranetPointageBundle:Pointage:assistantesAgencePointagesCompilation.html.twig', array('form' => $form->createView(),

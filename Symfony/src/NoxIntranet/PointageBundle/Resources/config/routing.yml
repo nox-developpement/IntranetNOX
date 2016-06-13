@@ -65,3 +65,7 @@ nox_intranet_pointage_ajax_get_assistantes_agence_pointage_compilation_by_month_
 nox_intranet_ajax_save_compilation_data:
     path:   /ressources/ajax-save-compilation-data
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveCompilationData }
+    
+nox_intranet_ajax_save_compilation_absences:
+    path:   /ressources/ajax-save-compilation-absences
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveCompilationAbsences }
