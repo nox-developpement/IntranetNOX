@@ -27,7 +27,7 @@
         </fieldset>
         {{ form_end(form) }}  
 
-        <p id="pointageAValideNumber">Nombre de pointage(s) collaborateurs non validé(s) : <a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}" style="color: red;">{{ nbPointageNonValide }}</a></p> 
+        <p id="pointageAValideNumber" style="font-size: 1vw;">Nombre de pointage(s) collaborateurs non validé(s) : <a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}" style="color: red;">{{ nbPointageNonValide }}</a></p> 
 
     </div>
 
@@ -123,7 +123,7 @@
 
         </div>
     {% else %}
-        <p style='text-align: center;'> Il n'y a aucun pointage à compiler. </p>
+        <p style='text-align: center; font-size: 1vw;'> Il n'y a aucun pointage à compiler. </p>
     {% endif %}
 
     <script>
@@ -131,7 +131,7 @@
             $('#form_Month, #form_Year').change(function () {
                 ajaxGetAssistanceAgencePointageCompilationByMonthAndYear();
             });
-            $('#form_Compilation').click( function() {
+            $('#form_Compilation').click(function () {
                 return(confirm('Confirmer la validation de la compilation ? Celle-ci ne sera plus modifiable.'));
             });
             absencesToggle();
