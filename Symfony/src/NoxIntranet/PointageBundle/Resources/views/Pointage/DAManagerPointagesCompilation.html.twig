@@ -1,8 +1,8 @@
 {% extends "layout.html.twig" %}
 
-{% block titrePage %} Assitante agence: Compilation des pointages {% endblock %}
+{% block titrePage %} DA/Manager: Compilation des pointages {% endblock %}
 
-{% block messageAccueil %}Assitante agence: Compilation des pointages{% endblock %}
+{% block messageAccueil %}DA/Manager: Compilation des pointages{% endblock %}
 
 {% block contenu %}
 
@@ -23,11 +23,8 @@
                 {{ form_widget(form.Year) }}
             </div>
 
-
         </fieldset>
-        {{ form_end(form) }}  
-
-        <p id="pointageAValideNumber">Nombre de pointage(s) collaborateurs non validé(s) : <a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}" style="color: red;">{{ nbPointageNonValide }}</a></p> 
+        {{ form_end(form) }}
 
     </div>
 
@@ -114,13 +111,12 @@
                 {% endfor %}
             </table>
 
-
-            {{ form_start(formValidation) }}
+            {{ form_start(formValidationRefus) }}
             <p style="text-align: center;">
-                {{ form_widget(formValidation.Compilation, {'label': 'Valider la compilation' , 'attr': {'class': 'boutonCompilation'} }) }}
+                {{ form_widget(formValidationRefus.Refus, {'label': 'Refuser la compilation', 'attr': {'class': 'boutonCompilation'} }) }}
+                {{ form_widget(formValidationRefus.Compilation, {'label': 'Valider la compilation' , 'attr': {'class': 'boutonCompilation'} }) }}
             </p>
-            {{ form_end(formValidation) }}
-
+            {{ form_end(formValidationRefus) }}
         </div>
     {% else %}
         <p style='text-align: center;'> Il n'y a aucun pointage à compiler. </p>
@@ -131,7 +127,7 @@
             $('#form_Month, #form_Year').change(function () {
                 ajaxGetAssistanceAgencePointageCompilationByMonthAndYear();
             });
-            $('#form_Compilation').click( function() {
+            $('#form_Compilation').click(function () {
                 return(confirm('Confirmer la validation de la compilation ? Celle-ci ne sera plus modifiable.'));
             });
             absencesToggle();
@@ -145,7 +141,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '{{ path('nox_intranet_pointage_ajax_get_assistantes_agence_pointage_compilation_by_month_and_year') }}',
+                url: '{{ path('nox_intranet_pointage_ajax_get_da_manager_pointage_compilation_by_month_and_year') }}',
                 data: {month: $('#form_Month').val(), year: $('#form_Year').val()},
                 success: function (response) {
                     var data = JSON.parse(response);
@@ -346,6 +342,7 @@
             $('#compilationPointagesTable td img').click(function () {
                 $(this).parent('td').parent('tr').next('tr').find($('.compilationPointagesTableAbsencesTd')).show();
                 $(this).parent('td').parent('tr').next('tr').find($('.compilationPointagesTableAbsencesDiv')).slideToggle(function () {
+                    //alert($(this).parent('.compilationPointagesTableAbsencesTd').css('display'));
                     if ($(this).css('display') === 'none') {
                         $(this).parent('.compilationPointagesTableAbsencesTd').hide();
                     }

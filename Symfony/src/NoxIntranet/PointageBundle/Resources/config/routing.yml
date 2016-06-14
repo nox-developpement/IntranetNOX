@@ -54,7 +54,7 @@ nox_intranet_pointage_ajax_assistante_agence_validation:
     path:     /ressources/pointage-ajax-assistante-agence-validation
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxAssistanteValidation}
     
-nox_intranet_pointage_compilation:
+nox_intranet_assistantes_agence_pointage_compilation:
     path:     /ressources/assistantes-agence-pointages-compilation
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:assistantesAgencePointagesCompilation}
     
@@ -69,3 +69,11 @@ nox_intranet_ajax_save_compilation_data:
 nox_intranet_ajax_save_compilation_absences:
     path:   /ressources/ajax-save-compilation-absences
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveCompilationAbsences }
+    
+nox_intranet_da_manager_pointage_compilation:
+    path:     /ressources/da-manager-pointages-compilation
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:DAManagerPointagesCompilation}
+    
+nox_intranet_pointage_ajax_get_da_manager_pointage_compilation_by_month_and_year:
+    path:   /ressources/ajax-get-da-manager-pointage-compilation-by-month-and-year
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetDAManagerPointageCompilationByMonthAndYear }

@@ -8,15 +8,10 @@
 
 namespace NoxIntranet\PointageBundle\Controller;
 
-/**
- * Description of AssistanteAgenceGetter
- *
- * @author t.besson
- */
-class AssistanteAgenceGetter implements \PHPExcel_Reader_IReadFilter {
+class DAManagerGetter implements \PHPExcel_Reader_IReadFilter {
 
     public function readCell($column, $row, $worksheetName = '') {
-        if ($row > 5 && ($column == 'G' || $column == 'H' || $column == 'I')) {
+        if ($row > 5 && ($column == 'H' || $column == 'I')) {
             return true;
         }
         return false;
