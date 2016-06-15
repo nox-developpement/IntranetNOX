@@ -644,7 +644,6 @@
                 ajaxGetNewDateByPointageNumber();
             });
 
-
             // Supprime les colonnes existantes de projets suplémentaires et rétablie le colspan de "Operationnel" à 2.
             function deleteProjectColumn() {
 
@@ -671,6 +670,24 @@
                     url: '{{ path('nox_intranet_pointage_ajax_set_date') }}',
                     data: {month: $('#form_Month option:selected').val(), year: $('#form_Year option:selected').val()},
                     success: function (response) {
+
+                        // Ajout/supprime des lignes en fonction du nombre de jours du mois.
+                        if ($('.dayDateCell').length !== response.length) {
+                            var difference = response.length - $('.dayDateCell').length;
+                            if (difference > 0) {
+                                for (var i = 0; i < difference; i++) {
+                                    var lastTr = $('.dayDateCell').last().parent('tr');
+                                    lastTr.after(lastTr.clone());
+                                }
+                            } else if (difference < 0) {
+                                for (var i = 0; i < Math.abs(difference); i++) {
+                                    var lastTr = $('.dayDateCell').last().parent('tr');
+                                    lastTr.remove();
+                                }
+                            }
+                        }
+
+                        // Pour chaque ligne, remplace la date et remplis les cellules avec les valeurs sauvegardées.
                         $('.dayDateCell').each(function (index) {
                             $(this).transition({
                                 rotateX: '360deg'
@@ -721,6 +738,23 @@
                     url: '{{ path('nox_intranet_pointage_ajax_set_date_by_pointage_number') }}',
                     data: {pointageNumber: $('#form_Pointage option:selected').val()},
                     success: function (response) {
+
+                        // Ajout/supprime des lignes en fonction du nombre de jours du mois.
+                        if ($('.dayDateCell').length !== response.length) {
+                            var difference = response.length - $('.dayDateCell').length;
+                            if (difference > 0) {
+                                for (var i = 0; i < difference; i++) {
+                                    var lastTr = $('.dayDateCell').last().parent('tr');
+                                    lastTr.after(lastTr.clone());
+                                }
+                            } else if (difference < 0) {
+                                for (var i = 0; i < Math.abs(difference); i++) {
+                                    var lastTr = $('.dayDateCell').last().parent('tr');
+                                    lastTr.remove();
+                                }
+                            }
+                        }
+
                         $('.dayDateCell').each(function (index) {
                             $(this).transition({
                                 rotateX: '360deg'

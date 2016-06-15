@@ -77,3 +77,11 @@ nox_intranet_da_manager_pointage_compilation:
 nox_intranet_pointage_ajax_get_da_manager_pointage_compilation_by_month_and_year:
     path:   /ressources/ajax-get-da-manager-pointage-compilation-by-month-and-year
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetDAManagerPointageCompilationByMonthAndYear }
+    
+nox_intranet_assistantes_rh_pointage_compilation:
+    path:     /ressources/assistantes-rh-pointages-compilation
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:assistantesRHPointagesCompilation}
+    
+nox_intranet_pointage_ajax_get_assistantes_rh_pointage_compilation_by_month_and_year:
+    path:   /ressources/ajax-get-assistantes-rh-pointage-compilation-by-month-and-year
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetAssistantesRHPointageCompilationByMonthAndYear }

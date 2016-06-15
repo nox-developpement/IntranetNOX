@@ -6,7 +6,7 @@
 
 {% block contenu %}
 
-    <div id="pointageSelection">
+    <div class="pointageSelectionDateCompilation">
 
         {{ form_start(form) }}
         {{ form_errors(form) }}
@@ -28,108 +28,117 @@
 
     </div>
 
-    {% if pointagesValides is not empty %}
-        <div id="compilationPointages">   
-            <table id="compilationPointagesTable">
-                <tr>
-                    <th id="compilationPointageNomPrenom">Nom/Prénom</th>
-                    <th id="compilationPointageTitresRepas">Titres repas</th>
-                    <th id="compilationPointageForfaitsDeplacement">Forfaits déplacement</th>
-                    <th id="compilationPointagePrimesPanier">Primes panier</th>
-                    <th id="compilationPointageTitreTransport">Titre transport</th>
-                    <th>Absences</th>
+    <div id="compilationPointages">   
+        <table id="compilationPointagesTable">
+            <tr>
+                <th id="compilationPointageNomPrenom">Nom/Prénom</th>
+                <th id="compilationPointageTitresRepas">Titres repas</th>
+                <th id="compilationPointageForfaitsDeplacement">Forfaits déplacement</th>
+                <th id="compilationPointagePrimesPanier">Primes panier</th>
+                <th id="compilationPointageTitreTransport">Titre transport</th>
+                <th>Absences</th>
+            </tr>
+            {% for pointage in pointagesValides %}
+                <tr class="pointageCompile" username='{{ pointage.User }}'>
+                    <td>{{ pointage.Lastname }} {{ pointage.Firstname }}</td>
+                    <td><input style='text-align: center; max-width: 30%;' type="number" name="TitresRepas" step='1' min='0' value='{{ pointage.TitresRepas }}'></td>
+                    <td><input style='text-align: center; max-width: 30%;' type="number" name="ForfaitsDeplacement" step='0.01' min='0' value='{{ pointage.ForfaitsDeplacement }}'> €</td>
+                    <td><input style='text-align: center; max-width: 30%;' type="number" name="PrimesPanier" min='0' step='0.01' value='{{ pointage.PrimesPanier }}'> €</td>
+                    <td><input style='text-align: center; max-width: 30%;' type="number" name="TitreTransport" min='0' step='0.01' value='{{ pointage.TitreTransport }}'> €</td>
+                    <td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>
                 </tr>
-                {% for pointage in pointagesValides %}
-                    <tr class="pointageCompile" username='{{ pointage.User }}'>
-                        <td>{{ pointage.Lastname }} {{ pointage.Firstname }}</td>
-                        <td><input style='text-align: center; max-width: 30%;' type="number" name="TitresRepas" step='1' min='0' value='{{ pointage.TitresRepas }}'></td>
-                        <td><input style='text-align: center; max-width: 30%;' type="number" name="ForfaitsDeplacement" step='0.01' min='0' value='{{ pointage.ForfaitsDeplacement }}'> €</td>
-                        <td><input style='text-align: center; max-width: 30%;' type="number" name="PrimesPanier" min='0' step='0.01' value='{{ pointage.PrimesPanier }}'> €</td>
-                        <td><input style='text-align: center; max-width: 30%;' type="number" name="TitreTransport" min='0' step='0.01' value='{{ pointage.TitreTransport }}'> €</td>
-                        <td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" style='background-color: white; border-right: none;' class='compilationPointagesTableAbsencesTd'>
-                            <div class="compilationPointagesTableAbsencesDiv">
-                                <table class='compilationPointagesTableAbsences'>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Abscence matin</th>
-                                        <th>Abscence après-midi</th>
-                                        <th>Commentaires</th>
+                <tr>
+                    <td colspan="6" style='background-color: white; border-right: none;' class='compilationPointagesTableAbsencesTd'>
+                        <div class="compilationPointagesTableAbsencesDiv">
+                            <table class='compilationPointagesTableAbsences'>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Abscence matin</th>
+                                    <th>Abscence après-midi</th>
+                                    <th>Commentaires</th>
+                                </tr>
+                                {% for absenceMatin in pointage.Absences['matin'] %}
+                                    <tr date="{{ absenceMatin['date'] }}">
+                                        <td>{{ absenceMatin['date'] }}</td>
+                                        <td class="compilationAbscenceMatin" data="matin">
+                                            <select>
+                                                <option value='' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == '' %}selected{% endif %}></option>
+                                                <option value='AA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AA' %}selected{% endif %}>AA</option>
+                                                <option value='TJ' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'TJ' %}selected{% endif %}>TJ</option>
+                                                <option value='AT' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AT' %}selected{% endif %}>AT</option>
+                                                <option value='MT' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'MT' %}selected{% endif %}>MT</option>
+                                                <option value='PA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'PA' %}selected{% endif %}>PA</option>
+                                                <option value='CS' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'CS' %}selected{% endif %}>CS</option>
+                                                <option value='CP' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'CP' %}selected{% endif %}>CP</option>
+                                                <option value='AV' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AV' %}selected{% endif %}>AV</option>
+                                                <option value='JS' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'JS' %}selected{% endif %}>JS</option>
+                                                <option value='MA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'MA' %}selected{% endif %}>MA</option>
+                                                <option value='PM' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'PM' %}selected{% endif %}>PM</option>
+                                                <option value='RE' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'RE' %}selected{% endif %}>RE</option>
+                                                <option value='Autre' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'Autre' %}selected{% endif %}>Autre</option>
+                                            </select>
+                                        </td>
+                                        <td class="compilationAbsenceAM" data="am">
+                                            <select>
+                                                <option value='' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == '' %}selected{% endif %}></option>
+                                                <option value='AA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AA' %}selected{% endif %}>AA</option>
+                                                <option value='TJ' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'TJ' %}selected{% endif %}>TJ</option>
+                                                <option value='AT' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AT' %}selected{% endif %}>AT</option>
+                                                <option value='MT' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'MT' %}selected{% endif %}>MT</option>
+                                                <option value='PA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'PA' %}selected{% endif %}>PA</option>
+                                                <option value='CS' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'CS' %}selected{% endif %}>CS</option>
+                                                <option value='CP' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'CP' %}selected{% endif %}>CP</option>
+                                                <option value='AV' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AV' %}selected{% endif %}>AV</option>
+                                                <option value='JS' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'JS' %}selected{% endif %}>JS</option>
+                                                <option value='MA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'MA' %}selected{% endif %}>MA</option>
+                                                <option value='PM' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'PM' %}selected{% endif %}>PM</option>
+                                                <option value='RE' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'RE' %}selected{% endif %}>RE</option>
+                                                <option value='Autre' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'Autre' %}selected{% endif %}>Autre</option>
+                                            </select>
+                                        </td>
+                                        <td class="compilationAbsenceCommentaire" data="commentaires" contenteditable=true>
+                                            {% if absenceMatin['commentaires'] is defined %}
+                                                {{ absenceMatin['commentaires'] }}
+                                            {% endif %}
+                                        </td>
                                     </tr>
-                                    {% for absenceMatin in pointage.Absences['matin'] %}
-                                        <tr date="{{ absenceMatin['date'] }}">
-                                            <td>{{ absenceMatin['date'] }}</td>
-                                            <td class="compilationAbscenceMatin" data="matin">
-                                                <select>
-                                                    <option value='' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == '' %}selected{% endif %}></option>
-                                                    <option value='AA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AA' %}selected{% endif %}>AA</option>
-                                                    <option value='TJ' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'TJ' %}selected{% endif %}>TJ</option>
-                                                    <option value='AT' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AT' %}selected{% endif %}>AT</option>
-                                                    <option value='MT' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'MT' %}selected{% endif %}>MT</option>
-                                                    <option value='PA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'PA' %}selected{% endif %}>PA</option>
-                                                    <option value='CS' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'CS' %}selected{% endif %}>CS</option>
-                                                    <option value='CP' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'CP' %}selected{% endif %}>CP</option>
-                                                    <option value='AV' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AV' %}selected{% endif %}>AV</option>
-                                                    <option value='JS' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'JS' %}selected{% endif %}>JS</option>
-                                                    <option value='MA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'MA' %}selected{% endif %}>MA</option>
-                                                    <option value='PM' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'PM' %}selected{% endif %}>PM</option>
-                                                    <option value='RE' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'RE' %}selected{% endif %}>RE</option>
-                                                    <option value='Autre' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'Autre' %}selected{% endif %}>Autre</option>
-                                                </select>
-                                            </td>
-                                            <td class="compilationAbsenceAM" data="am">
-                                                <select>
-                                                    <option value='' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == '' %}selected{% endif %}></option>
-                                                    <option value='AA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AA' %}selected{% endif %}>AA</option>
-                                                    <option value='TJ' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'TJ' %}selected{% endif %}>TJ</option>
-                                                    <option value='AT' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AT' %}selected{% endif %}>AT</option>
-                                                    <option value='MT' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'MT' %}selected{% endif %}>MT</option>
-                                                    <option value='PA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'PA' %}selected{% endif %}>PA</option>
-                                                    <option value='CS' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'CS' %}selected{% endif %}>CS</option>
-                                                    <option value='CP' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'CP' %}selected{% endif %}>CP</option>
-                                                    <option value='AV' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AV' %}selected{% endif %}>AV</option>
-                                                    <option value='JS' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'JS' %}selected{% endif %}>JS</option>
-                                                    <option value='MA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'MA' %}selected{% endif %}>MA</option>
-                                                    <option value='PM' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'PM' %}selected{% endif %}>PM</option>
-                                                    <option value='RE' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'RE' %}selected{% endif %}>RE</option>
-                                                    <option value='Autre' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'Autre' %}selected{% endif %}>Autre</option>
-                                                </select>
-                                            </td>
-                                            <td class="compilationAbsenceCommentaire" data="commentaires" contenteditable=true>
-                                                {% if absenceMatin['commentaires'] is defined %}
-                                                    {{ absenceMatin['commentaires'] }}
-                                                {% endif %}
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                </table>
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
 
-            {{ form_start(formValidationRefus) }}
-            <p style="text-align: center;">
-                {{ form_widget(formValidationRefus.Refus, {'label': 'Refuser la compilation', 'attr': {'class': 'boutonCompilation'} }) }}
-                {{ form_widget(formValidationRefus.Compilation, {'label': 'Valider la compilation' , 'attr': {'class': 'boutonCompilation'} }) }}
-            </p>
-            {{ form_end(formValidationRefus) }}
-        </div>
-    {% else %}
-        <p style='text-align: center; font-size: 1vw;'> Il n'y a aucun pointage à compiler. </p>
-    {% endif %}
+        {{ form_start(formValidationRefus) }}
+        <p style="text-align: center;">
+            {{ form_widget(formValidationRefus.Refus, {'label': 'Refuser la compilation', 'attr': {'class': 'boutonCompilation'} }) }}
+            {{ form_widget(formValidationRefus.Compilation, {'label': 'Valider la compilation' , 'attr': {'class': 'boutonCompilation'} }) }}
+        </p>
+        {{ form_end(formValidationRefus) }}
+    </div>
+
+    <p style='text-align: center; font-size: 1vw;' id='aucunPointageParagraphe'> Il n'y a aucun pointage à compiler. </p>
 
     <script>
         $(window).load(function () {
+            // Affiche/cache le tableau et le message d'absence de pointage en fonction du nombre de pointage.
+            if ({{ pointagesValides|length }} > 0) {
+                pointageShow();
+            } else {
+                pointageHide();
+            }
+
+            // Execute la fonction de récupération des pointages lorsque qu'un(e) mois/année est sélectionné(e).
             $('#form_Month, #form_Year').change(function () {
                 ajaxGetAssistanceAgencePointageCompilationByMonthAndYear();
             });
+
+            // Affiche un message de confirmation lors du clique sur le bouton de compilation.
             $('#form_Compilation').click(function () {
                 return(confirm('Confirmer la validation de la compilation ? Celle-ci ne sera plus modifiable.'));
             });
+
             absencesToggle();
             ajaxSaveCompilationData();
         });
@@ -146,193 +155,198 @@
                 success: function (response) {
                     var data = JSON.parse(response);
 
-                    var newHtmlContent = "";
-                    $.each(data, function (index) {
-                        newHtmlContent += "<tr class='pointageCompile' username='" + data[index].user + "'>";
-                        newHtmlContent += "<td>" + data[index].lastname + ' ' + data[index].firstname + "</td>";
-                        newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titresRepas' step='1' min='0' value='" + data[index].titresRepas + "'></td>";
-                        newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='forfaitsDeplacement' step='0.01' min='0' value='" + data[index].forfaitsDeplacement + "'></td>";
-                        newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='primesPanier' min='0' step='0.01' value='" + data[index].primesPanier + "'></td>";
-                        newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titreTransport' min='0' step='0.01' value='" + data[index].titreTransport + "'></td>";
-                        newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
-                        newHtmlContent += "</tr>";
-                        newHtmlContent += "<tr>";
-                        newHtmlContent += "<td colspan='6' style='background-color: white; border-right: none; padding-bottom: 3%;' class='compilationPointagesTableAbsencesTd'>";
-                        newHtmlContent += "<div class='compilationPointagesTableAbsencesDiv'>";
-                        newHtmlContent += "<table class='compilationPointagesTableAbsences'>";
-                        newHtmlContent += "<tr>";
-                        newHtmlContent += "<th>Date</th>";
-                        newHtmlContent += "<th>Abscence matin</th>";
-                        newHtmlContent += "<th>Abscence après-midi</th>";
-                        newHtmlContent += "<th>Commentaires</th>";
-                        newHtmlContent += "</tr>";
-                        $.each(data[index].absences.matin, function (indexAbsences) {
-                            newHtmlContent += "<tr date='" + data[index].absences.matin[indexAbsences].date + "'>";
-                            newHtmlContent += "<td>" + data[index].absences.matin[indexAbsences].date + "</td>";
-                            newHtmlContent += "<td class='compilationAbscenceMatin' data='matin'>";
-                            newHtmlContent += "<select>";
-                            newHtmlContent += "<option value='' ";
-                            if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === '') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '></option>';
-                            newHtmlContent += "<option value='AA' ";
-                            if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AA') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>AA</option>';
-                            newHtmlContent += "<option value='TJ' ";
-                            if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'TJ') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>TJ</option>';
-                            newHtmlContent += "<option value='AT' ";
-                            if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AT') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>AT</option>';
-                            newHtmlContent += "<option value='MT' ";
-                            if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'MT') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>MT</option>';
-                            newHtmlContent += "<option value='PA' ";
-                            if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'PA') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>PA</option>';
-                            newHtmlContent += "<option value='CS' ";
-                            if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'CS') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>CS</option>';
-                            newHtmlContent += "<option value='CP' ";
-                            if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'CP') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>CP</option>';
-                            newHtmlContent += "<option value='AV' ";
-                            if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AV') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>AV</option>';
-                            newHtmlContent += "<option value='JS' ";
-                            if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'JS') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>JS</option>';
-                            newHtmlContent += "<option value='MA' ";
-                            if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'MA') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>MA</option>';
-                            newHtmlContent += "<option value='PM' ";
-                            if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'PM') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>PM</option>';
-                            newHtmlContent += "<option value='RE' ";
-                            if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'RE') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>RE</option>';
-                            newHtmlContent += "<option value='Autre' ";
-                            if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'Autre') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>Autre</option>';
-                            newHtmlContent += '</select>';
-                            newHtmlContent += '</td>';
-                            newHtmlContent += "<td class='compilationAbsenceAM' data='am'>";
-                            newHtmlContent += "<select>";
-                            newHtmlContent += "<option value='' ";
-                            if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === '') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '></option>';
-                            newHtmlContent += "<option value='AA' ";
-                            if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AA') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>AA</option>';
-                            newHtmlContent += "<option value='TJ' ";
-                            if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'TJ') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>TJ</option>';
-                            newHtmlContent += "<option value='AT' ";
-                            if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AT') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>AT</option>';
-                            newHtmlContent += "<option value='MT' ";
-                            if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'MT') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>MT</option>';
-                            newHtmlContent += "<option value='PA' ";
-                            if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'PA') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>PA</option>';
-                            newHtmlContent += "<option value='CS' ";
-                            if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'CS') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>CS</option>';
-                            newHtmlContent += "<option value='CP' ";
-                            if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'CP') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>CP</option>';
-                            newHtmlContent += "<option value='AV' ";
-                            if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AV') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>AV</option>';
-                            newHtmlContent += "<option value='JS' ";
-                            if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'JS') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>JS</option>';
-                            newHtmlContent += "<option value='MA' ";
-                            if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'MA') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>MA</option>';
-                            newHtmlContent += "<option value='PM' ";
-                            if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'PM') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>PM</option>';
-                            newHtmlContent += "<option value='RE' ";
-                            if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'RE') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>RE</option>';
-                            newHtmlContent += "<option value='Autre' ";
-                            if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'Autre') {
-                                newHtmlContent += "selected";
-                            }
-                            newHtmlContent += '>Autre</option>';
-                            newHtmlContent += '</select>';
-                            newHtmlContent += '</td>';
-                            if (data[index].absences.matin[indexAbsences].commentaires !== undefined) {
-                                newHtmlContent += "<td class='compilationAbsenceCommentaire' data='commentaires' contenteditable=true>" + data[index].absences.matin[indexAbsences].commentaires + "</td>";
-                            } else {
-                                newHtmlContent += "<td class='compilationAbsenceCommentaire' data='commentaires' contenteditable=true></td>";
-                            }
+                    if (data.length) {
+                        var newHtmlContent = "";
+                        $.each(data, function (index) {
+                            newHtmlContent += "<tr class='pointageCompile' username='" + data[index].user + "'>";
+                            newHtmlContent += "<td>" + data[index].lastname + ' ' + data[index].firstname + "</td>";
+                            newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titresRepas' step='1' min='0' value='" + data[index].titresRepas + "'></td>";
+                            newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='forfaitsDeplacement' step='0.01' min='0' value='" + data[index].forfaitsDeplacement + "'></td>";
+                            newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='primesPanier' min='0' step='0.01' value='" + data[index].primesPanier + "'></td>";
+                            newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titreTransport' min='0' step='0.01' value='" + data[index].titreTransport + "'></td>";
+                            newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
+                            newHtmlContent += "</tr>";
+                            newHtmlContent += "<tr>";
+                            newHtmlContent += "<td colspan='6' style='background-color: white; border-right: none; padding-bottom: 3%;' class='compilationPointagesTableAbsencesTd'>";
+                            newHtmlContent += "<div class='compilationPointagesTableAbsencesDiv'>";
+                            newHtmlContent += "<table class='compilationPointagesTableAbsences'>";
+                            newHtmlContent += "<tr>";
+                            newHtmlContent += "<th>Date</th>";
+                            newHtmlContent += "<th>Abscence matin</th>";
+                            newHtmlContent += "<th>Abscence après-midi</th>";
+                            newHtmlContent += "<th>Commentaires</th>";
+                            newHtmlContent += "</tr>";
+                            $.each(data[index].absences.matin, function (indexAbsences) {
+                                newHtmlContent += "<tr date='" + data[index].absences.matin[indexAbsences].date + "'>";
+                                newHtmlContent += "<td>" + data[index].absences.matin[indexAbsences].date + "</td>";
+                                newHtmlContent += "<td class='compilationAbscenceMatin' data='matin'>";
+                                newHtmlContent += "<select>";
+                                newHtmlContent += "<option value='' ";
+                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === '') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '></option>';
+                                newHtmlContent += "<option value='AA' ";
+                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AA') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>AA</option>';
+                                newHtmlContent += "<option value='TJ' ";
+                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'TJ') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>TJ</option>';
+                                newHtmlContent += "<option value='AT' ";
+                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AT') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>AT</option>';
+                                newHtmlContent += "<option value='MT' ";
+                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'MT') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>MT</option>';
+                                newHtmlContent += "<option value='PA' ";
+                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'PA') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>PA</option>';
+                                newHtmlContent += "<option value='CS' ";
+                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'CS') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>CS</option>';
+                                newHtmlContent += "<option value='CP' ";
+                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'CP') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>CP</option>';
+                                newHtmlContent += "<option value='AV' ";
+                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AV') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>AV</option>';
+                                newHtmlContent += "<option value='JS' ";
+                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'JS') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>JS</option>';
+                                newHtmlContent += "<option value='MA' ";
+                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'MA') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>MA</option>';
+                                newHtmlContent += "<option value='PM' ";
+                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'PM') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>PM</option>';
+                                newHtmlContent += "<option value='RE' ";
+                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'RE') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>RE</option>';
+                                newHtmlContent += "<option value='Autre' ";
+                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'Autre') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>Autre</option>';
+                                newHtmlContent += '</select>';
+                                newHtmlContent += '</td>';
+                                newHtmlContent += "<td class='compilationAbsenceAM' data='am'>";
+                                newHtmlContent += "<select>";
+                                newHtmlContent += "<option value='' ";
+                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === '') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '></option>';
+                                newHtmlContent += "<option value='AA' ";
+                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AA') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>AA</option>';
+                                newHtmlContent += "<option value='TJ' ";
+                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'TJ') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>TJ</option>';
+                                newHtmlContent += "<option value='AT' ";
+                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AT') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>AT</option>';
+                                newHtmlContent += "<option value='MT' ";
+                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'MT') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>MT</option>';
+                                newHtmlContent += "<option value='PA' ";
+                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'PA') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>PA</option>';
+                                newHtmlContent += "<option value='CS' ";
+                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'CS') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>CS</option>';
+                                newHtmlContent += "<option value='CP' ";
+                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'CP') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>CP</option>';
+                                newHtmlContent += "<option value='AV' ";
+                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AV') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>AV</option>';
+                                newHtmlContent += "<option value='JS' ";
+                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'JS') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>JS</option>';
+                                newHtmlContent += "<option value='MA' ";
+                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'MA') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>MA</option>';
+                                newHtmlContent += "<option value='PM' ";
+                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'PM') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>PM</option>';
+                                newHtmlContent += "<option value='RE' ";
+                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'RE') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>RE</option>';
+                                newHtmlContent += "<option value='Autre' ";
+                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'Autre') {
+                                    newHtmlContent += "selected";
+                                }
+                                newHtmlContent += '>Autre</option>';
+                                newHtmlContent += '</select>';
+                                newHtmlContent += '</td>';
+                                if (data[index].absences.matin[indexAbsences].commentaires !== undefined) {
+                                    newHtmlContent += "<td class='compilationAbsenceCommentaire' data='commentaires' contenteditable=true>" + data[index].absences.matin[indexAbsences].commentaires + "</td>";
+                                } else {
+                                    newHtmlContent += "<td class='compilationAbsenceCommentaire' data='commentaires' contenteditable=true></td>";
+                                }
+                                newHtmlContent += "</tr>";
+                            });
+                            newHtmlContent += "</table>";
+                            newHtmlContent += "</div>";
+                            newHtmlContent += "</td>";
                             newHtmlContent += "</tr>";
                         });
-                        newHtmlContent += "</table>";
-                        newHtmlContent += "</div>";
-                        newHtmlContent += "</td>";
-                        newHtmlContent += "</tr>";
-                    });
 
-                    $('#compilationPointagesTable').append(newHtmlContent);
-                    absencesToggle();
-                    ajaxSaveCompilationData();
+                        $('#compilationPointagesTable').append(newHtmlContent);
+                        absencesToggle();
+                        ajaxSaveCompilationData();
+                        pointageShow();
+                    } else {
+                        pointageHide();
+                    }
                 }
             });
         }
@@ -397,6 +411,18 @@
                     data: {username: username, month: $('#form_Month').val(), year: $('#form_Year').val(), date: date, data: data, value: $(this).text()}
                 });
             });
+        }
+
+        // Affiche le tableau des pointages et cache le paragraphe d'absence de pointage.
+        function pointageShow() {
+            $('#compilationPointages').show();
+            $('#aucunPointageParagraphe').hide();
+        }
+
+        // Cache le tableau des pointages et affiche le paragraphe d'absence de pointage.
+        function pointageHide() {
+            $('#compilationPointages').hide();
+            $('#aucunPointageParagraphe').show();
         }
 
     </script>

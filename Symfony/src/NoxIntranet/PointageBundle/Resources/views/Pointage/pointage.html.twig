@@ -434,11 +434,11 @@
         function getNewDate() {
 
             $('#pointage_month_selector, #pointage_year_selector').on('change', function () {
+                $('#form_month').val($('#pointage_month_selector').val());
+                $('#form_year').val($('#pointage_year_selector').val());
                 deleteProjectColumn();
                 resetCellsValues();
                 ajaxGetNewDate();
-                //$('td[contenteditable]').unbind('blur');
-                //$('select').unbind('change');
             });
 
             // Supprime les colonnes existantes de projets suplémentaires et rétablie le colspan de "Operationnel" à 2.
@@ -468,6 +468,24 @@
                     url: '{{ path('nox_intranet_pointage_ajax_set_date') }}',
                     data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val()},
                     success: function (response) {
+
+                        // Ajout/supprime des lignes en fonction du nombre de jours du mois.
+                        if ($('.dayDateCell').length !== response.length) {
+                            var difference = response.length - $('.dayDateCell').length;
+                            if (difference > 0) {
+                                for (var i = 0; i < difference; i++) {
+                                    var lastTr = $('.dayDateCell').last().parent('tr');
+                                    lastTr.after(lastTr.clone());
+                                }
+                            } else if (difference < 0) {
+                                for (var i = 0; i < Math.abs(difference); i++) {
+                                    var lastTr = $('.dayDateCell').last().parent('tr');
+                                    lastTr.remove();
+                                }
+                            }
+                        }
+
+                        // Pour chaque ligne, remplace la date et remplis les cellules avec les valeurs sauvegardées.
                         $('.dayDateCell').each(function (index) {
                             $(this).transition({
                                 rotateX: '360deg'
