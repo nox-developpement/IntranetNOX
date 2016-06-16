@@ -85,3 +85,7 @@ nox_intranet_assistantes_rh_pointage_compilation:
 nox_intranet_pointage_ajax_get_assistantes_rh_pointage_compilation_by_month_and_year:
     path:   /ressources/ajax-get-assistantes-rh-pointage-compilation-by-month-and-year
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetAssistantesRHPointageCompilationByMonthAndYear }
+    
+nox_intranet_pointage_compilation_ajax_get_status:
+    path:     /ressources/pointage-compilation-ajax-get-status
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetPointageCompilationStatus }

@@ -9,9 +9,9 @@
         <div id="pointageStatusLabelGeneralContainer">
             <div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Collaborateur</p></div><!--
             --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Assistante</p></div><!--
-            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>DA/Manager</p></div><!--
-            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>Assistantes RH/DRH</p></div><!--
-            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>Validé</p></div><!--
+            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>DA/Manager</p></div><!--
+            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Assistantes RH/DRH</p></div><!--
+            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Validé</p></div><!--
             --></div>
         <div id="pointageStatus">
             <div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=0></div></div><!--
@@ -49,7 +49,7 @@
                         <option value="{{ 'now'|date_modify('+4 year')|date('Y')}}">{{ 'now'|date_modify('+4 year')|date('Y')}}</option>
                     </select>
                 </td>
-                <td class='project' style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouvelle Affaire<img src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'></td>
+                <td class='project' style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouvelle Affaire</td>
                 <td style='border-width: 1px;'>TOTAL</td>
                 <td style='border-width: 1px;' >MOD</td>
                 <td style='border-width: 1px;' colspan="2">Absences</td>
@@ -139,7 +139,7 @@
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
-                <td style='border: none;'></td>
+                <td style='border: none; border-right: solid 1px;'></td>
                 <td id='titreRepasTotalNumber' style="border-width: 2px; border-top: none; border-right-width: 1px; border-left-width: 1px;">0</td>
                 <td id='ForfaitDeplacementTotalMontant' style="border-width: 2px; border-top: none; border-left-width: 1px; border-right-width: 1px;">0</td>
                 <td id='PrimesPanierTotalNumber' style="border-width: 2px; border-top: none; border-left-width: 1px; border-right-width: 1px">0</td>
@@ -147,9 +147,9 @@
             </tr>
             <tr>
                 <td style='border: none;'></td>
-                <td class='monthlyTotalPercentageCell'>0.00</td>
+                <td class='monthlyTotalPercentageCell' style='border-bottom: none;'>0.00</td>
                 <td style='border: none;'></td>
-                <td id='monthlyTotalHoursMod'>0</td>
+                <td id='monthlyTotalHoursMod' style='border-bottom: none;'>0</td>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
@@ -159,9 +159,9 @@
             </tr>
             <tr>
                 <td style='border: none;'></td>
-                <td class='monthlyTotalCell'>0.00</td>
+                <td class='monthlyTotalCell' style='border-bottom: none;'>0.00</td>
                 <td style='border: none;'></td>
-                <td>hmod</td>
+                <td style='border-bottom: none;'>hmod</td>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
@@ -174,12 +174,12 @@
     <div id='tableFeuillePointageTypesAbscencesDivContainer'>
         <table id='tableFeuillePointageTypesAbscences'>
             <tr>
-                <td colspan=3 style='border-width: 1px;'>Types d'abscences</td>
+                <td colspan=3 style='border-width: 2px;'>Types d'abscences</td>
             </tr>
             <tr>
-                <td style='border-top-width: 1px; border-left-width: 1px; border-bottom-width: 1px;'>Nombre</td>
-                <td style='border-top-width: 1px; border-bottom-width: 1px;'>Code abscence</td>
-                <td style='border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px;'>Type abscence</td>
+                <td style='border-top-width: 2px; border-left-width: 2px; border-bottom-width: 2px;'>Nombre</td>
+                <td style='border-top-width: 2px; border-bottom-width: 2px;'>Code abscence</td>
+                <td style='border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px;'>Type abscence</td>
             </tr>
             {% set typesAbscences = { 'AA': 'Abscences autorisées payées', 'TJ': 'Accident trajet', 'AT': 'Accident travail', 'MT': 'Congé de maternité', 
             'PA': 'Congé de paternité', 'CS': 'Congé sans solde', 'CP': 'Congés payés', 'AV': 'Evènement familial', 'JS': 'RTT', 'MA': 'Maladie', 'PM': 'Maladie professionnelle', 
@@ -188,39 +188,39 @@
 
             {% for code, type in typesAbscences %}
                 <tr>
-                    <td class='nbAbscences' style='border-left-width: 1px; {% if loop.last %} border-bottom-width: 1px; {% endif %}'>0</td>
-                    <td  {% if loop.last %} style='border-bottom-width: 1px;' {% endif %}>{{ code}}</td>
-                    <td style='border-right-width: 1px; {% if loop.last %} border-bottom-width: 1px; {% endif %}'>{{ type }}</td>
+                    <td class='nbAbscences' style='border-left-width: 2px; {% if loop.last %} border-bottom-width: 2px; {% endif %}'>0</td>
+                    <td  {% if loop.last %} style='border-bottom-width: 2px;' {% endif %}>{{ code}}</td>
+                    <td style='border-right-width: 2px; {% if loop.last %} border-bottom-width: 2px; {% endif %}'>{{ type }}</td>
                 </tr>
             {% endfor %}
         </table>
 
         <table id='tableFeuillePointageTitreTransport'>
             <tr>
-                <td colspan='2' style='border-width: 1px;'>Titre de transport</td>
+                <td colspan='2' style='border-width: 2px;'>Titre de transport</td>
             </tr>
             <tr>
-                <td style='border-width: 1px;'>Montant total</td>
-                <td style='border-width: 1px;'>Prise en charge employeur 50%*</td>
+                <td style='border-width: 2px;'>Montant total</td>
+                <td style='border-width: 2px;'>Prise en charge employeur 50%*</td>
             </tr>
             <tr>
-                <td id='titreTransportMontant' style='border-width: 1px;' contenteditable=true></td>
-                <td id='titreTransportTotalMontant' style='border-width: 1px;'>0.00</td>
+                <td id='titreTransportMontant' style='border-width: 2px;' contenteditable=true></td>
+                <td id='titreTransportTotalMontant' style='border-width: 2px;'>0.00</td>
             </tr>
         </table>
 
         <table id='tableFeuillePointageSignature'>
             <tr>
-                <td style='border-width: 1px;'>Signature collaborateur</td>
-                <td id='signatureCollaborateur' colspan=2 style='border-width: 1px;' contenteditable=true></td>
+                <td style='border-width: 2px;'>Signature collaborateur</td>
+                <td id='signatureCollaborateur' colspan=2 style='border-width: 2px;' contenteditable=true></td>
             </tr>
             <tr>
-                <td rowspan=2 style='border-width: 1px;'>Signature supérieur hiérarchique</td>
-                <td style='border-width: 1px; width: 50%; border-right: none;'>Nom et prénom:</td>
-                <td style='border-width: 1px; width: 50%; border-left: none;' contenteditable=true></td>
+                <td rowspan=2 style='border-width: 2px;'>Signature supérieur hiérarchique</td>
+                <td style='border-width: 2px; width: 50%; border-right: none;'>Nom et prénom:</td>
+                <td style='border-width: 2px; width: 50%; border-left: none;' contenteditable=true></td>
             </tr>
             <tr>
-                <td colspan=2 style='border-width: 1px; height: 2vw;' contenteditable=true></td>
+                <td colspan=2 style='border-width: 2px; height: 2vw;' contenteditable=true></td>
             </tr>
         </table>
 
@@ -248,7 +248,7 @@
             addProjectColumn();
             deleteProjectColumn();
             ajaxGetData();
-            ajaxSaveData();
+            //ajaxSaveData();
 
             $('#form_Valider').click(function () {
                 return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
@@ -737,6 +737,11 @@
 
         // Lis le contenu des cellules du tableau et renvoie le résultat sous forme de chaine pour sauvegarde en base de données.
         function ajaxSaveData() {
+            // Désactive la sauvegarde automatique sur l'édition de cellules.
+            $('td[contenteditable=true]').unbind('blur');
+            $('select:not(#pointage_month_selector, #pointage_year_selector)').unbind('change');
+
+            // Détecte l'édition de texte des cellules et sauvegarde les changement en base de donnée.
             $('td[contenteditable=true]').on('blur', function () {
                 var data = {};
                 data['contenteditable'] = [];
@@ -768,6 +773,7 @@
                 });
             });
 
+            // Détecte l'édition de texte des selects et sauvegarde les changement en base de donnée.
             $('select:not(#pointage_month_selector, #pointage_year_selector)').change(function () {
                 var data = {};
                 data['contenteditable'] = [];
@@ -886,6 +892,7 @@
                         displayTotalAbscences();
                         displayTotalTitreTransport();
                         checkAbscencesTitreRepas();
+
                         ajaxSaveData();
                     }
                 }
@@ -1148,15 +1155,38 @@
                 data: {username: null, month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val()},
                 success: function (response) {
                     var width = null;
-                    if (parseInt(response * 2, 10) * 10 + 10 === 90) {
-                        width = 100;
-                    } else {
-                        var width = parseInt(response * 2, 10) * 10 + 10;
+                    var cercleNb = null;
+
+                    switch (response) {
+                        case '0':
+                            width = 10;
+                            cercleNb = 0;
+                            break;
+                        case '1':
+                            width = 30;
+                            cercleNb = 1;
+                            break;
+                        case '2':
+                            width = 30;
+                            cercleNb = 1;
+                            break;
+                        case '3':
+                            width = 50;
+                            cercleNb = 2;
+                            break;
+                        case '4':
+                            width = 70;
+                            cercleNb = 3;
+                            break;
+                        case '5':
+                            width = 100;
+                            cercleNb = 4;
+                            break;
                     }
 
                     $('.pointageStatusLine div').width(width + '%');
                     $(".pointageStatusCircle").filter(function () {
-                        return  $(this).attr("step") <= response;
+                        return  $(this).attr("step") <= cercleNb;
                     }).css('background-color', 'green');
 
                     if (response !== '0' && response !== '') {

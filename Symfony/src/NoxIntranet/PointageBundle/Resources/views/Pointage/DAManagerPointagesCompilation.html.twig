@@ -28,6 +28,22 @@
 
     </div>
 
+    <div id="pointageStatusDiv">
+        <div id="pointageStatusLabelGeneralContainer">
+            <div class='pointageStatusCompilationLabelContainer'><p class='pointageStatusLabel'>Assistante</p></div><!--
+            --><div class='pointageStatusCompilationLabelContainer'><p class='pointageStatusLabel'>DA/Manager</p></div><!--
+            --><div class='pointageStatusCompilationLabelContainer'><p class='pointageStatusLabel'>Assistantes RH/DRH</p></div><!--
+            --><div class='pointageStatusCompilationLabelContainer'><p class='pointageStatusLabel'>Validé</p></div><!--
+            --></div>
+        <div id="pointageStatus">
+            <div class='pointageStatusCompilationCircleContainer'><div class='pointageStatusCircle' step=0></div></div><!--
+            --><div class='pointageStatusCompilationCircleContainer'><div class='pointageStatusCircle' step=1></div></div><!--
+            --><div class='pointageStatusCompilationCircleContainer'><div class='pointageStatusCircle' step=2></div></div><!--
+            --><div class='pointageStatusCompilationCircleContainer'><div class='pointageStatusCircle' step=3></div></div>
+            <div class='pointageStatusLine'><div></div></div>
+        </div>
+    </div>
+
     <div id="compilationPointages">   
         <table id="compilationPointagesTable">
             <tr>
@@ -58,46 +74,63 @@
                                     <th>Commentaires</th>
                                 </tr>
                                 {% for absenceMatin in pointage.Absences['matin'] %}
-                                    <tr date="{{ absenceMatin['date'] }}">
-                                        <td>{{ absenceMatin['date'] }}</td>
-                                        <td class="compilationAbscenceMatin" data="matin">
-                                            <select>
-                                                <option value='' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == '' %}selected{% endif %}></option>
-                                                <option value='AA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AA' %}selected{% endif %}>AA</option>
-                                                <option value='TJ' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'TJ' %}selected{% endif %}>TJ</option>
-                                                <option value='AT' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AT' %}selected{% endif %}>AT</option>
-                                                <option value='MT' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'MT' %}selected{% endif %}>MT</option>
-                                                <option value='PA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'PA' %}selected{% endif %}>PA</option>
-                                                <option value='CS' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'CS' %}selected{% endif %}>CS</option>
-                                                <option value='CP' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'CP' %}selected{% endif %}>CP</option>
-                                                <option value='AV' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AV' %}selected{% endif %}>AV</option>
-                                                <option value='JS' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'JS' %}selected{% endif %}>JS</option>
-                                                <option value='MA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'MA' %}selected{% endif %}>MA</option>
-                                                <option value='PM' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'PM' %}selected{% endif %}>PM</option>
-                                                <option value='RE' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'RE' %}selected{% endif %}>RE</option>
-                                                <option value='Autre' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'Autre' %}selected{% endif %}>Autre</option>
-                                            </select>
+                                    <tr date="{{ absenceMatin['date']|date('d/m/y') }}">
+                                        {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' %}
+                                            <td>{{ absenceMatin['date']|date('d/m/y') }}</td>
+                                            <td class="compilationAbscenceMatin" data="matin">
+                                            {% else %}
+                                            <td style='background-color: rgb(166, 166, 166);'>{{ absenceMatin['date']|date('d/m/y') }}</td>
+                                            <td class="compilationAbscenceMatin" data="matin" style='background-color: rgb(166, 166, 166);'>
+                                            {% endif %}
+                                            {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' %}
+                                                <select>
+                                                    <option value='' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == '' %}selected{% endif %}></option>
+                                                    <option value='AA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AA' %}selected{% endif %}>AA</option>
+                                                    <option value='TJ' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'TJ' %}selected{% endif %}>TJ</option>
+                                                    <option value='AT' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AT' %}selected{% endif %}>AT</option>
+                                                    <option value='MT' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'MT' %}selected{% endif %}>MT</option>
+                                                    <option value='PA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'PA' %}selected{% endif %}>PA</option>
+                                                    <option value='CS' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'CS' %}selected{% endif %}>CS</option>
+                                                    <option value='CP' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'CP' %}selected{% endif %}>CP</option>
+                                                    <option value='AV' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AV' %}selected{% endif %}>AV</option>
+                                                    <option value='JS' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'JS' %}selected{% endif %}>JS</option>
+                                                    <option value='MA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'MA' %}selected{% endif %}>MA</option>
+                                                    <option value='PM' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'PM' %}selected{% endif %}>PM</option>
+                                                    <option value='RE' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'RE' %}selected{% endif %}>RE</option>
+                                                    <option value='Autre' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'Autre' %}selected{% endif %}>Autre</option>
+                                                </select>
+                                            {% endif %}
                                         </td>
-                                        <td class="compilationAbsenceAM" data="am">
-                                            <select>
-                                                <option value='' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == '' %}selected{% endif %}></option>
-                                                <option value='AA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AA' %}selected{% endif %}>AA</option>
-                                                <option value='TJ' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'TJ' %}selected{% endif %}>TJ</option>
-                                                <option value='AT' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AT' %}selected{% endif %}>AT</option>
-                                                <option value='MT' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'MT' %}selected{% endif %}>MT</option>
-                                                <option value='PA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'PA' %}selected{% endif %}>PA</option>
-                                                <option value='CS' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'CS' %}selected{% endif %}>CS</option>
-                                                <option value='CP' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'CP' %}selected{% endif %}>CP</option>
-                                                <option value='AV' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AV' %}selected{% endif %}>AV</option>
-                                                <option value='JS' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'JS' %}selected{% endif %}>JS</option>
-                                                <option value='MA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'MA' %}selected{% endif %}>MA</option>
-                                                <option value='PM' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'PM' %}selected{% endif %}>PM</option>
-                                                <option value='RE' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'RE' %}selected{% endif %}>RE</option>
-                                                <option value='Autre' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'Autre' %}selected{% endif %}>Autre</option>
-                                            </select>
+                                        {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' %}
+                                            <td class="compilationAbsenceAM" data="am">
+                                            {% else %}
+                                            <td class="compilationAbsenceAM" data="am" style='background-color: rgb(166, 166, 166);'>
+                                            {% endif %}
+                                            {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' %}
+                                                <select>
+                                                    <option value='' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == '' %}selected{% endif %}></option>
+                                                    <option value='AA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AA' %}selected{% endif %}>AA</option>
+                                                    <option value='TJ' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'TJ' %}selected{% endif %}>TJ</option>
+                                                    <option value='AT' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AT' %}selected{% endif %}>AT</option>
+                                                    <option value='MT' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'MT' %}selected{% endif %}>MT</option>
+                                                    <option value='PA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'PA' %}selected{% endif %}>PA</option>
+                                                    <option value='CS' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'CS' %}selected{% endif %}>CS</option>
+                                                    <option value='CP' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'CP' %}selected{% endif %}>CP</option>
+                                                    <option value='AV' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AV' %}selected{% endif %}>AV</option>
+                                                    <option value='JS' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'JS' %}selected{% endif %}>JS</option>
+                                                    <option value='MA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'MA' %}selected{% endif %}>MA</option>
+                                                    <option value='PM' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'PM' %}selected{% endif %}>PM</option>
+                                                    <option value='RE' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'RE' %}selected{% endif %}>RE</option>
+                                                    <option value='Autre' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'Autre' %}selected{% endif %}>Autre</option>
+                                                </select>
+                                            {% endif %}
                                         </td>
-                                        <td class="compilationAbsenceCommentaire" data="commentaires" contenteditable=true>
-                                            {% if absenceMatin['commentaires'] is defined %}
+                                        {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' %}
+                                            <td class="compilationAbsenceCommentaire" data="commentaires" contenteditable=true>
+                                            {% else %}
+                                            <td class="compilationAbsenceCommentaire" data="commentaires" style='background-color: rgb(166, 166, 166);'>
+                                            {% endif %}
+                                            {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' and absenceMatin['commentaires'] is defined %}
                                                 {{ absenceMatin['commentaires'] }}
                                             {% endif %}
                                         </td>
@@ -131,6 +164,8 @@
 
             // Execute la fonction de récupération des pointages lorsque qu'un(e) mois/année est sélectionné(e).
             $('#form_Month, #form_Year').change(function () {
+                $('#formValidationRefus_month').val($('#form_Month').val());
+                $('#formValidationRefus_year').val($('#form_Year').val());
                 ajaxGetAssistanceAgencePointageCompilationByMonthAndYear();
             });
 
@@ -141,6 +176,7 @@
 
             absencesToggle();
             ajaxSaveCompilationData();
+            ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
         });
 
         // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
@@ -349,6 +385,7 @@
                     }
                 }
             });
+            ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
         }
 
         // Affiche/Cache le tableau des abscences du collaborateur sélectionné.
@@ -423,6 +460,51 @@
         function pointageHide() {
             $('#compilationPointages').hide();
             $('#aucunPointageParagraphe').show();
+        }
+
+        // Vérifie le status de la feuille de pointage, colore la barre d'avancement en conséquence.
+        function ajaxGetPointageCompilationStatus(month, year) {
+
+            $('.pointageStatusLine div').width('12.5%');
+            $(".pointageStatusCircle").css('background-color', 'lightgrey');
+            $(".pointageStatusCircle").filter(function () {
+                return  $(this).attr("step") <= 0;
+            }).css('background-color', 'green');
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('nox_intranet_pointage_compilation_ajax_get_status') }}',
+                data: {month: month, year: year},
+                success: function (response) {
+                    var width = null;
+                    var cercleNb = null;
+
+                    alert(response);
+
+                    switch (response) {
+                        case '2':
+                            width = 12.5;
+                            cercleNb = 0;
+                            break;
+                        case '3':
+                            width = 37.5;
+                            cercleNb = 1;
+                            break;
+                        case '4':
+                            width = 62.5;
+                            cercleNb = 2;
+                            break;
+                        case '5':
+                            width = 100;
+                            cercleNb = 3;
+                            break;
+                    }
+
+                    $('.pointageStatusLine div').width(width + '%');
+                    $(".pointageStatusCircle").filter(function () {
+                        return  $(this).attr("step") <= cercleNb;
+                    }).css('background-color', 'green');
+                }
+            });
         }
 
     </script>

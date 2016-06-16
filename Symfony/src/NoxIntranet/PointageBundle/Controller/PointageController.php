@@ -81,7 +81,7 @@ class PointageController extends Controller {
             $em->persist($newTableData);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('notice', 'Le pointage a été validé.');
+            $this->get('session')->getFlashBag()->add('notice', 'La feuille de pointage a été validé.');
 
             $this->redirectToRoute('nox_intranet_pointage');
         }
@@ -220,11 +220,10 @@ class PointageController extends Controller {
         // Vérifie que l'utilistateur est une assistante d'agence.
         if (in_array($securityName, $this->getAssistantesAgence($excelRHFile))) {
 
+            // Génére les dates du mois courant.
             $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
             $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
-
             $monthDates = array();
-
             $i = 0;
             while (strtotime($date) <= strtotime($end_date)) {
                 $monthDates[$i] = strtotime($date);
@@ -232,6 +231,7 @@ class PointageController extends Controller {
                 $i++;
             }
 
+            // Génére le formulaire de séléction du pointage par nom d'utilisateur, mois et année.
             $form = $this->createFormBuilder()
                     ->add('User', ChoiceType::class, array(
                         'choices' => $this->getUsersByAssistante($excelRHFile, $securityName, $em),
@@ -257,6 +257,7 @@ class PointageController extends Controller {
                     ))
                     ->getForm();
 
+            // Génére le formulaire de séléction du pointage par pointage à valider.
             $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
             $formToCheckPointage = $this->createFormBuilder()
                     ->add('Pointage', EntityType::class, array(
@@ -363,13 +364,19 @@ class PointageController extends Controller {
 
             $formValidationRefus = $this->get('form.factory')->createNamedBuilder('formValidationRefus', 'form')
                     ->add('Compilation', SubmitType::class)
+                    ->add('month', 'hidden', array(
+                        'data' => $this->getMonthAndYear()['month']
+                    ))
+                    ->add('year', 'hidden', array(
+                        'data' => $this->getMonthAndYear()['year']
+                    ))
                     ->getForm();
 
             $formValidationRefus->handleRequest($request);
 
             if ($formValidationRefus->isValid()) {
 
-                $pointagesCompilation = getPointagesACompile($em, $this->getUsersByAssistante($excelRHFile, $securityName, $em), $form->get('Month')->getData(), $form->get('Year')->getData());
+                $pointagesCompilation = getPointagesACompile($em, $this->getUsersByAssistante($excelRHFile, $securityName, $em), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData());
 
                 if ($formValidationRefus->get('Compilation')->isClicked()) {
                     foreach ($pointagesCompilation as $pointage) {
@@ -501,13 +508,19 @@ class PointageController extends Controller {
             $formValidationRefus = $this->get('form.factory')->createNamedBuilder('formValidationRefus', 'form')
                     ->add('Compilation', SubmitType::class)
                     ->add('Refus', SubmitType::class)
+                    ->add('month', 'hidden', array(
+                        'data' => $this->getMonthAndYear()['month']
+                    ))
+                    ->add('year', 'hidden', array(
+                        'data' => $this->getMonthAndYear()['year']
+                    ))
                     ->getForm();
 
             $formValidationRefus->handleRequest($request);
 
             if ($formValidationRefus->isValid()) {
 
-                $pointagesCompilation = getPointagesACompile($em, $this->getUsersByDAManager($excelRHFile, $securityName, $em), $form->get('Month')->getData(), $form->get('Year')->getData());
+                $pointagesCompilation = getPointagesACompile($em, $this->getUsersByDAManager($excelRHFile, $securityName, $em), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData());
 
                 if ($formValidationRefus->get('Compilation')->isClicked()) {
                     foreach ($pointagesCompilation as $pointage) {
@@ -646,13 +659,19 @@ class PointageController extends Controller {
             $formValidationRefus = $this->get('form.factory')->createNamedBuilder('formValidationRefus', 'form')
                     ->add('Compilation', SubmitType::class)
                     ->add('Refus', SubmitType::class)
+                    ->add('month', 'hidden', array(
+                        'data' => $this->getMonthAndYear()['month']
+                    ))
+                    ->add('year', 'hidden', array(
+                        'data' => $this->getMonthAndYear()['year']
+                    ))
                     ->getForm();
 
             $formValidationRefus->handleRequest($request);
 
             if ($formValidationRefus->isValid()) {
 
-                $pointagesCompilation = getPointagesACompile($em, $this->getUsersByAssistantesRH($excelRHFile, $securityName, $em), $form->get('Month')->getData(), $form->get('Year')->getData());
+                $pointagesCompilation = getPointagesACompile($em, $this->getUsersByAssistantesRH($excelRHFile, $securityName, $em), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData());
 
                 if ($formValidationRefus->get('Compilation')->isClicked()) {
                     foreach ($pointagesCompilation as $pointage) {

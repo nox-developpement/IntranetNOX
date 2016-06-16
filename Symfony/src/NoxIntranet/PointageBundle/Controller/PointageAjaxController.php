@@ -350,6 +350,10 @@ class PointageAjaxController extends Controller {
 
             if (!empty($pointage)) {
                 $status = $pointage->getStatus();
+                if ($status === '2') {
+                    $pointageCompile = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
+                    $status = $pointageCompile->getStatus();
+                }
             } else {
                 $status = null;
             }
@@ -698,6 +702,27 @@ class PointageAjaxController extends Controller {
             }
 
             return new Response(json_encode(getPointagesValides($em, $this->getUsersByAssistantesRH($excelRHFile, $securityName, $em), $month, $year)));
+        }
+    }
+
+    // Retourne le status du pointage en fonction du mois et de l'année.
+    public function ajaxGetPointageCompilationStatusAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $month = $request->get('month');
+            $year = $request->get('year');
+
+            $pointageCompile = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('month' => $month, 'year' => $year));
+
+            if (!empty($pointageCompile)) {
+                $status = $pointageCompile->getStatus();
+            } else {
+                $status = null;
+            }
+
+            $response = new Response($status);
+            return $response;
         }
     }
 

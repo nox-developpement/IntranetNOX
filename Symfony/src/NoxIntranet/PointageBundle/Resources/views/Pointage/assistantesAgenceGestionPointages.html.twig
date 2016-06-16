@@ -50,9 +50,9 @@
         <div id="pointageStatusLabelGeneralContainer">
             <div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Collaborateur</p></div><!--
             --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Assistante</p></div><!--
-            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>DA/Manager</p></div><!--
-            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>Assistantes RH/DRH</p></div><!--
-            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'><p>Validé</p></div><!--
+            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>DA/Manager</p></div><!--
+            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Assistantes RH/DRH</p></div><!--
+            --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Validé</p></div><!--
             --></div>
         <div id="pointageStatus">
             <div class='pointageStatusCircleContainer'><div class='pointageStatusCircle' step=0></div></div><!--
@@ -68,12 +68,7 @@
         <table id="tableFeuillePointage">
             <tr>
                 <td style="border: solid 1px black;">
-                    <select id='pointage_month_selector' style="width: 100%;" readonly='true'>
-                        {% set months = { 01: 'Janvier', 02: 'Février', 03: 'Mars', 04: 'Avril', 05: 'Mai', 06: 'Juin', 07: 'Juillet', 08: 'Août', 09: 'Septembre', 10: 'Octobre', 11: 'Novembre', 12: 'Décembre' } %}
-                        {% for index,month in months %}
-                            <option value="{{ index }}" {% if index == currentMonth %}selected{% endif %}>{{ month }}</option>  
-                        {% endfor %}
-                    </select>
+
                 </td>
                 <td id='operationnel' style="background: rgb(47,117,181); color: white; border-width: 1px;" colspan="2">OPERATIONNEL <p id="addProject" style="margin: 0; float: right; display: inline-block; cursor: pointer;">+ Affaire</p></td>
                 <td style="background: black; border-width: 1px;"></td>
@@ -82,13 +77,7 @@
             </tr>
             <tr>
                 <td style="border: solid 1px black;">
-                    <select id='pointage_year_selector' style="width: 100%;" readonly='true'>
-                        <option value="{{ 'now'|date('Y')}}">{{ 'now'|date('Y')}}</option>
-                        <option value="{{ 'now'|date_modify('+1 year')|date('Y')}}">{{ 'now'|date_modify('+1 year')|date('Y')}}</option>
-                        <option value="{{ 'now'|date_modify('+2 year')|date('Y')}}">{{ 'now'|date_modify('+2 year')|date('Y')}}</option>
-                        <option value="{{ 'now'|date_modify('+3 year')|date('Y')}}">{{ 'now'|date_modify('+3 year')|date('Y')}}</option>
-                        <option value="{{ 'now'|date_modify('+4 year')|date('Y')}}">{{ 'now'|date_modify('+4 year')|date('Y')}}</option>
-                    </select>
+
                 </td>
                 <td class='project' style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouvelle Affaire<img src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'></td>
                 <td style='border-width: 1px;'>TOTAL</td>
@@ -180,7 +169,7 @@
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
-                <td style='border: none;'></td>
+                <td style='border: none; border-right: solid 1px;'></td>
                 <td id='titreRepasTotalNumber' style="border-width: 2px; border-top: none; border-right-width: 1px; border-left-width: 1px;">0</td>
                 <td id='ForfaitDeplacementTotalMontant' style="border-width: 2px; border-top: none; border-left-width: 1px; border-right-width: 1px;">0</td>
                 <td id='PrimesPanierTotalNumber' style="border-width: 2px; border-top: none; border-left-width: 1px; border-right-width: 1px">0</td>
@@ -188,9 +177,9 @@
             </tr>
             <tr>
                 <td style='border: none;'></td>
-                <td class='monthlyTotalPercentageCell'>0.00</td>
+                <td class='monthlyTotalPercentageCell' style='border-bottom: none;'>0.00</td>
                 <td style='border: none;'></td>
-                <td id='monthlyTotalHoursMod'>0</td>
+                <td id='monthlyTotalHoursMod' style='border-bottom: none;'>0</td>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
@@ -200,9 +189,9 @@
             </tr>
             <tr>
                 <td style='border: none;'></td>
-                <td class='monthlyTotalCell'>0.00</td>
+                <td class='monthlyTotalCell' style='border-bottom: none;'>0.00</td>
                 <td style='border: none;'></td>
-                <td>hmod</td>
+                <td style='border-bottom: none;'>hmod</td>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
@@ -215,12 +204,12 @@
     <div id='tableFeuillePointageTypesAbscencesDivContainer'>
         <table id='tableFeuillePointageTypesAbscences'>
             <tr>
-                <td colspan=3 style='border-width: 1px;'>Types d'abscences</td>
+                <td colspan=3 style='border-width: 2px;'>Types d'abscences</td>
             </tr>
             <tr>
-                <td style='border-top-width: 1px; border-left-width: 1px; border-bottom-width: 1px;'>Nombre</td>
-                <td style='border-top-width: 1px; border-bottom-width: 1px;'>Code abscence</td>
-                <td style='border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px;'>Type abscence</td>
+                <td style='border-top-width: 2px; border-left-width: 2px; border-bottom-width: 2px;'>Nombre</td>
+                <td style='border-top-width: 2px; border-bottom-width: 2px;'>Code abscence</td>
+                <td style='border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px;'>Type abscence</td>
             </tr>
             {% set typesAbscences = { 'AA': 'Abscences autorisées payées', 'TJ': 'Accident trajet', 'AT': 'Accident travail', 'MT': 'Congé de maternité', 
             'PA': 'Congé de paternité', 'CS': 'Congé sans solde', 'CP': 'Congés payés', 'AV': 'Evènement familial', 'JS': 'RTT', 'MA': 'Maladie', 'PM': 'Maladie professionnelle', 
@@ -229,39 +218,39 @@
 
             {% for code, type in typesAbscences %}
                 <tr>
-                    <td class='nbAbscences' style='border-left-width: 1px; {% if loop.last %} border-bottom-width: 1px; {% endif %}'>0</td>
-                    <td  {% if loop.last %} style='border-bottom-width: 1px;' {% endif %}>{{ code}}</td>
-                    <td style='border-right-width: 1px; {% if loop.last %} border-bottom-width: 1px; {% endif %}'>{{ type }}</td>
+                    <td class='nbAbscences' style='border-left-width: 2px; {% if loop.last %} border-bottom-width: 2px; {% endif %}'>0</td>
+                    <td  {% if loop.last %} style='border-bottom-width: 2px;' {% endif %}>{{ code}}</td>
+                    <td style='border-right-width: 2px; {% if loop.last %} border-bottom-width: 2px; {% endif %}'>{{ type }}</td>
                 </tr>
             {% endfor %}
         </table>
 
         <table id='tableFeuillePointageTitreTransport'>
             <tr>
-                <td colspan='2' style='border-width: 1px;'>Titre de transport</td>
+                <td colspan='2' style='border-width: 2px;'>Titre de transport</td>
             </tr>
             <tr>
-                <td style='border-width: 1px;'>Montant total</td>
-                <td style='border-width: 1px;'>Prise en charge employeur 50%*</td>
+                <td style='border-width: 2px;'>Montant total</td>
+                <td style='border-width: 2px;'>Prise en charge employeur 50%*</td>
             </tr>
             <tr>
-                <td id='titreTransportMontant' style='border-width: 1px;' contenteditable=true></td>
-                <td id='titreTransportTotalMontant' style='border-width: 1px;'>0.00</td>
+                <td id='titreTransportMontant' style='border-width: 2px;' contenteditable=true></td>
+                <td id='titreTransportTotalMontant' style='border-width: 2px;'>0.00</td>
             </tr>
         </table>
 
         <table id='tableFeuillePointageSignature'>
             <tr>
-                <td style='border-width: 1px;'>Signature collaborateur</td>
-                <td id='signatureCollaborateur' colspan=2 style='border-width: 1px;' contenteditable=true></td>
+                <td style='border-width: 2px;'>Signature collaborateur</td>
+                <td id='signatureCollaborateur' colspan=2 style='border-width: 2px;' contenteditable=true></td>
             </tr>
             <tr>
-                <td rowspan=2 style='border-width: 1px;'>Signature supérieur hiérarchique</td>
-                <td style='border-width: 1px; width: 50%; border-right: none;'>Nom et prénom:</td>
-                <td style='border-width: 1px; width: 50%; border-left: none;' contenteditable=true></td>
+                <td rowspan=2 style='border-width: 2px;'>Signature supérieur hiérarchique</td>
+                <td style='border-width: 2px; width: 50%; border-right: none;'>Nom et prénom:</td>
+                <td style='border-width: 2px; width: 50%; border-left: none;' contenteditable=true></td>
             </tr>
             <tr>
-                <td colspan=2 style='border-width: 1px; height: 2vw;' contenteditable=true></td>
+                <td colspan=2 style='border-width: 2px; height: 2vw;' contenteditable=true></td>
             </tr>
         </table>
 
@@ -740,8 +729,8 @@
                     success: function (response) {
 
                         // Ajout/supprime des lignes en fonction du nombre de jours du mois.
-                        if ($('.dayDateCell').length !== response.length) {
-                            var difference = response.length - $('.dayDateCell').length;
+                        if ($('.dayDateCell').length !== response['dates'].length) {
+                            var difference = response['dates'].length - $('.dayDateCell').length;
                             if (difference > 0) {
                                 for (var i = 0; i < difference; i++) {
                                     var lastTr = $('.dayDateCell').last().parent('tr');
@@ -904,7 +893,7 @@
             $('.pointageStatusLine div').width('10%');
             $(".pointageStatusCircle").css('background-color', 'lightgrey');
             $(".pointageStatusCircle").filter(function () {
-                return  $(this).attr("step") <= 1;
+                return  $(this).attr("step") <= 0;
             }).css('background-color', 'green');
             $.ajax({
                 type: 'POST',
@@ -912,15 +901,39 @@
                 data: {username: user, month: month, year: year},
                 success: function (response) {
                     var width = null;
-                    if (parseInt(response * 2, 10) * 10 + 10 === 90) {
-                        width = 100;
-                    } else {
-                        var width = parseInt(response * 2, 10) * 10 + 10;
+                    var cercleNb = null;
+
+                    switch (response) {
+                        case '0':
+                            width = 10;
+                            cercleNb = 0;
+                            break;
+                        case '1':
+                            width = 30;
+                            cercleNb = 1;
+                            break;
+                        case '2':
+                            width = 30;
+                            cercleNb = 1;
+                            break;
+                        case '3':
+                            width = 50;
+                            cercleNb = 2;
+                            break;
+                        case '4':
+                            width = 70;
+                            cercleNb = 3;
+                            break;
+                        case '5':
+                            width = 100;
+                            cercleNb = 4;
+                            break;
                     }
+
 
                     $('.pointageStatusLine div').width(width + '%');
                     $(".pointageStatusCircle").filter(function () {
-                        return  $(this).attr("step") <= response;
+                        return  $(this).attr("step") <= cercleNb;
                     }).css('background-color', 'green');
 
                     if (response !== '1' && response !== '') {
@@ -1020,14 +1033,14 @@
                     var absencesMatin = [];
                     $('.abscenceMatinSelector').each(function () {
                         var jour = $(this).siblings('.dayDateCell').text().slice(-2);
-                        var mois = $('#pointage_month_selector').val();
-                        if ($('#pointage_month_selector').val() < 10) {
+                        var mois = month;
+                        if (mois < 10) {
                             var mois = '0' + mois;
                         }
-                        var annee = $('#pointage_year_selector').val();
+                        var annee = year;
                         var absenceMatin = {};
                         absenceMatin['valeur'] = $(this).children('select').val();
-                        absenceMatin['date'] = jour + '/' + mois + '/' + annee;
+                        absenceMatin['date'] = jour + '-' + mois + '-' + annee;
                         absenceMatin['commentaires'] = $(this).siblings('.comments').text();
                         absencesMatin.push(absenceMatin);
                     });
@@ -1040,14 +1053,14 @@
                     var absencesAM = [];
                     $('.abscenceAMSelector').each(function () {
                         var jour = $(this).siblings('.dayDateCell').text().slice(-2);
-                        var mois = $('#pointage_month_selector').val();
-                        if ($('#pointage_month_selector').val() < 10) {
+                        var mois = month;
+                        if (mois < 10) {
                             var mois = '0' + mois;
                         }
-                        var annee = $('#pointage_year_selector').val();
+                        var annee = year;
                         var absenceAM = {};
                         absenceAM['valeur'] = $(this).children('select').val();
-                        absenceAM['date'] = jour + '/' + mois + '/' + annee;
+                        absenceAM['date'] = jour + '-' + mois + '-' + annee;
                         absencesAM.push(absenceAM);
                     });
 
@@ -1493,13 +1506,10 @@
 
                     $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                         data['contenteditable'][index] = $(this).text();
-                        //$(this).css('background-color', 'orange');
-                        //$(this).text(index);
                     });
 
                     $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
                         data['select'][index] = $(this).val();
-                        //$(this).css('background-color', 'orange');
                     });
 
                     $('.project[contenteditable=true]').each(function (index) {
