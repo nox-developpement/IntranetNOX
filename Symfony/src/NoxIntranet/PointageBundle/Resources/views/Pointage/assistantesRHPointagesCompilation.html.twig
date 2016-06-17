@@ -155,6 +155,8 @@
 
     <script>
         $(window).load(function () {
+            IECheck();
+
             // Affiche/cache le tableau et le message d'absence de pointage en fonction du nombre de pointage.
             if ({{ pointagesValides|length }} > 0) {
                 pointageShow();
@@ -505,6 +507,23 @@
                     }).css('background-color', 'green');
                 }
             });
+        }
+
+        // Vérifie si le navigateur utilisé est Internet Explorer et affiche un message d'erreur dans ce cas.
+        function IECheck() {
+
+            var ms_ie = false;
+            var ua = window.navigator.userAgent;
+            var old_ie = ua.indexOf('MSIE ');
+            var new_ie = ua.indexOf('Trident/');
+
+            if ((old_ie > -1) || (new_ie > -1)) {
+                ms_ie = true;
+            }
+
+            if (ms_ie) {
+                alert('Le module de pointage n\'est pas compatible avec Internet Explorer, veuillez utiliser Google Chrome ou Microsoft Edge à la place.');
+            }
         }
 
     </script>
