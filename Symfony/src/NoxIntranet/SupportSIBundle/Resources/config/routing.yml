@@ -15,7 +15,7 @@ nox_intranet_support_wiki:
     defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:wiki }
     
 nox_intranet_demande_materiel:
-    path: /supportSI/demande
+    path: /supportSI/demande-materiel-logiciel
     defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:demande }  
     
 nox_intranet_demande_materiel_confirmation_dsi:

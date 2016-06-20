@@ -124,28 +124,4 @@ class DemandeMateriel {
         return $this->message;
     }
 
-
-    /**
-     * Set status
-     *
-     * @param string $status
-     *
-     * @return DemandeMateriel
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
 }

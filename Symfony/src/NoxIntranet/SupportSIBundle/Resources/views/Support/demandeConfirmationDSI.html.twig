@@ -1,0 +1,81 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}
+    Validation DSI
+{% endblock %}
+
+{% block messageAccueil %}Validation DSI{% endblock %}
+
+{% block contenu %}
+
+    <div style='font-size: 0.8vw;'> 
+        {{ form_start(form, {'attr': {'style': 'border: none; padding: 0;' }}) }}
+        {{ form_errors(form) }}
+
+        <fieldset style='border: 2px outset #1F4E79; background-color: rgba(255,255,255, 0.6); padding: 2%;'>
+
+            <legend>Demande n°{{ numOrdre }}</legend>
+
+            <div style="display: inline-block; width: 50%; text-align: center; margin-bottom: 3%;">
+                {{ form_label(form.agence, 'Agence:') }}
+                {{ form_errors(form.agence) }}
+                {{ form_widget(form.agence, {'attr': {'style': 'text-align: center;'}}) }}
+            </div><!--
+    
+            --><div style="display: inline-block; width: 50%; text-align: center; margin-bottom: 3%;">
+                {{ form_label(form.demandeur, 'Collaborateur:') }}
+                {{ form_errors(form.demandeur) }}
+                {{ form_widget(form.demandeur, {'attr': {'style': 'text-align: center;'}}) }}
+            </div>
+
+            {% if form.materiel != null %}
+                <div style="display: inline-block; width: 50%; text-align: center; margin-bottom: 3%; float: left;">
+                    {{ form_label(form.materiel, 'Matériel') }} <br />
+                    {{ form_errors(form.materiel) }}
+                    {{ form_widget(form.materiel, {'attr': {'style': 'text-align: center;'}}) }}
+                </div>
+            {% endif %}
+
+            {% if form.logiciel != null %}
+                <div style="display: inline-block; width: 50%; text-align: center; margin-bottom: 3%; float: right;">
+                    {{ form_label(form.logiciel, 'Logiciel') }} <br />
+                    {{ form_errors(form.logiciel) }}
+                    {{ form_widget(form.logiciel) }}
+                </div>
+            {% endif %}
+
+            <div style='padding-left: 15%; margin-bottom: 3%; clear: both;'>
+                {{ form_label(form.raison, 'Raison de la demande') }} <br />
+                {{ form_errors(form.raison) }}
+                {{ form_widget(form.raison) }}
+            </div>
+
+            <div style="display: inline-block; text-align: center; margin-bottom: 3%; width: 50%;">
+                {{ form_label(form.date, 'Date désirée:') }}
+                {{ form_errors(form.date) }}
+                {{ form_widget(form.date, {'attr': {'style': 'text-align: center;'}}) }}
+            </div><!--
+    
+            --><div style="display: inline-block; text-align: center; margin-bottom: 3%;  width: 50%;">
+                {{ form_label(form.emailSuperieur, 'Mail du supérieur hiérarchique:') }}
+                {{ form_errors(form.emailSuperieur) }}
+                {{ form_widget(form.emailSuperieur, {'attr': {'style': 'text-align: center;'}}) }}
+            </div>
+
+            <div style="text-align: center; margin-bottom: 3%;">
+                {{ form_label(form.prix, 'Si vous le souhaitez, entrez une suggestion de prix:') }}
+                {{ form_errors(form.prix) }}
+                {{ form_widget(form.prix, {'attr': {'style': 'text-align: center;'}}) }} €
+            </div>
+
+            <div style='text-align: center;'>       
+                {{ form_widget(form.Refuser, {'attr': {'class': 'boutonFormulaire', 'style': 'font-size: 1vw'}}) }}
+                {{ form_widget(form.Valider, {'attr': {'class': 'boutonFormulaire', 'style': 'font-size: 1vw'}}) }}
+            </div>
+
+        </fieldset>
+
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

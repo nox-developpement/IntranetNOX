@@ -8,6 +8,11 @@ use NoxIntranet\SupportSIBundle\Entity\CompteurDemande;
 use NoxIntranet\SupportSIBundle\Entity\DemandeMateriel;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class SupportSIController extends Controller {
 
@@ -45,16 +50,24 @@ class SupportSIController extends Controller {
         $formBuilder = $this->get('form.factory')->createBuilder('form');
         $formBuilder
                 ->add('agence', TextType::class, array(
-                    'data' => $agence
+                    'data' => $agence,
+                    'attr' => array(
+                        'readonly' => true
+                    )
                 ))
                 ->add('demandeur', TextType::class, array(
-                    'data' => $completName
+                    'data' => $completName,
+                    'attr' => array(
+                        'readonly' => true
+                    )
                 ))
                 ->add('materielCheckbox', CheckboxType::class, array(
                     'label' => 'Matériel',
+                    'required' => false
                 ))
                 ->add('logicielCheckbox', CheckboxType::class, array(
                     'label' => 'Logiciel',
+                    'required' => false
                 ))
                 ->add('materielList', ChoiceType::class, array(
                     'choices' => array(
@@ -64,18 +77,28 @@ class SupportSIController extends Controller {
                         'Poste CAO' => 'Poste CAO'
                     ),
                     'placeholder' => 'Séléctionnez un matériel',
-                    'required' => false
+                    'required' => false,
                 ))
-                ->add('logicielName', TextType::class, array(
-                    'required' => false
+                ->add('logicielName', TextareaType::class, array(
+                    'required' => false,
+                    'attr' => array(
+                        'style' => 'vertical-align: top; width: 90%; max-width: 90%;'
+                    )
                 ))
-                ->add('raison', TextType::class)
+                ->add('raison', TextareaType::class, array(
+                    'attr' => array(
+                        'style' => 'width: 80%; max-width: 80%;'
+                    )
+                ))
                 ->add('date', DateType::class, array(
-                    'widget' => 'text'
+                    'widget' => 'choice',
                 ))
-                ->add('mailSuperieur', EmailType::class)
+                ->add('mailSuperieur', EmailType::class, array(
+                    'attr' => array(
+                        'placeholder' => 'p.nom@groupe-nox.com'
+                    )
+                ))
                 ->add('Valider', SubmitType::class)
-                ->add('Refuser', SubmitType::class)
         ;
         $form = $formBuilder->getForm();
         $form->handleRequest($request);
@@ -85,7 +108,7 @@ class SupportSIController extends Controller {
 
             // Génére la date du jour.
             date_default_timezone_set('Europe/Paris');
-            $date = date('d/m/Y à h:i:s', time());
+            $date = new \DateTime();
 
             // Génére l'email du collaborateur en fonction de son nom d'utilisateur.
             $emailDemandeur = preg_replace('/-.*/', '', $name) . "@groupe-nox.com";
@@ -101,6 +124,8 @@ class SupportSIController extends Controller {
                 $em->persist($compteur);
                 $em->flush();
             } else {
+                var_dump($compteur->getDate());
+                var_dump($date);
                 if ($compteur->getDate()->format('d/m/Y') !== $date->format('d/m/Y')) {
                     $compteur->setCompteur(1);
                     $compteur->setDate($date);
@@ -158,7 +183,7 @@ class SupportSIController extends Controller {
             return $this->redirectToRoute('nox_intranet_demande_materiel');
         }
 
-        return $this->render('NoxIntranetSupportSIBundle:Support:demandeMateriel.html.twig', array('username' => $name, 'agence' => $agence, 'date' => $date, 'formDemandeMateriel' => $form));
+        return $this->render('NoxIntranetSupportSIBundle:Support:demandeMateriel.html.twig', array('formDemandeMateriel' => $form->createView()));
     }
 
     public function demandeConfirmationDSIAction(Request $request, $cleDemande) {
@@ -167,21 +192,76 @@ class SupportSIController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $demande = $em->getRepository('NoxIntranetSupportSIBundle:DemandeMateriel')->findOneBy(array('cleDemande' => $cleDemande, 'status' => 'DSI'));
 
-        // Génére le formulaire de validation/refus de la demande avec posibilité de renseigner une estimation du prix.
-        $formBuilder = $this->get('form.factory')->createBuilder('form');
-        $formBuilder
-                ->add('prix', TextType::class)
-                ->add('Valider', SubmitType::class)
-                ->add('Refuser', SubmitType::class)
-        ;
-        $form = $formBuilder->getForm();
-
         // Si la demande est présente en base de données...
         if (!empty($demande)) {
-            $form->handleRequest($request);
 
             $donneesMessage = $demande->getMessage();
             $mailSuperieur = $demande->getMessage();
+            $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('username' => $donneesMessage['demandeur']));
+            $nomCompletDemandeur = $demandeur->getFirstname() . ' ' . $demandeur->getLastname();
+
+            // Génére le formulaire de validation/refus de la demande avec posibilité de renseigner une estimation du prix.
+            $formBuilder = $this->get('form.factory')->createBuilder('form');
+            $formBuilder
+                    ->add('agence', TextType::class, array(
+                        'attr' => array(
+                            'readonly' => true
+                        ),
+                        'data' => $donneesMessage['agence'],
+                        'required' => false
+                    ))
+                    ->add('demandeur', TextType::class, array(
+                        'attr' => array(
+                            'readonly' => true
+                        ),
+                        'data' => $nomCompletDemandeur,
+                        'required' => false
+                    ))
+                    ->add('materiel', TextType::class, array(
+                        'attr' => array(
+                            'readonly' => true
+                        ),
+                        'data' => $donneesMessage['materiel'],
+                        'required' => false
+                    ))
+                    ->add('logiciel', TextareaType::class, array(
+                        'attr' => array(
+                            'readonly' => true,
+                            'style' => 'vertical-align: top; width: 90%; max-width: 90%;'
+                        ),
+                        'data' => $donneesMessage['logiciel'],
+                        'required' => false
+                    ))
+                    ->add('raison', TextareaType::class, array(
+                        'attr' => array(
+                            'readonly' => true,
+                            'style' => 'width: 80%; max-width: 80%;'
+                        ),
+                        'data' => $donneesMessage['raison'],
+                        'required' => false
+                    ))
+                    ->add('date', TextType::class, array(
+                        'attr' => array(
+                            'readonly' => true
+                        ),
+                        'data' => $donneesMessage['date']->format('d/m/Y'),
+                        'required' => false
+                    ))
+                    ->add('emailSuperieur', TextType::class, array(
+                        'attr' => array(
+                            'readonly' => true
+                        ),
+                        'data' => $donneesMessage['emailSuperieur'],
+                        'required' => false
+                    ))
+                    ->add('prix', TextType::class, array(
+                        'required' => false
+                    ))
+                    ->add('Valider', SubmitType::class)
+                    ->add('Refuser', SubmitType::class)
+            ;
+            $form = $formBuilder->getForm();
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 // Si la demande est validée par la DSI...
@@ -206,9 +286,9 @@ class SupportSIController extends Controller {
 
                     $request->getSession()->getFlashBag()->add('notice', "La demande de matériel de " . $donneesMessage['demandeur'] . " a été validée.");
                     return $this->redirectToRoute('nox_intranet_accueil');
-
-                    // ...Si la demande est refusée par la DSI.
-                } else {
+                }
+                // ...Si la demande est refusée par la DSI.
+                else {
                     // On envoi un email au collaborateur pour lui indiquer le refus.
                     $messageDemandeur = $messageDemandeur = \Swift_Message::newInstance()
                             ->setSubject('Rejet de votre demande de matériel')
@@ -227,14 +307,14 @@ class SupportSIController extends Controller {
                     return $this->redirectToRoute('nox_intranet_accueil');
                 }
             }
-
-            // ...Si la demande n'existe plus en base de données.
-        } else {
+        }
+        // ...Si la demande n'existe plus en base de données.
+        else {
             $request->getSession()->getFlashBag()->add('notice', "Cette demande de matériel a déjà été traitée.");
             return $this->redirectToRoute('nox_intranet_accueil');
         }
 
-        return $this->render();
+        return $this->render('NoxIntranetSupportSIBundle:Support:demandeConfirmationDSI.html.twig', array('form' => $form->createView(), 'numOrdre' => $donneesMessage['numOrdre']));
     }
 
 }

@@ -13,6 +13,6 @@ la/les demande(s) suivante(s) : <br/><br/>
 <br />
 Raison de la demande : {{ raison }}
 <br /><br />
-Date désirée : <strong>{{ date }}</strong>
+Date désirée : <strong>{{ date|date('d/m/Y') }}</strong>
 <br /><br />
 Pour répondre à cette demande merci de <a style="color: blue;" href="{{ app.request.schemeAndHttpHost }}/intranet/supportSI/confirmation-demande-dsi/{{ cle }}"> cliquer ici </a>.

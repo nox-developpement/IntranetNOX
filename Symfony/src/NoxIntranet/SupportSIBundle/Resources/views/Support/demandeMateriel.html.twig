@@ -6,60 +6,111 @@
 
 {% block contenu %}
 
-    <div id='divFormulaireMateriel'>
-        <form name='demandeMateriel' method='GET' id='formulaireMateriel' action='{{ path('nox_intranet_demande_materiel_check') }}'>
+    <div style='font-size: 0.8vw;'>
 
-            <div class='infoDemande'>
-                <label for='agence'>Agence :</label>
-                <input type='text' name='agence' id='agence' value='{{ agence }}' readonly>
-                <label for='demandeur'>Demandeur :</label>
-                <input type='text' name='demandeur' id='demandeur' value='{{ username }}' readonly>
-            </div>
+        {{ form_start(formDemandeMateriel, {'attr': {'style': 'border: 2px outset #1F4E79; background-color: rgba(255,255,255, 0.6);' }}) }}
+        {{ form_errors(formDemandeMateriel) }}
 
-            <br>
+        <div style="display: inline-block; width: 50%; text-align: center; margin-bottom: 3%;">
+            {{ form_label(formDemandeMateriel.agence, 'Agence:') }}
+            {{ form_errors(formDemandeMateriel.agence) }}
+            {{ form_widget(formDemandeMateriel.agence, {'attr': {'style': 'text-align: center;'}}) }}
+        </div><!--
 
-            <input type='checkbox' name='materiel' value='materiel' id='materiel'> Matériel
+        --><div style="display: inline-block; width: 50%; text-align: center; margin-bottom: 3%;">
+            {{ form_label(formDemandeMateriel.demandeur, 'Collaborateur:') }}
+            {{ form_errors(formDemandeMateriel.demandeur) }}
+            {{ form_widget(formDemandeMateriel.demandeur, {'attr': {'style': 'text-align: center;'}}) }}
+        </div>
 
-            <br>
+        <div style="display: inline-block; width: 50%; text-align: center; margin-bottom: 1%;">
+            {{ form_label(formDemandeMateriel.materielCheckbox, 'Matériel') }}
+            {{ form_errors(formDemandeMateriel.materielCheckbox) }}
+            {{ form_widget(formDemandeMateriel.materielCheckbox) }}
+        </div><!--
 
-            <div class='contenuDemande' id='materielSelection'>
-                <label for="categorie">Catégorie :</label>
-                <select name="categorie" name='categorie' id="categorie">
-                    <optgroup label="Matériel">
-                        <option value="Portable">Portable</option>
-                        <option value="Ultra portable">Ultra portable</option>
-                        <option value="Poste fixe">Poste fixe</option>
-                        <option value="Poste CAO">Poste CAO</option>
-                </select>
-            </div>
+        --><div style="display: inline-block; width: 50%; text-align: center; margin-bottom: 1%;">
+            {{ form_label(formDemandeMateriel.logicielCheckbox, 'Logiciel') }}
+            {{ form_errors(formDemandeMateriel.logicielCheckbox) }}
+            {{ form_widget(formDemandeMateriel.logicielCheckbox) }}
+        </div>
 
-            <input type='checkbox' name='logicielCheckbox' value='logicielCheckbox' id='logicielCheckbox'> Logiciel
+        <div style="display: none; width: 50%; text-align: center; margin-bottom: 3%; float: left;">
+            {{ form_label(formDemandeMateriel.materielList, 'Type de matériel') }} <br />
+            {{ form_errors(formDemandeMateriel.materielList) }}
+            {{ form_widget(formDemandeMateriel.materielList) }}
+        </div><!--
 
-            <div class='contenuDemande' id='textAreaLogiciel'>
-                <label for='logiciel'>Nom du/des logiciel(s) désiré : 
-                    <textarea id='logiciel' name='logiciel' placeholder='Entrer le/les nom(s) du/des logiciel(s) désiré(s) ici.'></textarea>
-                </label>
-            </div>
+        --><div style="display: none; width: 50%; text-align: center; margin-bottom: 3%; float: right;">
+            {{ form_label(formDemandeMateriel.logicielName, 'Nom du/des logiciel(s)') }} <br />
+            {{ form_errors(formDemandeMateriel.logicielName) }}
+            {{ form_widget(formDemandeMateriel.logicielName) }}
+        </div>
 
-            <div class='contenuDemande' id='raisonDemande'>
-                <label for='raisonDemande'>Raison de la demande : 
-                    <textarea id='raisonDemande' name='raisonDemande'></textarea>
-                </label>
-            </div>
+        <div style='padding-left: 15%; margin-bottom: 3%; clear: both;'>
+            {{ form_label(formDemandeMateriel.raison, 'Raison de la demande') }} <br />
+            {{ form_errors(formDemandeMateriel.raison) }}
+            {{ form_widget(formDemandeMateriel.raison) }}
+        </div>
 
-            <div class='contenuDemande' id='raisonDemande'>
-                <label for='dateLivraison'>Date désirée : </label>
-                <input type="text" name="dateLivraison" id='dateLivraison' placeholder='jj/mm/aaaa'> <button type='button' class='boutonFormulaire' id='razDate' onclick="$('#dateLivraison').val('');">RAZ</button>
-            </div>
+        <div style="display: inline-block; width: 50%; text-align: center; margin-bottom: 3%;">
+            {{ form_label(formDemandeMateriel.date, 'Date désirée:') }}
+            {{ form_errors(formDemandeMateriel.date) }}
+            {{ form_widget(formDemandeMateriel.date, {'attr': {'style': 'display: inline-block;'}}) }}
+        </div><!--
 
-            <div class='contenuDemande'>
-                <label for='nomSuperieur'>Email du supérieur hiérarchique :</label>
-                <input type='text' id='emailSuperieur' name='emailSuperieur'>
-            </div>
+        --><div style="display: inline-block; width: 50%; text-align: center; margin-bottom: 3%;">
+            {{ form_label(formDemandeMateriel.mailSuperieur, 'Mail du supérieur hiérarchique:') }}
+            {{ form_errors(formDemandeMateriel.mailSuperieur) }}
+            {{ form_widget(formDemandeMateriel.mailSuperieur) }}
+        </div>
 
-            <p id='demanteMaterielBoutonCentrage'> <input type='submit' value='Envoyer' class='boutonFormulaire'> </p>
+        <div style='text-align: center;'>       
+            {{ form_widget(formDemandeMateriel.Valider, {'attr': {'class': 'boutonFormulaire', 'style': 'font-size: 1vw'}}) }}
+        </div>
 
-        </form>
+        {{ form_end(formDemandeMateriel) }}
     </div>
+
+    <script>
+        $(window).load(function () {
+            // Détecte les changement sur la checkbox du matériel...
+            $('#form_materielCheckbox').change(function () {
+                // ...Et fait apparaitre la liste de type de matériel.
+                if ($(this).is(':checked')) {
+                    $('#form_materielList').parent('div').css('display', 'inline-block');
+                    $('#form_materielList').attr('required', true);
+                }
+                // ...Et fait disparaitre la liste de type de matériel.
+                else {
+                    $('#form_materielList').parent('div').hide();
+                    $('#form_materielList').attr('required', false);
+                }
+            });
+
+            // Détecte les changement sur la checkbox de logiciel...
+            $('#form_logicielCheckbox').change(function () {
+                // ...Et fait apparaitre la zone de texte de logiciel.
+                if ($(this).is(':checked')) {
+                    $('#form_logicielName').parent('div').css('display', 'inline-block');
+                    $('#form_logicielName').attr('required', true);
+                }
+                // ...Et fait disparaitre la zone de texte de logiciel.
+                else {
+                    $('#form_logicielName').parent('div').hide();
+                    $('#form_logicielName').attr('required', false);
+                }
+            });
+
+            // Lors de la validation du formulaire, vérifie qu'au moins une checkbox est cochée.
+            $('#form_Valider').click(function () {
+                // Affiche un message d'erreur et bloque l'envoie du formulaire si ce n'est pas le cas.
+                if ($('#form_materielCheckbox:checked').length === 0 && $('#form_logicielCheckbox:checked').length === 0) {
+                    alert('Veuillez cocher au moins un type de contenu pour votre demande !');
+                    return false;
+                }
+            });
+        });
+    </script>
 
 {% endblock %}
