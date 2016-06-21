@@ -194,9 +194,8 @@ class SupportSIController extends Controller {
 
         // Si la demande est présente en base de données...
         if (!empty($demande)) {
-
             $donneesMessage = $demande->getMessage();
-            $mailSuperieur = $demande->getMessage();
+            $mailSuperieur = $demande->getMailSuperieur();
             $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('username' => $donneesMessage['demandeur']));
             $nomCompletDemandeur = $demandeur->getFirstname() . ' ' . $demandeur->getLastname();
 
@@ -227,7 +226,7 @@ class SupportSIController extends Controller {
                     ->add('logiciel', TextareaType::class, array(
                         'attr' => array(
                             'readonly' => true,
-                            'style' => 'vertical-align: top; width: 90%; max-width: 90%;'
+                            'style' => 'vertical-align: top; width: 90%; max-width: 90%; background-color: #E6E6E6;'
                         ),
                         'data' => $donneesMessage['logiciel'],
                         'required' => false
@@ -235,7 +234,7 @@ class SupportSIController extends Controller {
                     ->add('raison', TextareaType::class, array(
                         'attr' => array(
                             'readonly' => true,
-                            'style' => 'width: 80%; max-width: 80%;'
+                            'style' => 'width: 80%; max-width: 80%; background-color: #E6E6E6;'
                         ),
                         'data' => $donneesMessage['raison'],
                         'required' => false
@@ -274,7 +273,7 @@ class SupportSIController extends Controller {
                             ->setTo($mailSuperieur)
                             ->setBody(
                             $this->renderView(
-                                    'Emails/demandeMateriel.html.twig', array('donneesMessage' => $donneesMessage, 'prixEstime' => $form->get('prix')->getData())
+                                    'Emails/demandeMateriel.html.twig', array('donneesMessage' => $donneesMessage, 'prixEstime' => $form->get('prix')->getData(), 'cle' => $demande->getCleDemande())
                             ), 'text/html'
                     );
                     $this->get('mailer')->send($messageHelpdesk);
@@ -294,7 +293,7 @@ class SupportSIController extends Controller {
                             ->setSubject('Rejet de votre demande de matériel')
                             ->setFrom('noreply@groupe-nox.com')
                             ->setTo($donneesMessage['emailDemandeur'])
-                            ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été rejeté par la DSI."
+                            ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été rejetée par la DSI."
                             , 'text/html'
                     );
                     $this->get('mailer')->send($messageDemandeur);
@@ -303,18 +302,83 @@ class SupportSIController extends Controller {
                     $em->remove($demande);
                     $em->flush();
 
-                    $request->getSession()->getFlashBag()->add('notice', "La demande de matériel de " . $donneesMessage['demandeur'] . " a été rejeté.");
+                    $request->getSession()->getFlashBag()->add('notice', "La demande de matériel de " . $donneesMessage['demandeur'] . " a été rejetée.");
                     return $this->redirectToRoute('nox_intranet_accueil');
                 }
             }
         }
         // ...Si la demande n'existe plus en base de données.
         else {
-            $request->getSession()->getFlashBag()->add('notice', "Cette demande de matériel a déjà été traitée.");
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Cette demande de matériel a déjà été traitée.");
             return $this->redirectToRoute('nox_intranet_accueil');
         }
 
         return $this->render('NoxIntranetSupportSIBundle:Support:demandeConfirmationDSI.html.twig', array('form' => $form->createView(), 'numOrdre' => $donneesMessage['numOrdre']));
+    }
+
+    public function demandeConfirmationSuperieurHierarchiqueAction(Request $request, $cleDemande, $reponse) {
+
+        $em = $this->getDoctrine()->getManager();
+        $demande = $em->getRepository('NoxIntranetSupportSIBundle:DemandeMateriel')->findOneBy(array('cleDemande' => $cleDemande, 'status' => 'SupérieurHiérarchique'));
+
+        // Si la demande est présente en base de données...
+        if (!empty($demande)) {
+            $donneesMessage = $demande->getMessage();
+
+            // Si la réponse du supérieur hiérarchique est positive.
+            if ($reponse === 'validation') {
+                // On envoi un email au collaborateur pour lui indiquer la validation.
+                $messageHelpdesk = \Swift_Message::newInstance()
+                        ->setSubject('Validation de votre demande de matériel')
+                        ->setFrom('noreply@groupe-nox.com')
+                        ->setTo($donneesMessage['emailDemandeur'])
+                        ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été validée par votre supérieur hiérarchique."
+                        , 'text/html'
+                );
+                $this->get('mailer')->send($messageHelpdesk);
+
+                // Récupère l'adresse du helpdesk.
+                $adresseHelpdesk = $em->getRepository('NoxIntranetAdministrationBundle:Helpdesk')->findOneBySection('Helpdesk')->getEmail();
+
+                // On envoi un email à la DSI pour lui indiquer la validation.
+                $messageHelpdeskDSI = \Swift_Message::newInstance()
+                        ->setSubject('Demande de matériel/logiciel ' . $donneesMessage['demandeur'] . ' valide')
+                        ->setFrom('noreply@groupe-nox.com')
+                        ->setTo($adresseHelpdesk)
+                        ->setBody(
+                        $this->renderView(
+                                'Emails/demandeMaterielValide.html.twig', array('donneesMessage' => $donneesMessage)
+                        ), 'text/html'
+                );
+                $this->get('mailer')->send($messageHelpdeskDSI);
+
+                $request->getSession()->getFlashBag()->add('notice', "La demande de matériel de " . $donneesMessage['demandeur'] . " a été validée.");
+            }
+            // Si la réponse du supérieur hiérarchique est négative.
+            else {
+                // On envoi un email au collaborateur pour lui indiquer le refus.
+                $messageHelpdesk = \Swift_Message::newInstance()
+                        ->setSubject('Rejet de votre demande de matériel')
+                        ->setFrom('noreply@groupe-nox.com')
+                        ->setTo($donneesMessage['emailDemandeur'])
+                        ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été rejetée par votre supérieur hiérarchique."
+                        , 'text/html'
+                );
+                $this->get('mailer')->send($messageHelpdesk);
+
+                // On supprime la demande.
+                $request->getSession()->getFlashBag()->add('notice', "La demande de matériel de " . $donneesMessage['demandeur'] . " a été refusée.");
+                $em->remove($demande);
+            }
+
+            $em->flush();
+            return $this->redirectToRoute('nox_intranet_accueil');
+        }
+        // ...Si la demande n'existe plus en base de données.
+        else {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Cette demande de matériel a déjà été traitée.");
+            return $this->redirectToRoute('nox_intranet_accueil');
+        }
     }
 
 }

@@ -4,11 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp/www/Symfony/app/Resources/views/Emails/demandeMaterielDSI.html.twig</file>
+            <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/SupportSIBundle/Resources/views/Support/demandeConfirmationDSI.html.twig</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/SupportSIBundle/Controller/SupportSIController.php</file>
             <file>file:/C:/wamp/www/Symfony/app/Resources/views/layout.html.twig</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/CommunicationBundle/Resources/public/css/style.css</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/SupportSIBundle/Resources/config/routing.yml</file>
             <file>file:/C:/wamp/www/Symfony/src/NoxIntranet/SupportSIBundle/Resources/views/Support/demandeMateriel.html.twig</file>
+            <file>file:/C:/wamp/www/Symfony/app/Resources/views/Emails/demandeMateriel.html.twig</file>
         </group>
     </open-files>
 </project-private>

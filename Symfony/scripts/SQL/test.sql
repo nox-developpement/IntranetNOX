@@ -1,2 +1,0 @@
-SELECT * FROM CLIENT WHERE Prospect='non'
-GO

@@ -22,6 +22,10 @@ nox_intranet_demande_materiel_confirmation_dsi:
     path: /supportSI/confirmation-demande-dsi/{cleDemande}
     defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:demandeConfirmationDSI }
     
+nox_intranet_demande_materiel_confirmation_superieur_hierarchique:
+    path: /supportSI/confirmation-demande-superieur-hierarchique/{cleDemande}/{reponse}
+    defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:demandeConfirmationSuperieurHierarchique }
+    
 nox_intranet_avancement_projet:
     path: /supportSI/avancementProjet
     defaults: { _controller: NoxIntranetSupportSIBundle:AvancementProjet:avancementProjet }

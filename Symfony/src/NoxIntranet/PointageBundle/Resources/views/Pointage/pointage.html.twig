@@ -246,6 +246,7 @@
             displayTotalAbscences();
             displayTotalTitreTransport();
             checkAbscencesTitreRepas();
+            ajaxCheckAffaireExistingInGX();
             addProjectColumn();
             deleteProjectColumn();
             ajaxGetData();
@@ -1025,6 +1026,7 @@
                 displayTotalAbscences();
                 displayTotalTitreTransport();
                 checkAbscencesTitreRepas();
+                ajaxCheckAffaireExistingInGX();
             }
         }
 
@@ -1216,6 +1218,38 @@
             if (ms_ie) {
                 alert('Le module de pointage n\'est pas compatible avec Internet Explorer, veuillez utiliser Google Chrome ou Microsoft Edge à la place.');
             }
+        }
+
+        // Renvoi les affaires dont le numéro contient la chaine "search".
+        var search;
+        function ajaxCheckAffaireExistingInGX() {
+            $('#tableFeuillePointage tr:nth-child(2) .project').on('blur keyup paste input', function () {
+                if (typeof search !== 'undefined') {
+                    search.abort();
+                }
+                search = $.ajax({
+                    type: 'POST',
+                    url: '{{ path('nox_intranet_pointage_get_affaires_by_number') }}',
+                    data: {search: $(this).text()},
+                    success: function (response) {
+                        var results = JSON.parse(response);
+                        var append = '';
+                        append = "<div id='ajaxSearchAffairesDiv' style='position: fixed; left: 0; top: 0; background-color: orange;'>";
+                         $.each(results, function (key, value) {
+                            
+                            $.each(results[key], function (key2, value2) {
+                               
+                                append += "<p>" + results[key]['numAffaire'] + "</p>";
+                            });
+                        });
+                        for (var i = 0; i < results.length; i++) {
+                            append += "<p>" + results[i].numAffaire + "</p>";
+                        }
+                        append += "</div>";
+                        $('#tableFeuillePointageDivContainer').append(append);
+                    }
+                });
+            });
         }
 
     </script>

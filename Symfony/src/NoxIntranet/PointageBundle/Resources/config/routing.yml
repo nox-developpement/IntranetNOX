@@ -89,3 +89,7 @@ nox_intranet_pointage_ajax_get_assistantes_rh_pointage_compilation_by_month_and_
 nox_intranet_pointage_compilation_ajax_get_status:
     path:     /ressources/pointage-compilation-ajax-get-status
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetPointageCompilationStatus }
+    
+nox_intranet_pointage_get_affaires_by_number:
+    path:     /ressources/pointage-get-affaires-by-number
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetAffairesByNumber }

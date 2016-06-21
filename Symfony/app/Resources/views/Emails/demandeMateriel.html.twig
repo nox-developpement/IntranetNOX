@@ -2,17 +2,21 @@ N° ordre : {{ donneesMessage.numOrdre }} <br /><br />
 
 Bonjour, <br />
 
-L'utilisateur <strong>{{ donneesMessage.demandeur }}</strong> situé dans l'agence de <strong>{{ donneesMessage.agence }}</strong> à fait
+L'utilisateur <strong>{{ donneesMessage.demandeur }}</strong> situé dans l'agence de <strong>{{ donneesMessage.agence }}</strong> a fait
 la/les demande(s) suivante(s) : <br/><br/>
-{% if donneesMessage.materiel == 'materiel' %}
-    - Matériel :  <strong>{{ donneesMessage.categorie }}</strong>. <br />
+{% if donneesMessage.materiel != null %}
+    - Matériel :  <strong>{{ donneesMessage.materiel }}</strong>. <br />
 {% endif %}
-{% if donneesMessage.logicielCheckbox == 'logicielCheckbox' %}
+{% if donneesMessage.logiciel != null %}
     - Logiciel : <strong>{{ donneesMessage.logiciel }}.</strong> <br />
 {% endif %}
 <br />
 Raison de la demande : {{ donneesMessage.raison }}
 <br /><br />
-Date désirée : <strong>{{ donneesMessage.date }}</strong>
+Date désirée : <strong>{{ donneesMessage.date|date('d/m/Y') }}</strong>
 <br /><br />
-Demande validée par : <strong>{{ donneesMessage.emailSuperieur }}</strong>
+{% if prixEstime != null %}
+    Le prix estimé par la DSI est de <strong>{{ prixEstime }}</strong> €. <br /><br />
+{% endif %}
+Pour <span style='color: green;'>valider</span> la demande, merci de <a style="color: green;" href="{{ app.request.schemeAndHttpHost }}/intranet/supportSI/confirmation-demande-superieur-hierarchique/{{ cle }}/validation">cliquer ici</a>.
+Pour <span style='color: red;'>refuser</span> la demande, merci de <a style="color: red;" href="{{ app.request.schemeAndHttpHost }}/intranet/supportSI/confirmation-demande-superieur-hierarchique/{{ cle }}/rejet">cliquer ici</a>.
