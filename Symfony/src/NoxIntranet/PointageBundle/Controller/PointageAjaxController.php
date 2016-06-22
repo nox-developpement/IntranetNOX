@@ -752,7 +752,7 @@ class PointageAjaxController extends Controller {
                 fclose($handle);
             }
 
-            return new Response(json_encode($affaires, true));
+            return new Response(json_encode(array_slice($affaires,0,10), true));
         }
     }
 

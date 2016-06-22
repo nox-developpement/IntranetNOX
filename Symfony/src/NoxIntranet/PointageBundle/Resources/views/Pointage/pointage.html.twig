@@ -170,7 +170,10 @@
                 <td style='border: none;'></td>    
             </tr>
         </table>
+        <div id='ajaxSearchAffairesDiv' style='position: absolute; top: 0; left: 0; background-color: white; border: 1px solid rgb(165, 172, 178); font-size: 0.8vw; display: none;'>
+        </div>
     </div>
+
     <div id='tableFeuillePointageTypesAbscencesDivContainer'>
         <table id='tableFeuillePointageTypesAbscences'>
             <tr>
@@ -250,12 +253,10 @@
             addProjectColumn();
             deleteProjectColumn();
             ajaxGetData();
-
             $('#form_Valider').click(function () {
                 return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
             });
         });
-
         // Met à jours les cellules des valeurs totals.
         function tableEventHandler() {
             displayDailyProjectsTotalPercentage();
@@ -296,7 +297,6 @@
                         checkCellContentValidity(this);
                         if ($(this).text() !== '') {
                             total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
-
                         }
                     });
                     checkTotalValue(this, total);
@@ -401,7 +401,6 @@
                 function getAbscencesCount(nbAbscencesCell) {
                     var codeAbsences = $(nbAbscencesCell).next().text();
                     var total = 0;
-
                     $('.abscenceMatinSelector').each(function () {
                         if (codeAbsences === $(this).find('select option:selected').val()) {
                             total = parseFloat(total, 10) + parseFloat(0.5, 10);
@@ -441,13 +440,11 @@
                 resetCellsValues();
                 ajaxGetNewDate();
             });
-
             // Supprime les colonnes existantes de projets suplémentaires et rétablie le colspan de "Operationnel" à 2.
             function deleteProjectColumn() {
 
                 var firstColumnIndex = $('#tableFeuillePointage tr:nth-child(2) .project').first().index() + 2;
                 var lastColumnIndex = $('#tableFeuillePointage tr:nth-child(2) .project').last().index() + 1;
-
                 $('#tableFeuillePointage tr:nth-child(n+2) td:nth-child(n+' + firstColumnIndex + '):nth-child(-n+' + lastColumnIndex + ')').remove();
                 $('#operationnel').attr('colspan', 2);
             }
@@ -573,7 +570,6 @@
                     checkTotalValue(this, total);
                 });
             });
-
         }
 
         // Calcule et affiche le pourcentage total de chaque colonne de projets et vérifie la validité des données.
@@ -660,7 +656,6 @@
                     $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').removeAttr('disabled');
                 }
             });
-
             $('.abscenceAMSelector select').change(function () {
                 if ($(this).val() !== '' || $(this).parent('.abscenceAMSelector').siblings('.abscenceMatinSelector').find('select').val() !== '') {
                     $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').val('');
@@ -704,7 +699,6 @@
             function getAbscencesCount(nbAbscencesCell) {
                 var codeAbsences = $(nbAbscencesCell).next().text();
                 var total = 0;
-
                 $('.abscenceMatinSelector').each(function () {
                     if (codeAbsences === $(this).find('select option:selected').val()) {
                         total = parseFloat(total, 10) + parseFloat(0.5, 10);
@@ -741,7 +735,6 @@
             // Désactive la sauvegarde automatique sur l'édition de cellules.
             $('td[contenteditable=true]').unbind('blur');
             $('select:not(#pointage_month_selector, #pointage_year_selector)').unbind('change');
-
             // Détecte l'édition de texte des cellules et sauvegarde les changement en base de donnée.
             $('td[contenteditable=true]').on('blur', function () {
                 var data = {};
@@ -749,31 +742,25 @@
                 data['select'] = [];
                 data['project'] = [];
                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-
                 $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                     data['contenteditable'][index] = $(this).text();
                     //$(this).css('background-color', 'orange');
                     //$(this).text(index);
                 });
-
                 $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
                     data['select'][index] = $(this).val();
                     //$(this).css('background-color', 'orange');
                 });
-
                 $('.project[contenteditable=true]').each(function (index) {
                     data['project'][index] = $(this).text();
                 });
-
                 var serializedData = JSON.stringify(data);
-
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
                     data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
                 });
             });
-
             // Détecte l'édition de texte des selects et sauvegarde les changement en base de donnée.
             $('select:not(#pointage_month_selector, #pointage_year_selector)').change(function () {
                 var data = {};
@@ -781,24 +768,19 @@
                 data['select'] = [];
                 data['project'] = [];
                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-
                 $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                     data['contenteditable'][index] = $(this).text();
                     //$(this).css('background-color', 'orange');
                     //$(this).text(index);
                 });
-
                 $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
                     data['select'][index] = $(this).val();
                     //$(this).css('background-color', 'orange');
                 });
-
                 $('.project[contenteditable=true]').each(function (index) {
                     data['project'][index] = $(this).text();
                 });
-
                 var serializedData = JSON.stringify(data);
-
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
@@ -816,7 +798,6 @@
                 success: function (response) {
                     if (response !== '') {
                         var data = JSON.parse(response);
-
                         // Ajoute un td après chaque td du dernier projet.
                         function addTd() {
                             var total = $('#tableFeuillePointage').find('tr').length;
@@ -858,7 +839,6 @@
                         }
 
                         $('#signatureCollaborateur').text(data['signatureCollaborateur']);
-
                         if (data['contenteditable'] !== undefined) {
                             $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                                 $(this).text(data['contenteditable'][index]);
@@ -893,7 +873,6 @@
                         displayTotalAbscences();
                         displayTotalTitreTransport();
                         checkAbscencesTitreRepas();
-
                         ajaxSaveData();
                     }
                 }
@@ -912,7 +891,6 @@
                 $('.deleteColumn').unbind('click');
                 deleteProjectColumn();
             });
-
             // Ajoute un td après chaque td du dernier projet.
             function addTd() {
                 var total = $('#tableFeuillePointage').find('tr').length;
@@ -964,27 +942,21 @@
                 data['select'] = [];
                 data['project'] = [];
                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-
                 $('td[contenteditable=true]:not(#signatureCollaborateur)').each(function (index) {
                     data['contenteditable'][index] = $(this).text();
                 });
-
                 $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
                     data['select'][index] = $(this).val();
                 });
-
                 $('.project[contenteditable=true]').each(function (index) {
                     data['project'][index] = $(this).text();
                 });
-
                 var serializedData = JSON.stringify(data);
-
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
                     data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
                 });
-
                 $('td[contenteditable]').unbind('blur');
                 $('td[contenteditable=true]').on('blur', function () {
                     var data = {};
@@ -992,31 +964,25 @@
                     data['select'] = [];
                     data['project'] = [];
                     data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-
                     $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                         data['contenteditable'][index] = $(this).text();
                         //$(this).css('background-color', 'orange');
                         //$(this).text(index);
                     });
-
                     $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
                         data['select'][index] = $(this).val();
                         //$(this).css('background-color', 'orange');
                     });
-
                     $('.project[contenteditable=true]').each(function (index) {
                         data['project'][index] = $(this).text();
                     });
-
                     var serializedData = JSON.stringify(data);
-
                     $.ajax({
                         type: 'POST',
                         url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
                         data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
                     });
                 });
-
                 displayDailyProjectsTotalPercentage();
                 displayMonthlyProjectTotalPercentage();
                 dispayMonthlyTotalHoursMod();
@@ -1039,7 +1005,6 @@
                 checkColumnNumber();
                 ajaxSaveData();
             });
-
             // Supprime la croix de suppression si il ne reste qu'une colonne de projet.
             function checkColumnNumber() {
                 if ($('#tableFeuillePointage tr:nth-child(2) .project').length < 2) {
@@ -1050,7 +1015,6 @@
             // Supprime les td de la colonne.
             function deleteTd(column) {
                 var cellIndex = $(column).parents('td').index() - 1;
-
                 $('#tableFeuillePointage tr').each(function () {
                     $(this).find('.project').eq(cellIndex).remove();
                 });
@@ -1072,27 +1036,21 @@
                 data['select'] = [];
                 data['project'] = [];
                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-
                 $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                     data['contenteditable'][index] = $(this).text();
                 });
-
                 $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
                     data['select'][index] = $(this).val();
                 });
-
                 $('.project[contenteditable=true]').each(function (index) {
                     data['project'][index] = $(this).text();
                 });
-
                 var serializedData = JSON.stringify(data);
-
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
                     data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
                 });
-
                 $('td[contenteditable]').unbind('blur');
                 $('td[contenteditable=true]').on('blur', function () {
                     var data = {};
@@ -1100,31 +1058,25 @@
                     data['select'] = [];
                     data['project'] = [];
                     data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-
                     $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                         data['contenteditable'][index] = $(this).text();
                         //$(this).css('background-color', 'orange');
                         //$(this).text(index);
                     });
-
                     $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
                         data['select'][index] = $(this).val();
                         //$(this).css('background-color', 'orange');
                     });
-
                     $('.project[contenteditable=true]').each(function (index) {
                         data['project'][index] = $(this).text();
                     });
-
                     var serializedData = JSON.stringify(data);
-
                     $.ajax({
                         type: 'POST',
                         url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
                         data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
                     });
                 });
-
                 displayDailyProjectsTotalPercentage();
                 displayMonthlyProjectTotalPercentage();
                 dispayMonthlyTotalHoursMod();
@@ -1145,7 +1097,6 @@
             $('#addProject').show();
             $('.deleteColumn').show();
             $('#form_Valider').show();
-
             $('.pointageStatusLine div').width('10%');
             $(".pointageStatusCircle").css('background-color', 'lightgrey');
             $(".pointageStatusCircle").filter(function () {
@@ -1158,7 +1109,6 @@
                 success: function (response) {
                     var width = null;
                     var cercleNb = null;
-
                     switch (response) {
                         case '0':
                             width = 10;
@@ -1190,7 +1140,6 @@
                     $(".pointageStatusCircle").filter(function () {
                         return  $(this).attr("step") <= cercleNb;
                     }).css('background-color', 'green');
-
                     if (response !== '0' && response !== '') {
                         $('td[contenteditable=true]').css('cursor', 'default');
                         $('td[contenteditable=true]').attr('onkeydown', "return false");
@@ -1210,7 +1159,6 @@
             var ua = window.navigator.userAgent;
             var old_ie = ua.indexOf('MSIE ');
             var new_ie = ua.indexOf('Trident/');
-
             if ((old_ie > -1) || (new_ie > -1)) {
                 ms_ie = true;
             }
@@ -1221,33 +1169,135 @@
         }
 
         // Renvoi les affaires dont le numéro contient la chaine "search".
-        var search;
+        /*var search;
+         function ajaxCheckAffaireExistingInGX() {
+         // Pour toutes action dans une cellule titre d'affaire.
+         $('#tableFeuillePointage tr:nth-child(2) .project').on('blur keyup paste input', function () {
+         // On supprime les résultats de la recherche si ils existent.
+         $('#ajaxSearchAffairesDiv').remove();
+         var celluleProject = $(this);
+         // Si une requête ajax est en cours on l'arrête.
+         if (typeof search !== 'undefined') {
+         search.abort();
+         }
+         
+         // On exécute la requette ajax qui retourne les affaires qui corresponde à la recherche.
+         search = $.ajax({
+         type: 'POST',
+         url: '{{ path('nox_intranet_pointage_get_affaires_by_number') }}',
+         data: {search: $(this).text()},
+         success: function (response) {
+         var results = JSON.parse(response);
+         var append = '';
+         var appendWidth = 1.1 * celluleProject.outerWidth();
+         var isClicked = false;
+         
+         // On fait apparaitre une div contenant les résultats de la recherche.
+         append = "<div id='ajaxSearchAffairesDiv' style='position: absolute; left: 0; top: 0; background-color: white; border: 1px solid rgb(165, 172, 178); min-width: " + appendWidth + "px;'>";
+         $.each(results, function (key) {
+         append += "<p class='ajaxSearchAffairesDivResults' style='text-align: center; margin: 0; padding-top: 1%; padding-bottom: 1%;' data-numAffaire= '" + results[key]['numAffaire'] + "'>" + results[key]['numAffaire'] + " " + results[key]['nomAffaire'] + "</p>";
+         });
+         append += "</div>";
+         $('#tableFeuillePointageDivContainer').append(append);
+         $('#ajaxSearchAffairesDiv').css('top', celluleProject.offset().top + celluleProject.outerHeight() - $('#tableFeuillePointageDivContainer').offset().top);
+         $('#ajaxSearchAffairesDiv').css('left', celluleProject.offset().left - $('#tableFeuillePointageDivContainer').offset().left);
+         
+         // Effet visuel au passage de la souris sur les résultats.
+         $('.ajaxSearchAffairesDivResults').hover(function () {
+         $(this).css('background-color', 'rgb(217, 217, 217)');
+         }, function () {
+         $(this).css('background-color', 'white');
+         });
+         
+         // Lors du clique sur un résultat on remplace le contenu de la recherche par le résultat.
+         $('.ajaxSearchAffairesDivResults').mousedown(function () {
+         celluleProject.text($(this).attr('data-numAffaire'));
+         isClicked = true;
+         });
+         
+         // Supprime la div des résultats lors du blur du champ de recherche.
+         celluleProject.blur(function () {
+         $('#ajaxSearchAffairesDiv').remove();
+         if (isClicked === false) {
+         celluleProject.text('');
+         }
+         });
+         }
+         });
+         });
+         }*/
+
+        // Renvoi les affaires dont le numéro contient la chaine "search".
         function ajaxCheckAffaireExistingInGX() {
+            // Pour toutes action dans une cellule titre d'affaire.
             $('#tableFeuillePointage tr:nth-child(2) .project').on('blur keyup paste input', function () {
-                if (typeof search !== 'undefined') {
-                    search.abort();
-                }
-                search = $.ajax({
-                    type: 'POST',
-                    url: '{{ path('nox_intranet_pointage_get_affaires_by_number') }}',
-                    data: {search: $(this).text()},
-                    success: function (response) {
-                        var results = JSON.parse(response);
-                        var append = '';
-                        append = "<div id='ajaxSearchAffairesDiv' style='position: fixed; left: 0; top: 0; background-color: orange;'>";
-                         $.each(results, function (key, value) {
-                            
-                            $.each(results[key], function (key2, value2) {
-                               
-                                append += "<p>" + results[key]['numAffaire'] + "</p>";
-                            });
+
+                var search = $(this).text();
+                var celluleProject = $(this);
+                var affaires = "http://" + window.location.hostname + "/Symfony/web/DatabasesCSV/AffairesEncode.csv";
+
+                // Supprime les paragraphes de résultats existants et cache la 'div' des résultats.
+                $('#ajaxSearchAffairesDiv').hide();
+                $('#ajaxSearchAffairesDiv').empty();
+
+                // Fixe la largeur minimale de la 'div' des résultats a 1.1 fois la taille de la cellule.
+                var minWidth = celluleProject.outerWidth() * 1.1;
+                $('#ajaxSearchAffairesDiv').css('min-width', minWidth);
+
+                // Cherche la chaine saisi dans le fichier csv des affaires et ajoute une balise 'p' par résultats.
+                if (search !== '') {
+                    $.get(affaires, function (data) {
+                        var lineByLine = data.split("\n");
+                        var compteur = 0;
+
+                        $.each(lineByLine, function (index, value) {
+                            var donnes = value.split(';');
+                            if (compteur < 10 && donnes[0].indexOf(search) >= 0) {
+                                $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
+                                compteur++;
+                            }
                         });
-                        for (var i = 0; i < results.length; i++) {
-                            append += "<p>" + results[i].numAffaire + "</p>";
+
+                        // Effet visuel au passage de la souris sur les résultats.
+                        $('.ajaxSearchAffairesDivResults').hover(function () {
+                            $(this).css('background-color', 'rgb(217, 217, 217)');
+                        }, function () {
+                            $(this).css('background-color', 'white');
+                        });
+
+                        // Lors du clique sur un résultat on remplace le contenu de la recherche par le résultat.
+                        $('.ajaxSearchAffairesDivResults').mousedown(function () {
+                            celluleProject.text($(this).attr('data-numaffaire'));
+                        });
+                    });
+                }
+
+                // Positione la 'div' contenant les résultats sous la cellules focus et l'affiche.
+                $('#ajaxSearchAffairesDiv').css('top', celluleProject.offset().top + celluleProject.outerHeight() - $('#tableFeuillePointageDivContainer').offset().top);
+                $('#ajaxSearchAffairesDiv').css('left', celluleProject.offset().left - $('#tableFeuillePointageDivContainer').offset().left);
+                $('#ajaxSearchAffairesDiv').show();
+
+                // Supprime la div des résultats lors du blur du champ de recherche et vide la cellule si le contenu n'est pas un numéro d'affaire existant.
+                celluleProject.blur(function () {
+                    var existing = false;
+
+                    $('#ajaxSearchAffairesDiv').hide();
+
+                    $.get(affaires, function (data) {
+                        var lineByLine = data.split("\n");
+                        //alert(celluleProject.text());
+                        $.each(lineByLine, function (index, value) {
+                            var donnes = value.split(';');
+                            if (donnes[0] === celluleProject.text()) {
+                                existing = true;
+                            }
+                        });
+                        if (!existing) {
+                            celluleProject.text('');
                         }
-                        append += "</div>";
-                        $('#tableFeuillePointageDivContainer').append(append);
-                    }
+                    });
+
+
                 });
             });
         }
