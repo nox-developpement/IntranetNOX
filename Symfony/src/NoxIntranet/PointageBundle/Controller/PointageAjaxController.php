@@ -726,34 +726,4 @@ class PointageAjaxController extends Controller {
         }
     }
 
-    public function ajaxGetAffairesByNumberAction(Request $request) {
-        if ($request->isXmlHttpRequest()) {
-            // Récupére le terme de la recherche.
-            $search = $request->get('search');
-
-            // Récupére le fichier contenant les affaires.
-            $file = $this->get('kernel')->getRootDir() . "\..\GX_DB\Affaires.csv";
-
-            // Initialise le tableau des affaires.
-            $affaires = array();
-
-            // Place le numéro et le nom des affaires dans un tableau
-            $row = 1;
-            if (($handle = fopen($file, "r")) !== FALSE) {
-                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
-                    $row++;
-                    if (array_key_exists(0, $data) && strstr($data[0], $search) !== FALSE) {
-                        $affaires[$row]['numAffaire'] = utf8_encode($data[0]);
-                        if (array_key_exists(1, $data)) {
-                            $affaires[$row]['nomAffaire'] = utf8_encode($data[1]);
-                        }
-                    }
-                }
-                fclose($handle);
-            }
-
-            return new Response(json_encode(array_slice($affaires,0,10), true));
-        }
-    }
-
 }

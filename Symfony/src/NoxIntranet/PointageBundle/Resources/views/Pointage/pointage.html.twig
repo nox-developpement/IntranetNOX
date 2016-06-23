@@ -172,6 +172,9 @@
         </table>
         <div id='ajaxSearchAffairesDiv' style='position: absolute; top: 0; left: 0; background-color: white; border: 1px solid rgb(165, 172, 178); font-size: 0.8vw; display: none;'>
         </div>
+        <div id='projectDeleteMenu'>
+            <img src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'><p>Supprimer cette affaire</p>
+        </div>
     </div>
 
     <div id='tableFeuillePointageTypesAbscencesDivContainer'>
@@ -249,7 +252,7 @@
             displayTotalAbscences();
             displayTotalTitreTransport();
             checkAbscencesTitreRepas();
-            ajaxCheckAffaireExistingInGX();
+            getGXAffaires();
             addProjectColumn();
             deleteProjectColumn();
             ajaxGetData();
@@ -742,7 +745,7 @@
                 data['select'] = [];
                 data['project'] = [];
                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-                $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
+                $('td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
                     data['contenteditable'][index] = $(this).text();
                     //$(this).css('background-color', 'orange');
                     //$(this).text(index);
@@ -857,10 +860,6 @@
                             });
                         }
 
-                        if (data['nbProject'] > 1) {
-                            $('tr:nth-child(2)').find('.project').append("<img class='deleteColumn' src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'>");
-                        }
-
                         ajaxGetPointageStatus();
                         deleteProjectColumn();
                         tableEventHandler();
@@ -873,6 +872,7 @@
                         displayTotalAbscences();
                         displayTotalTitreTransport();
                         checkAbscencesTitreRepas();
+                        getGXAffaires();
                         ajaxSaveData();
                     }
                 }
@@ -887,8 +887,6 @@
                 addTd();
                 setColSpan();
                 ajaxSaveData();
-                checkColumnNumber();
-                $('.deleteColumn').unbind('click');
                 deleteProjectColumn();
             });
             // Ajoute un td après chaque td du dernier projet.
@@ -918,17 +916,6 @@
                 });
             }
 
-            // Ajout une croix de suppression dans les cellules de projet qui n'ens n'ons pas.
-            function checkColumnNumber() {
-                if ($('#tableFeuillePointage tr:nth-child(2) .project').length > 1) {
-                    $('tr:nth-child(2)').find('.project').each(function () {
-                        if ($(this).find('img').length === 0) {
-                            $(this).append("<img class='deleteColumn' src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Supprimer projet'>");
-                        }
-                    });
-                }
-            }
-
             // Incrémente le colspan du header des projets de 1.
             function setColSpan() {
                 var colspan = parseInt($('#operationnel').attr('colspan'), 10);
@@ -942,7 +929,7 @@
                 data['select'] = [];
                 data['project'] = [];
                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-                $('td[contenteditable=true]:not(#signatureCollaborateur)').each(function (index) {
+                $('td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
                     data['contenteditable'][index] = $(this).text();
                 });
                 $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
@@ -992,35 +979,76 @@
                 displayTotalAbscences();
                 displayTotalTitreTransport();
                 checkAbscencesTitreRepas();
-                ajaxCheckAffaireExistingInGX();
+                getGXAffaires();
             }
         }
 
         // Supprime une colonne de projet au tableau.
         function deleteProjectColumn() {
 
-            $('.deleteColumn').click(function () {
-                deleteTd($(this));
-                setColSpan();
-                checkColumnNumber();
-                ajaxSaveData();
-            });
-            // Supprime la croix de suppression si il ne reste qu'une colonne de projet.
-            function checkColumnNumber() {
-                if ($('#tableFeuillePointage tr:nth-child(2) .project').length < 2) {
-                    $('#tableFeuillePointage tr:nth-child(2) .project img').remove();
+            // On supprime le trigger de contextmenu déjà existant.
+            $('#tableFeuillePointage tr:nth-child(2) .project').unbind('contextmenu');
+
+            // Lors d'un clic droit sur une cellule de nom d'affaire.
+            $('#tableFeuillePointage tr:nth-child(2) .project').bind('contextmenu', function (e) {
+
+                var projectCellule = $(this);
+
+                // On supprime le trigger de clique déjà existant.
+                $('#projectDeleteMenu').unbind('click');
+
+                // On bloque l'apparition du menu contextuel.
+                e.preventDefault();
+
+                // On récupére les coordonnées du pointeur de la souris.
+                var cursorY = 1.01 * e.pageY;
+                var cursorX = 1.01 * e.pageX;
+
+                // Si le nombre d'affaire est supérieur à 2.
+                if ($('#tableFeuillePointage tr:nth-child(2) .project').length > 1) {
+                    // On positione et fait apparaître le menu de suppression.
+                    $('#projectDeleteMenu').css('top', cursorY);
+                    $('#projectDeleteMenu').css('left', cursorX);
+                    $('#projectDeleteMenu').css('display', 'inline-block');
+
+                    // Lors du clic sur le menu de suppression.
+
+                    $('#projectDeleteMenu').click(function () {
+                        /*var handler = function () {
+                         // On le fait disparaître.
+                         $('#projectDeleteMenu').hide();
+                         deleteTd(projectCellule);
+                         setColSpan();
+                         //ajaxSaveData();
+                         };*/
+                        //console.log($._data(projectCellule[0], "events"));
+                        //projectCellule.css('background-color', 'orange');
+                        projectCellule.unbind('blur');
+                        projectCellule.unbind('keyup');
+                        projectCellule.unbind('paste');
+                    });
                 }
-            }
+
+                // Si on clique en dehors de la fenêtre de suppression, elle disparaît.
+                $(document).mouseup(function (e) {
+                    var container = $('#projectDeleteMenu');
+                    if (!container.is(e.target) // if the target of the click isn't the container...
+                            && container.has(e.target).length === 0) // ... nor a descendant of the container
+                    {
+                        container.hide();
+                    }
+                });
+            });
 
             // Supprime les td de la colonne.
             function deleteTd(column) {
-                var cellIndex = $(column).parents('td').index() - 1;
+                var cellIndex = $(column).index() - 1;
                 $('#tableFeuillePointage tr').each(function () {
                     $(this).find('.project').eq(cellIndex).remove();
                 });
                 $('#tableFeuillePointage tr:nth-last-child(3) td').eq(cellIndex).remove();
-                $('.monthlyTotalPercentageCell').eq($(column).parents('td').index() - 1).remove();
-                $('.monthlyTotalCell').eq($(column).parents('td').index() - 1).remove();
+                $('.monthlyTotalPercentageCell').eq($(column).index() - 1).remove();
+                $('.monthlyTotalCell').eq($(column).index() - 1).remove();
             }
 
             // Désincrémente le colspan du header des projets de 1.
@@ -1036,7 +1064,7 @@
                 data['select'] = [];
                 data['project'] = [];
                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-                $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
+                $('td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
                     data['contenteditable'][index] = $(this).text();
                 });
                 $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
@@ -1095,7 +1123,6 @@
             $('td[contenteditable=true]').removeAttr('onkeydown');
             $('select:not(#pointage_month_selector, #pointage_year_selector)').removeAttr('disabled');
             $('#addProject').show();
-            $('.deleteColumn').show();
             $('#form_Valider').show();
             $('.pointageStatusLine div').width('10%');
             $(".pointageStatusCircle").css('background-color', 'lightgrey');
@@ -1145,7 +1172,6 @@
                         $('td[contenteditable=true]').attr('onkeydown', "return false");
                         $('select:not(#pointage_month_selector, #pointage_year_selector)').attr('disabled', 'disabled');
                         $('#addProject').hide();
-                        $('.deleteColumn').hide();
                         $('#form_Valider').hide();
                     }
                 }
@@ -1169,75 +1195,25 @@
         }
 
         // Renvoi les affaires dont le numéro contient la chaine "search".
-        /*var search;
-         function ajaxCheckAffaireExistingInGX() {
-         // Pour toutes action dans une cellule titre d'affaire.
-         $('#tableFeuillePointage tr:nth-child(2) .project').on('blur keyup paste input', function () {
-         // On supprime les résultats de la recherche si ils existent.
-         $('#ajaxSearchAffairesDiv').remove();
-         var celluleProject = $(this);
-         // Si une requête ajax est en cours on l'arrête.
-         if (typeof search !== 'undefined') {
-         search.abort();
-         }
-         
-         // On exécute la requette ajax qui retourne les affaires qui corresponde à la recherche.
-         search = $.ajax({
-         type: 'POST',
-         url: '{{ path('nox_intranet_pointage_get_affaires_by_number') }}',
-         data: {search: $(this).text()},
-         success: function (response) {
-         var results = JSON.parse(response);
-         var append = '';
-         var appendWidth = 1.1 * celluleProject.outerWidth();
-         var isClicked = false;
-         
-         // On fait apparaitre une div contenant les résultats de la recherche.
-         append = "<div id='ajaxSearchAffairesDiv' style='position: absolute; left: 0; top: 0; background-color: white; border: 1px solid rgb(165, 172, 178); min-width: " + appendWidth + "px;'>";
-         $.each(results, function (key) {
-         append += "<p class='ajaxSearchAffairesDivResults' style='text-align: center; margin: 0; padding-top: 1%; padding-bottom: 1%;' data-numAffaire= '" + results[key]['numAffaire'] + "'>" + results[key]['numAffaire'] + " " + results[key]['nomAffaire'] + "</p>";
-         });
-         append += "</div>";
-         $('#tableFeuillePointageDivContainer').append(append);
-         $('#ajaxSearchAffairesDiv').css('top', celluleProject.offset().top + celluleProject.outerHeight() - $('#tableFeuillePointageDivContainer').offset().top);
-         $('#ajaxSearchAffairesDiv').css('left', celluleProject.offset().left - $('#tableFeuillePointageDivContainer').offset().left);
-         
-         // Effet visuel au passage de la souris sur les résultats.
-         $('.ajaxSearchAffairesDivResults').hover(function () {
-         $(this).css('background-color', 'rgb(217, 217, 217)');
-         }, function () {
-         $(this).css('background-color', 'white');
-         });
-         
-         // Lors du clique sur un résultat on remplace le contenu de la recherche par le résultat.
-         $('.ajaxSearchAffairesDivResults').mousedown(function () {
-         celluleProject.text($(this).attr('data-numAffaire'));
-         isClicked = true;
-         });
-         
-         // Supprime la div des résultats lors du blur du champ de recherche.
-         celluleProject.blur(function () {
-         $('#ajaxSearchAffairesDiv').remove();
-         if (isClicked === false) {
-         celluleProject.text('');
-         }
-         });
-         }
-         });
-         });
-         }*/
+        function getGXAffaires() {
 
-        // Renvoi les affaires dont le numéro contient la chaine "search".
-        function ajaxCheckAffaireExistingInGX() {
+            // Supprime les triggers d'event déjà existant.
+            $('#tableFeuillePointage tr:nth-child(2) .project').unbind('blur');
+            $('#tableFeuillePointage tr:nth-child(2) .project').unbind('keyup');
+            $('#tableFeuillePointage tr:nth-child(2) .project').unbind('paste');
+            //$('#tableFeuillePointage tr:nth-child(2) .project').unbind('input');
+
             // Pour toutes action dans une cellule titre d'affaire.
-            $('#tableFeuillePointage tr:nth-child(2) .project').on('blur keyup paste input', function () {
+            $('#tableFeuillePointage tr:nth-child(2) .project').on('blur keyup paste', function () {
+
+                $('#ajaxSearchAffairesDiv').hide();
 
                 var search = $(this).text();
                 var celluleProject = $(this);
                 var affaires = "http://" + window.location.hostname + "/Symfony/web/DatabasesCSV/AffairesEncode.csv";
+                var compteur = 0;
 
-                // Supprime les paragraphes de résultats existants et cache la 'div' des résultats.
-                $('#ajaxSearchAffairesDiv').hide();
+                // Supprime les paragraphes de résultats existants.
                 $('#ajaxSearchAffairesDiv').empty();
 
                 // Fixe la largeur minimale de la 'div' des résultats a 1.1 fois la taille de la cellule.
@@ -1248,10 +1224,11 @@
                 if (search !== '') {
                     $.get(affaires, function (data) {
                         var lineByLine = data.split("\n");
-                        var compteur = 0;
+                        var numsAffaires = [];
 
                         $.each(lineByLine, function (index, value) {
                             var donnes = value.split(';');
+                            numsAffaires.push(donnes[0]);
                             if (compteur < 10 && donnes[0].indexOf(search) >= 0) {
                                 $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
                                 compteur++;
@@ -1269,36 +1246,30 @@
                         $('.ajaxSearchAffairesDivResults').mousedown(function () {
                             celluleProject.text($(this).attr('data-numaffaire'));
                         });
+
+                        // Positione la 'div' contenant les résultats sous la cellules focus.
+                        $('#ajaxSearchAffairesDiv').css('top', celluleProject.offset().top + celluleProject.outerHeight() - $('#tableFeuillePointageDivContainer').offset().top);
+                        $('#ajaxSearchAffairesDiv').css('left', celluleProject.offset().left - $('#tableFeuillePointageDivContainer').offset().left);
+
+                        // Affiche la 'div' des résultats si elle n'est pas vide.
+                        if (compteur > 0) {
+                            $('#ajaxSearchAffairesDiv').show();
+                        }
+
+                        // Cache la div des résultats lors du blur du champ de recherche et vide la cellule si le contenu n'est pas un numéro d'affaire existant.
+                        celluleProject.blur(function () {
+                            var existing = false;
+
+                            $('#ajaxSearchAffairesDiv').hide();
+
+                            if ($.inArray(celluleProject.text(), numsAffaires) === -1) {
+                                celluleProject.text('');
+                                //celluleProject.trigger('blur');
+                            }
+                        });
                     });
                 }
 
-                // Positione la 'div' contenant les résultats sous la cellules focus et l'affiche.
-                $('#ajaxSearchAffairesDiv').css('top', celluleProject.offset().top + celluleProject.outerHeight() - $('#tableFeuillePointageDivContainer').offset().top);
-                $('#ajaxSearchAffairesDiv').css('left', celluleProject.offset().left - $('#tableFeuillePointageDivContainer').offset().left);
-                $('#ajaxSearchAffairesDiv').show();
-
-                // Supprime la div des résultats lors du blur du champ de recherche et vide la cellule si le contenu n'est pas un numéro d'affaire existant.
-                celluleProject.blur(function () {
-                    var existing = false;
-
-                    $('#ajaxSearchAffairesDiv').hide();
-
-                    $.get(affaires, function (data) {
-                        var lineByLine = data.split("\n");
-                        //alert(celluleProject.text());
-                        $.each(lineByLine, function (index, value) {
-                            var donnes = value.split(';');
-                            if (donnes[0] === celluleProject.text()) {
-                                existing = true;
-                            }
-                        });
-                        if (!existing) {
-                            celluleProject.text('');
-                        }
-                    });
-
-
-                });
             });
         }
 
