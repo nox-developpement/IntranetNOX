@@ -1,8 +1,8 @@
 {% extends "layout.html.twig" %}
 
-{% block titrePage %} Assistante agence: Validation pointages {% endblock %}
+{% block titrePage %} Assistant(e) agence: Validation pointages {% endblock %}
 
-{% block messageAccueil %}Assistante agence: Validation pointages{% endblock %}
+{% block messageAccueil %}Assistant(e) agence: Validation pointages{% endblock %}
 
 {% block contenu %}
     <div id="pointageSelection">
@@ -1459,9 +1459,14 @@
                 // Si le nombre d'affaire est supérieur à 2.
                 if ($('#tableFeuillePointage tr:nth-child(2) .project').length > 1) {
                     // On positione et fait apparaître le menu de suppression.
-                    $('#projectDeleteMenu').css('top', cursorY);
-                    $('#projectDeleteMenu').css('left', cursorX);
-                    $('#projectDeleteMenu').css('display', 'inline-block');
+                    //$('#projectDeleteMenu').css('top', cursorY);
+                    //$('#projectDeleteMenu').css('left', cursorX);
+                    //$('#projectDeleteMenu').css('display', 'inline-block');
+
+                    // On supprime les events sur la cellule.
+                    projectCellule.unbind('blur');
+                    projectCellule.unbind('keyup');
+                    projectCellule.unbind('paste');
 
                     // Lors du clic sur le menu de suppression.
                     $('#projectDeleteMenu').click(function () {
@@ -1469,7 +1474,7 @@
                         $(this).hide();
                         deleteTd(projectCellule);
                         setColSpan();
-                        ajaxSaveData();
+                        ajaxSaveData2();
                     });
                 }
 
@@ -1480,6 +1485,8 @@
                             && container.has(e.target).length === 0) // ... nor a descendant of the container
                     {
                         container.hide();
+                        ajaxSaveData2();
+                        getGXAffaires();
                     }
                 });
             });
@@ -1502,7 +1509,7 @@
             }
 
             // Lis le contenu des cellules du tableau et renvoie le résultat sous forme de chaine pour sauvegarde en base de données.
-            function ajaxSaveData() {
+            function ajaxSaveData2() {
                 var data = {};
                 data['contenteditable'] = [];
                 data['select'] = [];
@@ -1613,7 +1620,7 @@
                         $.each(lineByLine, function (index, value) {
                             var donnes = value.split(';');
                             numsAffaires.push(donnes[0]);
-                            if (compteur < 10 && donnes[0].indexOf(search) >= 0) {
+                            if (compteur < 10 && donnes[0].indexOf(search) >= 0 && (search.trim() !== donnes[0].trim())) {
                                 $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
                                 compteur++;
                             }

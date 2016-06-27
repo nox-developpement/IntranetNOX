@@ -1004,28 +1004,25 @@
                 var cursorY = 1.01 * e.pageY;
                 var cursorX = 1.01 * e.pageX;
 
-                // Si le nombre d'affaire est supérieur à 2.
+                // Si le nombre d'affaire est supérieur à 1.
                 if ($('#tableFeuillePointage tr:nth-child(2) .project').length > 1) {
                     // On positione et fait apparaître le menu de suppression.
                     $('#projectDeleteMenu').css('top', cursorY);
                     $('#projectDeleteMenu').css('left', cursorX);
                     $('#projectDeleteMenu').css('display', 'inline-block');
 
-                    // Lors du clic sur le menu de suppression.
+                    // On supprime les events sur la cellule.
+                    //projectCellule.unbind('blur');
+                    //projectCellule.unbind('keyup');
+                    //projectCellule.unbind('paste');
 
+                    // Lors du clic sur le menu de suppression.
                     $('#projectDeleteMenu').click(function () {
-                        /*var handler = function () {
-                         // On le fait disparaître.
-                         $('#projectDeleteMenu').hide();
-                         deleteTd(projectCellule);
-                         setColSpan();
-                         //ajaxSaveData();
-                         };*/
+                        $('#projectDeleteMenu').hide();
+                        deleteTd(projectCellule);
+                        setColSpan();
+                        ajaxSaveData2();
                         //console.log($._data(projectCellule[0], "events"));
-                        //projectCellule.css('background-color', 'orange');
-                        projectCellule.unbind('blur');
-                        projectCellule.unbind('keyup');
-                        projectCellule.unbind('paste');
                     });
                 }
 
@@ -1036,7 +1033,10 @@
                             && container.has(e.target).length === 0) // ... nor a descendant of the container
                     {
                         container.hide();
+                        ajaxSaveData2();
+                        getGXAffaires();
                     }
+
                 });
             });
 
@@ -1058,7 +1058,7 @@
             }
 
             // Lis le contenu des cellules du tableau et renvoie le résultat sous forme de chaine pour sauvegarde en base de données.
-            function ajaxSaveData() {
+            function ajaxSaveData2() {
                 var data = {};
                 data['contenteditable'] = [];
                 data['select'] = [];
@@ -1229,7 +1229,7 @@
                         $.each(lineByLine, function (index, value) {
                             var donnes = value.split(';');
                             numsAffaires.push(donnes[0]);
-                            if (compteur < 10 && donnes[0].indexOf(search) >= 0) {
+                            if (compteur < 10 && donnes[0].indexOf(search) >= 0 && (search.trim() !== donnes[0].trim())) {
                                 $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
                                 compteur++;
                             }
@@ -1258,13 +1258,10 @@
 
                         // Cache la div des résultats lors du blur du champ de recherche et vide la cellule si le contenu n'est pas un numéro d'affaire existant.
                         celluleProject.blur(function () {
-                            var existing = false;
-
                             $('#ajaxSearchAffairesDiv').hide();
 
                             if ($.inArray(celluleProject.text(), numsAffaires) === -1) {
                                 celluleProject.text('');
-                                //celluleProject.trigger('blur');
                             }
                         });
                     });
