@@ -254,13 +254,9 @@ class PointageController extends Controller {
     // Affiche l'inteface de visualisation/correction/validation des pointages des collaborateurs en fonction de l'assistante d'agence.
     public function assistantesAgenceGestionPointageAction() {
 
-        // Permet de lire les fichiers Excel.
-        include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
-
         // Inisialisation des varibables de fonction.
         $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
         $em = $this->getDoctrine()->getManager();
-        $excelRHFile = "C:/wamp/www/Symfony/Validation Manager WF RF MAJ NR 300516.xlsx";
 
         // Vérifie que l'utilistateur est une assistante d'agence.
         if (in_array($securityName, $this->getAssistantesAgence())) {
@@ -337,13 +333,9 @@ class PointageController extends Controller {
     // Compile les feuilles de pointages du mois courant validées par les assistantes d'agence.
     public function assistantesAgencePointagesCompilationAction(Request $request) {
 
-        // Permet de lire les fichiers Excel.
-        include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
-
         // Inisialisation des varibables de fonction.
         $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
         $em = $this->getDoctrine()->getManager();
-        $excelRHFile = "C:/wamp/www/Symfony/Validation Manager WF RF MAJ NR 300516.xlsx";
 
         // Vérifie que l'utilistateur est une assistante d'agence.
         if (in_array($securityName, $this->getAssistantesAgence())) {
@@ -421,7 +413,7 @@ class PointageController extends Controller {
 
             if ($formValidationRefus->isValid()) {
 
-                $pointagesCompilation = getPointagesACompile($em, $this->getUsersByAssistante($excelRHFile, $securityName, $em), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData());
+                $pointagesCompilation = getPointagesACompile($em, $this->getUsersByAssistante($securityName, $em), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData());
 
                 if ($formValidationRefus->get('Compilation')->isClicked()) {
                     foreach ($pointagesCompilation as $pointage) {
@@ -539,13 +531,9 @@ class PointageController extends Controller {
     // Compile les feuilles de pointages du mois courant validées par les DA/Manager.
     public function DAManagerPointagesCompilationAction(Request $request) {
 
-        // Permet de lire les fichiers Excel.
-        include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
-
         // Inisialisation des varibables de fonction.
         $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
         $em = $this->getDoctrine()->getManager();
-        $excelRHFile = "C:/wamp/www/Symfony/Validation Manager WF RF MAJ NR 300516.xlsx";
 
         // Vérifie que l'utilistateur est un directeur d'agence ou un manager.
         if (in_array($securityName, $this->getDAManager())) {
@@ -645,41 +633,82 @@ class PointageController extends Controller {
     }
 
     // Lis le fichier Excel de la RH et récupère le nom des assistantes RH/DRH.
-    function getAssistantesRH($excelRHFile) {
-        $objReaderAssistantesRH = new \PHPExcel_Reader_Excel2007();
-        $objReaderAssistantesRH->setReadFilter(new AssistantesRHGetter());
-        $objPHPExcelAssistantesRH = $objReaderAssistantesRH->load($excelRHFile);
+    function getAssistantesRH() {
+        /*
+          $objReaderAssistantesRH = new \PHPExcel_Reader_Excel2007();
+          $objReaderAssistantesRH->setReadFilter(new AssistantesRHGetter());
+          $objPHPExcelAssistantesRH = $objReaderAssistantesRH->load($excelRHFile);
+
+          $assistantesRH = array();
+          foreach ($objPHPExcelAssistantesRH->getActiveSheet()->getCellCollection() as $cell) {
+          if (!in_array($objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getValue(), $assistantesRH)) {
+          $assistantesRH[$objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getValue()] = $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getValue();
+          }
+          }
+          $assistantesRH['Tristan BESSON'] = 'Tristan BESSON';
+
+          return $assistantesRH;
+         */
+
+        $em = $this->getDoctrine()->getManager();
+
+        $users = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
 
         $assistantesRH = array();
-        foreach ($objPHPExcelAssistantesRH->getActiveSheet()->getCellCollection() as $cell) {
-            if (!in_array($objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getValue(), $assistantesRH)) {
-                $assistantesRH[$objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getValue()] = $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getValue();
+
+        $assistantesRH['Tristan BESSON'] = 'Tristan BESSON';
+
+        // Récupère le nom des directeurs d'agence et leurs supérieurs.
+        foreach ($users as $user) {
+            if (!in_array($user->getRH(), $assistantesRH)) {
+                $assistantesRH[$user->getRH()] = $user->getRH();
             }
         }
-        $assistantesRH['Tristan BESSON'] = 'Tristan BESSON';
 
         return $assistantesRH;
     }
 
     // Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante RH/DRH connectée.
-    function getUsersByAssistantesRH($excelRHFile, $securityName, $em) {
-        $objReaderAssistantesRH = new \PHPExcel_Reader_Excel2007();
-        $objReaderAssistantesRH->setReadFilter(new AssistantesRHGetter());
-        $objPHPExcelAssistantesRH = $objReaderAssistantesRH->load($excelRHFile);
+    function getUsersByAssistantesRH($securityName, $em) {
+        /*
+          $objReaderAssistantesRH = new \PHPExcel_Reader_Excel2007();
+          $objReaderAssistantesRH->setReadFilter(new AssistantesRHGetter());
+          $objPHPExcelAssistantesRH = $objReaderAssistantesRH->load($excelRHFile);
 
-        $objReaderUsersAssistantesRH = new \PHPExcel_Reader_Excel2007();
-        $objPHPExcelUsersAssistantesRH = $objReaderUsersAssistantesRH->load($excelRHFile);
-        $usersAssistantesRH = array();
-        foreach ($objPHPExcelAssistantesRH->getActiveSheet()->getCellCollection() as $cell) {
-            if ($objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getValue() === $securityName) {
-                $usersAssistantesRH[$objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('E' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue() . ' ' . $objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('D' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue()]['firstname'] = $objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('E' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue();
-                $usersAssistantesRH[$objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('E' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue() . ' ' . $objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('D' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue()]['lastname'] = $objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('D' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue();
+          $objReaderUsersAssistantesRH = new \PHPExcel_Reader_Excel2007();
+          $objPHPExcelUsersAssistantesRH = $objReaderUsersAssistantesRH->load($excelRHFile);
+          $usersAssistantesRH = array();
+          foreach ($objPHPExcelAssistantesRH->getActiveSheet()->getCellCollection() as $cell) {
+          if ($objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getValue() === $securityName) {
+          $usersAssistantesRH[$objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('E' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue() . ' ' . $objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('D' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue()]['firstname'] = $objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('E' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue();
+          $usersAssistantesRH[$objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('E' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue() . ' ' . $objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('D' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue()]['lastname'] = $objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('D' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue();
+          }
+          }
+
+          $users = array();
+          foreach ($usersAssistantesRH as $user) {
+          if (!empty($em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname'])))) {
+          $users[$em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getUsername()] = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getFirstname() . ' ' . $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getLastname();
+          }
+          }
+
+          return $users;
+         */
+
+        $usersHierarchie = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+
+        $usersAssistanteRH = array();
+
+        foreach ($usersHierarchie as $user) {
+            if ($user->getDA() === $securityName || $user->getRH() === $securityName) {
+                $usersAssistanteRH[$user->getPrenom() . ' ' . $user->getNom()]['firstname'] = $user->getPrenom();
+                $usersAssistanteRH[$user->getPrenom() . ' ' . $user->getNom()]['lastname'] = $user->getNom();
             }
         }
 
         $users = array();
-        foreach ($usersAssistantesRH as $user) {
-            if (!empty($em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname'])))) {
+        foreach ($usersAssistanteRH as $user) {
+            if ($em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))) {
                 $users[$em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getUsername()] = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getFirstname() . ' ' . $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getLastname();
             }
         }
@@ -690,16 +719,12 @@ class PointageController extends Controller {
     // Compile les feuilles de pointages du mois courant validées par les assistantes RH/DRH.
     public function AssistantesRHPointagesCompilationAction(Request $request) {
 
-        // Permet de lire les fichiers Excel.
-        include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
-
         // Inisialisation des varibables de fonction.
         $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
         $em = $this->getDoctrine()->getManager();
-        $excelRHFile = "C:/wamp/www/Symfony/Validation Manager WF RF MAJ NR 300516.xlsx";
 
         // Vérifie que l'utilistateur est un directeur d'agence ou un manager.
-        if (in_array($securityName, $this->getAssistantesRH($excelRHFile))) {
+        if (in_array($securityName, $this->getAssistantesRH())) {
 
             // Initialisation d'une échelle de temps.
             $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
@@ -760,7 +785,7 @@ class PointageController extends Controller {
 
             if ($formValidationRefus->isValid()) {
 
-                $pointagesCompilation = getPointagesACompile($em, $this->getUsersByAssistantesRH($excelRHFile, $securityName, $em), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData());
+                $pointagesCompilation = getPointagesACompile($em, $this->getUsersByAssistantesRH($securityName, $em), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData());
 
                 if ($formValidationRefus->get('Compilation')->isClicked()) {
                     foreach ($pointagesCompilation as $pointage) {
@@ -786,11 +811,61 @@ class PointageController extends Controller {
             }
 
             return $this->render('NoxIntranetPointageBundle:Pointage:assistantesRHPointagesCompilation.html.twig', array('form' => $form->createView(),
-                        'pointagesValides' => getPointagesValides($em, $this->getUsersByAssistantesRH($excelRHFile, $securityName, $em), $this),
+                        'pointagesValides' => getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this),
                         'formValidationRefus' => $formValidationRefus->createView())
             );
         } else {
             $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistantes RH/DRH peuvent accéder à cette espace.');
+            return $this->redirectToRoute('nox_intranet_accueil');
+        }
+    }
+
+    // Permet de consulter les compilations de pointages ayant été validées.
+    public function compilationValidesAction(Request $request) {
+
+        // Inisialisation des varibables de fonction.
+        $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+        $em = $this->getDoctrine()->getManager();
+
+        // Vérifie que l'utilistateur est un directeur d'agence ou un manager.
+        if (in_array($securityName, $this->getAssistantesRH())) {
+
+            // Initialisation d'une échelle de temps.
+            $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
+            for ($i = $this->getMonthAndYear()['year'] - 50; $i < $this->getMonthAndYear()['year'] + 50; $i++) {
+                $year[$i] = $i;
+            }
+
+            function getPointagesValides($em, $users, $context) {
+                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 5));
+                $pointages = array();
+                foreach ($pointagesValides as $pointage) {
+                    if (in_array($pointage->getUser(), array_keys($users))) {
+                        $pointage->setAbsences(json_decode($pointage->getAbsences(), true));
+                        $pointages[] = $pointage;
+                    }
+                }
+
+                return $pointages;
+            }
+
+            $form = $this->createFormBuilder()
+                    ->add('Month', ChoiceType::class, array(
+                        'choices' => $month,
+                        'data' => $this->getMonthAndYear()['month']
+                    ))
+                    ->add('Year', ChoiceType::class, array(
+                        'choices' => $year,
+                        'data' => $this->getMonthAndYear()['year']
+                    ))
+                    ->getForm();
+
+            return $this->render('NoxIntranetPointageBundle:Pointage:affichageCompilationsValides.html.twig', array('form' => $form->createView(),
+                        'pointagesValides' => getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this),
+                            )
+            );
+        } else {
+            $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistant(e)s RH/DRH peuvent accéder à cette espace.');
             return $this->redirectToRoute('nox_intranet_accueil');
         }
     }

@@ -93,3 +93,11 @@ nox_intranet_pointage_compilation_ajax_get_status:
 nox_intranet_pointage_get_affaires_by_number:
     path:     /ressources/pointage-get-affaires-by-number
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetAffairesByNumber }
+    
+nox_intranet_affichage_compilation_valide:
+    path:     /ressources/affichage-compilations-valides
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationValides}
+    
+nox_intranet_pointage_ajax_get_compilation_valide_by_month_and_year:
+    path:   /ressources/ajax-get-compilations-valides-by-month-and-year
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetCompilationsValideByMonthAndYear }
