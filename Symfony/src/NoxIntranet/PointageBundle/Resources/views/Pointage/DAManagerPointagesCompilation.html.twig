@@ -124,13 +124,9 @@
                                                     <option value='Autre' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'Autre' %}selected{% endif %}>Autre</option>
                                                 </select>
                                             {% endif %}
-                                        </td>
-                                        {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' %}
-                                            <td class="compilationAbsenceCommentaire" data="commentaires" contenteditable=true>
-                                            {% else %}
-                                            <td class="compilationAbsenceCommentaire" data="commentaires" style='background-color: rgb(166, 166, 166);'>
-                                            {% endif %}
-                                            {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' and absenceMatin['commentaires'] is defined %}
+                                        </td>       
+                                        <td class="compilationAbsenceCommentaire" data="commentaires" contenteditable=true>
+                                            {% if absenceMatin['commentaires'] is defined %}
                                                 {{ absenceMatin['commentaires'] }}
                                             {% endif %}
                                         </td>
@@ -216,7 +212,13 @@
                             newHtmlContent += "</tr>";
                             $.each(data[index].absences.matin, function (indexAbsences) {
                                 newHtmlContent += "<tr date='" + data[index].absences.matin[indexAbsences].date + "'>";
-                                newHtmlContent += "<td>" + data[index].absences.matin[indexAbsences].date + "</td>";
+                                var stringDate = data[index].absences.matin[indexAbsences].date.split('-');
+                                var date = new Date(stringDate[2], stringDate[1] - 1, stringDate[0]);
+                                if (date.getDay() === 5 || date.getDay() === 6) {
+                                    newHtmlContent += "<td style='background-color: rgb(166, 166, 166);'>" + data[index].absences.matin[indexAbsences].date.replace('-', '/').replace('-', '/') + "</td>";
+                                } else {
+                                    newHtmlContent += "<td>" + data[index].absences.matin[indexAbsences].date.replace('-', '/').replace('-', '/') + "</td>";
+                                }
                                 newHtmlContent += "<td class='compilationAbscenceMatin' data='matin'>";
                                 newHtmlContent += "<select>";
                                 newHtmlContent += "<option value='' ";

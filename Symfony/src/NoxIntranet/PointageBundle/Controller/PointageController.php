@@ -280,7 +280,7 @@ class PointageController extends Controller {
                         'attr' => array(
                             'size' => 5
                         ),
-                        'choice_attr' => function($val) use ($excelRHFile, $securityName, $em) {
+                        'choice_attr' => function($val) use ($securityName, $em) {
                     return ['title' => $this->getUsersByAssistante($securityName, $em)[$val]];
                 }
                     ))
@@ -303,7 +303,7 @@ class PointageController extends Controller {
             $formToCheckPointage = $this->createFormBuilder()
                     ->add('Pointage', EntityType::class, array(
                         'class' => 'NoxIntranetPointageBundle:Tableau',
-                        'query_builder' => function (EntityRepository $er) use ($excelRHFile, $securityName, $em) {
+                        'query_builder' => function (EntityRepository $er) use ($securityName, $em) {
                             return $er->createQueryBuilder('u')
                                     ->where("u.status = '1' AND u.user IN (:users)")
                                     ->orderBy('u.user', 'ASC')

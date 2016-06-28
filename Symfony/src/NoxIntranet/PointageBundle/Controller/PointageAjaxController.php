@@ -364,7 +364,7 @@ class PointageAjaxController extends Controller {
     }
 
     // Valide la feuille de pointage pour la compilation par agence.
-    public function ajaxAssistanteValidationAction(Request $request) {
+    public function ajaxAssistanteValidationAction(Request $request)  {
 
         // Valide le pointage du collaborateur par l'assistante d'agence
         function pointageAssistanteAgenceValidation($username, $month, $year, $context, $em) {
@@ -581,17 +581,17 @@ class PointageAjaxController extends Controller {
 
             $abscences = json_decode($compilation->getAbsences(), true);
 
-            var_dump($abscences);
-
             if ($data !== 'commentaires') {
                 foreach ($abscences[$data] as $key => $abscence) {
-                    if ($abscence['date'] === $date) {
+                    if ($abscence['date'] === str_replace('/', '-', $date)) {
                         $abscences[$data][$key]['valeur'] = $value;
                     }
                 }
             } else {
                 foreach ($abscences['matin'] as $key => $abscence) {
-                    if ($abscence['date'] === $date) {
+                    var_dump($abscence['date']);
+                    var_dump(str_replace('/', '-', $date));
+                    if ($abscence['date'] === str_replace('/', '-', $date)) {
                         $abscences['matin'][$key]['commentaires'] = $value;
                     }
                 }

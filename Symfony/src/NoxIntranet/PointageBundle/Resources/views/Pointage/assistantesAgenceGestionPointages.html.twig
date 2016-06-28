@@ -171,7 +171,7 @@
                     </td>
                     <td class='forfaitsDeplacementMontant' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);  border-left-width: 1px; border-right-width: 1px;" {% else %} style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true {% endif %}></td>
                     <td class='primesPanierNumber' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);  border-left-width: 1px; border-right-width: 1px;" {% else %} style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true {% endif %}></td>
-                    <td class='comments' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166); border-left-width: 1px; border-right-width: 1px;" {% else %} style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true {% endif %}></td>
+                    <td class='comments' style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true></td>
                 </tr>        
             {% endfor %}
             <tr>
@@ -715,7 +715,8 @@
                                     $(this).siblings('.titreRepasNumberSelector').html('');
                                     $(this).siblings('.forfaitsDeplacementMontant').attr('contenteditable', false);
                                     $(this).siblings('.primesPanierNumber').attr('contenteditable', false);
-                                    $(this).siblings('.comments').attr('contenteditable', false);
+                                    $(this).siblings('.comments').attr('contenteditable', true);
+                                    $(this).siblings('.comments').css('background', 'white');
                                 } else {
                                     $(this).parent('tr').find('td').css('background', 'white');
                                     $(this).next('td').attr('contenteditable', true);
@@ -782,7 +783,8 @@
                                     $(this).siblings('.titreRepasNumberSelector').html('');
                                     $(this).siblings('.forfaitsDeplacementMontant').attr('contenteditable', false);
                                     $(this).siblings('.primesPanierNumber').attr('contenteditable', false);
-                                    $(this).siblings('.comments').attr('contenteditable', false);
+                                    $(this).siblings('.comments').attr('contenteditable', true);
+                                    $(this).siblings('.comments').css('background', 'white');
                                 } else {
                                     $(this).parent('tr').find('td').css('background', 'white');
                                     $(this).next('td').attr('contenteditable', true);
@@ -1034,7 +1036,7 @@
             }
         }
 
-        // Valide la feuille de pointage d'un collaborateur et sauvegarde les données d'absence
+        // Valide la feuille de pointage d'un collaborateur et sauvegarde les données d'absence, de titres repas, de forfaits déplacement, de primes panier et de titre de transport.
         function ajaxPointageAssistanteAgenceValidation(user, month, year) {
 
             // Retourne les absences du mois.
