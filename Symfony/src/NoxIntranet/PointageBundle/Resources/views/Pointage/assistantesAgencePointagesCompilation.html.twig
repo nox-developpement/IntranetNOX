@@ -2,7 +2,7 @@
 
 {% block titrePage %} Assistant(e) agence: Compilation des pointages {% endblock %}
 
-{% block messageAccueil %}Assistant()e agence: Compilation des pointages{% endblock %}
+{% block messageAccueil %}Assistant(e) agence: Compilation des pointages{% endblock %}
 
 {% block contenu %}
 
@@ -412,10 +412,14 @@
 
         // Sauvegarde les modification sur les pointages en base de données.
         var ajaxComment;
+        var ajaxMainInfo;
         function ajaxSaveCompilationData() {
             // Pour les données principales.
             $('#compilationPointagesTable input').on('blur keyup paste input', function () {
-                $.ajax({
+                if (typeof ajaxMainInfo !== 'undefined') {
+                    ajaxMainInfo.abort();
+                }
+                ajaxMainInfo = $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_ajax_save_compilation_data') }}',
                     data: {username: $(this).parent('td').parent('tr').attr('username'), month: $('#form_Month').val(), year: $('#form_Year').val(), input: $(this).attr('name'), value: $(this).val()}

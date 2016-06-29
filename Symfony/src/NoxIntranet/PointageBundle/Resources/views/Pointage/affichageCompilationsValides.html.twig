@@ -74,12 +74,12 @@
                                     <th>Commentaires</th>
                                 </tr>
                                 {% for absenceMatin in pointage.Absences['matin'] %}
-                                    <tr date="{{ absenceMatin['date']|date('d/m/y') }}">
+                                    <tr date="{{ absenceMatin['date']|date('d/m/Y') }}">
                                         {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' %}
-                                            <td>{{ absenceMatin['date']|date('d/m/y') }}</td>
+                                            <td>{{ absenceMatin['date']|date('d/m/Y') }}</td>
                                             <td class="compilationAbscenceMatin" data="matin">
                                             {% else %}
-                                            <td style='background-color: rgb(166, 166, 166);'>{{ absenceMatin['date']|date('d/m/y') }}</td>
+                                            <td style='background-color: rgb(166, 166, 166);'>{{ absenceMatin['date']|date('d/m/Y') }}</td>
                                             <td class="compilationAbscenceMatin" data="matin" style='background-color: rgb(166, 166, 166);'>
                                             {% endif %}
                                             {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' %}
@@ -125,12 +125,8 @@
                                                 </select>
                                             {% endif %}
                                         </td>
-                                        {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' %}
-                                            <td class="compilationAbsenceCommentaire" data="commentaires" contenteditable=true>
-                                            {% else %}
-                                            <td class="compilationAbsenceCommentaire" data="commentaires" style='background-color: rgb(166, 166, 166);'>
-                                            {% endif %}
-                                            {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' and absenceMatin['commentaires'] is defined %}
+                                        <td class="compilationAbsenceCommentaire" data="commentaires">
+                                            {% if absenceMatin['commentaires'] is defined %}
                                                 {{ absenceMatin['commentaires'] }}
                                             {% endif %}
                                         </td>
@@ -208,159 +204,173 @@
                             newHtmlContent += "</tr>";
                             $.each(data[index].absences.matin, function (indexAbsences) {
                                 newHtmlContent += "<tr date='" + data[index].absences.matin[indexAbsences].date + "'>";
-                                newHtmlContent += "<td>" + data[index].absences.matin[indexAbsences].date + "</td>";
-                                newHtmlContent += "<td class='compilationAbscenceMatin' data='matin'>";
-                                newHtmlContent += "<select disabled=true>";
-                                newHtmlContent += "<option value='' ";
-                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === '') {
-                                    newHtmlContent += "selected";
+                                var stringDate = data[index].absences.matin[indexAbsences].date.split('-');
+                                var date = new Date(stringDate[2], stringDate[1] - 1, stringDate[0]);
+                                if (date.getDay() === 0 || date.getDay() === 6) {
+                                    newHtmlContent += "<td style='background-color: rgb(166, 166, 166);'>" + data[index].absences.matin[indexAbsences].date.replace('-', '/').replace('-', '/') + "</td>";
+                                } else {
+                                    newHtmlContent += "<td>" + data[index].absences.matin[indexAbsences].date.replace('-', '/').replace('-', '/') + "</td>";
                                 }
-                                newHtmlContent += '></option>';
-                                newHtmlContent += "<option value='AA' ";
-                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AA') {
-                                    newHtmlContent += "selected";
+                                if (parseInt(date.getDay(), 10) === 0 || parseInt(date.getDay(), 10) === 6) {
+                                    newHtmlContent += "<td class='compilationAbscenceMatin' data='matin' style='background: rgb(166, 166, 166);'>";
+                                } else {
+                                    newHtmlContent += "<td class='compilationAbscenceMatin' data='matin'>";
+                                    newHtmlContent += "<select disabled=true>";
+                                    newHtmlContent += "<option value='' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === '') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '></option>';
+                                    newHtmlContent += "<option value='AA' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AA') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>AA</option>';
+                                    newHtmlContent += "<option value='TJ' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'TJ') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>TJ</option>';
+                                    newHtmlContent += "<option value='AT' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AT') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>AT</option>';
+                                    newHtmlContent += "<option value='MT' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'MT') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>MT</option>';
+                                    newHtmlContent += "<option value='PA' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'PA') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>PA</option>';
+                                    newHtmlContent += "<option value='CS' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'CS') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>CS</option>';
+                                    newHtmlContent += "<option value='CP' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'CP') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>CP</option>';
+                                    newHtmlContent += "<option value='AV' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AV') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>AV</option>';
+                                    newHtmlContent += "<option value='JS' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'JS') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>JS</option>';
+                                    newHtmlContent += "<option value='MA' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'MA') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>MA</option>';
+                                    newHtmlContent += "<option value='PM' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'PM') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>PM</option>';
+                                    newHtmlContent += "<option value='RE' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'RE') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>RE</option>';
+                                    newHtmlContent += "<option value='Autre' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'Autre') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>Autre</option>';
+                                    newHtmlContent += '</select>';
                                 }
-                                newHtmlContent += '>AA</option>';
-                                newHtmlContent += "<option value='TJ' ";
-                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'TJ') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>TJ</option>';
-                                newHtmlContent += "<option value='AT' ";
-                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AT') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>AT</option>';
-                                newHtmlContent += "<option value='MT' ";
-                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'MT') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>MT</option>';
-                                newHtmlContent += "<option value='PA' ";
-                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'PA') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>PA</option>';
-                                newHtmlContent += "<option value='CS' ";
-                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'CS') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>CS</option>';
-                                newHtmlContent += "<option value='CP' ";
-                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'CP') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>CP</option>';
-                                newHtmlContent += "<option value='AV' ";
-                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AV') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>AV</option>';
-                                newHtmlContent += "<option value='JS' ";
-                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'JS') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>JS</option>';
-                                newHtmlContent += "<option value='MA' ";
-                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'MA') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>MA</option>';
-                                newHtmlContent += "<option value='PM' ";
-                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'PM') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>PM</option>';
-                                newHtmlContent += "<option value='RE' ";
-                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'RE') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>RE</option>';
-                                newHtmlContent += "<option value='Autre' ";
-                                if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'Autre') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>Autre</option>';
-                                newHtmlContent += '</select>';
                                 newHtmlContent += '</td>';
-                                newHtmlContent += "<td class='compilationAbsenceAM' data='am'>";
-                                newHtmlContent += "<select disabled=true>";
-                                newHtmlContent += "<option value='' ";
-                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === '') {
-                                    newHtmlContent += "selected";
+                                if (parseInt(date.getDay(), 10) === 0 || parseInt(date.getDay(), 10) === 6) {
+                                    newHtmlContent += "<td class='compilationAbsenceAM' data='am' style='background: rgb(166, 166, 166);'>";
+                                } else {
+                                    newHtmlContent += "<td class='compilationAbsenceAM' data='am'>";
+                                    newHtmlContent += "<select disabled=true>";
+                                    newHtmlContent += "<option value='' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === '') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '></option>';
+                                    newHtmlContent += "<option value='AA' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AA') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>AA</option>';
+                                    newHtmlContent += "<option value='TJ' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'TJ') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>TJ</option>';
+                                    newHtmlContent += "<option value='AT' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AT') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>AT</option>';
+                                    newHtmlContent += "<option value='MT' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'MT') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>MT</option>';
+                                    newHtmlContent += "<option value='PA' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'PA') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>PA</option>';
+                                    newHtmlContent += "<option value='CS' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'CS') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>CS</option>';
+                                    newHtmlContent += "<option value='CP' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'CP') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>CP</option>';
+                                    newHtmlContent += "<option value='AV' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AV') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>AV</option>';
+                                    newHtmlContent += "<option value='JS' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'JS') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>JS</option>';
+                                    newHtmlContent += "<option value='MA' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'MA') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>MA</option>';
+                                    newHtmlContent += "<option value='PM' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'PM') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>PM</option>';
+                                    newHtmlContent += "<option value='RE' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'RE') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>RE</option>';
+                                    newHtmlContent += "<option value='Autre' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'Autre') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>Autre</option>';
+                                    newHtmlContent += '</select>';
                                 }
-                                newHtmlContent += '></option>';
-                                newHtmlContent += "<option value='AA' ";
-                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AA') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>AA</option>';
-                                newHtmlContent += "<option value='TJ' ";
-                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'TJ') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>TJ</option>';
-                                newHtmlContent += "<option value='AT' ";
-                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AT') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>AT</option>';
-                                newHtmlContent += "<option value='MT' ";
-                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'MT') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>MT</option>';
-                                newHtmlContent += "<option value='PA' ";
-                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'PA') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>PA</option>';
-                                newHtmlContent += "<option value='CS' ";
-                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'CS') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>CS</option>';
-                                newHtmlContent += "<option value='CP' ";
-                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'CP') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>CP</option>';
-                                newHtmlContent += "<option value='AV' ";
-                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AV') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>AV</option>';
-                                newHtmlContent += "<option value='JS' ";
-                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'JS') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>JS</option>';
-                                newHtmlContent += "<option value='MA' ";
-                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'MA') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>MA</option>';
-                                newHtmlContent += "<option value='PM' ";
-                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'PM') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>PM</option>';
-                                newHtmlContent += "<option value='RE' ";
-                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'RE') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>RE</option>';
-                                newHtmlContent += "<option value='Autre' ";
-                                if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'Autre') {
-                                    newHtmlContent += "selected";
-                                }
-                                newHtmlContent += '>Autre</option>';
-                                newHtmlContent += '</select>';
                                 newHtmlContent += '</td>';
                                 if (data[index].absences.matin[indexAbsences].commentaires !== undefined) {
-                                    newHtmlContent += "<td class='compilationAbsenceCommentaire' data='commentaires' contenteditable=true>" + data[index].absences.matin[indexAbsences].commentaires + "</td>";
+                                    newHtmlContent += "<td class='compilationAbsenceCommentaire' data='commentaires'>" + data[index].absences.matin[indexAbsences].commentaires + "</td>";
                                 } else {
-                                    newHtmlContent += "<td class='compilationAbsenceCommentaire' data='commentaires' contenteditable=true></td>";
+                                    newHtmlContent += "<td class='compilationAbsenceCommentaire' data='commentaires'></td>";
                                 }
                                 newHtmlContent += "</tr>";
                             });
@@ -369,9 +379,9 @@
                             newHtmlContent += "</td>";
                             newHtmlContent += "</tr>";
                         });
-
                         $('#compilationPointagesTable').append(newHtmlContent);
                         absencesToggle();
+                        ajaxSaveCompilationData();
                         pointageShow();
                     } else {
                         pointageHide();

@@ -49,7 +49,7 @@
                         <option value="{{ 'now'|date_modify('+4 year')|date('Y')}}">{{ 'now'|date_modify('+4 year')|date('Y')}}</option>
                     </select>
                 </td>
-                <td class='project' style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouvelle Affaire</td>
+                <td class='project' style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true></td>
                 <td style='border-width: 1px;'>TOTAL</td>
                 <td style='border-width: 1px;' >MOD</td>
                 <td style='border-width: 1px;' colspan="2">Absences</td>
@@ -253,6 +253,7 @@
             displayTotalTitreTransport();
             checkAbscencesTitreRepas();
             getGXAffaires();
+            showAffaireName();
             addProjectColumn();
             deleteProjectColumn();
             ajaxGetData();
@@ -895,7 +896,7 @@
                 var total = $('#tableFeuillePointage').find('tr').length;
                 $('#tableFeuillePointage').find('tr').each(function (index) {
                     if (index === 1) {
-                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouvelle Affaire</td>");
+                        $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true></td>");
                     } else if (index === 2) {
                         $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;'>%</td>");
                     } else if (index === total - 2) {
@@ -1246,6 +1247,7 @@
                         // Lors du clique sur un résultat on remplace le contenu de la recherche par le résultat.
                         $('.ajaxSearchAffairesDivResults').mousedown(function () {
                             celluleProject.text($(this).attr('data-numaffaire'));
+                            celluleProject.attr('data-nomaffaire', $(this).attr('data-nomaffaire'));
                         });
 
                         // Positione la 'div' contenant les résultats sous la cellules focus.
@@ -1268,6 +1270,59 @@
                     });
                 }
 
+            });
+        }
+
+        function showAffaireName() {
+
+            // Lorsqu'on passe la souris sur une cellule de numéro d'affaire.
+            $('#tableFeuillePointage tr:nth-child(2)').on('mouseover', '.project', function () {
+
+                //On supprime la tooltip.
+                $('#tooltipAffaire').remove();
+
+                var celluleAffaire = $(this); // Récupére la cellule d'affaire courante.
+                var top = celluleAffaire.offset().top; // Récupére la position verticale de la cellule de l'affaire.
+                var left = celluleAffaire.offset().left; // Récupére la position horizontale de la cellule de l'affaire.
+                var affaires = "http://" + window.location.hostname + "/Symfony/web/DatabasesCSV/AffairesEncode.csv"; // Récupére le fichier contenant les affaires.
+                var numAffaire = celluleAffaire.text(); // Récupére le numéro d'affaire.
+                var nomAffaire = ''; // Initialise le nom d'affaire.       
+
+                // On cherche le nom d'affaire correspondant au numéro dans le fichier des affaires.
+                $.get(affaires, function (data) {
+                    var lineByLine = data.split("\n");
+
+                    $.each(lineByLine, function (index, value) {
+                        var donnes = value.split(';');
+                        if (numAffaire === donnes[0]) {
+                            nomAffaire = donnes[1];
+                            return false;
+                        }
+                    });
+
+                    // Code html de la tooltip.
+                    var tooltip = '';
+                    tooltip += "<div id='tooltipAffaire' style='display: inline-block; padding: 0%; position: absolute; background-color: rgba(255, 0, 0, 0.8); border-radius: 6px; z-index: 3;'>";
+                    tooltip += "<p style='text-align: center; color: white; font-size: 0.8vw; margin-left: 5%; margin-right: 5%;'>";
+                    if (nomAffaire) {
+                        tooltip += nomAffaire;
+                        tooltip += "<br />";
+                    }
+                    tooltip += "(Cliquez-droit sur l'affaire pour la supprimer.)";
+                    tooltip += "</p>";
+                    tooltip += '</div>';
+
+                    // On fait apparaître et on positionne la tooltip.
+                    $('body').append(tooltip);
+                    $('#tooltipAffaire').css('top', top - $('#tooltipAffaire').outerHeight() - 5);
+                    $('#tooltipAffaire').css('left', left - ($('#tooltipAffaire').outerWidth() - celluleAffaire.outerWidth()) / 2);
+                });
+            });
+
+            // Lorsqu'on retire la souris d'une cellule de numéro d'affaire.
+            $('#tableFeuillePointage tr:nth-child(2)').on('mouseout', '.project', function () {
+                //On supprime la tooltip.
+                $('#tooltipAffaire').remove();
             });
         }
 

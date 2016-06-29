@@ -337,34 +337,49 @@ class PointageAjaxController extends Controller {
     public function ajaxGetPointageStatusAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
+
+            // Si le nom n'est pas spécifié...
             if ($request->get('username') === '') {
+                // ...On récupére celui de l'utilisateur courant.
                 $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
-            } else {
+            }
+            // Sinon on utilise le nom spécifié par la requête Ajax.
+            else {
                 $username = $request->get('username');
             }
 
+            // Récupére le mois et l'année spécifiés par la requête.
             $month = $request->get('month');
             $year = $request->get('year');
 
+            // Récupére le pointage correspondant aux données fournis.
             $pointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
 
+            // Si le pointage existe...
             if (!empty($pointage)) {
+                // ...On récupére sont status.
                 $status = $pointage->getStatus();
+
+                // Si le status est égale à 2...
                 if ($status === '2') {
+                    //On récupére le status du pointage compilé correspondant.
                     $pointageCompile = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
                     $status = $pointageCompile->getStatus();
                 }
-            } else {
+            }
+            // Sinon le status est déclaré nul.
+            else {
                 $status = null;
             }
 
+            // On renvoie le status.
             $response = new Response($status);
             return $response;
         }
     }
 
     // Valide la feuille de pointage pour la compilation par agence.
-    public function ajaxAssistanteValidationAction(Request $request)  {
+    public function ajaxAssistanteValidationAction(Request $request) {
 
         // Valide le pointage du collaborateur par l'assistante d'agence
         function pointageAssistanteAgenceValidation($username, $month, $year, $context, $em) {
@@ -781,17 +796,30 @@ class PointageAjaxController extends Controller {
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
 
+            // Récupére le mois et l'année spécifiés par la requête.
             $month = $request->get('month');
             $year = $request->get('year');
 
-            $pointageCompile = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('month' => $month, 'year' => $year));
+            // Récupére les pointages compilés correspondants aux données fournis.
+            $pointageCompile = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $month, 'year' => $year));
 
+            // Si un ou plusieurs pointages compilés existent...
             if (!empty($pointageCompile)) {
-                $status = $pointageCompile->getStatus();
-            } else {
+
+                // ...On récupére le plus petit status.
+                $status = 5;
+                foreach ($pointageCompile as $pointage) {
+                    if ($pointage->getStatus() <= $status) {
+                        $status = $pointage->getStatus();
+                    }
+                }
+            }
+            // Sinon le status est déclaré nul.
+            else {
                 $status = null;
             }
 
+            // On renvoie le status.
             $response = new Response($status);
             return $response;
         }
