@@ -165,19 +165,6 @@ class PointageController extends Controller {
 
     // Lis le fichier Excel de la RH et récupère le nom des assistantess d'agence.
     function getAssistantesAgence() {
-        /*
-          $objReaderAssistantes = new \PHPExcel_Reader_Excel2007();
-          $objReaderAssistantes->setReadFilter(new AssistanteAgenceGetter());
-          $objPHPExcelAssistantes = $objReaderAssistantes->load($excelRHFile);
-
-          $assistantes = array();
-          foreach ($objPHPExcelAssistantes->getActiveSheet()->getCellCollection() as $cell) {
-          if (!in_array($objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue(), $assistantes)) {
-          $assistantes[$objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue()] = $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue();
-          }
-          }
-          $assistantes['Tristan BESSON'] = 'Tristan BESSON';
-         */
 
         $em = $this->getDoctrine()->getManager();
 
@@ -325,7 +312,7 @@ class PointageController extends Controller {
                         'currentMonth' => $this->getMonthAndYear()['month'], 'currentYear' => $this->getMonthAndYear()['year'],
                         'formToCheckPointage' => $formToCheckPointage->createView()));
         } else {
-            $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistantes d\'agence peuvent accéder à cette espace.');
+            $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistant(e)s d\'agence peuvent accéder à cette espace.');
             return $this->redirectToRoute('nox_intranet_accueil');
         }
     }
@@ -436,7 +423,7 @@ class PointageController extends Controller {
                             )
             );
         } else {
-            $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistantes d\'agence peuvent accéder à cette espace.');
+            $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistant(e)s d\'agence peuvent accéder à cette espace.');
             return $this->redirectToRoute('nox_intranet_accueil');
         }
     }
@@ -605,7 +592,7 @@ class PointageController extends Controller {
                         $pointage->setAbsences(json_encode($pointage->getAbsences(), true));
                         $em->persist($pointage);
                     }
-                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été validée et envoyée aux assistantes RH.');
+                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été validée et envoyée aux assistant(e)s RH.');
                 }
 
                 if ($formValidationRefus->get('Refus')->isClicked()) {
@@ -614,7 +601,7 @@ class PointageController extends Controller {
                         $pointage->setAbsences(json_encode($pointage->getAbsences(), true));
                         $em->persist($pointage);
                     }
-                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été refusée et renvoyée aux assistantes d\'agences.');
+                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été refusée et renvoyée aux assistant(e)s d\'agences.');
                 }
 
                 $em->flush();
@@ -634,21 +621,6 @@ class PointageController extends Controller {
 
     // Lis le fichier Excel de la RH et récupère le nom des assistantes RH/DRH.
     function getAssistantesRH() {
-        /*
-          $objReaderAssistantesRH = new \PHPExcel_Reader_Excel2007();
-          $objReaderAssistantesRH->setReadFilter(new AssistantesRHGetter());
-          $objPHPExcelAssistantesRH = $objReaderAssistantesRH->load($excelRHFile);
-
-          $assistantesRH = array();
-          foreach ($objPHPExcelAssistantesRH->getActiveSheet()->getCellCollection() as $cell) {
-          if (!in_array($objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getValue(), $assistantesRH)) {
-          $assistantesRH[$objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getValue()] = $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getValue();
-          }
-          }
-          $assistantesRH['Tristan BESSON'] = 'Tristan BESSON';
-
-          return $assistantesRH;
-         */
 
         $em = $this->getDoctrine()->getManager();
 
@@ -670,30 +642,6 @@ class PointageController extends Controller {
 
     // Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante RH/DRH connectée.
     function getUsersByAssistantesRH($securityName, $em) {
-        /*
-          $objReaderAssistantesRH = new \PHPExcel_Reader_Excel2007();
-          $objReaderAssistantesRH->setReadFilter(new AssistantesRHGetter());
-          $objPHPExcelAssistantesRH = $objReaderAssistantesRH->load($excelRHFile);
-
-          $objReaderUsersAssistantesRH = new \PHPExcel_Reader_Excel2007();
-          $objPHPExcelUsersAssistantesRH = $objReaderUsersAssistantesRH->load($excelRHFile);
-          $usersAssistantesRH = array();
-          foreach ($objPHPExcelAssistantesRH->getActiveSheet()->getCellCollection() as $cell) {
-          if ($objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getValue() === $securityName) {
-          $usersAssistantesRH[$objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('E' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue() . ' ' . $objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('D' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue()]['firstname'] = $objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('E' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue();
-          $usersAssistantesRH[$objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('E' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue() . ' ' . $objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('D' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue()]['lastname'] = $objPHPExcelUsersAssistantesRH->getActiveSheet()->getCell('D' . $objPHPExcelAssistantesRH->getActiveSheet()->getCell($cell)->getRow())->getValue();
-          }
-          }
-
-          $users = array();
-          foreach ($usersAssistantesRH as $user) {
-          if (!empty($em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname'])))) {
-          $users[$em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getUsername()] = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getFirstname() . ' ' . $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($user['firstname'])), 'lastname' => $user['lastname']))->getLastname();
-          }
-          }
-
-          return $users;
-         */
 
         $usersHierarchie = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
 
@@ -815,7 +763,7 @@ class PointageController extends Controller {
                         'formValidationRefus' => $formValidationRefus->createView())
             );
         } else {
-            $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistantes RH/DRH peuvent accéder à cette espace.');
+            $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistant(e)s RH/DRH peuvent accéder à cette espace.');
             return $this->redirectToRoute('nox_intranet_accueil');
         }
     }
