@@ -52,27 +52,34 @@ class NoxIntranetExtractRHHierarchie extends Controller {
                 // On récupère le numéro de la ligne.
                 $rowIndex = $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow();
 
-                // On crée une nouvelle entité à mettre en base de données.
-                $newUser = new UsersHierarchy();
-                $newUser->setNom($objWorksheet->getCell('D' . $rowIndex));
-                $newUser->setPrenom($objWorksheet->getCell('E' . $rowIndex));
+                // On récupére l'utilisateur associé dans la base de données utilisateur si il existe.
+                $userDB = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($objWorksheet->getCell('E' . $rowIndex))), 'lastname' => $objWorksheet->getCell('D' . $rowIndex)));
 
-                // On vérifie la nullité des cellules du personnel de la RH.
-                if ($objWorksheet->getCell('G' . $rowIndex) !== '-') {
-                    $newUser->setAA($objWorksheet->getCell('G' . $rowIndex));
-                    if ($objWorksheet->getCell('H' . $rowIndex) !== '-') {
-                        $newUser->setAA($objWorksheet->getCell('H' . $rowIndex));
-                    } else {
-                        $newUser->setAA($objWorksheet->getCell('I' . $rowIndex));
+                // Si l'utilisateur existe dans la base de données utilisateurs.
+                if (!empty($userDB)) {
+                    // On crée une nouvelle entité à mettre en base de données.
+                    $newUser = new UsersHierarchy();
+                    $newUser->setNom($userDB->getLastname());
+                    $newUser->setPrenom($userDB->getFirstname());
+                    $newUser->setUsername($userDB->getUsername());
+
+                    // On vérifie la nullité des cellules du personnel de la RH.
+                    if ($objWorksheet->getCell('G' . $rowIndex) !== '-') {
+                        $newUser->setAA($objWorksheet->getCell('G' . $rowIndex));
+                        if ($objWorksheet->getCell('H' . $rowIndex) !== '-') {
+                            $newUser->setAA($objWorksheet->getCell('H' . $rowIndex));
+                        } else {
+                            $newUser->setAA($objWorksheet->getCell('I' . $rowIndex));
+                        }
                     }
+                    if ($objWorksheet->getCell('H' . $rowIndex) !== '-') {
+                        $newUser->setDA($objWorksheet->getCell('H' . $rowIndex));
+                    } else {
+                        $newUser->setDA($objWorksheet->getCell('I' . $rowIndex));
+                    }
+                    $newUser->setRH($objWorksheet->getCell('I' . $rowIndex));
+                    $em->persist($newUser);
                 }
-                if ($objWorksheet->getCell('H' . $rowIndex) !== '-') {
-                    $newUser->setDA($objWorksheet->getCell('H' . $rowIndex));
-                } else {
-                    $newUser->setDA($objWorksheet->getCell('I' . $rowIndex));
-                }
-                $newUser->setRH($objWorksheet->getCell('I' . $rowIndex));
-                $em->persist($newUser);
             }
         }
 

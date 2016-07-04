@@ -182,28 +182,4 @@ class UsersHierarchy {
         return $this->rh;
     }
 
-
-    /**
-     * Set username
-     *
-     * @param string $username
-     *
-     * @return UsersHierarchy
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get username
-     *
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
 }

@@ -147,7 +147,7 @@
             </tr>
             <tr>
                 <td style='border: none;'></td>
-                <td class='monthlyTotalPercentageCell' style='border-bottom: none;'>0.00</td>
+                <td class='monthlyTotalPercentageCell' style='border: none; color:white;'></td>
                 <td style='border: none;'></td>
                 <td id='monthlyTotalHoursMod' style='border-bottom: none;'>0</td>
                 <td style='border: none;'></td>
@@ -159,7 +159,7 @@
             </tr>
             <tr>
                 <td style='border: none;'></td>
-                <td class='monthlyTotalCell' style='border-bottom: none;'>0.00</td>
+                <td class='monthlyTotalCell' style='border: none; color:white;'></td>
                 <td style='border: none;'></td>
                 <td style='border-bottom: none;'>hmod</td>
                 <td style='border: none;'></td>
@@ -813,9 +813,9 @@
                                     $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;'>%</td>");
                                 } else if (index === total - 2) {
                                     //$('.monthlyTotalPercentageCell').last().css('background-color', 'orange');
-                                    $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell'>0.00</td>");
+                                    $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell' style='border: none; color:white;'>0.00</td>");
                                 } else if (index === total - 1) {
-                                    $('.monthlyTotalCell').last().after("<td class='monthlyTotalCell'>0.00</td>");
+                                    $('.monthlyTotalCell').last().after("<td class='monthlyTotalCell' style='border: none; color:white;'>0.00</td>");
                                     //$('.monthlyTotalCell').last().css('background-color', 'orange');
                                 } else if (index === total - 3) {
                                     $('#titreRepasTotalNumber').before("<td style='border: none;'></td>");
@@ -901,9 +901,9 @@
                         $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;'>%</td>");
                     } else if (index === total - 2) {
                         //$('.monthlyTotalPercentageCell').last().css('background-color', 'orange');
-                        $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell'>0.00</td>");
+                        $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell' style='border: none; color:white;'>0.00</td>");
                     } else if (index === total - 1) {
-                        $('.monthlyTotalCell').last().after("<td class='monthlyTotalCell'>0.00</td>");
+                        $('.monthlyTotalCell').last().after("<td class='monthlyTotalCell' style='border: none; color:white;'>0.00</td>");
                         //$('.monthlyTotalCell').last().css('background-color', 'orange');
                     } else if (index === total - 3) {
                         $('#titreRepasTotalNumber').before("<td style='border: none;'></td>");
