@@ -78,14 +78,14 @@
                                 </tr>
                                 {% for absenceMatin in pointage.Absences['matin'] %}
                                     <tr date="{{ absenceMatin['date']|date('d/m/Y') }}">
-                                        {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' %}
+                                        {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' and absenceMatin['date']|date('U') not in joursFeries %}
                                             <td>{{ absenceMatin['date']|date('d/m/Y') }}</td>
                                             <td class="compilationAbscenceMatin" data="matin">
                                             {% else %}
                                             <td style='background-color: rgb(166, 166, 166);'>{{ absenceMatin['date']|date('d/m/Y') }}</td>
                                             <td class="compilationAbscenceMatin" data="matin" style='background-color: rgb(166, 166, 166);'>
                                             {% endif %}
-                                            {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' %}
+                                            {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' and absenceMatin['date']|date('U') not in joursFeries %}
                                                 <select>
                                                     <option value='' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == '' %}selected{% endif %}></option>
                                                     <option value='AA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AA' %}selected{% endif %}>AA</option>
@@ -104,12 +104,12 @@
                                                 </select>
                                             {% endif %}
                                         </td>
-                                        {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' %}
+                                        {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' and absenceMatin['date']|date('U') not in joursFeries %}
                                             <td class="compilationAbsenceAM" data="am">
                                             {% else %}
                                             <td class="compilationAbsenceAM" data="am" style='background-color: rgb(166, 166, 166);'>
                                             {% endif %}
-                                            {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' %}
+                                            {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' and absenceMatin['date']|date('U') not in joursFeries %}
                                                 <select>
                                                     <option value='' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == '' %}selected{% endif %}></option>
                                                     <option value='AA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AA' %}selected{% endif %}>AA</option>
@@ -207,16 +207,24 @@
                             newHtmlContent += "<th>Abscence après-midi</th>";
                             newHtmlContent += "<th>Commentaires</th>";
                             newHtmlContent += "</tr>";
+
+                            // On récupére les jours fériés sous forme de 'timestamp'.
+                            var joursFeries = Array();
+                            $.each(JSON.parse("{{ joursFeries|json_encode }}"), function (index, value) {
+                                joursFeries.push(new Date(value * 1000).getTime());
+                            });
+
+                            // Pour chaque jours...
                             $.each(data[index].absences.matin, function (indexAbsences) {
                                 newHtmlContent += "<tr date='" + data[index].absences.matin[indexAbsences].date + "'>";
                                 var stringDate = data[index].absences.matin[indexAbsences].date.split('-');
-                                var date = new Date(stringDate[2], stringDate[1] - 1, stringDate[0]);
-                                if (date.getDay() === 0 || date.getDay() === 6) {
+                                var date = new Date(stringDate[2], stringDate[1] - 1, stringDate[0], 0, 0, 0, 0);
+                                if (parseInt(date.getDay(), 10) === 0 || parseInt(date.getDay(), 10) === 6 || $.inArray(date.getTime(), joursFeries) > -1) {
                                     newHtmlContent += "<td style='background-color: rgb(166, 166, 166);'>" + data[index].absences.matin[indexAbsences].date.replace('-', '/').replace('-', '/') + "</td>";
                                 } else {
                                     newHtmlContent += "<td>" + data[index].absences.matin[indexAbsences].date.replace('-', '/').replace('-', '/') + "</td>";
                                 }
-                                if (parseInt(date.getDay(), 10) === 0 || parseInt(date.getDay(), 10) === 6) {
+                                if (parseInt(date.getDay(), 10) === 0 || parseInt(date.getDay(), 10) === 6 || $.inArray(date.getTime(), joursFeries) > -1) {
                                     newHtmlContent += "<td class='compilationAbscenceMatin' data='matin' style='background: rgb(166, 166, 166);'>";
                                 } else {
                                     newHtmlContent += "<td class='compilationAbscenceMatin' data='matin'>";
@@ -294,7 +302,7 @@
                                     newHtmlContent += '</select>';
                                 }
                                 newHtmlContent += '</td>';
-                                if (parseInt(date.getDay(), 10) === 0 || parseInt(date.getDay(), 10) === 6) {
+                                if (parseInt(date.getDay(), 10) === 0 || parseInt(date.getDay(), 10) === 6 || $.inArray(date.getTime(), joursFeries) > -1) {
                                     newHtmlContent += "<td class='compilationAbsenceAM' data='am' style='background: rgb(166, 166, 166);'>";
                                 } else {
                                     newHtmlContent += "<td class='compilationAbsenceAM' data='am'>";

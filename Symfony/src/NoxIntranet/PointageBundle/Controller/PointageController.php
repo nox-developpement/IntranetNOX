@@ -15,11 +15,12 @@ class PointageController extends Controller {
 
     // Affiche le tableau de pointage vide du mois et de l'année courante.
     public function accueilAction(Request $request) {
+        // On récupére la date des premiers et derniers jours du mois courant.
         $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
         $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
 
+        // On récupére toutes les dates des jours du mois.
         $monthDates = array();
-
         $i = 0;
         while (strtotime($date) <= strtotime($end_date)) {
             $monthDates[$i] = strtotime($date);
@@ -27,11 +28,17 @@ class PointageController extends Controller {
             $i++;
         }
 
+        // On récupére les jours fériés.
+        $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
+
+        // On récupére le nom de l'utilisateur courant.
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
+        // On récupére la feuille de pointage de l'utilisateur pour le mois et l'année courante.
         $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user->getUsername(), 'month' => $this->getMonthAndYear()['month'], 'year' => $this->getMonthAndYear()['year']));
 
+        // Si la feuille de pointage n'existe pas, on la crée.
         if (empty($tableData)) {
             $tableData = new Tableau();
 
@@ -46,6 +53,7 @@ class PointageController extends Controller {
             $em->flush();
         }
 
+        // Génére le formulaire de validation du pointage.
         $form = $this->createFormBuilder()
                 ->add('Valider', SubmitType::class)
                 ->add('month', 'hidden', array(
@@ -56,8 +64,8 @@ class PointageController extends Controller {
                 ))
                 ->getForm();
 
+        // Valide le pointage, le sauvegarde et passe son status à 1 (Validation assistante agence).
         $form->handleRequest($request);
-
         if ($form->isValid()) {
 
             $newTableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user->getUsername(), 'month' => $form->get('month')->getData(), 'year' => $form->get('year')->getData()));
@@ -87,7 +95,7 @@ class PointageController extends Controller {
         }
 
         return $this->render('NoxIntranetPointageBundle:Pointage:pointage.html.twig', array('monthDates' => $monthDates, 'currentMonth' => $this->getMonthAndYear()['month'],
-                    'currentYear' => $this->getMonthAndYear()['year'], 'form' => $form->createView()));
+                    'currentYear' => $this->getMonthAndYear()['year'], 'form' => $form->createView(), 'joursFeries' => $joursFeries));
     }
 
     // Retourne la date courante.
@@ -225,6 +233,9 @@ class PointageController extends Controller {
                 $i++;
             }
 
+            // On récupére les jours fériés.
+            $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
+
             // Génére le formulaire de séléction du pointage par nom d'utilisateur, mois et année.
             $form = $this->createFormBuilder()
                     ->add('User', ChoiceType::class, array(
@@ -276,7 +287,7 @@ class PointageController extends Controller {
 
             return $this->render('NoxIntranetPointageBundle:Pointage:assistantesAgenceGestionPointages.html.twig', array('form' => $form->createView(), 'monthDates' => $monthDates,
                         'currentMonth' => $this->getMonthAndYear()['month'], 'currentYear' => $this->getMonthAndYear()['year'],
-                        'formToCheckPointage' => $formToCheckPointage->createView()));
+                        'formToCheckPointage' => $formToCheckPointage->createView(), 'joursFeries' => $joursFeries));
         } else {
             $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistant(e)s d\'agence peuvent accéder à cette espace.');
             return $this->redirectToRoute('nox_intranet_accueil');
@@ -298,6 +309,9 @@ class PointageController extends Controller {
             for ($i = $this->getMonthAndYear()['year'] - 50; $i < $this->getMonthAndYear()['year'] + 50; $i++) {
                 $year[$i] = $i;
             }
+
+            // On récupére les jours fériés.
+            $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
             // Retourne le nombre de pointages des collaborateurs qui n'ont pas encore était validés par l'assistante d'agence.
             function getNbPointagesNonValides($em, $users, $context) {
@@ -385,7 +399,7 @@ class PointageController extends Controller {
             return $this->render('NoxIntranetPointageBundle:Pointage:assistantesAgencePointagesCompilation.html.twig', array('form' => $form->createView(),
                         'nbPointageNonValide' => getNbPointagesNonValides($em, $this->getUsersByAssistante($securityName, $em), $this),
                         'pointagesValides' => getPointagesValides($em, $this->getUsersByAssistante($securityName, $em), $this),
-                        'formValidation' => $formValidationRefus->createView()
+                        'formValidation' => $formValidationRefus->createView(), 'joursFeries' => $joursFeries
                             )
             );
         } else {
@@ -449,6 +463,9 @@ class PointageController extends Controller {
             for ($i = $this->getMonthAndYear()['year'] - 50; $i < $this->getMonthAndYear()['year'] + 50; $i++) {
                 $year[$i] = $i;
             }
+
+            // On récupére les jours fériés.
+            $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
             function getPointagesValides($em, $users, $context) {
                 $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 3));
@@ -530,7 +547,7 @@ class PointageController extends Controller {
 
             return $this->render('NoxIntranetPointageBundle:Pointage:DAManagerPointagesCompilation.html.twig', array('form' => $form->createView(),
                         'pointagesValides' => getPointagesValides($em, $this->getUsersByDAMAnager($securityName, $em), $this),
-                        'formValidationRefus' => $formValidationRefus->createView())
+                        'formValidationRefus' => $formValidationRefus->createView(), 'joursFeries' => $joursFeries)
             );
         } else {
             $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les directeurs d\'agence/Managers peuvent accéder à cette espace.');
@@ -593,6 +610,9 @@ class PointageController extends Controller {
             for ($i = $this->getMonthAndYear()['year'] - 50; $i < $this->getMonthAndYear()['year'] + 50; $i++) {
                 $year[$i] = $i;
             }
+
+            // On récupére les jours fériés.
+            $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
             function getPointagesValides($em, $users, $context) {
                 $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 4));
@@ -674,7 +694,7 @@ class PointageController extends Controller {
 
             return $this->render('NoxIntranetPointageBundle:Pointage:assistantesRHPointagesCompilation.html.twig', array('form' => $form->createView(),
                         'pointagesValides' => getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this),
-                        'formValidationRefus' => $formValidationRefus->createView())
+                        'formValidationRefus' => $formValidationRefus->createView(), 'joursFeries' => $joursFeries)
             );
         } else {
             $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistant(e)s RH/DRH peuvent accéder à cette espace.');
@@ -697,6 +717,9 @@ class PointageController extends Controller {
             for ($i = $this->getMonthAndYear()['year'] - 50; $i < $this->getMonthAndYear()['year'] + 50; $i++) {
                 $year[$i] = $i;
             }
+
+            // On récupére les jours fériés.
+            $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
             function getPointagesValides($em, $users, $context) {
                 $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 5));
@@ -724,6 +747,7 @@ class PointageController extends Controller {
 
             return $this->render('NoxIntranetPointageBundle:Pointage:affichageCompilationsValides.html.twig', array('form' => $form->createView(),
                         'pointagesValides' => getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this),
+                        'joursFeries' => $joursFeries
                             )
             );
         } else {
@@ -733,7 +757,7 @@ class PointageController extends Controller {
     }
 
     // Retourne les dates des jours fériés de l'année courante en France.
-    public function getPublicHoliday() {
+    public function getPublicHoliday($year) {
         if ($year === null) {
             $year = intval(date('Y'));
         }

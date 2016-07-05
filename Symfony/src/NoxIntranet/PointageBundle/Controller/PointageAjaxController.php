@@ -14,17 +14,29 @@ class PointageAjaxController extends Controller {
     public function ajaxSetDateAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
 
+            // Pour convertir les jours en Français.
             $frenchDays = array('Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi');
 
+            // Récupére les date du premier et dernier jours du mois en fonction du mois et de l'année.
             $month = $request->get('month');
             $year = $request->get('year');
             $date = '01-' . $month . '-' . $year;
             $end_date = date('t', strtotime('01-' . $month . '-' . $year)) . '-' . $month . '-' . $year;
 
+            // Récupére les jours fériés Français.
+            $joursFeries = $this->getPublicHoliday($year);
+
+            // Récupére les dates française pour tous les jours du mois et vérifie si le jours est férié.
             $monthDates = array();
             $i = 0;
             while (strtotime($date) <= strtotime($end_date)) {
-                $monthDates[$i] = $frenchDays[date('w', strtotime($date))] . ' ' . date('d', strtotime($date));
+                $monthDates[$i]['date'] = $frenchDays[date('w', strtotime($date))] . ' ' . date('d', strtotime($date));
+
+                if (in_array(strtotime($date), $joursFeries)) {
+                    $monthDates[$i]['ferie'] = true;
+                } else {
+                    $monthDates[$i]['ferie'] = false;
+                }
                 $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
                 $i++;
             }
@@ -54,10 +66,18 @@ class PointageAjaxController extends Controller {
             $date = '01-' . $month . '-' . $year;
             $end_date = date('t', strtotime('01-' . $month . '-' . $year)) . '-' . $month . '-' . $year;
 
+            // Récupére les jours fériés Français.
+            $joursFeries = $this->getPublicHoliday($year);
+
             $monthDates = array();
             $i = 0;
             while (strtotime($date) <= strtotime($end_date)) {
-                $monthDates[$i] = $frenchDays[date('w', strtotime($date))] . ' ' . date('d', strtotime($date));
+                $monthDates[$i]['date'] = $frenchDays[date('w', strtotime($date))] . ' ' . date('d', strtotime($date));
+                if (in_array(strtotime($date), $joursFeries)) {
+                    $monthDates[$i]['ferie'] = true;
+                } else {
+                    $monthDates[$i]['ferie'] = false;
+                }
                 $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
                 $i++;
             }
@@ -759,6 +779,38 @@ class PointageAjaxController extends Controller {
 
             return new Response(json_encode(getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year)));
         }
+    }
+
+    // Retourne les dates des jours fériés de l'année courante en France.
+    public function getPublicHoliday($year) {
+        if ($year === null) {
+            $year = intval(date('Y'));
+        }
+
+        $easterDate = easter_date($year);
+        $easterDay = date('j', $easterDate);
+        $easterMonth = date('n', $easterDate);
+        $easterYear = date('Y', $easterDate);
+
+        $holidays = array(
+            // Dates fixes
+            mktime(0, 0, 0, 1, 1, $year), // 1er janvier
+            mktime(0, 0, 0, 5, 1, $year), // Fête du travail
+            mktime(0, 0, 0, 5, 8, $year), // Victoire des alliés
+            mktime(0, 0, 0, 7, 14, $year), // Fête nationale
+            mktime(0, 0, 0, 8, 15, $year), // Assomption
+            mktime(0, 0, 0, 11, 1, $year), // Toussaint
+            mktime(0, 0, 0, 11, 11, $year), // Armistice
+            mktime(0, 0, 0, 12, 25, $year), // Noel
+            // Dates variables
+            mktime(0, 0, 0, $easterMonth, $easterDay + 1, $easterYear),
+            mktime(0, 0, 0, $easterMonth, $easterDay + 39, $easterYear),
+            mktime(0, 0, 0, $easterMonth, $easterDay + 50, $easterYear),
+        );
+
+        sort($holidays);
+
+        return $holidays;
     }
 
 }

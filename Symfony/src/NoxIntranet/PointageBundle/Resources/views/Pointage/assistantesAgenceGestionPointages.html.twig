@@ -113,16 +113,16 @@
             {% set frenchDays = { 'Monday': 'Lundi', 'Tuesday': 'Mardi', 'Wednesday': 'Mercredi', 'Thursday': 'Jeudi', 'Friday': 'Vendredi', 'Saturday': 'Samedi', 'Sunday':'Dimanche' } %}
             {% for date in monthDates %}
                 <tr>
-                    <td class='dayDateCell' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">{{ frenchDays[date|date('l')]}} {{ date|date('d') }}</td>
-                    <td class="projectPercentageCell project" {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);" {% else %} contenteditable='true' {% endif %}></td>
-                    <td class="dailyTotalPercentageCell" style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">
-                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
+                    <td class='dayDateCell' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">{{ frenchDays[date|date('l')]}} {{ date|date('d') }}</td>
+                    <td class="projectPercentageCell project" {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} style="background:rgb(166,166,166);" {% else %} contenteditable='true' {% endif %}></td>
+                    <td class="dailyTotalPercentageCell" style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">
+                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' and date not in joursFeries %}
                             0.00
                         {% endif %}
                     </td>
-                    <td class='dailyHoursMod' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166); border-left-width: 1px; border-right-width: 1px;" {% else %} contenteditable='true' style="border-left-width: 1px; border-right-width: 1px;" {% endif %}></td>
-                    <td class='abscenceMatinSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 1px;">
-                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
+                    <td class='dailyHoursMod' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} style="background:rgb(166,166,166); border-left-width: 1px; border-right-width: 1px;" {% else %} contenteditable='true' style="border-left-width: 1px; border-right-width: 1px;" {% endif %}></td>
+                    <td class='abscenceMatinSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} background:rgb(166,166,166); {% endif %} border-left-width: 1px;">
+                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' and date not in joursFeries %}
                             <select>
                                 <option value=''></option>
                                 <option value='AA'>AA</option>
@@ -141,8 +141,8 @@
                             </select>
                         {% endif %}
                     </td>
-                    <td  class='abscenceAMSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-right-width: 1px;">
-                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
+                    <td  class='abscenceAMSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} background:rgb(166,166,166); {% endif %} border-right-width: 1px;">
+                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' and date not in joursFeries %}
                             <select>
                                 <option value=''></option>
                                 <option value='AA'>AA</option>
@@ -161,16 +161,16 @@
                             </select>
                         {% endif %}
                     </td>
-                    <td class='titreRepasNumberSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">
-                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' %}
+                    <td class='titreRepasNumberSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">
+                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' and date not in joursFeries %}
                             <select>
                                 <option value=''></option>
                                 <option value='1'>1</option>
                             </select>
                         {% endif %}
                     </td>
-                    <td class='forfaitsDeplacementMontant' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);  border-left-width: 1px; border-right-width: 1px;" {% else %} style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true {% endif %}></td>
-                    <td class='primesPanierNumber' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %} style="background:rgb(166,166,166);  border-left-width: 1px; border-right-width: 1px;" {% else %} style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true {% endif %}></td>
+                    <td class='forfaitsDeplacementMontant' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} style="background:rgb(166,166,166);  border-left-width: 1px; border-right-width: 1px;" {% else %} style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true {% endif %}></td>
+                    <td class='primesPanierNumber' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} style="background:rgb(166,166,166);  border-left-width: 1px; border-right-width: 1px;" {% else %} style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true {% endif %}></td>
                     <td class='comments' style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true></td>
                 </tr>        
             {% endfor %}
@@ -701,15 +701,16 @@
                             }, function () {
                                 $(this).css('transform', '');
                             });
-                            if (response[index] === undefined) {
+                            if (response[index]['date'] === undefined) {
                                 $(this).html('');
                                 $(this).parent('tr').find('td').css('background', 'white');
                             } else {
-                                $(this).html(response[index]);
-                                if (response[index].indexOf('Samedi') >= 0 || response[index].indexOf('Dimanche') >= 0) {
+                                $(this).html(response[index]['date']);
+                                if (response[index]['date'].indexOf('Samedi') >= 0 || response[index]['date'].indexOf('Dimanche') >= 0 || response[index]['ferie'] === true) {
                                     $(this).parent('tr').find('td').css('background', 'rgb(166,166,166)');
                                     $(this).next('td').attr('contenteditable', false);
                                     $(this).siblings('.dailyHoursMod').attr('contenteditable', false);
+                                    $(this).siblings('.dailyTotalPercentageCell').html('');
                                     $(this).siblings('.abscenceMatinSelector').html('');
                                     $(this).siblings('.abscenceAMSelector').html('');
                                     $(this).siblings('.titreRepasNumberSelector').html('');
@@ -769,15 +770,17 @@
                             }, function () {
                                 $(this).css('transform', '');
                             });
-                            if (response['dates'][index] === undefined) {
+                            if (response['dates'][index]['date'] === undefined) {
                                 $(this).html('');
                                 $(this).parent('tr').find('td').css('background', 'white');
                             } else {
-                                $(this).html(response['dates'][index]);
-                                if (response['dates'][index].indexOf('Samedi') >= 0 || response['dates'][index].indexOf('Dimanche') >= 0) {
+                                console.log(response['dates'][index]['ferie']);
+                                $(this).html(response['dates'][index]['date']);
+                                if (response['dates'][index]['date'].indexOf('Samedi') >= 0 || response['dates'][index]['date'].indexOf('Dimanche') >= 0 || response['dates'][index]['ferie'] === true) {
                                     $(this).parent('tr').find('td').css('background', 'rgb(166,166,166)');
                                     $(this).next('td').attr('contenteditable', false);
                                     $(this).siblings('.dailyHoursMod').attr('contenteditable', false);
+                                    $(this).siblings('.dailyTotalPercentageCell').html('');
                                     $(this).siblings('.abscenceMatinSelector').html('');
                                     $(this).siblings('.abscenceAMSelector').html('');
                                     $(this).siblings('.titreRepasNumberSelector').html('');

@@ -3192,3 +3192,21 @@ tr {
     border-style: solid;
     border-color: rgba(255, 0, 0, 0.8) transparent transparent transparent;
 }
+
+#DRHPointageList {
+    text-align: left; 
+    display: inline-block;
+    margin: auto; 
+    margin-bottom: 5%; 
+    list-style-type: none;
+}
+
+#DRHPointageList li {
+    margin-bottom: 2%;
+}
+
+#DRHPointageList a {
+    text-decoration: none;
+    color: #1F4E79;
+    font-size: 1vw;
+}
