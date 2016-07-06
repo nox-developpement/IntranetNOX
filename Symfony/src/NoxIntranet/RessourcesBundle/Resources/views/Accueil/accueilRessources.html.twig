@@ -84,6 +84,18 @@
 
         <br />       
 
+        <!-- NOX Virtual Reality -->
+        <a href="http://vr.groupe-nox.com/" class="icon" target="_blank">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetressources/images/Camera-01-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Camera-01-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Camera-01-128.png') }}';"
+                    > 
+                <figcaption>NOX Virtual Reality</figcaption>
+            </figure>
+        </a>
+
         <!-- Partage de documents -->
         <a href="http://partage.groupe-nox.com/" class="icon" target="_blank">
             <figure>
@@ -93,6 +105,18 @@
                     onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Link-128.png') }}';"
                     > 
                 <figcaption>Partage de documents</figcaption>
+            </figure>
+        </a>
+
+        <!-- Pointage -->
+        <a href="{{ path('nox_intranet_pointage') }}" class="icon" target="_blank">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetressources/images/Calendar-Date-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Calendar-Date-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Calendar-Date-128.png') }}';"
+                    > 
+                <figcaption>Pointage</figcaption>
             </figure>
         </a>
 
@@ -121,6 +145,8 @@
             </figure>
         </a>
 
+        <br />
+
         <!-- RH -->
         <a href="{{ path('nox_intranet_rh') }}" class="icon">
             <figure>
@@ -144,8 +170,6 @@
                 <figcaption>Serveurs</figcaption>
             </figure>
         </a>
-
-        <br />
 
         <!-- Visioconférence salle 1 -->            
         <a href="https://webrtc.g2j.vc/g2j/#/?conference=669644327" target="_blank" class="icon">
