@@ -14,6 +14,10 @@ nox_intranet_archives:
     path:   /ressources/archives
     defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:archives } 
     
+nox_intranet_nox_virtual_reality:
+    path:   /ressources/nox-virtual-reality
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:NOXVirtualReality } 
+    
 nox_intranet_references:
     path:   /ressources/references/{page}
     defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:references, page: 1 }
