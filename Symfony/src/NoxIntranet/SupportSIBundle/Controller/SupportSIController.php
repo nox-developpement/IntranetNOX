@@ -92,6 +92,7 @@ class SupportSIController extends Controller {
                 ))
                 ->add('date', DateType::class, array(
                     'widget' => 'choice',
+                    'years' => range(date('Y'), date('Y', strtotime('+4 year')))
                 ))
                 ->add('mailSuperieur', EmailType::class, array(
                     'attr' => array(

@@ -1,5 +1,5 @@
 nox_intranet_pointage:
-    path:     /ressources/pointage
+    path:     /ressources/rh/pointage
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:accueil }
     
 nox_intranet_pointage_ajax_set_date:
