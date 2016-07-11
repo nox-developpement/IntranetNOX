@@ -301,6 +301,7 @@
             displayTotalTitreTransport();
             checkAbscencesTitreRepas();
             getGXAffaires();
+            showAffaireName();
             addProjectColumn();
             deleteProjectColumn();
         });
@@ -1461,21 +1462,25 @@
                 var cursorY = 1.01 * e.pageY;
                 var cursorX = 1.01 * e.pageX;
 
-                // Si le nombre d'affaire est supérieur à 2.
+                // Si le nombre d'affaire est supérieur à 1.
                 if ($('#tableFeuillePointage tr:nth-child(2) .project').length > 1) {
+                    // On positione et fait apparaître le menu de suppression.
+                    $('#projectDeleteMenu').css('top', cursorY);
+                    $('#projectDeleteMenu').css('left', cursorX);
+                    $('#projectDeleteMenu').css('display', 'inline-block');
 
                     // On supprime les events sur la cellule.
-                    projectCellule.unbind('blur');
-                    projectCellule.unbind('keyup');
-                    projectCellule.unbind('paste');
+                    //projectCellule.unbind('blur');
+                    //projectCellule.unbind('keyup');
+                    //projectCellule.unbind('paste');
 
                     // Lors du clic sur le menu de suppression.
                     $('#projectDeleteMenu').click(function () {
-                        // On le fait disparaître.
-                        $(this).hide();
+                        $('#projectDeleteMenu').hide();
                         deleteTd(projectCellule);
                         setColSpan();
                         ajaxSaveData2();
+                        //console.log($._data(projectCellule[0], "events"));
                     });
                 }
 
@@ -1489,6 +1494,7 @@
                         ajaxSaveData2();
                         getGXAffaires();
                     }
+
                 });
             });
 
@@ -1538,7 +1544,7 @@
                     data['select'] = [];
                     data['project'] = [];
                     data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-                    $('td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
+                    $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                         data['contenteditable'][index] = $(this).text();
                         //$(this).css('background-color', 'orange');
                         //$(this).text(index);
@@ -1662,6 +1668,60 @@
                     });
                 }
 
+            });
+        }
+
+        // Affiche le nom de l'affaire correspondant au numéro survollé par la souris.
+        function showAffaireName() {
+
+            // Lorsqu'on passe la souris sur une cellule de numéro d'affaire.
+            $('#tableFeuillePointage tr:nth-child(2)').on('mouseover', '.project', function () {
+
+                //On supprime la tooltip.
+                $('#tooltipAffaire').remove();
+
+                var celluleAffaire = $(this); // Récupére la cellule d'affaire courante.
+                var top = celluleAffaire.offset().top; // Récupére la position verticale de la cellule de l'affaire.
+                var left = celluleAffaire.offset().left; // Récupére la position horizontale de la cellule de l'affaire.
+                var affaires = "http://" + window.location.hostname + "/Symfony/web/DatabasesCSV/AffairesEncode.csv"; // Récupére le fichier contenant les affaires.
+                var numAffaire = celluleAffaire.text(); // Récupére le numéro d'affaire.
+                var nomAffaire = ''; // Initialise le nom d'affaire.       
+
+                // On cherche le nom d'affaire correspondant au numéro dans le fichier des affaires.
+                $.get(affaires, function (data) {
+                    var lineByLine = data.split("\n");
+
+                    $.each(lineByLine, function (index, value) {
+                        var donnes = value.split(';');
+                        if (numAffaire === donnes[0]) {
+                            nomAffaire = donnes[1];
+                            return false;
+                        }
+                    });
+
+                    // Code html de la tooltip.
+                    var tooltip = '';
+                    tooltip += "<div id='tooltipAffaire' style='display: inline-block; padding: 0%; position: absolute; background-color: rgba(255, 0, 0, 0.8); border-radius: 6px; z-index: 3;'>";
+                    tooltip += "<p style='text-align: center; color: white; font-size: 0.8vw; margin-left: 5%; margin-right: 5%;'>";
+                    if (nomAffaire) {
+                        tooltip += nomAffaire;
+                        tooltip += "<br />";
+                    }
+                    tooltip += "(Cliquez-droit sur l'affaire pour la supprimer.)";
+                    tooltip += "</p>";
+                    tooltip += '</div>';
+
+                    // On fait apparaître et on positionne la tooltip.
+                    $('body').append(tooltip);
+                    $('#tooltipAffaire').css('top', top - $('#tooltipAffaire').outerHeight() - 5);
+                    $('#tooltipAffaire').css('left', left - ($('#tooltipAffaire').outerWidth() - celluleAffaire.outerWidth()) / 2);
+                });
+            });
+
+            // Lorsqu'on retire la souris d'une cellule de numéro d'affaire.
+            $('#tableFeuillePointage tr:nth-child(2)').on('mouseout', '.project', function () {
+                //On supprime la tooltip.
+                $('#tooltipAffaire').remove();
             });
         }
 

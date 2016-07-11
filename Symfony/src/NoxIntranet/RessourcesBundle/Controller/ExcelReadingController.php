@@ -110,16 +110,17 @@ class ExcelReadingController extends Controller {
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireaccueil.html.twig');
     }
 
+    // Fonction de création d'un nouveau suivi d'affaire.
     public function creationSuiviAction(Request $request) {
 
         $em = $this->getDoctrine()->getManager();
 
+        // Formulaire pour remplir les données du nouveau suivi.
         $suivi = new Suivis();
-
         $form = $this->get('form.factory')->createBuilder('form', $suivi)
                 ->add('Nom', 'text')
                 ->add('Agence', 'text')
-                ->add('NumeroGX', 'integer')
+                ->add('NumeroGX', TextType::class)
                 ->add('Profil', EntityType::class, array(
                     'class' => 'NoxIntranetRessourcesBundle:Profils',
                     'query_builder' => function (EntityRepository $er) {
@@ -130,33 +131,40 @@ class ExcelReadingController extends Controller {
                 ))
                 ->add('Créer', 'submit')
                 ->getForm();
-
         $form->handleRequest($request);
 
 
+        // Si le formulaire est valide...
         if ($form->isValid()) {
-
+            // ...Si un suivi avec le même nom n'existe pas déjà...
             if ($em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByNom($form['Nom']->getData()) == null) {
+                // ...Si un suivi avec le même numéro GX n'existe pas déjà...
                 if ($em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByNumeroGX($form['NumeroGX']->getData()) == null) {
+                    // ...On crée le nouveau suivi.
                     $suivi->setNom($form['Nom']->getData());
                     $suivi->setAgence($form['Agence']->getData());
                     $suivi->setNumeroGX($form['NumeroGX']->getData());
                     $suivi->setProfil($form['Profil']->getData()->getNom());
                     $suivi->setIdModele(null);
                     $suivi->setStatut('En cours');
-
                     $em->persist($suivi);
                     $em->flush();
 
+                    // On récupère l'ID du nouveau suivi.
                     $IdSuivi = $suivi->getId();
 
                     $request->getSession()->getFlashBag()->add('notice', 'Le suivi ' . $form['Nom']->getData() . ' a été créé.');
 
+                    // On redirige vers le choix du modèle d'affaire en fonction de l'ID du suivi.
                     return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_modele', array('IdSuivi' => $IdSuivi));
-                } else {
+                }
+                // ...Sinon on afficghe un message d'erreur.
+                else {
                     $request->getSession()->getFlashBag()->add('noticeErreur', 'Le numéro GX ' . $form['NumeroGX']->getData() . ' est déjà attribué !');
                 }
-            } else {
+            }
+            // ...Sinon on afficghe un message d'erreur.
+            else {
                 $request->getSession()->getFlashBag()->add('noticeErreur', 'Le nom ' . $form['Nom']->getData() . ' est déjà attribué !');
             }
         }
