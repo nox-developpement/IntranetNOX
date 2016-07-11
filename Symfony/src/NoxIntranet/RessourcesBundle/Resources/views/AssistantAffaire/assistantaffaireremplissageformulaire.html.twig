@@ -50,10 +50,16 @@
             <fieldset>
                 <legend>Infos suivi</legend>
 
-                <p>Agence: <span>{{ suivi.Agence }}</span></p>
-                <p>Numéro GX: <span>{{ suivi.NumeroGX }}</span></p>
-                <p>Commune: <span>{{ suivi.Commune }}</span></p>
-                <p>Marché: <span>{{ suivi.Marche }}</span></p>
+                <label>Agence: </label><input type='text' value='{{ suivi.Agence }}' readonly><br />
+                <label>Numéro GX: </label><input type='text' value='{{ suivi.NumeroGX }}' readonly><br />
+                <label>Commune: </label><input type='text' value='{{ suivi.Commune }}' readonly><br />
+                <label>Marché: </label><input type='text' value='{{ suivi.Marche }}' readonly><br />
+                <label>N° Client: </label><input type='text' value='{{ suivi.NoClient }}' readonly><br />
+                <label>Objet: </label><input type='text' value='{{ suivi.Objet }}' readonly><br />
+                <label>N° INGEDIA BEP: </label><input type='text' value='{{ suivi.NoINGEDIABEP }}' readonly><br />
+                <label>Estimatif: </label><input type='text' value='{{ suivi.Estimatif }}' readonly><br />
+                <label style="border-bottom: 1px dotted #1F4E79;">Client: </label><input id='clientPopupOpener' type='text' value='{{ client.NomCLient }}' readonly><br />
+                <label>Interlocuteur: </label><input type='text' value='{{ interlocuteur.PrenomContact }} {{ interlocuteur.NomContact }}' readonly><br />
                 {% for nCommandeKey, nCommande in suivi.NoCommande %}
                     <p id="{{ nCommandeKey }}" class="noCommande">
                         N° de Commande {{ loop.index }}: <span contenteditable="true" style='white-space: nowrap;'>{{ nCommande }}</span>
@@ -65,18 +71,12 @@
                         {% endif %}
                     </p>
                 {% endfor %} 
-                <p>N° Client: <span>{{ suivi.NoClient }}</span></p>
-                <p>Objet: <span>{{ suivi.Objet }}</span></p>
-                <p>N° INGEDIA BEP: <span>{{ suivi.NoINGEDIABEP }}</span></p>
-                <p>Estimatif: <span>{{ suivi.Estimatif }}</span></p>
-                <p style="border-bottom: 1px dotted #1F4E79;">Client: <span class="tooltipClient">{{ client.NomCLient }}{% if clientAdr != null %}<span class="tooltipClientText"><span class="tooltipTag">Téléphone</span>: {{ clientAdr.Tel }}<br /><span class="tooltipTag">Fax</span>: {{ clientAdr.Fax }}<br /><span class="tooltipTag">Email</span>: {{ clientAdr.Email }}<br /><span class="tooltipTag">Ville</span>: {{ clientAdr.NomVille }}<br /><span class="tooltipTag">Pays</span>: {{ clientAdr.NomPays }}<br /><span class="tooltipTag">Adresse</span>: {{ clientAdr.Adresse1 }} {{ clientAdr.Adresse2 }} {{ clientAdr.Adresse3 }}</span>{% endif %}</span></p>
-                <p>Interlocuteur: <span>{{ interlocuteur.PrenomContact }} {{ interlocuteur.NomContact }}</span></p>
             </fieldset>
         </form>
 
     </div>
 
-    <div id="DivFormulaireRemplissageSuivi">
+    <div id="DivFormulaireRemplissageSuivi" style="margin-bottom: 5%;">
 
         {{ form_start(formDonneesSuivi, {'attr': {'class': 'formulaireRemplissageSuivi'}}) }}
         {{ form_errors(formDonneesSuivi) }}
@@ -130,7 +130,9 @@
             resizeFormLabelAndData($('.labelFormulaireRemplissageSuivi'), $('.champFormulaireRemplissageSuivi'), $('.formulaireRemplissageSuivi p'));
             hideAndShowDataAdding();
             ApplyBlurFunction();
+            openClientPopup();
         });
+
         function addNoCommande(nbNoCommande, loopIndex) {
             if ($('#' + nbNoCommande + ' span').text() !== '') {
                 var newNoCommande = "<p id='" + (parseInt(nbNoCommande) + 1) + "' class='noCommande'> N° de Commande " + (loopIndex + 1) + ": <span contenteditable='true' style='white-space: nowrap;'></span><img src={{ asset('bundles/noxintranetressources/images/Add-New-32.png') }} style='text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.5em;' onclick='addNoCommande(" + (parseInt(nbNoCommande) + 1) + "," + (loopIndex + 1) + ");' /></p>";
@@ -200,7 +202,23 @@
             });
         }
 
+        // Ouvre un fen�tre pop-up contenant les informations sur le client.
+        function openClientPopup() {
+
+            //<span class="tooltipClient">{% if clientAdr != null %}<span class="tooltipClientText"><span class="tooltipTag">Téléphone</span>: {{ clientAdr.Tel }}<br /><span class="tooltipTag">Fax</span>: {{ clientAdr.Fax }}<br /><span class="tooltipTag">Email</span>: {{ clientAdr.Email }}<br /><span class="tooltipTag">Ville</span>: {{ clientAdr.NomVille }}<br /><span class="tooltipTag">Pays</span>: {{ clientAdr.NomPays }}<br /><span class="tooltipTag">Adresse</span>: {{ clientAdr.Adresse1 }} {{ clientAdr.Adresse2 }} {{ clientAdr.Adresse3 }}</span>{% endif %}</span>
+
+
+            $('#clientPopupOpener').click(function () {
+                alert('test');
+                var newwindow = window.open('Information client', '', 'height=200,width=150');
+                newwindow.document.write('text');
+                if (window.focus) {
+                    newwindow.focus();
+                }
+                return false;
+            });
+        }
+
     </script>
 
 {% endblock %}
-{# empty Twig template #}

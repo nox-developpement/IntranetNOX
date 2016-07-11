@@ -2015,16 +2015,21 @@ formulaireAdministrationAjoutInterlocuteur fieldset legend p, .formulaireAdminis
     margin: 0px;
 }
 
-.formInfo fieldset p>span {
-    background: white;
-    padding-left: 5%;
-    padding-right: 5%;
+.formInfo label {
+    display: block; /* La balise devient de type block. */
+    width: 40%;
+    float: left;
+    text-align: right;
+    margin-bottom: 1%;
+}
+
+.formInfo input {
+    width: 40%;
+    margin-bottom: 1%;
 }
 
 .formInfo fieldset p {
-    display: inline-block;
-    margin-right: 5%;
-    white-space: nowrap;
+    text-align: left;
 }
 
 .selectFormulaireAdministrationSuppressionProfil, .textFormulaireAdministrationAjoutProfil {
@@ -2657,54 +2662,6 @@ form input[type='checkbox'] {
 
 input[type=text]:read-only {
     background: #E6E6E6;
-}
-
-.tooltipClient {
-    position: relative;
-    display: inline-block;
-}
-
-.tooltipClient .tooltipClientText {
-    visibility: hidden;
-    width: 150%;
-    background-color: rgba(31,78,121,0);
-    color: #fff;
-    text-align: left;
-    border-radius: 6px;
-    padding: 5px 10% 0 10%;
-    bottom: 150%;
-    left: 50%; 
-    margin-left: -85%;
-    white-space: normal;
-    line-height: 2;
-
-    transition: opacity 0.8s, background-color 0.8s;
-
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-}
-
-.tooltipClient .tooltipClientText::after {
-    content: " ";
-    position: absolute;
-    top: 100%; /* At the bottom of the tooltip */
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: rgba(31,78,121,0.8) transparent transparent transparent;
-}
-
-.tooltipClient:hover .tooltipClientText {
-    visibility: visible;
-    background-color: rgba(31,78,121,0.8);
-    opacity: 1;
-}
-
-.tooltipTag {
-    font-weight: bold;
-    text-decoration: underline;
 }
 
 #alert {
