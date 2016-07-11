@@ -1263,6 +1263,7 @@
 
                         // Cache la div des résultats lors du blur du champ de recherche et vide la cellule si le contenu n'est pas un numéro d'affaire existant.
                         celluleProject.blur(function () {
+                            $('#ajaxSearchAffairesDiv').empty();
                             $('#ajaxSearchAffairesDiv').hide();
 
                             if ($.inArray(celluleProject.text(), numsAffaires) === -1) {

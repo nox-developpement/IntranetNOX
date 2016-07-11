@@ -2032,7 +2032,7 @@ formulaireAdministrationAjoutInterlocuteur fieldset legend p, .formulaireAdminis
     text-align: center;
 }
 
-.formulaireCreationSuivi fieldset p {
+.formulaireCreationSuivi fieldset p:not(.ajaxSearchAffairesDivResults) {
     width: 50%;
     margin: auto;
     padding: 0px; 

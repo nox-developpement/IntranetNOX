@@ -47,10 +47,97 @@
 
             </p>
 
+            <div id='ajaxSearchAffairesDiv' style='position: absolute; top: 0; left: 0; background-color: white; border: 1px solid rgb(165, 172, 178); font-size: 0.8vw; display: none;'>
+            </div>
+
         </fieldset> 
 
         {{ form_end(form) }}
 
     </div>
+
+    <script>
+        $(window).load(function () {
+            getGXAffaires();
+        });
+
+        // Renvoi les affaires dont le numéro contient la chaine "search".
+        function getGXAffaires() {
+
+            // Supprime les triggers d'event déjà existant.
+            $('#form_NumeroGX').unbind('blur');
+            $('#form_NumeroGX').unbind('keyup');
+            $('#form_NumeroGX').unbind('paste');
+            //$('#tableFeuillePointage tr:nth-child(2) .project').unbind('input');
+
+            // Pour toutes action dans une cellule titre d'affaire.
+            $('#form_NumeroGX').on('blur keyup paste', function () {
+
+                $('#ajaxSearchAffairesDiv').hide();
+
+                var search = $(this).val();
+                var celluleProject = $(this);
+                var affaires = "http://" + window.location.hostname + "/Symfony/web/DatabasesCSV/AffairesEncode.csv";
+                var compteur = 0;
+
+                // Supprime les paragraphes de résultats existants.
+                $('#ajaxSearchAffairesDiv').empty();
+
+                // Fixe la largeur minimale de la 'div' des résultats a 1.1 fois la taille de la cellule.
+                var minWidth = celluleProject.outerWidth() * 1.1;
+                $('#ajaxSearchAffairesDiv').css('min-width', minWidth);
+
+                // Cherche la chaine saisi dans le fichier csv des affaires et ajoute une balise 'p' par résultats.
+                if (search !== '') {
+                    $.get(affaires, function (data) {
+                        var lineByLine = data.split("\n");
+                        var numsAffaires = [];
+
+                        $.each(lineByLine, function (index, value) {
+                            var donnes = value.split(';');
+                            numsAffaires.push(donnes[0]);
+                            if (compteur < 10 && donnes[0].indexOf(search) >= 0 && (search.trim() !== donnes[0].trim())) {
+                                $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' data-nomaffaire='" + donnes[1] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
+                                compteur++;
+                            }
+                        });
+
+                        // Effet visuel au passage de la souris sur les résultats.
+                        $('.ajaxSearchAffairesDivResults').hover(function () {
+                            $(this).css('background-color', 'rgb(217, 217, 217)');
+                        }, function () {
+                            $(this).css('background-color', 'white');
+                        });
+
+                        // Lors du clique sur un résultat on remplace le contenu de la recherche par le résultat.
+                        $('.ajaxSearchAffairesDivResults').mousedown(function () {
+                            celluleProject.val($(this).attr('data-numaffaire'));
+                            celluleProject.attr('title', $(this).attr('data-nomaffaire'));
+                        });
+
+                        // Positione la 'div' contenant les résultats sous la cellules focus.
+                        $('#ajaxSearchAffairesDiv').css('top', celluleProject.offset().top + celluleProject.outerHeight());
+                        $('#ajaxSearchAffairesDiv').css('left', celluleProject.offset().left);
+
+                        // Affiche la 'div' des résultats si elle n'est pas vide.
+                        if (compteur > 0 && $('#form_NumeroGX').val() !== '') {
+                            $('#ajaxSearchAffairesDiv').show();
+                        }
+
+                        // Cache la div des résultats lors du blur du champ de recherche et vide la cellule si le contenu n'est pas un numéro d'affaire existant.
+                        celluleProject.blur(function () {
+                            $('#ajaxSearchAffairesDiv').empty();
+                            $('#ajaxSearchAffairesDiv').hide();
+
+                            if ($.inArray(celluleProject.val(), numsAffaires) === -1) {
+                                celluleProject.val('');
+                            }
+                        });
+                    });
+                }
+
+            });
+        }
+    </script>
 
 {% endblock %}
