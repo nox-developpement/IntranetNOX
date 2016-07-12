@@ -2026,6 +2026,7 @@ formulaireAdministrationAjoutInterlocuteur fieldset legend p, .formulaireAdminis
 .formInfo input {
     width: 40%;
     margin-bottom: 1%;
+    margin-right: 15%;
 }
 
 .formInfo fieldset p {

@@ -50,16 +50,17 @@
             <fieldset>
                 <legend>Infos suivi</legend>
 
-                <label>Agence: </label><input type='text' value='{{ suivi.Agence }}' readonly><br />
-                <label>Numéro GX: </label><input type='text' value='{{ suivi.NumeroGX }}' readonly><br />
-                <label>Commune: </label><input type='text' value='{{ suivi.Commune }}' readonly><br />
-                <label>Marché: </label><input type='text' value='{{ suivi.Marche }}' readonly><br />
-                <label>N° Client: </label><input type='text' value='{{ suivi.NoClient }}' readonly><br />
-                <label>Objet: </label><input type='text' value='{{ suivi.Objet }}' readonly><br />
-                <label>N° INGEDIA BEP: </label><input type='text' value='{{ suivi.NoINGEDIABEP }}' readonly><br />
-                <label>Estimatif: </label><input type='text' value='{{ suivi.Estimatif }}' readonly><br />
-                <label style="border-bottom: 1px dotted #1F4E79;">Client: </label><input id='clientPopupOpener' type='text' value='{{ client.NomCLient }}' readonly><br />
-                <label>Interlocuteur: </label><input type='text' value='{{ interlocuteur.PrenomContact }} {{ interlocuteur.NomContact }}' readonly><br />
+                <label for='agence'>Agence: </label><input name='agence' type='text' value='{{ suivi.Agence }}' disabled><br />
+                <label for='numGX'>Numéro GX: </label><input name='numGX' type='text' value='{{ suivi.NumeroGX }}' disabled><br />
+                <label for='commune'>Commune: </label><input name='commune' type='text' value='{{ suivi.Commune }}' disabled><br />
+                <label for='marche'>Marché: </label><input name='marche' type='text' value='{{ suivi.Marche }}' disabled><br />
+                <label for='nclient'>N° Client: </label><input name='nclient' type='text' value='{{ suivi.NoClient }}' disabled><br />
+                <label for='objet'>Objet: </label><input name='objet' type='text' value='{{ suivi.Objet }}' disabled><br />
+                <label for='ningediabep'>N° INGEDIA BEP: </label><input name='ningediabep' type='text' value='{{ suivi.NoINGEDIABEP }}' disabled><br />
+                <label for='estimatif'>Estimatif: </label><input name='estimatif' type='text' value='{{ suivi.Estimatif }}' disabled><br />
+                <label for='nomClient'>Client: </label><input name='nomClient' type='text' value='{{ client.NomCLient }}' disabled><br />
+                <p id='clientPopupOpener' style='display: inline-block; cursor: pointer; border-bottom: 1px dotted black; text-align: center; width: auto; margin: auto; margin-bottom: 2%; margin-top: 1%;'>Adresse(s) client</p><br />
+                <label>Interlocuteur: </label><input type='text' value='{{ interlocuteur.PrenomContact }} {{ interlocuteur.NomContact }}' disabled><br />
                 {% for nCommandeKey, nCommande in suivi.NoCommande %}
                     <p id="{{ nCommandeKey }}" class="noCommande">
                         N° de Commande {{ loop.index }}: <span contenteditable="true" style='white-space: nowrap;'>{{ nCommande }}</span>
@@ -102,7 +103,7 @@
                             var checkValidPhoneNumber = function () {
                                 if (!phoneRegex.test(fax.value)) {
                                     fax.style.borderColor = 'red';
-                                    fax.setCustomValidity("Veuillez entrer un nombre. Les décimaux doivent être séparé par un point.");
+                                    fax.setCustomValidity("Veuillez entrer un nombre. Les dÃ©cimaux doivent Ãªtre sÃ©parÃ© par un point.");
                                 } else {
                                     fax.style.borderColor = 'initial';
                                     fax.setCustomValidity('');
@@ -120,6 +121,7 @@
                 {{ form_widget(formDonneesSuivi.Save, {'label': 'Sauvegarder le suivi', 'attr': {'class': 'boutonFormulaire'}}) }}
 
             </p>
+
         </fieldset> 
 
         {{ form_end(formDonneesSuivi) }}
@@ -132,10 +134,9 @@
             ApplyBlurFunction();
             openClientPopup();
         });
-
         function addNoCommande(nbNoCommande, loopIndex) {
             if ($('#' + nbNoCommande + ' span').text() !== '') {
-                var newNoCommande = "<p id='" + (parseInt(nbNoCommande) + 1) + "' class='noCommande'> N° de Commande " + (loopIndex + 1) + ": <span contenteditable='true' style='white-space: nowrap;'></span><img src={{ asset('bundles/noxintranetressources/images/Add-New-32.png') }} style='text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.5em;' onclick='addNoCommande(" + (parseInt(nbNoCommande) + 1) + "," + (loopIndex + 1) + ");' /></p>";
+                var newNoCommande = "<p id='" + (parseInt(nbNoCommande) + 1) + "' class='noCommande'> NÂ° de Commande " + (loopIndex + 1) + ": <span contenteditable='true' style='white-space: nowrap;'></span><img src={{ asset('bundles/noxintranetressources/images/Add-New-32.png') }} style='text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.5em;' onclick='addNoCommande(" + (parseInt(nbNoCommande) + 1) + "," + (loopIndex + 1) + ");' /></p>";
                 $('#' + nbNoCommande).after(newNoCommande);
                 $('#' + nbNoCommande + ' img').remove();
                 ApplyBlurFunction();
@@ -175,7 +176,6 @@
         function updateNoCommandeButton(key, loopIndex) {
 
             var reg = /(N° de Commande [0-9]{1,}:)/;
-
             $('.noCommande').find('img').remove();
             if ($('.noCommande').length > 1) {
                 $('.noCommande').each(function (index) {
@@ -202,16 +202,30 @@
             });
         }
 
-        // Ouvre un fen�tre pop-up contenant les informations sur le client.
+        // Ouvre un fenêtre pop-up contenant la/les adresse(s) du client.
         function openClientPopup() {
-
-            //<span class="tooltipClient">{% if clientAdr != null %}<span class="tooltipClientText"><span class="tooltipTag">Téléphone</span>: {{ clientAdr.Tel }}<br /><span class="tooltipTag">Fax</span>: {{ clientAdr.Fax }}<br /><span class="tooltipTag">Email</span>: {{ clientAdr.Email }}<br /><span class="tooltipTag">Ville</span>: {{ clientAdr.NomVille }}<br /><span class="tooltipTag">Pays</span>: {{ clientAdr.NomPays }}<br /><span class="tooltipTag">Adresse</span>: {{ clientAdr.Adresse1 }} {{ clientAdr.Adresse2 }} {{ clientAdr.Adresse3 }}</span>{% endif %}</span>
-
-
+            // Lors du clic sur le bouton des adresses...
             $('#clientPopupOpener').click(function () {
-                alert('test');
-                var newwindow = window.open('Information client', '', 'height=200,width=150');
-                newwindow.document.write('text');
+
+                // On récupére la taille et la position de qu'on va attribuer à la pop-up.
+                var screenHeight = $(window).outerHeight() / 2;
+                var screenWidth = $(window).outerWidth() / 3;
+                var topPosition = $(window).outerHeight() / 10;
+                var leftPosition = $(window).outerWidth() / 15;
+
+                // On ouvre une fenêtre pop-up avec le code des adresses du client.
+                var newwindow = window.open('', '', 'height=' + screenHeight + ',width=' + screenWidth + ',top=' + topPosition + ',left=' + leftPosition);
+                newwindow.document.write("{{ clientAdr|raw }}");
+
+                // On applique le fond de l'intranet à la fenêtre pop-up.
+                $(newwindow.document).contents().find('body').css('background-image', $('#section_principal').css('background-image'));
+
+                // On rempli l'attribut title de chaque input avec sa valeur.
+                $(newwindow.document).contents().find('input').each(function () {
+                    $(this).attr('title', $(this).val());
+                });
+
+                // On focus la fenêtre pop-up.
                 if (window.focus) {
                     newwindow.focus();
                 }

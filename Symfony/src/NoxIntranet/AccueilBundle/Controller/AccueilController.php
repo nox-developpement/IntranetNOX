@@ -11,14 +11,9 @@ namespace NoxIntranet\AccueilBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
-use NoxIntranet\AccueilBundle\Entity\MessageAlert;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Description of AccueilController
- *
- * @author t.besson
- */
+
 class AccueilController extends Controller {
 
     public function accueilAction() {

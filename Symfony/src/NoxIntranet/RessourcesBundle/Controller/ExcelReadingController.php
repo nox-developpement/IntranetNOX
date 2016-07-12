@@ -23,11 +23,6 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
-/**
- * Description of ExcelReadingController
- *
- * @author t.besson
- */
 class ExcelReadingController extends Controller {
 
     public function wd_remove_accents($str, $charset = 'utf-8') {
@@ -681,7 +676,32 @@ class ExcelReadingController extends Controller {
 
         $client = $em->getRepository('NoxIntranetRessourcesBundle:AA_Client')->findOneByN_Client($suivi->getNoClient());
 
-        $clientAdr = $em->getRepository('NoxIntranetRessourcesBundle:AA_Client_Adr')->findOneByN_Client($suivi->getNoClient());
+        // Récupére la/les adresse(s) du client et génére le code html de la pop-up des adresses client. 
+        $clientAdr = $em->getRepository('NoxIntranetRessourcesBundle:AA_Client_Adr')->findByN_Client($suivi->getNoClient());
+        $clientAdrHtml = "<html style='overflow: auto;'>";
+        $clientAdrHtml .= "<head>";
+        $clientAdrHtml .= "<title>Adresse(s) du client</title>";
+        $clientAdrHtml .= "<style>";
+        $clientAdrHtml .= "label { display: block; width: 30%; float: left; text-align: right; margin-bottom: 1%; margin-right: 1%; }";
+        $clientAdrHtml .= "input { width: 40%; margin-bottom: 1%; }";
+        $clientAdrHtml .= "</style>";
+        $clientAdrHtml .= "</head>";
+        $clientAdrHtml .= "<body style='overflow: auto; height: 100%; width: 100%; margin: 0;'>";
+        foreach ($clientAdr as $key => $adr) {
+            $clientAdrHtml .= "<fieldset style='border: 2px outset #1F4E79; background-color: rgba(255,255,255, 0.6); width: 80%; margin: auto; margin-top: 1%; margin-bottom: 1%;'>";
+            $clientAdrHtml .= addslashes("<legend>" . str_replace(array("\r\n", "\r", "\n"), "", $client->getNomClient()) . " - Adresse " . strval($key + 1) . "</legend>");
+            $clientAdrHtml .= addslashes("<label for='tel'>Téléphone: </label><input type='text' name='tel' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getTel())) . "\"><br />");
+            $clientAdrHtml .= addslashes("<label for='fax'>Fax: </label><input type='text' name='fax' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getFax())) . "\"><br />");
+            $clientAdrHtml .= addslashes("<label for='email'>Email: </label><input type='text' name='email' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getEmail())) . "\"><br />");
+            $clientAdrHtml .= addslashes("<label for='nomville'>Ville: </label><input type='text' name='nomville' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getNomVille())) . "\"><br />");
+            $clientAdrHtml .= addslashes("<label for='nompays'>Pays: </label><input type='text' name='nompays' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getNomPays())) . "\"><br />");
+            $clientAdrHtml .= addslashes("<label for='adresse'>Adresse: </label><input type='text' name='adresse' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getAdresse1())) . "\"><br />");
+            $clientAdrHtml .= addslashes("<label for='adresse2'></label><input type='text' name='adresse2' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getAdresse2())) . "\"><br />");
+            $clientAdrHtml .= addslashes("<label for='adresse3'></label><input type='text' name='adresse3' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getAdresse3())) . "\">");
+            $clientAdrHtml .= "</fieldset>";
+        }
+        $clientAdrHtml .= "</body>";
+        $clientAdrHtml .= "</html>";
 
         $interlocuteur = $em->getRepository('NoxIntranetRessourcesBundle:AA_Contact')->findOneByN_Contact($suivi->getNoInterlocuteur());
 
@@ -692,7 +712,6 @@ class ExcelReadingController extends Controller {
         $champsViews = array();
 
         // Génération du formulaire de séléction de la version du suivi
-
         if ($version !== '') {
             $IdDonneesSuivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneBy(array('idSuivi' => $IdSuivi, 'version' => $version));
         } else {
@@ -715,17 +734,17 @@ class ExcelReadingController extends Controller {
                 ))
                 ->add('Supprimer', SubmitType::class)
                 ->getForm();
-////////////////////////////////////////////////////////////////////////////////////////////////
-// Génération du formulaire de selection du client
-//        $formSelectionCreationClient = $this->get('form.factory')->createNamedBuilder('formSelectionCreationClient', 'form')
-//                ->add('version', EntityType::class, array(
-//                    'class' => 'NoxIntranetAdministrationBundle:Donnees_Client',
-//                    'choice_label' => 'Nom',
-//                ))
-//                ->add('Supprimer', SubmitType::class)
-//                ->getForm();
-////////////////////////////////////////////////////////////////////////////////////////////////
-// Génération du formulaire de complétion du suivi
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Génération du formulaire de selection du client
+        //        $formSelectionCreationClient = $this->get('form.factory')->createNamedBuilder('formSelectionCreationClient', 'form')
+        //                ->add('version', EntityType::class, array(
+        //                    'class' => 'NoxIntranetAdministrationBundle:Donnees_Client',
+        //                    'choice_label' => 'Nom',
+        //                ))
+        //                ->add('Supprimer', SubmitType::class)
+        //                ->getForm();
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Génération du formulaire de complétion du suivi
         $formBuilder = $this->get('form.factory')->createNamedBuilder('formDonneesSuivi', 'form');
 
         foreach ($liaisons as $liaison) {
@@ -1020,7 +1039,7 @@ class ExcelReadingController extends Controller {
         ////////////////////////////////////////////////////////////////////////////////////////////////
 
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig', array(
-                    'formDonneesSuivi' => $formSuivi->createView(), 'champsViews' => $champsViews, 'suivi' => $suivi, 'client' => $client, 'clientAdr' => $clientAdr,
+                    'formDonneesSuivi' => $formSuivi->createView(), 'champsViews' => $champsViews, 'suivi' => $suivi, 'client' => $client, 'clientAdr' => $clientAdrHtml,
                     'formSelectionVersionSuivi' => $formSelectionVersionSuivi->createView(), 'formCloturationSuivi' => $formCloturationSuivi->createView(),
                     'interlocuteur' => $interlocuteur
         ));
