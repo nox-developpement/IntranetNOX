@@ -86,7 +86,7 @@
             </div>
 
             <div id="administrationBouton" >
-                {% if app.user != null and (is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENCES') or is_granted('ROLE_COMPETENCES') or is_granted('ROLE_COMMUNICATION') or is_granted('ROLE_PROCEDURES') or is_granted('ROLE_FAQ') or is_granted('ROLE_CE') or is_granted('ROLE_CHSCT') or is_granted('ROLE_LIENS') or is_granted('ROLE_QUALITE')) %}
+                {% if app.user != null and (is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENCES') or is_granted('ROLE_COMPETENCES') or is_granted('ROLE_COMMUNICATION') or is_granted('ROLE_PROCEDURES') or is_granted('ROLE_FAQ') or is_granted('ROLE_CE') or is_granted('ROLE_CHSCT') or is_granted('ROLE_LIENS') or is_granted('ROLE_QUALITE') or is_granted('ROLE_RH')) %}
                     <p> <a href="{{ path('nox_intranet_administration') }}"> Administration </a> </p>
                 {% elseif is_granted('ROLE_PUBLICATEUR') %}
                     <p> Publication </p>
@@ -190,24 +190,6 @@
 <script src="{{ asset('./js/suiviRecherche.js') }}"/></script>
 <script src="{{ asset('./js/jquery.transit.min.js') }}"/></script>
 <script src="{{ asset('./js/tableHeadFixer.js') }}"/></script>
-
-<script>
-            alertDisplay();
-            function alertDisplay() {
-                $.ajax({
-                    //On lui indique le type d'envoie des informations
-                    type: 'POST',
-                    //On lui indique le chemin de la fonction
-
-                    url: '{{ path('nox_intranet_ajax_get_message_alerte') }}',
-                    success: function (response) {
-                        if (response === '1') {
-                            $(location).attr('href', '{{ path('nox_intranet_message_alerte') }}');
-                        }
-                    }
-                });
-            }
-</script>
 
 </body>
 

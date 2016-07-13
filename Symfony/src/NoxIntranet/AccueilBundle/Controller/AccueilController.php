@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class AccueilController extends Controller {
 
     public function accueilAction() {
@@ -26,8 +25,6 @@ class AccueilController extends Controller {
         //$request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas les droits requis pour accéder à cette section !");
 
         return $this->render('NoxIntranetAccueilBundle:Accueil:accesInterdit.html.twig');
-
-        return $this->redirectToRoute('nox_intranet_accueil');
     }
 
     public function connexionRequiseAction() {
@@ -185,50 +182,6 @@ class AccueilController extends Controller {
         $response->setContent(var_dump(phpinfo()));
 
         return $response;
-    }
-
-    // Vérifie si la diffusion d'un message d'alerte est activé et renvoi une réponse positive si c'est le cas.
-    public function ajaxGetMessageAlertAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-
-        $messageAlerte = $em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBySection('Accueil');
-
-        if (!empty($messageAlerte)) {
-            $status = $messageAlerte->getStatus();
-        } else {
-            $status = 0;
-        }
-
-        if ($request->isXmlHttpRequest()) {
-            if ($status === true && filter_input(INPUT_COOKIE, 'timerMessageAlert') !== 'true') {
-                $expire = strtotime('tomorrow 08am');
-                setcookie("timerMessageAlert", "true", $expire);
-                if ($em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBy(array('section' => 'Accueil')) != null) {
-                    $alert = $em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBy(array('section' => 'Accueil'));
-                } else {
-                    $alert = null;
-                }
-                $diffusionMessage = 1;
-            } else {
-                $diffusionMessage = 0;
-            }
-        }
-
-        return new Response((string) $diffusionMessage);
-    }
-
-    public function messageAlerteAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-
-        $messageAlerte = $em->getRepository('NoxIntranetAccueilBundle:MessageAlert')->findOneBySection('Accueil');
-
-        if (!empty($messageAlerte)) {
-            $message = $messageAlerte->getMessage();
-        } else {
-            $message = null;
-        }
-
-        return $this->render('NoxIntranetAccueilBundle:Accueil:alertMessage.html.twig', array('message' => $message, 'pagePrecedente' => $request->server->get('HTTP_REFERER')));
     }
 
 }
