@@ -22,11 +22,11 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.response, method: processMessage }
             
-#    nox_intranet_accueil.acces_interdit.html:
-#        class: NoxIntranet\AccueilBundle\MessageAlert\AccesInterditHTML
-#        
-#    nox_intranet_accueil.acces_interdit.listener:
-#        class: NoxIntranet\AccueilBundle\MessageAlert\AccesInterditListener
-#        arguments: [@nox_intranet_accueil.acces_interdit.html]
-#        tags:
-#            - { name: kernel.event_listener, event: kernel.exception, method: processAcessInterdit }
+    nox_intranet_accueil.acces_interdit.html:
+        class: NoxIntranet\AccueilBundle\MessageAlert\AccesInterditHTML
+        
+    nox_intranet_accueil.acces_interdit.listener:
+        class: NoxIntranet\AccueilBundle\MessageAlert\AccesInterditListener
+        arguments: [@nox_intranet_accueil.acces_interdit.html, '@service_container']
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: processAcessInterdit }
