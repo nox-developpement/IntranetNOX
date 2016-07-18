@@ -2727,6 +2727,11 @@ input[type=text]:read-only {
     max-width:100%;
 }
 
+#tableFeuillePointage tr:nth-last-child(3) td:nth-last-child(5) {
+    border: none;
+    border-right: 1px solid black !important;
+}
+
 #tableFeuillePointage, #tableFeuillePointage select {
     width: 100%;
     font-size: 0.7vw;
