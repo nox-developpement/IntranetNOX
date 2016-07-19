@@ -42,8 +42,8 @@ security:
             pattern:   ^/
             anonymous: true
             provider:  main
-            form_login:
-                login_path: /connexionRequise
+#            form_login:
+#                login_path: /connexionRequise
             logout:
                 path:   logout
                 target: /accueil

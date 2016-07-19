@@ -30,11 +30,11 @@ class AccesInterditListener {
 
         // On teste si la requête est bien la requête principale (et non une sous-requête)
         if (!$event->isMasterRequest()) {
-            var_dump('sous-requette');
             return;
         }
 
-        if ($event->getException()->getStatusCode() !== 403) {
+        // On teste si l'exception est bien une erreur d'accès interdit.
+        if (get_class($event->getException()) !== 'Symfony\Component\Security\Core\Exception\InsufficientAuthenticationException' && $event->getException()->getStatusCode() !== 403) {
             return;
         }
 
@@ -121,7 +121,12 @@ class AccesInterditListener {
                     'posteAPourvoir' => $annoncesPoste, 'nominationOrganisation' => $annoncesNomination, 'nombreVues' => $nombreVues))
         );
 
-        $response = $this->accesInterditHTML->displayAccesInterdit($rowResponse, $this->container->get('request')->getSchemeAndHttpHost());
+        // On modifie le code en fonction du type d'exception.
+        if (get_class($event->getException()) === 'Symfony\Component\Security\Core\Exception\InsufficientAuthenticationException') {
+            $response = $this->accesInterditHTML->displayConnexionRequise($rowResponse, $this->container->get('request')->getSchemeAndHttpHost());
+        } else {
+            $response = $this->accesInterditHTML->displayAccesInterdit($rowResponse, $this->container->get('request')->getSchemeAndHttpHost());
+        }
         $event->setResponse($response);
     }
 

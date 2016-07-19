@@ -2,13 +2,13 @@ nox_intranet_accueil:
     path:     /accueil
     defaults: { _controller: NoxIntranetAccueilBundle:Accueil:majCommunication }
     
-nox_intranet_accesinterdit:
-    path:     /accesInterdit
-    defaults: { _controller: NoxIntranetAccueilBundle:Accueil:accesInterdit }
-    
-nox_intranet_connexionRequise:
-    path:     /connexionRequise
-    defaults: { _controller: NoxIntranetAccueilBundle:Accueil:connexionRequise }
+#nox_intranet_accesinterdit:
+#    path:     /accesInterdit
+#    defaults: { _controller: NoxIntranetAccueilBundle:Accueil:accesInterdit }
+#    
+#nox_intranet_connexionRequise:
+#    path:     /connexionRequise
+#    defaults: { _controller: NoxIntranetAccueilBundle:Accueil:connexionRequise }
     
 nox_intranet_debug:
     path: /debug

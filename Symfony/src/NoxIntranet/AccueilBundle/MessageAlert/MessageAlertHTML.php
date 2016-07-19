@@ -31,11 +31,32 @@ class MessageAlertHTML {
         $html .= "<div id='alertMessage'>";
         $html .= $message;
         $html .= "<p id='hideAlertButtonParagraph'>";
-        $html .= "<button id='hideAlertButton' onclick=\"$('#blurContainer').replaceWith($('#blurContainer').html()); $('#alertContainer').remove(); menuAnimation();\">J'ai compris</button>";
+        $html .= "<button id='hideAlertButton' onclick=\"";
+        $html .= "$('body').children().not($('#alertContainer')).css({";
+        $html .= "'filter': 'blur(0px)',";
+        $html .= "'-webkit-filter': 'blur(0px)',";
+        $html .= "'-moz-filter': 'blur(0px)',";
+        $html .= "'-ms-filter': 'blur(0px)',";
+        $html .= "'-o-filter': 'blur(0px)'";
+        $html .= "});";
+        $html .= "$('#alertContainer').remove();";
+        $html .="\">";
+        $html .= "J'ai compris";
+        $html .= "</button>";
         $html .= "</p>";
         $html .= "</div>";
         $html .= "</div>";
-        $html .= "<div id='blurContainer' style='filter: blur(3px); -webkit-filter: blur(3px); -moz-filter: blur(3px); -ms-filter: blur(3px); -o-filter: blur(3px);'>";
+        $html .= "<script>";
+        $html .= "$(window).load(function () {";
+        $html .= "$('body').children().not($('#alertContainer')).css({";
+        $html .= "'filter': 'blur(3px)',";
+        $html .= "'-webkit-filter': 'blur(3px)',";
+        $html .= "'-moz-filter': 'blur(3px)',";
+        $html .= "'-ms-filter': 'blur(3px)',";
+        $html .= "'-o-filter': 'blur(3px)'";
+        $html .= "});";
+        $html .= "});";
+        $html .= "</script>";
 
         // Ajout le texte après le texte spécifié.
         function str_insert($str, $search, $insert) {
@@ -47,9 +68,7 @@ class MessageAlertHTML {
         }
 
         // Insertion du code dans la page.
-        $newDiv = str_insert($content, '<body onload="menuAnimation();">', $html);
-        $pos = strpos($newDiv, '</body>');
-        $newContent = substr_replace($newDiv, '</div>', $pos, 0);
+        $newContent = str_insert($content, '<body onload="menuAnimation();">', $html);
 
         // Modification du contenu dans la réponse
         $response->setContent($newContent);
