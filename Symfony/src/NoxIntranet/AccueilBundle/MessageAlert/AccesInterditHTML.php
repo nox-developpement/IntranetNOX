@@ -40,7 +40,7 @@ class AccesInterditHTML {
         $html .= "</div>";
         $html .= "</div>";
         $html .= "<script>";
-        $html .= "$(window).load(function () {";
+        $html .= "$(function () {";
         $html .= "$('body').children().not($('#alertContainer')).css({";
         $html .= "'filter': 'blur(3px)',";
         $html .= "'-webkit-filter': 'blur(3px)',";
@@ -86,7 +86,7 @@ class AccesInterditHTML {
         $html .= "</div>";
         $html .= "</div>";
         $html .= "<script>";
-        $html .= "$(window).load(function () {";
+        $html .= "$(function () {";
         $html .= "$('body').children().not($('#alertContainer')).css({";
         $html .= "'filter': 'blur(3px)',";
         $html .= "'-webkit-filter': 'blur(3px)',";

@@ -61,17 +61,14 @@
                 <label for='nomClient'>Client: </label><input name='nomClient' type='text' value='{{ client.NomCLient }}' disabled><br />
                 <p id='clientPopupOpener' style='display: inline-block; cursor: pointer; border-bottom: 1px dotted black; text-align: center; width: auto; margin: auto; margin-bottom: 2%; margin-top: 1%;'>Adresse(s) client</p><br />
                 <label>Interlocuteur: </label><input type='text' value='{{ interlocuteur.PrenomContact }} {{ interlocuteur.NomContact }}' disabled><br />
-                {% for nCommandeKey, nCommande in suivi.NoCommande %}
-                    <p id="{{ nCommandeKey }}" class="noCommande">
-                        N° de Commande {{ loop.index }}: <span contenteditable="true" style='white-space: nowrap;'>{{ nCommande }}</span>
-                        {% if suivi.NoCommande|length > 1 %}
-                            <img src="{{ asset('bundles/noxintranetressources/images/Minus-32.png') }}" style="text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.1em;" onclick="deleteNoCommande('{{ nCommandeKey }}');"/>
-                        {% endif %}
-                        {% if loop.last %}
-                            <img src="{{ asset('bundles/noxintranetressources/images/Add-New-32.png') }}" style="text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.1em;" onclick="addNoCommande('{{ nCommandeKey }}', {{ loop.index }});"/>
-                        {% endif %}
-                    </p>
-                {% endfor %} 
+                <label for='addNoCommandeName' style='display: inline-block; width: 100%; text-align: center; margin-top: 2%;'>N°Commande</label><br />
+                <input name='addNoCommandeName' type='text' style='width: 30%; margin: 0; margin-bottom: 1%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box;'><button type='button' name='addNoCommande' style='width: 9%; margin-left: 1%;'>+</button><br />
+                <select name='noCommandeSelector' style='width: 40%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box;' size='5'>
+                    {% for nCommande in suivi.NoCommande %}
+                        <option value="{{ nCommande }}" style='text-align: center;'>{{ nCommande }}</option>
+                    {% endfor %}
+                </select><br />
+                <button name='deleteNoCommande' type='button' style='width: 40%; font-size: 0.8vw; margin-top: 1%;'>Supprimer</button>
             </fieldset>
         </form>
 
@@ -128,80 +125,13 @@
     </div>
 
     <script>
-        $(document).ready(function () {
+        $(window).load(function () {
             resizeFormLabelAndData($('.labelFormulaireRemplissageSuivi'), $('.champFormulaireRemplissageSuivi'), $('.formulaireRemplissageSuivi p'));
             hideAndShowDataAdding();
-            ApplyBlurFunction();
             openClientPopup();
+            ajaxAddNoCommand();
+            ajaxDeleteNoCommande();
         });
-        function addNoCommande(nbNoCommande, loopIndex) {
-            if ($('#' + nbNoCommande + ' span').text() !== '') {
-                var newNoCommande = "<p id='" + (parseInt(nbNoCommande) + 1) + "' class='noCommande'> NÂ° de Commande " + (loopIndex + 1) + ": <span contenteditable='true' style='white-space: nowrap;'></span><img src={{ asset('bundles/noxintranetressources/images/Add-New-32.png') }} style='text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.5em;' onclick='addNoCommande(" + (parseInt(nbNoCommande) + 1) + "," + (loopIndex + 1) + ");' /></p>";
-                $('#' + nbNoCommande).after(newNoCommande);
-                $('#' + nbNoCommande + ' img').remove();
-                ApplyBlurFunction();
-                updateNoCommandeButton(nbNoCommande, loopIndex);
-            } else {
-                $('#' + nbNoCommande + ' span').focus();
-            }
-        }
-
-        function EditNoCommande(context) {
-            if ($('#' + context.attr('id') + ' span').text() !== '') {
-                ajaxSaveNoCommande(context.attr('id'), $('#' + context.attr('id') + ' span').text());
-            }
-        }
-
-        function deleteNoCommande(context) {
-            $('#' + context).remove();
-            ajaxDeleteNoCommande(context);
-            updateNoCommandeButton($('.noCommande').last().attr('id') - 1, $('.noCommande').length);
-        }
-
-        function ApplyBlurFunction() {
-            $('.noCommande').each(function () {
-                $(this).keypress(function (e) {
-                    if (e.which === 13) {
-                        e.preventDefault();
-                        $('#' + $(this).attr('id')).removeAttr('contenteditable');
-                        EditNoCommande($(this));
-                    }
-                });
-                $(this).focusout(function () {
-                    EditNoCommande($(this));
-                });
-            });
-        }
-
-        function updateNoCommandeButton(key, loopIndex) {
-
-            var reg = /(N° de Commande [0-9]{1,}:)/;
-            $('.noCommande').find('img').remove();
-            if ($('.noCommande').length > 1) {
-                $('.noCommande').each(function (index) {
-                    $(this).html($(this).html().replace(reg, "N° de Commande " + (index + 1) + ":"));
-                    $(this).find('span').after("<img src='{{ asset('bundles/noxintranetressources/images/Minus-32.png') }}' style='text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.1em;' onclick='deleteNoCommande(" + $(this).attr('id') + ");'/>");
-                });
-            }
-            $('.noCommande').last().append("<img src='{{ asset('bundles/noxintranetressources/images/Add-New-32.png') }}' style='text-align: center; vertical-align: bottom; height: 1.2em; margin-left: 0.1em;' onclick=\"addNoCommande('" + (parseInt(key) + 1) + "'," + (loopIndex + 1) + ");\"/>");
-        }
-
-        function ajaxDeleteNoCommande(context2) {
-            $.ajax({
-                type: 'POST',
-                url: '{{ path('nox_intranet_assistant_affaire_ajax_nocommande_delete') }}',
-                data: {suiviId2: '{{ suivi.Id }}', idNoCommande2: context2}
-            });
-        }
-
-        function ajaxSaveNoCommande(context, value) {
-            $.ajax({
-                type: 'POST',
-                url: '{{ path('nox_intranet_assistant_affaire_ajax_nocommande_save') }}',
-                data: {suiviId: '{{ suivi.Id }}', idNoCommande: context, noCommandeValue: value}
-            });
-        }
-
         // Ouvre un fenêtre pop-up contenant la/les adresse(s) du client.
         function openClientPopup() {
             // Lors du clic sur le bouton des adresses...
@@ -212,24 +142,57 @@
                 var screenWidth = $(window).outerWidth() / 3;
                 var topPosition = $(window).outerHeight() / 10;
                 var leftPosition = $(window).outerWidth() / 15;
-
                 // On ouvre une fenêtre pop-up avec le code des adresses du client.
                 var newwindow = window.open('', '', 'height=' + screenHeight + ',width=' + screenWidth + ',top=' + topPosition + ',left=' + leftPosition);
                 newwindow.document.write("{{ clientAdr|raw }}");
-
                 // On applique le fond de l'intranet à la fenêtre pop-up.
                 $(newwindow.document).contents().find('body').css('background-image', $('#section_principal').css('background-image'));
-
                 // On rempli l'attribut title de chaque input avec sa valeur.
                 $(newwindow.document).contents().find('input').each(function () {
                     $(this).attr('title', $(this).val());
                 });
-
                 // On focus la fenêtre pop-up.
                 if (window.focus) {
                     newwindow.focus();
                 }
                 return false;
+            });
+        }
+
+        function ajaxAddNoCommand() {
+            // Lors d'un clic sur le bouton d'ajout de N°Commande.
+            $("button[name='addNoCommande']").click(function () {
+                // Si le numéro de commande n'est pas vide.
+                if ($.trim($("input[name='addNoCommandeName']").val()).length > 0) {
+                    var newNoCommande = $("input[name='addNoCommandeName']").val(); // On récupére la valeur du N°Commande.
+                    // On sauvegarde le numéro en base de donnée avec une fonction Ajax.        
+                    (function (newNoCommande) {
+                        $.ajax({
+                            url: '{{ path('nox_intranet_assistant_affaire_ajax_nocommande_add') }}',
+                            type: 'POST',
+                            data: {'IDSuivi':{{ suivi.id }}, 'noCommandes': newNoCommande},
+                            success: function () {
+                                // On fait apparaître le nouveau numéro dans le selecteur de numéros.
+                                var newOption = $("<option value='" + newNoCommande + "' style='text-align: center; background-color: green;'>" + newNoCommande + "</option>");
+                                $("select[name='noCommandeSelector']").append(newOption);
+                                // On scroll en bas du sélécteur de numéro.
+                                $("select[name='noCommandeSelector']").scrollTop($("select[name='noCommandeSelector']")[0].scrollHeight);
+                                // On anime la couleur de fond du nouveau numéro.
+                                newOption.animate({
+                                    backgroundColor: 'white'
+                                }, 3000);
+                            }
+                        });
+                    })(newNoCommande);
+                }
+            });
+        }
+
+        function ajaxDeleteNoCommande() {
+            $("button[name='deleteNoCommande']").click(function () {
+                if ($("select[name='noCommandeSelector']").val() !== null) {
+                    $("select[name='noCommandeSelector'] option:selected").remove();
+                }
             });
         }
 

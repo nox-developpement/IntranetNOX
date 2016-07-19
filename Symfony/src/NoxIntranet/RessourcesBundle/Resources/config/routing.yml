@@ -94,7 +94,7 @@ nox_intranet_assistant_affaire_nouvelle_infos:
     
 nox_intranet_assistant_affaire_edition:
     path: /ressources/assistant-affaires/edition-suivi/{IdSuivi}/{version}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:editionSuiviEnCours, version: "" }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:editionSuiviEnCours, version: "" }
     
 nox_intranet_assistant_affaire_generation:
     path: /ressources/assistantAffaireGeneration
@@ -148,9 +148,9 @@ nox_intranet_assistant_affaire_ajax_client_adr_getter:
     path: /ressources/assistant-affaires/creation-suivi/getClientAdr
     defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:ajaxClientAdrGetter }
     
-nox_intranet_assistant_affaire_ajax_nocommande_save:
-    path: /ressources/assistant-affaires/edition-suivi-sauvegarde-nocommande
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:ajaxSaveNoCommande }
+nox_intranet_assistant_affaire_ajax_nocommande_add:
+    path: /ressources/assistant-affaires/edition-suivi-add-no-commande
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:ajaxAddNoCommande }
     
 nox_intranet_assistant_affaire_ajax_nocommande_delete:
     path: /ressources/assistant-affaires/edition-suivi-suppression-nocommande
