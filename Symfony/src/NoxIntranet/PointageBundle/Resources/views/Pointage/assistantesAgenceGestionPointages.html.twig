@@ -292,7 +292,6 @@
             });
             getNewDate();
             displayDailyProjectsTotalPercentage();
-            displayMonthlyProjectTotalPercentage();
             dispayMonthlyTotalHoursMod();
             displayMonthlyTotalTitresRepas();
             displayMonthlyTotalForfaitsDeplacement();
@@ -493,36 +492,6 @@
                         }
                     });
                     checkTotalValue(this, total);
-                });
-            }
-
-            displayMonthlyProjectTotalPercentage();
-            function displayMonthlyProjectTotalPercentage() {
-                // Affiche la valeur total des cellules d'une même colonne ou 'Erreur' si celle-ci n'est pas valide.
-                function checkTotalValue(cell, total, columnNo) {
-                    if (isNaN(total) || total > 100) {
-                        $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
-                        $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'red');
-                        $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
-                        $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'red');
-                    } else {
-                        $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text(total.toFixed(2));
-                        $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'white');
-                        var decimalTotal = parseFloat(total / 100, 10);
-                        $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text(decimalTotal.toFixed(2));
-                        $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'white');
-                    }
-                }
-
-                $('.projectPercentageCell').each(function () {
-                    var columnNo = $(this).index();
-                    var total = 0;
-                    $(this).closest("table").find("tr .projectPercentageCell:nth-child(" + (columnNo + 1) + ")").each(function () {
-                        if ($(this).text() !== '') {
-                            total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
-                        }
-                    });
-                    checkTotalValue(this, total, columnNo);
                 });
             }
 
@@ -957,7 +926,6 @@
                         deleteProjectColumn();
                         tableEventHandler();
                         displayDailyProjectsTotalPercentage();
-                        displayMonthlyProjectTotalPercentage();
                         dispayMonthlyTotalHoursMod();
                         displayMonthlyTotalTitresRepas();
                         displayMonthlyTotalForfaitsDeplacement();
@@ -1237,37 +1205,6 @@
                 });
             });
 
-        }
-
-        // Calcule et affiche le pourcentage total de chaque colonne de projets et vérifie la validité des données.
-        function displayMonthlyProjectTotalPercentage() {
-
-            // Affiche la valeur total des cellules d'une même colonne ou 'Erreur' si celle-ci n'est pas valide.
-            function checkTotalValue(cell, total, columnNo) {
-                if (isNaN(total) || total > 100) {
-                    $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
-                    $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'red');
-                    $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text('Erreur');
-                    $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'red');
-                } else {
-                    $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").text(total.toFixed(2));
-                    $(cell).closest("table").find("tr .monthlyTotalPercentageCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'white');
-                    var decimalTotal = parseFloat(total / 100, 10);
-                    $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").text(decimalTotal.toFixed(2));
-                    $(cell).closest("table").find("tr .monthlyTotalCell:nth-child(" + (columnNo + 1) + ")").css('background-color', 'white');
-                }
-            }
-
-            $('.projectPercentageCell').on('blur keyup paste input change', function () {
-                var columnNo = $(this).index();
-                var total = 0;
-                $(this).closest("table").find("tr .projectPercentageCell:nth-child(" + (columnNo + 1) + ")").each(function () {
-                    if ($(this).text() !== '') {
-                        total = parseFloat(total, 10) + parseFloat($(this).text(), 10);
-                    }
-                });
-                checkTotalValue(this, total, columnNo);
-            });
         }
 
         // Calcule et affiche le nombre d'heure total pour le mois courant.
@@ -1604,7 +1541,6 @@
                 });
 
                 displayDailyProjectsTotalPercentage();
-                displayMonthlyProjectTotalPercentage();
                 dispayMonthlyTotalHoursMod();
                 displayMonthlyTotalTitresRepas();
                 displayMonthlyTotalForfaitsDeplacement();
@@ -1739,7 +1675,6 @@
                     });
                 });
                 displayDailyProjectsTotalPercentage();
-                displayMonthlyProjectTotalPercentage();
                 dispayMonthlyTotalHoursMod();
                 displayMonthlyTotalTitresRepas();
                 displayMonthlyTotalForfaitsDeplacement();
