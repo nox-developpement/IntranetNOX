@@ -373,85 +373,64 @@ class RessourcesController extends Controller {
         return $this->redirectToRoute('nox_intranet_imprimantes');
     }
 
-    // Affiche un formulaire de génération de script de connexion aux serveurs en fonction de l'agence et de la lettre du lecteur séléctionnés.
     public function serveursAction(Request $request) {
-
         $em = $this->getDoctrine()->getManager();
-
-        // Génération du formulaire d'édition du texte d'encart.
         $textEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Serveurs');
+        $keywords = $em->getRepository('NoxIntranetRessourcesBundle:ReferencesKeywords')->findAll();
+        if ($keywords != null) {
+            foreach ($keywords as $k => $v) {
+                $nombre[$k] = $v->getNombre();
+            }
+            array_multisort($nombre, SORT_DESC, $keywords);
+            $keywordNombreMax = $keywords[0]->getNombre();
+            $keywords5 = array_slice($keywords, 0, 10);
+            shuffle($keywords5);
+        } else {
+            $keywords5 = null;
+            $keywordNombreMax = null;
+        }
         if ($textEncart == null) {
             $textEncart = new texteEncart();
             $textEncart->setSection('Serveurs');
             $em->persist($textEncart);
             $em->flush();
         }
-        $formTextEncart = $this->get('form.factory')->createNamedBuilder('formTextEncart', 'form', $textEncart)
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $textEncart);
+        $formBuilder
                 ->add('text', 'ckeditor')
-                ->add('modifier', SubmitType::class)
-                ->getForm();
-        $formTextEncart->handleRequest($request);
-
-        // Traitement du formulaire d'édition du texte d'encart.
-        if ($formTextEncart->isValid()) {
+                ->add('modifier', 'submit')
+        ;
+        $form = $formBuilder->getForm();
+        $form->handleRequest($request);
+        // On vérifie que les valeurs entrées sont correctes
+        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+        if ($form->isValid()) {
+            // On l'enregistre notre objet $advert dans la base de données, par exemple
             $em->persist($textEncart);
             $em->flush();
+            // On redirige vers la page de visualisation de l'annonce nouvellement créée
             return $this->redirectToRoute('nox_intranet_serveurs');
         }
-
-        // On récupére le texte d'encart pour l'afficher.
         $textEncartAffichage = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Serveurs');
         $text = $textEncartAffichage->getText();
-
-        // On récupére la liste des serveurs.
         $serveurs = $em->getRepository('NoxIntranetRessourcesBundle:Serveur')->findBy(array(), array('agence' => 'ASC'));
-
-        // Génération du formulaire de création du script de connexion au serveur.
-        $formScriptServeur = $this->get('form.factory')->createNamedBuilder('formScriptServeur', 'form', $serveurs)
-                ->add('lettreLecteur', ChoiceType::class, array(
-                    'choices' => range('A', 'Z')
-                ))
-                ->getForm();
-
-        return $this->render('NoxIntranetRessourcesBundle:Serveurs:serveurs.html.twig', array('serveurs' => $serveurs, 'text' => $text, 'formTextEncart' => $formTextEncart->createView(), 'formScriptServeur' => $formScriptServeur));
+        return $this->render('NoxIntranetRessourcesBundle:Serveurs:serveurs.html.twig', array('serveurs' => $serveurs, 'text' => $text, 'formulaire' => $form->createView()));
     }
 
-    public function scriptServeurConnexionDownloadAction($agence, $lettreLecteur) {
-
-        // On récupére les informations concernant le serveurs.
+    public function scriptServeurConnexionDownloadAction($agence) {
         $em = $this->getDoctrine()->getManager();
         $serveur = $em->getRepository('NoxIntranetRessourcesBundle:Serveur')->findOneByAgence($agence);
-
-        // On récupére le chemin de la racine du serveur de l'intranet.
-        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
-
-        // On génére le script de connexion au serveur.
-        $scriptBat = fopen($root . '/web/scriptsServeurs/' . $serveur->getAgence() . '.bat', 'a+');
-        fputs($scriptBat, 'net use /persistent:no');
-        fputs($scriptBat, "\n");
-        fputs($scriptBat, 'net use ' . $lettreLecteur . ': /delete /' . $lettreLecteur);
-        fputs($scriptBat, "\n");
-        fputs($scriptBat, 'timeout 5');
-        fputs($scriptBat, "\n");
-        fputs($scriptBat, 'net use ' . $lettreLecteur . ': ' . $serveur->getLien());
-        fputs($scriptBat, "\n");
-        fclose($scriptBat);
-
-        // On lance le téléchargement du script nouvellement créé.
-        if (file_exists($scriptBat)) {
+        $file = $serveur->getChemin();
+        if (file_exists($file)) {
             header('Content-Type: application/octet-stream');
-            header('Content-Length: ' . filesize($scriptBat));
-            header('Content-disposition: attachment; filename="' . basename($scriptBat) . '"');
+            header('Content-Length: ' . filesize($file));
+            header('Content-disposition: attachment; filename="' . basename($file) . '"');
             header('Pragma: no-cache');
             header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
             header('Expires: 0');
-            readfile($scriptBat);
+            readfile($file);
             exit();
         }
-
-        // On supprime le fichier de script.
-        unlink($scriptBat);
-
         return $this->redirectToRoute('nox_intranet_serveurs');
     }
 
