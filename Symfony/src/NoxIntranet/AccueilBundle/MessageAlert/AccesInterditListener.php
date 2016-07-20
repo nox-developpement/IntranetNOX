@@ -34,7 +34,7 @@ class AccesInterditListener {
         }
 
         // On teste si l'exception est bien une erreur d'accès interdit.
-        if (get_class($event->getException()) !== 'Symfony\Component\Security\Core\Exception\InsufficientAuthenticationException' && $event->getException()->getStatusCode() !== 403) {
+        if (get_class($event->getException()) === 'Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException' && $event->getException()->getStatusCode() !== 403) {
             return;
         }
 
@@ -123,11 +123,10 @@ class AccesInterditListener {
 
         // On modifie le code en fonction du type d'exception.
         if (get_class($event->getException()) === 'Symfony\Component\Security\Core\Exception\InsufficientAuthenticationException') {
-            $response = $this->accesInterditHTML->displayConnexionRequise($rowResponse, $this->container->get('request')->getSchemeAndHttpHost());
-        } else {
-            $response = $this->accesInterditHTML->displayAccesInterdit($rowResponse, $this->container->get('request')->getSchemeAndHttpHost());
+            $event->setResponse($this->accesInterditHTML->displayConnexionRequise($rowResponse, $this->container->get('request')->getSchemeAndHttpHost()));
+        } elseif (get_class($event->getException()) === 'Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException') {
+            $event->setResponse($this->accesInterditHTML->displayAccesInterdit($rowResponse, $this->container->get('request')->getSchemeAndHttpHost()));
         }
-        $event->setResponse($response);
     }
 
     public function getPDF($chemin) {
