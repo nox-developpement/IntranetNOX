@@ -396,20 +396,52 @@ class SuiviEnCoursController extends Controller {
 
         if ($request->isXmlHttpRequest()) {
 
+            // On récupére les parametres de la requête Ajax.
             $IDSuivi = $request->get('IDSuivi');
             $noCommandes = $request->get('noCommandes');
 
+            // On récupéres les numéros de commandes existants.
             $suivi = $em->getRepository("NoxIntranetRessourcesBundle:Suivis")->find($IDSuivi);
             $suiviNoCommandes = $suivi->getNoCommande();
-            $suiviNoCommandes[] = $noCommandes;
-            sort($suiviNoCommandes);
-            $suivi->setNoCommande($suiviNoCommandes);
+
+            if (!in_array($noCommandes, $suiviNoCommandes)) {
+                $suiviNoCommandes[] = $noCommandes;
+                sort($suiviNoCommandes);
+                $suivi->setNoCommande($suiviNoCommandes);
+
+                $em->persist($suivi);
+                $em->flush();
+
+                $response = 'true';
+            } else {
+                $response = 'false';
+            }
+        }
+
+        return new Response($response);
+    }
+
+    public function ajaxDeleteNoCommandeAction(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->isXmlHttpRequest()) {
+            $suiviId = $request->get('suiviId2');
+            $idNoCommande = $request->get('idNoCommande2');
+
+            $suivi = $em->getRepository("NoxIntranetRessourcesBundle:Suivis")->find($suiviId);
+
+            $noCommandes = $suivi->getNoCommande();
+
+            unset($noCommandes[$idNoCommande]);
+
+            $suivi->setNoCommande($noCommandes);
 
             $em->persist($suivi);
             $em->flush();
         }
 
-        return new Response('N° de commande ajouté.');
+        return new Response('N° de commande supprimé.');
     }
 
 }
