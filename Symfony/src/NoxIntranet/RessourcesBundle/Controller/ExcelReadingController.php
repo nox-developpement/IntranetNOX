@@ -236,8 +236,6 @@ class ExcelReadingController extends Controller {
                 exec("C:/wamp/www/Symfony/scripts/AddClientToGXDB.bat \"" . $formAjoutClient->get('Nom_Client')->getData() . "\"", $N_Client);
                 $N_Client = intval(str_replace(' ', '', $N_Client[0]));
 
-                var_dump($N_Client);
-
                 $commande = "set N_Client=" . $N_Client . "\n";
                 $commande = $commande . "set Tel=" . $formAjoutClient->get('Tel')->getData() . "\n";
                 $commande = $commande . "set Fax=" . $formAjoutClient->get('Fax')->getData() . "\n";
@@ -250,8 +248,6 @@ class ExcelReadingController extends Controller {
                 $commande = $commande . "set Adresse3=" . $formAjoutClient->get('Adresse3')->getData() . "\n";
                 $commande = $commande . "sqlcmd -S SRVM-SQL-LAB -d NOX -i " . $rootLetter . ":\wamp\www\Symfony\scripts\SQL\InsertClientAdrIntoGXDB.sql -v N_Client = %N_Client% Tel = %Tel% Fax = %Fax% Email = %Email% Nom_Ville = %Nom_Ville% Nom_Pays = %Nom_Pays% Code_Postal = %Code_Postal% Adresse1 = %Adresse1% Adresse2 = %Adresse2% Adresse3 = %Adresse3%";
                 //return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur', array('IdSuivi' => $IdSuivi));
-
-                var_dump($return);
             }
         }
 

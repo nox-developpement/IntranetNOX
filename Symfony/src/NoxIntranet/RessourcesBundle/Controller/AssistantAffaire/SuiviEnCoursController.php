@@ -390,6 +390,7 @@ class SuiviEnCoursController extends Controller {
         ));
     }
 
+    // Ajoute un nouveau numéro de commande au suivi passé en paramètres.
     public function ajaxAddNoCommandeAction(Request $request) {
 
         $em = $this->getDoctrine()->getManager();
@@ -404,16 +405,23 @@ class SuiviEnCoursController extends Controller {
             $suivi = $em->getRepository("NoxIntranetRessourcesBundle:Suivis")->find($IDSuivi);
             $suiviNoCommandes = $suivi->getNoCommande();
 
+            // Si le numéro de commande n'existe pas déjà...
             if (!in_array($noCommandes, $suiviNoCommandes)) {
+                // On l'ajoute au tableau et on trie le tableau.
                 $suiviNoCommandes[] = $noCommandes;
                 sort($suiviNoCommandes);
-                $suivi->setNoCommande($suiviNoCommandes);
 
+                // On sauvegarde le tableau en base de données.
+                $suivi->setNoCommande($suiviNoCommandes);
                 $em->persist($suivi);
                 $em->flush();
 
+                // On renvoie une réponse positive.
                 $response = 'true';
-            } else {
+            }
+            // Si le numéro de commande existe déjà...
+            else {
+                // On renvoie une réponse négative.
                 $response = 'false';
             }
         }
@@ -421,22 +429,28 @@ class SuiviEnCoursController extends Controller {
         return new Response($response);
     }
 
+    // Supprime un numéro de commande au suivi passé en paramètre.
     public function ajaxDeleteNoCommandeAction(Request $request) {
 
         $em = $this->getDoctrine()->getManager();
 
         if ($request->isXmlHttpRequest()) {
-            $suiviId = $request->get('suiviId2');
-            $idNoCommande = $request->get('idNoCommande2');
 
-            $suivi = $em->getRepository("NoxIntranetRessourcesBundle:Suivis")->find($suiviId);
+            // On récupére les parametres de la requête Ajax.
+            $IDSuivi = $request->get('IDSuivi');
+            $noCommandes = $request->get('noCommandes');
+            var_dump($noCommandes);
 
-            $noCommandes = $suivi->getNoCommande();
+            // On récupéres les numéros de commandes existants.
+            $suivi = $em->getRepository("NoxIntranetRessourcesBundle:Suivis")->find($IDSuivi);
+            $suiviNoCommandes = $suivi->getNoCommande();
 
-            unset($noCommandes[$idNoCommande]);
+            var_dump($suiviNoCommandes[array_search($noCommandes, $suiviNoCommandes, true)]);
 
-            $suivi->setNoCommande($noCommandes);
-
+            // On recherche le numéro de commande dans le tableau et on le supprime.
+            unset($suiviNoCommandes[array_search($noCommandes, $suiviNoCommandes)]);
+            // On sauvegarde le tableau en base de données.
+            $suivi->setNoCommande($suiviNoCommandes);
             $em->persist($suivi);
             $em->flush();
         }

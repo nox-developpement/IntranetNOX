@@ -62,13 +62,13 @@
                 <p id='clientPopupOpener' style='display: inline-block; cursor: pointer; border-bottom: 1px dotted black; text-align: center; width: auto; margin: auto; margin-bottom: 2%; margin-top: 1%;'>Adresse(s) client</p><br />
                 <label>Interlocuteur: </label><input type='text' value='{{ interlocuteur.PrenomContact }} {{ interlocuteur.NomContact }}' disabled><br />
                 <label for='addNoCommandeName' style='display: inline-block; width: 100%; text-align: center; margin-top: 2%;'>N°Commande</label><br />
-                <input name='addNoCommandeName' type='text' style='width: 30%; margin: 0; margin-bottom: 1%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; text-align: center;'><button type='button' name='addNoCommande' style='width: 9%; margin-left: 1%;'>+</button><br />
+                <input name='addNoCommandeName' type='text' style='width: 30%; margin: 0; margin-bottom: 1%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; text-align: center;'><button type='button' name='addNoCommande' class='boutonFormulaire' style='width: 9%; margin-left: 1%;'>+</button><br />
                 <select name='noCommandeSelector' style='width: 40%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box;' size='5'>
                     {% for nCommande in suivi.NoCommande %}
                         <option value="{{ nCommande }}" style='text-align: center;'>{{ nCommande }}</option>
                     {% endfor %}
                 </select><br />
-                <button name='deleteNoCommande' type='button' style='width: 40%; font-size: 0.8vw; margin-top: 1%;'>Supprimer</button>
+                <button name='deleteNoCommande' type='button' class='boutonFormulaire' style='width: 40%; font-size: 0.8vw; margin-top: 1%;'>Supprimer</button>
             </fieldset>
         </form>
 
@@ -159,61 +159,98 @@
             });
         }
 
+        // Ajoute une numéro de commande au suivi courant.
         function ajaxAddNoCommand() {
             // Lors d'un clic sur le bouton d'ajout de N°Commande.
             $("button[name='addNoCommande']").click(function () {
                 // Si le numéro de commande n'est pas vide.
                 if ($.trim($("input[name='addNoCommandeName']").val()).length > 0) {
-                    var newNoCommande = $("input[name='addNoCommandeName']").val(); // On récupére la valeur du N°Commande.
-                    // On sauvegarde le numéro en base de donnée avec une fonction Ajax.        
-                    (function (newNoCommande) {
-                        $.ajax({
-                        url: '{{ path('nox_intranet_assistant_affaire_ajax_nocommande_add') }}',
-                                type: 'POST',
-                                data: {'IDSuivi':{{ suivi.id }}, 'noCommandes': newNoCommande},
-                                success: function (response) {
-                                // Si le numéro d'affaire n'existe pas déjà.
-                                if (response === 'true') {
-                                    // On fait apparaître le nouveau numéro dans le selecteur de numéros.
-                                    var newOption = $("<option value='" + newNoCommande + "' style='text-align: center; background-color: green;'>" + newNoCommande + "</option>");
-                                    $("select[name='noCommandeSelector']").append(newOption);
-                                    // On scroll en bas du sélécteur de numéro.
-                                    $("select[name='noCommandeSelector']").scrollTop($("select[name='noCommandeSelector']")[0].scrollHeight);
-                                    // On anime la couleur de fond du nouveau numéro.
-                                    newOption.animate({
-                                        backgroundColor: 'white'
-                                    }, 3000);
-                                    // On efface le contenue de nouveau numéro.
-                                    $("input[name='addNoCommandeName']").val('');
-                                }
-                                // Si le numéro d'affaire existe déjà.
-                                else {
-                                    // On efface le contenue de nouveau numéro et on affiche un message d'avertissement.
-                                    $("input[name='addNoCommandeName']").val('');
-                                    alert('Le numéro d\'affaire existe déjà !');
-                                }
-                                }
+                    // On change le contenu du bouton d'ajout de numéro de commande par un gif de chargement et on le désactive.
+                    $("button[name='addNoCommande']").attr('disabled', true);
+                    $("button[name='addNoCommande']").html('&nbsp;');
+                    $("button[name='addNoCommande']").css({
+                        'background-image': "url({{ asset('bundles/noxintranetressources/images/noCommandeTraitement.gif')}})",
+                        'background-position': 'center center',
+                        'background-repeat': 'no-repeat',
+                        'background-size': 'auto 50%'
                     });
-                }
-                )(newNoCommande);
+                    // On sauvegarde le numéro en base de donnée avec une fonction Ajax.        
+                    $.ajax({
+                        url: '{{ path('nox_intranet_assistant_affaire_ajax_nocommande_add') }}',
+                        type: 'POST',
+                        data: {'IDSuivi': '{{ suivi.id }}', 'noCommandes': $("input[name='addNoCommandeName']").val()},
+                        success: function (response) {
+                            // On change le contenu du bouton par celui d'origine et on le réactive.
+                            $("button[name='addNoCommande']").removeAttr('disabled');
+                            $("button[name='addNoCommande']").html('+');
+                            $("button[name='addNoCommande']").css({
+                                'background-image': "none",
+                                'background-position': 'center center',
+                                'background-repeat': 'no-repeat',
+                                'background-size': 'auto 50%'
+                            });
+                            // Si le numéro d'affaire n'existe pas déjà.
+                            if (response === 'true') {
+                                // On fait apparaître le nouveau numéro dans le selecteur de numéros.
+                                var newOption = $("<option value='" + $("input[name='addNoCommandeName']").val() + "' style='text-align: center; background-color: green;'>" + $("input[name='addNoCommandeName']").val() + "</option>");
+                                $("select[name='noCommandeSelector']").append(newOption);
+                                // On scroll en bas du sélécteur de numéro.
+                                $("select[name='noCommandeSelector']").scrollTop($("select[name='noCommandeSelector']")[0].scrollHeight);
+                                // On anime la couleur de fond du nouveau numéro.
+                                newOption.animate({
+                                    backgroundColor: 'white'
+                                }, 3000);
+                                // On efface le contenue de nouveau numéro.
+                                $("input[name='addNoCommandeName']").val('');
+                            }
+                            // Si le numéro d'affaire existe déjà.
+                            else {
+                                // On efface le contenue de nouveau numéro et on affiche un message d'avertissement.
+                                $("input[name='addNoCommandeName']").val('');
+                                alert('Le numéro d\'affaire existe déjà !');
+                            }
+                        }
+                    });
                 }
             });
         }
 
+        // Supprime un numéro de commande du suivi courant.
         function ajaxDeleteNoCommande() {
+            // Lors d'un clic sur le bouton de suppression de numéro de commande.
             $("button[name='deleteNoCommande']").click(function () {
+                // Si une valeur est séléctionnée.
                 if ($("select[name='noCommandeSelector']").val() !== null) {
-                    var noCommandeToDelete = $("select[name='noCommandeSelector']").val();
-                    (function (noCommandeToDelete) {
-                        $.ajax({
-                        url: '{{ path(nox_intranet_assistant_affaire_ajax_nocommande_delete) }}',
-                                type: 'POST',
-                                data: { 'IDSuivi':{{ suivi.id }}, 'noCOmmandes': noCommandeToDelete }
+                    // On change le contenu du bouton de suppression de numéro de commande par un gif de chargement et on le désactive.
+                    $("button[name='deleteNoCommande']").attr('disabled', true);
+                    $("button[name='deleteNoCommande']").html('&nbsp;');
+                    $("button[name='deleteNoCommande']").css({
+                        'background-image': "url({{ asset('bundles/noxintranetressources/images/noCommandeTraitement.gif')}})",
+                        'background-position': 'center center',
+                        'background-repeat': 'no-repeat',
+                        'background-size': 'auto 50%'
                     });
+                    // On supprime le numéro de la base de données avec une fonction Ajax.
+                    $.ajax({
+                        url: '{{ path('nox_intranet_assistant_affaire_ajax_nocommande_delete') }}',
+                        type: 'POST',
+                        data: {'IDSuivi': '{{ suivi.id }}', 'noCommandes': $("select[name='noCommandeSelector']").val()},
+                        success: function () {
+                            // On change le contenu du bouton par celui d'origine et on le réactive.
+                            $("button[name='deleteNoCommande']").removeAttr('disabled');
+                            $("button[name='deleteNoCommande']").html('Supprimer');
+                            $("button[name='deleteNoCommande']").css({
+                                'background-image': "none",
+                                'background-position': 'center center',
+                                'background-repeat': 'no-repeat',
+                                'background-size': 'auto 50%'
+                            });
+                            // On efface le numéros de commande dans le sélécteur de numéro.
+                            $("select[name='noCommandeSelector'] option:selected").remove();
+                        }
+                    });
+
                 }
-                )(noCommandeToDelete);
-                        $("select[name='noCommandeSelector'] option:selected").remove();
-            }
             });
         }
 
