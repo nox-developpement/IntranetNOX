@@ -48,6 +48,7 @@ class MessageAlertHTML {
         $html .= "</div>";
         $html .= "<script>";
         $html .= "$(window).load(function () {";
+        $html .= "if($('#alertContainer').length) {";
         $html .= "$('body').children().not($('#alertContainer')).css({";
         $html .= "'filter': 'blur(3px)',";
         $html .= "'-webkit-filter': 'blur(3px)',";
@@ -55,6 +56,7 @@ class MessageAlertHTML {
         $html .= "'-ms-filter': 'blur(3px)',";
         $html .= "'-o-filter': 'blur(3px)'";
         $html .= "});";
+        $html .= "}";
         $html .= "});";
         $html .= "</script>";
 
