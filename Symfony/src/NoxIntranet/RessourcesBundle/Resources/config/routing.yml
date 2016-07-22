@@ -155,5 +155,9 @@ nox_intranet_assistant_affaire_ajax_nocommande_add:
 nox_intranet_assistant_affaire_ajax_nocommande_delete:
     path: /ressources/assistant-affaires/edition-suivi-suppression-nocommande
     defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:ajaxDeleteNoCommande }
+    
+nox_intranet_assistant_affaire_ajax_save_new_infos:
+    path: /ressources/assistant-affaires/edition-suivi-save-new-info
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:ajaxSaveNewInfos }
 
     

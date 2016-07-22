@@ -2017,20 +2017,25 @@ formulaireAdministrationAjoutInterlocuteur fieldset legend p, .formulaireAdminis
 
 .formInfo label {
     display: block; /* La balise devient de type block. */
-    width: 40%;
+    width: 47.5%;
     float: left;
     text-align: right;
     margin-bottom: 1%;
 }
 
-.formInfo input {
-    width: 40%;
+.formInfo input, #formInfoInfoSuivi select {
+    width: 47.5%;
     margin-bottom: 1%;
-    margin-right: 15%;
+    margin-right: 0%;
+    box-sizing: border-box;
 }
 
 .formInfo fieldset p {
     text-align: left;
+}
+
+#formInfoInfoSuivi select {
+    
 }
 
 .selectFormulaireAdministrationSuppressionProfil, .textFormulaireAdministrationAjoutProfil {
@@ -2378,7 +2383,7 @@ form input[type='checkbox'] {
 }
 
 .boutonFormulaire:disabled {
-    background-color: gray;
+    background-color: rgb(235, 235, 228);
     color: black;
     cursor: not-allowed;
 }

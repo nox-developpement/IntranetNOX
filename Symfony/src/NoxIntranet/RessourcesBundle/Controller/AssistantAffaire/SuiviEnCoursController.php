@@ -22,15 +22,18 @@ class SuiviEnCoursController extends Controller {
         return $str;
     }
 
+    // Affiche les informations du suivis en cours, permet de le remplir, de modifier les informations, de le sauvegarder et de le cloturer.
     public function editionSuiviEnCoursAction(Request $request, $IdSuivi, $version) {
 
+        // On récupére la racine du serveur.
         $root = $this->get('kernel')->getRootDir() . '\..';
 
+        // Génération de deux entityManagers distinct
         $em = $this->getDoctrine()->getManager();
         $emChampDonnees = $this->getDoctrine()->getManager();
 
+        // On récupére le suivi en cours et le client.
         $suivi = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->find($IdSuivi);
-
         $client = $em->getRepository('NoxIntranetRessourcesBundle:AA_Client')->findOneByN_Client($suivi->getNoClient());
 
         // Récupére la/les adresse(s) du client et génére le code html de la pop-up des adresses client. 
@@ -44,23 +47,37 @@ class SuiviEnCoursController extends Controller {
         $clientAdrHtml .= "</style>";
         $clientAdrHtml .= "</head>";
         $clientAdrHtml .= "<body style='overflow: auto; height: 100%; width: 100%; margin: 0;'>";
-        foreach ($clientAdr as $key => $adr) {
+        // Si il existe des adresses associées au client.
+        if (!empty($clientAdr)) {
+            // Pour chaques adresses on récupére et on affiche les données.
+            foreach ($clientAdr as $key => $adr) {
+                $clientAdrHtml .= "<fieldset style='border: 2px outset #1F4E79; background-color: rgba(255,255,255, 0.6); width: 80%; margin: auto; margin-top: 1%; margin-bottom: 1%;'>";
+                $clientAdrHtml .= addslashes("<legend>" . str_replace(array("\r\n", "\r", "\n"), "", $client->getNomClient()) . " - Adresse " . strval($key + 1) . "</legend>");
+                $clientAdrHtml .= addslashes("<label for='tel'>Téléphone: </label><input type='text' name='tel' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getTel())) . "\"><br />");
+                $clientAdrHtml .= addslashes("<label for='fax'>Fax: </label><input type='text' name='fax' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getFax())) . "\"><br />");
+                $clientAdrHtml .= addslashes("<label for='email'>Email: </label><input type='text' name='email' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getEmail())) . "\"><br />");
+                $clientAdrHtml .= addslashes("<label for='nomville'>Ville: </label><input type='text' name='nomville' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getNomVille())) . "\"><br />");
+                $clientAdrHtml .= addslashes("<label for='nompays'>Pays: </label><input type='text' name='nompays' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getNomPays())) . "\"><br />");
+                $clientAdrHtml .= addslashes("<label for='adresse'>Adresse: </label><input type='text' name='adresse' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getAdresse1())) . "\"><br />");
+                $clientAdrHtml .= addslashes("<label for='adresse2'></label><input type='text' name='adresse2' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getAdresse2())) . "\"><br />");
+                $clientAdrHtml .= addslashes("<label for='adresse3'></label><input type='text' name='adresse3' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getAdresse3())) . "\">");
+                $clientAdrHtml .= "</fieldset>";
+            }
+        }
+        // Si il n'existe pas d'adresses associées au client.
+        else {
             $clientAdrHtml .= "<fieldset style='border: 2px outset #1F4E79; background-color: rgba(255,255,255, 0.6); width: 80%; margin: auto; margin-top: 1%; margin-bottom: 1%;'>";
-            $clientAdrHtml .= addslashes("<legend>" . str_replace(array("\r\n", "\r", "\n"), "", $client->getNomClient()) . " - Adresse " . strval($key + 1) . "</legend>");
-            $clientAdrHtml .= addslashes("<label for='tel'>Téléphone: </label><input type='text' name='tel' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getTel())) . "\"><br />");
-            $clientAdrHtml .= addslashes("<label for='fax'>Fax: </label><input type='text' name='fax' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getFax())) . "\"><br />");
-            $clientAdrHtml .= addslashes("<label for='email'>Email: </label><input type='text' name='email' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getEmail())) . "\"><br />");
-            $clientAdrHtml .= addslashes("<label for='nomville'>Ville: </label><input type='text' name='nomville' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getNomVille())) . "\"><br />");
-            $clientAdrHtml .= addslashes("<label for='nompays'>Pays: </label><input type='text' name='nompays' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getNomPays())) . "\"><br />");
-            $clientAdrHtml .= addslashes("<label for='adresse'>Adresse: </label><input type='text' name='adresse' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getAdresse1())) . "\"><br />");
-            $clientAdrHtml .= addslashes("<label for='adresse2'></label><input type='text' name='adresse2' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getAdresse2())) . "\"><br />");
-            $clientAdrHtml .= addslashes("<label for='adresse3'></label><input type='text' name='adresse3' disabled value=\"" . str_replace(array("\r\n", "\r", "\n"), "", preg_replace('/(^NULL$)/', "", $adr->getAdresse3())) . "\">");
+            $clientAdrHtml .= "<p style='text-align: center;'>Il n'y a aucune données d'adresse pour ce client.";
             $clientAdrHtml .= "</fieldset>";
         }
+
         $clientAdrHtml .= "</body>";
         $clientAdrHtml .= "</html>";
 
-        $interlocuteur = $em->getRepository('NoxIntranetRessourcesBundle:AA_Contact')->findOneByN_Contact($suivi->getNoInterlocuteur());
+        // On récupere les interlocuteurs associés au client et l'interlocuteur actuel.
+        $interlocuteurs = $em->getRepository('NoxIntranetRessourcesBundle:AA_Contact')->findByNClient($suivi->getNoClient());
+        $interlocuteurActuel = $em->getRepository('NoxIntranetRessourcesBundle:AA_Contact')->findOneByN_Contact($suivi->getNoInterlocuteur());
+
         $modele = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->find($suivi->getIdModele());
         $liaisons = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdSuivi($modele->getId());
 
@@ -91,7 +108,6 @@ class SuiviEnCoursController extends Controller {
 
         // Génération du formulaire de complétion du suivi
         $formBuilder = $this->get('form.factory')->createNamedBuilder('formDonneesSuivi', 'form');
-
         foreach ($liaisons as $liaison) {
             $champ = $em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->find($liaison->getIdChamp());
 
@@ -171,7 +187,6 @@ class SuiviEnCoursController extends Controller {
                 }
             }
         }
-
         if ($version !== '') {
             $formBuilder->add('Generate', SubmitType::class);
         } else {
@@ -179,11 +194,10 @@ class SuiviEnCoursController extends Controller {
                 'disabled' => true
             ));
         }
-
         $formBuilder->add('Save', SubmitType::class);
-
         $formSuivi = $formBuilder->getForm();
 
+        // Si une version du suivi est séléctionnée on récupére ses données de suivi.
         if ($version != null) {
 
             $donneeSuivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneBy(array('idSuivi' => $IdSuivi, 'version' => $version));
@@ -204,7 +218,6 @@ class SuiviEnCoursController extends Controller {
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération du formulaire de cloturation du suivi
         $donnees_suivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneBy(array('idSuivi' => $IdSuivi), array('version' => 'DESC'));
-
         if (!empty($donnees_suivi)) {
             $formCloturationSuivi = $this->get('form.factory')->createNamedBuilder('formCloturationSuivi', 'form')
                     ->add('Cloturer', SubmitType::class)
@@ -386,16 +399,16 @@ class SuiviEnCoursController extends Controller {
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig', array(
                     'formDonneesSuivi' => $formSuivi->createView(), 'champsViews' => $champsViews, 'suivi' => $suivi, 'client' => $client, 'clientAdr' => $clientAdrHtml,
                     'formSelectionVersionSuivi' => $formSelectionVersionSuivi->createView(), 'formCloturationSuivi' => $formCloturationSuivi->createView(),
-                    'interlocuteur' => $interlocuteur
+                    'interlocuteurActuel' => $interlocuteurActuel, 'interlocuteurs' => $interlocuteurs
         ));
     }
 
     // Ajoute un nouveau numéro de commande au suivi passé en paramètres.
     public function ajaxAddNoCommandeAction(Request $request) {
 
-        $em = $this->getDoctrine()->getManager();
-
         if ($request->isXmlHttpRequest()) {
+
+            $em = $this->getDoctrine()->getManager();
 
             // On récupére les parametres de la requête Ajax.
             $IDSuivi = $request->get('IDSuivi');
@@ -432,20 +445,17 @@ class SuiviEnCoursController extends Controller {
     // Supprime un numéro de commande au suivi passé en paramètre.
     public function ajaxDeleteNoCommandeAction(Request $request) {
 
-        $em = $this->getDoctrine()->getManager();
-
         if ($request->isXmlHttpRequest()) {
+
+            $em = $this->getDoctrine()->getManager();
 
             // On récupére les parametres de la requête Ajax.
             $IDSuivi = $request->get('IDSuivi');
             $noCommandes = $request->get('noCommandes');
-            var_dump($noCommandes);
 
             // On récupéres les numéros de commandes existants.
             $suivi = $em->getRepository("NoxIntranetRessourcesBundle:Suivis")->find($IDSuivi);
             $suiviNoCommandes = $suivi->getNoCommande();
-
-            var_dump($suiviNoCommandes[array_search($noCommandes, $suiviNoCommandes, true)]);
 
             // On recherche le numéro de commande dans le tableau et on le supprime.
             unset($suiviNoCommandes[array_search($noCommandes, $suiviNoCommandes)]);
@@ -456,6 +466,53 @@ class SuiviEnCoursController extends Controller {
         }
 
         return new Response('N° de commande supprimé.');
+    }
+
+    public function ajaxSaveNewInfosAction(Request $request) {
+
+        if ($request->isXmlHttpRequest()) {
+
+            $em = $this->getDoctrine()->getManager();
+
+            // On récupére les parametres de la requête Ajax.
+            $IDSuivi = $request->get('IDSuivi');
+            $row = $request->get('row');
+            $newInfo = $request->get('newInfo');
+
+            // On récupéres le suivi.
+            $suivi = $em->getRepository("NoxIntranetRessourcesBundle:Suivis")->find($IDSuivi);
+
+            switch ($row) {
+                case 'agence':
+                    $suivi->setAgence($newInfo);
+                    break;
+                case 'numGX':
+                    $suivi->setNumeroGX($newInfo);
+                    break;
+                case 'commune':
+                    $suivi->setCommune($newInfo);
+                    break;
+                case 'marche':
+                    $suivi->setMarche($newInfo);
+                    break;
+                case 'objet':
+                    $suivi->setNoINGEDIABEP($newInfo);
+                    break;
+                case 'ningediabep';
+                    break;
+                case 'estimatif';
+                    $suivi->setEstimatif($newInfo);
+                    break;
+                case 'interlocuteur':
+                    $suivi->noInterlocuteur($newInfo);
+                    break;
+            }
+
+            $em->persist($suivi);
+            $em->flush();
+            
+            return new Response('Saved');
+        }
     }
 
 }

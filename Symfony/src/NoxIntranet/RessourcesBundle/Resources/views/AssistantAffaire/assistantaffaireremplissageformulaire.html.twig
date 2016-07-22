@@ -49,26 +49,40 @@
         <form class="formInfo">
             <fieldset>
                 <legend>Infos suivi</legend>
-
-                <label for='agence'>Agence: </label><input name='agence' type='text' value='{{ suivi.Agence }}' disabled><br />
-                <label for='numGX'>Numéro GX: </label><input name='numGX' type='text' value='{{ suivi.NumeroGX }}' disabled><br />
-                <label for='commune'>Commune: </label><input name='commune' type='text' value='{{ suivi.Commune }}' disabled><br />
-                <label for='marche'>Marché: </label><input name='marche' type='text' value='{{ suivi.Marche }}' disabled><br />
-                <label for='nclient'>N° Client: </label><input name='nclient' type='text' value='{{ suivi.NoClient }}' disabled><br />
-                <label for='objet'>Objet: </label><input name='objet' type='text' value='{{ suivi.Objet }}' disabled><br />
-                <label for='ningediabep'>N° INGEDIA BEP: </label><input name='ningediabep' type='text' value='{{ suivi.NoINGEDIABEP }}' disabled><br />
-                <label for='estimatif'>Estimatif: </label><input name='estimatif' type='text' value='{{ suivi.Estimatif }}' disabled><br />
-                <label for='nomClient'>Client: </label><input name='nomClient' type='text' value='{{ client.NomCLient }}' disabled><br />
-                <p id='clientPopupOpener' style='display: inline-block; cursor: pointer; border-bottom: 1px dotted black; text-align: center; width: auto; margin: auto; margin-bottom: 2%; margin-top: 1%;'>Adresse(s) client</p><br />
-                <label>Interlocuteur: </label><input type='text' value='{{ interlocuteur.PrenomContact }} {{ interlocuteur.NomContact }}' disabled><br />
-                <label for='addNoCommandeName' style='display: inline-block; width: 100%; text-align: center; margin-top: 2%;'>N°Commande</label><br />
-                <input name='addNoCommandeName' type='text' style='width: 30%; margin: 0; margin-bottom: 1%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; text-align: center;'><button type='button' name='addNoCommande' class='boutonFormulaire' style='width: 9%; margin-left: 1%;'>+</button><br />
-                <select name='noCommandeSelector' style='width: 40%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box;' size='5'>
-                    {% for nCommande in suivi.NoCommande %}
-                        <option value="{{ nCommande }}" style='text-align: center;'>{{ nCommande }}</option>
-                    {% endfor %}
-                </select><br />
-                <button name='deleteNoCommande' type='button' class='boutonFormulaire' style='width: 40%; font-size: 0.8vw; margin-top: 1%;'>Supprimer</button>
+                <div style='display: flex; justify-content: center; border-bottom: 1px solid #1F4E79; padding-bottom: 2%; '>
+                    <div id="formInfoInfoSuivi" style='display: inline-block; width: 85%; align-self: center;'>
+                        <label for='agence'>Agence: </label><input name='agence' type='text' value='{{ suivi.Agence }}' disabled><br />
+                        <label for='numGX'>Numéro GX: </label><input name='numGX' type='text' value='{{ suivi.NumeroGX }}' disabled><br />
+                        <label for='commune'>Commune: </label><input name='commune' type='text' value='{{ suivi.Commune }}' disabled><br />
+                        <label for='marche'>Marché: </label><input name='marche' type='text' value='{{ suivi.Marche }}' disabled><br />   
+                        <label for='objet'>Objet: </label><input name='objet' type='text' value='{{ suivi.Objet }}' disabled><br />
+                        <label for='ningediabep'>N° INGEDIA BEP: </label><input name='ningediabep' type='text' value='{{ suivi.NoINGEDIABEP }}' disabled><br />
+                        <label for='estimatif'>Estimatif: </label><input name='estimatif' type='text' value='{{ suivi.Estimatif }}' disabled><br />
+                        <label for='nclient'>N° Client: </label><input name='nclient' type='text' value='{{ suivi.NoClient }}' disabled><br />
+                        <label for='nomClient'>Client: </label><input name='nomClient' type='text' value='{{ client.NomCLient }}' disabled><br />
+                        <label>Interlocuteur: </label>
+                        <select type='text' name='interlocuteur' disabled>
+                            {% for interlocuteur in interlocuteurs %}
+                                <option value="{{ interlocuteur.NContact }}" {% if interlocuteur.NContact == interlocuteurActuel.NContact %}selected{% endif %}>{{ interlocuteur.PrenomContact }} {{ interlocuteur.NomContact }}</option>
+                            {% endfor %}
+                        </select><br />
+                        <p id='clientPopupOpener' style='display: inline-block; cursor: pointer; border-bottom: 1px dotted black; text-align: center; width: auto; margin: auto; margin-bottom: 2%; margin-top: 1%;'>Adresse(s) client</p>
+                    </div><!--
+                    --><div id='fomInfoSuiviLocking' title="Verrouiller/Déverrouiller l'édition du contenu." style='display: inline-block; width: 15%; align-self: center;  cursor: pointer;' locked=true><!--
+                        --><img id='fomInfoSuiviLockingImgLocked' src='{{ asset('bundles/noxintranetressources/images/Lock-128.png') }}' alt='Déverrouiller modification.' style='width: 70%;'><!--
+                        --><img id='fomInfoSuiviLockingImgUnlocked' src='{{ asset('bundles/noxintranetressources/images/Lock-Open-128.png') }}' alt='Verrouiller modification.' style='width: 70%; display: none;'><!--                                             
+                        --></div>
+                </div>
+                <div id="formInfoNoCommande">
+                    <label for='addNoCommandeName' style='display: inline-block; width: 100%; text-align: center; margin-top: 2%;'>N°Commande</label><br />
+                    <input name='addNoCommandeName' type='text' style='width: 30%; margin: 0; margin-bottom: 1%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; text-align: center;'><button type='button' name='addNoCommande' class='boutonFormulaire' style='width: 9%; margin-left: 1%;'>+</button><br />
+                    <select name='noCommandeSelector' style='width: 40%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box;' size='5'>
+                        {% for nCommande in suivi.NoCommande %}
+                            <option value="{{ nCommande }}" style='text-align: center;'>{{ nCommande }}</option>
+                        {% endfor %}
+                    </select><br />
+                    <button name='deleteNoCommande' type='button' class='boutonFormulaire' style='width: 40%; font-size: 0.8vw; margin-top: 1%;'>Supprimer</button>
+                </div>
             </fieldset>
         </form>
 
@@ -131,6 +145,8 @@
             openClientPopup();
             ajaxAddNoCommand();
             ajaxDeleteNoCommande();
+            lockUnlockDataModifying();
+            ajaxSaveNewInfo();
         });
         // Ouvre un fenêtre pop-up contenant la/les adresse(s) du client.
         function openClientPopup() {
@@ -206,8 +222,15 @@
                             // Si le numéro d'affaire existe déjà.
                             else {
                                 // On efface le contenue de nouveau numéro et on affiche un message d'avertissement.
+                                var messageErreur = $("<p style='display: inline-block; margin: 0% 0% 1% 0%; color: red;'>Le numéro de commande existe déjà !</p>");
+                                $("label[for='addNoCommandeName']").after(messageErreur);
+                                setTimeout(function () {
+                                    messageErreur.fadeOut(1000, function () {
+                                        messageErreur.remove();
+                                    });
+                                }, 4000);
                                 $("input[name='addNoCommandeName']").val('');
-                                alert('Le numéro d\'affaire existe déjà !');
+                                //alert('Le numéro d\'affaire existe déjà !');
                             }
                         }
                     });
@@ -251,6 +274,50 @@
                     });
 
                 }
+            });
+        }
+
+        // Vérrouille/Déverrouille l'édition des champs d'informations lors du clic sur le cadena.
+        function lockUnlockDataModifying() {
+            // Lors d'un clic sur le cadena...
+            $('#fomInfoSuiviLocking').click(function () {
+                // Si le cadena est vérrouillé.
+                if ($(this).attr('locked') === 'true') {
+                    $(this).attr('locked', 'false'); // On change l'attribut de vérrouillage de la 'div'.
+
+                    // On change l'image du cadena.
+                    $('#fomInfoSuiviLockingImgLocked').hide();
+                    $('#fomInfoSuiviLockingImgUnlocked').show();
+
+                    $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient']), #formInfoInfoSuivi select").removeAttr('disabled'); // On active les 'input' d'information.
+                }
+                // Si le cadena est déverrouiller
+                else {
+                    $(this).attr('locked', 'true'); // On change l'attribut de vérrouillage de la 'div'.
+
+                    // On change l'image du cadena.
+                    $('#fomInfoSuiviLockingImgLocked').show();
+                    $('#fomInfoSuiviLockingImgUnlocked').hide();
+
+
+                    $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient']), #formInfoInfoSuivi select").attr('disabled', true); // On désactive les 'input' d'information.
+                }
+            });
+        }
+
+        request = null;
+        function ajaxSaveNewInfo() {
+            $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient']), #formInfoInfoSuivi select").on('change keyup paste', function () {
+                request = $.ajax({
+                    url: '{{ path('nox_intranet_assistant_affaire_ajax_save_new_infos') }}',
+                    type: 'POST',
+                    data: {'IDSuivi': '{{ suivi.id }}', 'row': $(this).attr('name'), 'newInfo': $(this).val()},
+                    success: function (response) {
+                        if (response === 'Saved') {
+                            $(this).css('background-color', 'green');
+                        }
+                    }
+                });
             });
         }
 
