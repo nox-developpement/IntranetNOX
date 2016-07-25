@@ -9,17 +9,189 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class SuiviEnCoursController extends Controller {
 
-    public function wd_remove_accents($str, $charset = 'utf-8') {
-        $str = htmlentities($str, ENT_NOQUOTES, $charset);
+    // Affiche la liste des suivis en cours en fonction de l'agence passé en paramêtre et permet de consulter ou supprimer un suivi.
+    public function consulterSuiviAction(Request $request, $agence) {
 
-        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
-        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
-        $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
+        // On récupére les suivis en cours.
+        $em = $this->getDoctrine()->getManager();
+        $suivis = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findBy(array('statut' => 'En cours'), array('nom' => 'ASC'));
 
-        return $str;
+        // On initialise un tableau de nom des agences avec la valeur 'Toutes'.
+        $agences['Toutes'] = 'Toutes';
+
+        // On récupére les agences en fonction des suivis.
+        foreach ($suivis as $suivi) {
+            if (!in_array($suivi->getAgence(), $agences)) {
+                $agences[$suivi->getAgence()] = $suivi->getAgence();
+            }
+        }
+
+        // Génération du formulaire de choix de l'agence.
+        $formAgence = $this->get('form.factory')->createNamedBuilder('formSelectionAgence', 'form', $agences)
+                ->add('Agences', ChoiceType::class, array(
+                    'choices' => $agences,
+                    'data' => $agence
+                ))
+                ->getForm();
+
+        // Si une agence spécifique est séléctionnée.
+        if ($agence !== "Toutes") {
+            // On compte le nombre de suivi associé à cette agence.
+            $nbSuivi = count($em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findBy(array('statut' => 'En cours', 'agence' => $agence)));
+
+            // Si il n'existe aucun suivi pour cette agence.
+            if ($nbSuivi === 0) {
+                // On génére un selecteur vide dont les boutons sont désactivés.
+                $formSelectionSuivi = $this->get('form.factory')->createNamedBuilder('formSelectionSuivi', 'form', $suivis)
+                        ->add('Suivi', EntityType::class, array(
+                            'class' => 'NoxIntranetRessourcesBundle:Suivis',
+                            'query_builder' => function (EntityRepository $er) use ($agence) {
+                                return $er->createQueryBuilder('u')
+                                        ->where("u.agence = '" . $agence . "' AND u.statut = 'En cours'")
+                                        ->orderBy('u.nom', 'ASC');
+                            },
+                            'disabled' => true,
+                            'choice_label' => 'Nom',
+                        ))
+                        ->add('Editer', SubmitType::class, array(
+                            'disabled' => true
+                        ))
+                        ->add('Supprimer', SubmitType::class, array(
+                            'disabled' => true
+                        ))
+                        ->getForm();
+            }
+            // Si il existe des suivis associées à l'agence.
+            else {
+                // On génére un sélécteur avec les suivis associés à l'agence.
+                $formSelectionSuivi = $this->get('form.factory')->createNamedBuilder('formSelectionSuivi', 'form', $suivis)
+                        ->add('Suivi', EntityType::class, array(
+                            'class' => 'NoxIntranetRessourcesBundle:Suivis',
+                            'query_builder' => function (EntityRepository $er) use ($agence) {
+                                return $er->createQueryBuilder('u')
+                                        ->where("u.agence = '" . $agence . "' AND u.statut = 'En cours'")
+                                        ->orderBy('u.nom', 'ASC');
+                            },
+                            'choice_label' => 'Nom',
+                        ))
+                        ->add('Editer', SubmitType::class)
+                        ->add('Supprimer', SubmitType::class)
+                        ->getForm();
+            }
+        }
+        // Si aucune agence spécifique n'est séléctionnée
+        else {
+            // On compte le nombre de suivi associé à cette agence.
+            $nbSuivi = count($em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByStatut('En cours'));
+
+            // Si il n'existe aucun suivi.
+            if ($nbSuivi === 0) {
+                // On génére un selecteur vide dont les boutons sont désactivés.
+                $formSelectionSuivi = $this->get('form.factory')->createNamedBuilder('formSelectionSuivi', 'form', $suivis)
+                        ->add('Suivi', EntityType::class, array(
+                            'class' => 'NoxIntranetRessourcesBundle:Suivis',
+                            'query_builder' => function (EntityRepository $er) {
+                                return $er->createQueryBuilder('u')
+                                        ->where("u.statut = 'En cours'")
+                                        ->orderBy('u.nom', 'ASC');
+                            },
+                            'disabled' => true,
+                            'choice_label' => 'Nom',
+                        ))
+                        ->add('Editer', 'submit', array(
+                            'disabled' => true
+                        ))
+                        ->add('Supprimer', 'submit', array(
+                            'disabled' => true
+                        ))
+                        ->getForm();
+            }
+            // Si il existe des suivis.
+            else {
+                // On génére un sélécteur avec les suivis.
+                $formSelectionSuivi = $this->get('form.factory')->createNamedBuilder('formSelectionSuivi', 'form', $suivis)
+                        ->add('Suivi', EntityType::class, array(
+                            'class' => 'NoxIntranetRessourcesBundle:Suivis',
+                            'query_builder' => function (EntityRepository $er) {
+                                return $er->createQueryBuilder('u')
+                                        ->where("u.statut = 'En cours'")
+                                        ->orderBy('u.nom', 'ASC');
+                            },
+                            'choice_label' => 'Nom',
+                        ))
+                        ->add('Editer', 'submit')
+                        ->add('Supprimer', 'submit')
+                        ->getForm();
+            }
+        }
+
+        // Traitement du formulaire de séléction de suivi.
+        if ($request->request->has('formSelectionSuivi')) {
+            $formSelectionSuivi->handleRequest($request);
+            if ($formSelectionSuivi->isValid()) {
+                // Si on clique sur le bouton 'Supprimer'
+                if ($formSelectionSuivi->get('Supprimer')->isClicked()) {
+
+                    // Récupére et supprime toutes les données associées au suivi.
+                    $donneesAssocies = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findByIdSuivi($formSelectionSuivi['Suivi']->getData()->getId());
+                    foreach ($donneesAssocies as $donne) {
+                        $em->remove($donne);
+                    }
+
+                    // On supprime le suivi de la base de données.
+                    $em->remove($formSelectionSuivi['Suivi']->getData());
+                    $em->flush();
+
+                    // On affiche un message de confirmation de suppression et on redirige vers la page de séléction de suivi en cours.
+                    $request->getSession()->getFlashBag()->add('notice', 'Le suivi ' . $formSelectionSuivi['Suivi']->getData()->getNom() . ' a été supprimé.');
+
+                    return $this->redirectToRoute('nox_intranet_assistant_affaire_parcour_suivi_en_cours');
+                }
+
+                // Si on clique sur le bouton 'Editer'.
+                if ($formSelectionSuivi->get('Editer')->isClicked()) {
+
+                    // On récupére l'ID du suivi et le suivi.
+                    $IdSuivi = $formSelectionSuivi['Suivi']->getData()->getId();
+                    $suivi = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->find($IdSuivi);
+
+                    // Si aucun modèle n'est associé au suivi...
+                    if ($suivi->getIdModele() === null) {
+                        // ...On redirige vers la séléction du modèle.
+                        return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_modele', array('IdSuivi' => $IdSuivi));
+                    }
+                    // Sinon si aucun client n'est associé au suivi...
+                    elseif ($suivi->getNoClient() === null) {
+                        // ...On redirige vers la séléction du client.
+                        return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_client', array('IdSuivi' => $IdSuivi));
+                    }
+                    // Sinon si aucun interlocuteur n'est associé au suivi...
+                    elseif ($suivi->getNoInterlocuteur() === null) {
+                        // ...On redirige vers la séléction de l'interlocuteur.
+                        return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur', array('IdSuivi' => $IdSuivi));
+                    }
+                    // Sinon on redirige vers le remplissage du suivi.
+                    else {
+                        return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi));
+                    }
+                }
+            }
+        }
+
+        // Traitement du formulaire de séléction de l'agence.
+        if ($request->request->has('formSelectionAgence')) {
+            $formAgence->handleRequest($request);
+            if ($formAgence->isValid()) {
+                // On redirige vers la séléction du suivi en cours en fonction de l'agence passé en paramêtre.
+                return $this->redirectToRoute('nox_intranet_assistant_affaire_parcour_suivi_en_cours', array('agence' => $formAgence['Agences']->getData()));
+            }
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:assistantaffaireedition.html.twig', array('formSelectionSuivi' => $formSelectionSuivi->createView(), 'formAgence' => $formAgence->createView()));
     }
 
     // Affiche les informations du suivis en cours, permet de le remplir, de modifier les informations, de le sauvegarder et de le cloturer.
@@ -396,7 +568,7 @@ class SuiviEnCoursController extends Controller {
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
 
-        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire:assistantaffaireremplissageformulaire.html.twig', array(
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:assistantaffaireremplissageformulaire.html.twig', array(
                     'formDonneesSuivi' => $formSuivi->createView(), 'champsViews' => $champsViews, 'suivi' => $suivi, 'client' => $client, 'clientAdr' => $clientAdrHtml,
                     'formSelectionVersionSuivi' => $formSelectionVersionSuivi->createView(), 'formCloturationSuivi' => $formCloturationSuivi->createView(),
                     'interlocuteurActuel' => $interlocuteurActuel, 'interlocuteurs' => $interlocuteurs
@@ -468,6 +640,7 @@ class SuiviEnCoursController extends Controller {
         return new Response('N° de commande supprimé.');
     }
 
+    // Sauvegarde les modifications d'info en base de données.
     public function ajaxSaveNewInfosAction(Request $request) {
 
         if ($request->isXmlHttpRequest()) {
@@ -482,6 +655,7 @@ class SuiviEnCoursController extends Controller {
             // On récupéres le suivi.
             $suivi = $em->getRepository("NoxIntranetRessourcesBundle:Suivis")->find($IDSuivi);
 
+            // On enregistre la nouvelle valeur en fonction du champ.
             switch ($row) {
                 case 'agence':
                     $suivi->setAgence($newInfo);
@@ -496,23 +670,35 @@ class SuiviEnCoursController extends Controller {
                     $suivi->setMarche($newInfo);
                     break;
                 case 'objet':
-                    $suivi->setNoINGEDIABEP($newInfo);
+                    $suivi->setObjet($newInfo);
                     break;
                 case 'ningediabep';
+                    $suivi->setNoINGEDIABEP($newInfo);
                     break;
                 case 'estimatif';
                     $suivi->setEstimatif($newInfo);
                     break;
                 case 'interlocuteur':
-                    $suivi->noInterlocuteur($newInfo);
+                    $suivi->setNoInterlocuteur($newInfo);
                     break;
             }
 
+            // On sauvegarde le suivi en base de données.
             $em->persist($suivi);
             $em->flush();
-            
+
             return new Response('Saved');
         }
+    }
+
+    public function wd_remove_accents($str, $charset = 'utf-8') {
+        $str = htmlentities($str, ENT_NOQUOTES, $charset);
+
+        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
+        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
+        $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
+
+        return $str;
     }
 
 }

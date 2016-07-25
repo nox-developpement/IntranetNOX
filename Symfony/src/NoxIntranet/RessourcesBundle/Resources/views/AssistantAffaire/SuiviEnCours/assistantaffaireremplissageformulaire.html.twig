@@ -305,21 +305,50 @@
             });
         }
 
-        request = null;
+        // Détécte les modification du contenu des champs d'info et éxecute une requête Ajax pour sauvegarder les changements.
         function ajaxSaveNewInfo() {
-            $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient']), #formInfoInfoSuivi select").on('change keyup paste', function () {
-                request = $.ajax({
-                    url: '{{ path('nox_intranet_assistant_affaire_ajax_save_new_infos') }}',
-                    type: 'POST',
-                    data: {'IDSuivi': '{{ suivi.id }}', 'row': $(this).attr('name'), 'newInfo': $(this).val()},
-                    success: function (response) {
-                        if (response === 'Saved') {
-                            $(this).css('background-color', 'green');
+
+            // Initialisation d'un timer pour executer la fonction après 1 seconde sans frappe.
+            var typewatch = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            // Execute la fonction Ajax lorsque le contenu d'un champ est modifié.
+            $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient']), #formInfoInfoSuivi select").on('keyup paste', function () {
+                var champ = $(this);
+                typewatch(function () {
+                    $.ajax({
+                        url: '{{ path('nox_intranet_assistant_affaire_ajax_save_new_infos') }}',
+                        type: 'POST',
+                        data: {'IDSuivi': '{{ suivi.id }}', 'row': champ.attr('name'), 'newInfo': champ.val()},
+                        success: function (response) {
+                            if (response === 'Saved') {
+
+                                if (champ.is('select')) {
+                                    alert('select');
+                                    champ = $(champ + ' option:selected');
+                                }
+
+                                // On change la fond du champ en vert.
+                                champ.css('background-color', 'green');
+                                // On remet le fond par défaut au bout de 3 secondes.
+                                champ.animate({
+                                    backgroundColor: 'initial'
+                                }, 3000, function () {
+                                    champ.removeAttr('style');
+                                });
+                            }
                         }
-                    }
-                });
+                    });
+                }, 1000);
             });
         }
+
+
 
     </script>
 

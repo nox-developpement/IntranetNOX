@@ -70,27 +70,27 @@ nox_intranet_affichageAQ:
          
 nox_intranet_assistant_affaire:
     path: /ressources/assistant-affaires
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:accueilAssistantAffaire }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:accueilAssistantAffaire }
     
 nox_intranet_assistant_affaire_nouvelle:
     path: /ressources/assistant-affaires/creation-suivi
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuivi }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuivi }
     
 nox_intranet_assistant_affaire_nouvelle_choix_modele:
     path: /ressources/assistant-affaires/creation-suivi/choix-modèle/{IdSuivi}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviChoixModele }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuiviChoixModele }
     
 nox_intranet_assistant_affaire_nouvelle_choix_client:
     path: /ressources/assistant-affaires/creation-suivi/choix-client/{IdSuivi}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviChoixClient }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuiviChoixClient }
     
 nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur:
     path: /ressources/assistant-affaires/creation-suivi/choix-interlocuteur/{IdSuivi}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviChoixInterlocuteur }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuiviChoixInterlocuteur }
     
 nox_intranet_assistant_affaire_nouvelle_infos:
     path: /ressources/assistant-affaires/creation-suivi/info-suivi/{IdSuivi}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviInfos }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuiviInfos }
     
 nox_intranet_assistant_affaire_edition:
     path: /ressources/assistant-affaires/edition-suivi/{IdSuivi}/{version}
@@ -102,7 +102,7 @@ nox_intranet_assistant_affaire_generation:
     
 nox_intranet_assistant_affaire_parcour_suivi_en_cours:
     path: /ressources/assistant-affaires/parcours-suivis-en-cours/{agence}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:consulterSuivi, agence: Toutes }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:consulterSuivi, agence: Toutes }
     
 nox_intranet_assistant_affaire_parcour_suivi_termine:
     path: /ressources/assistant-affaires/parcours-suivis-terminés/{agence}
@@ -142,11 +142,11 @@ nox_intranet_rh_excel:
         
 nox_intranet_assistant_affaire_ajax_client_getter:
     path: /ressources/assistant-affaires/creation-suivi/getClient
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:ajaxClientGetter }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:ajaxClientGetter }
     
 nox_intranet_assistant_affaire_ajax_client_adr_getter:
     path: /ressources/assistant-affaires/creation-suivi/getClientAdr
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:ajaxClientAdrGetter }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:ajaxClientAdrGetter }
     
 nox_intranet_assistant_affaire_ajax_nocommande_add:
     path: /ressources/assistant-affaires/edition-suivi-add-no-commande
