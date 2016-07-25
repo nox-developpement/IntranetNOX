@@ -16,14 +16,14 @@
 
             <p style="margin: 0;"><!--
                 --><label for="rechercheSuivi">Recherche</label><br /><!--
-                --><input placeholder="Ex : Ventes 2016" type="text" id="rechercehSuivi" /><!--
+                --><input placeholder="Ex : Ventes 2016" type="text" id="rechercheSuivi" /><!--
                 -->{{ form_errors(formClient.noClient) }}<!--
-                -->{{ form_widget(formClient.noClient, {'attr': {'class': 'selectFormulaireChoixClient champChoixClient', 'size':'15', 'style': 'width: 70%;'}}) }}<!--
+                -->{{ form_widget(formClient.noClient, {'attr': {'class': 'selectFormulaireChoixClient champChoixClient', 'size':'15' }}) }}<!--
 
                 --><br /><!--
 
                 -->{{ form_widget(formClient.Choisir, {'label': 'Choisir ce client', 'attr': {'class': 'boutonFormulaire' }}) }}<!--
-            --></p>
+                --></p>
         </fieldset> 
 
         {{ form_end(formClient) }}
@@ -132,7 +132,7 @@
             })();
 
             // Lorsque on entre une valeur de le champ de recherche.
-            $("#rechercehSuivi").on("keyup paste input", function () {
+            $("#rechercheSuivi").on("keyup paste input", function () {
                 typewatch(function () {
                     // On remplace le contenu du sélécteur par une image de chargement.
                     $('#formClient_noClient').find("option").remove();
@@ -142,7 +142,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '{{ path('nox_intranet_assistant_affaire_ajax_client_getter') }}',
-                        data: 'critere=' + $("#rechercehSuivi").val(),
+                        data: 'critere=' + $("#rechercheSuivi").val(),
                         success: function (response) {
                             // On remplace i'image de chargement par un fond blanc.
                             $('#formClient_noClient').css('background', 'white');

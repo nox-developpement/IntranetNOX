@@ -1935,8 +1935,7 @@ divAdministrationUtilisateur {
 #DivFormulaireRemplissageSuivi, #DivFormulaireSelectionVersionSuivi, #DivFormulaireCloturationSuivi, .DivFormulaireSelectionChamp,
 .DivFormulaireAjoutDonnee, .DivFormulaireSuppressionDonnee, .DivFormulaireSuppressionPositionChamp, #DivFormulaireRemplissageSuiviCloture,
 #DivFormulaireAjoutClient, #DivFormulaireAjoutInterlocuteur, #DivFormulaireSuppressionClient, #DivFormulaireSuppressionInterlocuteur,
-#DivFormulaireChoixClient, #DivFormulaireInfoSuivi, #DivFormulaireClientAdr, #DivInfoSuivi, .DivFormulaireMessageAlerte, #DivFormulaireChoixInterlocuteur,
-#DivFormulaireAjoutClient {
+#DivFormulaireChoixClient, #DivFormulaireInfoSuivi, #DivFormulaireClientAdr, #DivInfoSuivi, .DivFormulaireMessageAlerte, #DivFormulaireChoixInterlocuteur {
     margin: 0% 25% 0% 25%;
     margin-bottom: 2%;
     font-size: 0.8vw;
@@ -2036,6 +2035,23 @@ formulaireAdministrationAjoutInterlocuteur fieldset legend p, .formulaireAdminis
 
 #formInfoInfoSuivi select {
 
+}
+
+.formulaireAjoutClient label {
+    width: 45%;
+    text-align: right;
+    float: left;
+    margin-bottom: 1%;
+}
+
+.formulaireAjoutClient input {
+    width: 40%;
+    margin-right: 10%;
+    margin-bottom: 1%;
+}
+
+#formAjoutClient_Adresse3 {
+    margin-bottom: 2%;
 }
 
 .selectFormulaireAdministrationSuppressionProfil, .textFormulaireAdministrationAjoutProfil {
@@ -2389,13 +2405,24 @@ form input[type='checkbox'] {
 }
 
 #rechercheSuivi {
-    margin-bottom: 5%;
+    margin-bottom: 2%;
     text-align: center;
     padding: 1%;
     border: 1px solid rgb(169, 169, 169);
     width: 70%; 
     box-sizing: border-box;
 }
+
+.selectFormulaireChoixClient {
+    width: 70%;
+    margin-bottom: 2%;
+}
+
+.selectFormulaireChoixClient option:nth-child(even) {
+    background-color: seashell;
+}
+
+
 
 #divAffichageImages {
     width: 70%;
