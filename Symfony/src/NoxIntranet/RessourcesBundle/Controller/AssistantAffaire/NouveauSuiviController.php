@@ -213,19 +213,19 @@ class NouveauSuiviController extends Controller {
             $N_Client = "";
             $return = "";
 
-            $Nom_Client = $formAjoutClient['Nom_Client']->getData();
-            $Tel = $formAjoutClient['Tel']->getData();
-            $Fax = $formAjoutClient['Fax']->getData();
-            $Email = $formAjoutClient['Email']->getData();
-            $Nom_Ville = $formAjoutClient['Nom_Ville']->getData();
-            $Nom_Pays = $formAjoutClient['Nom_Pays']->getData();
-            $Code_Postal = $formAjoutClient['Code_Postal']->getData();
-            $Adresse1 = $formAjoutClient['Adresse1']->getData();
-            $Adresse2 = $formAjoutClient['Adresse2']->getData();
-            $Adresse3 = $formAjoutClient['Adresse3']->getData();
-
             // On génére un script pour ajouter le nouveau client à la base de données GX.
             if ($formAjoutClient->isValid()) {
+
+                $Nom_Client = $formAjoutClient['Nom_Client']->getData();
+                $Tel = $formAjoutClient['Tel']->getData();
+                $Fax = $formAjoutClient['Fax']->getData();
+                $Email = $formAjoutClient['Email']->getData();
+                $Nom_Ville = $formAjoutClient['Nom_Ville']->getData();
+                $Nom_Pays = $formAjoutClient['Nom_Pays']->getData();
+                $Code_Postal = $formAjoutClient['Code_Postal']->getData();
+                $Adresse1 = $formAjoutClient['Adresse1']->getData();
+                $Adresse2 = $formAjoutClient['Adresse2']->getData();
+                $Adresse3 = $formAjoutClient['Adresse3']->getData();
 
                 $fichierSQLCreationClient = fopen($root . "\scripts\SQL\InsertClientIntoGXDB.sql", "w+"); // On ouvre le fichier SQL de création de client ou on le crée si il n'existe pas.
                 // On écris la requête SQL de création de client avec les paramêtres du formulaire.
@@ -238,16 +238,24 @@ class NouveauSuiviController extends Controller {
                 fclose($fichierSQLCreationClient); // On ferme le fichier SQL de création de client.
                 exec($root . "\scripts\AddClientToGXDB.bat", $N_Client); // On execute le script de la requette SQL.
                 $N_Client = intval(str_replace(' ', '', $N_Client[0])); // On récupère la valeur 'N_Client' du nouveau client.
+                var_dump($N_Client);
 
                 $fichierSQLCreationAdresse = fopen($root . "\scripts\SQL\InsertClientAdrIntoGXDB.sql", "w+"); // On ouvre le fichier SQL de création d'adresse ou on le crée si il n'existe pas.                                    
                 // On écris la requête SQL de création d'adresse avec les paramêtres du formulaire.
                 $sqlAdresse = "SET NOCOUNT ON\n";
-                $sqlAdresse .= "INSERT INTO CLIENTADR (N_Client, Tel, Fax, Email, Nom_Ville, Nom_Pays, Code_Postal, Adresse1, Adresse2, Adresse3) VALUES ('" . $N_Client . "','" . $Tel . "', '" . $Fax . "', '" . $Email . "', '" . $Nom_Ville . "', '" . $Nom_Pays . "', '" . $Code_Postal . "', '" . $Adresse1 . "', '" . $Adresse2 . "', '" . $Adresse3 . "');\n";
+                $sqlAdresse .= "INSERT INTO CLIENTADR (N_Client, Tel, Fax, Email, Nom_Ville, Nom_Pays, Code_Postal, Adresse1, Adresse2, Adresse3, AdrPrincipale) VALUES (" . $N_Client . ",'" . $Tel . "', '" . $Fax . "', '" . $Email . "', '" . $Nom_Ville . "', '" . $Nom_Pays . "', '" . $Code_Postal . "', '" . $Adresse1 . "', '" . $Adresse2 . "', '" . $Adresse3 . "', 'oui');\n";
                 $sqlAdresse .= "GO";
                 fwrite($fichierSQLCreationAdresse, $sqlAdresse); // On insert la requête dans le fichier SQL de création d'adresse.
                 fclose($fichierSQLCreationAdresse); // On ferme le fichier SQL de création d'adresse.
-                exec($root . "\scripts\AddClientToGXDB.bat", $N_Client); // On execute le script de la requette SQL.
-//return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur', array('IdSuivi' => $IdSuivi));
+                exec($root . "\scripts\AddClientAdrToGXDB.bat"); // On execute le script de la requette SQL.
+
+                $suivi->setNoClient($N_Client); // On attribut le nouveau client au suivi.
+                // On sauvegarde le suivi en base de données.
+                $em->persist($suivi);
+                $em->flush();
+
+                // On redirige vers le choix de l'interlocuteur.
+                return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur', array('IdSuivi' => $IdSuivi));
             }
         }
 
