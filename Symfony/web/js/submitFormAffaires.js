@@ -47,12 +47,6 @@ $(window).load(function () {
 
     resizeFormLabelAndData($('.labelFormulaireRemplissageSuiviCloture'), $('.champFormulaireRemplissageSuiviCloture'), $('.formulaireRemplissageSuiviCloture p'));
 
-    $(window).resize(function () {
-        if ($('.formulaireRemplissageSuivi').length) {
-            location.reload();
-        }
-    });
-
     if ($('#formCloturationSuivi_Cloturer').attr('disabled') === "disabled") {
         $('#formCloturationSuivi_Cloturer').wrap("<span class='tooltipButtonAACloturer'></span>");
         $('.tooltipButtonAACloturer').prepend("<span class='tooltipButtonAACloturerText'>Le suivi doit contenir au moins une sauvegarde pour être clôturé.</span>");

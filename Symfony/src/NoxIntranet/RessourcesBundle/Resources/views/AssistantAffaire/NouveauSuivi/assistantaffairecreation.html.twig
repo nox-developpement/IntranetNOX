@@ -19,25 +19,25 @@
 
                 {{ form_label(form.Nom, "Nom du suivi :", {'label_attr': {'class': 'labelFormulaireCreationSuivi'}}) }}
                 {{ form_errors(form.Nom) }}
-                {{ form_widget(form.Nom, {'attr': {'class': 'textFormulaireCreationSuivi'}}) }}
+                {{ form_widget(form.Nom, {'attr': {'class': 'textFormulaireCreationSuivi', 'style': 'box-sizing: border-box;'}}) }}
 
                 <br />
 
                 {{ form_label(form.Agence, "Agence :", {'label_attr': {'class': 'labelFormulaireCreationSuivi'}}) }}
                 {{ form_errors(form.Agence) }}
-                {{ form_widget(form.Agence, {'attr': {'class': 'textFormulaireCreationSuivi'}}) }}
+                {{ form_widget(form.Agence, {'attr': {'class': 'textFormulaireCreationSuivi', 'style': 'box-sizing: border-box;'}}) }}
 
                 <br />
 
                 {{ form_label(form.NumeroGX, "Numéro GX :", {'label_attr': {'class': 'labelFormulaireCreationSuivi'}}) }}
                 {{ form_errors(form.NumeroGX) }}
-                {{ form_widget(form.NumeroGX, {'attr': {'class': 'textFormulaireCreationSuivi' }}) }}
+                {{ form_widget(form.NumeroGX, {'attr': {'class': 'textFormulaireCreationSuivi', 'style': 'box-sizing: border-box;'}}) }}
 
                 <br />
 
-                {{ form_label(form.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireCreationSuivi'}}) }}
+                {{ form_label(form.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireCreationSuivi', 'style': 'box-sizing: border-box;'}}) }}
                 {{ form_errors(form.Profil) }}
-                {{ form_widget(form.Profil, {'attr': {'class': 'selectFormulaireCreationSuivi'}}) }}
+                {{ form_widget(form.Profil, {'attr': {'class': 'selectFormulaireCreationSuivi', 'style': 'box-sizing: border-box;'}}) }}
 
                 {{ form_widget(form._token) }}
 

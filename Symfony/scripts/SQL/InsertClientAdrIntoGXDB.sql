@@ -1,4 +1,3 @@
 SET NOCOUNT ON
-GO
-INSERT INTO CLIENTADR (N_Client, Tel, Fax, Email, Nom_Ville, Nom_Pays, Code_Postal, Adresse1, Adresse2, Adresse3) VALUES ($(N_Client),'$(Tel)','$(Fax)','$(Email)','$(Nom_Ville)','$(Nom_Pays)','$(Code_Postal)','$(Adresse1)','$(Adresse2)','$(Adresse3)')
+INSERT INTO CLIENTADR (N_Client, Tel, Fax, Email, Nom_Ville, Nom_Pays, Code_Postal, Adresse1, Adresse2, Adresse3) VALUES ('23851','0634691934', '0634691934', 't.besson@groupe-nox.com', 'Bron', 'France', '69008', 'NOX INGENIERIE', '8 Allé du Général Benoit', '69008, Bron');
 GO

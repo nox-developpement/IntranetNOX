@@ -2033,8 +2033,18 @@ formulaireAdministrationAjoutInterlocuteur fieldset legend p, .formulaireAdminis
     text-align: left;
 }
 
-#formInfoInfoSuivi select {
+.formulaireInfoSuivi label {
+    display: block;
+    width: 45%;
+    float: left;
+    text-align: right;
+    margin-bottom: 1%;
+}
 
+.formulaireInfoSuivi input {
+    margin-bottom: 1%;
+    width: 35%;
+    margin-right: 18%;
 }
 
 .formulaireAjoutClient label {
@@ -2099,6 +2109,14 @@ form input[type='checkbox'] {
     text-align: center;
 }
 
+.selectFormulaireChoixInterlocuteur option {
+    text-align: center;
+}
+
+.selectFormulaireChoixInterlocuteur option:nth-child(even) {
+    background-color: seashell;
+}
+
 .formulaireParcourSuiviEnCours p, .formulaireSelectionVersion p {
     vertical-align: middle;
     width: 40%;
@@ -2112,6 +2130,10 @@ form input[type='checkbox'] {
     padding-bottom: 5%;
     padding-top: 5%;
     overflow: auto;
+}
+
+.formulaireParcourSuiviEnCours p select option:nth-child(even), .formulaireSelectionVersion p select option:nth-child(even) {
+    background-color: seashell;
 }
 
 .submitFormulaireParcourSuiviEnCours, .submitFormulaireAjoutFormulaire, .submitFormulaireSelectionVersion {
@@ -2418,6 +2440,10 @@ form input[type='checkbox'] {
     margin-bottom: 2%;
 }
 
+.selectFormulaireChoixClient option {
+    text-align: center;
+}
+
 .selectFormulaireChoixClient option:nth-child(even) {
     background-color: seashell;
 }
@@ -2438,6 +2464,18 @@ form input[type='checkbox'] {
     color: red;
     text-align: center;
     list-style-type: none;
+}
+
+.formulaireRemplissageSuivi label {
+    display: block;
+    float: left;
+    width: 40%;
+    text-align: right;
+}
+
+.formulaireRemplissageSuivi input {
+    width: 50%;
+    margin-right: 7%;
 }
 
 #formSuppresionPositionChamp_IdChamp {
@@ -3215,4 +3253,24 @@ tr {
     text-decoration: none;
     color: #1F4E79;
     font-size: 1vw;
+}
+
+.DivCreationSuiviRetour {
+    text-align: left;
+    width: 70%;
+    margin: auto;
+    margin-bottom: 2%;
+}
+
+.DivCreationSuiviRetour a, .DivCreationSuiviRetour a:visited {
+    font-size: 0.8vw;
+    color: #1F4E79;
+    text-decoration: none;
+    margin: auto;
+    display: flex;
+}
+
+.DivCreationSuiviRetour a img {
+    height: 1em; 
+    margin: auto 1% auto 0;
 }

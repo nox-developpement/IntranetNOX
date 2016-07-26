@@ -36,9 +36,9 @@ class Suivis {
     private $agence;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="NumeroGX", type="integer")
+     * @ORM\Column(name="NumeroGX", type="string", length=255)
      */
     private $numeroGX;
 
@@ -170,28 +170,6 @@ class Suivis {
      */
     public function getAgence() {
         return $this->agence;
-    }
-
-    /**
-     * Set numeroGX
-     *
-     * @param string $numeroGX
-     *
-     * @return Suivis
-     */
-    public function setNumeroGX($numeroGX) {
-        $this->numeroGX = $numeroGX;
-
-        return $this;
-    }
-
-    /**
-     * Get numeroGX
-     *
-     * @return string
-     */
-    public function getNumeroGX() {
-        return $this->numeroGX;
     }
 
     /**
@@ -436,4 +414,28 @@ class Suivis {
         return $this->noInterlocuteur;
     }
 
+
+    /**
+     * Set numeroGX
+     *
+     * @param string $numeroGX
+     *
+     * @return Suivis
+     */
+    public function setNumeroGX($numeroGX)
+    {
+        $this->numeroGX = $numeroGX;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroGX
+     *
+     * @return string
+     */
+    public function getNumeroGX()
+    {
+        return $this->numeroGX;
+    }
 }

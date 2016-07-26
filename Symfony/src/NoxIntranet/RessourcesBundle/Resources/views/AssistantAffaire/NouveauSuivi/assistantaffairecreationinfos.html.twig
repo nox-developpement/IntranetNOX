@@ -6,6 +6,10 @@
 
 {% block contenu %}
 
+    <div class="DivCreationSuiviRetour">
+        <a href="{{ path('nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur', {'IdSuivi': IdSuivi}) }}"><img src='{{ asset('bundles/noxintranetressources/images/Left-Arrow-48.png') }}' alt='Flêche retour'>Retourner au choix de l'interlocuteur</a>
+    </div>
+
     <div id="DivFormulaireInfoSuivi">
 
         {{ form_start(form, {'attr': {'class': 'formulaireInfoSuivi'}}) }}
@@ -15,7 +19,7 @@
 
             <legend>Suivi</legend>
 
-            <p>
+            <p style='margin: 0;'>
 
                 {{ form_label(form.Marche, "Marché :", {'label_attr': {'class': 'labelFormulaireInfoSuivi'}}) }}
                 {{ form_errors(form.Marche) }}
@@ -54,15 +58,11 @@
                 --><br /><!--
                 -->{{ form_label(form.Estimatif, "Estimatif :", {'label_attr': {'class': 'labelFormulaireInfoSuivi'}}) }}<!--
                 -->{{ form_errors(form.Estimatif) }}<!--
-                -->{{ form_widget(form.Estimatif, {'attr': {'class': 'textFormulaireInfoSuivi champInfoSuivi'}}) }}
+                -->{{ form_widget(form.Estimatif, {'attr': {'class': 'textFormulaireInfoSuivi champInfoSuivi'}}) }}<!--
 
-                {{ form_widget(form.Valider, {'attr': {'class': 'boutonFormulaire champInfoSuivi'}}) }}
-
-                <script>
-                    $(window).load(function () {
-                        resizeFormLabelAndData($('.labelFormulaireInfoSuivi'), $('.champInfoSuivi'), $('.formulaireInfoSuivi p'));
-                    });
-                </script>
+                --><br /><!--
+                
+                -->{{ form_widget(form.Valider, {'attr': {'class': 'boutonFormulaire champInfoSuivi', 'style': 'margin-top: 1%;'}}) }}
 
             </p>
 

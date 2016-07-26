@@ -6,6 +6,19 @@
 
 {% block contenu %}
 
+    <div class="DivCreationSuiviRetour">
+       <a href="{{ path('nox_intranet_assistant_affaire_nouvelle_choix_modele', {'IdSuivi': IdSuivi}) }}"><img src='{{ asset('bundles/noxintranetressources/images/Left-Arrow-48.png') }}' alt='Flêche retour'>Retourner au choix du modèle</a>
+    </div>
+
+    <div id="DivChoixActionClient" style='width: 70%; margin: auto; text-align: center; margin-bottom: 2%;'>
+        <div style='display: inline-block; width: 50%; text-align: right;'>
+            <button type="button" name='choixClient' class='boutonFormulaire' style='font-size: 0.8vw; margin-right: 10%;'>Choix d'un client</button>
+        </div><!--
+        --><div style='display: inline-block; width: 50%; text-align: left;'>
+            <button type="button" name='ajoutClient' class='boutonFormulaire' style='font-size: 0.8vw; margin-left: 10%;'>Ajout d'un client</button>
+        </div>
+    </div>
+
     <div id="DivFormulaireChoixClient">
         {{ form_start(formClient, {'attr': {'class': 'formulaireChoixClient'}}) }}
         {{ form_errors(formClient) }}
@@ -32,7 +45,7 @@
     <div id="DivFormulaireClientAdr">
     </div>
 
-    <div id="DivFormulaireAjoutClient">
+    <div id="DivFormulaireAjoutClient" style='display: none;'>
 
         {{ form_start(formAjoutClient, {'attr': {'class': 'formulaireAjoutClient'}}) }}
         {{ form_errors(formAjoutClient) }}
@@ -41,7 +54,7 @@
 
             <legend>Ajout client</legend>
 
-            <p>
+            <p style="margin: 0;">
                 {{ form_label(formAjoutClient.Nom_Client, "Nom du client :", {'label_attr': {'class': 'labelFormulaireAjoutClient'}}) }}
                 {{ form_errors(formAjoutClient.Nom_Client) }}
                 {{ form_widget(formAjoutClient.Nom_Client, {'attr': {'class': 'textFormulaireAjoutClient champAjoutClient'}}) }}
@@ -113,10 +126,9 @@
 
     <script>
         $(window).load(function () {
+            selectClientAction();
             getClientsByCritere();
             getClientAdrByNClient();
-            //resizeFormLabelAndData($('.labelFormulaireChoixClient'), $('.champChoixClient'), $('.formulaireChoixClient p'));
-            //resizeFormLabelAndData($('.labelFormulaireAjoutClient'), $('.champAjoutClient'), $('.formulaireAjoutClient p'));
         });
 
         // Effectue une requête Ajax pour retourné la liste des clients correspondant au critére de recherche.
@@ -159,7 +171,7 @@
                             });
                         }
                     });
-                }, 1000);
+                }, 500);
             });
         }
 
@@ -198,6 +210,20 @@
                         resizeFormLabelAndData($('.labelFormulaireClientAdr'), $('.champClientAdr'), $('.formulaireClientAdr p'));
                     }
                 });
+            });
+        }
+
+        // Affiche/Cache les 'div' de séléction/ajout de client.
+        function selectClientAction() {
+            // Lors d'un clique sur le bouton de choix de client.
+            $("button[name='choixClient']").click(function () {
+                $('#DivFormulaireChoixClient').show(); // Affiche la 'div' de choix du client.
+                $('#DivFormulaireAjoutClient').hide(); // Cache la 'div' d'ajout de client.
+            });
+            // Lors d'un clique sur le bouton d'ajout de client.
+            $("button[name='ajoutClient']").click(function () {
+                $('#DivFormulaireChoixClient').hide(); // Cache la 'div' de choix du client.
+                $('#DivFormulaireAjoutClient').show(); // Affiche la 'div' d'ajout de client.
             });
         }
 

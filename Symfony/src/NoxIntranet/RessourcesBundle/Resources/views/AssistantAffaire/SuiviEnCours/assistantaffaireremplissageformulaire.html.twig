@@ -60,13 +60,13 @@
                         <label for='estimatif'>Estimatif: </label><input name='estimatif' type='text' value='{{ suivi.Estimatif }}' disabled><br />
                         <label for='nclient'>N° Client: </label><input name='nclient' type='text' value='{{ suivi.NoClient }}' disabled><br />
                         <label for='nomClient'>Client: </label><input name='nomClient' type='text' value='{{ client.NomCLient }}' disabled><br />
+                        <label for='adresseClient'>Adresse client: </label><input name='adresseClient' type='text' title="Cliquez-ici pour l'adresse du client." value='Cliquez-ici.' style='text-align: center; cursor: pointer;' readonly><br />
                         <label>Interlocuteur: </label>
                         <select type='text' name='interlocuteur' disabled>
                             {% for interlocuteur in interlocuteurs %}
                                 <option value="{{ interlocuteur.NContact }}" {% if interlocuteur.NContact == interlocuteurActuel.NContact %}selected{% endif %}>{{ interlocuteur.PrenomContact }} {{ interlocuteur.NomContact }}</option>
                             {% endfor %}
-                        </select><br />
-                        <p id='clientPopupOpener' style='display: inline-block; cursor: pointer; border-bottom: 1px dotted black; text-align: center; width: auto; margin: auto; margin-bottom: 2%; margin-top: 1%;'>Adresse(s) client</p>
+                        </select>
                     </div><!--
                     --><div id='fomInfoSuiviLocking' title="Verrouiller/Déverrouiller l'édition du contenu." style='display: inline-block; width: 15%; align-self: center;  cursor: pointer;' locked=true><!--
                         --><img id='fomInfoSuiviLockingImgLocked' src='{{ asset('bundles/noxintranetressources/images/Lock-128.png') }}' alt='Déverrouiller modification.' style='width: 70%;'><!--
@@ -101,11 +101,11 @@
                 {{ form_errors(attribute(formDonneesSuivi, champ.Champ)) }}
             {% endfor %}
 
-            <p>
+            <p><!--
                 {% for champ in champsViews %}
-                    {{ form_label(attribute(formDonneesSuivi, champ.Champ), champ.Nom ~ " : ", {'label_attr': {'class': 'labelFormulaireRemplissageSuivi'}}) }}   
-                    {{ form_widget(attribute(formDonneesSuivi, champ.Champ)) }}
-                    <br />
+                    -->{{ form_label(attribute(formDonneesSuivi, champ.Champ), champ.Nom ~ ": ", {'label_attr': {'class': ''}}) }} <!--  
+                    -->{{ form_widget(attribute(formDonneesSuivi, champ.Champ)) }}<!--
+                    --><br />
 
                     {% if champ.Type == 'Nombre' %}
                         <script>
@@ -140,7 +140,6 @@
 
     <script>
         $(window).load(function () {
-            resizeFormLabelAndData($('.labelFormulaireRemplissageSuivi'), $('.champFormulaireRemplissageSuivi'), $('.formulaireRemplissageSuivi p'));
             hideAndShowDataAdding();
             openClientPopup();
             ajaxAddNoCommand();
@@ -148,10 +147,11 @@
             lockUnlockDataModifying();
             ajaxSaveNewInfo();
         });
+
         // Ouvre un fenêtre pop-up contenant la/les adresse(s) du client.
         function openClientPopup() {
             // Lors du clic sur le bouton des adresses...
-            $('#clientPopupOpener').click(function () {
+            $("input[name='adresseClient']").click(function () {
 
                 // On récupére la taille et la position de qu'on va attribuer à la pop-up.
                 var screenHeight = $(window).outerHeight() / 2;
@@ -289,7 +289,7 @@
                     $('#fomInfoSuiviLockingImgLocked').hide();
                     $('#fomInfoSuiviLockingImgUnlocked').show();
 
-                    $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient']), #formInfoInfoSuivi select").removeAttr('disabled'); // On active les 'input' d'information.
+                    $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient'], input[name='adresseClient']), #formInfoInfoSuivi select").removeAttr('disabled'); // On active les 'input' d'information.
                 }
                 // Si le cadena est déverrouiller
                 else {
@@ -300,7 +300,7 @@
                     $('#fomInfoSuiviLockingImgUnlocked').hide();
 
 
-                    $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient']), #formInfoInfoSuivi select").attr('disabled', true); // On désactive les 'input' d'information.
+                    $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient'], input[name='adresseClient']), #formInfoInfoSuivi select").attr('disabled', true); // On désactive les 'input' d'information.
                 }
             });
         }
@@ -318,7 +318,7 @@
             })();
 
             // Execute la fonction Ajax lorsque le contenu d'un champ est modifié.
-            $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient']), #formInfoInfoSuivi select").on('keyup paste', function () {
+            $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient'], input[name='adresseClient']), #formInfoInfoSuivi select").on('keyup paste', function () {
                 var champ = $(this);
                 typewatch(function () {
                     $.ajax({
@@ -347,8 +347,6 @@
                 }, 1000);
             });
         }
-
-
 
     </script>
 

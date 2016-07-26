@@ -161,7 +161,12 @@ class NouveauSuiviController extends Controller {
                     'class' => 'NoxIntranetRessourcesBundle:AA_Client',
                     'choices' => $clients,
                     'choice_label' => 'Nom_Client',
-                    'choice_value' => 'N_Client'
+                    'choice_value' => 'N_Client',
+                    'choice_attr' => array(
+                        'title' => function($value) {
+                            return $value;
+                        }
+                    )
                 ))
                 ->add('Choisir', SubmitType::class)
                 ->getForm();
@@ -208,27 +213,45 @@ class NouveauSuiviController extends Controller {
             $N_Client = "";
             $return = "";
 
+            $Nom_Client = $formAjoutClient['Nom_Client']->getData();
+            $Tel = $formAjoutClient['Tel']->getData();
+            $Fax = $formAjoutClient['Fax']->getData();
+            $Email = $formAjoutClient['Email']->getData();
+            $Nom_Ville = $formAjoutClient['Nom_Ville']->getData();
+            $Nom_Pays = $formAjoutClient['Nom_Pays']->getData();
+            $Code_Postal = $formAjoutClient['Code_Postal']->getData();
+            $Adresse1 = $formAjoutClient['Adresse1']->getData();
+            $Adresse2 = $formAjoutClient['Adresse2']->getData();
+            $Adresse3 = $formAjoutClient['Adresse3']->getData();
+
             // On génére un script pour ajouter le nouveau client à la base de données GX.
             if ($formAjoutClient->isValid()) {
-                exec("C:/wamp/www/Symfony/scripts/AddClientToGXDB.bat \"" . $formAjoutClient->get('Nom_Client')->getData() . "\"", $N_Client);
-                $N_Client = intval(str_replace(' ', '', $N_Client[0]));
 
-                $commande = "set N_Client=" . $N_Client . "\n";
-                $commande = $commande . "set Tel=" . $formAjoutClient->get('Tel')->getData() . "\n";
-                $commande = $commande . "set Fax=" . $formAjoutClient->get('Fax')->getData() . "\n";
-                $commande = $commande . "set Email=" . $formAjoutClient->get('Email')->getData() . "\n";
-                $commande = $commande . "set Nom_Ville=" . $formAjoutClient->get('Nom_Ville')->getData() . "\n";
-                $commande = $commande . "set Nom_Pays=" . $formAjoutClient->get('Nom_Pays')->getData() . "\n";
-                $commande = $commande . "set Code_Postal=" . $formAjoutClient->get('Code_Postal')->getData() . "\n";
-                $commande = $commande . "set Adresse1=" . $formAjoutClient->get('Adresse1')->getData() . "\n";
-                $commande = $commande . "set Adresse2=" . $formAjoutClient->get('Adresse2')->getData() . "\n";
-                $commande = $commande . "set Adresse3=" . $formAjoutClient->get('Adresse3')->getData() . "\n";
-                $commande = $commande . "sqlcmd -S SRVM-SQL-LAB -d NOX -i " . $rootLetter . ":\wamp\www\Symfony\scripts\SQL\InsertClientAdrIntoGXDB.sql -v N_Client = %N_Client% Tel = %Tel% Fax = %Fax% Email = %Email% Nom_Ville = %Nom_Ville% Nom_Pays = %Nom_Pays% Code_Postal = %Code_Postal% Adresse1 = %Adresse1% Adresse2 = %Adresse2% Adresse3 = %Adresse3%";
-                //return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur', array('IdSuivi' => $IdSuivi));
+                $fichierSQLCreationClient = fopen($root . "\scripts\SQL\InsertClientIntoGXDB.sql", "w+"); // On ouvre le fichier SQL de création de client ou on le crée si il n'existe pas.
+                // On écris la requête SQL de création de client avec les paramêtres du formulaire.
+                $sqlClient = "SET NOCOUNT ON\n";
+                $sqlClient .= "INSERT INTO CLIENT (Nom_Client, Prospect) VALUES ('" . $Nom_Client . "','non');\n";
+                $sqlClient .= "SELECT SCOPE_IDENTITY();\n";
+                $sqlClient .= "GO";
+
+                fwrite($fichierSQLCreationClient, $sqlClient); // On insert la requête dans le fichier SQL de création de client.
+                fclose($fichierSQLCreationClient); // On ferme le fichier SQL de création de client.
+                exec($root . "\scripts\AddClientToGXDB.bat", $N_Client); // On execute le script de la requette SQL.
+                $N_Client = intval(str_replace(' ', '', $N_Client[0])); // On récupère la valeur 'N_Client' du nouveau client.
+
+                $fichierSQLCreationAdresse = fopen($root . "\scripts\SQL\InsertClientAdrIntoGXDB.sql", "w+"); // On ouvre le fichier SQL de création d'adresse ou on le crée si il n'existe pas.                                    
+                // On écris la requête SQL de création d'adresse avec les paramêtres du formulaire.
+                $sqlAdresse = "SET NOCOUNT ON\n";
+                $sqlAdresse .= "INSERT INTO CLIENTADR (N_Client, Tel, Fax, Email, Nom_Ville, Nom_Pays, Code_Postal, Adresse1, Adresse2, Adresse3) VALUES ('" . $N_Client . "','" . $Tel . "', '" . $Fax . "', '" . $Email . "', '" . $Nom_Ville . "', '" . $Nom_Pays . "', '" . $Code_Postal . "', '" . $Adresse1 . "', '" . $Adresse2 . "', '" . $Adresse3 . "');\n";
+                $sqlAdresse .= "GO";
+                fwrite($fichierSQLCreationAdresse, $sqlAdresse); // On insert la requête dans le fichier SQL de création d'adresse.
+                fclose($fichierSQLCreationAdresse); // On ferme le fichier SQL de création d'adresse.
+                exec($root . "\scripts\AddClientToGXDB.bat", $N_Client); // On execute le script de la requette SQL.
+//return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur', array('IdSuivi' => $IdSuivi));
             }
         }
 
-        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:assistantaffairecreationchoixclient.html.twig', array('formClient' => $formClient->createView(), 'formAjoutClient' => $formAjoutClient->createView()));
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:assistantaffairecreationchoixclient.html.twig', array('formClient' => $formClient->createView(), 'formAjoutClient' => $formAjoutClient->createView(), 'IdSuivi' => $IdSuivi));
     }
 
     // Récupére la liste des clients en fonction de la recherche passé en paramêtre.
@@ -335,7 +358,7 @@ class NouveauSuiviController extends Controller {
             return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_infos', array('IdSuivi' => $IdSuivi));
         }
 
-        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:assistantaffairecreationchoixinterlocuteur.html.twig', array('form' => $form->createView()));
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:assistantaffairecreationchoixinterlocuteur.html.twig', array('form' => $form->createView(), 'IdSuivi' => $IdSuivi));
     }
 
     // Remplissage des informations du suivi.
@@ -373,7 +396,7 @@ class NouveauSuiviController extends Controller {
             return $this->redirectToRoute('nox_intranet_assistant_affaire_edition', array('IdSuivi' => $IdSuivi));
         }
 
-        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:assistantaffairecreationinfos.html.twig', array('form' => $form->createView()));
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:assistantaffairecreationinfos.html.twig', array('form' => $form->createView(), 'IdSuivi' => $IdSuivi));
     }
 
 }
