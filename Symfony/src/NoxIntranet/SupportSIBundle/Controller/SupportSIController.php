@@ -4,6 +4,7 @@ namespace NoxIntranet\SupportSIBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use NoxIntranet\SupportSIBundle\Entity\CompteurDemande;
 use NoxIntranet\SupportSIBundle\Entity\DemandeMateriel;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -92,7 +93,7 @@ class SupportSIController extends Controller {
                 ))
                 ->add('date', DateType::class, array(
                     'widget' => 'choice',
-                    'years' => range(date('Y'), date('Y', strtotime('+4 year')))
+                    'years' => range(date('Y'), date('Y', strtotime('+4 year'))),
                 ))
                 ->add('mailSuperieur', EmailType::class, array(
                     'attr' => array(
@@ -105,6 +106,7 @@ class SupportSIController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
 
             // Génére la date du jour.
@@ -154,7 +156,7 @@ class SupportSIController extends Controller {
                     ->setTo($adresseHelpdesk)
                     ->setBody(
                     $this->renderView(
-                            'Emails/demandeMaterielDSI.html.twig', array('materiel' => $form->get('materielList')->getData(), 'logicielCheckbox' => $form->get('logicielCheckbox')->getData(), 'demandeur' => $name, 'agence' => $agence,
+                            'Emails/demandeMaterielDSI.html.twig', array('materielCheckbox' => $form->get('materielList')->getData(), 'materiel' => $form->get('materielList')->getData(), 'logicielCheckbox' => $form->get('logicielCheckbox')->getData(), 'demandeur' => $name, 'agence' => $agence,
                         'numOrdre' => $numRequette, 'logiciel' => $form->get('logicielName')->getData(), 'date' => $date, 'cle' => $cle, 'raison' => $form->get('raison')->getData()
                             )
                     ), 'text/html'
@@ -166,7 +168,7 @@ class SupportSIController extends Controller {
             $em->persist($compteur);
 
             // Stock les données de la demande.
-            $donneesMessage = array('materiel' => $form->get('materielList')->getData(), 'logicielCheckbox' => $form->get('logicielCheckbox')->getData(), 'demandeur' => $name, 'agence' => $agence,
+            $donneesMessage = array('materielCheckbox' => $form->get('materielList')->getData(), 'materiel' => $form->get('materielList')->getData(), 'logicielCheckbox' => $form->get('logicielCheckbox')->getData(), 'demandeur' => $name, 'agence' => $agence,
                 'numOrdre' => $numRequette, 'logiciel' => $form->get('logicielName')->getData(), 'emailSuperieur' => $form->get('mailSuperieur')->getData(), 'raison' => $form->get('raison')->getData(),
                 'date' => $date, 'cle' => $cle, 'emailDemandeur' => $emailDemandeur
             );
@@ -180,6 +182,7 @@ class SupportSIController extends Controller {
             $em->persist($newDemandeMateriel);
             $em->flush();
 
+            // On retourne un message de confirmation et on redirige vers le formulaire de demande de matériel.
             $request->getSession()->getFlashBag()->add('notice', "Votre demande a été transmise à la DSI et est en attente de validation.");
             return $this->redirectToRoute('nox_intranet_demande_materiel');
         }
@@ -341,6 +344,9 @@ class SupportSIController extends Controller {
                 // Récupère l'adresse du helpdesk.
                 $adresseHelpdesk = $em->getRepository('NoxIntranetAdministrationBundle:Helpdesk')->findOneBySection('Helpdesk')->getEmail();
 
+                // On récupére le nom et le prénom du valideur (supérieur hiérarchique).
+                $superieur = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+
                 // On envoi un email à la DSI pour lui indiquer la validation.
                 $messageHelpdeskDSI = \Swift_Message::newInstance()
                         ->setSubject('Demande de matériel/logiciel ' . $donneesMessage['demandeur'] . ' valide')
@@ -348,12 +354,14 @@ class SupportSIController extends Controller {
                         ->setTo($adresseHelpdesk)
                         ->setBody(
                         $this->renderView(
-                                'Emails/demandeMaterielValide.html.twig', array('donneesMessage' => $donneesMessage)
+                                'Emails/demandeMaterielValide.html.twig', array('donneesMessage' => $donneesMessage, 'superieur' => $superieur)
                         ), 'text/html'
                 );
                 $this->get('mailer')->send($messageHelpdeskDSI);
 
+                // On affiche un message de confirmation de la validation de la demande.
                 $request->getSession()->getFlashBag()->add('notice', "La demande de matériel de " . $donneesMessage['demandeur'] . " a été validée.");
+                $em->remove($demande); // On supprime la demande.
             }
             // Si la réponse du supérieur hiérarchique est négative.
             else {
@@ -367,9 +375,9 @@ class SupportSIController extends Controller {
                 );
                 $this->get('mailer')->send($messageHelpdesk);
 
-                // On supprime la demande.
+                // On affiche un message de confirmation du refus de la demande.
                 $request->getSession()->getFlashBag()->add('notice', "La demande de matériel de " . $donneesMessage['demandeur'] . " a été refusée.");
-                $em->remove($demande);
+                $em->remove($demande); // On supprime la demande.
             }
 
             $em->flush();
