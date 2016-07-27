@@ -148,6 +148,10 @@ nox_intranet_assistant_affaire_ajax_client_adr_getter:
     path: /ressources/assistant-affaires/creation-suivi/getClientAdr
     defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:ajaxClientAdrGetter }
     
+nox_intranet_assistant_affaire_ajax_interlocuteur_getter:
+    path: /ressources/assistant-affaires/creation-suivi/getInterlocuteur
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:ajaxInterlocuteurGetter }
+    
 nox_intranet_assistant_affaire_ajax_nocommande_add:
     path: /ressources/assistant-affaires/edition-suivi-add-no-commande
     defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:ajaxAddNoCommande }

@@ -7,7 +7,7 @@
 {% block contenu %}
 
     <div class="DivCreationSuiviRetour">
-       <a href="{{ path('nox_intranet_assistant_affaire_nouvelle_choix_modele', {'IdSuivi': IdSuivi}) }}"><img src='{{ asset('bundles/noxintranetressources/images/Left-Arrow-48.png') }}' alt='Flêche retour'>Retourner au choix du modèle</a>
+        <a href="{{ path('nox_intranet_assistant_affaire_nouvelle_choix_modele', {'IdSuivi': IdSuivi}) }}"><img src='{{ asset('bundles/noxintranetressources/images/Left-Arrow-48.png') }}' alt='Flêche retour'>Retourner au choix du modèle</a>
     </div>
 
     <div id="DivChoixActionClient" style='width: 70%; margin: auto; text-align: center; margin-bottom: 2%;'>
@@ -25,7 +25,7 @@
 
         <fieldset>
 
-            <legend>Choix client</legend>
+            <legend>Choisir un client</legend>
 
             <p style="margin: 0;"><!--
                 --><label for="rechercheSuivi">Recherche</label><br /><!--
@@ -42,7 +42,7 @@
         {{ form_end(formClient) }}
     </div>
 
-    <div id="DivFormulaireClientAdr">
+    <div id="DivFormulaireClientAdr" style='display: none;'>
     </div>
 
     <div id="DivFormulaireAjoutClient" style='display: none;'>
@@ -52,7 +52,7 @@
 
         <fieldset>
 
-            <legend>Ajout client</legend>
+            <legend>Ajouter un client</legend>
 
             <p style="margin: 0;">
                 {{ form_label(formAjoutClient.Nom_Client, "Nom du client :", {'label_attr': {'class': 'labelFormulaireAjoutClient'}}) }}
@@ -127,12 +127,12 @@
     <script>
         $(window).load(function () {
             selectClientAction();
-            getClientsByCritere();
+            searchInSelector('#rechercheSuivi', '.selectFormulaireChoixClient', '{{ path('nox_intranet_assistant_affaire_ajax_client_getter') }}');
             getClientAdrByNClient();
         });
 
-        // Effectue une requête Ajax pour retourné la liste des clients correspondant au critére de recherche.
-        function getClientsByCritere() {
+        // Effectue une requête Ajax pour retourné la liste des elements correspondant au critére de recherche.
+        function searchInSelector(champRecherche, selecteur, ajaxPath) {
 
             // Initialisation d'un timer pour executer la fonction après 1 seconde sans frappe.
             var typewatch = (function () {
@@ -144,29 +144,29 @@
             })();
 
             // Lorsque on entre une valeur de le champ de recherche.
-            $("#rechercheSuivi").on("keyup paste input", function () {
+            $(champRecherche).on("keyup paste input", function () {
                 typewatch(function () {
                     // On remplace le contenu du sélécteur par une image de chargement.
-                    $('#formClient_noClient').find("option").remove();
-                    $('#formClient_noClient').css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.gif') }}" + "') no-repeat center");
-                    $('#formClient_noClient').css('background-size', '50%');
+                    $(selecteur).find("option").remove();
+                    $(selecteur).css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.gif') }}" + "') no-repeat center");
+                    $(selecteur).css('background-size', '50%');
 
                     $.ajax({
                         type: 'POST',
-                        url: '{{ path('nox_intranet_assistant_affaire_ajax_client_getter') }}',
-                        data: 'critere=' + $("#rechercheSuivi").val(),
+                        url: ajaxPath,
+                        data: 'critere=' + $(champRecherche).val(),
                         success: function (response) {
                             // On remplace i'image de chargement par un fond blanc.
-                            $('#formClient_noClient').css('background', 'white');
+                            $(selecteur).css('background', 'white');
                             // On ajout la liste des clients retourné par la requête Ajax.
-                            $('#formClient_noClient').find("option").remove();
+                            $(selecteur).find("option").remove();
                             $.each(response, function (i, item) {
-                                $('#formClient_noClient').append(new Option(item, i));
+                                $(selecteur).append(new Option(item.nom, item.numero));
                             });
                             // On change la couleur de fond des résultats pair pour simplifier la lecture.
-                            $('#formClient_noClient option:nth-child(even)').css('background', 'SeaShell');
+                            $(selecteur + ' option:nth-child(even)').css('background', 'SeaShell');
                             // On donne le nom du client à l'attribut title.
-                            $('#formClient_noClient option').each(function () {
+                            $(selecteur + ' option').each(function () {
                                 $(this).attr('title', $(this).text());
                             });
                         }
@@ -218,11 +218,13 @@
             // Lors d'un clique sur le bouton de choix de client.
             $("button[name='choixClient']").click(function () {
                 $('#DivFormulaireChoixClient').show(); // Affiche la 'div' de choix du client.
+                $('#DivFormulaireClientAdr').show(); // Affiche la 'div' d'adresse du client.
                 $('#DivFormulaireAjoutClient').hide(); // Cache la 'div' d'ajout de client.
             });
             // Lors d'un clique sur le bouton d'ajout de client.
             $("button[name='ajoutClient']").click(function () {
                 $('#DivFormulaireChoixClient').hide(); // Cache la 'div' de choix du client.
+                $('#DivFormulaireClientAdr').hide(); // Cache la 'div' d'adresse du client.
                 $('#DivFormulaireAjoutClient').show(); // Affiche la 'div' d'ajout de client.
             });
         }

@@ -20,6 +20,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class NouveauSuiviController extends Controller {
 
+    // Remplace les caractères accentué d'une chaine par leur version sans accent.
+    public function wd_remove_accents($str, $charset = 'utf-8') {
+        $str = htmlentities($str, ENT_NOQUOTES, $charset);
+
+        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
+        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
+        $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
+
+        return $str;
+    }
+
     // Affiche la page de séléction du status des suivis.
     public function accueilAssistantAffaireAction() {
         return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:assistantaffaireaccueil.html.twig');
@@ -206,26 +217,23 @@ class NouveauSuiviController extends Controller {
         if ($request->request->has('formAjoutClient')) {
             $formAjoutClient->handleRequest($request);
 
-            // On récupére le chemin du serveur et la lettre du lecteur.
-            $root = $this->container->getParameter('kernel.root_dir') . '\..';
-            $rootLetter = str_replace(':\wamp\www\Symfony\app\..', '', $root);
-
-            $N_Client = "";
-            $return = "";
-
             // On génére un script pour ajouter le nouveau client à la base de données GX.
             if ($formAjoutClient->isValid()) {
 
-                $Nom_Client = $formAjoutClient['Nom_Client']->getData();
-                $Tel = $formAjoutClient['Tel']->getData();
-                $Fax = $formAjoutClient['Fax']->getData();
-                $Email = $formAjoutClient['Email']->getData();
-                $Nom_Ville = $formAjoutClient['Nom_Ville']->getData();
-                $Nom_Pays = $formAjoutClient['Nom_Pays']->getData();
-                $Code_Postal = $formAjoutClient['Code_Postal']->getData();
-                $Adresse1 = $formAjoutClient['Adresse1']->getData();
-                $Adresse2 = $formAjoutClient['Adresse2']->getData();
-                $Adresse3 = $formAjoutClient['Adresse3']->getData();
+                // On récupére le chemin du serveur.
+                $root = $this->container->getParameter('kernel.root_dir') . '\..';
+
+                // On récupére les variables du formulaire et on remplace les valeurs accentués par leur équivalent sans accent (pour l'encodage en base de donnée).
+                $Nom_Client = $this->wd_remove_accents($formAjoutClient['Nom_Client']->getData());
+                $Tel = $this->wd_remove_accents($formAjoutClient['Tel']->getData());
+                $Fax = $this->wd_remove_accents($formAjoutClient['Fax']->getData());
+                $Email = $this->wd_remove_accents($formAjoutClient['Email']->getData());
+                $Nom_Ville = $this->wd_remove_accents($formAjoutClient['Nom_Ville']->getData());
+                $Nom_Pays = $this->wd_remove_accents($formAjoutClient['Nom_Pays']->getData());
+                $Code_Postal = $this->wd_remove_accents($formAjoutClient['Code_Postal']->getData());
+                $Adresse1 = $this->wd_remove_accents($formAjoutClient['Adresse1']->getData());
+                $Adresse2 = $this->wd_remove_accents($formAjoutClient['Adresse2']->getData());
+                $Adresse3 = $this->wd_remove_accents($formAjoutClient['Adresse3']->getData());
 
                 $fichierSQLCreationClient = fopen($root . "\scripts\SQL\InsertClientIntoGXDB.sql", "w+"); // On ouvre le fichier SQL de création de client ou on le crée si il n'existe pas.
                 // On écris la requête SQL de création de client avec les paramêtres du formulaire.
@@ -236,9 +244,9 @@ class NouveauSuiviController extends Controller {
 
                 fwrite($fichierSQLCreationClient, $sqlClient); // On insert la requête dans le fichier SQL de création de client.
                 fclose($fichierSQLCreationClient); // On ferme le fichier SQL de création de client.
+                $N_Client = null; // On initialise la variable qui contiendras le numéro du client.
                 exec($root . "\scripts\AddClientToGXDB.bat", $N_Client); // On execute le script de la requette SQL.
                 $N_Client = intval(str_replace(' ', '', $N_Client[0])); // On récupère la valeur 'N_Client' du nouveau client.
-                var_dump($N_Client);
 
                 $fichierSQLCreationAdresse = fopen($root . "\scripts\SQL\InsertClientAdrIntoGXDB.sql", "w+"); // On ouvre le fichier SQL de création d'adresse ou on le crée si il n'existe pas.                                    
                 // On écris la requête SQL de création d'adresse avec les paramêtres du formulaire.
@@ -276,12 +284,13 @@ class NouveauSuiviController extends Controller {
             $clients = $em->getRepository("NoxIntranetRessourcesBundle:AA_Client")->createQueryBuilder('o')
                     ->where('o.nomClient LIKE :critere')
                     ->setParameter('critere', "%" . $critere . "%")
+                    ->orderBy('o.nomClient') // On trie la liste par ordre alphabetique des noms des clients.
                     ->getQuery()
                     ->getResult();
 
             // On crée la liste de clients à retourner.
             foreach ($clients as $client) {
-                $listeClients[$client->getNClient()] = $client->getNomClient();
+                $listeClients[] = array('numero' => $client->getNClient(), 'nom' => $client->getNomClient());
             }
         }
 
@@ -339,7 +348,7 @@ class NouveauSuiviController extends Controller {
         $noClient = $suivi->getNoClient();
 
         // On génére le formulaire de séléction de l'interlocuteur en fonction du client.
-        $form = $this->get('form.factory')->createBuilder('form', $suivi)
+        $formSelectionInterlocuteur = $this->get('form.factory')->createNamedBuilder('formSelectionInterlocuteur', 'form', $suivi)
                 ->add('NoInterlocuteur', EntityType::class, array(
                     'class' => 'NoxIntranetRessourcesBundle:AA_Contact',
                     'query_builder' => function(EntityRepository $er) use ($noClient) {
@@ -354,19 +363,107 @@ class NouveauSuiviController extends Controller {
                 ->add('Choisir', SubmitType::class)
                 ->getForm();
 
+        // On génére un formulaire de création de nouvelle interlocuteur.
+        $formAjoutInterlocuteur = $this->get('form.factory')->createNamedBuilder('formAjoutInterlocuteur', 'form')
+                ->add('Nom_Contact', TextType::class)
+                ->add('Prenom_Contact', TextType::class)
+                ->add('Titre', TextType::class)
+                ->add('Nom_Ville', TextType::class)
+                ->add('Nom_Pays', TextType::class)
+                ->add('Code_Postal', IntegerType::class)
+                ->add('Ligne_Directe', TextType::class)
+                ->add('Portable', TextType::class)
+                ->add('Fax', TextType::class)
+                ->add('Ajouter', SubmitType::class)
+                ->getForm();
+
         // On traite le formulaire de séléction de l'interlocuteur.
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            // On attribut l'interlocuteur au suivi.
-            $suivi->setNoInterlocuteur($form->get('NoInterlocuteur')->getData()->getNContact());
-            // On sauvegarde le suivi en base de donnée.
-            $em->persist($suivi);
-            $em->flush();
-            // On redirige vers le remplissage des informations du suivi.
-            return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_infos', array('IdSuivi' => $IdSuivi));
+        if ($request->request->has('formSelectionInterlocuteur')) {
+            $formSelectionInterlocuteur->handleRequest($request);
+            if ($formSelectionInterlocuteur->isValid()) {
+                // On attribut l'interlocuteur au suivi.
+                $suivi->setNoInterlocuteur($formSelectionInterlocuteur->get('NoInterlocuteur')->getData()->getNContact());
+                // On sauvegarde le suivi en base de donnée.
+                $em->persist($suivi);
+                $em->flush();
+                // On redirige vers le remplissage des informations du suivi.
+                return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_infos', array('IdSuivi' => $IdSuivi));
+            }
         }
 
-        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:assistantaffairecreationchoixinterlocuteur.html.twig', array('form' => $form->createView(), 'IdSuivi' => $IdSuivi));
+        // On traite le formulaire d'ajout d'interlocuteur.
+        if ($request->request->has('formAjoutInterlocuteur')) {
+            $formAjoutInterlocuteur->handleRequest($request);
+            if ($formAjoutInterlocuteur->isValid()) {
+
+                // On récupére le chemin du serveur.
+                $root = $this->container->getParameter('kernel.root_dir') . '\..';
+
+                // On récupére les variables du formulaire et on remplace les valeurs accentués par leur équivalent sans accent (pour l'encodage en base de donnée).
+                $Nom_Contact = $this->wd_remove_accents($formAjoutInterlocuteur['Nom_Contact']->getData());
+                $Prenom_Contact = $this->wd_remove_accents($formAjoutInterlocuteur['Prenom_Contact']->getData());
+                $Titre = $this->wd_remove_accents($formAjoutInterlocuteur['Titre']->getData());
+                $Nom_Ville = $this->wd_remove_accents($formAjoutInterlocuteur['Nom_Ville']->getData());
+                $Nom_Pays = $this->wd_remove_accents($formAjoutInterlocuteur['Nom_Pays']->getData());
+                $Code_Postal = $this->wd_remove_accents($formAjoutInterlocuteur['Code_Postal']->getData());
+                $Ligne_Directe = $this->wd_remove_accents($formAjoutInterlocuteur['Ligne_Directe']->getData());
+                $Portable = $this->wd_remove_accents($formAjoutInterlocuteur['Portable']->getData());
+                $Fax = $this->wd_remove_accents($formAjoutInterlocuteur['Fax']->getData());
+
+                $fichierSQLCreationInterlocuteur = fopen($root . "\scripts\SQL\InsertContactIntoGXDB.sql", "w+"); // On ouvre le fichier SQL de création d'interlocuteur ou on le crée si il n'existe pas.
+                // On écris la requête SQL de création de client avec les paramêtres du formulaire.
+                $sqlInterlocuteur = "SET NOCOUNT ON\n";
+                $sqlInterlocuteur .= "INSERT INTO Contact (N_Client, Nom_Contact, Prenom_Contact, Titre, Nom_Ville, Nom_Pays, Code_Postal, Ligne_Directe, Portable, Fax) VALUES (" . $noClient . ", '" . $Nom_Contact . "', '" . $Prenom_Contact . "', '" . $Titre . "', '" . $Nom_Ville . "', '" . $Nom_Pays . "', '" . $Code_Postal . "', '" . $Ligne_Directe . "', '" . $Portable . "', '" . $Fax . "');\n";
+                $sqlInterlocuteur .= "SELECT SCOPE_IDENTITY();\n";
+                $sqlInterlocuteur .= "GO";
+                fwrite($fichierSQLCreationInterlocuteur, $sqlInterlocuteur); // On insert la requête dans le fichier SQL de création d'interlocuteur.
+                fclose($fichierSQLCreationInterlocuteur); // On ferme le fichier SQL de création d'interlocuteur.
+                $N_Interlocuteur = null; // On initialise la variable qui contiendras le numéro de l'interlocuteur.
+                exec($root . "\scripts\AddContactToGXDB.bat", $N_Interlocuteur); // On execute le script de la requette SQL.
+                $N_Interlocuteur = intval(str_replace(' ', '', $N_Interlocuteur[0])); // On récupère la valeur 'N_Client' du nouveau client.
+
+                $suivi->setNoInterlocuteur($N_Interlocuteur); // On attribut le nouvelle interlocuteur au suivi.
+                // On sauvegarde le suivi en base de données.
+                $em->persist($suivi);
+                $em->flush();
+
+                // On redirige vers le remplissage des informations du suivi.
+                return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_infos', array('IdSuivi' => $IdSuivi));
+            }
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:assistantaffairecreationchoixinterlocuteur.html.twig', array('formSelectionInterlocuteur' => $formSelectionInterlocuteur->createView(), 'formAjoutInterlocuteur' => $formAjoutInterlocuteur->createView(), 'IdSuivi' => $IdSuivi, 'noClient' => $noClient));
+    }
+
+    // Récupére la liste des clients en fonction de la recherche passé en paramêtre.
+    public function ajaxInterlocuteurGetterAction(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+        $listeInterlocuteurs = array();
+
+        if ($request->isXmlHttpRequest()) {
+            // On récupére le terme de la recherche.
+            $critere = $request->get('critere');
+            $numClient = $request->get('numClient');
+
+            // On récupére les contacts en fonction du critère de recherche.
+            $contacts = $em->getRepository("NoxIntranetRessourcesBundle:AA_Contact")->createQueryBuilder('o')
+                    ->where("CONCAT(o.prenomContact, ' ', o.nomContact) LIKE :critere AND o.nClient = :numClient")
+                    ->setParameters(array('critere' => "%" . $critere . "%", 'numClient' => $numClient))
+                    ->orderBy("CONCAT(o.prenomContact, ' ', o.nomContact)")
+                    ->getQuery()
+                    ->getResult();
+
+            // On crée la liste de contacts à retourner.
+            foreach ($contacts as $contact) {
+                $listeInterlocuteurs[] = array('numero' => $contact->getNContact(), 'nom' => $contact->getPrenomContact() . ' ' . $contact->getNomContact());
+            }
+        }
+
+        // On encode la liste des contacts et on la retourne.
+        $response = new Response(json_encode($listeInterlocuteurs));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     // Remplissage des informations du suivi.
