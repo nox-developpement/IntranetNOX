@@ -68,7 +68,16 @@
 
                 {{ form_label(formAjoutInterlocuteur.Titre, "Titre :", {'label_attr': {'class': 'labelFormulaireAjoutClient'}}) }}
                 {{ form_errors(formAjoutInterlocuteur.Titre) }}
-                {{ form_widget(formAjoutInterlocuteur.Titre, {'attr': {'class': 'textFormulaireAjoutClient champAjoutClient'}}) }}
+
+                <span style="display: inline-block; width: 40%; margin-right: 10%; margin-bottom: 1%; border: 2px solid transparent; text-align: center;"> 
+                    <span style="display: inline-block; text-align: left;">
+                        {% for option in formAjoutInterlocuteur.Titre %}
+                            <span> 
+                                {{ form_widget(option, {'attr': { 'style': 'margin-right: 2%; width: auto;'}}) }}{{ form_label(option, option, {'label_attr': {'style' :'float: none; text-align: left;'}}) }}
+                            </span><br />
+                        {% endfor %}     
+                    </span>
+                </span>
 
                 <br />
 

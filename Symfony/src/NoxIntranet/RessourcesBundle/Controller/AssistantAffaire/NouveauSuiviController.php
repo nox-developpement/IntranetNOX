@@ -1,22 +1,17 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace NoxIntranet\RessourcesBundle\Controller\AssistantAffaire;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use NoxIntranet\RessourcesBundle\Entity\Suivis;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Doctrine\ORM\EntityRepository;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class NouveauSuiviController extends Controller {
 
@@ -249,6 +244,7 @@ class NouveauSuiviController extends Controller {
                 $N_Client = intval(str_replace(' ', '', $N_Client[0])); // On récupère la valeur 'N_Client' du nouveau client.
 
                 $fichierSQLCreationAdresse = fopen($root . "\scripts\SQL\InsertClientAdrIntoGXDB.sql", "w+"); // On ouvre le fichier SQL de création d'adresse ou on le crée si il n'existe pas.                                    
+                //                
                 // On écris la requête SQL de création d'adresse avec les paramêtres du formulaire.
                 $sqlAdresse = "SET NOCOUNT ON\n";
                 $sqlAdresse .= "INSERT INTO CLIENTADR (N_Client, Tel, Fax, Email, Nom_Ville, Nom_Pays, Code_Postal, Adresse1, Adresse2, Adresse3, AdrPrincipale) VALUES (" . $N_Client . ",'" . $Tel . "', '" . $Fax . "', '" . $Email . "', '" . $Nom_Ville . "', '" . $Nom_Pays . "', '" . $Code_Postal . "', '" . $Adresse1 . "', '" . $Adresse2 . "', '" . $Adresse3 . "', 'oui');\n";
@@ -256,6 +252,7 @@ class NouveauSuiviController extends Controller {
                 fwrite($fichierSQLCreationAdresse, $sqlAdresse); // On insert la requête dans le fichier SQL de création d'adresse.
                 fclose($fichierSQLCreationAdresse); // On ferme le fichier SQL de création d'adresse.
                 exec($root . "\scripts\AddClientAdrToGXDB.bat"); // On execute le script de la requette SQL.
+                exec($root . "\scripts\GXDataUpdating.bat"); // On met à jours la base de données de l'intranet depuis celle de GX.
 
                 $suivi->setNoClient($N_Client); // On attribut le nouveau client au suivi.
                 // On sauvegarde le suivi en base de données.
@@ -356,6 +353,9 @@ class NouveauSuiviController extends Controller {
                                 ->where('a.nClient = :noClient')
                                 ->setParameter('noClient', $noClient);
                     },
+                    'choice_value' => function($value) {
+                        return $value->getNContact();
+                    },
                     'choice_label' => function($value) {
                         return $value->getPrenomContact() . ' ' . $value->getNomContact();
                     },
@@ -367,7 +367,10 @@ class NouveauSuiviController extends Controller {
         $formAjoutInterlocuteur = $this->get('form.factory')->createNamedBuilder('formAjoutInterlocuteur', 'form')
                 ->add('Nom_Contact', TextType::class)
                 ->add('Prenom_Contact', TextType::class)
-                ->add('Titre', TextType::class)
+                ->add('Titre', ChoiceType::class, array(
+                    'choices' => array('Monsieur' => 'Monsieur', 'Madame' => 'Madame'),
+                    'expanded' => true
+                ))
                 ->add('Nom_Ville', TextType::class)
                 ->add('Nom_Pays', TextType::class)
                 ->add('Code_Postal', IntegerType::class)
@@ -420,6 +423,7 @@ class NouveauSuiviController extends Controller {
                 fclose($fichierSQLCreationInterlocuteur); // On ferme le fichier SQL de création d'interlocuteur.
                 $N_Interlocuteur = null; // On initialise la variable qui contiendras le numéro de l'interlocuteur.
                 exec($root . "\scripts\AddContactToGXDB.bat", $N_Interlocuteur); // On execute le script de la requette SQL.
+                exec($root . "\scripts\GXDataUpdating.bat"); // On met à jours la base de données de l'intranet depuis celle de GX.
                 $N_Interlocuteur = intval(str_replace(' ', '', $N_Interlocuteur[0])); // On récupère la valeur 'N_Client' du nouveau client.
 
                 $suivi->setNoInterlocuteur($N_Interlocuteur); // On attribut le nouvelle interlocuteur au suivi.
