@@ -83,6 +83,8 @@
                     </select><br />
                     <button name='deleteNoCommande' type='button' class='boutonFormulaire' style='width: 40%; font-size: 0.8vw; margin-top: 1%;'>Supprimer</button>
                 </div>
+                <div id='ajaxSearchAffairesDiv' style='position: absolute; top: 0; left: 0; background-color: white; border: 1px solid rgb(165, 172, 178); font-size: 0.8vw; display: none;'>
+                </div>
             </fieldset>
         </form>
 
@@ -145,6 +147,7 @@
             ajaxAddNoCommand();
             ajaxDeleteNoCommande();
             lockUnlockDataModifying();
+            getGXAffaires();
             ajaxSaveNewInfo();
         });
 
@@ -316,9 +319,8 @@
                     timer = setTimeout(callback, ms);
                 };
             })();
-
             // Execute la fonction Ajax lorsque le contenu d'un champ est modifié.
-            $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient'], input[name='adresseClient']), #formInfoInfoSuivi select").on('keyup paste', function () {
+            $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient'], input[name='adresseClient'], input[name='numGX'])").on('keyup paste', function () {
                 var champ = $(this);
                 typewatch(function () {
                     $.ajax({
@@ -327,14 +329,8 @@
                         data: {'IDSuivi': '{{ suivi.id }}', 'row': champ.attr('name'), 'newInfo': champ.val()},
                         success: function (response) {
                             if (response === 'Saved') {
-
-                                if (champ.is('select')) {
-                                    alert('select');
-                                    champ = $(champ + ' option:selected');
-                                }
-
                                 // On change la fond du champ en vert.
-                                champ.css('background-color', 'green');
+                                champ.stop().css('background-color', 'green');
                                 // On remet le fond par défaut au bout de 3 secondes.
                                 champ.animate({
                                     backgroundColor: 'initial'
@@ -344,7 +340,100 @@
                             }
                         }
                     });
-                }, 1000);
+                }, 500);
+            });
+            // Execute la fonction Ajax lorsque la valeur du sélécteur est modifié.
+            $("select[name='interlocuteur']").on('change', function () {
+                var champ = $(this);
+                typewatch(function () {
+                    $.ajax({
+                        url: '{{ path('nox_intranet_assistant_affaire_ajax_save_new_infos') }}',
+                        type: 'POST',
+                        data: {'IDSuivi': '{{ suivi.id }}', 'row': champ.attr('name'), 'newInfo': champ.val()},
+                        success: function (response) {
+                            if (response === 'Saved') {
+                                // On change la fond du champ en vert.
+                                champ.stop().css('background-color', 'green');
+                                // On remet le fond par défaut au bout de 3 secondes.
+                                champ.animate({
+                                    backgroundColor: 'initial'
+                                }, 3000, function () {
+                                    champ.removeAttr('style');
+                                });
+                            }
+                        }
+                    });
+                }, 500);
+            });
+        }
+
+        // Renvoi les affaires dont le numéro contient la chaine "search".
+        function getGXAffaires() {
+
+            // Supprime les triggers d'event déjà existant.
+            $("input[name='numGX']").unbind('blur');
+            $("input[name='numGX']").unbind('keyup');
+            $("input[name='numGX']").unbind('paste');
+            //$('#tableFeuillePointage tr:nth-child(2) .project').unbind('input');
+
+            // Pour toutes action dans une cellule titre d'affaire.
+            $("input[name='numGX']").on('keyup paste', function () {
+
+                // Si le champ de recherche n'est pas vide.
+                if ($(this).val() !== '') {
+                    $('#ajaxSearchAffairesDiv').hide();
+                    var search = $(this).val();
+                    var celluleProject = $(this);
+                    var affaires = "http://" + window.location.hostname + "/Symfony/web/DatabasesCSV/AffairesEncode.csv";
+                    var compteur = 0;
+                    // Supprime les paragraphes de résultats existants.
+                    $('#ajaxSearchAffairesDiv').empty();
+                    // Fixe la largeur minimale de la 'div' des résultats a 1.1 fois la taille de la cellule.
+                    var minWidth = celluleProject.outerWidth() * 1.1;
+                    $('#ajaxSearchAffairesDiv').css('min-width', minWidth);
+                    // Cherche la chaine saisi dans le fichier csv des affaires et ajoute une balise 'p' par résultats.
+                    if (search !== '') {
+                        $.get(affaires, function (data) {
+                            var lineByLine = data.split("\n");
+                            var numsAffaires = [];
+                            $.each(lineByLine, function (index, value) {
+                                var donnes = value.split(';');
+                                numsAffaires.push(donnes[0]);
+                                if (compteur < 10 && donnes[0].indexOf(search) >= 0 && (search.trim() !== donnes[0].trim())) {
+                                    $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' data-nomaffaire='" + donnes[1] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
+                                    compteur++;
+                                }
+                            });
+                            // Effet visuel au passage de la souris sur les résultats.
+                            $('.ajaxSearchAffairesDivResults').hover(function () {
+                                $(this).css('background-color', 'rgb(217, 217, 217)');
+                            }, function () {
+                                $(this).css('background-color', 'white');
+                            });
+                            // Lors du clique sur un résultat on remplace le contenu de la recherche par le résultat.
+                            $('.ajaxSearchAffairesDivResults').mousedown(function () {
+                                celluleProject.val($(this).attr('data-numaffaire'));
+                                celluleProject.attr('title', $(this).attr('data-nomaffaire'));
+                            });
+                            // Positione la 'div' contenant les résultats sous la cellules focus.
+                            $('#ajaxSearchAffairesDiv').css('top', celluleProject.offset().top + celluleProject.outerHeight());
+                            $('#ajaxSearchAffairesDiv').css('left', celluleProject.offset().left);
+                            // Affiche la 'div' des résultats si elle n'est pas vide.
+                            if (compteur > 0 && $('#form_NumeroGX').val() !== '') {
+                                $('#ajaxSearchAffairesDiv').show();
+                            }
+
+                            // Cache la div des résultats lors du blur du champ de recherche et vide la cellule si le contenu n'est pas un numéro d'affaire existant.
+                            celluleProject.blur(function () {
+                                $('#ajaxSearchAffairesDiv').empty();
+                                $('#ajaxSearchAffairesDiv').hide();
+                                if ($.inArray(celluleProject.val(), numsAffaires) === -1) {
+                                    celluleProject.val('');
+                                }
+                            });
+                        });
+                    }
+                }
             });
         }
 
