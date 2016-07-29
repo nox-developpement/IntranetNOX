@@ -27,14 +27,27 @@
 
     </div>
 
-    <div id="DivFormulaireCloturationSuivi">
+    <div id="DivChoixActionInfo" style='width: 70%; margin: auto; text-align: center; margin-bottom: 2%;'>
+
+        <div style='display: inline-block; width: 33.33%; text-align: center;'>
+            <button type="button" name='informationsSuivi' class='boutonFormulaire' style='font-size: 0.9vw;'>Informations</button>
+        </div><!--
+        --><div style='display: inline-block; width: 33.33%; text-align: center;'>
+            <button type="button" name='remplissageSuivi' class='boutonFormulaire' style='font-size: 0.9vw;'>Remplissage</button>
+        </div><!--
+        --><div style='display: inline-block; width: 33.33%; text-align: center;'>
+            <button type="button" name='cloturationSuivi' class='boutonFormulaire' style='font-size: 0.9vw;'>Cloturation</button>
+        </div>
+    </div>
+
+    <div id="DivFormulaireCloturationSuivi" style='display: none;'>
 
         {{ form_start(formCloturationSuivi, {'attr': {'class': 'formulaireCloturationSuivi'}}) }}
         {{ form_errors(formCloturationSuivi) }}
 
         <fieldset>
 
-            <legend>Cloturation</legend>
+            <legend>Cloturation du suivi</legend>
 
             {{ form_widget(formCloturationSuivi.Cloturer, {'label': 'Cloturer le suivi', 'attr': {'class': 'boutonFormulaire'}}) }}
 
@@ -48,8 +61,13 @@
 
         <form class="formInfo">
             <fieldset>
-                <legend>Infos suivi</legend>
-                <div style='display: flex; justify-content: center; border-bottom: 1px solid #1F4E79; padding-bottom: 2%; '>
+                <legend>Informations du suivi</legend>
+                <div id='formInfoChampsManquants'>
+                    <p style='text-align: center; color: red; margin: 0;'>Attention les informations suivantes sont manquantes :</p>
+                    <ul style='color: red; display: inline-block; margin: 1.5% 0 1.5% 0;'>
+                    </ul>
+                </div>
+                <div style='display: flex; justify-content: center; border-bottom: 1px solid #1F4E79; padding-bottom: 2%; '>             
                     <div id="formInfoInfoSuivi" style='display: inline-block; width: 85%; align-self: center;'>
                         <label for='agence'>Agence: </label><input name='agence' type='text' value='{{ suivi.Agence }}' disabled><br />
                         <label for='numGX'>Numéro GX: </label><input name='numGX' type='text' value='{{ suivi.NumeroGX }}' disabled><br />
@@ -90,14 +108,14 @@
 
     </div>
 
-    <div id="DivFormulaireRemplissageSuivi" style="margin-bottom: 5%;">
+    <div id="DivFormulaireRemplissageSuivi" style="margin-bottom: 5%; display: none;">
 
         {{ form_start(formDonneesSuivi, {'attr': {'class': 'formulaireRemplissageSuivi'}}) }}
         {{ form_errors(formDonneesSuivi) }}
 
         <fieldset>
 
-            <legend>{{ suivi.Nom }}</legend>
+            <legend>Remplissage de {{ suivi.Nom }}</legend>
 
             {% for champ in champsViews %}
                 {{ form_errors(attribute(formDonneesSuivi, champ.Champ)) }}
@@ -142,6 +160,7 @@
 
     <script>
         $(window).load(function () {
+            checkMissingInfo();
             hideAndShowDataAdding();
             openClientPopup();
             ajaxAddNoCommand();
@@ -149,6 +168,7 @@
             lockUnlockDataModifying();
             getGXAffaires();
             ajaxSaveNewInfo();
+            selectInterlocuteurAction();
         });
 
         // Ouvre un fenêtre pop-up contenant la/les adresse(s) du client.
@@ -320,7 +340,7 @@
                 };
             })();
             // Execute la fonction Ajax lorsque le contenu d'un champ est modifié.
-            $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient'], input[name='adresseClient'], input[name='numGX'])").on('keyup paste', function () {
+            $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient'], input[name='adresseClient'], input[name='numGX'])").on('keyup paste change', function () {
                 var champ = $(this);
                 typewatch(function () {
                     $.ajax({
@@ -338,6 +358,7 @@
                                     champ.removeAttr('style');
                                 });
                             }
+                            checkMissingInfo();
                         }
                     });
                 }, 500);
@@ -361,7 +382,9 @@
                                     champ.removeAttr('style');
                                 });
                             }
+                            checkMissingInfo();
                         }
+
                     });
                 }, 500);
             });
@@ -410,10 +433,30 @@
                             }, function () {
                                 $(this).css('background-color', 'white');
                             });
-                            // Lors du clique sur un résultat on remplace le contenu de la recherche par le résultat.
+                            // Lors du clique sur un résultat on remplace le contenu de la recherche par le résultat et on sauvegarde le résultat en base de données.
                             $('.ajaxSearchAffairesDivResults').mousedown(function () {
                                 celluleProject.val($(this).attr('data-numaffaire'));
                                 celluleProject.attr('title', $(this).attr('data-nomaffaire'));
+                                // Requête Ajax pour la sauvegarde en base de données.
+                                $.ajax({
+                                    url: '{{ path('nox_intranet_assistant_affaire_ajax_save_new_infos') }}',
+                                    type: 'POST',
+                                    data: {'IDSuivi': '{{ suivi.id }}', 'row': celluleProject.attr('name'), 'newInfo': celluleProject.val()},
+                                    success: function (response) {
+                                        if (response === 'Saved') {
+                                            // On change la fond du champ en vert.
+                                            celluleProject.stop().css('background-color', 'green');
+                                            // On remet le fond par défaut au bout de 3 secondes.
+                                            celluleProject.animate({
+                                                backgroundColor: 'initial'
+                                            }, 3000, function () {
+                                                celluleProject.removeAttr('style');
+                                            });
+                                        }
+                                        checkMissingInfo();
+                                    }
+                                });
+
                             });
                             // Positione la 'div' contenant les résultats sous la cellules focus.
                             $('#ajaxSearchAffairesDiv').css('top', celluleProject.offset().top + celluleProject.outerHeight());
@@ -427,13 +470,81 @@
                             celluleProject.blur(function () {
                                 $('#ajaxSearchAffairesDiv').empty();
                                 $('#ajaxSearchAffairesDiv').hide();
+                                // Si le numéro d'affaire n'existe pas on vide la cellule et on la sauvegarde en base de données.
                                 if ($.inArray(celluleProject.val(), numsAffaires) === -1) {
                                     celluleProject.val('');
+                                    // Requête Ajax pour la sauvegarde en base de données.
+                                    $.ajax({
+                                        url: '{{ path('nox_intranet_assistant_affaire_ajax_save_new_infos') }}',
+                                        type: 'POST',
+                                        data: {'IDSuivi': '{{ suivi.id }}', 'row': celluleProject.attr('name'), 'newInfo': celluleProject.val()},
+                                        success: function (response) {
+                                            if (response === 'Saved') {
+                                                // On change la fond du champ en vert.
+                                                celluleProject.stop().css('background-color', 'green');
+                                                // On remet le fond par défaut au bout de 3 secondes.
+                                                celluleProject.animate({
+                                                    backgroundColor: 'initial'
+                                                }, 3000, function () {
+                                                    celluleProject.removeAttr('style');
+                                                });
+                                            }
+                                            checkMissingInfo();
+                                        }
+                                    });
                                 }
                             });
                         });
                     }
                 }
+            });
+        }
+
+        // Vérifie le contenu des champs d'information et affiche le nom des champs vides.
+        function checkMissingInfo() {
+            var newLiHTML = ''; // Initialisation du nouveau contenu HTML;
+
+            // Pour chaque input du formulaire.
+            $("#formInfoInfoSuivi input:not(input[name='nclient'], input[name='nomClient'], input[name='adresseClient'])").each(function () {
+                // Si la du champ est nul.
+                if ($(this).val() === '') {
+                    // On ajout un 'li' avec le texte du label associé au champ.
+                    newLiHTML += "<li style='text-align: left;'>" + $("label[for='" + $(this).attr('name') + "'").text().replace(':', '') + '</li>';
+                }
+            });
+            // Si le nouveau contenu HTML n'est pas vide.
+            if (newLiHTML !== '') {
+                // On fait apparaître la 'div' des informations manquantes.
+                $('#formInfoChampsManquants').show();
+            }
+            // Si le nouveau contenu HTML est vide.
+            else {
+                // On fait disparaitre la 'div' des informations manquantes.
+                $('#formInfoChampsManquants').hide();
+            }
+            // On remplace le contenu de 'ul' par le nouveau contenu HTML.
+            $('#formInfoChampsManquants ul').html(newLiHTML);
+        }
+
+        // Affiche/Cache les 'div' de cloturation/information/remplissage du suivi.
+        function selectInterlocuteurAction() {
+            // Lors d'un clique sur le bouton de cloturation du suivi.
+            $("button[name='cloturationSuivi']").click(function () {
+                $('#DivFormulaireCloturationSuivi').show(); // Affiche la 'div' de cloturation du suivi.
+                $('#DivInfoSuivi').hide(); // Cache la 'div' d'information du suivi.
+                $('#DivFormulaireRemplissageSuivi').hide(); // Cache la 'div' de remplissage du suivi.
+            });
+            // Lors d'un clique sur le bouton d'information suivi.
+            $("button[name='informationsSuivi']").click(function () {
+                $('#DivFormulaireCloturationSuivi').hide(); // Cache la 'div' de cloturation du suivi.
+                $('#DivInfoSuivi').show(); // Affiche la 'div' d'information du suivi.
+                $('#DivFormulaireRemplissageSuivi').hide(); // Cache la 'div' de remplissage du suivi.
+            });
+            // Lors d'un clique sur le bouton de remplissage du suivi.
+            $("button[name='remplissageSuivi']").click(function () {
+                $('#DivFormulaireCloturationSuivi').hide(); // Cache la 'div' de cloturation du suivi.
+                $('#DivInfoSuivi').hide(); // Cache la 'div' d'information du suivi.
+                $('#DivFormulaireRemplissageSuivi').show(); // Affiche la 'div' de remplissage du suivi.
             });
         }
 

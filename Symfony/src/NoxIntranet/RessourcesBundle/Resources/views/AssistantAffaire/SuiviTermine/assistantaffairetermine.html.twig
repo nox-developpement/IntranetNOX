@@ -1,0 +1,100 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Parcourirs les suivis terminés {% endblock %}
+
+{% block messageAccueil %}Parcourirs les suivis terminés{% endblock %}
+
+{% block contenu %}
+
+    <div id='DivFormulaireSelectionAgence'>
+
+        {{ form_start(formSelectionAgence, {'attr': {'class': 'formulaireSelectionAgence'}}) }}
+        {{ form_errors(formSelectionAgence) }}
+
+        <fieldset>
+
+            <legend><span>Agence</legend>
+
+            {{ form_label(formSelectionAgence.Agences, "Selection de l'agence :", {'label_attr': {'class': 'labelFormulaireSelectionAgence'}}) }}
+            {{ form_errors(formSelectionAgence.Agences) }}
+            {{ form_widget(formSelectionAgence.Agences, {'attr': {'class': 'selectFormulaireSelectionAgence'}}) }}
+
+        </fieldset>
+
+        {{ form_end(formSelectionAgence) }}
+
+    </div>
+
+
+    <div id='DivFormulaireParcourSuiviEnCours'>
+        {{ form_start(formSelectionSuivi, {'attr': {'class': 'formulaireParcourSuiviEnCours'}}) }}
+        {{ form_errors(formSelectionSuivi) }}
+
+        <fieldset>
+
+            <legend>Selection du suivi</legend>
+
+            <p>
+                <label for="rechercehSuivi">Recherche</label>
+                <input placeholder="Ex : Ventes 2016" type="text" name="rechercheSuivi" id="rechercheSuivi" style="width: 100%;"/>
+                {{ form_errors(formSelectionSuivi.Suivi) }}
+                {{ form_widget(formSelectionSuivi.Suivi, {'attr': {'class': 'selectFormulaireAdministrationAjoutProfil', 'size': 15}}) }}
+            </p>
+
+            {{ form_widget(formSelectionSuivi._token) }}
+
+            <p>
+                {{ form_widget(formSelectionSuivi.Consulter, {'attr': {'class': 'submitFormulaireParcourSuiviEnCours' }}) }}
+            </p>
+
+        </fieldset>
+
+        {{ form_end(formSelectionSuivi) }}
+
+    </div>
+
+    <script>
+
+        $(window).load(function () {
+            searchSuivi('#rechercheSuivi', '.selectFormulaireAdministrationAjoutProfil');
+        });
+
+        // Affiche les suivis selon le nom recherché.
+        function searchSuivi(champRecherche, selecteur) {
+
+            // Initialisation d'un timer pour executer la fonction après 1 seconde sans frappe.
+            var typewatch = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            // Lorsque une valeur est entré dans la barre de recherche.
+            $(champRecherche).keyup(function () {
+                typewatch(function () {
+                    // Pour chaque résultat.
+                    $(selecteur + ' option').each(function () {
+                        // Si il ne correspond pas à la recherche...
+                        if ($(this).text().search(new RegExp($(champRecherche).val(), 'i')) === -1) {
+                            $(this).hide(); // ...On le cache.
+                        }
+                        // Si il correspond à la recherche.
+                        else {
+                            // On le montre et on lui donne son nom comme attribut 'title'.
+                            $(this).show();
+                            $(this).attr('title', $(this).text());
+                        }
+                    });
+                    // On applique une couleur différente au résultat pair et impair.
+                    $(selecteur + ' option:visible:odd').css('background', 'SeaShell');
+                    $(selecteur + ' option:visible:even').css('background', 'white');
+                }, 500);
+            });
+        }
+
+    </script>
+
+{% endblock %}
+{# empty Twig template #}

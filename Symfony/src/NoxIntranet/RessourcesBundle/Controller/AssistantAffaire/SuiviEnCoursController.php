@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use NoxIntranet\RessourcesBundle\Entity\DonneesSuivi;
 
 class SuiviEnCoursController extends Controller {
 
@@ -242,7 +243,6 @@ class SuiviEnCoursController extends Controller {
             $clientAdrHtml .= "<p style='text-align: center;'>Il n'y a aucune données d'adresse pour ce client.";
             $clientAdrHtml .= "</fieldset>";
         }
-
         $clientAdrHtml .= "</body>";
         $clientAdrHtml .= "</html>";
 
@@ -658,27 +658,51 @@ class SuiviEnCoursController extends Controller {
             // On enregistre la nouvelle valeur en fonction du champ.
             switch ($row) {
                 case 'agence':
+                    if ($suivi->getAgence() === $newInfo) {
+                        return new Response('No change');
+                    }
                     $suivi->setAgence($newInfo);
                     break;
                 case 'numGX':
+                    if ($suivi->getNumeroGX() === $newInfo) {
+                        return new Response('No change');
+                    }
                     $suivi->setNumeroGX($newInfo);
                     break;
                 case 'commune':
+                    if ($suivi->getCommune() === $newInfo) {
+                        return new Response('No change');
+                    }
                     $suivi->setCommune($newInfo);
                     break;
                 case 'marche':
+                    if ($suivi->getMarche() === $newInfo) {
+                        return new Response('No change');
+                    }
                     $suivi->setMarche($newInfo);
                     break;
                 case 'objet':
+                    if ($suivi->getObjet() === $newInfo) {
+                        return new Response('No change');
+                    }
                     $suivi->setObjet($newInfo);
                     break;
                 case 'ningediabep';
+                    if ($suivi->getNoINGEDIABEP() === $newInfo) {
+                        return new Response('No change');
+                    }
                     $suivi->setNoINGEDIABEP($newInfo);
                     break;
                 case 'estimatif';
+                    if ($suivi->getEstimatif() === $newInfo) {
+                        return new Response('No change');
+                    }
                     $suivi->setEstimatif($newInfo);
                     break;
                 case 'interlocuteur':
+                    if ($suivi->getNoInterlocuteur() === $newInfo) {
+                        return new Response('No change');
+                    }
                     $suivi->setNoInterlocuteur($newInfo);
                     break;
             }
