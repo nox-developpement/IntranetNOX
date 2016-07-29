@@ -6,98 +6,103 @@
 
 {% block contenu %}
 
-    <div class="titreFormulaireAA" onclick="
-            assistantAffaireToggle([
-                $('#DivFormulaireAjoutProfil'),
-                $('#DivFormulaireSuppressionProfil')
-            ], $(this));">
-        <h4> Profils <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='formulaireAAImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='formulaireAAImgDown'></h4>
+    <div id="DivChoixActionInfo" style='width: 70%; margin: auto; text-align: center; margin-bottom: 2%;'>
+        <div style='display: inline-block; width: 33.33%; text-align: center;'>
+            <button type="button" name='profils' class='boutonFormulaire' style='font-size: 0.9vw;'>Profils</button>
+        </div><!--
+        --><div style='display: inline-block; width: 33.33%; text-align: center;'>
+            <button type="button" name='champs' class='boutonFormulaire' style='font-size: 0.9vw;'>Champs</button>
+        </div><!--
+        --><div style='display: inline-block; width: 33.33%; text-align: center;'>
+            <button type="button" name='modeles' class='boutonFormulaire' style='font-size: 0.9vw;'>Modèles</button>
+        </div>
     </div>
 
-    <div id='DivFormulaireAjoutProfil' class='formulaireAA'>
+    <div id='DivProfils' style='display: none;'>
 
-        {{ form_start(formAjoutProfil, {'attr': {'class': 'formulaireAdministrationAjoutProfil'}}) }}
-        {{ form_errors(formAjoutProfil) }}
+        <div id='DivFormulaireAjoutProfil' class='formulaireAA'>
 
-        <fieldset>
+            {{ form_start(formAjoutProfil, {'attr': {'class': 'formulaireAdministrationAjoutProfil'}}) }}
+            {{ form_errors(formAjoutProfil) }}
 
-            <legend>Ajouter un profil</legend>
+            <fieldset>
 
-            {{ form_label(formAjoutProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutProfil'}}) }}
-            {{ form_errors(formAjoutProfil.Nom) }}
-            {{ form_widget(formAjoutProfil.Nom, {'attr': {'class': 'textFormulaireAdministrationAjoutProfil'}}) }}
+                <legend>Ajouter un profil</legend>
 
-            {{ form_widget(formAjoutProfil._token) }}
+                {{ form_label(formAjoutProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutProfil'}}) }}
+                {{ form_errors(formAjoutProfil.Nom) }}
+                {{ form_widget(formAjoutProfil.Nom, {'attr': {'class': 'textFormulaireAdministrationAjoutProfil'}}) }}
 
-            {{ form_widget(formAjoutProfil.Ajouter, {'attr': {'class': 'submitFormulaireAdministrationAjoutProfil', 'class': 'boutonFormulaire' }}) }}
+                {{ form_widget(formAjoutProfil._token) }}
 
-        </fieldset>
+                {{ form_widget(formAjoutProfil.Ajouter, {'attr': {'class': 'submitFormulaireAdministrationAjoutProfil', 'class': 'boutonFormulaire' }}) }}
 
-        {{ form_end(formAjoutProfil) }}
+            </fieldset>
+
+            {{ form_end(formAjoutProfil) }}
+
+        </div>
+
+        <div id='DivFormulaireSuppressionProfil' class='formulaireAA'>
+
+            {{ form_start(formSuppresionProfil, {'attr': {'class': 'formulaireAdministrationSuppressionProfil'}}) }}
+            {{ form_errors(formSuppresionProfil) }}
+
+            <fieldset>
+
+                <legend>Supprimer un profil</legend>
+
+                {{ form_label(formSuppresionProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionProfil'}}) }}
+                {{ form_errors(formSuppresionProfil.Nom) }}
+                {{ form_widget(formSuppresionProfil.Nom, {'attr': {'class': 'selectFormulaireAdministrationSuppressionProfil'}}) }}
+
+                {{ form_widget(formSuppresionProfil._token) }}
+
+                {{ form_widget(formSuppresionProfil.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationSuppressionProfil', 'class': 'boutonFormulaire' }}) }}
+
+            </fieldset> 
+
+            {{ form_end(formSuppresionProfil) }}
+
+        </div>
 
     </div>
 
-    <div id='DivFormulaireSuppressionProfil' class='formulaireAA'>
+    <div id='DivChamps' style='display: none;'>
 
-        {{ form_start(formSuppresionProfil, {'attr': {'class': 'formulaireAdministrationSuppressionProfil'}}) }}
-        {{ form_errors(formSuppresionProfil) }}
+        <div class='DivFormulaireAjoutChamp formulaireAA'>
 
-        <fieldset>
+            {{ form_start(formAjoutChamp, {'attr': {'class': 'formulaireAjoutChamp'}}) }}
+            {{ form_errors(formAjoutChamp) }}
 
-            <legend>Supprimer un profil</legend>
+            <fieldset>
 
-            {{ form_label(formSuppresionProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionProfil'}}) }}
-            {{ form_errors(formSuppresionProfil.Nom) }}
-            {{ form_widget(formSuppresionProfil.Nom, {'attr': {'class': 'selectFormulaireAdministrationSuppressionProfil'}}) }}
+                <legend>Ajouter un champ</legend>
 
-            {{ form_widget(formSuppresionProfil._token) }}
+                <p>
+                    {{ form_label(formAjoutChamp.Type, "Type :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
+                    {{ form_errors(formAjoutChamp.Type) }}
+                    {{ form_widget(formAjoutChamp.Type, {'attr': {'class': 'selectFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}
 
-            {{ form_widget(formSuppresionProfil.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationSuppressionProfil', 'class': 'boutonFormulaire' }}) }}
+                    <br />
 
-        </fieldset> 
+                    {{ form_widget(formAjoutChamp._token) }}
 
-        {{ form_end(formSuppresionProfil) }}
+                    {{ form_label(formAjoutChamp.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
+                    {{ form_errors(formAjoutChamp.Nom) }}
+                    {{ form_widget(formAjoutChamp.Nom, {'attr': {'class': 'texteFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}
 
-    </div>
+                    <br />
 
-    <div class="titreFormulaireAA" onclick="
-            assistantAffaireToggle([
-                $('.DivFormulaireAjoutChamp'),
-                $('.DivFormulaireSuppressionChamp'),
-                $('.DivFormulaireSelectionChamp')
-            ], $(this));
-            resizeFormLabelAndData($('.labelFormulaireAjoutChamp'), $('.champFormulaireAjoutChamp'), $('.formulaireAjoutChamp p:nth-child(2)'));
-         ">
-        <h4> Champs <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='formulaireAAImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='formulaireAAImgDown'> </h4>
-    </div>
-
-    <div class='DivFormulaireAjoutChamp formulaireAA'>
-
-        {{ form_start(formAjoutChamp, {'attr': {'class': 'formulaireAjoutChamp'}}) }}
-        {{ form_errors(formAjoutChamp) }}
-
-        <fieldset>
-
-            <legend><p>Ajouter un champ</p></legend>
-
-            <p>
-                {{ form_label(formAjoutChamp.Type, "Type :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
-                {{ form_errors(formAjoutChamp.Type) }}
-                {{ form_widget(formAjoutChamp.Type, {'attr': {'class': 'selectFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}
-
-                <br />
-
-                {{ form_widget(formAjoutChamp._token) }}
-
-                {{ form_label(formAjoutChamp.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
-                {{ form_errors(formAjoutChamp.Nom) }}
-                {{ form_widget(formAjoutChamp.Nom, {'attr': {'class': 'texteFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}
-
-                <br />
-
-                {{ form_label(formAjoutChamp.AjoutDonnees, "Permettre l'ajout de donnée supplémentaire par l'utilisateur") }}
-                {{ form_errors(formAjoutChamp.AjoutDonnees) }}
-                {{ form_widget(formAjoutChamp.AjoutDonnees, {'attr': {'class': 'checkboxFormulaireAjoutChamp' }}) }}
+                <div style='margin: 1% 0 1% 0;'>
+                    <span style='display: inline-block; float: left; width: 90%;'> 
+                        {{ form_label(formAjoutChamp.AjoutDonnees, "Permettre l'ajout de donnée supplémentaire par l'utilisateur") }}
+                        {{ form_errors(formAjoutChamp.AjoutDonnees) }}
+                    </span>
+                    <span style='display: inline-block; float: right; width: 10%;'>
+                        {{ form_widget(formAjoutChamp.AjoutDonnees, {'attr': {'class': 'checkboxFormulaireAjoutChamp' }}) }}
+                    </span>
+                </div>
 
                 <br />
 
@@ -107,252 +112,298 @@
 
                 <br />
 
-                {{ form_widget(formAjoutChamp.Ajouter, {'attr': {'class': 'submitFormulaireAjoutChamp', 'class': 'boutonFormulaire' }}) }}
-            </p>
+                {{ form_widget(formAjoutChamp.Ajouter, {'attr': {'class': 'submitFormulaireAjoutChamp', 'class': 'boutonFormulaire', 'style': 'margin-top: 1%;' }}) }}
+                </p>
 
-        </fieldset> 
+            </fieldset> 
 
-        {{ form_end(formAjoutChamp) }}
+            {{ form_end(formAjoutChamp) }}
 
-    </div>
+        </div>
 
-    <div class='DivFormulaireSuppressionChamp formulaireAA'>
+        <div class='DivFormulaireSuppressionChamp formulaireAA'>
 
-        {{ form_start(formSuppressionChamp, {'attr': {'class': 'formulaireSuppressionChamp'}}) }}
-        {{ form_errors(formSuppressionChamp) }}
+            {{ form_start(formSuppressionChamp, {'attr': {'class': 'formulaireSuppressionChamp'}}) }}
+            {{ form_errors(formSuppressionChamp) }}
 
-        <fieldset>
+            <fieldset>
 
-            <legend>Supprimer un champ</legend>       
+                <legend>Supprimer un champ</legend>       
 
-            <p>
-                {{ form_label(formSuppressionChamp.Nom, "Nom - Type - Profil", {'label_attr': {'class': 'labelFormulaireSuppressionChamp'}}) }} <br />
-                {{ form_errors(formSuppressionChamp.Nom) }}
-                {{ form_widget(formSuppressionChamp.Nom, {'attr': {'class': 'selectFormulaireSuppressionChamp' }}) }}
-            </p>
+                <p>
+                    {{ form_label(formSuppressionChamp.Nom, "Nom - Type - Profil", {'label_attr': {'class': 'labelFormulaireSuppressionChamp'}}) }} <br />
+                    {{ form_errors(formSuppressionChamp.Nom) }}
+                    {{ form_widget(formSuppressionChamp.Nom, {'attr': {'class': 'selectFormulaireSuppressionChamp' }}) }}
+                </p>
 
-            <p>
-                {{ form_widget(formSuppressionChamp._token) }} 
+                <p>
+                    {{ form_widget(formSuppressionChamp._token) }} 
 
-                {{ form_widget(formSuppressionChamp.Supprimer, {'attr': {'class': 'submitFormulaireSuppressionChamp', 'class': 'boutonFormulaire' }}) }}
-            </p>
+                    {{ form_widget(formSuppressionChamp.Supprimer, {'attr': {'class': 'submitFormulaireSuppressionChamp', 'class': 'boutonFormulaire' }}) }}
+                </p>
 
-        </fieldset> 
+            </fieldset> 
 
-        {{ form_end(formSuppressionChamp) }}
+            {{ form_end(formSuppressionChamp) }}
 
-    </div>
+        </div>
 
-    <div class='DivFormulaireSelectionChamp formulaireAA'>
+        <div class='DivFormulaireSelectionChamp formulaireAA'>
 
-        {{ form_start(formSelectionChamp, {'attr': {'class': 'formulaireSelectionChamp'}}) }}
-        {{ form_errors(formSelectionChamp) }}
+            {{ form_start(formSelectionChamp, {'attr': {'class': 'formulaireSelectionChamp'}}) }}
+            {{ form_errors(formSelectionChamp) }}
 
-        <fieldset>
+            <fieldset>
 
-            <legend>Editer un champ de données</legend>       
+                <legend>Editer un champ de données</legend>       
 
-            <p>
-                {{ form_label(formSelectionChamp.Champs, "Champ :", {'label_attr': {'class': 'labelFormulaireSelectionChamp'}}) }}
-                {{ form_errors(formSelectionChamp.Champs) }}
-                {{ form_widget(formSelectionChamp.Champs, {'attr': {'class': 'selectFormulaireSelectionChamp' }}) }}
-            </p>
+                <p>
+                    {{ form_label(formSelectionChamp.Champs, "Champ :", {'label_attr': {'class': 'labelFormulaireSelectionChamp'}}) }}
+                    {{ form_errors(formSelectionChamp.Champs) }}
+                    {{ form_widget(formSelectionChamp.Champs, {'attr': {'class': 'selectFormulaireSelectionChamp' }}) }}
+                </p>
 
-            <p>
-                {{ form_widget(formSelectionChamp._token) }} 
+                <p>
+                    {{ form_widget(formSelectionChamp._token) }} 
 
-                {{ form_widget(formSelectionChamp.Editer, {'attr': {'class': 'submitFormulaireSelectionChamp', 'class': 'boutonFormulaire' }}) }}
-            </p>
+                    {{ form_widget(formSelectionChamp.Editer, {'attr': {'class': 'submitFormulaireSelectionChamp', 'class': 'boutonFormulaire' }}) }}
+                </p>
 
-        </fieldset> 
+            </fieldset> 
 
-        {{ form_end(formSelectionChamp) }}
+            {{ form_end(formSelectionChamp) }}
 
-    </div>
-
-    <div id="DivFormulaireAAModele" class="titreFormulaireAA" onclick="
-            assistantAffaireToggle([
-                $('#DivFormulaireSelectionDossier'),
-                $('#DivFormulaireSelectionVersion'),
-                $('.DivFormulaireAjoutFichier')
-            ], $(this));
-            Recherche('.selectFormulaireSelectionVersion');">
-        <h4> Modèles <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='formulaireAAImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='formulaireAAImgDown'> </h4>
-    </div>
-
-    <div class='DivFormulaireAjoutFichier formulaireAA'>
-
-        {{ form_start(formAjoutFichier, {'attr': {'class': 'formulaireAjoutFichier'}}) }}
-        {{ form_errors(formAjoutFichier) }}
-
-        <fieldset>
-
-            <p>
-                {{ form_label(formAjoutFichier.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireAjoutFichier'}}) }}
-                {{ form_errors(formAjoutFichier.Profil) }}
-                {{ form_widget(formAjoutFichier.Profil, {'attr': {'class': 'fileFormulaireAjoutFichier' }}) }}
-            </p>
-
-            <legend>Ajouter un fichier</legend>
-
-            <p>
-                {{ form_errors(formAjoutFichier.file) }}
-                {{ form_widget(formAjoutFichier.file, {'attr': {'class': 'fileFormulaireAjoutFichier' }}) }}
-
-                {{ form_widget(formAjoutFichier._token) }} <br /><br />
-
-                {{ form_widget(formAjoutFichier.Ajouter, {'attr': {'class': 'submitFormulaireAjoutFichier', 'class': 'boutonFormulaire' }}) }}
-            </p>
-
-        </fieldset> 
-
-        {{ form_end(formAjoutFichier) }}
+        </div>
 
     </div>
 
-    <div id='DivFormulaireSelectionDossier' class="formulaireAA">
+    <div id='DivModeles' style='display: none;'>
 
-        {{ form_start(formSelectionDossier, {'attr': {'class': 'formulaireSelectionDossier'}}) }}
-        {{ form_errors(formSelectionDossier) }}
+        <div class='DivFormulaireAjoutFichier formulaireAA'>
 
-        <fieldset>
+            {{ form_start(formAjoutFichier, {'attr': {'class': 'formulaireAjoutFichier'}}) }}
+            {{ form_errors(formAjoutFichier) }}
 
-            <legend>Profil</legend>
+            <fieldset>
 
-            {{ form_label(formSelectionDossier.profil, "Selection du profil :", {'label_attr': {'class': 'labelFormulaireSelectionDossier'}}) }}
-            {{ form_errors(formSelectionDossier.profil) }}
-            {{ form_widget(formSelectionDossier.profil, {'attr': {'class': 'selectFormulaireSelectionDossier'}}) }}
+                <p>
+                    {{ form_label(formAjoutFichier.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireAjoutFichier'}}) }}
+                    {{ form_errors(formAjoutFichier.Profil) }}
+                    {{ form_widget(formAjoutFichier.Profil, {'attr': {'class': 'fileFormulaireAjoutFichier' }}) }}
+                </p>
 
-        </fieldset>
+                <legend>Ajouter un fichier</legend>
 
-        {{ form_end(formSelectionDossier) }}
+                <p>
+                    {{ form_errors(formAjoutFichier.file) }}
+                    {{ form_widget(formAjoutFichier.file, {'attr': {'class': 'fileFormulaireAjoutFichier' }}) }}
 
-    </div>
+                    {{ form_widget(formAjoutFichier._token) }} <br /><br />
 
-    <div id='DivFormulaireSelectionVersion' class="formulaireAA">
-        {{ form_start(formSelectionVersion, {'attr': {'class': 'formulaireSelectionVersion'}}) }}
-        {{ form_errors(formSelectionVersion) }}
+                    {{ form_widget(formAjoutFichier.Ajouter, {'attr': {'class': 'submitFormulaireAjoutFichier', 'class': 'boutonFormulaire' }}) }}
+                </p>
 
-        <fieldset>
+            </fieldset> 
 
-            <legend>Selection du modèle</legend>
+            {{ form_end(formAjoutFichier) }}
 
-            <p>
-                <label for="rechercehSuivi">Recherche</label>
-                <input placeholder="Ex : Ventes 2016" type="text" id="rechercehSuivi"/>
-                {{ form_errors(formSelectionVersion.Suivi) }}
-                {{ form_widget(formSelectionVersion.Suivi, {'attr': {'class': 'selectFormulaireSelectionVersion', 'size': 15}}) }}
-            </p>
+        </div>
 
-            {{ form_widget(formSelectionVersion._token) }}
+        <div id='DivFormulaireSelectionDossier' class="formulaireAA">
 
-            <p>
-                {{ form_widget(formSelectionVersion.Editer, {'attr': {'class': 'submitFormulaireSelectionVersion' }}) }}
-                {{ form_widget(formSelectionVersion.Supprimer, {'attr': {'class': 'submitFormulaireSelectionVersion' }}) }}
-            </p>
+            {{ form_start(formSelectionDossier, {'attr': {'class': 'formulaireSelectionDossier'}}) }}
+            {{ form_errors(formSelectionDossier) }}
 
-        </fieldset>
+            <fieldset>
 
-        {{ form_end(formSelectionVersion) }}
+                <legend>Profil</legend>
 
-        <script>
-            var request;
-            var request2;
-            $("#formSelectionDossier_profil").change(function () {
-                getModelesByProfil();
-            });
-            $("#rechercehSuivi").on("keyup paste input", function () {
-                getModelesByProfilAndName();
-            });
+                {{ form_label(formSelectionDossier.profil, "Selection du profil :", {'label_attr': {'class': 'labelFormulaireSelectionDossier'}}) }}
+                {{ form_errors(formSelectionDossier.profil) }}
+                {{ form_widget(formSelectionDossier.profil, {'attr': {'class': 'selectFormulaireSelectionDossier'}}) }}
 
-            function getModelesByProfil() {
+            </fieldset>
 
-                if (typeof request !== 'undefined') {
-                    request.abort();
-                }
-                $("#rechercehSuivi").val('');
-                $('#formSelectionVersion_Suivi').find("option").remove();
-                $('#formSelectionVersion_Suivi').css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.gif') }}" + "') no-repeat center");
-                $('#formSelectionVersion_Suivi').css('background-size', '50%');
-                request = $.ajax({
-                    //On lui indique le type d'envoie des informations
+            {{ form_end(formSelectionDossier) }}
 
-                    type: 'POST',
-                    //On lui indique le chemin de la fonction
+        </div>
 
-                    url: '{{ path('nox_intranet_administration_affaires_ajax_get_modele_by_profil') }}',
-                    //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
+        <div id='DivFormulaireSelectionVersion' class="formulaireAA">
+            {{ form_start(formSelectionVersion, {'attr': {'class': 'formulaireSelectionVersion'}}) }}
+            {{ form_errors(formSelectionVersion) }}
 
-                    data: 'profil=' + $("#formSelectionDossier_profil").val(),
-                    //Enfin nous lui disons de remplir notre formulaire avec le resultat  
+            <fieldset>
 
-                    success: function (response) {
+                <legend>Selection du modèle</legend>
 
-                        $('#formSelectionVersion_Suivi').css('background', 'white');
-                        if (response.length !== 0) {
-                            $.each(response, function (i, item) {
-                                $('#formSelectionVersion_Suivi').append(new Option(item, i));
-                            });
-                            $('#formSelectionVersion_Suivi option:nth-child(even)').css('background', 'SeaShell');
-                            $('#formSelectionVersion_Suivi option').each(function () {
-                                $(this).attr('title', $(this).text());
-                            });
-                            $('#formSelectionVersion_Suivi').removeAttr('disabled');
-                            $('#formSelectionVersion_Editer').removeAttr('disabled');
-                            $('#formSelectionVersion_Supprimer').removeAttr('disabled');
-                        } else {
-                            $('#formSelectionVersion_Suivi').attr('disabled', 'disabled');
-                            $('#formSelectionVersion_Editer').attr('disabled', 'disabled');
-                            $('#formSelectionVersion_Supprimer').attr('disabled', 'disabled');
-                        }
-                    }
+                <p>
+                    <label for="rechercehSuivi">Recherche</label>
+                    <input placeholder="Ex : Ventes 2016" type="text" id="rechercehSuivi"/>
+                    {{ form_errors(formSelectionVersion.Suivi) }}
+                    {{ form_widget(formSelectionVersion.Suivi, {'attr': {'class': 'selectFormulaireSelectionVersion', 'size': 15}}) }}
+                </p>
+
+                {{ form_widget(formSelectionVersion._token) }}
+
+                <p>
+                    {{ form_widget(formSelectionVersion.Editer, {'attr': {'class': 'submitFormulaireSelectionVersion' }}) }}
+                    {{ form_widget(formSelectionVersion.Supprimer, {'attr': {'class': 'submitFormulaireSelectionVersion' }}) }}
+                </p>
+
+            </fieldset>
+
+            {{ form_end(formSelectionVersion) }}
+
+            <script>
+                var request;
+                var request2;
+                $("#formSelectionDossier_profil").change(function () {
+                    getModelesByProfil();
                 });
-            }
-            function getModelesByProfilAndName() {
+                $("#rechercehSuivi").on("keyup paste input", function () {
+                    getModelesByProfilAndName();
+                });
 
-                if (typeof request2 !== 'undefined') {
-                    request2.abort();
+                function getModelesByProfil() {
+
+                    if (typeof request !== 'undefined') {
+                        request.abort();
+                    }
+                    $("#rechercehSuivi").val('');
+                    $('#formSelectionVersion_Suivi').find("option").remove();
+                    $('#formSelectionVersion_Suivi').css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.gif') }}" + "') no-repeat center");
+                    $('#formSelectionVersion_Suivi').css('background-size', '50%');
+                    request = $.ajax({
+                        //On lui indique le type d'envoie des informations
+
+                        type: 'POST',
+                        //On lui indique le chemin de la fonction
+
+                        url: '{{ path('nox_intranet_administration_affaires_ajax_get_modele_by_profil') }}',
+                        //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
+
+                        data: 'profil=' + $("#formSelectionDossier_profil").val(),
+                        //Enfin nous lui disons de remplir notre formulaire avec le resultat  
+
+                        success: function (response) {
+
+                            $('#formSelectionVersion_Suivi').css('background', 'white');
+                            if (response.length !== 0) {
+                                $.each(response, function (i, item) {
+                                    $('#formSelectionVersion_Suivi').append(new Option(item, i));
+                                });
+                                $('#formSelectionVersion_Suivi option:nth-child(even)').css('background', 'SeaShell');
+                                $('#formSelectionVersion_Suivi option').each(function () {
+                                    $(this).attr('title', $(this).text());
+                                });
+                                $('#formSelectionVersion_Suivi').removeAttr('disabled');
+                                $('#formSelectionVersion_Editer').removeAttr('disabled');
+                                $('#formSelectionVersion_Supprimer').removeAttr('disabled');
+                            } else {
+                                $('#formSelectionVersion_Suivi').attr('disabled', 'disabled');
+                                $('#formSelectionVersion_Editer').attr('disabled', 'disabled');
+                                $('#formSelectionVersion_Supprimer').attr('disabled', 'disabled');
+                            }
+                        }
+                    });
                 }
-                $('#formSelectionVersion_Suivi').find("option").remove();
-                $('#formSelectionVersion_Suivi').css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.gif') }}" + "') no-repeat center");
-                $('#formSelectionVersion_Suivi').css('background-size', '50%');
-                request2 = $.ajax({
-                    //On lui indique le type d'envoie des informations
+                function getModelesByProfilAndName() {
 
-                    type: 'POST',
-                    //On lui indique le chemin de la fonction
+                    if (typeof request2 !== 'undefined') {
+                        request2.abort();
+                    }
+                    $('#formSelectionVersion_Suivi').find("option").remove();
+                    $('#formSelectionVersion_Suivi').css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.gif') }}" + "') no-repeat center");
+                    $('#formSelectionVersion_Suivi').css('background-size', '50%');
+                    request2 = $.ajax({
+                        //On lui indique le type d'envoie des informations
 
-                    url: '{{ path('nox_intranet_administration_affaires_ajax_get_modele_by_profil_and_name') }}',
-                    //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
+                        type: 'POST',
+                        //On lui indique le chemin de la fonction
 
-                    data: {profil: $("#formSelectionDossier_profil").val(), nom: $("#rechercehSuivi").val()},
-                    //Enfin nous lui disons de remplir notre formulaire avec le resultat  
+                        url: '{{ path('nox_intranet_administration_affaires_ajax_get_modele_by_profil_and_name') }}',
+                        //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
 
-                    success: function (response) {
+                        data: {profil: $("#formSelectionDossier_profil").val(), nom: $("#rechercehSuivi").val()},
+                        //Enfin nous lui disons de remplir notre formulaire avec le resultat  
 
-                        $('#formSelectionVersion_Suivi').css('background', 'white');
-                        if (response.length !== 0) {
-                            $.each(response, function (i, item) {
-                                $('#formSelectionVersion_Suivi').append(new Option(item, i));
-                            });
-                            $('#formSelectionVersion_Suivi option:nth-child(even)').css('background', 'SeaShell');
-                            $('#formSelectionVersion_Suivi option').each(function () {
-                                $(this).attr('title', $(this).text());
-                            });
-                            $('#formSelectionVersion_Suivi').removeAttr('disabled');
-                            $('#formSelectionVersion_Editer').removeAttr('disabled');
-                            $('#formSelectionVersion_Supprimer').removeAttr('disabled');
-                        } else {
-                            $('#formSelectionVersion_Suivi').attr('disabled', 'disabled');
-                            $('#formSelectionVersion_Editer').attr('disabled', 'disabled');
-                            $('#formSelectionVersion_Supprimer').attr('disabled', 'disabled');
+                        success: function (response) {
+
+                            $('#formSelectionVersion_Suivi').css('background', 'white');
+                            if (response.length !== 0) {
+                                $.each(response, function (i, item) {
+                                    $('#formSelectionVersion_Suivi').append(new Option(item, i));
+                                });
+                                $('#formSelectionVersion_Suivi option:nth-child(even)').css('background', 'SeaShell');
+                                $('#formSelectionVersion_Suivi option').each(function () {
+                                    $(this).attr('title', $(this).text());
+                                });
+                                $('#formSelectionVersion_Suivi').removeAttr('disabled');
+                                $('#formSelectionVersion_Editer').removeAttr('disabled');
+                                $('#formSelectionVersion_Supprimer').removeAttr('disabled');
+                            } else {
+                                $('#formSelectionVersion_Suivi').attr('disabled', 'disabled');
+                                $('#formSelectionVersion_Editer').attr('disabled', 'disabled');
+                                $('#formSelectionVersion_Supprimer').attr('disabled', 'disabled');
+                            }
                         }
                     }
+                    );
                 }
-                );
-            }
-        </script>
+            </script>
+
+        </div>
 
     </div>
+
+    <script>
+
+        $(window).load(function () {
+            selectInterlocuteurAction();
+            toggleCheckboxAjoutDonnees();
+        });
+
+        // Affiche/Cache les 'div' de profils/Champs/Modèles.
+        function selectInterlocuteurAction() {
+            // Lors d'un clique sur le bouton de profils.
+            $("button[name='profils']").click(function () {
+                $('#DivProfils').show(); // Affiche la 'div' de profils.
+                $('#DivChamps').hide(); // Cache la 'div' de champs.
+                $('#DivModeles').hide(); // Cache la 'div' de modèles.
+            });
+            // Lors d'un clique sur le bouton de champs.
+            $("button[name='champs']").click(function () {
+                $('#DivProfils').hide(); // Affiche la 'div' de profils.
+                $('#DivChamps').show(); // Cache la 'div' de champs.
+                $('#DivModeles').hide(); // Cache la 'div' de modèles.
+            });
+            // Lors d'un clique sur le bouton de modèles.
+            $("button[name='modeles']").click(function () {
+                $('#DivProfils').hide(); // Affiche la 'div' de profils.
+                $('#DivChamps').hide(); // Cache la 'div' de champs.
+                $('#DivModeles').show(); // Cache la 'div' de modèles.
+            });
+        }
+
+        // Affiche cache la 'checkbox' d'ajout de données supplémentaire par l'utilisateur en fonction du type de champ séléctionné.
+        function toggleCheckboxAjoutDonnees() {
+            // Si le type de champ séléctioné est 'Données'.
+            if ($('#formAjoutChamp_Type option:selected').text() === 'Données') {
+                // On montre le label est la checkbox d'ajout de données supplémentaire.    
+                $('label[for="formAjoutChamp_AjoutDonnees"]').show();
+                $('#formAjoutChamp_AjoutDonnees').show();
+                // On impose la séléction de la checkbox.
+                $('#formAjoutChamp_AjoutDonnees').attr('requierd', 'required');
+            }
+            // Si le type de champ séléctioné n'est pas 'Données'.
+            else {
+                // On cache le label est la checkbox d'ajout de données supplémentaire.    
+                $('label[for="formAjoutChamp_AjoutDonnees"]').hide();
+                $('#formAjoutChamp_AjoutDonnees').hide();
+                // On désimpose la séléction de la checkbox.
+                $('#formAjoutChamp_AjoutDonnees').removeAttr('requieed');
+            }
+        }
+    </script>
 
 {% endblock %}

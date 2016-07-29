@@ -1,8 +1,5 @@
 $(window).load(function () {
 
-//    $('form fieldset legend').delay(500).css('text-align', 'left');
-//    $('form fieldset legend').delay(500).css('padding', '0% 0.5% 0% 0.5%');
-
     $('.selectFormulaireSelectionAgence').change(function () {
         $('.formulaireSelectionAgence').submit();
     });
@@ -45,8 +42,6 @@ $(window).load(function () {
         return confirm('Attention, si vous modifiez ce modèle toutes les données des suivis associés seront supprimées !');
     });
 
-    resizeFormLabelAndData($('.labelFormulaireRemplissageSuiviCloture'), $('.champFormulaireRemplissageSuiviCloture'), $('.formulaireRemplissageSuiviCloture p'));
-
     if ($('#formCloturationSuivi_Cloturer').attr('disabled') === "disabled") {
         $('#formCloturationSuivi_Cloturer').wrap("<span class='tooltipButtonAACloturer'></span>");
         $('.tooltipButtonAACloturer').prepend("<span class='tooltipButtonAACloturerText'>Le suivi doit contenir au moins une sauvegarde pour être clôturé.</span>");
@@ -58,18 +53,6 @@ $(window).load(function () {
     }
 });
 
-function toggleCheckboxAjoutDonnees() {
-    if ($('#formAjoutChamp_Type option:selected').text() === 'Données') {
-        $('label[for="formAjoutChamp_AjoutDonnees"]').show();
-        $('#formAjoutChamp_AjoutDonnees').show();
-        $('#formAjoutChamp_AjoutDonnees').attr('requierd', 'required');
-    } else {
-        $('label[for="formAjoutChamp_AjoutDonnees"]').hide();
-        $('#formAjoutChamp_AjoutDonnees').hide();
-        $('#formAjoutChamp_AjoutDonnees').removeAttr('requieed');
-    }
-}
-
 function getMaxChildWidth(sel) {
     max = 0;
     sel.each(function () {
@@ -79,27 +62,6 @@ function getMaxChildWidth(sel) {
         }
     });
     return max;
-}
-
-function resizeFormLabelAndData(label, data, formParagraph) {
-    label.css({
-        'display': 'block',
-        /*    width: 40%;*/
-        'float': 'left',
-        'text-align': 'right',
-        'white-space': 'nowrap'
-    });
-    formParagraph.css({
-        'width': '70%',
-        'margin': 'auto'
-    });
-    data.css({
-        'margin-bottom': '2%',
-        'text-align': 'center'
-    });
-
-    label.width(getMaxChildWidth(label));
-    data.width((formParagraph.width() - label.width()) * 0.9);
 }
 
 function hideAndShowDataAdding() {

@@ -2391,13 +2391,12 @@ form input[type='checkbox'] {
     text-align: center;
 }
 
-.labelFormulaireRemplissageSuivi, .labelFormulaireRemplissageSuiviCloture, .labelFormulaireAdministrationAjoutClient, .labelFormulaireAjoutChamp, 
+.labelFormulaireRemplissageSuivi, .labelFormulaireRemplissageSuiviCloture, .labelFormulaireAdministrationAjoutClient,
 .labelFormulaireAdministrationAjoutInterlocuteur, .labelFormulaireAdministrationSuppressionClient {
     display: block;
-    /*    width: 40%;*/
+    /*width: 40%;*/
     float: left;
     text-align: right;
-    white-space: nowrap;
 }
 
 .formulaireRemplissageSuivi fieldset p, .formulaireRemplissageSuiviCloture fieldset p, .formulaireAdministrationAjoutClient fieldset p, 
@@ -2408,10 +2407,25 @@ form input[type='checkbox'] {
 }
 
 .champFormulaireRemplissageSuivi, .champFormulaireRemplissageSuiviCloture, .champFormulaireRemplissageAjoutClient, 
-.champFormulaireAjoutChamp, .champFormulaireRemplissageAjoutInterlocuteur, .champFormulaireRemplissageSuppresionClient {
+.champFormulaireRemplissageAjoutInterlocuteur, .champFormulaireRemplissageSuppresionClient {
     /*    width: 55%;*/
     margin-bottom: 2%;
     text-align: center;
+}
+
+.labelFormulaireAjoutChamp {
+    display: block;
+    width: 40%;
+    float: left;
+    text-align: right;
+    margin-bottom: 1%;
+}
+
+.champFormulaireAjoutChamp {
+    margin-bottom: 1%;
+    width: 50%;
+    margin-right: 9%;
+    box-sizing: border-box;
 }
 
 .submitFormulaireParcourSuiviEnCours:disabled, #formSuppressionChamp_Supprimer:disabled {
@@ -2637,10 +2651,6 @@ form input[type='checkbox'] {
 .DivMaj {
     padding: 0px;
     margin: 0px;
-}
-
-.formulaireAA {
-    display: none;
 }
 
 .titreFormulaireAA {

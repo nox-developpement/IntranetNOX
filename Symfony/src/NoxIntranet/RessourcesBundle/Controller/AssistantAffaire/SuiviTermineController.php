@@ -10,6 +10,7 @@ namespace NoxIntranet\RessourcesBundle\Controller\AssistantAffaire;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -110,8 +111,12 @@ class SuiviTermineController extends Controller {
     }
 
     public function suiviTermineAction(Request $request, $IdSuivi, $version) {
-        $em = $this->getDoctrine()->getManager();
 
+        // On récupére la racine du serveur.
+        $root = $this->get('kernel')->getRootDir() . '\..';
+
+        // Génération de deux entityManagers distinct
+        $em = $this->getDoctrine()->getManager();
         $emChampDonnees = $this->getDoctrine()->getManager();
 
         // On récupére le suivi en cours et le client.
@@ -160,7 +165,6 @@ class SuiviTermineController extends Controller {
         $interlocuteurActuel = $em->getRepository('NoxIntranetRessourcesBundle:AA_Contact')->findOneByN_Contact($suivi->getNoInterlocuteur());
 
         $modele = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->find($suivi->getIdModele());
-
         $liaisons = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdSuivi($modele->getId());
 
         $champsViews = array();
@@ -189,7 +193,6 @@ class SuiviTermineController extends Controller {
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération du formulaire de complétion du suivi
         $formBuilder = $this->get('form.factory')->createNamedBuilder('formDonneesSuivi', 'form');
-
         foreach ($liaisons as $liaison) {
             $champ = $em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->find($liaison->getIdChamp());
 
@@ -230,11 +233,10 @@ class SuiviTermineController extends Controller {
                 ));
             }
         }
-
         $formBuilder->add('Generate', SubmitType::class);
-
         $formSuivi = $formBuilder->getForm();
 
+        // Si une version du suivi est séléctionnée on récupére ses données de suivi.
         if ($version !== '') {
 
             $donneeSuivi = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findOneBy(array('idSuivi' => $IdSuivi, 'version' => $version));
@@ -268,8 +270,6 @@ class SuiviTermineController extends Controller {
                 }
             }
         }
-
-
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Traitement du formulaire de séléction de la version du suivi

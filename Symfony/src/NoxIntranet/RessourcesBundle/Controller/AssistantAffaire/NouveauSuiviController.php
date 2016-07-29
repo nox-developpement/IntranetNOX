@@ -126,7 +126,7 @@ class NouveauSuiviController extends Controller {
         else {
             // On affiche un message d'erreur et on redirige vers la création du suivi.
             $request->getSession()->getFlashBag()->add('noticeErreur', 'Il n\'y a aucun modèle disponible pour ce profil de suivi !');
-            return $this->redirectToRoute('nox_intranet_assistant_affaire_nouvelle_choix_client');
+            return $this->redirectToRoute('nox_intranet_assistant_affaire_parcour_suivi_en_cours');
         }
 
         // Si le formulaire de choix de modèle est valide.
