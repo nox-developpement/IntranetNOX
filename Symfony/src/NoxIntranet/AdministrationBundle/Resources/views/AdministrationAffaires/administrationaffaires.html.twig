@@ -18,53 +18,26 @@
         </div>
     </div>
 
-    <div id='DivProfils' style='display: none;'>
+    <div id='DivProfils' style='display: none; width: 70%; margin: auto;'>
 
-        <div id='DivFormulaireAjoutProfil' class='formulaireAA'>
+        {{ form_start(formProfils, {'attr': {'class': 'formulaireAdministrationAjoutProfil'}}) }}
+        {{ form_errors(formProfils) }}
 
-            {{ form_start(formAjoutProfil, {'attr': {'class': 'formulaireAdministrationAjoutProfil'}}) }}
-            {{ form_errors(formAjoutProfil) }}
+        <fieldset>
 
-            <fieldset>
+            <legend>Ajouter un profil</legend>
 
-                <legend>Ajouter un profil</legend>
+            <p style="margin: 0;">
+                <label for='addProfilName' style='display: inline-block; width: 100%; text-align: center; margin-top: 2%;'>Profils</label><br />
+                <input type='text' name='addProfilName'  style='width: 30%; margin: 0; margin-bottom: 1%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; text-align: center;'><button type='button' name='addProfil' class='boutonFormulaire' style='width: 9%; margin-left: 1%;'>+</button><br />
+                {{ form_errors(formProfils.Profils) }}
+                {{ form_widget(formProfils.Profils, {'attr': {'class': 'textFormulaireAdministrationAjoutProfil', 'size': '15', 'style': 'width: 40%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box;' }}) }}<br />
+                <button name='deleteProfil' type='button' class='boutonFormulaire' style='width: 40%; font-size: 0.8vw; margin-top: 1%;'>Supprimer</button>
+            </p>
 
-                {{ form_label(formAjoutProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationAjoutProfil'}}) }}
-                {{ form_errors(formAjoutProfil.Nom) }}
-                {{ form_widget(formAjoutProfil.Nom, {'attr': {'class': 'textFormulaireAdministrationAjoutProfil'}}) }}
+        </fieldset>
 
-                {{ form_widget(formAjoutProfil._token) }}
-
-                {{ form_widget(formAjoutProfil.Ajouter, {'attr': {'class': 'submitFormulaireAdministrationAjoutProfil', 'class': 'boutonFormulaire' }}) }}
-
-            </fieldset>
-
-            {{ form_end(formAjoutProfil) }}
-
-        </div>
-
-        <div id='DivFormulaireSuppressionProfil' class='formulaireAA'>
-
-            {{ form_start(formSuppresionProfil, {'attr': {'class': 'formulaireAdministrationSuppressionProfil'}}) }}
-            {{ form_errors(formSuppresionProfil) }}
-
-            <fieldset>
-
-                <legend>Supprimer un profil</legend>
-
-                {{ form_label(formSuppresionProfil.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAdministrationSuppressionProfil'}}) }}
-                {{ form_errors(formSuppresionProfil.Nom) }}
-                {{ form_widget(formSuppresionProfil.Nom, {'attr': {'class': 'selectFormulaireAdministrationSuppressionProfil'}}) }}
-
-                {{ form_widget(formSuppresionProfil._token) }}
-
-                {{ form_widget(formSuppresionProfil.Supprimer, {'attr': {'class': 'submitFormulaireAdministrationSuppressionProfil', 'class': 'boutonFormulaire' }}) }}
-
-            </fieldset> 
-
-            {{ form_end(formSuppresionProfil) }}
-
-        </div>
+        {{ form_end(formProfils) }}
 
     </div>
 
@@ -262,6 +235,7 @@
             selectInterlocuteurAction();
             toggleCheckboxAjoutDonnees();
             searchSuivi('#rechercheSuivi', '.selectFormulaireSelectionVersion');
+            ajaxAddProfil();
         });
 
         // Affiche/Cache les 'div' de profils/Champs/Modèles.
@@ -337,6 +311,68 @@
                     $(selecteur + ' option:visible:odd').css('background', 'SeaShell');
                     $(selecteur + ' option:visible:even').css('background', 'white');
                 }, 500);
+            });
+        }
+
+        // Ajoute un profil.
+        function ajaxAddProfil() {
+            // Lors d'un clic sur le bouton d'ajout de N°Commande.
+            $("button[name='addProfil']").click(function () {
+                // Si le numéro de commande n'est pas vide.
+                if ($.trim($("input[name='addProfilName']").val()).length > 0) {
+                    // On change le contenu du bouton d'ajout de numéro de commande par un gif de chargement et on le désactive.
+                    $("button[name='addProfil']").attr('disabled', true);
+                    $("button[name='addProfil']").html('&nbsp;');
+                    $("button[name='addProfil']").css({
+                        'background-image': "url({{ asset('bundles/noxintranetressources/images/noCommandeTraitement.gif')}})",
+                        'background-position': 'center center',
+                        'background-repeat': 'no-repeat',
+                        'background-size': 'auto 50%'
+                    });
+                    // On sauvegarde le numéro en base de donnée avec une fonction Ajax.        
+                    $.ajax({
+                        url: '{{ path('nox_intranet_administration_affaire') }}',
+                        type: 'POST',
+                        data: {'profil': $("input[name='addProfilName']").val()},
+                        success: function (response) {
+                            // On change le contenu du bouton par celui d'origine et on le réactive.
+                            $("button[name='addProfil']").removeAttr('disabled');
+                            $("button[name='addProfil']").html('+');
+                            $("button[name='addProfil']").css({
+                                'background-image': "none",
+                                'background-position': 'center center',
+                                'background-repeat': 'no-repeat',
+                                'background-size': 'auto 50%'
+                            });
+                            // Si le numéro d'affaire n'existe pas déjà.
+                            if (response === 'true') {
+                                // On fait apparaître le nouveau numéro dans le selecteur de numéros.
+                                var newOption = $("<option value='" + $("input[name='addProfilName']").val() + "' style='text-align: center; background-color: green;'>" + $("input[name='addProfilName']").val() + "</option>");
+                                $("select[name='formAjoutProfil[Profils]']").append(newOption);
+                                // On scroll en bas du sélécteur de numéro.
+                                $("select[name='formAjoutProfil[Profils]']").scrollTop($("select[name='formAjoutProfil[Profils]']")[0].scrollHeight);
+                                // On anime la couleur de fond du nouveau numéro.
+                                newOption.animate({
+                                    backgroundColor: 'white'
+                                }, 3000);
+                                // On efface le contenue de nouveau numéro.
+                                $("input[name='addProfilName']").val('');
+                            }
+                            // Si le numéro d'affaire existe déjà.
+                            else {
+                                // On efface le contenue de nouveau numéro et on affiche un message d'avertissement.
+                                var messageErreur = $("<p style='display: inline-block; margin: 0% 0% 1% 0%; color: red;'>Le profil existe déjà !</p>");
+                                $("label[for='addNoCommandeName']").after(messageErreur);
+                                setTimeout(function () {
+                                    messageErreur.fadeOut(1000, function () {
+                                        messageErreur.remove();
+                                    });
+                                }, 4000);
+                                $("input[name='addProfilName']").val('');
+                            }
+                        }
+                    });
+                }
             });
         }
     </script>

@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace NoxIntranet\AdministrationBundle\Controller;
+namespace NoxIntranet\AdministrationBundle\Controller\AdministrationAssistantAffaire;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NoxIntranet\RessourcesBundle\Entity\Profils;
@@ -60,45 +60,6 @@ class AdministrationAffairesController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
 
-        // Génération formulaire d'ajout de profil
-        $profils = $em->getRepository('NoxIntranetRessourcesBundle:Profils')->findBy(array(), array('nom' => 'ASC'));
-        $nouveauProfil = new Profils();
-        $formAjoutProfil = $this->get('form.factory')->createNamedBuilder('formAjoutProfil', 'form', $nouveauProfil)
-                ->add('Nom', TextType::class)
-                ->add('Ajouter', 'submit')
-                ->getForm();
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        // Génération formulaire de suppresion de profil
-        if (!empty($em->getRepository('NoxIntranetRessourcesBundle:Profils')->findAll())) {
-            $formSuppresionProfil = $this->get('form.factory')->createNamedBuilder('formSuppresionProfil', 'form')
-                    ->add('Nom', EntityType::class, array(
-                        'class' => 'NoxIntranetRessourcesBundle:Profils',
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('u')
-                                    ->orderBy('u.nom', 'ASC');
-                        },
-                        'choice_label' => 'Nom',
-                    ))
-                    ->add('Supprimer', SubmitType::class)
-                    ->getForm();
-        } else {
-            $formSuppresionProfil = $this->get('form.factory')->createNamedBuilder('formSuppresionProfil', 'form')
-                    ->add('Nom', EntityType::class, array(
-                        'class' => 'NoxIntranetRessourcesBundle:Profils',
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('u')
-                                    ->orderBy('u.nom', 'ASC');
-                        },
-                        'choice_label' => 'Nom',
-                        'placeholder' => 'Il n\'y a aucun profil à supprimer.',
-                        'disabled' => true
-                    ))
-                    ->add('Supprimer', SubmitType::class, array(
-                        'disabled' => true
-                    ))
-                    ->getForm();
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération formulaire ajout de fichier
         if (!empty($em->getRepository('NoxIntranetRessourcesBundle:Profils')->findAll())) {
             $formAjoutFichier = $this->get('form.factory')->createNamedBuilder('formAjoutFichier', 'form')
@@ -318,93 +279,7 @@ class AdministrationAffairesController extends Controller {
                     ))
                     ->getForm();
         }
-
         //////////////////////////////////////////////////////////////////////////////////////////////// 
-        // Traitement du formulaire d'ajout de profil
-        if ($request->request->has('formAjoutProfil')) {
-
-            $formAjoutProfil->handleRequest($request);
-
-            if ($formAjoutProfil->isValid()) {
-                // Si un profil du même nom n'existe pas déjà.
-                if ($em->getRepository('NoxIntranetRessourcesBundle:Profils')->findOneByNom($formAjoutProfil['Nom']->getData()) == null) {
-                    // On attribut le nom passé en paramêtre au nouveau profil.
-                    $nouveauProfil->setNom($formAjoutProfil['Nom']->getData());
-                    // On sauvegarde le nouveau profil en base de données/
-                    $em->persist($nouveauProfil);
-                    $em->flush();
-
-                    // On affiche un message de confirmation de création et on redirige vers l'administration de l'assistant d'affaire.
-                    $request->getSession()->getFlashBag()->add('notice', 'Le profil ' . $formAjoutProfil['Nom']->getData() . ' a été créé.');
-                    return $this->redirectToRoute('nox_intranet_administration_affaires');
-                }
-                // Si un profil du même nom existe.
-                else {
-                    // On affiche un message d'erreur et on redirige vers l'administration de l'assistant d'affaire.
-                    $request->getSession()->getFlashBag()->add('noticeErreur', 'Le profil ' . $formAjoutProfil['Nom']->getData() . 'existe déjà !');
-                }
-            }
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        // Traitement du formulaire de suppression de profil
-        if ($request->request->has('formSuppresionProfil')) {
-
-            $formSuppresionProfil->handleRequest($request);
-
-            if ($formSuppresionProfil->isValid()) {
-
-                $fichiersSuiviAssocies = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findByProfil($formSuppresionProfil['Nom']->getData()->getNom());
-
-                foreach ($fichiersSuiviAssocies as $fichier) {
-                    $liaisonsAssocies = $em->getRepository('NoxIntranetAdministrationBundle:LiaisonSuiviChamp')->findByIdSuivi($fichier->getId());
-
-                    foreach ($liaisonsAssocies as $liaison) {
-                        $em->remove($liaison);
-                    }
-
-                    foreach (glob($fichier->getChemin() . "/*.*") as $filename) {
-                        if (is_file($filename)) {
-                            unlink($filename);
-                        }
-                    }
-                    rmdir($fichier->getChemin());
-                    $em->remove($fichier);
-                }
-
-                $champsAssocies = $em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findByProfil($formSuppresionProfil['Nom']->getData()->getNom());
-
-                foreach ($champsAssocies as $champ) {
-
-                    $donnees_champ = $em->getRepository('NoxIntranetAdministrationBundle:DonneesFormulaire')->findByIdFormulaire($champ->getId());
-                    if (!empty($donnees_champ)) {
-                        foreach ($donnees_champ as $donnee_champ) {
-                            $em->remove($donnee_champ);
-                        }
-                    }
-                    $em->remove($champ);
-                }
-
-                $suivisAssocies = $em->getRepository('NoxIntranetRessourcesBundle:Suivis')->findByProfil($formSuppresionProfil['Nom']->getData()->getNom());
-
-                foreach ($suivisAssocies as $suivi) {
-                    $donneesSuivisAssocies = $em->getRepository('NoxIntranetRessourcesBundle:DonneesSuivi')->findByIdSuivi($suivi->getId());
-
-                    foreach ($donneesSuivisAssocies as $donnees) {
-                        $em->remove($donnees);
-                    }
-
-                    $em->remove($suivi);
-                }
-
-                $em->remove($formSuppresionProfil['Nom']->getData());
-                $em->flush();
-
-                $request->getSession()->getFlashBag()->add('notice', 'Le profil ' . $formSuppresionProfil['Nom']->getData()->getNom() . ' a été supprimé.');
-
-                return $this->redirectToRoute('nox_intranet_administration_affaires');
-            }
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////
         // Traitement du formulaire d'ajout de fichier
         if ($request->request->has('formAjoutFichier')) {
 
@@ -600,12 +475,23 @@ class AdministrationAffairesController extends Controller {
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération de l'affichage
         return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig', array(
-                    'formAjoutProfil' => $formAjoutProfil->createView(), 'profils' => $profils, 'formSuppresionProfil' => $formSuppresionProfil->createView(),
+                    'formProfils' => $this->assistantAffairesGetProfilsForm()->createView(),
                     'formAjoutFichier' => $formAjoutFichier->createView(), 'formSelectionDossier' => $formSelectionDossier->createView(),
                     'formSelectionVersion' => $formSelectionVersion->createView(), 'formAjoutChamp' => $formAjoutChamp->createView(),
                     'formSuppressionChamp' => $formSuppressionChamp->createView(), 'formSelectionChamp' => $formSelectionChamp->createView(),
         ));
         ////////////////////////////////////////////////////////////////////////////////////////////////
+    }
+
+    public function assistantAffairesGetProfilsForm() {
+        $formAjoutProfil = $this->get('form.factory')->createNamedBuilder('formAjoutProfil', 'form')
+                ->add('Profils', EntityType::class, array(
+                    'class' => 'NoxIntranetRessourcesBundle:Profils',
+                    'choice_label' => 'Nom'
+                ))
+                ->getForm();
+
+        return $formAjoutProfil;
     }
 
     public function ajaxGetModeleByProfilAction(Request $request) {
