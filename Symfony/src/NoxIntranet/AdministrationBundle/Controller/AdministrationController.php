@@ -145,7 +145,6 @@ class AdministrationController extends Controller {
         }
 
         return $this->render('NoxIntranetAdministrationBundle:Administration:administrationUserDB.html.twig', array('outputs' => $output, 'ajout' => true, 'confirmation' => true));
-        //, array('usernames' => $newUserNames, 'ajout' => 'true'));
     }
 
     public function administrationBDDRestaurationAction() {
