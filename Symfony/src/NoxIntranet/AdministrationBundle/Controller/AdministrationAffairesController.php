@@ -26,12 +26,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdministrationAffairesController extends Controller {
 
+    // Récupére le contenu d'un dossier et de ses sous-dossiers.
     function getDirContents($dir, &$results = array()) {
         $results = glob($dir);
 
         return $results;
     }
 
+    // Supprime le contenu d'un dossier.
     function delete_directory($dir) {
         if ($handle = opendir($dir)) {
             while (false !== ($file = readdir($handle))) {
@@ -137,7 +139,6 @@ class AdministrationAffairesController extends Controller {
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Génération formulaire d'ajout de champ
         $nouveauChamp = new Formulaires();
-
         if (!empty($em->getRepository('NoxIntranetRessourcesBundle:Profils')->findAll())) {
             $formAjoutChamp = $this->get('form.factory')->createNamedBuilder('formAjoutChamp', 'form', $nouveauChamp)
                     ->add('Nom', TextType::class)
@@ -325,16 +326,21 @@ class AdministrationAffairesController extends Controller {
             $formAjoutProfil->handleRequest($request);
 
             if ($formAjoutProfil->isValid()) {
-
+                // Si un profil du même nom n'existe pas déjà.
                 if ($em->getRepository('NoxIntranetRessourcesBundle:Profils')->findOneByNom($formAjoutProfil['Nom']->getData()) == null) {
+                    // On attribut le nom passé en paramêtre au nouveau profil.
                     $nouveauProfil->setNom($formAjoutProfil['Nom']->getData());
+                    // On sauvegarde le nouveau profil en base de données/
                     $em->persist($nouveauProfil);
                     $em->flush();
 
+                    // On affiche un message de confirmation de création et on redirige vers l'administration de l'assistant d'affaire.
                     $request->getSession()->getFlashBag()->add('notice', 'Le profil ' . $formAjoutProfil['Nom']->getData() . ' a été créé.');
-
                     return $this->redirectToRoute('nox_intranet_administration_affaires');
-                } else {
+                }
+                // Si un profil du même nom existe.
+                else {
+                    // On affiche un message d'erreur et on redirige vers l'administration de l'assistant d'affaire.
                     $request->getSession()->getFlashBag()->add('noticeErreur', 'Le profil ' . $formAjoutProfil['Nom']->getData() . 'existe déjà !');
                 }
             }

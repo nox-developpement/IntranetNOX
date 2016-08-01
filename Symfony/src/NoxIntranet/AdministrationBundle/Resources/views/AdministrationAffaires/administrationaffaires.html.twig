@@ -79,7 +79,7 @@
 
                 <legend>Ajouter un champ</legend>
 
-                <p>
+                <div style='width: 70%; margin: auto;'>
                     {{ form_label(formAjoutChamp.Type, "Type :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
                     {{ form_errors(formAjoutChamp.Type) }}
                     {{ form_widget(formAjoutChamp.Type, {'attr': {'class': 'selectFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}
@@ -94,26 +94,24 @@
 
                     <br />
 
-                <div style='margin: 1% 0 1% 0;'>
-                    <span style='display: inline-block; float: left; width: 90%;'> 
-                        {{ form_label(formAjoutChamp.AjoutDonnees, "Permettre l'ajout de donnée supplémentaire par l'utilisateur") }}
-                        {{ form_errors(formAjoutChamp.AjoutDonnees) }}
-                    </span>
-                    <span style='display: inline-block; float: right; width: 10%;'>
-                        {{ form_widget(formAjoutChamp.AjoutDonnees, {'attr': {'class': 'checkboxFormulaireAjoutChamp' }}) }}
-                    </span>
+                    <div style='display: none; vertical-align: middle; margin: 1% 0% 2% 0%;'>
+                        <span style='display: inline-block; width: 90%; vertical-align: middle;'> 
+                            {{ form_label(formAjoutChamp.AjoutDonnees, "Permettre l'ajout de donnée supplémentaire par l'utilisateur") }}
+                            {{ form_errors(formAjoutChamp.AjoutDonnees) }}
+                        </span><!--
+                        --><span style='display: inline-block; width: 10%; vertical-align: middle;'>
+                            {{ form_widget(formAjoutChamp.AjoutDonnees, {'attr': {'class': 'checkboxFormulaireAjoutChamp' }}) }}
+                        </span>
+                    </div>
+
+                    {{ form_label(formAjoutChamp.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
+                    {{ form_errors(formAjoutChamp.Profil) }}
+                    {{ form_widget(formAjoutChamp.Profil, {'attr': {'class': 'selectFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}
+
+                    <br />
+
+                    {{ form_widget(formAjoutChamp.Ajouter, {'attr': {'class': 'submitFormulaireAjoutChamp', 'class': 'boutonFormulaire', 'style': 'margin-top: 1%;' }}) }}
                 </div>
-
-                <br />
-
-                {{ form_label(formAjoutChamp.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
-                {{ form_errors(formAjoutChamp.Profil) }}
-                {{ form_widget(formAjoutChamp.Profil, {'attr': {'class': 'selectFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}
-
-                <br />
-
-                {{ form_widget(formAjoutChamp.Ajouter, {'attr': {'class': 'submitFormulaireAjoutChamp', 'class': 'boutonFormulaire', 'style': 'margin-top: 1%;' }}) }}
-                </p>
 
             </fieldset> 
 
@@ -130,13 +128,13 @@
 
                 <legend>Supprimer un champ</legend>       
 
-                <p>
+                <p style="width: 70%; margin: auto;">
                     {{ form_label(formSuppressionChamp.Nom, "Nom - Type - Profil", {'label_attr': {'class': 'labelFormulaireSuppressionChamp'}}) }} <br />
                     {{ form_errors(formSuppressionChamp.Nom) }}
                     {{ form_widget(formSuppressionChamp.Nom, {'attr': {'class': 'selectFormulaireSuppressionChamp' }}) }}
                 </p>
 
-                <p>
+                <p style="width: 70%; margin: auto; margin-top: 1%;">
                     {{ form_widget(formSuppressionChamp._token) }} 
 
                     {{ form_widget(formSuppressionChamp.Supprimer, {'attr': {'class': 'submitFormulaireSuppressionChamp', 'class': 'boutonFormulaire' }}) }}
@@ -157,13 +155,13 @@
 
                 <legend>Editer un champ de données</legend>       
 
-                <p>
+                <p style="width: 70%; margin: auto;">
                     {{ form_label(formSelectionChamp.Champs, "Champ :", {'label_attr': {'class': 'labelFormulaireSelectionChamp'}}) }}
                     {{ form_errors(formSelectionChamp.Champs) }}
                     {{ form_widget(formSelectionChamp.Champs, {'attr': {'class': 'selectFormulaireSelectionChamp' }}) }}
                 </p>
 
-                <p>
+                <p style="width: 70%; margin: auto; margin-top: 1%;">
                     {{ form_widget(formSelectionChamp._token) }} 
 
                     {{ form_widget(formSelectionChamp.Editer, {'attr': {'class': 'submitFormulaireSelectionChamp', 'class': 'boutonFormulaire' }}) }}
@@ -196,11 +194,11 @@
 
                 <p>
                     {{ form_errors(formAjoutFichier.file) }}
-                    {{ form_widget(formAjoutFichier.file, {'attr': {'class': 'fileFormulaireAjoutFichier' }}) }}
+                    {{ form_widget(formAjoutFichier.file, {'attr': {'class': 'fileFormulaireAjoutFichier', 'style': 'font-size: 0.8vw;' }}) }}
 
                     {{ form_widget(formAjoutFichier._token) }} <br /><br />
 
-                    {{ form_widget(formAjoutFichier.Ajouter, {'attr': {'class': 'submitFormulaireAjoutFichier', 'class': 'boutonFormulaire' }}) }}
+                    {{ form_widget(formAjoutFichier.Ajouter, {'attr': {'class': 'boutonFormulaire' }}) }}
                 </p>
 
             </fieldset> 
@@ -237,8 +235,8 @@
                 <legend>Selection du modèle</legend>
 
                 <p>
-                    <label for="rechercehSuivi">Recherche</label>
-                    <input placeholder="Ex : Ventes 2016" type="text" id="rechercehSuivi"/>
+                    <label for="rechercheSuivi">Recherche</label>
+                    <input placeholder="Ex : Ventes 2016" type="text" id="rechercheSuivi" style="width: 100%;"/>
                     {{ form_errors(formSelectionVersion.Suivi) }}
                     {{ form_widget(formSelectionVersion.Suivi, {'attr': {'class': 'selectFormulaireSelectionVersion', 'size': 15}}) }}
                 </p>
@@ -254,104 +252,6 @@
 
             {{ form_end(formSelectionVersion) }}
 
-            <script>
-                var request;
-                var request2;
-                $("#formSelectionDossier_profil").change(function () {
-                    getModelesByProfil();
-                });
-                $("#rechercehSuivi").on("keyup paste input", function () {
-                    getModelesByProfilAndName();
-                });
-
-                function getModelesByProfil() {
-
-                    if (typeof request !== 'undefined') {
-                        request.abort();
-                    }
-                    $("#rechercehSuivi").val('');
-                    $('#formSelectionVersion_Suivi').find("option").remove();
-                    $('#formSelectionVersion_Suivi').css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.gif') }}" + "') no-repeat center");
-                    $('#formSelectionVersion_Suivi').css('background-size', '50%');
-                    request = $.ajax({
-                        //On lui indique le type d'envoie des informations
-
-                        type: 'POST',
-                        //On lui indique le chemin de la fonction
-
-                        url: '{{ path('nox_intranet_administration_affaires_ajax_get_modele_by_profil') }}',
-                        //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
-
-                        data: 'profil=' + $("#formSelectionDossier_profil").val(),
-                        //Enfin nous lui disons de remplir notre formulaire avec le resultat  
-
-                        success: function (response) {
-
-                            $('#formSelectionVersion_Suivi').css('background', 'white');
-                            if (response.length !== 0) {
-                                $.each(response, function (i, item) {
-                                    $('#formSelectionVersion_Suivi').append(new Option(item, i));
-                                });
-                                $('#formSelectionVersion_Suivi option:nth-child(even)').css('background', 'SeaShell');
-                                $('#formSelectionVersion_Suivi option').each(function () {
-                                    $(this).attr('title', $(this).text());
-                                });
-                                $('#formSelectionVersion_Suivi').removeAttr('disabled');
-                                $('#formSelectionVersion_Editer').removeAttr('disabled');
-                                $('#formSelectionVersion_Supprimer').removeAttr('disabled');
-                            } else {
-                                $('#formSelectionVersion_Suivi').attr('disabled', 'disabled');
-                                $('#formSelectionVersion_Editer').attr('disabled', 'disabled');
-                                $('#formSelectionVersion_Supprimer').attr('disabled', 'disabled');
-                            }
-                        }
-                    });
-                }
-                function getModelesByProfilAndName() {
-
-                    if (typeof request2 !== 'undefined') {
-                        request2.abort();
-                    }
-                    $('#formSelectionVersion_Suivi').find("option").remove();
-                    $('#formSelectionVersion_Suivi').css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.gif') }}" + "') no-repeat center");
-                    $('#formSelectionVersion_Suivi').css('background-size', '50%');
-                    request2 = $.ajax({
-                        //On lui indique le type d'envoie des informations
-
-                        type: 'POST',
-                        //On lui indique le chemin de la fonction
-
-                        url: '{{ path('nox_intranet_administration_affaires_ajax_get_modele_by_profil_and_name') }}',
-                        //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
-
-                        data: {profil: $("#formSelectionDossier_profil").val(), nom: $("#rechercehSuivi").val()},
-                        //Enfin nous lui disons de remplir notre formulaire avec le resultat  
-
-                        success: function (response) {
-
-                            $('#formSelectionVersion_Suivi').css('background', 'white');
-                            if (response.length !== 0) {
-                                $.each(response, function (i, item) {
-                                    $('#formSelectionVersion_Suivi').append(new Option(item, i));
-                                });
-                                $('#formSelectionVersion_Suivi option:nth-child(even)').css('background', 'SeaShell');
-                                $('#formSelectionVersion_Suivi option').each(function () {
-                                    $(this).attr('title', $(this).text());
-                                });
-                                $('#formSelectionVersion_Suivi').removeAttr('disabled');
-                                $('#formSelectionVersion_Editer').removeAttr('disabled');
-                                $('#formSelectionVersion_Supprimer').removeAttr('disabled');
-                            } else {
-                                $('#formSelectionVersion_Suivi').attr('disabled', 'disabled');
-                                $('#formSelectionVersion_Editer').attr('disabled', 'disabled');
-                                $('#formSelectionVersion_Supprimer').attr('disabled', 'disabled');
-                            }
-                        }
-                    }
-                    );
-                }
-            </script>
-
         </div>
 
     </div>
@@ -361,6 +261,7 @@
         $(window).load(function () {
             selectInterlocuteurAction();
             toggleCheckboxAjoutDonnees();
+            searchSuivi('#rechercheSuivi', '.selectFormulaireSelectionVersion');
         });
 
         // Affiche/Cache les 'div' de profils/Champs/Modèles.
@@ -387,22 +288,56 @@
 
         // Affiche cache la 'checkbox' d'ajout de données supplémentaire par l'utilisateur en fonction du type de champ séléctionné.
         function toggleCheckboxAjoutDonnees() {
-            // Si le type de champ séléctioné est 'Données'.
-            if ($('#formAjoutChamp_Type option:selected').text() === 'Données') {
-                // On montre le label est la checkbox d'ajout de données supplémentaire.    
-                $('label[for="formAjoutChamp_AjoutDonnees"]').show();
-                $('#formAjoutChamp_AjoutDonnees').show();
-                // On impose la séléction de la checkbox.
-                $('#formAjoutChamp_AjoutDonnees').attr('requierd', 'required');
-            }
-            // Si le type de champ séléctioné n'est pas 'Données'.
-            else {
-                // On cache le label est la checkbox d'ajout de données supplémentaire.    
-                $('label[for="formAjoutChamp_AjoutDonnees"]').hide();
-                $('#formAjoutChamp_AjoutDonnees').hide();
-                // On désimpose la séléction de la checkbox.
-                $('#formAjoutChamp_AjoutDonnees').removeAttr('requieed');
-            }
+            $('#formAjoutChamp_Type').change(function () {
+                // Si le type de champ séléctioné est 'Données'.
+                if ($('#formAjoutChamp_Type option:selected').text() === 'Données') {
+                    $('#checkboxBR').remove();
+                    $('#formAjoutChamp_AjoutDonnees').closest('div').after("<br id='checkboxBR'>");
+                    $('#formAjoutChamp_AjoutDonnees').closest('div').css('display', 'inline-block');
+                    $('#formAjoutChamp_AjoutDonnees').attr('required', 'required');
+                }
+                // Si le type de champ séléctioné n'est pas 'Données'.
+                else {
+                    $('#formAjoutChamp_AjoutDonnees').closest('div').hide();
+                    $('#checkboxBR').remove();
+                    $('#formAjoutChamp_AjoutDonnees').removeAttr('required');
+                }
+            });
+        }
+
+        // Affiche les suivis selon le nom recherché.
+        function searchSuivi(champRecherche, selecteur) {
+
+            // Initialisation d'un timer pour executer la fonction après 1 seconde sans frappe.
+            var typewatch = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            // Lorsque une valeur est entré dans la barre de recherche.
+            $(champRecherche).keyup(function () {
+                typewatch(function () {
+                    // Pour chaque résultat.
+                    $(selecteur + ' option').each(function () {
+                        // Si il ne correspond pas à la recherche...
+                        if ($(this).text().search(new RegExp($(champRecherche).val(), 'i')) === -1) {
+                            $(this).hide(); // ...On le cache.
+                        }
+                        // Si il correspond à la recherche.
+                        else {
+                            // On le montre et on lui donne son nom comme attribut 'title'.
+                            $(this).show();
+                            $(this).attr('title', $(this).text());
+                        }
+                    });
+                    // On applique une couleur différente au résultat pair et impair.
+                    $(selecteur + ' option:visible:odd').css('background', 'SeaShell');
+                    $(selecteur + ' option:visible:even').css('background', 'white');
+                }, 500);
+            });
         }
     </script>
 
