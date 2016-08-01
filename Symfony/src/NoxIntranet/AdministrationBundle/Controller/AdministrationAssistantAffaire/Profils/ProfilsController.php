@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProfilsController extends Controller {
 
-    
     // Ajoute un profil en base de données.
     public function ajaxAddProfilAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
@@ -39,6 +38,27 @@ class ProfilsController extends Controller {
         }
 
         return new Response($response);
+    }
+
+    // Supprime un profil passé en paramètre.
+    public function ajaxDeleteProfilAction(Request $request) {
+
+        if ($request->isXmlHttpRequest()) {
+
+            $em = $this->getDoctrine()->getManager();
+
+            // On récupére les parametres de la requête Ajax.
+            $profilID = $request->get('profil');
+
+            // On récupéres les numéros de commandes existants.
+            $profil = $em->getRepository("NoxIntranetRessourcesBundle:Profils")->find($profilID);
+
+            //On supprime le profil de la base de données.
+            $em->remove($profil);
+            $em->flush();
+        }
+
+        return new Response('Profil supprimé.');
     }
 
 }

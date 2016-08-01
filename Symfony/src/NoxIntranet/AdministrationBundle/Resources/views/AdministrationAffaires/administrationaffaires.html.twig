@@ -236,6 +236,7 @@
             toggleCheckboxAjoutDonnees();
             searchSuivi('#rechercheSuivi', '.selectFormulaireSelectionVersion');
             ajaxAddProfil();
+            ajaxDeleteProfil();
         });
 
         // Affiche/Cache les 'div' de profils/Champs/Modèles.
@@ -331,7 +332,7 @@
                     });
                     // On sauvegarde le numéro en base de donnée avec une fonction Ajax.        
                     $.ajax({
-                        url: '{{ path('nox_intranet_administration_affaire') }}',
+                        url: '{{ path('nox_intranet_administration_affaires_add_profil') }}',
                         type: 'POST',
                         data: {'profil': $("input[name='addProfilName']").val()},
                         success: function (response) {
@@ -362,7 +363,7 @@
                             else {
                                 // On efface le contenue de nouveau numéro et on affiche un message d'avertissement.
                                 var messageErreur = $("<p style='display: inline-block; margin: 0% 0% 1% 0%; color: red;'>Le profil existe déjà !</p>");
-                                $("label[for='addNoCommandeName']").after(messageErreur);
+                                $("label[for='addProfilName']").after(messageErreur);
                                 setTimeout(function () {
                                     messageErreur.fadeOut(1000, function () {
                                         messageErreur.remove();
@@ -372,6 +373,45 @@
                             }
                         }
                     });
+                }
+            });
+        }
+
+        // Supprime un profil.
+        function ajaxDeleteProfil() {
+            // Lors d'un clic sur le bouton de suppression de numéro de commande.
+            $("button[name='deleteProfil']").click(function () {
+                // Si une valeur est séléctionnée.
+                if ($("select[name='noCommandeSelector']").val() !== null) {
+                    // On change le contenu du bouton de suppression de numéro de commande par un gif de chargement et on le désactive.
+                    $("button[name='deleteProfil']").attr('disabled', true);
+                    $("button[name='deleteProfil']").html('&nbsp;');
+                    $("button[name='deleteProfil']").css({
+                        'background-image': "url({{ asset('bundles/noxintranetressources/images/noCommandeTraitement.gif')}})",
+                        'background-position': 'center center',
+                        'background-repeat': 'no-repeat',
+                        'background-size': 'auto 50%'
+                    });
+                    // On supprime le numéro de la base de données avec une fonction Ajax.
+                    $.ajax({
+                        url: '{{ path('nox_intranet_administration_affaires_delete_profil') }}',
+                        type: 'POST',
+                        data: {'profil': $("select[name='formAjoutProfil[Profils]']").val()},
+                        success: function () {
+                            // On change le contenu du bouton par celui d'origine et on le réactive.
+                            $("button[name='deleteProfil']").removeAttr('disabled');
+                            $("button[name='deleteProfil']").html('Supprimer');
+                            $("button[name='deleteProfil']").css({
+                                'background-image': "none",
+                                'background-position': 'center center',
+                                'background-repeat': 'no-repeat',
+                                'background-size': 'auto 50%'
+                            });
+                            // On efface le numéros de commande dans le sélécteur de numéro.
+                            $("select[name='formAjoutProfil[Profils]'] option:selected").remove();
+                        }
+                    });
+
                 }
             });
         }

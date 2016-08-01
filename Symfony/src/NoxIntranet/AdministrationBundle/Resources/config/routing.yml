@@ -156,9 +156,13 @@ nox_intranet_administration_affaires:
     path: /administration/assistant-affaires/{profil}
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\AdministrationAffaires:administrationAffairesAccueil, profil: '' }
     
-nox_intranet_administration_affaire:
+nox_intranet_administration_affaires_add_profil:
     path: /administraton/assistant-affaires/add-profil
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Profils\Profils:ajaxAddProfil }
+    
+nox_intranet_administration_affaires_delete_profil:
+    path: /administraton/assistant-affaires/delete-profil
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Profils\Profils:ajaxDeleteProfil }
     
 nox_intranet_administration_affaires_edition:
     path: /administration/assistant-affaires-edition-fichier/{profil}/{file}
