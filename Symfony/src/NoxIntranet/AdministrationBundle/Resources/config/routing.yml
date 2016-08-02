@@ -153,8 +153,8 @@ nox_intranet_administration_materiel:
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationMateriel:materielAccueil }
     
 nox_intranet_administration_affaires:
-    path: /administration/assistant-affaires/{profil}
-    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\AdministrationAffaires:administrationAffairesAccueil, profil: '' }
+    path: /administration/assistant-affaires/{section}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\AdministrationAffaires:administrationAffairesAccueil, section: '' }
     
 nox_intranet_administration_affaires_add_profil:
     path: /administraton/assistant-affaires/add-profil
@@ -175,6 +175,10 @@ nox_intranet_administration_affaires_edition_sauvegarde:
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:administrationAffaireSauvegardeModification }
     requirements:
         filename: .+
+        
+nox_intranet_administration_affaire_delete_champ:
+    path: /administration/assistant-affaires-delete-champ/{IDChamp}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Champs\Champs:deleteChamp }
         
 nox_intranet_administration_affaires_edition_champ:
     path: /administration/assistant-affaires-edition-champ/{IdChamp}

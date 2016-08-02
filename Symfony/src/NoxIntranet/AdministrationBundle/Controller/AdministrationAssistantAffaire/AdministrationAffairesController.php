@@ -54,7 +54,9 @@ class AdministrationAffairesController extends Controller {
         }
     }
 
-    public function administrationAffairesAccueilAction(Request $request, $profil) {
+    public function administrationAffairesAccueilAction(Request $request, $section) {
+
+        $profil = '';
 
         $root = realpath($this->get('kernel')->getRootDir() . '\..'); // On récupére la racine du serveur.
 
@@ -94,128 +96,6 @@ class AdministrationAffairesController extends Controller {
                     ->add('Ajouter', SubmitType::class, array(
                         'disabled' => true,
                         'attr' => array('title' => 'Veuillez créez un profil pour pouvoir uploader un modèle.')
-                    ))
-                    ->getForm();
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        // Génération formulaire d'ajout de champ
-        $nouveauChamp = new Formulaires();
-        if (!empty($em->getRepository('NoxIntranetRessourcesBundle:Profils')->findAll())) {
-            $formAjoutChamp = $this->get('form.factory')->createNamedBuilder('formAjoutChamp', 'form', $nouveauChamp)
-                    ->add('Nom', TextType::class)
-                    ->add('Type', ChoiceType::class, array(
-                        'choices' => array(
-                            'Texte' => 'Texte',
-                            'Nombre' => 'Nombre',
-                            'Données' => 'Données'
-                        ),
-                    ))
-                    ->add('Profil', EntityType::class, array(
-                        'class' => 'NoxIntranetRessourcesBundle:Profils',
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('u')
-                                    ->orderBy('u.nom', 'ASC');
-                        },
-                        'choice_label' => 'Nom',
-                    ))
-                    ->add('AjoutDonnees', CheckboxType::class, array(
-                        'required' => false
-                    ))
-                    ->add('Ajouter', SubmitType::class)
-                    ->getForm();
-        } else {
-            $formAjoutChamp = $this->get('form.factory')->createNamedBuilder('formAjoutChamp', 'form', $nouveauChamp)
-                    ->add('Nom', TextType::class, array(
-                        'disabled' => true
-                    ))
-                    ->add('Type', ChoiceType::class, array(
-                        'choices' => array(
-                            'Texte' => 'Texte',
-                            'Nombre' => 'Nombre',
-                            'Données' => 'Données',
-                        ),
-                        'disabled' => true
-                    ))
-                    ->add('Profil', EntityType::class, array(
-                        'class' => 'NoxIntranetRessourcesBundle:Profils',
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('u')
-                                    ->orderBy('u.nom', 'ASC');
-                        },
-                        'choice_label' => 'Nom',
-                        'disabled' => true,
-                        'placeholder' => 'Il n\'y a aucun profil à séléctionner.'
-                    ))
-                    ->add('Ajouter', SubmitType::class, array(
-                        'disabled' => true,
-                        'attr' => array('title' => 'Veuillez créez un profil pour pouvoir ajouter un champ.')
-                    ))
-                    ->add('AjoutDonnees', CheckboxType::class, array(
-                        'disabled' => true
-                    ))
-                    ->getForm();
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        // Génération formulaire de suppression de champ
-        if (!empty($em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findAll())) {
-            $formSuppressionChamp = $this->get('form.factory')->createNamedBuilder('formSuppressionChamp', 'form')
-                    ->add('Nom', EntityType::class, array(
-                        'class' => 'NoxIntranetAdministrationBundle:Formulaires',
-                        'choice_label' => function($value) {
-                            return $value->getNom() . " - " . $value->getType() . ' - ' . $value->getProfil();
-                        }
-                    ))
-                    ->add('Supprimer', SubmitType::class)
-                    ->getForm();
-        } else {
-            $formSuppressionChamp = $this->get('form.factory')->createNamedBuilder('formSuppressionChamp', 'form')
-                    ->add('Nom', EntityType::class, array(
-                        'class' => 'NoxIntranetAdministrationBundle:Formulaires',
-                        'choice_label' => function($value) {
-                            return $value->getNom() . " - " . $value->getType() . ' - ' . $value->getProfil();
-                        },
-                        'placeholder' => 'Il n\'y a aucun champ à supprimer.',
-                        'disabled' => true
-                    ))
-                    ->add('Supprimer', SubmitType::class, array(
-                        'disabled' => true
-                    ))
-                    ->getForm();
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-        // Génération du formulaire de séléction de champ
-        if (!empty($em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findByType('Données'))) {
-            $formSelectionChamp = $this->get('form.factory')->createNamedBuilder('formSelectionChamp', 'form')
-                    ->add('Champs', EntityType::class, array(
-                        'class' => 'NoxIntranetAdministrationBundle:Formulaires',
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('u')
-                                    ->where("u.type = 'Données'")
-                                    ->orderBy('u.nom', 'ASC');
-                        },
-                        'choice_label' => function($value) {
-                            return $value->getNom() . " - " . $value->getType() . ' - ' . $value->getProfil();
-                        }
-                    ))
-                    ->add('Editer', SubmitType::class)
-                    ->getForm();
-        } else {
-            $formSelectionChamp = $this->get('form.factory')->createNamedBuilder('formSelectionChamp', 'form')
-                    ->add('Champs', EntityType::class, array(
-                        'class' => 'NoxIntranetAdministrationBundle:Formulaires',
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('u')
-                                    ->where("u.type = 'Données'")
-                                    ->orderBy('u.nom', 'ASC');
-                        },
-                        'choice_label' => function($value) {
-                            return $value->getNom() . " - " . $value->getType() . ' - ' . $value->getProfil();
-                        },
-                        'disabled' => true,
-                        'placeholder' => 'Il n\'y a aucun champ éditable.'
-                    ))
-                    ->add('Editer', SubmitType::class, array(
-                        'disabled' => true
                     ))
                     ->getForm();
         }
@@ -326,27 +206,8 @@ class AdministrationAffairesController extends Controller {
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Traitement du formulaire d'ajout de champ
-        if ($request->request->has('formAjoutChamp')) {
-
-            $formAjoutChamp->handleRequest($request);
-
-            if ($formAjoutChamp->isValid()) {
-
-                if ($em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findByNom($formAjoutChamp['Nom']->getData()) == null) {
-                    $nouveauChamp->setNom($formAjoutChamp['Nom']->getData());
-                    $nouveauChamp->setType($formAjoutChamp['Type']->getData());
-                    $nouveauChamp->setProfil($formAjoutChamp['Profil']->getData()->getNom());
-
-                    $em->persist($nouveauChamp);
-                    $em->flush();
-
-                    $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $formAjoutChamp['Nom']->getData() . ' à été ajouté.');
-                } else {
-                    $request->getSession()->getFlashBag()->add('noticeErreur', 'Un champ portant le même nom existe déjà !');
-                }
-
-                return $this->redirectToRoute('nox_intranet_administration_affaires');
-            }
+        if ($request->request->has('formNewChamp')) {
+            return $this->assistantAffaireProcessNewChampFormAction($this->assistantAffaireGetNewChampForm(), $request);
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Traitement du formulaire de suppression de champ
@@ -477,12 +338,13 @@ class AdministrationAffairesController extends Controller {
         return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig', array(
                     'formProfils' => $this->assistantAffairesGetProfilsForm()->createView(),
                     'formAjoutFichier' => $formAjoutFichier->createView(), 'formSelectionDossier' => $formSelectionDossier->createView(),
-                    'formSelectionVersion' => $formSelectionVersion->createView(), 'formAjoutChamp' => $formAjoutChamp->createView(),
-                    'formSuppressionChamp' => $formSuppressionChamp->createView(), 'formSelectionChamp' => $formSelectionChamp->createView(),
+                    'formSelectionVersion' => $formSelectionVersion->createView(), 'champs' => $this->assistantAffairesGetChamps(),
+                    'formNewChamp' => $this->assistantAffaireGetNewChampForm()['formulaire']->createView(), 'section' => $section
         ));
         ////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
+    // Retourne un formulaire contenant les profils en base de données.
     public function assistantAffairesGetProfilsForm() {
         $formAjoutProfil = $this->get('form.factory')->createNamedBuilder('formAjoutProfil', 'form')
                 ->add('Profils', EntityType::class, array(
@@ -492,6 +354,90 @@ class AdministrationAffairesController extends Controller {
                 ->getForm();
 
         return $formAjoutProfil;
+    }
+
+    // Retourne les champs en base de données.
+    public function assistantAffairesGetChamps() {
+        // On récupére tous les champs en base de données.
+        $em = $this->getDoctrine()->getManager();
+        $champs = $em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findAll();
+
+        // On retourne les champs.
+        return $champs;
+    }
+
+    // Retourne un formulaire de création de nouveau champ.
+    public function assistantAffaireGetNewChampForm() {
+        // On crée un nouveau champ.
+        $newChamp = new Formulaires;
+
+        // On crée un formulaire d'ajout de champ.
+        $formNewChamp = $this->get('form.factory')->createNamedBuilder('formNewChamp', 'form', $newChamp)
+                ->add('Nom', TextType::class, array(
+                    'attr' => array(
+                        'placeholder' => 'Nom du champ',
+                        'style' => 'text-align: center; box-sizing: border-box; width: 90%;'
+                    )
+                ))
+                ->add('Profil', EntityType::class, array(
+                    'class' => 'NoxIntranetRessourcesBundle:Profils',
+                    'choice_label' => 'Nom',
+                    'placeholder' => 'Choisir un profil',
+                    'attr' => array(
+                        'style' => 'text-align: center; width: 90%;'
+                    )
+                ))
+                ->add('Type', ChoiceType::class, array(
+                    'choices' => array('Texte' => 'Texte', 'Nombre' => 'Nombre', 'Données' => 'Données'),
+                    'placeholder' => 'Choisir un type',
+                    'attr' => array(
+                        'style' => 'text-align: center; width: 90%;'
+                    )
+                ))
+                ->add('AjoutDonnees', CheckboxType::class, array(
+                    'label' => 'Permettre l\'ajout de données supplémentaires.',
+                    'required' => false,
+                    'label_attr' => array(
+                        'style' => 'font-size: 0.8vw; display: inline-block; width: 90%;'
+                    )
+                ))
+                ->add('Ajouter', SubmitType::class)
+                ->getForm();
+
+        // Retourne le formulaire de création de champ.
+        return array('formulaire' => $formNewChamp, 'champ' => $newChamp);
+    }
+
+    // Traitre le formulaire d'ajout de champ quand il a été validé.
+    public function assistantAffaireProcessNewChampFormAction($formNewChamp, $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        // Si le formulaire est valide.
+        $formNewChamp['formulaire']->handleRequest($request);
+        if ($formNewChamp['formulaire']->isValid()) {
+            // Si un champ portant le même nom que celui passé en paramêtre n'existe pas déjà.
+            if (empty($em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->findByNom($formNewChamp['formulaire']['Nom']->getData()))) {
+
+                // On attribut le nom du profil plutôt que son ID.
+                $formNewChamp['champ']->setProfil($formNewChamp['formulaire']['Profil']->getData()->getNom());
+
+                // On sauvegarde le nouveau champ en base de données.
+                $em->persist($formNewChamp['champ']);
+                $em->flush();
+
+                // On affiche un message de confirmation de création.
+                $request->getSession()->getFlashBag()->add('notice', 'Le champ ' . $formNewChamp['formulaire']['Nom']->getData() . ' à été ajouté.');
+            }
+            // Si un champ portant le même nom que celui passé en paramêtre existe déjà.
+            else {
+                // On affiche un message d'erreur.
+                $request->getSession()->getFlashBag()->add('noticeErreur', 'Un champ portant le même nom existe déjà !');
+            }
+
+            // On redirige vers la page d'administration d'affaire avec 'Champ' comme section.
+            return $this->redirectToRoute('nox_intranet_administration_affaires', array('section' => 'champs'));
+        }
     }
 
     public function ajaxGetModeleByProfilAction(Request $request) {

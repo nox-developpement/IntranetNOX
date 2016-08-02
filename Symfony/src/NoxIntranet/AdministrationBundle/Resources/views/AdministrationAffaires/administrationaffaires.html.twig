@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <div id='DivProfils' style='display: none; width: 70%; margin: auto;'>
+    <div id='DivProfils' style='{% if section != 'profils' %}display: none;{% endif %} width: 70%; margin: auto;'>
 
         {{ form_start(formProfils, {'attr': {'class': 'formulaireAdministrationAjoutProfil'}}) }}
         {{ form_errors(formProfils) }}
@@ -41,114 +41,42 @@
 
     </div>
 
-    <div id='DivChamps' style='display: none;'>
-
-        <div class='DivFormulaireAjoutChamp formulaireAA'>
-
-            {{ form_start(formAjoutChamp, {'attr': {'class': 'formulaireAjoutChamp'}}) }}
-            {{ form_errors(formAjoutChamp) }}
-
-            <fieldset>
-
-                <legend>Ajouter un champ</legend>
-
-                <div style='width: 70%; margin: auto;'>
-                    {{ form_label(formAjoutChamp.Type, "Type :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
-                    {{ form_errors(formAjoutChamp.Type) }}
-                    {{ form_widget(formAjoutChamp.Type, {'attr': {'class': 'selectFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}
-
-                    <br />
-
-                    {{ form_widget(formAjoutChamp._token) }}
-
-                    {{ form_label(formAjoutChamp.Nom, "Nom :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
-                    {{ form_errors(formAjoutChamp.Nom) }}
-                    {{ form_widget(formAjoutChamp.Nom, {'attr': {'class': 'texteFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}
-
-                    <br />
-
-                    <div style='display: none; vertical-align: middle; margin: 1% 0% 2% 0%;'>
-                        <span style='display: inline-block; width: 90%; vertical-align: middle;'> 
-                            {{ form_label(formAjoutChamp.AjoutDonnees, "Permettre l'ajout de donnée supplémentaire par l'utilisateur") }}
-                            {{ form_errors(formAjoutChamp.AjoutDonnees) }}
-                        </span><!--
-                        --><span style='display: inline-block; width: 10%; vertical-align: middle;'>
-                            {{ form_widget(formAjoutChamp.AjoutDonnees, {'attr': {'class': 'checkboxFormulaireAjoutChamp' }}) }}
-                        </span>
-                    </div>
-
-                    {{ form_label(formAjoutChamp.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireAjoutChamp'}}) }}
-                    {{ form_errors(formAjoutChamp.Profil) }}
-                    {{ form_widget(formAjoutChamp.Profil, {'attr': {'class': 'selectFormulaireAjoutChamp champFormulaireAjoutChamp' }}) }}
-
-                    <br />
-
-                    {{ form_widget(formAjoutChamp.Ajouter, {'attr': {'class': 'submitFormulaireAjoutChamp', 'class': 'boutonFormulaire', 'style': 'margin-top: 1%;' }}) }}
-                </div>
-
-            </fieldset> 
-
-            {{ form_end(formAjoutChamp) }}
-
-        </div>
-
-        <div class='DivFormulaireSuppressionChamp formulaireAA'>
-
-            {{ form_start(formSuppressionChamp, {'attr': {'class': 'formulaireSuppressionChamp'}}) }}
-            {{ form_errors(formSuppressionChamp) }}
-
-            <fieldset>
-
-                <legend>Supprimer un champ</legend>       
-
-                <p style="width: 70%; margin: auto;">
-                    {{ form_label(formSuppressionChamp.Nom, "Nom - Type - Profil", {'label_attr': {'class': 'labelFormulaireSuppressionChamp'}}) }} <br />
-                    {{ form_errors(formSuppressionChamp.Nom) }}
-                    {{ form_widget(formSuppressionChamp.Nom, {'attr': {'class': 'selectFormulaireSuppressionChamp' }}) }}
-                </p>
-
-                <p style="width: 70%; margin: auto; margin-top: 1%;">
-                    {{ form_widget(formSuppressionChamp._token) }} 
-
-                    {{ form_widget(formSuppressionChamp.Supprimer, {'attr': {'class': 'submitFormulaireSuppressionChamp', 'class': 'boutonFormulaire' }}) }}
-                </p>
-
-            </fieldset> 
-
-            {{ form_end(formSuppressionChamp) }}
-
-        </div>
-
-        <div class='DivFormulaireSelectionChamp formulaireAA'>
-
-            {{ form_start(formSelectionChamp, {'attr': {'class': 'formulaireSelectionChamp'}}) }}
-            {{ form_errors(formSelectionChamp) }}
-
-            <fieldset>
-
-                <legend>Editer un champ de données</legend>       
-
-                <p style="width: 70%; margin: auto;">
-                    {{ form_label(formSelectionChamp.Champs, "Champ :", {'label_attr': {'class': 'labelFormulaireSelectionChamp'}}) }}
-                    {{ form_errors(formSelectionChamp.Champs) }}
-                    {{ form_widget(formSelectionChamp.Champs, {'attr': {'class': 'selectFormulaireSelectionChamp' }}) }}
-                </p>
-
-                <p style="width: 70%; margin: auto; margin-top: 1%;">
-                    {{ form_widget(formSelectionChamp._token) }} 
-
-                    {{ form_widget(formSelectionChamp.Editer, {'attr': {'class': 'submitFormulaireSelectionChamp', 'class': 'boutonFormulaire' }}) }}
-                </p>
-
-            </fieldset> 
-
-            {{ form_end(formSelectionChamp) }}
-
-        </div>
+    <div id='DivChamps' style='{% if section != 'champs' %}display: none;{% endif %}'>
+        <table id='administrationChampsTable'>
+            <tr>
+                <th>Nom</th>
+                <th>Profil</th>
+                <th>Type</th>
+                <th>Editer</th>
+                <th>Supprimer</th>
+            </tr>
+            <tr>
+                {{ form_start(formNewChamp) }}
+                <td>{{ form_widget(formNewChamp.Nom) }}</td>
+                <td>{{ form_widget(formNewChamp.Profil) }}</td>
+                <td>{{ form_widget(formNewChamp.Type) }}</td>
+                <td>
+                    {{ form_label(formNewChamp.AjoutDonnees) }}<br />
+                    {{ form_widget(formNewChamp.AjoutDonnees, {'attr': {'style': 'vertical-align: middle;'}}) }}
+                </td>
+                <td></td>
+                <td>{{ form_widget(formNewChamp.Ajouter, {'attr': {'class': 'boutonFormulaire', 'style': 'margin: 3%; padding: 5%;'}}) }}</td>
+                {{ form_end(formNewChamp) }}
+            </tr>
+            {% for champ in champs %}
+                <tr>
+                    <td>{{ champ.Nom }}</td>
+                    <td>{{ champ.Profil }}</td>
+                    <td>{{ champ.Type }}</td>
+                    <td>{{ champ.AjoutDonnees }}</td>
+                    <td><a href='{{ path('nox_intranet_administration_affaire_delete_champ', { 'IDChamp': champ.Id }) }}'><img src='{{ asset('bundles/noxintranetadministration/images/Delete-48.png') }}' alt='Supprimer' class='deleteProfilImg'></a></td>
+                </tr>
+            {% endfor %}
+        </table>
 
     </div>
 
-    <div id='DivModeles' style='display: none;'>
+    <div id='DivModeles' style='{% if section != 'modeles' %}display: none;{% endif %}'>
 
         <div class='DivFormulaireAjoutFichier formulaireAA'>
 
