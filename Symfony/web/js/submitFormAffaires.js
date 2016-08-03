@@ -32,8 +32,6 @@ $(window).load(function () {
         return confirm('Voulez-vous vraiment supprimer cette version du suivi ? Vous ne pourez pas la récupérer.');
     });
 
-    toggleCheckboxAjoutDonnees();
-
     $('#formAjoutChamp_Type').change(function () {
         toggleCheckboxAjoutDonnees();
     });

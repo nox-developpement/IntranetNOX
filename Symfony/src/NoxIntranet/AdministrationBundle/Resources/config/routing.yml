@@ -184,6 +184,10 @@ nox_intranet_administration_affaires_edition_champ:
     path: /administration/assistant-affaires-edition-champ/{IdChamp}
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:administrationAffairesEditionChamp }
     
+nox_intranet_administration_affaires_delete_modele:
+    path: /administration/assistant-affaires-delete-modele/{IDModele}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Modeles\Modeles:deleteModele }
+    
 nox_intranet_administration_affaires_ajax_get_modele_by_profil:
     path: /administration/assistant-affaires-get-modele-by-profil
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:ajaxGetModeleByProfil }

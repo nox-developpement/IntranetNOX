@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace NoxIntranet\AdministrationBundle\Controller\AdministrationAssistantAffaire;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -56,8 +50,6 @@ class AdministrationAffairesController extends Controller {
     public function administrationAffairesAccueilAction(Request $request, $section) {
 
         $profil = '';
-
-        $root = realpath($this->get('kernel')->getRootDir() . '\..'); // On récupére la racine du serveur.
 
         $em = $this->getDoctrine()->getManager();
 
@@ -122,48 +114,8 @@ class AdministrationAffairesController extends Controller {
         }
         //////////////////////////////////////////////////////////////////////////////////////////////// 
         // Traitement du formulaire d'ajout de fichier
-        if ($request->request->has('formAjoutFichier')) {
-
-            $formAjoutFichier->handleRequest($request);
-
-            if ($formAjoutFichier->isValid()) {
-
-                $dir = $root . "\web\uploads\AssistantAffaires\FeuillesSuivis\\";
-
-                $file = $formAjoutFichier['file']->getData();
-
-                $extension = $file->guessExtension();
-
-                var_dump($extension);
-
-                if ($extension === 'xlsx' OR $extension === 'xls') {
-                    if (!is_dir($dir . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))) {
-                        $em = $this->getDoctrine()->getManager();
-
-                        $folderName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-
-                        $file->move($dir . $folderName, $file->getClientOriginalName());
-
-                        $fichier_suivi = new Fichier_Suivi();
-
-                        $fichier_suivi->setChemin($dir . $folderName);
-                        $fichier_suivi->setProfil($formAjoutFichier['Profil']->getData()->getNom());
-
-                        $em->persist($fichier_suivi);
-                        $em->flush();
-
-                        $request->getSession()->getFlashBag()->add('notice', 'Le modèle ' . $file->getClientOriginalName() . ' a été ajouté.');
-
-                        return $this->redirectToRoute('nox_intranet_administration_affaires');
-                    } else {
-                        $request->getSession()->getFlashBag()->add('noticeErreur', 'Un modèle associé à un fichier de même nom existe déjà !');
-                    }
-                } else {
-                    $request->getSession()->getFlashBag()->add('noticeErreur', 'Le fichier doit être un fichier Excel (.xlsx) !');
-                }
-
-                return $this->redirectToRoute('nox_intranet_administration_affaires');
-            }
+        if ($request->request->has('formNewModele')) {
+            return $this->assistantAffaireProcessNewModeleForm($this->assistantAffairesGetNewModeleForm(), $request);
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
         // Traitement du formulaire d'ajout de champ
@@ -357,7 +309,7 @@ class AdministrationAffairesController extends Controller {
                     )
                 ))
                 ->add('AjoutDonnees', CheckboxType::class, array(
-                    'label' => 'Permettre l\'ajout de données supplémentaires.',
+                    'label' => 'Permettre l\'édition des données.',
                     'required' => false,
                     'label_attr' => array(
                         'style' => 'font-size: 0.8vw; display: inline-block;'
@@ -401,7 +353,7 @@ class AdministrationAffairesController extends Controller {
                 $request->getSession()->getFlashBag()->add('noticeErreur', 'Un champ portant le même nom existe déjà !');
             }
 
-            // On redirige vers la page d'administration d'affaire avec 'Champ' comme section.
+            // On redirige vers la page d'administration d'affaire avec 'champs' comme section.
             return $this->redirectToRoute('nox_intranet_administration_affaires', array('section' => 'champs'));
         }
     }
@@ -428,9 +380,8 @@ class AdministrationAffairesController extends Controller {
 
         // On crée un formulaire d'ajout de champ.
         $formNewModele = $this->get('form.factory')->createNamedBuilder('formNewModele', 'form', $newModele)
-                ->add('Chemin', TextType::class, array(
+                ->add('Chemin', FileType::class, array(
                     'attr' => array(
-                        'style' => 'text-align: center; width: 100%;'
                     )
                 ))
                 ->add('Profil', EntityType::class, array(
@@ -451,6 +402,59 @@ class AdministrationAffairesController extends Controller {
 
         // Retourne le formulaire de création de champ.
         return array('formulaire' => $formNewModele, 'modele' => $newModele);
+    }
+
+    // Traite le formulaire d'ajout de modèle quand il a été validé.
+    public function assistantAffaireProcessNewModeleForm($formNewModele, $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        // Si le formulaire est valide.
+        $formNewModele['formulaire']->handleRequest($request);
+        if ($formNewModele['formulaire']->isValid()) {
+
+            // On récupére le fichier passé en paramètre.
+            $file = $formNewModele['formulaire']['Chemin']->getData();
+
+            // On récupére l'extension du fichier.
+            $extension = $file->guessExtension();
+
+            // Si le fichier n'est pas un fichier Excel on affiche un message d'erreur et on redirige.
+            if ($extension !== 'xlsx' && $extension !== 'xls') {
+                // On affiche un message d'erreur.
+                $request->getSession()->getFlashBag()->add('noticeErreur', "Le fichier doit avoir pour format 'xlsx' ou 'xls'.");
+                // On redirige vers la page d'administration d'affaire avec 'modeles' comme section.
+                return $this->redirectToRoute('nox_intranet_administration_affaires', array('section' => 'modeles'));
+            }
+
+            // On récupére la racine du serveur.
+            $root = realpath($this->get('kernel')->getRootDir() . '\..');
+            // On récupére le chemin du repertoire contenant les fichiers modèles.
+            $dir = $root . "\web\uploads\AssistantAffaires\FeuillesSuivis\\";
+
+            // Si un modèle ayant le même chemin que celui passé en paramêtre n'existe pas déjà.
+            if (empty($em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findOneByChemin($dir . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)))) {
+                // On upload le fichier dans un dossier à son nom dans la dossier d'upload de l'assistant d'affaires.
+                $file->move($dir . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME), pathinfo($file->getClientOriginalName(), PATHINFO_BASENAME));
+
+                // On attribut le chemin du fichier de modèle au nouveau modèle.
+                $formNewModele['modele']->setChemin($dir . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+                // On attribut le nom du profil au nouveau modèle.
+                $formNewModele['modele']->setProfil($file = $formNewModele['formulaire']['Profil']->getData()->getNom());
+                // On sauvegarde le nouveau modèle en base de donnée.
+                $em->persist($formNewModele['modele']);
+                $em->flush();
+
+                // On affiche un message de confirmation.
+                $request->getSession()->getFlashBag()->add('notice', 'Le modèle ' . pathinfo($formNewModele['modele']->getChemin(), PATHINFO_FILENAME) . 'a été créé.');
+            } else {
+                // On affiche un message d'erreur.
+                $request->getSession()->getFlashBag()->add('noticeErreur', 'Un modèle basé sur le même fichier existe déjà !');
+            }
+
+            // On redirige vers la page d'administration d'affaire avec 'modeles' comme section.
+            return $this->redirectToRoute('nox_intranet_administration_affaires', array('section' => 'modeles'));
+        }
     }
 
     public function ajaxGetModeleByProfilAction(Request $request) {

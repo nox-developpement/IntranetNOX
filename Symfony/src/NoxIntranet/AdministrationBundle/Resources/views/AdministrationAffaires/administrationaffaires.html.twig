@@ -44,9 +44,27 @@
     <div id='DivChamps' style='{% if section != 'champs' %}display: none;{% endif %}'>
         <table id='administrationChampsTable'>
             <tr>
-                <th>Nom</th>
-                <th>Profil</th>
-                <th>Type</th>
+                <th data-sorter="true" sorter-order="none" data-type="Champs_Nom">
+                    Nom
+                    <div style='display: inline-block; vertical-align: middle;'><!--
+                        --><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: bottom;'><br /><!--
+                        --><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: top;'><!--
+                        --></div>
+                </th>
+                <th data-sorter="true" sorter-order="none" data-type="Champs_Profil">
+                    Profil
+                    <div style='display: inline-block; vertical-align: middle;'><!--
+                        --><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: bottom;'><br /><!--
+                        --><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: top;'><!--
+                        --></div>
+                </th>
+                <th data-sorter="true" sorter-order="none" data-type="Champs_Type">
+                    Type
+                    <div style='display: inline-block; vertical-align: middle;'><!--
+                        --><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: bottom;'><br /><!--
+                        --><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: top;'><!--
+                        --></div>
+                </th>
                 <th>Editer</th>
                 <th>Supprimer</th>
             </tr>
@@ -65,9 +83,9 @@
             </tr>
             {% for champ in champs %}
                 <tr>
-                    <td>{{ champ.Nom }}</td>
-                    <td>{{ champ.Profil }}</td>
-                    <td>{{ champ.Type }}</td>
+                    <td data-type="Champs_Nom">{{ champ.Nom }}</td>
+                    <td data-type="Champs_Profil">{{ champ.Profil }}</td>
+                    <td data-type="Champs_Type">{{ champ.Type }}</td>
                     <td>{{ champ.AjoutDonnees }}</td>
                     <td><a href='{{ path('nox_intranet_administration_affaire_delete_champ', { 'IDChamp': champ.Id }) }}'><img src='{{ asset('bundles/noxintranetadministration/images/Delete-48.png') }}' alt='Supprimer' class='deleteProfilImg'></a></td>
                 </tr>
@@ -94,7 +112,7 @@
                 <tr>
                     <td>{{ modele['filename'] }}</td>
                     <td>{{ modele['modele'].Profil }}</td>
-                    <td><a href=''><img src='{{ asset('bundles/noxintranetadministration/images/Delete-48.png') }}' alt='Supprimer' class='deleteModeleImg'></a></td>
+                    <td><a href='{{ path('nox_intranet_administration_affaires_delete_modele', { 'IDModele': modele['modele'].Id }) }}'><img src='{{ asset('bundles/noxintranetadministration/images/Delete-48.png') }}' alt='Supprimer' class='deleteModeleImg'></a></td>
                 </tr>
             {% endfor %}
         </table>
@@ -108,6 +126,7 @@
             searchSuivi('#rechercheSuivi', '.selectFormulaireSelectionVersion');
             ajaxAddProfil();
             ajaxDeleteProfil();
+            trieTableau();
         });
 
         // Affiche/Cache les 'div' de profils/Champs/Modèles.
@@ -281,6 +300,66 @@
                     });
 
                 }
+            });
+        }
+
+        function trieTableau() {
+
+            // Trie les chaîne de caractères par odres croissant.
+            function compareStringCroissant(a, b) {
+                if (a.text < b.text)
+                    return -1;
+                if (a.text > b.text)
+                    return 1;
+                return 0;
+            }
+
+            // Trie les chaîne de caractères par odres décroissant.
+            function compareStringDecroissant(a, b) {
+                if (a.text < b.text)
+                    return 1;
+                if (a.text > b.text)
+                    return -1;
+                return 0;
+            }
+
+            // Lors du clique sur un titre de colonne.
+            $("th[data-sorter='true']").click(function () {
+
+                // On récupére le tableau contenant le titre.
+                var table = $(this).closest('table');
+
+                // On initialise un tableau qui contiendras les lignes du tableau.
+                var rows = [];
+
+                // Pour chaque cellule de type identique à celui du titre.
+                $("td[data-type='" + $(this).attr('data-type') + "']").each(function () {
+                    // On récupére le contenu de la cellule.
+                    var text = $(this).text();
+                    // On récupére la structure HTML de la ligne parente de la cellule.
+                    var element = $(this).closest('tr').clone();
+
+                    // On crée un objet javascript contenant le contenu et la structure et on l'empile dans le tableau des lignes.
+                    var row = {text: text, element: element};
+                    rows.push(row);
+                });
+
+                // On trie le tableau en fonction du contenu des cellules et de l'ordre de trie actuel et on change l'attribut de la cellule titre.
+                if ($(this).attr('sorter-order') === 'none' || $(this).attr('sorter-order') === 'decroissant') {
+                    rows.sort(compareStringCroissant);
+                    $(this).attr('sorter-order', 'croissant');
+                } else {
+                    rows.sort(compareStringDecroissant);
+                    $(this).attr('sorter-order', 'decroissant');
+                }
+
+                // On supprime les lignes du tableau.
+                $("td[data-type='" + $(this).attr('data-type') + "']").closest('tr').remove();
+
+                // On injecte chaque ligne dans le tableau.
+                $.each(rows, function (index, value) {
+                    table.append(value.element);
+                });
             });
         }
     </script>
