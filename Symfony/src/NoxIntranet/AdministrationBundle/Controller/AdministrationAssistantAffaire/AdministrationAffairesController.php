@@ -9,7 +9,6 @@
 namespace NoxIntranet\AdministrationBundle\Controller\AdministrationAssistantAffaire;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use NoxIntranet\RessourcesBundle\Entity\Profils;
 use NoxIntranet\AdministrationBundle\Entity\Fichier_Suivi;
 use NoxIntranet\AdministrationBundle\Entity\Formulaires;
 use NoxIntranet\AdministrationBundle\Entity\LiaisonSuiviChamp;
@@ -62,44 +61,6 @@ class AdministrationAffairesController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
 
-        // Génération formulaire ajout de fichier
-        if (!empty($em->getRepository('NoxIntranetRessourcesBundle:Profils')->findAll())) {
-            $formAjoutFichier = $this->get('form.factory')->createNamedBuilder('formAjoutFichier', 'form')
-                    ->add('file', FileType::class)
-                    ->add('Profil', EntityType::class, array(
-                        'class' => 'NoxIntranetRessourcesBundle:Profils',
-                        'placeholder' => 'Sélectionnez un profil',
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('u')
-                                    ->orderBy('u.nom', 'ASC');
-                        },
-                        'choice_label' => 'Nom',
-                    ))
-                    ->add('Ajouter', 'submit')
-                    ->getForm();
-        } else {
-            $formAjoutFichier = $this->get('form.factory')->createNamedBuilder('formAjoutFichier', 'form')
-                    ->add('file', FileType::class, array(
-                        'disabled' => true
-                    ))
-                    ->add('Profil', EntityType::class, array(
-                        'class' => 'NoxIntranetRessourcesBundle:Profils',
-                        'placeholder' => 'Sélectionnez un profil',
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('u')
-                                    ->orderBy('u.nom', 'ASC');
-                        },
-                        'choice_label' => 'Nom',
-                        'disabled' => true,
-                        'placeholder' => 'Il n\'y a aucun profil à séléctionner.'
-                    ))
-                    ->add('Ajouter', SubmitType::class, array(
-                        'disabled' => true,
-                        'attr' => array('title' => 'Veuillez créez un profil pour pouvoir uploader un modèle.')
-                    ))
-                    ->getForm();
-        }
-        //////////////////////////////////////////////////////////////////////////////////////////////// 
         // Génération formulaire de séléction du suivi
         if (!empty($em->getRepository('NoxIntranetRessourcesBundle:Profils')->findAll())) {
             $profilActuel = $em->getRepository('NoxIntranetRessourcesBundle:Profils')->findOneByNom($profil);
@@ -337,9 +298,10 @@ class AdministrationAffairesController extends Controller {
         // Génération de l'affichage
         return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaires.html.twig', array(
                     'formProfils' => $this->assistantAffairesGetProfilsForm()->createView(),
-                    'formAjoutFichier' => $formAjoutFichier->createView(), 'formSelectionDossier' => $formSelectionDossier->createView(),
+                    'formNewModele' => $this->assistantAffairesGetNewModeleForm()['formulaire']->createView(), 'formSelectionDossier' => $formSelectionDossier->createView(),
                     'formSelectionVersion' => $formSelectionVersion->createView(), 'champs' => $this->assistantAffairesGetChamps(),
-                    'formNewChamp' => $this->assistantAffaireGetNewChampForm()['formulaire']->createView(), 'section' => $section
+                    'formNewChamp' => $this->assistantAffaireGetNewChampForm()['formulaire']->createView(), 'section' => $section,
+                    'modeles' => $this->assistantAffairesGetModeles()
         ));
         ////////////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -376,7 +338,7 @@ class AdministrationAffairesController extends Controller {
                 ->add('Nom', TextType::class, array(
                     'attr' => array(
                         'placeholder' => 'Nom du champ',
-                        'style' => 'text-align: center; box-sizing: border-box; width: 90%;'
+                        'style' => 'text-align: center; box-sizing: border-box; width: 100%;'
                     )
                 ))
                 ->add('Profil', EntityType::class, array(
@@ -384,31 +346,35 @@ class AdministrationAffairesController extends Controller {
                     'choice_label' => 'Nom',
                     'placeholder' => 'Choisir un profil',
                     'attr' => array(
-                        'style' => 'text-align: center; width: 90%;'
+                        'style' => 'text-align: center; width: 100%'
                     )
                 ))
                 ->add('Type', ChoiceType::class, array(
                     'choices' => array('Texte' => 'Texte', 'Nombre' => 'Nombre', 'Données' => 'Données'),
                     'placeholder' => 'Choisir un type',
                     'attr' => array(
-                        'style' => 'text-align: center; width: 90%;'
+                        'style' => 'text-align: center; width: 100%;'
                     )
                 ))
                 ->add('AjoutDonnees', CheckboxType::class, array(
                     'label' => 'Permettre l\'ajout de données supplémentaires.',
                     'required' => false,
                     'label_attr' => array(
-                        'style' => 'font-size: 0.8vw; display: inline-block; width: 90%;'
+                        'style' => 'font-size: 0.8vw; display: inline-block;'
                     )
                 ))
-                ->add('Ajouter', SubmitType::class)
+                ->add('Ajouter', SubmitType::class, array(
+                    'attr' => array(
+                        'style' => 'padding: 10%;'
+                    )
+                ))
                 ->getForm();
 
         // Retourne le formulaire de création de champ.
         return array('formulaire' => $formNewChamp, 'champ' => $newChamp);
     }
 
-    // Traitre le formulaire d'ajout de champ quand il a été validé.
+    // Traite le formulaire d'ajout de champ quand il a été validé.
     public function assistantAffaireProcessNewChampFormAction($formNewChamp, $request) {
 
         $em = $this->getDoctrine()->getManager();
@@ -438,6 +404,53 @@ class AdministrationAffairesController extends Controller {
             // On redirige vers la page d'administration d'affaire avec 'Champ' comme section.
             return $this->redirectToRoute('nox_intranet_administration_affaires', array('section' => 'champs'));
         }
+    }
+
+    // Retournes les modèles en base de donnéees.
+    public function assistantAffairesGetModeles() {
+        // On récupére tous les champs en base de données.
+        $em = $this->getDoctrine()->getManager();
+        $modeles = $em->getRepository('NoxIntranetAdministrationBundle:Fichier_Suivi')->findAll();
+
+        $modelesArray = array();
+        foreach ($modeles as $modele) {
+            $modelesArray[] = array('filename' => pathinfo($modele->getChemin(), PATHINFO_FILENAME), 'modele' => $modele);
+        }
+
+        // On retourne les champs.
+        return $modelesArray;
+    }
+
+    // Retourne un formulaire de création de nouveau modèle.
+    public function assistantAffairesGetNewModeleForm() {
+        // On crée un nouveau champ.
+        $newModele = new Fichier_Suivi();
+
+        // On crée un formulaire d'ajout de champ.
+        $formNewModele = $this->get('form.factory')->createNamedBuilder('formNewModele', 'form', $newModele)
+                ->add('Chemin', TextType::class, array(
+                    'attr' => array(
+                        'style' => 'text-align: center; width: 100%;'
+                    )
+                ))
+                ->add('Profil', EntityType::class, array(
+                    'class' => 'NoxIntranetRessourcesBundle:Profils',
+                    'choice_label' => 'Nom',
+                    'placeholder' => 'Choisir un profil',
+                    'attr' => array(
+                        'style' => 'text-align: center; width: 100%;'
+                    )
+                ))
+                ->add('Ajouter', SubmitType::class, array(
+                    'attr' => array(
+                        'style' => 'padding: 5%; margin: 5%;',
+                        'class' => 'boutonFormulaire'
+                    )
+                ))
+                ->getForm();
+
+        // Retourne le formulaire de création de champ.
+        return array('formulaire' => $formNewModele, 'modele' => $newModele);
     }
 
     public function ajaxGetModeleByProfilAction(Request $request) {

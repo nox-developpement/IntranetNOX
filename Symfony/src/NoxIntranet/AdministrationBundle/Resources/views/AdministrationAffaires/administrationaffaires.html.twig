@@ -55,12 +55,12 @@
                 <td>{{ form_widget(formNewChamp.Nom) }}</td>
                 <td>{{ form_widget(formNewChamp.Profil) }}</td>
                 <td>{{ form_widget(formNewChamp.Type) }}</td>
-                <td>
+                <td style="opacity: 0;">
                     {{ form_label(formNewChamp.AjoutDonnees) }}<br />
                     {{ form_widget(formNewChamp.AjoutDonnees, {'attr': {'style': 'vertical-align: middle;'}}) }}
                 </td>
                 <td></td>
-                <td>{{ form_widget(formNewChamp.Ajouter, {'attr': {'class': 'boutonFormulaire', 'style': 'margin: 3%; padding: 5%;'}}) }}</td>
+                <td>{{ form_widget(formNewChamp.Ajouter, {'attr': {'class': 'boutonFormulaire'}}) }}</td>
                 {{ form_end(formNewChamp) }}
             </tr>
             {% for champ in champs %}
@@ -73,88 +73,31 @@
                 </tr>
             {% endfor %}
         </table>
-
     </div>
 
     <div id='DivModeles' style='{% if section != 'modeles' %}display: none;{% endif %}'>
-
-        <div class='DivFormulaireAjoutFichier formulaireAA'>
-
-            {{ form_start(formAjoutFichier, {'attr': {'class': 'formulaireAjoutFichier'}}) }}
-            {{ form_errors(formAjoutFichier) }}
-
-            <fieldset>
-
-                <p>
-                    {{ form_label(formAjoutFichier.Profil, "Profil :", {'label_attr': {'class': 'labelFormulaireAjoutFichier'}}) }}
-                    {{ form_errors(formAjoutFichier.Profil) }}
-                    {{ form_widget(formAjoutFichier.Profil, {'attr': {'class': 'fileFormulaireAjoutFichier' }}) }}
-                </p>
-
-                <legend>Ajouter un fichier</legend>
-
-                <p>
-                    {{ form_errors(formAjoutFichier.file) }}
-                    {{ form_widget(formAjoutFichier.file, {'attr': {'class': 'fileFormulaireAjoutFichier', 'style': 'font-size: 0.8vw;' }}) }}
-
-                    {{ form_widget(formAjoutFichier._token) }} <br /><br />
-
-                    {{ form_widget(formAjoutFichier.Ajouter, {'attr': {'class': 'boutonFormulaire' }}) }}
-                </p>
-
-            </fieldset> 
-
-            {{ form_end(formAjoutFichier) }}
-
-        </div>
-
-        <div id='DivFormulaireSelectionDossier' class="formulaireAA">
-
-            {{ form_start(formSelectionDossier, {'attr': {'class': 'formulaireSelectionDossier'}}) }}
-            {{ form_errors(formSelectionDossier) }}
-
-            <fieldset>
-
-                <legend>Profil</legend>
-
-                {{ form_label(formSelectionDossier.profil, "Selection du profil :", {'label_attr': {'class': 'labelFormulaireSelectionDossier'}}) }}
-                {{ form_errors(formSelectionDossier.profil) }}
-                {{ form_widget(formSelectionDossier.profil, {'attr': {'class': 'selectFormulaireSelectionDossier'}}) }}
-
-            </fieldset>
-
-            {{ form_end(formSelectionDossier) }}
-
-        </div>
-
-        <div id='DivFormulaireSelectionVersion' class="formulaireAA">
-            {{ form_start(formSelectionVersion, {'attr': {'class': 'formulaireSelectionVersion'}}) }}
-            {{ form_errors(formSelectionVersion) }}
-
-            <fieldset>
-
-                <legend>Selection du modèle</legend>
-
-                <p>
-                    <label for="rechercheSuivi">Recherche</label>
-                    <input placeholder="Ex : Ventes 2016" type="text" id="rechercheSuivi" style="width: 100%;"/>
-                    {{ form_errors(formSelectionVersion.Suivi) }}
-                    {{ form_widget(formSelectionVersion.Suivi, {'attr': {'class': 'selectFormulaireSelectionVersion', 'size': 15}}) }}
-                </p>
-
-                {{ form_widget(formSelectionVersion._token) }}
-
-                <p>
-                    {{ form_widget(formSelectionVersion.Editer, {'attr': {'class': 'submitFormulaireSelectionVersion' }}) }}
-                    {{ form_widget(formSelectionVersion.Supprimer, {'attr': {'class': 'submitFormulaireSelectionVersion' }}) }}
-                </p>
-
-            </fieldset>
-
-            {{ form_end(formSelectionVersion) }}
-
-        </div>
-
+        <table id="administrationModelesTable">
+            <tr>
+                <th>Nom</th>
+                <th>Profil</th>
+                <th>Supprimer</th>
+            </tr>
+            <tr>
+                {{ form_start(formNewModele) }}
+                <td>{{ form_widget(formNewModele.Chemin) }}</td>
+                <td>{{ form_widget(formNewModele.Profil) }}</td>
+                <th></th>
+                <td>{{ form_widget(formNewModele.Ajouter) }}</td>
+                {{ form_end(formNewModele) }}
+            </tr>
+            {% for modele in modeles %}
+                <tr>
+                    <td>{{ modele['filename'] }}</td>
+                    <td>{{ modele['modele'].Profil }}</td>
+                    <td><a href=''><img src='{{ asset('bundles/noxintranetadministration/images/Delete-48.png') }}' alt='Supprimer' class='deleteModeleImg'></a></td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
 
     <script>
@@ -191,19 +134,16 @@
 
         // Affiche cache la 'checkbox' d'ajout de données supplémentaire par l'utilisateur en fonction du type de champ séléctionné.
         function toggleCheckboxAjoutDonnees() {
-            $('#formAjoutChamp_Type').change(function () {
+            $('#formNewChamp_Type').change(function () {
                 // Si le type de champ séléctioné est 'Données'.
-                if ($('#formAjoutChamp_Type option:selected').text() === 'Données') {
-                    $('#checkboxBR').remove();
-                    $('#formAjoutChamp_AjoutDonnees').closest('div').after("<br id='checkboxBR'>");
-                    $('#formAjoutChamp_AjoutDonnees').closest('div').css('display', 'inline-block');
-                    $('#formAjoutChamp_AjoutDonnees').attr('required', 'required');
+                if ($('#formNewChamp_Type option:selected').text() === 'Données') {
+                    $('#formNewChamp_AjoutDonnees').closest('td').css('opacity', '1');
+                    $('#formNewChamp_AjoutDonnees').attr('required', 'required');
                 }
                 // Si le type de champ séléctioné n'est pas 'Données'.
                 else {
-                    $('#formAjoutChamp_AjoutDonnees').closest('div').hide();
-                    $('#checkboxBR').remove();
-                    $('#formAjoutChamp_AjoutDonnees').removeAttr('required');
+                    $('#formNewChamp_AjoutDonnees').closest('td').css('opacity', '0');
+                    $('#formNewChamp_AjoutDonnees').removeAttr('required');
                 }
             });
         }
