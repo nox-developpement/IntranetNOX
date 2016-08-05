@@ -3351,3 +3351,19 @@ tr {
     height: 100%;
     vertical-align: middle;
 }
+
+#excelTableBinding {
+    table-layout: fixed;
+    border: solid 1px black;
+    border-collapse: collapse;
+}
+
+#excelTableBinding tr {
+    border: solid 1px black;
+}
+
+#excelTableBinding td {
+    width: 100px;
+    height: 30px;
+    border: solid 1px black;
+}
