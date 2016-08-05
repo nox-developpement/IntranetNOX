@@ -3323,6 +3323,11 @@ tr {
 #administrationChampsTable th, #administrationModelesTable th {
     border: solid 1px #1F4E79;
     color: white;
+    padding: 1%;
+}
+
+#administrationChampsTable th[data-sorter='true'], #administrationModelesTable th[data-sorter='true'] {
+    cursor: pointer;
 }
 
 #administrationChampsTable tr:nth-child(2) td:nth-child(5) {
@@ -3343,5 +3348,11 @@ tr {
 
 #administrationModelesTable .deleteModeleImg {
     width: 20%;
+    vertical-align: middle;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
     vertical-align: middle;
 }

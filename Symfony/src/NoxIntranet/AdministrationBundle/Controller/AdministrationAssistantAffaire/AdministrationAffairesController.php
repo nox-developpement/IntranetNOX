@@ -457,79 +457,6 @@ class AdministrationAffairesController extends Controller {
         }
     }
 
-    public function ajaxGetModeleByProfilAction(Request $request) {
-
-        $em = $this->getDoctrine()->getManager();
-
-        $listeModeles = array();
-
-        if ($request->isXmlHttpRequest()) {
-            $profil = $request->get('profil');
-
-            if ($profil === '') {
-                $modeles = $em->getRepository("NoxIntranetAdministrationBundle:Fichier_Suivi")->createQueryBuilder('u')
-                        ->getQuery()
-                        ->getResult();
-            } else {
-                $modeles = $em->getRepository("NoxIntranetAdministrationBundle:Fichier_Suivi")->createQueryBuilder('u')
-                        ->where("u.profil = :profil")
-                        ->setParameter('profil', $profil)
-                        ->getQuery()
-                        ->getResult();
-            }
-
-            foreach ($modeles as $modele) {
-                $listeModeles[$modele->getId()] = pathinfo($modele->getChemin(), PATHINFO_FILENAME);
-            }
-        }
-
-        $response = new Response(json_encode($listeModeles));
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-    }
-
-    public function ajaxGetModeleByProfilAndNameAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-
-        $listeModeles = array();
-
-        if ($request->isXmlHttpRequest()) {
-            $profil = $request->get('profil');
-            $nom = $request->get('nom');
-
-            if ($profil === '') {
-                $modeles = $em->getRepository("NoxIntranetAdministrationBundle:Fichier_Suivi")->createQueryBuilder('u')
-                        ->getQuery()
-                        ->getResult();
-            } else {
-                $modeles = $em->getRepository("NoxIntranetAdministrationBundle:Fichier_Suivi")->createQueryBuilder('u')
-                        ->where("u.profil = :profil")
-                        ->setParameter('profil', $profil)
-                        ->getQuery()
-                        ->getResult();
-            }
-
-
-            if (!empty($nom)) {
-                foreach ($modeles as $modele) {
-                    if (stristr(pathinfo($modele->getChemin(), PATHINFO_FILENAME), $nom) !== false) {
-                        $listeModeles[$modele->getId()] = pathinfo($modele->getChemin(), PATHINFO_FILENAME);
-                    }
-                }
-            } else {
-                foreach ($modeles as $modele) {
-                    $listeModeles[$modele->getId()] = pathinfo($modele->getChemin(), PATHINFO_FILENAME);
-                }
-            }
-        }
-
-        $response = new Response(json_encode($listeModeles));
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-    }
-
     public function administrationAffairesEditionAction(Request $request, $file, $profil) {
 
         $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
@@ -784,93 +711,21 @@ class AdministrationAffairesController extends Controller {
         }
     }
 
-    public function administrationAffairesEditionChampAction(Request $request, $IdChamp) {
-
-        $em = $this->getDoctrine()->getManager();
-
-        $champ = $em->getRepository('NoxIntranetAdministrationBundle:Formulaires')->find($IdChamp);
+    public function administrationAffairesEditionChampAction($IdChamp) {
 
         $formAjoutDonnee = $this->get('form.factory')->createNamedBuilder('formAjoutDonnee', 'form')
-                ->add('Donnee', TextType::class)
-                ->add('Ajouter', SubmitType::class)
+                ->add('Donnees', EntityType::class, array(
+                    'class' => 'NoxIntranetAdministrationBundle:DonneesFormulaire',
+                    'query_builder' => function(EntityRepository $er) use ($IdChamp) {
+                        $er->createQueryBuilder('a')
+                        ->where('a.idFormulaire = :idFormulaire')
+                        ->setParameter('idFormulaire', $IdChamp);
+                        return $er->getQuery()->getResults();
+                    }
+                ))
                 ->getForm();
 
-        $donneesFormulaire = $em->getRepository('NoxIntranetAdministrationBundle:DonneesFormulaire')->findByIdFormulaire($IdChamp);
-
-        if (!empty($donneesFormulaire)) {
-            $formSuppressionDonnee = $this->get('form.factory')->createNamedBuilder('formSuppressionDonnee', 'form')
-                    ->add('Donnees', EntityType::class, array(
-                        'class' => 'NoxIntranetAdministrationBundle:DonneesFormulaire',
-                        'choice_label' => 'Donnee',
-                        'query_builder' => function (EntityRepository $er) use ($IdChamp) {
-                            return $er->createQueryBuilder('u')
-                                    ->where("u.idFormulaire = '" . $IdChamp . "'")
-                                    ->orderBy('u.donnee', 'ASC');
-                        },
-                    ))
-                    ->add('Supprimer', SubmitType::class)
-                    ->getForm();
-        } else {
-            $formSuppressionDonnee = $this->get('form.factory')->createNamedBuilder('formSuppressionDonnee', 'form')
-                    ->add('Donnees', EntityType::class, array(
-                        'class' => 'NoxIntranetAdministrationBundle:DonneesFormulaire',
-                        'choice_label' => 'Donnee',
-                        'query_builder' => function (EntityRepository $er) use ($IdChamp) {
-                            return $er->createQueryBuilder('u')
-                                    ->where("u.idFormulaire = '" . $IdChamp . "'")
-                                    ->orderBy('u.donnee', 'ASC');
-                        },
-                        'placeholder' => 'Il n\'y a aucune donnée à supprimer.',
-                        'disabled' => true
-                    ))
-                    ->add('Supprimer', SubmitType::class, array(
-                        'disabled' => true
-                    ))
-                    ->getForm();
-        }
-
-        if ($request->request->has('formAjoutDonnee')) {
-            $formAjoutDonnee->handleRequest($request);
-
-            if ($formAjoutDonnee->isValid()) {
-                $newDonnee = new DonneesFormulaire();
-
-                $donnéesExistantes = $em->getRepository('NoxIntranetAdministrationBundle:DonneesFormulaire')->findByIdFormulaire($IdChamp);
-
-                if ($donnéesExistantes !== null) {
-                    foreach ($donnéesExistantes as $donnéeExistante) {
-                        if ($donnéeExistante->getDonnee() === $formAjoutDonnee['Donnee']->getData()) {
-                            $request->getSession()->getFlashBag()->add('noticeErreur', 'La donnée ' . $formAjoutDonnee['Donnee']->getData() . ' existe déjà pour ce champ.');
-
-                            return $this->redirectToRoute('nox_intranet_administration_affaires_edition_champ', array('IdChamp' => $IdChamp));
-                        }
-                    }
-                }
-
-                $newDonnee->setIdFormulaire($IdChamp);
-                $newDonnee->setDonnee($formAjoutDonnee['Donnee']->getData());
-
-                $em->persist($newDonnee);
-                $em->flush();
-
-                $request->getSession()->getFlashBag()->add('notice', 'La donnée ' . $formAjoutDonnee['Donnee']->getData() . ' a été ajouter au champ.');
-
-                return $this->redirectToRoute('nox_intranet_administration_affaires_edition_champ', array('IdChamp' => $IdChamp));
-            }
-        }
-
-        if ($request->request->has('formSuppressionDonnee')) {
-            $formSuppressionDonnee->handleRequest($request);
-
-            if ($formSuppressionDonnee->isValid()) {
-                $em->remove($formSuppressionDonnee['Donnees']->getData());
-                $em->flush();
-
-                $request->getSession()->getFlashBag()->add('notice', 'La donnée ' . $formSuppressionDonnee['Donnees']->getData()->getDonnee() . ' a été supprimé');
-            }
-        }
-
-        return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaireseditionchamp.html.twig', array('formAjoutDonnee' => $formAjoutDonnee->createView(), 'formSuppressionDonnee' => $formSuppressionDonnee->createView(), 'champ' => $champ->getNom()));
+        return $this->render('NoxIntranetAdministrationBundle:AdministrationAffaires:administrationaffaireseditionchamp.html.twig', array('formAjoutDonnee' => $formAjoutDonnee->createView()));
     }
 
 }

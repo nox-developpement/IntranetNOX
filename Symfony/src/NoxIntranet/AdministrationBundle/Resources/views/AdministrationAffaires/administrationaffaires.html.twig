@@ -46,23 +46,23 @@
             <tr>
                 <th data-sorter="true" sorter-order="none" data-type="Champs_Nom">
                     Nom
-                    <div style='display: inline-block; vertical-align: middle;'><!--
-                        --><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: bottom;'><br /><!--
-                        --><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: top;'><!--
+                    <div style='display: inline-block; vertical-align: middle; height: 0.8vw'><!--
+                        --><img class='sortArrowUp' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --><img class='sortArrowDown' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
                         --></div>
                 </th>
                 <th data-sorter="true" sorter-order="none" data-type="Champs_Profil">
                     Profil
-                    <div style='display: inline-block; vertical-align: middle;'><!--
-                        --><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: bottom;'><br /><!--
-                        --><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: top;'><!--
+                    <div style='display: inline-block; vertical-align: middle; height: 0.8vw'><!--
+                        --><img class='sortArrowUp' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --><img class='sortArrowDown' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
                         --></div>
                 </th>
                 <th data-sorter="true" sorter-order="none" data-type="Champs_Type">
                     Type
-                    <div style='display: inline-block; vertical-align: middle;'><!--
-                        --><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: bottom;'><br /><!--
-                        --><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: top;'><!--
+                    <div style='display: inline-block; vertical-align: middle; height: 0.8vw'><!--
+                        --><img class='sortArrowUp' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --><img class='sortArrowDown' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
                         --></div>
                 </th>
                 <th>Editer</th>
@@ -86,7 +86,7 @@
                     <td data-type="Champs_Nom">{{ champ.Nom }}</td>
                     <td data-type="Champs_Profil">{{ champ.Profil }}</td>
                     <td data-type="Champs_Type">{{ champ.Type }}</td>
-                    <td>{{ champ.AjoutDonnees }}</td>
+                    <td>{% if champ.AjoutDonnees == true %} Editable {% endif %}</td>
                     <td><a href='{{ path('nox_intranet_administration_affaire_delete_champ', { 'IDChamp': champ.Id }) }}'><img src='{{ asset('bundles/noxintranetadministration/images/Delete-48.png') }}' alt='Supprimer' class='deleteProfilImg'></a></td>
                 </tr>
             {% endfor %}
@@ -96,8 +96,20 @@
     <div id='DivModeles' style='{% if section != 'modeles' %}display: none;{% endif %}'>
         <table id="administrationModelesTable">
             <tr>
-                <th>Nom</th>
-                <th>Profil</th>
+                <th data-sorter="true" sorter-order="none" data-type="Modeles_Nom">
+                    Nom
+                    <div style='display: inline-block; vertical-align: middle; height: 0.8vw'><!--
+                        --><img class='sortArrowUp' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --><img class='sortArrowDown' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --></div>
+                </th>
+                <th data-sorter="true" sorter-order="none" data-type="Modeles_Profil">
+                    Profil
+                    <div style='display: inline-block; vertical-align: middle; height: 0.8vw'><!--
+                        --><img class='sortArrowUp' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --><img class='sortArrowDown' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --></div>
+                </th>
                 <th>Supprimer</th>
             </tr>
             <tr>
@@ -110,8 +122,8 @@
             </tr>
             {% for modele in modeles %}
                 <tr>
-                    <td>{{ modele['filename'] }}</td>
-                    <td>{{ modele['modele'].Profil }}</td>
+                    <td data-type="Modeles_Nom">{{ modele['filename'] }}</td>
+                    <td data-type="Modeles_Profil">{{ modele['modele'].Profil }}</td>
                     <td><a href='{{ path('nox_intranet_administration_affaires_delete_modele', { 'IDModele': modele['modele'].Id }) }}'><img src='{{ asset('bundles/noxintranetadministration/images/Delete-48.png') }}' alt='Supprimer' class='deleteModeleImg'></a></td>
                 </tr>
             {% endfor %}
@@ -303,6 +315,7 @@
             });
         }
 
+        // Trie un tableau en fonction de la colonne séléctionnée.
         function trieTableau() {
 
             // Trie les chaîne de caractères par odres croissant.
@@ -344,13 +357,23 @@
                     rows.push(row);
                 });
 
-                // On trie le tableau en fonction du contenu des cellules et de l'ordre de trie actuel et on change l'attribut de la cellule titre.
+                // Si l'odre de trie de la cellule titre est 'none' ou 'decroissant'.
                 if ($(this).attr('sorter-order') === 'none' || $(this).attr('sorter-order') === 'decroissant') {
-                    rows.sort(compareStringCroissant);
-                    $(this).attr('sorter-order', 'croissant');
-                } else {
-                    rows.sort(compareStringDecroissant);
-                    $(this).attr('sorter-order', 'decroissant');
+                    rows.sort(compareStringCroissant); // On trie les données du tableau par ordre croissant.
+                    $(this).attr('sorter-order', 'croissant'); // On passe l'attribut d'odre de trie à croissant.
+                    $("th[data-sorter='true'] div").css('height', '0.8vw'); // On redonne leur taille d'origine aux div d'img.
+                    $("th[data-sorter='true'] img").show(); // On fait apparaître les flêches de trie des cellules titres.
+                    $(this).find('div').css('height', '0.4vw'); // On divise la taille de la div d'img de la cellule titre courante par deux.
+                    $(this).find('.sortArrowDown').hide(); // On fait disparaitre la flêche décroissante de la cellule titre courante.
+                }
+                // Si l'odre de trie de la cellule titre est 'croissant'.
+                else {
+                    rows.sort(compareStringDecroissant); // On trie les données du tableau par ordre décroissant.
+                    $(this).attr('sorter-order', 'decroissant'); // On passe l'attribut d'odre de trie à décroissant.
+                    $("th[data-sorter='true'] div").css('height', '0.8vw'); // On redonne leur taille d'origine aux div d'img.
+                    $("th[data-sorter='true'] img").show(); // On fait apparaître les flêches de trie des cellules titres.
+                    $(this).find('div').css('height', '0.4vw'); // On divise la taille de la div d'img de la cellule titre courante par deux.
+                    $(this).find('.sortArrowUp').hide(); // On fait disparaitre la flêche croissante de la cellule titre courante.
                 }
 
                 // On supprime les lignes du tableau.

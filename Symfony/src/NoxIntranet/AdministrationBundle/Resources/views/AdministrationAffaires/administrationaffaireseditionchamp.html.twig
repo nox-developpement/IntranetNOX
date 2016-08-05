@@ -15,48 +15,17 @@
 
             <legend>Ajouter une donnée</legend>       
 
-            <p>
-                {{ form_label(formAjoutDonnee.Donnee, "Donnée :", {'label_attr': {'class': 'labelFormulaireAjoutDonnee'}}) }}
-                {{ form_errors(formAjoutDonnee.Donnee) }}
-                {{ form_widget(formAjoutDonnee.Donnee, {'attr': {'class': 'selectFormulaireAjoutDonnee' }}) }}
-            </p>
-
-            <p>
-                {{ form_widget(formAjoutDonnee._token) }} 
-
-                {{ form_widget(formAjoutDonnee.Ajouter, {'attr': {'class': 'submitFormulaireAjoutDonne', 'class': 'boutonFormulaire' }}) }}
+            <p style="margin: 0;">
+                <label for='addDonneeName' style='display: inline-block; width: 100%; text-align: center; margin-top: 2%;'>Données</label><br />
+                <input type='text' name='addProfilName'  style='width: 30%; margin: 0; margin-bottom: 1%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; text-align: center;'><button type='button' name='addDonnee' class='boutonFormulaire' style='width: 9%; margin-left: 1%;'>+</button><br />
+                {{ form_errors(formAjoutDonnee.Donnees) }}
+                {{ form_widget(formAjoutDonnee.Donnees, {'attr': {'class': 'textFormulaireAdministrationAjoutProfil', 'size': '15', 'style': 'width: 40%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box;' }}) }}<br />
+                <button name='deleteDonnee' type='button' class='boutonFormulaire' style='width: 40%; font-size: 0.8vw; margin-top: 1%;'>Supprimer</button>
             </p>
 
         </fieldset> 
 
         {{ form_end(formAjoutDonnee) }}
-
-    </div>
-
-    <div class='DivFormulaireSuppressionDonnee'>
-
-        {{ form_start(formSuppressionDonnee, {'attr': {'class': 'formulaireSuppresionDonnee'}}) }}
-        {{ form_errors(formSuppressionDonnee) }}
-
-        <fieldset>
-
-            <legend>Supprimer une donnée</legend>       
-
-            <p>
-                {{ form_label(formSuppressionDonnee.Donnees, "Donnée :", {'label_attr': {'class': 'labelFormulaireSuppressionDonnee'}}) }}
-                {{ form_errors(formSuppressionDonnee.Donnees) }}
-                {{ form_widget(formSuppressionDonnee.Donnees, {'attr': {'class': 'selectFormulaireSuppressionDonnee' }}) }}
-            </p>
-
-            <p>
-                {{ form_widget(formSuppressionDonnee._token) }} 
-
-                {{ form_widget(formSuppressionDonnee.Supprimer, {'attr': {'class': 'submitFormulaireSuppressionDonne', 'class': 'boutonFormulaire' }}) }}
-            </p>
-
-        </fieldset> 
-
-        {{ form_end(formSuppressionDonnee) }}
 
     </div>
 
