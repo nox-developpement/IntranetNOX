@@ -77,7 +77,7 @@
                     {{ form_label(formNewChamp.AjoutDonnees) }}<br />
                     {{ form_widget(formNewChamp.AjoutDonnees, {'attr': {'style': 'vertical-align: middle;'}}) }}
                 </td>
-                <td></td>
+                <td style='background-color: lightgrey;'></td>
                 <td>{{ form_widget(formNewChamp.Ajouter, {'attr': {'class': 'boutonFormulaire'}}) }}</td>
                 {{ form_end(formNewChamp) }}
             </tr>
@@ -86,8 +86,12 @@
                     <td data-type="Champs_Nom">{{ champ.Nom }}</td>
                     <td data-type="Champs_Profil">{{ champ.Profil }}</td>
                     <td data-type="Champs_Type">{{ champ.Type }}</td>
-                    <td>{% if champ.AjoutDonnees == true %} Editable {% endif %}</td>
-                    <td><a href='{{ path('nox_intranet_administration_affaire_delete_champ', { 'IDChamp': champ.Id }) }}'><img src='{{ asset('bundles/noxintranetadministration/images/Delete-48.png') }}' alt='Supprimer' class='deleteProfilImg'></a></td>
+                    {% if champ.AjoutDonnees == true %}
+                        <td><a href='{{ path('nox_intranet_administration_affaires_edition_champ', { 'IDChamp': champ.Id }) }}'><img src='{{ asset('bundles/noxintranetadministration/images/Data-Edit-48.png') }}' alt='Editer' class='editChampImg'></a></td>
+                            {% else %}
+                        <td style='background-color: lightgrey'></td>
+                    {% endif %}
+                    <td><a href='{{ path('nox_intranet_administration_affaire_delete_champ', { 'IDChamp': champ.Id }) }}'><img src='{{ asset('bundles/noxintranetadministration/images/Delete-48.png') }}' alt='Supprimer' class='deleteChampImg'></a></td>
                 </tr>
             {% endfor %}
         </table>
@@ -110,13 +114,15 @@
                         --><img class='sortArrowDown' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
                         --></div>
                 </th>
+                <th>Editer</th>
                 <th>Supprimer</th>
             </tr>
             <tr>
                 {{ form_start(formNewModele) }}
                 <td>{{ form_widget(formNewModele.Chemin) }}</td>
                 <td>{{ form_widget(formNewModele.Profil) }}</td>
-                <th></th>
+                <td style='background-color: lightgrey;'></th>
+                <td style='background-color: lightgrey;'></th>
                 <td>{{ form_widget(formNewModele.Ajouter) }}</td>
                 {{ form_end(formNewModele) }}
             </tr>
@@ -124,6 +130,7 @@
                 <tr>
                     <td data-type="Modeles_Nom">{{ modele['filename'] }}</td>
                     <td data-type="Modeles_Profil">{{ modele['modele'].Profil }}</td>
+                    <td></td>
                     <td><a href='{{ path('nox_intranet_administration_affaires_delete_modele', { 'IDModele': modele['modele'].Id }) }}'><img src='{{ asset('bundles/noxintranetadministration/images/Delete-48.png') }}' alt='Supprimer' class='deleteModeleImg'></a></td>
                 </tr>
             {% endfor %}
@@ -281,7 +288,7 @@
             // Lors d'un clic sur le bouton de suppression de numéro de commande.
             $("button[name='deleteProfil']").click(function () {
                 // Si une valeur est séléctionnée.
-                if ($("select[name='noCommandeSelector']").val() !== null) {
+                if ($("select[name='formAjoutProfil[Profils]']").val() !== null) {
                     // On change le contenu du bouton de suppression de numéro de commande par un gif de chargement et on le désactive.
                     $("button[name='deleteProfil']").attr('disabled', true);
                     $("button[name='deleteProfil']").html('&nbsp;');

@@ -6,64 +6,15 @@
 
 {% block contenu %}
 
-    <div class='DivFormulairePlacementChamp'>
-
-        {{ form_start(formPlacementChamp, {'attr': {'class': 'formulairePlacementChamp'}}) }}
-        {{ form_errors(formPlacementChamp) }}
-
-        <fieldset>
-
-            <legend>Placer un champ</legend>
-
-            <p>
-                {{ form_label(formPlacementChamp.IdChamp, "Nom :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}
-                {{ form_errors(formPlacementChamp.IdChamp) }}
-                {{ form_widget(formPlacementChamp.IdChamp, {'attr': {'class': 'texteFormulairePlacementChamp' }}) }} 
-
-                <br />
-
-                {{ form_label(formPlacementChamp.CoordonneesDonnees, "Coordonnees données :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}
-                {{ form_errors(formPlacementChamp.CoordonneesDonnees) }}
-                {{ form_widget(formPlacementChamp.CoordonneesDonnees, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}
-
-                <br />
-
-                {{ form_widget(formPlacementChamp.Placer, {'attr': {'class': 'submitFormulairePlacementChamp', 'class': 'boutonFormulaire' }}) }}
-            </p>
-
-        </fieldset> 
-
-        {{ form_end(formPlacementChamp) }}
-
+    <div style='width: 70%; height: 80%; margin: auto;'>
+        <table style='width: 100%; height: 100%; border: solid 1px black;'>
+            <tr>
+            </tr>
+        </table>
     </div>
 
-    <div class='DivFormulaireSuppressionPositionChamp'>
+    <script>
 
-        {{ form_start(formSuppresionPositionChamp, {'attr': {'class': 'formulaireSuppressionPositionChamp'}}) }}
-        {{ form_errors(formSuppresionPositionChamp) }}
-
-        <fieldset>
-
-            <legend>Supprimer un champ</legend>
-
-            <p>
-                {{ form_label(formSuppresionPositionChamp.IdChamp, "Nom - Position", {'label_attr': {'class': 'labelFormulaireSuppressionPositionChamp'}}) }} <br />
-                {{ form_errors(formSuppresionPositionChamp.IdChamp) }}
-                {{ form_widget(formSuppresionPositionChamp.IdChamp, {'attr': {'class': 'texteFormulaireSuppressionPositionChamp' }}) }} 
-
-                <br />
-
-                {{ form_widget(formSuppresionPositionChamp.Supprimer, {'attr': {'class': 'submitFormulaireSuppressionPositionChamp', 'class': 'boutonFormulaire' }}) }}
-            </p>
-
-        </fieldset> 
-
-        {{ form_end(formSuppresionPositionChamp) }}
-
-    </div>
-
-    <div id='tableauExcel'>
-        <img src="{{ imagePDF }}" alt="Aperçu du fichier Excel">
-    </div>
+    </script>
 
 {% endblock %}

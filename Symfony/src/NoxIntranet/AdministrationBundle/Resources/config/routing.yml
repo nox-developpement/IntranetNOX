@@ -166,7 +166,7 @@ nox_intranet_administration_affaires_delete_profil:
     
 nox_intranet_administration_affaires_edition:
     path: /administration/assistant-affaires-edition-fichier/{profil}/{file}
-    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:administrationAffairesEdition, profil: '' }
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Modeles\Modeles:administrationAffairesEdition, profil: '' }
     requirements:
         file: .+
     
@@ -181,8 +181,16 @@ nox_intranet_administration_affaire_delete_champ:
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Champs\Champs:deleteChamp }
         
 nox_intranet_administration_affaires_edition_champ:
-    path: /administration/assistant-affaires-edition-champ/{IdChamp}
-    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\AdministrationAffaires:administrationAffairesEditionChamp }
+    path: /administration/assistant-affaires-edition-champ/{IDChamp}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Champs\Champs:editionChamp }
+
+nox_intranet_administration_affaires_ajax_ajout_donnee:
+    path: /administration/assistant-affaires-ajout-donnee
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Champs\Champs:ajaxAddDonnee } 
+    
+nox_intranet_administration_affaires_ajax_delete_donnee:
+    path: /administration/assistant-affaires-delete-donnee
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Champs\Champs:ajaxDeleteDonnee } 
     
 nox_intranet_administration_affaires_delete_modele:
     path: /administration/assistant-affaires-delete-modele/{IDModele}

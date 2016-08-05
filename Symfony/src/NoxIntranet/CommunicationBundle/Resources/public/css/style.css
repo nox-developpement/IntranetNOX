@@ -3341,13 +3341,8 @@ tr {
     padding: 1%;
 }
 
-#administrationChampsTable .deleteProfilImg {
-    width: 35%;
-    vertical-align: middle;
-}
-
-#administrationModelesTable .deleteModeleImg {
-    width: 20%;
+#administrationChampsTable .deleteChampImg,  #administrationChampsTable .editChampImg, #administrationModelesTable .deleteModeleImg  {
+    height: 50%;
     vertical-align: middle;
 }
 

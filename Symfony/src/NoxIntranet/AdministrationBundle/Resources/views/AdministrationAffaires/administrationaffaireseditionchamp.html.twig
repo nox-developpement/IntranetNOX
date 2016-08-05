@@ -2,7 +2,7 @@
 
 {% block titrePage %} Edition de champ {% endblock %}
 
-{% block messageAccueil %}Edition de champ - {{ champ }}{% endblock %}
+{% block messageAccueil %}Edition de champ{% endblock %}
 
 {% block contenu %}
 
@@ -13,11 +13,11 @@
 
         <fieldset>
 
-            <legend>Ajouter une donnée</legend>       
+            <legend>Ajouter une donnée au champ {{ champ.Nom }}</legend>       
 
             <p style="margin: 0;">
                 <label for='addDonneeName' style='display: inline-block; width: 100%; text-align: center; margin-top: 2%;'>Données</label><br />
-                <input type='text' name='addProfilName'  style='width: 30%; margin: 0; margin-bottom: 1%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; text-align: center;'><button type='button' name='addDonnee' class='boutonFormulaire' style='width: 9%; margin-left: 1%;'>+</button><br />
+                <input type='text' name='addDonneeName'  style='width: 30%; margin: 0; margin-bottom: 1%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; text-align: center;'><button type='button' name='addDonnee' class='boutonFormulaire' style='width: 9%; margin-left: 1%;'>+</button><br />
                 {{ form_errors(formAjoutDonnee.Donnees) }}
                 {{ form_widget(formAjoutDonnee.Donnees, {'attr': {'class': 'textFormulaireAdministrationAjoutProfil', 'size': '15', 'style': 'width: 40%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box;' }}) }}<br />
                 <button name='deleteDonnee' type='button' class='boutonFormulaire' style='width: 40%; font-size: 0.8vw; margin-top: 1%;'>Supprimer</button>
@@ -28,5 +28,113 @@
         {{ form_end(formAjoutDonnee) }}
 
     </div>
+
+    <script>
+
+        $(window).load(function () {
+            ajaxAddDonnee();
+            ajaxDeleteDonnee();
+        });
+
+        // Ajoute une donnée.
+        function ajaxAddDonnee() {
+            // Lors d'un clic sur le bouton d'ajout de donnée.
+            $("button[name='addDonnee']").click(function () {
+                // Si le numéro de commande n'est pas vide.
+                if ($.trim($("input[name='addDonneeName']").val()).length > 0) {
+                    // On change le contenu du bouton d'ajout de donnee par un gif de chargement et on le désactive.
+                    $("button[name='addDonnee']").attr('disabled', true);
+                    $("button[name='addDonnee']").html('&nbsp;');
+                    $("button[name='addDonnee']").css({
+                        'background-image': "url({{ asset('bundles/noxintranetressources/images/noCommandeTraitement.gif')}})",
+                        'background-position': 'center center',
+                        'background-repeat': 'no-repeat',
+                        'background-size': 'auto 50%'
+                    });
+                    // On sauvegarde le numéro en base de donnée avec une fonction Ajax.        
+                    $.ajax({
+                        url: '{{ path('nox_intranet_administration_affaires_ajax_ajout_donnee') }}',
+                        type: 'POST',
+                        data: {'donnee': $("input[name='addDonneeName']").val(), 'IdChamp':{{ IdChamp }}},
+                        success: function (response) {
+                            // On change le contenu du bouton par celui d'origine et on le réactive.
+                            $("button[name='addDonnee']").removeAttr('disabled');
+                            $("button[name='addDonnee']").html('+');
+                            $("button[name='addDonnee']").css({
+                                'background-image': "none",
+                                'background-position': 'center center',
+                                'background-repeat': 'no-repeat',
+                                'background-size': 'auto 50%'
+                            });
+                            // Si la donnée n'existe pas déjà.
+                            if (response === 'true') {
+                                // On fait apparaître la nouvelle donnée dans le selecteur de numéros.
+                                var newOption = $("<option value='" + $("input[name='addDonneeName']").val() + "' style='text-align: center; background-color: green;'>" + $("input[name='addDonneeName']").val() + "</option>");
+                                $("select[name='formAjoutDonnee[Donnees]").append(newOption);
+                                // On scroll en bas du sélécteur de numéro.
+                                $("select[name='formAjoutDonnee[Donnees]").scrollTop($("select[name='formAjoutDonnee[Donnees]']")[0].scrollHeight);
+                                // On anime la couleur de fond du nouveau numéro.
+                                newOption.animate({
+                                    backgroundColor: 'white'
+                                }, 3000);
+                                // On efface le contenue de nouveau numéro.
+                                $("input[name='addDonneeName']").val('');
+                            }
+                            // Si le numéro d'affaire existe déjà.
+                            else {
+                                // On efface le contenue de nouveau numéro et on affiche un message d'avertissement.
+                                var messageErreur = $("<p style='display: inline-block; margin: 0% 0% 1% 0%; color: red;'>Le profil existe déjà !</p>");
+                                $("label[for='addDonneeName']").after(messageErreur);
+                                setTimeout(function () {
+                                    messageErreur.fadeOut(1000, function () {
+                                        messageErreur.remove();
+                                    });
+                                }, 4000);
+                                $("input[name='addDonneeName']").val('');
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        // Supprime une donnée.
+        function ajaxDeleteDonnee() {
+            // Lors d'un clic sur le bouton de suppression de donnée.
+            $("button[name='deleteDonnee']").click(function () {
+                // Si une valeur est séléctionnée.
+                if ($("select[name='formAjoutDonnee[Donnees]']").val() !== null) {
+                    // On change le contenu du bouton de suppression de donnée par un gif de chargement et on le désactive.
+                    $("button[name='deleteDonnee']").attr('disabled', true);
+                    $("button[name='deleteDonnee']").html('&nbsp;');
+                    $("button[name='deleteDonnee']").css({
+                        'background-image': "url({{ asset('bundles/noxintranetressources/images/noCommandeTraitement.gif')}})",
+                        'background-position': 'center center',
+                        'background-repeat': 'no-repeat',
+                        'background-size': 'auto 50%'
+                    });
+                    // On supprime la donnée de la base de données avec une fonction Ajax.
+                    $.ajax({
+                        url: '{{ path('nox_intranet_administration_affaires_ajax_delete_donnee') }}',
+                        type: 'POST',
+                        data: {'donnee': $("select[name='formAjoutDonnee[Donnees]']").val()},
+                        success: function () {
+                            // On change le contenu du bouton par celui d'origine et on le réactive.
+                            $("button[name='deleteDonnee']").removeAttr('disabled');
+                            $("button[name='deleteDonnee']").html('Supprimer');
+                            $("button[name='deleteDonnee']").css({
+                                'background-image': "none",
+                                'background-position': 'center center',
+                                'background-repeat': 'no-repeat',
+                                'background-size': 'auto 50%'
+                            });
+                            // On efface la donnée dans le sélécteur de numéro.
+                            $("select[name='formAjoutDonnee[Donnees]'] option:selected").remove();
+                        }
+                    });
+                }
+            });
+        }
+    </script>
 
 {% endblock %}
