@@ -3367,3 +3367,26 @@ tr {
     height: 30px;
     border: solid 1px black;
 }
+
+form[name='formNewSearch'] label {
+    display: block;
+    float: left;
+    width: 50%;
+    text-align: right;
+    margin-bottom: 1%;
+    font-size: 0.8vw;
+}
+
+form[name='formNewSearch'] input, form[name='formNewSearch'] textarea {
+    width: 40%;
+    max-width: 40%;
+    box-sizing: border-box;
+    margin-bottom: 1%;
+    margin-right: 5%;
+    font-size: 0.8vw;
+}
+
+form[name='formNewSearch'] div  {
+    margin-right: 5%;
+    font-size: 0.8vw;
+}
