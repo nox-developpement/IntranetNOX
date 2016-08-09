@@ -61,10 +61,17 @@
         {{ form_widget(formValidationRefus.RaisonRefus, {'attr': {'style': 'box-sizing: border-box;'}}) }}
     </p>
 
-    <p style='margin: 0;'>
-        {{ form_label(formValidationRefus.ChoixDA2) }}
-        {{ form_widget(formValidationRefus.ChoixDA2) }}
-    </p>
+    <div style='display: inline-block; width: 100%;'>
+        <p style='display: inline-block; width: 40%; margin: 0; float: left;'>
+            {{ form_label(formValidationRefus.ChoixDA2, "Directeurs d'agence disponibles") }}
+            {{ form_widget(formValidationRefus.ChoixDA2, {'attr': {'size': 5, 'style': 'width: 100%;' }}) }}
+        </p>
+
+        <p style='display: inline-block; width: 40%; margin: 0; float: right;'>
+            {{ form_label(formValidationRefus.SelectionDA2, "Directeurs d'agence sélectionnés") }}
+            {{ form_widget(formValidationRefus.SelectionDA2, {'attr': {'size': 5, 'style': 'width: 100%;' }}) }}
+        </p>
+    </div>
 
     {{ form_end(formValidationRefus) }}
 

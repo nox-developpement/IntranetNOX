@@ -113,7 +113,13 @@ class PrestationsInternesController extends Controller {
         $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
         $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDemandeur());
 
-        $DAs = $em->getRepository('NoxIntranet');
+        // Retourne un tableau contenant les directeurs d'agence.
+        $UserHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+        $DAs = array();
+        foreach ($UserHierarchy as $DA) {
+            $DAs[$DA->getDA()] = $DA->getDA();
+        }
+        array_unique($DAs);
 
         $formValidationRefus = $this->get('form.factory')->createNamedBuilder('formValidationRefus', 'form')
                 ->add('ValidationRefus', ChoiceType::class, array(
@@ -121,7 +127,11 @@ class PrestationsInternesController extends Controller {
                     'expanded' => true
                 ))
                 ->add('RaisonRefus', TextareaType::class)
-                ->add('ChoixDA2', ChoiceType::class)
+                ->add('ChoixDA2', ChoiceType::class, array(
+                    'choices' => $DAs
+                ))
+                ->add('SelectionDA2', ChoiceType::class, array(
+                ))
                 ->getForm();
 
         return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:validationD1.html.twig', array('demande' => $demande, 'demandeur' => $demandeur, 'formValidationRefus' => $formValidationRefus->createView()));
