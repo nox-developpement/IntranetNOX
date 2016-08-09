@@ -113,6 +113,8 @@ class PrestationsInternesController extends Controller {
         $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
         $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDemandeur());
 
+        $DAs = $em->getRepository('NoxIntranet');
+
         $formValidationRefus = $this->get('form.factory')->createNamedBuilder('formValidationRefus', 'form')
                 ->add('ValidationRefus', ChoiceType::class, array(
                     'choices' => array('Validation' => 'Accepter la demande', 'Refus' => 'Refuser la demande'),

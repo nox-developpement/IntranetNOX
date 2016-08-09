@@ -56,9 +56,14 @@
         </div>
     </div>
 
-    <p style='margin: 0;'>
+    <p style='margin: 1% 0 1% 0;'>
         {{ form_label(formValidationRefus.RaisonRefus, 'Si vous le souhaitez, indiquer la raison du refus :') }}<br />
-        {{ form_widget(formValidationRefus.RaisonRefus) }}
+        {{ form_widget(formValidationRefus.RaisonRefus, {'attr': {'style': 'box-sizing: border-box;'}}) }}
+    </p>
+
+    <p style='margin: 0;'>
+        {{ form_label(formValidationRefus.ChoixDA2) }}
+        {{ form_widget(formValidationRefus.ChoixDA2) }}
     </p>
 
     {{ form_end(formValidationRefus) }}
