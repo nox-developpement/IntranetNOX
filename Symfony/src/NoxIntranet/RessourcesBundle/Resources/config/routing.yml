@@ -168,4 +168,8 @@ nox_intranet_prestation_search:
     path: /ressources/recheche-prestation
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:newPrestationSearch }
 
+nox_intranet_validation_da1:
+    path: /ressources/validation-da1/{cleDemande}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:validationDA1 }
+
     

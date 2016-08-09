@@ -3390,3 +3390,36 @@ form[name='formNewSearch'] div  {
     margin-right: 5%;
     font-size: 0.8vw;
 }
+
+#validationD1Sum {
+    float: left;
+    width: 30%;
+    margin-left: 15%;
+}
+
+#validationD1Sum, #validationD1Sum tr, #validationD1Sum td {
+    border: solid 1px black;
+    border-collapse: collapse;  
+    font-size: 0.8vw;
+}
+
+#validationD1Sum td {
+    padding: 0.5em;
+    /*white-space: nowrap;*/
+}
+
+.trLabel {
+    font-weight: bold;
+}
+
+form[name='formValidationRefus'] {
+    float: right;
+    display: inline-block;
+    width: 30%;
+    margin-right: 15%;
+}
+
+form[name='formValidationRefus'] textarea {
+    width: 100%;
+    max-width: 100%;
+}

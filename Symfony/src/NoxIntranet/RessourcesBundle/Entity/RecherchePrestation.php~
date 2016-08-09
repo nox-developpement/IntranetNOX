@@ -92,6 +92,20 @@ class RecherchePrestation {
     private $emailDA;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="Demandeur", type="string", length=255)
+     */
+    private $demandeur;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CleDemande", type="string", length=255)
+     */
+    private $cleDemande;
+
+    /**
      * Get id
      *
      * @return integer
@@ -302,4 +316,50 @@ class RecherchePrestation {
         $this->setStatus("Chargé d'affaire");
     }
 
+    /**
+     * Set emailDA
+     *
+     * @param string $emailDA
+     *
+     * @return RecherchePrestation
+     */
+    public function setEmailDA($emailDA) {
+        $this->emailDA = $emailDA;
+
+        return $this;
+    }
+
+    /**
+     * Get emailDA
+     *
+     * @return string
+     */
+    public function getEmailDA() {
+        return $this->emailDA;
+    }
+
+
+    /**
+     * Set demandeur
+     *
+     * @param string $demandeur
+     *
+     * @return RecherchePrestation
+     */
+    public function setDemandeur($demandeur)
+    {
+        $this->demandeur = $demandeur;
+
+        return $this;
+    }
+
+    /**
+     * Get demandeur
+     *
+     * @return string
+     */
+    public function getDemandeur()
+    {
+        return $this->demandeur;
+    }
 }
