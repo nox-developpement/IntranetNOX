@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\HttpFoundation\Request;
 
 class PrestationsInternesController extends Controller {
@@ -125,39 +126,45 @@ class PrestationsInternesController extends Controller {
         $formValidationRefus = $this->get('form.factory')->createNamedBuilder('formValidationRefus', 'form')
                 ->add('ValidationRefus', ChoiceType::class, array(
                     'choices' => array('Validation' => 'Accepter la demande', 'Refus' => 'Refuser la demande'),
-                    'expanded' => true
+                    'expanded' => true,
+                    'data' => 'Validation'
                 ))
                 ->add('RaisonRefus', TextareaType::class, array(
-                    'attr' => array(
-                    ),
+                    'attr' => array(),
                     'required' => false
                 ))
                 ->add('ChoixDA2', ChoiceType::class, array(
                     'choices' => $DAs,
-                    'attr' => array(
-                        'multiple' => true
-                    ),
+                    'multiple' => true,
                     'required' => false,
                     'choice_attr' => function($val) {
-                return ['title' => $val];
-            }
-                ))
-                ->add('SelectionDA2', ChoiceType::class, array(
-                    'attr' => array(
-                        
-                        'multiple' => true
-                    ),
-                    'required' => false,
-                ))
-                ->add('Valider', SubmitType::class)
-                ->getForm();
+                        $return = array('title' => $val);
+                        return $return;
+                    })
+                        )
+                        ->add('SelectionDA2', ChoiceType::class, array(
+                            'choices' => $DAs,
+                            'multiple' => true,
+                            'choice_attr' => function($val) {
+                                $return = array('title' => $val, 'style' => 'display: none;');
+                                return $return;
+                            }))
+                                ->add('Validator', SubmitType::class, array(
+                                    'attr' => array(
+                                        'style' => 'display: none'
+                                    )
+                                ))
+                                ->add('Valider', ButtonType::class)
+                                ->getForm();
 
-        $formValidationRefus->handleRequest($request);
-        if ($formValidationRefus->isValid()) {
-            var_dump($formValidationRefus->get('SelectionDA2')->getData());
-        }
+                        $formValidationRefus->handleRequest($request);
 
-        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:validationD1.html.twig', array('demande' => $demande, 'demandeur' => $demandeur, 'formValidationRefus' => $formValidationRefus->createView()));
-    }
+                        if ($formValidationRefus->isValid()) {
+                            var_dump($formValidationRefus->get('SelectionDA2')->getData());
+                        }
 
-}
+                        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:validationD1.html.twig', array('demande' => $demande, 'demandeur' => $demandeur, 'formValidationRefus' => $formValidationRefus->createView()));
+                    }
+
+                }
+                
