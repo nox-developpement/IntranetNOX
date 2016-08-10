@@ -45,7 +45,8 @@
         </tr>
     </table>
 
-    {{ form_start(formValidationRefus) }}
+    {{ form_start(formValidationRefus, {'attr': {'style': 'font-size: 0.8vw;'}}) }}
+    {{ form_errors(formValidationRefus) }}
 
     <div style='display: inline-block; width: 100%;'>
         <div style='display: inline-bloc; float: left;'>
@@ -56,23 +57,88 @@
         </div>
     </div>
 
-    <p style='margin: 1% 0 1% 0;'>
+    <p style='margin: 1% 0 1% 0;' id='refusDemandeRaison'>
         {{ form_label(formValidationRefus.RaisonRefus, 'Si vous le souhaitez, indiquer la raison du refus :') }}<br />
         {{ form_widget(formValidationRefus.RaisonRefus, {'attr': {'style': 'box-sizing: border-box;'}}) }}
     </p>
 
-    <div style='display: inline-block; width: 100%;'>
-        <p style='display: inline-block; width: 40%; margin: 0; float: left;'>
-            {{ form_label(formValidationRefus.ChoixDA2, "Directeurs d'agence disponibles") }}
-            {{ form_widget(formValidationRefus.ChoixDA2, {'attr': {'size': 5, 'style': 'width: 100%;' }}) }}
-        </p>
-
-        <p style='display: inline-block; width: 40%; margin: 0; float: right;'>
-            {{ form_label(formValidationRefus.SelectionDA2, "Directeurs d'agence sélectionnés") }}
-            {{ form_widget(formValidationRefus.SelectionDA2, {'attr': {'size': 5, 'style': 'width: 100%;' }}) }}
-        </p>
-    </div>
+    <div style='display: inline-block; width: 100%; position: relative;' id='validationSelectionDA'><!--
+        <label style='display: inline-block; text-align: center; width: 100%; margin-bottom: 2%; margin-top: 1%;'>Séléctionnez les directeurs d'agences à contacter.</label><!--
+        --><p style='display: inline-block; width: 40%; margin: 0; float: left; text-align: center;'><!--
+            -->{{ form_label(formValidationRefus.ChoixDA2, "Disponible(s)") }}<!--
+            -->{{ form_widget(formValidationRefus.ChoixDA2, {'attr': {'size': 5, 'style': 'width: 100%;' }}) }}<!--
+            --></p><!--
+        --><p style='display: inline-block; width: 20%; margin: 0; position: absolute; top: 67.5%; transform: translateY(-67.5%); text-align: center;'><!--
+            --><button type='button' name='addDA' style='width: 50%; font-size: 0.8vw; margin-bottom: 2%;'>>></button><br /><!--
+            --><button type='button' name='removeDA' style='width: 50%; font-size: 0.8vw; margin-top: 2%;'><<</button><!--
+            --></p><!--
+        --><p style='display: inline-block; width: 40%; margin: 0; float: right; text-align: center;'><!--
+            -->{{ form_label(formValidationRefus.SelectionDA2, "Sélectionné(s)") }}<!--
+            -->{{ form_widget(formValidationRefus.SelectionDA2, {'attr': {'size': 5, 'style': 'width: 100%;' }}) }}<!--
+            --></p><!--
+        --></div>
 
     {{ form_end(formValidationRefus) }}
+
+    <script>
+
+        $(window).load(function () {
+            toggleFormValidationRefus();
+            selectAndRemoveDA();
+        });
+
+        // Affiche/Caches les élément du formulaire en fonction du radiobutton séléctionné.
+        function toggleFormValidationRefus() {
+            // Lors de la séléction d'un radiobutton.
+            $("input[name='formValidationRefus[ValidationRefus]']").change(function () {
+                // Si le boutton séléctionné est 'Accepter'.
+                if ($(this).val() === 'Validation') {
+                    // On cache la zone de texte d'explication du refus.
+                    $('#refusDemandeRaison').hide();
+                    // On affiche la séléction des DA.
+                    $('#validationSelectionDA').show();
+                }
+                // Si le button séléctionné est 'Refuser'.
+                else if ($(this).val() === 'Refus') {
+                    // On affiche la zone de texte d'explication du refus.
+                    $('#refusDemandeRaison').show();
+                    // On cache la séléction des DA.
+                    $('#validationSelectionDA').hide();
+                }
+            });
+        }
+
+        function selectAndRemoveDA() {
+
+            $('#formValidationRefus_ChoixDA2').focus(function () {
+                $("button[name='addDA']").attr('disabled', false);
+                $("button[name='removeDA']").attr('disabled', true);
+            });
+
+            $('#formValidationRefus_SelectionDA2').focus(function () {
+                $("button[name='addDA']").attr('disabled', true);
+                $("button[name='removeDA']").attr('disabled', false);
+            });
+
+            $("button[name='addDA']").click(function () {
+                $('#formValidationRefus_ChoixDA2 option').each(function () {
+                    if ($(this).is(':selected')) {
+                        $('#formValidationRefus_SelectionDA2').append($(this).detach());
+                        $('#formValidationRefus_SelectionDA2').focus();
+                    }
+                });
+            });
+
+            $("button[name='removeDA']").click(function () {
+                $('#formValidationRefus_SelectionDA2 option').each(function () {
+                    if ($(this).is(':selected')) {
+                        $('#formValidationRefus_ChoixDA2').append($(this).detach());
+                        $('#formValidationRefus_ChoixDA2').focus();
+                    }
+                });
+            });
+        }
+
+    </script>
 
 {% endblock %}

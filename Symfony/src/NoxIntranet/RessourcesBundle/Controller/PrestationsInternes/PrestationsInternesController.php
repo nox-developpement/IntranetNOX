@@ -106,7 +106,7 @@ class PrestationsInternesController extends Controller {
         $this->get('mailer')->send($message);
     }
 
-    public function validationDA1Action($cleDemande) {
+    public function validationDA1Action(Request $request, $cleDemande) {
 
         // On récupére les entitées de la demande et du demandeur.
         $em = $this->getDoctrine()->getManager();
@@ -120,19 +120,42 @@ class PrestationsInternesController extends Controller {
             $DAs[$DA->getDA()] = $DA->getDA();
         }
         array_unique($DAs);
+        asort($DAs);
 
         $formValidationRefus = $this->get('form.factory')->createNamedBuilder('formValidationRefus', 'form')
                 ->add('ValidationRefus', ChoiceType::class, array(
                     'choices' => array('Validation' => 'Accepter la demande', 'Refus' => 'Refuser la demande'),
                     'expanded' => true
                 ))
-                ->add('RaisonRefus', TextareaType::class)
+                ->add('RaisonRefus', TextareaType::class, array(
+                    'attr' => array(
+                    ),
+                    'required' => false
+                ))
                 ->add('ChoixDA2', ChoiceType::class, array(
-                    'choices' => $DAs
+                    'choices' => $DAs,
+                    'attr' => array(
+                        'multiple' => true
+                    ),
+                    'required' => false,
+                    'choice_attr' => function($val) {
+                return ['title' => $val];
+            }
                 ))
                 ->add('SelectionDA2', ChoiceType::class, array(
+                    'attr' => array(
+                        
+                        'multiple' => true
+                    ),
+                    'required' => false,
                 ))
+                ->add('Valider', SubmitType::class)
                 ->getForm();
+
+        $formValidationRefus->handleRequest($request);
+        if ($formValidationRefus->isValid()) {
+            var_dump($formValidationRefus->get('SelectionDA2')->getData());
+        }
 
         return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:validationD1.html.twig', array('demande' => $demande, 'demandeur' => $demandeur, 'formValidationRefus' => $formValidationRefus->createView()));
     }
