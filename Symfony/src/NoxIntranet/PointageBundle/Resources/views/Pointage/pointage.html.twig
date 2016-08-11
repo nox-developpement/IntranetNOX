@@ -256,10 +256,12 @@
             addProjectColumn();
             deleteProjectColumn();
             ajaxGetData();
+            fixedHeader();
             $('#form_Valider').click(function () {
                 return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
             });
         });
+
         // Met à jours les cellules des valeurs totals.
         function tableEventHandler() {
             displayDailyProjectsTotalPercentage();
@@ -1447,6 +1449,65 @@
             $('#tableFeuillePointage tr:nth-child(2)').on('mouseout', '.project', function () {
                 //On supprime la tooltip.
                 $('#tooltipAffaire').remove();
+            });
+        }
+
+        // Retourne la largeur des barres de scrolling.
+        function getScrollbarWidth() {
+            var outer = document.createElement("div");
+            outer.style.visibility = "hidden";
+            outer.style.width = "100px";
+            outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
+
+            document.body.appendChild(outer);
+
+            var widthNoScroll = outer.offsetWidth;
+            // force scrollbars
+            outer.style.overflow = "scroll";
+
+            // add innerdiv
+            var inner = document.createElement("div");
+            inner.style.width = "100%";
+            outer.appendChild(inner);
+
+            var widthWithScroll = inner.offsetWidth;
+
+            // remove divs
+            outer.parentNode.removeChild(outer);
+
+            return widthNoScroll - widthWithScroll;
+        }
+
+        function fixedHeader() {
+            // Lors d'un scroll dans le container du tableau ou sur la div de contenu.
+            $('#tableFeuillePointageDivContainer, #contenu').scroll(function () {
+
+                var tableFeuillePointageTop = $('#tableFeuillePointage').offset().top; // Top de table de la feuille de pointage.
+                var divTableFeuillePointageContainerTop = $('#tableFeuillePointageDivContainer').offset().top; // Top du container de la feuille de pointage.
+                var tableFeuillePointageHeaderTop = $('#tableFeuillePointage tr:first-child').offset().top; // Top des lignes de titres de la feuille de pointage.
+                var sectionPrincipalTop = $('#section_principal').offset().top; // Top de la section principal.
+
+                // On initialise une div qui contiendras le header flotant et on lui injecte les lignes du header de la table.
+                var header = $("<div class='floatingHeader' style='position: fixed; z-index: 10; border: 1px solid black; border-right: none; overflow: hidden;'></div>");
+                header.append($('#tableFeuillePointageDivContainer tr:nth-child(n+2):nth-child(-n+3)').clone()); // On clone les lignes de titres.
+                header.find('tr:first-child td:first-child').html(''); // Supprime le sélécteur de date du clone.
+                header.find('td').css('background-color', 'lightcyan'); // Change la couleur des cellules du clone pour plus de visibilité.
+                header.find('td').attr('contenteditable', false);
+
+                // Si le header de la table est visible.
+                if ((tableFeuillePointageTop >= divTableFeuillePointageContainerTop) && (tableFeuillePointageHeaderTop >= tableFeuillePointageTop) && (divTableFeuillePointageContainerTop >= sectionPrincipalTop)) {
+                    console.log('Visible');
+                    $('.floatingHeader').remove(); // On supprime le header flotant.
+                }
+                // Si le header de la table n'est plus visible.
+                else if ($('.floatingHeader').length === 0) {
+                    console.log('Invisible');
+                    // On règle sa position et sa taille puis on l'injecte dans la table.
+                    header.css('top', divTableFeuillePointageContainerTop);
+                    header.css('left', $('#tableFeuillePointage').offset().left);
+                    header.css('width', $('#tableFeuillePointageDivContainer').innerWidth() - getScrollbarWidth());
+                    $('#tableFeuillePointage').prepend(header);
+                }
             });
         }
 

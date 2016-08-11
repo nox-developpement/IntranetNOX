@@ -304,6 +304,7 @@
             showAffaireName();
             addProjectColumn();
             deleteProjectColumn();
+            fixedHeader();
         });
 
         // Cache les tables de la feuille de pointage.
@@ -1831,6 +1832,23 @@
             $('#tableFeuillePointage tr:nth-child(2)').on('mouseout', '.project', function () {
                 //On supprime la tooltip.
                 $('#tooltipAffaire').remove();
+            });
+        }
+
+        function fixedHeader() {
+
+            alert('ok');
+
+            var sectionPrincipalTop = $('#section_principal').offset().top;
+
+            $('#contenu').scroll(function () {
+
+                alert('scoll');
+                if ($('#tableFeuillePointage').offset().top > sectionPrincipalTop && $('#tableFeuillePointage tr:first-child').offset().top >= $('#tableFeuillePointage').offset().top) {
+                    console.log('Visible');
+                } else {
+                    console.log('Invisible');
+                }
             });
         }
 

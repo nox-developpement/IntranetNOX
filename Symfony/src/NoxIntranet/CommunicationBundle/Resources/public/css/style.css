@@ -2705,10 +2705,11 @@ input[type=text]:read-only {
 }
 
 #tableFeuillePointageDivContainer {
-    width: 100%;
+    width: 95%;
     margin: auto;
     margin-bottom: 5%;
     position: relative;
+    height: 80%;
 }
 
 #tableFeuillePointageDivContainerAdministratif {
