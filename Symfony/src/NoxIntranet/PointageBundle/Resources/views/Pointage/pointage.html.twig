@@ -5,6 +5,9 @@
 {% block messageAccueil %}Pointage <span style='color: red; font-size: 1vw;'>(En test sur l'agence de Bron seulement.)</style>{% endblock %}
 
 {% block contenu %}
+
+    <div id='loadingContent' style='position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; background-image: url({{asset('bundles/noxintranetressources/images/default.svg')}}); background-size: contain; background-repeat: no-repeat; background-position: center center;'></div>
+
     <div id="pointageStatusDiv">
         <div id="pointageStatusLabelGeneralContainer">
             <div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Collaborateur</p></div><!--
@@ -260,6 +263,22 @@
             $('#form_Valider').click(function () {
                 return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
             });
+        });
+
+
+        // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
+        $(document).ajaxSend(function (event, request, settings) {
+            var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
+            if (ajaxUrl === "pointage-ajax-set-date" || ajaxUrl === "pointage-ajax-get-data" || ajaxUrl === "pointage-ajax-get-status") {
+                $('#loadingContent').show();
+            }
+        });
+
+        // Cache l'écran de chargement quand les requêtes ajax de chargement de la page sont terminées.
+        $(document).ajaxComplete(function () {
+            if ($.active <= 1) {
+                $('#loadingContent').hide();
+            }
         });
 
         // Met à jours les cellules des valeurs totals.
@@ -1503,9 +1522,9 @@
                 else if ($('.floatingHeader').length === 0) {
                     console.log('Invisible');
                     // On règle sa position et sa taille puis on l'injecte dans la table.
-                    header.css('top', divTableFeuillePointageContainerTop);
-                    header.css('left', $('#tableFeuillePointage').offset().left);
-                    header.css('width', $('#tableFeuillePointageDivContainer').innerWidth() - getScrollbarWidth());
+                    header.css('top', divTableFeuillePointageContainerTop); // En haut du container de la table.
+                    header.css('left', $('#tableFeuillePointage').offset().left); // A gauche du container de la table.
+                    header.css('width', $('#tableFeuillePointageDivContainer').innerWidth() - getScrollbarWidth()); // La taille du container moins celle de la scrollbar.
                     $('#tableFeuillePointage').prepend(header);
                 }
             });
