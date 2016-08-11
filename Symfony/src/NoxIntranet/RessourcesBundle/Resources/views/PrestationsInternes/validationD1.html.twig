@@ -68,17 +68,17 @@
             -->{{ form_widget(formValidationRefus.ChoixDA2, {'attr': {'size': 5, 'style': 'width: 100%;' }}) }}<!--
             --></p><!--
         --><p style='display: inline-block; width: 20%; margin: 0; position: absolute; top: 77.5%; left: 50%; transform: translateY(-77.5%) translateX(-50%); text-align: center;'><!--
-            --><button type='button' name='addDA' style='width: 50%; font-size: 0.8vw; margin-bottom: 2%;'>>></button><br /><!--
-            --><button type='button' name='removeDA' style='width: 50%; font-size: 0.8vw; margin-top: 2%;'><<</button><!--
+            --><button type='button' class="boutonFormulaire" name='addDA' style='width: 50%; font-size: 0.8vw; margin-bottom: 2%; padding: 3%;'>>></button><br /><!--
+            --><button type='button' class="boutonFormulaire" name='removeDA' style='width: 50%; font-size: 0.8vw; margin-top: 2%; padding: 3%;'><<</button><!--
             --></p><!--
         --><p style='display: inline-block; width: 40%; margin: 0; float: right; text-align: center;'><!--
             -->{{ form_label(formValidationRefus.SelectionDA2, "Sélectionné(s)") }}<!--
-            -->{{ form_widget(formValidationRefus.SelectionDA2, {'attr': {'size': 5, 'style': 'width: 100%;' }}) }}<!--
+            -->{{ form_widget(formValidationRefus.SelectionDA2, {'attr': {'size': 5, 'style': 'width: 100%;'}}) }}<!--
             --></p><!--
         --></div>
 
     <p style='text-align: center; margin-bottom: 0;'>
-        {{ form_widget(formValidationRefus.Valider) }}
+        {{ form_widget(formValidationRefus.Valider, {'attr': {'class': 'boutonFormulaire'}}) }}
     </p>
 
     {{ form_end(formValidationRefus) }}
