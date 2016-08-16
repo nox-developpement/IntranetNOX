@@ -28,6 +28,42 @@
 
     <div id='tableFeuillePointageDivContainer'>
         <table id="tableFeuillePointage">
+            <div id='floatingHeaderContainer'>
+                <div id="floatingHeader">
+                    <div>
+                        <div>&nbsp;</div><br />
+                        <div>{{ app.user.firstname }} {{ app.user.lastname }}</div>
+                    </div>
+                    <div>
+                        <div>TOTAL</div><br />
+                        <div>%</div>
+                    </div>
+                    <div>
+                        <div>MOD</div><br />
+                        <div>h</div>
+                    </div>
+                    <div>
+                        <div>Absences</div><br />
+                        <div style="width: auto;" id="floatingHeaderMatin">Matin</div><div style="width: auto;" id="floatingHeaderAM">Après-midi</div>
+                    </div>
+                    <div>
+                        <div>Titres repas</div><br />
+                        <div>Nombre</div>
+                    </div>
+                    <div>
+                        <div>Forfaits déplacement</div><br />
+                        <div>Montant</div>
+                    </div>
+                    <div>
+                        <div>Primes panier</div><br />
+                        <div>Nombre</div>
+                    </div>
+                    <div style='float: right;'>
+                        <div style='height: 100%;'>Commentaires</div>
+                    </div>
+                </div>
+            </div>
+
             <tr>
                 <td style="border: solid 1px black;">
                     <select id='pointage_month_selector' style="width: 100%;">
@@ -59,15 +95,15 @@
                 <td style='border-width: 1px;' >Titres repas</td>
                 <td style='border-width: 1px;' >Forfaits déplacement</td>
                 <td style='border-width: 1px;' >Primes panier</td>
-                <td style='border-width: 1px;' rowspan="2" >Commentaires</td>
+                <td style='border-width: 1px;' rowspan="2" id='feuillePointageCommentaires'>Commentaires</td>
             </tr>
             <tr>
                 <td style="background: rgb(217,217,217); border-width: 1px;">{{ app.user.firstname }} {{ app.user.lastname }}</td>
                 <td class='project' style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;'>%</td>
                 <td style='border-width: 1px;'>%</td>
                 <td style='border-width: 1px;' >h</td>
-                <td style='border-width: 1px;'>Matin</td>
-                <td style='border-width: 1px;'>Après-midi</td>
+                <td style='border-width: 1px;' id='feuillePointageMatin'>Matin</td>
+                <td style='border-width: 1px;' id='feuillePointageAM'>Après-midi</td>
                 <td style='border-width: 1px;'>Nombre</td>
                 <td style='border-width: 1px;'>Montant</td>
                 <td style='border-width: 1px;'>Nombre</td>
@@ -1504,31 +1540,37 @@
                 var divTableFeuillePointageContainerTop = $('#tableFeuillePointageDivContainer').offset().top; // Top du container de la feuille de pointage.
                 var tableFeuillePointageHeaderTop = $('#tableFeuillePointage tr:first-child').offset().top; // Top des lignes de titres de la feuille de pointage.
                 var sectionPrincipalTop = $('#section_principal').offset().top; // Top de la section principal.
-                console.log(divTableFeuillePointageContainerTop);
 
-                // On initialise une div qui contiendras le header flotant et on lui injecte les lignes du header de la table.
-                var header = $("<div class='floatingHeader' style='position: fixed; z-index: 10; border: 1px solid black; border-right: none; overflow: hidden;'></div>");
-                header.append($('#tableFeuillePointageDivContainer tr:nth-child(n+2):nth-child(-n+3)').clone()); // On clone les lignes de titres.
-                header.find('tr:first-child td:first-child').html(''); // Supprime le sélécteur de date du clone.
-                header.find('td').css('background-color', 'lightcyan'); // Change la couleur des cellules du clone pour plus de visibilité.
-                header.find('td').attr('contenteditable', false); // Supprime les positibilités d'édition des cellules de projet.
+                $('.floatingHeaderNumGX').remove();
+                var height = $('#tableFeuillePointage tr:nth-child(2)').height() + $('#tableFeuillePointage tr:nth-child(3)').height() + 'px';
+                //$('#floatingHeader').height(height);
 
-                if (divTableFeuillePointageContainerTop >= sectionPrincipalTop && tableFeuillePointageTop < divTableFeuillePointageContainerTop && $('.floatingHeader').length === 0) {
-                    console.log('visible');
-                    // On règle sa position et sa taille puis on l'injecte dans la table.
-                    header.css('top', divTableFeuillePointageContainerTop); // En haut du container de la table.
-                    header.css('left', $('#tableFeuillePointage').offset().left); // A gauche du container de la table.
-                    header.css('width', $('#tableFeuillePointageDivContainer').innerWidth() - getScrollbarWidth()); // La taille du container moins celle de la scrollbar.
-                    $('#tableFeuillePointage').prepend(header);
-                } else if (divTableFeuillePointageContainerTop >= sectionPrincipalTop && tableFeuillePointageTop < divTableFeuillePointageContainerTop) {
+                $('#tableFeuillePointageDivContainer tr:nth-child(2) td:nth-child(n+2):nth-last-child(n+8)').each(function (index) {
+                    $('#floatingHeader > div:nth-child(' + (index + 1) + ')').after("<div class='floatingHeaderNumGX'><div>" + $(this).text() + "</div><br /><div>%</div></div>");
+                });
+
+
+                // Pour chaque container de header on récupére la largeur et on l'attribut aux cellules du header flotant.
+                var tableHeader = $('#tableFeuillePointageDivContainer tr:nth-child(2)');
+                tableHeader.children().each(function (index) {
+                    $('#floatingHeader').children().eq(index).width($(this).outerWidth());
+                });
+
+                $('#floatingHeaderMatin').width($('#feuillePointageMatin').innerWidth());
+                $('#floatingHeaderAM').width($('#feuillePointageAM').innerWidth());
+
+                if (divTableFeuillePointageContainerTop >= sectionPrincipalTop && tableFeuillePointageTop < divTableFeuillePointageContainerTop) {
                     console.log('visible');
                     // On règle sa position et sa taille.
-                    $('.floatingHeader').css('top', divTableFeuillePointageContainerTop); // En haut du container de la table.
-                    $('.floatingHeader').css('left', $('#tableFeuillePointage').offset().left); // A gauche du container de la table.
-                    $('.floatingHeader').css('width', $('#tableFeuillePointageDivContainer').innerWidth() - getScrollbarWidth()); // La taille du container moins celle de la scrollbar.
+                    $('#floatingHeaderContainer').css('top', divTableFeuillePointageContainerTop); // En haut du container de la table.
+                    $('#floatingHeaderContainer').css('left', $('#tableFeuillePointage').offset().left); // A gauche du container de la table.
+                    $('#floatingHeaderContainer').css('width', $('#tableFeuillePointageDivContainer').innerWidth() - getScrollbarWidth()); // La taille du container moins celle de la scrollbar.
+                    $('#floatingHeaderContainer').show();
+                    $('#floatingHeader > div:last-child').height($('#floatingHeader > div:first-child').height());
+                    $('#floatingHeader > div:last-child div').css('line-height', $('#floatingHeader > div:last-child div').height() + 'px');
                 } else {
                     console.log('invisible');
-                    $('.floatingHeader').remove(); // On supprime le header flotant.
+                    $('#floatingHeaderContainer').hide(); // On supprime le header flotant.
                 }
             });
         }
