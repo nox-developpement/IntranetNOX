@@ -28,7 +28,8 @@
 
     <div id='tableFeuillePointageDivContainer'>
         <table id="tableFeuillePointage">
-            <div id='floatingHeaderContainer'>
+
+            <div id="floatingHeaderContainer">
                 <div id="floatingHeader">
                     <div>
                         <div>&nbsp;</div><br />
@@ -300,7 +301,6 @@
                 return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
             });
         });
-
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
             var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
@@ -308,14 +308,12 @@
                 $('#loadingContent').show();
             }
         });
-
         // Cache l'écran de chargement quand les requêtes ajax de chargement de la page sont terminées.
         $(document).ajaxComplete(function () {
             if ($.active <= 1) {
                 $('#loadingContent').hide();
             }
         });
-
         // Met à jours les cellules des valeurs totals.
         function tableEventHandler() {
             displayDailyProjectsTotalPercentage();
@@ -475,7 +473,6 @@
                         $(this).parent('.titreRepasNumberSelector').siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
                     }
                 });
-
                 $('.abscenceMatinSelector select').each(function () {
                     if ($(this).val() !== '') {
                         // On change la couleur de fond des cases de forfaits déplacement et de primes panier voisines et on bloque leur edition.
@@ -487,7 +484,6 @@
                         $(this).parent('.abscenceMatinSelector').siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
                     }
                 });
-
                 $('.abscenceAMSelector select').each(function () {
                     if ($(this).val() !== '') {
                         // On change la couleur de fond des cases de forfaits déplacement et de primes panier voisines et on bloque leur edition.
@@ -499,7 +495,6 @@
                         $(this).parent('.abscenceAMSelector').siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
                     }
                 });
-
                 // Lorsqu'on écris dans une case de forfait déplacement.
                 $('.forfaitsDeplacementMontant').each(function () {
                     // Si la case n'est pas vide.
@@ -514,7 +509,6 @@
                         $(this).siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
                     }
                 });
-
                 // Lorsqu'on écris dans une case de prime panier.
                 $('.primesPanierNumber').each(function () {
                     // Si la case n'est pas vide.
@@ -850,7 +844,6 @@
                     $(this).parent('.titreRepasNumberSelector').siblings('.abscenceAMSelector').find('select').attr('disabled', false);
                 }
             });
-
             // Lorsqu'on écris dans une case de forfait déplacement.
             $('.forfaitsDeplacementMontant').keyup(function () {
                 // Si la case n'est pas vide.
@@ -882,7 +875,6 @@
                 });
                 $('#titreRepasTotalNumber').text(total);
             });
-
             // Lorsqu'on écris dans une case de prime panier.
             $('.primesPanierNumber').keyup(function () {
                 // Si la case n'est pas vide.
@@ -1169,29 +1161,23 @@
 
             // On supprime le trigger de contextmenu déjà existant.
             $('#tableFeuillePointage tr:nth-child(2) .project').unbind('contextmenu');
-
             // Lors d'un clic droit sur une cellule de nom d'affaire.
             $('#tableFeuillePointage tr:nth-child(2) .project').bind('contextmenu', function (e) {
 
                 var projectCellule = $(this);
-
                 // On supprime le trigger de clique déjà existant.
                 $('#projectDeleteMenu').unbind('click');
-
                 // On bloque l'apparition du menu contextuel.
                 e.preventDefault();
-
                 // On récupére les coordonnées du pointeur de la souris.
                 var cursorY = 1.01 * e.pageY;
                 var cursorX = 1.01 * e.pageX;
-
                 // Si le nombre d'affaire est supérieur à 1.
                 if ($('#tableFeuillePointage tr:nth-child(2) .project').length > 1) {
                     // On positione et fait apparaître le menu de suppression.
                     $('#projectDeleteMenu').css('top', cursorY);
                     $('#projectDeleteMenu').css('left', cursorX);
                     $('#projectDeleteMenu').css('display', 'inline-block');
-
                     // On supprime les events sur la cellule.
                     //projectCellule.unbind('blur');
                     //projectCellule.unbind('keyup');
@@ -1220,7 +1206,6 @@
 
                 });
             });
-
             // Supprime les td de la colonne.
             function deleteTd(column) {
                 var cellIndex = $(column).index() - 1;
@@ -1387,25 +1372,20 @@
             $('#tableFeuillePointage tr:nth-child(2) .project').on('blur keyup paste', function () {
 
                 $('#ajaxSearchAffairesDiv').hide();
-
                 var search = $(this).text();
                 var celluleProject = $(this);
                 var affaires = "http://" + window.location.hostname + "/Symfony/web/DatabasesCSV/AffairesEncode.csv";
                 var compteur = 0;
-
                 // Supprime les paragraphes de résultats existants.
                 $('#ajaxSearchAffairesDiv').empty();
-
                 // Fixe la largeur minimale de la 'div' des résultats a 1.1 fois la taille de la cellule.
                 var minWidth = celluleProject.outerWidth() * 1.1;
                 $('#ajaxSearchAffairesDiv').css('min-width', minWidth);
-
                 // Cherche la chaine saisi dans le fichier csv des affaires et ajoute une balise 'p' par résultats.
                 if (search !== '') {
                     $.get(affaires, function (data) {
                         var lineByLine = data.split("\n");
                         var numsAffaires = [];
-
                         $.each(lineByLine, function (index, value) {
                             var donnes = value.split(';');
                             numsAffaires.push(donnes[0]);
@@ -1414,24 +1394,20 @@
                                 compteur++;
                             }
                         });
-
                         // Effet visuel au passage de la souris sur les résultats.
                         $('.ajaxSearchAffairesDivResults').hover(function () {
                             $(this).css('background-color', 'rgb(217, 217, 217)');
                         }, function () {
                             $(this).css('background-color', 'white');
                         });
-
                         // Lors du clique sur un résultat on remplace le contenu de la recherche par le résultat.
                         $('.ajaxSearchAffairesDivResults').mousedown(function () {
                             celluleProject.text($(this).attr('data-numaffaire'));
                             celluleProject.attr('data-nomaffaire', $(this).attr('data-nomaffaire'));
                         });
-
                         // Positione la 'div' contenant les résultats sous la cellules focus.
                         $('#ajaxSearchAffairesDiv').css('top', celluleProject.offset().top + celluleProject.outerHeight() - $('#tableFeuillePointageDivContainer').offset().top);
                         $('#ajaxSearchAffairesDiv').css('left', celluleProject.offset().left - $('#tableFeuillePointageDivContainer').offset().left);
-
                         // Affiche la 'div' des résultats si elle n'est pas vide.
                         if (compteur > 0) {
                             $('#ajaxSearchAffairesDiv').show();
@@ -1441,7 +1417,6 @@
                         celluleProject.blur(function () {
                             $('#ajaxSearchAffairesDiv').empty();
                             $('#ajaxSearchAffairesDiv').hide();
-
                             if ($.inArray(celluleProject.text(), numsAffaires) === -1) {
                                 celluleProject.text('');
                             }
@@ -1460,7 +1435,6 @@
 
                 //On supprime la tooltip.
                 $('#tooltipAffaire').remove();
-
                 var celluleAffaire = $(this); // Récupére la cellule d'affaire courante.
                 var top = celluleAffaire.offset().top; // Récupére la position verticale de la cellule de l'affaire.
                 var left = celluleAffaire.offset().left; // Récupére la position horizontale de la cellule de l'affaire.
@@ -1471,7 +1445,6 @@
                 // On cherche le nom d'affaire correspondant au numéro dans le fichier des affaires.
                 $.get(affaires, function (data) {
                     var lineByLine = data.split("\n");
-
                     $.each(lineByLine, function (index, value) {
                         var donnes = value.split(';');
                         if (numAffaire === donnes[0]) {
@@ -1479,7 +1452,6 @@
                             return false;
                         }
                     });
-
                     // Code html de la tooltip.
                     var tooltip = '';
                     tooltip += "<div id='tooltipAffaire' style='display: inline-block; padding: 0%; position: absolute; background-color: rgba(255, 0, 0, 0.8); border-radius: 6px; z-index: 3;'>";
@@ -1491,14 +1463,12 @@
                     tooltip += "(Cliquez-droit sur l'affaire pour la supprimer.)";
                     tooltip += "</p>";
                     tooltip += '</div>';
-
                     // On fait apparaître et on positionne la tooltip.
                     $('body').append(tooltip);
                     $('#tooltipAffaire').css('top', top - $('#tooltipAffaire').outerHeight() - 5);
                     $('#tooltipAffaire').css('left', left - ($('#tooltipAffaire').outerWidth() - celluleAffaire.outerWidth()) / 2);
                 });
             });
-
             // Lorsqu'on retire la souris d'une cellule de numéro d'affaire.
             $('#tableFeuillePointage tr:nth-child(2)').on('mouseout', '.project', function () {
                 //On supprime la tooltip.
@@ -1514,21 +1484,16 @@
             outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
 
             document.body.appendChild(outer);
-
             var widthNoScroll = outer.offsetWidth;
             // force scrollbars
             outer.style.overflow = "scroll";
-
             // add innerdiv
             var inner = document.createElement("div");
             inner.style.width = "100%";
             outer.appendChild(inner);
-
             var widthWithScroll = inner.offsetWidth;
-
             // remove divs
             outer.parentNode.removeChild(outer);
-
             return widthNoScroll - widthWithScroll;
         }
 
@@ -1536,41 +1501,44 @@
             // Lors d'un scroll dans le container du tableau ou sur la div de contenu.
             $('#tableFeuillePointageDivContainer, #contenu').scroll(function () {
 
+                // Initialisation des variables de positionnement.
                 var tableFeuillePointageTop = $('#tableFeuillePointage').offset().top; // Top de table de la feuille de pointage.
                 var divTableFeuillePointageContainerTop = $('#tableFeuillePointageDivContainer').offset().top; // Top du container de la feuille de pointage.
-                var tableFeuillePointageHeaderTop = $('#tableFeuillePointage tr:first-child').offset().top; // Top des lignes de titres de la feuille de pointage.
                 var sectionPrincipalTop = $('#section_principal').offset().top; // Top de la section principal.
 
-                $('.floatingHeaderNumGX').remove();
-                var height = $('#tableFeuillePointage tr:nth-child(2)').height() + $('#tableFeuillePointage tr:nth-child(3)').height() + 'px';
-                //$('#floatingHeader').height(height);
-
-                $('#tableFeuillePointageDivContainer tr:nth-child(2) td:nth-child(n+2):nth-last-child(n+8)').each(function (index) {
-                    $('#floatingHeader > div:nth-child(' + (index + 1) + ')').after("<div class='floatingHeaderNumGX'><div>" + $(this).text() + "</div><br /><div>%</div></div>");
-                });
-
-
-                // Pour chaque container de header on récupére la largeur et on l'attribut aux cellules du header flotant.
-                var tableHeader = $('#tableFeuillePointageDivContainer tr:nth-child(2)');
-                tableHeader.children().each(function (index) {
-                    $('#floatingHeader').children().eq(index).width($(this).outerWidth());
-                });
-
-                $('#floatingHeaderMatin').width($('#feuillePointageMatin').innerWidth());
-                $('#floatingHeaderAM').width($('#feuillePointageAM').innerWidth());
-
                 if (divTableFeuillePointageContainerTop >= sectionPrincipalTop && tableFeuillePointageTop < divTableFeuillePointageContainerTop) {
-                    console.log('visible');
+
+                    if (!$('#floatingHeader').is(':visible')) {
+                        $('.floatingHeaderNumGX').remove(); // On supprime les cellules de numéros d'affaires du header flotant.
+
+                        // On ajoute les cellules de numéros d'affaires au header flotant.
+                        $('#tableFeuillePointageDivContainer tr:nth-child(2) td:nth-child(n+2):nth-last-child(n+8)').each(function (index) {
+                            $('#floatingHeader > div:nth-child(' + (index + 1) + ')').after("<div class='floatingHeaderNumGX'><div>" + $(this).text() + "</div><br /><div>%</div></div>");
+                        });
+
+                        // Pour chaque container de header on récupére la largeur et on l'attribut aux cellules du header flotant.
+                        var tableHeader = $('#tableFeuillePointageDivContainer tr:nth-child(2)');
+                        tableHeader.children().each(function (index) {
+                            $('#floatingHeader').children().eq(index).width($(this).outerWidth());
+                        });
+
+                        // On récupére la largeur des cellules d'absences du matin et de l'après midi et on l'attribut aux cellules correspondantes du header flotant.
+                        $('#floatingHeaderMatin').width($('#feuillePointageMatin').innerWidth());
+                        $('#floatingHeaderAM').width($('#feuillePointageAM').innerWidth());
+                    }
+
                     // On règle sa position et sa taille.
                     $('#floatingHeaderContainer').css('top', divTableFeuillePointageContainerTop); // En haut du container de la table.
-                    $('#floatingHeaderContainer').css('left', $('#tableFeuillePointage').offset().left); // A gauche du container de la table.
+                    $('#floatingHeaderContainer').css('left', $('#tableFeuillePointageDivContainer').offset().left); // A gauche du container de la table.
                     $('#floatingHeaderContainer').css('width', $('#tableFeuillePointageDivContainer').innerWidth() - getScrollbarWidth()); // La taille du container moins celle de la scrollbar.
-                    $('#floatingHeaderContainer').show();
-                    $('#floatingHeader > div:last-child').height($('#floatingHeader > div:first-child').height());
-                    $('#floatingHeader > div:last-child div').css('line-height', $('#floatingHeader > div:last-child div').height() + 'px');
+                    $('#floatingHeader').css('width', $('#tableFeuillePointage').innerWidth());
+
+                    $('#floatingHeaderContainer').show(); // On affiche le header flotant.
+
+                    $('#floatingHeader > div:last-child').height($('#floatingHeader > div:first-child').height()); // On attribut la même hauteur à la dernière cellule que pour les autres.
+                    $('#floatingHeader > div:last-child div').css('line-height', $('#floatingHeader > div:last-child div').height() + 'px'); // On centre verticallement le texte de la dernière cellule.
                 } else {
-                    console.log('invisible');
-                    $('#floatingHeaderContainer').hide(); // On supprime le header flotant.
+                    $('#floatingHeaderContainer').hide(); // On cache le header flotant.
                 }
             });
         }
