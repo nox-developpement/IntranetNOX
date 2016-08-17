@@ -65,6 +65,14 @@
                 </div>
             </div>
 
+            <div id="floatingVerticalHeaderContainer">
+                <div id="floatingVerticalHeader">
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>{{ app.user.firstname }} {{ app.user.lastname }}</div>
+                </div>
+            </div>
+
             <tr>
                 <td style="border: solid 1px black;">
                     <select id='pointage_month_selector' style="width: 100%;">
@@ -296,11 +304,13 @@
             addProjectColumn();
             deleteProjectColumn();
             ajaxGetData();
-            fixedHeader();
+            fixedHorizontalHeader();
+            fixedVerticalHeader();
             $('#form_Valider').click(function () {
                 return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
             });
         });
+
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
             var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
@@ -1051,7 +1061,7 @@
                     }
                 }
             }).done(function () {
-                $("#tableFeuillePointage").tableHeadFixer({'head': false, 'left': 1});
+                //$("#tableFeuillePointage").tableHeadFixer({'head': false, 'left': 1});
             });
         }
 
@@ -1497,7 +1507,8 @@
             return widthNoScroll - widthWithScroll;
         }
 
-        function fixedHeader() {
+        // Affiche un header flotant horizontal lorsque le header du tableau n'est plus entiérement visible.
+        function fixedHorizontalHeader() {
             // Lors d'un scroll dans le container du tableau ou sur la div de contenu.
             $('#tableFeuillePointageDivContainer, #contenu').scroll(function () {
 
@@ -1506,8 +1517,10 @@
                 var divTableFeuillePointageContainerTop = $('#tableFeuillePointageDivContainer').offset().top; // Top du container de la feuille de pointage.
                 var sectionPrincipalTop = $('#section_principal').offset().top; // Top de la section principal.
 
+                // Si le tableau est entiérement visible mais que son header n'est pas entiérement visible.
                 if (divTableFeuillePointageContainerTop >= sectionPrincipalTop && tableFeuillePointageTop < divTableFeuillePointageContainerTop) {
 
+                    // Si le header flotant est invisible.
                     if (!$('#floatingHeader').is(':visible')) {
                         $('.floatingHeaderNumGX').remove(); // On supprime les cellules de numéros d'affaires du header flotant.
 
@@ -1525,22 +1538,84 @@
                         // On récupére la largeur des cellules d'absences du matin et de l'après midi et on l'attribut aux cellules correspondantes du header flotant.
                         $('#floatingHeaderMatin').width($('#feuillePointageMatin').innerWidth());
                         $('#floatingHeaderAM').width($('#feuillePointageAM').innerWidth());
+
+                        // Lorsqu'on scroll horizontalement les tableau, le header flotant subit le même scroll.
+                        $('#tableFeuillePointageDivContainer').on('scroll', function () {
+                            $('#floatingHeaderContainer').scrollLeft($(this).scrollLeft());
+                        });
+
+                        $('#floatingHeaderContainer').hide();
                     }
 
                     // On règle sa position et sa taille.
                     $('#floatingHeaderContainer').css('top', divTableFeuillePointageContainerTop); // En haut du container de la table.
                     $('#floatingHeaderContainer').css('left', $('#tableFeuillePointageDivContainer').offset().left); // A gauche du container de la table.
                     $('#floatingHeaderContainer').css('width', $('#tableFeuillePointageDivContainer').innerWidth() - getScrollbarWidth()); // La taille du container moins celle de la scrollbar.
+                    $('#floatingHeaderContainer').slideDown(500, 'easeInQuart');
                     $('#floatingHeader').css('width', $('#tableFeuillePointage').innerWidth());
 
                     $('#floatingHeaderContainer').show(); // On affiche le header flotant.
 
                     $('#floatingHeader > div:last-child').height($('#floatingHeader > div:first-child').height()); // On attribut la même hauteur à la dernière cellule que pour les autres.
                     $('#floatingHeader > div:last-child div').css('line-height', $('#floatingHeader > div:last-child div').height() + 'px'); // On centre verticallement le texte de la dernière cellule.
-                } else {
+                }
+                // Si le tableau n'est pas entiérement visible ou le header est entiérement visible.        
+                else {
                     $('#floatingHeaderContainer').hide(); // On cache le header flotant.
                 }
             });
+        }
+
+        function fixedVerticalHeader() {
+            // Lors d'un scroll dans le container du tableau ou sur la div de contenu.
+            $('#tableFeuillePointageDivContainer, #contenu').scroll(function () {
+                // Initialisation des variables de positionnement.
+                var tableFeuillePointageLeft = $('#tableFeuillePointage').offset().left; // Left de la table de la feuille de pointage.
+                var tableFeuillePointageContainerLeft = $('#tableFeuillePointageDivContainer').offset().left; // Left du container de la feuille de pointage.
+                var sectionPrincipalTop = $('#section_principal').offset().top; // Top de la section principal.
+                var divTableFeuillePointageContainerTop = $('#tableFeuillePointageDivContainer').offset().top; // Top du container de la feuille de pointage.
+
+                // Si le header vertical n'est pas entiérement visible.
+                if (tableFeuillePointageLeft < tableFeuillePointageContainerLeft && divTableFeuillePointageContainerTop >= sectionPrincipalTop) {
+                    // Si le header flotant vertical n'est pas visible.
+                    if (!$('#floatingVerticalHeaderContainer').is(':visible')) {
+                        $('.floatingVerticalHeaderDate').remove(); // On supprime les cellules de date du header vertical flotant.
+                        
+                        // Pour chaque cellule de date on inject une div contenant la même date dans le header flotant.
+                        $('.dayDateCell').each(function () {
+                            $('#floatingVerticalHeader').append("<div class='floatingVerticalHeaderDate'>" + $(this).text() + "</div>");
+                        });
+
+                        // On attribut la bonne hauteur à chaque div du header flotant.
+                        $('#tableFeuillePointage tr td:first-child').each(function (index) {
+                            $('#floatingVerticalHeader').find('div').eq(index).height($(this).height());
+                        });
+
+                        // On attribut la bonne largeur à chaque div du header flotant.
+                        $('#floatingVerticalHeader div').width($('.dayDateCell').width());
+
+                        // Lorsqu'on scroll horizontalement les tableau, le header flotant subit le même scroll.
+                        $('#tableFeuillePointageDivContainer').on('scroll', function () {
+                            console.log($(this).scrollTop());
+                            console.log($('#floatingVerticalHeaderContainer').scrollTop());
+                            $('#floatingVerticalHeaderContainer').scrollTop($(this).scrollTop());
+                        });
+                    }
+
+                    // On règle sa position et sa taille.
+                    $('#floatingVerticalHeaderContainer').css('top', $('#tableFeuillePointageDivContainer').offset().top); // En haut du container de la table.
+                    $('#floatingVerticalHeaderContainer').css('left', tableFeuillePointageContainerLeft); // A gauche du container de la table.
+                    $('#floatingVerticalHeaderContainer').height($('#tableFeuillePointageDivContainer').height() - getScrollbarWidth());
+                    $('#floatingVerticalHeader').height($('#tableFeuillePointage').height());
+
+                    $('#floatingVerticalHeaderContainer').show(); // On affiche le header flotant.
+                }
+                // Si le header vertical est entiérement visible.
+                else {
+                    $('#floatingVerticalHeaderContainer').hide();
+                }
+            });
+
         }
 
     </script>
