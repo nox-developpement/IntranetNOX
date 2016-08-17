@@ -1544,17 +1544,16 @@
                             $('#floatingHeaderContainer').scrollLeft($(this).scrollLeft());
                         });
 
-                        $('#floatingHeaderContainer').hide();
+                        $('#floatingHeaderContainer').hide(); // On cache le header flotant pour préparer l'animation d'apparition.
                     }
 
                     // On règle sa position et sa taille.
                     $('#floatingHeaderContainer').css('top', divTableFeuillePointageContainerTop); // En haut du container de la table.
                     $('#floatingHeaderContainer').css('left', $('#tableFeuillePointageDivContainer').offset().left); // A gauche du container de la table.
                     $('#floatingHeaderContainer').css('width', $('#tableFeuillePointageDivContainer').innerWidth() - getScrollbarWidth()); // La taille du container moins celle de la scrollbar.
-                    $('#floatingHeaderContainer').slideDown(500, 'easeInQuart');
                     $('#floatingHeader').css('width', $('#tableFeuillePointage').innerWidth());
 
-                    $('#floatingHeaderContainer').show(); // On affiche le header flotant.
+                    $('#floatingHeaderContainer').fadeIn(500); // On affiche le header flotant.
 
                     $('#floatingHeader > div:last-child').height($('#floatingHeader > div:first-child').height()); // On attribut la même hauteur à la dernière cellule que pour les autres.
                     $('#floatingHeader > div:last-child div').css('line-height', $('#floatingHeader > div:last-child div').height() + 'px'); // On centre verticallement le texte de la dernière cellule.
@@ -1580,7 +1579,7 @@
                     // Si le header flotant vertical n'est pas visible.
                     if (!$('#floatingVerticalHeaderContainer').is(':visible')) {
                         $('.floatingVerticalHeaderDate').remove(); // On supprime les cellules de date du header vertical flotant.
-                        
+
                         // Pour chaque cellule de date on inject une div contenant la même date dans le header flotant.
                         $('.dayDateCell').each(function () {
                             $('#floatingVerticalHeader').append("<div class='floatingVerticalHeaderDate'>" + $(this).text() + "</div>");
@@ -1596,10 +1595,10 @@
 
                         // Lorsqu'on scroll horizontalement les tableau, le header flotant subit le même scroll.
                         $('#tableFeuillePointageDivContainer').on('scroll', function () {
-                            console.log($(this).scrollTop());
-                            console.log($('#floatingVerticalHeaderContainer').scrollTop());
                             $('#floatingVerticalHeaderContainer').scrollTop($(this).scrollTop());
                         });
+
+                        $('#floatingVerticalHeaderContainer').hide(); // On cache le header flotant pour préparer l'animation d'apparition.
                     }
 
                     // On règle sa position et sa taille.
@@ -1608,7 +1607,7 @@
                     $('#floatingVerticalHeaderContainer').height($('#tableFeuillePointageDivContainer').height() - getScrollbarWidth());
                     $('#floatingVerticalHeader').height($('#tableFeuillePointage').height());
 
-                    $('#floatingVerticalHeaderContainer').show(); // On affiche le header flotant.
+                    $('#floatingVerticalHeaderContainer').fadeIn(500); // On affiche le header flotant.
                 }
                 // Si le header vertical est entiérement visible.
                 else {
