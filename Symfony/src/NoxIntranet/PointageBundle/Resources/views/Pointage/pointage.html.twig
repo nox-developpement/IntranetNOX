@@ -73,6 +73,8 @@
                 </div>
             </div>
 
+            <div id='floatingHeaderCross'>{{ app.user.firstname }} {{ app.user.lastname }}</div>
+
             <tr>
                 <td style="border: solid 1px black;">
                     <select id='pointage_month_selector' style="width: 100%;">
@@ -324,6 +326,7 @@
                 $('#loadingContent').hide();
             }
         });
+
         // Met à jours les cellules des valeurs totals.
         function tableEventHandler() {
             displayDailyProjectsTotalPercentage();
@@ -1562,9 +1565,13 @@
                 else {
                     $('#floatingHeaderContainer').hide(); // On cache le header flotant.
                 }
+
+                // On affiche la croix si besoin.
+                toggleFloatingHeaderCross();
             });
         }
 
+        // Affiche un header flotant vertical lorsque le header du tableau n'est plus entiérement visible.
         function fixedVerticalHeader() {
             // Lors d'un scroll dans le container du tableau ou sur la div de contenu.
             $('#tableFeuillePointageDivContainer, #contenu').scroll(function () {
@@ -1611,10 +1618,31 @@
                 }
                 // Si le header vertical est entiérement visible.
                 else {
-                    $('#floatingVerticalHeaderContainer').hide();
+                    $('#floatingVerticalHeaderContainer').hide(); // On cache le header flotant.
                 }
-            });
 
+                // On affiche la croix si besoin.
+                toggleFloatingHeaderCross();
+            });
+        }
+
+        // Affiche/Cache la croix des headers flotants.
+        function toggleFloatingHeaderCross() {
+            // Si les headers flotants vertical et horizontal sont visibles en même temps.
+            if ($('#floatingHeaderContainer').css('display') !== 'none' && $('#floatingVerticalHeaderContainer').css('display') !== 'none') {
+                // On régle la taille et la position de la croix et on l'affiche.
+                $('#floatingHeaderCross').width($('#floatingVerticalHeaderContainer').width() - 4);
+                $('#floatingHeaderCross').height($('#floatingHeaderContainer').height() - 4);
+                $('#floatingHeaderCross').css('top', $('#tableFeuillePointageDivContainer').offset().top);
+                $('#floatingHeaderCross').css('left', $('#tableFeuillePointageDivContainer').offset().left);
+                $('#floatingHeaderCross').css('line-height', $('#floatingHeaderContainer').height() - 4 + 'px');
+                $('#floatingHeaderCross').show();
+            }
+            // Si les headers flotants vertical et horizontal ne sont pas visibles en même temps.
+            else {
+                // On cache la croix.
+                $('#floatingHeaderCross').hide();
+            }
         }
 
     </script>

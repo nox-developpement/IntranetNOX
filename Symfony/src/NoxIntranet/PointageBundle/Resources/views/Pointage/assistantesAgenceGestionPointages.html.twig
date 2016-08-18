@@ -46,6 +46,8 @@
         {{ form_end(formToCheckPointage) }}
     </div>
 
+    <div id='loadingContent' style='display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; background-image: url({{asset('bundles/noxintranetressources/images/pointageLoading.svg')}}); background-size: contain; background-repeat: no-repeat; background-position: center center;'></div>
+
     <div id="pointageStatusDiv">
         <div id="pointageStatusLabelGeneralContainer">
             <div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Collaborateur</p></div><!--
@@ -66,6 +68,53 @@
 
     <div id='tableFeuillePointageDivContainer'>
         <table id="tableFeuillePointage">
+
+            <div id="floatingHeaderContainer">
+                <div id="floatingHeader">
+                    <div>
+                        <div>&nbsp;</div><br />
+                        <div>&nbsp;</div>
+                    </div>
+                    <div>
+                        <div>TOTAL</div><br />
+                        <div>%</div>
+                    </div>
+                    <div>
+                        <div>MOD</div><br />
+                        <div>h</div>
+                    </div>
+                    <div>
+                        <div>Absences</div><br />
+                        <div style="width: auto;" id="floatingHeaderMatin">Matin</div><div style="width: auto;" id="floatingHeaderAM">Après-midi</div>
+                    </div>
+                    <div>
+                        <div>Titres repas</div><br />
+                        <div>Nombre</div>
+                    </div>
+                    <div>
+                        <div>Forfaits déplacement</div><br />
+                        <div>Montant</div>
+                    </div>
+                    <div>
+                        <div>Primes panier</div><br />
+                        <div>Nombre</div>
+                    </div>
+                    <div style='float: right;'>
+                        <div style='height: 100%;'>Commentaires</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="floatingVerticalHeaderContainer">
+                <div id="floatingVerticalHeader">
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                </div>
+            </div>
+
+            <div id='floatingHeaderCross'></div>
+
             <tr>
                 <td style="border: solid 1px black;">
                     <select id='pointage_month_selector' style="width: 100%;">
@@ -97,15 +146,15 @@
                 <td style='border-width: 1px;' >Titres repas</td>
                 <td style='border-width: 1px;' >Forfaits déplacement</td>
                 <td style='border-width: 1px;' >Primes panier</td>
-                <td style='border-width: 1px;' rowspan="2" >Commentaires</td>
+                <td style='border-width: 1px;' rowspan="2" id='feuillePointageCommentaires'>Commentaires</td>
             </tr>
             <tr>
                 <td style="background: rgb(217,217,217); border-width: 1px;"></td>
                 <td class='project' style='border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px;'>%</td>
                 <td style='border-width: 1px;'>%</td>
                 <td style='border-width: 1px;' >h</td>
-                <td style='border-width: 1px;'>Matin</td>
-                <td style='border-width: 1px;'>Après-midi</td>
+                <td style='border-width: 1px;' id='feuillePointageMatin'>Matin</td>
+                <td style='border-width: 1px;' id='feuillePointageAM'>Après-midi</td>
                 <td style='border-width: 1px;'>Nombre</td>
                 <td style='border-width: 1px;'>Montant</td>
                 <td style='border-width: 1px;'>Nombre</td>
@@ -304,7 +353,23 @@
             showAffaireName();
             addProjectColumn();
             deleteProjectColumn();
-            fixedHeader();
+            fixedHorizontalHeader();
+            fixedVerticalHeader();
+        });
+
+        // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
+        $(document).ajaxSend(function (event, request, settings) {
+            var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
+            if (ajaxUrl === "pointage-ajax-set-date-by-pointage-number" || ajaxUrl === "pointage-ajax-get-data-by-username" || ajaxUrl === "pointage-ajax-get-status" || ajaxUrl === "pointage-ajax-get-data-by-username") {
+                $('#loadingContent').show();
+            }
+        });
+
+        // Cache l'écran de chargement quand les requêtes ajax de chargement de la page sont terminées.
+        $(document).ajaxComplete(function () {
+            if ($.active <= 1) {
+                $('#loadingContent').hide();
+            }
         });
 
         // Cache les tables de la feuille de pointage.
@@ -938,7 +1003,7 @@
                     }
                 }
             }).done(function () {
-                $("#tableFeuillePointage").tableHeadFixer({'head': false, 'left': 1});
+                //$("#tableFeuillePointage").tableHeadFixer({'head': false, 'left': 1});
                 $('#tableFeuillePointageDivContainer').show();
                 $('#tableFeuillePointageTypesAbscencesDivContainer').show();
                 $('#pointage_month_selector').attr('disabled', true);
@@ -1835,21 +1900,160 @@
             });
         }
 
-        function fixedHeader() {
+        // Retourne la largeur des barres de scrolling.
+        function getScrollbarWidth() {
+            var outer = document.createElement("div");
+            outer.style.visibility = "hidden";
+            outer.style.width = "100px";
+            outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
 
-            alert('ok');
+            document.body.appendChild(outer);
+            var widthNoScroll = outer.offsetWidth;
+            // force scrollbars
+            outer.style.overflow = "scroll";
+            // add innerdiv
+            var inner = document.createElement("div");
+            inner.style.width = "100%";
+            outer.appendChild(inner);
+            var widthWithScroll = inner.offsetWidth;
+            // remove divs
+            outer.parentNode.removeChild(outer);
+            return widthNoScroll - widthWithScroll;
+        }
 
-            var sectionPrincipalTop = $('#section_principal').offset().top;
+        // Affiche un header flotant horizontal lorsque le header du tableau n'est plus entiérement visible.
+        function fixedHorizontalHeader() {
+            // Lors d'un scroll dans le container du tableau ou sur la div de contenu.
+            $('#tableFeuillePointageDivContainer, #contenu').scroll(function () {
 
-            $('#contenu').scroll(function () {
+                // Initialisation des variables de positionnement.
+                var tableFeuillePointageTop = $('#tableFeuillePointage').offset().top; // Top de table de la feuille de pointage.
+                var divTableFeuillePointageContainerTop = $('#tableFeuillePointageDivContainer').offset().top; // Top du container de la feuille de pointage.
+                var sectionPrincipalTop = $('#section_principal').offset().top; // Top de la section principal.
 
-                alert('scoll');
-                if ($('#tableFeuillePointage').offset().top > sectionPrincipalTop && $('#tableFeuillePointage tr:first-child').offset().top >= $('#tableFeuillePointage').offset().top) {
-                    console.log('Visible');
-                } else {
-                    console.log('Invisible');
+                // Si le tableau est entiérement visible mais que son header n'est pas entiérement visible.
+                if (divTableFeuillePointageContainerTop >= sectionPrincipalTop && tableFeuillePointageTop < divTableFeuillePointageContainerTop) {
+
+                    // Si le header flotant est invisible.
+                    if (!$('#floatingHeader').is(':visible')) {
+                        $('.floatingHeaderNumGX').remove(); // On supprime les cellules de numéros d'affaires du header flotant.
+
+                        // On ajoute les cellules de numéros d'affaires au header flotant.
+                        $('#tableFeuillePointageDivContainer tr:nth-child(2) td:nth-child(n+2):nth-last-child(n+8)').each(function (index) {
+                            $('#floatingHeader > div:nth-child(' + (index + 1) + ')').after("<div class='floatingHeaderNumGX'><div>" + $(this).text() + "</div><br /><div>%</div></div>");
+                        });
+
+                        // Pour chaque container de header on récupére la largeur et on l'attribut aux cellules du header flotant.
+                        var tableHeader = $('#tableFeuillePointageDivContainer tr:nth-child(2)');
+                        tableHeader.children().each(function (index) {
+                            $('#floatingHeader').children().eq(index).width($(this).outerWidth());
+                        });
+
+                        // On récupére la largeur des cellules d'absences du matin et de l'après midi et on l'attribut aux cellules correspondantes du header flotant.
+                        $('#floatingHeaderMatin').width($('#feuillePointageMatin').innerWidth());
+                        $('#floatingHeaderAM').width($('#feuillePointageAM').innerWidth());
+
+                        // Lorsqu'on scroll horizontalement les tableau, le header flotant subit le même scroll.
+                        $('#tableFeuillePointageDivContainer').on('scroll', function () {
+                            $('#floatingHeaderContainer').scrollLeft($(this).scrollLeft());
+                        });
+
+                        $('#floatingHeaderContainer').hide(); // On cache le header flotant pour préparer l'animation d'apparition.
+                    }
+
+                    // On règle sa position et sa taille.
+                    $('#floatingHeaderContainer').css('top', divTableFeuillePointageContainerTop); // En haut du container de la table.
+                    $('#floatingHeaderContainer').css('left', $('#tableFeuillePointageDivContainer').offset().left); // A gauche du container de la table.
+                    $('#floatingHeaderContainer').css('width', $('#tableFeuillePointageDivContainer').innerWidth() - getScrollbarWidth()); // La taille du container moins celle de la scrollbar.
+                    $('#floatingHeader').css('width', $('#tableFeuillePointage').innerWidth());
+
+                    $('#floatingHeaderContainer').fadeIn(500); // On affiche le header flotant.
+
+                    $('#floatingHeader > div:last-child').height($('#floatingHeader > div:first-child').height()); // On attribut la même hauteur à la dernière cellule que pour les autres.
+                    $('#floatingHeader > div:last-child div').css('line-height', $('#floatingHeader > div:last-child div').height() + 'px'); // On centre verticallement le texte de la dernière cellule.
                 }
+                // Si le tableau n'est pas entiérement visible ou le header est entiérement visible.        
+                else {
+                    $('#floatingHeaderContainer').hide(); // On cache le header flotant.
+                }
+
+                // On affiche la croix si besoin.
+                toggleFloatingHeaderCross();
             });
+        }
+
+        // Affiche un header flotant vertical lorsque le header du tableau n'est plus entiérement visible.
+        function fixedVerticalHeader() {
+            // Lors d'un scroll dans le container du tableau ou sur la div de contenu.
+            $('#tableFeuillePointageDivContainer, #contenu').scroll(function () {
+                // Initialisation des variables de positionnement.
+                var tableFeuillePointageLeft = $('#tableFeuillePointage').offset().left; // Left de la table de la feuille de pointage.
+                var tableFeuillePointageContainerLeft = $('#tableFeuillePointageDivContainer').offset().left; // Left du container de la feuille de pointage.
+                var sectionPrincipalTop = $('#section_principal').offset().top; // Top de la section principal.
+                var divTableFeuillePointageContainerTop = $('#tableFeuillePointageDivContainer').offset().top; // Top du container de la feuille de pointage.
+
+                // Si le header vertical n'est pas entiérement visible.
+                if (tableFeuillePointageLeft < tableFeuillePointageContainerLeft && divTableFeuillePointageContainerTop >= sectionPrincipalTop) {
+                    // Si le header flotant vertical n'est pas visible.
+                    if (!$('#floatingVerticalHeaderContainer').is(':visible')) {
+                        $('.floatingVerticalHeaderDate').remove(); // On supprime les cellules de date du header vertical flotant.
+
+                        // Pour chaque cellule de date on inject une div contenant la même date dans le header flotant.
+                        $('.dayDateCell').each(function () {
+                            $('#floatingVerticalHeader').append("<div class='floatingVerticalHeaderDate'>" + $(this).text() + "</div>");
+                        });
+
+                        // On attribut la bonne hauteur à chaque div du header flotant.
+                        $('#tableFeuillePointage tr td:first-child').each(function (index) {
+                            $('#floatingVerticalHeader').find('div').eq(index).height($(this).height());
+                        });
+
+                        // On attribut la bonne largeur à chaque div du header flotant.
+                        $('#floatingVerticalHeader div').width($('.dayDateCell').width());
+
+                        // Lorsqu'on scroll horizontalement les tableau, le header flotant subit le même scroll.
+                        $('#tableFeuillePointageDivContainer').on('scroll', function () {
+                            $('#floatingVerticalHeaderContainer').scrollTop($(this).scrollTop());
+                        });
+
+                        $('#floatingVerticalHeaderContainer').hide(); // On cache le header flotant pour préparer l'animation d'apparition.
+                    }
+
+                    // On règle sa position et sa taille.
+                    $('#floatingVerticalHeaderContainer').css('top', $('#tableFeuillePointageDivContainer').offset().top); // En haut du container de la table.
+                    $('#floatingVerticalHeaderContainer').css('left', tableFeuillePointageContainerLeft); // A gauche du container de la table.
+                    $('#floatingVerticalHeaderContainer').height($('#tableFeuillePointageDivContainer').height() - getScrollbarWidth());
+                    $('#floatingVerticalHeader').height($('#tableFeuillePointage').height());
+
+                    $('#floatingVerticalHeaderContainer').fadeIn(500); // On affiche le header flotant.
+                }
+                // Si le header vertical est entiérement visible.
+                else {
+                    $('#floatingVerticalHeaderContainer').hide(); // On cache le header flotant.
+                }
+
+                // On affiche la croix si besoin.
+                toggleFloatingHeaderCross();
+            });
+        }
+
+        // Affiche/Cache la croix des headers flotants.
+        function toggleFloatingHeaderCross() {
+            // Si les headers flotants vertical et horizontal sont visibles en même temps.
+            if ($('#floatingHeaderContainer').css('display') !== 'none' && $('#floatingVerticalHeaderContainer').css('display') !== 'none') {
+                // On régle la taille et la position de la croix et on l'affiche.
+                $('#floatingHeaderCross').width($('#floatingVerticalHeaderContainer').width() - 4);
+                $('#floatingHeaderCross').height($('#floatingHeaderContainer').height() - 4);
+                $('#floatingHeaderCross').css('top', $('#tableFeuillePointageDivContainer').offset().top);
+                $('#floatingHeaderCross').css('left', $('#tableFeuillePointageDivContainer').offset().left);
+                $('#floatingHeaderCross').css('line-height', $('#floatingHeaderContainer').height() - 4 + 'px');
+                $('#floatingHeaderCross').show();
+            }
+            // Si les headers flotants vertical et horizontal ne sont pas visibles en même temps.
+            else {
+                // On cache la croix.
+                $('#floatingHeaderCross').hide();
+            }
         }
 
     </script>
