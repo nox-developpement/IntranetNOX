@@ -84,9 +84,9 @@
                         {% endfor %}
                     </select>
                 </td>
-                <td id='operationnel' style="background: rgb(47,117,181); color: white; border-width: 1px;" colspan="2">OPERATIONNEL <p id="addProject" style="margin: 0; float: right; display: inline-block; cursor: pointer;">+ Affaire</p></td>
-                <td style="background: black; border-width: 1px;"></td>
-                <td style="background: rgb(84,130,53); color: white; border-width: 1px;" colspan="5">RESSOURCES HUMAINES</td>
+                <td id='operationnel' style="color: white; border-width: 1px;" colspan="2">OPERATIONNEL <p id="addProject" style="margin: 0; float: right; display: inline-block; cursor: pointer;">+ Affaire</p></td>
+                <td style="border-width: 1px;"></td>
+                <td style="color: white; border-width: 1px;" colspan="5">RESSOURCES HUMAINES</td>
                 <td style="border: none; border-bottom: solid 1px black;" ></td>
             </tr>
             <tr>
@@ -1442,9 +1442,11 @@
 
         // Affiche le nom de l'affaire correspondant au numéro survollé par la souris.
         function showAffaireName() {
-
             // Lorsqu'on passe la souris sur une cellule de numéro d'affaire.
             $('#tableFeuillePointage tr:nth-child(2)').on('mouseover', '.project', function () {
+
+                // On supprime les eventuels event de mouseout existants pour ne pas surcharger la mémoire.
+                $('#tableFeuillePointage tr:nth-child(2)').unbind('mouseout');
 
                 //On supprime la tooltip.
                 $('#tooltipAffaire').remove();
@@ -1455,6 +1457,10 @@
                 var numAffaire = celluleAffaire.text(); // Récupére le numéro d'affaire.
                 var nomAffaire = ''; // Initialise le nom d'affaire.       
 
+                getAffaire(affaires, numAffaire, nomAffaire, top, left, celluleAffaire, $(this));
+            });
+
+            function getAffaire(affaires, numAffaire, nomAffaire, top, left, celluleAffaire, element) {
                 // On cherche le nom d'affaire correspondant au numéro dans le fichier des affaires.
                 $.get(affaires, function (data) {
                     var lineByLine = data.split("\n");
@@ -1465,6 +1471,7 @@
                             return false;
                         }
                     });
+
                     // Code html de la tooltip.
                     var tooltip = '';
                     tooltip += "<div id='tooltipAffaire' style='display: inline-block; padding: 0%; position: absolute; background-color: rgba(255, 0, 0, 0.8); border-radius: 6px; z-index: 3;'>";
@@ -1476,17 +1483,22 @@
                     tooltip += "(Cliquez-droit sur l'affaire pour la supprimer.)";
                     tooltip += "</p>";
                     tooltip += '</div>';
-                    // On fait apparaître et on positionne la tooltip.
-                    $('body').append(tooltip);
-                    $('#tooltipAffaire').css('top', top - $('#tooltipAffaire').outerHeight() - 5);
-                    $('#tooltipAffaire').css('left', left - ($('#tooltipAffaire').outerWidth() - celluleAffaire.outerWidth()) / 2);
+
+                    // Si la souris est toujours sur la cellules une fois la génération du code HTML terminée, on fait apparaître et on positionne la tooltip.
+                    if (element.is(':hover')) {
+                        $('body').append(tooltip);
+                        $('#tooltipAffaire').css('top', top - $('#tooltipAffaire').outerHeight() - 5);
+                        $('#tooltipAffaire').css('left', left - ($('#tooltipAffaire').outerWidth() - celluleAffaire.outerWidth()) / 2);
+                    }
+
+                }).done(function () {
+                    // Lorsqu'on retire la souris d'une cellule de numéro d'affaire.
+                    $('#tableFeuillePointage tr:nth-child(2)').on('mouseout', '.project', function () {
+                        //On supprime la tooltip.
+                        $('#tooltipAffaire').remove();
+                    });
                 });
-            });
-            // Lorsqu'on retire la souris d'une cellule de numéro d'affaire.
-            $('#tableFeuillePointage tr:nth-child(2)').on('mouseout', '.project', function () {
-                //On supprime la tooltip.
-                $('#tooltipAffaire').remove();
-            });
+            }
         }
 
         // Retourne la largeur des barres de scrolling.
