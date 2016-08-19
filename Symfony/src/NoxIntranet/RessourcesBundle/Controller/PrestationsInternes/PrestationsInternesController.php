@@ -256,6 +256,7 @@ class PrestationsInternesController extends Controller {
         $this->get('mailer')->send($message);
     }
 
+    // Envoi un mail de refus au demandeur correspondant à la demande dont l'ID est passé en paramètre.
     private function sendMailRefusDemande($IDDemande, $DA1, $raison) {
         // On récupére l'entité de la demande.
         $em = $this->getDoctrine()->getManager();
@@ -277,6 +278,31 @@ class PrestationsInternesController extends Controller {
 
         // On envoie le message.
         $this->get('mailer')->send($message);
+    }
+
+    public function DA2answer($cleDemande, $reponse, Request $request) {
+
+        // On récupére l'entitée de la demande au DA2.
+        $em = $this->getDoctrine()->getManager();
+        $demande = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findOneBy(array('cleDemande' => $cleDemande, 'DA2' => $this->get('security.context')->getToken()->getUser()->getUsername()));
+
+        // Si la demande n'existe pas ou si elle a déjà été traitée.
+        if (empty($demande) || $demande->getStatus() !== 'Attente validation DA2') {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "La demande n'existe pas ou a déjà été traitée."); // On affiche un message d'erreur.
+            return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
+        }
+
+        // Si la demande est accepté par le DA2.
+        if ($reponse === 'valider') {
+            
+        }
+
+        // Si la demande est refusé par le DA2.
+        if ($reponse === 'refuser') {
+            $em->remove($demande); // On supprime la demande au DA2
+            $request->getSession()->getFlashBag()->add('notice', "Vous avez décliné la demande."); // On affiche un message de confirmation de la déclinaison de la demande.
+            $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
+        }
     }
 
 }
