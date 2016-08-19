@@ -94,10 +94,17 @@ class RecherchePrestation {
     /**
      * @var string
      *
+     * @ORM\Column(name="DA1", type="string", length=255, nullable=true)
+     */
+    private $DA1;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="Demandeur", type="string", length=255)
      */
     private $demandeur;
-    
+
     /**
      * @var string
      *
@@ -338,7 +345,6 @@ class RecherchePrestation {
         return $this->emailDA;
     }
 
-
     /**
      * Set demandeur
      *
@@ -346,8 +352,7 @@ class RecherchePrestation {
      *
      * @return RecherchePrestation
      */
-    public function setDemandeur($demandeur)
-    {
+    public function setDemandeur($demandeur) {
         $this->demandeur = $demandeur;
 
         return $this;
@@ -358,8 +363,7 @@ class RecherchePrestation {
      *
      * @return string
      */
-    public function getDemandeur()
-    {
+    public function getDemandeur() {
         return $this->demandeur;
     }
 
@@ -370,8 +374,7 @@ class RecherchePrestation {
      *
      * @return RecherchePrestation
      */
-    public function setCleDemande($cleDemande)
-    {
+    public function setCleDemande($cleDemande) {
         $this->cleDemande = $cleDemande;
 
         return $this;
@@ -382,8 +385,30 @@ class RecherchePrestation {
      *
      * @return string
      */
-    public function getCleDemande()
-    {
+    public function getCleDemande() {
         return $this->cleDemande;
     }
+
+    /**
+     * Set dA1
+     *
+     * @param string $dA1
+     *
+     * @return RecherchePrestation
+     */
+    public function setDA1($dA1) {
+        $this->DA1 = $dA1;
+
+        return $this;
+    }
+
+    /**
+     * Get dA1
+     *
+     * @return string
+     */
+    public function getDA1() {
+        return $this->DA1;
+    }
+
 }

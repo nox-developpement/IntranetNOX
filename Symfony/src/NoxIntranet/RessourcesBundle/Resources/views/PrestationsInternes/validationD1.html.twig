@@ -88,6 +88,7 @@
         $(window).load(function () {
             toggleFormValidationRefus();
             selectAndRemoveDA();
+            checkAndSendForm();
         });
 
         // Affiche/Caches les élément du formulaire en fonction du radiobutton séléctionné.
@@ -159,7 +160,7 @@
         function checkAndSendForm() {
             // Lors d'un clic sur le bouton de validation du formulaire.
             $('#formValidationRefus_Valider').click(function () {
-                // Pour chaque option visible du séélcteur de DA choisis.
+                // Pour chaque option visible du sélecteur de DA choisis.
                 $('#formValidationRefus_SelectionDA2 option:visible').each(function () {
                     $(this).attr('selected', true); // On la séléctionne.
                 });

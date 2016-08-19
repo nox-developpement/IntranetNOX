@@ -4,6 +4,7 @@ namespace NoxIntranet\RessourcesBundle\Controller\PrestationsInternes;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NoxIntranet\RessourcesBundle\Entity\RecherchePrestation;
+use NoxIntranet\RessourcesBundle\Entity\PropositionPrestation;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -85,7 +86,7 @@ class PrestationsInternesController extends Controller {
     }
 
     // Envoie un email au DA associé à la demande dont l'ID est passé en paramêtre.
-    public function sendMailToDA1($IDDemande) {
+    private function sendMailToDA1($IDDemande) {
 
         // On récupére les entitées de la demande et du demandeur.
         $em = $this->getDoctrine()->getManager();
@@ -107,21 +108,54 @@ class PrestationsInternesController extends Controller {
         $this->get('mailer')->send($message);
     }
 
+    // Génére un formulaire de validation/refus pour le DA1 et traite la réponse.
     public function validationDA1Action(Request $request, $cleDemande) {
 
-        // On récupére les entitées de la demande et du demandeur.
+        // On récupére l'entitée de la demande
         $em = $this->getDoctrine()->getManager();
         $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
+
+        // Si la demande n'exsite pas ou a déjà été traitée.
+        if (empty($demande) || $demande->getStatus() !== "Chargé d'affaire") {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "La demande n'existe pas ou a déjà été traitée."); // On affiche un message d'erreur.
+            return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
+        }
+
+        // On récupére l'entitée du demandeur.
         $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDemandeur());
 
+//        // Retourne un tableau contenant les directeurs d'agence.
+//        $UserHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+//        $DAs = array();
+//        foreach ($UserHierarchy as $DA) {
+//            $DAs[$DA->getDA()] = $DA->getDA();
+//        }
+//        array_unique($DAs); // Supprime les doublons.
+//        asort($DAs); // Trie le tableau.
+//        
         // Retourne un tableau contenant les directeurs d'agence.
-        $UserHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
         $DAs = array();
-        foreach ($UserHierarchy as $DA) {
-            $DAs[$DA->getDA()] = $DA->getDA();
+        $file_handle = fopen($this->get('kernel')->getRootDir() . '/../web/ListeDA/ListeDA.txt', "r"); // On ouvre le fichier contenant la liste des DA.
+        while (!feof($file_handle)) {
+            $line = fgets($file_handle);
+            $DA = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername(trim($line)); // On récupére l'utilisateur correspondant à l'username de la ligne en cours de lecture si il existe.
+            if (!empty($DA)) {
+                $DAs[$DA->getUsername()] = $DA->getFirstname() . ' ' . $DA->getLastname(); // On ajoute le DA au tableau.
+            }
         }
-        array_unique($DAs);
+        fclose($file_handle);
+        // Trie le tableau.
         asort($DAs);
+
+        // Retourne les attributs des choix de ChoixDA2.
+        function choixDA2($val, $DAs) {
+            return array('title' => $DAs[$val]);
+        }
+
+        // Retourne les attributs des choix de SelectionDA2.
+        function selectionDA2($val, $DAs) {
+            return array('title' => $DAs[$val], 'style' => 'display: none;');
+        }
 
         $formValidationRefus = $this->get('form.factory')->createNamedBuilder('formValidationRefus', 'form')
                 ->add('ValidationRefus', ChoiceType::class, array(
@@ -137,34 +171,112 @@ class PrestationsInternesController extends Controller {
                     'choices' => $DAs,
                     'multiple' => true,
                     'required' => false,
-                    'choice_attr' => function($val) {
-                        $return = array('title' => $val);
-                        return $return;
+                    'choice_attr' => function($val) use ($DAs) {
+                        return choixDA2($val, $DAs);
                     })
-                        )
-                        ->add('SelectionDA2', ChoiceType::class, array(
-                            'choices' => $DAs,
-                            'multiple' => true,
-                            'choice_attr' => function($val) {
-                                $return = array('title' => $val, 'style' => 'display: none;');
-                                return $return;
-                            }))
-                                ->add('Validator', SubmitType::class, array(
-                                    'attr' => array(
-                                        'style' => 'display: none'
-                                    )
-                                ))
-                                ->add('Valider', ButtonType::class)
-                                ->getForm();
+                )
+                ->add('SelectionDA2', ChoiceType::class, array(
+                    'choices' => $DAs,
+                    'multiple' => true,
+                    'choice_attr' => function($val) use ($DAs) {
+                        return selectionDA2($val, $DAs);
+                    }))
+                ->add('Validator', SubmitType::class, array(
+                    'attr' => array(
+                        'style' => 'display: none'
+                    )
+                ))
+                ->add('Valider', ButtonType::class)
+                ->getForm();
 
-                        $formValidationRefus->handleRequest($request);
+        // Traitement du formulaire.
+        $formValidationRefus->handleRequest($request);
+        if ($formValidationRefus->isValid()) {
+            // Si le DA1 valide la demande.
+            if ($formValidationRefus->get('ValidationRefus')->getData() === 'Validation') {
+                // On attribut le DA1 à la demande.
+                $demande->setDA1($this->get('security.context')->getToken()->getUser()->getUsername());
+                // On change le status de la demande.
+                $demande->setStatus('Validation DA1');
 
-                        if ($formValidationRefus->isValid()) {
-                            var_dump($formValidationRefus->get('SelectionDA2')->getData());
-                        }
+                // Pour chaque DA2 séléctionné.
+                foreach ($formValidationRefus->get('SelectionDA2')->getData() as $DA2) {
+                    // On génére une nouvelle proposition de prestation.
+                    $newProposition = new PropositionPrestation();
+                    $newProposition->setDA2($DA2);
+                    $newProposition->setCleDemande($cleDemande);
+                    $em->persist($newProposition);
 
-                        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:validationD1.html.twig', array('demande' => $demande, 'demandeur' => $demandeur, 'formValidationRefus' => $formValidationRefus->createView()));
-                    }
-
+                    $this->sendMailToDA2($demande->getId(), $DA2); // On envoi un mail de demande de proposition au DA2.
                 }
-                
+                $em->flush(); // On sauvegarde les propositions en base de données.
+
+                $request->getSession()->getFlashBag()->add('notice', "La demande a été transmise au(x) directeur(s) d'agence(s) séléctionné(s)."); // On affiche un message de confirmation d'envoi de la demande.
+                return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
+            }
+            // Si le DA1 ne valide pas la demande.
+            else {
+                // On notifie le demandeur du refus de sa demande.
+                $this->sendMailRefusDemande($demande->getId(), $this->get('security.context')->getToken()->getUser(), $formValidationRefus->get('RaisonRefus')->getData());
+
+                // On supprime la demande de la base de donnée.
+                $em->remove($demande);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'La demande a été refusée.'); // On affiche un message de confirmation de refus de la demande.
+                return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
+            }
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:validationD1.html.twig', array('demande' => $demande, 'demandeur' => $demandeur, 'formValidationRefus' => $formValidationRefus->createView()));
+    }
+
+    // Envoie un email au DA2 dont l'email est passé en paramètre.
+    private function sendMailToDA2($IDDemande, $DA2) {
+        // On récupére les entitées de la demande et du DA1.
+        $em = $this->getDoctrine()->getManager();
+        $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->find($IDDemande);
+        $DA1 = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDA1());
+
+        // On génére l'adresse email du DA2.
+        $mailDA2 = $DA2 . '@groupe-nox.com';
+
+        // On prépare le corps du message.
+        $message = \Swift_Message::newInstance()
+                ->setSubject('Demande de prestation interne')
+                ->setFrom('noreply@groupe-nox.com')
+                ->setTo($mailDA2)
+                ->setBody(
+                $this->renderView(
+                        'Emails/PrestationInterne/sendMailToDA2.html.twig', array('demande' => $demande, 'DA1' => $DA1)
+                ), 'text/html'
+        );
+
+        // On envoie le message.
+        $this->get('mailer')->send($message);
+    }
+
+    private function sendMailRefusDemande($IDDemande, $DA1, $raison) {
+        // On récupére l'entité de la demande.
+        $em = $this->getDoctrine()->getManager();
+        $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->find($IDDemande);
+
+        // On génére l'adresse email du demandeur.
+        $mailDemandeur = $demande->getDemandeur() . '@groupe-nox.com';
+
+        // On prépare le corps du message.
+        $message = \Swift_Message::newInstance()
+                ->setSubject('Refus de la demande de prestation interne')
+                ->setFrom('noreply@groupe-nox.com')
+                ->setTo($mailDemandeur)
+                ->setBody(
+                $this->renderView(
+                        'Emails/PrestationInterne/sendRefusToDemandeur.html.twig', array('demande' => $demande, 'DA1' => $DA1, 'raison' => $raison)
+                ), 'text/html'
+        );
+
+        // On envoie le message.
+        $this->get('mailer')->send($message);
+    }
+
+}

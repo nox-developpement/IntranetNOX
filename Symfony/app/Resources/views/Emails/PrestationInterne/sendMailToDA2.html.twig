@@ -1,6 +1,6 @@
 Bonjour,<br />
 <br />
-Le collaborateur <span style='text-decoration: underline;'>{{ demandeur.Firstname }} {{ demandeur.Lastname }}</span> a fait la demande de recherche de prestation suivante :<br />
+Le directeur d'agence <span style='text-decoration: underline;'>{{ DA1.Firstname }} {{ DA1.Lastname }}</span> a fait la demande de recherche de prestation suivante :<br />
 <br />
 
 <style>
@@ -11,6 +11,7 @@ Le collaborateur <span style='text-decoration: underline;'>{{ demandeur.Firstnam
 
     td {
         padding: 1%;
+
     }
 
     .trLabel {
@@ -54,4 +55,7 @@ Le collaborateur <span style='text-decoration: underline;'>{{ demandeur.Firstnam
     </tr>
 </table>
 <br />
-Veuillez <a href='{{ absolute_url(path('nox_intranet_validation_da1', {'cleDemande': demande.CleDemande})) }}'>cliquez ici</a> pour traiter la demande.
+Veuillez <a href='{{ absolute_url(path('nox_intranet_reponse_da2', {'cleDemande': demande.CleDemande, 'reponse': 'valider'})) }}' style='color: green'>cliquez ici</a> <!--
+-->si vous <span style='color: green'>pouvez</span> répondre à la demande ou <!--
+--><a href='{{ absolute_url(path('nox_intranet_reponse_da2', {'cleDemande': demande.CleDemande, 'reponse': 'refuser'})) }}' style='color: red'>cliquez ici</a> <!--
+-->si vous ne <span style='color: red'>pouvez pas</span> répondre à la demande.

@@ -171,5 +171,9 @@ nox_intranet_prestation_search:
 nox_intranet_validation_da1:
     path: /ressources/validation-da1/{cleDemande}
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:validationDA1 }
+    
+nox_intranet_reponse_da2:
+    path: /ressources/reponse-da2/{cleDemande}/{reponse}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:reponseDA2 }
 
     
