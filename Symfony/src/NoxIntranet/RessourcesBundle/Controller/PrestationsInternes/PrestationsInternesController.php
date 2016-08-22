@@ -343,12 +343,18 @@ class PrestationsInternesController extends Controller {
         }
     }
 
+    // Affiche la liste des proposition faites par les DA2 et permet de les valider.
     public function answerDA2PropositionAction($cleDemande) {
         $em = $this->getDoctrine()->getManager();
         $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
         $propositions = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Demande acceptée'));
 
-        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:answerDA2Proposition.html.twig', array('propositions' => $propositions));
+        $DA2 = array();
+        foreach ($propositions as $proposition) {
+            $DA2[$proposition->getDA2()] = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($proposition->getDA2());
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:answerDA2Proposition.html.twig', array('propositions' => $propositions, 'DA2' => $DA2));
     }
 
 }

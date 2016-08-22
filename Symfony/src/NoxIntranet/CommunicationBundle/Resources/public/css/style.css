@@ -3423,3 +3423,19 @@ form[name='formValidationRefus'] textarea {
     width: 100%;
     max-width: 100%;
 }
+
+#tableValidationProposition {
+    border: 1px solid black; 
+    margin: auto;
+    border-collapse: collapse;
+    width: 70%;
+}
+
+#tableValidationProposition tr, #tableValidationProposition td {
+    border: 1px solid black; 
+}
+
+#tableValidationProposition td {
+    vertical-align: middle;
+    text-align: center;
+}

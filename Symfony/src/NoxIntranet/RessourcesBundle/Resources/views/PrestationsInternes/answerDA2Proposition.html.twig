@@ -6,11 +6,15 @@
 
 {% block contenu %} 
 
-    <table style='border: 1px solid black; margin: auto;'>
+    <table id='tableValidationProposition' >
         {% for proposition in propositions %}
             <tr>
                 <td>
-                    {{ proposition.DA2 }}
+                    {{ DA2[proposition.DA2].Firstname }} {{ DA2[proposition.DA2].Lastname }}
+                </td>
+                <td>
+                    <label for='validateProposition' style='vertical-align: middle;'>Valider</label>
+                    <input type='checkbox' name='validateProposition' style='vertical-align: middle;'>
                 </td>
             </tr>
         {% endfor %}
