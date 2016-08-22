@@ -1,0 +1,19 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Gestion des propositions {% endblock %}
+
+{% block messageAccueil %}Gestion des propositions{% endblock %}
+
+{% block contenu %} 
+
+    <table style='border: 1px solid black; margin: auto;'>
+        {% for proposition in propositions %}
+            <tr>
+                <td>
+                    {{ proposition.DA2 }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

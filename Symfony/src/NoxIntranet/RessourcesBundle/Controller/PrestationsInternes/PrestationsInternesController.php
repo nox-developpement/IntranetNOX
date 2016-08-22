@@ -280,11 +280,14 @@ class PrestationsInternesController extends Controller {
         $this->get('mailer')->send($message);
     }
 
-    public function DA2answer($cleDemande, $reponse, Request $request) {
+    // Traite la réponse du DA2 et envoie un mail au DA1.
+    public function DA2answerAction($cleDemande, $reponse, Request $request) {
 
-        // On récupére l'entitée de la demande au DA2.
+        // On récupére l'entitée de la demande au DA2, de la recherce de prestation et le DA2.
         $em = $this->getDoctrine()->getManager();
-        $demande = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findOneBy(array('cleDemande' => $cleDemande, 'DA2' => $this->get('security.context')->getToken()->getUser()->getUsername()));
+        $DA2 = $this->get('security.context')->getToken()->getUser();
+        $demande = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findOneBy(array('cleDemande' => $cleDemande, 'dA2' => $DA2->getUsername()));
+        $recherchePrestation = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
 
         // Si la demande n'existe pas ou si elle a déjà été traitée.
         if (empty($demande) || $demande->getStatus() !== 'Attente validation DA2') {
@@ -294,15 +297,58 @@ class PrestationsInternesController extends Controller {
 
         // Si la demande est accepté par le DA2.
         if ($reponse === 'valider') {
-            
+            $demande->setStatus('Demande acceptée');
+            $em->flush();
+
+            // On prépare le corps du message.
+            $message = \Swift_Message::newInstance()
+                    ->setSubject('Demande acceptée')
+                    ->setFrom('noreply@groupe-nox.com')
+                    ->setTo($recherchePrestation->getEMailDA())
+                    ->setBody(
+                    $this->renderView(
+                            'Emails/PrestationInterne/sendValidationDA2ToDA1.html.twig', array('demande' => $recherchePrestation, 'DA2' => $DA2)
+                    ), 'text/html'
+            );
+
+            // On envoie le message de confirmation.
+            $this->get('mailer')->send($message);
+
+            $request->getSession()->getFlashBag()->add('notice', "Vous avez accepté la demande."); // On affiche un message de confirmation de la déclinaison de la demande.
+            return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
         }
 
         // Si la demande est refusé par le DA2.
         if ($reponse === 'refuser') {
-            $em->remove($demande); // On supprime la demande au DA2
+            $demande->setStatus('Demande refusée');
+            //$em->remove($demande); // On supprime la demande au DA2
+            $em->flush();
+
+            // On prépare le corps du message.
+            $message = \Swift_Message::newInstance()
+                    ->setSubject('Demande refusée')
+                    ->setFrom('noreply@groupe-nox.com')
+                    ->setTo($recherchePrestation->getEMailDA())
+                    ->setBody(
+                    $this->renderView(
+                            'Emails/PrestationInterne/sendRefusDA2ToDA1.html.twig', array('demande' => $recherchePrestation, 'DA2' => $DA2)
+                    ), 'text/html'
+            );
+
+            // On envoie le message de confirmation.
+            $this->get('mailer')->send($message);
+
             $request->getSession()->getFlashBag()->add('notice', "Vous avez décliné la demande."); // On affiche un message de confirmation de la déclinaison de la demande.
-            $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
+            return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
         }
+    }
+
+    public function answerDA2PropositionAction($cleDemande) {
+        $em = $this->getDoctrine()->getManager();
+        $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
+        $propositions = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Demande acceptée'));
+
+        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:answerDA2Proposition.html.twig', array('propositions' => $propositions));
     }
 
 }
