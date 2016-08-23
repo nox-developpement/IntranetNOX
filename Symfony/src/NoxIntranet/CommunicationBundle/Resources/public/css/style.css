@@ -3439,3 +3439,39 @@ form[name='formValidationRefus'] textarea {
     vertical-align: middle;
     text-align: center;
 }
+
+#tableValidationProposition form {
+    display: inline-block;
+    width: auto;
+    text-align: left;
+    border: none;
+}
+
+#tableValidationProposition form input[type='radio'], #tableValidationProposition form label {
+    vertical-align: middle;
+}
+
+#savingNotification {
+    width: 15%;
+    margin: auto;
+    text-align: center;
+    padding: 1%;
+    border-radius: 10px;
+    color: white;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#299a0b+0,299a0b+100;Green+Flat+%231 */
+    background: rgb(41,154,11); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(41,154,11,1) 0%, rgba(41,154,11,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(41,154,11,1) 0%,rgba(41,154,11,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(41,154,11,1) 0%,rgba(41,154,11,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#299a0b', endColorstr='#299a0b',GradientType=0 ); /* IE6-9 */
+    border: 1px outset white;
+    margin-bottom: 2%;
+    display: none;
+    -moz-box-shadow: 5px 5px 5px 0px #656565;
+    -webkit-box-shadow: 5px 5px 5px 0px #656565;
+    -o-box-shadow: 5px 5px 5px 0px #656565;
+    box-shadow: 5px 5px 5px 0px #656565;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=134, Strength=5);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}

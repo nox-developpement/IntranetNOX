@@ -6,6 +6,8 @@
 
 {% block contenu %} 
 
+    <div id='savingNotification'>Changement sauvegardé</div>
+
     <table id='tableValidationProposition' >
         {% for proposition in propositions %}
             <tr>
@@ -13,11 +15,38 @@
                     {{ DA2[proposition.DA2].Firstname }} {{ DA2[proposition.DA2].Lastname }}
                 </td>
                 <td>
-                    <label for='validateProposition' style='vertical-align: middle;'>Valider</label>
-                    <input type='checkbox' name='validateProposition' style='vertical-align: middle;'>
+                    <form action="#" username='{{ proposition.DA2 }}'>
+                        <input type='radio' name='validateProposition' value='validate' id='{{ proposition.DA2 }}_validate' style='vertical-align: middle;'><label for='{{ proposition.DA2 }}_validate'>Valider</label><br />
+                        <input type='radio' name='validateProposition' value='denie' id='{{ proposition.DA2 }}_denie' style='vertical-align: middle;'><label for='{{ proposition.DA2 }}_denie'>Refuser</label>
+                    </form>
                 </td>
             </tr>
         {% endfor %}
     </table>
+
+    <script>
+        $(window).load(function () {
+            ajaxSaveDA2PropositionAnswer();
+        });
+
+        function ajaxSaveDA2PropositionAnswer() {
+
+            $("#tableValidationProposition form input[type='radio']").change(function () {
+                var username = $(this).parent('form').attr('username');
+                var answer = $(this).val();
+
+                $.ajax({
+                    url: '{{ path('nox_intranet_ajax_save_proposition_da1_answer') }}',
+                    type: 'POST', // Le type de la requête HTTP, ici devenu POST
+                    data: {'username': username, 'answer': answer, 'cleDemande': '{{ cleDemande }}'},
+                    success: function () {
+                        $('#savingNotification').finish().fadeIn(500).delay(2000).fadeOut(1000);
+                    }
+                });
+            });
+
+
+        }
+    </script>
 
 {% endblock %}

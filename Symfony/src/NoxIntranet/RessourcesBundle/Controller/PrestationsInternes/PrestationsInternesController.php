@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PrestationsInternesController extends Controller {
 
@@ -345,16 +346,53 @@ class PrestationsInternesController extends Controller {
 
     // Affiche la liste des proposition faites par les DA2 et permet de les valider.
     public function answerDA2PropositionAction($cleDemande) {
-        $em = $this->getDoctrine()->getManager();
-        $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
-        $propositions = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Demande acceptée'));
 
+        // On récupére les proposition correspondantes à la clé passé en parametre et dont le status est compatible.
+        $em = $this->getDoctrine()->getManager();
+        $propositions = $em->createQueryBuilder()
+                ->select('a')
+                ->from('NoxIntranetRessourcesBundle:PropositionPrestation', 'a')
+                ->where('a.cleDemande = :cleDemande')
+                ->andWhere("a.status = 'Demande acceptée' OR a.status = 'Validé par le DA1' OR a.status = 'Refusé par le DA1'")
+                ->setParameter('cleDemande', $cleDemande)
+                ->getQuery()
+                ->getResult();
+
+        // On range les DA2 dans un tableau.
         $DA2 = array();
         foreach ($propositions as $proposition) {
             $DA2[$proposition->getDA2()] = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($proposition->getDA2());
         }
 
-        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:answerDA2Proposition.html.twig', array('propositions' => $propositions, 'DA2' => $DA2));
+        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:answerDA2Proposition.html.twig', array('propositions' => $propositions, 'DA2' => $DA2, 'cleDemande' => $cleDemande));
+    }
+
+    public function ajaxSaveDA2PropositionAnswerAction(Request $request) {
+
+        // On vérifie que la requette est bien une requette Ajax.
+        if ($request->isXmlHttpRequest()) {
+            // On récupére les variables de la requêtte.
+            $username = $request->get('username');
+            $answer = $request->get('answer');
+            $cleDemande = $request->get('cleDemande');
+
+            // On récupére l'entité de la proposition.
+            $em = $this->getDoctrine()->getManager();
+            $proposition = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findOneBy(array('cleDemande' => $cleDemande, 'dA2' => $username));
+
+            // Si le DA1 valide la proposition.
+            if ($answer === 'validate') {
+                $proposition->setStatus('Validé par le DA1'); // On change le status de la proposition.
+            }
+            // Si le DA1 refuse la proposition.
+            else if ($answer === 'denie') {
+                $proposition->setStatus('Refusé par le DA1'); // On change le status de la proposition.
+            }
+
+            $em->flush(); // On sauvegarde les changement en base de données.
+
+            return new Response('Saved');
+        }
     }
 
 }

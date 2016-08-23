@@ -179,5 +179,9 @@ nox_intranet_reponse_da2:
 nox_intranet_gestion_proposition:
     path: /ressources/gestion-proposition/{cleDemande}
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:answerDA2Proposition }
+    
+nox_intranet_ajax_save_proposition_da1_answer:
+    path: /ressources/gestion-proposition-ajax-save-proposition-da1-answer
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveDA2PropositionAnswer }
 
     
