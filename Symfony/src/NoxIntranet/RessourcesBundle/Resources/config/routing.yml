@@ -183,5 +183,11 @@ nox_intranet_gestion_proposition:
 nox_intranet_ajax_save_proposition_da1_answer:
     path: /ressources/gestion-proposition-ajax-save-proposition-da1-answer
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveDA2PropositionAnswer }
-
     
+nox_intranet_ajax_save_echanges:
+    path: /ressources/gestion-proposition-ajax-save-echanges
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveEchanges }
+    
+nox_intranet_demande_prestation_reporting:
+    path: /ressources/demande-prestation-reporting
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesReporting }

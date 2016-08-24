@@ -220,9 +220,9 @@ class PrestationsInternesController extends Controller {
                 // On notifie le demandeur du refus de sa demande.
                 $this->sendMailRefusDemande($demande->getId(), $this->get('security.context')->getToken()->getUser(), $formValidationRefus->get('RaisonRefus')->getData());
 
-                // On supprime la demande de la base de donnée.
-                $em->remove($demande);
-                $em->flush();
+                // On change le status de la demande.
+                $demande->setStatus('Refus DA1');
+                $em->flush(); // On sauvegarde la demande en base de données.
 
                 $request->getSession()->getFlashBag()->add('notice', 'La demande a été refusée.'); // On affiche un message de confirmation de refus de la demande.
                 return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
@@ -367,6 +367,7 @@ class PrestationsInternesController extends Controller {
         return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:answerDA2Proposition.html.twig', array('propositions' => $propositions, 'DA2' => $DA2, 'cleDemande' => $cleDemande));
     }
 
+    // Sauvegarde les réponses aux propositions en base de données.
     public function ajaxSaveDA2PropositionAnswerAction(Request $request) {
 
         // On vérifie que la requette est bien une requette Ajax.
@@ -393,6 +394,65 @@ class PrestationsInternesController extends Controller {
 
             return new Response('Saved');
         }
+    }
+
+    // Sauvegarde les échanges en base de données.
+    public function ajaxSaveEchangesAction(Request $request) {
+        // On vérifie que la requette est bien une requette Ajax.
+        if ($request->isXmlHttpRequest()) {
+            // On récupére les variables de la requêtte.
+            $username = $request->get('username');
+            $echanges = $request->get('echanges');
+            $cleDemande = $request->get('cleDemande');
+
+            // On récupére l'entité de la proposition.
+            $em = $this->getDoctrine()->getManager();
+            $proposition = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findOneBy(array('cleDemande' => $cleDemande, 'dA2' => $username));
+            // On attribut le nouveau texte d'échanges à la proposition.
+            $proposition->setEchanges($echanges);
+
+            // On récupére l'entité de la demande et celles de toutes les propositions associées.
+            $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
+            $propositions = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findByCleDemande($cleDemande);
+
+            // Pour chaque proposition on récupére les échanges.
+            $echangesDemande = '';
+            foreach ($propositions as $proposition) {
+                $DA2 = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($proposition->getDA2());
+                $echangesDemande .= "\n" . $DA2->getFirstname() . ' ' . $DA2->getLastname() . ':';
+                $echangesDemande .= "\n" . '------------------------';
+                $echangesDemande .= "\n" . $proposition->getEchanges();
+                $echangesDemande .= "\n";
+            }
+            $demande->setEchanges(trim($echangesDemande)); // On attribut tous les échanges à la demande.
+
+            $em->flush(); // On sauvegarde les changement en base de données.
+
+            return new Response($echangesDemande);
+        }
+    }
+
+    // Affiche un tableau affichant le status des demandes.
+    public function prestationsInternesReportingAction() {
+        // On récupére les entités des demandes.
+        $em = $this->getDoctrine()->getManager();
+        $demandes = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findAll();
+
+        // On génére un tableau associant les entités des utilisateurs avec leurs usernames.
+        $users = array();
+        foreach ($em->getRepository('NoxIntranetUserBundle:User')->findAll() as $user) {
+            $users[$user->getUsername()] = $user;
+        }
+
+        // On génére un tableau des contenant les status explicité.
+        $status = array('Validation DA1' => 'Validée par le DA1', 'Refus DA1' => 'Refuser par la DA1');
+
+        $propositions = array();
+        foreach ($em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findAll() as $proposition) {
+            $propositions[$proposition->getCleDemande()][$proposition->getDA2()] = $proposition;
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:prestationsInternesReporting.html.twig', array('demandes' => $demandes, 'users' => $users, 'status' => $status, 'propositions' => $propositions));
     }
 
 }

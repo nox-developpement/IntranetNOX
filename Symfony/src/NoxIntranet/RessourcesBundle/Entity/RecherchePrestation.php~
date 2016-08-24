@@ -94,7 +94,7 @@ class RecherchePrestation {
     /**
      * @var string
      *
-     * @ORM\Column(name="DA1", type="string", length=255)
+     * @ORM\Column(name="DA1", type="string", length=255, nullable=true)
      */
     private $DA1;
 
@@ -111,6 +111,13 @@ class RecherchePrestation {
      * @ORM\Column(name="CleDemande", type="string", length=255)
      */
     private $cleDemande;
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="Echanges", type="text", nullable=true)
+     */
+    private $echanges;
 
     /**
      * Get id
@@ -387,6 +394,28 @@ class RecherchePrestation {
      */
     public function getCleDemande() {
         return $this->cleDemande;
+    }
+
+    /**
+     * Set dA1
+     *
+     * @param string $dA1
+     *
+     * @return RecherchePrestation
+     */
+    public function setDA1($dA1) {
+        $this->DA1 = $dA1;
+
+        return $this;
+    }
+
+    /**
+     * Get dA1
+     *
+     * @return string
+     */
+    public function getDA1() {
+        return $this->DA1;
     }
 
 }

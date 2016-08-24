@@ -1819,6 +1819,8 @@ return array(
     'NoxIntranet\\RessourcesBundle\\Entity\\DonneesSuiviRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/DonneesSuiviRepository.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\Profils' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/Profils.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\ProfilsRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/ProfilsRepository.php',
+    'NoxIntranet\\RessourcesBundle\\Entity\\PropositionPrestation' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/PropositionPrestation.php',
+    'NoxIntranet\\RessourcesBundle\\Entity\\PropositionPrestationRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/PropositionPrestationRepository.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\RecherchePrestation' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/RecherchePrestation.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\RecherchePrestationRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/RecherchePrestationRepository.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\ReferencesKeywords' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/ReferencesKeywords.php',

@@ -1,0 +1,43 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Status des demandes {% endblock %}
+
+{% block messageAccueil %}Status des demandes{% endblock %}
+
+{% block contenu %} 
+
+    <table id='tablePrestationsInternesReporting'>
+
+        <tr>
+            <th>Demandeur</th>
+            <th>DA1</th>
+            <th>Status</th>
+            <th>Echanges</th>
+        </tr>
+
+        {% for demande in demandes %}
+            <tr>
+                <td>{{ users[demande.Demandeur].Firstname }} {{ users[demande.Demandeur].Lastname }}</td>
+                <td>{{ users[demande.DA1].Firstname }} {{ users[demande.DA1].Lastname }}</td>
+                <td>{{ status[demande.Status] }}</td>
+                <td>
+                    {% if propositions[demande.CleDemande] is defined %}
+                        <table>
+                            {{dump(propositions[demande.CleDemande])}}
+                            {% for proposition in propositions[demande.CleDemande] %}
+                                <tr>
+                                    <td>Yeay !{{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}</td>
+                                    <td>{{ proposition.Echanges }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    {% else %}
+                        <table style='background: lightgrey;'>No</table>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}

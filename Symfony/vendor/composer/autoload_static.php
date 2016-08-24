@@ -2244,6 +2244,8 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'NoxIntranet\\RessourcesBundle\\Entity\\DonneesSuiviRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/DonneesSuiviRepository.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\Profils' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/Profils.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\ProfilsRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/ProfilsRepository.php',
+        'NoxIntranet\\RessourcesBundle\\Entity\\PropositionPrestation' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/PropositionPrestation.php',
+        'NoxIntranet\\RessourcesBundle\\Entity\\PropositionPrestationRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/PropositionPrestationRepository.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\RecherchePrestation' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/RecherchePrestation.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\RecherchePrestationRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/RecherchePrestationRepository.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\ReferencesKeywords' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/ReferencesKeywords.php',

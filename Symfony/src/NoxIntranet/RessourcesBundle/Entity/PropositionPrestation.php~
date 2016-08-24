@@ -128,28 +128,4 @@ class PropositionPrestation {
         $this->setStatus("Attente validation DA2");
     }
 
-
-    /**
-     * Set echanges
-     *
-     * @param string $echanges
-     *
-     * @return PropositionPrestation
-     */
-    public function setEchanges($echanges)
-    {
-        $this->echanges = $echanges;
-
-        return $this;
-    }
-
-    /**
-     * Get echanges
-     *
-     * @return string
-     */
-    public function getEchanges()
-    {
-        return $this->echanges;
-    }
 }
