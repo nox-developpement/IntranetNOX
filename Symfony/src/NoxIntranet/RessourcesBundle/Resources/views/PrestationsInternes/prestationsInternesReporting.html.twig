@@ -9,33 +9,40 @@
     <table id='tablePrestationsInternesReporting'>
 
         <tr>
-            <th>Demandeur</th>
-            <th>DA1</th>
+            <th rowspan='2'>Demandeur</th>
+            <th rowspan='2'>DA1</th>
+            <th rowspan='2'>Status</th>
+            <th colspan='3'>Propositions</th>
+        </tr>
+
+        <tr>
+            <th>DA2</th>
             <th>Status</th>
-            <th>Echanges</th>
+            <th>Echange</th>
         </tr>
 
         {% for demande in demandes %}
             <tr>
-                <td>{{ users[demande.Demandeur].Firstname }} {{ users[demande.Demandeur].Lastname }}</td>
-                <td>{{ users[demande.DA1].Firstname }} {{ users[demande.DA1].Lastname }}</td>
-                <td>{{ status[demande.Status] }}</td>
-                <td>
-                    {% if propositions[demande.CleDemande] is defined %}
-                        <table>
-                            {{dump(propositions[demande.CleDemande])}}
-                            {% for proposition in propositions[demande.CleDemande] %}
-                                <tr>
-                                    <td>Yeay !{{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}</td>
-                                    <td>{{ proposition.Echanges }}</td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                    {% else %}
-                        <table style='background: lightgrey;'>No</table>
-                    {% endif %}
-                </td>
+                <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length+1 }}'{% else %}rowspan='2'{% endif %}>{% if users[demande.Demandeur] is defined %}{{ users[demande.Demandeur].Firstname }} {{ users[demande.Demandeur].Lastname }}{% endif %}</td>
+                <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length+1 }}'{% else %}rowspan='2'{% endif %}>{% if users[demande.DA1] is defined %}{{ users[demande.DA1].Firstname }} {{ users[demande.DA1].Lastname }}{% endif %}</td>
+                <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length+1 }}'{% else %}rowspan='2'{% endif %}{% if status[demande.Status] is defined %} style='background-color: {{ status[demande.Status].color }}; color: white;'{% endif %}>{% if status[demande.Status] is defined %}{{ status[demande.Status].message }}{% endif %}</td>
             </tr>
+
+            {% if propositions[demande.CleDemande] is defined %}       
+                {% for proposition in propositions[demande.CleDemande] %}
+                    <tr>
+                        <td>{{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}</td>
+                        <td {% if status[proposition.Status] is defined %}style='background-color: {{ status[proposition.Status].color }}; color: white;'{% endif %}>{% if status[proposition.Status] is defined %}{{ status[proposition.Status].message }}{% endif %}</td>
+                        <td {% if proposition.Echanges == null %}style='background-color: lightgrey;'{% endif %}>{{ proposition.Echanges }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td style='background-color: lightgrey;'></td>
+                    <td style='background-color: lightgrey;'></td>
+                    <td style='background-color: lightgrey;'></td>
+                </tr>
+            {% endif %}
         {% endfor %}
 
     </table>

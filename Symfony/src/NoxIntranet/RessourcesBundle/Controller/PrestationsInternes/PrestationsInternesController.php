@@ -68,6 +68,10 @@ class PrestationsInternesController extends Controller {
                 }
                 $newSearch->setCleDemande($cleDemande);
 
+                // On récupére l'entité du DA1 en fonction de l'adresse email passée en parametre et on l'attribut à la demande.
+                $DA1 = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername(trim(str_replace('@groupe-nox.com', '', $formNewSearch->getData()->getEmailDA())));
+                $newSearch->setDA1($DA1->getUsername());
+
                 // On affiche un message de confirmation.
                 $request->getSession()->getFlashBag()->add('notice', 'La demande a été enregistrée avec succès.');
 
@@ -79,7 +83,7 @@ class PrestationsInternesController extends Controller {
                 $this->sendMailToDA1($newSearch->getId());
 
                 // On redirige vers la création de demande.
-                return $this->redirectToRoute('nox_intranet_prestation_search');
+                return $this->redirectToRoute('nox_intranet_demande_prestation_reporting');
             }
         }
 
@@ -213,7 +217,7 @@ class PrestationsInternesController extends Controller {
                 $em->flush(); // On sauvegarde les propositions en base de données.
 
                 $request->getSession()->getFlashBag()->add('notice', "La demande a été transmise au(x) directeur(s) d'agence(s) séléctionné(s)."); // On affiche un message de confirmation d'envoi de la demande.
-                return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
+                return $this->redirectToRoute('nox_intranet_demande_prestation_reporting'); // On redirige vers l'accueil.
             }
             // Si le DA1 ne valide pas la demande.
             else {
@@ -225,7 +229,7 @@ class PrestationsInternesController extends Controller {
                 $em->flush(); // On sauvegarde la demande en base de données.
 
                 $request->getSession()->getFlashBag()->add('notice', 'La demande a été refusée.'); // On affiche un message de confirmation de refus de la demande.
-                return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
+                return $this->redirectToRoute('nox_intranet_demande_prestation_reporting'); // On redirige vers l'accueil.
             }
         }
 
@@ -293,13 +297,16 @@ class PrestationsInternesController extends Controller {
         // Si la demande n'existe pas ou si elle a déjà été traitée.
         if (empty($demande) || $demande->getStatus() !== 'Attente validation DA2') {
             $request->getSession()->getFlashBag()->add('noticeErreur', "La demande n'existe pas ou a déjà été traitée."); // On affiche un message d'erreur.
-            return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
+            return $this->redirectToRoute('nox_intranet_demande_prestation_reporting'); // On redirige vers l'accueil.
         }
 
         // Si la demande est accepté par le DA2.
         if ($reponse === 'valider') {
             $demande->setStatus('Demande acceptée');
             $em->flush();
+
+            // On vérifie s'il existe encore des demandes sans réponses des DA2.
+            $this->checkUnansweredDA2Responses($cleDemande);
 
             // On prépare le corps du message.
             $message = \Swift_Message::newInstance()
@@ -316,7 +323,7 @@ class PrestationsInternesController extends Controller {
             $this->get('mailer')->send($message);
 
             $request->getSession()->getFlashBag()->add('notice', "Vous avez accepté la demande."); // On affiche un message de confirmation de la déclinaison de la demande.
-            return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
+            return $this->redirectToRoute('nox_intranet_demande_prestation_reporting'); // On redirige vers l'accueil.
         }
 
         // Si la demande est refusé par le DA2.
@@ -324,6 +331,9 @@ class PrestationsInternesController extends Controller {
             $demande->setStatus('Demande refusée');
             //$em->remove($demande); // On supprime la demande au DA2
             $em->flush();
+
+            // On vérifie s'il existe encore des demandes sans réponses des DA2.
+            $this->checkUnansweredDA2Responses($cleDemande);
 
             // On prépare le corps du message.
             $message = \Swift_Message::newInstance()
@@ -340,7 +350,19 @@ class PrestationsInternesController extends Controller {
             $this->get('mailer')->send($message);
 
             $request->getSession()->getFlashBag()->add('notice', "Vous avez décliné la demande."); // On affiche un message de confirmation de la déclinaison de la demande.
-            return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
+            return $this->redirectToRoute('nox_intranet_demande_prestation_reporting'); // On redirige vers l'accueil.
+        }
+    }
+
+    // Vérifie si tous les DA2 ont répondu à la demande et change le status de la demande si c'est le cas.
+    private function checkUnansweredDA2Responses($cleDemande) {
+        $em = $this->getDoctrine()->getManager();
+        $demandes = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Attente validation DA2'));
+
+        if (empty($demandes)) {
+            $recherchePrestation = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
+            $recherchePrestation->setStatus('Réponses DA2');
+            $em->flush();
         }
     }
 
@@ -445,7 +467,15 @@ class PrestationsInternesController extends Controller {
         }
 
         // On génére un tableau des contenant les status explicité.
-        $status = array('Validation DA1' => 'Validée par le DA1', 'Refus DA1' => 'Refuser par la DA1');
+        $status = array(
+            "Chargé d'affaire" => array('message' => "Demande effectuée par le chargé d'affaire, en attente de réponse du DA1", 'color' => 'orange'),
+            'Validation DA1' => array('message' => 'Demande validée par le DA1, en attente de réponse des DA2', 'color' => 'orange'),
+            'Refus DA1' => array('message' => 'Demande refusée par le DA1', 'color' => 'red'),
+            'Attente validation DA2' => array('message' => 'En attente de la réponse du DA2', 'color' => 'orange'),
+            'Réponses DA2' => array('message' => 'Tous les DA2 ont répondus, en attente de réponses du DA1 aux propositions', 'color' => 'orange'),
+            'Demande acceptée' => array('message' => 'Le DA2 a accepté la demande', 'color' => 'orange'),
+            'Demande refusée' => array('message' => 'Le DA2 a refusée la demande', 'color' => 'red')
+        );
 
         $propositions = array();
         foreach ($em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findAll() as $proposition) {
