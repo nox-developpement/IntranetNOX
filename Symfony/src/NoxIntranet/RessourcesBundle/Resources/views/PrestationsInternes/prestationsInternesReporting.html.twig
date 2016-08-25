@@ -6,22 +6,31 @@
 
 {% block contenu %} 
 
+    <div style='text-align: center;'>
+        <p style='text-align: center; margin: auto; margin-bottom: 1%; display: inline-block; padding: 0.5% 0.5% 0.5% 0.5%; background-color: rgba(255,255,255,0.5); border: 1px solid;'>
+            <span style='color: orange;'>Orange = En cours de traitement.</span><br />
+            <span style='color: limegreen;'>Vert = Demande/Proposition terminée avec succés.</span><br />
+            <span style='color: red;'>Rouge = Demande/Proposition terminée sans succés.</span>
+        </p>
+    </div>
+
     <table id='tablePrestationsInternesReporting'>
 
         <tr>
             <th rowspan='2'>Demandeur</th>
             <th rowspan='2'>DA1</th>
             <th rowspan='2'>Status</th>
-            <th colspan='3'>Propositions</th>
+            <th colspan='4'>Propositions</th>
         </tr>
 
         <tr>
             <th>DA2</th>
             <th>Status</th>
             <th>Echange</th>
+            <th>Traiter</th>
         </tr>
 
-        {% for demande in demandes %}
+        {% for demande in demandes[page] %}
             <tr>
                 <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length+1 }}'{% else %}rowspan='2'{% endif %}>{% if users[demande.Demandeur] is defined %}{{ users[demande.Demandeur].Firstname }} {{ users[demande.Demandeur].Lastname }}{% endif %}</td>
                 <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length+1 }}'{% else %}rowspan='2'{% endif %}>{% if users[demande.DA1] is defined %}{{ users[demande.DA1].Firstname }} {{ users[demande.DA1].Lastname }}{% endif %}</td>
@@ -34,6 +43,7 @@
                         <td>{{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}</td>
                         <td {% if status[proposition.Status] is defined %}style='background-color: {{ status[proposition.Status].color }}; color: white;'{% endif %}>{% if status[proposition.Status] is defined %}{{ status[proposition.Status].message }}{% endif %}</td>
                         <td {% if proposition.Echanges == null %}style='background-color: lightgrey;'{% endif %}>{{ proposition.Echanges }}</td>
+                        {% if loop.first %}<td rowspan='{{ propositions[demande.CleDemande]|length }}'><a href='{{ path('nox_intranet_gestion_proposition', {'cleDemande': demande.CleDemande}) }}'>></a></td>{% endif %}
                     </tr>
                 {% endfor %}
             {% else %}
@@ -41,8 +51,25 @@
                     <td style='background-color: lightgrey;'></td>
                     <td style='background-color: lightgrey;'></td>
                     <td style='background-color: lightgrey;'></td>
+                    <td style='background-color: lightgrey;'></td>
                 </tr>
             {% endif %}
+
+            <tr style="/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#6db3f2+0,54a3ee+50,3690f0+51,1e69de+100;Blue+Gloss+%233 */
+                background: rgb(109,179,242); /* Old browsers */
+                background: -moz-linear-gradient(top,  rgba(109,179,242,1) 0%, rgba(84,163,238,1) 50%, rgba(54,144,240,1) 51%, rgba(30,105,222,1) 100%); /* FF3.6-15 */
+                background: -webkit-linear-gradient(top,  rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 51%,rgba(30,105,222,1) 100%); /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to bottom,  rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 51%,rgba(30,105,222,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6db3f2', endColorstr='#1e69de',GradientType=0 ); /* IE6-9 */
+                ">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         {% endfor %}
 
     </table>

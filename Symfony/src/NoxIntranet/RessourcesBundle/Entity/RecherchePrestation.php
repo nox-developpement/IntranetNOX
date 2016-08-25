@@ -113,13 +113,6 @@ class RecherchePrestation {
     private $cleDemande;
 
     /**
-     * @var text
-     *
-     * @ORM\Column(name="Echanges", type="text", nullable=true)
-     */
-    private $echanges;
-
-    /**
      * Get id
      *
      * @return integer
@@ -418,28 +411,4 @@ class RecherchePrestation {
         return $this->DA1;
     }
 
-
-    /**
-     * Set echanges
-     *
-     * @param string $echanges
-     *
-     * @return RecherchePrestation
-     */
-    public function setEchanges($echanges)
-    {
-        $this->echanges = $echanges;
-
-        return $this;
-    }
-
-    /**
-     * Get echanges
-     *
-     * @return string
-     */
-    public function getEchanges()
-    {
-        return $this->echanges;
-    }
 }

@@ -357,13 +357,21 @@ class PrestationsInternesController extends Controller {
     // Vérifie si tous les DA2 ont répondu à la demande et change le status de la demande si c'est le cas.
     private function checkUnansweredDA2Responses($cleDemande) {
         $em = $this->getDoctrine()->getManager();
-        $demandes = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Attente validation DA2'));
-
-        if (empty($demandes)) {
-            $recherchePrestation = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
-            $recherchePrestation->setStatus('Réponses DA2');
-            $em->flush();
+        $demandes = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Attente validation DA2')); // On récupére les propositions en attente de validation.
+        $demandesAccepte = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Demande acceptée')); // On récupére les propositions qui on était accepté par les DA2.
+        $recherchePrestation = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande); // On récupére la demande de préstation.
+        // Si il n'y pas de demande de proposition en attente de validation ni de propositions validées.
+        if (empty($demandes) && empty($demandesAccepte)) {
+            $recherchePrestation->setStatus('Réponses DA2 refus');
         }
+        // Si il n'y pas de demande de proposition en attente.
+        elseif (empty($demandes)) {
+            $recherchePrestation->setStatus('Réponses DA2');
+        }
+
+        $em->flush(); // On sauvegarde la demande de prestation en base de données.
+
+        $this->ajaxCheckDemandeStatus($cleDemande);
     }
 
     // Affiche la liste des proposition faites par les DA2 et permet de les valider.
@@ -414,8 +422,26 @@ class PrestationsInternesController extends Controller {
 
             $em->flush(); // On sauvegarde les changement en base de données.
 
+            $this->ajaxCheckDemandeStatus($cleDemande);
+
             return new Response('Saved');
         }
+    }
+
+    private function ajaxCheckDemandeStatus($cleDemande) {
+        $em = $this->getDoctrine()->getManager();
+        $propositionAttenteValidationDA2 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Attente validation DA2'));
+        $propositionValidationDA2 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Demande acceptée'));
+        $propositionAccepteDA1 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Validé par le DA1'));
+        $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
+
+        if (empty($propositionAttenteValidationDA2) && empty($propositionValidationDA2) && !empty($propositionAccepteDA1)) {
+            $demande->setStatus('Propositions acceptée DA1');
+        } elseif (empty($propositionAttenteValidationDA2) && empty($propositionValidationDA2) && empty($propositionAccepteDA1)) {
+            $demande->setStatus('Propositions refusée DA1');
+        }
+
+        $em->flush();
     }
 
     // Sauvegarde les échanges en base de données.
@@ -433,32 +459,18 @@ class PrestationsInternesController extends Controller {
             // On attribut le nouveau texte d'échanges à la proposition.
             $proposition->setEchanges($echanges);
 
-            // On récupére l'entité de la demande et celles de toutes les propositions associées.
-            $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
-            $propositions = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findByCleDemande($cleDemande);
-
-            // Pour chaque proposition on récupére les échanges.
-            $echangesDemande = '';
-            foreach ($propositions as $proposition) {
-                $DA2 = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($proposition->getDA2());
-                $echangesDemande .= "\n" . $DA2->getFirstname() . ' ' . $DA2->getLastname() . ':';
-                $echangesDemande .= "\n" . '------------------------';
-                $echangesDemande .= "\n" . $proposition->getEchanges();
-                $echangesDemande .= "\n";
-            }
-            $demande->setEchanges(trim($echangesDemande)); // On attribut tous les échanges à la demande.
-
             $em->flush(); // On sauvegarde les changement en base de données.
 
-            return new Response($echangesDemande);
+            return new Response('Saved');
         }
     }
 
     // Affiche un tableau affichant le status des demandes.
-    public function prestationsInternesReportingAction() {
+    public function prestationsInternesReportingAction($page) {
         // On récupére les entités des demandes.
         $em = $this->getDoctrine()->getManager();
         $demandes = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findAll();
+        $demandes10 = array_chunk($demandes, 10);
 
         // On génére un tableau associant les entités des utilisateurs avec leurs usernames.
         $users = array();
@@ -474,7 +486,12 @@ class PrestationsInternesController extends Controller {
             'Attente validation DA2' => array('message' => 'En attente de la réponse du DA2', 'color' => 'orange'),
             'Réponses DA2' => array('message' => 'Tous les DA2 ont répondus, en attente de réponses du DA1 aux propositions', 'color' => 'orange'),
             'Demande acceptée' => array('message' => 'Le DA2 a accepté la demande', 'color' => 'orange'),
-            'Demande refusée' => array('message' => 'Le DA2 a refusée la demande', 'color' => 'red')
+            'Demande refusée' => array('message' => 'Le DA2 a refusée la demande', 'color' => 'red'),
+            'Réponses DA2 refus' => array('message' => 'Tous les DA2 ont refusé de répondre à la demande', 'color' => 'red'),
+            'Validé par le DA1' => array('message' => 'Proposition validée par le DA1', 'color' => 'LimeGreen'),
+            'Refusé par le DA1' => array('message' => 'Proposition refusée par le DA1', 'color' => 'red'),
+            'Propositions acceptée DA1' => array('message' => 'Une ou plusieurs proposition(s) a/ont été acceptée(s) par le DA1', 'color' => 'LimeGreen'),
+            'Propositions refusée DA1' => array('message' => "Aucune proposition(s) n'a/ont été retenue(s) par le DA1", 'color' => 'red')
         );
 
         $propositions = array();
@@ -482,7 +499,7 @@ class PrestationsInternesController extends Controller {
             $propositions[$proposition->getCleDemande()][$proposition->getDA2()] = $proposition;
         }
 
-        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:prestationsInternesReporting.html.twig', array('demandes' => $demandes, 'users' => $users, 'status' => $status, 'propositions' => $propositions));
+        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:prestationsInternesReporting.html.twig', array('demandes' => $demandes10, 'users' => $users, 'status' => $status, 'propositions' => $propositions, 'page' => $page));
     }
 
 }

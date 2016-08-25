@@ -3439,11 +3439,27 @@ form[name='formValidationRefus'] textarea {
 #tableValidationProposition td {
     vertical-align: middle;
     text-align: center;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f3f3f3+50,ededed+51,ffffff+100;White+Gloss+%232 */
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(243,243,243,1) 50%, rgba(237,237,237,1) 51%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 }
 
 #tableValidationProposition tr td:last-child {
     width: 50%;
     padding: 1% 0% 1% 0%;
+}
+
+#tableValidationProposition tr td:first-child {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#3b679e+0,2b88d9+50,207cca+51,7db9e8+100;Blue+Gloss+%232 */
+    background: rgb(59,103,158); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(59,103,158,1) 0%, rgba(43,136,217,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b679e', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+    color: white;
 }
 
 #tableValidationProposition form {
@@ -3457,12 +3473,13 @@ form[name='formValidationRefus'] textarea {
     vertical-align: middle;
 }
 
-#tableValidationProposition textarea, #tableValidationProposition .textarea {
+#tableValidationProposition .textarea {
     width: 90%;
     margin: auto;
     padding: 1%;
     border: 1px inset lightgrey;
     text-align: left;
+    background-color: white;
 }
 
 #tableValidationProposition .textarea[contenteditable=true]:empty:before {
@@ -3497,29 +3514,24 @@ form[name='formValidationRefus'] textarea {
 }
 
 #tablePrestationsInternesReporting {
-    width: 70%;
+    width: 90%;
     margin: auto;
     border: 1px solid black;
     border-collapse: collapse;
+    margin-bottom: 5%;
 }
 
 #tablePrestationsInternesReporting tr, #tablePrestationsInternesReporting td, #tablePrestationsInternesReporting th {
     border: 1px solid black;
 }
 
-#tablePrestationsInternesReporting tr:nth-child(odd) {
+#tablePrestationsInternesReporting tr {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f3f3f3+50,ededed+51,ffffff+100;White+Gloss+%232 */
     background: rgb(255,255,255); /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(243,243,243,1) 50%, rgba(237,237,237,1) 51%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-
-}
-
-#tablePrestationsInternesReporting tr:nth-child(even) {
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f3f3f3+50,ededed+51,ffffff+100;White+Gloss+%232 */
-    background: seashell;
 }
 
 #tablePrestationsInternesReporting th {

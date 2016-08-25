@@ -74,7 +74,6 @@
                         data: {'username': username, 'echanges': echanges, 'cleDemande': '{{ cleDemande }}'},
                         success: function (response) {
                             $('#savingNotification').finish().fadeIn(500).delay(2000).fadeOut(1000); // On affiche brievement une notification de sauvegarde.
-                            alert(response);
                         }
                     });
                 }, 500);
