@@ -466,11 +466,10 @@ class PrestationsInternesController extends Controller {
     }
 
     // Affiche un tableau affichant le status des demandes.
-    public function prestationsInternesReportingAction($page) {
+    public function prestationsInternesReportingAction($page, $trieStatus) {
         // On récupére les entités des demandes.
         $em = $this->getDoctrine()->getManager();
         $demandes = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findAll();
-        $demandes10 = array_chunk($demandes, 10);
 
         // On génére un tableau associant les entités des utilisateurs avec leurs usernames.
         $users = array();
@@ -478,28 +477,40 @@ class PrestationsInternesController extends Controller {
             $users[$user->getUsername()] = $user;
         }
 
-        // On génére un tableau des contenant les status explicité.
+        // On génére un tableau contenant les status explicité et leur couleur associée.
         $status = array(
-            "Chargé d'affaire" => array('message' => "Demande effectuée par le chargé d'affaire, en attente de réponse du DA1", 'color' => 'orange'),
-            'Validation DA1' => array('message' => 'Demande validée par le DA1, en attente de réponse des DA2', 'color' => 'orange'),
-            'Refus DA1' => array('message' => 'Demande refusée par le DA1', 'color' => 'red'),
-            'Attente validation DA2' => array('message' => 'En attente de la réponse du DA2', 'color' => 'orange'),
-            'Réponses DA2' => array('message' => 'Tous les DA2 ont répondus, en attente de réponses du DA1 aux propositions', 'color' => 'orange'),
-            'Demande acceptée' => array('message' => 'Le DA2 a accepté la demande', 'color' => 'orange'),
-            'Demande refusée' => array('message' => 'Le DA2 a refusée la demande', 'color' => 'red'),
-            'Réponses DA2 refus' => array('message' => 'Tous les DA2 ont refusé de répondre à la demande', 'color' => 'red'),
-            'Validé par le DA1' => array('message' => 'Proposition validée par le DA1', 'color' => 'LimeGreen'),
-            'Refusé par le DA1' => array('message' => 'Proposition refusée par le DA1', 'color' => 'red'),
-            'Propositions acceptée DA1' => array('message' => 'Une ou plusieurs proposition(s) a/ont été acceptée(s) par le DA1', 'color' => 'LimeGreen'),
-            'Propositions refusée DA1' => array('message' => "Aucune proposition(s) n'a/ont été retenue(s) par le DA1", 'color' => 'red')
+            "Chargé d'affaire" => array('message' => "Demande effectuée par le chargé d'affaire, en attente de réponse du DA1", 'color' => 'orange', 'status' => 'process'),
+            'Validation DA1' => array('message' => 'Demande validée par le DA1, en attente de réponse des DA2', 'color' => 'orange', 'status' => 'process'),
+            'Refus DA1' => array('message' => 'Demande refusée par le DA1', 'color' => 'red', 'status' => 'fail'),
+            'Attente validation DA2' => array('message' => 'En attente de la réponse du DA2', 'color' => 'orange', 'status' => 'process'),
+            'Réponses DA2' => array('message' => 'Tous les DA2 ont répondus, en attente de réponses du DA1 aux propositions', 'color' => 'orange', 'status' => 'process'),
+            'Demande acceptée' => array('message' => 'Le DA2 a accepté la demande', 'color' => 'orange', 'status' => 'process'),
+            'Demande refusée' => array('message' => 'Le DA2 a refusée la demande', 'color' => 'red', 'status' => 'fail'),
+            'Réponses DA2 refus' => array('message' => 'Tous les DA2 ont refusé de répondre à la demande', 'color' => 'red', 'status' => 'fail'),
+            'Validé par le DA1' => array('message' => 'Proposition validée par le DA1', 'color' => 'LimeGreen', 'status' => 'success'),
+            'Refusé par le DA1' => array('message' => 'Proposition refusée par le DA1', 'color' => 'red', 'status' => 'fail'),
+            'Propositions acceptée DA1' => array('message' => 'Une ou plusieurs proposition(s) a/ont été acceptée(s) par le DA1', 'color' => 'LimeGreen', 'status' => 'success'),
+            'Propositions refusée DA1' => array('message' => "Aucune proposition n'a été retenue par le DA1", 'color' => 'red', 'status' => 'fail')
         );
 
+        // On récupère les propositions et on les place dans un tableau avec pour clé leur valeur de cleDemande.
         $propositions = array();
         foreach ($em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findAll() as $proposition) {
             $propositions[$proposition->getCleDemande()][$proposition->getDA2()] = $proposition;
         }
 
-        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:prestationsInternesReporting.html.twig', array('demandes' => $demandes10, 'users' => $users, 'status' => $status, 'propositions' => $propositions, 'page' => $page));
+        if ($trieStatus !== 'tous') {
+            foreach ($demandes as $key => $demande) {
+                if ($status[$demande->getStatus()]['status'] !== $trieStatus) {
+                    unset($demandes[$key]);
+                }
+            }
+        }
+
+        $demandes10 = array_chunk($demandes, 10); // On découpe le tableau des demandes en sous-tableau pour mettre en plage une pagination.
+
+        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:prestationsInternesReporting.html.twig', array('demandes' => $demandes10, 'users' => $users,
+                    'status' => $status, 'propositions' => $propositions, 'page' => $page, 'trieStatus' => $trieStatus));
     }
 
 }

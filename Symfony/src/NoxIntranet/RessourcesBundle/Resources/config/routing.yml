@@ -189,5 +189,5 @@ nox_intranet_ajax_save_echanges:
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveEchanges }
     
 nox_intranet_demande_prestation_reporting:
-    path: /ressources/demande-prestation-reporting/{page}
-    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesReporting, page: 0 }
+    path: /ressources/demande-prestation-reporting/{trieStatus}/{page}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesReporting, trieStatus: 'tous' ,page: 0 }

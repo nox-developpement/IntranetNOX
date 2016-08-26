@@ -45,7 +45,9 @@
                     type: 'POST',
                     data: {'username': username, 'answer': answer, 'cleDemande': '{{ cleDemande }}'},
                     success: function () {
-                        $('#savingNotification').finish().fadeIn(500).delay(2000).fadeOut(1000); // On affiche brievement une notification de sauvegarde.
+                        if ($('#savingNotification').queue().length === 0) {
+                            $('#savingNotification').fadeIn(500).delay(2000).fadeOut(1000); // On affiche brievement une notification de sauvegarde.
+                        }
                     }
                 });
             });
@@ -72,8 +74,10 @@
                         url: '{{ path('nox_intranet_ajax_save_echanges') }}',
                         type: 'POST',
                         data: {'username': username, 'echanges': echanges, 'cleDemande': '{{ cleDemande }}'},
-                        success: function (response) {
-                            $('#savingNotification').finish().fadeIn(500).delay(2000).fadeOut(1000); // On affiche brievement une notification de sauvegarde.
+                        success: function () {
+                            if ($('#savingNotification').queue().length === 0) {
+                                $('#savingNotification').fadeIn(500).delay(2000).fadeOut(1000); // On affiche brievement une notification de sauvegarde.
+                            }
                         }
                     });
                 }, 500);

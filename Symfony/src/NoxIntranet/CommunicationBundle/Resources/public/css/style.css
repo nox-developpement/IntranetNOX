@@ -3518,8 +3518,9 @@ form[name='formValidationRefus'] textarea {
     margin: auto;
     border: 1px solid black;
     border-collapse: collapse;
-    margin-bottom: 1%;
-    margin-top: 1%;
+    margin-bottom: 0.5%;
+    margin-top: 0.5%;
+    font-size: 0;
 }
 
 #tablePrestationsInternesReporting tr, #tablePrestationsInternesReporting td, #tablePrestationsInternesReporting th {
@@ -3543,12 +3544,13 @@ form[name='formValidationRefus'] textarea {
     background: linear-gradient(to bottom,  rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
     color: white;
+    font-size: 0.8vw;
 }
 
 #tablePrestationsInternesReporting td {
     text-align: center;
     padding: 0.5%;
-
+    font-size: 0.8vw;
 }
 
 #tablePrestationsInternesReporting a, #tablePrestationsInternesReporting a:visited  {
@@ -3561,20 +3563,33 @@ form[name='formValidationRefus'] textarea {
 }
 
 .prestationReportingPagination {
-    width: 70%;
+    display: inline-block;
     text-align: center;
     margin: auto;
+    float: right;
 }
 
 .prestationReportingPagination:last-child {
-    margin-bottom: 5%;
+    /*margin-bottom: 5%;*/
 }
 
-.prestationReportingPagination a, .prestationReportingPagination a:visited {
+.prestationReportingPagination a, .prestationReportingPagination a:visited, #prestationReportTrieStatus a, #prestationReportTrieStatus a:visited {
     text-decoration: none;
     color: #1F4E79;
 }
 
-.prestationReportingPagination a:hover {
+.prestationReportingPagination a:hover, #prestationReportTrieStatus a:hover {
     text-decoration: underline;
+}
+
+#prestationReportTrieStatus {
+    display: inline-block;
+    float: left;
+}
+
+.prestationReportingNavigation {
+    display: inline-block;
+    width: 90%; 
+    margin: auto;
+    margin-left: 5%;
 }
