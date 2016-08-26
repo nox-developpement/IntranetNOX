@@ -5,73 +5,103 @@
 {% block messageAccueil %}Status des demandes{% endblock %}
 
 {% block contenu %} 
+    {% if demandes[page] is defined %}
+        <div style='text-align: center;'>
+            <p style='text-align: center; margin: auto; margin-bottom: 1%; display: inline-block; padding: 0.5% 0.5% 0.5% 0.5%; background-color: rgba(255,255,255,0.5); border: 1px solid;'>
+                <span style='color: orange;'>Orange = En cours de traitement.</span><br />
+                <span style='color: limegreen;'>Vert = Demande/Proposition terminée avec succés.</span><br />
+                <span style='color: red;'>Rouge = Demande/Proposition terminée sans succés.</span>
+            </p>
+        </div>
 
-    <div style='text-align: center;'>
-        <p style='text-align: center; margin: auto; margin-bottom: 1%; display: inline-block; padding: 0.5% 0.5% 0.5% 0.5%; background-color: rgba(255,255,255,0.5); border: 1px solid;'>
-            <span style='color: orange;'>Orange = En cours de traitement.</span><br />
-            <span style='color: limegreen;'>Vert = Demande/Proposition terminée avec succés.</span><br />
-            <span style='color: red;'>Rouge = Demande/Proposition terminée sans succés.</span>
-        </p>
-    </div>
-
-    <table id='tablePrestationsInternesReporting'>
-
-        <tr>
-            <th rowspan='2'>Demandeur</th>
-            <th rowspan='2'>DA1</th>
-            <th rowspan='2'>Status</th>
-            <th colspan='4'>Propositions</th>
-        </tr>
-
-        <tr>
-            <th>DA2</th>
-            <th>Status</th>
-            <th>Echange</th>
-            <th>Traiter</th>
-        </tr>
-
-        {% for demande in demandes[page] %}
-            <tr>
-                <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length+1 }}'{% else %}rowspan='2'{% endif %}>{% if users[demande.Demandeur] is defined %}{{ users[demande.Demandeur].Firstname }} {{ users[demande.Demandeur].Lastname }}{% endif %}</td>
-                <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length+1 }}'{% else %}rowspan='2'{% endif %}>{% if users[demande.DA1] is defined %}{{ users[demande.DA1].Firstname }} {{ users[demande.DA1].Lastname }}{% endif %}</td>
-                <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length+1 }}'{% else %}rowspan='2'{% endif %}{% if status[demande.Status] is defined %} style='background-color: {{ status[demande.Status].color }}; color: white;'{% endif %}>{% if status[demande.Status] is defined %}{{ status[demande.Status].message }}{% endif %}</td>
-            </tr>
-
-            {% if propositions[demande.CleDemande] is defined %}       
-                {% for proposition in propositions[demande.CleDemande] %}
-                    <tr>
-                        <td>{{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}</td>
-                        <td {% if status[proposition.Status] is defined %}style='background-color: {{ status[proposition.Status].color }}; color: white;'{% endif %}>{% if status[proposition.Status] is defined %}{{ status[proposition.Status].message }}{% endif %}</td>
-                        <td {% if proposition.Echanges == null %}style='background-color: lightgrey;'{% endif %}>{{ proposition.Echanges }}</td>
-                        {% if loop.first %}<td rowspan='{{ propositions[demande.CleDemande]|length }}'><a href='{{ path('nox_intranet_gestion_proposition', {'cleDemande': demande.CleDemande}) }}'>></a></td>{% endif %}
-                    </tr>
+        <div class='prestationReportingPagination'>
+            {% if demandes|keys|first != page %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'page': demandes|keys|first}) }}' title='Page {{ demandes|keys|first+1 }}'><<</a>{% endif %}
+            {% if demandes[page-1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'page': page-1}) }}' title='Page {{ page }}'><</a>{% endif %}
+            <select onchange='location = this.value;'>
+                {% for i in 1..demandes|length %}
+                    <option value='{{ path('nox_intranet_demande_prestation_reporting', {'page': i-1}) }}' {% if i-1 == page %}selected{% endif %}>Page {{ i }}</option>
                 {% endfor %}
-            {% else %}
-                <tr>
-                    <td style='background-color: lightgrey;'></td>
-                    <td style='background-color: lightgrey;'></td>
-                    <td style='background-color: lightgrey;'></td>
-                    <td style='background-color: lightgrey;'></td>
-                </tr>
-            {% endif %}
+            </select>
+            {% if demandes[page+1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'page': page+1}) }}' title='Page {{ page+2 }}'>></a>{% endif %}
+            {% if demandes|keys|last != page %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'page': demandes|keys|last}) }}' title='Page {{ demandes|keys|last+1 }}'>>></a>{% endif %}
+        </div>
 
-            <tr style="/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#6db3f2+0,54a3ee+50,3690f0+51,1e69de+100;Blue+Gloss+%233 */
-                background: rgb(109,179,242); /* Old browsers */
-                background: -moz-linear-gradient(top,  rgba(109,179,242,1) 0%, rgba(84,163,238,1) 50%, rgba(54,144,240,1) 51%, rgba(30,105,222,1) 100%); /* FF3.6-15 */
-                background: -webkit-linear-gradient(top,  rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 51%,rgba(30,105,222,1) 100%); /* Chrome10-25,Safari5.1-6 */
-                background: linear-gradient(to bottom,  rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 51%,rgba(30,105,222,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6db3f2', endColorstr='#1e69de',GradientType=0 ); /* IE6-9 */
-                ">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+        <table id='tablePrestationsInternesReporting'>
+
+            <tr>
+                <th rowspan='2'>Demandeur</th>
+                <th rowspan='2'>DA1</th>
+                <th rowspan='2'>Status</th>
+                <th colspan='4'>Propositions</th>
             </tr>
-        {% endfor %}
 
-    </table>
+            <tr>
+                <th>DA2</th>
+                <th>Status</th>
+                <th>Echange</th>
+                <th>Traiter</th>
+            </tr>
+
+            {% for demande in demandes[page] %}
+                <tr>
+                    <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}>{% if users[demande.Demandeur] is defined %}{{ users[demande.Demandeur].Firstname }} {{ users[demande.Demandeur].Lastname }}{% endif %}</td>
+                    <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}>{% if users[demande.DA1] is defined %}{{ users[demande.DA1].Firstname }} {{ users[demande.DA1].Lastname }}{% endif %}</td>
+                    <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}{% if status[demande.Status] is defined %} style='background-color: {{ status[demande.Status].color }}; color: white;'{% endif %}>{% if status[demande.Status] is defined %}{{ status[demande.Status].message }}{% endif %}</td>
+                    {% if propositions[demande.CleDemande] is defined %}
+                        <td>{{ users[propositions[demande.CleDemande]|first.DA2].Firstname }} {{ users[propositions[demande.CleDemande]|first.DA2].Lastname }}</td>
+                        <td {% if status[propositions[demande.CleDemande]|first.Status] is defined %}style='background-color: {{ status[propositions[demande.CleDemande]|first.Status].color }}; color: white;'{% endif %}>{% if status[propositions[demande.CleDemande]|first.Status] is defined %}{{ status[propositions[demande.CleDemande]|first.Status].message }}{% else %}&nbsp;{% endif %}</td>
+                        <td {% if propositions[demande.CleDemande]|first.Echanges == null %}style='background-color: lightgrey;'{% endif %}>{% if propositions[demande.CleDemande]|first.Echanges != null %}{{ propositions[demande.CleDemande]|first.Echanges }}{% else %}&nbsp;{% endif %}</td>
+                        <td rowspan='{{ propositions[demande.CleDemande]|length }}'>
+                            <a href='{{ path('nox_intranet_gestion_proposition', {'cleDemande': demande.CleDemande}) }}'>></a>
+                        </td>
+                    {% else %}
+                        <td style='background-color: lightgrey;'>&nbsp;</td>
+                        <td style='background-color: lightgrey;'>&nbsp;</td>
+                        <td style='background-color: lightgrey;'>&nbsp;</td>
+                        <td style='background-color: lightgrey;'>&nbsp;</td>
+                    {% endif %}
+                </tr>
+
+                {% if propositions[demande.CleDemande] is defined and propositions[demande.CleDemande]|length > 1 %}       
+                    {% for proposition in propositions[demande.CleDemande]|slice(1, propositions[demande.CleDemande]|length) %}
+                        <tr>
+                            <td>{{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}</td>
+                            <td {% if status[proposition.Status] is defined %}style='background-color: {{ status[proposition.Status].color }}; color: white;'{% endif %}>{% if status[proposition.Status] is defined %}{{ status[proposition.Status].message }}{% else %}&nbsp;{% endif %}</td>
+                            <td {% if proposition.Echanges == null %}style='background-color: lightgrey;'{% endif %}>{% if proposition.Echanges != null %}{{ proposition.Echanges }}{% else %}&nbsp;{% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+
+                <tr style="/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#6db3f2+0,54a3ee+50,3690f0+51,1e69de+100;Blue+Gloss+%233 */
+                    background: rgb(109,179,242); /* Old browsers */
+                    background: -moz-linear-gradient(top,  rgba(109,179,242,1) 0%, rgba(84,163,238,1) 50%, rgba(54,144,240,1) 51%, rgba(30,105,222,1) 100%); /* FF3.6-15 */
+                    background: -webkit-linear-gradient(top,  rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 51%,rgba(30,105,222,1) 100%); /* Chrome10-25,Safari5.1-6 */
+                    background: linear-gradient(to bottom,  rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 51%,rgba(30,105,222,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6db3f2', endColorstr='#1e69de',GradientType=0 ); /* IE6-9 */
+                    ">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+
+        </table>
+
+        <div class='prestationReportingPagination'>
+            {% if demandes|keys|first != page %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'page': demandes|keys|first}) }}' title='Page {{ demandes|keys|first+1 }}'><<</a>{% endif %}
+            {% if demandes[page-1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'page': page-1}) }}' title='Page {{ page }}'><</a>{% endif %}
+            <select onchange='location = this.value;'>
+                {% for i in 1..demandes|length %}
+                    <option value='{{ path('nox_intranet_demande_prestation_reporting', {'page': i-1}) }}' {% if i-1 == page %}selected{% endif %}>Page {{ i }}</option>
+                {% endfor %}
+            </select>
+            {% if demandes[page+1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'page': page+1}) }}' title='Page {{ page+2 }}'>></a>{% endif %}
+            {% if demandes|keys|last != page %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'page': demandes|keys|last}) }}' title='Page {{ demandes|keys|last+1 }}'>>></a>{% endif %}
+        </div>
+    {% endif %}
 
 {% endblock %}

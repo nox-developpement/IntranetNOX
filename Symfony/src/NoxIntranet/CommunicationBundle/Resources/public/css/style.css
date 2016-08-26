@@ -3518,7 +3518,8 @@ form[name='formValidationRefus'] textarea {
     margin: auto;
     border: 1px solid black;
     border-collapse: collapse;
-    margin-bottom: 5%;
+    margin-bottom: 1%;
+    margin-top: 1%;
 }
 
 #tablePrestationsInternesReporting tr, #tablePrestationsInternesReporting td, #tablePrestationsInternesReporting th {
@@ -3548,4 +3549,32 @@ form[name='formValidationRefus'] textarea {
     text-align: center;
     padding: 0.5%;
 
+}
+
+#tablePrestationsInternesReporting a, #tablePrestationsInternesReporting a:visited  {
+    text-decoration: none;
+    color: #1F4E79;
+}
+
+#tablePrestationsInternesReporting a:hover {
+    text-decoration: underline;
+}
+
+.prestationReportingPagination {
+    width: 70%;
+    text-align: center;
+    margin: auto;
+}
+
+.prestationReportingPagination:last-child {
+    margin-bottom: 5%;
+}
+
+.prestationReportingPagination a, .prestationReportingPagination a:visited {
+    text-decoration: none;
+    color: #1F4E79;
+}
+
+.prestationReportingPagination a:hover {
+    text-decoration: underline;
 }
