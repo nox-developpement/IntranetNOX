@@ -414,4 +414,28 @@ class Suivis {
         return $this->noInterlocuteur;
     }
 
+
+    /**
+     * Set numeroGX
+     *
+     * @param string $numeroGX
+     *
+     * @return Suivis
+     */
+    public function setNumeroGX($numeroGX)
+    {
+        $this->numeroGX = $numeroGX;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroGX
+     *
+     * @return string
+     */
+    public function getNumeroGX()
+    {
+        return $this->numeroGX;
+    }
 }

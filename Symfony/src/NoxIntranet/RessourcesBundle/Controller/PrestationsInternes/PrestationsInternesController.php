@@ -26,12 +26,17 @@ class PrestationsInternesController extends Controller {
 
         // Génération du formulaire d'information de demande.
         $formNewSearch = $this->get('form.factory')->createNamedBuilder('formNewSearch', 'form', $newSearch)
+                ->add('Libelle', TextType::class)
                 ->add('LieuOperation', TextType::class)
                 ->add('LieuPrestation', TextType::class)
                 ->add('Descriptif', TextareaType::class)
                 ->add('Deplacement', TextType::class)
-                ->add('DateDemarrage', DateType::class)
-                ->add('DateRendu', DateType::class)
+                ->add('DateDemarrage', DateType::class, array(
+                    'years' => range(date('Y'), date('Y') + 4)
+                ))
+                ->add('DateRendu', DateType::class, array(
+                    'years' => range(date('Y'), date('Y') + 4)
+                ))
                 ->add('Livrables', TextareaType::class)
                 ->add('VolumeSousTraitance', TextType::class)
                 ->add('EmailDA', TextType::class)
@@ -43,8 +48,15 @@ class PrestationsInternesController extends Controller {
 
         // Si le formulaire est valide.
         if ($formNewSearch->isValid()) {
+            if (!empty($em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findByLibelle($formNewSearch->getLibelle()))) {
+                $request->getSession()->getFlashBag()->add('noticeErreur', 'Le libelle indiqué est déjà utilisé pour une autre demande de prestation.');
+            }
+            // Si les dates renseignées sont inférieur à la date du jour.
+            if ($formNewSearch->getData()->getDateDemarrage()->getTimestamp() < mktime('0', '0', '0', date('m'), date('d'), date('Y')) || $formNewSearch->getData()->getDateRendu()->getTimestamp() < mktime('0', '0', '0', date('m'), date('d'), date('Y'))) {
+                $request->getSession()->getFlashBag()->add('noticeErreur', 'Veuillez indiquer une date supérieure ou égale à la date courante.');
+            }
             // Si la valeur de volume de sous traitance n'est pas un float.
-            if (floatval($formNewSearch->getData()->getVolumeSousTraitance()) === 0.0) {
+            elseif (floatval($formNewSearch->getData()->getVolumeSousTraitance()) === 0.0) {
                 // On affiche un message d'erreur.
                 $request->getSession()->getFlashBag()->add('noticeErreur', 'La valeur du volume de sous traitance doit être un chiffre !');
             }
@@ -466,10 +478,10 @@ class PrestationsInternesController extends Controller {
     }
 
     // Affiche un tableau affichant le status des demandes.
-    public function prestationsInternesReportingAction($page, $trieStatus) {
+    public function prestationsInternesReportingAction($page, $trieStatus, $orderTime) {
         // On récupére les entités des demandes.
         $em = $this->getDoctrine()->getManager();
-        $demandes = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findAll();
+        $demandes = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findBy(array(), array('dateCreation' => $orderTime));
 
         // On génére un tableau associant les entités des utilisateurs avec leurs usernames.
         $users = array();
@@ -510,7 +522,7 @@ class PrestationsInternesController extends Controller {
         $demandes10 = array_chunk($demandes, 10); // On découpe le tableau des demandes en sous-tableau pour mettre en plage une pagination.
 
         return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:prestationsInternesReporting.html.twig', array('demandes' => $demandes10, 'users' => $users,
-                    'status' => $status, 'propositions' => $propositions, 'page' => $page, 'trieStatus' => $trieStatus));
+                    'status' => $status, 'propositions' => $propositions, 'page' => $page, 'trieStatus' => $trieStatus, 'orderTime' => $orderTime));
     }
 
 }

@@ -3592,4 +3592,18 @@ form[name='formValidationRefus'] textarea {
     width: 90%; 
     margin: auto;
     margin-left: 5%;
+    font-size: 0.8vw;
+}
+
+#prestationReportOrderTime {
+    display: inline-block;
+    float: right;
+    margin-right: 3%;
+}
+
+.prestationInterneEchange {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 20em;
 }

@@ -43,9 +43,9 @@ class PropositionPrestation {
     private $status;
 
     /**
-     * @var string
+     * @var text
      *
-     * @ORM\Column(name="Echanges", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Echanges", type="text", nullable=true)
      */
     private $echanges;
 
@@ -128,7 +128,6 @@ class PropositionPrestation {
         $this->setStatus("Attente validation DA2");
     }
 
-
     /**
      * Set echanges
      *
@@ -136,8 +135,7 @@ class PropositionPrestation {
      *
      * @return PropositionPrestation
      */
-    public function setEchanges($echanges)
-    {
+    public function setEchanges($echanges) {
         $this->echanges = $echanges;
 
         return $this;
@@ -148,8 +146,8 @@ class PropositionPrestation {
      *
      * @return string
      */
-    public function getEchanges()
-    {
+    public function getEchanges() {
         return $this->echanges;
     }
+
 }

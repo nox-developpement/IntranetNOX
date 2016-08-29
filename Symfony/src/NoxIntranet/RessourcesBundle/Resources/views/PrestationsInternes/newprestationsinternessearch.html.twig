@@ -9,6 +9,9 @@
     <div style='width: 70%; margin: auto;'>
 
         {{ form_start(formNewSearch, {'attr': {'style': 'text-align: center; border: 2px outset #1F4E79; background-color: rgba(255,255,255, 0.6);'}}) }}
+        
+        {{ form_label(formNewSearch.Libelle, "Libellé :") }}
+        {{ form_widget(formNewSearch.Libelle) }}<br />
 
         {{ form_label(formNewSearch.LieuOperation, "Lieu de l'opération :") }}
         {{ form_widget(formNewSearch.LieuOperation) }}<br />

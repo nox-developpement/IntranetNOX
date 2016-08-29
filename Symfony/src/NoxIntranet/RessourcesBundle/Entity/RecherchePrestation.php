@@ -22,6 +22,13 @@ class RecherchePrestation {
     private $id;
 
     /**
+     * @var libelle
+     *
+     * @ORM\Column(name="Libelle", type="string", length=255)
+     */
+    private $libelle;
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="LieuOperation", type="string", length=255)
@@ -111,6 +118,13 @@ class RecherchePrestation {
      * @ORM\Column(name="CleDemande", type="string", length=255)
      */
     private $cleDemande;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="dateCreation", type="datetime")
+     */
+    private $dateCreation;
 
     /**
      * Get id
@@ -321,6 +335,7 @@ class RecherchePrestation {
 
     public function __construct() {
         $this->setStatus("Chargé d'affaire");
+        $this->setDateCreation(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
     }
 
     /**
@@ -411,4 +426,50 @@ class RecherchePrestation {
         return $this->DA1;
     }
 
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     *
+     * @return RecherchePrestation
+     */
+    public function setDateCreation($dateCreation) {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime
+     */
+    public function getDateCreation() {
+        return $this->dateCreation;
+    }
+
+
+    /**
+     * Set libelle
+     *
+     * @param string $libelle
+     *
+     * @return RecherchePrestation
+     */
+    public function setLibelle($libelle)
+    {
+        $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    /**
+     * Get libelle
+     *
+     * @return string
+     */
+    public function getLibelle()
+    {
+        return $this->libelle;
+    }
 }

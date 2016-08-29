@@ -165,7 +165,7 @@ nox_intranet_assistant_affaire_ajax_save_new_infos:
     defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:ajaxSaveNewInfos }
     
 nox_intranet_prestation_search:
-    path: /ressources/recheche-prestation
+    path: /ressources/recherche-prestation
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:newPrestationSearch }
 
 nox_intranet_validation_da1:
@@ -189,5 +189,5 @@ nox_intranet_ajax_save_echanges:
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveEchanges }
     
 nox_intranet_demande_prestation_reporting:
-    path: /ressources/demande-prestation-reporting/{trieStatus}/{page}
-    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesReporting, trieStatus: 'tous' ,page: 0 }
+    path: /ressources/demande-prestation-reporting/{orderTime}/{trieStatus}/{page}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesReporting, trieStatus: 'tous', page: 0, orderTime: 'desc' }

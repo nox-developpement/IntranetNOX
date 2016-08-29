@@ -50,13 +50,6 @@ class DonneesSuivi {
     private $donnees;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="Type", type="string")
-     */
-    private $type;
-
-    /**
      * Get id
      *
      * @return integer
