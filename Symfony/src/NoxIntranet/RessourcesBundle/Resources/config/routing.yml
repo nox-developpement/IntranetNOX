@@ -190,7 +190,7 @@ nox_intranet_ajax_save_echanges:
     
 nox_intranet_demande_prestation_reporting:
     path: /ressources/demande-prestation-reporting/{orderTime}/{trieStatus}/{page}
-    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesReporting, trieStatus: 'tous', page: 0, orderTime: 'desc' }
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesReporting, search: '', trieStatus: 'tous', page: 0, orderTime: 'desc' }
     
 nox_intranet_demande_prestation_summary:
     path: /ressources/demande-prestation-summary/{cleDemande}

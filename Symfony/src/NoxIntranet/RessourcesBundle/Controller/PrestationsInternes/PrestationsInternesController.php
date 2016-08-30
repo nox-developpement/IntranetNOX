@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -479,10 +480,44 @@ class PrestationsInternesController extends Controller {
     }
 
     // Affiche un tableau affichant le status des demandes.
-    public function prestationsInternesReportingAction($page, $trieStatus, $orderTime) {
+    public function prestationsInternesReportingAction(Request $request, $page, $trieStatus, $orderTime) {
+
+        // On récupéra la valeur de 'search'.
+        $search = $request->get('search');
+
+        // Génération du formulaire de recherche de demande par libellé.
+        $formSearch = $this->createFormBuilder()
+                ->add('searchText', SearchType::class, array(
+                    'data' => $search,
+                    'required' => false
+                ))
+                ->add('searchButton', SubmitType::class)
+                ->getForm();
+        $formSearch->handleRequest($request);
+
+        // Traitement du formlaire de recherche.
+        if ($formSearch->isValid()) {
+            //var_dump($formSearch->get('searchText')->getData());
+            return $this->redirectToRoute('nox_intranet_demande_prestation_reporting', array('page' => $page, 'orderTime' => $orderTime, 'search' => $formSearch->get('searchText')->getData()));
+        }
+
         // On récupére les entités des demandes.
         $em = $this->getDoctrine()->getManager();
-        $demandes = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findBy(array(), array('dateCreation' => $orderTime));
+        // Si on ne recherche pas de demande spécifique.
+        if ($search !== '') {
+            $demandes = $em->createQueryBuilder()
+                    ->select('u')
+                    ->from('NoxIntranetRessourcesBundle:RecherchePrestation', 'u')
+                    ->where('u.libelle LIKE :search')
+                    ->orderBy('u.dateCreation', $orderTime)
+                    ->setParameters(array('search' => '%' . $search . '%'))
+                    ->getQuery()
+                    ->getResult();
+        }
+        // Si on cherche une demande spécifique.
+        else {
+            $demandes = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findBy(array(), array('dateCreation' => $orderTime));
+        }
 
         // On génére un tableau associant les entités des utilisateurs avec leurs usernames.
         $users = array();
@@ -522,11 +557,15 @@ class PrestationsInternesController extends Controller {
 
         $demandes10 = array_chunk($demandes, 10); // On découpe le tableau des demandes en sous-tableau pour mettre en plage une pagination.
 
-        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:prestationsInternesReporting.html.twig', array('demandes' => $demandes10, 'users' => $users,
-                    'status' => $status, 'propositions' => $propositions, 'page' => $page, 'trieStatus' => $trieStatus, 'orderTime' => $orderTime));
+        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:prestationsInternesReporting.html.twig', array(
+                    'demandes' => $demandes10, 'users' => $users, 'status' => $status, 'propositions' => $propositions, 'page' => $page, 'trieStatus' => $trieStatus,
+                    'orderTime' => $orderTime, 'search' => $search, 'formSearch' => $formSearch->createView()
+        ));
     }
 
+    // Affiche un résumé contant les informations sur la demande est les propositions associées à la clé de demande passée en paramêtre.
     public function demandePrestationSummaryAction($cleDemande) {
+        // On récupére les entitées de la demande, du demandeur et des propositions associées.
         $em = $this->getDoctrine()->getManager();
         $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
         $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDemandeur());
