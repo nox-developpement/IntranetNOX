@@ -3368,16 +3368,53 @@ tr {
     border: solid 1px black;
 }
 
-form[name='formNewSearch'] label {
+form[name='formNewSearch'] {
+    width: 50%;
+    margin-bottom: 5%;
+    padding: 0;
+    border: none;
+}
+
+form[name='formNewSearch'] table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+}
+
+form[name='formNewSearch'] table th, form[name='formNewSearch'] table td, form[name='formNewSearch'] table tr {
+    border: 1px solid #1F4E79;
+}
+
+form[name='formNewSearch'] table th, form[name='formNewSearch'] table td {
+    padding: 3%;
+    width: 50%;
+}
+
+form[name='formNewSearch'] table th {
+    background: rgb(96,108,136); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
+    color: white;
+}
+
+form[name='formNewSearch'] table td input, form[name='formNewSearch'] table td textarea {
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+/*form[name='formNewSearch'] label {
     display: block;
     float: left;
     width: 50%;
     text-align: right;
     margin-bottom: 1%;
     font-size: 0.8vw;
-}
+}*/
 
-form[name='formNewSearch'] input, form[name='formNewSearch'] textarea {
+/*form[name='formNewSearch'] input, form[name='formNewSearch'] textarea {
     width: 40%;
     max-width: 40%;
     box-sizing: border-box;
@@ -3389,27 +3426,42 @@ form[name='formNewSearch'] input, form[name='formNewSearch'] textarea {
 form[name='formNewSearch'] div  {
     margin-right: 5%;
     font-size: 0.8vw;
-}
+}*/
 
 #validationD1Sum {
     float: left;
     width: 30%;
     margin-left: 15%;
+    margin-bottom: 5%;
 }
 
-#validationD1Sum, #validationD1Sum tr, #validationD1Sum td {
+#validationD1Sum, #validationD1Sum tr, #validationD1Sum td, #validationD1Sum th {
     border: solid 1px black;
     border-collapse: collapse;  
     font-size: 0.8vw;
+    text-align: center;
 }
 
 #validationD1Sum td {
     padding: 0.5em;
-    /*white-space: nowrap;*/
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+47,ededed+100;White+3D+%231 */
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+
 }
 
-.trLabel {
+#validationD1Sum .trLabel {
     font-weight: bold;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#606c88+0,3f4c6b+100;Grey+3D+%232 */
+    background: rgb(96,108,136); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
+    color: white;
 }
 
 form[name='formValidationRefus'] {
@@ -3453,12 +3505,12 @@ form[name='formValidationRefus'] textarea {
 }
 
 #tableValidationProposition tr td:first-child {
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#3b679e+0,2b88d9+50,207cca+51,7db9e8+100;Blue+Gloss+%232 */
-    background: rgb(59,103,158); /* Old browsers */
-    background: -moz-linear-gradient(top,  rgba(59,103,158,1) 0%, rgba(43,136,217,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b679e', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#606c88+0,3f4c6b+100;Grey+3D+%232 */
+    background: rgb(96,108,136); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
     color: white;
 }
 
@@ -3480,6 +3532,8 @@ form[name='formValidationRefus'] textarea {
     border: 1px inset lightgrey;
     text-align: left;
     background-color: white;
+    overflow: auto;
+    max-height: 10em;
 }
 
 #tableValidationProposition .textarea[contenteditable=true]:empty:before {
@@ -3537,12 +3591,12 @@ form[name='formValidationRefus'] textarea {
 }
 
 #tablePrestationsInternesReporting th {
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,2989d8+50,207cca+51,7db9e8+100;Blue+Gloss+Default */
-    background: rgb(30,87,153); /* Old browsers */
-    background: -moz-linear-gradient(top,  rgba(30,87,153,1) 0%, rgba(41,137,216,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#606c88+0,3f4c6b+100;Grey+3D+%232 */
+    background: rgb(96,108,136); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
     color: white;
     font-size: 0.8vw;
 }
@@ -3606,4 +3660,57 @@ form[name='formValidationRefus'] textarea {
     text-overflow: ellipsis;
     white-space: nowrap;
     max-width: 20em;
+}
+
+#demandeSummaryPropositions {
+    float: right;
+    width: 30%;
+    margin-right: 15%;
+    margin-bottom: 5%;
+}
+
+#demandeSummaryPropositions, #demandeSummaryPropositions tr, #demandeSummaryPropositions td, #demandeSummaryPropositions th {
+    border: solid 1px black;
+    border-collapse: collapse;  
+    font-size: 0.8vw;
+    text-align: center;
+}
+
+#demandeSummaryPropositions th {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#606c88+0,3f4c6b+100;Grey+3D+%232 */
+    background: rgb(96,108,136); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
+    color: white;
+    padding-bottom: 5%;
+    padding-top: 5%;
+}
+
+#demandeSummaryPropositions td {
+    padding: 0.5em;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+47,ededed+100;White+3D+%231 */
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+
+}
+
+.demandeSummmaryPropositionsToggleEchanges img {
+    vertical-align: middle;
+    width: 30%;
+}
+
+#demandeSummaryPropositions .trLabel {
+    font-weight: bold;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#606c88+0,3f4c6b+100;Grey+3D+%232 */
+    background: rgb(96,108,136); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
+    color: white;
 }

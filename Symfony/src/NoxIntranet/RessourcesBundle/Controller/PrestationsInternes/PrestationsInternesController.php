@@ -48,7 +48,7 @@ class PrestationsInternesController extends Controller {
 
         // Si le formulaire est valide.
         if ($formNewSearch->isValid()) {
-            if (!empty($em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findByLibelle($formNewSearch->getLibelle()))) {
+            if (!empty($em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findByLibelle($formNewSearch->getData()->getLibelle()))) {
                 $request->getSession()->getFlashBag()->add('noticeErreur', 'Le libelle indiqué est déjà utilisé pour une autre demande de prestation.');
             }
             // Si les dates renseignées sont inférieur à la date du jour.
@@ -440,6 +440,7 @@ class PrestationsInternesController extends Controller {
         }
     }
 
+    // Modifie les status des propositions si besoin.
     private function ajaxCheckDemandeStatus($cleDemande) {
         $em = $this->getDoctrine()->getManager();
         $propositionAttenteValidationDA2 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Attente validation DA2'));
@@ -523,6 +524,39 @@ class PrestationsInternesController extends Controller {
 
         return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:prestationsInternesReporting.html.twig', array('demandes' => $demandes10, 'users' => $users,
                     'status' => $status, 'propositions' => $propositions, 'page' => $page, 'trieStatus' => $trieStatus, 'orderTime' => $orderTime));
+    }
+
+    public function demandePrestationSummaryAction($cleDemande) {
+        $em = $this->getDoctrine()->getManager();
+        $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
+        $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDemandeur());
+        $propositions = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findByCleDemande($cleDemande);
+
+        // On génére un tableau contenant les status explicité et leur couleur associée.
+        $status = array(
+            "Chargé d'affaire" => array('message' => "Demande effectuée par le chargé d'affaire, en attente de réponse du DA1", 'color' => 'orange', 'status' => 'process'),
+            'Validation DA1' => array('message' => 'Demande validée par le DA1, en attente de réponse des DA2', 'color' => 'orange', 'status' => 'process'),
+            'Refus DA1' => array('message' => 'Demande refusée par le DA1', 'color' => 'red', 'status' => 'fail'),
+            'Attente validation DA2' => array('message' => 'En attente de la réponse du DA2', 'color' => 'orange', 'status' => 'process'),
+            'Réponses DA2' => array('message' => 'Tous les DA2 ont répondus, en attente de réponses du DA1 aux propositions', 'color' => 'orange', 'status' => 'process'),
+            'Demande acceptée' => array('message' => 'Le DA2 a accepté la demande', 'color' => 'orange', 'status' => 'process'),
+            'Demande refusée' => array('message' => 'Le DA2 a refusée la demande', 'color' => 'red', 'status' => 'fail'),
+            'Réponses DA2 refus' => array('message' => 'Tous les DA2 ont refusé de répondre à la demande', 'color' => 'red', 'status' => 'fail'),
+            'Validé par le DA1' => array('message' => 'Proposition validée par le DA1', 'color' => 'LimeGreen', 'status' => 'success'),
+            'Refusé par le DA1' => array('message' => 'Proposition refusée par le DA1', 'color' => 'red', 'status' => 'fail'),
+            'Propositions acceptée DA1' => array('message' => 'Une ou plusieurs proposition(s) a/ont été acceptée(s) par le DA1', 'color' => 'LimeGreen', 'status' => 'success'),
+            'Propositions refusée DA1' => array('message' => "Aucune proposition n'a été retenue par le DA1", 'color' => 'red', 'status' => 'fail')
+        );
+
+        // On génére un tableau associant les entités des utilisateurs avec leurs usernames.
+        $users = array();
+        foreach ($em->getRepository('NoxIntranetUserBundle:User')->findAll() as $user) {
+            $users[$user->getUsername()] = $user;
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:demandeSummary.html.twig', array('demande' => $demande, 'demandeur' => $demandeur,
+                    'status' => $status, 'propositions' => $propositions, 'users' => $users
+        ));
     }
 
 }

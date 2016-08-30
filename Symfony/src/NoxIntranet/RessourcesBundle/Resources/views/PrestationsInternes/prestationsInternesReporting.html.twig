@@ -61,7 +61,7 @@
 
             {% for demande in demandes[page] %}
                 <tr>
-                    <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}>{% if demande.Libelle is defined %}{{ demande.Libelle}}{% endif %}</td>
+                    <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}>{% if demande.Libelle is defined %}<a href="{{ path('nox_intranet_demande_prestation_summary', {'cleDemande': demande.CleDemande}) }}" style='border-bottom: 1px dotted black;'>{{ demande.Libelle}}</a>{% endif %}</td>
                     <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}>{% if users[demande.Demandeur] is defined %}{{ users[demande.Demandeur].Firstname }} {{ users[demande.Demandeur].Lastname }}{% endif %}</td>
                     <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}>{% if users[demande.DA1] is defined %}{{ users[demande.DA1].Firstname }} {{ users[demande.DA1].Lastname }}{% endif %}</td>
                     <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}{% if status[demande.Status] is defined %} style='background-color: {{ status[demande.Status].color }}; color: white;'{% endif %}>{% if status[demande.Status] is defined %}{{ status[demande.Status].message }}{% endif %}</td>
@@ -88,13 +88,12 @@
                     {% endfor %}
                 {% endif %}
 
-                <tr style="/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#6db3f2+0,54a3ee+50,3690f0+51,1e69de+100;Blue+Gloss+%233 */
-                    background: rgb(109,179,242); /* Old browsers */
-                    background: -moz-linear-gradient(top,  rgba(109,179,242,1) 0%, rgba(84,163,238,1) 50%, rgba(54,144,240,1) 51%, rgba(30,105,222,1) 100%); /* FF3.6-15 */
-                    background: -webkit-linear-gradient(top,  rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 51%,rgba(30,105,222,1) 100%); /* Chrome10-25,Safari5.1-6 */
-                    background: linear-gradient(to bottom,  rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 51%,rgba(30,105,222,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6db3f2', endColorstr='#1e69de',GradientType=0 ); /* IE6-9 */
-                    ">
+                <tr style="/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#606c88+0,3f4c6b+100;Grey+3D+%232 */
+                    background: rgb(96,108,136); /* Old browsers */
+                    background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
+                    background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
+                    background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */">
                     <td></td>
                     <td></td>
                     <td></td>

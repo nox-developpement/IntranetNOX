@@ -1,0 +1,102 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Résumé de la demande "{{ demande.Libelle }}" {% endblock %}
+
+{% block messageAccueil %}Résumé de la demande "{{ demande.Libelle }}"{% endblock %}
+
+{% block contenu %} 
+    <table id='validationD1Sum'>
+        <tr>
+            <th class='trLabel' colspan='2' style='padding-top: 5%; padding-bottom: 5%;'>Demande de prestation interne</th>
+        </tr>
+        <tr>
+            <td class='trLabel'>Libellé</td>
+            <td>{{ demande.Libelle }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Demandeur</td>
+            <td>{{ demandeur.Firstname() }} {{ demandeur.Lastname() }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Lieu de l'opération</td>
+            <td>{{ demande.LieuOperation }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Lieu de la prestation</td>
+            <td>{{ demande.LieuPrestation }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Descriptif de la prestation</td>
+            <td>{{ demande.Descriptif }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Déplacements à prévoir</td>
+            <td>{{ demande.Deplacement }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Date de démarrage de la prestation</td>
+            <td>{{ demande.DateDemarrage|date('d/m/Y') }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Date de rendu</td>
+            <td>{{ demande.DateRendu|date('d/m/Y') }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Livrables attendus</td>
+            <td>{{ demande.Livrables }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Volume de sous traitance envisagé (€)</td>
+            <td>{{ demande.VolumeSousTraitance }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Status</td>
+            <td style='background: {{ status[demande.Status].color }}; color: white;'>{{ status[demande.Status].message }}</td>
+        </tr>
+    </table>
+
+    <table id='demandeSummaryPropositions'>
+        <tr>
+            <th colspan='3'>
+                Propositions de prestations interne
+            </th>
+        </tr>
+        <tr>
+            <td class='trLabel'>DA2</td>
+            <td class='trLabel'>Status</td>
+            <td class='trLabel'>Echange</td>
+        </tr>
+        {% for proposition in propositions %}
+            <tr>
+                <td>{{ proposition.DA2 }}</td>
+                <td style='background: {{ status[proposition.Status].color }}; color: white;'>{{ status[proposition.Status].message }}</td>
+                <td class='demandeSummmaryPropositionsToggleEchanges'>
+                    <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' echange='close'>
+                    <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Down-01-48.png') }}' style='display: none;' echange='open'>
+                </td>
+            </tr>
+            <tr>
+                <td colspan='3' style='display: none; padding: 0;'><div style='height: 10em; overflow: auto; padding: 0.5em; {% if proposition.Echanges == null %}background-color: lightgrey;{% else %}background-color: white;{% endif %}'>{{ proposition.Echanges }}</div></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+
+        $(window).load(function () {
+            toggleEchanges();
+        });
+
+        // Affiche/Cache le texte des échanges.
+        function toggleEchanges() {
+            // Lors d'un clic sur la flêche de déploiement.
+            $('.demandeSummmaryPropositionsToggleEchanges').click(function () {
+                $(this).find("img[echange='close']").toggle(); // On affiche/cache la fléche d'ouverture.
+                $(this).find("img[echange='open']").toggle(); // On affiche/cache la fléche de fermeture.
+                $(this).parent('tr').next('tr').find('td').toggle(); // On affiche/cache le texte de l'échange.
+            });
+        }
+
+    </script>
+
+{% endblock %}
