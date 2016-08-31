@@ -254,6 +254,7 @@ class PrestationsInternesController extends Controller {
         // On récupére les entitées de la demande et du DA1.
         $em = $this->getDoctrine()->getManager();
         $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->find($IDDemande);
+        $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy($demande->getDemandeur());
         $DA1 = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDA1());
 
         // On génére l'adresse email du DA2.
@@ -266,7 +267,7 @@ class PrestationsInternesController extends Controller {
                 ->setTo($mailDA2)
                 ->setBody(
                 $this->renderView(
-                        'Emails/PrestationInterne/sendMailToDA2.html.twig', array('demande' => $demande, 'DA1' => $DA1)
+                        'Emails/PrestationInterne/sendMailToDA2.html.twig', array('demande' => $demande, 'DA1' => $DA1, 'demandeur' => $demandeur)
                 ), 'text/html'
         );
 
@@ -279,6 +280,7 @@ class PrestationsInternesController extends Controller {
         // On récupére l'entité de la demande.
         $em = $this->getDoctrine()->getManager();
         $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->find($IDDemande);
+        $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy($demande->getDemandeur());
 
         // On génére l'adresse email du demandeur.
         $mailDemandeur = $demande->getDemandeur() . '@groupe-nox.com';
@@ -290,7 +292,7 @@ class PrestationsInternesController extends Controller {
                 ->setTo($mailDemandeur)
                 ->setBody(
                 $this->renderView(
-                        'Emails/PrestationInterne/sendRefusToDemandeur.html.twig', array('demande' => $demande, 'DA1' => $DA1, 'raison' => $raison)
+                        'Emails/PrestationInterne/sendRefusToDemandeur.html.twig', array('demande' => $demande, 'DA1' => $DA1, 'raison' => $raison, 'demandeur' => $demandeur)
                 ), 'text/html'
         );
 
@@ -313,6 +315,9 @@ class PrestationsInternesController extends Controller {
             return $this->redirectToRoute('nox_intranet_demande_prestation_reporting'); // On redirige vers l'accueil.
         }
 
+        // On récupére l'entité du demandeur.
+        $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDemandeur());
+
         // Si la demande est accepté par le DA2.
         if ($reponse === 'valider') {
             $demande->setStatus('Demande acceptée');
@@ -328,7 +333,7 @@ class PrestationsInternesController extends Controller {
                     ->setTo($recherchePrestation->getEMailDA())
                     ->setBody(
                     $this->renderView(
-                            'Emails/PrestationInterne/sendValidationDA2ToDA1.html.twig', array('demande' => $recherchePrestation, 'DA2' => $DA2)
+                            'Emails/PrestationInterne/sendValidationDA2ToDA1.html.twig', array('demande' => $recherchePrestation, 'DA2' => $DA2, 'demandeur' => $demandeur)
                     ), 'text/html'
             );
 
@@ -355,7 +360,7 @@ class PrestationsInternesController extends Controller {
                     ->setTo($recherchePrestation->getEMailDA())
                     ->setBody(
                     $this->renderView(
-                            'Emails/PrestationInterne/sendRefusDA2ToDA1.html.twig', array('demande' => $recherchePrestation, 'DA2' => $DA2)
+                            'Emails/PrestationInterne/sendRefusDA2ToDA1.html.twig', array('demande' => $recherchePrestation, 'DA2' => $DA2, 'demandeur' => $demandeur)
                     ), 'text/html'
             );
 
@@ -388,10 +393,24 @@ class PrestationsInternesController extends Controller {
     }
 
     // Affiche la liste des proposition faites par les DA2 et permet de les valider.
-    public function answerDA2PropositionAction($cleDemande) {
+    public function answerDA2PropositionAction(Request $request, $cleDemande) {
 
-        // On récupére les proposition correspondantes à la clé passé en parametre et dont le status est compatible.
         $em = $this->getDoctrine()->getManager();
+        $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
+
+        // Si la demande n'existe pas.
+        if (empty($demande)) {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "La demande n'existe pas."); // On affiche un message d'erreur.
+            return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
+        }
+
+        // Si l'utilisateur n'est pas le DA1 associé à la demande.
+        if ($demande->getDA1() !== $this->container->get('security.context')->getToken()->getUser()->getUsername()) {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas l'autorisation de traiter cette demande."); // On affiche un message d'erreur.
+            return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
+        }
+
+        // On récupére les proposition correspondantes à la clé passé en parametre et dont le status est compatible. 
         $propositions = $em->createQueryBuilder()
                 ->select('a')
                 ->from('NoxIntranetRessourcesBundle:PropositionPrestation', 'a')
@@ -492,13 +511,17 @@ class PrestationsInternesController extends Controller {
                     'required' => false
                 ))
                 ->add('searchButton', SubmitType::class)
+                ->add('resetButton', SubmitType::class)
                 ->getForm();
         $formSearch->handleRequest($request);
 
         // Traitement du formlaire de recherche.
         if ($formSearch->isValid()) {
-            //var_dump($formSearch->get('searchText')->getData());
-            return $this->redirectToRoute('nox_intranet_demande_prestation_reporting', array('page' => $page, 'orderTime' => $orderTime, 'search' => $formSearch->get('searchText')->getData()));
+            if ($formSearch->get('searchButton')->isClicked()) {
+                return $this->redirectToRoute('nox_intranet_demande_prestation_reporting', array('page' => $page, 'orderTime' => $orderTime, 'search' => $formSearch->get('searchText')->getData()));
+            } elseif ($formSearch->get('resetButton')->isClicked()) {
+                return $this->redirectToRoute('nox_intranet_demande_prestation_reporting', array('orderTime' => $orderTime));
+            }
         }
 
         // On récupére les entités des demandes.
@@ -592,9 +615,14 @@ class PrestationsInternesController extends Controller {
         foreach ($em->getRepository('NoxIntranetUserBundle:User')->findAll() as $user) {
             $users[$user->getUsername()] = $user;
         }
+        
+        $DA2 = array();
+        foreach ($propositions as $proposition) {
+            $DA2[$proposition->getDA2()] = $proposition->getDA2();
+        }
 
         return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:demandeSummary.html.twig', array('demande' => $demande, 'demandeur' => $demandeur,
-                    'status' => $status, 'propositions' => $propositions, 'users' => $users
+                    'status' => $status, 'propositions' => $propositions, 'users' => $users, 'DA2' => $DA2
         ));
     }
 

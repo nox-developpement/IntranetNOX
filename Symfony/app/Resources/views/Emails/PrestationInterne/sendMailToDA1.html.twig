@@ -21,6 +21,17 @@ Le collaborateur <span style='text-decoration: underline;'>{{ demandeur.Firstnam
 
 <table>
     <tr>
+        <td class='trLabel' colspan='2'>Demande de prestation interne</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Libellé</td>
+        <td>{{ demande.Libelle }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Demandeur</td>
+        <td>{{ demandeur.Firstname }} {{ demandeur.Lastname }}</td>
+    </tr>
+    <tr>
         <td class='trLabel'>Lieu de l'opération</td>
         <td>{{ demande.LieuOperation }}</td>
     </tr>
@@ -55,3 +66,4 @@ Le collaborateur <span style='text-decoration: underline;'>{{ demandeur.Firstnam
 </table>
 <br />
 Veuillez <a href='{{ absolute_url(path('nox_intranet_validation_da1', {'cleDemande': demande.CleDemande})) }}'>cliquez ici</a> pour traiter la demande.
+<br />

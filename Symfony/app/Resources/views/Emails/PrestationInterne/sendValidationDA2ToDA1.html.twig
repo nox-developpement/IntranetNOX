@@ -22,6 +22,17 @@ Le directeur d'agence <span style='text-decoration: underline;'>{{ DA2.Firstname
 
 <table>
     <tr>
+        <td class='trLabel' colspan='2'>Demande de prestation interne</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Libellé</td>
+        <td>{{ demande.Libelle }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Demandeur</td>
+        <td>{{ demandeur.Firstname }} {{ demandeur.Lastname }}</td>
+    </tr>
+    <tr>
         <td class='trLabel'>Lieu de l'opération</td>
         <td>{{ demande.LieuOperation }}</td>
     </tr>
@@ -54,4 +65,6 @@ Le directeur d'agence <span style='text-decoration: underline;'>{{ DA2.Firstname
         <td>{{ demande.VolumeSousTraitance }}</td>
     </tr>
 </table>
+<br />
+Vous pouvez traiter la/les proposition(s) du/des DA2 en <a href='{{ absolute_url(path('nox_intranet_gestion_proposition', {'cleDemande': demande.CleDemande})) }}'>cliquant ici</a>.
 <br />

@@ -6,7 +6,6 @@
 
 {% block contenu %}
 
-
     <div style='text-align: center;'>
         <p style='text-align: center; margin: auto; margin-bottom: 1%; display: inline-block; padding: 0.5% 0.5% 0.5% 0.5%; background-color: rgba(255,255,255,0.5); border: 1px solid; font-size: 0.8vw;'>
             <span style='color: orange;'>Orange = En cours de traitement.</span><br />
@@ -20,7 +19,8 @@
         <div id='prestationReportingSearch' style='width: calc(100% / 3);'>
             {{ form_start(formSearch) }}
             {{ form_widget(formSearch.searchText) }}
-            {{ form_widget(formSearch.searchButton) }}
+            {{ form_widget(formSearch.searchButton, {'label': 'Rechercher'}) }}
+            {{ form_widget(formSearch.resetButton, {'label': 'Effacer la recherche'}) }}
             {{ form_end(formSearch) }}
         </div>
 
@@ -68,13 +68,13 @@
             <th>DA2</th>
             <th>Status</th>
             <th>Echange</th>
-            <th>Traiter</th>
+            <th>Details</th>
         </tr>
 
         {% if demandes[page] is defined %}
             {% for demande in demandes[page] %}
                 <tr>
-                    <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}>{% if demande.Libelle is defined %}<a href="{{ path('nox_intranet_demande_prestation_summary', {'cleDemande': demande.CleDemande}) }}" style='border-bottom: 1px dotted black;'>{{ demande.Libelle}}</a>{% endif %}</td>
+                    <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}>{% if demande.Libelle is defined %}{{ demande.Libelle}}{% endif %}</td>
                     <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}>{% if users[demande.Demandeur] is defined %}{{ users[demande.Demandeur].Firstname }} {{ users[demande.Demandeur].Lastname }}{% endif %}</td>
                     <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}>{% if users[demande.DA1] is defined %}{{ users[demande.DA1].Firstname }} {{ users[demande.DA1].Lastname }}{% endif %}</td>
                     <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}{% if status[demande.Status] is defined %} style='background-color: {{ status[demande.Status].color }}; color: white;'{% endif %}>{% if status[demande.Status] is defined %}{{ status[demande.Status].message }}{% endif %}</td>
@@ -82,8 +82,8 @@
                         <td>{{ users[propositions[demande.CleDemande]|first.DA2].Firstname }} {{ users[propositions[demande.CleDemande]|first.DA2].Lastname }}</td>
                         <td {% if status[propositions[demande.CleDemande]|first.Status] is defined %}style='background-color: {{ status[propositions[demande.CleDemande]|first.Status].color }}; color: white;'{% endif %}>{% if status[propositions[demande.CleDemande]|first.Status] is defined %}{{ status[propositions[demande.CleDemande]|first.Status].message }}{% else %}&nbsp;{% endif %}</td>
                         <td {% if propositions[demande.CleDemande]|first.Echanges == null %}style='background-color: lightgrey;'{% endif %} class='prestationInterneEchange' title='{{ propositions[demande.CleDemande]|first.Echanges }}'>{% if propositions[demande.CleDemande]|first.Echanges != null %}{{ propositions[demande.CleDemande]|first.Echanges }}{% else %}&nbsp;{% endif %}</td>
-                        <td rowspan='{{ propositions[demande.CleDemande]|length }}'><a href='{{ path('nox_intranet_gestion_proposition', {'cleDemande': demande.CleDemande}) }}'>></a></td>
-                    {% else %}
+                        <td rowspan='{{ propositions[demande.CleDemande]|length }}'><a href='{{ path('nox_intranet_demande_prestation_summary', {'cleDemande': demande.CleDemande}) }}'><img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' class='prestationsInternesReportingGoToDetailsImg'></a></td>
+                            {% else %}
                         <td style='background-color: lightgrey;'>&nbsp;</td>
                         <td style='background-color: lightgrey;'>&nbsp;</td>
                         <td style='background-color: lightgrey;'>&nbsp;</td>

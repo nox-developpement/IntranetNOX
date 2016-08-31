@@ -22,6 +22,17 @@ Le directeur d'agence <span style='text-decoration: underline;'>{{ DA2.Firstname
 
 <table>
     <tr>
+        <td class='trLabel' colspan='2'>Demande de prestation interne</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Libellé</td>
+        <td>{{ demande.Libelle }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Demandeur</td>
+        <td>{{ demandeur.Firstname }} {{ demandeur.Lastname }}</td>
+    </tr>
+    <tr>
         <td class='trLabel'>Lieu de l'opération</td>
         <td>{{ demande.LieuOperation }}</td>
     </tr>
