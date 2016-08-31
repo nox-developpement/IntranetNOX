@@ -5,6 +5,64 @@
 {% block messageAccueil %}Résumé de la demande "{{ demande.Libelle }}"{% endblock %}
 
 {% block contenu %} 
+
+    <div style='clear: both; width: 70%; margin: auto; text-align: center;'>
+        <!-- Si l'utilisateur est le DA1 de la demande. -->
+        {% if app.security.getToken().getUser().getUsername() == demande.DA1 %}
+            <div class='demandeSummaryTips'>
+                <p>
+                    Vous êtes le DA1 associé à cette demande.
+                </p>
+            </div>
+            {% if demande.Status == "Chargé d'affaire"%}
+                <!-- Si le status de la demande est "Chargé d'affaire". -->
+                <div class='demandeSummaryTips demandeSummaryTipsUrgent'>
+                    <p>
+                        Votre reponse est en attente pour cette demande, veuillez <a href='{{ path('nox_intranet_validation_da1', {'cleDemande': demande.cleDemande}) }}'>cliquez ici</a> pour la traiter.
+                    </p>
+                </div>   
+            {% endif %}
+            <!-- Pour chaque propositions -->
+            {% for proposition in propositions %}
+                <!-- Si le status de la proposition est 'Demande acceptée'. -->
+                {% if proposition.Status == 'Demande acceptée' %}
+                    <div class='demandeSummaryTips demandeSummaryTipsUrgent'>
+                        <p>
+                            Votre reponse est en attente pour la proposition de {{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}, veuillez <a href='{{ path('nox_intranet_gestion_proposition', {'cleDemande': proposition.cleDemande}) }}'>cliquez ici</a> pour traiter le proposition.
+                        </p>
+                    </div>
+                {% endif %}
+            {% endfor %}     
+        {% endif %}
+        <!-- Si l'utilisateur un des DA2 de la demande. -->
+        {% if DA2[app.security.getToken().getUser().getUsername()] is defined %}
+            <div class='demandeSummaryTips'>
+                <p>
+                    Vous êtes l'un des DA2 associé à cette demande.
+                </p>
+            </div>
+            <!-- Pour chaque propositions -->
+            {% for proposition in propositions %}
+                <!-- Si l'utilisateur est le DA2 de la proposition et que le status de la proposition est 'Attente validation DA2'. -->
+                {% if proposition.DA2 == app.security.getToken().getUser().getUsername() and proposition.Status == 'Attente validation DA2' %}
+                    <div class='demandeSummaryTips demandeSummaryTipsUrgent'>
+                        <p>
+                            Votre reponse est en attente pour cette demande, veuillez <a href='{{ path('nox_intranet_reponse_da2', {'cleDemande': proposition.cleDemande, 'reponse': 'valider'}) }}' style='color: green;'>cliquez ici</a> si vous <span style='color: green;'>pouvez</span> répondre à la demande ou <a href='{{ path('nox_intranet_reponse_da2', {'cleDemande': proposition.cleDemande, 'reponse': 'refuser'}) }}' style='color: red;'>cliquez ici</a> si vous <span style='color: red;'>ne pouvez pas</span> répondre à la demande.
+                        </p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <!-- Si l'utilisateur est le demandeur de la demande. -->
+        {% if app.security.getToken().getUser().getUsername() == demande.Demandeur %}
+            <div class='demandeSummaryTips'>
+                <p>
+                    Vous êtes le créateur de cette demande.
+                </p>
+            </div>
+        {% endif %}
+    </div>
+
     <table id='validationD1Sum'>
         <tr>
             <th class='trLabel' colspan='2' style='padding-top: 5%; padding-bottom: 5%;'>Demande de prestation interne</th>
@@ -68,7 +126,7 @@
         </tr>
         {% for proposition in propositions %}
             <tr>
-                <td>{{ proposition.DA2 }}</td>
+                <td>{{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}</td>
                 <td style='background: {{ status[proposition.Status].color }}; color: white;'>{{ status[proposition.Status].message }}</td>
                 <td class='demandeSummmaryPropositionsToggleEchanges' {% if proposition.Echanges == null %}style='background: lightgrey;'{% endif %}>
                     <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' echange='close' {% if proposition.Echanges == null %}style='cursor: default;'{% endif %}>
@@ -80,26 +138,6 @@
             </tr>
         {% endfor %}
     </table>
-
-    <div style='clear: both; width: 70%; margin: auto; text-align: center;'>
-        {% if app.security.getToken().getUser().getUsername() == demande.DA1 or DA2[app.security.getToken().getUser().getUsername()] is defined or app.security.getToken().getUser().getUsername() == demande.Demandeur %}
-            {% if app.security.getToken().getUser().getUsername() == demande.DA1 %}
-                <div class='demandeSummaryTips'>
-                    Vous êtes le DA1 associé à cette demande.
-                </div><br />
-            {% endif %}
-            {% if DA2[app.security.getToken().getUser().getUsername()] is defined %}
-                <div class='demandeSummaryTips'>
-                    Vous êtes l'un des DA2 associé à cette demande.
-                </div><br />
-            {% endif %}
-            {% if app.security.getToken().getUser().getUsername() == demande.Demandeur %}
-                <div class='demandeSummaryTips'>
-                    Vous êtes le créateur de cette demande.
-                </div><br />
-            {% endif %}
-        {% endif %}
-    </div>
 
     <script>
 

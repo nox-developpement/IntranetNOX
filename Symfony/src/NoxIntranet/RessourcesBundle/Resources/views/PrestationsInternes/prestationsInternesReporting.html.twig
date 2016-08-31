@@ -87,8 +87,8 @@
                         <td style='background-color: lightgrey;'>&nbsp;</td>
                         <td style='background-color: lightgrey;'>&nbsp;</td>
                         <td style='background-color: lightgrey;'>&nbsp;</td>
-                        <td style='background-color: lightgrey;'>&nbsp;</td>
-                    {% endif %}
+                        <td><a href='{{ path('nox_intranet_demande_prestation_summary', {'cleDemande': demande.CleDemande}) }}'><img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' class='prestationsInternesReportingGoToDetailsImg'></a></td>
+                            {% endif %}
                 </tr>
 
                 {% if propositions[demande.CleDemande] is defined and propositions[demande.CleDemande]|length > 1 %}       

@@ -49,11 +49,12 @@ class PrestationsInternesController extends Controller {
 
         // Si le formulaire est valide.
         if ($formNewSearch->isValid()) {
+            // Si le libelle saisi est déjà utilisé.
             if (!empty($em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findByLibelle($formNewSearch->getData()->getLibelle()))) {
                 $request->getSession()->getFlashBag()->add('noticeErreur', 'Le libelle indiqué est déjà utilisé pour une autre demande de prestation.');
             }
             // Si les dates renseignées sont inférieur à la date du jour.
-            if ($formNewSearch->getData()->getDateDemarrage()->getTimestamp() < mktime('0', '0', '0', date('m'), date('d'), date('Y')) || $formNewSearch->getData()->getDateRendu()->getTimestamp() < mktime('0', '0', '0', date('m'), date('d'), date('Y'))) {
+            elseif ($formNewSearch->getData()->getDateDemarrage()->getTimestamp() < mktime('0', '0', '0', date('m'), date('d'), date('Y')) || $formNewSearch->getData()->getDateRendu()->getTimestamp() < mktime('0', '0', '0', date('m'), date('d'), date('Y'))) {
                 $request->getSession()->getFlashBag()->add('noticeErreur', 'Veuillez indiquer une date supérieure ou égale à la date courante.');
             }
             // Si la valeur de volume de sous traitance n'est pas un float.
@@ -254,7 +255,7 @@ class PrestationsInternesController extends Controller {
         // On récupére les entitées de la demande et du DA1.
         $em = $this->getDoctrine()->getManager();
         $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->find($IDDemande);
-        $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy($demande->getDemandeur());
+        $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDemandeur());
         $DA1 = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDA1());
 
         // On génére l'adresse email du DA2.
@@ -316,7 +317,7 @@ class PrestationsInternesController extends Controller {
         }
 
         // On récupére l'entité du demandeur.
-        $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDemandeur());
+        $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($recherchePrestation->getDemandeur());
 
         // Si la demande est accepté par le DA2.
         if ($reponse === 'valider') {
@@ -615,14 +616,22 @@ class PrestationsInternesController extends Controller {
         foreach ($em->getRepository('NoxIntranetUserBundle:User')->findAll() as $user) {
             $users[$user->getUsername()] = $user;
         }
-        
+
+        // On génére un tableau contenant l'username des DA2 associés à la demande.
         $DA2 = array();
         foreach ($propositions as $proposition) {
             $DA2[$proposition->getDA2()] = $proposition->getDA2();
         }
 
+        $redirection = array(
+            "Chargé d'affaire" => array('route' => 'nox_intranet_validation_da1', 'message' => 'Vous devez répondre à cette demande, merci de cliquer ici.'),
+            'Attente validation DA2' => array('route' => 'nox_intranet_reponse_da2'),
+            'Réponses DA2' => array('nox_intranet_gestion_proposition', 'Vous avez des propositions en attente de traitement.'),
+        );
+
+
         return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:demandeSummary.html.twig', array('demande' => $demande, 'demandeur' => $demandeur,
-                    'status' => $status, 'propositions' => $propositions, 'users' => $users, 'DA2' => $DA2
+                    'status' => $status, 'propositions' => $propositions, 'users' => $users, 'DA2' => $DA2, 'redirection' => $redirection
         ));
     }
 
