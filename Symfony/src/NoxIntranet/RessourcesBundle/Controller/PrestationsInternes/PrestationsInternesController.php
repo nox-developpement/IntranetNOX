@@ -527,7 +527,7 @@ class PrestationsInternesController extends Controller {
 
         // On récupére les entités des demandes.
         $em = $this->getDoctrine()->getManager();
-        // Si on ne recherche pas de demande spécifique.
+        // Si on cherche une demande spécifique.
         if ($search !== '') {
             $demandes = $em->createQueryBuilder()
                     ->select('u')
@@ -538,7 +538,7 @@ class PrestationsInternesController extends Controller {
                     ->getQuery()
                     ->getResult();
         }
-        // Si on cherche une demande spécifique.
+        // Si on ne recherche pas de demande spécifique.
         else {
             $demandes = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findBy(array(), array('dateCreation' => $orderTime));
         }
@@ -632,6 +632,104 @@ class PrestationsInternesController extends Controller {
 
         return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:demandeSummary.html.twig', array('demande' => $demande, 'demandeur' => $demandeur,
                     'status' => $status, 'propositions' => $propositions, 'users' => $users, 'DA2' => $DA2, 'redirection' => $redirection
+        ));
+    }
+
+    public function prestationsInternesPersoReportingAction(Request $request, $page, $trieStatus, $orderTime) {
+        // On récupéra la valeur de 'search'.
+        $search = $request->get('search');
+
+        // Génération du formulaire de recherche de demande par libellé.
+        $formSearch = $this->createFormBuilder()
+                ->add('searchText', SearchType::class, array(
+                    'data' => $search,
+                    'required' => false
+                ))
+                ->add('searchButton', SubmitType::class)
+                ->add('resetButton', SubmitType::class)
+                ->getForm();
+        $formSearch->handleRequest($request);
+
+        // Traitement du formlaire de recherche.
+        if ($formSearch->isValid()) {
+            if ($formSearch->get('searchButton')->isClicked()) {
+                return $this->redirectToRoute('nox_intranet_demande_prestation_perso_reporting', array('page' => $page, 'orderTime' => $orderTime, 'search' => $formSearch->get('searchText')->getData()));
+            } elseif ($formSearch->get('resetButton')->isClicked()) {
+                return $this->redirectToRoute('nox_intranet_demande_prestation_perso_reporting', array('orderTime' => $orderTime));
+            }
+        }
+
+        // On récupére les entités des demandes.
+        $em = $this->getDoctrine()->getManager();
+        // Si on cherche une demande spécifique.
+        if ($search !== '') {
+            $demandes = $em->createQueryBuilder()
+                    ->select('u')
+                    ->from('NoxIntranetRessourcesBundle:RecherchePrestation', 'u')
+                    ->join('NoxIntranetRessourcesBundle:PropositionPrestation', 'a')
+                    ->where('(u.demandeur LIKE :username OR u.DA1 LIKE :username) OR (u.cleDemande = a.cleDemande)')
+                    ->andWhere('a.dA2 = :username')
+                    ->andWhere('u.libelle LIKE :search')
+                    ->orderBy('u.dateCreation', $orderTime)
+                    ->setParameters(array('username' => $this->get('security.context')->getToken()->getUser()->getUsername(), 'search' => '%' . $search . '%'))
+                    ->getQuery()
+                    ->getResult();
+        }
+        // Si on ne recherche pas de demande spécifique.
+        else {
+            $demandes = $em->createQueryBuilder()
+                    ->select('u')
+                    ->from('NoxIntranetRessourcesBundle:RecherchePrestation', 'u')
+                    ->join('NoxIntranetRessourcesBundle:PropositionPrestation', 'a')
+                    ->where('(u.demandeur LIKE :username OR u.DA1 LIKE :username) OR (u.cleDemande = a.cleDemande)')
+                    ->andWhere('a.dA2 = :username')
+                    ->orderBy('u.dateCreation', $orderTime)
+                    ->setParameters(array('username' => $this->get('security.context')->getToken()->getUser()->getUsername()))
+                    ->getQuery()
+                    ->getResult();
+        }
+
+        // On génére un tableau associant les entités des utilisateurs avec leurs usernames.
+        $users = array();
+        foreach ($em->getRepository('NoxIntranetUserBundle:User')->findAll() as $user) {
+            $users[$user->getUsername()] = $user;
+        }
+
+        // On génére un tableau contenant les status explicité et leur couleur associée.
+        $status = array(
+            "Chargé d'affaire" => array('message' => "Demande effectuée par le chargé d'affaire, en attente de réponse du DA1", 'color' => 'orange', 'status' => 'process'),
+            'Validation DA1' => array('message' => 'Demande validée par le DA1, en attente de réponse des DA2', 'color' => 'orange', 'status' => 'process'),
+            'Refus DA1' => array('message' => 'Demande refusée par le DA1', 'color' => 'red', 'status' => 'fail'),
+            'Attente validation DA2' => array('message' => 'En attente de la réponse du DA2', 'color' => 'orange', 'status' => 'process'),
+            'Réponses DA2' => array('message' => 'Tous les DA2 ont répondus, en attente de réponses du DA1 aux propositions', 'color' => 'orange', 'status' => 'process'),
+            'Demande acceptée' => array('message' => 'Le DA2 a accepté la demande', 'color' => 'orange', 'status' => 'process'),
+            'Demande refusée' => array('message' => 'Le DA2 a refusée la demande', 'color' => 'red', 'status' => 'fail'),
+            'Réponses DA2 refus' => array('message' => 'Tous les DA2 ont refusé de répondre à la demande', 'color' => 'red', 'status' => 'fail'),
+            'Validé par le DA1' => array('message' => 'Proposition validée par le DA1', 'color' => 'LimeGreen', 'status' => 'success'),
+            'Refusé par le DA1' => array('message' => 'Proposition refusée par le DA1', 'color' => 'red', 'status' => 'fail'),
+            'Propositions acceptée DA1' => array('message' => 'Une ou plusieurs proposition(s) a/ont été acceptée(s) par le DA1', 'color' => 'LimeGreen', 'status' => 'success'),
+            'Propositions refusée DA1' => array('message' => "Aucune proposition n'a été retenue par le DA1", 'color' => 'red', 'status' => 'fail')
+        );
+
+        // On récupère les propositions et on les place dans un tableau avec pour clé leur valeur de cleDemande.
+        $propositions = array();
+        foreach ($em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findAll() as $proposition) {
+            $propositions[$proposition->getCleDemande()][$proposition->getDA2()] = $proposition;
+        }
+
+        if ($trieStatus !== 'tous') {
+            foreach ($demandes as $key => $demande) {
+                if ($status[$demande->getStatus()]['status'] !== $trieStatus) {
+                    unset($demandes[$key]);
+                }
+            }
+        }
+
+        $demandes10 = array_chunk($demandes, 10); // On découpe le tableau des demandes en sous-tableau pour mettre en plage une pagination.
+
+        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:prestationsInternesPersoReporting.html.twig', array(
+                    'demandes' => $demandes10, 'users' => $users, 'status' => $status, 'propositions' => $propositions, 'page' => $page, 'trieStatus' => $trieStatus,
+                    'orderTime' => $orderTime, 'search' => $search, 'formSearch' => $formSearch->createView()
         ));
     }
 

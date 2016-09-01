@@ -1,8 +1,8 @@
 {% extends "::layout.html.twig" %}
 
-{% block titrePage %} Status des demandes {% endblock %}
+{% block titrePage %} Status de mes demandes/propositions {% endblock %}
 
-{% block messageAccueil %}Status des demandes{% endblock %}
+{% block messageAccueil %}Status de mes demandes/propositions{% endblock %}
 
 {% block contenu %}
 
@@ -25,34 +25,35 @@
         </div>
 
         <div class='prestationReportingPagination' style='width: calc(100% / 3);'>
-            {% if demandes|keys|first != page %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': demandes|keys|first}) }}' title='Page {{ demandes|keys|first+1 }}'><<</a>{% endif %}
-            {% if demandes[page-1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': page-1}) }}' title='Page {{ page }}'><</a>{% endif %}
+            {% if demandes|keys|first != page %}<a href='{{ path('nox_intranet_demande_prestation_perso_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': demandes|keys|first}) }}' title='Page {{ demandes|keys|first+1 }}'><<</a>{% endif %}
+            {% if demandes[page-1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_perso_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': page-1}) }}' title='Page {{ page }}'><</a>{% endif %}
             Page: <select onchange='location = this.value;'>
                 {% for i in 1..demandes|length %}
                     {% if i >= 1 %}
-                        <option value='{{ path('nox_intranet_demande_prestation_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': i-1}) }}' {% if i-1 == page %}selected{% endif %}>{{ i }}</option>
+                        <option value='{{ path('nox_intranet_demande_prestation_perso_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': i-1}) }}' {% if i-1 == page %}selected{% endif %}>{{ i }}</option>
                     {% endif %}
                 {% endfor %}
             </select>
-            {% if demandes[page+1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': page+1}) }}' title='Page {{ page+2 }}'>></a>{% endif %}
-            {% if demandes|keys|last != page %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': demandes|keys|last}) }}' title='Page {{ demandes|keys|last+1 }}'>>></a>{% endif %}
+            {% if demandes[page+1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_perso_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': page+1}) }}' title='Page {{ page+2 }}'>></a>{% endif %}
+            {% if demandes|keys|last != page %}<a href='{{ path('nox_intranet_demande_prestation_perso_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': demandes|keys|last}) }}' title='Page {{ demandes|keys|last+1 }}'>>></a>{% endif %}
         </div>
 
         <div style='display: inline-block; text-align: right; width: calc(100% / 3);'>
             <div id='prestationReportOrderTime'>
                 Ordre d'affichage: <select onchange='location = this.value;'>
-                    <option value='{{ path('nox_intranet_demande_prestation_reporting', {'search': search, 'orderTime': 'desc', 'trieStatus': trieStatus}) }}' {% if orderTime == 'desc' %}selected{% endif %}>Du + récent au - récent</option>
-                    <option value='{{ path('nox_intranet_demande_prestation_reporting', {'search': search, 'orderTime': 'asc', 'trieStatus': trieStatus}) }}' {% if orderTime == 'asc' %}selected{% endif %}>Du + vieux au - vieux</option>
+                    <option value='{{ path('nox_intranet_demande_prestation_perso_reporting', {'search': search, 'orderTime': 'desc', 'trieStatus': trieStatus}) }}' {% if orderTime == 'desc' %}selected{% endif %}>Du + récent au - récent</option>
+                    <option value='{{ path('nox_intranet_demande_prestation_perso_reporting', {'search': search, 'orderTime': 'asc', 'trieStatus': trieStatus}) }}' {% if orderTime == 'asc' %}selected{% endif %}>Du + vieux au - vieux</option>
                 </select>
             </div><br />
             <div id='prestationReportTrieStatus'>
-                <a href='{{ path('nox_intranet_demande_prestation_reporting', {'orderTime': orderTime}) }}' style='{% if trieStatus == 'tous' %}text-decoration: underline;{% endif %}'>Tous</a>
-                <a href='{{ path('nox_intranet_demande_prestation_reporting', {'trieStatus': 'process', 'orderTime': orderTime}) }}' style='color: orange; {% if trieStatus == 'process' %}text-decoration: underline;{% endif %}'>En cours</a>
-                <a href='{{ path('nox_intranet_demande_prestation_reporting', {'trieStatus': 'success', 'orderTime': orderTime}) }}' style='color: limegreen; {% if trieStatus == 'success' %}text-decoration: underline;{% endif %}'>Terminé avec succés</a>
-                <a href='{{ path('nox_intranet_demande_prestation_reporting', {'trieStatus': 'fail', 'orderTime': orderTime}) }}' style='color: red; {% if trieStatus == 'fail' %}text-decoration: underline;{% endif %}'>Terminé sans succés</a>
+                <a href='{{ path('nox_intranet_demande_prestation_perso_reporting', {'orderTime': orderTime}) }}' style='{% if trieStatus == 'tous' %}text-decoration: underline;{% endif %}'>Tous</a>
+                <a href='{{ path('nox_intranet_demande_prestation_perso_reporting', {'trieStatus': 'process', 'orderTime': orderTime}) }}' style='color: orange; {% if trieStatus == 'process' %}text-decoration: underline;{% endif %}'>En cours</a>
+                <a href='{{ path('nox_intranet_demande_prestation_perso_reporting', {'trieStatus': 'success', 'orderTime': orderTime}) }}' style='color: limegreen; {% if trieStatus == 'success' %}text-decoration: underline;{% endif %}'>Terminé avec succés</a>
+                <a href='{{ path('nox_intranet_demande_prestation_perso_reporting', {'trieStatus': 'fail', 'orderTime': orderTime}) }}' style='color: red; {% if trieStatus == 'fail' %}text-decoration: underline;{% endif %}'>Terminé sans succés</a>
             </div>
         </div>
     </div>
+
 
     <table id='tablePrestationsInternesReporting'>
 
@@ -122,19 +123,22 @@
         {% endif %}
 
     </table>
+
+
+
     <div class='prestationReportingNavigation'>
         <div class='prestationReportingPagination'>
-            {% if demandes|keys|first != page %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': demandes|keys|first}) }}' title='Page {{ demandes|keys|first+1 }}'><<</a>{% endif %}
-            {% if demandes[page-1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': page-1}) }}' title='Page {{ page }}'><</a>{% endif %}
+            {% if demandes|keys|first != page %}<a href='{{ path('nox_intranet_demande_prestation_perso_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': demandes|keys|first}) }}' title='Page {{ demandes|keys|first+1 }}'><<</a>{% endif %}
+            {% if demandes[page-1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_perso_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': page-1}) }}' title='Page {{ page }}'><</a>{% endif %}
             Page: <select onchange='location = this.value;'>
                 {% for i in 1..demandes|length %}
                     {% if i >= 1 %}
-                        <option value='{{ path('nox_intranet_demande_prestation_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': i-1}) }}' {% if i-1 == page %}selected{% endif %}>{{ i }}</option>
+                        <option value='{{ path('nox_intranet_demande_prestation_perso_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': i-1}) }}' {% if i-1 == page %}selected{% endif %}>{{ i }}</option>
                     {% endif %}
                 {% endfor %}
             </select>
-            {% if demandes[page+1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': page+1}) }}' title='Page {{ page+2 }}'>></a>{% endif %}
-            {% if demandes|keys|last != page %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': demandes|keys|last}) }}' title='Page {{ demandes|keys|last+1 }}'>>></a>{% endif %}
+            {% if demandes[page+1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_perso_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': page+1}) }}' title='Page {{ page+2 }}'>></a>{% endif %}
+            {% if demandes|keys|last != page %}<a href='{{ path('nox_intranet_demande_prestation_perso_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': demandes|keys|last}) }}' title='Page {{ demandes|keys|last+1 }}'>>></a>{% endif %}
         </div>
     </div>
 
