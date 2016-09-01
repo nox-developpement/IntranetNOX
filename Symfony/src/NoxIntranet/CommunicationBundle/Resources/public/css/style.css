@@ -3786,3 +3786,23 @@ form[name='formValidationRefus'] textarea {
     -webkit-transform: translateY(-50%) translateX(-150%);
     cursor: pointer;
 }
+
+.DivNavigationRetour {
+    text-align: left;
+    width: 70%;
+    margin: auto;
+    margin-bottom: 2%;
+}
+
+.DivNavigationRetour a {
+    font-size: 0.8vw;
+    color: #1F4E79;
+    text-decoration: none;
+    margin: auto;
+    display: flex;
+}
+
+.DivNavigationRetour a img {
+    height: 1em;
+    margin: auto 1% auto 0;
+}

@@ -118,7 +118,7 @@
 
     <table id='demandeSummaryPropositions'>
         <tr>
-            <th colspan='3'>
+            <th colspan='4'>
                 Propositions de prestations interne
             </th>
         </tr>
@@ -126,6 +126,7 @@
             <td class='trLabel'>DA2</td>
             <td class='trLabel'>Status</td>
             <td class='trLabel'>Echanges</td>
+            <td class='trLabel'>Traiter</td>
         </tr>
         {% if propositions != null %}
             {% for proposition in propositions %}
@@ -136,6 +137,11 @@
                         <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' echange='close' {% if proposition.Echanges == null %}style='cursor: default;'{% endif %}>
                         <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Down-01-48.png') }}' style='display: none;' echange='open'>
                     </td>
+                    {% if app.security.getToken().getUser().getUsername() == demande.DA1 and loop.first %}
+                        <td rowspan='{{ propositions|length*2 }}'>
+                            <a href='{{ path('nox_intranet_gestion_proposition', {'cleDemande': proposition.cleDemande}) }}'><img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' style='vertical-align: middle; width: 30%; cursor: pointer;'></a>
+                        </td>
+                    {% endif %}
                 </tr>
                 <tr>
                     <td colspan='3' style='display: none; padding: 0;'><div style='height: 10em; overflow: auto; padding: 0.5em; {% if proposition.Echanges == null %}background-color: lightgrey;{% else %}background-color: white;{% endif %}'>{{ proposition.Echanges }}</div></td>
