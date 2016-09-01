@@ -96,8 +96,8 @@ class PrestationsInternesController extends Controller {
                 // On envoi la demande au DA.
                 $this->sendMailToDA1($newSearch->getId());
 
-                // On redirige vers la création de demande.
-                return $this->redirectToRoute('nox_intranet_demande_prestation_reporting');
+                // On redirige vers le résumé de la demande.
+                return $this->redirectToRoute('nox_intranet_demande_prestation_summary', array('cleDemande', $newSearch->getCleDemande()));
             }
         }
 
@@ -231,7 +231,8 @@ class PrestationsInternesController extends Controller {
                 $em->flush(); // On sauvegarde les propositions en base de données.
 
                 $request->getSession()->getFlashBag()->add('notice', "La demande a été transmise au(x) directeur(s) d'agence(s) séléctionné(s)."); // On affiche un message de confirmation d'envoi de la demande.
-                return $this->redirectToRoute('nox_intranet_demande_prestation_reporting'); // On redirige vers l'accueil.
+                // On redirige vers le résumé de la demande.
+                return $this->redirectToRoute('nox_intranet_demande_prestation_summary', array('cleDemande' => $cleDemande));
             }
             // Si le DA1 ne valide pas la demande.
             else {
@@ -243,7 +244,8 @@ class PrestationsInternesController extends Controller {
                 $em->flush(); // On sauvegarde la demande en base de données.
 
                 $request->getSession()->getFlashBag()->add('notice', 'La demande a été refusée.'); // On affiche un message de confirmation de refus de la demande.
-                return $this->redirectToRoute('nox_intranet_demande_prestation_reporting'); // On redirige vers l'accueil.
+                // On redirige vers le résumé de la demande.
+                return $this->redirectToRoute('nox_intranet_demande_prestation_summary', array('cleDemande' => $cleDemande));
             }
         }
 
@@ -342,7 +344,8 @@ class PrestationsInternesController extends Controller {
             $this->get('mailer')->send($message);
 
             $request->getSession()->getFlashBag()->add('notice', "Vous avez accepté la demande."); // On affiche un message de confirmation de la déclinaison de la demande.
-            return $this->redirectToRoute('nox_intranet_demande_prestation_reporting'); // On redirige vers l'accueil.
+            // On redirige vers le résumé de la demande.
+            return $this->redirectToRoute('nox_intranet_demande_prestation_summary', array('cleDemande' => $cleDemande));
         }
 
         // Si la demande est refusé par le DA2.
@@ -369,7 +372,8 @@ class PrestationsInternesController extends Controller {
             $this->get('mailer')->send($message);
 
             $request->getSession()->getFlashBag()->add('notice', "Vous avez décliné la demande."); // On affiche un message de confirmation de la déclinaison de la demande.
-            return $this->redirectToRoute('nox_intranet_demande_prestation_reporting'); // On redirige vers l'accueil.
+            // On redirige vers le résumé de la demande.
+            return $this->redirectToRoute('nox_intranet_demande_prestation_summary', array('cleDemande' => $cleDemande));
         }
     }
 
@@ -588,10 +592,15 @@ class PrestationsInternesController extends Controller {
     }
 
     // Affiche un résumé contant les informations sur la demande est les propositions associées à la clé de demande passée en paramêtre.
-    public function demandePrestationSummaryAction($cleDemande) {
+    public function demandePrestationSummaryAction(Request $request, $cleDemande) {
         // On récupére les entitées de la demande, du demandeur et des propositions associées.
         $em = $this->getDoctrine()->getManager();
         $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
+        // Si la demande n'existe pas on affiche une message d'erreur et on redirige vers l'accueil.
+        if (empty($demande)) {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Cette demande n'existe pas.");
+            return $this->redirectToRoute('nox_intranet_accueil');
+        }
         $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDemandeur());
         $propositions = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findByCleDemande($cleDemande);
 
@@ -635,6 +644,7 @@ class PrestationsInternesController extends Controller {
         ));
     }
 
+    // Affiche un tableau affichant le status des demandes personelles.
     public function prestationsInternesPersoReportingAction(Request $request, $page, $trieStatus, $orderTime) {
         // On récupéra la valeur de 'search'.
         $search = $request->get('search');

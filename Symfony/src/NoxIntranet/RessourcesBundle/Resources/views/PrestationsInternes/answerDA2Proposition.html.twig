@@ -5,6 +5,8 @@
 {% block messageAccueil %}Gestion des propositions{% endblock %}
 
 {% block contenu %} 
+    <div style='width: 70%; margin: auto;'><img src='{{ asset('bundles/noxintranetressources/images/Left-Arrow-48.png') }}'><a href='{{ path('nox_intranet_demande_prestation_summary', {'cleDemande': cleDemande}) }}' title='Retourner au résumé de la demande.' style='color: #1F4E79; text-decoration: none;'>Retourner au résumé de la demande.</a></div>
+
 
     <div id='savingNotification'>Changement sauvegardé</div>
 

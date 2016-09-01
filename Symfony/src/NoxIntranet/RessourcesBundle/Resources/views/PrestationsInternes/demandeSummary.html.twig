@@ -5,7 +5,6 @@
 {% block messageAccueil %}Résumé de la demande "{{ demande.Libelle }}"{% endblock %}
 
 {% block contenu %} 
-
     <div style='clear: both; width: 70%; margin: auto; text-align: center;'>
         <!-- Si l'utilisateur est le DA1 de la demande. -->
         {% if app.security.getToken().getUser().getUsername() == demande.DA1 %}
@@ -76,6 +75,10 @@
             <td>{{ demandeur.Firstname() }} {{ demandeur.Lastname() }}</td>
         </tr>
         <tr>
+            <td class='trLabel'>Date de création de la demande</td>
+            <td>{{ demande.dateCreation|date('d/m/Y à H:i:s') }}</td>
+        </tr>
+        <tr>
             <td class='trLabel'>Lieu de l'opération</td>
             <td>{{ demande.LieuOperation }}</td>
         </tr>
@@ -124,19 +127,23 @@
             <td class='trLabel'>Status</td>
             <td class='trLabel'>Echanges</td>
         </tr>
-        {% for proposition in propositions %}
-            <tr>
-                <td>{{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}</td>
-                <td style='background: {{ status[proposition.Status].color }}; color: white;'>{{ status[proposition.Status].message }}</td>
-                <td class='demandeSummmaryPropositionsToggleEchanges' {% if proposition.Echanges == null %}style='background: lightgrey;'{% endif %}>
-                    <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' echange='close' {% if proposition.Echanges == null %}style='cursor: default;'{% endif %}>
-                    <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Down-01-48.png') }}' style='display: none;' echange='open'>
-                </td>
-            </tr>
-            <tr>
-                <td colspan='3' style='display: none; padding: 0;'><div style='height: 10em; overflow: auto; padding: 0.5em; {% if proposition.Echanges == null %}background-color: lightgrey;{% else %}background-color: white;{% endif %}'>{{ proposition.Echanges }}</div></td>
-            </tr>
-        {% endfor %}
+        {% if propositions != null %}
+            {% for proposition in propositions %}
+                <tr>
+                    <td>{{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}</td>
+                    <td style='background: {{ status[proposition.Status].color }}; color: white;'>{{ status[proposition.Status].message }}</td>
+                    <td class='demandeSummmaryPropositionsToggleEchanges' {% if proposition.Echanges == null %}style='background: lightgrey;'{% endif %}>
+                        <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' echange='close' {% if proposition.Echanges == null %}style='cursor: default;'{% endif %}>
+                        <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Down-01-48.png') }}' style='display: none;' echange='open'>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan='3' style='display: none; padding: 0;'><div style='height: 10em; overflow: auto; padding: 0.5em; {% if proposition.Echanges == null %}background-color: lightgrey;{% else %}background-color: white;{% endif %}'>{{ proposition.Echanges }}</div></td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan='3'>Il n'y a aucun résultat à afficher.</td></tr>
+        {% endif%}
     </table>
 
     <script>
