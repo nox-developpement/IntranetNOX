@@ -183,3 +183,7 @@ nox_intranet_administration_affaires_ajax_get_modele_by_profil_and_name:
 nox_intranet_administration_message_alerte:
     path: /administration/message-alerte
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationMessageAlert:editMessageAlert }
+    
+nox_intranet_administration_upload_fichier_hierarchie_rh:
+    path: /administration/upload-file-rh
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:uploadFichierHierarchieRH }
