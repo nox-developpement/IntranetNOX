@@ -7,7 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
 {
     public static $files = array (
-        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'ce89ac35a6c330c55f4710717db9ff78' => __DIR__ . '/..' . '/kriswallsmith/assetic/src/functions.php',
         'e40631d46120a9c38ea139981f8dab26' => __DIR__ . '/..' . '/ircmaxell/password-compat/lib/password.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
@@ -201,7 +200,8 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         ),
         'Monolog\\' => 
         array (
-            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+            0 => __DIR__ . '/..' . '/swiftmailer/swiftmailer/src/Monolog',
+            1 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'Ivory\\JsonBuilder\\' => 
         array (
@@ -312,10 +312,6 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
             'PhpOption\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
-            ),
-            'PhpCollection' => 
-            array (
-                0 => __DIR__ . '/..' . '/phpcollection/phpcollection/src',
             ),
         ),
         'N' => 
@@ -2285,16 +2281,6 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'NumberFormatter' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/NumberFormatter.php',
         'PDF417' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/barcodes/pdf417.php',
         'ParseError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ParseError.php',
-        'PhpCollection\\AbstractCollection' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/AbstractCollection.php',
-        'PhpCollection\\AbstractMap' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/AbstractMap.php',
-        'PhpCollection\\AbstractSequence' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/AbstractSequence.php',
-        'PhpCollection\\CollectionInterface' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/CollectionInterface.php',
-        'PhpCollection\\Map' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/Map.php',
-        'PhpCollection\\MapInterface' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/MapInterface.php',
-        'PhpCollection\\Sequence' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/Sequence.php',
-        'PhpCollection\\SequenceInterface' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/SequenceInterface.php',
-        'PhpCollection\\SortableInterface' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/SortableInterface.php',
-        'PhpCollection\\SortedSequence' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/SortedSequence.php',
         'PhpOption\\LazyOption' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/LazyOption.php',
         'PhpOption\\None' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/None.php',
         'PhpOption\\Option' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/Option.php',

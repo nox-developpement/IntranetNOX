@@ -17,6 +17,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PrestationsInternesController extends Controller {
 
+    public function prestationsInternesAccueilAction() {
+        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:prestationsInternesMenu.html.twig');
+    }
+
     // Formulaire de recherche de préstation interne.
     public function newPrestationSearchAction(Request $request) {
 

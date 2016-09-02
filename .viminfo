@@ -12,6 +12,7 @@
 :wq
 :wq
 :wq
+:wq
 :i
 :wq
 
@@ -28,14 +29,16 @@
 	i
 
 # File marks:
-'0  9  49  ~/.git/MERGE_MSG
-'1  9  45  ~/.git/MERGE_MSG
-'2  10  10  ~/.git/MERGE_MSG
-'3  11  11  ~/.git/MERGE_MSG
-'4  10  52  ~/.git/MERGE_MSG
-'5  1  0  ~/.bashrc
+'0  1  0  ~/.git/MERGE_MSG
+'1  9  49  ~/.git/MERGE_MSG
+'2  9  45  ~/.git/MERGE_MSG
+'3  10  10  ~/.git/MERGE_MSG
+'4  11  11  ~/.git/MERGE_MSG
+'5  10  52  ~/.git/MERGE_MSG
+'6  1  0  ~/.bashrc
 
 # Jumplist (newest first):
+-'  1  0  ~/.git/MERGE_MSG
 -'  9  49  ~/.git/MERGE_MSG
 -'  1  0  ~/.git/MERGE_MSG
 -'  9  45  ~/.git/MERGE_MSG
@@ -130,11 +133,14 @@
 -'  1  0  ~/.git/MERGE_MSG
 -'  1  0  ~/.bashrc
 -'  1  0  ~/.bashrc
+-'  9  49  ~/.git/MERGE_MSG
+-'  1  0  ~/.git/MERGE_MSG
+-'  9  45  ~/.git/MERGE_MSG
 
 # History of marks within files (newest to oldest):
 
 > ~/.git/MERGE_MSG
-	"	9	49
+	"	1	0
 	^	9	50
 	.	9	49
 	+	2	0
