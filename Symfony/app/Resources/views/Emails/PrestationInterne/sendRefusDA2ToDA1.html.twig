@@ -1,0 +1,68 @@
+Bonjour,<br />
+<br />
+Le directeur d'agence <span style='text-decoration: underline;'>{{ DA2.Firstname }} {{ DA2.Lastname }}</span> a indiquer qu'il ne peux pas répondre à la demande suivante :<br />
+<br />
+
+<style>
+    table, tr, td {
+        border: solid 1px black;
+        border-collapse: collapse;        
+    }
+
+    td {
+        padding: 1%;
+
+    }
+
+    .trLabel {
+        font-weight: bold;
+        background-color: lightgrey;
+    }
+</style>
+
+<table>
+    <tr>
+        <td class='trLabel' colspan='2'>Demande de prestation interne</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Libellé</td>
+        <td>{{ demande.Libelle }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Demandeur</td>
+        <td>{{ demandeur.Firstname }} {{ demandeur.Lastname }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Lieu de l'opération</td>
+        <td>{{ demande.LieuOperation }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Lieu de la prestation</td>
+        <td>{{ demande.LieuPrestation }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Descriptif de la prestation</td>
+        <td>{{ demande.Descriptif }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Déplacements à prévoir</td>
+        <td>{{ demande.Deplacement }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Date de démarrage de la prestation</td>
+        <td>{{ demande.DateDemarrage|date('d/m/Y') }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Date de rendu</td>
+        <td>{{ demande.DateRendu|date('d/m/Y') }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Livrables attendus</td>
+        <td>{{ demande.Livrables }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Volume de sous traitance envisagé (€)</td>
+        <td>{{ demande.VolumeSousTraitance }}</td>
+    </tr>
+</table>
+<br />

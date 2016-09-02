@@ -123,9 +123,11 @@ class AccesInterditListener {
 
         // On modifie le code en fonction du type d'exception.
         if (get_class($event->getException()) === 'Symfony\Component\Security\Core\Exception\InsufficientAuthenticationException') {
-            $event->setResponse($this->accesInterditHTML->displayConnexionRequise($rowResponse, $this->container->get('request')->getSchemeAndHttpHost()));
+            $response = $this->accesInterditHTML->displayConnexionRequise($rowResponse, $this->container->get('request')->getSchemeAndHttpHost());
+            $event->setResponse($response);
         } elseif (get_class($event->getException()) === 'Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException') {
-            $event->setResponse($this->accesInterditHTML->displayAccesInterdit($rowResponse, $this->container->get('request')->getSchemeAndHttpHost()));
+            $response = $this->accesInterditHTML->displayAccesInterdit($rowResponse, $this->container->get('request')->getSchemeAndHttpHost());
+            $event->setResponse($response);
         }
     }
 

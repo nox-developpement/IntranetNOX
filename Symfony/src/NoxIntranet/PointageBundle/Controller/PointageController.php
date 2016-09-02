@@ -188,6 +188,7 @@ class PointageController extends Controller {
             $assistantes[$user->getDA()] = $user->getDA();
             $assistantes[$user->getRH()] = $user->getRH();
         }
+        var_dump($assistantes);
         return $assistantes;
     }
 

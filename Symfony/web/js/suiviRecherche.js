@@ -1,7 +1,5 @@
 $(window).ready(function () {
 
-    Recherche('.selectFormulaireAdministrationAjoutProfil');
-
     Recherche('.selectFormulaireSelectionVersion');
 
 });

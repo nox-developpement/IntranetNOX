@@ -1,0 +1,73 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Nouvelle demande de prestation interne {% endblock %}
+
+{% block messageAccueil %}Nouvelle demande de prestation interne{% endblock %}
+
+{% block contenu %} 
+
+    <div style='width: 70%; margin: auto;'>
+
+        {{ form_start(formNewSearch, {'attr': {'style': 'text-align: center; background-color: rgba(255,255,255, 0.6);'}}) }}
+
+
+        <table>
+            <tr>
+                <th>{{ form_label(formNewSearch.Libelle, "Libellé") }}</th>
+                <td>{{ form_widget(formNewSearch.Libelle) }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ form_label(formNewSearch.LieuOperation, "Lieu de l'opération") }}</th>
+                <td>{{ form_widget(formNewSearch.LieuOperation) }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ form_label(formNewSearch.LieuPrestation, "Lieu de la prestation") }}</th>
+                <td>{{ form_widget(formNewSearch.LieuPrestation) }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ form_label(formNewSearch.Descriptif, "Descriptif de la prestation", {'attr': { 'style': 'vertical-align: top;'}}) }}</th>
+                <td>{{ form_widget(formNewSearch.Descriptif, {'attr': { 'style': 'vertical-align: top;'}}) }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ form_label(formNewSearch.Deplacement, "Déplacement à prévoir") }}</th>
+                <td>{{ form_widget(formNewSearch.Deplacement) }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ form_label(formNewSearch.DateDemarrage, "Date de démarrage de la prestation") }}</th>
+                <td>{{ form_widget(formNewSearch.DateDemarrage) }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ form_label(formNewSearch.DateRendu, "Date de rendu") }}</th>
+                <td>{{ form_widget(formNewSearch.DateRendu) }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ form_label(formNewSearch.Livrables, "Livrables attendus") }}</th>
+                <td>{{ form_widget(formNewSearch.Livrables) }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ form_label(formNewSearch.VolumeSousTraitance, "Volume de sous traitance envisagé (€)") }}</th>
+                <td>{{ form_widget(formNewSearch.VolumeSousTraitance) }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ form_label(formNewSearch.EmailDA, "Email du DA") }}</th>
+                <td>{{ form_widget(formNewSearch.EmailDA) }}</td>
+            </tr>
+
+        </table>
+
+        {{ form_widget(formNewSearch.Valider, {'attr': {'class': 'boutonFormulaire', 'style': 'margin-top: 1%; padding: 2%;' }}) }}
+
+        {{ form_end(formNewSearch) }}
+
+    </div>
+
+{% endblock %}

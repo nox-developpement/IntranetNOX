@@ -2663,6 +2663,37 @@
                 "Gaufrette": "src/"
             }
         },
+        "suggest": {
+            "amazonwebservices/aws-sdk-for-php": "to use the legacy Amazon S3 adapters",
+            "aws/aws-sdk-php": "to use the Amazon S3 adapter",
+            "doctrine/dbal": "to use the Doctrine DBAL adapter",
+            "dropbox-php/dropbox-php": "to use the Dropbox adapter",
+            "ext-apc": "to use the APC adapter",
+            "ext-curl": "*",
+            "ext-fileinfo": "This extension is used to automatically detect the content-type of a file in the AwsS3, OpenCloud, AzureBlogStorage and GoogleCloudStorage adapters",
+            "ext-mbstring": "*",
+            "ext-mongo": "*",
+            "ext-zip": "to use the Zip adapter",
+            "google/apiclient": "to use GoogleCloudStorage adapter",
+            "herzult/php-ssh": "to use SFtp adapter",
+            "knplabs/knp-gaufrette-bundle": "to use with Symfony2",
+            "microsoft/windowsazure": "to use Microsoft Azure Blob Storage adapter",
+            "phpseclib/phpseclib": "to use PhpseclibSftp adapter",
+            "rackspace/php-opencloud": "to use Opencloud adapter"
+        },
+        "time": "2016-03-03 09:36:22",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.4.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Gaufrette": "src/"
+            }
+        },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
@@ -4566,7 +4597,11 @@
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.3"
+            "php": ">=5.3.0",
+            "psr/log": "~1.0"
+        },
+        "provide": {
+            "psr/log-implementation": "1.0.0"
         },
         "require-dev": {
             "mockery/mockery": "~0.9.1"
@@ -4575,14 +4610,14 @@
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "5.4-dev"
+                "dev-master": "2.0.x-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
-            "files": [
-                "lib/swift_required.php"
-            ]
+            "psr-4": {
+                "Monolog\\": "src/Monolog"
+            }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -4590,19 +4625,17 @@
         ],
         "authors": [
             {
-                "name": "Chris Corbyn"
-            },
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
+                "name": "Jordi Boggiano",
+                "email": "j.boggiano@seld.be",
+                "homepage": "http://seld.be"
             }
         ],
-        "description": "Swiftmailer, free feature-rich PHP mailer",
-        "homepage": "http://swiftmailer.org",
+        "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
+        "homepage": "http://github.com/Seldaek/monolog",
         "keywords": [
-            "email",
-            "mail",
-            "mailer"
+            "log",
+            "logging",
+            "psr-3"
         ]
     },
     {
@@ -4668,7 +4701,7 @@
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "MIT"
+            "Apache2"
         ],
         "authors": [
             {
@@ -4683,56 +4716,6 @@
             "log",
             "logging",
             "psr-3"
-        ]
-    },
-    {
-        "name": "phpcollection/phpcollection",
-        "version": "0.5.0",
-        "version_normalized": "0.5.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/schmittjoh/php-collection.git",
-            "reference": "f2bcff45c0da7c27991bbc1f90f47c4b7fb434a6"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/schmittjoh/php-collection/zipball/f2bcff45c0da7c27991bbc1f90f47c4b7fb434a6",
-            "reference": "f2bcff45c0da7c27991bbc1f90f47c4b7fb434a6",
-            "shasum": ""
-        },
-        "require": {
-            "phpoption/phpoption": "1.*"
-        },
-        "time": "2015-05-17 12:39:23",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "0.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "PhpCollection": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Apache2"
-        ],
-        "authors": [
-            {
-                "name": "Johannes M. Schmitt",
-                "email": "schmittjoh@gmail.com"
-            }
-        ],
-        "description": "General-Purpose Collection Library for PHP",
-        "keywords": [
-            "collection",
-            "list",
-            "map",
-            "sequence",
-            "set"
         ]
     }
 ]

@@ -70,31 +70,31 @@ nox_intranet_affichageAQ:
          
 nox_intranet_assistant_affaire:
     path: /ressources/assistant-affaires
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:accueilAssistantAffaire }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:accueilAssistantAffaire }
     
 nox_intranet_assistant_affaire_nouvelle:
     path: /ressources/assistant-affaires/creation-suivi
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuivi }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuivi }
     
 nox_intranet_assistant_affaire_nouvelle_choix_modele:
     path: /ressources/assistant-affaires/creation-suivi/choix-modèle/{IdSuivi}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviChoixModele }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuiviChoixModele }
     
 nox_intranet_assistant_affaire_nouvelle_choix_client:
     path: /ressources/assistant-affaires/creation-suivi/choix-client/{IdSuivi}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviChoixClient }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuiviChoixClient }
     
 nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur:
     path: /ressources/assistant-affaires/creation-suivi/choix-interlocuteur/{IdSuivi}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviChoixInterlocuteur }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuiviChoixInterlocuteur }
     
 nox_intranet_assistant_affaire_nouvelle_infos:
     path: /ressources/assistant-affaires/creation-suivi/info-suivi/{IdSuivi}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:creationSuiviInfos }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuiviInfos }
     
 nox_intranet_assistant_affaire_edition:
     path: /ressources/assistant-affaires/edition-suivi/{IdSuivi}/{version}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:editionSuiviEnCours, version: "" }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:editionSuiviEnCours, version: "" }
     
 nox_intranet_assistant_affaire_generation:
     path: /ressources/assistantAffaireGeneration
@@ -102,15 +102,15 @@ nox_intranet_assistant_affaire_generation:
     
 nox_intranet_assistant_affaire_parcour_suivi_en_cours:
     path: /ressources/assistant-affaires/parcours-suivis-en-cours/{agence}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:consulterSuivi, agence: Toutes }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:consulterSuivi, agence: Toutes }
     
 nox_intranet_assistant_affaire_parcour_suivi_termine:
     path: /ressources/assistant-affaires/parcours-suivis-terminés/{agence}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:consulterSuiviTermine, agence: Toutes }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviTermine:consulterSuiviTermine, agence: Toutes }
     
 nox_intranet_assistant_affaire_consultation:
     path: /ressources/assistant-affaires/consulter-suivi/{IdSuivi}/{version}
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:suiviTermine, version: "" }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviTermine:suiviTermine, version: "" }
     
 nox_intranet_rh:
     path: /ressources/rh
@@ -142,18 +142,60 @@ nox_intranet_rh_excel:
         
 nox_intranet_assistant_affaire_ajax_client_getter:
     path: /ressources/assistant-affaires/creation-suivi/getClient
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:ajaxClientGetter }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:ajaxClientGetter }
     
 nox_intranet_assistant_affaire_ajax_client_adr_getter:
     path: /ressources/assistant-affaires/creation-suivi/getClientAdr
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:ajaxClientAdrGetter }
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:ajaxClientAdrGetter }
     
-nox_intranet_assistant_affaire_ajax_nocommande_save:
-    path: /ressources/assistant-affaires/edition-suivi-sauvegarde-nocommande
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:ajaxSaveNoCommande }
+nox_intranet_assistant_affaire_ajax_interlocuteur_getter:
+    path: /ressources/assistant-affaires/creation-suivi/getInterlocuteur
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:ajaxInterlocuteurGetter }
+    
+nox_intranet_assistant_affaire_ajax_nocommande_add:
+    path: /ressources/assistant-affaires/edition-suivi-add-no-commande
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:ajaxAddNoCommande }
     
 nox_intranet_assistant_affaire_ajax_nocommande_delete:
     path: /ressources/assistant-affaires/edition-suivi-suppression-nocommande
-    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:ajaxDeleteNoCommande }
-
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:ajaxDeleteNoCommande }
     
+nox_intranet_assistant_affaire_ajax_save_new_infos:
+    path: /ressources/assistant-affaires/edition-suivi-save-new-info
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:ajaxSaveNewInfos }
+    
+nox_intranet_prestation_search:
+    path: /ressources/recherche-prestation
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:newPrestationSearch }
+
+nox_intranet_validation_da1:
+    path: /ressources/validation-da1/{cleDemande}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:validationDA1 }
+    
+nox_intranet_reponse_da2:
+    path: /ressources/reponse-da2/{cleDemande}/{reponse}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:DA2answer }
+    
+nox_intranet_gestion_proposition:
+    path: /ressources/gestion-proposition/{cleDemande}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:answerDA2Proposition }
+    
+nox_intranet_ajax_save_proposition_da1_answer:
+    path: /ressources/gestion-proposition-ajax-save-proposition-da1-answer
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveDA2PropositionAnswer }
+    
+nox_intranet_ajax_save_echanges:
+    path: /ressources/gestion-proposition-ajax-save-echanges
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveEchanges }
+    
+nox_intranet_demande_prestation_reporting:
+    path: /ressources/demande-prestation-reporting/{orderTime}/{trieStatus}/{page}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesReporting, search: '', trieStatus: 'tous', page: 0, orderTime: 'desc' }
+    
+nox_intranet_demande_prestation_summary:
+    path: /ressources/demande-prestation-summary/{cleDemande}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:demandePrestationSummary }
+    
+nox_intranet_demande_prestation_perso_reporting:
+    path: /ressources/demande-prestation-perso-reporting/{orderTime}/{trieStatus}/{page}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesPersoReporting, search: '', trieStatus: 'tous', page: 0, orderTime: 'desc' }

@@ -1,0 +1,142 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Status des demandes {% endblock %}
+
+{% block messageAccueil %}Status des demandes{% endblock %}
+
+{% block contenu %}
+
+    <div style='text-align: center;'>
+        <p style='text-align: center; margin: auto; margin-bottom: 1%; display: inline-block; padding: 0.5% 0.5% 0.5% 0.5%; background-color: rgba(255,255,255,0.5); border: 1px solid; font-size: 0.8vw;'>
+            <span style='color: orange;'>Orange = En cours de traitement.</span><br />
+            <span style='color: limegreen;'>Vert = Demande/Proposition terminée avec succés.</span><br />
+            <span style='color: red;'>Rouge = Demande/Proposition terminée sans succés.</span>
+        </p>
+    </div>
+
+    <div class='prestationReportingNavigation'>
+
+        <div id='prestationReportingSearch' style='width: calc(100% / 3);'>
+            {{ form_start(formSearch) }}
+            {{ form_widget(formSearch.searchText) }}
+            {{ form_widget(formSearch.searchButton, {'label': 'Rechercher'}) }}
+            {{ form_widget(formSearch.resetButton, {'label': 'Effacer la recherche'}) }}
+            {{ form_end(formSearch) }}
+        </div>
+
+        <div class='prestationReportingPagination' style='width: calc(100% / 3);'>
+            {% if demandes|keys|first != page %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': demandes|keys|first}) }}' title='Page {{ demandes|keys|first+1 }}'><<</a>{% endif %}
+            {% if demandes[page-1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': page-1}) }}' title='Page {{ page }}'><</a>{% endif %}
+            Page: <select onchange='location = this.value;'>
+                {% for i in 1..demandes|length %}
+                    {% if i >= 1 %}
+                        <option value='{{ path('nox_intranet_demande_prestation_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': i-1}) }}' {% if i-1 == page %}selected{% endif %}>{{ i }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            {% if demandes[page+1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': page+1}) }}' title='Page {{ page+2 }}'>></a>{% endif %}
+            {% if demandes|keys|last != page %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'search': search, 'orderTime': orderTime, 'trieStatus': trieStatus, 'page': demandes|keys|last}) }}' title='Page {{ demandes|keys|last+1 }}'>>></a>{% endif %}
+        </div>
+
+        <div style='display: inline-block; text-align: right; width: calc(100% / 3);'>
+            <div id='prestationReportOrderTime'>
+                Ordre d'affichage: <select onchange='location = this.value;'>
+                    <option value='{{ path('nox_intranet_demande_prestation_reporting', {'search': search, 'orderTime': 'desc', 'trieStatus': trieStatus}) }}' {% if orderTime == 'desc' %}selected{% endif %}>Du + récent au - récent</option>
+                    <option value='{{ path('nox_intranet_demande_prestation_reporting', {'search': search, 'orderTime': 'asc', 'trieStatus': trieStatus}) }}' {% if orderTime == 'asc' %}selected{% endif %}>Du + vieux au - vieux</option>
+                </select>
+            </div><br />
+            <div id='prestationReportTrieStatus'>
+                <a href='{{ path('nox_intranet_demande_prestation_reporting', {'orderTime': orderTime}) }}' style='{% if trieStatus == 'tous' %}text-decoration: underline;{% endif %}'>Tous</a>
+                <a href='{{ path('nox_intranet_demande_prestation_reporting', {'trieStatus': 'process', 'orderTime': orderTime}) }}' style='color: orange; {% if trieStatus == 'process' %}text-decoration: underline;{% endif %}'>En cours</a>
+                <a href='{{ path('nox_intranet_demande_prestation_reporting', {'trieStatus': 'success', 'orderTime': orderTime}) }}' style='color: limegreen; {% if trieStatus == 'success' %}text-decoration: underline;{% endif %}'>Terminé avec succés</a>
+                <a href='{{ path('nox_intranet_demande_prestation_reporting', {'trieStatus': 'fail', 'orderTime': orderTime}) }}' style='color: red; {% if trieStatus == 'fail' %}text-decoration: underline;{% endif %}'>Terminé sans succés</a>
+            </div>
+        </div>
+    </div>
+
+    <table id='tablePrestationsInternesReporting'>
+
+        <tr>
+            <th rowspan='2'>Libellé</th>
+            <th rowspan='2'>Demandeur</th>
+            <th rowspan='2'>DA1</th>
+            <th rowspan='2'>Status</th>
+            <th colspan='4'>Propositions</th>
+        </tr>
+
+        <tr>
+            <th>DA2</th>
+            <th>Status</th>
+            <th>Echange</th>
+            <th>Details</th>
+        </tr>
+
+        {% if demandes[page] is defined and demandes[page] != null %}
+            {% for demande in demandes[page] %}
+                <tr>
+                    <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}>{% if demande.Libelle is defined %}{{ demande.Libelle}}{% endif %}</td>
+                    <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}>{% if users[demande.Demandeur] is defined %}{{ users[demande.Demandeur].Firstname }} {{ users[demande.Demandeur].Lastname }}{% endif %}</td>
+                    <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}>{% if users[demande.DA1] is defined %}{{ users[demande.DA1].Firstname }} {{ users[demande.DA1].Lastname }}{% endif %}</td>
+                    <td {% if propositions[demande.CleDemande] is defined %}rowspan='{{ propositions[demande.CleDemande]|length }}'{% endif %}{% if status[demande.Status] is defined %} style='background-color: {{ status[demande.Status].color }}; color: white;'{% endif %}>{% if status[demande.Status] is defined %}{{ status[demande.Status].message }}{% endif %}</td>
+                    {% if propositions[demande.CleDemande] is defined %}
+                        <td>{{ users[propositions[demande.CleDemande]|first.DA2].Firstname }} {{ users[propositions[demande.CleDemande]|first.DA2].Lastname }}</td>
+                        <td {% if status[propositions[demande.CleDemande]|first.Status] is defined %}style='background-color: {{ status[propositions[demande.CleDemande]|first.Status].color }}; color: white;'{% endif %}>{% if status[propositions[demande.CleDemande]|first.Status] is defined %}{{ status[propositions[demande.CleDemande]|first.Status].message }}{% else %}&nbsp;{% endif %}</td>
+                        <td {% if propositions[demande.CleDemande]|first.Echanges == null %}style='background-color: lightgrey;'{% endif %} class='prestationInterneEchange' title='{{ propositions[demande.CleDemande]|first.Echanges }}'>{% if propositions[demande.CleDemande]|first.Echanges != null %}{{ propositions[demande.CleDemande]|first.Echanges }}{% else %}&nbsp;{% endif %}</td>
+                        <td rowspan='{{ propositions[demande.CleDemande]|length }}'><a href='{{ path('nox_intranet_demande_prestation_summary', {'cleDemande': demande.CleDemande}) }}'><img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' class='prestationsInternesReportingGoToDetailsImg'></a></td>
+                            {% else %}
+                        <td style='background-color: lightgrey;'>&nbsp;</td>
+                        <td style='background-color: lightgrey;'>&nbsp;</td>
+                        <td style='background-color: lightgrey;'>&nbsp;</td>
+                        <td><a href='{{ path('nox_intranet_demande_prestation_summary', {'cleDemande': demande.CleDemande}) }}'><img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' class='prestationsInternesReportingGoToDetailsImg'></a></td>
+                            {% endif %}
+                </tr>
+
+                {% if propositions[demande.CleDemande] is defined and propositions[demande.CleDemande]|length > 1 %}       
+                    {% for proposition in propositions[demande.CleDemande]|slice(1, propositions[demande.CleDemande]|length) %}
+                        <tr>
+                            <td>{{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}</td>
+                            <td {% if status[proposition.Status] is defined %}style='background-color: {{ status[proposition.Status].color }}; color: white;'{% endif %}>{% if status[proposition.Status] is defined %}{{ status[proposition.Status].message }}{% else %}&nbsp;{% endif %}</td>
+                            <td {% if proposition.Echanges == null %}style='background-color: lightgrey;'{% endif %} class='prestationInterneEchange' title='{{ proposition.Echanges }}'>{% if proposition.Echanges != null %}{{ proposition.Echanges }}{% else %}&nbsp;{% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+
+                <tr style="/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#606c88+0,3f4c6b+100;Grey+3D+%232 */
+                    background: rgb(96,108,136); /* Old browsers */
+                    background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
+                    background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
+                    background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan='8'>Il n'y a aucun résultat à afficher.</td></tr>
+        {% endif %}
+
+    </table>
+    <div class='prestationReportingNavigation'>
+        <div class='prestationReportingPagination'>
+            {% if demandes|keys|first != page %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': demandes|keys|first}) }}' title='Page {{ demandes|keys|first+1 }}'><<</a>{% endif %}
+            {% if demandes[page-1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': page-1}) }}' title='Page {{ page }}'><</a>{% endif %}
+            Page: <select onchange='location = this.value;'>
+                {% for i in 1..demandes|length %}
+                    {% if i >= 1 %}
+                        <option value='{{ path('nox_intranet_demande_prestation_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': i-1}) }}' {% if i-1 == page %}selected{% endif %}>{{ i }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            {% if demandes[page+1] is defined %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': page+1}) }}' title='Page {{ page+2 }}'>></a>{% endif %}
+            {% if demandes|keys|last != page %}<a href='{{ path('nox_intranet_demande_prestation_reporting', {'orderTime': orderTime, 'trieStatus': trieStatus, 'page': demandes|keys|last}) }}' title='Page {{ demandes|keys|last+1 }}'>>></a>{% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

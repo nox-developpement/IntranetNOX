@@ -6,64 +6,38 @@
 
 {% block contenu %}
 
-    <div class='DivFormulairePlacementChamp'>
-
-        {{ form_start(formPlacementChamp, {'attr': {'class': 'formulairePlacementChamp'}}) }}
-        {{ form_errors(formPlacementChamp) }}
-
-        <fieldset>
-
-            <legend>Placer un champ</legend>
-
-            <p>
-                {{ form_label(formPlacementChamp.IdChamp, "Nom :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}
-                {{ form_errors(formPlacementChamp.IdChamp) }}
-                {{ form_widget(formPlacementChamp.IdChamp, {'attr': {'class': 'texteFormulairePlacementChamp' }}) }} 
-
-                <br />
-
-                {{ form_label(formPlacementChamp.CoordonneesDonnees, "Coordonnees données :", {'label_attr': {'class': 'labelFormulairePlacementChamp'}}) }}
-                {{ form_errors(formPlacementChamp.CoordonneesDonnees) }}
-                {{ form_widget(formPlacementChamp.CoordonneesDonnees, {'attr': {'class': 'textFormulairePlacementChamp' }}) }}
-
-                <br />
-
-                {{ form_widget(formPlacementChamp.Placer, {'attr': {'class': 'submitFormulairePlacementChamp', 'class': 'boutonFormulaire' }}) }}
-            </p>
-
-        </fieldset> 
-
-        {{ form_end(formPlacementChamp) }}
-
+    <div id='divExcelTableBinding' style='width: 70%; height: 80%; margin: auto;'>
+        <table id='excelTableBinding'>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
     </div>
 
-    <div class='DivFormulaireSuppressionPositionChamp'>
+    <script>
 
-        {{ form_start(formSuppresionPositionChamp, {'attr': {'class': 'formulaireSuppressionPositionChamp'}}) }}
-        {{ form_errors(formSuppresionPositionChamp) }}
+        $(window).load(function () {
+            excelTableExpansion();
+        });
 
-        <fieldset>
+        function excelTableExpansion() {
+            // On récupére le tableau et la div qui le contient.
+            var table = $('#excelTableBinding');
+            var div = $('#divExcelTableBinding');
 
-            <legend>Supprimer un champ</legend>
+            // On récupére les coodonnées de longueur et de largeur de la div.
+            var width = div.offset().left + div.outerWidth();
+            var height = div.offset().top + div.outerHeight();
 
-            <p>
-                {{ form_label(formSuppresionPositionChamp.IdChamp, "Nom - Position", {'label_attr': {'class': 'labelFormulaireSuppressionPositionChamp'}}) }} <br />
-                {{ form_errors(formSuppresionPositionChamp.IdChamp) }}
-                {{ form_widget(formSuppresionPositionChamp.IdChamp, {'attr': {'class': 'texteFormulaireSuppressionPositionChamp' }}) }} 
+            while ((table.offset().top + table.outerHeight()) < height) {
+                var tr = table.append('<tr></tr>');
 
-                <br />
+                /*while ((tr.find('td:last-child').offset().left + tr.find('td:last-child').outerWidth()) < width) {
+                 tr.append('<td></td>');
+                 }*/
+            }
+        }
 
-                {{ form_widget(formSuppresionPositionChamp.Supprimer, {'attr': {'class': 'submitFormulaireSuppressionPositionChamp', 'class': 'boutonFormulaire' }}) }}
-            </p>
-
-        </fieldset> 
-
-        {{ form_end(formSuppresionPositionChamp) }}
-
-    </div>
-
-    <div id='tableauExcel'>
-        <img src="{{ imagePDF }}" alt="Aperçu du fichier Excel">
-    </div>
+    </script>
 
 {% endblock %}
