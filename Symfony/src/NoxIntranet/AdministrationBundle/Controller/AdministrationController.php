@@ -349,8 +349,9 @@ class AdministrationController extends Controller {
 
             $filename = 'HierarchieRH.xlsx'; // Nom du fichier.
             $path = $this->get('kernel')->getRootDir() . '/../web/uploads/RH/Hierarchie'; // Chemin du dossier d'upload.
-
             $file->move($path, $filename); // On transfert le fichier.
+
+            exec($this->get('kernel')->getRootDir() . '/../scripts/RHHierarchieExtraction.bat'); // On met la base de donnée de hiérarchie à jours avec le nouveau fichier.
 
             $request->getSession()->getFlashBag()->add('notice', "Le fichier de hiérarchie a bien été transféré."); // On affiche un message de confirmation du transfert.
             return $this->redirectToRoute('nox_intranet_administration_upload_fichier_hierarchie_rh'); // On redirige vers l'envoi de fichier.

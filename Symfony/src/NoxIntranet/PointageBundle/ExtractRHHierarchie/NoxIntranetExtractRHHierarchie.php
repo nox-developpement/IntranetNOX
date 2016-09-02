@@ -38,8 +38,7 @@ class NoxIntranetExtractRHHierarchie extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         // Chemin du fichier de management hiérarchique de la RH.
-        $fichierRH = $root . '/Validation Manager WF RF MAJ NR 300516.xlsx';
-        //$fichierRH = "Y:/5_Partage/T.Besson/Validation Manager WF RF MAJ NR 300516.xlsx";
+        $fichierRH = $root . '/web/uploads/RH/Hierarchie/HierarchieRH.xlsx';
         // Initialise la lecture du fichier Excel.
         $objReaderAssistantes = new \PHPExcel_Reader_Excel2007();
         $objPHPExcelAssistantes = $objReaderAssistantes->load($fichierRH);
