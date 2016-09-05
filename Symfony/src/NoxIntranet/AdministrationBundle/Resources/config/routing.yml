@@ -199,3 +199,7 @@ nox_intranet_administration_affaires_delete_modele:
 nox_intranet_administration_message_alerte:
     path: /administration/message-alerte
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationMessageAlert:editMessageAlert }
+    
+nox_intranet_administration_upload_fichier_hierarchie_rh:
+    path: /administration/upload-file-rh
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:uploadFichierHierarchieRH }

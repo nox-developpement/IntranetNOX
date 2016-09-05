@@ -3,12 +3,12 @@
 namespace NoxIntranet\AdministrationBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use NoxIntranet\UserBundle\Entity\User;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class AdministrationController extends Controller {
 
@@ -328,8 +328,8 @@ class AdministrationController extends Controller {
 
     public function uploadFichierHierarchieRHAction(Request $request) {
         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath(); // Url de base du dossier web public.
-        $pathFichierHierarchie = $baseurl . '/uploads/RH/Hierarchie/HierarchieRH.xlsx';
-        $pathExemple = $baseurl . '/uploads/RH/Hierarchie/Exemple.pdf';
+        $pathFichierHierarchie = $baseurl . '/uploads/FichierHierarchieRH/HierarchieRH.xlsx';
+        $pathExemple = $baseurl . '/uploads/FichierHierarchieRH/Exemple.pdf';
 
         // Génération du formulaire d'upload du fichier de hiérachie RH.
         $formUpload = $this->createFormBuilder()
