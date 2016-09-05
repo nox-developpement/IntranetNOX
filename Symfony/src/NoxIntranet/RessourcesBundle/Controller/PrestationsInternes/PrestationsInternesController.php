@@ -101,7 +101,7 @@ class PrestationsInternesController extends Controller {
                 $this->sendMailToDA1($newSearch->getId());
 
                 // On redirige vers le résumé de la demande.
-                return $this->redirectToRoute('nox_intranet_demande_prestation_summary', array('cleDemande', $newSearch->getCleDemande()));
+                return $this->redirectToRoute('nox_intranet_demande_prestation_summary', array('cleDemande' => $newSearch->getCleDemande()));
             }
         }
 
@@ -147,25 +147,6 @@ class PrestationsInternesController extends Controller {
         // On récupére l'entitée du demandeur.
         $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDemandeur());
 
-//        // Retourne un tableau contenant les directeurs d'agence.
-//        $UserHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
-//        $DAs = array();
-//        foreach ($UserHierarchy as $DA) {
-//            $DAs[$DA->getDA()] = $DA->getDA();
-//        }
-//        array_unique($DAs); // Supprime les doublons.
-//        asort($DAs); // Trie le tableau.
-//        
-        // Retourne un tableau contenant les directeurs d'agence.
-        $DAs = array();
-        $file_handle = fopen($this->get('kernel')->getRootDir() . '/../web/ListeDA/ListeDA.txt', "r"); // On ouvre le fichier contenant la liste des DA.
-        while (!feof($file_handle)) {
-            $line = fgets($file_handle);
-            $DA = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername(trim($line)); // On récupére l'utilisateur correspondant à l'username de la ligne en cours de lecture si il existe.
-            if (!empty($DA)) {
-                $DAs[$DA->getUsername()] = $DA->getFirstname() . ' ' . $DA->getLastname(); // On ajoute le DA au tableau.
-            }
-        }
         fclose($file_handle);
         // Trie le tableau.
         asort($DAs);

@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-
 class AdministrationController extends Controller {
 
     public function administrationAction() {
@@ -350,7 +349,7 @@ class AdministrationController extends Controller {
             }
 
             $filename = 'HierarchieRH.xlsx'; // Nom du fichier.
-            $path = $this->get('kernel')->getRootDir() . '/../web/uploads/RH/Hierarchie'; // Chemin du dossier d'upload.
+            $path = $this->get('kernel')->getRootDir() . '/../web/uploads/FichierHierarchieRH'; // Chemin du dossier d'upload.
             $file->move($path, $filename); // On transfert le fichier.
 
             exec($this->get('kernel')->getRootDir() . '/../scripts/RHHierarchieExtraction.bat'); // On met la base de donnée de hiérarchie à jours avec le nouveau fichier.
