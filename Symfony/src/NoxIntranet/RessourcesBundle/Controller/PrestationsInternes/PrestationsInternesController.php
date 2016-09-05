@@ -147,8 +147,16 @@ class PrestationsInternesController extends Controller {
         // On récupére l'entitée du demandeur.
         $demandeur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDemandeur());
 
-        fclose($file_handle);
-        // Trie le tableau.
+        $DAs = array(); // Initialisation du tableau des DA2.
+        // Pour chaque entitié de hiérarchy utilisateurs.
+        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $user) {
+            // Recherche l'entité utilisateur correspondante au DA de la hiérachie.
+            $userEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $user->getDA())[0], 'lastname' => explode(' ', $user->getDA())[1]));
+            // Si l'entité utilisateur existe.
+            if (!empty($userEntity)) {
+                $DAs[$userEntity->getUsername()] = $userEntity->getFirstname() . ' ' . $userEntity->getLastname(); // On ajoute le DA au tableau.
+            }
+        }
         asort($DAs);
 
         // Retourne les attributs des choix de ChoixDA2.
