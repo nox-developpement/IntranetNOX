@@ -1,6 +1,6 @@
 <?php
 
-namespace NoxIntranet\RessourcesBundle\Controller
+namespace NoxIntranet\RessourcesBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
