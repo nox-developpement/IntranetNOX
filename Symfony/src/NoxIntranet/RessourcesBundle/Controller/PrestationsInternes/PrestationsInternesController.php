@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -34,7 +35,7 @@ class PrestationsInternesController extends Controller {
                 ->add('Libelle', TextType::class)
                 ->add('LieuOperation', TextType::class)
                 ->add('LieuPrestation', TextType::class)
-                ->add('Descriptif', TextareaType::class)
+                ->add('Descriptif', HiddenType::class)
                 ->add('Deplacement', TextType::class)
                 ->add('DateDemarrage', DateType::class, array(
                     'years' => range(date('Y'), date('Y') + 4)
@@ -42,7 +43,7 @@ class PrestationsInternesController extends Controller {
                 ->add('DateRendu', DateType::class, array(
                     'years' => range(date('Y'), date('Y') + 4)
                 ))
-                ->add('Livrables', TextareaType::class)
+                ->add('Livrables', HiddenType::class)
                 ->add('VolumeSousTraitance', TextType::class)
                 ->add('EmailDA', TextType::class)
                 ->add('Valider', SubmitType::class)
@@ -548,18 +549,18 @@ class PrestationsInternesController extends Controller {
 
         // On génére un tableau contenant les status explicité et leur couleur associée.
         $status = array(
-            "Chargé d'affaire" => array('message' => "Demande effectuée par le chargé d'affaire, en attente de réponse du DA1", 'color' => 'orange', 'status' => 'process'),
-            'Validation DA1' => array('message' => 'Demande validée par le DA1, en attente de réponse des DA2', 'color' => 'orange', 'status' => 'process'),
-            'Refus DA1' => array('message' => 'Demande refusée par le DA1', 'color' => 'red', 'status' => 'fail'),
-            'Attente validation DA2' => array('message' => 'En attente de la réponse du DA2', 'color' => 'orange', 'status' => 'process'),
-            'Réponses DA2' => array('message' => 'Tous les DA2 ont répondus, en attente de réponses du DA1 aux propositions', 'color' => 'orange', 'status' => 'process'),
-            'Demande acceptée' => array('message' => 'Le DA2 a accepté la demande', 'color' => 'orange', 'status' => 'process'),
-            'Demande refusée' => array('message' => 'Le DA2 a refusée la demande', 'color' => 'red', 'status' => 'fail'),
-            'Réponses DA2 refus' => array('message' => 'Tous les DA2 ont refusé de répondre à la demande', 'color' => 'red', 'status' => 'fail'),
-            'Validé par le DA1' => array('message' => 'Proposition validée par le DA1', 'color' => 'LimeGreen', 'status' => 'success'),
-            'Refusé par le DA1' => array('message' => 'Proposition refusée par le DA1', 'color' => 'red', 'status' => 'fail'),
-            'Propositions acceptée DA1' => array('message' => 'Une ou plusieurs proposition(s) a/ont été acceptée(s) par le DA1', 'color' => 'LimeGreen', 'status' => 'success'),
-            'Propositions refusée DA1' => array('message' => "Aucune proposition n'a été retenue par le DA1", 'color' => 'red', 'status' => 'fail')
+            "Chargé d'affaire" => array('message' => "Demande effectuée par le chargé d'affaire, en attente de réponse du DA émetteur", 'color' => 'orange', 'status' => 'process'),
+            'Validation DA1' => array('message' => 'Demande validée par le DA émetteur, en attente de réponse des DA destinataire', 'color' => 'orange', 'status' => 'process'),
+            'Refus DA1' => array('message' => 'Demande refusée par le DA émetteur', 'color' => 'red', 'status' => 'fail'),
+            'Attente validation DA2' => array('message' => 'En attente de la réponse du DA destinataire', 'color' => 'orange', 'status' => 'process'),
+            'Réponses DA2' => array('message' => 'Tous les DA destinataire ont répondus, en attente de réponses du DA émetteur aux propositions', 'color' => 'orange', 'status' => 'process'),
+            'Demande acceptée' => array('message' => 'Le DA destinataire a accepté la demande', 'color' => 'orange', 'status' => 'process'),
+            'Demande refusée' => array('message' => 'Le DA destinataire a refusée la demande', 'color' => 'red', 'status' => 'fail'),
+            'Réponses DA2 refus' => array('message' => 'Tous les DA destinataire ont refusé de répondre à la demande', 'color' => 'red', 'status' => 'fail'),
+            'Validé par le DA1' => array('message' => 'Proposition validée par le DA émetteur', 'color' => 'LimeGreen', 'status' => 'success'),
+            'Refusé par le DA1' => array('message' => 'Proposition refusée par le DA émetteur', 'color' => 'red', 'status' => 'fail'),
+            'Propositions acceptée DA1' => array('message' => 'Une ou plusieurs proposition(s) a/ont été acceptée(s) par le DA émetteur', 'color' => 'LimeGreen', 'status' => 'success'),
+            'Propositions refusée DA1' => array('message' => "Aucune proposition n'a été retenue par le DA émetteur", 'color' => 'red', 'status' => 'fail')
         );
 
         // On récupère les propositions et on les place dans un tableau avec pour clé leur valeur de cleDemande.
@@ -599,18 +600,18 @@ class PrestationsInternesController extends Controller {
 
         // On génére un tableau contenant les status explicité et leur couleur associée.
         $status = array(
-            "Chargé d'affaire" => array('message' => "Demande effectuée par le chargé d'affaire, en attente de réponse du DA1", 'color' => 'orange', 'status' => 'process'),
-            'Validation DA1' => array('message' => 'Demande validée par le DA1, en attente de réponse des DA2', 'color' => 'orange', 'status' => 'process'),
-            'Refus DA1' => array('message' => 'Demande refusée par le DA1', 'color' => 'red', 'status' => 'fail'),
-            'Attente validation DA2' => array('message' => 'En attente de la réponse du DA2', 'color' => 'orange', 'status' => 'process'),
-            'Réponses DA2' => array('message' => 'Tous les DA2 ont répondus, en attente de réponses du DA1 aux propositions', 'color' => 'orange', 'status' => 'process'),
-            'Demande acceptée' => array('message' => 'Le DA2 a accepté la demande', 'color' => 'orange', 'status' => 'process'),
-            'Demande refusée' => array('message' => 'Le DA2 a refusée la demande', 'color' => 'red', 'status' => 'fail'),
-            'Réponses DA2 refus' => array('message' => 'Tous les DA2 ont refusé de répondre à la demande', 'color' => 'red', 'status' => 'fail'),
-            'Validé par le DA1' => array('message' => 'Proposition validée par le DA1', 'color' => 'LimeGreen', 'status' => 'success'),
-            'Refusé par le DA1' => array('message' => 'Proposition refusée par le DA1', 'color' => 'red', 'status' => 'fail'),
-            'Propositions acceptée DA1' => array('message' => 'Une ou plusieurs proposition(s) a/ont été acceptée(s) par le DA1', 'color' => 'LimeGreen', 'status' => 'success'),
-            'Propositions refusée DA1' => array('message' => "Aucune proposition n'a été retenue par le DA1", 'color' => 'red', 'status' => 'fail')
+            "Chargé d'affaire" => array('message' => "Demande effectuée par le chargé d'affaire, en attente de réponse du DA émetteur", 'color' => 'orange', 'status' => 'process'),
+            'Validation DA1' => array('message' => 'Demande validée par le DA émetteur, en attente de réponse des DA destinataire', 'color' => 'orange', 'status' => 'process'),
+            'Refus DA1' => array('message' => 'Demande refusée par le DA émetteur', 'color' => 'red', 'status' => 'fail'),
+            'Attente validation DA2' => array('message' => 'En attente de la réponse du DA destinataire', 'color' => 'orange', 'status' => 'process'),
+            'Réponses DA2' => array('message' => 'Tous les DA destinataire ont répondus, en attente de réponses du DA émetteur aux propositions', 'color' => 'orange', 'status' => 'process'),
+            'Demande acceptée' => array('message' => 'Le DA destinataire a accepté la demande', 'color' => 'orange', 'status' => 'process'),
+            'Demande refusée' => array('message' => 'Le DA destinataire a refusée la demande', 'color' => 'red', 'status' => 'fail'),
+            'Réponses DA2 refus' => array('message' => 'Tous les DA destinataire ont refusé de répondre à la demande', 'color' => 'red', 'status' => 'fail'),
+            'Validé par le DA1' => array('message' => 'Proposition validée par le DA émetteur', 'color' => 'LimeGreen', 'status' => 'success'),
+            'Refusé par le DA1' => array('message' => 'Proposition refusée par le DA émetteur', 'color' => 'red', 'status' => 'fail'),
+            'Propositions acceptée DA1' => array('message' => 'Une ou plusieurs proposition(s) a/ont été acceptée(s) par le DA émetteur', 'color' => 'LimeGreen', 'status' => 'success'),
+            'Propositions refusée DA1' => array('message' => "Aucune proposition n'a été retenue par le DA émetteur", 'color' => 'red', 'status' => 'fail')
         );
 
         // On génére un tableau associant les entités des utilisateurs avec leurs usernames.
@@ -700,18 +701,18 @@ class PrestationsInternesController extends Controller {
 
         // On génére un tableau contenant les status explicité et leur couleur associée.
         $status = array(
-            "Chargé d'affaire" => array('message' => "Demande effectuée par le chargé d'affaire, en attente de réponse du DA1", 'color' => 'orange', 'status' => 'process'),
-            'Validation DA1' => array('message' => 'Demande validée par le DA1, en attente de réponse des DA2', 'color' => 'orange', 'status' => 'process'),
-            'Refus DA1' => array('message' => 'Demande refusée par le DA1', 'color' => 'red', 'status' => 'fail'),
-            'Attente validation DA2' => array('message' => 'En attente de la réponse du DA2', 'color' => 'orange', 'status' => 'process'),
-            'Réponses DA2' => array('message' => 'Tous les DA2 ont répondus, en attente de réponses du DA1 aux propositions', 'color' => 'orange', 'status' => 'process'),
-            'Demande acceptée' => array('message' => 'Le DA2 a accepté la demande', 'color' => 'orange', 'status' => 'process'),
-            'Demande refusée' => array('message' => 'Le DA2 a refusée la demande', 'color' => 'red', 'status' => 'fail'),
-            'Réponses DA2 refus' => array('message' => 'Tous les DA2 ont refusé de répondre à la demande', 'color' => 'red', 'status' => 'fail'),
-            'Validé par le DA1' => array('message' => 'Proposition validée par le DA1', 'color' => 'LimeGreen', 'status' => 'success'),
-            'Refusé par le DA1' => array('message' => 'Proposition refusée par le DA1', 'color' => 'red', 'status' => 'fail'),
-            'Propositions acceptée DA1' => array('message' => 'Une ou plusieurs proposition(s) a/ont été acceptée(s) par le DA1', 'color' => 'LimeGreen', 'status' => 'success'),
-            'Propositions refusée DA1' => array('message' => "Aucune proposition n'a été retenue par le DA1", 'color' => 'red', 'status' => 'fail')
+            "Chargé d'affaire" => array('message' => "Demande effectuée par le chargé d'affaire, en attente de réponse du DA émetteur", 'color' => 'orange', 'status' => 'process'),
+            'Validation DA1' => array('message' => 'Demande validée par le DA émetteur, en attente de réponse des DA destinataire', 'color' => 'orange', 'status' => 'process'),
+            'Refus DA1' => array('message' => 'Demande refusée par le DA émetteur', 'color' => 'red', 'status' => 'fail'),
+            'Attente validation DA2' => array('message' => 'En attente de la réponse du DA destinataire', 'color' => 'orange', 'status' => 'process'),
+            'Réponses DA2' => array('message' => 'Tous les DA destinataire ont répondus, en attente de réponses du DA émetteur aux propositions', 'color' => 'orange', 'status' => 'process'),
+            'Demande acceptée' => array('message' => 'Le DA destinataire a accepté la demande', 'color' => 'orange', 'status' => 'process'),
+            'Demande refusée' => array('message' => 'Le DA destinataire a refusée la demande', 'color' => 'red', 'status' => 'fail'),
+            'Réponses DA2 refus' => array('message' => 'Tous les DA destinataire ont refusé de répondre à la demande', 'color' => 'red', 'status' => 'fail'),
+            'Validé par le DA1' => array('message' => 'Proposition validée par le DA émetteur', 'color' => 'LimeGreen', 'status' => 'success'),
+            'Refusé par le DA1' => array('message' => 'Proposition refusée par le DA émetteur', 'color' => 'red', 'status' => 'fail'),
+            'Propositions acceptée DA1' => array('message' => 'Une ou plusieurs proposition(s) a/ont été acceptée(s) par le DA émetteur', 'color' => 'LimeGreen', 'status' => 'success'),
+            'Propositions refusée DA1' => array('message' => "Aucune proposition n'a été retenue par le DA émetteur", 'color' => 'red', 'status' => 'fail')
         );
 
         // On récupère les propositions et on les place dans un tableau avec pour clé leur valeur de cleDemande.

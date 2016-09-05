@@ -10,7 +10,7 @@
         {% if app.security.getToken().getUser().getUsername() == demande.DA1 %}
             <div class='demandeSummaryTips'>
                 <p>
-                    Vous êtes le DA1 associé à cette demande. <span class='demandeSummaryTipsClose'>&#10006;</span>
+                    Vous êtes le DA émetteur associé à cette demande. <span class='demandeSummaryTipsClose'>&#10006;</span>
                 </p>
             </div>
             {% if demande.Status == "Chargé d'affaire"%}
@@ -37,7 +37,7 @@
         {% if DA2[app.security.getToken().getUser().getUsername()] is defined %}
             <div class='demandeSummaryTips'>
                 <p>
-                    Vous êtes l'un des DA2 associé à cette demande. <span class='demandeSummaryTipsClose'>&#10006;</span>
+                    Vous êtes l'un des DA destinataire associé à cette demande. <span class='demandeSummaryTipsClose'>&#10006;</span>
                 </p>
             </div>
             <!-- Pour chaque propositions -->
@@ -123,7 +123,7 @@
             </th>
         </tr>
         <tr>
-            <td class='trLabel'>DA2</td>
+            <td class='trLabel'>DA destinataire</td>
             <td class='trLabel'>Status</td>
             <td class='trLabel'>Echanges</td>
             <td class='trLabel'>Traiter</td>

@@ -389,10 +389,10 @@ article p {
 
 #menu, #menu ul /* Liste */     
 {
-    padding : 0; /* pas de marge intérieure */
-    margin : 0; /* ni extérieure */
-    list-style : none; /* on supprime le style par défaut de la liste */
-    line-height : 40px; /* on définit une hauteur pour chaque élément */
+    padding : 0; /* pas de marge intÃ©rieure */
+    margin : 0; /* ni extÃ©rieure */
+    list-style : none; /* on supprime le style par dÃ©faut de la liste */
+    line-height : 40px; /* on dÃ©finit une hauteur pour chaque Ã©lÃ©ment */
     text-align : center; /* on centre le texte qui se trouve dans la liste */
 }
 
@@ -412,16 +412,16 @@ article p {
 
 .liens /* Contenu des listes */
 {
-    display : block; /* on change le type d'élément, les liens deviennent des balises de type block */
-    padding : 0; /* aucune marge intérieure */
-    text-decoration : none; /* on supprime le style par défaut des liens (la plupart du temps = souligné) */
+    display : block; /* on change le type d'Ã©lÃ©ment, les liens deviennent des balises de type block */
+    padding : 0; /* aucune marge intÃ©rieure */
+    text-decoration : none; /* on supprime le style par dÃ©faut des liens (la plupart du temps = soulignÃ©) */
     /*width : 40%; /* largeur */
     background-color : rgb(31,78,121);
     color: #FEFEFE;
     margin: 0px;
 }
 
-#menu li /* Éléments des listes */      
+#menu li /* Ã‰lÃ©ments des listes */      
 { 
     float : left; 
 }
@@ -498,13 +498,13 @@ article p {
 }
 
 #menu ul li {
-    /* on enlève ce comportement pour les liens du sous menu */
+    /* on enlÃ¨ve ce comportement pour les liens du sous menu */
     display: inherit;
 }
 
 #menu ul {
     position: absolute;
-    /* on cache les sous menus complètement sur la gauche */
+    /* on cache les sous menus complÃ¨tement sur la gauche */
     left: -999em;
     text-align: left;
     z-index: 1000;
@@ -2189,7 +2189,7 @@ form input[type='checkbox'] {
     color: rgb(31,78,121); ;
 }
 
-.selectFormulaireChoixModèle {
+.selectFormulaireChoixModÃ¨le {
     margin-bottom: 2%;
     margin-top: 1%;
 }
@@ -2762,7 +2762,7 @@ input[type=text]:read-only {
     color: white;
     left: 15%;
     position: absolute;
-    top: 50%; /* poussé de la moitié de hauteur du référent */
+    top: 50%; /* poussÃ© de la moitiÃ© de hauteur du rÃ©fÃ©rent */
     transform: translateY(-50%);
 }
 
@@ -3805,4 +3805,21 @@ form[name='formValidationRefus'] textarea {
 .DivNavigationRetour a img {
     height: 1em;
     margin: auto 1% auto 0;
+}
+
+form[name='formNewSearch'] .textarea {
+    width: 98%;
+    margin: auto;
+    padding: 1%;
+    border: 1px inset lightgrey;
+    text-align: left;
+    background-color: white;
+    overflow: auto;
+    max-height: 10em;
+}
+
+form[name='formNewSearch'] .textarea[contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    display: block; /* For Firefox */
+    color: grey;
 }
