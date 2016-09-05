@@ -500,6 +500,21 @@ class PrestationsInternesController extends Controller {
     // Affiche un tableau affichant le status des demandes.
     public function prestationsInternesReportingAction(Request $request, $page, $trieStatus, $orderTime) {
 
+        $em = $this->getDoctrine()->getManager();
+
+        $DA = array();
+        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $user) {
+            $userEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $user->getDA())[0], 'lastname' => explode(' ', $user->getDA())[1]));
+            if (!empty($userEntity)) {
+                $DA[$userEntity->getUsername()] = $userEntity->getUsername();
+            }
+        }
+
+        if (!in_array($this->container->get('security.context')->getToken()->getUser()->getUsername(), $DA)) {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Seul les directeurs d'agence peuvent accéder à cette section.");
+            return $this->redirectToRoute('nox_intranet_prestations_internes');
+        }
+
         // On récupéra la valeur de 'search'.
         $search = $request->get('search');
 
@@ -523,8 +538,7 @@ class PrestationsInternesController extends Controller {
             }
         }
 
-        // On récupére les entités des demandes.
-        $em = $this->getDoctrine()->getManager();
+        // On récupére les entités des demandes.       
         // Si on cherche une demande spécifique.
         if ($search !== '') {
             $demandes = $em->createQueryBuilder()
