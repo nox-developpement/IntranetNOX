@@ -932,6 +932,7 @@
                 data['contenteditable'] = [];
                 data['select'] = [];
                 data['project'] = [];
+                data['projectName'] = [];
                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
                 $('td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
                     data['contenteditable'][index] = $(this).text();
@@ -944,6 +945,9 @@
                 });
                 $('.project[contenteditable=true]').each(function (index) {
                     data['project'][index] = $(this).text();
+                });
+                $('#tableFeuillePointage tr:nth-child(2) .project').each(function (index) {
+                    data['projectName'][index] = $(this).text();
                 });
                 var serializedData = JSON.stringify(data);
                 $.ajax({
@@ -958,7 +962,8 @@
                 data['contenteditable'] = [];
                 data['select'] = [];
                 data['project'] = [];
-                data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
+                data['projectName'] = [];
+                data['nbProject'] = $('#tableFeuillePointage tr:nth-child(2) .project').length;
                 $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                     data['contenteditable'][index] = $(this).text();
                     //$(this).css('background-color', 'orange');
@@ -970,6 +975,9 @@
                 });
                 $('.project[contenteditable=true]').each(function (index) {
                     data['project'][index] = $(this).text();
+                });
+                $('#tableFeuillePointage tr:nth-child(3) .project').each(function (index) {
+                    data['projectName'][index] = $(this).text();
                 });
                 var serializedData = JSON.stringify(data);
                 $.ajax({
@@ -987,8 +995,10 @@
                 url: '{{ path('nox_intranet_pointage_ajax_get_data') }}',
                 data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val()},
                 success: function (response) {
-                    if (response !== '') {
+                    // Si il existe des données correspondant au mois et à l'année.
+                    if (response !== 'null') {
                         var data = JSON.parse(response);
+
                         // Ajoute un td après chaque td du dernier projet.
                         function addTd() {
                             var total = $('#tableFeuillePointage').find('tr').length;
@@ -1062,9 +1072,76 @@
                         getGXAffaires();
                         ajaxSaveData();
                     }
+                    // Si il n'y a pas de données pour ce mois et cette année.
+                    else {
+                        // On récupére les valeurs du mois précédent et de l'année séléctionnés.
+                        var month = $('#pointage_month_selector option:selected').val() - 1;
+                        var year = $('#pointage_year_selector option:selected').val();
+                        // Si le mois de janvier est séléctionné, on retourne le mois de décembre de l'année précedente.
+                        if (month === 0) {
+                            month = 12;
+                            year = year - 1;
+                        }
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ path('nox_intranet_pointage_ajax_get_data') }}',
+                            data: {month: month, year: year},
+                            success: function (response) {
+                                if (response !== 'null') {
+                                    var data = JSON.parse(response);
+                                    // Si il existe des affaires sur le mois précédent.
+                                    if (data['projectName'] !== undefined) {
+                                        // Ajoute un td après chaque td du dernier projet.
+                                        function addTd() {
+                                            var total = $('#tableFeuillePointage').find('tr').length;
+                                            $('#tableFeuillePointage').find('tr').each(function (index) {
+                                                if (index === 1) {
+                                                    $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;' contenteditable=true>Nouvelle Affaire></td>");
+                                                } else if (index === 2) {
+                                                    $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;'>%</td>");
+                                                } else if (index === total - 2) {
+                                                    //$('.monthlyTotalPercentageCell').last().css('background-color', 'orange');
+                                                    $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell' style='border: none; color:white;'>0.00</td>");
+                                                } else if (index === total - 1) {
+                                                    $('.monthlyTotalCell').last().after("<td class='monthlyTotalCell' style='border: none; color:white;'>0.00</td>");
+                                                    //$('.monthlyTotalCell').last().css('background-color', 'orange');
+                                                } else if (index === total - 3) {
+                                                    $('#titreRepasTotalNumber').before("<td style='border: none;'></td>");
+                                                    //$('.monthlyTotalCell').last().css('background-color', 'orange');
+                                                } else if (index > 1 && index < total - 3) {
+                                                    var background = $(this).find('.project').last().css('background-color');
+                                                    var contenteditable = $(this).find('.project').last().attr('contenteditable');
+                                                    $(this).find('.project').last().after("<td class='projectPercentageCell project'></td>");
+                                                    $(this).find('.project').last().css('background-color', background);
+                                                    $(this).find('.project').last().attr('contenteditable', contenteditable);
+                                                }
+                                            });
+                                        }
+                                        // Incrémente le colspan du header des projets de 1.
+                                        function setColSpan() {
+                                            var colspan = parseInt($('#operationnel').attr('colspan'), 10);
+                                            $('#operationnel').attr('colspan', colspan + 1);
+                                        }
+
+                                        // On ajout les colonnes nécessaire.
+                                        if (data['nbProject'] !== undefined) {
+                                            for (var i = 0; i < data['nbProject'] - 1; i++) {
+                                                addTd();
+                                                setColSpan();
+                                            }
+                                        }
+
+                                        // On place les nom d'affaire sur les colonnes.
+                                        $('#tableFeuillePointage tr:nth-child(2) .project').each(function (index) {
+                                            $(this).text(data['projectName'][index]);
+                                        });
+                                    }
+                                }
+                            }
+                        });
+                    }
                 }
-            }).done(function () {
-                //$("#tableFeuillePointage").tableHeadFixer({'head': false, 'left': 1});
             });
         }
 
@@ -1115,6 +1192,7 @@
                 data['contenteditable'] = [];
                 data['select'] = [];
                 data['project'] = [];
+                data['projectName'] = [];
                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
                 $('td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
                     data['contenteditable'][index] = $(this).text();
@@ -1124,6 +1202,9 @@
                 });
                 $('.project[contenteditable=true]').each(function (index) {
                     data['project'][index] = $(this).text();
+                });
+                $('#tableFeuillePointage tr:nth-child(2) .project').each(function (index) {
+                    data['projectName'][index] = $(this).text();
                 });
                 var serializedData = JSON.stringify(data);
                 $.ajax({
@@ -1137,6 +1218,7 @@
                     data['contenteditable'] = [];
                     data['select'] = [];
                     data['project'] = [];
+                    data['projectName'] = [];
                     data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
                     $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                         data['contenteditable'][index] = $(this).text();
@@ -1149,6 +1231,9 @@
                     });
                     $('.project[contenteditable=true]').each(function (index) {
                         data['project'][index] = $(this).text();
+                    });
+                    $('#tableFeuillePointage tr:nth-child(2) .project').each(function (index) {
+                        data['projectName'][index] = $(this).text();
                     });
                     var serializedData = JSON.stringify(data);
                     $.ajax({
@@ -1242,6 +1327,7 @@
                 data['contenteditable'] = [];
                 data['select'] = [];
                 data['project'] = [];
+                data['projectName'] = [];
                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
                 $('td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
                     data['contenteditable'][index] = $(this).text();
@@ -1251,6 +1337,9 @@
                 });
                 $('.project[contenteditable=true]').each(function (index) {
                     data['project'][index] = $(this).text();
+                });
+                $('#tableFeuillePointage tr:nth-child(2) .project').each(function (index) {
+                    data['projectName'][index] = $(this).text();
                 });
                 var serializedData = JSON.stringify(data);
                 $.ajax({
@@ -1264,6 +1353,7 @@
                     data['contenteditable'] = [];
                     data['select'] = [];
                     data['project'] = [];
+                    data['projectName'] = [];
                     data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
                     $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                         data['contenteditable'][index] = $(this).text();
@@ -1276,6 +1366,9 @@
                     });
                     $('.project[contenteditable=true]').each(function (index) {
                         data['project'][index] = $(this).text();
+                    });
+                    $('#tableFeuillePointage tr:nth-child(2) .project').each(function (index) {
+                        data['projectName'][index] = $(this).text();
                     });
                     var serializedData = JSON.stringify(data);
                     $.ajax({

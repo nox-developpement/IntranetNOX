@@ -150,7 +150,9 @@ class PointageAjaxController extends Controller {
 
             $dataArray = json_decode($data, true);
 
-            $dataArray['signatureCollaborateur'] = $signatureCollaborateur;
+            if (!empty($signatureCollaborateur)) {
+                $dataArray['signatureCollaborateur'] = $signatureCollaborateur;
+            }
 
             $stringData = json_encode($dataArray);
 
