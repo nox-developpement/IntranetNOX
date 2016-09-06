@@ -1723,10 +1723,14 @@ return array(
     'NoxIntranet\\AccueilBundle\\NoxIntranetAccueilBundle' => $baseDir . '/src/NoxIntranet/AccueilBundle/NoxIntranetAccueilBundle.php',
     'NoxIntranet\\AccueilBundle\\Tests\\Controller\\DefaultControllerTest' => $baseDir . '/src/NoxIntranet/AccueilBundle/Tests/Controller/DefaultControllerTest.php',
     'NoxIntranet\\AdministrationBundle\\Command\\CronTaskRunCommand' => $baseDir . '/src/NoxIntranet/AdministrationBundle/Command/CronTaskRunCommand.php',
+<<<<<<< HEAD
     'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAssistantAffaire\\AdministrationAffairesController' => $baseDir . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationAssistantAffaire/AdministrationAffairesController.php',
     'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAssistantAffaire\\Champs\\ChampsController' => $baseDir . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationAssistantAffaire/Champs/ChampsController.php',
     'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAssistantAffaire\\Modeles\\ModelesController' => $baseDir . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationAssistantAffaire/Modeles/ModelesController.php',
     'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAssistantAffaire\\Profils\\ProfilsController' => $baseDir . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationAssistantAffaire/Profils/ProfilsController.php',
+=======
+    'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController' => $baseDir . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationAffairesController.php',
+>>>>>>> intranetNox/fixedHeader
     'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationCommunicationController' => $baseDir . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationCommunicationController.php',
     'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationController' => $baseDir . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationController.php',
     'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationMaterielController' => $baseDir . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationMaterielController.php',
@@ -1801,11 +1805,15 @@ return array(
     'NoxIntranet\\PointageBundle\\ExtractRHHierarchie\\NoxIntranetExtractRHHierarchie' => $baseDir . '/src/NoxIntranet/PointageBundle/ExtractRHHierarchie/NoxIntranetExtractRHHierarchie.php',
     'NoxIntranet\\PointageBundle\\NoxIntranetPointageBundle' => $baseDir . '/src/NoxIntranet/PointageBundle/NoxIntranetPointageBundle.php',
     'NoxIntranet\\PointageBundle\\Tests\\Controller\\DefaultControllerTest' => $baseDir . '/src/NoxIntranet/PointageBundle/Tests/Controller/DefaultControllerTest.php',
+<<<<<<< HEAD
     'NoxIntranet\\RessourcesBundle\\Controller\\AssistantAffaire\\NouveauSuiviController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/AssistantAffaire/NouveauSuiviController.php',
     'NoxIntranet\\RessourcesBundle\\Controller\\AssistantAffaire\\SuiviEnCoursController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/AssistantAffaire/SuiviEnCoursController.php',
     'NoxIntranet\\RessourcesBundle\\Controller\\AssistantAffaire\\SuiviTermineController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/AssistantAffaire/SuiviTermineController.php',
     'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/ExcelReadingController.php',
     'NoxIntranet\\RessourcesBundle\\Controller\\PrestationsInternes\\PrestationsInternesController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/PrestationsInternes/PrestationsInternesController.php',
+=======
+    'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/ExcelReadingController.php',
+>>>>>>> intranetNox/fixedHeader
     'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/RessourcesController.php',
     'NoxIntranet\\RessourcesBundle\\DependencyInjection\\Configuration' => $baseDir . '/src/NoxIntranet/RessourcesBundle/DependencyInjection/Configuration.php',
     'NoxIntranet\\RessourcesBundle\\DependencyInjection\\NoxIntranetRessourcesExtension' => $baseDir . '/src/NoxIntranet/RessourcesBundle/DependencyInjection/NoxIntranetRessourcesExtension.php',
@@ -1819,10 +1827,13 @@ return array(
     'NoxIntranet\\RessourcesBundle\\Entity\\DonneesSuiviRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/DonneesSuiviRepository.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\Profils' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/Profils.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\ProfilsRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/ProfilsRepository.php',
+<<<<<<< HEAD
     'NoxIntranet\\RessourcesBundle\\Entity\\PropositionPrestation' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/PropositionPrestation.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\PropositionPrestationRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/PropositionPrestationRepository.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\RecherchePrestation' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/RecherchePrestation.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\RecherchePrestationRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/RecherchePrestationRepository.php',
+=======
+>>>>>>> intranetNox/fixedHeader
     'NoxIntranet\\RessourcesBundle\\Entity\\ReferencesKeywords' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/ReferencesKeywords.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\ReferencesKeywordsRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/ReferencesKeywordsRepository.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/Serveur.php',
@@ -1864,10 +1875,25 @@ return array(
     'PhpCollection\\AbstractMap' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/AbstractMap.php',
     'PhpCollection\\AbstractSequence' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/AbstractSequence.php',
     'PhpCollection\\CollectionInterface' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/CollectionInterface.php',
+<<<<<<< HEAD
     'PhpCollection\\Map' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/Map.php',
     'PhpCollection\\MapInterface' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/MapInterface.php',
     'PhpCollection\\Sequence' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/Sequence.php',
     'PhpCollection\\SequenceInterface' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/SequenceInterface.php',
+=======
+    'PhpCollection\\EntityLikeObject' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/EntityLikeObject.php',
+    'PhpCollection\\Map' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/Map.php',
+    'PhpCollection\\MapInterface' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/MapInterface.php',
+    'PhpCollection\\ObjectBasics' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/ObjectBasics.php',
+    'PhpCollection\\ObjectBasicsHandler' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/ObjectBasicsHandler.php',
+    'PhpCollection\\ObjectBasicsHandlerRegistry' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/ObjectBasicsHandlerRegistry.php',
+    'PhpCollection\\ObjectBasicsHandler\\DateTimeHandler' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/ObjectBasicsHandler/DateTimeHandler.php',
+    'PhpCollection\\ObjectBasicsHandler\\IdentityHandler' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/ObjectBasicsHandler/IdentityHandler.php',
+    'PhpCollection\\Sequence' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/Sequence.php',
+    'PhpCollection\\SequenceInterface' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/SequenceInterface.php',
+    'PhpCollection\\Set' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/Set.php',
+    'PhpCollection\\SetInterface' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/SetInterface.php',
+>>>>>>> intranetNox/fixedHeader
     'PhpCollection\\SortableInterface' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/SortableInterface.php',
     'PhpCollection\\SortedSequence' => $vendorDir . '/phpcollection/phpcollection/src/PhpCollection/SortedSequence.php',
     'PhpOption\\LazyOption' => $vendorDir . '/phpoption/phpoption/src/PhpOption/LazyOption.php',

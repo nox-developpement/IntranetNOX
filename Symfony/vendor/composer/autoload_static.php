@@ -2148,10 +2148,14 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'NoxIntranet\\AccueilBundle\\NoxIntranetAccueilBundle' => __DIR__ . '/../..' . '/src/NoxIntranet/AccueilBundle/NoxIntranetAccueilBundle.php',
         'NoxIntranet\\AccueilBundle\\Tests\\Controller\\DefaultControllerTest' => __DIR__ . '/../..' . '/src/NoxIntranet/AccueilBundle/Tests/Controller/DefaultControllerTest.php',
         'NoxIntranet\\AdministrationBundle\\Command\\CronTaskRunCommand' => __DIR__ . '/../..' . '/src/NoxIntranet/AdministrationBundle/Command/CronTaskRunCommand.php',
+<<<<<<< HEAD
         'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAssistantAffaire\\AdministrationAffairesController' => __DIR__ . '/../..' . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationAssistantAffaire/AdministrationAffairesController.php',
         'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAssistantAffaire\\Champs\\ChampsController' => __DIR__ . '/../..' . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationAssistantAffaire/Champs/ChampsController.php',
         'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAssistantAffaire\\Modeles\\ModelesController' => __DIR__ . '/../..' . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationAssistantAffaire/Modeles/ModelesController.php',
         'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAssistantAffaire\\Profils\\ProfilsController' => __DIR__ . '/../..' . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationAssistantAffaire/Profils/ProfilsController.php',
+=======
+        'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationAffairesController' => __DIR__ . '/../..' . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationAffairesController.php',
+>>>>>>> intranetNox/fixedHeader
         'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationCommunicationController' => __DIR__ . '/../..' . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationCommunicationController.php',
         'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationController' => __DIR__ . '/../..' . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationController.php',
         'NoxIntranet\\AdministrationBundle\\Controller\\AdministrationMaterielController' => __DIR__ . '/../..' . '/src/NoxIntranet/AdministrationBundle/Controller/AdministrationMaterielController.php',
@@ -2226,11 +2230,15 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'NoxIntranet\\PointageBundle\\ExtractRHHierarchie\\NoxIntranetExtractRHHierarchie' => __DIR__ . '/../..' . '/src/NoxIntranet/PointageBundle/ExtractRHHierarchie/NoxIntranetExtractRHHierarchie.php',
         'NoxIntranet\\PointageBundle\\NoxIntranetPointageBundle' => __DIR__ . '/../..' . '/src/NoxIntranet/PointageBundle/NoxIntranetPointageBundle.php',
         'NoxIntranet\\PointageBundle\\Tests\\Controller\\DefaultControllerTest' => __DIR__ . '/../..' . '/src/NoxIntranet/PointageBundle/Tests/Controller/DefaultControllerTest.php',
+<<<<<<< HEAD
         'NoxIntranet\\RessourcesBundle\\Controller\\AssistantAffaire\\NouveauSuiviController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/AssistantAffaire/NouveauSuiviController.php',
         'NoxIntranet\\RessourcesBundle\\Controller\\AssistantAffaire\\SuiviEnCoursController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/AssistantAffaire/SuiviEnCoursController.php',
         'NoxIntranet\\RessourcesBundle\\Controller\\AssistantAffaire\\SuiviTermineController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/AssistantAffaire/SuiviTermineController.php',
         'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/ExcelReadingController.php',
         'NoxIntranet\\RessourcesBundle\\Controller\\PrestationsInternes\\PrestationsInternesController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/PrestationsInternes/PrestationsInternesController.php',
+=======
+        'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/ExcelReadingController.php',
+>>>>>>> intranetNox/fixedHeader
         'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/RessourcesController.php',
         'NoxIntranet\\RessourcesBundle\\DependencyInjection\\Configuration' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/DependencyInjection/Configuration.php',
         'NoxIntranet\\RessourcesBundle\\DependencyInjection\\NoxIntranetRessourcesExtension' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/DependencyInjection/NoxIntranetRessourcesExtension.php',
@@ -2244,10 +2252,13 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'NoxIntranet\\RessourcesBundle\\Entity\\DonneesSuiviRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/DonneesSuiviRepository.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\Profils' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/Profils.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\ProfilsRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/ProfilsRepository.php',
+<<<<<<< HEAD
         'NoxIntranet\\RessourcesBundle\\Entity\\PropositionPrestation' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/PropositionPrestation.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\PropositionPrestationRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/PropositionPrestationRepository.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\RecherchePrestation' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/RecherchePrestation.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\RecherchePrestationRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/RecherchePrestationRepository.php',
+=======
+>>>>>>> intranetNox/fixedHeader
         'NoxIntranet\\RessourcesBundle\\Entity\\ReferencesKeywords' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/ReferencesKeywords.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\ReferencesKeywordsRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/ReferencesKeywordsRepository.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\Serveur' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/Serveur.php',
@@ -2289,10 +2300,25 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'PhpCollection\\AbstractMap' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/AbstractMap.php',
         'PhpCollection\\AbstractSequence' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/AbstractSequence.php',
         'PhpCollection\\CollectionInterface' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/CollectionInterface.php',
+<<<<<<< HEAD
         'PhpCollection\\Map' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/Map.php',
         'PhpCollection\\MapInterface' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/MapInterface.php',
         'PhpCollection\\Sequence' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/Sequence.php',
         'PhpCollection\\SequenceInterface' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/SequenceInterface.php',
+=======
+        'PhpCollection\\EntityLikeObject' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/EntityLikeObject.php',
+        'PhpCollection\\Map' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/Map.php',
+        'PhpCollection\\MapInterface' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/MapInterface.php',
+        'PhpCollection\\ObjectBasics' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/ObjectBasics.php',
+        'PhpCollection\\ObjectBasicsHandler' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/ObjectBasicsHandler.php',
+        'PhpCollection\\ObjectBasicsHandlerRegistry' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/ObjectBasicsHandlerRegistry.php',
+        'PhpCollection\\ObjectBasicsHandler\\DateTimeHandler' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/ObjectBasicsHandler/DateTimeHandler.php',
+        'PhpCollection\\ObjectBasicsHandler\\IdentityHandler' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/ObjectBasicsHandler/IdentityHandler.php',
+        'PhpCollection\\Sequence' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/Sequence.php',
+        'PhpCollection\\SequenceInterface' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/SequenceInterface.php',
+        'PhpCollection\\Set' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/Set.php',
+        'PhpCollection\\SetInterface' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/SetInterface.php',
+>>>>>>> intranetNox/fixedHeader
         'PhpCollection\\SortableInterface' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/SortableInterface.php',
         'PhpCollection\\SortedSequence' => __DIR__ . '/..' . '/phpcollection/phpcollection/src/PhpCollection/SortedSequence.php',
         'PhpOption\\LazyOption' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/LazyOption.php',
