@@ -8,6 +8,8 @@
 
     <div id='loadingContent' style='position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; background-image: url({{asset('bundles/noxintranetressources/images/pointageLoading.svg')}}); background-size: contain; background-repeat: no-repeat; background-position: center center;'></div>
 
+    <div id='pointageSavingNotification' style='display: none; position: fixed; z-index: 500; background-color: rgba(41,154,11, 0.7); border: 1px outset white; border-radius: 10px; padding: 0.5%;'><p style='display: inline-block; margin: 0; font-size: 0.8vw; color: white;'>Sauvegarde en cours <img src='{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}' style='vertical-align: middle; height: 2em;'></p></div>
+
     <div id="pointageStatusDiv">
         <div id="pointageStatusLabelGeneralContainer">
             <div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Collaborateur</p></div><!--
@@ -319,11 +321,16 @@
             if (ajaxUrl === "pointage-ajax-set-date" || ajaxUrl === "pointage-ajax-get-data" || ajaxUrl === "pointage-ajax-get-status") {
                 $('#loadingContent').show();
             }
+            if (ajaxUrl === "pointage-ajax-save-data") {
+                savingNotification();
+                $('#pointageSavingNotification').finish().css('display', 'inline-block');
+            }
         });
-        // Cache l'écran de chargement quand les requêtes ajax de chargement de la page sont terminées.
+        // Cache l'écran de chargement et la notification de sauvegarde quand les requêtes ajax de chargement de la page et de sauvegarde sont terminées.
         $(document).ajaxComplete(function () {
             if ($.active <= 1) {
                 $('#loadingContent').hide();
+                $('#pointageSavingNotification').finish().delay(2000).fadeOut();
             }
         });
 
@@ -1138,6 +1145,20 @@
                                         });
                                     }
                                 }
+
+                                ajaxGetPointageStatus();
+                                deleteProjectColumn();
+                                tableEventHandler();
+                                displayDailyProjectsTotalPercentage();
+                                dispayMonthlyTotalHoursMod();
+                                displayMonthlyTotalTitresRepas();
+                                displayMonthlyTotalForfaitsDeplacement();
+                                displayMonthlyTotalPrimesPanier();
+                                displayTotalAbscences();
+                                displayTotalTitreTransport();
+                                checkAbscencesTitreRepas();
+                                getGXAffaires();
+                                ajaxSaveData();
                             }
                         });
                     }
@@ -1748,6 +1769,15 @@
                 // On cache la croix.
                 $('#floatingHeaderCross').hide();
             }
+        }
+
+        // Affiche une fenêtre de notification de sauvegarde qui suit la souris.
+        function savingNotification() {
+            // Lorsque la souris bouge.
+            $(document).mousemove(function (event) {
+                $('#pointageSavingNotification').css('left', event.pageX + 20);
+                $('#pointageSavingNotification').css('top', event.pageY);
+            });
         }
 
     </script>

@@ -6,6 +6,8 @@
 
 {% block contenu %}
 
+    <div id='loadingContent' style='position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; background-image: url({{asset('bundles/noxintranetressources/images/pointageLoading.svg')}}); background-size: contain; background-repeat: no-repeat; background-position: center center;'></div>
+
     <div class="pointageSelectionDateCompilation">
 
         {{ form_start(form) }}
@@ -176,6 +178,26 @@
             ajaxSaveCompilationData();
             ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
         });
+
+        // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
+        $(document).ajaxSend(function (event, request, settings) {
+            var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
+            if (ajaxUrl === "pointage-compilation-ajax-get-status") {
+                $('#loadingContent').show();
+            }
+            /*if (ajaxUrl === "pointage-ajax-save-data") {
+                savingNotification();
+                $('#pointageSavingNotification').finish().css('display', 'inline-block');
+            }*/
+        });
+        // Cache l'écran de chargement et la notification de sauvegarde quand les requêtes ajax de chargement de la page et de sauvegarde sont terminées.
+        $(document).ajaxComplete(function () {
+            if ($.active <= 1) {
+                $('#loadingContent').hide();
+                //$('#pointageSavingNotification').finish().delay(2000).fadeOut();
+            }
+        });
+
         // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
         function ajaxGetAssistanceAgencePointageCompilationByMonthAndYear() {
 
@@ -528,6 +550,15 @@
             if (ms_ie) {
                 alert('Le module de pointage n\'est pas compatible avec Internet Explorer, veuillez utiliser Google Chrome ou Microsoft Edge à la place.');
             }
+        }
+
+        // Affiche une fenêtre de notification de sauvegarde qui suit la souris.
+        function savingNotification() {
+            // Lorsque la souris bouge.
+            $(document).mousemove(function (event) {
+                $('#pointageSavingNotification').css('left', event.pageX + 20);
+                $('#pointageSavingNotification').css('top', event.pageY);
+            });
         }
     </script>
 
