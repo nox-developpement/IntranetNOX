@@ -502,7 +502,7 @@ DN,sAMAccountName
 "CN=EON Damien,OU=Rennes,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",d.eon
 "CN=GABARET Tom,OU=Nantes,OU=_Old,OU=NOX,DC=nox,DC=local",t.gabaret
 "CN=LESCOB Marie,OU=Siege,OU=Nantes,OU=_Old,OU=NOX,DC=nox,DC=local",m.lescob
-"CN=LEBASTARD Marie,OU=RH,OU=Supports,OU=NOX,DC=nox,DC=local",m.lebastard
+"CN=LEBASTARD Marie,OU=Siege,OU=Nantes,OU=_Old,OU=NOX,DC=nox,DC=local",m.lebastard
 "CN=TANEL Pierre,OU=Paris,OU=Developpement Immobilier,OU=France,OU=NOX,DC=nox,DC=local",p.tanel
 "CN=LEBLANC Julien,OU=Rennes,OU=_Old,OU=NOX,DC=nox,DC=local",j.leblanc
 "CN=LECOEUR Guillaume,OU=Ecuisses,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",g.lecoeur
@@ -640,7 +640,7 @@ DN,sAMAccountName
 "CN=LECOEUR Christophe,OU=Paris,OU=Developpement Immobilier,OU=France,OU=NOX,DC=nox,DC=local",c.lecoeur
 "CN=EL OMARI Yasmine,OU=Woippy,OU=_Old,OU=NOX,DC=nox,DC=local",y.elomari
 "CN=MOISAN Guillaume,OU=Boulogne,OU=_Old,OU=NOX,DC=nox,DC=local",g.moisan
-"CN=CAQUET Damien,OU=Rennes,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",d.caquet
+"CN=CAQUET Damien,OU=Rennes,OU=_Old,OU=NOX,DC=nox,DC=local",d.caquet
 "CN=COLLET Florent,OU=Woippy,OU=_Old,OU=NOX,DC=nox,DC=local",f.collet
 "CN=GOUDEFROYE Alexandre,OU=ENERGIE,OU=Bron,OU=Ingenierie,OU=France,OU=NOX,DC=nox,DC=local",a.goudefroye
 "CN=DIMITRIADIS Konstantinos,OU=Paris,OU=Developpement Immobilier,OU=France,OU=NOX,DC=nox,DC=local",k.dimitriadis
