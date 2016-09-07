@@ -3518,6 +3518,7 @@ form[name='formNewSearch'] table td input, form[name='formNewSearch'] table td t
     color: white;
 }
 
+
 form[name='formValidationRefus'] {
     float: right;
     display: inline-block;
@@ -3528,6 +3529,13 @@ form[name='formValidationRefus'] {
 form[name='formValidationRefus'] textarea {
     width: 100%;
     max-width: 100%;
+}
+
+#compilationPointages form[name='formValidationRefus'] {
+    float: none;
+    display: block;
+    width: auto;
+    margin-right: 0;
 }
 
 #tableValidationProposition {
