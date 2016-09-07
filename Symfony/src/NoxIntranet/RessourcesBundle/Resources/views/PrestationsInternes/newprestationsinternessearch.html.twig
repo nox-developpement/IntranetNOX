@@ -10,8 +10,6 @@
 
         {{ form_start(formNewSearch, {'attr': {'style': 'text-align: center; background-color: rgba(255,255,255, 0.6);'}}) }}
 
-        {{ dump(formNewSearch) }}
-
         <table>
             <tr>
                 <th>{{ form_label(formNewSearch.Libelle, "Libellé") }}</th>
@@ -30,7 +28,7 @@
 
             <tr>
                 <th>{{ form_label(formNewSearch.Descriptif, "Descriptif de la prestation", {'attr': { 'style': 'vertical-align: top;'}}) }}</th>
-                <td><div id='DescriptifPrestation' class='textarea' contenteditable='true' placeholder='Ajoutez ici les éventuels échanges.'>{{ formNewSearch.Descriptif.vars.value }}</div></td>
+                <td><div id='DescriptifPrestation' class='textarea' contenteditable='true' placeholder='Ajoutez un descriptif pour la prestation.'>{{ formNewSearch.Descriptif.vars.value }}</div></td>
             </tr>
 
             <tr>
@@ -50,7 +48,7 @@
 
             <tr>
                 <th>{{ form_label(formNewSearch.Livrables, "Livrables attendus") }}</th>
-                <td><div id='LivrablesAttendus' class='textarea' contenteditable='true' placeholder='Ajoutez ici les éventuels échanges.'>{{ formNewSearch.Livrables.vars.value }}</div></td>
+                <td><div id='LivrablesAttendus' class='textarea' contenteditable='true' placeholder='Ajoutez les livrables attendus.'>{{ formNewSearch.Livrables.vars.value }}</div></td>
             </tr>
 
             <tr>
