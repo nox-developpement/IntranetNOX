@@ -21,8 +21,8 @@ class CommunicationController extends Controller {
     function getDirContents($dir, &$results = array()) {
         $files = scandir($dir);
 
-        foreach ($files as $key => $value) {      
-            
+        foreach ($files as $key => $value) {
+
             $path = realpath($dir . DIRECTORY_SEPARATOR . $value);
             if (!is_dir($path) && $value != ".gitignore") {
                 $results[] = $path;
@@ -40,6 +40,8 @@ class CommunicationController extends Controller {
         $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
 
         $news = $this->getPDF($root . "/web/uploads/Communication/" . $chemin);
+
+        //var_dump($root . "/web/uploads/Communication/" . $chemin);
 
         if ($news == null) {
             $nbPages = 1;

@@ -101,7 +101,7 @@
 
                 {% if new.Pages != null %} <li> Nombre de page(s) : {{ new.Pages }} </li> {% endif %}
 
-                <li> Posté le : {{ new.dateEnvoi }} </li>
+                <li> Posté le : {{ new.dateEnvoi|date('d/m/Y') }} </li>
 
             </ul>
 

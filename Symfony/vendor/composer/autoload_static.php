@@ -2256,6 +2256,8 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'NoxIntranet\\RessourcesBundle\\Entity\\ServeurRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/ServeurRepository.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/Suivis.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\SuivisRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/SuivisRepository.php',
+        'NoxIntranet\\RessourcesBundle\\Entity\\demandeRecrutement' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/demandeRecrutement.php',
+        'NoxIntranet\\RessourcesBundle\\Entity\\demandeRecrutementRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/demandeRecrutementRepository.php',
         'NoxIntranet\\RessourcesBundle\\GetKeywordsReferences\\NoxIntranetGetKeywordsReferences' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/GetKeywordsReferences/NoxIntranetGetKeywordsReferences.php',
         'NoxIntranet\\RessourcesBundle\\NoxIntranetRessourcesBundle' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/NoxIntranetRessourcesBundle.php',
         'NoxIntranet\\RessourcesBundle\\Tests\\Controller\\DefaultControllerTest' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Tests/Controller/DefaultControllerTest.php',

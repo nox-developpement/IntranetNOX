@@ -1831,6 +1831,8 @@ return array(
     'NoxIntranet\\RessourcesBundle\\Entity\\ServeurRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/ServeurRepository.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\Suivis' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/Suivis.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\SuivisRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/SuivisRepository.php',
+    'NoxIntranet\\RessourcesBundle\\Entity\\demandeRecrutement' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/demandeRecrutement.php',
+    'NoxIntranet\\RessourcesBundle\\Entity\\demandeRecrutementRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/demandeRecrutementRepository.php',
     'NoxIntranet\\RessourcesBundle\\GetKeywordsReferences\\NoxIntranetGetKeywordsReferences' => $baseDir . '/src/NoxIntranet/RessourcesBundle/GetKeywordsReferences/NoxIntranetGetKeywordsReferences.php',
     'NoxIntranet\\RessourcesBundle\\NoxIntranetRessourcesBundle' => $baseDir . '/src/NoxIntranet/RessourcesBundle/NoxIntranetRessourcesBundle.php',
     'NoxIntranet\\RessourcesBundle\\Tests\\Controller\\DefaultControllerTest' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Tests/Controller/DefaultControllerTest.php',
