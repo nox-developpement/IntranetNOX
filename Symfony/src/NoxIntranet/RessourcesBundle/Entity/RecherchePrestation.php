@@ -27,7 +27,7 @@ class RecherchePrestation {
      * @ORM\Column(name="Libelle", type="string", length=255)
      */
     private $libelle;
-    
+
     /**
      * @var string
      *
@@ -45,7 +45,7 @@ class RecherchePrestation {
     /**
      * @var string
      *
-     * @ORM\Column(name="Descriptif", type="string", length=255)
+     * @ORM\Column(name="Descriptif", type="text")
      */
     private $descriptif;
 
@@ -73,7 +73,7 @@ class RecherchePrestation {
     /**
      * @var string
      *
-     * @ORM\Column(name="Livrables", type="string", length=255)
+     * @ORM\Column(name="Livrables", type="text")
      */
     private $livrables;
 
@@ -177,28 +177,6 @@ class RecherchePrestation {
      */
     public function getLieuPrestation() {
         return $this->lieuPrestation;
-    }
-
-    /**
-     * Set descriptif
-     *
-     * @param string $descriptif
-     *
-     * @return RecherchePrestation
-     */
-    public function setDescriptif($descriptif) {
-        $this->descriptif = $descriptif;
-
-        return $this;
-    }
-
-    /**
-     * Get descriptif
-     *
-     * @return string
-     */
-    public function getDescriptif() {
-        return $this->descriptif;
     }
 
     /**
@@ -309,28 +287,6 @@ class RecherchePrestation {
      */
     public function getVolumeSousTraitance() {
         return $this->volumeSousTraitance;
-    }
-
-    /**
-     * Set livrables
-     *
-     * @param string $livrables
-     *
-     * @return RecherchePrestation
-     */
-    public function setLivrables($livrables) {
-        $this->livrables = $livrables;
-
-        return $this;
-    }
-
-    /**
-     * Get livrables
-     *
-     * @return string
-     */
-    public function getLivrables() {
-        return $this->livrables;
     }
 
     public function __construct() {
@@ -448,7 +404,6 @@ class RecherchePrestation {
         return $this->dateCreation;
     }
 
-
     /**
      * Set libelle
      *
@@ -456,8 +411,7 @@ class RecherchePrestation {
      *
      * @return RecherchePrestation
      */
-    public function setLibelle($libelle)
-    {
+    public function setLibelle($libelle) {
         $this->libelle = $libelle;
 
         return $this;
@@ -468,8 +422,56 @@ class RecherchePrestation {
      *
      * @return string
      */
-    public function getLibelle()
-    {
+    public function getLibelle() {
         return $this->libelle;
+    }
+
+
+    /**
+     * Set descriptif
+     *
+     * @param string $descriptif
+     *
+     * @return RecherchePrestation
+     */
+    public function setDescriptif($descriptif)
+    {
+        $this->descriptif = $descriptif;
+    
+        return $this;
+    }
+
+    /**
+     * Get descriptif
+     *
+     * @return string
+     */
+    public function getDescriptif()
+    {
+        return $this->descriptif;
+    }
+
+    /**
+     * Set livrables
+     *
+     * @param string $livrables
+     *
+     * @return RecherchePrestation
+     */
+    public function setLivrables($livrables)
+    {
+        $this->livrables = $livrables;
+    
+        return $this;
+    }
+
+    /**
+     * Get livrables
+     *
+     * @return string
+     */
+    public function getLivrables()
+    {
+        return $this->livrables;
     }
 }
