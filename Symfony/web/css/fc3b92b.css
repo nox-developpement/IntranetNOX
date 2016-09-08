@@ -3414,6 +3414,7 @@ form[name='formNewSearch'] table td input, form[name='formNewSearch'] table td t
     width: 35%;
     margin-left: 15%;
     margin-bottom: 5%;
+    table-layout: fixed;
 }
 
 #validationD1Sum, #validationD1Sum tr, #validationD1Sum td, #validationD1Sum th {
