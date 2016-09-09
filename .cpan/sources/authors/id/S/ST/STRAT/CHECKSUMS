@@ -1,0 +1,32 @@
+0&&<<''; # this PGP-signed message is also valid perl
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+# CHECKSUMS file written on Sun Aug 14 14:34:58 2016 GMT by CPAN::Checksums (v2.12)
+$cksum = {
+  'Tk' => {
+    'isdir' => 1
+  },
+  'Tk-EntryCheck-0.04.meta' => {
+    'md5' => '8fc37f5f6fde35913a14ca74a1b60466',
+    'mtime' => '2007-04-20',
+    'sha256' => '9e16ee68b310a8b601dff8bad3d41e0aeda253b1d3b6b497b394c649cf91d3d0',
+    'size' => 310
+  },
+  'Tk-EntryCheck-0.04.tar.gz' => {
+    'md5' => '6c5e510389fdd8d5cb6ac43f382c2899',
+    'md5-ungz' => '9caeb3d5b7c40c7654ff4271faa3a5be',
+    'mtime' => '2007-04-20',
+    'sha256' => 'e83148d49014f3b5a2bbe07a0698ad277dfa0a38fd8babce66d421f7ee151d5e',
+    'sha256-ungz' => '37b8183ca58b55716a1dca7012d4355e160874a267b4a5860df624326f7a81c7',
+    'size' => 4657
+  }
+};
+__END__
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.14 (GNU/Linux)
+
+iEYEARECAAYFAlewgZIACgkQMo2oZ0UPieyMpgCeOBJof+rvvp16EFANYS8ZjvV6
+5UQAn11pcDRjDtm4JAKsLnGQfMy+U47u
+=e5Kb
+-----END PGP SIGNATURE-----

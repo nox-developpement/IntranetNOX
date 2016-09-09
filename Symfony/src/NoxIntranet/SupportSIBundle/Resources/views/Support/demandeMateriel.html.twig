@@ -102,11 +102,16 @@
                 }
             });
 
-            // Lors de la validation du formulaire, vérifie qu'au moins une checkbox est cochée.
+            // Lors de la validation du formulaire.
             $('#form_Valider').click(function () {
-                // Affiche un message d'erreur et bloque l'envoie du formulaire si ce n'est pas le cas.
+                // Si aucune checkbox n'est cochée, affiche une message d'erreur et bloque l'envoi du formulaire.
                 if ($('#form_materielCheckbox:checked').length === 0 && $('#form_logicielCheckbox:checked').length === 0) {
                     alert('Veuillez cocher au moins un type de contenu pour votre demande !');
+                    return false;
+                }
+                // Si la date spécifié est inférieur à la date du jour, affiche une message d'erreur et bloque l'envoi du formulaire.
+                if (new Date($('#form_date_year').val(), $('#form_date_month').val() - 1, $('#form_date_day').val()) < new Date()) {
+                    alert('Veuillez entrer une date supérieur à la date du jour !');
                     return false;
                 }
             });

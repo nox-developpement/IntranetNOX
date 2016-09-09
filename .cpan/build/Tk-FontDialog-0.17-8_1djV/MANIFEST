@@ -1,0 +1,8 @@
+Changes
+FontDialog.pm
+MANIFEST
+MANIFEST.SKIP
+Makefile.PL
+README
+t/00-basic.t
+META.yml                                 Module meta-data (added by MakeMaker)

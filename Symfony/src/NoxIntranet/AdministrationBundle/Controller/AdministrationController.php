@@ -3,12 +3,11 @@
 namespace NoxIntranet\AdministrationBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use NoxIntranet\UserBundle\Entity\User;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AdministrationController extends Controller {
 
@@ -145,7 +144,6 @@ class AdministrationController extends Controller {
         }
 
         return $this->render('NoxIntranetAdministrationBundle:Administration:administrationUserDB.html.twig', array('outputs' => $output, 'ajout' => true, 'confirmation' => true));
-        //, array('usernames' => $newUserNames, 'ajout' => 'true'));
     }
 
     public function administrationBDDRestaurationAction() {
@@ -324,6 +322,44 @@ class AdministrationController extends Controller {
         }
         $em->flush();
         return $this->redirect($request->server->get('HTTP_REFERER'));
+    }
+
+    public function uploadFichierHierarchieRHAction(Request $request) {
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath(); // Url de base du dossier web public.
+        $pathFichierHierarchie = $baseurl . '/uploads/FichierHierarchieRH/HierarchieRH.xlsx';
+        $pathExemple = $baseurl . '/uploads/FichierHierarchieRH/Exemple.pdf';
+
+        // Génération du formulaire d'upload du fichier de hiérachie RH.
+        $formUpload = $this->createFormBuilder()
+                ->add('fichierRH', FileType::class, array(
+                    'attr' => array('accept' => ".xlsx, application/vnd.ms-excel")
+                ))
+                ->add('envoiFichier', SubmitType::class)
+                ->getForm();
+
+        // Traitement du formulaire.
+        $formUpload->handleRequest($request);
+        if ($formUpload->isValid()) {
+            $file = $formUpload->get('fichierRH')->getData(); // On récupére le fichier.
+            // On vérifie si le fichier est bien de type xlsx sinon on affiche un message d'erreur.
+            if ($file->getClientOriginalExtension() !== 'xlsx') {
+                $request->getSession()->getFlashBag()->add('noticeErreur', "Le fichier doit être au format 'xlsx'."); // On affiche un message de confirmation du transfert.
+                return $this->redirectToRoute('nox_intranet_administration_upload_fichier_hierarchie_rh'); // On redirige vers l'envoi de fichier.
+            }
+
+            $filename = 'HierarchieRH.xlsx'; // Nom du fichier.
+            $path = $this->get('kernel')->getRootDir() . '/../web/uploads/FichierHierarchieRH'; // Chemin du dossier d'upload.
+            $file->move($path, $filename); // On transfert le fichier.
+
+            exec($this->get('kernel')->getRootDir() . '/../scripts/RHHierarchieExtraction.bat'); // On met la base de donnée de hiérarchie à jours avec le nouveau fichier.
+
+            $request->getSession()->getFlashBag()->add('notice', "Le fichier de hiérarchie a bien été transféré."); // On affiche un message de confirmation du transfert.
+            return $this->redirectToRoute('nox_intranet_administration_upload_fichier_hierarchie_rh'); // On redirige vers l'envoi de fichier.
+        }
+
+        return $this->render('NoxIntranetAdministrationBundle:Administration:uploadFichierHierarchieRH.html.twig', array('formUpload' => $formUpload->createView(),
+                    'pathFichierHierarchie' => $pathFichierHierarchie, 'pathExemple' => $pathExemple
+        ));
     }
 
 }

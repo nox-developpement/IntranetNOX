@@ -374,75 +374,53 @@ class RessourcesController extends Controller {
     }
 
     public function serveursAction(Request $request) {
-
         $em = $this->getDoctrine()->getManager();
-
         $textEncart = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Serveurs');
-
         $keywords = $em->getRepository('NoxIntranetRessourcesBundle:ReferencesKeywords')->findAll();
-
         if ($keywords != null) {
             foreach ($keywords as $k => $v) {
                 $nombre[$k] = $v->getNombre();
             }
             array_multisort($nombre, SORT_DESC, $keywords);
-
             $keywordNombreMax = $keywords[0]->getNombre();
-
             $keywords5 = array_slice($keywords, 0, 10);
-
             shuffle($keywords5);
         } else {
             $keywords5 = null;
             $keywordNombreMax = null;
         }
-
         if ($textEncart == null) {
             $textEncart = new texteEncart();
             $textEncart->setSection('Serveurs');
             $em->persist($textEncart);
             $em->flush();
         }
-
         $formBuilder = $this->get('form.factory')->createBuilder('form', $textEncart);
-
         $formBuilder
                 ->add('text', 'ckeditor')
                 ->add('modifier', 'submit')
         ;
-
         $form = $formBuilder->getForm();
-
         $form->handleRequest($request);
-
         // On vérifie que les valeurs entrées sont correctes
         // (Nous verrons la validation des objets en détail dans le prochain chapitre)
         if ($form->isValid()) {
             // On l'enregistre notre objet $advert dans la base de données, par exemple
-
             $em->persist($textEncart);
             $em->flush();
-
             // On redirige vers la page de visualisation de l'annonce nouvellement créée
             return $this->redirectToRoute('nox_intranet_serveurs');
         }
-
         $textEncartAffichage = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findOneBySection('Serveurs');
         $text = $textEncartAffichage->getText();
-
         $serveurs = $em->getRepository('NoxIntranetRessourcesBundle:Serveur')->findBy(array(), array('agence' => 'ASC'));
-
         return $this->render('NoxIntranetRessourcesBundle:Serveurs:serveurs.html.twig', array('serveurs' => $serveurs, 'text' => $text, 'formulaire' => $form->createView()));
     }
 
     public function scriptServeurConnexionDownloadAction($agence) {
-
         $em = $this->getDoctrine()->getManager();
-
         $serveur = $em->getRepository('NoxIntranetRessourcesBundle:Serveur')->findOneByAgence($agence);
-
         $file = $serveur->getChemin();
-
         if (file_exists($file)) {
             header('Content-Type: application/octet-stream');
             header('Content-Length: ' . filesize($file));
@@ -453,7 +431,6 @@ class RessourcesController extends Controller {
             readfile($file);
             exit();
         }
-
         return $this->redirectToRoute('nox_intranet_serveurs');
     }
 

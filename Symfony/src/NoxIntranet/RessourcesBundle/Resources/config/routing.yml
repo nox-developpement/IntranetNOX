@@ -163,5 +163,43 @@ nox_intranet_assistant_affaire_ajax_nocommande_delete:
 nox_intranet_assistant_affaire_ajax_save_new_infos:
     path: /ressources/assistant-affaires/edition-suivi-save-new-info
     defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:ajaxSaveNewInfos }
-
     
+nox_intranet_prestation_search:
+    path: /ressources/recherche-prestation
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:newPrestationSearch }
+
+nox_intranet_validation_da1:
+    path: /ressources/validation-da1/{cleDemande}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:validationDA1 }
+    
+nox_intranet_reponse_da2:
+    path: /ressources/reponse-da2/{cleDemande}/{reponse}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:DA2answer }
+    
+nox_intranet_gestion_proposition:
+    path: /ressources/gestion-proposition/{cleDemande}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:answerDA2Proposition }
+    
+nox_intranet_ajax_save_proposition_da1_answer:
+    path: /ressources/gestion-proposition-ajax-save-proposition-da1-answer
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveDA2PropositionAnswer }
+    
+nox_intranet_ajax_save_echanges:
+    path: /ressources/gestion-proposition-ajax-save-echanges
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveEchanges }
+    
+nox_intranet_demande_prestation_reporting:
+    path: /ressources/demande-prestation-reporting/{orderTime}/{trieStatus}/{page}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesReporting, search: '', trieStatus: 'tous', page: 0, orderTime: 'desc' }
+    
+nox_intranet_demande_prestation_summary:
+    path: /ressources/demande-prestation-summary/{cleDemande}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:demandePrestationSummary }
+    
+nox_intranet_demande_prestation_perso_reporting:
+    path: /ressources/demande-prestation-perso-reporting/{orderTime}/{trieStatus}/{page}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesPersoReporting, search: '', trieStatus: 'tous', page: 0, orderTime: 'desc' }
+    
+nox_intranet_prestations_internes:
+    path: /ressources/prestations-internes
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesAccueil }

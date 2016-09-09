@@ -150,7 +150,9 @@ class PointageAjaxController extends Controller {
 
             $dataArray = json_decode($data, true);
 
-            $dataArray['signatureCollaborateur'] = $signatureCollaborateur;
+            if (!empty($signatureCollaborateur)) {
+                $dataArray['signatureCollaborateur'] = $signatureCollaborateur;
+            }
 
             $stringData = json_encode($dataArray);
 
@@ -578,8 +580,6 @@ class PointageAjaxController extends Controller {
                 }
             } else {
                 foreach ($abscences['matin'] as $key => $abscence) {
-                    var_dump($abscence['date']);
-                    var_dump(str_replace('/', '-', $date));
                     if ($abscence['date'] === str_replace('/', '-', $date)) {
                         $abscences['matin'][$key]['commentaires'] = $value;
                     }

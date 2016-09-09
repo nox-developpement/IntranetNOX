@@ -4,10 +4,10 @@ Bonjour, <br />
 
 L'utilisateur <strong>{{ donneesMessage.demandeur }}</strong> situé dans l'agence de <strong>{{ donneesMessage.agence }}</strong> a fait
 la/les demande(s) suivante(s) : <br/><br/>
-{% if donneesMessage.materiel != null %}
+{% if donneesMessage.materielCheckbox == true %}
     - Matériel :  <strong>{{ donneesMessage.materiel }}</strong>. <br />
 {% endif %}
-{% if donneesMessage.logiciel != null %}
+{% if donneesMessage.logicielCheckbox == true %}
     - Logiciel : <strong>{{ donneesMessage.logiciel }}.</strong> <br />
 {% endif %}
 <br />

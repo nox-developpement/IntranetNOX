@@ -94,4 +94,3 @@ class AA_Client
         return $this->nomClient;
     }
 }
-
