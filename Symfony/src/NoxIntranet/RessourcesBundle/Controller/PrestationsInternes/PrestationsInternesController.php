@@ -751,4 +751,38 @@ class PrestationsInternesController extends Controller {
         ));
     }
 
+    // Sauvegarde les nouvelles valeurs des champs d'une demande.
+    public function ajaxEditDemandeAction(Request $request) {
+        // Si la fonction est un appel Ajax.
+        if ($request->isXmlHttpRequest()) {
+
+            // On récupére le champ, la valeur et la clé de la demande.
+            $field = $request->get('field');
+            $value = $request->get('value');
+            $cleDemande = $request->get('cleDemande');
+
+            // On récupére l'entitée de la demande.
+            $em = $this->getDoctrine()->getManager();
+            $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
+
+            // On prépare la fonction d'attribution de valeur en fonction du champ.
+            $function = "set" . $field;
+
+            // Si le champ est un champ de date.
+            if ($field === 'DateDemarrage' || $field === 'DateRendu') {
+                $demande->$function(new \DateTime($value)); // On lui attribut sa nouvelle date.
+            }
+            // Si le champ n'est pas un champ de date.
+            else {
+                $demande->$function($value); // On lui attribut sa nouvelle valeur.
+            }
+
+            // On sauvegarde la demande en base de donnée.
+            $em->persist($demande);
+            $em->flush();
+
+            return new Response('OK');
+        }
+    }
+
 }

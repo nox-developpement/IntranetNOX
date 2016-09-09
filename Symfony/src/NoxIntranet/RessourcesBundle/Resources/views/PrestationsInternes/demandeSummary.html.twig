@@ -68,7 +68,7 @@
         </tr>
         <tr>
             <td class='trLabel'>Libellé</td>
-            <td>{{ demande.Libelle }}</td>
+            <td class='editableField' contenteditable='true' field='Libelle'>{{ demande.Libelle }}</td>
         </tr>
         <tr>
             <td class='trLabel'>Demandeur</td>
@@ -80,39 +80,72 @@
         </tr>
         <tr>
             <td class='trLabel'>Lieu de l'opération</td>
-            <td>{{ demande.LieuOperation }}</td>
+            <td class='editableField' contenteditable='true' field='LieuOperation'>{{ demande.LieuOperation }}</td>
         </tr>
         <tr>
             <td class='trLabel'>Lieu de la prestation</td>
-            <td>{{ demande.LieuPrestation }}</td>
+            <td class='editableField' contenteditable='true' field='LieuPrestation'>{{ demande.LieuPrestation }}</td>
         </tr>
         <tr>
             <td class='trLabel'>Descriptif de la prestation</td>
             <td style='padding: 0;'>
-                <div style="height: 10em; overflow: auto; word-wrap: break-word;">{{ demande.Descriptif }}</div>
+                <div class='editableField' contenteditable='true' field='Descriptif' style="height: 10em; overflow: auto; word-wrap: break-word;">{{ demande.Descriptif }}</div>
             </td>
         </tr>
         <tr>
             <td class='trLabel'>Déplacements à prévoir</td>
-            <td>{{ demande.Deplacement }}</td>
+            <td class='editableField' contenteditable='true' field='Deplacement'>{{ demande.Deplacement }}</td>
         </tr>
         <tr>
             <td class='trLabel'>Date de démarrage de la prestation</td>
-            <td>{{ demande.DateDemarrage|date('d/m/Y') }}</td>
+            <td class='editableFieldDate' field='DateDemarrage'>
+                <select class='editableFieldDateDay'>
+                    {% for i in 1..31 %}
+                        <option value='{{ i }}' {% if demande.DateDemarrage|date('d') == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}
+                </select>
+                <select class='editableFieldDateMonth'>
+                    {% set months = { 01: 'Janvier', 02: 'Février', 03: 'Mars', 04: 'Avril', 05: 'Mai', 06: 'Juin', 07: 'Juillet', 08: 'Août', 09: 'Septembre', 10: 'Octobre', 11: 'Novembre', 12: 'Décembre' } %}
+                    {% for i in 1..12 %}
+                        <option value='{{ i }}' {% if demande.DateDemarrage|date('m') == i %}selected{% endif %}>{{ months[i] }}</option>
+                    {% endfor %}     
+                </select>
+                <select class='editableFieldDateYear'>
+                    {% for i in demande.DateDemarrage|date('Y')-50..demande.DateDemarrage|date('Y')+50 %}
+                        <option value='{{ i }}' {% if demande.DateDemarrage|date('Y') == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}     
+                </select>
+            </td>
         </tr>
         <tr>
             <td class='trLabel'>Date de rendu</td>
-            <td>{{ demande.DateRendu|date('d/m/Y') }}</td>
+            <td class='editableFieldDate' field='DateRendu'>
+                <select class='editableFieldDateDay'>
+                    {% for i in 1..31 %}
+                        <option value='{{ i }}' {% if demande.DateRendu|date('d') == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}
+                </select>
+                <select class='editableFieldDateMonth'>
+                    {% for i in 1..12 %}
+                        <option value='{{ i }}' {% if demande.DateRendu|date('m') == i %}selected{% endif %}>{{ months[i] }}</option>
+                    {% endfor %}     
+                </select>
+                <select class='editableFieldDateYear'>
+                    {% for i in demande.DateRendu|date('Y')-50..demande.DateRendu|date('Y')+50 %}
+                        <option value='{{ i }}' {% if demande.DateRendu|date('Y') == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}     
+                </select>
+            </td>
         </tr>
         <tr>
             <td class='trLabel'>Livrables attendus</td>
             <td style='padding: 0;'>
-                <div style="height: 10em; overflow: auto; word-wrap: break-word;">{{ demande.Livrables }}</div>
+                <div class='editableField' contenteditable='true' field='Livrables' style="height: 10em; overflow: auto; word-wrap: break-word;">{{ demande.Livrables }}</div>
             </td>
         </tr>
         <tr>
             <td class='trLabel'>Volume de sous traitance envisagé (€)</td>
-            <td>{{ demande.VolumeSousTraitance }}</td>
+            <td class='editableField' contenteditable='true' field='VolumeSousTraitance'>{{ demande.VolumeSousTraitance }}</td>
         </tr>
         <tr>
             <td class='trLabel'>Status</td>
@@ -161,6 +194,7 @@
         $(window).load(function () {
             toggleEchanges();
             closeTooltip();
+            editDemande();
         });
 
         // Affiche/Cache le texte des échanges.
@@ -176,12 +210,58 @@
             });
         }
 
+        // Permet de faire disparaitre les tooltips.
         function closeTooltip() {
             $('.demandeSummaryTipsClose').click(function () {
                 $(this).parent('p').parent('.demandeSummaryTips').remove();
             });
         }
 
-    </script>
+        // Permet d'éditer les valeurs des champs de la demande.
+        function editDemande() {
+            // Lorsqu'un champ text est séléctionné.
+            $('#validationD1Sum .editableField').focus(function () {
+                $(this).css('background-color', 'seashell'); // On change la couleur de fond.
+            });
+            // Lorsqu'un champ texte n'est plus séléctionné.
+            $('#validationD1Sum .editableField').blur(function () {
+                $(this).css('background-color', 'initial'); // On lui redonne sa couleur d'origine.
+            });
 
+            // Initialisation d'un timer pour executer la fonction après # seconde sans frappe.
+            var typewatch = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            // Lorsqu'on modifie la valeur d'un champ texte.
+            $('#validationD1Sum .editableField').on("keyup paste input", function () {
+                var ajaxFieldInput = $(this); // On récupére le champ.
+                typewatch(function () {
+                    // On enregistre sa nouvelle valeur avec un appel Ajax.
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ path('nox_intranet_ajax_edit_demande') }}',
+                        data: {'field': ajaxFieldInput.attr('field'), 'value': ajaxFieldInput.text(), 'cleDemande': '{{ demande.CleDemande }}'}
+                    });
+                }, 500);
+            });
+
+            // Lorsque qu'on modifie les valeurs des sélécteurs de date.
+            $('#validationD1Sum .editableFieldDate select').change(function () {
+                // On récupére la nouvelle date.
+                var date = $(this).parent('.editableFieldDate').children('.editableFieldDateYear').val() + '-' + $(this).parent('.editableFieldDate').children('.editableFieldDateMonth').val() + '-' + $(this).parent('.editableFieldDate').children('.editableFieldDateDay').val();
+                // On enregistre sa nouvelle valeur avec un appel Ajax.        
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path('nox_intranet_ajax_edit_demande') }}',
+                    data: {'field': $(this).parent('.editableFieldDate').attr('field'), 'value': date, 'cleDemande': '{{ demande.CleDemande }}'}
+                });
+            });
+        }
+
+    </script>
 {% endblock %}

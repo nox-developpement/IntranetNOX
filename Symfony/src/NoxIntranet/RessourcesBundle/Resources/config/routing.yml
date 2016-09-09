@@ -203,3 +203,7 @@ nox_intranet_demande_prestation_perso_reporting:
 nox_intranet_prestations_internes:
     path: /ressources/prestations-internes
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesAccueil }
+    
+nox_intranet_ajax_edit_demande:
+    path: /ressources/ajax-edition-demande-prestation-interne
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxEditDemande }
