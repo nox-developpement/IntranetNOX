@@ -799,7 +799,7 @@ class PointageController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         // Vérifie que l'utilistateur est un directeur d'agence ou un manager.
-        if (in_array($securityName, $this->getAssistantesRH())) {
+        if (in_array($securityName, $this->getAssistantesRH()) || $this->get('security.context')->isGranted('ROLE_RH')) {
 
             // Initialisation d'une échelle de temps.
             $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
@@ -810,14 +810,12 @@ class PointageController extends Controller {
             // On récupére les jours fériés.
             $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
-            function getPointagesValides($em, $users, $context) {
+            function getPointagesValides($em, $context) {
                 $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 5));
                 $pointages = array();
                 foreach ($pointagesValides as $pointage) {
-                    if (in_array($pointage->getUser(), array_keys($users))) {
-                        $pointage->setAbsences(json_decode($pointage->getAbsences(), true));
-                        $pointages[] = $pointage;
-                    }
+                    $pointage->setAbsences(json_decode($pointage->getAbsences(), true));
+                    $pointages[] = $pointage;
                 }
 
                 return $pointages;
@@ -835,7 +833,7 @@ class PointageController extends Controller {
                     ->getForm();
 
             return $this->render('NoxIntranetPointageBundle:Pointage:affichageCompilationsValides.html.twig', array('form' => $form->createView(),
-                        'pointagesValides' => getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this),
+                        'pointagesValides' => getPointagesValides($em, $this),
                         'joursFeries' => $joursFeries
                             )
             );
