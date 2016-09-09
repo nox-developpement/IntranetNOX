@@ -756,7 +756,7 @@ class PointageAjaxController extends Controller {
             $em = $this->getDoctrine()->getManager();
 
             // Retourne les pointages valides des collaborateurs du directeur d'agence/manager.
-            function getPointagesValides($em, $users, $month, $year) {
+            function getPointagesValides($em, $month, $year) {
                 $query = $em->createQueryBuilder()
                         ->select('p')
                         ->from('NoxIntranetPointageBundle:PointageValide', 'p')
@@ -768,16 +768,14 @@ class PointageAjaxController extends Controller {
 
                 $pointages = array();
                 foreach ($pointagesValides as $pointage) {
-                    if (in_array($pointage['user'], array_keys($users))) {
-                        $pointage['absences'] = json_decode($pointage['absences'], true);
-                        $pointages[] = $pointage;
-                    }
+                    $pointage['absences'] = json_decode($pointage['absences'], true);
+                    $pointages[] = $pointage;
                 }
 
                 return $pointages;
             }
 
-            return new Response(json_encode(getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year)));
+            return new Response(json_encode(getPointagesValides($em, $month, $year)));
         }
     }
 
