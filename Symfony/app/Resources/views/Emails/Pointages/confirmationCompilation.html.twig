@@ -1,0 +1,6 @@
+{% set months = { 01: 'Janvier', 02: 'Février', 03: 'Mars', 04: 'Avril', 05: 'Mai', 06: 'Juin', 07: 'Juillet', 08: 'Août', 09: 'Septembre', 10: 'Octobre', 11: 'Novembre', 12: 'Décembre' } %}
+
+Bonjour {{ destinataire.firstname }} {{ destinataire.lastname }},<br />
+<br />
+La compilation des pointages du mois de {{ months[mois] }} {{ annee }} a été validé par {{ validateur }} et est en attente de votre validation.<br />
+Vous pouvez traiter cette compilation en <a href='{{ absolute_url(lienValidationCompilation) }}'>cliquant ici</a>.<br />

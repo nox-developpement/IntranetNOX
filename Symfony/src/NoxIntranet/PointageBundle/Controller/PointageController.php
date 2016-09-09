@@ -354,6 +354,36 @@ class PointageController extends Controller {
                 return $pointages;
             }
 
+            // Envoi un mail indiquant que la compilation a été validé par les assistants d'agences.
+            function sendMailToDestinataire($Destinataires, $validateur, $mois, $annee, $lienValidationCompilation, $em, $context) {
+                // Pour chaque DA.
+                foreach ($Destinataires as $Destinataire) {
+                    // On récupére son entitée utilisateur.
+                    $DestinataireEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $Destinataire)[0], 'lastname' => explode(' ', $Destinataire)[1]));
+
+                    // Si l'entitée existe.
+                    if (!empty($DestinataireEntity)) {
+                        // On génére son adresse email.
+                        $mailDestinataire = $DestinataireEntity->getUsername() . '@groupe-nox.com';
+
+                        // On lui envoi un mail lui indiquant que la compilation est prête pour validation.
+                        $message = \Swift_Message::newInstance()
+                                ->setSubject('Compilation disponible pour validation.')
+                                ->setFrom('noreply@groupe-nox.com')
+                                ->setTo($mailDestinataire)
+                                ->setBody(
+                                $context->renderView(
+                                        // app/Resources/views/Emails/*.html.twig
+                                        'Emails/Pointages/confirmationCompilation.html.twig', array('destinataire' => $DestinataireEntity, 'validateur' => $validateur, 'mois' => $mois, 'annee' => $annee, 'lienValidationCompilation' => $lienValidationCompilation)
+                                ), 'text/html'
+                                )
+                        ;
+                        $context->get('mailer')->send($message);
+                    }
+                }
+            }
+
+            // Génération du formulaire de séléction du mois/année.
             $form = $this->createFormBuilder()
                     ->add('Month', ChoiceType::class, array(
                         'choices' => $month,
@@ -366,6 +396,7 @@ class PointageController extends Controller {
                     ->getForm();
 
 
+            // Génération du formulaire de validation de la compilation.
             $formValidationRefus = $this->get('form.factory')->createNamedBuilder('formValidationRefus', 'form')
                     ->add('Compilation', SubmitType::class)
                     ->add('month', 'hidden', array(
@@ -376,23 +407,33 @@ class PointageController extends Controller {
                     ))
                     ->getForm();
 
+            // Traitement du formulaire de validation de la compilation.
             $formValidationRefus->handleRequest($request);
-
             if ($formValidationRefus->isValid()) {
-
+                // On récupére les pointages à inclure dans la compilation.
                 $pointagesCompilation = getPointagesACompile($em, $this->getUsersByAssistante($securityName, $em), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData());
-
+                // On initalise la liste des DA concerné par le pointage.
+                $DAs = array();
+                // Lors du clique sur le bouton de validation.
                 if ($formValidationRefus->get('Compilation')->isClicked()) {
+                    // Pour chaque pointages.
                     foreach ($pointagesCompilation as $pointage) {
-                        $pointage->setStatus(3);
-                        $pointage->setAbsences(json_encode($pointage->getAbsences(), true));
+                        // On récupére l'entitée hiérarchique de l'utilisateur associé au pointage.
+                        $hierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
+                        // On ajoute le DA correspondant à l'utilisateur du pointage dans le tableau des DA.
+                        $DAs[$hierachy->getDA()] = $hierachy->getDA();
+
+                        $pointage->setStatus(3); // On modifie son status.
+                        $pointage->setAbsences(json_encode($pointage->getAbsences(), true)); // On encode ses absences en JSON.
                         $em->persist($pointage);
                     }
-                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été envoyée aux directeur d\'agence/managers.');
+                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été envoyée aux directeur d\'agence/managers.'); // On affiche un message de confirmation.
+                    // On envoie un mail au n+1 pour validation.
+                    sendMailToDestinataire($DAs, "un/une assistant(e) d'agence", $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $this->generateUrl('nox_intranet_da_manager_pointage_compilation'), $em, $this);
                 }
 
-                $em->flush();
-
+                $em->flush(); // On sauvegarde les changements de status en base de donnée.
+                // On redirige vers la compilation des pointages.
                 return $this->redirectToRoute('nox_intranet_assistantes_agence_pointage_compilation');
             }
 
@@ -402,7 +443,10 @@ class PointageController extends Controller {
                         'formValidation' => $formValidationRefus->createView(), 'joursFeries' => $joursFeries
                             )
             );
-        } else {
+        }
+        // Si l'utilisateur n'est pas une assistante d'agence.
+        else {
+            // On affiche un message d'erreur et on redirige vers l'accueil.
             $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistant(e)s d\'agence peuvent accéder à cette espace.');
             return $this->redirectToRoute('nox_intranet_accueil');
         }
@@ -494,6 +538,36 @@ class PointageController extends Controller {
                 return $pointages;
             }
 
+            // Envoi un mail indiquant que la compilation a été validé par les assistants d'agences.
+            function sendMailToDestinataire($Destinataires, $validateur, $mois, $annee, $lienValidationCompilation, $em, $context) {
+                // Pour chaque DA.
+                foreach ($Destinataires as $Destinataire) {
+                    // On récupére son entitée utilisateur.
+                    $DestinataireEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $Destinataire)[0], 'lastname' => explode(' ', $Destinataire)[1]));
+
+                    // Si l'entitée existe.
+                    if (!empty($DestinataireEntity)) {
+                        // On génére son adresse email.
+                        $mailDestinataire = $DestinataireEntity->getUsername() . '@groupe-nox.com';
+
+                        // On lui envoi un mail lui indiquant que la compilation est prête pour validation.
+                        $message = \Swift_Message::newInstance()
+                                ->setSubject('Compilation disponible pour validation.')
+                                ->setFrom('noreply@groupe-nox.com')
+                                ->setTo($mailDestinataire)
+                                ->setBody(
+                                $context->renderView(
+                                        // app/Resources/views/Emails/*.html.twig
+                                        'Emails/Pointages/confirmationCompilation.html.twig', array('destinataire' => $DestinataireEntity, 'validateur' => $validateur, 'mois' => $mois, 'annee' => $annee, 'lienValidationCompilation' => $lienValidationCompilation)
+                                ), 'text/html'
+                                )
+                        ;
+                        $context->get('mailer')->send($message);
+                    }
+                }
+            }
+
+            // Génération du formulaire de séléction du mois/année.
             $form = $this->createFormBuilder()
                     ->add('Month', ChoiceType::class, array(
                         'choices' => $month,
@@ -505,6 +579,7 @@ class PointageController extends Controller {
                     ))
                     ->getForm();
 
+            // Génération du formulaire de validation/refus de la compilation.
             $formValidationRefus = $this->get('form.factory')->createNamedBuilder('formValidationRefus', 'form')
                     ->add('Compilation', SubmitType::class)
                     ->add('Refus', SubmitType::class)
@@ -516,32 +591,43 @@ class PointageController extends Controller {
                     ))
                     ->getForm();
 
+            // Traitement du formulaire de validation/refus
             $formValidationRefus->handleRequest($request);
-
             if ($formValidationRefus->isValid()) {
-
+                // On récupére les pointages à compiler.
                 $pointagesCompilation = getPointagesACompile($em, $this->getUsersByDAManager($securityName, $em), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData());
-
+                // Lors du clique sur le bouton de compilation.
                 if ($formValidationRefus->get('Compilation')->isClicked()) {
+                    // On initalise la liste des DA concerné par le pointage.
+                    $RHs = array();
+                    // Pour chaque pointages à compiler.
                     foreach ($pointagesCompilation as $pointage) {
-                        $pointage->setStatus(4);
-                        $pointage->setAbsences(json_encode($pointage->getAbsences(), true));
+                        // On récupére l'entitée hiérarchique de l'utilisateur associé au pointage.
+                        $hierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
+                        // On ajoute le RH correspondant à l'utilisateur du pointage dans le tableau des RH.
+                        $RHs[$hierachy->getRH()] = $hierachy->getRH();
+
+                        $pointage->setStatus(4); // On change le status du pointage.
+                        $pointage->setAbsences(json_encode($pointage->getAbsences(), true)); // On encode les abscences.
                         $em->persist($pointage);
                     }
-                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été validée et envoyée aux assistant(e)s RH.');
+                    // On envoie un mail au n+1 pour validation.
+                    sendMailToDestinataire($RHs, "un directeur d'agence", $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $this->generateUrl('nox_intranet_assistantes_rh_pointage_compilation'), $em, $this);
+                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été validée et envoyée aux assistant(e)s RH.'); // On affiche un message de confirmation.
                 }
-
+                // Lors du clique sur le bouton de refus de compilation.
                 if ($formValidationRefus->get('Refus')->isClicked()) {
+                    // Pour chaque pointages à compiler.
                     foreach ($pointagesCompilation as $pointage) {
-                        $pointage->setStatus(2);
-                        $pointage->setAbsences(json_encode($pointage->getAbsences(), true));
+                        $pointage->setStatus(2); // On change le status du pointage.
+                        $pointage->setAbsences(json_encode($pointage->getAbsences(), true)); // On encode les abscences.
                         $em->persist($pointage);
                     }
-                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été refusée et renvoyée aux assistant(e)s d\'agences.');
+                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été refusée et renvoyée aux assistant(e)s d\'agences.'); // On affiche un message de confirmation de refus.
                 }
 
-                $em->flush();
-
+                $em->flush(); // On sauvegarde les changements en base de données.
+                // On redirige vers la compilation des pointages.
                 return $this->redirectToRoute('nox_intranet_da_manager_pointage_compilation');
             }
 
@@ -549,7 +635,10 @@ class PointageController extends Controller {
                         'pointagesValides' => getPointagesValides($em, $this->getUsersByDAMAnager($securityName, $em), $this),
                         'formValidationRefus' => $formValidationRefus->createView(), 'joursFeries' => $joursFeries)
             );
-        } else {
+        }
+        // Si l'utilisateur n'est pas un DA.
+        else {
+            // On affiche un message d'erreur et on redirige vers l'accueil.
             $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les directeurs d\'agence/Managers peuvent accéder à cette espace.');
             return $this->redirectToRoute('nox_intranet_accueil');
         }
