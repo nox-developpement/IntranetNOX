@@ -56,17 +56,6 @@
                 <th id="compilationPointageForfaitsDeplacement">Forfaits déplacement</th>
                 <th id="compilationPointagePrimesPanier">Primes panier</th>
                 <th id="compilationPointageTitreTransport">Titre transport</th>
-                <!-- Compteur d'absences -->
-                {% set nbAbsencesMatin = 0 %}
-                {% set nbAbsencesAM = 0 %}
-                {% set nbAbsencesMatin = 0 %}
-                {% set nbAbsencesAM = 0 %}
-                {% for absence in pointage.absences.matin if (absence.valeur is defined and absence.valeur != '') %}
-                    {% set nbAbsencesMatin = nbAbsencesMatin+1 %}
-                {% endfor %}
-                {% for absence in pointage.absences.am if (absence.valeur is defined and absence.valeur != '') %}
-                    {% set nbAbsencesAM = nbAbsencesAM+1 %}
-                {% endfor %}
                 <th>Absences</th>
             </tr>
             {% for pointage in pointagesValides %}
@@ -76,6 +65,17 @@
                     <td><input style='text-align: center; max-width: 30%;' type="number" name="ForfaitsDeplacement" step='0.01' min='0' value='{{ pointage.ForfaitsDeplacement }}'> €</td>
                     <td><input style='text-align: center; max-width: 30%;' type="number" name="PrimesPanier" min='0' step='0.01' value='{{ pointage.PrimesPanier }}'> €</td>
                     <td><input style='text-align: center; max-width: 30%;' type="number" name="TitreTransport" min='0' step='0.01' value='{{ pointage.TitreTransport }}'> €</td>
+                    <!-- Compteur d'absences -->
+                    {% set nbAbsencesMatin = 0 %}
+                    {% set nbAbsencesAM = 0 %}
+                    {% set nbAbsencesMatin = 0 %}
+                    {% set nbAbsencesAM = 0 %}
+                    {% for absence in pointage.absences.matin if (absence.valeur is defined and absence.valeur != '') %}
+                        {% set nbAbsencesMatin = nbAbsencesMatin+1 %}
+                    {% endfor %}
+                    {% for absence in pointage.absences.am if (absence.valeur is defined and absence.valeur != '') %}
+                        {% set nbAbsencesAM = nbAbsencesAM+1 %}
+                    {% endfor %}
                     <td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'>{{ nbAbsencesMatin+nbAbsencesAM }}<img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>
                 </tr>
                 <tr>

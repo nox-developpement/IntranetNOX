@@ -798,8 +798,8 @@ class PointageController extends Controller {
         $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
         $em = $this->getDoctrine()->getManager();
 
-        // Vérifie que l'utilistateur est un directeur d'agence ou un manager.
-        if (in_array($securityName, $this->getAssistantesRH()) || $this->get('security.context')->isGranted('ROLE_RH')) {
+        // Vérifie que l'utilistateur est un directeur d'agence/manager ou fait parti de la RH.
+        if (in_array($securityName, $this->getAssistantesRH()) || in_array($securityName, $this->getDAManager()) || $this->get('security.context')->isGranted('ROLE_RH')) {
 
             // Initialisation d'une échelle de temps.
             $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');

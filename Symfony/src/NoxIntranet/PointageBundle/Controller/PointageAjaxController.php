@@ -750,7 +750,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
-// Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et du directeur d'agence/manager.
+// Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et du directeur d'agence/manager/RH.
     public function ajaxGetCompilationsValideByMonthAndYearAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
 
