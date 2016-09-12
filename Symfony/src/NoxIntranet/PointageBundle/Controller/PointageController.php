@@ -328,7 +328,7 @@ class PointageController extends Controller {
 
             // Retourne les pointages valides des collaborateurs de l'assistante d'agence.
             function getPointagesValides($em, $users, $context) {
-                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 2));
+                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 2), array('lastname' => 'asc', 'firstname' => 'asc'));
                 $pointages = array();
                 foreach ($pointagesValides as $pointage) {
                     if (in_array($pointage->getUser(), array_keys($users))) {
@@ -512,7 +512,7 @@ class PointageController extends Controller {
             $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
             function getPointagesValides($em, $users, $context) {
-                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 3));
+                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 3), array('lastname' => 'asc', 'firstname' => 'asc'));
                 $pointages = array();
                 foreach ($pointagesValides as $pointage) {
                     if (in_array($pointage->getUser(), array_keys($users))) {
@@ -704,7 +704,7 @@ class PointageController extends Controller {
             $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
             function getPointagesValides($em, $users, $context) {
-                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 4));
+                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 4), array('lastname' => 'asc', 'firstname' => 'asc'));
                 $pointages = array();
                 foreach ($pointagesValides as $pointage) {
                     if (in_array($pointage->getUser(), array_keys($users))) {

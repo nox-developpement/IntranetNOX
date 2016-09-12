@@ -61,20 +61,6 @@
                 <th id="compilationPointageTitreTransport">Titre transport</th>
                 <th>Absences</th>
             </tr>
-            {% set nbAbsencesMatin = 0 %}
-            {% set nbAbsencesAM = 0 %}
-            {% for pointage in pointagesValides %}
-                {% set nbAbsencesMatin = 0 %}
-                {% set nbAbsencesAM = 0 %}
-                {% for absence in pointage.absences.matin if (absence.valeur is defined and absence.valeur != '') %}
-                    {% set nbAbsencesMatin = absence|length %}
-                {% endfor %}
-                {% for absence in pointage.absences.am if (absence.valeur is defined and absence.valeur != '') %}
-                    {% set nbAbsencesAM = absence|length %}
-                {% endfor %}
-                {{ dump(nbAbsencesMatin+nbAbsencesAM) }}
-            {% endfor %}
-
 
             {% for pointage in pointagesValides %}
                 <tr class="pointageCompile" username='{{ pointage.User }}'>
@@ -83,7 +69,18 @@
                     <td><input style='text-align: center; max-width: 30%;' type="number" name="ForfaitsDeplacement" step='0.01' min='0' value='{{ pointage.ForfaitsDeplacement }}'> €</td>
                     <td><input style='text-align: center; max-width: 30%;' type="number" name="PrimesPanier" min='0' step='0.01' value='{{ pointage.PrimesPanier }}'> €</td>
                     <td><input style='text-align: center; max-width: 30%;' type="number" name="TitreTransport" min='0' step='0.01' value='{{ pointage.TitreTransport }}'> €</td>
-                    <td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>
+                    <!-- Compteur d'absences -->
+                    {% set nbAbsencesMatin = 0 %}
+                    {% set nbAbsencesAM = 0 %}
+                    {% set nbAbsencesMatin = 0 %}
+                    {% set nbAbsencesAM = 0 %}
+                    {% for absence in pointage.absences.matin if (absence.valeur is defined and absence.valeur != '') %}
+                        {% set nbAbsencesMatin = nbAbsencesMatin+1 %}
+                    {% endfor %}
+                    {% for absence in pointage.absences.am if (absence.valeur is defined and absence.valeur != '') %}
+                        {% set nbAbsencesAM = nbAbsencesAM+1 %}
+                    {% endfor %}
+                    <td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'>{{ nbAbsencesMatin+nbAbsencesAM }}<img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>
                 </tr>
                 <tr>
                     <td colspan="6" style='background-color: white; border-right: none;' class='compilationPointagesTableAbsencesTd'>
@@ -229,13 +226,30 @@
                     if (data.length) {
                         var newHtmlContent = "";
                         $.each(data, function (index) {
+
+                            // On récupere le nombre d'absences du matin.
+                            var nbAbsencesMatin = 0;
+                            $.each(data[index].absences.matin, function (indexAbsence) {
+                                if (data[index].absences.matin[indexAbsence].valeur !== '' && data[index].absences.matin[indexAbsence].valeur !== undefined) {
+                                    nbAbsencesMatin++;
+                                }
+                            });
+
+                            // On récupere le nombre d'absences de l'après-midi.
+                            var nbAbsencesAM = 0;
+                            $.each(data[index].absences.am, function (indexAbsence) {
+                                if (data[index].absences.am[indexAbsence].valeur !== '' && data[index].absences.am[indexAbsence].valeur !== undefined) {
+                                    nbAbsencesAM++;
+                                }
+                            });
+
                             newHtmlContent += "<tr class='pointageCompile' username='" + data[index].user + "'>";
                             newHtmlContent += "<td>" + data[index].lastname + ' ' + data[index].firstname + "</td>";
                             newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titresRepas' step='1' min='0' value='" + data[index].titresRepas + "'></td>";
                             newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='forfaitsDeplacement' step='0.01' min='0' value='" + data[index].forfaitsDeplacement + "'></td>";
                             newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='primesPanier' min='0' step='0.01' value='" + data[index].primesPanier + "'></td>";
                             newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titreTransport' min='0' step='0.01' value='" + data[index].titreTransport + "'></td>";
-                            newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
+                            newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'>" + (nbAbsencesMatin + nbAbsencesAM) + "<img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
                             newHtmlContent += "</tr>";
                             newHtmlContent += "<tr>";
                             newHtmlContent += "<td colspan='6' style='background-color: white; border-right: none; padding-bottom: 3%;' class='compilationPointagesTableAbsencesTd'>";
