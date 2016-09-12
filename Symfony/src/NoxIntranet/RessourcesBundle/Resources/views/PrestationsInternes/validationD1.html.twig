@@ -263,6 +263,8 @@
 
             // Lorsqu'on modifie la valeur d'un champ texte.
             $('#validationD1Sum .editableField').on("keyup paste input", function () {
+
+
                 var ajaxFieldInput = $(this); // On récupére le champ.
                 typewatch(function () {
                     // On enregistre sa nouvelle valeur avec un appel Ajax.
@@ -282,6 +284,10 @@
                                     ajaxFieldInput.tooltip("option", "disabled", true); // On fait disparaitre la tooltip.
                                     ajaxFieldInput.css('border-color', 'black'); // On redonne la couleur d'origine à la bordure.
                                 });
+                            }
+                            // Si la sauvegarde s'est déroulé avec succé.
+                            else if (ajaxFieldInput.is(':focus')) {
+                                ajaxFieldInput.css('background-color', 'seashell'); // On redonne la couleur de focus au champ.
                             }
                         }
                     });
