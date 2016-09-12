@@ -464,7 +464,7 @@
 
             // Pour les types d'abscences.
             $('.compilationAbscenceMatin select, .compilationAbsenceAM select').change(function () {
-                var username = $(this).parent('td').parents('.compilationPointagesTableAbsencesDiv').parents('tr').siblings('.pointageCompile').attr('username');
+                var username = $(this).parents('tr').prev('.pointageCompile').attr('username');
                 var date = $(this).parent('td').parent('tr').attr('date');
                 var data = $(this).parent('td').attr('data');
                 $.ajax({
@@ -479,7 +479,7 @@
                 if (typeof ajaxComment !== 'undefined') {
                     ajaxComment.abort();
                 }
-                var username = $(this).parents('.compilationPointagesTableAbsencesDiv').parents('tr').siblings('.pointageCompile').attr('username');
+                var username = $(this).parents('tr').prev('.pointageCompile').attr('username');
                 var date = $(this).parent('tr').attr('date');
                 var data = $(this).attr('data');
                 ajaxComment = $.ajax({

@@ -61,6 +61,21 @@
                 <th id="compilationPointageTitreTransport">Titre transport</th>
                 <th>Absences</th>
             </tr>
+            {% set nbAbsencesMatin = 0 %}
+            {% set nbAbsencesAM = 0 %}
+            {% for pointage in pointagesValides %}
+                {% set nbAbsencesMatin = 0 %}
+                {% set nbAbsencesAM = 0 %}
+                {% for absence in pointage.absences.matin if (absence.valeur is defined and absence.valeur != '') %}
+                    {% set nbAbsencesMatin = absence|length %}
+                {% endfor %}
+                {% for absence in pointage.absences.am if (absence.valeur is defined and absence.valeur != '') %}
+                    {% set nbAbsencesAM = absence|length %}
+                {% endfor %}
+                {{ dump(nbAbsencesMatin+nbAbsencesAM) }}
+            {% endfor %}
+
+
             {% for pointage in pointagesValides %}
                 <tr class="pointageCompile" username='{{ pointage.User }}'>
                     <td>{{ pointage.Lastname }} {{ pointage.Firstname }}</td>
@@ -192,7 +207,7 @@
                 $('#pointageSavingNotification').finish().css('display', 'inline-block');
             }
         });
-        
+
         // Cache l'écran de chargement et la notification de sauvegarde quand les requêtes ajax de chargement de la page et de sauvegarde sont terminées.
         $(document).ajaxComplete(function () {
             if ($.active <= 1) {
@@ -449,6 +464,7 @@
         function ajaxSaveCompilationData() {
             // Pour les données principales.
             $('#compilationPointagesTable input').on('blur keyup paste input', function () {
+                console.log($(this).parent('td').parent('tr').attr('username'));
                 if (typeof ajaxMainInfo !== 'undefined') {
                     ajaxMainInfo.abort();
                 }
@@ -460,7 +476,8 @@
             });
             // Pour les types d'abscences.
             $('.compilationAbscenceMatin select, .compilationAbsenceAM select').change(function () {
-                var username = $(this).parent('td').parents('.compilationPointagesTableAbsencesDiv').parents('tr').siblings('.pointageCompile').attr('username');
+                var username = $(this).parents('tr').prev('.pointageCompile').attr('username');
+                console.log(username);
                 var date = $(this).parent('td').parent('tr').attr('date');
                 var data = $(this).parent('td').attr('data');
                 $.ajax({
@@ -471,7 +488,8 @@
             });
             // Pour les commentaires d'abscences.
             $('.compilationAbsenceCommentaire').on('blur keyup paste input', function () {
-                var username = $(this).parents('.compilationPointagesTableAbsencesDiv').parents('tr').siblings('.pointageCompile').attr('username');
+                var username = $(this).parents('tr').prev('.pointageCompile').attr('username');
+                console.log(username);
                 var date = $(this).parent('tr').attr('date');
                 var data = $(this).attr('data');
                 if (typeof ajaxComment !== 'undefined') {
