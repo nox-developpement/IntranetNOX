@@ -5,6 +5,8 @@
 {% block messageAccueil %}Résumé de la demande "{{ demande.Libelle }}"{% endblock %}
 
 {% block contenu %} 
+    <div id='pointageSavingNotification' style='display: none; position: fixed; z-index: 500; background-color: rgba(41,154,11, 0.7); border: 1px outset white; border-radius: 10px; padding: 0.5%;'><p style='display: inline-block; margin: 0; font-size: 0.8vw; color: white;'>Sauvegarde en cours <img src='{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}' style='vertical-align: middle; height: 2em;'></p></div>
+
     <div style='clear: both; width: 70%; margin: auto; text-align: center;'>
         <!-- Si l'utilisateur est le DA1 de la demande. -->
         {% if app.security.getToken().getUser().getUsername() == demande.DA1 %}
@@ -64,10 +66,10 @@
 
     <table id='validationD1Sum'>
         <tr>
-            <th class='trLabel' colspan='2' style='padding-top: 5%; padding-bottom: 5%;'>Demande de prestation interne</th>
+            <th class='trLabel' colspan='2' style='padding-top: 5%; padding-bottom: 5%;'>Demande de prestation interne<br />Les champs éditables sont marqués d'un *.</th>
         </tr>
         <tr>
-            <td class='trLabel'>Libellé</td>
+            <td class='trLabel'>Libellé*</td>
             <td class='editableField' contenteditable='true' field='Libelle'>{{ demande.Libelle }}</td>
         </tr>
         <tr>
@@ -79,25 +81,25 @@
             <td>{{ demande.dateCreation|date('d/m/Y à H:i:s') }}</td>
         </tr>
         <tr>
-            <td class='trLabel'>Lieu de l'opération</td>
+            <td class='trLabel'>Lieu de l'opération*</td>
             <td class='editableField' contenteditable='true' field='LieuOperation'>{{ demande.LieuOperation }}</td>
         </tr>
         <tr>
-            <td class='trLabel'>Lieu de la prestation</td>
+            <td class='trLabel'>Lieu de la prestation*</td>
             <td class='editableField' contenteditable='true' field='LieuPrestation'>{{ demande.LieuPrestation }}</td>
         </tr>
         <tr>
-            <td class='trLabel'>Descriptif de la prestation</td>
+            <td class='trLabel'>Descriptif de la prestation*</td>
             <td style='padding: 0;'>
                 <div class='editableField' contenteditable='true' field='Descriptif' style="height: 10em; overflow: auto; word-wrap: break-word;">{{ demande.Descriptif }}</div>
             </td>
         </tr>
         <tr>
-            <td class='trLabel'>Déplacements à prévoir</td>
+            <td class='trLabel'>Déplacements à prévoir*</td>
             <td class='editableField' contenteditable='true' field='Deplacement'>{{ demande.Deplacement }}</td>
         </tr>
         <tr>
-            <td class='trLabel'>Date de démarrage de la prestation</td>
+            <td class='trLabel'>Date de démarrage de la prestation*</td>
             <td class='editableFieldDate' field='DateDemarrage'>
                 <select class='editableFieldDateDay'>
                     {% for i in 1..31 %}
@@ -118,7 +120,7 @@
             </td>
         </tr>
         <tr>
-            <td class='trLabel'>Date de rendu</td>
+            <td class='trLabel'>Date de rendu*</td>
             <td class='editableFieldDate' field='DateRendu'>
                 <select class='editableFieldDateDay'>
                     {% for i in 1..31 %}
@@ -138,13 +140,13 @@
             </td>
         </tr>
         <tr>
-            <td class='trLabel'>Livrables attendus</td>
+            <td class='trLabel'>Livrables attendus*</td>
             <td style='padding: 0;'>
                 <div class='editableField' contenteditable='true' field='Livrables' style="height: 10em; overflow: auto; word-wrap: break-word;">{{ demande.Livrables }}</div>
             </td>
         </tr>
         <tr>
-            <td class='trLabel'>Volume de sous traitance envisagé (€)</td>
+            <td class='trLabel'>Volume de sous traitance envisagé (€)*</td>
             <td class='editableField' contenteditable='true' field='VolumeSousTraitance'>{{ demande.VolumeSousTraitance }}</td>
         </tr>
         <tr>
@@ -195,6 +197,22 @@
             toggleEchanges();
             closeTooltip();
             editDemande();
+        });
+
+        // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
+        $(document).ajaxSend(function (event, request, settings) {
+            var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
+            if (ajaxUrl === "ajax-edition-demande-prestation-interne") {
+                savingNotification();
+                $('#pointageSavingNotification').finish().css('display', 'inline-block');
+            }
+        });
+
+        // Cache l'écran de chargement et la notification de sauvegarde quand les requêtes ajax de chargement de la page et de sauvegarde sont terminées.
+        $(document).ajaxComplete(function () {
+            if ($.active <= 1) {
+                $('#pointageSavingNotification').finish().delay(2000).fadeOut();
+            }
         });
 
         // Affiche/Cache le texte des échanges.
@@ -260,6 +278,15 @@
                     url: '{{ path('nox_intranet_ajax_edit_demande') }}',
                     data: {'field': $(this).parent('.editableFieldDate').attr('field'), 'value': date, 'cleDemande': '{{ demande.CleDemande }}'}
                 });
+            });
+        }
+
+        // Affiche une fenêtre de notification de sauvegarde qui suit la souris.
+        function savingNotification() {
+            // Lorsque la souris bouge.
+            $(document).mousemove(function (event) {
+                $('#pointageSavingNotification').css('left', event.pageX + 20);
+                $('#pointageSavingNotification').css('top', event.pageY);
             });
         }
 

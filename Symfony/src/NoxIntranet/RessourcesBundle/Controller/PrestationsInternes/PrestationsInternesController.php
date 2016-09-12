@@ -772,6 +772,13 @@ class PrestationsInternesController extends Controller {
             if ($field === 'DateDemarrage' || $field === 'DateRendu') {
                 $demande->$function(new \DateTime($value)); // On lui attribut sa nouvelle date.
             }
+            // Si le champ est le champ de volume de sous-traitance.
+            elseif ($field === 'VolumeSousTraitance') {
+                // Si la valeur entrée n'est pas un numérique on retourne une erreur.
+                if (!is_numeric($value)) {
+                    return new Response('VolumeSousTraitance error');
+                }
+            }
             // Si le champ n'est pas un champ de date.
             else {
                 $demande->$function($value); // On lui attribut sa nouvelle valeur.

@@ -6,53 +6,88 @@
 
 {% block contenu %} 
 
+    <div id='pointageSavingNotification' style='display: none; position: fixed; z-index: 500; background-color: rgba(41,154,11, 0.7); border: 1px outset white; border-radius: 10px; padding: 0.5%;'><p style='display: inline-block; margin: 0; font-size: 0.8vw; color: white;'>Sauvegarde en cours <img src='{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}' style='vertical-align: middle; height: 2em;'></p></div>
+
     <table id='validationD1Sum'>
         <tr>
-            <th class='trLabel' colspan='2' style='padding-top: 5%; padding-bottom: 5%;'>Demande de prestation interne</th>
+            <th class='trLabel' colspan='2' style='padding-top: 5%; padding-bottom: 5%;'>Demande de prestation interne<br />Les champs éditables sont marqués d'un *.</th>
         </tr>
         <tr>
-            <td class='trLabel'>Libellé</td>
-            <td>{{ demande.Libelle }}</td>
+            <td class='trLabel'>Libellé*</td>
+            <td class='editableField' contenteditable='true' field='Libelle'>{{ demande.Libelle }}</td>
         </tr>
         <tr>
             <td class='trLabel'>Demandeur</td>
             <td>{{ demandeur.Firstname() }} {{ demandeur.Lastname() }}</td>
         </tr>
         <tr>
-            <td class='trLabel'>Lieu de l'opération</td>
-            <td>{{ demande.LieuOperation }}</td>
+            <td class='trLabel'>Lieu de l'opération*</td>
+            <td class='editableField' contenteditable='true' field='LieuOperation'>{{ demande.LieuOperation }}</td>
         </tr>
         <tr>
-            <td class='trLabel'>Lieu de la prestation</td>
-            <td>{{ demande.LieuPrestation }}</td>
+            <td class='trLabel'>Lieu de la prestation*</td>
+            <td class='editableField' contenteditable='true' field='LieuPrestation'>{{ demande.LieuPrestation }}</td>
         </tr>
-        <tr>
-            <td class='trLabel'>Descriptif de la prestation</td>
+        <tr class='editableField' contenteditable='true' field='Descriptif'>
+            <td class='trLabel'>Descriptif de la prestation*</td>
             <td style='padding: 0;'>
-                <div style="height: 10em; overflow: auto;">{{ demande.Descriptif }}</div>
+                <div class='editableField' contenteditable='true' field='Descriptif' style="height: 10em; overflow: auto; word-wrap: break-word;">{{ demande.Descriptif }}</div>
             </td>
         </tr>
-        <tr>
-            <td class='trLabel'>Déplacements à prévoir</td>
+        <tr class='editableField' contenteditable='true' field='Deplacement'>
+            <td class='trLabel'>Déplacements à prévoir*</td>
             <td>{{ demande.Deplacement }}</td>
         </tr>
         <tr>
-            <td class='trLabel'>Date de démarrage de la prestation</td>
-            <td>{{ demande.DateDemarrage|date('d/m/Y') }}</td>
-        </tr>
-        <tr>
-            <td class='trLabel'>Date de rendu</td>
-            <td>{{ demande.DateRendu|date('d/m/Y') }}</td>
-        </tr>
-        <tr>
-            <td class='trLabel'>Livrables attendus</td>
-            <td style='padding: 0;'>
-                <div style="height: 10em; overflow: auto;">{{ demande.Livrables }}</div>
+            <td class='trLabel'>Date de démarrage de la prestation*</td>
+            <td class='editableFieldDate' field='DateDemarrage'>
+                <select class='editableFieldDateDay'>
+                    {% for i in 1..31 %}
+                        <option value='{{ i }}' {% if demande.DateDemarrage|date('d') == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}
+                </select>
+                <select class='editableFieldDateMonth'>
+                    {% set months = { 01: 'Janvier', 02: 'Février', 03: 'Mars', 04: 'Avril', 05: 'Mai', 06: 'Juin', 07: 'Juillet', 08: 'Août', 09: 'Septembre', 10: 'Octobre', 11: 'Novembre', 12: 'Décembre' } %}
+                    {% for i in 1..12 %}
+                        <option value='{{ i }}' {% if demande.DateDemarrage|date('m') == i %}selected{% endif %}>{{ months[i] }}</option>
+                    {% endfor %}     
+                </select>
+                <select class='editableFieldDateYear'>
+                    {% for i in demande.DateDemarrage|date('Y')-50..demande.DateDemarrage|date('Y')+50 %}
+                        <option value='{{ i }}' {% if demande.DateDemarrage|date('Y') == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}     
+                </select>
             </td>
         </tr>
         <tr>
-            <td class='trLabel'>Volume de sous traitance envisagé (€)</td>
-            <td>{{ demande.VolumeSousTraitance }}</td>
+            <td class='trLabel'>Date de rendu*</td>
+            <td class='editableFieldDate' field='DateRendu'>
+                <select class='editableFieldDateDay'>
+                    {% for i in 1..31 %}
+                        <option value='{{ i }}' {% if demande.DateRendu|date('d') == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}
+                </select>
+                <select class='editableFieldDateMonth'>
+                    {% for i in 1..12 %}
+                        <option value='{{ i }}' {% if demande.DateRendu|date('m') == i %}selected{% endif %}>{{ months[i] }}</option>
+                    {% endfor %}     
+                </select>
+                <select class='editableFieldDateYear'>
+                    {% for i in demande.DateRendu|date('Y')-50..demande.DateRendu|date('Y')+50 %}
+                        <option value='{{ i }}' {% if demande.DateRendu|date('Y') == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}     
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Livrables attendus*</td>
+            <td style='padding: 0;'>
+                <div class='editableField' contenteditable='true' field='Livrables' style="height: 10em; overflow: auto; word-wrap: break-word;">{{ demande.Livrables }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Volume de sous traitance envisagé (€)*</td>
+            <td class='editableField' contenteditable='true' field='VolumeSousTraitance' title='La valeur doit être un chiffre.'>{{ demande.VolumeSousTraitance }}</td>
         </tr>
     </table>
 
@@ -100,6 +135,33 @@
             toggleFormValidationRefus();
             selectAndRemoveDA();
             checkAndSendForm();
+            editDemande();
+            $('.editableField').tooltip({
+                position: {
+                    my: "left+10% center",
+                    at: "right center"
+                },
+                disabled: true,
+                hide: {
+                    fixed: true
+                }
+            });
+        });
+
+        // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
+        $(document).ajaxSend(function (event, request, settings) {
+            var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
+            if (ajaxUrl === "ajax-edition-demande-prestation-interne") {
+                savingNotification();
+                $('#pointageSavingNotification').finish().css('display', 'inline-block');
+            }
+        });
+
+        // Cache l'écran de chargement et la notification de sauvegarde quand les requêtes ajax de chargement de la page et de sauvegarde sont terminées.
+        $(document).ajaxComplete(function () {
+            if ($.active <= 1) {
+                $('#pointageSavingNotification').finish().delay(2000).fadeOut();
+            }
         });
 
         // Affiche/Caches les élément du formulaire en fonction du radiobutton séléctionné.
@@ -176,6 +238,75 @@
                     $(this).attr('selected', true); // On la séléctionne.
                 });
                 $('#formValidationRefus_Validator').click(); // On effectu un clic sur un submit caché pour envoyer le formulaire tous en gardant le contrôle de formulaire HTML5.
+            });
+        }
+
+        // Permet d'éditer les valeurs des champs de la demande.
+        function editDemande() {
+            // Lorsqu'un champ text est séléctionné.
+            $('#validationD1Sum .editableField').focus(function () {
+                $(this).css('background-color', 'seashell'); // On change la couleur de fond.
+            });
+            // Lorsqu'un champ texte n'est plus séléctionné.
+            $('#validationD1Sum .editableField').blur(function () {
+                $(this).css('background-color', 'initial'); // On lui redonne sa couleur d'origine.
+            });
+
+            // Initialisation d'un timer pour executer la fonction après # seconde sans frappe.
+            var typewatch = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            // Lorsqu'on modifie la valeur d'un champ texte.
+            $('#validationD1Sum .editableField').on("keyup paste input", function () {
+                var ajaxFieldInput = $(this); // On récupére le champ.
+                typewatch(function () {
+                    // On enregistre sa nouvelle valeur avec un appel Ajax.
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ path('nox_intranet_ajax_edit_demande') }}',
+                        data: {'field': ajaxFieldInput.attr('field'), 'value': ajaxFieldInput.text(), 'cleDemande': '{{ demande.CleDemande }}'},
+                        success: function (result) {
+                            // Si la sauvegarde retourne une erreur de type de données (valeurs non numériques pour le volume de sous traitance.
+                            if (result === 'VolumeSousTraitance error') {
+                                ajaxFieldInput.css('background-color', '#FF6666'); // On color les bordure du champ en rouge.
+                                ajaxFieldInput.tooltip("option", "disabled", false); // On active l'affichage de la tooltip d'erreur.
+                                ajaxFieldInput.tooltip('open'); // On ouvre la tooltip d'erreur.
+                                ajaxFieldInput.off("mouseleave"); // On désactive la disparition de la tooltip lors du survol de la souris.
+                                // Lorsque on focus le champ.
+                                ajaxFieldInput.focus(function () {
+                                    ajaxFieldInput.tooltip("option", "disabled", true); // On fait disparaitre la tooltip.
+                                    ajaxFieldInput.css('border-color', 'black'); // On redonne la couleur d'origine à la bordure.
+                                });
+                            }
+                        }
+                    });
+                }, 500);
+            });
+
+            // Lorsque qu'on modifie les valeurs des sélécteurs de date.
+            $('#validationD1Sum .editableFieldDate select').change(function () {
+                // On récupére la nouvelle date.
+                var date = $(this).parent('.editableFieldDate').children('.editableFieldDateYear').val() + '-' + $(this).parent('.editableFieldDate').children('.editableFieldDateMonth').val() + '-' + $(this).parent('.editableFieldDate').children('.editableFieldDateDay').val();
+                // On enregistre sa nouvelle valeur avec un appel Ajax.        
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path('nox_intranet_ajax_edit_demande') }}',
+                    data: {'field': $(this).parent('.editableFieldDate').attr('field'), 'value': date, 'cleDemande': '{{ demande.CleDemande }}'}
+                });
+            });
+        }
+
+        // Affiche une fenêtre de notification de sauvegarde qui suit la souris.
+        function savingNotification() {
+            // Lorsque la souris bouge.
+            $(document).mousemove(function (event) {
+                $('#pointageSavingNotification').css('left', event.pageX + 20);
+                $('#pointageSavingNotification').css('top', event.pageY);
             });
         }
 
