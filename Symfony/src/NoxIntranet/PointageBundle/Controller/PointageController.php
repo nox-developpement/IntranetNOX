@@ -315,15 +315,32 @@ class PointageController extends Controller {
 
             // Retourne le nombre de pointages des collaborateurs qui n'ont pas encore était validés par l'assistante d'agence.
             function getNbPointagesNonValides($em, $users, $context) {
-                $pointagesNonValides = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => '1'));
-                $nbPointageNonValide = 0;
-                foreach ($pointagesNonValides as $pointage) {
-                    if (in_array($pointage->getUser(), array_keys($users))) {
-                        $nbPointageNonValide++;
+                // On récupére tout les tableau de pointages du mois et de l'année courante.
+                $pointagesEntity = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year']));
+                $pointageEnAttenteValidationAA = array(); // Initialisation du tableau des pointages en attente de validation par l'assistant d'agence.
+                $pointageValideParCollaborateur = array(); // Initialisation du tableau des pointages validés par le collaborateur.
+                // Pour chaque pointage.
+                foreach ($pointagesEntity as $pointage) {
+                    // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a été validé par le collaborateur mais pas encore par l'assistant d'agence.
+                    if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() === '1') {
+                        $pointageEnAttenteValidationAA[] = $pointage; // On l'ajout au tableau des pointages en attente de validation par l'assistant d'agence.
+                    }
+                    // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a au moins été validé par le collaborateur.
+                    if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() >= '1') {
+                        $pointageValideParCollaborateur[] = $pointage->getUser(); // On ajoute l'username du collaborateur au tableau des pointages validés par le collaborateur.
                     }
                 }
 
-                return $nbPointageNonValide;
+                // On récupére les entitées des utilisateurs qui n'ont pas remplis/validé leur pointage.
+                $collaborateurSansPointage = array();
+                foreach (array_diff(array_keys($users), $pointageValideParCollaborateur) as $collaborateur) {
+                    $collaborateurEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateur);
+                    if (!empty($collaborateurEntity)) {
+                        $collaborateurSansPointage[$collaborateur] = $collaborateurEntity->getFirstname() . " " . $collaborateurEntity->getLastname();
+                    }
+                }
+
+                return array('pointageEnAttenteValidationAA' => $pointageEnAttenteValidationAA, 'collaborateurSansPointage' => $collaborateurSansPointage);
             }
 
             // Retourne les pointages valides des collaborateurs de l'assistante d'agence.
@@ -438,7 +455,7 @@ class PointageController extends Controller {
             }
 
             return $this->render('NoxIntranetPointageBundle:Pointage:assistantesAgencePointagesCompilation.html.twig', array('form' => $form->createView(),
-                        'nbPointageNonValide' => getNbPointagesNonValides($em, $this->getUsersByAssistante($securityName, $em), $this),
+                        'pointageNonValide' => getNbPointagesNonValides($em, $this->getUsersByAssistante($securityName, $em), $this),
                         'pointagesValides' => getPointagesValides($em, $this->getUsersByAssistante($securityName, $em), $this),
                         'formValidation' => $formValidationRefus->createView(), 'joursFeries' => $joursFeries
                             )

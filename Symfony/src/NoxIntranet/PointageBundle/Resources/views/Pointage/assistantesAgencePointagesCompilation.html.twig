@@ -31,7 +31,12 @@
         </fieldset>
         {{ form_end(form) }}  
 
-        <p id="pointageAValideNumber" style="font-size: 1vw;">Nombre de pointage(s) collaborateurs non validé(s) : <a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}" style="color: red;">{{ nbPointageNonValide }}</a></p> 
+        {{ dump(pointageNonValide['collaborateurSansPointage']|json_encode()) }}
+
+        <p id="pointageAValideNumber" style="font-size: 1vw;">
+            Nombre de pointage(s) collaborateurs non validé(s) : <a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}" style="color: red;">{{ pointageNonValide['pointageEnAttenteValidationAA']|length }}</a><br />
+            Nombre de collaborateur(s) n'ayant pas remplis/validé leur pointage : <span onclick="showUnvalidateCollaborateurs();">{{ pointageNonValide['collaborateurSansPointage']|length }}</span>
+        </p> 
 
     </div>
 
@@ -192,7 +197,6 @@
             ajaxSaveCompilationData();
             ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
         });
-
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
             var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
@@ -204,7 +208,6 @@
                 $('#pointageSavingNotification').finish().css('display', 'inline-block');
             }
         });
-
         // Cache l'écran de chargement et la notification de sauvegarde quand les requêtes ajax de chargement de la page et de sauvegarde sont terminées.
         $(document).ajaxComplete(function () {
             if ($.active <= 1) {
@@ -212,7 +215,6 @@
                 $('#pointageSavingNotification').finish().delay(2000).fadeOut();
             }
         });
-
         // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
         function ajaxGetAssistanceAgencePointageCompilationByMonthAndYear() {
 
@@ -234,7 +236,6 @@
                                     nbAbsencesMatin++;
                                 }
                             });
-
                             // On récupere le nombre d'absences de l'après-midi.
                             var nbAbsencesAM = 0;
                             $.each(data[index].absences.am, function (indexAbsence) {
@@ -242,7 +243,6 @@
                                     nbAbsencesAM++;
                                 }
                             });
-
                             newHtmlContent += "<tr class='pointageCompile' username='" + data[index].user + "'>";
                             newHtmlContent += "<td>" + data[index].lastname + ' ' + data[index].firstname + "</td>";
                             newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titresRepas' step='1' min='0' value='" + data[index].titresRepas + "'></td>";
@@ -261,13 +261,11 @@
                             newHtmlContent += "<th>Abscence après-midi</th>";
                             newHtmlContent += "<th>Commentaires</th>";
                             newHtmlContent += "</tr>";
-
                             // On récupére les jours fériés sous forme de 'timestamp'.
                             var joursFeries = Array();
                             $.each(JSON.parse("{{ joursFeries|json_encode }}"), function (index, value) {
                                 joursFeries.push(new Date(value * 1000).getTime());
                             });
-
                             // Pour chaque jours...
                             $.each(data[index].absences.matin, function (indexAbsences) {
                                 newHtmlContent += "<tr date='" + data[index].absences.matin[indexAbsences].date + "'>";
@@ -594,6 +592,25 @@
                 $('#pointageSavingNotification').css('left', event.pageX + 20);
                 $('#pointageSavingNotification').css('top', event.pageY);
             });
+        }
+
+        // Affiche un message de confirmation lorsque l'assitant tente de valider la compilation alors qu'il reste des pointages non validée.
+        function preventUnvalidate() {
+            $('#formValidationRefus_Compilation').submit(function () {
+                return confirm("Attention les pointages suivant n'ont pas étés validés par les collaborateur :");
+            });
+        }
+
+        // Affiche une popup avec la liste des collaborateurs qui n'ont pas remplis/validé leur pointage.
+        function showUnvalidateCollaborateurs() {
+            var collaborateurs = JSON.parse('{{ pointageNonValide['collaborateurSansPointage']|json_encode()|raw }}'); // On convertie le tableau twig en objet Javascript.
+            var message = "Les collaborateurs suivant n'ont pas remplis/validé leur pointage :\n"; // On initialise le message d'alert.
+            // Pour chaque collaborateur.        
+            $.each(collaborateurs, function (index) {
+                message += '          - ' + collaborateurs[index] + '\n'; // On ajout le nom du collaborateur au message.
+            });
+
+            alert(message); // On affiche le message.
         }
     </script>
 
