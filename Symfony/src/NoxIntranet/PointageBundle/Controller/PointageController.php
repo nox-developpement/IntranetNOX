@@ -372,7 +372,7 @@ class PointageController extends Controller {
             }
 
             // Envoi un mail indiquant que la compilation a été validé par les assistants d'agences.
-            function sendMailToDestinataire($Destinataires, $validateur, $mois, $annee, $lienValidationCompilation, $em, $context) {
+            function sendMailToDestinataire($Destinataires, $validateur, $mois, $annee, $lienValidationCompilation, $collaborateursNonValide, $em, $context) {
                 // Pour chaque DA.
                 foreach ($Destinataires as $Destinataire) {
                     // On récupére son entitée utilisateur.
@@ -391,7 +391,7 @@ class PointageController extends Controller {
                                 ->setBody(
                                 $context->renderView(
                                         // app/Resources/views/Emails/*.html.twig
-                                        'Emails/Pointages/confirmationCompilation.html.twig', array('destinataire' => $DestinataireEntity, 'validateur' => $validateur, 'mois' => $mois, 'annee' => $annee, 'lienValidationCompilation' => $lienValidationCompilation)
+                                        'Emails/Pointages/confirmationCompilation.html.twig', array('destinataire' => $DestinataireEntity, 'validateur' => $validateur, 'mois' => $mois, 'annee' => $annee, 'lienValidationCompilation' => $lienValidationCompilation, 'collaborateursNonValide' => $collaborateursNonValide)
                                 ), 'text/html'
                                 )
                         ;
@@ -446,7 +446,7 @@ class PointageController extends Controller {
                     }
                     $this->get('session')->getFlashBag()->add('notice', 'La compilation a été envoyée aux directeur d\'agence/managers.'); // On affiche un message de confirmation.
                     // On envoie un mail au n+1 pour validation.
-                    sendMailToDestinataire($DAs, "un/une assistant(e) d'agence", $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $this->generateUrl('nox_intranet_da_manager_pointage_compilation'), $em, $this);
+                    sendMailToDestinataire($DAs, "un/une assistant(e) d'agence", $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $this->generateUrl('nox_intranet_da_manager_pointage_compilation'), getNbPointagesNonValides($em, $this->getUsersByAssistante($securityName, $em), $this)['collaborateurSansPointage'], $em, $this);
                 }
 
                 $em->flush(); // On sauvegarde les changements de status en base de donnée.

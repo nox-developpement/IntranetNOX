@@ -4,3 +4,12 @@ Bonjour {{ destinataire.firstname }} {{ destinataire.lastname }},<br />
 <br />
 La compilation des pointages du mois de {{ months[mois] }} {{ annee }} a été validé par {{ validateur }} et est en attente de votre validation.<br />
 Vous pouvez traiter cette compilation en <a href='{{ absolute_url(lienValidationCompilation) }}'>cliquant ici</a>.<br />
+<br />
+{% if collaborateursNonValide is defined and collaborateursNonValide|length > 0 %}
+    Attention, les utilistaurs suivant n'ont pas remplis/validé leur pointage et n'ont donc pas été inclus dans la compilation :
+    <ul style='Margin: 0.5%;'>
+        {% for collaborateur in collaborateursNonValide %}
+            <li>{{ collaborateur }}</li>
+            {% endfor %}
+    </ul>
+{% endif %}

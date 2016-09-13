@@ -106,3 +106,7 @@ nox_intranet_pointage_ajax_get_assistante_agence_unvalidate:
     path:   /ressources/ajax-get-assistante-agence-unvalidate
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetUnvalidate }
     
+nox_intranet_pointage_ajax_generate_excel_recap:
+    path:   /ressources/ajax-get-pointage-generate-excel-recap
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:generateExcelRecap }
+    

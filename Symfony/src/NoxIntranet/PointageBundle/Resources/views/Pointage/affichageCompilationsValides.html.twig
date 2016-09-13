@@ -151,14 +151,15 @@
                 </tr>
             {% endfor %}
         </table>
+
+        <button type='buton' onclick='ajaxGenerateExcelRecap();'>Générer le fichier Excel récapitulatif</button>
     </div>
 
-    <p style='text-align: center; font-size: 1vw;' id='aucunPointageParagraphe'> Il n'y a aucun pointage à compiler. </p>
+    <p style='text-align: center; font-size: 1vw;' id='aucunPointageParagraphe'> La compilation est vide. </p>
 
     <script>
         $(window).load(function () {
             IECheck();
-
             // Affiche/cache le tableau et le message d'absence de pointage en fonction du nombre de pointage.
             if ({{ pointagesValides|length }} > 0) {
                 pointageShow();
@@ -172,16 +173,13 @@
                 $('#formValidationRefus_year').val($('#form_Year').val());
                 ajaxGetAssistanceAgencePointageCompilationByMonthAndYear();
             });
-
             // Affiche un message de confirmation lors du clique sur le bouton de compilation.
             $('#form_Compilation').click(function () {
                 return(confirm('Confirmer la validation de la compilation ? Celle-ci ne sera plus modifiable.'));
             });
-
             absencesToggle();
             ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
         });
-
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
             var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
@@ -189,26 +187,22 @@
                 $('#loadingContent').show();
             }
         });
-
         // Cache l'écran de chargement et la notification de sauvegarde quand les requêtes ajax de chargement de la page et de sauvegarde sont terminées.
         $(document).ajaxComplete(function () {
             if ($.active <= 1) {
                 $('#loadingContent').hide();
             }
         });
-
         // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
         function ajaxGetAssistanceAgencePointageCompilationByMonthAndYear() {
 
             $('#compilationPointagesTable tr:nth-child(n+2)').remove();
-
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_get_compilation_valide_by_month_and_year') }}',
                 data: {month: $('#form_Month').val(), year: $('#form_Year').val()},
                 success: function (response) {
                     var data = JSON.parse(response);
-
                     if (data.length) {
                         var newHtmlContent = "";
                         $.each(data, function (index) {
@@ -220,7 +214,6 @@
                                     nbAbsencesMatin++;
                                 }
                             });
-
                             // On récupere le nombre d'absences de l'après-midi.
                             var nbAbsencesAM = 0;
                             $.each(data[index].absences.am, function (indexAbsence) {
@@ -228,7 +221,6 @@
                                     nbAbsencesAM++;
                                 }
                             });
-
                             newHtmlContent += "<tr class='pointageCompile' username='" + data[index].user + "'>";
                             newHtmlContent += "<td>" + data[index].lastname + ' ' + data[index].firstname + "</td>";
                             newHtmlContent += "<td>" + data[index].titresRepas + "</td>";
@@ -247,13 +239,11 @@
                             newHtmlContent += "<th>Abscence après-midi</th>";
                             newHtmlContent += "<th>Commentaires</th>";
                             newHtmlContent += "</tr>";
-
                             // On récupére les jours fériés sous forme de 'timestamp'.
                             var joursFeries = Array();
                             $.each(JSON.parse("{{ joursFeries|json_encode }}"), function (index, value) {
                                 joursFeries.push(new Date(value * 1000).getTime());
                             });
-
                             // Pour chaque jours...
                             $.each(data[index].absences.matin, function (indexAbsences) {
                                 newHtmlContent += "<tr date='" + data[index].absences.matin[indexAbsences].date + "'>";
@@ -453,7 +443,6 @@
                         $(this).parent('.compilationPointagesTableAbsencesTd').hide();
                     }
                 });
-
                 $(this).toggle();
                 $(this).siblings('img').toggle();
             });
@@ -486,7 +475,6 @@
                 success: function (response) {
                     var width = null;
                     var cercleNb = null;
-
                     switch (response) {
                         case '2':
                             width = 12.5;
@@ -521,7 +509,6 @@
             var ua = window.navigator.userAgent;
             var old_ie = ua.indexOf('MSIE ');
             var new_ie = ua.indexOf('Trident/');
-
             if ((old_ie > -1) || (new_ie > -1)) {
                 ms_ie = true;
             }
@@ -531,6 +518,16 @@
             }
         }
 
+        function ajaxGenerateExcelRecap() {
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('nox_intranet_pointage_ajax_generate_excel_recap') }}',
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val()},
+                success: function (response) {
+
+                }
+            });
+        }
     </script>
 
 {% endblock %}
