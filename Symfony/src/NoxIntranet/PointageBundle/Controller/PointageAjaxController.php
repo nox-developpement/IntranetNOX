@@ -456,7 +456,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
-// Lis le fichier Excel de la RH et récupère le nom des assistantess d'agence.
+    // Lis le fichier Excel de la RH et récupère le nom des assistantess d'agence.
     function getAssistantesAgence() {
 
         $em = $this->getDoctrine()->getManager();
@@ -477,7 +477,7 @@ class PointageAjaxController extends Controller {
         return $assistantes;
     }
 
-// Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante d'agence connectée.
+    // Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante d'agence connectée.
     function getUsersByAssistante($securityName, $em) {
 
 // On récupére les utilisateurs qui ont l'assistante comme supérieur hiérarchique.
@@ -498,18 +498,18 @@ class PointageAjaxController extends Controller {
         return $users;
     }
 
-// Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
+    // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
     public function ajaxGetAssistanceAgencePointageCompilationByMonthAndYearAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
 
             $month = $request->get('month');
             $year = $request->get('year');
 
-// Inisialisation des varibables de fonction.
+            // Inisialisation des varibables de fonction.
             $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
             $em = $this->getDoctrine()->getManager();
 
-// Retourne les pointages valides des collaborateurs de l'assistante d'agence.
+            // Retourne les pointages valides des collaborateurs de l'assistante d'agence.
             function getPointagesValides($em, $users, $month, $year) {
                 $query = $em->createQueryBuilder()
                         ->select('p')
@@ -534,6 +534,45 @@ class PointageAjaxController extends Controller {
             }
 
             return new Response(json_encode(getPointagesValides($em, $this->getUsersByAssistante($securityName, $em), $month, $year)));
+        }
+    }
+
+    // Retourne le nombre de pointages des collaborateurs qui n'ont pas encore était validés par l'assistante d'agence en fonction du mois et de l'année.
+    public function ajaxGetUnvalidateAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // Initialisation des variables.
+            $em = $this->getDoctrine()->getManager();
+            $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+            $month = $request->get('month');
+            $year = $request->get('year');
+            $users = $this->getUsersByAssistante($securityName, $em);
+
+            // On récupére tout les tableau de pointages du mois et de l'année courante.
+            $pointagesEntity = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $month, 'year' => $year));
+            $pointageEnAttenteValidationAA = array(); // Initialisation du tableau des pointages en attente de validation par l'assistant d'agence.
+            $pointageValideParCollaborateur = array(); // Initialisation du tableau des pointages validés par le collaborateur.
+            // Pour chaque pointage.
+            foreach ($pointagesEntity as $pointage) {
+                // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a été validé par le collaborateur mais pas encore par l'assistant d'agence.
+                if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() === '1') {
+                    $pointageEnAttenteValidationAA[] = $pointage; // On l'ajout au tableau des pointages en attente de validation par l'assistant d'agence.
+                }
+                // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a au moins été validé par le collaborateur.
+                if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() >= '1') {
+                    $pointageValideParCollaborateur[] = $pointage->getUser(); // On ajoute l'username du collaborateur au tableau des pointages validés par le collaborateur.
+                }
+            }
+
+            // On récupére les entitées des utilisateurs qui n'ont pas remplis/validé leur pointage.
+            $collaborateurSansPointage = array();
+            foreach (array_diff(array_keys($users), $pointageValideParCollaborateur) as $collaborateur) {
+                $collaborateurEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateur);
+                if (!empty($collaborateurEntity)) {
+                    $collaborateurSansPointage[$collaborateur] = $collaborateurEntity->getFirstname() . " " . $collaborateurEntity->getLastname();
+                }
+            }
+
+            return new Response(json_encode(array('pointageEnAttenteValidationAA' => $pointageEnAttenteValidationAA, 'collaborateurSansPointage' => $collaborateurSansPointage)));
         }
     }
 
@@ -617,7 +656,7 @@ class PointageAjaxController extends Controller {
         return $users;
     }
 
-// Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et du directeur d'agence/manager.
+    // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et du directeur d'agence/manager.
     public function ajaxGetDAManagerPointageCompilationByMonthAndYearAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
 
@@ -656,7 +695,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
-// Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante RH/DRH connectée.
+    // Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante RH/DRH connectée.
     function getUsersByAssistantesRH($securityName, $em) {
 
 // On récupére les utilisateurs qui ont l'assistante comme supérieur hiérarchique.
@@ -677,7 +716,7 @@ class PointageAjaxController extends Controller {
         return $users;
     }
 
-// Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et du directeur d'agence/manager.
+    // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et du directeur d'agence/manager.
     public function ajaxGetAssistantesRHPointageCompilationByMonthAndYearAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
 
@@ -716,7 +755,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
-// Retourne le status du pointage en fonction du mois et de l'année.
+    // Retourne le status du pointage en fonction du mois et de l'année.
     public function ajaxGetPointageCompilationStatusAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
@@ -750,7 +789,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
-// Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et du directeur d'agence/manager/RH.
+    // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et du directeur d'agence/manager/RH.
     public function ajaxGetCompilationsValideByMonthAndYearAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
 
@@ -787,7 +826,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
-// Retourne les dates des jours fériés de l'année courante en France.
+    // Retourne les dates des jours fériés de l'année courante en France.
     public function getPublicHoliday($year) {
         if ($year === null) {
             $year = intval(date('Y'));

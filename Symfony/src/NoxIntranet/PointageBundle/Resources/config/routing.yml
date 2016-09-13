@@ -101,3 +101,8 @@ nox_intranet_affichage_compilation_valide:
 nox_intranet_pointage_ajax_get_compilation_valide_by_month_and_year:
     path:   /ressources/ajax-get-compilations-valides-by-month-and-year
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetCompilationsValideByMonthAndYear }
+    
+nox_intranet_pointage_ajax_get_assistante_agence_unvalidate:
+    path:   /ressources/ajax-get-assistante-agence-unvalidate
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetUnvalidate }
+    

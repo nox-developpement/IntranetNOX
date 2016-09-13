@@ -31,11 +31,9 @@
         </fieldset>
         {{ form_end(form) }}  
 
-        {{ dump(pointageNonValide['collaborateurSansPointage']|json_encode()) }}
-
         <p id="pointageAValideNumber" style="font-size: 1vw;">
-            Nombre de pointage(s) collaborateurs non validé(s) : <a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}" style="color: red;">{{ pointageNonValide['pointageEnAttenteValidationAA']|length }}</a><br />
-            Nombre de collaborateur(s) n'ayant pas remplis/validé leur pointage : <span onclick="showUnvalidateCollaborateurs();">{{ pointageNonValide['collaborateurSansPointage']|length }}</span>
+            Pointage(s) collaborateurs non validé(s) par un(e) assistant(e) d'agence : <a id="pointageEnAttenteValidationAA" href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}" style="color: red;">{{ pointageNonValide['pointageEnAttenteValidationAA']|length }}</a><br />
+            Nombre de collaborateur(s) n'ayant pas remplis/validé leur pointage : <span id="collaborateurSansPointage" style="color: red; text-decoration: underline; cursor: pointer;" onclick="showUnvalidateCollaborateurs('{{ pointageNonValide|json_encode() }}');">{{ pointageNonValide['collaborateurSansPointage']|length }}</span>
         </p> 
 
     </div>
@@ -165,7 +163,7 @@
 
         {{ form_start(formValidation) }}
         <p style="text-align: center;">
-            {{ form_widget(formValidation.Compilation, {'label': 'Valider la compilation' , 'attr': {'class': 'boutonCompilation'} }) }}
+            {{ form_widget(formValidation.Compilation, {'label': 'Valider la compilation' , 'attr': {'class': 'boutonCompilation', 'onclick': 'return preventUnvalidate();'} }) }}
         </p>
         {{ form_end(formValidation) }}
 
@@ -200,7 +198,7 @@
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
             var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
-            if (ajaxUrl === "pointage-compilation-ajax-get-status" || ajaxUrl === "ajax-get-assistantes-agence-pointage-compilation-by-month-and-year" || ajaxUrl === "pointage-compilation-ajax-get-status") {
+            if (ajaxUrl === "pointage-compilation-ajax-get-status" || ajaxUrl === "ajax-get-assistantes-agence-pointage-compilation-by-month-and-year" || ajaxUrl === "pointage-compilation-ajax-get-status" || ajaxUrl === "ajax-get-assistante-agence-unvalidate") {
                 $('#loadingContent').show();
             }
             if (ajaxUrl === "ajax-save-compilation-data" || ajaxUrl === "ajax-save-compilation-absences") {
@@ -217,7 +215,6 @@
         });
         // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
         function ajaxGetAssistanceAgencePointageCompilationByMonthAndYear() {
-
             $('#compilationPointagesTable tr:nth-child(n+2)').remove();
             $.ajax({
                 type: 'POST',
@@ -453,7 +450,8 @@
                     }
                 }
             });
-            ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
+            ajaxGetUnvalidate(); // On récupére le nombre de pointage non validé.
+            ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val()); // On récupére le status de la compilation.
         }
 
         // Affiche/Cache le tableau des abscences du collaborateur sélectionné.
@@ -476,7 +474,6 @@
         function ajaxSaveCompilationData() {
             // Pour les données principales.
             $('#compilationPointagesTable input').on('blur keyup paste input', function () {
-                console.log($(this).parent('td').parent('tr').attr('username'));
                 if (typeof ajaxMainInfo !== 'undefined') {
                     ajaxMainInfo.abort();
                 }
@@ -489,7 +486,6 @@
             // Pour les types d'abscences.
             $('.compilationAbscenceMatin select, .compilationAbsenceAM select').change(function () {
                 var username = $(this).parents('tr').prev('.pointageCompile').attr('username');
-                console.log(username);
                 var date = $(this).parent('td').parent('tr').attr('date');
                 var data = $(this).parent('td').attr('data');
                 $.ajax({
@@ -501,7 +497,6 @@
             // Pour les commentaires d'abscences.
             $('.compilationAbsenceCommentaire').on('blur keyup paste input', function () {
                 var username = $(this).parents('tr').prev('.pointageCompile').attr('username');
-                console.log(username);
                 var date = $(this).parent('tr').attr('date');
                 var data = $(this).attr('data');
                 if (typeof ajaxComment !== 'undefined') {
@@ -529,7 +524,6 @@
 
         // Vérifie le status de la feuille de pointage, colore la barre d'avancement en conséquence.
         function ajaxGetPointageCompilationStatus(month, year) {
-
             $('.pointageStatusLine div').width('12.5%');
             $(".pointageStatusCircle").css('background-color', 'lightgrey');
             $(".pointageStatusCircle").filter(function () {
@@ -596,21 +590,52 @@
 
         // Affiche un message de confirmation lorsque l'assitant tente de valider la compilation alors qu'il reste des pointages non validée.
         function preventUnvalidate() {
-            $('#formValidationRefus_Compilation').submit(function () {
-                return confirm("Attention les pointages suivant n'ont pas étés validés par les collaborateur :");
-            });
+            // Si l'assistan d'agence n'as pas valider tous les pointages.
+            if ("{{ pointageNonValide['pointageEnAttenteValidationAA']|length }}" !== "0") {
+                alert('Veuillez valider tous les pointages des collaborateurs avant de valider la compilation.'); // On affiche un message d'erreur.
+                return false; // On bloque l'envoi du formulaire.
+            }
+            // Si il reste des collaborateurs qui n'ont pas remplis/validé leur pointage.
+            else if ("{{ pointageNonValide['collaborateurSansPointage']|length }}" !== "0") {
+                var collaborateurs = JSON.parse('{{ pointageNonValide['collaborateurSansPointage']|json_encode()|raw }}'); // On convertie le tableau twig en objet Javascript.
+                var message = "Attention les pointages suivant n'ont pas étés validés par les collaborateur :\n";
+                $.each(collaborateurs, function (index) {
+                    message += '          - ' + collaborateurs[index] + '\n'; // On ajout le nom du collaborateur au message.
+                });
+                message += "\nVoulez-vous valider la compilation quand même ?";
+                return confirm(message); // On affiche une fenêtre de confirmation.
+            }
+            // Si tous les pointages ont été complété et remplis.
+            else {
+                return true; // On envoi le formulaire.
+            }
         }
 
         // Affiche une popup avec la liste des collaborateurs qui n'ont pas remplis/validé leur pointage.
-        function showUnvalidateCollaborateurs() {
-            var collaborateurs = JSON.parse('{{ pointageNonValide['collaborateurSansPointage']|json_encode()|raw }}'); // On convertie le tableau twig en objet Javascript.
+        function showUnvalidateCollaborateurs(data) {
+            console.log(data);
+            var collaborateurs = JSON.parse(data)['collaborateurSansPointage']; // On convertie le tableau twig en objet Javascript.
             var message = "Les collaborateurs suivant n'ont pas remplis/validé leur pointage :\n"; // On initialise le message d'alert.
             // Pour chaque collaborateur.        
             $.each(collaborateurs, function (index) {
                 message += '          - ' + collaborateurs[index] + '\n'; // On ajout le nom du collaborateur au message.
             });
-
             alert(message); // On affiche le message.
+        }
+
+        // Récupére le nombre de pointage non validé par un assistant d'agence et le nombre de collaborateur qui n'ont pas remplis/validé leur pointage en fonction du mois et de l'année.
+        function ajaxGetUnvalidate() {
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('nox_intranet_pointage_ajax_get_assistante_agence_unvalidate') }}',
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val()},
+                success: function (response) {
+                    var pointages = JSON.parse(response); // On convertie le JSON en object Javascript.
+                    $('#pointageEnAttenteValidationAA').text(Object.keys(pointages['pointageEnAttenteValidationAA']).length); // On remplace le nombre du compteur de pointage non validé par un assistant d'agence.
+                    $('#collaborateurSansPointage').text(Object.keys(pointages['collaborateurSansPointage']).length); // On remplace le nombre du compteur de collaborateur qui n'ont pas remplis/validé leur pointage.
+                    $('#collaborateurSansPointage').attr('onclick', "showUnvalidateCollaborateurs(" + JSON.stringify(response) + ")");
+                }
+            });
         }
     </script>
 
