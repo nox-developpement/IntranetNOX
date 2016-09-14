@@ -280,7 +280,6 @@ class PointageAjaxController extends Controller {
                         $assistantes[$objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue()] = $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue();
                     }
                 }
-                $assistantes['Tristan BESSON'] = 'Tristan BESSON';
 
                 return $assistantes;
             }
@@ -403,7 +402,7 @@ class PointageAjaxController extends Controller {
     // Valide la feuille de pointage pour la compilation par agence.
     public function ajaxAssistanteValidationAction(Request $request) {
 
-// Valide le pointage du collaborateur par l'assistante d'agence
+        // Valide le pointage du collaborateur par l'assistante d'agence
         function pointageAssistanteAgenceValidation($username, $month, $year, $context, $em) {
             $pointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
 
@@ -465,9 +464,7 @@ class PointageAjaxController extends Controller {
 
         $assistantes = array();
 
-        $assistantes['Tristan BESSON'] = 'Tristan BESSON';
-
-// Récupère le nom des assistantes d'agence et leurs supérieurs.
+        // Récupère le nom des assistantes d'agence et leurs supérieurs.
         foreach ($users as $user) {
             $assistantes[$user->getAA()] = $user->getAA();
             $assistantes[$user->getDA()] = $user->getDA();
@@ -557,6 +554,14 @@ class PointageAjaxController extends Controller {
                     break;
                 case 'RH':
                     $users = $this->getUsersByAssistantesRH($securityName, $em);
+                    break;
+                case 'roleRH':
+                    $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+                    $users = array();
+                    // On récupére tous les utilisateurs.
+                    foreach ($usersHierarchyEntity as $user) {
+                        $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
+                    }
                     break;
             }
 
@@ -809,21 +814,11 @@ class PointageAjaxController extends Controller {
 
             $month = $request->get('month');
             $year = $request->get('year');
+            $userStatus = $request->get('userStatus');
 
             // Inisialisation des varibables de fonction.
             $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
             $em = $this->getDoctrine()->getManager();
-
-            // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
-            if (in_array($securityName, $this->getDAManager())) {
-                $userStatus = 'DAManager';
-                $pointagesValides = getPointagesValides($em, $this->getUsersByDAManager($securityName, $em), $this);
-                $pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByDAManager($securityName, $em), $this);
-            } elseif (in_array($securityName, $this->getAssistantesRH())) {
-                $userStatus = 'RH';
-                $pointagesValides = getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this);
-                $pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this);
-            }
 
             // Retourne les pointages valides des collaborateurs du directeur d'agence/manager.
             function getPointagesValides($em, $users, $month, $year) {
@@ -849,7 +844,29 @@ class PointageAjaxController extends Controller {
                 return $pointages;
             }
 
-            return new Response(json_encode(getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year)));
+            // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
+            if ($userStatus === 'RH') {
+                $pointagesValides = getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this);
+            } elseif ($userStatus === 'DAManager') {
+                $pointagesValides = getPointagesValides($em, $this->getUsersByDAManager($securityName, $em), $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByDAManager($securityName, $em), $this);
+            }
+            // Si l'utilisateur ne fait pas partie du tableau hiérarchique mais a le rôle RH.
+            else {
+                // On récupére tous les utilisateurs.
+                $userStatus = 'roleRH';
+                $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+                $users = array();
+                // On récupére tous les utilisateurs.
+                foreach ($usersHierarchyEntity as $user) {
+                    $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
+                }
+                $pointagesValides = getPointagesValides($em, $users, $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $users, $month, $year);
+            }
+
+            return new Response(json_encode(getPointagesValides($em, $pointagesValides, $month, $year)));
         }
     }
 

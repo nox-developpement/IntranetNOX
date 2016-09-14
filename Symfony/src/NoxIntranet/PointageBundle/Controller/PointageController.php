@@ -180,8 +180,6 @@ class PointageController extends Controller {
 
         $assistantes = array();
 
-        $assistantes['Tristan BESSON'] = 'Tristan BESSON';
-
         // Récupère le nom des assistantes d'agence et leurs supérieurs.
         foreach ($users as $user) {
             $assistantes[$user->getAA()] = $user->getAA();
@@ -477,8 +475,6 @@ class PointageController extends Controller {
 
         $da = array();
 
-        $da['Tristan BESSON'] = 'Tristan BESSON';
-
         // Récupère le nom des directeurs d'agence et leurs supérieurs.
         foreach ($users as $user) {
             $da[$user->getDA()] = $user->getDA();
@@ -699,8 +695,6 @@ class PointageController extends Controller {
         $users = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
 
         $assistantesRH = array();
-
-        $assistantesRH['Tristan BESSON'] = 'Tristan BESSON';
 
         // Récupère le nom des directeurs d'agence et leurs supérieurs.
         foreach ($users as $user) {
@@ -931,14 +925,27 @@ class PointageController extends Controller {
             }
 
             // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
-            if (in_array($securityName, $this->getDAManager())) {
-                $userStatus = 'DAManager';
-                $pointageValide = getPointagesValides($em, $this->getUsersByDAManager($securityName, $em), $this);
-                $pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByDAManager($securityName, $em), $this);
-            } elseif (in_array($securityName, $this->getAssistantesRH())) {
+            if (in_array($securityName, $this->getAssistantesRH())) {
                 $userStatus = 'RH';
                 $pointageValide = getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this);
                 $pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this);
+            } elseif (in_array($securityName, $this->getDAManager())) {
+                $userStatus = 'DAManager';
+                $pointageValide = getPointagesValides($em, $this->getUsersByDAManager($securityName, $em), $this);
+                $pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByDAManager($securityName, $em), $this);
+            }
+            // Si l'utilisateur ne fait pas partie du tableau hiérarchique mais a le rôle RH.
+            else {
+                // On récupére tous les utilisateurs.
+                $userStatus = 'roleRH';
+                $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+                $users = array();
+                // On récupére tous les utilisateurs.
+                foreach ($usersHierarchyEntity as $user) {
+                    $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
+                }
+                $pointageValide = getPointagesValides($em, $users, $this);
+                $pointageNonValide = getNbPointagesNonValides($em, $users, $this);
             }
 
             $form = $this->createFormBuilder()
