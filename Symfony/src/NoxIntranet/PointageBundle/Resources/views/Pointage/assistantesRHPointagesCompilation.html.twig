@@ -30,6 +30,10 @@
         </fieldset>
         {{ form_end(form) }}
 
+        <p id="pointageAValideNumber" style="font-size: 1vw;">
+            Collaborateur(s) n'ayant pas remplis/validé leur pointage : <span id="collaborateurSansPointage" style="color: red; text-decoration: underline; cursor: pointer;" onclick="showUnvalidateCollaborateurs('{{ pointageNonValide|json_encode() }}');">{{ pointageNonValide['collaborateurSansPointage']|length }}</span>
+        </p> 
+
     </div>
 
     <div id="pointageStatusDiv">
@@ -195,7 +199,7 @@
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
             var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
-            if (ajaxUrl === "pointage-compilation-ajax-get-status" || ajaxUrl === "ajax-get-assistantes-agence-pointage-compilation-by-month-and-year" || ajaxUrl === "pointage-compilation-ajax-get-status") {
+            if (ajaxUrl === "pointage-compilation-ajax-get-status" || ajaxUrl === "ajax-get-assistantes-agence-pointage-compilation-by-month-and-year" || ajaxUrl === "pointage-compilation-ajax-get-status" || ajaxUrl === "ajax-get-assistante-agence-unvalidate") {
                 $('#loadingContent').show();
             }
             if (ajaxUrl === "ajax-save-compilation-data" || ajaxUrl === "ajax-save-compilation-absences") {
@@ -249,7 +253,7 @@
                             newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='forfaitsDeplacement' step='0.01' min='0' value='" + data[index].forfaitsDeplacement + "'></td>";
                             newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='primesPanier' min='0' step='0.01' value='" + data[index].primesPanier + "'></td>";
                             newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titreTransport' min='0' step='0.01' value='" + data[index].titreTransport + "'></td>";
-                            newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'>" + (nbAbsencesMatin + nbAbsencesAM) + "<img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
+                            newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><div style='display: inline-block; vertical-align: middle;'>" + (nbAbsencesMatin + nbAbsencesAM) + "</div><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
                             newHtmlContent += "</tr>";
                             newHtmlContent += "<tr>";
                             newHtmlContent += "<td colspan='6' style='background-color: white; border-right: none; padding-bottom: 3%;' class='compilationPointagesTableAbsencesTd'>";
@@ -455,6 +459,7 @@
                     }
                 }
             });
+            ajaxGetUnvalidate('RH'); // On récupére le nombre de pointage non validé.
             ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
         }
 
@@ -596,6 +601,33 @@
             $(document).mousemove(function (event) {
                 $('#pointageSavingNotification').css('left', event.pageX + 20);
                 $('#pointageSavingNotification').css('top', event.pageY);
+            });
+        }
+
+        // Affiche une popup avec la liste des collaborateurs qui n'ont pas remplis/validé leur pointage.
+        function showUnvalidateCollaborateurs(data) {
+            var collaborateurs = JSON.parse(data)['collaborateurSansPointage']; // On convertie la chaine de caractère d'entré en objet Javascript.
+            var message = "Les collaborateurs suivant n'ont pas remplis/validé leur pointage :\n"; // On initialise le message d'alert.
+            // Pour chaque collaborateur.        
+            $.each(collaborateurs, function (index) {
+                message += '          - ' + collaborateurs[index] + '\n'; // On ajout le nom du collaborateur au message.
+            });
+            alert(message); // On affiche le message.
+        }
+
+        // Récupére le nombre de pointage non validé par un assistant d'agence et le nombre de collaborateur qui n'ont pas remplis/validé leur pointage en fonction du mois et de l'année.
+        function ajaxGetUnvalidate(userStatus) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('nox_intranet_pointage_ajax_get_assistante_agence_unvalidate') }}',
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: userStatus},
+                success: function (response) {
+                    var pointages = JSON.parse(response); // On convertie le JSON en object Javascript.
+                    $('#pointageEnAttenteValidationAA').text(Object.keys(pointages['pointageEnAttenteValidationAA']).length); // On remplace le nombre du compteur de pointage non validé par un assistant d'agence.
+                    $('#collaborateurSansPointage').text(Object.keys(pointages['collaborateurSansPointage']).length); // On remplace le nombre du compteur de collaborateur qui n'ont pas remplis/validé leur pointage.
+                    $('#collaborateurSansPointage').attr('onclick', "showUnvalidateCollaborateurs(" + JSON.stringify(response) + ")"); // Met à jours les données de la fonction d'affichage des collaborateur qui n'ont pas remplis/validé leur pointage.
+                    $('#formValidationRefus_Compilation').attr('onclick', "return preventUnvalidate(" + Object.keys(pointages['pointageEnAttenteValidationAA']).length + "," + Object.keys(pointages['collaborateurSansPointage']).length + "," + JSON.stringify(response) + ")"); // Met à jours les donnée de la fonction de prévention d'envoi de compilation incomplète.
+                }
             });
         }
 

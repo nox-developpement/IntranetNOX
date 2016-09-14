@@ -545,7 +545,21 @@ class PointageAjaxController extends Controller {
             $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
             $month = $request->get('month');
             $year = $request->get('year');
-            $users = $this->getUsersByAssistante($securityName, $em);
+            $userStatus = $request->get('userStatus');
+
+            // On récupére la liste des collaborateurs assignés à l'utilisateur en fonction de son grade hiérarchique.
+            switch ($userStatus) {
+                case 'AA':
+                    $users = $this->getUsersByAssistante($securityName, $em);
+                    break;
+                case 'DAManager':
+                    $users = $this->getUsersByDAManager($securityName, $em);
+                    break;
+                case 'RH':
+                    $users = $this->getUsersByAssistantesRH($securityName, $em);
+                    break;
+            }
+
 
             // On récupére tout les tableau de pointages du mois et de l'année courante.
             $pointagesEntity = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $month, 'year' => $year));
@@ -800,6 +814,17 @@ class PointageAjaxController extends Controller {
             $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
             $em = $this->getDoctrine()->getManager();
 
+            // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
+            if (in_array($securityName, $this->getDAManager())) {
+                $userStatus = 'DAManager';
+                $pointagesValides = getPointagesValides($em, $this->getUsersByDAManager($securityName, $em), $this);
+                $pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByDAManager($securityName, $em), $this);
+            } elseif (in_array($securityName, $this->getAssistantesRH())) {
+                $userStatus = 'RH';
+                $pointagesValides = getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this);
+                $pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this);
+            }
+
             // Retourne les pointages valides des collaborateurs du directeur d'agence/manager.
             function getPointagesValides($em, $users, $month, $year) {
                 $query = $em->createQueryBuilder()
@@ -840,7 +865,7 @@ class PointageAjaxController extends Controller {
         $easterYear = date('Y', $easterDate);
 
         $holidays = array(
-// Dates fixes
+            // Dates fixes
             mktime(0, 0, 0, 1, 1, $year), // 1er janvier
             mktime(0, 0, 0, 5, 1, $year), // Fête du travail
             mktime(0, 0, 0, 5, 8, $year), // Victoire des alliés
@@ -849,7 +874,7 @@ class PointageAjaxController extends Controller {
             mktime(0, 0, 0, 11, 1, $year), // Toussaint
             mktime(0, 0, 0, 11, 11, $year), // Armistice
             mktime(0, 0, 0, 12, 25, $year), // Noel
-// Dates variables
+            // Dates variables
             mktime(0, 0, 0, $easterMonth, $easterDay + 1, $easterYear),
             mktime(0, 0, 0, $easterMonth, $easterDay + 39, $easterYear),
             mktime(0, 0, 0, $easterMonth, $easterDay + 50, $easterYear),
