@@ -901,28 +901,40 @@ class PointageAjaxController extends Controller {
             // On récupére les pointages à inclure dans le récapitulatif Exel.
             $pointages = getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year);
 
+            //var_dump($pointages);
             // Initialisation d'un nouveau fichier Excel.
-            $objPHPExcel = new \PHPExcel();
+            $objPHPExcel = \PHPExcel_IOFactory::load($root . '/../web/ModelePointage/PointageRecapModele.xlsx');
 
-            // Création d'un worksheet pour les absences.
-            $absenceWorksheet = new \PHPExcel_Worksheet($objPHPExcel, 'Absences');
-            $objPHPExcel->addSheet($absenceWorksheet, 0);
+            $rowTotaux = 2; // Initialisation du compteur de ligne des totaux.
+            $rowAbsence = 2; // Initialisation du compteur de ligne des absences.
+            // Pour chaque pointage.
+            foreach ($pointages as $pointage) {
+                $objWorksheetTotaux = $objPHPExcel->getSheet(1); // On séléctionne la feuille de totaux comme feuille de travail.
+                $objWorksheetTotaux->getCell('A' . $rowTotaux)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
+                $objWorksheetTotaux->getCell('B' . $rowTotaux)->setValue($pointage['titresRepas']); // On écris le nombre de titres repas.
+                $objWorksheetTotaux->getCell('C' . $rowTotaux)->setValue($pointage['forfaitsDeplacement']); // On écris le montant du forfait de déplacement.
+                $objWorksheetTotaux->getCell('D' . $rowTotaux)->setValue($pointage['primesPanier']); // On écris le montant de la primes panier.
+                $objWorksheetTotaux->getCell('E' . $rowTotaux)->setValue($pointage['titreTransport']); // On écris le montant du titre de transport.
+                $rowTotaux++; // On passe à la ligne suivante.
 
-            // Création d'un worksheet pour les totaux.
-            $totauxWorksheet = new \PHPExcel_Worksheet($objPHPExcel, 'Totaux');
-            $objPHPExcel->addSheet($totauxWorksheet, 1);
+                $objWorksheetAbsence = $objPHPExcel->getSheet(0); // On séléctionne la feuille des absences comme feuille de travail.
+                foreach ($pointage['absences']['matin'] as $key => $absence) {
+                    $objWorksheetAbsence->getCell('A' . $rowAbsence)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
+                    $objWorksheetAbsence->getCell('B' . $rowAbsence)->setValue($absence['date']); // On écris la date.
+                    // Si un clé de valeur existe pour l'absence du matin.
+                    if (array_key_exists('valeur', $absence)) {
+                        $objWorksheetAbsence->getCell('C' . $rowAbsence)->setValue($absence['valeur']); // On écris la valeur d'absence du matin.
+                    }
+                    // Si un clé de valeur existe pour l'absence de l'après-midi.
+                    if (array_key_exists('valeur', $pointage['absences']['am'][$key])) {
+                        $objWorksheetAbsence->getCell('D' . $rowAbsence)->setValue($pointage['absences']['am'][$key]['valeur']); // On écris la valeur d'absence de l'après-midi.
+                    }
+                    $objWorksheetAbsence->getCell('E' . $rowAbsence)->setValue($absence['commentaires']); // On écris le commentaire.
+                    $rowAbsence++;
+                }
+            }
 
-            // On définie la feuille d'absence comme feuille de travail.
-            $objPHPExcel->getSheet(1);
-
-            // On écrit les headers de la feuille d'absence.
-            $objPHPExcel->getActiveSheet()->setCellValue('A1', 'Nom/Prénom');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', 'Date');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', 'Absence matin');
-            $objPHPExcel->getActiveSheet()->setCellValue('D1', 'Absence après-midi');
-            $objPHPExcel->getActiveSheet()->setCellValue('E1', 'Commentaires');
-
-            $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+            $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
             $objWriter->save($root . "/../web/test.xlsx");
 
             return new Response(json_encode(getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year)));

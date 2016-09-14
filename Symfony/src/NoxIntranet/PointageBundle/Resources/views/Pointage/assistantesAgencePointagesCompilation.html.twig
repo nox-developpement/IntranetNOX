@@ -81,7 +81,7 @@
                     {% for absence in pointage.absences.am if (absence.valeur is defined and absence.valeur != '') %}
                         {% set nbAbsencesAM = nbAbsencesAM+1 %}
                     {% endfor %}
-                    <td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'>{{ nbAbsencesMatin+nbAbsencesAM }}<img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>
+                    <td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><div style="display: inline-block; vertical-align: middle;">{{ nbAbsencesMatin+nbAbsencesAM }}</div><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>
                 </tr>
                 <tr>
                     <td colspan="6" style='background-color: white; border-right: none;' class='compilationPointagesTableAbsencesTd'>
