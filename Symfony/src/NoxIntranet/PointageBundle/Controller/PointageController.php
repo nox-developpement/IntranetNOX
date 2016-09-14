@@ -180,8 +180,6 @@ class PointageController extends Controller {
 
         $assistantes = array();
 
-        $assistantes['Tristan BESSON'] = 'Tristan BESSON';
-
         // Récupère le nom des assistantes d'agence et leurs supérieurs.
         foreach ($users as $user) {
             $assistantes[$user->getAA()] = $user->getAA();
@@ -315,20 +313,37 @@ class PointageController extends Controller {
 
             // Retourne le nombre de pointages des collaborateurs qui n'ont pas encore était validés par l'assistante d'agence.
             function getNbPointagesNonValides($em, $users, $context) {
-                $pointagesNonValides = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => '1'));
-                $nbPointageNonValide = 0;
-                foreach ($pointagesNonValides as $pointage) {
-                    if (in_array($pointage->getUser(), array_keys($users))) {
-                        $nbPointageNonValide++;
+                // On récupére tout les tableau de pointages du mois et de l'année courante.
+                $pointagesEntity = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year']));
+                $pointageEnAttenteValidationAA = array(); // Initialisation du tableau des pointages en attente de validation par l'assistant d'agence.
+                $pointageValideParCollaborateur = array(); // Initialisation du tableau des pointages validés par le collaborateur.
+                // Pour chaque pointage.
+                foreach ($pointagesEntity as $pointage) {
+                    // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a été validé par le collaborateur mais pas encore par l'assistant d'agence.
+                    if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() === '1') {
+                        $pointageEnAttenteValidationAA[] = $pointage; // On l'ajout au tableau des pointages en attente de validation par l'assistant d'agence.
+                    }
+                    // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a au moins été validé par le collaborateur.
+                    if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() >= '1') {
+                        $pointageValideParCollaborateur[] = $pointage->getUser(); // On ajoute l'username du collaborateur au tableau des pointages validés par le collaborateur.
                     }
                 }
 
-                return $nbPointageNonValide;
+                // On récupére les entitées des utilisateurs qui n'ont pas remplis/validé leur pointage.
+                $collaborateurSansPointage = array();
+                foreach (array_diff(array_keys($users), $pointageValideParCollaborateur) as $collaborateur) {
+                    $collaborateurEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateur);
+                    if (!empty($collaborateurEntity)) {
+                        $collaborateurSansPointage[$collaborateur] = $collaborateurEntity->getFirstname() . " " . $collaborateurEntity->getLastname();
+                    }
+                }
+
+                return array('pointageEnAttenteValidationAA' => $pointageEnAttenteValidationAA, 'collaborateurSansPointage' => $collaborateurSansPointage);
             }
 
             // Retourne les pointages valides des collaborateurs de l'assistante d'agence.
             function getPointagesValides($em, $users, $context) {
-                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 2));
+                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 2), array('lastname' => 'asc', 'firstname' => 'asc'));
                 $pointages = array();
                 foreach ($pointagesValides as $pointage) {
                     if (in_array($pointage->getUser(), array_keys($users))) {
@@ -354,6 +369,36 @@ class PointageController extends Controller {
                 return $pointages;
             }
 
+            // Envoi un mail indiquant que la compilation a été validé par les assistants d'agences.
+            function sendMailToDestinataire($Destinataires, $validateur, $mois, $annee, $lienValidationCompilation, $collaborateursNonValide, $em, $context) {
+                // Pour chaque DA.
+                foreach ($Destinataires as $Destinataire) {
+                    // On récupére son entitée utilisateur.
+                    $DestinataireEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $Destinataire)[0], 'lastname' => explode(' ', $Destinataire)[1]));
+
+                    // Si l'entitée existe.
+                    if (!empty($DestinataireEntity)) {
+                        // On génére son adresse email.
+                        $mailDestinataire = $DestinataireEntity->getUsername() . '@groupe-nox.com';
+
+                        // On lui envoi un mail lui indiquant que la compilation est prête pour validation.
+                        $message = \Swift_Message::newInstance()
+                                ->setSubject('Compilation disponible pour validation.')
+                                ->setFrom('noreply@groupe-nox.com')
+                                ->setTo($mailDestinataire)
+                                ->setBody(
+                                $context->renderView(
+                                        // app/Resources/views/Emails/*.html.twig
+                                        'Emails/Pointages/confirmationCompilation.html.twig', array('destinataire' => $DestinataireEntity, 'validateur' => $validateur, 'mois' => $mois, 'annee' => $annee, 'lienValidationCompilation' => $lienValidationCompilation, 'collaborateursNonValide' => $collaborateursNonValide)
+                                ), 'text/html'
+                                )
+                        ;
+                        $context->get('mailer')->send($message);
+                    }
+                }
+            }
+
+            // Génération du formulaire de séléction du mois/année.
             $form = $this->createFormBuilder()
                     ->add('Month', ChoiceType::class, array(
                         'choices' => $month,
@@ -366,6 +411,7 @@ class PointageController extends Controller {
                     ->getForm();
 
 
+            // Génération du formulaire de validation de la compilation.
             $formValidationRefus = $this->get('form.factory')->createNamedBuilder('formValidationRefus', 'form')
                     ->add('Compilation', SubmitType::class)
                     ->add('month', 'hidden', array(
@@ -376,33 +422,46 @@ class PointageController extends Controller {
                     ))
                     ->getForm();
 
+            // Traitement du formulaire de validation de la compilation.
             $formValidationRefus->handleRequest($request);
-
             if ($formValidationRefus->isValid()) {
-
+                // On récupére les pointages à inclure dans la compilation.
                 $pointagesCompilation = getPointagesACompile($em, $this->getUsersByAssistante($securityName, $em), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData());
-
+                // On initalise la liste des DA concerné par le pointage.
+                $DAs = array();
+                // Lors du clique sur le bouton de validation.
                 if ($formValidationRefus->get('Compilation')->isClicked()) {
+                    // Pour chaque pointages.
                     foreach ($pointagesCompilation as $pointage) {
-                        $pointage->setStatus(3);
-                        $pointage->setAbsences(json_encode($pointage->getAbsences(), true));
+                        // On récupére l'entitée hiérarchique de l'utilisateur associé au pointage.
+                        $hierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
+                        // On ajoute le DA correspondant à l'utilisateur du pointage dans le tableau des DA.
+                        $DAs[$hierachy->getDA()] = $hierachy->getDA();
+
+                        $pointage->setStatus(3); // On modifie son status.
+                        $pointage->setAbsences(json_encode($pointage->getAbsences(), true)); // On encode ses absences en JSON.
                         $em->persist($pointage);
                     }
-                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été envoyée aux directeur d\'agence/managers.');
+                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été envoyée aux directeur d\'agence/managers.'); // On affiche un message de confirmation.
+                    // On envoie un mail au n+1 pour validation.
+                    sendMailToDestinataire($DAs, "un/une assistant(e) d'agence", $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $this->generateUrl('nox_intranet_da_manager_pointage_compilation'), getNbPointagesNonValides($em, $this->getUsersByAssistante($securityName, $em), $this)['collaborateurSansPointage'], $em, $this);
                 }
 
-                $em->flush();
-
+                $em->flush(); // On sauvegarde les changements de status en base de donnée.
+                // On redirige vers la compilation des pointages.
                 return $this->redirectToRoute('nox_intranet_assistantes_agence_pointage_compilation');
             }
 
             return $this->render('NoxIntranetPointageBundle:Pointage:assistantesAgencePointagesCompilation.html.twig', array('form' => $form->createView(),
-                        'nbPointageNonValide' => getNbPointagesNonValides($em, $this->getUsersByAssistante($securityName, $em), $this),
+                        'pointageNonValide' => getNbPointagesNonValides($em, $this->getUsersByAssistante($securityName, $em), $this),
                         'pointagesValides' => getPointagesValides($em, $this->getUsersByAssistante($securityName, $em), $this),
                         'formValidation' => $formValidationRefus->createView(), 'joursFeries' => $joursFeries
                             )
             );
-        } else {
+        }
+        // Si l'utilisateur n'est pas une assistante d'agence.
+        else {
+            // On affiche un message d'erreur et on redirige vers l'accueil.
             $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistant(e)s d\'agence peuvent accéder à cette espace.');
             return $this->redirectToRoute('nox_intranet_accueil');
         }
@@ -415,8 +474,6 @@ class PointageController extends Controller {
         $users = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
 
         $da = array();
-
-        $da['Tristan BESSON'] = 'Tristan BESSON';
 
         // Récupère le nom des directeurs d'agence et leurs supérieurs.
         foreach ($users as $user) {
@@ -468,7 +525,7 @@ class PointageController extends Controller {
             $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
             function getPointagesValides($em, $users, $context) {
-                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 3));
+                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 3), array('lastname' => 'asc', 'firstname' => 'asc'));
                 $pointages = array();
                 foreach ($pointagesValides as $pointage) {
                     if (in_array($pointage->getUser(), array_keys($users))) {
@@ -494,6 +551,66 @@ class PointageController extends Controller {
                 return $pointages;
             }
 
+            // Retourne le nombre de pointages des collaborateurs qui n'ont pas encore était validés par l'assistante d'agence.
+            function getNbPointagesNonValides($em, $users, $context) {
+                // On récupére tout les tableau de pointages du mois et de l'année courante.
+                $pointagesEntity = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year']));
+                $pointageEnAttenteValidationAA = array(); // Initialisation du tableau des pointages en attente de validation par l'assistant d'agence.
+                $pointageValideParCollaborateur = array(); // Initialisation du tableau des pointages validés par le collaborateur.
+                // Pour chaque pointage.
+                foreach ($pointagesEntity as $pointage) {
+                    // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a été validé par le collaborateur mais pas encore par l'assistant d'agence.
+                    if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() === '1') {
+                        $pointageEnAttenteValidationAA[] = $pointage; // On l'ajout au tableau des pointages en attente de validation par l'assistant d'agence.
+                    }
+                    // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a au moins été validé par le collaborateur.
+                    if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() >= '1') {
+                        $pointageValideParCollaborateur[] = $pointage->getUser(); // On ajoute l'username du collaborateur au tableau des pointages validés par le collaborateur.
+                    }
+                }
+
+                // On récupére les entitées des utilisateurs qui n'ont pas remplis/validé leur pointage.
+                $collaborateurSansPointage = array();
+                foreach (array_diff(array_keys($users), $pointageValideParCollaborateur) as $collaborateur) {
+                    $collaborateurEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateur);
+                    if (!empty($collaborateurEntity)) {
+                        $collaborateurSansPointage[$collaborateur] = $collaborateurEntity->getFirstname() . " " . $collaborateurEntity->getLastname();
+                    }
+                }
+
+                return array('pointageEnAttenteValidationAA' => $pointageEnAttenteValidationAA, 'collaborateurSansPointage' => $collaborateurSansPointage);
+            }
+
+            // Envoi un mail indiquant que la compilation a été validé par les assistants d'agences.
+            function sendMailToDestinataire($Destinataires, $validateur, $mois, $annee, $lienValidationCompilation, $collaborateursNonValide, $em, $context) {
+                // Pour chaque DA.
+                foreach ($Destinataires as $Destinataire) {
+                    // On récupére son entitée utilisateur.
+                    $DestinataireEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $Destinataire)[0], 'lastname' => explode(' ', $Destinataire)[1]));
+
+                    // Si l'entitée existe.
+                    if (!empty($DestinataireEntity)) {
+                        // On génére son adresse email.
+                        $mailDestinataire = $DestinataireEntity->getUsername() . '@groupe-nox.com';
+
+                        // On lui envoi un mail lui indiquant que la compilation est prête pour validation.
+                        $message = \Swift_Message::newInstance()
+                                ->setSubject('Compilation disponible pour validation.')
+                                ->setFrom('noreply@groupe-nox.com')
+                                ->setTo($mailDestinataire)
+                                ->setBody(
+                                $context->renderView(
+                                        // app/Resources/views/Emails/*.html.twig
+                                        'Emails/Pointages/confirmationCompilation.html.twig', array('destinataire' => $DestinataireEntity, 'validateur' => $validateur, 'mois' => $mois, 'annee' => $annee, 'lienValidationCompilation' => $lienValidationCompilation, 'collaborateursNonValide' => $collaborateursNonValide)
+                                ), 'text/html'
+                                )
+                        ;
+                        $context->get('mailer')->send($message);
+                    }
+                }
+            }
+
+            // Génération du formulaire de séléction du mois/année.
             $form = $this->createFormBuilder()
                     ->add('Month', ChoiceType::class, array(
                         'choices' => $month,
@@ -505,6 +622,7 @@ class PointageController extends Controller {
                     ))
                     ->getForm();
 
+            // Génération du formulaire de validation/refus de la compilation.
             $formValidationRefus = $this->get('form.factory')->createNamedBuilder('formValidationRefus', 'form')
                     ->add('Compilation', SubmitType::class)
                     ->add('Refus', SubmitType::class)
@@ -516,40 +634,54 @@ class PointageController extends Controller {
                     ))
                     ->getForm();
 
+            // Traitement du formulaire de validation/refus
             $formValidationRefus->handleRequest($request);
-
             if ($formValidationRefus->isValid()) {
-
+                // On récupére les pointages à compiler.
                 $pointagesCompilation = getPointagesACompile($em, $this->getUsersByDAManager($securityName, $em), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData());
-
+                // Lors du clique sur le bouton de compilation.
                 if ($formValidationRefus->get('Compilation')->isClicked()) {
+                    // On initalise la liste des DA concerné par le pointage.
+                    $RHs = array();
+                    // Pour chaque pointages à compiler.
                     foreach ($pointagesCompilation as $pointage) {
-                        $pointage->setStatus(4);
-                        $pointage->setAbsences(json_encode($pointage->getAbsences(), true));
+                        // On récupére l'entitée hiérarchique de l'utilisateur associé au pointage.
+                        $hierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
+                        // On ajoute le RH correspondant à l'utilisateur du pointage dans le tableau des RH.
+                        $RHs[$hierachy->getRH()] = $hierachy->getRH();
+
+                        $pointage->setStatus(4); // On change le status du pointage.
+                        $pointage->setAbsences(json_encode($pointage->getAbsences(), true)); // On encode les abscences.
                         $em->persist($pointage);
                     }
-                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été validée et envoyée aux assistant(e)s RH.');
+                    // On envoie un mail au n+1 pour validation.
+                    sendMailToDestinataire($RHs, "un directeur d'agence", $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $this->generateUrl('nox_intranet_assistantes_rh_pointage_compilation'), getNbPointagesNonValides($em, $this->getUsersByDAManager($securityName, $em), $this)['collaborateurSansPointage'], $em, $this);
+                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été validée et envoyée aux assistant(e)s RH.'); // On affiche un message de confirmation.
                 }
-
+                // Lors du clique sur le bouton de refus de compilation.
                 if ($formValidationRefus->get('Refus')->isClicked()) {
+                    // Pour chaque pointages à compiler.
                     foreach ($pointagesCompilation as $pointage) {
-                        $pointage->setStatus(2);
-                        $pointage->setAbsences(json_encode($pointage->getAbsences(), true));
+                        $pointage->setStatus(2); // On change le status du pointage.
+                        $pointage->setAbsences(json_encode($pointage->getAbsences(), true)); // On encode les abscences.
                         $em->persist($pointage);
                     }
-                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été refusée et renvoyée aux assistant(e)s d\'agences.');
+                    $this->get('session')->getFlashBag()->add('notice', 'La compilation a été refusée et renvoyée aux assistant(e)s d\'agences.'); // On affiche un message de confirmation de refus.
                 }
 
-                $em->flush();
-
+                $em->flush(); // On sauvegarde les changements en base de données.
+                // On redirige vers la compilation des pointages.
                 return $this->redirectToRoute('nox_intranet_da_manager_pointage_compilation');
             }
 
             return $this->render('NoxIntranetPointageBundle:Pointage:DAManagerPointagesCompilation.html.twig', array('form' => $form->createView(),
                         'pointagesValides' => getPointagesValides($em, $this->getUsersByDAMAnager($securityName, $em), $this),
-                        'formValidationRefus' => $formValidationRefus->createView(), 'joursFeries' => $joursFeries)
+                        'formValidationRefus' => $formValidationRefus->createView(), 'joursFeries' => $joursFeries, 'pointageNonValide' => getNbPointagesNonValides($em, $this->getUsersByDAManager($securityName, $em), $this))
             );
-        } else {
+        }
+        // Si l'utilisateur n'est pas un DA.
+        else {
+            // On affiche un message d'erreur et on redirige vers l'accueil.
             $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les directeurs d\'agence/Managers peuvent accéder à cette espace.');
             return $this->redirectToRoute('nox_intranet_accueil');
         }
@@ -563,8 +695,6 @@ class PointageController extends Controller {
         $users = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
 
         $assistantesRH = array();
-
-        $assistantesRH['Tristan BESSON'] = 'Tristan BESSON';
 
         // Récupère le nom des directeurs d'agence et leurs supérieurs.
         foreach ($users as $user) {
@@ -615,7 +745,7 @@ class PointageController extends Controller {
             $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
             function getPointagesValides($em, $users, $context) {
-                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 4));
+                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 4), array('lastname' => 'asc', 'firstname' => 'asc'));
                 $pointages = array();
                 foreach ($pointagesValides as $pointage) {
                     if (in_array($pointage->getUser(), array_keys($users))) {
@@ -639,6 +769,36 @@ class PointageController extends Controller {
                 }
 
                 return $pointages;
+            }
+
+            // Retourne le nombre de pointages des collaborateurs qui n'ont pas encore était validés par l'assistante d'agence.
+            function getNbPointagesNonValides($em, $users, $context) {
+                // On récupére tout les tableau de pointages du mois et de l'année courante.
+                $pointagesEntity = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year']));
+                $pointageEnAttenteValidationAA = array(); // Initialisation du tableau des pointages en attente de validation par l'assistant d'agence.
+                $pointageValideParCollaborateur = array(); // Initialisation du tableau des pointages validés par le collaborateur.
+                // Pour chaque pointage.
+                foreach ($pointagesEntity as $pointage) {
+                    // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a été validé par le collaborateur mais pas encore par l'assistant d'agence.
+                    if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() === '1') {
+                        $pointageEnAttenteValidationAA[] = $pointage; // On l'ajout au tableau des pointages en attente de validation par l'assistant d'agence.
+                    }
+                    // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a au moins été validé par le collaborateur.
+                    if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() >= '1') {
+                        $pointageValideParCollaborateur[] = $pointage->getUser(); // On ajoute l'username du collaborateur au tableau des pointages validés par le collaborateur.
+                    }
+                }
+
+                // On récupére les entitées des utilisateurs qui n'ont pas remplis/validé leur pointage.
+                $collaborateurSansPointage = array();
+                foreach (array_diff(array_keys($users), $pointageValideParCollaborateur) as $collaborateur) {
+                    $collaborateurEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateur);
+                    if (!empty($collaborateurEntity)) {
+                        $collaborateurSansPointage[$collaborateur] = $collaborateurEntity->getFirstname() . " " . $collaborateurEntity->getLastname();
+                    }
+                }
+
+                return array('pointageEnAttenteValidationAA' => $pointageEnAttenteValidationAA, 'collaborateurSansPointage' => $collaborateurSansPointage);
             }
 
             $form = $this->createFormBuilder()
@@ -694,7 +854,7 @@ class PointageController extends Controller {
 
             return $this->render('NoxIntranetPointageBundle:Pointage:assistantesRHPointagesCompilation.html.twig', array('form' => $form->createView(),
                         'pointagesValides' => getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this),
-                        'formValidationRefus' => $formValidationRefus->createView(), 'joursFeries' => $joursFeries)
+                        'formValidationRefus' => $formValidationRefus->createView(), 'joursFeries' => $joursFeries, 'pointageNonValide' => getNbPointagesNonValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this))
             );
         } else {
             $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistant(e)s RH/DRH peuvent accéder à cette espace.');
@@ -709,8 +869,8 @@ class PointageController extends Controller {
         $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
         $em = $this->getDoctrine()->getManager();
 
-        // Vérifie que l'utilistateur est un directeur d'agence ou un manager.
-        if (in_array($securityName, $this->getAssistantesRH())) {
+        // Vérifie que l'utilistateur est un directeur d'agence/manager ou fait parti de la RH.
+        if (in_array($securityName, $this->getAssistantesRH()) || in_array($securityName, $this->getDAManager()) || $this->get('security.context')->isGranted('ROLE_RH')) {
 
             // Initialisation d'une échelle de temps.
             $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
@@ -734,6 +894,60 @@ class PointageController extends Controller {
                 return $pointages;
             }
 
+            // Retourne le nombre de pointages des collaborateurs qui n'ont pas encore était validés par l'assistante d'agence.
+            function getNbPointagesNonValides($em, $users, $context) {
+                // On récupére tout les tableau de pointages du mois et de l'année courante.
+                $pointagesEntity = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year']));
+                $pointageEnAttenteValidationAA = array(); // Initialisation du tableau des pointages en attente de validation par l'assistant d'agence.
+                $pointageValideParCollaborateur = array(); // Initialisation du tableau des pointages validés par le collaborateur.
+                // Pour chaque pointage.
+                foreach ($pointagesEntity as $pointage) {
+                    // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a été validé par le collaborateur mais pas encore par l'assistant d'agence.
+                    if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() === '1') {
+                        $pointageEnAttenteValidationAA[] = $pointage; // On l'ajout au tableau des pointages en attente de validation par l'assistant d'agence.
+                    }
+                    // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a au moins été validé par le collaborateur.
+                    if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() >= '1') {
+                        $pointageValideParCollaborateur[] = $pointage->getUser(); // On ajoute l'username du collaborateur au tableau des pointages validés par le collaborateur.
+                    }
+                }
+
+                // On récupére les entitées des utilisateurs qui n'ont pas remplis/validé leur pointage.
+                $collaborateurSansPointage = array();
+                foreach (array_diff(array_keys($users), $pointageValideParCollaborateur) as $collaborateur) {
+                    $collaborateurEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateur);
+                    if (!empty($collaborateurEntity)) {
+                        $collaborateurSansPointage[$collaborateur] = $collaborateurEntity->getFirstname() . " " . $collaborateurEntity->getLastname();
+                    }
+                }
+
+                return array('pointageEnAttenteValidationAA' => $pointageEnAttenteValidationAA, 'collaborateurSansPointage' => $collaborateurSansPointage);
+            }
+
+            // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
+            if (in_array($securityName, $this->getAssistantesRH())) {
+                $userStatus = 'RH';
+                $pointageValide = getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this);
+                $pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this);
+            } elseif (in_array($securityName, $this->getDAManager())) {
+                $userStatus = 'DAManager';
+                $pointageValide = getPointagesValides($em, $this->getUsersByDAManager($securityName, $em), $this);
+                $pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByDAManager($securityName, $em), $this);
+            }
+            // Si l'utilisateur ne fait pas partie du tableau hiérarchique mais a le rôle RH.
+            else {
+                // On récupére tous les utilisateurs.
+                $userStatus = 'roleRH';
+                $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+                $users = array();
+                // On récupére tous les utilisateurs.
+                foreach ($usersHierarchyEntity as $user) {
+                    $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
+                }
+                $pointageValide = getPointagesValides($em, $users, $this);
+                $pointageNonValide = getNbPointagesNonValides($em, $users, $this);
+            }
+
             $form = $this->createFormBuilder()
                     ->add('Month', ChoiceType::class, array(
                         'choices' => $month,
@@ -746,9 +960,7 @@ class PointageController extends Controller {
                     ->getForm();
 
             return $this->render('NoxIntranetPointageBundle:Pointage:affichageCompilationsValides.html.twig', array('form' => $form->createView(),
-                        'pointagesValides' => getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this),
-                        'joursFeries' => $joursFeries
-                            )
+                        'pointagesValides' => $pointageValide, 'joursFeries' => $joursFeries, 'pointageNonValide' => $pointageNonValide, 'userStatus' => $userStatus)
             );
         } else {
             $this->get('session')->getFlashBag()->add('noticeErreur', 'Seul les assistant(e)s RH/DRH peuvent accéder à cette espace.');

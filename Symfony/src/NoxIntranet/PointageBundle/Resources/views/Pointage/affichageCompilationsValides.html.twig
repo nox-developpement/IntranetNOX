@@ -28,6 +28,10 @@
         </fieldset>
         {{ form_end(form) }}
 
+        <p id="pointageAValideNumber" style="font-size: 1vw;">
+            Collaborateur(s) n'ayant pas remplis/validé leur pointage : <span id="collaborateurSansPointage" style="color: red; text-decoration: underline; cursor: pointer;" onclick="showUnvalidateCollaborateurs('{{ pointageNonValide|json_encode() }}');">{{ pointageNonValide['collaborateurSansPointage']|length }}</span>
+        </p> 
+
     </div>
 
     <div id="pointageStatusDiv">
@@ -46,7 +50,7 @@
         </div>
     </div>
 
-    <div id="compilationPointages" style='margin-bottom: 5%;'>   
+    <div id="compilationPointages" style='margin-bottom: 5%; text-align: center;'>   
         <table id="compilationPointagesTable">
             <tr>
                 <th id="compilationPointageNomPrenom">Nom/Prénom</th>
@@ -63,7 +67,18 @@
                     <td>{{ pointage.ForfaitsDeplacement }}</td>
                     <td>{{ pointage.PrimesPanier }}</td>
                     <td>{{ pointage.TitreTransport }}</td>
-                    <td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>
+                    <!-- Compteur d'absences -->
+                    {% set nbAbsencesMatin = 0 %}
+                    {% set nbAbsencesAM = 0 %}
+                    {% set nbAbsencesMatin = 0 %}
+                    {% set nbAbsencesAM = 0 %}
+                    {% for absence in pointage.absences.matin if (absence.valeur is defined and absence.valeur != '') %}
+                        {% set nbAbsencesMatin = nbAbsencesMatin+1 %}
+                    {% endfor %}
+                    {% for absence in pointage.absences.am if (absence.valeur is defined and absence.valeur != '') %}
+                        {% set nbAbsencesAM = nbAbsencesAM+1 %}
+                    {% endfor %}
+                    <td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><div style="display: inline-block; vertical-align: middle;">{{ nbAbsencesMatin+nbAbsencesAM }}</div><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>
                 </tr>
                 <tr>
                     <td colspan="6" style='background-color: white; border-right: none;' class='compilationPointagesTableAbsencesTd'>
@@ -140,14 +155,15 @@
                 </tr>
             {% endfor %}
         </table>
+
+        <button type='buton' onclick='ajaxGenerateExcelRecap();' class='boutonFormulaire' style='padding: 1.5%; font-size: 0.8vw; margin-top: 2%;'>Générer le fichier Excel récapitulatif</button>
     </div>
 
-    <p style='text-align: center; font-size: 1vw;' id='aucunPointageParagraphe'> Il n'y a aucun pointage à compiler. </p>
+    <p style='text-align: center; font-size: 1vw;' id='aucunPointageParagraphe'> La compilation est vide. </p>
 
     <script>
         $(window).load(function () {
             IECheck();
-
             // Affiche/cache le tableau et le message d'absence de pointage en fonction du nombre de pointage.
             if ({{ pointagesValides|length }} > 0) {
                 pointageShow();
@@ -161,16 +177,13 @@
                 $('#formValidationRefus_year').val($('#form_Year').val());
                 ajaxGetAssistanceAgencePointageCompilationByMonthAndYear();
             });
-
             // Affiche un message de confirmation lors du clique sur le bouton de compilation.
             $('#form_Compilation').click(function () {
                 return(confirm('Confirmer la validation de la compilation ? Celle-ci ne sera plus modifiable.'));
             });
-
             absencesToggle();
             ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
         });
-
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
             var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
@@ -178,36 +191,47 @@
                 $('#loadingContent').show();
             }
         });
-
         // Cache l'écran de chargement et la notification de sauvegarde quand les requêtes ajax de chargement de la page et de sauvegarde sont terminées.
         $(document).ajaxComplete(function () {
             if ($.active <= 1) {
                 $('#loadingContent').hide();
             }
         });
-
         // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
         function ajaxGetAssistanceAgencePointageCompilationByMonthAndYear() {
 
             $('#compilationPointagesTable tr:nth-child(n+2)').remove();
-
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_get_compilation_valide_by_month_and_year') }}',
-                data: {month: $('#form_Month').val(), year: $('#form_Year').val()},
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}'},
                 success: function (response) {
                     var data = JSON.parse(response);
-
                     if (data.length) {
                         var newHtmlContent = "";
                         $.each(data, function (index) {
+
+                            // On récupere le nombre d'absences du matin.
+                            var nbAbsencesMatin = 0;
+                            $.each(data[index].absences.matin, function (indexAbsence) {
+                                if (data[index].absences.matin[indexAbsence].valeur !== '' && data[index].absences.matin[indexAbsence].valeur !== undefined) {
+                                    nbAbsencesMatin++;
+                                }
+                            });
+                            // On récupere le nombre d'absences de l'après-midi.
+                            var nbAbsencesAM = 0;
+                            $.each(data[index].absences.am, function (indexAbsence) {
+                                if (data[index].absences.am[indexAbsence].valeur !== '' && data[index].absences.am[indexAbsence].valeur !== undefined) {
+                                    nbAbsencesAM++;
+                                }
+                            });
                             newHtmlContent += "<tr class='pointageCompile' username='" + data[index].user + "'>";
                             newHtmlContent += "<td>" + data[index].lastname + ' ' + data[index].firstname + "</td>";
                             newHtmlContent += "<td>" + data[index].titresRepas + "</td>";
                             newHtmlContent += "<td>" + data[index].forfaitsDeplacement + "</td>";
                             newHtmlContent += "<td>" + data[index].primesPanier + "</td>";
                             newHtmlContent += "<td>" + data[index].titreTransport + "</td>";
-                            newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
+                            newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'>" + (nbAbsencesMatin + nbAbsencesAM) + "<img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
                             newHtmlContent += "</tr>";
                             newHtmlContent += "<tr>";
                             newHtmlContent += "<td colspan='6' style='background-color: white; border-right: none; padding-bottom: 3%;' class='compilationPointagesTableAbsencesTd'>";
@@ -219,13 +243,11 @@
                             newHtmlContent += "<th>Abscence après-midi</th>";
                             newHtmlContent += "<th>Commentaires</th>";
                             newHtmlContent += "</tr>";
-
                             // On récupére les jours fériés sous forme de 'timestamp'.
                             var joursFeries = Array();
                             $.each(JSON.parse("{{ joursFeries|json_encode }}"), function (index, value) {
                                 joursFeries.push(new Date(value * 1000).getTime());
                             });
-
                             // Pour chaque jours...
                             $.each(data[index].absences.matin, function (indexAbsences) {
                                 newHtmlContent += "<tr date='" + data[index].absences.matin[indexAbsences].date + "'>";
@@ -412,6 +434,7 @@
                     }
                 }
             });
+            ajaxGetUnvalidate('{{ userStatus }}'); // On récupére le nombre de pointage non validé.
             ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
         }
 
@@ -425,7 +448,6 @@
                         $(this).parent('.compilationPointagesTableAbsencesTd').hide();
                     }
                 });
-
                 $(this).toggle();
                 $(this).siblings('img').toggle();
             });
@@ -458,7 +480,6 @@
                 success: function (response) {
                     var width = null;
                     var cercleNb = null;
-
                     switch (response) {
                         case '2':
                             width = 12.5;
@@ -493,7 +514,6 @@
             var ua = window.navigator.userAgent;
             var old_ie = ua.indexOf('MSIE ');
             var new_ie = ua.indexOf('Trident/');
-
             if ((old_ie > -1) || (new_ie > -1)) {
                 ms_ie = true;
             }
@@ -503,6 +523,44 @@
             }
         }
 
+        // Lance le téléchargement du fichier Excel récapitulatif du pointage courant.
+        function ajaxGenerateExcelRecap() {
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('nox_intranet_pointage_ajax_generate_excel_recap') }}',
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val()},
+                success: function (response) {
+                    window.location = response; // Redirige vers l'URL du fichier à télécharger.
+                }
+            });
+        }
+
+        // Affiche une popup avec la liste des collaborateurs qui n'ont pas remplis/validé leur pointage.
+        function showUnvalidateCollaborateurs(data) {
+            var collaborateurs = JSON.parse(data)['collaborateurSansPointage']; // On convertie la chaine de caractère d'entré en objet Javascript.
+            var message = "Les collaborateurs suivant n'ont pas remplis/validé leur pointage :\n"; // On initialise le message d'alert.
+            // Pour chaque collaborateur.        
+            $.each(collaborateurs, function (index) {
+                message += '          - ' + collaborateurs[index] + '\n'; // On ajout le nom du collaborateur au message.
+            });
+            alert(message); // On affiche le message.
+        }
+
+        // Récupére le nombre de pointage non validé par un assistant d'agence et le nombre de collaborateur qui n'ont pas remplis/validé leur pointage en fonction du mois et de l'année.
+        function ajaxGetUnvalidate(userStatus) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('nox_intranet_pointage_ajax_get_assistante_agence_unvalidate') }}',
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: userStatus},
+                success: function (response) {
+                    var pointages = JSON.parse(response); // On convertie le JSON en object Javascript.
+                    $('#pointageEnAttenteValidationAA').text(Object.keys(pointages['pointageEnAttenteValidationAA']).length); // On remplace le nombre du compteur de pointage non validé par un assistant d'agence.
+                    $('#collaborateurSansPointage').text(Object.keys(pointages['collaborateurSansPointage']).length); // On remplace le nombre du compteur de collaborateur qui n'ont pas remplis/validé leur pointage.
+                    $('#collaborateurSansPointage').attr('onclick', "showUnvalidateCollaborateurs(" + JSON.stringify(response) + ")"); // Met à jours les données de la fonction d'affichage des collaborateur qui n'ont pas remplis/validé leur pointage.
+                    $('#formValidationRefus_Compilation').attr('onclick', "return preventUnvalidate(" + Object.keys(pointages['pointageEnAttenteValidationAA']).length + "," + Object.keys(pointages['collaborateurSansPointage']).length + "," + JSON.stringify(response) + ")"); // Met à jours les donnée de la fonction de prévention d'envoi de compilation incomplète.
+                }
+            });
+        }
     </script>
 
 {% endblock %}

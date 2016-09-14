@@ -14,19 +14,19 @@ class PointageAjaxController extends Controller {
     public function ajaxSetDateAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
 
-            // Pour convertir les jours en Français.
+// Pour convertir les jours en Français.
             $frenchDays = array('Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi');
 
-            // Récupére les date du premier et dernier jours du mois en fonction du mois et de l'année.
+// Récupére les date du premier et dernier jours du mois en fonction du mois et de l'année.
             $month = $request->get('month');
             $year = $request->get('year');
             $date = '01-' . $month . '-' . $year;
             $end_date = date('t', strtotime('01-' . $month . '-' . $year)) . '-' . $month . '-' . $year;
 
-            // Récupére les jours fériés Français.
+// Récupére les jours fériés Français.
             $joursFeries = $this->getPublicHoliday($year);
 
-            // Récupére les dates française pour tous les jours du mois et vérifie si le jours est férié.
+// Récupére les dates française pour tous les jours du mois et vérifie si le jours est férié.
             $monthDates = array();
             $i = 0;
             while (strtotime($date) <= strtotime($end_date)) {
@@ -66,7 +66,7 @@ class PointageAjaxController extends Controller {
             $date = '01-' . $month . '-' . $year;
             $end_date = date('t', strtotime('01-' . $month . '-' . $year)) . '-' . $month . '-' . $year;
 
-            // Récupére les jours fériés Français.
+// Récupére les jours fériés Français.
             $joursFeries = $this->getPublicHoliday($year);
 
             $monthDates = array();
@@ -259,16 +259,16 @@ class PointageAjaxController extends Controller {
     public function ajaxGetUsersByUsernameAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
 
-            // Permet de lire les fichiers Excel.
+// Permet de lire les fichiers Excel.
             include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
 
-            // Inisialisation des varibables de fonction.
+// Inisialisation des varibables de fonction.
             $em = $this->getDoctrine()->getManager();
             $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
             $excelRHFile = "C:/wamp/www/Symfony/Validation Manager WF RF MAJ NR 300516.xlsx";
             $username = $request->get('username');
 
-            // Lis le fichier Excel de la RH et récupère le nom des assistantess d'agence.
+// Lis le fichier Excel de la RH et récupère le nom des assistantess d'agence.
             function getAssistantesAgence($excelRHFile) {
                 $objReaderAssistantes = new \PHPExcel_Reader_Excel2007();
                 $objReaderAssistantes->setReadFilter(new AssistanteAgenceGetter());
@@ -280,12 +280,11 @@ class PointageAjaxController extends Controller {
                         $assistantes[$objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue()] = $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getValue();
                     }
                 }
-                $assistantes['Tristan BESSON'] = 'Tristan BESSON';
 
                 return $assistantes;
             }
 
-            // Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante d'agence connectée.
+// Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante d'agence connectée.
             function getUsersByAssistante($excelRHFile, $securityName, $em) {
                 $objReaderAssistantes = new \PHPExcel_Reader_Excel2007();
                 $objReaderAssistantes->setReadFilter(new AssistanteAgenceGetter());
@@ -360,41 +359,41 @@ class PointageAjaxController extends Controller {
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
 
-            // Si le nom n'est pas spécifié...
+// Si le nom n'est pas spécifié...
             if ($request->get('username') === '') {
-                // ...On récupére celui de l'utilisateur courant.
+// ...On récupére celui de l'utilisateur courant.
                 $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
             }
-            // Sinon on utilise le nom spécifié par la requête Ajax.
+// Sinon on utilise le nom spécifié par la requête Ajax.
             else {
                 $username = $request->get('username');
             }
 
-            // Récupére le mois et l'année spécifiés par la requête.
+// Récupére le mois et l'année spécifiés par la requête.
             $month = $request->get('month');
             $year = $request->get('year');
 
-            // Récupére le pointage correspondant aux données fournis.
+// Récupére le pointage correspondant aux données fournis.
             $pointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
 
-            // Si le pointage existe...
+// Si le pointage existe...
             if (!empty($pointage)) {
-                // ...On récupére sont status.
+// ...On récupére sont status.
                 $status = $pointage->getStatus();
 
-                // Si le status est égale à 2...
+// Si le status est égale à 2...
                 if ($status === '2') {
-                    //On récupére le status du pointage compilé correspondant.
+//On récupére le status du pointage compilé correspondant.
                     $pointageCompile = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
                     $status = $pointageCompile->getStatus();
                 }
             }
-            // Sinon le status est déclaré nul.
+// Sinon le status est déclaré nul.
             else {
                 $status = null;
             }
 
-            // On renvoie le status.
+// On renvoie le status.
             $response = new Response($status);
             return $response;
         }
@@ -465,8 +464,6 @@ class PointageAjaxController extends Controller {
 
         $assistantes = array();
 
-        $assistantes['Tristan BESSON'] = 'Tristan BESSON';
-
         // Récupère le nom des assistantes d'agence et leurs supérieurs.
         foreach ($users as $user) {
             $assistantes[$user->getAA()] = $user->getAA();
@@ -480,7 +477,7 @@ class PointageAjaxController extends Controller {
     // Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante d'agence connectée.
     function getUsersByAssistante($securityName, $em) {
 
-        // On récupére les utilisateurs qui ont l'assistante comme supérieur hiérarchique.
+// On récupére les utilisateurs qui ont l'assistante comme supérieur hiérarchique.
         $qb = $em->createQueryBuilder();
         $qb
                 ->add('select', 'u')
@@ -516,6 +513,8 @@ class PointageAjaxController extends Controller {
                         ->from('NoxIntranetPointageBundle:PointageValide', 'p')
                         ->where('p.month = :month AND p.year = :year AND p.status = :status')
                         ->setParameters(array('month' => $month, 'year' => $year, 'status' => 2))
+                        ->addOrderBy('p.lastname', 'ASC')
+                        ->addOrderBy('p.firstname', 'ASC')
                         ->getQuery()
                 ;
                 $pointagesValides = $query->getArrayResult();
@@ -532,6 +531,67 @@ class PointageAjaxController extends Controller {
             }
 
             return new Response(json_encode(getPointagesValides($em, $this->getUsersByAssistante($securityName, $em), $month, $year)));
+        }
+    }
+
+    // Retourne le nombre de pointages des collaborateurs qui n'ont pas encore était validés par l'assistante d'agence en fonction du mois et de l'année.
+    public function ajaxGetUnvalidateAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // Initialisation des variables.
+            $em = $this->getDoctrine()->getManager();
+            $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+            $month = $request->get('month');
+            $year = $request->get('year');
+            $userStatus = $request->get('userStatus');
+
+            // On récupére la liste des collaborateurs assignés à l'utilisateur en fonction de son grade hiérarchique.
+            switch ($userStatus) {
+                case 'AA':
+                    $users = $this->getUsersByAssistante($securityName, $em);
+                    break;
+                case 'DAManager':
+                    $users = $this->getUsersByDAManager($securityName, $em);
+                    break;
+                case 'RH':
+                    $users = $this->getUsersByAssistantesRH($securityName, $em);
+                    break;
+                case 'roleRH':
+                    $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+                    $users = array();
+                    // On récupére tous les utilisateurs.
+                    foreach ($usersHierarchyEntity as $user) {
+                        $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
+                    }
+                    break;
+            }
+
+
+            // On récupére tout les tableau de pointages du mois et de l'année courante.
+            $pointagesEntity = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $month, 'year' => $year));
+            $pointageEnAttenteValidationAA = array(); // Initialisation du tableau des pointages en attente de validation par l'assistant d'agence.
+            $pointageValideParCollaborateur = array(); // Initialisation du tableau des pointages validés par le collaborateur.
+            // Pour chaque pointage.
+            foreach ($pointagesEntity as $pointage) {
+                // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a été validé par le collaborateur mais pas encore par l'assistant d'agence.
+                if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() === '1') {
+                    $pointageEnAttenteValidationAA[] = $pointage; // On l'ajout au tableau des pointages en attente de validation par l'assistant d'agence.
+                }
+                // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a au moins été validé par le collaborateur.
+                if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() >= '1') {
+                    $pointageValideParCollaborateur[] = $pointage->getUser(); // On ajoute l'username du collaborateur au tableau des pointages validés par le collaborateur.
+                }
+            }
+
+            // On récupére les entitées des utilisateurs qui n'ont pas remplis/validé leur pointage.
+            $collaborateurSansPointage = array();
+            foreach (array_diff(array_keys($users), $pointageValideParCollaborateur) as $collaborateur) {
+                $collaborateurEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateur);
+                if (!empty($collaborateurEntity)) {
+                    $collaborateurSansPointage[$collaborateur] = $collaborateurEntity->getFirstname() . " " . $collaborateurEntity->getLastname();
+                }
+            }
+
+            return new Response(json_encode(array('pointageEnAttenteValidationAA' => $pointageEnAttenteValidationAA, 'collaborateurSansPointage' => $collaborateurSansPointage)));
         }
     }
 
@@ -622,17 +682,19 @@ class PointageAjaxController extends Controller {
             $month = $request->get('month');
             $year = $request->get('year');
 
-            // Inisialisation des varibables de fonction.
+// Inisialisation des varibables de fonction.
             $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
             $em = $this->getDoctrine()->getManager();
 
-            // Retourne les pointages valides des collaborateurs du directeur d'agence/manager.
+// Retourne les pointages valides des collaborateurs du directeur d'agence/manager.
             function getPointagesValides($em, $users, $month, $year) {
                 $query = $em->createQueryBuilder()
                         ->select('p')
                         ->from('NoxIntranetPointageBundle:PointageValide', 'p')
                         ->where('p.month = :month AND p.year = :year AND p.status = :status')
                         ->setParameters(array('month' => $month, 'year' => $year, 'status' => 3))
+                        ->addOrderBy('p.lastname', 'ASC')
+                        ->addOrderBy('p.firstname', 'ASC')
                         ->getQuery()
                 ;
                 $pointagesValides = $query->getArrayResult();
@@ -655,7 +717,7 @@ class PointageAjaxController extends Controller {
     // Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante RH/DRH connectée.
     function getUsersByAssistantesRH($securityName, $em) {
 
-        // On récupére les utilisateurs qui ont l'assistante comme supérieur hiérarchique.
+// On récupére les utilisateurs qui ont l'assistante comme supérieur hiérarchique.
         $qb = $em->createQueryBuilder();
         $qb
                 ->add('select', 'u')
@@ -691,6 +753,8 @@ class PointageAjaxController extends Controller {
                         ->from('NoxIntranetPointageBundle:PointageValide', 'p')
                         ->where('p.month = :month AND p.year = :year AND p.status = :status')
                         ->setParameters(array('month' => $month, 'year' => $year, 'status' => 4))
+                        ->addOrderBy('p.lastname', 'ASC')
+                        ->addOrderBy('p.firstname', 'ASC')
                         ->getQuery()
                 ;
                 $pointagesValides = $query->getArrayResult();
@@ -744,12 +808,13 @@ class PointageAjaxController extends Controller {
         }
     }
 
-    // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et du directeur d'agence/manager.
+    // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et du directeur d'agence/manager/RH.
     public function ajaxGetCompilationsValideByMonthAndYearAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
 
             $month = $request->get('month');
             $year = $request->get('year');
+            $userStatus = $request->get('userStatus');
 
             // Inisialisation des varibables de fonction.
             $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
@@ -762,6 +827,8 @@ class PointageAjaxController extends Controller {
                         ->from('NoxIntranetPointageBundle:PointageValide', 'p')
                         ->where('p.month = :month AND p.year = :year AND p.status = :status')
                         ->setParameters(array('month' => $month, 'year' => $year, 'status' => 5))
+                        ->addOrderBy('p.lastname', 'ASC')
+                        ->addOrderBy('p.firstname', 'ASC')
                         ->getQuery()
                 ;
                 $pointagesValides = $query->getArrayResult();
@@ -777,7 +844,29 @@ class PointageAjaxController extends Controller {
                 return $pointages;
             }
 
-            return new Response(json_encode(getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year)));
+            // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
+            if ($userStatus === 'RH') {
+                $pointagesValides = getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this);
+            } elseif ($userStatus === 'DAManager') {
+                $pointagesValides = getPointagesValides($em, $this->getUsersByDAManager($securityName, $em), $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByDAManager($securityName, $em), $this);
+            }
+            // Si l'utilisateur ne fait pas partie du tableau hiérarchique mais a le rôle RH.
+            else {
+                // On récupére tous les utilisateurs.
+                $userStatus = 'roleRH';
+                $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+                $users = array();
+                // On récupére tous les utilisateurs.
+                foreach ($usersHierarchyEntity as $user) {
+                    $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
+                }
+                $pointagesValides = getPointagesValides($em, $users, $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $users, $month, $year);
+            }
+
+            return new Response(json_encode(getPointagesValides($em, $pointagesValides, $month, $year)));
         }
     }
 
@@ -811,6 +900,92 @@ class PointageAjaxController extends Controller {
         sort($holidays);
 
         return $holidays;
+    }
+
+    // Génére un fichier Excel qui résume la compilation en fonction du mois, de l'année, et de l'utilisateur séléctionné.
+    public function generateExcelRecapAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+
+            // On récupére le module PHP de traitement des fichiers Excel.
+            $root = $this->get('kernel')->getRootDir();
+            require_once $root . '\..\vendor\phpexcel\phpexcel\PHPExcel.php';
+
+            // Inisialisation des varibables de fonction.
+            $month = $request->get('month');
+            $year = $request->get('year');
+            $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+            $em = $this->getDoctrine()->getManager();
+
+            // Retourne les pointages valides des collaborateurs du directeur d'agence/manager.
+            function getPointagesValides($em, $users, $month, $year) {
+                $query = $em->createQueryBuilder()
+                        ->select('p')
+                        ->from('NoxIntranetPointageBundle:PointageValide', 'p')
+                        ->where('p.month = :month AND p.year = :year AND p.status = :status')
+                        ->setParameters(array('month' => $month, 'year' => $year, 'status' => 5))
+                        ->addOrderBy('p.lastname', 'ASC')
+                        ->addOrderBy('p.firstname', 'ASC')
+                        ->getQuery()
+                ;
+                $pointagesValides = $query->getArrayResult();
+
+                $pointages = array();
+                foreach ($pointagesValides as $pointage) {
+                    if (in_array($pointage['user'], array_keys($users))) {
+                        $pointage['absences'] = json_decode($pointage['absences'], true);
+                        $pointages[] = $pointage;
+                    }
+                }
+
+                return $pointages;
+            }
+
+            // On récupére les pointages à inclure dans le récapitulatif Exel.
+            $pointages = getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year);
+
+            //var_dump($pointages);
+            // Initialisation d'un nouveau fichier Excel.
+            $objPHPExcel = \PHPExcel_IOFactory::load($root . '/../web/Pointage/Modele/PointageRecapModele.xlsx');
+
+            $rowTotaux = 2; // Initialisation du compteur de ligne des totaux.
+            $rowAbsence = 2; // Initialisation du compteur de ligne des absences.
+            // Pour chaque pointage.
+            foreach ($pointages as $pointage) {
+                $objWorksheetTotaux = $objPHPExcel->getSheet(1); // On séléctionne la feuille de totaux comme feuille de travail.
+                $objWorksheetTotaux->getCell('A' . $rowTotaux)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
+                $objWorksheetTotaux->getCell('B' . $rowTotaux)->setValue($pointage['titresRepas']); // On écris le nombre de titres repas.
+                $objWorksheetTotaux->getCell('C' . $rowTotaux)->setValue($pointage['forfaitsDeplacement']); // On écris le montant du forfait de déplacement.
+                $objWorksheetTotaux->getCell('D' . $rowTotaux)->setValue($pointage['primesPanier']); // On écris le montant de la primes panier.
+                $objWorksheetTotaux->getCell('E' . $rowTotaux)->setValue($pointage['titreTransport']); // On écris le montant du titre de transport.
+                $rowTotaux++; // On passe à la ligne suivante.
+
+                $objWorksheetAbsence = $objPHPExcel->getSheet(0); // On séléctionne la feuille des absences comme feuille de travail.
+                foreach ($pointage['absences']['matin'] as $key => $absence) {
+                    $objWorksheetAbsence->getCell('A' . $rowAbsence)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
+                    $objWorksheetAbsence->getCell('B' . $rowAbsence)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
+                    // Si un clé de valeur existe pour l'absence du matin.
+                    if (array_key_exists('valeur', $absence)) {
+                        $objWorksheetAbsence->getCell('C' . $rowAbsence)->setValue($absence['valeur']); // On écris la valeur d'absence du matin.
+                    }
+                    // Si un clé de valeur existe pour l'absence de l'après-midi.
+                    if (array_key_exists('valeur', $pointage['absences']['am'][$key])) {
+                        $objWorksheetAbsence->getCell('D' . $rowAbsence)->setValue($pointage['absences']['am'][$key]['valeur']); // On écris la valeur d'absence de l'après-midi.
+                    }
+                    $objWorksheetAbsence->getCell('E' . $rowAbsence)->setValue($absence['commentaires']); // On écris le commentaire.
+                    $rowAbsence++;
+                }
+            }
+
+            // Initialisation d'un tableau de concordance chiffre => string pour les mois.
+            $monthString = array(1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novemvre', 12 => 'Décembre');
+            $filename = 'Récapitulatif compilation pointages ' . $securityName . ' ' . $monthString[$month] . ' ' . $year . '.xlsx'; // On génére le nom de fichier.
+            // On sauvegarde le fichier.
+            $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+            $objWriter->save($root . "/../web/Pointage/FichierRecap/" . utf8_decode($filename)); // utf8_decode est utilisé pour encoder les accents sur le nom de fichier Windows.          
+            $file = $this->get('request')->getSchemeAndHttpHost() . '/Symfony/web/Pointage/FichierRecap/' . $filename; // On récupére l'URL publique du fichier.
+
+            return new Response($file);
+        }
     }
 
 }
