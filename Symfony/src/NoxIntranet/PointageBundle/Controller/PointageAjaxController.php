@@ -903,7 +903,7 @@ class PointageAjaxController extends Controller {
 
             //var_dump($pointages);
             // Initialisation d'un nouveau fichier Excel.
-            $objPHPExcel = \PHPExcel_IOFactory::load($root . '/../web/ModelePointage/PointageRecapModele.xlsx');
+            $objPHPExcel = \PHPExcel_IOFactory::load($root . '/../web/Pointage/Modele/PointageRecapModele.xlsx');
 
             $rowTotaux = 2; // Initialisation du compteur de ligne des totaux.
             $rowAbsence = 2; // Initialisation du compteur de ligne des absences.
@@ -920,7 +920,7 @@ class PointageAjaxController extends Controller {
                 $objWorksheetAbsence = $objPHPExcel->getSheet(0); // On séléctionne la feuille des absences comme feuille de travail.
                 foreach ($pointage['absences']['matin'] as $key => $absence) {
                     $objWorksheetAbsence->getCell('A' . $rowAbsence)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
-                    $objWorksheetAbsence->getCell('B' . $rowAbsence)->setValue($absence['date']); // On écris la date.
+                    $objWorksheetAbsence->getCell('B' . $rowAbsence)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
                     // Si un clé de valeur existe pour l'absence du matin.
                     if (array_key_exists('valeur', $absence)) {
                         $objWorksheetAbsence->getCell('C' . $rowAbsence)->setValue($absence['valeur']); // On écris la valeur d'absence du matin.
@@ -934,10 +934,15 @@ class PointageAjaxController extends Controller {
                 }
             }
 
+            // Initialisation d'un tableau de concordance chiffre => string pour les mois.
+            $monthString = array(1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novemvre', 12 => 'Décembre');
+            $filename = 'Récapitulatif compilation pointages ' . $securityName . ' ' . $monthString[$month] . ' ' . $year . '.xlsx'; // On génére le nom de fichier.
+            // On sauvegarde le fichier.
             $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-            $objWriter->save($root . "/../web/test.xlsx");
+            $objWriter->save($root . "/../web/Pointage/FichierRecap/" . utf8_decode($filename)); // utf8_decode est utilisé pour encoder les accents sur le nom de fichier Windows.          
+            $file = $this->get('request')->getSchemeAndHttpHost() . '/Symfony/web/Pointage/FichierRecap/' . $filename; // On récupére l'URL publique du fichier.
 
-            return new Response(json_encode(getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year)));
+            return new Response($file);
         }
     }
 

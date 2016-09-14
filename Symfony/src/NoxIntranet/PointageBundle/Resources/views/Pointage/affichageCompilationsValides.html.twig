@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <div id="compilationPointages" style='margin-bottom: 5%;'>   
+    <div id="compilationPointages" style='margin-bottom: 5%; text-align: center;'>   
         <table id="compilationPointagesTable">
             <tr>
                 <th id="compilationPointageNomPrenom">Nom/Prénom</th>
@@ -152,7 +152,7 @@
             {% endfor %}
         </table>
 
-        <button type='buton' onclick='ajaxGenerateExcelRecap();'>Générer le fichier Excel récapitulatif</button>
+        <button type='buton' onclick='ajaxGenerateExcelRecap();' class='boutonFormulaire' style='padding: 1.5%; font-size: 0.8vw; margin-top: 2%;'>Générer le fichier Excel récapitulatif</button>
     </div>
 
     <p style='text-align: center; font-size: 1vw;' id='aucunPointageParagraphe'> La compilation est vide. </p>
@@ -518,13 +518,14 @@
             }
         }
 
+        // Lance le téléchargement du fichier Excel récapitulatif du pointage courant.
         function ajaxGenerateExcelRecap() {
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_generate_excel_recap') }}',
                 data: {month: $('#form_Month').val(), year: $('#form_Year').val()},
                 success: function (response) {
-
+                    window.location = response; // Redirige vers l'URL du fichier à télécharger.
                 }
             });
         }
