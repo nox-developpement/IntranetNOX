@@ -943,7 +943,6 @@ class PointageAjaxController extends Controller {
             // On récupére les pointages à inclure dans le récapitulatif Exel.
             $pointages = getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year);
 
-            //var_dump($pointages);
             // Initialisation d'un nouveau fichier Excel.
             $objPHPExcel = \PHPExcel_IOFactory::load($root . '/../web/Pointage/Modele/PointageRecapModele.xlsx');
 
@@ -979,9 +978,17 @@ class PointageAjaxController extends Controller {
             // Initialisation d'un tableau de concordance chiffre => string pour les mois.
             $monthString = array(1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novemvre', 12 => 'Décembre');
             $filename = 'Récapitulatif compilation pointages ' . $securityName . ' ' . $monthString[$month] . ' ' . $year . '.xlsx'; // On génére le nom de fichier.
+            $folder = $root . "/../web/Pointage/FichierRecap/"; // On récupére le dossier ou sera enregistré le fichier.
+            // On vide le dossier avant l'enregistrement.
+            foreach (glob($folder . '*') as $file) { // iterate files
+                if (is_file($file)) {
+                    unlink($file); // delete file
+                }
+            }
+
             // On sauvegarde le fichier.
             $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-            $objWriter->save($root . "/../web/Pointage/FichierRecap/" . utf8_decode($filename)); // utf8_decode est utilisé pour encoder les accents sur le nom de fichier Windows.          
+            $objWriter->save($folder . utf8_decode($filename)); // utf8_decode est utilisé pour encoder les accents sur le nom de fichier Windows.          
             $file = $this->get('request')->getSchemeAndHttpHost() . '/Symfony/web/Pointage/FichierRecap/' . $filename; // On récupére l'URL publique du fichier.
 
             return new Response($file);
