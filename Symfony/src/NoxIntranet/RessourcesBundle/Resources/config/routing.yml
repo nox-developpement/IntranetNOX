@@ -207,3 +207,11 @@ nox_intranet_prestations_internes:
 nox_intranet_ajax_edit_demande:
     path: /ressources/ajax-edition-demande-prestation-interne
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxEditDemande }
+    
+nox_intranet_demande_prestation_proposition_echanges:
+    path: /ressources/demande-prestation-proposition-echanges/{cleDemande}/{da2}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:propositionEchanges }
+    
+nox_intranet_demande_prestation_proposition_echanges_message_ajax_saving:
+    path: /ressources/demande-prestation-proposition-echanges-message-ajax-saving
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveMessage }

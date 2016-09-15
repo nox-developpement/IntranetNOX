@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use NoxIntranet\RessourcesBundle\Entity\Proposition_Echanges;
 
 class PrestationsInternesController extends Controller {
 
@@ -789,6 +790,39 @@ class PrestationsInternesController extends Controller {
             $em->flush();
 
             return new Response('OK');
+        }
+    }
+
+    // Affiche la fenêtre d'échange avec les messages correspondant à la demande et au da2 passé en paramêtre.
+    public function propositionEchangesAction($cleDemande, $da2) {
+        // On récupére les échanges correspondant au variables de la proposition passé en paramêtre.
+        $em = $this->getDoctrine()->getManager();
+        $echanges = $em->getRepository('NoxIntranetRessourcesBundle:Proposition_Echanges')->findBy(array('cleDemande' => $cleDemande, 'da2' => $da2), array('postDate' => 'ASC'));
+
+        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:propositionEchanges.html.twig', array('cleDemande' => $cleDemande, 'da2' => $da2, 'echanges' => $echanges));
+    }
+
+    public function ajaxSaveMessageAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupére les variables de la requête Ajax.
+            $cleDemande = $request->get('cleDemande');
+            $da2 = $request->get('da2');
+            $message = $request->get('message');
+            $sender = $request->get('sender');
+
+            // On ititialise un nouvelle échange avec les paramêtre de la requête.
+            $echange = new Proposition_Echanges();
+            $echange->setCleDemande($cleDemande);
+            $echange->setDa2($da2);
+            $echange->setMessage($message);
+            $echange->setSender($sender);
+
+            // On sauvegarde l'échange en base de données.
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($echange);
+            $em->flush();
+
+            return new Response('Saved');
         }
     }
 

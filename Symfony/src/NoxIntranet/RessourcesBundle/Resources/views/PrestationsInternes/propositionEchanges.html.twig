@@ -1,0 +1,39 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Gestion des propositions {% endblock %}
+
+{% block messageAccueil %}Gestion des propositions{% endblock %}
+
+{% block contenu %} 
+
+    <div style='width: 70%; margin: auto; border: 1px solid #1F4E79; height: 70%; margin-bottom: 5%; font-size: 0;'>
+        <div id='propositionEchangesAffichageMessages'>
+            {% for echange in echanges %}
+                <div class='propositionEchangesMessage {% if echange.sender == app.user.username %}propositionEchangesMessageTo{% else %}propositionEchangesMessageFrom{% endif %}'>
+                     <span style='display: inline-block; vertical-align: middle; height: 100%;'></span>
+                    <p>{{ echange.message }}</p>
+                </div><br />
+            {% endfor %}
+        </div>
+        <div id='propositionEchangesEcritureMessages'> 
+            <div id='propositionEchangesEcritureMessagesTextArea' contenteditable='true'> 
+            </div>
+            <div id='propositionEchangesEcritureMessagesSubmitButton' onclick='sendMessage();'>
+                <span style='display: inline-block; vertical-align: middle; height: 100%;'></span>
+                <p style='font-size: 0.8vw; vertical-align: middle; display: inline-block; margin: 0;'>Envoyer</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function sendMessage() {
+            $.ajax({
+                url: '{{ path('nox_intranet_demande_prestation_proposition_echanges_message_ajax_saving') }}',
+                type: 'POST',
+                data: {'cleDemande': '{{ cleDemande }}', 'da2': '{{ da2 }}', 'message': $('#propositionEchangesEcritureMessagesTextArea').text(), 'sender': '{{ app.user.username }}'}
+            });
+        }
+    </script>
+
+{% endblock %}
