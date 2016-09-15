@@ -3930,6 +3930,7 @@ form[name='formNewSearch'] .textarea[contenteditable=true]:empty:before {
 
 #propositionEchangesAffichageMessages {
     height: 90%;
+    overflow: auto;
     padding: 1%;
     box-sizing: border-box;
 }

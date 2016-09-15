@@ -10,7 +10,7 @@
         <div id='propositionEchangesAffichageMessages'>
             {% for echange in echanges %}
                 <div class='propositionEchangesMessage {% if echange.sender == app.user.username %}propositionEchangesMessageTo{% else %}propositionEchangesMessageFrom{% endif %}'>
-                     <span style='display: inline-block; vertical-align: middle; height: 100%;'></span>
+                    <span style='display: inline-block; vertical-align: middle; height: 100%;'></span>
                     <p>{{ echange.message }}</p>
                 </div><br />
             {% endfor %}
@@ -28,10 +28,18 @@
     <script>
 
         function sendMessage() {
+            var message = $('#propositionEchangesEcritureMessagesTextArea').text();
             $.ajax({
                 url: '{{ path('nox_intranet_demande_prestation_proposition_echanges_message_ajax_saving') }}',
                 type: 'POST',
-                data: {'cleDemande': '{{ cleDemande }}', 'da2': '{{ da2 }}', 'message': $('#propositionEchangesEcritureMessagesTextArea').text(), 'sender': '{{ app.user.username }}'}
+                data: {'cleDemande': '{{ cleDemande }}', 'da2': '{{ da2 }}', 'message': message, 'sender': '{{ app.user.username }}'},
+                success: function () {
+                    var newMessage = "<div class='propositionEchangesMessage propositionEchangesMessageTo'>";
+                    newMessage += "<span style='display: inline-block; vertical-align: middle; height: 100%;'></span>";
+                    newMessage += "<p>" + message + "</p>";
+                    newMessage += "</div><br />";
+                    $('#propositionEchangesAffichageMessages').append(newMessage);
+                }
             });
         }
     </script>
