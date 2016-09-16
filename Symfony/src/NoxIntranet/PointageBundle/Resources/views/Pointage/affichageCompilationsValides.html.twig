@@ -156,7 +156,7 @@
             {% endfor %}
         </table>
 
-        <button type='buton' onclick='ajaxGenerateExcelRecap();' class='boutonFormulaire' style='padding: 1.5%; font-size: 0.8vw; margin-top: 2%;'>Générer le fichier Excel récapitulatif</button>
+        <button type='buton' onclick="ajaxGenerateExcelRecap('{{ userStatus }}');" class='boutonFormulaire' style='padding: 1.5%; font-size: 0.8vw; margin-top: 2%;'>Générer le fichier Excel récapitulatif</button>
     </div>
 
     <p style='text-align: center; font-size: 1vw;' id='aucunPointageParagraphe'> La compilation est vide. </p>
@@ -524,7 +524,7 @@
         }
 
         // Lance le téléchargement du fichier Excel récapitulatif du pointage courant.
-        function ajaxGenerateExcelRecap() {
+        function ajaxGenerateExcelRecap(userStatus) {
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_generate_excel_recap') }}',
