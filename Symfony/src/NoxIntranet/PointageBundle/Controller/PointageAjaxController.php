@@ -913,6 +913,7 @@ class PointageAjaxController extends Controller {
             // Inisialisation des varibables de fonction.
             $month = $request->get('month');
             $year = $request->get('year');
+            $userStatus = $request->get('userStatus');
             $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
             $em = $this->getDoctrine()->getManager();
 
@@ -940,8 +941,27 @@ class PointageAjaxController extends Controller {
                 return $pointages;
             }
 
-            // On récupére les pointages à inclure dans le récapitulatif Exel.
-            $pointages = getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year);
+            // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
+            if ($userStatus === 'RH') {
+                $pointagesValides = getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this);
+            } elseif ($userStatus === 'DAManager') {
+                $pointagesValides = getPointagesValides($em, $this->getUsersByDAManager($securityName, $em), $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByDAManager($securityName, $em), $this);
+            }
+            // Si l'utilisateur ne fait pas partie du tableau hiérarchique mais a le rôle RH.
+            else {
+                // On récupére tous les utilisateurs.
+                $userStatus = 'roleRH';
+                $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+                $users = array();
+                // On récupére tous les utilisateurs.
+                foreach ($usersHierarchyEntity as $user) {
+                    $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
+                }
+                $pointagesValides = getPointagesValides($em, $users, $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $users, $month, $year);
+            }
 
             // Initialisation d'un nouveau fichier Excel.
             $objPHPExcel = \PHPExcel_IOFactory::load($root . '/../web/Pointage/Modele/PointageRecapModele.xlsx');
@@ -949,7 +969,7 @@ class PointageAjaxController extends Controller {
             $rowTotaux = 2; // Initialisation du compteur de ligne des totaux.
             $rowAbsence = 2; // Initialisation du compteur de ligne des absences.
             // Pour chaque pointage.
-            foreach ($pointages as $pointage) {
+            foreach ($pointagesValides as $pointage) {
                 $objWorksheetTotaux = $objPHPExcel->getSheet(1); // On séléctionne la feuille de totaux comme feuille de travail.
                 $objWorksheetTotaux->getCell('A' . $rowTotaux)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
                 $objWorksheetTotaux->getCell('B' . $rowTotaux)->setValue($pointage['titresRepas']); // On écris le nombre de titres repas.
