@@ -77,6 +77,8 @@ class NoxIntranetExtractRHHierarchie extends Controller {
                         $newUser->setDA($objWorksheet->getCell('I' . $rowIndex));
                     }
                     $newUser->setRH($objWorksheet->getCell('I' . $rowIndex));
+
+                    $newUser->setEtablissement($objWorksheet->getCell('B' . $rowIndex)); // On attribut l'agence.
                     $em->persist($newUser);
                 }
             }

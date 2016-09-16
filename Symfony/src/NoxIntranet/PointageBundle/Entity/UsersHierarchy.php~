@@ -62,6 +62,13 @@ class UsersHierarchy {
      * @ORM\Column(name="RH", type="string", length=255)
      */
     private $rh;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Etablissement", type="string", length=255)
+     */
+    private $etablissement;
 
     /**
      * Get id
@@ -182,4 +189,28 @@ class UsersHierarchy {
         return $this->rh;
     }
 
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return UsersHierarchy
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
 }
