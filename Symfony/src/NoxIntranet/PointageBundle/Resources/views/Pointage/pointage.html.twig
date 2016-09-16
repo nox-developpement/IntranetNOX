@@ -4,6 +4,8 @@
 
 {% block messageAccueil %}Pointage <span style='color: red; font-size: 1vw;'>(En test sur l'agence de Bron seulement.)</style>{% endblock %}
 
+{% block sousMessageAccueil %}<a href='{{ asset('Pointage/Aide/Prise en main du pointage collaborateur.pdf') }}' target='_blank' style='text-decoration: none;'>Consulter la notice</a>{% endblock %}
+
 {% block contenu %}
 
     <div id='loadingContent' style='position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; background-image: url({{asset('bundles/noxintranetressources/images/pointageLoading.svg')}}); background-size: contain; background-repeat: no-repeat; background-position: center center;'></div>
