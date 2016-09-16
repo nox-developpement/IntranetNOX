@@ -528,7 +528,7 @@
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_generate_excel_recap') }}',
-                data: {month: $('#form_Month').val(), year: $('#form_Year').val()},
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}'},
                 success: function (response) {
                     window.location = response; // Redirige vers l'URL du fichier à télécharger.
                 }

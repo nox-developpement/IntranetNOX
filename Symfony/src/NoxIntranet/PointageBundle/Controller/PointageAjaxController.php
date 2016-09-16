@@ -907,7 +907,7 @@ class PointageAjaxController extends Controller {
         if ($request->isXmlHttpRequest()) {
 
             // On récupére le module PHP de traitement des fichiers Excel.
-            $root = $this->get('kernel')->getRootDir();
+            $root = str_replace('\\', '/', $this->get('kernel')->getRootDir());
             require_once $root . '\..\vendor\phpexcel\phpexcel\PHPExcel.php';
 
             // Inisialisation des varibables de fonction.
@@ -963,56 +963,107 @@ class PointageAjaxController extends Controller {
                 //$pointageNonValide = getNbPointagesNonValides($em, $users, $month, $year);
             }
 
-            // Initialisation d'un nouveau fichier Excel.
-            $objPHPExcel = \PHPExcel_IOFactory::load($root . '/../web/Pointage/Modele/PointageRecapModele.xlsx');
-
-            $rowTotaux = 2; // Initialisation du compteur de ligne des totaux.
-            $rowAbsence = 2; // Initialisation du compteur de ligne des absences.
-            // Pour chaque pointage.
+            // On récupére les établissements des collaborateurs des pointages valides.
+            $etablissements = array();
             foreach ($pointagesValides as $pointage) {
-                $objWorksheetTotaux = $objPHPExcel->getSheet(1); // On séléctionne la feuille de totaux comme feuille de travail.
-                $objWorksheetTotaux->getCell('A' . $rowTotaux)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
-                $objWorksheetTotaux->getCell('B' . $rowTotaux)->setValue($pointage['titresRepas']); // On écris le nombre de titres repas.
-                $objWorksheetTotaux->getCell('C' . $rowTotaux)->setValue($pointage['forfaitsDeplacement']); // On écris le montant du forfait de déplacement.
-                $objWorksheetTotaux->getCell('D' . $rowTotaux)->setValue($pointage['primesPanier']); // On écris le montant de la primes panier.
-                $objWorksheetTotaux->getCell('E' . $rowTotaux)->setValue($pointage['titreTransport']); // On écris le montant du titre de transport.
-                $rowTotaux++; // On passe à la ligne suivante.
-
-                $objWorksheetAbsence = $objPHPExcel->getSheet(0); // On séléctionne la feuille des absences comme feuille de travail.
-                foreach ($pointage['absences']['matin'] as $key => $absence) {
-                    $objWorksheetAbsence->getCell('A' . $rowAbsence)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
-                    $objWorksheetAbsence->getCell('B' . $rowAbsence)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
-                    // Si un clé de valeur existe pour l'absence du matin.
-                    if (array_key_exists('valeur', $absence)) {
-                        $objWorksheetAbsence->getCell('C' . $rowAbsence)->setValue($absence['valeur']); // On écris la valeur d'absence du matin.
-                    }
-                    // Si un clé de valeur existe pour l'absence de l'après-midi.
-                    if (array_key_exists('valeur', $pointage['absences']['am'][$key])) {
-                        $objWorksheetAbsence->getCell('D' . $rowAbsence)->setValue($pointage['absences']['am'][$key]['valeur']); // On écris la valeur d'absence de l'après-midi.
-                    }
-                    $objWorksheetAbsence->getCell('E' . $rowAbsence)->setValue($absence['commentaires']); // On écris le commentaire.
-                    $rowAbsence++;
+                $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage['user']);
+                if (!empty($usersHierarchyEntity)) {
+                    $etablissements[$usersHierarchyEntity->getEtablissement()] = $usersHierarchyEntity->getEtablissement();
                 }
             }
 
-            // Initialisation d'un tableau de concordance chiffre => string pour les mois.
-            $monthString = array(1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novemvre', 12 => 'Décembre');
-            $filename = 'Récapitulatif compilation pointages ' . $securityName . ' ' . $monthString[$month] . ' ' . $year . '.xlsx'; // On génére le nom de fichier.
-            $folder = $root . "/../web/Pointage/FichierRecap/"; // On récupére le dossier ou sera enregistré le fichier.
+            // Si il y a plus d'1 agence on initisalise un tableau qui contiendras les chemins des fichiers générés.
+            if (count($etablissements) > 1) {
+                $filesPaths = array();
+            }
+
             // On vide le dossier avant l'enregistrement.
-            foreach (glob($folder . '*') as $file) { // iterate files
+            foreach (glob($root . "/../web/Pointage/FichierRecap/*") as $file) { // iterate files
                 if (is_file($file)) {
                     unlink($file); // delete file
                 }
             }
 
-            // On sauvegarde le fichier.
-            $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-            $objWriter->save($folder . utf8_decode($filename)); // utf8_decode est utilisé pour encoder les accents sur le nom de fichier Windows.          
-            $file = $this->get('request')->getSchemeAndHttpHost() . '/Symfony/web/Pointage/FichierRecap/' . $filename; // On récupére l'URL publique du fichier.
+            foreach ($etablissements as $etablissement) {
 
-            return new Response($file);
+                // Initialisation d'un nouveau fichier Excel.
+                $objPHPExcel = \PHPExcel_IOFactory::load($root . '/../web/Pointage/Modele/PointageRecapModele.xlsx');
+
+                $rowTotaux = 2; // Initialisation du compteur de ligne des totaux.
+                $rowAbsence = 2; // Initialisation du compteur de ligne des absences.
+                // Pour chaque pointage.
+                foreach ($pointagesValides as $pointage) {
+                    // On récupére l'entité hiérarchique du collaborateur.
+                    $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage['user']);
+                    // Si le collaborateur est défini dans la hiérarchie et qu'il fait parti de l'établissement courant.
+                    if (!empty($usersHierarchyEntity) && $etablissement === $usersHierarchyEntity->getEtablissement()) {
+                        $objWorksheetTotaux = $objPHPExcel->getSheet(1); // On séléctionne la feuille de totaux comme feuille de travail.
+                        $objWorksheetTotaux->getCell('A' . $rowTotaux)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
+                        $objWorksheetTotaux->getCell('B' . $rowTotaux)->setValue($pointage['titresRepas']); // On écris le nombre de titres repas.
+                        $objWorksheetTotaux->getCell('C' . $rowTotaux)->setValue($pointage['forfaitsDeplacement']); // On écris le montant du forfait de déplacement.
+                        $objWorksheetTotaux->getCell('D' . $rowTotaux)->setValue($pointage['primesPanier']); // On écris le montant de la primes panier.
+                        $objWorksheetTotaux->getCell('E' . $rowTotaux)->setValue($pointage['titreTransport']); // On écris le montant du titre de transport.
+                        $rowTotaux++; // On passe à la ligne suivante.
+
+                        $objWorksheetAbsence = $objPHPExcel->getSheet(0); // On séléctionne la feuille des absences comme feuille de travail.
+                        foreach ($pointage['absences']['matin'] as $key => $absence) {
+                            $objWorksheetAbsence->getCell('A' . $rowAbsence)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
+                            $objWorksheetAbsence->getCell('B' . $rowAbsence)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
+                            // Si un clé de valeur existe pour l'absence du matin.
+                            if (array_key_exists('valeur', $absence)) {
+                                $objWorksheetAbsence->getCell('C' . $rowAbsence)->setValue($absence['valeur']); // On écris la valeur d'absence du matin.
+                            }
+                            // Si un clé de valeur existe pour l'absence de l'après-midi.
+                            if (array_key_exists('valeur', $pointage['absences']['am'][$key])) {
+                                $objWorksheetAbsence->getCell('D' . $rowAbsence)->setValue($pointage['absences']['am'][$key]['valeur']); // On écris la valeur d'absence de l'après-midi.
+                            }
+                            $objWorksheetAbsence->getCell('E' . $rowAbsence)->setValue($absence['commentaires']); // On écris le commentaire.
+                            $rowAbsence++;
+                        }
+                    }
+                }
+
+                // Initialisation d'un tableau de concordance chiffre => string pour les mois.
+                $monthString = array(1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novemvre', 12 => 'Décembre');
+                $filename = str_replace('/', '_', 'Récapitulatif compilation pointages - ' . $securityName . ' - ' . $etablissement . ' - ' . $monthString[$month] . ' ' . $year . '.xlsx'); // On génére le nom de fichier.
+                $folder = $root . "/../web/Pointage/FichierRecap/"; // On récupére le dossier ou sera enregistré le fichier.
+                // On sauvegarde le fichier.
+                $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+                $objWriter->save($folder . utf8_decode($filename)); // utf8_decode est utilisé pour encoder les accents sur le nom de fichier Windows.   
+                $objPHPExcel->disconnectWorksheets();
+                unset($objWriter, $objPHPExcel);
+                $fileURL = $this->get('request')->getSchemeAndHttpHost() . '/Symfony/web/Pointage/FichierRecap/' . $filename; // On récupére l'URL publique du fichier.
+                // Si il y a plus d'1 établissement on ajoute fichier généré au tableau des fichiers.
+                if (count($etablissements) > 1) {
+                    $filesPaths[] = $folder . $filename;
+                }
+            }
+
+            // Si il y a plus d'1 établissement on génére un fichier Zip qui contient les différents fichier récapitulatifs.
+            if (count($etablissements) > 1) {
+                $filename = 'Récapitulatif compilation pointages - ' . $securityName . ' - ' . $monthString[$month] . ' ' . $year . '.zip'; // Nom du fichier.
+                $file = $folder . utf8_decode($filename); // Chemin du fichier Zip.
+
+                $this->ZipGenerator($file, $filesPaths); // Génération du fichier Zip.
+
+                $fileURL = $this->get('request')->getSchemeAndHttpHost() . '/Symfony/web/Pointage/FichierRecap/' . $filename; // On récupére l'URL publique du fichier.
+            }
+
+            // On retourne sois l'URL du fichier récapitulatif unique sois l'URL de l'archive Zip contenant les différents fichiers récapitulatifs.
+            return new Response($fileURL);
         }
+    }
+
+    private function ZipGenerator($filepath, $files) {
+        // On crée une nouvelle archive Zip.
+        $zipFile = new \ZipArchive();
+        $zipFile->open($filepath, \ZipArchive::CREATE); // Génération du fichier.
+        // Pour chaques fichiers.
+        foreach ($files as $file) {
+            $filename = iconv('UTF-8', 'IBM850', basename($file)); // On récupére et encode le nom du fichier depuis son chemin.
+            $zipFile->addFile(utf8_decode($file), $filename); // On ajoute le fichier dans l'archive.
+        }
+        $zipFile->close(); // On ferme l'archive.
     }
 
 }
