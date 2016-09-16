@@ -28,19 +28,50 @@
     <script>
 
         function sendMessage() {
-            var message = $('#propositionEchangesEcritureMessagesTextArea').text();
-            $.ajax({
-                url: '{{ path('nox_intranet_demande_prestation_proposition_echanges_message_ajax_saving') }}',
-                type: 'POST',
-                data: {'cleDemande': '{{ cleDemande }}', 'da2': '{{ da2 }}', 'message': message, 'sender': '{{ app.user.username }}'},
-                success: function () {
-                    var newMessage = "<div class='propositionEchangesMessage propositionEchangesMessageTo'>";
-                    newMessage += "<span style='display: inline-block; vertical-align: middle; height: 100%;'></span>";
-                    newMessage += "<p>" + message + "</p>";
-                    newMessage += "</div><br />";
-                    $('#propositionEchangesAffichageMessages').append(newMessage);
-                }
-            });
+            var message = $.trim($('#propositionEchangesEcritureMessagesTextArea').text()); // On récupére le texte de la zone d'écriture en effacent les espaces avant et après le texte.
+
+            console.log($('#propositionEchangesEcritureMessagesSubmitButton').attr('disabled') !== 'disabled');
+
+            // Si le bouton d'envoie de message n'est pas désactivé et le contenu de message n'est pas vide.
+            if ($('#propositionEchangesEcritureMessagesSubmitButton').attr('disabled') !== 'disabled' && message !== '') {
+                $('#propositionEchangesEcritureMessagesTextArea').attr('contenteditable', false); // On bloque la saisi de nouveau texte.
+                $('#propositionEchangesEcritureMessagesTextArea').css('background-color', 'lightgrey'); // On modifie la couleur d'arrière plan de la zone d'écriture pour indiquer le blocage.
+                $('#propositionEchangesEcritureMessagesSubmitButton').attr('disabled', 'disabled'); // On désactive le bouton d'envoie.
+                $('#propositionEchangesEcritureMessagesSubmitButton').css('color', 'transparent'); // On cache le texte du bouton.
+                $('#propositionEchangesEcritureMessagesSubmitButton').css('background-image', 'url({{ asset('bundles/noxintranetressources/images/sendEchangeMessage.svg') }})'); // On ajout une image de chargement en fond du bouton.
+                $('#propositionEchangesEcritureMessagesSubmitButton').css('cursor', 'default'); // On rétablie le curseur par défaut.
+                $.ajax({
+                    url: '{{ path('nox_intranet_demande_prestation_proposition_echanges_message_ajax_saving') }}',
+                    type: 'POST',
+                    data: {'cleDemande': '{{ cleDemande }}', 'da2': '{{ da2 }}', 'message': message, 'sender': '{{ app.user.username }}'},
+                    success: function () {
+                        // On génére le code HTML du nouveau message et on le fait apparaître.
+                        var newMessage = "<div class='propositionEchangesMessage propositionEchangesMessageTo'>";
+                        newMessage += "<span style='display: inline-block; vertical-align: middle; height: 100%;'></span>";
+                        newMessage += "<p>" + message + "</p>";
+                        newMessage += "</div><br />";
+                        $('#propositionEchangesAffichageMessages').append(newMessage);
+
+                        // On scroll jusqu'au haut du message.
+                        $('#propositionEchangesAffichageMessages').animate({
+                            scrollTop: $('#propositionEchangesAffichageMessages').scrollTop() - $('#propositionEchangesAffichageMessages').offset().top + $(".propositionEchangesMessage").last().offset().top - 0.01 * $('#propositionEchangesAffichageMessages').height()
+                        }, 1000);
+
+                        // On redonne les propriété d'origine à la zone d'écriture et au bouton d'envoie.
+                        $('#propositionEchangesEcritureMessagesTextArea').text(''); // On efface le texte de la zone d'écriture.
+                        $('#propositionEchangesEcritureMessagesTextArea').attr('contenteditable', true);
+                        $('#propositionEchangesEcritureMessagesTextArea').css('background-color', 'white');
+                        $('#propositionEchangesEcritureMessagesSubmitButton').removeAttr('disabled');
+                        $('#propositionEchangesEcritureMessagesSubmitButton').css('color', 'white');
+                        $('#propositionEchangesEcritureMessagesSubmitButton').css('background-image', 'none');
+                        $('#propositionEchangesEcritureMessagesSubmitButton').css('cursor', 'pointer');
+                    }
+                });
+            }
+            // Sinon on remet la zone d'écriture à zéro.
+            else {
+                $('#propositionEchangesEcritureMessagesTextArea').text('');
+            }
         }
     </script>
 
