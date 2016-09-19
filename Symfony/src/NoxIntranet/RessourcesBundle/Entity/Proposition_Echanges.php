@@ -38,7 +38,7 @@ class Proposition_Echanges {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="postDate", type="date")
+     * @ORM\Column(name="postDate", type="datetime")
      */
     private $postDate;
 
@@ -176,7 +176,7 @@ class Proposition_Echanges {
     }
 
     public function __construct() {
-        $this->postDate = new \DateTime();
+        $this->postDate = new \DateTime(null, new \DateTimeZone('Europe/Paris'));
     }
 
 }

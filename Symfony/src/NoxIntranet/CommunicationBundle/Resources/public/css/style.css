@@ -3983,25 +3983,49 @@ form[name='formNewSearch'] .textarea[contenteditable=true]:empty:before {
     margin-bottom: 1%;
 }
 
-.propositionEchangesMessage p {
+.propositionEchangesMessage div {
     max-width: 70%;
-    word-wrap: break-word;
-    font-size: 0.8vw;
-    color: white;
     vertical-align: middle; 
     display: inline-block;
-    padding: 1em;
-    margin: 0;
     border-radius: 10px;
+    padding: 1%;
 }
 
-.propositionEchangesMessageTo p {
+.propositionEchangesMessageTo div {
     background-color: #007AFF;
     float: right;
 }
 
-.propositionEchangesMessageFrom p {
+.propositionEchangesMessageFrom div {
     background-color: #4CD964;
     float: left;
 }
+
+.propositionEchangesMessage p {
+    word-wrap: break-word;
+    font-size: 0.8vw;
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+
+.propositionEchangesMessage hr {
+    width: 90%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    border-color: beige;
+    opacity: 0.5;
+}
+
+.propositionEchangesMessage time {
+    display: block;
+    font-size: 0.7vw;
+    color: beige;
+    padding: 0;
+    text-align: right;
+    font-style: italic;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+
 
