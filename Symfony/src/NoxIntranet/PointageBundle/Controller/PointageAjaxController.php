@@ -1067,18 +1067,34 @@ class PointageAjaxController extends Controller {
 
                         $objWorksheetAbsence = $objPHPExcel->getSheet(0); // On séléctionne la feuille des absences comme feuille de travail.
                         foreach ($pointage['absences']['matin'] as $key => $absence) {
-                            $objWorksheetAbsence->getCell('A' . $rowAbsence)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
-                            $objWorksheetAbsence->getCell('B' . $rowAbsence)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
-                            // Si un clé de valeur existe pour l'absence du matin.
-                            if (array_key_exists('valeur', $absence)) {
-                                $objWorksheetAbsence->getCell('C' . $rowAbsence)->setValue($absence['valeur']); // On écris la valeur d'absence du matin.
+                            // Si un clé de valeur existe pour l'absence du matin et pour celle de l'après-midi.
+                            if (array_key_exists('valeur', $absence) && array_key_exists('valeur', $pointage['absences']['am'][$key])) {
+                                if ($absence['valeur'] !== '' || $pointage['absences']['am'][$key]['valeur'] !== '') {
+                                    $objWorksheetAbsence->getCell('A' . $rowAbsence)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
+                                    $objWorksheetAbsence->getCell('B' . $rowAbsence)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
+                                    $nbAbsence = 0;
+                                    $absenceValue = "";
+                                    if ($absence['valeur'] !== '') {
+                                        $nbAbsence = $nbAbsence + 0.5;
+                                        if ($absenceValue !== '') {
+                                            $absenceValue .= '/' . $absence['valeur'];
+                                        } else {
+                                            $absenceValue .= $absence['valeur'];
+                                        }
+                                    }
+                                    if ($pointage['absences']['am'][$key]['valeur'] !== '') {
+                                        $nbAbsence = $nbAbsence + 0.5;
+                                        if ($absenceValue !== '') {
+                                            $absenceValue .= '/' . $pointage['absences']['am'][$key]['valeur'];
+                                        } else {
+                                            $absenceValue .= $pointage['absences']['am'][$key]['valeur'];
+                                        }
+                                    }
+                                    $objWorksheetAbsence->getCell('C' . $rowAbsence)->setValue(trim($absenceValue)); // On écris la/les valeur(s) d'absence(s).
+                                    $objWorksheetAbsence->getCell('D' . $rowAbsence)->setValue($nbAbsence); // On écris la/les valeur(s) d'absence(s).
+                                    $rowAbsence++;
+                                }
                             }
-                            // Si un clé de valeur existe pour l'absence de l'après-midi.
-                            if (array_key_exists('valeur', $pointage['absences']['am'][$key])) {
-                                $objWorksheetAbsence->getCell('D' . $rowAbsence)->setValue($pointage['absences']['am'][$key]['valeur']); // On écris la valeur d'absence de l'après-midi.
-                            }
-                            $objWorksheetAbsence->getCell('E' . $rowAbsence)->setValue($absence['commentaires']); // On écris le commentaire.
-                            $rowAbsence++;
                         }
                     }
                 }
