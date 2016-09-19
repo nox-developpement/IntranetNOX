@@ -173,7 +173,6 @@
     <script>
         $(window).load(function () {
             IECheck();
-
             // Affiche/cache le tableau et le message d'absence de pointage en fonction du nombre de pointage.
             if ({{ pointagesValides|length }} > 0) {
                 pointageShow();
@@ -187,12 +186,10 @@
                 $('#formValidationRefus_year').val($('#form_Year').val());
                 ajaxGetAssistanceAgencePointageCompilationByMonthAndYear();
             });
-
             // Affiche un message de confirmation lors du clique sur le bouton de compilation.
             $('#form_Compilation').click(function () {
                 return(confirm('Confirmer la validation de la compilation ? Celle-ci ne sera plus modifiable.'));
             });
-
             absencesToggle();
             ajaxSaveCompilationData();
             ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
@@ -220,13 +217,11 @@
 
         // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
         function ajaxGetAssistanceAgencePointageCompilationByMonthAndYear() {
-
             $('#compilationPointagesTable tr:nth-child(n+2)').remove();
-
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_get_da_manager_pointage_compilation_by_month_and_year') }}',
-                data: {month: $('#form_Month').val(), year: $('#form_Year').val()},
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), status: '{{ userStatus }}'},
                 success: function (response) {
                     var data = JSON.parse(response);
                     if (data.length) {
@@ -240,7 +235,6 @@
                                     nbAbsencesMatin++;
                                 }
                             });
-
                             // On récupere le nombre d'absences de l'après-midi.
                             var nbAbsencesAM = 0;
                             $.each(data[index].absences.am, function (indexAbsence) {
@@ -248,7 +242,6 @@
                                     nbAbsencesAM++;
                                 }
                             });
-
                             newHtmlContent += "<tr class='pointageCompile' username='" + data[index].user + "'>";
                             newHtmlContent += "<td>" + data[index].lastname + ' ' + data[index].firstname + "</td>";
                             newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titresRepas' step='1' min='0' value='" + data[index].titresRepas + "'></td>";
@@ -267,13 +260,11 @@
                             newHtmlContent += "<th>Abscence après-midi</th>";
                             newHtmlContent += "<th>Commentaires</th>";
                             newHtmlContent += "</tr>";
-
                             // On récupére les jours fériés sous forme de 'timestamp'.
                             var joursFeries = Array();
                             $.each(JSON.parse("{{ joursFeries|json_encode }}"), function (index, value) {
                                 joursFeries.push(new Date(value * 1000).getTime());
                             });
-
                             // Pour chaque jours...
                             $.each(data[index].absences.matin, function (indexAbsences) {
                                 newHtmlContent += "<tr date='" + data[index].absences.matin[indexAbsences].date + "'>";
@@ -475,7 +466,6 @@
                         $(this).parent('.compilationPointagesTableAbsencesTd').hide();
                     }
                 });
-
                 $(this).toggle();
                 $(this).siblings('img').toggle();
             });
@@ -496,7 +486,6 @@
                     data: {username: $(this).parent('td').parent('tr').attr('username'), month: $('#form_Month').val(), year: $('#form_Year').val(), input: $(this).attr('name'), value: $(this).val()}
                 });
             });
-
             // Pour les types d'abscences.
             $('.compilationAbscenceMatin select, .compilationAbsenceAM select').change(function () {
                 var username = $(this).parents('tr').prev('.pointageCompile').attr('username');
@@ -508,7 +497,6 @@
                     data: {username: username, month: $('#form_Month').val(), year: $('#form_Year').val(), date: date, data: data, value: $(this).val()}
                 });
             });
-
             // Pour les commentaires d'abscences.
             $('.compilationAbsenceCommentaire').on('blur keyup paste input', function () {
                 if (typeof ajaxComment !== 'undefined') {
@@ -552,7 +540,6 @@
                 success: function (response) {
                     var width = null;
                     var cercleNb = null;
-
                     switch (response) {
                         case '2':
                             width = 12.5;
@@ -587,7 +574,6 @@
             var ua = window.navigator.userAgent;
             var old_ie = ua.indexOf('MSIE ');
             var new_ie = ua.indexOf('Trident/');
-
             if ((old_ie > -1) || (new_ie > -1)) {
                 ms_ie = true;
             }

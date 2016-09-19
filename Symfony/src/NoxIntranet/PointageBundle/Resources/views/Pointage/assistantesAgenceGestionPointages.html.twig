@@ -4,7 +4,7 @@
 
 {% block messageAccueil %}Assistant(e) agence: Validation pointages{% endblock %}
 
-{% block sousMessageAccueil %}<a href='{{ asset("Pointage/Aide/MODE OP' feuille de pointage.pdf") }}' target='_blank' style='text-decoration: none;'>Schéma</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage collaborateur.pdf') }}' target='_blank' style='text-decoration: none;'>Notice de remplissage collaborateurs</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank' style='text-decoration: none;'>Notice RH</a>{% endblock %}
+{% block sousMessageAccueil %}<a href='{{ asset("Pointage/Aide/MODE OP' feuille de pointage.pdf") }}' target='_blank' style='text-decoration: none;'>Aide</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage collaborateur.pdf') }}' target='_blank' style='text-decoration: none;'>Notice de remplissage collaborateurs</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank' style='text-decoration: none;'>Notice RH</a>{% endblock %}
 
 {% block contenu %}
     <div id="pointageSelection">
@@ -308,7 +308,7 @@
             </tr>
         </table>
 
-        <table id='tableFeuillePointageSignature'>
+        <table id='tableFeuillePointageSignature' style="display: none;">
             <tr>
                 <td style='border-width: 2px;'>Signature collaborateur</td>
                 <td id='signatureCollaborateur' colspan=2 style='border-width: 2px;' contenteditable=true></td>

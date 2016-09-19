@@ -226,7 +226,7 @@
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_get_assistantes_rh_pointage_compilation_by_month_and_year') }}',
-                data: {month: $('#form_Month').val(), year: $('#form_Year').val()},
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}'},
                 success: function (response) {
                     var data = JSON.parse(response);
                     if (data.length) {

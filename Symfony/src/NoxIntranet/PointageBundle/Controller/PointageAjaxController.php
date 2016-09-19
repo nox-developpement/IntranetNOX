@@ -14,19 +14,19 @@ class PointageAjaxController extends Controller {
     public function ajaxSetDateAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
 
-// Pour convertir les jours en Français.
+            // Pour convertir les jours en Français.
             $frenchDays = array('Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi');
 
-// Récupére les date du premier et dernier jours du mois en fonction du mois et de l'année.
+            // Récupére les date du premier et dernier jours du mois en fonction du mois et de l'année.
             $month = $request->get('month');
             $year = $request->get('year');
             $date = '01-' . $month . '-' . $year;
             $end_date = date('t', strtotime('01-' . $month . '-' . $year)) . '-' . $month . '-' . $year;
 
-// Récupére les jours fériés Français.
+            // Récupére les jours fériés Français.
             $joursFeries = $this->getPublicHoliday($year);
 
-// Récupére les dates française pour tous les jours du mois et vérifie si le jours est férié.
+            // Récupére les dates française pour tous les jours du mois et vérifie si le jours est férié.
             $monthDates = array();
             $i = 0;
             while (strtotime($date) <= strtotime($end_date)) {
@@ -66,7 +66,7 @@ class PointageAjaxController extends Controller {
             $date = '01-' . $month . '-' . $year;
             $end_date = date('t', strtotime('01-' . $month . '-' . $year)) . '-' . $month . '-' . $year;
 
-// Récupére les jours fériés Français.
+            // Récupére les jours fériés Français.
             $joursFeries = $this->getPublicHoliday($year);
 
             $monthDates = array();
@@ -501,6 +501,7 @@ class PointageAjaxController extends Controller {
 
             $month = $request->get('month');
             $year = $request->get('year');
+            $userStatus = $request->get('userStatus');
 
             // Inisialisation des varibables de fonction.
             $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
@@ -530,7 +531,26 @@ class PointageAjaxController extends Controller {
                 return $pointages;
             }
 
-            return new Response(json_encode(getPointagesValides($em, $this->getUsersByAssistante($securityName, $em), $month, $year)));
+            // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
+            if ($userStatus === 'AA') {
+                $pointagesValides = getPointagesValides($em, $this->getUsersByAssistante($securityName, $em), $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this);
+            }
+            // Si l'utilisateur ne fait pas partie du tableau hiérarchique mais a le rôle RH.
+            else {
+                // On récupére tous les utilisateurs.
+                $userStatus = 'roleRH';
+                $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+                $users = array();
+                // On récupére tous les utilisateurs.
+                foreach ($usersHierarchyEntity as $user) {
+                    $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
+                }
+                $pointagesValides = getPointagesValides($em, $users, $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $users, $month, $year);
+            }
+
+            return new Response(json_encode($pointagesValides));
         }
     }
 
@@ -681,12 +701,13 @@ class PointageAjaxController extends Controller {
 
             $month = $request->get('month');
             $year = $request->get('year');
+            $userStatus = $request->get('userStatus');
 
-// Inisialisation des varibables de fonction.
+            // Inisialisation des varibables de fonction.
             $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
             $em = $this->getDoctrine()->getManager();
 
-// Retourne les pointages valides des collaborateurs du directeur d'agence/manager.
+            // Retourne les pointages valides des collaborateurs du directeur d'agence/manager.
             function getPointagesValides($em, $users, $month, $year) {
                 $query = $em->createQueryBuilder()
                         ->select('p')
@@ -710,7 +731,26 @@ class PointageAjaxController extends Controller {
                 return $pointages;
             }
 
-            return new Response(json_encode(getPointagesValides($em, $this->getUsersByDAManager($securityName, $em), $month, $year)));
+            // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
+            if ($userStatus === 'DAManager') {
+                $pointagesValides = getPointagesValides($em, $this->getUsersByDAManager($securityName, $em), $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this);
+            }
+            // Si l'utilisateur ne fait pas partie du tableau hiérarchique mais a le rôle RH.
+            else {
+                // On récupére tous les utilisateurs.
+                $userStatus = 'roleRH';
+                $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+                $users = array();
+                // On récupére tous les utilisateurs.
+                foreach ($usersHierarchyEntity as $user) {
+                    $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
+                }
+                $pointagesValides = getPointagesValides($em, $users, $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $users, $month, $year);
+            }
+
+            return new Response(json_encode($pointagesValides));
         }
     }
 
@@ -741,6 +781,7 @@ class PointageAjaxController extends Controller {
 
             $month = $request->get('month');
             $year = $request->get('year');
+            $userStatus = $request->get('userStatus');
 
             // Inisialisation des varibables de fonction.
             $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
@@ -770,7 +811,26 @@ class PointageAjaxController extends Controller {
                 return $pointages;
             }
 
-            return new Response(json_encode(getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year)));
+            // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
+            if ($userStatus === 'RH') {
+                $pointagesValides = getPointagesValides($em, $this->getUsersByAssistantesRH($securityName, $em), $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByAssistantesRH($securityName, $em), $this);
+            }
+            // Si l'utilisateur ne fait pas partie du tableau hiérarchique mais a le rôle RH.
+            else {
+                // On récupére tous les utilisateurs.
+                $userStatus = 'roleRH';
+                $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+                $users = array();
+                // On récupére tous les utilisateurs.
+                foreach ($usersHierarchyEntity as $user) {
+                    $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
+                }
+                $pointagesValides = getPointagesValides($em, $users, $month, $year);
+                //$pointageNonValide = getNbPointagesNonValides($em, $users, $month, $year);
+            }
+
+            return new Response(json_encode($pointagesValides));
         }
     }
 
@@ -866,7 +926,7 @@ class PointageAjaxController extends Controller {
                 //$pointageNonValide = getNbPointagesNonValides($em, $users, $month, $year);
             }
 
-            return new Response(json_encode(getPointagesValides($em, $pointagesValides, $month, $year)));
+            return new Response(json_encode($pointagesValides));
         }
     }
 
@@ -1054,6 +1114,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
+    // Génére un fichier Excel de compilation.
     private function ZipGenerator($filepath, $files) {
         // On crée une nouvelle archive Zip.
         $zipFile = new \ZipArchive();

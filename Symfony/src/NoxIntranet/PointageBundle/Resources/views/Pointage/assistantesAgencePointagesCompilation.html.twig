@@ -195,7 +195,6 @@
             ajaxSaveCompilationData();
             ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
         });
-
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
             var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
@@ -214,14 +213,13 @@
                 $('#pointageSavingNotification').finish().delay(2000).fadeOut();
             }
         });
-
         // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
         function ajaxGetAssistanceAgencePointageCompilationByMonthAndYear() {
             $('#compilationPointagesTable tr:nth-child(n+2)').remove();
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_get_assistantes_agence_pointage_compilation_by_month_and_year') }}',
-                data: {month: $('#form_Month').val(), year: $('#form_Year').val()},
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}'},
                 success: function (response) {
                     var data = JSON.parse(response);
                     if (data.length) {
