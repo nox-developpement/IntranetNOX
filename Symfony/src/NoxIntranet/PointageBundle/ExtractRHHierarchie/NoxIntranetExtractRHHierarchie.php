@@ -64,18 +64,29 @@ class NoxIntranetExtractRHHierarchie extends Controller {
                     $newUser->setUsername($userDB->getUsername());
 
                     // On vérifie la nullité des cellules du personnel de la RH.
-                    if ($objWorksheet->getCell('G' . $rowIndex) !== '-') {
-                        $newUser->setAA($objWorksheet->getCell('G' . $rowIndex));
-                    } elseif ($objWorksheet->getCell('H' . $rowIndex) !== '-') {
-                        $newUser->setAA($objWorksheet->getCell('H' . $rowIndex));
-                    } else {
-                        $newUser->setAA($objWorksheet->getCell('I' . $rowIndex));
+                    // Si la case d'Assistante agence n'est pas vide.
+                    if (trim($objWorksheet->getCell('G' . $rowIndex)) !== "-") {
+                        $newUser->setAA($objWorksheet->getCell('G' . $rowIndex)); // On attribut la valeur de la case d'assistante agence comme assistante d'agence.
                     }
-                    if ($objWorksheet->getCell('H' . $rowIndex) !== '-') {
-                        $newUser->setDA($objWorksheet->getCell('H' . $rowIndex));
-                    } else {
-                        $newUser->setDA($objWorksheet->getCell('I' . $rowIndex));
+                    // Sinon si la case de Directeur d'agence n'est pas nul.
+                    elseif (trim($objWorksheet->getCell('H' . $rowIndex)) !== "-") {
+                        $newUser->setAA($objWorksheet->getCell('H' . $rowIndex)); // On attribut la valeur de la case de directeur d'agence comme assistante d'agence.
                     }
+                    // Sinon.
+                    else {
+                        $newUser->setAA($objWorksheet->getCell('I' . $rowIndex)); // On attribut la valeur de la case d'assistante RH comme assistante d'agence.
+                    }
+
+                    // Si la case de Directeur d'agence n'est pas nul.
+                    if (trim($objWorksheet->getCell('H' . $rowIndex)) !== "-") {
+                        $newUser->setDA($objWorksheet->getCell('H' . $rowIndex)); // On attribut la valeur de la case de directeur d'agence comme directeur d'agence.
+                    }
+                    // Sinon.
+                    else {
+                        $newUser->setDA($objWorksheet->getCell('I' . $rowIndex)); // On attribut la valeur de la case d'assistante RH comme directeur d'agence.
+                    }
+
+                    // On attribut la valeur de la case d'assistante RH comme assistante RH.
                     $newUser->setRH($objWorksheet->getCell('I' . $rowIndex));
 
                     $newUser->setEtablissement($objWorksheet->getCell('B' . $rowIndex)); // On attribut l'agence.

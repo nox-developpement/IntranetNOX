@@ -234,29 +234,30 @@ class PointageController extends Controller {
             // On récupére les jours fériés.
             $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
-            // Génére le formulaire de séléction du pointage par nom d'utilisateur, mois et année.
+            // Génére le formulaire de séléction du pointage par établissement, mois et année.
+            $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
             $form = $this->createFormBuilder()
-                    ->add('User', ChoiceType::class, array(
-                        'choices' => $this->getUsersByAssistante($securityName, $em),
-                        'choices_as_values' => false,
-                        'attr' => array(
-                            'size' => 5
-                        ),
-                        'choice_attr' => function($val) use ($securityName, $em) {
-                    return ['title' => $this->getUsersByAssistante($securityName, $em)[$val]];
-                }
-                    ))
+//                    ->add('User', ChoiceType::class, array(
+//                        'choices' => $this->getUsersByAssistante($securityName, $em),
+//                        'choices_as_values' => false,
+//                        'attr' => array(
+//                            'size' => 5
+//                        ),
+//                        'choice_attr' => function($val) use ($securityName, $em) {
+//                    return ['title' => $this->getUsersByAssistante($securityName, $em)[$val]];
+//                }
+//                    ))
                     ->add('Month', ChoiceType::class, array(
                         'placeholder' => 'Selectionnez le moi',
-                        'attr' => array(
-                            'disabled' => true
-                        )
+                        'choices' => $month
                     ))
                     ->add('Year', ChoiceType::class, array(
                         'placeholder' => 'Selectionnez l\'année',
-                        'attr' => array(
-                            'disabled' => true
-                        )
+                        'choices' => range(date("Y") - 50, date("Y") + 50)
+                    ))
+                    ->add('Etablissement', ChoiceType::class, array(
+                        'placeholder' => 'Choisir un établissement',
+                            //'choices' => ''
                     ))
                     ->getForm();
 
@@ -278,7 +279,6 @@ class PointageController extends Controller {
             }
 
             // Génére le formulaire de séléction du pointage par pointage à valider.
-            $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
             $formToCheckPointage = $this->createFormBuilder()
                     ->add('Pointage', EntityType::class, array(
                         'class' => 'NoxIntranetPointageBundle:Tableau',
