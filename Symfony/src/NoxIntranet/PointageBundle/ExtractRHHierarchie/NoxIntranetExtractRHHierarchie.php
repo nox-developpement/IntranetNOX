@@ -64,14 +64,14 @@ class NoxIntranetExtractRHHierarchie extends Controller {
                     $newUser->setUsername($userDB->getUsername());
 
                     // On vérifie la nullité des cellules du personnel de la RH.
-                    if ($objWorksheet->getCell('G' . $rowIndex) !== '-') {
+                    if (trim($objWorksheet->getCell('G' . $rowIndex)) !== '-') {
                         $newUser->setAA($objWorksheet->getCell('G' . $rowIndex));
-                    } elseif ($objWorksheet->getCell('H' . $rowIndex) !== '-') {
+                    } elseif (trim($objWorksheet->getCell('H' . $rowIndex)) !== '-') {
                         $newUser->setAA($objWorksheet->getCell('H' . $rowIndex));
                     } else {
                         $newUser->setAA($objWorksheet->getCell('I' . $rowIndex));
                     }
-                    if ($objWorksheet->getCell('H' . $rowIndex) !== '-') {
+                    if (trim($objWorksheet->getCell('H' . $rowIndex)) !== '-') {
                         $newUser->setDA($objWorksheet->getCell('H' . $rowIndex));
                     } else {
                         $newUser->setDA($objWorksheet->getCell('I' . $rowIndex));
