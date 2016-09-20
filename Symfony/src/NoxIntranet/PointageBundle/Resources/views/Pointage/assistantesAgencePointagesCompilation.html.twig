@@ -8,7 +8,7 @@
 
 {% block contenu %}
 
-    <div id='loadingContent' style='position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; background-image: url({{asset('bundles/noxintranetressources/images/pointageLoading.svg')}}); background-size: contain; background-repeat: no-repeat; background-position: center center;'></div>
+    <div id='loadingContent' style='display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; background-image: url({{asset('bundles/noxintranetressources/images/pointageLoading.svg')}}); background-size: contain; background-repeat: no-repeat; background-position: center center;'></div>
 
     <div id='pointageSavingNotification' style='display: none; position: fixed; z-index: 500; background-color: rgba(41,154,11, 0.7); border: 1px outset white; border-radius: 10px; padding: 0.5%;'><p style='display: inline-block; margin: 0; font-size: 0.8vw; color: white;'>Sauvegarde en cours <img src='{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}' style='vertical-align: middle; height: 2em;'></p></div>
 
@@ -27,13 +27,18 @@
                 {{ form_label(form.Year, 'Année:') }}
                 {{ form_errors(form.Year) }}
                 {{ form_widget(form.Year) }}
+            </div><!--
+            --><div style="width: 100%; margin-top: 1%;">
+                {{ form_label(form.Etablissement, 'Etablissement:') }}
+                {{ form_errors(form.Etablissement) }}
+                {{ form_widget(form.Etablissement) }}
             </div>
         </fieldset>
         {{ form_end(form) }}  
 
         <p id="pointageAValideNumber" style="font-size: 1vw;">
-            Pointage(s) collaborateurs non validé(s) par un(e) assistant(e) d'agence : <a id="pointageEnAttenteValidationAA" href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}" style="color: red;">{{ pointageNonValide['pointageEnAttenteValidationAA']|length }}</a><br />
-            Collaborateur(s) n'ayant pas remplis/validé leur pointage : <span id="collaborateurSansPointage" style="color: red; text-decoration: underline; cursor: pointer;" onclick="showUnvalidateCollaborateurs('{{ pointageNonValide|json_encode() }}');">{{ pointageNonValide['collaborateurSansPointage']|length }}</span>
+            Pointage(s) collaborateurs non validé(s) par un(e) assistant(e) d'agence : <a id="pointageEnAttenteValidationAA" href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}" style="color: red;">0</a><br />
+            Collaborateur(s) n'ayant pas remplis/validé leur pointage : <span id="collaborateurSansPointage" style="color: red; text-decoration: underline; cursor: pointer;">0</span>
         </p> 
 
     </div>
@@ -65,105 +70,12 @@
                 <th>Absences</th>
             </tr>
 
-            {% for pointage in pointagesValides %}
-                <tr class="pointageCompile" username='{{ pointage.User }}'>
-                    <td>{{ pointage.Lastname }} {{ pointage.Firstname }}</td>
-                    <td><input style='text-align: center; max-width: 30%;' type="number" name="TitresRepas" step='1' min='0' value='{{ pointage.TitresRepas }}'></td>
-                    <td><input style='text-align: center; max-width: 30%;' type="number" name="ForfaitsDeplacement" step='0.01' min='0' value='{{ pointage.ForfaitsDeplacement }}'> €</td>
-                    <td><input style='text-align: center; max-width: 30%;' type="number" name="PrimesPanier" min='0' step='0.01' value='{{ pointage.PrimesPanier }}'> €</td>
-                    <td><input style='text-align: center; max-width: 30%;' type="number" name="TitreTransport" min='0' step='0.01' value='{{ pointage.TitreTransport }}'> €</td>
-                    <!-- Compteur d'absences -->
-                    {% set nbAbsencesMatin = 0 %}
-                    {% set nbAbsencesAM = 0 %}
-                    {% set nbAbsencesMatin = 0 %}
-                    {% set nbAbsencesAM = 0 %}
-                    {% for absence in pointage.absences.matin if (absence.valeur is defined and absence.valeur != '') %}
-                        {% set nbAbsencesMatin = nbAbsencesMatin+1 %}
-                    {% endfor %}
-                    {% for absence in pointage.absences.am if (absence.valeur is defined and absence.valeur != '') %}
-                        {% set nbAbsencesAM = nbAbsencesAM+1 %}
-                    {% endfor %}
-                    <td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><div style="display: inline-block; vertical-align: middle;">{{ nbAbsencesMatin+nbAbsencesAM }}</div><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>
-                </tr>
-                <tr>
-                    <td colspan="6" style='background-color: white; border-right: none;' class='compilationPointagesTableAbsencesTd'>
-                        <div class="compilationPointagesTableAbsencesDiv">
-                            <table class='compilationPointagesTableAbsences'>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Abscence matin</th>
-                                    <th>Abscence après-midi</th>
-                                    <th>Commentaires</th>
-                                </tr>
-                                {% for absenceMatin in pointage.Absences['matin'] %}
-                                    <tr date="{{ absenceMatin['date']|date('d/m/Y') }}">
-                                        {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' and absenceMatin['date']|date('U') not in joursFeries %}
-                                            <td>{{ absenceMatin['date']|date('d/m/Y') }}</td>
-                                            <td class="compilationAbscenceMatin" data="matin">
-                                            {% else %}
-                                            <td style='background-color: rgb(166, 166, 166);'>{{ absenceMatin['date']|date('d/m/Y') }}</td>
-                                            <td class="compilationAbscenceMatin" data="matin" style='background-color: rgb(166, 166, 166);'>
-                                            {% endif %}
-                                            {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' and absenceMatin['date']|date('U') not in joursFeries %}
-                                                <select>
-                                                    <option value='' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == '' %}selected{% endif %}></option>
-                                                    <option value='AA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AA' %}selected{% endif %}>AA</option>
-                                                    <option value='TJ' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'TJ' %}selected{% endif %}>TJ</option>
-                                                    <option value='AT' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AT' %}selected{% endif %}>AT</option>
-                                                    <option value='MT' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'MT' %}selected{% endif %}>MT</option>
-                                                    <option value='PA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'PA' %}selected{% endif %}>PA</option>
-                                                    <option value='CS' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'CS' %}selected{% endif %}>CS</option>
-                                                    <option value='CP' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'CP' %}selected{% endif %}>CP</option>
-                                                    <option value='AV' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'AV' %}selected{% endif %}>AV</option>
-                                                    <option value='JS' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'JS' %}selected{% endif %}>JS</option>
-                                                    <option value='MA' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'MA' %}selected{% endif %}>MA</option>
-                                                    <option value='PM' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'PM' %}selected{% endif %}>PM</option>
-                                                    <option value='RE' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'RE' %}selected{% endif %}>RE</option>
-                                                    <option value='Autre' {% if absenceMatin['valeur'] is defined and absenceMatin['valeur'] == 'Autre' %}selected{% endif %}>Autre</option>
-                                                </select>
-                                            {% endif %}
-                                        </td>
-                                        {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' and absenceMatin['date']|date('U') not in joursFeries %}
-                                            <td class="compilationAbsenceAM" data="am">
-                                            {% else %}
-                                            <td class="compilationAbsenceAM" data="am" style='background-color: rgb(166, 166, 166);'>
-                                            {% endif %}
-                                            {% if absenceMatin['date']|date('D') != 'Sat' and absenceMatin['date']|date('D') != 'Sun' and absenceMatin['date']|date('U') not in joursFeries %}
-                                                <select>
-                                                    <option value='' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == '' %}selected{% endif %}></option>
-                                                    <option value='AA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AA' %}selected{% endif %}>AA</option>
-                                                    <option value='TJ' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'TJ' %}selected{% endif %}>TJ</option>
-                                                    <option value='AT' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AT' %}selected{% endif %}>AT</option>
-                                                    <option value='MT' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'MT' %}selected{% endif %}>MT</option>
-                                                    <option value='PA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'PA' %}selected{% endif %}>PA</option>
-                                                    <option value='CS' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'CS' %}selected{% endif %}>CS</option>
-                                                    <option value='CP' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'CP' %}selected{% endif %}>CP</option>
-                                                    <option value='AV' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'AV' %}selected{% endif %}>AV</option>
-                                                    <option value='JS' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'JS' %}selected{% endif %}>JS</option>
-                                                    <option value='MA' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'MA' %}selected{% endif %}>MA</option>
-                                                    <option value='PM' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'PM' %}selected{% endif %}>PM</option>
-                                                    <option value='RE' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'RE' %}selected{% endif %}>RE</option>
-                                                    <option value='Autre' {% if pointage.Absences['am'][loop.index0]['valeur'] is defined and pointage.Absences['am'][loop.index0]['valeur'] == 'Autre' %}selected{% endif %}>Autre</option>
-                                                </select>
-                                            {% endif %}
-                                        </td>
-                                        <td class="compilationAbsenceCommentaire" data="commentaires" contenteditable=true>                                
-                                            {% if absenceMatin['commentaires'] is defined %}
-                                                {{ absenceMatin['commentaires'] }}
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
+
         </table>
 
         {{ form_start(formValidation) }}
         <p style="text-align: center;">
-            {{ form_widget(formValidation.Compilation, {'label': 'Valider la compilation' , 'attr': {'class': 'boutonCompilation', 'onclick': "return preventUnvalidate(" ~ pointageNonValide['pointageEnAttenteValidationAA']|length ~ "," ~ pointageNonValide['collaborateurSansPointage']|length ~ ",'" ~ pointageNonValide|json_encode() ~ "');"}}) }}
+            {{ form_widget(formValidation.Compilation, {'label': 'Valider la compilation' , 'attr': {'class': 'boutonCompilation'}}) }}
         </p>
         {{ form_end(formValidation) }}
 
@@ -175,16 +87,12 @@
         $(window).load(function () {
             IECheck();
             // Affiche/cache le tableau et le message d'absence de pointage en fonction du nombre de pointage.
-            if ({{ pointagesValides|length }} > 0) {
-                pointageShow();
-            } else {
-                pointageHide();
-            }
-
+            pointageHide();
             // Execute la fonction de récupération des pointages lorsque qu'un(e) mois/année est sélectionné(e).
-            $('#form_Month, #form_Year').change(function () {
+            $('#form_Month, #form_Year, #form_Etablissement').change(function () {
                 $('#formValidationRefus_month').val($('#form_Month').val());
                 $('#formValidationRefus_year').val($('#form_Year').val());
+                $('#formValidationRefus_etablissement').val($('#form_Etablissement').val());
                 ajaxGetAssistanceAgencePointageCompilationByMonthAndYear();
             });
             // Affiche un message de confirmation lors du clique sur le bouton de compilation.
@@ -193,8 +101,9 @@
             });
             absencesToggle();
             ajaxSaveCompilationData();
-            ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
+            //ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
         });
+
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
             var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
@@ -206,6 +115,7 @@
                 $('#pointageSavingNotification').finish().css('display', 'inline-block');
             }
         });
+
         // Cache l'écran de chargement et la notification de sauvegarde quand les requêtes ajax de chargement de la page et de sauvegarde sont terminées.
         $(document).ajaxComplete(function () {
             if ($.active <= 1) {
@@ -213,13 +123,14 @@
                 $('#pointageSavingNotification').finish().delay(2000).fadeOut();
             }
         });
-        // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
+
+        // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année, de l'assistante d'agence et de l'établissement.
         function ajaxGetAssistanceAgencePointageCompilationByMonthAndYear() {
             $('#compilationPointagesTable tr:nth-child(n+2)').remove();
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_get_assistantes_agence_pointage_compilation_by_month_and_year') }}',
-                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}'},
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}', etablissement: $('#form_Etablissement').val()},
                 success: function (response) {
                     var data = JSON.parse(response);
                     if (data.length) {
@@ -591,12 +502,12 @@
         // Affiche un message de confirmation lorsque l'assitant tente de valider la compilation alors qu'il reste des pointages non validée.
         function preventUnvalidate(pointageEnAttenteValidationAA, collaborateurSansPointage, data) {
             // Si l'assistan d'agence n'as pas valider tous les pointages.
-            if ("{{ pointageNonValide['pointageEnAttenteValidationAA']|length }}" !== "0") {
+            if (pointageEnAttenteValidationAA.length !== "0") {
                 alert('Veuillez valider tous les pointages des collaborateurs avant de valider la compilation.'); // On affiche un message d'erreur.
                 return false; // On bloque l'envoi du formulaire.
             }
             // Si il reste des collaborateurs qui n'ont pas remplis/validé leur pointage.
-            else if ("{{ pointageNonValide['collaborateurSansPointage']|length }}" !== "0") {
+            else if (collaborateurSansPointage.length !== "0") {
                 var collaborateurs = JSON.parse(data)['collaborateurSansPointage']; // On convertie la chaine de caractère d'entré en objet Javascript.
                 var message = "Attention les pointages suivant n'ont pas étés validés par les collaborateur :\n";
                 $.each(collaborateurs, function (index) {

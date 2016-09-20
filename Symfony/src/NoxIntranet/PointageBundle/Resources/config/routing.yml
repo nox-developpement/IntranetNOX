@@ -110,3 +110,7 @@ nox_intranet_pointage_ajax_generate_excel_recap:
     path:   /ressources/ajax-get-pointage-generate-excel-recap
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:generateExcelRecap }
     
+nox_intranet_pointage_ajax_get_pointages_list_aa_gestion:
+    path:   /ressources/ajax-get-pointage-list-aa-gestion
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetPointageList }
+    

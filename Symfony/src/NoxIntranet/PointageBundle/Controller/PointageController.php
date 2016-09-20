@@ -129,48 +129,6 @@ class PointageController extends Controller {
                     'currentYear' => $this->getMonthAndYear()['year']));
     }
 
-    // Crypte les données à l'aide de la clé de cryptage fournie
-    function f_crypt($private_key, $str_to_crypt) {
-        $private_key = md5($private_key);
-        $letter = -1;
-        $new_str = '';
-        $strlen = strlen($str_to_crypt);
-
-        for ($i = 0; $i < $strlen; $i++) {
-            $letter++;
-            if ($letter > 31) {
-                $letter = 0;
-            }
-            $neword = ord($str_to_crypt{$i}) + ord($private_key{$letter});
-            if ($neword > 255) {
-                $neword -= 256;
-            }
-            $new_str .= chr($neword);
-        }
-        return base64_encode($new_str);
-    }
-
-    // Décrypte les données à l'aide de la clé de cryptage fournie
-    function f_decrypt($private_key, $str_to_decrypt) {
-        $private_key = md5($private_key);
-        $letter = -1;
-        $new_str = '';
-        $str_to_decrypt = base64_decode($str_to_decrypt);
-        $strlen = strlen($str_to_decrypt);
-        for ($i = 0; $i < $strlen; $i++) {
-            $letter++;
-            if ($letter > 31) {
-                $letter = 0;
-            }
-            $neword = ord($str_to_decrypt{$i}) - ord($private_key{$letter});
-            if ($neword < 1) {
-                $neword += 256;
-            }
-            $new_str .= chr($neword);
-        }
-        return $new_str;
-    }
-
     // Lis le fichier Excel de la RH et récupère le nom des assistantess d'agence.
     function getAssistantesAgence() {
 
@@ -234,33 +192,6 @@ class PointageController extends Controller {
             // On récupére les jours fériés.
             $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
-            // Génére le formulaire de séléction du pointage par établissement, mois et année.
-            $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
-            $form = $this->createFormBuilder()
-//                    ->add('User', ChoiceType::class, array(
-//                        'choices' => $this->getUsersByAssistante($securityName, $em),
-//                        'choices_as_values' => false,
-//                        'attr' => array(
-//                            'size' => 5
-//                        ),
-//                        'choice_attr' => function($val) use ($securityName, $em) {
-//                    return ['title' => $this->getUsersByAssistante($securityName, $em)[$val]];
-//                }
-//                    ))
-                    ->add('Month', ChoiceType::class, array(
-                        'placeholder' => 'Selectionnez le moi',
-                        'choices' => $month
-                    ))
-                    ->add('Year', ChoiceType::class, array(
-                        'placeholder' => 'Selectionnez l\'année',
-                        'choices' => range(date("Y") - 50, date("Y") + 50)
-                    ))
-                    ->add('Etablissement', ChoiceType::class, array(
-                        'placeholder' => 'Choisir un établissement',
-                            //'choices' => ''
-                    ))
-                    ->getForm();
-
             // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
             if (in_array($securityName, $this->getAssistantesAgence())) {
                 $userStatus = 'AA';
@@ -278,25 +209,56 @@ class PointageController extends Controller {
                 }
             }
 
+
+            // On récupére les agences des collaborateurs qui dépendent de l'assistant d'agence ou toutes les agence si ROLE_RH.
+            $etablissements = array();
+            if ($userStatus == 'AA') {
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
+                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                }
+            } else {
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
+                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                }
+            }
+
+            // Génére le formulaire de séléction du pointage par établissement, mois et année.
+            $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
+            $form = $this->createFormBuilder()
+                    ->add('Month', ChoiceType::class, array(
+                        'choices' => $month,
+                        'data' => $this->getMonthAndYear()['month']
+                    ))
+                    ->add('Year', ChoiceType::class, array(
+                        'choices' => array_combine(range(date("Y") - 50, date("Y") + 50), range(date("Y") - 50, date("Y") + 50)),
+                        'data' => $this->getMonthAndYear()['year']
+                    ))
+                    ->add('Etablissement', ChoiceType::class, array(
+                        'placeholder' => 'Choisir un établissement',
+                        'choices' => $etablissements
+                    ))
+                    ->getForm();
+
+
             // Génére le formulaire de séléction du pointage par pointage à valider.
             $formToCheckPointage = $this->createFormBuilder()
-                    ->add('Pointage', EntityType::class, array(
-                        'class' => 'NoxIntranetPointageBundle:Tableau',
-                        'query_builder' => function (EntityRepository $er) use ($securityName, $em, $users) {
-                            return $er->createQueryBuilder('u')
-                                    ->where("u.status = '1' AND u.user IN (:users)")
-                                    ->orderBy('u.user', 'ASC')
-                                    ->setParameter('users', array_keys($users));
-                        },
-                        'choice_label' => function($tableau) use ($em, $month) {
-                            return $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($tableau->getUser())->getFirstname() . ' ' . $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($tableau->getUser())->getLastname() . ' (' . $month[$tableau->getMonth()] . ' ' . $tableau->getYear() . ')';
-                        },
-                        'attr' => array(
-                            'size' => 5
-                        ),
-                        'choice_attr' => function($tableau) use ($em, $month) {
-                    return array('title' => $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($tableau->getUser())->getFirstname() . ' ' . $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($tableau->getUser())->getLastname() . ' (' . $month[$tableau->getMonth()] . ' ' . $tableau->getYear() . ')');
-                }
+                    ->add('Pointage', ChoiceType::class, array(
+//                        'class' => 'NoxIntranetPointageBundle:Tableau',
+//                        'query_builder' => function (EntityRepository $er) use ($securityName, $em, $users) {
+//                            return $er->createQueryBuilder('u')
+//                                    ->where("u.status = '1' AND u.user IN (:users)")
+//                                    ->orderBy('u.user', 'ASC')
+//                                    ->setParameter('users', array_keys($users));
+//                        },
+//                        'choice_label' => function($tableau) use ($em, $month) {
+//                            return $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($tableau->getUser())->getFirstname() . ' ' . $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($tableau->getUser())->getLastname() . ' (' . $month[$tableau->getMonth()] . ' ' . $tableau->getYear() . ')';
+//                        },
+//                        'attr' => array(
+//                            'size' => 5
+//                        ),
+//                        'choice_attr' => function($tableau) use ($em, $month) {
+//                    return array('title' => $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($tableau->getUser())->getFirstname() . ' ' . $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($tableau->getUser())->getLastname() . ' (' . $month[$tableau->getMonth()] . ' ' . $tableau->getYear() . ')');
+//                }
                     ))
                     ->getForm();
 
@@ -329,48 +291,48 @@ class PointageController extends Controller {
             $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
             // Retourne le nombre de pointages des collaborateurs qui n'ont pas encore était validés par l'assistante d'agence.
-            function getNbPointagesNonValides($em, $users, $context) {
-                // On récupére tout les tableau de pointages du mois et de l'année courante.
-                $pointagesEntity = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year']));
-                $pointageEnAttenteValidationAA = array(); // Initialisation du tableau des pointages en attente de validation par l'assistant d'agence.
-                $pointageValideParCollaborateur = array(); // Initialisation du tableau des pointages validés par le collaborateur.
-                // Pour chaque pointage.
-                foreach ($pointagesEntity as $pointage) {
-                    // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a été validé par le collaborateur mais pas encore par l'assistant d'agence.
-                    if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() === '1') {
-                        $pointageEnAttenteValidationAA[] = $pointage; // On l'ajout au tableau des pointages en attente de validation par l'assistant d'agence.
-                    }
-                    // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a au moins été validé par le collaborateur.
-                    if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() >= '1') {
-                        $pointageValideParCollaborateur[] = $pointage->getUser(); // On ajoute l'username du collaborateur au tableau des pointages validés par le collaborateur.
-                    }
-                }
+            /* function getNbPointagesNonValides($em, $users, $context) {
+              // On récupére tout les tableau de pointages du mois et de l'année courante.
+              $pointagesEntity = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year']));
+              $pointageEnAttenteValidationAA = array(); // Initialisation du tableau des pointages en attente de validation par l'assistant d'agence.
+              $pointageValideParCollaborateur = array(); // Initialisation du tableau des pointages validés par le collaborateur.
+              // Pour chaque pointage.
+              foreach ($pointagesEntity as $pointage) {
+              // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a été validé par le collaborateur mais pas encore par l'assistant d'agence.
+              if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() === '1') {
+              $pointageEnAttenteValidationAA[] = $pointage; // On l'ajout au tableau des pointages en attente de validation par l'assistant d'agence.
+              }
+              // Si le collaborateur est attribué à l'assistant d'agence et que le pointage a au moins été validé par le collaborateur.
+              if (in_array($pointage->getUser(), array_keys($users)) && $pointage->getStatus() >= '1') {
+              $pointageValideParCollaborateur[] = $pointage->getUser(); // On ajoute l'username du collaborateur au tableau des pointages validés par le collaborateur.
+              }
+              }
 
-                // On récupére les entitées des utilisateurs qui n'ont pas remplis/validé leur pointage.
-                $collaborateurSansPointage = array();
-                foreach (array_diff(array_keys($users), $pointageValideParCollaborateur) as $collaborateur) {
-                    $collaborateurEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateur);
-                    if (!empty($collaborateurEntity)) {
-                        $collaborateurSansPointage[$collaborateur] = $collaborateurEntity->getFirstname() . " " . $collaborateurEntity->getLastname();
-                    }
-                }
+              // On récupére les entitées des utilisateurs qui n'ont pas remplis/validé leur pointage.
+              $collaborateurSansPointage = array();
+              foreach (array_diff(array_keys($users), $pointageValideParCollaborateur) as $collaborateur) {
+              $collaborateurEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateur);
+              if (!empty($collaborateurEntity)) {
+              $collaborateurSansPointage[$collaborateur] = $collaborateurEntity->getFirstname() . " " . $collaborateurEntity->getLastname();
+              }
+              }
 
-                return array('pointageEnAttenteValidationAA' => $pointageEnAttenteValidationAA, 'collaborateurSansPointage' => $collaborateurSansPointage);
-            }
+              return array('pointageEnAttenteValidationAA' => $pointageEnAttenteValidationAA, 'collaborateurSansPointage' => $collaborateurSansPointage);
+              } */
 
             // Retourne les pointages valides des collaborateurs de l'assistante d'agence.
-            function getPointagesValides($em, $users, $context) {
-                $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 2), array('lastname' => 'asc', 'firstname' => 'asc'));
-                $pointages = array();
-                foreach ($pointagesValides as $pointage) {
-                    if (in_array($pointage->getUser(), array_keys($users))) {
-                        $pointage->setAbsences(json_decode($pointage->getAbsences(), true));
-                        $pointages[] = $pointage;
-                    }
-                }
+            /* function getPointagesValides($em, $users, $context) {
+              $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $context->getMonthAndYear()['month'], 'year' => $context->getMonthAndYear()['year'], 'status' => 2), array('lastname' => 'asc', 'firstname' => 'asc'));
+              $pointages = array();
+              foreach ($pointagesValides as $pointage) {
+              if (in_array($pointage->getUser(), array_keys($users))) {
+              $pointage->setAbsences(json_decode($pointage->getAbsences(), true));
+              $pointages[] = $pointage;
+              }
+              }
 
-                return $pointages;
-            }
+              return $pointages;
+              } */
 
             // Retourne les pointages prêt à être compilés.
             function getPointagesACompile($em, $users, $month, $year) {
@@ -418,21 +380,33 @@ class PointageController extends Controller {
             // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
             if (in_array($securityName, $this->getAssistantesAgence())) {
                 $userStatus = 'AA';
-                $pointageValide = getPointagesValides($em, $this->getUsersByAssistante($securityName, $em), $this);
-                $pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByAssistante($securityName, $em), $this);
+                //$pointageValide = getPointagesValides($em, $this->getUsersByAssistante($securityName, $em), $this);
+                //$pointageNonValide = getNbPointagesNonValides($em, $this->getUsersByAssistante($securityName, $em), $this);
             }
             // Si l'utilisateur ne fait pas partie du tableau hiérarchique mais a le rôle RH.
             else {
                 // On récupére tous les utilisateurs.
                 $userStatus = 'roleRH';
-                $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
-                $users = array();
-                // On récupére tous les utilisateurs.
-                foreach ($usersHierarchyEntity as $user) {
-                    $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
+                /* $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+                  $users = array();
+                  // On récupére tous les utilisateurs.
+                  foreach ($usersHierarchyEntity as $user) {
+                  $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
+                  }
+                  $pointageValide = getPointagesValides($em, $users, $this);
+                  $pointageNonValide = getNbPointagesNonValides($em, $users, $this); */
+            }
+
+            // On récupére les agences des collaborateurs qui dépendent de l'assistant d'agence ou toutes les agence si ROLE_RH.
+            $etablissements = array();
+            if ($userStatus == 'AA') {
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
+                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
-                $pointageValide = getPointagesValides($em, $users, $this);
-                $pointageNonValide = getNbPointagesNonValides($em, $users, $this);
+            } else {
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
+                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                }
             }
 
             // Génération du formulaire de séléction du mois/année.
@@ -445,6 +419,10 @@ class PointageController extends Controller {
                         'choices' => $year,
                         'data' => $this->getMonthAndYear()['year']
                     ))
+                    ->add('Etablissement', ChoiceType::class, array(
+                        'placeholder' => 'Choisir un établissement',
+                        'choices' => $etablissements
+                    ))
                     ->getForm();
 
 
@@ -456,6 +434,8 @@ class PointageController extends Controller {
                     ))
                     ->add('year', 'hidden', array(
                         'data' => $this->getMonthAndYear()['year']
+                    ))
+                    ->add('etablissement', 'hidden', array(
                     ))
                     ->getForm();
 
@@ -504,8 +484,8 @@ class PointageController extends Controller {
             }
 
             return $this->render('NoxIntranetPointageBundle:Pointage:assistantesAgencePointagesCompilation.html.twig', array('form' => $form->createView(),
-                        'pointageNonValide' => $pointageNonValide, 'userStatus' => $userStatus,
-                        'pointagesValides' => $pointageValide,
+                        /* 'pointageNonValide' => $pointageNonValide, */ 'userStatus' => $userStatus,
+                        /* 'pointagesValides' => $pointageValide, */
                         'formValidation' => $formValidationRefus->createView(), 'joursFeries' => $joursFeries
                             )
             );
