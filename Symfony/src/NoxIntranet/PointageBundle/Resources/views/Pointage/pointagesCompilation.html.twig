@@ -1,0 +1,553 @@
+{% extends "layout.html.twig" %}
+
+{% block titrePage %} Assistant(e) agence: Compilation des pointages {% endblock %}
+
+{% block messageAccueil %}Assistant(e) agence: Compilation des pointages{% endblock %}
+
+{% block sousMessageAccueil %}<a href='{{ asset('Pointage/Aide/Prise en main du pointage collaborateur.pdf') }}' target='_blank' style='text-decoration: none;'>Notice de remplissage collaborateurs</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank' style='text-decoration: none;'>Notice RH</a>{% endblock %}
+
+{% block contenu %}
+
+    <div id='loadingContent' style='display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; background-image: url({{asset('bundles/noxintranetressources/images/pointageLoading.svg')}}); background-size: contain; background-repeat: no-repeat; background-position: center center;'></div>
+
+    <div id='pointageSavingNotification' style='display: none; position: fixed; z-index: 500; background-color: rgba(41,154,11, 0.7); border: 1px outset white; border-radius: 10px; padding: 0.5%;'><p style='display: inline-block; margin: 0; font-size: 0.8vw; color: white;'>Sauvegarde en cours <img src='{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}' style='vertical-align: middle; height: 2em;'></p></div>
+
+    <div class="pointageSelectionDateCompilation">
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <fieldset>
+            <legend>Compilation des pointages</legend>
+            <div>
+                {{ form_label(form.Month, 'Mois:') }}
+                {{ form_errors(form.Month) }}
+                {{ form_widget(form.Month) }}
+            </div><!--
+            --><div>
+                {{ form_label(form.Year, 'Année:') }}
+                {{ form_errors(form.Year) }}
+                {{ form_widget(form.Year) }}
+            </div><!--
+            --><div style="width: 100%; margin-top: 1%;">
+                {{ form_label(form.Etablissement, 'Etablissement:') }}
+                {{ form_errors(form.Etablissement) }}
+                {{ form_widget(form.Etablissement) }}
+            </div>
+        </fieldset>
+        {{ form_end(form) }}  
+
+        <p id="pointageAValideNumber" style="font-size: 1vw;">
+            Pointage(s) collaborateurs non validé(s) par un(e) assistant(e) d'agence : <a id="pointageEnAttenteValidationAA" href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}" style="color: red;">0</a><br />
+            Collaborateur(s) n'ayant pas remplis/validé leur pointage : <span id="collaborateurSansPointage" style="color: red; text-decoration: underline; cursor: pointer;">0</span>
+        </p> 
+
+    </div>
+
+    <div id="pointageStatusDiv">
+        <div id="pointageStatusLabelGeneralContainer">
+            <div class='pointageStatusCompilationLabelContainer'><p class='pointageStatusLabel'>Assistant(e) agence</p></div><!--
+            --><div class='pointageStatusCompilationLabelContainer'><p class='pointageStatusLabel'>DA/Manager</p></div><!--
+            --><div class='pointageStatusCompilationLabelContainer'><p class='pointageStatusLabel'>Assistant(e) RH/DRH</p></div><!--
+            --><div class='pointageStatusCompilationLabelContainer'><p class='pointageStatusLabel'>Validé</p></div><!--
+            --></div>
+        <div id="pointageStatus">
+            <div class='pointageStatusCompilationCircleContainer'><div class='pointageStatusCircle' step=0></div></div><!--
+            --><div class='pointageStatusCompilationCircleContainer'><div class='pointageStatusCircle' step=1></div></div><!--
+            --><div class='pointageStatusCompilationCircleContainer'><div class='pointageStatusCircle' step=2></div></div><!--
+            --><div class='pointageStatusCompilationCircleContainer'><div class='pointageStatusCircle' step=3></div></div>
+            <div class='pointageStatusLine'><div></div></div>
+        </div>
+    </div>
+
+    <div id="compilationPointages">   
+        <table id="compilationPointagesTable">
+            <tr>
+                <th id="compilationPointageNomPrenom">Nom/Prénom</th>
+                <th id="compilationPointageTitresRepas">Titres repas</th>
+                <th id="compilationPointageForfaitsDeplacement">Forfaits déplacement</th>
+                <th id="compilationPointagePrimesPanier">Primes panier</th>
+                <th id="compilationPointageTitreTransport">Titre transport</th>
+                <th>Absences</th>
+            </tr>
+
+
+        </table>
+
+        {{ form_start(formValidation) }}
+        <p style="text-align: center;">
+            {{ form_widget(formValidation.Compilation, {'label': 'Valider la compilation' , 'attr': {'class': 'boutonCompilation'}}) }}
+        </p>
+        {{ form_end(formValidation) }}
+
+    </div>
+
+    <p style='text-align: center; font-size: 1vw;' id='aucunPointageParagraphe'> Il n'y a aucun pointage à compiler. </p>
+
+    <script>
+        $(window).load(function () {
+            IECheck();
+            // Affiche/cache le tableau et le message d'absence de pointage en fonction du nombre de pointage.
+            pointageHide();
+            // Execute la fonction de récupération des pointages lorsque qu'un(e) mois/année est sélectionné(e).
+            $('#form_Month, #form_Year, #form_Etablissement').change(function () {
+                $('#formValidationRefus_month').val($('#form_Month').val());
+                $('#formValidationRefus_year').val($('#form_Year').val());
+                $('#formValidationRefus_etablissement').val($('#form_Etablissement').val());
+                ajaxGetAssistanceAgencePointageCompilationByMonthAndYear();
+            });
+            // Affiche un message de confirmation lors du clique sur le bouton de compilation.
+            $('#form_Compilation').click(function () {
+                return(confirm('Confirmer la validation de la compilation ? Celle-ci ne sera plus modifiable.'));
+            });
+            absencesToggle();
+            ajaxSaveCompilationData();
+            //ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
+        });
+
+        // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
+        $(document).ajaxSend(function (event, request, settings) {
+            var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
+            if (ajaxUrl === "pointage-compilation-ajax-get-status" || ajaxUrl === "ajax-get-assistantes-agence-pointage-compilation-by-month-and-year" || ajaxUrl === "pointage-compilation-ajax-get-status" || ajaxUrl === "ajax-get-assistante-agence-unvalidate") {
+                $('#loadingContent').show();
+            }
+            if (ajaxUrl === "ajax-save-compilation-data" || ajaxUrl === "ajax-save-compilation-absences") {
+                savingNotification();
+                $('#pointageSavingNotification').finish().css('display', 'inline-block');
+            }
+        });
+
+        // Cache l'écran de chargement et la notification de sauvegarde quand les requêtes ajax de chargement de la page et de sauvegarde sont terminées.
+        $(document).ajaxComplete(function () {
+            if ($.active <= 1) {
+                $('#loadingContent').hide();
+                $('#pointageSavingNotification').finish().delay(2000).fadeOut();
+            }
+        });
+
+        // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année, de l'assistante d'agence et de l'établissement.
+        function ajaxGetAssistanceAgencePointageCompilationByMonthAndYear() {
+            $('#compilationPointagesTable tr:nth-child(n+2)').remove();
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('nox_intranet_pointage_ajax_get_assistantes_agence_pointage_compilation_by_month_and_year') }}',
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}', etablissement: $('#form_Etablissement').val()},
+                success: function (response) {
+                    var data = JSON.parse(response);
+                    if (data.length) {
+                        var newHtmlContent = "";
+                        $.each(data, function (index) {
+
+                            // On récupere le nombre d'absences du matin.
+                            var nbAbsencesMatin = 0;
+                            $.each(data[index].absences.matin, function (indexAbsence) {
+                                if (data[index].absences.matin[indexAbsence].valeur !== '' && data[index].absences.matin[indexAbsence].valeur !== undefined) {
+                                    nbAbsencesMatin++;
+                                }
+                            });
+                            // On récupere le nombre d'absences de l'après-midi.
+                            var nbAbsencesAM = 0;
+                            $.each(data[index].absences.am, function (indexAbsence) {
+                                if (data[index].absences.am[indexAbsence].valeur !== '' && data[index].absences.am[indexAbsence].valeur !== undefined) {
+                                    nbAbsencesAM++;
+                                }
+                            });
+                            newHtmlContent += "<tr class='pointageCompile' username='" + data[index].user + "'>";
+                            newHtmlContent += "<td>" + data[index].lastname + ' ' + data[index].firstname + "</td>";
+                            newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titresRepas' step='1' min='0' value='" + data[index].titresRepas + "'></td>";
+                            newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='forfaitsDeplacement' step='0.01' min='0' value='" + data[index].forfaitsDeplacement + "'></td>";
+                            newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='primesPanier' min='0' step='0.01' value='" + data[index].primesPanier + "'></td>";
+                            newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titreTransport' min='0' step='0.01' value='" + data[index].titreTransport + "'></td>";
+                            newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><div style='display: inline-block; vertical-align: middle;'>" + (nbAbsencesMatin + nbAbsencesAM) + "</div><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
+                            newHtmlContent += "</tr>";
+                            newHtmlContent += "<tr>";
+                            newHtmlContent += "<td colspan='6' style='background-color: white; border-right: none; padding-bottom: 3%;' class='compilationPointagesTableAbsencesTd'>";
+                            newHtmlContent += "<div class='compilationPointagesTableAbsencesDiv'>";
+                            newHtmlContent += "<table class='compilationPointagesTableAbsences'>";
+                            newHtmlContent += "<tr>";
+                            newHtmlContent += "<th>Date</th>";
+                            newHtmlContent += "<th>Abscence matin</th>";
+                            newHtmlContent += "<th>Abscence après-midi</th>";
+                            newHtmlContent += "<th>Commentaires</th>";
+                            newHtmlContent += "</tr>";
+                            // On récupére les jours fériés sous forme de 'timestamp'.
+                            var joursFeries = Array();
+                            $.each(JSON.parse("{{ joursFeries|json_encode }}"), function (index, value) {
+                                joursFeries.push(new Date(value * 1000).getTime());
+                            });
+                            // Pour chaque jours...
+                            $.each(data[index].absences.matin, function (indexAbsences) {
+                                newHtmlContent += "<tr date='" + data[index].absences.matin[indexAbsences].date + "'>";
+                                var stringDate = data[index].absences.matin[indexAbsences].date.split('-');
+                                var date = new Date(stringDate[2], stringDate[1] - 1, stringDate[0], 0, 0, 0, 0);
+                                if (parseInt(date.getDay(), 10) === 0 || parseInt(date.getDay(), 10) === 6 || $.inArray(date.getTime(), joursFeries) > -1) {
+                                    newHtmlContent += "<td style='background-color: rgb(166, 166, 166);'>" + data[index].absences.matin[indexAbsences].date.replace('-', '/').replace('-', '/') + "</td>";
+                                } else {
+                                    newHtmlContent += "<td>" + data[index].absences.matin[indexAbsences].date.replace('-', '/').replace('-', '/') + "</td>";
+                                }
+                                if (parseInt(date.getDay(), 10) === 0 || parseInt(date.getDay(), 10) === 6 || $.inArray(date.getTime(), joursFeries) > -1) {
+                                    newHtmlContent += "<td class='compilationAbscenceMatin' data='matin' style='background: rgb(166, 166, 166);'>";
+                                } else {
+                                    newHtmlContent += "<td class='compilationAbscenceMatin' data='matin'>";
+                                    newHtmlContent += "<select>";
+                                    newHtmlContent += "<option value='' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === '') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '></option>';
+                                    newHtmlContent += "<option value='AA' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AA') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>AA</option>';
+                                    newHtmlContent += "<option value='TJ' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'TJ') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>TJ</option>';
+                                    newHtmlContent += "<option value='AT' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AT') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>AT</option>';
+                                    newHtmlContent += "<option value='MT' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'MT') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>MT</option>';
+                                    newHtmlContent += "<option value='PA' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'PA') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>PA</option>';
+                                    newHtmlContent += "<option value='CS' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'CS') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>CS</option>';
+                                    newHtmlContent += "<option value='CP' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'CP') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>CP</option>';
+                                    newHtmlContent += "<option value='AV' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'AV') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>AV</option>';
+                                    newHtmlContent += "<option value='JS' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'JS') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>JS</option>';
+                                    newHtmlContent += "<option value='MA' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'MA') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>MA</option>';
+                                    newHtmlContent += "<option value='PM' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'PM') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>PM</option>';
+                                    newHtmlContent += "<option value='RE' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'RE') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>RE</option>';
+                                    newHtmlContent += "<option value='Autre' ";
+                                    if (data[index].absences.matin[indexAbsences].valeur !== undefined && data[index].absences.matin[indexAbsences].valeur === 'Autre') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>Autre</option>';
+                                    newHtmlContent += '</select>';
+                                }
+                                newHtmlContent += '</td>';
+                                if (parseInt(date.getDay(), 10) === 0 || parseInt(date.getDay(), 10) === 6 || $.inArray(date.getTime(), joursFeries) > -1) {
+                                    newHtmlContent += "<td class='compilationAbsenceAM' data='am' style='background: rgb(166, 166, 166);'>";
+                                } else {
+                                    newHtmlContent += "<td class='compilationAbsenceAM' data='am'>";
+                                    newHtmlContent += "<select>";
+                                    newHtmlContent += "<option value='' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === '') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '></option>';
+                                    newHtmlContent += "<option value='AA' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AA') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>AA</option>';
+                                    newHtmlContent += "<option value='TJ' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'TJ') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>TJ</option>';
+                                    newHtmlContent += "<option value='AT' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AT') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>AT</option>';
+                                    newHtmlContent += "<option value='MT' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'MT') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>MT</option>';
+                                    newHtmlContent += "<option value='PA' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'PA') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>PA</option>';
+                                    newHtmlContent += "<option value='CS' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'CS') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>CS</option>';
+                                    newHtmlContent += "<option value='CP' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'CP') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>CP</option>';
+                                    newHtmlContent += "<option value='AV' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'AV') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>AV</option>';
+                                    newHtmlContent += "<option value='JS' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'JS') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>JS</option>';
+                                    newHtmlContent += "<option value='MA' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'MA') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>MA</option>';
+                                    newHtmlContent += "<option value='PM' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'PM') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>PM</option>';
+                                    newHtmlContent += "<option value='RE' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'RE') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>RE</option>';
+                                    newHtmlContent += "<option value='Autre' ";
+                                    if (data[index].absences.am[indexAbsences].valeur !== undefined && data[index].absences.am[indexAbsences].valeur === 'Autre') {
+                                        newHtmlContent += "selected";
+                                    }
+                                    newHtmlContent += '>Autre</option>';
+                                    newHtmlContent += '</select>';
+                                }
+                                newHtmlContent += '</td>';
+                                if (data[index].absences.matin[indexAbsences].commentaires !== undefined) {
+                                    newHtmlContent += "<td class='compilationAbsenceCommentaire' data='commentaires' contenteditable=true>" + data[index].absences.matin[indexAbsences].commentaires + "</td>";
+                                } else {
+                                    newHtmlContent += "<td class='compilationAbsenceCommentaire' data='commentaires' contenteditable=true></td>";
+                                }
+                                newHtmlContent += "</tr>";
+                            });
+                            newHtmlContent += "</table>";
+                            newHtmlContent += "</div>";
+                            newHtmlContent += "</td>";
+                            newHtmlContent += "</tr>";
+                        });
+                        $('#compilationPointagesTable').append(newHtmlContent);
+                        absencesToggle();
+                        ajaxSaveCompilationData();
+                        pointageShow();
+                    } else {
+                        pointageHide();
+                    }
+                }
+            });
+            ajaxGetUnvalidate('AA'); // On récupére le nombre de pointage non validé.
+            ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val()); // On récupére le status de la compilation.
+        }
+
+        // Affiche/Cache le tableau des abscences du collaborateur sélectionné.
+        function absencesToggle() {
+            $('#compilationPointagesTable td img').click(function () {
+                $(this).parent('td').parent('tr').next('tr').find($('.compilationPointagesTableAbsencesTd')).show();
+                $(this).parent('td').parent('tr').next('tr').find($('.compilationPointagesTableAbsencesDiv')).slideToggle(function () {
+                    if ($(this).css('display') === 'none') {
+                        $(this).parent('.compilationPointagesTableAbsencesTd').hide();
+                    }
+                });
+                $(this).toggle();
+                $(this).siblings('img').toggle();
+            });
+        }
+
+        // Sauvegarde les modification sur les pointages en base de données.
+        var ajaxComment;
+        var ajaxMainInfo;
+        function ajaxSaveCompilationData() {
+            // Pour les données principales.
+            $('#compilationPointagesTable input').on('blur keyup paste input', function () {
+                if (typeof ajaxMainInfo !== 'undefined') {
+                    ajaxMainInfo.abort();
+                }
+                ajaxMainInfo = $.ajax({
+                    type: 'POST',
+                    url: '{{ path('nox_intranet_ajax_save_compilation_data') }}',
+                    data: {username: $(this).parent('td').parent('tr').attr('username'), month: $('#form_Month').val(), year: $('#form_Year').val(), input: $(this).attr('name'), value: $(this).val()}
+                });
+            });
+            // Pour les types d'abscences.
+            $('.compilationAbscenceMatin select, .compilationAbsenceAM select').change(function () {
+                var username = $(this).parents('tr').prev('.pointageCompile').attr('username');
+                var date = $(this).parent('td').parent('tr').attr('date');
+                var data = $(this).parent('td').attr('data');
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path('nox_intranet_ajax_save_compilation_absences') }}',
+                    data: {username: username, month: $('#form_Month').val(), year: $('#form_Year').val(), date: date, data: data, value: $(this).val()}
+                });
+            });
+            // Pour les commentaires d'abscences.
+            $('.compilationAbsenceCommentaire').on('blur keyup paste input', function () {
+                var username = $(this).parents('tr').prev('.pointageCompile').attr('username');
+                var date = $(this).parent('tr').attr('date');
+                var data = $(this).attr('data');
+                if (typeof ajaxComment !== 'undefined') {
+                    ajaxComment.abort();
+                }
+                ajaxComment = $.ajax({
+                    type: 'POST',
+                    url: '{{ path('nox_intranet_ajax_save_compilation_absences') }}',
+                    data: {username: username, month: $('#form_Month').val(), year: $('#form_Year').val(), date: date, data: data, value: $(this).text()}
+                });
+            });
+        }
+
+        // Affiche le tableau des pointages et cache le paragraphe d'absence de pointage.
+        function pointageShow() {
+            $('#compilationPointages').show();
+            $('#aucunPointageParagraphe').hide();
+        }
+
+        // Cache le tableau des pointages et affiche le paragraphe d'absence de pointage.
+        function pointageHide() {
+            $('#compilationPointages').hide();
+            $('#aucunPointageParagraphe').show();
+        }
+
+        // Vérifie le status de la feuille de pointage, colore la barre d'avancement en conséquence.
+        function ajaxGetPointageCompilationStatus(month, year) {
+            $('.pointageStatusLine div').width('12.5%');
+            $(".pointageStatusCircle").css('background-color', 'lightgrey');
+            $(".pointageStatusCircle").filter(function () {
+                return  $(this).attr("step") <= 0;
+            }).css('background-color', 'green');
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('nox_intranet_pointage_compilation_ajax_get_status') }}',
+                data: {month: month, year: year},
+                success: function (response) {
+                    var width = null;
+                    var cercleNb = null;
+                    switch (response) {
+                        case '2':
+                            width = 12.5;
+                            cercleNb = 0;
+                            break;
+                        case '3':
+                            width = 37.5;
+                            cercleNb = 1;
+                            break;
+                        case '4':
+                            width = 62.5;
+                            cercleNb = 2;
+                            break;
+                        case '5':
+                            width = 100;
+                            cercleNb = 3;
+                            break;
+                    }
+
+                    $('.pointageStatusLine div').width(width + '%');
+                    $(".pointageStatusCircle").filter(function () {
+                        return  $(this).attr("step") <= cercleNb;
+                    }).css('background-color', 'green');
+                }
+            });
+        }
+
+        // Vérifie si le navigateur utilisé est Internet Explorer et affiche un message d'erreur dans ce cas.
+        function IECheck() {
+
+            var ms_ie = false;
+            var ua = window.navigator.userAgent;
+            var old_ie = ua.indexOf('MSIE ');
+            var new_ie = ua.indexOf('Trident/');
+            if ((old_ie > -1) || (new_ie > -1)) {
+                ms_ie = true;
+            }
+
+            if (ms_ie) {
+                alert('Le module de pointage n\'est pas compatible avec Internet Explorer, veuillez utiliser Google Chrome ou Microsoft Edge à la place.');
+            }
+        }
+
+        // Affiche une fenêtre de notification de sauvegarde qui suit la souris.
+        function savingNotification() {
+            // Lorsque la souris bouge.
+            $(document).mousemove(function (event) {
+                $('#pointageSavingNotification').css('left', event.pageX + 20);
+                $('#pointageSavingNotification').css('top', event.pageY);
+            });
+        }
+
+        // Affiche un message de confirmation lorsque l'assitant tente de valider la compilation alors qu'il reste des pointages non validée.
+        function preventUnvalidate(pointageEnAttenteValidationAA, collaborateurSansPointage, data) {
+            // Si l'assistan d'agence n'as pas valider tous les pointages.
+            if (pointageEnAttenteValidationAA.length !== "0") {
+                alert('Veuillez valider tous les pointages des collaborateurs avant de valider la compilation.'); // On affiche un message d'erreur.
+                return false; // On bloque l'envoi du formulaire.
+            }
+            // Si il reste des collaborateurs qui n'ont pas remplis/validé leur pointage.
+            else if (collaborateurSansPointage.length !== "0") {
+                var collaborateurs = JSON.parse(data)['collaborateurSansPointage']; // On convertie la chaine de caractère d'entré en objet Javascript.
+                var message = "Attention les pointages suivant n'ont pas étés validés par les collaborateur :\n";
+                $.each(collaborateurs, function (index) {
+                    message += '          - ' + collaborateurs[index] + '\n'; // On ajout le nom du collaborateur au message.
+                });
+                message += "\nVoulez-vous valider la compilation quand même ?";
+                return confirm(message); // On affiche une fenêtre de confirmation.
+            }
+            // Si tous les pointages ont été complété et remplis.
+            else {
+                return true; // On envoi le formulaire.
+            }
+        }
+
+        // Affiche une popup avec la liste des collaborateurs qui n'ont pas remplis/validé leur pointage.
+        function showUnvalidateCollaborateurs(data) {
+            var collaborateurs = JSON.parse(data)['collaborateurSansPointage']; // On convertie la chaine de caractère d'entré en objet Javascript.
+            var message = "Les collaborateurs suivant n'ont pas remplis/validé leur pointage :\n"; // On initialise le message d'alert.
+            // Pour chaque collaborateur.        
+            $.each(collaborateurs, function (index) {
+                message += '          - ' + collaborateurs[index] + '\n'; // On ajout le nom du collaborateur au message.
+            });
+            alert(message); // On affiche le message.
+        }
+
+        // Récupére le nombre de pointage non validé par un assistant d'agence et le nombre de collaborateur qui n'ont pas remplis/validé leur pointage en fonction du mois et de l'année.
+        function ajaxGetUnvalidate(userStatus) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('nox_intranet_pointage_ajax_get_assistante_agence_unvalidate') }}',
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: userStatus},
+                success: function (response) {
+                    var pointages = JSON.parse(response); // On convertie le JSON en object Javascript.
+                    $('#pointageEnAttenteValidationAA').text(Object.keys(pointages['pointageEnAttenteValidationAA']).length); // On remplace le nombre du compteur de pointage non validé par un assistant d'agence.
+                    $('#collaborateurSansPointage').text(Object.keys(pointages['collaborateurSansPointage']).length); // On remplace le nombre du compteur de collaborateur qui n'ont pas remplis/validé leur pointage.
+                    $('#collaborateurSansPointage').attr('onclick', "showUnvalidateCollaborateurs(" + JSON.stringify(response) + ")"); // Met à jours les données de la fonction d'affichage des collaborateur qui n'ont pas remplis/validé leur pointage.
+                    $('#formValidationRefus_Compilation').attr('onclick', "return preventUnvalidate(" + Object.keys(pointages['pointageEnAttenteValidationAA']).length + "," + Object.keys(pointages['collaborateurSansPointage']).length + "," + JSON.stringify(response) + ")"); // Met à jours les donnée de la fonction de prévention d'envoi de compilation incomplète.
+                }
+            });
+        }
+    </script>
+
+{% endblock %}
