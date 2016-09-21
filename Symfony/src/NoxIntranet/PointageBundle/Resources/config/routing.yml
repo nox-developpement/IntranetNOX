@@ -17,10 +17,6 @@ nox_intranet_pointage_ajax_get_data:
 nox_intranet_assistantes_agence_gestion_pointage:
     path:   /ressources/assistantes-agence-gestion-pointages
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:assistantesAgenceGestionPointage }   
-   
-nox_intranet_ajax_get_users_by_username:
-    path:   /ressources/ajax-get-users-by-username
-    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetUsersByUsername }
     
 nox_intranet_pointage_ajax_get_data_by_username:
     path:     /ressources/pointage-ajax-get-data-by-username
@@ -89,4 +85,8 @@ nox_intranet_pointage_ajax_get_pointages_list_aa_gestion:
 nox_intranet_pointages_compilation:
     path:   /ressources/pointages-compilation/{validationStep}
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:pointagesCompilation }
+    
+nox_intranet_pointage_ajax_get_compilation_by_month_year_etablissement_validationstep:
+    path:   /ressources/ajax-get-compilations-by-month-year-etablissement-validationstep
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetPointagesCompilationByMonthYearEtablissement }
     
