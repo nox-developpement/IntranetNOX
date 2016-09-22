@@ -182,11 +182,11 @@ nox_intranet_gestion_proposition:
     
 nox_intranet_ajax_save_proposition_da1_answer:
     path: /ressources/gestion-proposition-ajax-save-proposition-da1-answer
-    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveDA2PropositionAnswer }
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveDA2PropositionAnswer }
     
 nox_intranet_ajax_save_echanges:
     path: /ressources/gestion-proposition-ajax-save-echanges
-    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveEchanges }
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveEchanges }
     
 nox_intranet_demande_prestation_reporting:
     path: /ressources/demande-prestation-reporting/{orderTime}/{trieStatus}/{page}
@@ -206,7 +206,7 @@ nox_intranet_prestations_internes:
     
 nox_intranet_ajax_edit_demande:
     path: /ressources/ajax-edition-demande-prestation-interne
-    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxEditDemande }
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxEditDemande }
     
 nox_intranet_demande_prestation_proposition_echanges:
     path: /ressources/demande-prestation-proposition-echanges/{cleDemande}/{da2}
@@ -214,4 +214,4 @@ nox_intranet_demande_prestation_proposition_echanges:
     
 nox_intranet_demande_prestation_proposition_echanges_message_ajax_saving:
     path: /ressources/demande-prestation-proposition-echanges-message-ajax-saving
-    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveMessage }
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveMessage }
