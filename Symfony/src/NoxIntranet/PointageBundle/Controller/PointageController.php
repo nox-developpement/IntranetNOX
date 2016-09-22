@@ -5,11 +5,8 @@ namespace NoxIntranet\PointageBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\PointageBundle\Entity\Tableau;
-use NoxIntranet\PointageBundle\Controller\AssistanteAgenceGetter;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Doctrine\ORM\EntityRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class PointageController extends Controller {
 
@@ -111,45 +108,6 @@ class PointageController extends Controller {
         return $date;
     }
 
-    // Lis le fichier Excel de la RH et récupère le nom des assistantess d'agence.
-    private function getAssistantesAgence() {
-
-        $em = $this->getDoctrine()->getManager();
-
-        $users = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
-
-        $assistantes = array();
-
-        // Récupère le nom des assistantes d'agence et leurs supérieurs.
-        foreach ($users as $user) {
-            $assistantes[$user->getAA()] = $user->getAA();
-            $assistantes[$user->getDA()] = $user->getDA();
-            $assistantes[$user->getRH()] = $user->getRH();
-        }
-        return $assistantes;
-    }
-
-    // Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante d'agence connectée.
-    private function getUsersByAssistante($securityName, $em) {
-
-        // On récupére les utilisateurs qui ont l'assistante comme supérieur hiérarchique.
-        $qb = $em->createQueryBuilder();
-        $qb
-                ->add('select', 'u')
-                ->add('from', 'NoxIntranetPointageBundle:UsersHierarchy u')
-                ->add('where', 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName')
-                ->setParameter('securityName', $securityName);
-        $query = $qb->getQuery();
-        $usersHierarchie = $query->getResult();
-
-        $users = array();
-        foreach ($usersHierarchie as $user) {
-            $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
-        }
-
-        return $users;
-    }
-
     // Affiche l'inteface de visualisation/correction/validation des pointages des collaborateurs en fonction de l'assistante d'agence.
     public function assistantesAgenceGestionPointageAction() {
 
@@ -158,7 +116,7 @@ class PointageController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         // Vérifie que l'utilistateur est une assistante d'agence.
-        if (in_array($securityName, $this->getAssistantesAgence()) || $this->get('security.context')->isGranted('ROLE_RH')) {
+        if (in_array($securityName, $this->getUserWithStatus('AA')) || $this->get('security.context')->isGranted('ROLE_RH')) {
 
             // Génére les dates du mois courant.
             $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
@@ -175,7 +133,7 @@ class PointageController extends Controller {
             $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
             // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
-            if (in_array($securityName, $this->getAssistantesAgence())) {
+            if (in_array($securityName, $this->getUserWithStatus('AA'))) {
                 $userStatus = 'AA';
                 $users = $this->getUsersByAssistante($securityName, $em);
             }
@@ -236,82 +194,6 @@ class PointageController extends Controller {
         }
     }
 
-    // Lis le fichier Excel de la RH et récupère le nom des directeur d'agences et manager.
-    function getDAManager() {
-        $em = $this->getDoctrine()->getManager();
-
-        $users = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
-
-        $da = array();
-
-        // Récupère le nom des directeurs d'agence et leurs supérieurs.
-        foreach ($users as $user) {
-            $da[$user->getDA()] = $user->getDA();
-            $da[$user->getRH()] = $user->getRH();
-        }
-
-        return $da;
-    }
-
-    // Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante d'agence connectée.
-    function getUsersByDAManager($securityName, $em) {
-
-        // On récupére les utilisateurs qui ont le DH comme supérieur hiérarchique.
-        $qb = $em->createQueryBuilder();
-        $qb
-                ->add('select', 'u')
-                ->add('from', 'NoxIntranetPointageBundle:UsersHierarchy u')
-                ->add('where', 'u.da = :securityName OR u.rh = :securityName')
-                ->setParameter('securityName', $securityName);
-        $query = $qb->getQuery();
-        $usersHierarchie = $query->getResult();
-
-        $users = array();
-        foreach ($usersHierarchie as $user) {
-            $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
-        }
-
-        return $users;
-    }
-
-    // Lis le fichier Excel de la RH et récupère le nom des assistantes RH/DRH.
-    function getAssistantesRH() {
-
-        $em = $this->getDoctrine()->getManager();
-
-        $users = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
-
-        $assistantesRH = array();
-
-        // Récupère le nom des directeurs d'agence et leurs supérieurs.
-        foreach ($users as $user) {
-            $assistantesRH[$user->getRH()] = $user->getRH();
-        }
-
-        return $assistantesRH;
-    }
-
-    // Lis le fichier Excel et retourne la liste des collaborateur qui dépendent de l'assistante RH/DRH connectée.
-    function getUsersByAssistantesRH($securityName, $em) {
-
-        // On récupére les utilisateurs qui ont l'assistante RH comme supérieur hiérarchique.
-        $qb = $em->createQueryBuilder();
-        $qb
-                ->add('select', 'u')
-                ->add('from', 'NoxIntranetPointageBundle:UsersHierarchy u')
-                ->add('where', 'u.rh = :securityName')
-                ->setParameter('securityName', $securityName);
-        $query = $qb->getQuery();
-        $usersHierarchie = $query->getResult();
-
-        $users = array();
-        foreach ($usersHierarchie as $user) {
-            $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
-        }
-
-        return $users;
-    }
-
     // Retourne les dates des jours fériés de l'année courante en France.
     public function getPublicHoliday($year) {
         if ($year === null) {
@@ -344,6 +226,7 @@ class PointageController extends Controller {
         return $holidays;
     }
 
+    // Affiche la compilation des pointages en fonction de l'étape de validation passé en paramêtre.
     public function pointagesCompilationAction(Request $request, $validationStep) {
 
         // Inisialisation des varibables de fonction.
@@ -351,20 +234,10 @@ class PointageController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         // On récupére la liste des utilisateurs autorisés en fonction de l'étape de validation de la compilation.
-        switch ($validationStep) {
-            case 'AA':
-                $authorizedUsers = $this->getAssistantesAgence();
-                break;
-            case 'DAManager':
-                $authorizedUsers = $this->getDAManager();
-                break;
-            case 'RH':
-                $authorizedUsers = $this->getAssistantesRH();
-                break;
-        }
+        $authorizedUsers = $this->getUserWithStatus($validationStep);
 
         // Initialise le titre afficher sur le template.
-        $templateTitle = array('AA' => 'Assistant(e) agence - Correction/Validation compilation', 'DAManager' => 'DA/Manager - Correction/Validation compilation', 'RH' => 'Assistant(e) RH - Correction/Validation compilation');
+        $templateTitle = array('AA' => 'Assistant(e) agence - Correction/Validation compilation', 'DAManager' => 'DA/Manager - Correction/Validation compilation', 'RH' => 'Assistant(e) RH - Correction/Validation compilation', 'Final' => 'Compilations validées');
 
         // Si l'utilisateur n'as pas les droits suffisant on le redirige vers l'accueil.
         if (!(in_array($securityName, $authorizedUsers) || $this->get('security.context')->isGranted('ROLE_RH'))) {
@@ -411,6 +284,14 @@ class PointageController extends Controller {
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
                     $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
+            case 'Final':
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
+                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                }
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
+                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                }
+                break;
         }
 
         // Génération du formulaire de séléction du mois/année.
@@ -448,72 +329,52 @@ class PointageController extends Controller {
             // Lors du clique sur le bouton de validation.
             if ($formValidationRefus->get('Compilation')->isClicked()) {
                 // On récupére les pointages à inclure dans la compilation en fonction du status de l'utilisateur.
-                switch ($userStatus) {
-                    case 'AA':
-                        $pointagesCompilation = $this->getPointagesACompile($this->getUsersByAssistante($securityName, $em), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('etablissement')->getData(), $validationStep);
-                        break;
-                    case 'DAManager':
-                        $pointagesCompilation = $this->getPointagesACompile($this->getUsersByDAManager($securityName, $em), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('etablissement')->getData(), $validationStep);
-                        break;
-                    case 'RH':
-                        $pointagesCompilation = $this->getPointagesACompile($this->getUsersByAssistantesRH($securityName, $em), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('etablissement')->getData(), $validationStep);
-                        break;
-                    case 'roleRH':
-                        // On récupére tous les utilisateurs.
-                        $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
-                        $users = array();
-                        // On récupére tous les utilisateurs.
-                        foreach ($usersHierarchyEntity as $user) {
-                            $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
-                        }
-                        $pointagesCompilation = $this->getPointagesACompile($users, $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('etablissement')->getData(), $validationStep);
-                        break;
+                $pointagesCompilation = $this->getPointagesACompile($this->getUsersByStatus($userStatus, $securityName), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('etablissement')->getData(), $validationStep);
+                //var_dump($userStatus);
+                // Initialisation de la liste des utilisateurs à qui envoyer un mail les prévenants qu'une compilation est disponible.
+                $mailingListUser = array();
+
+                // Pour chaque pointages.
+                foreach ($pointagesCompilation as $pointage) {
+                    // On récupére l'entitée hiérarchique de l'utilisateur associé au pointage.
+                    $hierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
+
+                    // En fonction de l'étape de validation.
+                    switch ($validationStep) {
+                        case 'AA':
+                            $mailingListUser[$hierachy->getDA()] = $hierachy->getDA(); // On ajoute le DA du collaborateur à la mailingList.
+                            $pointage->setStatus(3); // On modifie le statut du pointage.
+                            break;
+                        case 'DAManager':
+                            $mailingListUser[$hierachy->getRH()] = $hierachy->getRH(); // On ajoute le DA du collaborateur à la mailingList.
+                            $pointage->setStatus(4); // On modifie le statut du pointage.
+                            break;
+                        case 'RH':
+                            $pointage->setStatus(5); // On modifie le statut du pointage.
+                    }
+                    $pointage->setAbsences(json_encode($pointage->getAbsences(), true)); // On encode les absences du pointage en JSON.
+                    $em->persist($pointage); // On persist le pointage.
                 }
+                // On sauvegarde les changements de status en base de donnée.
+                $em->flush();
+
+                // Initialise la liste des message de confirmation de validation et affiche le message.
+                $flashBagMessages = array(
+                    'AA' => "La compilation a été envoyée au directeur d'agence/managers.",
+                    'DAManager' => "La compilation a été envoyée à la RH.",
+                    'RH' => 'La compilation a été validée définitivement.'
+                );
+                $this->get('session')->getFlashBag()->add('notice', $flashBagMessages[$validationStep]);
+
+                // Initialise la liste des message de mail et envoi un mail au supérieur hiérarchique.
+                $mailingMessage = array(
+                    'AA' => "un/une assistant(e) d'agence",
+                    'DA' => "un directeur d'agence"
+                );
+                //sendMailToDestinataire($mailingListUser, $mailingMessage[$validationStep], $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $this->generateUrl('nox_intranet_da_manager_pointage_compilation'), getNbPointagesNonValides($em, $this->getUsersByAssistante($securityName, $em), $this)['collaborateurSansPointage'], $em, $this);
+                // On redirige vers la compilation des pointages.
+                //return $this->redirectToRoute('nox_intranet_pointages_compilation', array('validationStep' => $validationStep));
             }
-
-            // Initialisation de la liste des utilisateurs à qui envoyer un mail les prévenants qu'une compilation est disponible.
-            $mailingListUser = array();
-
-            // Pour chaque pointages.
-            foreach ($pointagesCompilation as $pointage) {
-                // On récupére l'entitée hiérarchique de l'utilisateur associé au pointage.
-                $hierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
-
-                // En fonction de l'étape de validation.
-                switch ($validationStep) {
-                    case 'AA':
-                        $mailingListUser[$hierachy->getDA()] = $hierachy->getDA(); // On ajoute le DA du collaborateur à la mailingList.
-                        $pointage->setStatus(3); // On modifie le statut du pointage.
-                        break;
-                    case 'DAManager':
-                        $mailingListUser[$hierachy->getRH()] = $hierachy->getRH(); // On ajoute le DA du collaborateur à la mailingList.
-                        $pointage->setStatus(4); // On modifie le statut du pointage.
-                        break;
-                    case 'RH':
-                        $pointage->setStatus(5); // On modifie le statut du pointage.
-                }
-                $pointage->setAbsences(json_encode($pointage->getAbsences(), true)); // On encode les absences du pointage en JSON.
-                $em->persist($pointage); // On persist le pointage.
-            }
-            // On sauvegarde les changements de status en base de donnée.
-            $em->flush();
-
-            // Initialise la liste des message de confirmation de validation et affiche le message.
-            $flashBagMessages = array(
-                'AA' => "La compilation a été envoyée au directeur d'agence/managers.",
-                'DAManager' => "La compilation a été envoyée à la RH.",
-                'RH' => 'La compilation a été validée définitivement.'
-            );
-            $this->get('session')->getFlashBag()->add('notice', $flashBagMessages[$validationStep]);
-
-            // Initialise la liste des message de mail et envoi un mail au supérieur hiérarchique.
-            $mailingMessage = array(
-                'AA' => "un/une assistant(e) d'agence",
-                'DA' => "un directeur d'agence"
-            );
-            //sendMailToDestinataire($mailingListUser, $mailingMessage[$validationStep], $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $this->generateUrl('nox_intranet_da_manager_pointage_compilation'), getNbPointagesNonValides($em, $this->getUsersByAssistante($securityName, $em), $this)['collaborateurSansPointage'], $em, $this);
-            // On redirige vers la compilation des pointages.
-            return $this->redirectToRoute('nox_intranet_pointages_compilation', array('validationStep' => $validationStep));
         }
 
         return $this->render('NoxIntranetPointageBundle:Pointage:pointagesCompilation.html.twig', array(
@@ -541,6 +402,59 @@ class PointageController extends Controller {
 
         // On retourne la liste des pointages.
         return $pointages;
+    }
+
+    // Retourne tous les utilisateurs qui on le status passé en paramêtre.
+    private function getUserWithStatus($status) {
+        // On récupére toutes les entité hiérarchiques.
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+
+        // Récupère le nom des assistant d'agence/DA/RH et leurs supérieurs.
+        $usersFromHierarchy = array();
+        foreach ($users as $user) {
+            $usersFromHierarchy[$user->getAA()] = $user->getAA();
+            if ($status == 'DAManager' || $status === 'RH' || $status === 'Final') {
+                $usersFromHierarchy[$user->getDA()] = $user->getDA();
+            }
+            if ($status === 'RH' || $status === 'Final') {
+                $usersFromHierarchy[$user->getRH()] = $user->getRH();
+            }
+        }
+
+        // On retourne la liste des assistant d'agence/DA/RH.
+        return $usersFromHierarchy;
+    }
+
+    // Retourne les collaborateurs qui dépende de l'utilisateur passé en paramêtre en fonction de son status.
+    private function getUsersByStatus($status, $securityName) {
+        // On récupére les utilisateurs qui ont l'assistante comme supérieur hiérarchique.
+        $em = $this->getDoctrine()->getManager();
+
+        // Si l'utilisateur n'as pas le ROLE_RH.
+        if ($status !== 'roleRH') {
+            $qb = $em->createQueryBuilder();
+            $qb
+                    ->add('select', 'u')
+                    ->add('from', 'NoxIntranetPointageBundle:UsersHierarchy u')
+                    ->add('where', ($status === 'RH') ? 'u.rh = :securityName' : (($status === 'DAManager' || $status === 'Final') ? 'u.da = :securityName OR u.rh = :securityName' : (($status === 'AA') ? 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName' : false)))
+                    ->setParameter('securityName', $securityName);
+            $query = $qb->getQuery();
+            $usersHierarchie = $query->getResult();
+        }
+
+        // Si l'utilisateur à le ROLE_RH.
+        else {
+            $usersHierarchie = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+        }
+
+        // On récupére l'username et le nom canonique de chaque utilisateurs.
+        $users = array();
+        foreach ($usersHierarchie as $user) {
+            $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
+        }
+
+        return $users;
     }
 
 }
