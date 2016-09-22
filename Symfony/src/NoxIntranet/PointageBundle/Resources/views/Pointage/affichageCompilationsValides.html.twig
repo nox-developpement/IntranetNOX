@@ -184,6 +184,7 @@
             absencesToggle();
             ajaxGetPointageCompilationStatus($('#form_Month').val(), $('#form_Year').val());
         });
+
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
             var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
@@ -191,12 +192,14 @@
                 $('#loadingContent').show();
             }
         });
+
         // Cache l'écran de chargement et la notification de sauvegarde quand les requêtes ajax de chargement de la page et de sauvegarde sont terminées.
         $(document).ajaxComplete(function () {
             if ($.active <= 1) {
                 $('#loadingContent').hide();
             }
         });
+
         // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
         function ajaxGetAssistanceAgencePointageCompilationByMonthAndYear() {
 
@@ -524,7 +527,7 @@
         }
 
         // Lance le téléchargement du fichier Excel récapitulatif du pointage courant.
-        function ajaxGenerateExcelRecap(userStatus) {
+        function ajaxGenerateExcelRecap() {
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_generate_excel_recap') }}',

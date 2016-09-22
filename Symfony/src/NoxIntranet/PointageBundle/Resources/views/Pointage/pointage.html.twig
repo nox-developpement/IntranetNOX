@@ -2,9 +2,9 @@
 
 {% block titrePage %} Pointage {% endblock %}
 
-{% block messageAccueil %}Pointage <span style='color: red; font-size: 1vw;'>(En test sur l'agence de Bron seulement.)</style>{% endblock %}
+{% block messageAccueil %}Pointage{% endblock %}
 
-{% block sousMessageAccueil %}<a href='{{ asset("Pointage/Aide/MODE OP' feuille de pointage.pdf") }}' target='_blank' style='text-decoration: none;'>Schéma</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage collaborateur.pdf') }}' target='_blank' style='text-decoration: none;'>Notice de remplissage collaborateurs</a>{% endblock %}
+{% block sousMessageAccueil %}<a href='{{ asset("Pointage/Aide/MODE OP' feuille de pointage.pdf") }}' target='_blank' style='text-decoration: none;'>Aide</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage collaborateur.pdf') }}' target='_blank' style='text-decoration: none;'>Notice de remplissage collaborateurs</a>{% endblock %}
 
 {% block contenu %}
 
@@ -269,7 +269,7 @@
             </tr>
         </table>
 
-        <table id='tableFeuillePointageSignature'>
+        <table id='tableFeuillePointageSignature' style="display: none;">
             <tr>
                 <td style='border-width: 2px;'>Signature collaborateur</td>
                 <td id='signatureCollaborateur' colspan=2 style='border-width: 2px;' contenteditable=true></td>

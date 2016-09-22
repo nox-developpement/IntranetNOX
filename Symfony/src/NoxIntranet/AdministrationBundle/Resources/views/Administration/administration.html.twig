@@ -312,10 +312,10 @@
 
             <ul id='DRHPointageList'>
                 <li><a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}">Assistant(e)s agence - Correction/Validation pointages</a></li>
-                <li><a href="{{ path('nox_intranet_assistantes_agence_pointage_compilation') }}">Assistant(e)s agence - Correction/Validation compilation</a></li>
-                <li><a href="{{ path('nox_intranet_da_manager_pointage_compilation') }}">DA/Manager - Correction/Validation compilation</a></li>
-                <li><a href="{{ path('nox_intranet_assistantes_rh_pointage_compilation') }}">Assistant(e) RH - Correction/Validation compilation</a></li>
-                <li><a href="{{ path('nox_intranet_affichage_compilation_valide') }}">Assistant(e) RH - Consultation compilations validées</a></li>
+                <li><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'AA'}) }}">Assistant(e)s agence - Correction/Validation compilation</a></li>
+                <li><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'DAManager'}) }}">DA/Manager - Correction/Validation compilation</a></li>
+                <li><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'RH'}) }}">Assistant(e) RH - Correction/Validation compilation</a></li>
+                <li><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'Final'}) }}">Consultation des compilations validées</a></li>
                 <li><a href="{{ path('nox_intranet_administration_upload_fichier_hierarchie_rh') }}">Upload du fichier de hiérarchie RH</a></li>
                 <li><a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank'>Consulter la notice</a></li>
             </ul>

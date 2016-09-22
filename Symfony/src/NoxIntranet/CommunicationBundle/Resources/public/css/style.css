@@ -2923,8 +2923,10 @@ input[type=text]:read-only {
 }
 
 #pointageSelection {
+    display: inline-block;
     width: 70%;
     margin: auto;
+    margin-left: 15%;
     margin-bottom: 3%;
     text-align: center;
 }

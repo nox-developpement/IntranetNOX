@@ -4,45 +4,42 @@
 
 {% block messageAccueil %}Assistant(e) agence: Validation pointages{% endblock %}
 
-{% block sousMessageAccueil %}<a href='{{ asset("Pointage/Aide/MODE OP' feuille de pointage.pdf") }}' target='_blank' style='text-decoration: none;'>Schéma</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage collaborateur.pdf') }}' target='_blank' style='text-decoration: none;'>Notice de remplissage collaborateurs</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank' style='text-decoration: none;'>Notice RH</a>{% endblock %}
+{% block sousMessageAccueil %}<a href='{{ asset("Pointage/Aide/MODE OP' feuille de pointage.pdf") }}' target='_blank' style='text-decoration: none;'>Aide</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage collaborateur.pdf') }}' target='_blank' style='text-decoration: none;'>Notice de remplissage collaborateurs</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank' style='text-decoration: none;'>Notice RH</a>{% endblock %}
 
 {% block contenu %}
     <div id="pointageSelection">
 
-        {{ form_start(form) }}
+        {{ form_start(form, {'attr': {'style': 'float: left;'}}) }}
         {{ form_errors(form) }}
         <fieldset>
             <legend>Séléction de pointage</legend>
-
-            <div>
-                {{ form_label(form.User, 'Utilisateur') }} <br />
-                <input type="text" id="pointerUserSearch" placeholder="Rechercher un utilisateur">
-                {{ form_errors(form.User) }}
-                {{ form_widget(form.User) }}
-            </div><!--
-    
-            --><div>
+            <div style="width: 50%">
                 {{ form_label(form.Month, 'Mois') }} <br />
                 {{ form_errors(form.Month) }}
                 {{ form_widget(form.Month) }}
             </div><!--
     
-            --><div>
+            --><div style="width: 50%">
                 {{ form_label(form.Year, 'Année') }} <br />
                 {{ form_errors(form.Year) }}
                 {{ form_widget(form.Year) }}
+            </div><br /><!--
+            --><div style="width: 100%">
+                {{ form_label(form.Etablissement, 'Etablissement') }} <br />
+                {{ form_errors(form.Etablissement) }}
+                {{ form_widget(form.Etablissement) }}
             </div>
         </fieldset>
         {{ form_end(form) }}
 
-        {{ form_start(formToCheckPointage) }}
+        {{ form_start(formToCheckPointage, {'attr': {'style': 'float: right;'}}) }}
         {{ form_errors(formToCheckPointage) }}
         <fieldset>
             <legend>Pointage en attente de validation</legend>
 
             <div>
                 {{ form_errors(formToCheckPointage.Pointage) }}
-                {{ form_widget(formToCheckPointage.Pointage) }}
+                {{ form_widget(formToCheckPointage.Pointage, {'attr': {'size': 5}}) }}
             </div>
         </fieldset>
         {{ form_end(formToCheckPointage) }}
@@ -52,7 +49,7 @@
 
     <div id='pointageSavingNotification' style='display: none; position: fixed; z-index: 500; background-color: rgba(41,154,11, 0.7); border: 1px outset white; border-radius: 10px; padding: 0.5%;'><p style='display: inline-block; margin: 0; font-size: 0.8vw; color: white;'>Sauvegarde en cours <img src='{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}' style='vertical-align: middle; height: 2em;'></p></div>
 
-    <div id="pointageStatusDiv">
+    <div id="pointageStatusDiv" style="clear: both;">
         <div id="pointageStatusLabelGeneralContainer">
             <div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Collaborateur</p></div><!--
             --><div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Assistant(e) agence</p></div><!--
@@ -308,7 +305,7 @@
             </tr>
         </table>
 
-        <table id='tableFeuillePointageSignature'>
+        <table id='tableFeuillePointageSignature' style="display: none;">
             <tr>
                 <td style='border-width: 2px;'>Signature collaborateur</td>
                 <td id='signatureCollaborateur' colspan=2 style='border-width: 2px;' contenteditable=true></td>
@@ -334,15 +331,7 @@
         $(window).load(function () {
             IECheck();
             hidePointageTables();
-            $('#form_User').change(function () {
-                ajaxGetMonthByUsername();
-            });
-            $('#form_Month').change(function () {
-                ajaxGetYearByMonthAndUsername();
-            });
-            $("#pointerUserSearch").on("keyup paste", function () {
-                ajaxUsernameSearch();
-            });
+            ajaxGetPointageList();
             getNewDate();
             displayDailyProjectsTotalPercentage();
             dispayMonthlyTotalHoursMod();
@@ -364,7 +353,7 @@
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
             var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
-            if (ajaxUrl === "pointage-ajax-set-date-by-pointage-number" || ajaxUrl === "pointage-ajax-get-data-by-username" || ajaxUrl === "pointage-ajax-get-status" || ajaxUrl === "pointage-ajax-get-data-by-username") {
+            if (ajaxUrl === "pointage-ajax-set-date-by-pointage-number" || ajaxUrl === "pointage-ajax-get-data-by-username" || ajaxUrl === "pointage-ajax-get-status" || ajaxUrl === "pointage-ajax-get-data-by-username" || ajaxUrl === "ajax-get-pointage-list-aa-gestion") {
                 $('#loadingContent').show();
             }
             if (ajaxUrl === "pointage-ajax-save-data") {
@@ -397,129 +386,27 @@
             });
         }
 
-        // Récupère les mois en fonction du l'utilisateur.
-        function ajaxGetMonthByUsername() {
-            $('#form_Month').val('');
-            $('#form_Month').attr('disabled', true);
-            $('#form_Month option').filter(function () {
-                return $(this).attr('value') !== '';
-            }).remove();
-            $('#form_Year').val('');
-            $('#form_Year').attr('disabled', true);
-            $('#form_Year option').filter(function () {
-                return $(this).attr('value') !== '';
-            }).remove();
-            if ($('#form_User option:selected').val() !== '') {
+        // Récupére la liste des pointages en attente de validation en fonction du mois, de l'année et de l'établissement.
+        function ajaxGetPointageList() {
+            // Lorsque l'on change la valeur de mois, année ou établissement.
+            $('#form_Etablissement, #form_Year, #form_Month').change(function () {
+                $('#form_Pointage option').remove(); // On supprime les options déjà présente.
                 $.ajax({
                     type: 'POST',
-                    url: '{{ path('nox_intranet_ajax_get_month_by_username') }}',
-                    data: {username: $('#form_User option:selected').val()},
+                    url: '{{ path('nox_intranet_pointage_ajax_get_pointages_list_aa_gestion') }}',
+                    data: {month: $('#form_Month').val(), year: $('#form_Year').val(), etablissement: $('#form_Etablissement').val(), userStatus: '{{ userStatus }}'},
                     success: function (response) {
-                        if (response.length > 2) {
-                            var newOptions = JSON.parse(response);
-                            $.each(newOptions, function (key, value) {
-                                $('#form_Month').append($("<option/>", {
-                                    value: key,
-                                    text: value
-                                }));
-                            });
-                            $('#form_Month').removeAttr('disabled');
-                        } else {
-                            $('#form_Month').attr('disabled', true);
-                            $('#form_Year').attr('disabled', true);
-                        }
+                        var items = JSON.parse(response); // On récupére la liste des pointages sous forme d'objet.
+                        // Pour chaque pointages...
+                        $.each(items, function (id, label) {
+                            // On ajoute une option au sélécteur de pointages avec l'ID du pointage en valeur et le nom du collaborateur en label.
+                            $('#form_Pointage').append($('<option>', {
+                                value: id,
+                                text: label
+                            }));
+                        });
                     }
                 });
-            } else {
-                $('#form_Month').attr('disabled', true);
-                $('#form_Year').attr('disabled', true);
-            }
-        }
-
-        // Récupère les années en fonction de l'utilisateur et du mois.
-        function ajaxGetYearByMonthAndUsername() {
-            $('#form_Year option:nth-child(n+2)').remove();
-            if ($('#form_Month option:selected').val() !== '') {
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ path('nox_intranet_ajax_get_year_by_month_and_username') }}',
-                    data: {username: $('#form_User option:selected').val(), month: $('#form_Month option:selected').val()},
-                    success: function (response) {
-                        if (response.length > 2) {
-                            var newOptions = JSON.parse(response);
-                            $.each(newOptions, function (key, value) {
-                                $('#form_Year').append($("<option/>", {
-                                    value: key,
-                                    text: value
-                                }));
-                            });
-                            $('#form_Year').removeAttr('disabled');
-                        } else {
-                            $('#form_Year').attr('disabled', true);
-                        }
-                    }
-                });
-            } else {
-                $('#form_Year').attr('disabled', true);
-            }
-
-        }
-
-        // Récupère la liste d'utilisateurs en fonction du paramètre de la recherche.
-        var request;
-        function ajaxUsernameSearch() {
-            $('#form_Month').attr('disabled', true);
-            $('#form_Year').attr('disabled', true);
-            if (typeof request !== 'undefined') {
-                request.abort();
-            }
-            $('#form_User').find("option").remove();
-            $('#form_User').css('background', "white url('http://" + window.location.hostname + "{{ asset('bundles/noxintranetressources/images/loading.gif') }}" + "') no-repeat center");
-            $('#form_User').css('background-size', '25%');
-            request = $.ajax({
-                //On lui indique le type d'envoie des informations
-
-                type: 'POST',
-                //On lui indique le chemin de la fonction
-
-                url: '{{ path('nox_intranet_ajax_get_users_by_username') }}',
-                //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
-
-                data: 'username=' + $("#pointerUserSearch").val(),
-                //Enfin nous lui disons de remplir notre formulaire avec le resultat  
-
-                success: function (response) {
-                    var data = JSON.parse(response);
-                    $('#form_User').css('background', 'white');
-                    $('#form_User').find("option").remove();
-                    $.each(data, function (i, item) {
-                        $('#form_User').append(new Option(item, i));
-                    });
-                    $('#form_User option:nth-child(even)').css('background', 'SeaShell');
-                    $('#form_User option').each(function () {
-                        $(this).attr('title', $(this).text());
-                    });
-                }
-            });
-        }
-
-        // Récupère la feuille de pointage correspondant à l'utilisateur, au mois et à la date.
-        function ajaxGetFeuillePointage() {
-            $.ajax({
-                //On lui indique le type d'envoie des informations
-
-                type: 'POST',
-                //On lui indique le chemin de la fonction
-
-                url: '{{ path('nox_intranet_ajax_get_users_by_username') }}',
-                //On lui donne la valeur du choix qu'on a fait, et id est la variable qui va contenir notre valeur, nous la retrouvons dans notre controller
-
-                data: {username: $('#form_User option:selected').val(), month: $('#form_Month option:selected').val(), year: $('#form_Year option:selected').val()},
-                //Enfin nous lui disons de remplir notre formulaire avec le resultat  
-
-                success: function (response) {
-
-                }
             });
         }
 
@@ -744,27 +631,7 @@
         // Affiche les jours du moi en fonction du mois et de l'année séléctionées.
         function getNewDate() {
 
-            $('#form_User, #form_Month, #form_Year').change(function () {
-                $('#form_Pointage').val('');
-                if ($('#form_User option:selected').val() !== '' && $('#form_Month option:selected').val() !== '' && $('#form_Year option:selected').val() !== '') {
-                    deleteProjectColumn();
-                    resetCellsValues();
-                    ajaxGetNewDate($('#form_User option:selected').val(), $('#form_Month option:selected').val(), $('#form_Year option:selected').val());
-                }
-            });
-
             $('#form_Pointage').change(function () {
-                $('#form_User').val('');
-                $('#form_Month').val('');
-                $('#form_Month').attr('disabled', true);
-                $('#form_Month option').filter(function () {
-                    return $(this).attr('value') !== '';
-                }).remove();
-                $('#form_Year').val('');
-                $('#form_Year').attr('disabled', true);
-                $('#form_Year option').filter(function () {
-                    return $(this).attr('value') !== '';
-                }).remove();
                 deleteProjectColumn();
                 resetCellsValues();
                 ajaxGetNewDateByPointageNumber();
@@ -772,7 +639,6 @@
 
             // Supprime les colonnes existantes de projets suplémentaires et rétablie le colspan de "Operationnel" à 2.
             function deleteProjectColumn() {
-
                 var firstColumnIndex = $('#tableFeuillePointage tr:nth-child(2) .project').first().index() + 2;
                 var lastColumnIndex = $('#tableFeuillePointage tr:nth-child(2) .project').last().index() + 1;
                 $('#tableFeuillePointage tr:nth-child(n+2) td:nth-child(n+' + firstColumnIndex + '):nth-child(-n+' + lastColumnIndex + ')').remove();
@@ -786,77 +652,7 @@
                 $('.dailyTotalPercentageCell, .monthlyTotalPercentageCell, .monthlyTotalCell, #ForfaitDeplacementTotalMontant, #PrimesPanierTotalNumber, #titreTransportTotalMontant').text(0.00);
                 $('#monthlyTotalHoursMod, #titreRepasTotalNumber, .nbAbscences').text(0);
                 $('#tableFeuillePointage select:not(#pointage_month_selector, #pointage_year_selector)').val('');
-            }
-
-            // Récupère les jours en fonction du moi et de l'année.
-            function ajaxGetNewDate(user, month, year) {
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    url: '{{ path('nox_intranet_pointage_ajax_set_date') }}',
-                    data: {month: $('#form_Month option:selected').val(), year: $('#form_Year option:selected').val()},
-                    success: function (response) {
-
-                        // Ajout/supprime des lignes en fonction du nombre de jours du mois.
-                        if ($('.dayDateCell').length !== response.length) {
-                            var difference = response.length - $('.dayDateCell').length;
-                            if (difference > 0) {
-                                for (var i = 0; i < difference; i++) {
-                                    var lastTr = $('.dayDateCell').last().parent('tr');
-                                    lastTr.after(lastTr.clone());
-                                }
-                            } else if (difference < 0) {
-                                for (var i = 0; i < Math.abs(difference); i++) {
-                                    var lastTr = $('.dayDateCell').last().parent('tr');
-                                    lastTr.remove();
-                                }
-                            }
-                        }
-
-                        // Pour chaque ligne, remplace la date et remplis les cellules avec les valeurs sauvegardées.
-                        $('.dayDateCell').each(function (index) {
-                            $(this).transition({
-                                rotateX: '360deg'
-                            }, function () {
-                                $(this).css('transform', '');
-                            });
-                            if (response[index]['date'] === undefined) {
-                                $(this).html('');
-                                $(this).parent('tr').find('td').css('background', 'white');
-                            } else {
-                                $(this).html(response[index]['date']);
-                                if (response[index]['date'].indexOf('Samedi') >= 0 || response[index]['date'].indexOf('Dimanche') >= 0 || response[index]['ferie'] === true) {
-                                    $(this).parent('tr').find('td').css('background', 'rgb(166,166,166)');
-                                    $(this).next('td').attr('contenteditable', false);
-                                    $(this).siblings('.dailyHoursMod').attr('contenteditable', false);
-                                    $(this).siblings('.dailyTotalPercentageCell').html('');
-                                    $(this).siblings('.abscenceMatinSelector').html('');
-                                    $(this).siblings('.abscenceAMSelector').html('');
-                                    $(this).siblings('.titreRepasNumberSelector').html('');
-                                    $(this).siblings('.forfaitsDeplacementMontant').attr('contenteditable', false);
-                                    $(this).siblings('.primesPanierNumber').attr('contenteditable', false);
-                                    $(this).siblings('.comments').attr('contenteditable', true);
-                                    $(this).siblings('.comments').css('background', 'white');
-                                } else {
-                                    $(this).parent('tr').find('td').css('background', 'white');
-                                    $(this).next('td').attr('contenteditable', true);
-                                    $(this).siblings('.dailyHoursMod').attr('contenteditable', true);
-                                    $(this).siblings('.abscenceMatinSelector').html("<select><option value=''></option> <option value='AA'>AA</option><option value='TJ'>TJ</option><option value='AT'>AT</option><option value='MT'>MT</option> <option value='PA'>PA</option> <option value='CS'>CS</option><option value='CP'>CP</option> <option value='AV'>AV</option> <option value='JS'>JS</option> <option value='MA'>MA</option> <option value='PM'>PM</option> <option value='RE'>RE</option> <option value='Autre'>Autre</option></select>");
-                                    $(this).siblings('.abscenceAMSelector').html("<select><option value=''></option><option value='AA'>AA</option><option value='TJ'>TJ</option><option value='AT'>AT</option><option value='MT'>MT</option><option value='PA'>PA</option><option value='CS'>CS</option><option value='CP'>CP</option><option value='AV'>AV</option><option value='JS'>JS</option><option value='MA'>MA</option><option value='PM'>PM</option><option value='RE'>RE</option><option value='Autre'>Autre</option></select>");
-                                    $(this).siblings('.titreRepasNumberSelector').html("<select><option value=''></option><option value='1'>1</option></select>");
-                                    $(this).siblings('.forfaitsDeplacementMontant').attr('contenteditable', true);
-                                    $(this).siblings('.primesPanierNumber').attr('contenteditable', true);
-                                    $(this).siblings('.comments').attr('contenteditable', true);
-                                }
-                            }
-                        });
-                        $('td[contenteditable]').unbind('blur');
-                        $('.projet[contenteditable]').unbind('blur');
-                        $('#tableFeuillePointage select:not(#pointage_month_selector, #pointage_year_selector)').unbind('change');
-                        ajaxGetData(user, month, year);
-                    }
-                });
-            }
+            }      
 
             // Récupère les jours en fonction du moi et de l'année définis par la feuille de pointage sélectionnée.
             function ajaxGetNewDateByPointageNumber() {
@@ -997,6 +793,10 @@
                                 $(this).text(data['project'][index]);
                             });
                         }
+
+                        // On change la le mois et l'année indiqué sur la feuille de pointage.
+                        $('#pointage_month_selector').val($('#form_Month').val());
+                        $('#pointage_year_selector').val($('#form_Year').val());
 
                         deleteProjectColumn();
                         tableEventHandler();
