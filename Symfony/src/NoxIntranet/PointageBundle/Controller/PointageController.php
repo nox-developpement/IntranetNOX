@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\PointageBundle\Entity\Tableau;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PointageController extends Controller {
 
@@ -135,7 +137,7 @@ class PointageController extends Controller {
             // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
             if (in_array($securityName, $this->getUserWithStatus('AA'))) {
                 $userStatus = 'AA';
-                $users = $this->getUsersByAssistante($securityName, $em);
+                $users = $this->getUsersByStatus($userStatus, $securityName);
             }
             // Si l'utilisateur ne fait pas partie du tableau hiérarchique mais a le rôle RH.
             else {
@@ -313,14 +315,14 @@ class PointageController extends Controller {
         // Génération du formulaire de validation de la compilation.
         $formValidationRefus = $this->get('form.factory')->createNamedBuilder('formValidationRefus', 'form')
                 ->add('Compilation', SubmitType::class)
-                ->add('month', 'hidden', array(
+                ->add('month', HiddenType::class, array(
                     'data' => $this->getMonthAndYear()['month']
                 ))
-                ->add('year', 'hidden', array(
+                ->add('year', HiddenType::class, array(
                     'data' => $this->getMonthAndYear()['year']
                 ))
-                ->add('etablissement', 'hidden', array(
-                ))
+                ->add('etablissement', HiddenType::class)
+                ->add('collaborateursSansPointage', HiddenType::class)
                 ->getForm();
 
         // Traitement du formulaire de validation de la compilation.
@@ -329,7 +331,7 @@ class PointageController extends Controller {
             // Lors du clique sur le bouton de validation.
             if ($formValidationRefus->get('Compilation')->isClicked()) {
                 // On récupére les pointages à inclure dans la compilation en fonction du status de l'utilisateur.
-                $pointagesCompilation = $this->getPointagesACompile($this->getUsersByStatus($userStatus, $securityName), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('etablissement')->getData(), $validationStep);
+                $pointagesCompilation = $this->getPointagesACompile($this->getUsersByStatus($userStatus, $securityName), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('etablissement')->getData(), $validationStep, $formValidationRefus->get('collaborateursSansPointage')->getData());
                 // Initialisation de la liste des utilisateurs à qui envoyer un mail les prévenants qu'une compilation est disponible.
                 $mailingListUser = array();
 
@@ -351,7 +353,6 @@ class PointageController extends Controller {
                         case 'RH':
                             $pointage->setStatus(5); // On modifie le statut du pointage.
                     }
-                    //$pointage->setAbsences(json_encode($pointage->getAbsences(), true)); // On encode les absences du pointage en JSON.
                     $em->persist($pointage); // On persist le pointage.
                 }
                 // On sauvegarde les changements de status en base de donnée.
@@ -365,12 +366,7 @@ class PointageController extends Controller {
                 );
                 $this->get('session')->getFlashBag()->add('notice', $flashBagMessages[$validationStep]);
 
-                // Initialise la liste des message de mail et envoi un mail au supérieur hiérarchique.
-                $mailingMessage = array(
-                    'AA' => "un/une assistant(e) d'agence",
-                    'DA' => "un directeur d'agence"
-                );
-                //sendMailToDestinataire($mailingListUser, $mailingMessage[$validationStep], $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $this->generateUrl('nox_intranet_da_manager_pointage_compilation'), getNbPointagesNonValides($em, $this->getUsersByAssistante($securityName, $em), $this)['collaborateurSansPointage'], $em, $this);
+                $this->sendValidationMail($mailingListUser, $securityName, $validationStep, $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('etablissement')->getData(), $formValidationRefus->get('collaborateursSansPointage')->getData());
                 // On redirige vers la compilation des pointages.
                 //return $this->redirectToRoute('nox_intranet_pointages_compilation', array('validationStep' => $validationStep));
             }
@@ -454,6 +450,39 @@ class PointageController extends Controller {
         }
 
         return $users;
+    }
+
+    // Envoie un mail au N+1 pour lui signaler qu'une compilation est disponible à la validation.
+    private function sendValidationMail($recipients, $sender, $validationStep, $month, $year, $etablissement, $collaborateursSansPointage) {
+        // Si l'étape de validation ne correspond pas à une étape de validation final.
+        if ($validationStep !== 'RH' || $validationStep !== 'Final') {
+            $em = $this->getDoctrine()->getManager();
+
+            // On génére le lien vers l'étape de validation supérieur.
+            $nextValidationStep = array('AA' => 'DAManager', 'DAManager' => 'RH');
+            $redirectionUrl = $this->generateUrl('nox_intranet_pointages_compilation', array('validationStep' => $nextValidationStep[$validationStep]), UrlGeneratorInterface::ABSOLUTE_URL);
+
+            // Pour chaque N+1 récepteur..
+            foreach ($recipients as $recipient) {
+
+                // On vérifie que le N+1 est défini dans la hiérarchie et on lui envoie le mail.
+                $recipientEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $recipient)[0], 'lastname' => explode(' ', $recipient)[1]));
+                if (!empty($recipientEntity)) {
+                    $recipientEmail = $recipientEntity->getUsername() . '@groupe-nox.com';
+
+                    $message = \Swift_Message::newInstance()
+                            ->setSubject('Compilation de pointages disponible')
+                            ->setFrom('noreply@groupe-nox.com')
+                            ->setTo($recipientEmail)
+                            ->setBody(
+                            $this->renderView(
+                                    'Emails/Pointages/confirmationCompilation.html.twig', array('recipient' => $recipientEntity, 'sender' => $sender, 'redirectionUrl' => $redirectionUrl, 'month' => $month, 'year' => $year, 'etablissement' => $etablissement, 'collaborateursSansPointage' => json_decode($collaborateursSansPointage))
+                            ), 'text/html'
+                    );
+                    $this->get('mailer')->send($message);
+                }
+            }
+        }
     }
 
 }
