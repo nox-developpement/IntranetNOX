@@ -75,7 +75,7 @@
         <p style="text-align: center;">
             {% if validationStep == 'Final' %}
                 {{ form_widget(formValidation.Compilation, {'label': 'Valider la compilation' , 'attr': {'class': 'boutonCompilation', 'style': 'display: none'}}) }}
-                <button type='button' class='boutonCompilation'>Générer le fichier Excel récapitulatif</button>
+                <button type='button' class='boutonCompilation' onclick='ajaxGenerateExcelRecap();'>Générer le fichier Excel récapitulatif</button>
             {% else %}
                 {{ form_widget(formValidation.Compilation, {'label': 'Valider la compilation' , 'attr': {'class': 'boutonCompilation'}}) }}
             {% endif %}
@@ -771,6 +771,18 @@
                     $('#collaborateurSansPointage').text(Object.keys(pointages['collaborateurSansPointage']).length); // On remplace le nombre du compteur de collaborateur qui n'ont pas remplis/validé leur pointage.
                     $('#collaborateurSansPointage').attr('onclick', "showUnvalidateCollaborateurs(" + JSON.stringify(response) + ")"); // Met à jours les données de la fonction d'affichage des collaborateur qui n'ont pas remplis/validé leur pointage.
                     $('#formValidationRefus_Compilation').attr('onclick', "return preventUnvalidate(" + Object.keys(pointages['pointageEnAttenteValidationAA']).length + "," + Object.keys(pointages['collaborateurSansPointage']).length + "," + JSON.stringify(response) + ")"); // Met à jours les donnée de la fonction de prévention d'envoi de compilation incomplète.
+                }
+            });
+        }
+
+        // Lance le téléchargement du fichier Excel récapitulatif du pointage courant.
+        function ajaxGenerateExcelRecap() {
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('nox_intranet_pointage_ajax_generate_excel_recap') }}',
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}', etablissement: $('#form_Etablissement').val()},
+                success: function (response) {
+                    window.location = response; // Redirige vers l'URL du fichier à télécharger.
                 }
             });
         }

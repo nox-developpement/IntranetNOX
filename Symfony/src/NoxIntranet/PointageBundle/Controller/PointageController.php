@@ -239,18 +239,18 @@ class PointageController extends Controller {
         // Initialise le titre afficher sur le template.
         $templateTitle = array('AA' => 'Assistant(e) agence - Correction/Validation compilation', 'DAManager' => 'DA/Manager - Correction/Validation compilation', 'RH' => 'Assistant(e) RH - Correction/Validation compilation', 'Final' => 'Compilations validées');
 
-        // Si l'utilisateur n'as pas les droits suffisant on le redirige vers l'accueil.
-        if (!(in_array($securityName, $authorizedUsers) || $this->get('security.context')->isGranted('ROLE_RH'))) {
-            $this->get('session')->getFlashBag()->add('noticeErreur', "Vous n'avez pas le statut requis pour accéder à cette section.");
-            return $this->redirectToRoute('nox_intranet_accueil');
-        }
-        // Sinon si l'utilisateur à le statut correspondant à l'étape de validation on lui attribut ce statut.
-        else if (in_array($securityName, $authorizedUsers)) {
+        // Si l'utilisateur à le statut correspondant à l'étape de validation on lui attribut ce statut.
+        if (in_array($securityName, $authorizedUsers)) {
             $userStatus = $validationStep;
         }
         // Sinon on lui attribut le statut de ROLE_RH.
-        else {
+        else if ($this->get('security.context')->isGranted('ROLE_RH')) {
             $userStatus = 'roleRH';
+        }
+        // Si l'utilisateur n'as pas les droits suffisant on le redirige vers l'accueil.
+        else {
+            $this->get('session')->getFlashBag()->add('noticeErreur', "Vous n'avez pas le statut requis pour accéder à cette section.");
+            return $this->redirectToRoute('nox_intranet_accueil');
         }
 
         // Initialisation d'une échelle de temps.
@@ -330,7 +330,6 @@ class PointageController extends Controller {
             if ($formValidationRefus->get('Compilation')->isClicked()) {
                 // On récupére les pointages à inclure dans la compilation en fonction du status de l'utilisateur.
                 $pointagesCompilation = $this->getPointagesACompile($this->getUsersByStatus($userStatus, $securityName), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('etablissement')->getData(), $validationStep);
-                //var_dump($userStatus);
                 // Initialisation de la liste des utilisateurs à qui envoyer un mail les prévenants qu'une compilation est disponible.
                 $mailingListUser = array();
 
@@ -352,7 +351,7 @@ class PointageController extends Controller {
                         case 'RH':
                             $pointage->setStatus(5); // On modifie le statut du pointage.
                     }
-                    $pointage->setAbsences(json_encode($pointage->getAbsences(), true)); // On encode les absences du pointage en JSON.
+                    //$pointage->setAbsences(json_encode($pointage->getAbsences(), true)); // On encode les absences du pointage en JSON.
                     $em->persist($pointage); // On persist le pointage.
                 }
                 // On sauvegarde les changements de status en base de donnée.
@@ -414,7 +413,7 @@ class PointageController extends Controller {
         $usersFromHierarchy = array();
         foreach ($users as $user) {
             $usersFromHierarchy[$user->getAA()] = $user->getAA();
-            if ($status == 'DAManager' || $status === 'RH' || $status === 'Final') {
+            if ($status === 'DAManager' || $status === 'RH' || $status === 'Final') {
                 $usersFromHierarchy[$user->getDA()] = $user->getDA();
             }
             if ($status === 'RH' || $status === 'Final') {
