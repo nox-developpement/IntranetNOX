@@ -455,7 +455,7 @@ class PointageController extends Controller {
     // Envoie un mail au N+1 pour lui signaler qu'une compilation est disponible à la validation.
     private function sendValidationMail($recipients, $sender, $validationStep, $month, $year, $etablissement, $collaborateursSansPointage) {
         // Si l'étape de validation ne correspond pas à une étape de validation final.
-        if ($validationStep !== 'RH' || $validationStep !== 'Final') {
+        if ($validationStep !== 'RH' && $validationStep !== 'Final') {
             $em = $this->getDoctrine()->getManager();
 
             // On génére le lien vers l'étape de validation supérieur.
