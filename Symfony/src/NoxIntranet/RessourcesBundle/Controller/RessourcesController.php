@@ -527,6 +527,10 @@ class RessourcesController extends Controller {
 
         return $this->render('NoxIntranetRessourcesBundle:RH:affichageContenu.html.twig', array('nbPage' => $nbPages, 'chemin' => $chemin, 'page' => $page, 'news' => $news10[$page - 1], 'dossier' => $dossier, 'config' => $config));
     }
+    
+    public function rhGestionPointageAction() {
+        return $this->render('NoxIntranetRessourcesBundle:RH:gestionPointages.html.twig');
+    }
 
     public function AQProceduresAction(Request $request) {
 

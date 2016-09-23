@@ -135,22 +135,14 @@ class PointageController extends Controller {
             $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
             // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
-            if (in_array($securityName, $this->getUserWithStatus('AA'))) {
+            if ($this->get('security.context')->isGranted('ROLE_RH')) {
+                // On récupére tous les utilisateurs.
+                $userStatus = 'roleRH';
+                $users = $this->getUsersByStatus($userStatus, $securityName);
+            } else if (in_array($securityName, $this->getUserWithStatus('AA'))) {
                 $userStatus = 'AA';
                 $users = $this->getUsersByStatus($userStatus, $securityName);
             }
-            // Si l'utilisateur ne fait pas partie du tableau hiérarchique mais a le rôle RH.
-            else {
-                // On récupére tous les utilisateurs.
-                $userStatus = 'roleRH';
-                $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
-                $users = array();
-                // On récupére tous les utilisateurs.
-                foreach ($usersHierarchyEntity as $user) {
-                    $users[$user->getUsername()] = $user->getPrenom() . ' ' . $user->getNom();
-                }
-            }
-
 
             // On récupére les agences des collaborateurs qui dépendent de l'assistant d'agence ou toutes les agence si ROLE_RH.
             $etablissements = array();
@@ -242,12 +234,10 @@ class PointageController extends Controller {
         $templateTitle = array('AA' => 'Assistant(e) agence - Correction/Validation compilation', 'DAManager' => 'DA/Manager - Correction/Validation compilation', 'RH' => 'Assistant(e) RH - Correction/Validation compilation', 'Final' => 'Compilations validées');
 
         // Si l'utilisateur à le statut correspondant à l'étape de validation on lui attribut ce statut.
-        if (in_array($securityName, $authorizedUsers)) {
-            $userStatus = $validationStep;
-        }
-        // Sinon on lui attribut le statut de ROLE_RH.
-        else if ($this->get('security.context')->isGranted('ROLE_RH')) {
+        if ($this->get('security.context')->isGranted('ROLE_RH')) {
             $userStatus = 'roleRH';
+        } else if (in_array($securityName, $authorizedUsers)) {
+            $userStatus = $validationStep;
         }
         // Si l'utilisateur n'as pas les droits suffisant on le redirige vers l'accueil.
         else {
@@ -277,15 +267,11 @@ class PointageController extends Controller {
                     $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
                 break;
-            case 'RH':
-                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
-                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
-                }
-                break;
             case 'roleRH':
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
                     $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
+                break;
             case 'Final':
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
                     $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
@@ -368,7 +354,7 @@ class PointageController extends Controller {
 
                 $this->sendValidationMail($mailingListUser, $securityName, $validationStep, $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('etablissement')->getData(), $formValidationRefus->get('collaborateursSansPointage')->getData());
                 // On redirige vers la compilation des pointages.
-                //return $this->redirectToRoute('nox_intranet_pointages_compilation', array('validationStep' => $validationStep));
+                return $this->redirectToRoute('nox_intranet_pointages_compilation', array('validationStep' => $validationStep));
             }
         }
 
@@ -408,11 +394,14 @@ class PointageController extends Controller {
         // Récupère le nom des assistant d'agence/DA/RH et leurs supérieurs.
         $usersFromHierarchy = array();
         foreach ($users as $user) {
-            $usersFromHierarchy[$user->getAA()] = $user->getAA();
-            if ($status === 'DAManager' || $status === 'RH' || $status === 'Final') {
+            if ($status === 'AA') {
+                $usersFromHierarchy[$user->getAA()] = $user->getAA();
                 $usersFromHierarchy[$user->getDA()] = $user->getDA();
             }
-            if ($status === 'RH' || $status === 'Final') {
+            if ($status === 'DAManager' || $status === 'Final') {
+                $usersFromHierarchy[$user->getDA()] = $user->getDA();
+            }
+            if ($status === 'Final' || $status === 'RH') {
                 $usersFromHierarchy[$user->getRH()] = $user->getRH();
             }
         }
@@ -432,7 +421,7 @@ class PointageController extends Controller {
             $qb
                     ->add('select', 'u')
                     ->add('from', 'NoxIntranetPointageBundle:UsersHierarchy u')
-                    ->add('where', ($status === 'RH') ? 'u.rh = :securityName' : (($status === 'DAManager' || $status === 'Final') ? 'u.da = :securityName OR u.rh = :securityName' : (($status === 'AA') ? 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName' : false)))
+                    ->add('where', ($status === 'DAManager' || $status === 'Final') ? 'u.da = :securityName OR u.rh = :securityName' : (($status === 'AA') ? 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName' : false))
                     ->setParameter('securityName', $securityName);
             $query = $qb->getQuery();
             $usersHierarchie = $query->getResult();
