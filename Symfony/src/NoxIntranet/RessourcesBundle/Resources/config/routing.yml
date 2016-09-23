@@ -121,6 +121,10 @@ nox_intranet_affichageRH:
     defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:affichageRH, page: 1 }
     requirements:
          chemin: .+
+         
+nox_intranet_rh_gestion_pointages:
+    path: /ressources/rh/gestion-pointages
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:rhGestionPointage }
     
 nox_intranet_aq_procedures:
     path: /ressources/aq/documentsQSE/procédures
