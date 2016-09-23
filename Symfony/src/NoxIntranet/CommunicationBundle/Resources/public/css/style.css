@@ -3079,6 +3079,7 @@ tr {
 #compilationPointages {
     width: 70%;
     margin: auto;   
+    margin-bottom: 5%;
 }
 
 #compilationPointagesTable {
@@ -3526,7 +3527,7 @@ form[name='formValidationRefus'] {
     float: right;
     display: inline-block;
     width: 30%;
-    margin-right: 15%;
+    margin-right: 15%;  
 }
 
 form[name='formValidationRefus'] textarea {
@@ -3540,6 +3541,11 @@ form[name='formValidationRefus'] textarea {
     display: block;
     width: auto;
     margin-right: 0;
+    padding-bottom: 0;
+}
+
+#compilationPointages form[name='formValidationRefus'] p {
+    margin-bottom: 0;
 }
 
 #tableValidationProposition {
@@ -4029,5 +4035,42 @@ form[name='formNewSearch'] .textarea[contenteditable=true]:empty:before {
     font-family: Verdana, Geneva, sans-serif;
 }
 
+#pointagesRaccourcis {
+    width: 70%;
+    margin: auto;
+}
 
+#pointagesRaccourcis ul {
+    list-style-type: none;
+    text-align: center;
+    padding: 0;
+    margin-bottom: 5%;
+}
+
+#pointagesRaccourcis ul li {
+    display: inline-block;
+    background-color: #1F4E79;
+    white-space: nowrap;
+    width: 45%;
+    margin: 0.1vw 0.05vw 0.1vw 0.05vw;
+    border: inset 1px rgb(31,78,121);
+    border-radius: 10px;
+}
+
+#pointagesRaccourcis ul li a, #pointagesRaccourcis ul li a:visited {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    padding: 2%;
+    font-size: 0.8vw;
+}
+
+#pointagesRaccourcis ul li:hover {
+    background-color: white;
+}
+
+
+#pointagesRaccourcis ul li:hover a {
+    color: #1F4E79;
+}
 

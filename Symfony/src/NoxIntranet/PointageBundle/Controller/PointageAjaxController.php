@@ -506,6 +506,7 @@ class PointageAjaxController extends Controller {
 
             // Initialisation d'un nouveau fichier Excel.
             $objPHPExcel = \PHPExcel_IOFactory::load($root . '/../web/Pointage/Modele/PointageRecapModele.xlsx');
+            $objWorksheet = $objPHPExcel->getSheet(0); // On séléctionne la feuille de totaux comme feuille de travail.
 
             $rowTotaux = 2; // Initialisation du compteur de ligne des totaux.
             $rowAbsence = 2; // Initialisation du compteur de ligne des absences.
@@ -515,21 +516,19 @@ class PointageAjaxController extends Controller {
                 $usersHierarchyEntity = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage['user']);
                 // Si le collaborateur est défini dans la hiérarchie et qu'il fait parti de l'établissement courant.
                 if (!empty($usersHierarchyEntity)) {
-                    $objWorksheetTotaux = $objPHPExcel->getSheet(1); // On séléctionne la feuille de totaux comme feuille de travail.
-                    $objWorksheetTotaux->getCell('A' . $rowTotaux)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
-                    $objWorksheetTotaux->getCell('B' . $rowTotaux)->setValue($pointage['titresRepas']); // On écris le nombre de titres repas.
-                    $objWorksheetTotaux->getCell('C' . $rowTotaux)->setValue($pointage['forfaitsDeplacement']); // On écris le montant du forfait de déplacement.
-                    $objWorksheetTotaux->getCell('D' . $rowTotaux)->setValue($pointage['primesPanier']); // On écris le montant de la primes panier.
-                    $objWorksheetTotaux->getCell('E' . $rowTotaux)->setValue($pointage['titreTransport']); // On écris le montant du titre de transport.
+                    $objWorksheet->getCell('A' . $rowTotaux)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
+                    $objWorksheet->getCell('B' . $rowTotaux)->setValue($pointage['titresRepas']); // On écris le nombre de titres repas.
+                    $objWorksheet->getCell('C' . $rowTotaux)->setValue($pointage['forfaitsDeplacement']); // On écris le montant du forfait de déplacement.
+                    $objWorksheet->getCell('D' . $rowTotaux)->setValue($pointage['primesPanier']); // On écris le montant de la primes panier.
+                    $objWorksheet->getCell('E' . $rowTotaux)->setValue($pointage['titreTransport']); // On écris le montant du titre de transport.
                     $rowTotaux++; // On passe à la ligne suivante.
 
-                    $objWorksheetAbsence = $objPHPExcel->getSheet(0); // On séléctionne la feuille des absences comme feuille de travail.
                     foreach ($pointage['absences']['matin'] as $key => $absence) {
                         // Si un clé de valeur existe pour l'absence du matin et pour celle de l'après-midi.
                         if (array_key_exists('valeur', $absence) && array_key_exists('valeur', $pointage['absences']['am'][$key])) {
                             if ($absence['valeur'] !== '' || $pointage['absences']['am'][$key]['valeur'] !== '') {
-                                $objWorksheetAbsence->getCell('A' . $rowAbsence)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
-                                $objWorksheetAbsence->getCell('B' . $rowAbsence)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
+                                $objWorksheet->getCell('H' . $rowAbsence)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
+                                $objWorksheet->getCell('I' . $rowAbsence)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
                                 $nbAbsence = 0;
                                 $absenceValue = "";
                                 if ($absence['valeur'] !== '') {
@@ -548,8 +547,8 @@ class PointageAjaxController extends Controller {
                                         $absenceValue .= $pointage['absences']['am'][$key]['valeur'];
                                     }
                                 }
-                                $objWorksheetAbsence->getCell('C' . $rowAbsence)->setValue(trim($absenceValue)); // On écris la/les valeur(s) d'absence(s).
-                                $objWorksheetAbsence->getCell('D' . $rowAbsence)->setValue($nbAbsence); // On écris la/les valeur(s) d'absence(s).
+                                $objWorksheet->getCell('J' . $rowAbsence)->setValue(trim($absenceValue)); // On écris la/les valeur(s) d'absence(s).
+                                $objWorksheet->getCell('K' . $rowAbsence)->setValue($nbAbsence); // On écris la/les valeur(s) d'absence(s).
                                 $rowAbsence++;
                             }
                         }
@@ -647,7 +646,7 @@ class PointageAjaxController extends Controller {
             $qb
                     ->add('select', 'u')
                     ->add('from', 'NoxIntranetPointageBundle:UsersHierarchy u')
-                    ->add('where', ($status === 'RH') ? 'u.rh = :securityName' : (($status === 'DAManager' || $status === 'Final') ? 'u.da = :securityName OR u.rh = :securityName' : (($status === 'AA') ? 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName' : false)))
+                    ->add('where', ($status === 'DAManager' || $status === 'Final') ? 'u.da = :securityName OR u.rh = :securityName' : (($status === 'AA') ? 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName' : false))
                     ->setParameter('securityName', $securityName);
             $query = $qb->getQuery();
             $usersHierarchie = $query->getResult();
