@@ -734,10 +734,6 @@
 
         // Affiche un message de confirmation lorsque l'assitant tente de valider la compilation alors qu'il reste des pointages non validée.
         function preventUnvalidate(pointageEnAttenteValidationAA, collaborateurSansPointage, data) {
-            console.log(typeof pointageEnAttenteValidationAA);
-            console.log(typeof collaborateurSansPointage);
-            console.log(pointageEnAttenteValidationAA === 0);
-            console.log(collaborateurSansPointage === 20);
             // Si l'assistan d'agence n'as pas valider tous les pointages.
             if (pointageEnAttenteValidationAA !== 0) {
                 alert('Veuillez valider tous les pointages des collaborateurs avant de valider la compilation.'); // On affiche un message d'erreur.
