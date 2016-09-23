@@ -3,8 +3,11 @@
 namespace NoxIntranet\RessourcesBundle\Controller\PrestationsInternes;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use NoxIntranet\RessourcesBundle\Entity\Proposition_Echanges;
 
-class PrestationsInternesAjax extends Controller {
+class PrestationsInternesAjaxController extends Controller {
 
     // Sauvegarde les réponses aux propositions en base de données.
     public function ajaxSaveDA2PropositionAnswerAction(Request $request) {

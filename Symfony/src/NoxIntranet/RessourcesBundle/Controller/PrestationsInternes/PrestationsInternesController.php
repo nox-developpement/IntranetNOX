@@ -14,8 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use NoxIntranet\RessourcesBundle\Entity\Proposition_Echanges;
 
 class PrestationsInternesController extends Controller {
 
@@ -634,8 +632,7 @@ class PrestationsInternesController extends Controller {
                     ->select('u')
                     ->from('NoxIntranetRessourcesBundle:RecherchePrestation', 'u')
                     ->join('NoxIntranetRessourcesBundle:PropositionPrestation', 'a')
-                    ->where('(u.demandeur LIKE :username OR u.DA1 LIKE :username) OR (u.cleDemande = a.cleDemande)')
-                    ->andWhere('a.dA2 = :username')
+                    ->where('(u.demandeur LIKE :username OR u.DA1 LIKE :username) OR (u.cleDemande = a.cleDemande AND a.dA2 = :username)')
                     ->andWhere('u.libelle LIKE :search')
                     ->orderBy('u.dateCreation', $orderTime)
                     ->setParameters(array('username' => $this->get('security.context')->getToken()->getUser()->getUsername(), 'search' => '%' . $search . '%'))
@@ -648,14 +645,14 @@ class PrestationsInternesController extends Controller {
                     ->select('u')
                     ->from('NoxIntranetRessourcesBundle:RecherchePrestation', 'u')
                     ->join('NoxIntranetRessourcesBundle:PropositionPrestation', 'a')
-                    ->where('(u.demandeur LIKE :username OR u.DA1 LIKE :username) OR (u.cleDemande = a.cleDemande)')
-                    ->andWhere('a.dA2 = :username')
+                    ->where('(u.demandeur LIKE :username OR u.DA1 LIKE :username) OR (u.cleDemande = a.cleDemande AND a.dA2 = :username)')
                     ->orderBy('u.dateCreation', $orderTime)
                     ->setParameters(array('username' => $this->get('security.context')->getToken()->getUser()->getUsername()))
                     ->getQuery()
                     ->getResult();
         }
 
+        //var_dump($this->get('security.context')->getToken()->getUser()->getUsername());
         // On génére un tableau associant les entités des utilisateurs avec leurs usernames.
         $users = array();
         foreach ($em->getRepository('NoxIntranetUserBundle:User')->findAll() as $user) {

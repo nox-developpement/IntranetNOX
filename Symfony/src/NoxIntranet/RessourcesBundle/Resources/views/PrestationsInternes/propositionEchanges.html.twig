@@ -65,8 +65,7 @@
                         if (month < 10) {
                             month = '0' + month;
                         }
-                        var stringDate = day + '/' + month + '/' + currentDate.getFullYear() + ' à ' + currentDate.getHours() + ':' + currentDate.getMinutes() + ':' + currentDate.getSeconds();
-
+                        var stringDate = ((currentDate.getDate() < 10) ? '0' + currentDate.getDate() : currentDate.getDate()) + '/' + ((currentDate.getMonth() < 10) ? '0' + currentDate.getMonth() : currentDate.getMonth()) + '/' + currentDate.getFullYear() + ' à ' + ((currentDate.getHours() < 10) ? '0' + currentDate.getHours() : currentDate.getHours()) + ':' + ((currentDate.getMinutes() < 10) ? '0' + currentDate.getMinutes() : currentDate.getMinutes()) + ':' + ((currentDate.getSeconds() < 10) ? '0' + currentDate.getSeconds() : currentDate.getSeconds());
                         // On génére le code HTML du nouveau message et on le fait apparaître.
                         var newMessage = "<div class='propositionEchangesMessage propositionEchangesMessageTo'>";
                         newMessage += "<span style='display: inline-block; vertical-align: middle; height: 100%;'></span>";
