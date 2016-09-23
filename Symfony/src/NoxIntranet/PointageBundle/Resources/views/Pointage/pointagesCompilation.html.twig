@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <div id="compilationPointages">   
+    <div id="compilationPointages">        
         <table id="compilationPointagesTable">
             <tr>
                 <th id="compilationPointageNomPrenom">Nom/Prénom</th>
@@ -84,7 +84,18 @@
 
     </div>
 
-    <p style='text-align: center; font-size: 1vw;' id='aucunPointageParagraphe'> Il n'y a aucun pointage à compiler. </p>
+    <p style='text-align: center; font-size: 1vw; margin-bottom: 5%;' id='aucunPointageParagraphe'> Il n'y a aucun pointage à compiler. </p>
+
+    {% if validationStep == 'RH' %}
+        <div id="pointagesRaccourcis">
+            <ul>
+                <li><a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}">Assistant(e)s agence - Correction/Validation pointages</a></li>
+                <li><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'AA'}) }}">Assistant(e)s agence - Correction/Validation compilation</a></li>
+                <li><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'DAManager'}) }}">DA/Manager - Correction/Validation compilation</a></li>
+                <li><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'Final'}) }}">Consultation des compilations validées</a></li> 
+            </ul>
+        </div>
+    {% endif %}
 
     <script>
         $(window).load(function () {
