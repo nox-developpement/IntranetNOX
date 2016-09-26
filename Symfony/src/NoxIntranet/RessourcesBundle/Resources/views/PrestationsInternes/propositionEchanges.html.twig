@@ -127,37 +127,24 @@
                         newMessage += "</div><br />";
                     });
 
-                    // On vérifie si la barre de scollingest en bas.
-                    var toBottom = scrollBottom('#propositionEchangesAffichageMessages');
-
                     // On supprime les messages déjà existants.
                     $('#propositionEchangesAffichageMessages').contents().remove();
 
                     // On fait apparaitre les nouveaux messages.
                     $('#propositionEchangesAffichageMessages').append(newMessage);
 
-                    // Si la barre de scrolling était en bas avant la maj des messages, on scroll jusqu'au haut du dernier message.                   
+                    // Si il y a des nouvezaux message, on appel la fonction de scroll.              
                     if ($('#propositionEchangesAffichageMessages .propositionEchangesMessage').length > nbMessage) {
                         scrollToLastMessage();
                     }
 
                     // On rapelle la fonction.
                     receptMessage();
-
-                    function scrollBottom(element) {
-                        var elem = $(element);
-                        if (elem.scrollTop() + elem.innerHeight() >= elem[0].scrollHeight) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-
-
                 }
             });
         }
 
+        // Scrool la fênetre d'affichage des messages au début du dernier message posté.
         function scrollToLastMessage() {
             var height = 0;
             var lastHeight = 0;
