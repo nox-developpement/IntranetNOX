@@ -9,7 +9,7 @@
     <div style='width: 70%; margin: auto; border: 1px solid #1F4E79; height: 70%; margin-bottom: 5%; font-size: 0;'>
         <div id='propositionEchangesAffichageMessages'>
             {% for echange in echanges %}
-                <div class='propositionEchangesMessage {% if echange.sender == app.user.username %}propositionEchangesMessageTo{% else %}propositionEchangesMessageFrom{% endif %}' {% if loop.last %}id="echangesLastMessage"{% endif %}>
+                <div class='propositionEchangesMessage {% if echange.sender == app.user.username %}propositionEchangesMessageTo{% else %}propositionEchangesMessageFrom{% endif %}' {% if loop.last %}id="echangesLastMessage"{% endif %} postdate='{{ echange.postDate|date('d/m/Y H:i:s') }}' postId='{{ echange.Id }}'>
                     <span style='display: inline-block; vertical-align: middle; height: 100%;'></span>
                     <div>
                         <p>
@@ -34,10 +34,18 @@
     <script>
 
         $(window).load(function () {
-            // On scroll jusqu'au dernier message.
-            location.href = "#echangesLastMessage";
+            scrollToLastMessage(); // Scroll jusqu'au dernier message.
+            receptMessage(); // On débute la récéption des nouveaux messages.
+            // Permet d'envoyer un message en appuyant sur 'Entrer'.
+            $('#propositionEchangesEcritureMessagesTextArea').keydown(function (e) {
+                if (e.which == 13) {
+                    $('#propositionEchangesEcritureMessagesSubmitButton').click();
+                    return false;
+                }
+            });
         });
 
+        // Affiche les nouveaux message et les sauvegarde en base de données.
         function sendMessage() {
             var message = $.trim($('#propositionEchangesEcritureMessagesTextArea').text()); // On récupére le texte de la zone d'écriture en effacent les espaces avant et après le texte.
 
@@ -54,20 +62,14 @@
                     type: 'POST',
                     data: {'cleDemande': '{{ cleDemande }}', 'da2': '{{ da2 }}', 'message': message, 'sender': '{{ app.user.username }}'},
                     success: function () {
+                        // On suprime l'id du dernier message.
+                        $('#echangesLastMessage').removeAttr('id');
 
                         // On récupére la date et l'heure courante.
                         var currentDate = new Date();
-                        var day = currentDate.getDate();
-                        if (day < 10) {
-                            day = '0' + day;
-                        }
-                        var month = currentDate.getMonth() + 1;
-                        if (month < 10) {
-                            month = '0' + month;
-                        }
                         var stringDate = ((currentDate.getDate() < 10) ? '0' + currentDate.getDate() : currentDate.getDate()) + '/' + ((currentDate.getMonth() < 10) ? '0' + currentDate.getMonth() : currentDate.getMonth()) + '/' + currentDate.getFullYear() + ' à ' + ((currentDate.getHours() < 10) ? '0' + currentDate.getHours() : currentDate.getHours()) + ':' + ((currentDate.getMinutes() < 10) ? '0' + currentDate.getMinutes() : currentDate.getMinutes()) + ':' + ((currentDate.getSeconds() < 10) ? '0' + currentDate.getSeconds() : currentDate.getSeconds());
                         // On génére le code HTML du nouveau message et on le fait apparaître.
-                        var newMessage = "<div class='propositionEchangesMessage propositionEchangesMessageTo'>";
+                        var newMessage = "<div id='echangesLastMessage' class='propositionEchangesMessage propositionEchangesMessageTo'>";
                         newMessage += "<span style='display: inline-block; vertical-align: middle; height: 100%;'></span>";
                         newMessage += "<div>";
                         newMessage += "<p>" + message + "</p>";
@@ -78,7 +80,7 @@
                         $('#propositionEchangesAffichageMessages').append(newMessage);
 
                         // On scroll jusqu'au haut du message.
-                        location.href = "#echangesLastMessage";
+                        scrollToLastMessage();
 
                         // On redonne les propriété d'origine à la zone d'écriture et au bouton d'envoie.
                         $('#propositionEchangesEcritureMessagesTextArea').text(''); // On efface le texte de la zone d'écriture.
@@ -95,6 +97,79 @@
             else {
                 $('#propositionEchangesEcritureMessagesTextArea').text('');
             }
+        }
+
+        // Recoi les nouveaux messages.
+        function receptMessage() {
+            $.ajax({
+                url: '{{ path('nox_intranet_demande_prestation_proposition_echanges_message_ajax_receive') }}',
+                type: 'POST',
+                data: {'cleDemande': '{{cleDemande}}', 'da2': '{{da2}}'},
+                success: function (Response) {
+
+                    var nbMessage = $('#propositionEchangesAffichageMessages .propositionEchangesMessage').length;
+
+                    // Pour chaque messages.
+                    var newMessage = '';
+                    $.each(Response, function (index, value) {
+                        // On génera la date du message sous forme de chaine de charactère.
+                        var currentDate = new Date(value.postDate.date);
+                        var stringDate = ((currentDate.getDate() < 10) ? '0' + currentDate.getDate() : currentDate.getDate()) + '/' + ((currentDate.getMonth() < 10) ? '0' + currentDate.getMonth() : currentDate.getMonth()) + '/' + currentDate.getFullYear() + ' à ' + ((currentDate.getHours() < 10) ? '0' + currentDate.getHours() : currentDate.getHours()) + ':' + ((currentDate.getMinutes() < 10) ? '0' + currentDate.getMinutes() : currentDate.getMinutes()) + ':' + ((currentDate.getSeconds() < 10) ? '0' + currentDate.getSeconds() : currentDate.getSeconds());
+
+                        // On génére le code HTML du nouveau message.
+                        newMessage += "<div " + ((Response.length - 1 === index) ? "id='echangesLastMessage'" : '') + " class='propositionEchangesMessage " + ((value.sender === '{{ app.user.username }}') ? 'propositionEchangesMessageTo' : 'propositionEchangesMessageFrom') + "'>";
+                        newMessage += "<span style='display: inline-block; vertical-align: middle; height: 100%;'></span>";
+                        newMessage += "<div>";
+                        newMessage += "<p>" + value.message + "</p>";
+                        newMessage += "<hr>";
+                        newMessage += "<time datetime='" + stringDate + "'>Posté le : " + stringDate + "</time>";
+                        newMessage += "</div>";
+                        newMessage += "</div><br />";
+                    });
+
+                    // On vérifie si la barre de scollingest en bas.
+                    var toBottom = scrollBottom('#propositionEchangesAffichageMessages');
+
+                    // On supprime les messages déjà existants.
+                    $('#propositionEchangesAffichageMessages').contents().remove();
+
+                    // On fait apparaitre les nouveaux messages.
+                    $('#propositionEchangesAffichageMessages').append(newMessage);
+
+                    // Si la barre de scrolling était en bas avant la maj des messages, on scroll jusqu'au haut du dernier message.                   
+                    if ($('#propositionEchangesAffichageMessages .propositionEchangesMessage').length > nbMessage) {
+                        scrollToLastMessage();
+                    }
+
+                    // On rapelle la fonction.
+                    receptMessage();
+
+                    function scrollBottom(element) {
+                        var elem = $(element);
+                        if (elem.scrollTop() + elem.innerHeight() >= elem[0].scrollHeight) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+
+
+                }
+            });
+        }
+
+        function scrollToLastMessage() {
+            var height = 0;
+            var lastHeight = 0;
+            $('#propositionEchangesAffichageMessages .propositionEchangesMessage').each(function () {
+                height += parseInt($(this).height());
+                lastHeight = parseInt($(this).height());
+            });
+
+            height = height - lastHeight;
+            height += '';
+
+            $('#propositionEchangesAffichageMessages').animate({scrollTop: height}, 1000);
         }
     </script>
 

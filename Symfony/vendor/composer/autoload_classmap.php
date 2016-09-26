@@ -1806,6 +1806,7 @@ return array(
     'NoxIntranet\\RessourcesBundle\\Controller\\AssistantAffaire\\SuiviEnCoursController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/AssistantAffaire/SuiviEnCoursController.php',
     'NoxIntranet\\RessourcesBundle\\Controller\\AssistantAffaire\\SuiviTermineController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/AssistantAffaire/SuiviTermineController.php',
     'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/ExcelReadingController.php',
+    'NoxIntranet\\RessourcesBundle\\Controller\\PrestationsInternes\\PrestationsInternesAjaxController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/PrestationsInternes/PrestationsInternesAjaxController.php',
     'NoxIntranet\\RessourcesBundle\\Controller\\PrestationsInternes\\PrestationsInternesController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/PrestationsInternes/PrestationsInternesController.php',
     'NoxIntranet\\RessourcesBundle\\Controller\\RecrutementController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/Recrutement/RecrutementController.php',
     'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/RessourcesController.php',

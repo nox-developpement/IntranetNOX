@@ -2231,6 +2231,7 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'NoxIntranet\\RessourcesBundle\\Controller\\AssistantAffaire\\SuiviEnCoursController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/AssistantAffaire/SuiviEnCoursController.php',
         'NoxIntranet\\RessourcesBundle\\Controller\\AssistantAffaire\\SuiviTermineController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/AssistantAffaire/SuiviTermineController.php',
         'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/ExcelReadingController.php',
+        'NoxIntranet\\RessourcesBundle\\Controller\\PrestationsInternes\\PrestationsInternesAjaxController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/PrestationsInternes/PrestationsInternesAjaxController.php',
         'NoxIntranet\\RessourcesBundle\\Controller\\PrestationsInternes\\PrestationsInternesController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/PrestationsInternes/PrestationsInternesController.php',
         'NoxIntranet\\RessourcesBundle\\Controller\\RecrutementController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/Recrutement/RecrutementController.php',
         'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/RessourcesController.php',

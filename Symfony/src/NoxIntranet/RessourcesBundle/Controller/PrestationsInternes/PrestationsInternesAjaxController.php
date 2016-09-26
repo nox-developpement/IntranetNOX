@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use NoxIntranet\RessourcesBundle\Entity\Proposition_Echanges;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PrestationsInternesAjaxController extends Controller {
 
@@ -124,6 +125,27 @@ class PrestationsInternesAjaxController extends Controller {
             $em->flush();
 
             return new Response('Saved');
+        }
+    }
+
+    public function ajaxGetMessageAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupére les variables de la requête.
+            $cleDemande = $request->get('cleDemande');
+            $da2 = $request->get('da2');
+
+            // On récupére les messages.
+            $messagesRepository = $this->getDoctrine()->getRepository('NoxIntranetRessourcesBundle:Proposition_Echanges');
+
+            $newMessages = $messagesRepository->createQueryBuilder('p')
+                    ->where('p.cleDemande LIKE :cleDemande')
+                    ->andWhere('p.da2 LIKE :da2')
+                    ->setParameters(array('cleDemande' => $cleDemande, 'da2' => $da2))
+                    ->getQuery()
+                    ->getArrayResult();
+
+            // On retourne les messages.
+            return new JsonResponse($newMessages);
         }
     }
 

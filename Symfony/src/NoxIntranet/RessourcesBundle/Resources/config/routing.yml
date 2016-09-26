@@ -219,3 +219,7 @@ nox_intranet_demande_prestation_proposition_echanges:
 nox_intranet_demande_prestation_proposition_echanges_message_ajax_saving:
     path: /ressources/demande-prestation-proposition-echanges-message-ajax-saving
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveMessage }
+    
+nox_intranet_demande_prestation_proposition_echanges_message_ajax_receive:
+    path: /ressources/demande-prestation-proposition-echanges-message-ajax-receive
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxGetMessage }
