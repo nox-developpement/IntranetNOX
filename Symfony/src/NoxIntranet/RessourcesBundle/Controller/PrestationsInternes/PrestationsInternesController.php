@@ -317,6 +317,7 @@ class PrestationsInternesController extends Controller {
         // Si la demande est accepté par le DA2.
         if ($reponse === 'valider') {
             $demande->setStatus('Demande acceptée');
+            $demande->setDA2Answer('Acceptée par le DA2');
             $em->flush();
 
             // On vérifie s'il existe encore des demandes sans réponses des DA2.
@@ -344,6 +345,7 @@ class PrestationsInternesController extends Controller {
         // Si la demande est refusé par le DA2.
         if ($reponse === 'refuser') {
             $demande->setStatus('Demande refusée');
+            $demande->setDA2Answer('Refusée par le DA2');
             //$em->remove($demande); // On supprime la demande au DA2
             $em->flush();
 
@@ -672,7 +674,9 @@ class PrestationsInternesController extends Controller {
             'Validé par le DA1' => array('message' => 'Proposition validée par le DA émetteur', 'color' => 'LimeGreen', 'status' => 'success'),
             'Refusé par le DA1' => array('message' => 'Proposition refusée par le DA émetteur', 'color' => 'red', 'status' => 'fail'),
             'Propositions acceptée DA1' => array('message' => 'Une ou plusieurs proposition(s) a/ont été acceptée(s) par le DA émetteur', 'color' => 'LimeGreen', 'status' => 'success'),
-            'Propositions refusée DA1' => array('message' => "Aucune proposition n'a été retenue par le DA émetteur", 'color' => 'red', 'status' => 'fail')
+            'Propositions refusée DA1' => array('message' => "Aucune proposition n'a été retenue par le DA émetteur", 'color' => 'red', 'status' => 'fail'),
+            'Acceptée par le DA2' => array('message' => "La demande de proposition à été acceptée par le DA destinataire.", 'color' => 'LimeGreen', 'status' => 'success'),
+            'Refuséee par le DA2' => array('message' => "La demande de proposition à été refusée par le DA destinataire.", 'color' => 'red', 'status' => 'fail')
         );
 
         // On récupère les propositions et on les place dans un tableau avec pour clé leur valeur de cleDemande.

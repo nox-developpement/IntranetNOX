@@ -1,0 +1,33 @@
+<style>
+    table, tr, td, th {
+        border: 1px solid black;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th {
+        background-color: lightgrey;
+    }
+
+    th, td {
+        padding: 0.5%;
+    }
+</style>
+
+Bonjour {{ receiver == 'DA1' ? DA1.Firstname ~ ' ' ~ DA1.Lastname : DA2.Firstname ~ ' ' ~ DA2.Lastname }},
+<br />
+Vous avez reçu un nouveau message de {{ receiver == 'DA2' ? DA1.Firstname ~ ' ' ~ DA1.Lastname : DA2.Firstname ~ ' ' ~ DA2.Lastname }} concernant la proposition de prestation interne de la demande {{ demande.Libelle }}.
+<br />
+<br />
+<table>
+    <tr>
+        <th>Message</th>
+    </tr>
+    <tr>
+        <td>{{ message }}</td>
+    </tr>
+</table>
+<br />
+Vous pouvez répondre à ce message en <a href='{{ lienEchanges }}'>cliquant-ici</a>.

@@ -43,6 +43,13 @@ class PropositionPrestation {
     private $status;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="DA2Answer", type="string", length=255)
+     */
+    private $dA2Answer;
+
+    /**
      * @var text
      *
      * @ORM\Column(name="Echanges", type="text", nullable=true)
@@ -126,6 +133,7 @@ class PropositionPrestation {
 
     public function __construct() {
         $this->setStatus("Attente validation DA2");
+        $this->setDA2Answer("Attente validation DA2");
     }
 
     /**
@@ -150,4 +158,28 @@ class PropositionPrestation {
         return $this->echanges;
     }
 
+
+    /**
+     * Set dA2Answer
+     *
+     * @param string $dA2Answer
+     *
+     * @return PropositionPrestation
+     */
+    public function setDA2Answer($dA2Answer)
+    {
+        $this->dA2Answer = $dA2Answer;
+    
+        return $this;
+    }
+
+    /**
+     * Get dA2Answer
+     *
+     * @return string
+     */
+    public function getDA2Answer()
+    {
+        return $this->dA2Answer;
+    }
 }

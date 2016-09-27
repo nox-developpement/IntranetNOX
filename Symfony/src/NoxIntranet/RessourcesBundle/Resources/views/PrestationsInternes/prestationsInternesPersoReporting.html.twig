@@ -58,18 +58,23 @@
     <table id='tablePrestationsInternesReporting'>
 
         <tr>
-            <th rowspan='2'>Libellé</th>
-            <th rowspan='2'>Demandeur</th>
-            <th rowspan='2'>DA émetteur</th>
-            <th rowspan='2'>Status</th>
-            <th colspan='4'>Propositions</th>
+            <th rowspan='3'>Libellé</th>
+            <th rowspan='3'>Demandeur</th>
+            <th rowspan='3'>DA émetteur</th>
+            <th rowspan='3'>Status</th>
+            <th colspan='5'>Propositions</th>
         </tr>
 
         <tr>
-            <th>DA destinataire</th>
-            <th>Status</th>
-            <th>Echange</th>
-            <th>Details</th>
+            <th rowspan='2'>DA destinataire</th>
+            <th colspan='2'>Status</th>
+            <th rowspan='2'>Echange</th>
+            <th rowspan='2'>Details</th>
+        </tr>
+
+        <tr>
+            <th>Réponse DA émétteur</th>
+            <th>Réponse DA destinataire</th>
         </tr>
 
         {% if demandes[page] is defined and demandes[page] != null %}
@@ -82,9 +87,11 @@
                     {% if propositions[demande.CleDemande] is defined %}
                         <td>{{ users[propositions[demande.CleDemande]|first.DA2].Firstname }} {{ users[propositions[demande.CleDemande]|first.DA2].Lastname }}</td>
                         <td {% if status[propositions[demande.CleDemande]|first.Status] is defined %}style='background-color: {{ status[propositions[demande.CleDemande]|first.Status].color }}; color: white;'{% endif %}>{% if status[propositions[demande.CleDemande]|first.Status] is defined %}{{ status[propositions[demande.CleDemande]|first.Status].message }}{% else %}&nbsp;{% endif %}</td>
+                        <td {% if status[propositions[demande.CleDemande]|first.DA2Answer] is defined %}style='background-color: {{ status[propositions[demande.CleDemande]|first.DA2Answer].color }}; color: white;'{% endif %}>{% if status[propositions[demande.CleDemande]|first.DA2Answer] is defined %}{{ status[propositions[demande.CleDemande]|first.DA2Answer].message }}{% else %}&nbsp;{% endif %}</td>
                         <td {% if propositions[demande.CleDemande]|first.Echanges == null %}style='background-color: lightgrey;'{% endif %} class='prestationInterneEchange' title='{{ propositions[demande.CleDemande]|first.Echanges }}'>{% if propositions[demande.CleDemande]|first.Echanges != null %}{{ propositions[demande.CleDemande]|first.Echanges }}{% else %}&nbsp;{% endif %}</td>
                         <td rowspan='{{ propositions[demande.CleDemande]|length }}'><a href='{{ path('nox_intranet_demande_prestation_summary', {'cleDemande': demande.CleDemande}) }}'><img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' class='prestationsInternesReportingGoToDetailsImg'></a></td>
                             {% else %}
+                        <td style='background-color: lightgrey;'>&nbsp;</td>
                         <td style='background-color: lightgrey;'>&nbsp;</td>
                         <td style='background-color: lightgrey;'>&nbsp;</td>
                         <td style='background-color: lightgrey;'>&nbsp;</td>
@@ -97,6 +104,7 @@
                         <tr>
                             <td>{{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}</td>
                             <td {% if status[proposition.Status] is defined %}style='background-color: {{ status[proposition.Status].color }}; color: white;'{% endif %}>{% if status[proposition.Status] is defined %}{{ status[proposition.Status].message }}{% else %}&nbsp;{% endif %}</td>
+                            <td {% if status[proposition.Status] is defined %}style='background-color: {{ status[proposition.Status].color }}; color: white;'{% endif %}>{% if status[proposition.Status] is defined %}{{ status[proposition.Status].message }}{% else %}&nbsp;{% endif %}</td>
                             <td {% if proposition.Echanges == null %}style='background-color: lightgrey;'{% endif %} class='prestationInterneEchange' title='{{ proposition.Echanges }}'>{% if proposition.Echanges != null %}{{ proposition.Echanges }}{% else %}&nbsp;{% endif %}</td>
                         </tr>
                     {% endfor %}
@@ -108,6 +116,7 @@
                     background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
                     background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
                     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */">
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

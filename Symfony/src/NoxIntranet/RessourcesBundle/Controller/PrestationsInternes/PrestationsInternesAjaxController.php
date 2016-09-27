@@ -124,19 +124,29 @@ class PrestationsInternesAjaxController extends Controller {
             $em->persist($echange);
             $em->flush();
 
+            // On récupére la demande correspondante et on en déduit l'email du destinataire du message.
+            $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
+            $da1Entity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($demande->getDa1());
+            $da2Entity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($da2);
+            $emailReceiver = (($da2 === $sender) ? $demande->getDa1() : $da2) . '@groupe-nox.com';
+            $lienEchanges = $this->generateUrl('nox_intranet_demande_prestation_proposition_echanges', array('cleDemande' => $cleDemande, 'da2' => $da2), true);
+
+            // On envoi un mail au destinatire pour le prévenir qu'un message est disponible.
+            $this->sendNewMessageEmail($emailReceiver, $message, $da1Entity, $da2Entity, ($da2 === $sender) ? 'DA1' : 'DA2', $demande, $lienEchanges);
+
             return new Response('Saved');
         }
     }
 
+    // Récupére les messages en fonction de la proposition.
     public function ajaxGetMessageAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // On récupére les variables de la requête.
             $cleDemande = $request->get('cleDemande');
             $da2 = $request->get('da2');
 
-            // On récupére les messages.
+            // On récupére les messages sous forme de tableau.
             $messagesRepository = $this->getDoctrine()->getRepository('NoxIntranetRessourcesBundle:Proposition_Echanges');
-
             $newMessages = $messagesRepository->createQueryBuilder('p')
                     ->where('p.cleDemande LIKE :cleDemande')
                     ->andWhere('p.da2 LIKE :da2')
@@ -147,6 +157,21 @@ class PrestationsInternesAjaxController extends Controller {
             // On retourne les messages.
             return new JsonResponse($newMessages);
         }
+    }
+
+    // Envoi un mail au destinataire du nouveau message.
+    private function sendNewMessageEmail($email, $messageContent, $da1, $da2, $receiver, $demande, $lienEchanges) {
+        $message = \Swift_Message::newInstance()
+                ->setSubject('Nouvel échange de proposition')
+                ->setFrom('noreply@groupe-nox.com')
+                ->setTo($email)
+                ->setBody(
+                $this->renderView(
+                        'Emails/PrestationInterne/newPropositionExchange.html.twig', array('message' => $messageContent, 'DA1' => $da1, 'DA2' => $da2, 'receiver' => $receiver, 'demande' => $demande, 'lienEchanges' => $lienEchanges)
+                ), 'text/html'
+                )
+        ;
+        $this->get('mailer')->send($message);
     }
 
 }

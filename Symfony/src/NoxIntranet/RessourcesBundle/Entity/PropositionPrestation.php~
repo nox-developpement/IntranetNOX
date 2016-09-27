@@ -43,6 +43,13 @@ class PropositionPrestation {
     private $status;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="DA2Answer", type="string", length=255)
+     */
+    private $dA2Answer;
+
+    /**
      * @var text
      *
      * @ORM\Column(name="Echanges", type="text", nullable=true)
