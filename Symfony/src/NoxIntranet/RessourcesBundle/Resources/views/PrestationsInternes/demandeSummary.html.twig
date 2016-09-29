@@ -178,7 +178,7 @@
                     </td>
                     {% if app.security.getToken().getUser().getUsername() == demande.DA1 and loop.first %}
                         <td rowspan='{{ propositions|length*2 }}'>
-                            <a href='{{ path('nox_intranet_gestion_proposition', {'cleDemande': proposition.cleDemande}) }}'><img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' style='vertical-align: middle; width: 30%; cursor: pointer;'></a>
+                            <a href='{{ path('nox_intranet_gestion_proposition', {'cleDemande': proposition.cleDemande}) }}'><img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' style='vertical-align: middle; width: 1.5vw; cursor: pointer;'></a>
                         </td>
                     {% endif %}
                 </tr>

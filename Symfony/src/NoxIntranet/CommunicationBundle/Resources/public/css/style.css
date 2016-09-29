@@ -3806,7 +3806,7 @@ form[name='formValidationRefus'] textarea {
 
 .demandeSummmaryPropositionsToggleEchanges img {
     vertical-align: middle;
-    width: 30%;
+    width: 1.5vw;
     cursor: pointer;
 }
 
@@ -3834,7 +3834,7 @@ form[name='formValidationRefus'] textarea {
 
 .prestationsInternesReportingGoToDetailsImg {
     vertical-align: middle;
-    width: 70%;
+    width: 1.5vw;
 }
 
 .prestationsInternesReportingGoToDetailsImg:hover {

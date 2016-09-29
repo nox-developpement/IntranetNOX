@@ -204,6 +204,10 @@ nox_intranet_demande_prestation_perso_reporting:
     path: /ressources/demande-prestation-perso-reporting/{orderTime}/{trieStatus}/{page}
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesPersoReporting, search: '', trieStatus: 'tous', page: 0, orderTime: 'desc' }
     
+nox_intranet_propositions_reporting:
+    path: /ressources/propositions-perso-reporting/{orderTime}/{page}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:propositionsPersoReporting, search: '', page: 0, orderTime: 'desc' }
+    
 nox_intranet_prestations_internes:
     path: /ressources/prestations-internes
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesAccueil }

@@ -1,16 +1,16 @@
 {% extends "::layout.html.twig" %}
 
-{% block titrePage %} Status de mes demandes/propositions {% endblock %}
+{% block titrePage %} Status de mes demandes {% endblock %}
 
-{% block messageAccueil %}Status de mes demandes/propositions{% endblock %}
+{% block messageAccueil %}Status de mes demandes{% endblock %}
 
 {% block contenu %}
 
     <div style='text-align: center;'>
         <p style='text-align: center; margin: auto; margin-bottom: 1%; display: inline-block; padding: 0.5% 0.5% 0.5% 0.5%; background-color: rgba(255,255,255,0.5); border: 1px solid; font-size: 0.8vw;'>
             <span style='color: orange;'>Orange = En cours de traitement.</span><br />
-            <span style='color: limegreen;'>Vert = Demande/Proposition terminée avec succés.</span><br />
-            <span style='color: red;'>Rouge = Demande/Proposition terminée sans succés.</span>
+            <span style='color: limegreen;'>Vert = Terminée avec succés.</span><br />
+            <span style='color: red;'>Rouge = Terminée sans succés.</span>
         </p>
     </div>
 
@@ -53,7 +53,6 @@
             </div>
         </div>
     </div>
-
 
     <table id='tablePrestationsInternesReporting'>
 
@@ -104,7 +103,7 @@
                         <tr>
                             <td>{{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}</td>
                             <td {% if status[proposition.Status] is defined %}style='background-color: {{ status[proposition.Status].color }}; color: white;'{% endif %}>{% if status[proposition.Status] is defined %}{{ status[proposition.Status].message }}{% else %}&nbsp;{% endif %}</td>
-                            <td {% if status[proposition.Status] is defined %}style='background-color: {{ status[proposition.Status].color }}; color: white;'{% endif %}>{% if status[proposition.Status] is defined %}{{ status[proposition.Status].message }}{% else %}&nbsp;{% endif %}</td>
+                            <td {% if status[proposition.DA2Answer] is defined %}style='background-color: {{ status[proposition.DA2Answer].color }}; color: white;'{% endif %}>{% if status[proposition.DA2Answer] is defined %}{{ status[proposition.DA2Answer].message }}{% else %}&nbsp;{% endif %}</td>
                             <td {% if proposition.Echanges == null %}style='background-color: lightgrey;'{% endif %} class='prestationInterneEchange' title='{{ proposition.Echanges }}'>{% if proposition.Echanges != null %}{{ proposition.Echanges }}{% else %}&nbsp;{% endif %}</td>
                         </tr>
                     {% endfor %}
@@ -128,12 +127,9 @@
                 </tr>
             {% endfor %}
         {% else %}
-            <tr><td colspan='8'>Il n'y a aucun résultat à afficher.</td></tr>
+            <tr><td colspan='9'>Il n'y a aucun résultat à afficher.</td></tr>
         {% endif %}
-
     </table>
-
-
 
     <div class='prestationReportingNavigation'>
         <div class='prestationReportingPagination'>
