@@ -131,11 +131,6 @@ class PropositionPrestation {
         return $this->status;
     }
 
-    public function __construct() {
-        $this->setStatus("Attente validation DA2");
-        $this->setDA2Answer("Attente validation DA2");
-    }
-
     /**
      * Set echanges
      *
@@ -158,7 +153,6 @@ class PropositionPrestation {
         return $this->echanges;
     }
 
-
     /**
      * Set dA2Answer
      *
@@ -166,10 +160,9 @@ class PropositionPrestation {
      *
      * @return PropositionPrestation
      */
-    public function setDA2Answer($dA2Answer)
-    {
+    public function setDA2Answer($dA2Answer) {
         $this->dA2Answer = $dA2Answer;
-    
+
         return $this;
     }
 
@@ -178,8 +171,13 @@ class PropositionPrestation {
      *
      * @return string
      */
-    public function getDA2Answer()
-    {
+    public function getDA2Answer() {
         return $this->dA2Answer;
     }
+
+    public function __construct() {
+        $this->setStatus("Attente validation DA2");
+        $this->setDA2Answer("Attende de réponse DA2");
+    }
+
 }

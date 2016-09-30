@@ -24,15 +24,17 @@ class PrestationsInternesController extends Controller {
         'Refus DA1' => array('message' => 'Demande refusée par le DA émetteur', 'color' => 'red', 'status' => 'fail'),
         'Attente validation DA2' => array('message' => 'En attente de la réponse du DA destinataire', 'color' => 'orange', 'status' => 'process'),
         'Réponses DA2' => array('message' => 'Tous les DA destinataire ont répondus, en attente de réponses du DA émetteur aux propositions', 'color' => 'orange', 'status' => 'process'),
-        'Demande acceptée' => array('message' => 'Le DA destinataire a accepté la demande', 'color' => 'orange', 'status' => 'process'),
-        'Demande refusée' => array('message' => 'Le DA destinataire a refusée la demande', 'color' => 'red', 'status' => 'fail'),
+        'Demande acceptée' => array('message' => 'Le DA destinataire a accepté la demande, en attente de la réponse du DA émetteur', 'color' => 'orange', 'status' => 'process'),
+        'Demande refusée' => array('message' => '', 'color' => 'LightGrey', 'status' => 'fail'),
         'Réponses DA2 refus' => array('message' => 'Tous les DA destinataire ont refusé de répondre à la demande', 'color' => 'red', 'status' => 'fail'),
         'Validé par le DA1' => array('message' => 'Proposition validée par le DA émetteur', 'color' => 'LimeGreen', 'status' => 'success'),
         'Refusé par le DA1' => array('message' => 'Proposition refusée par le DA émetteur', 'color' => 'red', 'status' => 'fail'),
         'Propositions acceptée DA1' => array('message' => 'Une ou plusieurs proposition(s) a/ont été acceptée(s) par le DA émetteur', 'color' => 'LimeGreen', 'status' => 'success'),
         'Propositions refusée DA1' => array('message' => "Aucune proposition n'a été retenue par le DA émetteur", 'color' => 'red', 'status' => 'fail'),
         'Acceptée par le DA2' => array('message' => "La demande de proposition à été acceptée par le DA destinataire.", 'color' => 'LimeGreen', 'status' => 'success'),
-        'Refuséee par le DA2' => array('message' => "La demande de proposition à été refusée par le DA destinataire.", 'color' => 'red', 'status' => 'fail')
+        'Refusée par le DA2' => array('message' => "La demande de proposition à été refusée par le DA destinataire.", 'color' => 'red', 'status' => 'fail'),
+        'Pas de Propositions disponible' => array('message' => 'Tous les DA destinataire ont refusés la demande de prestation.', 'color' => 'red', 'status' => 'fail'),
+        'Attende de réponse DA2' => array('message' => '', 'color' => 'LightGrey', 'status' => 'process')
     );
 
     // Affiche les liens vers les sections de prestations internes.
@@ -418,7 +420,7 @@ class PrestationsInternesController extends Controller {
 
         $em->flush(); // On sauvegarde la demande de prestation en base de données.
 
-        $this->ajaxCheckDemandeStatus($cleDemande);
+        $this->checkDemandeStatus($cleDemande);
     }
 
     // Affiche la liste des proposition faites par les DA2 et permet de les valider.
@@ -459,17 +461,25 @@ class PrestationsInternesController extends Controller {
     }
 
     // Modifie les status des propositions si besoin.
-    private function ajaxCheckDemandeStatus($cleDemande) {
+    private function checkDemandeStatus($cleDemande) {
         $em = $this->getDoctrine()->getManager();
         $propositionAttenteValidationDA2 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Attente validation DA2'));
         $propositionValidationDA2 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Demande acceptée'));
         $propositionAccepteDA1 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Validé par le DA1'));
+        $propositionAccepteDA2 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Acceptée par le DA2'));
         $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
 
+        // Si tous les DA2 ont répondu aux propositions et toutes les proposition accepté par les DA2 ont recu une réponse du DA1 et que des propositions ont était accepté par le DA1.
         if (empty($propositionAttenteValidationDA2) && empty($propositionValidationDA2) && !empty($propositionAccepteDA1)) {
             $demande->setStatus('Propositions acceptée DA1');
-        } elseif (empty($propositionAttenteValidationDA2) && empty($propositionValidationDA2) && empty($propositionAccepteDA1)) {
+        }
+        // Si tous les DA2 ont répondu aux propositions et toutes les proposition accepté par les DA2 ont recu une réponse du DA1 et qu'aucune des propositions ont était accepté par le DA1 et qu'il y avais des propositions accepté par les DA2.
+        elseif (empty($propositionAttenteValidationDA2) && empty($propositionValidationDA2) && empty($propositionAccepteDA1) && !empty($propositionAccepteDA2)) {
             $demande->setStatus('Propositions refusée DA1');
+        }
+        // Si tous les DA2 ont répondu aux propositions et toutes les proposition accepté par les DA2 ont recu une réponse du DA1 et qu'aucune des propositions ont était accepté par le DA1 et qu'il n'y avais pas de propositions accepté par les DA2.
+        else if (empty($propositionAttenteValidationDA2) && empty($propositionValidationDA2) && empty($propositionAccepteDA1) && empty($propositionAccepteDA2)) {
+            $demande->setStatus('Pas de Propositions disponible');
         }
 
         $em->flush();
@@ -582,7 +592,8 @@ class PrestationsInternesController extends Controller {
 
 
         return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:demandeSummary.html.twig', array('demande' => $demande, 'demandeur' => $demandeur,
-                    'status' => PrestationsInternesController::$status, 'propositions' => $propositions, 'users' => $this->getUsersByUsername(), 'DA2' => $DA2, 'redirection' => $redirection
+                    'status' => PrestationsInternesController::$status, 'propositions' => $propositions, 'users' => $this->getUsersByUsername(), 'DA2' => $DA2,
+                    'redirection' => $redirection, 'cleDemande' => $cleDemande
         ));
     }
 

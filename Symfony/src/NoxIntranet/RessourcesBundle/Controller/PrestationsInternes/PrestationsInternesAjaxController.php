@@ -10,9 +10,28 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PrestationsInternesAjaxController extends Controller {
 
+    // Tableau de correspondance des messages/styles/libelles des status des demandes/proposition.
+    private static $status = array(
+        "Chargé d'affaire" => array('message' => "Demande effectuée par le chargé d'affaire, en attente de réponse du DA émetteur", 'color' => 'orange', 'status' => 'process'),
+        'Validation DA1' => array('message' => 'Demande validée par le DA émetteur, en attente de réponse des DA destinataire', 'color' => 'orange', 'status' => 'process'),
+        'Refus DA1' => array('message' => 'Demande refusée par le DA émetteur', 'color' => 'red', 'status' => 'fail'),
+        'Attente validation DA2' => array('message' => 'En attente de la réponse du DA destinataire', 'color' => 'orange', 'status' => 'process'),
+        'Réponses DA2' => array('message' => 'Tous les DA destinataire ont répondus, en attente de réponses du DA émetteur aux propositions', 'color' => 'orange', 'status' => 'process'),
+        'Demande acceptée' => array('message' => 'Le DA destinataire a accepté la demande, en attente de la réponse du DA émetteur', 'color' => 'orange', 'status' => 'process'),
+        'Demande refusée' => array('message' => '', 'color' => 'LightGrey', 'status' => 'fail'),
+        'Réponses DA2 refus' => array('message' => 'Tous les DA destinataire ont refusé de répondre à la demande', 'color' => 'red', 'status' => 'fail'),
+        'Validé par le DA1' => array('message' => 'Proposition validée par le DA émetteur', 'color' => 'LimeGreen', 'status' => 'success'),
+        'Refusé par le DA1' => array('message' => 'Proposition refusée par le DA émetteur', 'color' => 'red', 'status' => 'fail'),
+        'Propositions acceptée DA1' => array('message' => 'Une ou plusieurs proposition(s) a/ont été acceptée(s) par le DA émetteur', 'color' => 'LimeGreen', 'status' => 'success'),
+        'Propositions refusée DA1' => array('message' => "Aucune proposition n'a été retenue par le DA émetteur", 'color' => 'red', 'status' => 'fail'),
+        'Acceptée par le DA2' => array('message' => "La demande de proposition à été acceptée par le DA destinataire.", 'color' => 'LimeGreen', 'status' => 'success'),
+        'Refusée par le DA2' => array('message' => "La demande de proposition à été refusée par le DA destinataire.", 'color' => 'red', 'status' => 'fail'),
+        'Pas de Propositions disponible' => array('message' => 'Tous les DA destinataire ont refusés la demande de prestation.', 'color' => 'red', 'status' => 'fail'),
+        'Attende de réponse DA2' => array('message' => '', 'color' => 'LightGrey', 'status' => 'process')
+    );
+
     // Sauvegarde les réponses aux propositions en base de données.
     public function ajaxSaveDA2PropositionAnswerAction(Request $request) {
-
         // On vérifie que la requette est bien une requette Ajax.
         if ($request->isXmlHttpRequest()) {
             // On récupére les variables de la requêtte.
@@ -29,16 +48,41 @@ class PrestationsInternesAjaxController extends Controller {
                 $proposition->setStatus('Validé par le DA1'); // On change le status de la proposition.
             }
             // Si le DA1 refuse la proposition.
-            else if ($answer === 'denie') {
+            else if ($answer === 'refuse') {
                 $proposition->setStatus('Refusé par le DA1'); // On change le status de la proposition.
             }
 
             $em->flush(); // On sauvegarde les changement en base de données.
 
-            $this->ajaxCheckDemandeStatus($cleDemande);
+            $this->ajaxCheckDemandeStatus($cleDemande); // On fait des modification sur le status de la demande correspondante si necessaire.
 
-            return new Response('Saved');
+            return new JsonResponse(PrestationsInternesAjaxController::$status[$proposition->getStatus()]);
         }
+    }
+
+    // Modifie les status des propositions si besoin.
+    private function ajaxCheckDemandeStatus($cleDemande) {
+        $em = $this->getDoctrine()->getManager();
+        $propositionAttenteValidationDA2 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Attente validation DA2'));
+        $propositionValidationDA2 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Demande acceptée'));
+        $propositionAccepteDA1 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Validé par le DA1'));
+        $propositionAccepteDA2 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Acceptée par le DA2'));
+        $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
+
+        // Si tous les DA2 ont répondu aux propositions et toutes les proposition accepté par les DA2 ont recu une réponse du DA1 et que des propositions ont était accepté par le DA1.
+        if (empty($propositionAttenteValidationDA2) && empty($propositionValidationDA2) && !empty($propositionAccepteDA1)) {
+            $demande->setStatus('Propositions acceptée DA1');
+        }
+        // Si tous les DA2 ont répondu aux propositions et toutes les proposition accepté par les DA2 ont recu une réponse du DA1 et qu'aucune des propositions ont était accepté par le DA1 et qu'il y avais des propositions accepté par les DA2.
+        elseif (empty($propositionAttenteValidationDA2) && empty($propositionValidationDA2) && empty($propositionAccepteDA1) && !empty($propositionAccepteDA2)) {
+            $demande->setStatus('Propositions refusée DA1');
+        }
+        // Si tous les DA2 ont répondu aux propositions et toutes les proposition accepté par les DA2 ont recu une réponse du DA1 et qu'aucune des propositions ont était accepté par le DA1 et qu'il n'y avais pas de propositions accepté par les DA2.
+        else if (empty($propositionAttenteValidationDA2) && empty($propositionValidationDA2) && empty($propositionAccepteDA1) && empty($propositionAccepteDA2)) {
+            $demande->setStatus('Pas de Propositions disponible');
+        }
+
+        $em->flush();
     }
 
     // Sauvegarde les échanges en base de données.
