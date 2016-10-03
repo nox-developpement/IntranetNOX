@@ -39,9 +39,10 @@ class PrestationsInternesAjaxController extends Controller {
             $answer = $request->get('answer');
             $cleDemande = $request->get('cleDemande');
 
-            // On récupére l'entité de la proposition.
+            // On récupére l'entité de la proposition et celle de la demande correspondante.
             $em = $this->getDoctrine()->getManager();
             $proposition = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findOneBy(array('cleDemande' => $cleDemande, 'dA2' => $username));
+            $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
 
             // Si le DA1 valide la proposition.
             if ($answer === 'validate') {
@@ -56,7 +57,7 @@ class PrestationsInternesAjaxController extends Controller {
 
             $this->ajaxCheckDemandeStatus($cleDemande); // On fait des modification sur le status de la demande correspondante si necessaire.
 
-            return new JsonResponse(PrestationsInternesAjaxController::$status[$proposition->getStatus()]);
+            return new JsonResponse(array('statusProposition' => PrestationsInternesAjaxController::$status[$proposition->getStatus()], 'statusDemande' => PrestationsInternesAjaxController::$status[$demande->getStatus()]));
         }
     }
 
@@ -66,7 +67,7 @@ class PrestationsInternesAjaxController extends Controller {
         $propositionAttenteValidationDA2 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Attente validation DA2'));
         $propositionValidationDA2 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Demande acceptée'));
         $propositionAccepteDA1 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Validé par le DA1'));
-        $propositionAccepteDA2 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'status' => 'Acceptée par le DA2'));
+        $propositionAccepteDA2 = $em->getRepository('NoxIntranetRessourcesBundle:PropositionPrestation')->findBy(array('cleDemande' => $cleDemande, 'dA2Answer' => 'Acceptée par le DA2'));
         $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
 
         // Si tous les DA2 ont répondu aux propositions et toutes les proposition accepté par les DA2 ont recu une réponse du DA1 et que des propositions ont était accepté par le DA1.

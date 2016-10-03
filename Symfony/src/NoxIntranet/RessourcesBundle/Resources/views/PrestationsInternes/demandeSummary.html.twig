@@ -151,7 +151,7 @@
         </tr>
         <tr>
             <td class='trLabel'>Status</td>
-            <td style='background: {{ status[demande.Status].color }}; color: white;'>{{ status[demande.Status].message }}</td>
+            <td style='background: {{ status[demande.Status].color }}; color: white;' id='demandeStatus'>{{ status[demande.Status].message }}</td>
         </tr>
     </table>
 
@@ -331,8 +331,12 @@
                 type: 'POST',
                 data: {'username': username, 'answer': answer, 'cleDemande': '{{ cleDemande }}'},
                 success: function (response) {
+
+                    console.log(response);
+
                     // On change le message du status de la proposition celui du nouveau status.
-                    $(element).parent('td').siblings('.propositionStatus').replaceWith("<td class='propositionStatus' style='background: " + response.color + "; color: white;'>" + response.message + "</td>");
+                    $(element).parent('td').siblings('.propositionStatus').replaceWith("<td class='propositionStatus' style='background: " + response.statusProposition.color + "; color: white;'>" + response.statusProposition.message + "</td>");
+                    $('#demandeStatus').replaceWith("<td id='demandeStatus' style='background: " + response.statusDemande.color + "; color: white;'>" + response.statusDemande.message + "</td>");
                     $("button[name='buttonedit']").show(); // On affiche le bouton de modification.
                     $("button[name='buttonvalidation']").hide(); // On cache les boutons de validation.
                     // On active/désactive les boutons de validation.            
