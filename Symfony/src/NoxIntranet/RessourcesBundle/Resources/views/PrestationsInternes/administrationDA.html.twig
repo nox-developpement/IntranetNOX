@@ -1,0 +1,73 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Administration des DA {% endblock %}
+
+{% block messageAccueil %}Administration des DA{% endblock %}
+
+{% block contenu %} 
+    <div id='prestationAdministrationDA'>
+        <div>
+            <h1>Collaborateurs</h1>
+            <div id='prestationAdministrationDACollaborateursList'>
+                {% for user in users %}
+                    <p onclick="toggleSelection(this);">
+                        {{ user.lastname }} {{ user.firstname }}
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+        <div>
+            <h1>DA</h1>
+            <div id='prestationAdministrationDADAList'>
+                {% for d in da %}
+                    <p>
+                        {{ d.lastname }} {{ d.firstname }}<br />
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        $(window).load(function () {
+            $("#prestationAdministrationDACollaborateursList p").draggable({
+                containment: "#prestationAdministrationDA",
+                helper: 'clone',
+                revert: 'invalid',
+                appendTo: 'body',
+                start: function (event, ui) {
+                    ui.helper.attr('class', 'draggableUser');
+                    ui.helper.css({
+                        width: $(this).width(),
+                        height: $(this).height(),
+                        padding: $(this).css('padding')
+                    });
+                    $(this).hide();
+
+                },
+                stop: function (event, ui) {
+                    $(this).show();
+                },
+                cursorAt: {top: 0, left: 0}
+            });
+
+            $("#prestationAdministrationDADAList").droppable({
+                accept: '.draggableUser, p',
+                drop: function () {
+                    alert('drop !');
+                }
+            });
+        });
+        function toggleSelection(element) {
+            /*if ($(element).attr('selected') !== 'selected') {
+             $(element).attr('selected', true);
+             } else {
+             $(element).attr('selected', false);
+             }*/
+            $("#prestationAdministrationDA div p[selected='selected']").removeAttr('selected');
+            $(element).attr('selected', 'selected');
+        }
+    </script>
+
+{% endblock %}

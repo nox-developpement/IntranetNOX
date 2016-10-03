@@ -4074,3 +4074,59 @@ form[name='formNewSearch'] .textarea[contenteditable=true]:empty:before {
     color: #1F4E79;
 }
 
+#prestationAdministrationDA {
+    width: 70%; 
+    font-size: 0; 
+    height: 80%; 
+    margin: auto; 
+    margin-bottom: 5%;
+}
+
+#prestationAdministrationDA > div {
+    width: 40%; 
+    height: 100%; 
+    overflow: auto;
+}
+
+#prestationAdministrationDA > div:first-child {
+    float: left;
+}
+
+#prestationAdministrationDA > div:last-child {
+    float: right;
+}
+
+#prestationAdministrationDA div div {
+    border: 2px outset #1F4E79; 
+    background-color: rgba(255,255,255, 0.6); 
+    height: 90%; 
+    overflow: auto;
+}
+
+#prestationAdministrationDA h1 {
+    font-size: 0.8vw;
+    text-align: center;
+}
+
+#prestationAdministrationDA div p, .draggableUser {
+    font-size: 0.8vw; 
+    text-align: center; 
+    background-color: lightblue; 
+    margin: 1% 0 1% 0; 
+    padding: 1%;
+    cursor: pointer;
+}
+
+.draggableUser {
+    display: inline-block;
+    border: 1px solid #1F4E79; 
+    margin: 0; 
+}
+
+#prestationAdministrationDA div p:not([selected='selected']):hover {
+    background-color: lightcyan; 
+}
+
+#prestationAdministrationDA div p[selected='selected'] {
+    background-color: white; 
+}

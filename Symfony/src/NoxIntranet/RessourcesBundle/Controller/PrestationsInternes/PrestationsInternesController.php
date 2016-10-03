@@ -423,43 +423,6 @@ class PrestationsInternesController extends Controller {
         $this->checkDemandeStatus($cleDemande);
     }
 
-    // Affiche la liste des proposition faites par les DA2 et permet de les valider.
-    public function answerDA2PropositionAction(Request $request, $cleDemande) {
-
-        $em = $this->getDoctrine()->getManager();
-        $demande = $em->getRepository('NoxIntranetRessourcesBundle:RecherchePrestation')->findOneByCleDemande($cleDemande);
-
-        // Si la demande n'existe pas.
-        if (empty($demande)) {
-            $request->getSession()->getFlashBag()->add('noticeErreur', "La demande n'existe pas."); // On affiche un message d'erreur.
-            return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
-        }
-
-        // Si l'utilisateur n'est pas le DA1 associé à la demande.
-        if ($demande->getDA1() !== $this->container->get('security.context')->getToken()->getUser()->getUsername()) {
-            $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas l'autorisation de traiter cette demande."); // On affiche un message d'erreur.
-            return $this->redirectToRoute('nox_intranet_accueil'); // On redirige vers l'accueil.
-        }
-
-        // On récupére les proposition correspondantes à la clé passé en parametre et dont le status est compatible. 
-        $propositions = $em->createQueryBuilder()
-                ->select('a')
-                ->from('NoxIntranetRessourcesBundle:PropositionPrestation', 'a')
-                ->where('a.cleDemande = :cleDemande')
-                ->andWhere("a.status = 'Demande acceptée' OR a.status = 'Validé par le DA1' OR a.status = 'Refusé par le DA1'")
-                ->setParameter('cleDemande', $cleDemande)
-                ->getQuery()
-                ->getResult();
-
-        // On range les DA2 dans un tableau.
-        $DA2 = array();
-        foreach ($propositions as $proposition) {
-            $DA2[$proposition->getDA2()] = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($proposition->getDA2());
-        }
-
-        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:answerDA2Proposition.html.twig', array('propositions' => $propositions, 'DA2' => $DA2, 'cleDemande' => $cleDemande));
-    }
-
     // Modifie les status des propositions si besoin.
     private function checkDemandeStatus($cleDemande) {
         $em = $this->getDoctrine()->getManager();
@@ -586,8 +549,7 @@ class PrestationsInternesController extends Controller {
 
         $redirection = array(
             "Chargé d'affaire" => array('route' => 'nox_intranet_validation_da1', 'message' => 'Vous devez répondre à cette demande, merci de cliquer ici.'),
-            'Attente validation DA2' => array('route' => 'nox_intranet_reponse_da2'),
-            'Réponses DA2' => array('nox_intranet_gestion_proposition', 'Vous avez des propositions en attente de traitement.'),
+            'Attente validation DA2' => array('route' => 'nox_intranet_reponse_da2')
         );
 
 
@@ -776,6 +738,23 @@ class PrestationsInternesController extends Controller {
         $echanges = $em->getRepository('NoxIntranetRessourcesBundle:Proposition_Echanges')->findBy(array('cleDemande' => $cleDemande, 'da2' => $da2), array('postDate' => 'ASC'));
 
         return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:propositionEchanges.html.twig', array('cleDemande' => $cleDemande, 'da2' => $da2, 'echanges' => $echanges));
+    }
+
+    public function administrationDAAction() {
+
+        // On récupére la liste des DA.
+        $em = $this->getDoctrine()->getManager();
+        $da = $em->getRepository('NoxIntranetRessourcesBundle:PrestationDA')->findBy(array(), array('lastname' => 'ASC', 'firstname' => 'ASC'));
+
+        // On récupére la liste de tous les collaborateurs dans l'ordre alphabétique moins les da.
+        $users = $em->getRepository('NoxIntranetUserBundle:User')->findBy(array(), array('lastname' => 'ASC', 'firstname' => 'ASC'));
+        foreach ($users as $key => $user) {
+            if (in_array($user->getUsername(), $da)) {
+                unset($users[$key]);
+            }
+        }
+
+        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:administrationDA.html.twig', array('users' => $users, 'da' => $da));
     }
 
 }

@@ -180,10 +180,6 @@ nox_intranet_reponse_da2:
     path: /ressources/reponse-da2/{cleDemande}/{reponse}
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:DA2answer }
     
-nox_intranet_gestion_proposition:
-    path: /ressources/gestion-proposition/{cleDemande}
-    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:answerDA2Proposition }
-    
 nox_intranet_ajax_save_proposition_da1_answer:
     path: /ressources/gestion-proposition-ajax-save-proposition-da1-answer
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveDA2PropositionAnswer }
@@ -227,3 +223,7 @@ nox_intranet_demande_prestation_proposition_echanges_message_ajax_saving:
 nox_intranet_demande_prestation_proposition_echanges_message_ajax_receive:
     path: /ressources/demande-prestation-proposition-echanges-message-ajax-receive
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxGetMessage }
+    
+nox_intranet_prestation_administration_da:
+    path: /ressources/prestation-administration-da
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:administrationDA }
