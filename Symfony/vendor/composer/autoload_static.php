@@ -2245,6 +2245,8 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'NoxIntranet\\RessourcesBundle\\Entity\\AA_ContactRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/AA_ContactRepository.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\DonneesSuivi' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/DonneesSuivi.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\DonneesSuiviRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/DonneesSuiviRepository.php',
+        'NoxIntranet\\RessourcesBundle\\Entity\\PrestationDA' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/PrestationDA.php',
+        'NoxIntranet\\RessourcesBundle\\Entity\\PrestationDARepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/PrestationDARepository.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\Profils' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/Profils.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\ProfilsRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/ProfilsRepository.php',
         'NoxIntranet\\RessourcesBundle\\Entity\\PropositionPrestation' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Entity/PropositionPrestation.php',

@@ -1820,6 +1820,8 @@ return array(
     'NoxIntranet\\RessourcesBundle\\Entity\\AA_ContactRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/AA_ContactRepository.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\DonneesSuivi' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/DonneesSuivi.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\DonneesSuiviRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/DonneesSuiviRepository.php',
+    'NoxIntranet\\RessourcesBundle\\Entity\\PrestationDA' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/PrestationDA.php',
+    'NoxIntranet\\RessourcesBundle\\Entity\\PrestationDARepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/PrestationDARepository.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\Profils' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/Profils.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\ProfilsRepository' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/ProfilsRepository.php',
     'NoxIntranet\\RessourcesBundle\\Entity\\PropositionPrestation' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Entity/PropositionPrestation.php',

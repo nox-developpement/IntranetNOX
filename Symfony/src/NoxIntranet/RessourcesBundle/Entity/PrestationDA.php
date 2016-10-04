@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="NoxIntranet\RessourcesBundle\Entity\PrestationDARepository")
  */
-class PrestationDA
-{
+class PrestationDA {
+
     /**
      * @var integer
      *
@@ -24,32 +24,30 @@ class PrestationDA
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255)
+     * @ORM\Column(name="username", type="string", length=255, nullable=true)
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Firstname", type="string", length=255)
+     * @ORM\Column(name="Firstname", type="string", length=255, nullable=true)
      */
     private $firstname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Lastname", type="string", length=255)
+     * @ORM\Column(name="Lastname", type="string", length=255, nullable=true)
      */
     private $lastname;
-
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -60,10 +58,9 @@ class PrestationDA
      *
      * @return PrestationDA
      */
-    public function setUsername($username)
-    {
+    public function setUsername($username) {
         $this->username = $username;
-    
+
         return $this;
     }
 
@@ -72,8 +69,7 @@ class PrestationDA
      *
      * @return string
      */
-    public function getUsername()
-    {
+    public function getUsername() {
         return $this->username;
     }
 
@@ -84,10 +80,9 @@ class PrestationDA
      *
      * @return PrestationDA
      */
-    public function setFirstname($firstname)
-    {
+    public function setFirstname($firstname) {
         $this->firstname = $firstname;
-    
+
         return $this;
     }
 
@@ -96,8 +91,7 @@ class PrestationDA
      *
      * @return string
      */
-    public function getFirstname()
-    {
+    public function getFirstname() {
         return $this->firstname;
     }
 
@@ -108,10 +102,9 @@ class PrestationDA
      *
      * @return PrestationDA
      */
-    public function setLastname($lastname)
-    {
+    public function setLastname($lastname) {
         $this->lastname = $lastname;
-    
+
         return $this;
     }
 
@@ -120,9 +113,8 @@ class PrestationDA
      *
      * @return string
      */
-    public function getLastname()
-    {
+    public function getLastname() {
         return $this->lastname;
     }
-}
 
+}

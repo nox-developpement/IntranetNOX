@@ -227,3 +227,7 @@ nox_intranet_demande_prestation_proposition_echanges_message_ajax_receive:
 nox_intranet_prestation_administration_da:
     path: /ressources/prestation-administration-da
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:administrationDA }
+    
+nox_intranet_prestation_administration_da_ajax_save_user_status:
+    path: /ressources/prestation-administration-da-ajax-save-user-status
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveUserStatus }

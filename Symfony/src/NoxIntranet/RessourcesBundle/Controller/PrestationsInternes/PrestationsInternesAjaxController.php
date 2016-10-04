@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use NoxIntranet\RessourcesBundle\Entity\Proposition_Echanges;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use NoxIntranet\RessourcesBundle\Entity\PrestationDA;
 
 class PrestationsInternesAjaxController extends Controller {
 
@@ -217,6 +218,39 @@ class PrestationsInternesAjaxController extends Controller {
                 )
         ;
         $this->get('mailer')->send($message);
+    }
+
+    public function ajaxSaveUserStatusAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupére les variables de la requêtes.
+            $username = $request->get('username');
+            $firstname = $request->get('firstname');
+            $lastname = $request->get('lastname');
+
+            // On récupére l'entité dans la base de données des DA en fonction des paramêtres.
+            $em = $this->getDoctrine()->getManager();
+            $userEntity = $em->getRepository('NoxIntranetRessourcesBundle:PrestationDA')->findOneBy(array('username' => $username, 'firstname' => $firstname, 'lastname' => $lastname));
+
+            // Si il n'existe pas d'entité DA correspondante...
+            if (empty($userEntity)) {
+                // On en crée une nouvelle avec les paramêtres de la requette.
+                $newDA = new PrestationDA();
+                $newDA->setUsername($username);
+                $newDA->setFirstname($firstname);
+                $newDA->setLastname($lastname);
+                $em->persist($newDA);
+            }
+            // Si il existe une entité DA correspondante...
+            else {
+                // On la supprime.
+                $em->remove($userEntity);
+            }
+
+            // On sauvegarde les changements en base de donnée.
+            $em->flush();
+
+            return new Response('Saved');
+        }
     }
 
 }

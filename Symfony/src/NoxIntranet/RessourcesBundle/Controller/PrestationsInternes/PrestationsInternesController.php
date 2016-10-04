@@ -745,11 +745,15 @@ class PrestationsInternesController extends Controller {
         // On récupére la liste des DA.
         $em = $this->getDoctrine()->getManager();
         $da = $em->getRepository('NoxIntranetRessourcesBundle:PrestationDA')->findBy(array(), array('lastname' => 'ASC', 'firstname' => 'ASC'));
+        $daUsernames = array();
+        foreach ($da as $d) {
+            $daUsernames[] = $d->getUsername();
+        }
 
         // On récupére la liste de tous les collaborateurs dans l'ordre alphabétique moins les da.
         $users = $em->getRepository('NoxIntranetUserBundle:User')->findBy(array(), array('lastname' => 'ASC', 'firstname' => 'ASC'));
         foreach ($users as $key => $user) {
-            if (in_array($user->getUsername(), $da)) {
+            if (in_array($user->getUsername(), $daUsernames)) {
                 unset($users[$key]);
             }
         }
