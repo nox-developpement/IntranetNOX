@@ -134,18 +134,16 @@
         -->
 
         <!-- Prestations internes -->
-        {% if app.security.getToken().getUser().getUsername() == 'm.veillon' %} 
-            <a href="{{ path('nox_intranet_prestations_internes') }}" class="icon">
-                <figure>
-                    <img 
-                        src="{{ asset('bundles/noxintranetressources/images/People-128.png') }}" 
-                        onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/People-128-hover.png') }}';" 
-                        onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/People-128.png') }}';"
-                        > 
-                    <figcaption>Prestations internes</figcaption>
-                </figure>
-            </a>
-        {% endif %}
+        <a href="{{ path('nox_intranet_prestations_internes') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetressources/images/People-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/People-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/People-128.png') }}';"
+                    > 
+                <figcaption>Prestations internes</figcaption>
+            </figure>
+        </a>
 
         <!-- Références -->
         <a href="{{ path('nox_intranet_references') }}" class="icon">
