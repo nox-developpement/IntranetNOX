@@ -1,0 +1,100 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Status de mes propositions {% endblock %}
+
+{% block messageAccueil %}Status de mes propositions{% endblock %}
+
+{% block contenu %}
+
+    <div style='text-align: center;'>
+        <p style='text-align: center; margin: auto; margin-bottom: 1%; display: inline-block; padding: 0.5% 0.5% 0.5% 0.5%; background-color: rgba(255,255,255,0.5); border: 1px solid; font-size: 0.8vw;'>
+            <span style='color: orange;'>Orange = En cours de traitement.</span><br />
+            <span style='color: limegreen;'>Vert = Terminée avec succés.</span><br />
+            <span style='color: red;'>Rouge = Terminée sans succés.</span>
+        </p>
+    </div>
+
+    <div class='prestationReportingNavigation'>
+
+        <div id='prestationReportingSearch' style='width: calc(100% / 3);'>
+            {{ form_start(formSearch) }}
+            {{ form_widget(formSearch.searchText) }}
+            {{ form_widget(formSearch.searchButton, {'label': 'Rechercher'}) }}
+            {{ form_widget(formSearch.resetButton, {'label': 'Effacer la recherche'}) }}
+            {{ form_end(formSearch) }}
+        </div>
+
+        <div class='prestationReportingPagination' style='width: calc(100% / 3);'>
+            {% if propositions|keys|first != page %}<a href='{{ path('nox_intranet_propositions_reporting', {'search': search, 'orderTime': orderTime, 'page': propositions|keys|first}) }}' title='Page {{ propositions|keys|first+1 }}'><<</a>{% endif %}
+            {% if propositions[page-1] is defined %}<a href='{{ path('nox_intranet_propositions_reporting', {'search': search, 'orderTime': orderTime, 'page': page-1}) }}' title='Page {{ page }}'><</a>{% endif %}
+            Page: <select onchange='location = this.value;'>
+                {% for i in 1..propositions|length %}
+                    {% if i >= 1 %}
+                        <option value='{{ path('nox_intranet_propositions_reporting', {'search': search, 'orderTime': orderTime, 'page': i-1}) }}' {% if i-1 == page %}selected{% endif %}>{{ i }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            {% if propositions[page+1] is defined %}<a href='{{ path('nox_intranet_propositions_reporting', {'search': search, 'orderTime': orderTime, 'page': page+1}) }}' title='Page {{ page+2 }}'>></a>{% endif %}
+            {% if propositions|keys|last != page %}<a href='{{ path('nox_intranet_propositions_reporting', {'search': search, 'orderTime': orderTime, 'page': propositions|keys|last}) }}' title='Page {{ propositions|keys|last+1 }}'>>></a>{% endif %}
+        </div>
+
+        <div style='display: inline-block; text-align: right; width: calc(100% / 3);'>
+            <div id='prestationReportOrderTime'>
+                Ordre d'affichage: <select onchange='location = this.value;'>
+                    <option value='{{ path('nox_intranet_propositions_reporting', {'search': search, 'orderTime': 'desc'}) }}' {% if orderTime == 'desc' %}selected{% endif %}>Du + récent au - récent</option>
+                    <option value='{{ path('nox_intranet_propositions_reporting', {'search': search, 'orderTime': 'asc'}) }}' {% if orderTime == 'asc' %}selected{% endif %}>Du + vieux au - vieux</option>
+                </select>
+            </div><br /> 
+        </div>
+    </div>
+
+    <table id='tablePrestationsInternesReporting'>
+
+        <tr>
+            <th colspan='2'>Demande de préstation</th>
+            <th colspan='2'>Status de la proposition</th>
+            <th rowspan='2'>Details</th>
+        </tr>
+
+        <tr>
+            <th>Libelle</th>
+            <th>DA émetteur</th>
+            <th>Réponse DA émétteur</th>
+            <th>Réponse DA destinataire</th>
+        </tr>
+
+        {% if propositions[page] is defined and propositions[page] != null %}
+            {% for proposition in propositions[page] %}
+                <tr>
+                    <td>{{ demandes[proposition.cleDemande].Libelle }}</td>
+                    <td>{{ users[demandes[proposition.cleDemande].DA1].Firstname }} {{ users[demandes[proposition.cleDemande].DA1].Lastname }}</td>
+                    <td {% if status[proposition.Status] is defined %}style='background-color: {{ status[proposition.Status].color }}; color: white;'{% endif %}>{% if status[proposition.Status] is defined %}{{ status[proposition.Status].message }}{% else %}&nbsp;{% endif %}</td>
+                    <td {% if status[proposition.DA2Answer] is defined %}style='background-color: {{ status[proposition.DA2Answer].color }}; color: white;'{% endif %}>{% if status[proposition.DA2Answer] is defined %}{{ status[proposition.DA2Answer].message }}{% else %}&nbsp;{% endif %}</td>
+                    <td><a href='{{ path('nox_intranet_demande_prestation_summary', {'cleDemande': proposition.cleDemande}) }}'><img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' class='prestationsInternesReportingGoToDetailsImg'></a></td>
+                </tr>    
+            {% endfor %}
+        {% else %}
+            <tr><td colspan='5'>Il n'y a aucun résultat à afficher.</td></tr>
+        {% endif %}
+
+    </table>
+
+    <div class='prestationReportingNavigation'>
+        <div class='prestationReportingPagination'>
+            {% if propositions|keys|first != page %}<a href='{{ path('nox_intranet_propositions_reporting', {'orderTime': orderTime, 'page': propositions|keys|first}) }}' title='Page {{ propositions|keys|first+1 }}'><<</a>{% endif %}
+            {% if propositions[page-1] is defined %}<a href='{{ path('nox_intranet_propositions_reporting', {'orderTime': orderTime, 'page': page-1}) }}' title='Page {{ page }}'><</a>{% endif %}
+            Page: <select onchange='location = this.value;'>
+                {% for i in 1..propositions|length %}
+                    {% if i >= 1 %}
+                        <option value='{{ path('nox_intranet_propositions_reporting', {'orderTime': orderTime, 'page': i-1}) }}' {% if i-1 == page %}selected{% endif %}>{{ i }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            {% if propositions[page+1] is defined %}<a href='{{ path('nox_intranet_propositions_reporting', {'orderTime': orderTime, 'page': page+1}) }}' title='Page {{ page+2 }}'>></a>{% endif %}
+            {% if propositions|keys|last != page %}<a href='{{ path('nox_intranet_propositions_reporting', {'orderTime': orderTime, 'page': propositions|keys|last}) }}' title='Page {{ propositions|keys|last+1 }}'>>></a>{% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}
+{# empty Twig template #}

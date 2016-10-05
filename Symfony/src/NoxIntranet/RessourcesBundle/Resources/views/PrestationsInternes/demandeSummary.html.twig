@@ -29,7 +29,7 @@
                 {% if proposition.Status == 'Demande acceptée' %}
                     <div class='demandeSummaryTips demandeSummaryTipsUrgent'>
                         <p>
-                            Votre reponse est en attente pour la proposition de {{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}, veuillez <a href='{{ path('nox_intranet_gestion_proposition', {'cleDemande': proposition.cleDemande}) }}'>cliquez ici</a> pour traiter le proposition. <span class='demandeSummaryTipsClose'>&#10006;</span>
+                            Votre reponse est en attente pour la proposition de {{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}. <span class='demandeSummaryTipsClose'>&#10006;</span>
                         </p>
                     </div>
                 {% endif %}
@@ -151,50 +151,68 @@
         </tr>
         <tr>
             <td class='trLabel'>Status</td>
-            <td style='background: {{ status[demande.Status].color }}; color: white;'>{{ status[demande.Status].message }}</td>
+            <td style='background: {{ status[demande.Status].color }}; color: white;' id='demandeStatus'>{{ status[demande.Status].message }}</td>
         </tr>
     </table>
 
     <table id='demandeSummaryPropositions'>
         <tr>
-            <th colspan='4'>
+            <th colspan='5'>
                 Propositions de prestations interne
             </th>
         </tr>
         <tr>
-            <td class='trLabel'>DA destinataire</td>
-            <td class='trLabel'>Status</td>
-            <td class='trLabel'>Echanges</td>
-            <td class='trLabel'>Traiter</td>
+            <td class='trLabel' rowspan="2">DA destinataire</td>
+            <td class='trLabel' colspan="2">Status</td>
+            <td class='trLabel' rowspan="2">Echanges</td>
+            <td class='trLabel' rowspan="2">Traiter</td>
+        </tr>
+
+        <tr>
+            <th>Réponse DA émetteur</th>
+            <th>Réponse DA destinataire</th>
         </tr>
         {% if propositions != null %}
             {% for proposition in propositions %}
                 <tr>
                     <td>{{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}</td>
-                    <td style='background: {{ status[proposition.Status].color }}; color: white;'>{{ status[proposition.Status].message }}</td>
-                    <td class='demandeSummmaryPropositionsToggleEchanges' {% if proposition.Echanges == null %}style='background: lightgrey;'{% endif %}>
-                        <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' echange='close' {% if proposition.Echanges == null %}style='cursor: default;'{% endif %}>
-                        <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Down-01-48.png') }}' style='display: none;' echange='open'>
+                    <td class='propositionStatus' style='background: {{ status[proposition.Status].color }}; color: white;'>{{ status[proposition.Status].message }}</td>
+                    <td style='background: {{ status[proposition.DA2Answer].color }}; color: white;'>{{ status[proposition.DA2Answer].message }}</td>
+                    <td>
+                        <a href='{{ path('nox_intranet_demande_prestation_proposition_echanges', {cleDemande: cleDemande, da2: proposition.da2}) }}' style='color: #1F4E79; text-decoration: none; font-size: 0.8vw;'>Voir</a>
                     </td>
-                    {% if app.security.getToken().getUser().getUsername() == demande.DA1 and loop.first %}
-                        <td rowspan='{{ propositions|length*2 }}'>
-                            <a href='{{ path('nox_intranet_gestion_proposition', {'cleDemande': proposition.cleDemande}) }}'><img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' style='vertical-align: middle; width: 30%; cursor: pointer;'></a>
+                    {% if app.security.getToken().getUser().getUsername() == demande.DA1 and proposition.Status == 'Demande acceptée' %}
+                        <td>
+                            <button type='button' name='buttonvalidation' da2='{{ proposition.DA2 }}' value='validate' onclick='ajaxSaveDA2PropositionAnswer(this);' style='width: 100%; font-size: 0.8vw; margin-bottom: 5%;'>Accepté</button>
+                            <button type='button' name='buttonvalidation' da2='{{ proposition.DA2 }}' value='refuse' onclick='ajaxSaveDA2PropositionAnswer(this);' style='width: 100%; font-size: 0.8vw; margin-top: 5%;'>Refusé</button>
+                            <button type='button' name='buttonedit' da2='{{ proposition.DA2 }}' value='edit' onclick='editPropositionAnswer();' style='width: 100%; font-size: 0.8vw; margin-top: 5%; display: none;'>Modifer</button>
+                        </td>      
+                    {% elseif app.security.getToken().getUser().getUsername() == demande.DA1 and proposition.Status == 'Validé par le DA1' %}
+                        <td>
+                            <button type='button' name='buttonvalidation' da2='{{ proposition.DA2 }}' value='validate' onclick='ajaxSaveDA2PropositionAnswer(this);' disabled style='width: 100%; font-size: 0.8vw; margin-bottom: 5%; display: none;'>Accepté</button>
+                            <button type='button' name='buttonvalidation' da2='{{ proposition.DA2 }}' value='refuse' onclick='ajaxSaveDA2PropositionAnswer(this);' style='width: 100%; font-size: 0.8vw; margin-top: 5%; display: none;'>Refusé</button>
+                            <button type='button' name='buttonedit' da2='{{ proposition.DA2 }}' value='edit' onclick='editPropositionAnswer();' style='width: 100%; font-size: 0.8vw; margin-top: 5%;'>Modifer</button>
+                        </td> 
+                    {% elseif app.security.getToken().getUser().getUsername() == demande.DA1 and proposition.Status == 'Refusé par le DA1' %}
+                        <td>
+                            <button type='button' name='buttonvalidation' da2='{{ proposition.DA2 }}' value='validate' onclick='ajaxSaveDA2PropositionAnswer(this);' style='width: 100%; font-size: 0.8vw; margin-bottom: 5%; display: none;'>Accepté</button>
+                            <button type='button' name='buttonvalidation' da2='{{ proposition.DA2 }}' value='refuse' onclick='ajaxSaveDA2PropositionAnswer(this);' disabled style='width: 100%; font-size: 0.8vw; margin-top: 5%; display: none;'>Refusé</button>
+                            <button type='button' name='buttonedit' da2='{{ proposition.DA2 }}' value='edit' onclick='editPropositionAnswer();' style='width: 100%; font-size: 0.8vw; margin-top: 5%;'>Modifer</button>
+                        </td> 
+                    {% else %}
+                        <td style='background-color: LightGrey;'>  
                         </td>
                     {% endif %}
                 </tr>
-                <tr>
-                    <td colspan='3' style='display: none; padding: 0;'><div style='height: 10em; overflow: auto; padding: 0.5em; {% if proposition.Echanges == null %}background-color: lightgrey;{% else %}background-color: white;{% endif %}'>{{ proposition.Echanges }}</div></td>
-                </tr>
             {% endfor %}
         {% else %}
-            <tr><td colspan='3'>Il n'y a aucun résultat à afficher.</td></tr>
+            <tr><td colspan='5'>Il n'y a aucun résultat à afficher.</td></tr>
         {% endif%}
     </table>
 
     <script>
 
         $(window).load(function () {
-            toggleEchanges();
             closeTooltip();
             editDemande();
         });
@@ -214,19 +232,6 @@
                 $('#pointageSavingNotification').finish().delay(2000).fadeOut();
             }
         });
-
-        // Affiche/Cache le texte des échanges.
-        function toggleEchanges() {
-            // Lors d'un clic sur la flêche de déploiement.
-            $('.demandeSummmaryPropositionsToggleEchanges').click(function () {
-                // Si le contenu des échanges n'est pas vide.
-                if ($(this).parent('tr').next('tr').find('td').text() !== '') {
-                    $(this).find("img[echange='close']").toggle(); // On affiche/cache la fléche d'ouverture.
-                    $(this).find("img[echange='open']").toggle(); // On affiche/cache la fléche de fermeture.
-                    $(this).parent('tr').next('tr').find('td').toggle(); // On affiche/cache le texte de l'échange.
-                }
-            });
-        }
 
         // Permet de faire disparaitre les tooltips.
         function closeTooltip() {
@@ -288,6 +293,43 @@
                 $('#pointageSavingNotification').css('left', event.pageX + 20);
                 $('#pointageSavingNotification').css('top', event.pageY);
             });
+        }
+
+        // Sauvegarde les réponses aux propositions en base de donnée.
+        function ajaxSaveDA2PropositionAnswer(element) {
+            // Lorsque une réponse est séléctionnée
+            var username = $(element).attr('da2'); // On récupére le nom du DA2.
+            var answer = $(element).val(); // On récupére la réponse.
+            // On execute la requête Ajax de sauvegarde en base de données.
+            $.ajax({
+                url: '{{ path('nox_intranet_ajax_save_proposition_da1_answer') }}',
+                type: 'POST',
+                data: {'username': username, 'answer': answer, 'cleDemande': '{{ cleDemande }}'},
+                success: function (response) {
+
+                    console.log(response);
+
+                    // On change le message du status de la proposition celui du nouveau status.
+                    $(element).parent('td').siblings('.propositionStatus').replaceWith("<td class='propositionStatus' style='background: " + response.statusProposition.color + "; color: white;'>" + response.statusProposition.message + "</td>");
+                    $('#demandeStatus').replaceWith("<td id='demandeStatus' style='background: " + response.statusDemande.color + "; color: white;'>" + response.statusDemande.message + "</td>");
+                    $("button[name='buttonedit']").show(); // On affiche le bouton de modification.
+                    $("button[name='buttonvalidation']").hide(); // On cache les boutons de validation.
+                    // On active/désactive les boutons de validation.            
+                    if (answer === 'validate') {
+                        $(element).attr('disabled', 'disabled');
+                        $(element).next().removeAttr('disabled');
+                    } else {
+                        $(element).attr('disabled', 'disabled');
+                        $(element).prev().removeAttr('disabled');
+                    }
+                }
+            });
+        }
+
+        // Permet de mofidier la réponse de la proposition.
+        function editPropositionAnswer() {
+            $("button[name='buttonedit']").hide();
+            $("button[name='buttonvalidation']").show();
         }
 
     </script>

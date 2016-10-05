@@ -180,17 +180,13 @@ nox_intranet_reponse_da2:
     path: /ressources/reponse-da2/{cleDemande}/{reponse}
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:DA2answer }
     
-nox_intranet_gestion_proposition:
-    path: /ressources/gestion-proposition/{cleDemande}
-    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:answerDA2Proposition }
-    
 nox_intranet_ajax_save_proposition_da1_answer:
     path: /ressources/gestion-proposition-ajax-save-proposition-da1-answer
-    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveDA2PropositionAnswer }
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveDA2PropositionAnswer }
     
 nox_intranet_ajax_save_echanges:
     path: /ressources/gestion-proposition-ajax-save-echanges
-    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxSaveEchanges }
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveEchanges }
     
 nox_intranet_demande_prestation_reporting:
     path: /ressources/demande-prestation-reporting/{orderTime}/{trieStatus}/{page}
@@ -204,10 +200,34 @@ nox_intranet_demande_prestation_perso_reporting:
     path: /ressources/demande-prestation-perso-reporting/{orderTime}/{trieStatus}/{page}
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesPersoReporting, search: '', trieStatus: 'tous', page: 0, orderTime: 'desc' }
     
+nox_intranet_propositions_reporting:
+    path: /ressources/propositions-perso-reporting/{orderTime}/{page}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:propositionsPersoReporting, search: '', page: 0, orderTime: 'desc' }
+    
 nox_intranet_prestations_internes:
     path: /ressources/prestations-internes
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesAccueil }
     
 nox_intranet_ajax_edit_demande:
     path: /ressources/ajax-edition-demande-prestation-interne
-    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:ajaxEditDemande }
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxEditDemande }
+    
+nox_intranet_demande_prestation_proposition_echanges:
+    path: /ressources/demande-prestation-proposition-echanges/{cleDemande}/{da2}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:propositionEchanges }
+    
+nox_intranet_demande_prestation_proposition_echanges_message_ajax_saving:
+    path: /ressources/demande-prestation-proposition-echanges-message-ajax-saving
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveMessage }
+    
+nox_intranet_demande_prestation_proposition_echanges_message_ajax_receive:
+    path: /ressources/demande-prestation-proposition-echanges-message-ajax-receive
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxGetMessage }
+    
+nox_intranet_prestation_administration_da:
+    path: /ressources/prestation-administration-da
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:administrationDA }
+    
+nox_intranet_prestation_administration_da_ajax_save_user_status:
+    path: /ressources/prestation-administration-da-ajax-save-user-status
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveUserStatus }

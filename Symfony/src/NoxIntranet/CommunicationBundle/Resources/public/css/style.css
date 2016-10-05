@@ -3245,20 +3245,23 @@ tr {
     border-color: rgba(255, 0, 0, 0.8) transparent transparent transparent;
 }
 
-#DRHPointageList {
+.DRHAdministrationList {
     text-align: left; 
     display: inline-block;
     margin: auto; 
-    margin-bottom: 5%; 
     list-style-type: none;
     position: relative;
 }
 
-#DRHPointageList li {
+.DRHAdministrationList:last-child {
+    margin-bottom: 5%; 
+}
+
+.DRHAdministrationList li {
     margin-bottom: 2%;
 }
 
-#DRHPointageList li:before {
+.DRHAdministrationList li:before {
     position: absolute;
     content: "-";
     vertical-align: text-bottom;
@@ -3266,7 +3269,7 @@ tr {
     left: 5%;
 }
 
-#DRHPointageList a {
+.DRHAdministrationList a {
     text-decoration: none;
     color: #1F4E79;
     font-size: 1vw;
@@ -3806,7 +3809,7 @@ form[name='formValidationRefus'] textarea {
 
 .demandeSummmaryPropositionsToggleEchanges img {
     vertical-align: middle;
-    width: 30%;
+    width: 1.5vw;
     cursor: pointer;
 }
 
@@ -3834,7 +3837,7 @@ form[name='formValidationRefus'] textarea {
 
 .prestationsInternesReportingGoToDetailsImg {
     vertical-align: middle;
-    width: 70%;
+    width: 1.5vw;
 }
 
 .prestationsInternesReportingGoToDetailsImg:hover {
@@ -3936,6 +3939,105 @@ form[name='formNewSearch'] .textarea[contenteditable=true]:empty:before {
     font-size: 0.8vw !important;
 }
 
+#propositionEchangesAffichageMessages {
+    height: 90%;
+    overflow: auto;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+#propositionEchangesEcritureMessages {
+    height: 10%; 
+    font-size: 0; 
+    border-top: 1px solid #1F4E79;
+}
+
+#propositionEchangesEcritureMessagesTextArea {
+    display: inline-block; 
+    width: 80%; 
+    height: 100%; 
+    font-size: 0.8vw; 
+    overflow: auto; 
+    border: 1px inset #1F4E79; 
+    box-sizing: border-box; 
+    padding: 0.5%;
+    background-color: white;
+}
+
+#propositionEchangesEcritureMessagesSubmitButton, #propositionEchangesEcritureMessagesSubmitButton[disabled='disabled']:active {
+    display: inline-block; 
+    width: 20%; 
+    height: 100%; 
+    background-color: #1F4E79; 
+    color: white; 
+    float: right; 
+    text-align: center; 
+    cursor: pointer;
+    border: 1px outset #1F4E79;
+    border-bottom: 1px outset #1F4E79;
+    border-right: none;
+    box-sizing: border-box;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#propositionEchangesEcritureMessagesSubmitButton:active {
+    background-color: white;
+    color: #1F4E79; 
+    border: inset;
+}
+
+.propositionEchangesMessage {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+.propositionEchangesMessage div {
+    max-width: 70%;
+    vertical-align: middle; 
+    display: inline-block;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+.propositionEchangesMessageTo div {
+    background-color: #007AFF;
+    float: right;
+}
+
+.propositionEchangesMessageFrom div {
+    background-color: #4CD964;
+    float: left;
+}
+
+.propositionEchangesMessage p {
+    word-wrap: break-word;
+    font-size: 0.8vw;
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+
+.propositionEchangesMessage hr {
+    width: 90%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    border-color: beige;
+    opacity: 0.5;
+}
+
+.propositionEchangesMessage time {
+    display: block;
+    font-size: 0.7vw;
+    color: beige;
+    padding: 0;
+    text-align: right;
+    font-style: italic;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
 #pointagesRaccourcis {
     width: 70%;
     margin: auto;
@@ -3973,4 +4075,91 @@ form[name='formNewSearch'] .textarea[contenteditable=true]:empty:before {
 
 #pointagesRaccourcis ul li:hover a {
     color: #1F4E79;
+}
+
+#prestationAdministrationDA {
+    width: 70%; 
+    font-size: 0; 
+    height: 80%; 
+    margin: auto; 
+    margin-bottom: 5%;
+}
+
+#prestationAdministrationDA > div {
+    width: 40%; 
+    height: 100%; 
+    overflow: auto;
+}
+
+#prestationAdministrationDA > div:first-child {
+    float: left;
+}
+
+#prestationAdministrationDA > div:last-child {
+    float: right;
+}
+
+#prestationAdministrationDA div div {
+    border: 2px outset #1F4E79; 
+    background-color: rgba(255,255,255, 0.6); 
+    height: 80%; 
+    overflow: auto;
+}
+
+#prestationAdministrationDA h1 {
+    font-size: 1vw;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+#prestationAdministrationDA div p, .draggableUser {
+    font-size: 0.8vw; 
+    text-align: center; 
+    margin: 0; 
+    padding: 1%;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+#prestationAdministrationDA div p:nth-child(odd) {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e1ffff+0,e1ffff+7,e1ffff+12,fdffff+12,e6f8fd+30,c8eefb+54,bee4f8+75,b1d8f5+100;Blue+Pipe+%232 */
+    background: rgb(225,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(225,255,255,1) 0%, rgba(225,255,255,1) 7%, rgba(225,255,255,1) 12%, rgba(253,255,255,1) 12%, rgba(230,248,253,1) 30%, rgba(200,238,251,1) 54%, rgba(190,228,248,1) 75%, rgba(177,216,245,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(225,255,255,1) 0%,rgba(225,255,255,1) 7%,rgba(225,255,255,1) 12%,rgba(253,255,255,1) 12%,rgba(230,248,253,1) 30%,rgba(200,238,251,1) 54%,rgba(190,228,248,1) 75%,rgba(177,216,245,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(225,255,255,1) 0%,rgba(225,255,255,1) 7%,rgba(225,255,255,1) 12%,rgba(253,255,255,1) 12%,rgba(230,248,253,1) 30%,rgba(200,238,251,1) 54%,rgba(190,228,248,1) 75%,rgba(177,216,245,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1ffff', endColorstr='#b1d8f5',GradientType=0 ); /* IE6-9 */
+}
+
+#prestationAdministrationDA div p:nth-child(even) {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fefcea+0,f1da36+100;Gold+3D */
+    background: rgb(254,252,234); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(254,252,234,1) 0%, rgba(241,218,54,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(254,252,234,1) 0%,rgba(241,218,54,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(254,252,234,1) 0%,rgba(241,218,54,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefcea', endColorstr='#f1da36',GradientType=0 ); /* IE6-9 */
+}
+
+.draggableUser {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fac695+0,f5ab66+47,ef8d31+100;Orange+3D+%232 */
+    background: rgb(250,198,149); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(250,198,149,1) 0%, rgba(245,171,102,1) 47%, rgba(239,141,49,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(250,198,149,1) 0%,rgba(245,171,102,1) 47%,rgba(239,141,49,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(250,198,149,1) 0%,rgba(245,171,102,1) 47%,rgba(239,141,49,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fac695', endColorstr='#ef8d31',GradientType=0 ); /* IE6-9 */
+    display: inline-block;
+    border: 1px solid #1F4E79; 
+    margin: 0; 
+}
+
+#prestationAdministrationDA div p:not([selected='selected']):hover {
+    background-color: lightcyan; 
+}
+
+#prestationAdministrationDA div p[selected='selected'] {
+    background-color: white; 
+}
+
+#prestationAdministrationDA input[type='search'] {
+    width: 100%;
+    font-size: 0.8vw;
 }

@@ -310,11 +310,13 @@
                 <h4> DRH :  </h4>
             </div>
 
-            <ul id='DRHPointageList'>
+            <ul class='DRHAdministrationList'>
                 <li><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'RH'}) }}">Assistant(e) RH - Correction/Validation compilation</a></li>
                 <li><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'Final'}) }}">Consultation des compilations validées</a></li>
                 <li><a href="{{ path('nox_intranet_administration_upload_fichier_hierarchie_rh') }}">Upload du fichier de hiérarchie RH</a></li>
                 <li><a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank'>Consulter la notice</a></li>
+                <hr style='border-color: #1F4E79'/>
+                <li><a href="{{ path('nox_intranet_prestation_administration_da') }}">Prestations internes - Administration des DA</a></li>
             </ul>
 
         {% endif %}
