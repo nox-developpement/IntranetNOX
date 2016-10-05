@@ -1,12 +1,17 @@
 {% extends "::layout.html.twig" %}
 
-{% block titrePage %} Gestion des propositions {% endblock %}
+{% block titrePage %} Echanges avec {{ da2Entity.Firstname }} {{ da2Entity.Lastname }} {% endblock %}
 
-{% block messageAccueil %}Gestion des propositions{% endblock %}
+{% block messageAccueil %}Echanges avec {{ da2Entity.Firstname }} {{ da2Entity.Lastname }}{% endblock %}
 
 {% block contenu %} 
 
-    <div style='width: 70%; margin: auto; border: 1px solid #1F4E79; height: 70%; margin-bottom: 5%; font-size: 0;'>
+    <div style='width: 70%; margin: auto; margin-bottom: 1%; margin-top: 0; font-size: 0.8vw;'>
+        <span style='display: inline-block; height: 100%; vertical-align: middle;'></span>
+        <img style='width: 1em; vertical-align: middle;' src='{{ asset('bundles/noxintranetressources/images/Left-Arrow-48.png') }}'>
+        <a style='color: #1F4E79; text-decoration: none; display: inline-block; vertical-align: middle;' href='{{ path('nox_intranet_demande_prestation_summary', {cleDemande: cleDemande}) }}'>Revenir au résumé</a>
+    </div>
+    <div style='width: 70%; margin: auto; border: 1px solid #1F4E79; height: 70%; margin-bottom: 5%; font-size: 0;'>   
         <div id='propositionEchangesAffichageMessages'>
             {% for echange in echanges %}
                 <div class='propositionEchangesMessage {% if echange.sender == app.user.username %}propositionEchangesMessageTo{% else %}propositionEchangesMessageFrom{% endif %}' {% if loop.last %}id="echangesLastMessage"{% endif %} postdate='{{ echange.postDate|date('d/m/Y H:i:s') }}' postId='{{ echange.Id }}'>

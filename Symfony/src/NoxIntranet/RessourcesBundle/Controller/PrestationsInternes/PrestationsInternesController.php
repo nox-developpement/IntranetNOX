@@ -180,9 +180,9 @@ class PrestationsInternesController extends Controller {
 
         $DAs = array(); // Initialisation du tableau des DA2.
         // Pour chaque entitié de hiérarchy utilisateurs.
-        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $user) {
+        foreach ($em->getRepository('NoxIntranetRessourcesBundle:PrestationDA')->findAll() as $da) {
             // Recherche l'entité utilisateur correspondante au DA de la hiérachie.
-            $userEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $user->getDA())[0], 'lastname' => explode(' ', $user->getDA())[1]));
+            $userEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($da->getUsername());
             // Si l'entité utilisateur existe.
             if (!empty($userEntity)) {
                 $DAs[$userEntity->getUsername()] = $userEntity->getFirstname() . ' ' . $userEntity->getLastname(); // On ajoute le DA au tableau.
@@ -453,15 +453,8 @@ class PrestationsInternesController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
 
-        $DA = array();
-        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $user) {
-            $userEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $user->getDA())[0], 'lastname' => explode(' ', $user->getDA())[1]));
-            if (!empty($userEntity)) {
-                $DA[$userEntity->getUsername()] = $userEntity->getUsername();
-            }
-        }
-
-        if (!in_array($this->container->get('security.context')->getToken()->getUser()->getUsername(), $DA)) {
+        // On vérifie que le collaborateur est un DA, sinon on le redirige vers le menu de prestations internes.
+        if (empty($em->getRepository('NoxIntranetRessourcesBundle:PrestationDA')->findOneByUsername($this->container->get('security.context')->getToken()->getUser()->getUsername()))) {
             $request->getSession()->getFlashBag()->add('noticeErreur', "Seul les directeurs d'agence peuvent accéder à cette section.");
             return $this->redirectToRoute('nox_intranet_prestations_internes');
         }
@@ -736,12 +729,13 @@ class PrestationsInternesController extends Controller {
         // On récupére les échanges correspondant au variables de la proposition passé en paramêtre.
         $em = $this->getDoctrine()->getManager();
         $echanges = $em->getRepository('NoxIntranetRessourcesBundle:Proposition_Echanges')->findBy(array('cleDemande' => $cleDemande, 'da2' => $da2), array('postDate' => 'ASC'));
+        $da2Entity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($da2);
 
-        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:propositionEchanges.html.twig', array('cleDemande' => $cleDemande, 'da2' => $da2, 'echanges' => $echanges));
+        return $this->render('NoxIntranetRessourcesBundle:PrestationsInternes:propositionEchanges.html.twig', array('cleDemande' => $cleDemande, 'da2' => $da2, 'da2Entity' => $da2Entity, 'echanges' => $echanges));
     }
 
+    // Affiche l'interface d'administration des DA pour les prestations internes.
     public function administrationDAAction() {
-
         // On récupére la liste des DA.
         $em = $this->getDoctrine()->getManager();
         $da = $em->getRepository('NoxIntranetRessourcesBundle:PrestationDA')->findBy(array(), array('lastname' => 'ASC', 'firstname' => 'ASC'));

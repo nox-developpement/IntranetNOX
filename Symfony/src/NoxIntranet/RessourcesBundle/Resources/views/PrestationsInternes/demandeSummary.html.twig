@@ -178,9 +178,8 @@
                     <td>{{ users[proposition.DA2].Firstname }} {{ users[proposition.DA2].Lastname }}</td>
                     <td class='propositionStatus' style='background: {{ status[proposition.Status].color }}; color: white;'>{{ status[proposition.Status].message }}</td>
                     <td style='background: {{ status[proposition.DA2Answer].color }}; color: white;'>{{ status[proposition.DA2Answer].message }}</td>
-                    <td class='demandeSummmaryPropositionsToggleEchanges'>
-                        <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' echange='close'>
-                        <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Down-01-48.png') }}' style='display: none;' echange='open'>
+                    <td>
+                        <a href='{{ path('nox_intranet_demande_prestation_proposition_echanges', {cleDemande: cleDemande, da2: proposition.da2}) }}' style='color: #1F4E79; text-decoration: none; font-size: 0.8vw;'>Voir</a>
                     </td>
                     {% if app.security.getToken().getUser().getUsername() == demande.DA1 and proposition.Status == 'Demande acceptée' %}
                         <td>
@@ -205,16 +204,6 @@
                         </td>
                     {% endif %}
                 </tr>
-                <tr>
-                    <td colspan='5' style='display: none; padding: 0;'>
-                        <div style='height: 10em; overflow: auto; padding: 0.5em; {% if proposition.Echanges == null %}background-color: lightgrey;{% else %}background-color: white;{% endif %}'>
-                            {{ proposition.Echanges }}
-                        </div>
-                        <div style='padding: 0.5em; width: 50%; margin: auto; background-color: #1F4E79; color: white;'>
-                            <a href='{{ path('nox_intranet_demande_prestation_proposition_echanges', {'cleDemande': proposition.cleDemande, 'da2': proposition.da2}) }}' style='display: block; color: white; text-decoration: none;'>Ajouter</a>
-                        </div>
-                    </td>
-                </tr>
             {% endfor %}
         {% else %}
             <tr><td colspan='5'>Il n'y a aucun résultat à afficher.</td></tr>
@@ -224,7 +213,6 @@
     <script>
 
         $(window).load(function () {
-            toggleEchanges();
             closeTooltip();
             editDemande();
         });
@@ -244,19 +232,6 @@
                 $('#pointageSavingNotification').finish().delay(2000).fadeOut();
             }
         });
-
-        // Affiche/Cache le texte des échanges.
-        function toggleEchanges() {
-            // Lors d'un clic sur la flêche de déploiement.
-            $('.demandeSummmaryPropositionsToggleEchanges').click(function () {
-                // Si le contenu des échanges n'est pas vide.
-                /*if ($(this).parent('tr').next('tr').find('td').text() !== '') {*/
-                $(this).find("img[echange='close']").toggle(); // On affiche/cache la fléche d'ouverture.
-                $(this).find("img[echange='open']").toggle(); // On affiche/cache la fléche de fermeture.
-                $(this).parent('tr').next('tr').find('td').toggle(); // On affiche/cache le texte de l'échange.
-                /*}*/
-            });
-        }
 
         // Permet de faire disparaitre les tooltips.
         function closeTooltip() {

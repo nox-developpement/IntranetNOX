@@ -3245,20 +3245,23 @@ tr {
     border-color: rgba(255, 0, 0, 0.8) transparent transparent transparent;
 }
 
-#DRHPointageList {
+.DRHAdministrationList {
     text-align: left; 
     display: inline-block;
     margin: auto; 
-    margin-bottom: 5%; 
     list-style-type: none;
     position: relative;
 }
 
-#DRHPointageList li {
+.DRHAdministrationList:last-child {
+    margin-bottom: 5%; 
+}
+
+.DRHAdministrationList li {
     margin-bottom: 2%;
 }
 
-#DRHPointageList li:before {
+.DRHAdministrationList li:before {
     position: absolute;
     content: "-";
     vertical-align: text-bottom;
@@ -3266,7 +3269,7 @@ tr {
     left: 5%;
 }
 
-#DRHPointageList a {
+.DRHAdministrationList a {
     text-decoration: none;
     color: #1F4E79;
     font-size: 1vw;
@@ -4104,8 +4107,9 @@ form[name='formNewSearch'] .textarea[contenteditable=true]:empty:before {
 }
 
 #prestationAdministrationDA h1 {
-    font-size: 0.8vw;
+    font-size: 1vw;
     text-align: center;
+    margin-bottom: 0;
 }
 
 #prestationAdministrationDA div p, .draggableUser {
