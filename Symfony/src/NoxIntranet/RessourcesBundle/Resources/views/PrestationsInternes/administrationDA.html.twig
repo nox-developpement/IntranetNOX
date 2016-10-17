@@ -143,23 +143,31 @@
             var usersParagraph = context.find('p'); // La liste des paragraphes existants.
             var userParagraphLength = usersParagraph.length - 1; // Taille de la liste des paragraphes.
             var contextName = ui.helper.attr('lastname') + ' ' + ui.helper.attr('firstname'); // Nom canonique du nouveau paragraphe.
-            // Pour chaque paragraphe...    
-            $.each(usersParagraph, function (index, value) {
-                var valueName = $(this).attr('lastname') + ' ' + $(this).attr('firstname'); // Nom canonique du paragraphe courant.
-                // Si le nom du nouveau paragraphe est plus petit que le nom du paragraphe courant.
-                if (contextName.toLowerCase() <= valueName.toLowerCase()) {
-                    $(this).before(newDA); // On fait apparaitre le nouveau paragraphe avant le paragraphe courant.
-                    return false; // On stop la boucle.
-                }
-                // Sinon si le nom du nouveau paragraphe est plus grand que le nom du paragraphe courant et qu'il reste des paragraphes.
-                else if (contextName.toLowerCase() > valueName.toLowerCase() && index < userParagraphLength) {
-                    return true; // On continue la boucle.
-                }
-                // Sinon si le nom du nouveau paragraphe est plus grand que le nom du paragraphe courant et qu'il ne reste plus de paragraphe.
-                else {
-                    $(this).after(newDA); // On fait apparaitre le nouveau paragraphe après le paragraphe courant.
-                }
-            });
+            // Si la liste de paragraphes n'est pas vide...
+            if (usersParagraph.length > 0) {
+                // Pour chaque paragraphe...    
+                $.each(usersParagraph, function (index, value) {
+                    var valueName = $(this).attr('lastname') + ' ' + $(this).attr('firstname'); // Nom canonique du paragraphe courant.
+                    // Si le nom du nouveau paragraphe est plus petit que le nom du paragraphe courant.
+                    if (contextName.toLowerCase() <= valueName.toLowerCase()) {
+                        $(this).before(newDA); // On fait apparaitre le nouveau paragraphe avant le paragraphe courant.
+                        return false; // On stop la boucle.
+                    }
+                    // Sinon si le nom du nouveau paragraphe est plus grand que le nom du paragraphe courant et qu'il reste des paragraphes.
+                    else if (contextName.toLowerCase() > valueName.toLowerCase() && index < userParagraphLength) {
+                        return true; // On continue la boucle.
+                    }
+                    // Sinon si le nom du nouveau paragraphe est plus grand que le nom du paragraphe courant et qu'il ne reste plus de paragraphe.
+                    else {
+                        $(this).after(newDA); // On fait apparaitre le nouveau paragraphe après le paragraphe courant.
+                    }
+                });
+            }
+            // Si la liste de paragraphes est vide...
+            else {
+                context.append(newDA); // On ajout le nouveau paragraphe.
+            }
+
         }
 
         // Recherche et affiche les collaborateurs en fonction du texte de recherche.

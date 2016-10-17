@@ -23,15 +23,15 @@ class User implements UserInterface, \Serializable {
     private $username;
 
     /**
-     * @ORM\Column(name="firstname", type="string", length=255)
+     * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
      */
     private $firstname;
-    
+
     /**
      * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
      */
     private $lastname;
-    
+
     /**
      * @ORM\Column(name="password", type="string", length=255)
      */
@@ -51,7 +51,7 @@ class User implements UserInterface, \Serializable {
      * @ORM\Column(name="roles", type="array")
      */
     protected $roles = array();
-    
+
     /**
      * @ORM\Column(name="agence", type="string", length=255, nullable=true)
      */
@@ -131,7 +131,7 @@ class User implements UserInterface, \Serializable {
 
         return $this;
     }
-    
+
     /**
      * Set password
      *
@@ -218,7 +218,6 @@ class User implements UserInterface, \Serializable {
         $this->roles = array('ROLE_USER');
     }
 
-
     /**
      * Set agence
      *
@@ -226,8 +225,7 @@ class User implements UserInterface, \Serializable {
      *
      * @return User
      */
-    public function setAgence($agence)
-    {
+    public function setAgence($agence) {
         $this->agence = $agence;
 
         return $this;
@@ -238,8 +236,7 @@ class User implements UserInterface, \Serializable {
      *
      * @return string
      */
-    public function getAgence()
-    {
+    public function getAgence() {
         return $this->agence;
     }
 
@@ -250,8 +247,7 @@ class User implements UserInterface, \Serializable {
      *
      * @return User
      */
-    public function setFullname($fullname)
-    {
+    public function setFullname($fullname) {
         $this->fullname = $fullname;
 
         return $this;
@@ -262,8 +258,7 @@ class User implements UserInterface, \Serializable {
      *
      * @return string
      */
-    public function getFullname()
-    {
+    public function getFullname() {
         return $this->fullname;
     }
 
@@ -274,8 +269,7 @@ class User implements UserInterface, \Serializable {
      *
      * @return User
      */
-    public function setFirstname($firstname)
-    {
+    public function setFirstname($firstname) {
         $this->firstname = $firstname;
 
         return $this;
@@ -286,8 +280,7 @@ class User implements UserInterface, \Serializable {
      *
      * @return string
      */
-    public function getFirstname()
-    {
+    public function getFirstname() {
         return $this->firstname;
     }
 
@@ -298,8 +291,7 @@ class User implements UserInterface, \Serializable {
      *
      * @return User
      */
-    public function setLastname($lastname)
-    {
+    public function setLastname($lastname) {
         $this->lastname = $lastname;
 
         return $this;
@@ -310,8 +302,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return string
      */
-    public function getLastname()
-    {
+    public function getLastname() {
         return $this->lastname;
     }
+
 }
