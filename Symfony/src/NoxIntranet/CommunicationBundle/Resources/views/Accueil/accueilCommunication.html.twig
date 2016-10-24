@@ -76,6 +76,10 @@
             <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Externe/NoxDansLaPresse', 'dossier': 'NOX dans la presse', 'config': 'noxDansLaPresse' }) }}'> <h4> Nox dans la presse </h4> </a>
         </div>
 
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Externe/PlaquettesInstitutionnelle', 'dossier': 'Plaquettes institutionnelle', 'config': 'plaquettesInstitutionnelle' }) }}'> <h4> Plaquettes institutionnelles </h4> </a>
+        </div>
+
         <div class="sousMessageAcceuil" id='menuReseauxSociaux' onclick="showSubMenu('#sousMenuReseauxSociaux', this);"> 
             <h4> Nox sur les réseaux sociaux <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'> </h4>
         </div>
@@ -163,7 +167,7 @@
         <div class="sousMessageAcceuil"> 
             <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/NoxNews', 'dossier': 'NOX News', 'config': 'noxNews' }) }}'> <h4> NoxNews </h4> </a>
         </div>
-        
+
         <div class="sousMessageAcceuil"> 
             <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'Interne/LeMoniteur', 'dossier': 'Le moniteur', 'config': 'leMoniteur' }) }}'> <h4> Le moniteur </h4> </a>
         </div>

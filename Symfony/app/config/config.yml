@@ -205,7 +205,7 @@ fm_elfinder:
                 roots:
                     uploads:
                         driver:           LocalFileSystem
-                        path:             uploads/Communication/Externe/Supports/PlaquettesInstitutionnelle
+                        path:             uploads/Communication/Externe/PlaquettesInstitutionnelle
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  10M
@@ -919,7 +919,7 @@ fm_elfinder:
                 roots:
                     uploads:
                         driver:           LocalFileSystem
-                        path:             uploads/Communication/Externe/Supports/PlaquettesInstitutionnelle
+                        path:             uploads/Communication/Externe/PlaquettesInstitutionnelle
                         attributes:
                             - { pattern: '/^[^\.].*/', read: true, write: false, locked: true }
                         upload_allow:
