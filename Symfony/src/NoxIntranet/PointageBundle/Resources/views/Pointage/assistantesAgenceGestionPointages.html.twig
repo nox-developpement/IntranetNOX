@@ -215,7 +215,7 @@
                         {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' and date not in joursFeries %}
                             <select>
                                 <option value=''></option>
-                                <option value='1'>1</option>
+                                <option value='1' selected>1</option>
                             </select>
                         {% endif %}
                     </td>
@@ -652,7 +652,7 @@
                 $('.dailyTotalPercentageCell, .monthlyTotalPercentageCell, .monthlyTotalCell, #ForfaitDeplacementTotalMontant, #PrimesPanierTotalNumber, #titreTransportTotalMontant').text(0.00);
                 $('#monthlyTotalHoursMod, #titreRepasTotalNumber, .nbAbscences').text(0);
                 $('#tableFeuillePointage select:not(#pointage_month_selector, #pointage_year_selector)').val('');
-            }      
+            }
 
             // Récupère les jours en fonction du moi et de l'année définis par la feuille de pointage sélectionnée.
             function ajaxGetNewDateByPointageNumber() {
@@ -1589,51 +1589,63 @@
             // Pour toutes action dans une cellule titre d'affaire.
             $('#tableFeuillePointage tr:nth-child(2) .project').on('blur keyup paste', function () {
 
-                $('#ajaxSearchAffairesDiv').hide();
+                $('#ajaxSearchAffairesDiv').hide(); // On cache la div des résultats de recherche.
 
-                var search = $(this).text();
-                var celluleProject = $(this);
-                var affaires = "http://" + window.location.hostname + "/Symfony/web/DatabasesCSV/AffairesEncode.csv";
-                var compteur = 0;
+                var search = $(this).text().trim().toUpperCase(); // La chaine de caractères recherchée.
+                var celluleProject = $(this); // La cellule dans laquelle on effectu la recherche.
+                var affaires = "http://" + window.location.hostname + "/Symfony/web/DatabasesCSV/AffairesEncode.csv"; // Le fichier dans lesquel on recherche les affaires.
+                var compteur = 0; // Le compteur de résultat(s) positif(s).
 
                 // Supprime les paragraphes de résultats existants.
                 $('#ajaxSearchAffairesDiv').empty();
-
                 // Fixe la largeur minimale de la 'div' des résultats a 1.1 fois la taille de la cellule.
                 var minWidth = celluleProject.outerWidth() * 1.1;
                 $('#ajaxSearchAffairesDiv').css('min-width', minWidth);
-
                 // Cherche la chaine saisi dans le fichier csv des affaires et ajoute une balise 'p' par résultats.
                 if (search !== '') {
+                    // On lis le fichier csv contenant les affaires.
                     $.get(affaires, function (data) {
-                        var lineByLine = data.split("\n");
-                        var numsAffaires = [];
+                        var lineByLine = data.split("\n"); // On découpe le fichier ligne par ligne.
+                        var numsAffaires = []; // On initialise le tableau qui contiendras les affaires.
 
+                        // Pour chaque lignes...
                         $.each(lineByLine, function (index, value) {
-                            var donnes = value.split(';');
-                            numsAffaires.push(donnes[0]);
-                            if (compteur < 10 && donnes[0].indexOf(search) >= 0 && (search.trim() !== donnes[0].trim())) {
-                                $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
-                                compteur++;
+                            var donnes = value.split(';'); // On découpe les données de la ligne dans un tableau.
+                            numsAffaires.push(donnes[0]); // On ajoute le numéro de l'affaire dans le tableau des numéros d'affaires.
+
+                            // Si l'affaire possède un nom...
+                            if (1 in donnes) {
+                                // Si le compteur de résultat positif est inférieur à 10 et qu'il y a une correspondance entre la chaine recherchée et un numéro ou un nom d'affaire...
+                                if (compteur < 10 && (donnes[0].indexOf(search) >= 0 || donnes[1].toUpperCase().indexOf(search) >= 0) && donnes[0].trim() !== search.trim()) {
+                                    // On injecte un paragraphe avec le nom et le numéro de l'affaire et on incrémente le compteur de résultat positif.
+                                    $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
+                                    compteur++;
+                                }
+                            }
+                            // Si l'affaire n'est pas nomée...
+                            else {
+                                // Si le compteur de résultat positif est inférieur à 10 et qu'il y a une correspondance entre la chaine recherchée et un numéro d'affaire...
+                                if (compteur < 10 && (donnes[0].indexOf(search) >= 0) && donnes[0].trim() !== search.trim()) {
+                                    // On injecte un paragraphe avec le nom et le numéro de l'affaire et on incrémente le compteur de résultat positif.
+                                    $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
+                                    compteur++;
+                                }
                             }
                         });
-
                         // Effet visuel au passage de la souris sur les résultats.
                         $('.ajaxSearchAffairesDivResults').hover(function () {
                             $(this).css('background-color', 'rgb(217, 217, 217)');
                         }, function () {
                             $(this).css('background-color', 'white');
                         });
-
                         // Lors du clique sur un résultat on remplace le contenu de la recherche par le résultat.
                         $('.ajaxSearchAffairesDivResults').mousedown(function () {
                             celluleProject.text($(this).attr('data-numaffaire'));
+                            celluleProject.attr('data-nomaffaire', $(this).attr('data-nomaffaire'));
                         });
-
                         // Positione la 'div' contenant les résultats sous la cellules focus.
                         $('#ajaxSearchAffairesDiv').css('top', celluleProject.offset().top + celluleProject.outerHeight() - $('#tableFeuillePointageDivContainer').offset().top);
                         $('#ajaxSearchAffairesDiv').css('left', celluleProject.offset().left - $('#tableFeuillePointageDivContainer').offset().left);
-
                         // Affiche la 'div' des résultats si elle n'est pas vide.
                         if (compteur > 0) {
                             $('#ajaxSearchAffairesDiv').show();
@@ -1643,10 +1655,8 @@
                         celluleProject.blur(function () {
                             $('#ajaxSearchAffairesDiv').empty();
                             $('#ajaxSearchAffairesDiv').hide();
-
                             if ($.inArray(celluleProject.text(), numsAffaires) === -1) {
                                 celluleProject.text('');
-                                //celluleProject.trigger('blur');
                             }
                         });
                     });

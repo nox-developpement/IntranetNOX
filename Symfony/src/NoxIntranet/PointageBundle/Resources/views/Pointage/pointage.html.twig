@@ -178,7 +178,7 @@
                         {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' and date not in joursFeries %}
                             <select>
                                 <option value=''></option>
-                                <option value='1'>1</option>
+                                <option value='1' selected='selected'>1</option>
                             </select>
                         {% endif %}
                     </td>
@@ -312,6 +312,7 @@
             ajaxGetData();
             fixedHorizontalHeader();
             fixedVerticalHeader();
+            nextLineOnEnter();
             // Affiche une fenêtre de confirmation lors de la validation du pointage.
             $('#form_Valider').click(function () {
                 return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
@@ -1501,11 +1502,13 @@
             // Pour toutes action dans une cellule titre d'affaire.
             $('#tableFeuillePointage tr:nth-child(2) .project').on('blur keyup paste', function () {
 
-                $('#ajaxSearchAffairesDiv').hide();
-                var search = $(this).text();
-                var celluleProject = $(this);
-                var affaires = "http://" + window.location.hostname + "/Symfony/web/DatabasesCSV/AffairesEncode.csv";
-                var compteur = 0;
+                $('#ajaxSearchAffairesDiv').hide(); // On cache la div des résultats de recherche.
+
+                var search = $(this).text().trim().toUpperCase(); // La chaine de caractères recherchée.
+                var celluleProject = $(this); // La cellule dans laquelle on effectu la recherche.
+                var affaires = "http://" + window.location.hostname + "/Symfony/web/DatabasesCSV/AffairesEncode.csv"; // Le fichier dans lesquel on recherche les affaires.
+                var compteur = 0; // Le compteur de résultat(s) positif(s).
+
                 // Supprime les paragraphes de résultats existants.
                 $('#ajaxSearchAffairesDiv').empty();
                 // Fixe la largeur minimale de la 'div' des résultats a 1.1 fois la taille de la cellule.
@@ -1513,15 +1516,33 @@
                 $('#ajaxSearchAffairesDiv').css('min-width', minWidth);
                 // Cherche la chaine saisi dans le fichier csv des affaires et ajoute une balise 'p' par résultats.
                 if (search !== '') {
+                    // On lis le fichier csv contenant les affaires.
                     $.get(affaires, function (data) {
-                        var lineByLine = data.split("\n");
-                        var numsAffaires = [];
+                        var lineByLine = data.split("\n"); // On découpe le fichier ligne par ligne.
+                        var numsAffaires = []; // On initialise le tableau qui contiendras les affaires.
+
+                        // Pour chaque lignes...
                         $.each(lineByLine, function (index, value) {
-                            var donnes = value.split(';');
-                            numsAffaires.push(donnes[0]);
-                            if (compteur < 10 && donnes[0].indexOf(search) >= 0 && (search.trim() !== donnes[0].trim())) {
-                                $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
-                                compteur++;
+                            var donnes = value.split(';'); // On découpe les données de la ligne dans un tableau.
+                            numsAffaires.push(donnes[0]); // On ajoute le numéro de l'affaire dans le tableau des numéros d'affaires.
+
+                            // Si l'affaire possède un nom...
+                            if (1 in donnes) {
+                                // Si le compteur de résultat positif est inférieur à 10 et qu'il y a une correspondance entre la chaine recherchée et un numéro ou un nom d'affaire...
+                                if (compteur < 10 && (donnes[0].indexOf(search) >= 0 || donnes[1].toUpperCase().indexOf(search) >= 0) && donnes[0].trim() !== search.trim()) {
+                                    // On injecte un paragraphe avec le nom et le numéro de l'affaire et on incrémente le compteur de résultat positif.
+                                    $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
+                                    compteur++;
+                                }
+                            }
+                            // Si l'affaire n'est pas nomée...
+                            else {
+                                // Si le compteur de résultat positif est inférieur à 10 et qu'il y a une correspondance entre la chaine recherchée et un numéro d'affaire...
+                                if (compteur < 10 && (donnes[0].indexOf(search) >= 0) && donnes[0].trim() !== search.trim()) {
+                                    // On injecte un paragraphe avec le nom et le numéro de l'affaire et on incrémente le compteur de résultat positif.
+                                    $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
+                                    compteur++;
+                                }
                             }
                         });
                         // Effet visuel au passage de la souris sur les résultats.
@@ -1780,6 +1801,34 @@
             $(document).mousemove(function (event) {
                 $('#pointageSavingNotification').css('left', event.pageX + 20);
                 $('#pointageSavingNotification').css('top', event.pageY);
+            });
+        }
+
+        // Passe à la cellule éditable de la ligne suivante lors de l'appui sur la touche 'Entrée'.
+        function nextLineOnEnter() {
+            // Lorsque une touche est pressé dans une cellule éditable...
+            $("#tableFeuillePointage").on('keypress', "td[contenteditable='true']", function (e) {
+                // Si la touche à pour code 13 (touche 'Entrée')...
+                if (e.keyCode === 13) {
+                    e.preventDefault(); // On bloque l'action par défaut (retour à la ligne).
+                    var currentCell = $(this); // La cellule courante.
+                    var nextLineTr = currentCell.parent('tr').next('tr'); // La prochaine ligne du tableau.
+                    var nextLineCell = nextLineTr.find("td").eq(currentCell.index()); // La cellule de la prochaine ligne du tableau dont la position est identique à la cellule courante.
+                    var nextLineCellIsEditable = false; // Vrais si 'nextLineCell' est éditable (initialisé sur faux).
+
+                    // Tant que 'nextLineCell' existe et que 'nextLineCellIsEditable' est faux.
+                    while (nextLineCell.length && !nextLineCellIsEditable) {
+                        console.log(nextLineCell);
+                        if (nextLineCell.attr('contentEditable') !== 'true') {
+                            nextLineTr = nextLineCell.parent('tr').next('tr');
+                            nextLineCell = nextLineTr.find("td").eq(nextLineCell.index());
+                        } else {
+                            nextLineCellIsEditable = true;
+                            nextLineCell.focus();
+                        }
+                    }
+
+                }
             });
         }
 
