@@ -4163,3 +4163,46 @@ form[name='formNewSearch'] .textarea[contenteditable=true]:empty:before {
     width: 100%;
     font-size: 0.8vw;
 }
+
+#sendTransportJustificatifFormButton {
+    margin: 0.5em; 
+    padding: 0.5em;
+}
+
+#uploadLoaderButton {
+    margin: 0.5em; 
+    padding: 0.5em; 
+    display: none; 
+    color: transparent; 
+    background-repeat: no-repeat; 
+    background-size: 70% 70%;
+    background-position: center center;
+    background-color: rgb(31,78,121);
+    border-radius: 5px;
+    border: inset 1px rgb(31,78,121);
+    font-size: 0.6vw;
+}
+
+#deleteJustificatifButton {
+    margin: 0.5em; 
+    padding: 0.5em; 
+    display: none; 
+    color: white;
+    background-repeat: no-repeat; 
+    background-size: 70% 70%;
+    background-position: center center;
+    background-color: rgb(31,78,121);
+    border-radius: 5px;
+    border: inset 1px rgb(31,78,121);
+    font-size: 0.6vw;
+    white-space: nowrap;
+}
+
+#deleteJustificatifButton span {
+    display: block;
+    font-weight: bold;
+}
+
+#deleteJustificatifButton span:hover {
+    text-decoration: underline;
+}
