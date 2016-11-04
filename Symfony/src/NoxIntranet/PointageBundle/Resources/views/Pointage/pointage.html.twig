@@ -257,15 +257,22 @@
 
         <table id='tableFeuillePointageTitreTransport'>
             <tr>
-                <td colspan='2' style='border-width: 2px;'>Titre de transport</td>
+                <td colspan='3' style='border-width: 2px;'>Titre de transport</td>
             </tr>
             <tr>
                 <td style='border-width: 2px;'>Montant total</td>
                 <td style='border-width: 2px;'>Prise en charge employeur 50%*</td>
+                <td style='border-width: 2px;'>Justificatif</td>
             </tr>
             <tr>
                 <td id='titreTransportMontant' style='border-width: 2px;' contenteditable=true></td>
                 <td id='titreTransportTotalMontant' style='border-width: 2px;'>0.00</td>
+                <td id='titreTransportJustificatif' style='border-width: 2px;'>
+                    <form id='sendTransportJustificatifForm' enctype='multipart/form-data' >           
+                        <input name='file' type='file'>
+                        <button type='submit'>Submit</button>
+                    </form>
+                </td>
             </tr>
         </table>
 
@@ -313,6 +320,8 @@
             fixedHorizontalHeader();
             fixedVerticalHeader();
             nextLineOnEnter();
+            cloneAbsenceAMToPM();
+            ajaxUploadJustificatifTransport();
             // Affiche une fenêtre de confirmation lors de la validation du pointage.
             $('#form_Valider').click(function () {
                 return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
@@ -1069,6 +1078,10 @@
                             });
                         }
 
+                        if (data['fichierJustificatif'] !== undefined) {
+
+                        }
+
                         ajaxGetPointageStatus();
                         deleteProjectColumn();
                         tableEventHandler();
@@ -1818,17 +1831,58 @@
 
                     // Tant que 'nextLineCell' existe et que 'nextLineCellIsEditable' est faux.
                     while (nextLineCell.length && !nextLineCellIsEditable) {
-                        console.log(nextLineCell);
+                        // Si nextLineCell n'est pas une cellule éditable.
                         if (nextLineCell.attr('contentEditable') !== 'true') {
-                            nextLineTr = nextLineCell.parent('tr').next('tr');
-                            nextLineCell = nextLineTr.find("td").eq(nextLineCell.index());
-                        } else {
-                            nextLineCellIsEditable = true;
-                            nextLineCell.focus();
+                            nextLineTr = nextLineCell.parent('tr').next('tr'); // On récupère la ligne suivante.
+                            nextLineCell = nextLineTr.find("td").eq(nextLineCell.index()); // On récupère la cellule de la ligne suivante.
+                        }
+                        // Si nextLineCell est une cellule éditable.
+                        else {
+                            nextLineCellIsEditable = true; // On passe nextLineCellIsEditable sur vrais.
+                            nextLineCell.focus(); // On focus la cellule.
                         }
                     }
 
                 }
+            });
+        }
+
+        // Définie la valeur de l'absence PM sur la même que l'absence AM lorsque l'absence AM est modifiée.
+        function cloneAbsenceAMToPM() {
+            // Lorsque l'on change la valeur d'un sélécteur d'AM...
+            $('#tableFeuillePointage').on('change', '.abscenceMatinSelector select', function () {
+                $(this).parent('.abscenceMatinSelector').next('.abscenceAMSelector').find('select').val($(this).val()); // On change la valeur du sélecteur PM associé.
+                $(this).parent('.abscenceMatinSelector').next('.abscenceAMSelector').find('select').trigger('change'); // On simule un changement manuel du sélecteur PM pour déclancher la sauvegarde.
+            });
+        }
+
+        // Permet d'uploader un justificatif de transport.
+        function ajaxUploadJustificatifTransport() {
+            // Lors de la validation du formulaire d'upload du fichier justificatif de transport.
+            $('#sendTransportJustificatifForm').on('submit', function (e) {
+                e.preventDefault(); // On bloque l'envoi du formulaire.
+
+                var formData = new FormData($('#sendTransportJustificatifForm')[0]); // Variable contenant les données du formulaire.
+                // Requette ajax pour uploader le fichier en base de données.
+                $.ajax({
+                    url: '{{ path('nox_intranet_pointages_ajax_upload_justificatif_transport_file') }}',
+                    type: 'POST',
+                    // Form data
+                    data: formData,
+                    //Options to tell jQuery not to process data or worry about content-type.
+                    contentType: false,
+                    processData: false,
+                    success: function (responseId) {
+                        // Requette ajax pour associée le justificatif en base de donnée au tableau de pointage courant.
+                        $.ajax({
+                            url: '{{ path('nox_intranet_pointages_ajax_set_justificatif_transport_to_pointage') }}',
+                            data: {collaborateur: '{{ app.user.username }}', month: $('#pointage_month_selector').val(), year: $('#pointage_year_selector').val(), justificatifTransportFileId: responseId},
+                            success: function () {
+                                alert('ok !');
+                            }
+                        });
+                    }
+                });
             });
         }
 

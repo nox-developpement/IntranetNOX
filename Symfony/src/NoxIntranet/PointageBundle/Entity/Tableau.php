@@ -55,13 +55,18 @@ class Tableau {
      * @ORM\Column(name="SignatureCollaborateur", type="text")
      */
     private $signatureCollaborateur;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="Status", type="string", length=255)
      */
     private $status;
+
+    /**
+     * @ORM\OneToOne(targetEntity="NoxIntranet\PointageBundle\Entity\JustificatifTransportFile", cascade={"persist", "remove"})
+     */
+    private $justificatifTransportFile;
 
     /**
      * Get id
@@ -182,7 +187,6 @@ class Tableau {
         return $this->signatureCollaborateur;
     }
 
-
     /**
      * Set status
      *
@@ -190,8 +194,7 @@ class Tableau {
      *
      * @return Tableau
      */
-    public function setStatus($status)
-    {
+    public function setStatus($status) {
         $this->status = $status;
 
         return $this;
@@ -202,8 +205,32 @@ class Tableau {
      *
      * @return string
      */
-    public function getStatus()
-    {
+    public function getStatus() {
         return $this->status;
+    }
+
+
+    /**
+     * Set justificatifTransportFile
+     *
+     * @param \NoxIntranet\PointageBundle\Entity\JustificatifTransportFile $justificatifTransportFile
+     *
+     * @return Tableau
+     */
+    public function setJustificatifTransportFile(\NoxIntranet\PointageBundle\Entity\JustificatifTransportFile $justificatifTransportFile = null)
+    {
+        $this->justificatifTransportFile = $justificatifTransportFile;
+    
+        return $this;
+    }
+
+    /**
+     * Get justificatifTransportFile
+     *
+     * @return \NoxIntranet\PointageBundle\Entity\JustificatifTransportFile
+     */
+    public function getJustificatifTransportFile()
+    {
+        return $this->justificatifTransportFile;
     }
 }

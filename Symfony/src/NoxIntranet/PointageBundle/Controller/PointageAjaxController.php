@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use NoxIntranet\PointageBundle\Entity\Tableau;
 use NoxIntranet\PointageBundle\Entity\PointageValide;
+use NoxIntranet\PointageBundle\Entity\JustificatifTransportFile;
 
 class PointageAjaxController extends Controller {
 
@@ -699,6 +700,60 @@ class PointageAjaxController extends Controller {
         }
 
         return $pointagesValides;
+    }
+
+    // Upload un fichier de justificatif de transport et le sauvegarde en base de donnée.
+    public function ajaxUploadJustificatifTransportFileAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupére le fichier.
+            $file = $_FILES;
+
+            // On initialise une nouvelle entitée de fichier.
+            $newFile = new JustificatifTransportFile();
+
+            // On applique les attributs du fichier à l'entitée.
+            $newFile->setName(addslashes($file['file']['name']));
+            $newFile->setType($file['file']['type']);
+            $newFile->setSize($file['file']['size']);
+
+            // On récupère le contenu du fichier et on ajoute des slashes pour éviter des erreurs d'écriture.
+            $fp = fopen($file['file']['tmp_name'], 'r');
+            $content = fread($fp, filesize($file['file']['tmp_name']));
+            $escapedContent = addslashes($content);
+            fclose($fp);
+
+            // On attribut le contenu du fichier à l'entitée.
+            $newFile->setContent($escapedContent);
+
+            // On sauvegarde la nouvelle entitée du fichier en base de données.
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newFile);
+            $em->flush();
+
+            // On supprime le fichier temporaire du justificatif de transport.
+            unlink($file['file']['tmp_name']);
+        }
+
+        return new Response($newFile->getId());
+    }
+
+    // Associe un justificatif de transport à son pointage.
+    public function ajaxSetJustificatifTransportToPointageAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $collaborateur = $request->get('collaborateur'); // L'username du collaborateur.
+            $month = $request->get('month'); // Le mois du pointage.
+            $year = $request->get('year'); // L'année du pointage.
+            $justificatifTransportFileId = $request->get('justificatifTransportFileId'); // L'Id de l'entitée du justificatif de transport à associé au pointage.
+
+            $em = $this->getDoctrine()->getManager();
+            $tableauPointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $collaborateur, 'month' => $month, 'year' => $year)); // On récupére le tableau de pointage correspondant.
+            $justificatifTransportFile = $em->getRepository('NoxIntranetPointageBundle:JustificatifTransportFile')->find($justificatifTransportFileId); // On récupére l'entitée du justificatif de transport en fonction de son Id.
+            $tableauPointage->setJustificatifTransportFile($justificatifTransportFile); // On lui associe le justificatif de transport.
+
+            $em->flush(); // On sauvegarde le tableau en base de données.
+        }
+
+        return new Response('OK');
     }
 
 }

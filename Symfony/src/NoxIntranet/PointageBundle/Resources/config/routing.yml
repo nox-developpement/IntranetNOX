@@ -90,3 +90,11 @@ nox_intranet_pointage_ajax_get_compilation_by_month_year_etablissement_validatio
     path:   /ressources/ajax-get-compilations-by-month-year-etablissement-validationstep
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetPointagesCompilationByMonthYearEtablissement }
     
+nox_intranet_pointages_ajax_upload_justificatif_transport_file:
+    path:   /ressources/ajax-upload-justificatif-transport-file
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxUploadJustificatifTransportFile }
+    
+nox_intranet_pointages_ajax_set_justificatif_transport_to_pointage:
+    path:   /ressources/ajax-set-justificatif-transport-to-pointage
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSetJustificatifTransportToPointage }
+    

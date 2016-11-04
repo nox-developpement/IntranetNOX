@@ -293,15 +293,20 @@
 
         <table id='tableFeuillePointageTitreTransport'>
             <tr>
-                <td colspan='2' style='border-width: 2px;'>Titre de transport</td>
+                <td colspan='3' style='border-width: 2px;'>Titre de transport</td>
             </tr>
             <tr>
                 <td style='border-width: 2px;'>Montant total</td>
                 <td style='border-width: 2px;'>Prise en charge employeur 50%*</td>
+                <td style='border-width: 2px;'>Justificatif</td>
             </tr>
             <tr>
                 <td id='titreTransportMontant' style='border-width: 2px;' contenteditable=true></td>
                 <td id='titreTransportTotalMontant' style='border-width: 2px;'>0.00</td>
+                <td id='titreTransportJustificatif' style='border-width: 2px;'>
+                    <p style='background-color: #1F4E79; color: white; padding: 1%; cursor: pointer;'>Envoyer un fichier</p>
+                    <input type='file' style='display: none;'>
+                </td>
             </tr>
         </table>
 
@@ -348,6 +353,7 @@
             deleteProjectColumn();
             fixedHorizontalHeader();
             fixedVerticalHeader();
+            nextLineOnEnter();
         });
 
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
@@ -1888,6 +1894,45 @@
             $(document).mousemove(function (event) {
                 $('#pointageSavingNotification').css('left', event.pageX + 20);
                 $('#pointageSavingNotification').css('top', event.pageY);
+            });
+        }
+
+        // Passe à la cellule éditable de la ligne suivante lors de l'appui sur la touche 'Entrée'.
+        function nextLineOnEnter() {
+            // Lorsque une touche est pressé dans une cellule éditable...
+            $("#tableFeuillePointage").on('keypress', "td[contenteditable='true']", function (e) {
+                // Si la touche à pour code 13 (touche 'Entrée')...
+                if (e.keyCode === 13) {
+                    e.preventDefault(); // On bloque l'action par défaut (retour à la ligne).
+                    var currentCell = $(this); // La cellule courante.
+                    var nextLineTr = currentCell.parent('tr').next('tr'); // La prochaine ligne du tableau.
+                    var nextLineCell = nextLineTr.find("td").eq(currentCell.index()); // La cellule de la prochaine ligne du tableau dont la position est identique à la cellule courante.
+                    var nextLineCellIsEditable = false; // Vrais si 'nextLineCell' est éditable (initialisé sur faux).
+
+                    // Tant que 'nextLineCell' existe et que 'nextLineCellIsEditable' est faux.
+                    while (nextLineCell.length && !nextLineCellIsEditable) {
+                        // Si nextLineCell n'est pas une cellule éditable.
+                        if (nextLineCell.attr('contentEditable') !== 'true') {
+                            nextLineTr = nextLineCell.parent('tr').next('tr'); // On récupère la ligne suivante.
+                            nextLineCell = nextLineTr.find("td").eq(nextLineCell.index()); // On récupère la cellule de la ligne suivante.
+                        }
+                        // Si nextLineCell est une cellule éditable.
+                        else {
+                            nextLineCellIsEditable = true; // On passe nextLineCellIsEditable sur vrais.
+                            nextLineCell.focus(); // On focus la cellule.
+                        }
+                    }
+
+                }
+            });
+        }
+
+        // Définie la valeur de l'absence PM sur la même que l'absence AM lorsque l'absence AM est modifiée.
+        function cloneAbsenceAMToPM() {
+            // Lorsque l'on change la valeur d'un sélécteur d'AM...
+            $('#tableFeuillePointage').on('change', '.abscenceMatinSelector select', function () {
+                $(this).parent('.abscenceMatinSelector').next('.abscenceAMSelector').find('select').val($(this).val()); // On change la valeur du sélecteur PM associé.
+                $(this).parent('.abscenceMatinSelector').next('.abscenceAMSelector').find('select').trigger('change'); // On simule un changement manuel du sélecteur PM pour déclancher la sauvegarde.
             });
         }
 
