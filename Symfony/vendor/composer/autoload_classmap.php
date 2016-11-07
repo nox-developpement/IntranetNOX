@@ -1793,6 +1793,8 @@ return array(
     'NoxIntranet\\PointageBundle\\Controller\\UsersAssistanteAgenceGetter' => $baseDir . '/src/NoxIntranet/PointageBundle/Controller/UsersAssistanteAgenceGetter.php',
     'NoxIntranet\\PointageBundle\\DependencyInjection\\Configuration' => $baseDir . '/src/NoxIntranet/PointageBundle/DependencyInjection/Configuration.php',
     'NoxIntranet\\PointageBundle\\DependencyInjection\\NoxIntranetPointageExtension' => $baseDir . '/src/NoxIntranet/PointageBundle/DependencyInjection/NoxIntranetPointageExtension.php',
+    'NoxIntranet\\PointageBundle\\Entity\\JustificatifTransportFile' => $baseDir . '/src/NoxIntranet/PointageBundle/Entity/JustificatifTransportFile.php',
+    'NoxIntranet\\PointageBundle\\Entity\\JustificatifTransportFileRepository' => $baseDir . '/src/NoxIntranet/PointageBundle/Entity/JustificatifTransportFileRepository.php',
     'NoxIntranet\\PointageBundle\\Entity\\PointageValide' => $baseDir . '/src/NoxIntranet/PointageBundle/Entity/PointageValide.php',
     'NoxIntranet\\PointageBundle\\Entity\\PointageValideRepository' => $baseDir . '/src/NoxIntranet/PointageBundle/Entity/PointageValideRepository.php',
     'NoxIntranet\\PointageBundle\\Entity\\Tableau' => $baseDir . '/src/NoxIntranet/PointageBundle/Entity/Tableau.php',

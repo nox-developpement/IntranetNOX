@@ -133,32 +133,45 @@ class PointageAjaxController extends Controller {
     // Retourne les données liées à l'utilisateur en fonction du mois et de l'année.
     public function ajaxGetDataAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
-            $month = $request->get('month');
-            $year = $request->get('year');
+            $month = $request->get('month'); // Le mois du pointage.
+            $year = $request->get('year'); // L'année du pointage.
 
+            $user = $this->get('security.token_storage')->getToken()->getUser(); // On récupére l'entitée de l'utilisateur courant.
+            // On récupére le pointage correspondant au mois, à l'année et au collaborateur.
             $em = $this->getDoctrine()->getManager();
-            $user = $this->get('security.token_storage')->getToken()->getUser();
-
             $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user->getUsername(), 'month' => $month, 'year' => $year));
 
+            // Si le pointage existe...
             if (!empty($tableData)) {
+                // On extrait ses données.
                 $data = $tableData->getData();
                 $signatureCollaborateur = $tableData->getSignatureCollaborateur();
-            } else {
+                $justificatifTransport = $tableData->getJustificatifTransportFile();
+            }
+            // Si le pointage n'existe pas...
+            else {
+                // On initialise des données nuls.
                 $data = null;
                 $signatureCollaborateur = null;
+                $justificatifTransport = null;
             }
 
+            // On décode les données sous forme de tableau.
             $dataArray = json_decode($data, true);
 
+            // Si il existe une signature...
             if (!empty($signatureCollaborateur)) {
-                $dataArray['signatureCollaborateur'] = $signatureCollaborateur;
+                $dataArray['signatureCollaborateur'] = $signatureCollaborateur; // On ajoute la signature au tableau des données.
             }
 
-            $stringData = json_encode($dataArray);
+            // Si il existe un justificatif de transport...
+            if (!empty($justificatifTransport)) {
+                $dataArray['justificatifTransport'] = $justificatifTransport->getId(); // On ajoute l'id du justificatif au tableau des données.
+            }
 
-            $response = new Response($stringData);
-            return $response;
+            // On encode le tableau de données et on le retourne.
+            $stringData = json_encode($dataArray);
+            return new Response($stringData);
         }
     }
 
@@ -744,16 +757,65 @@ class PointageAjaxController extends Controller {
             $month = $request->get('month'); // Le mois du pointage.
             $year = $request->get('year'); // L'année du pointage.
             $justificatifTransportFileId = $request->get('justificatifTransportFileId'); // L'Id de l'entitée du justificatif de transport à associé au pointage.
+            $mois = array(1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novembre', 12 => 'Décembre');
 
             $em = $this->getDoctrine()->getManager();
-            $tableauPointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $collaborateur, 'month' => $month, 'year' => $year)); // On récupére le tableau de pointage correspondant.
+            $collaborateurEntitee = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateur); // On récupére l'entitée du collaborateur.
             $justificatifTransportFile = $em->getRepository('NoxIntranetPointageBundle:JustificatifTransportFile')->find($justificatifTransportFileId); // On récupére l'entitée du justificatif de transport en fonction de son Id.
+            $justificatifTransportFile->setName('Justificatif de titre de transport ' . $collaborateurEntitee->getLastname() . ' ' . $collaborateurEntitee->getFirstname() . ' ' . $mois[$month] . ' ' . $year . '.' . pathinfo($justificatifTransportFile->getName(), PATHINFO_EXTENSION)); // On renome le justificatif avec le collaborateur et la date du pointage.
+            $tableauPointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $collaborateur, 'month' => $month, 'year' => $year)); // On récupére le tableau de pointage correspondant.
             $tableauPointage->setJustificatifTransportFile($justificatifTransportFile); // On lui associe le justificatif de transport.
 
             $em->flush(); // On sauvegarde le tableau en base de données.
         }
 
         return new Response('OK');
+    }
+
+    // Suprime un justificatif de titre de transport.
+    public function ajaxDeleteJustificatifTransportAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $idJustificatif = $request->get('IdJustificatif'); // Id du justificatif à supprimer.
+            // On récupére les entitées du justificatif et du tableau associé.
+            $em = $this->getDoctrine()->getManager();
+            $justificatif = $em->getRepository('NoxIntranetPointageBundle:JustificatifTransportFile')->find($idJustificatif);
+            $tableauPointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneByJustificatifTransportFile($justificatif);
+
+            // On dissocie le justificatif de son tableau et on le supprime.
+            $tableauPointage->setJustificatifTransportFile(null);
+            $em->remove($justificatif);
+
+            // On sauvegarde les changements en base de données.
+            $em->flush();
+        }
+
+        return new Response('OK');
+    }
+
+    // Permet de télécharger un fichier justificatif de transport.
+    public function ajaxDownloadJustificatifTransportAction($idJustificatif) {
+        // On récupére l'entitée du justificatif.
+        $em = $this->getDoctrine()->getManager();
+        $justificatif = $em->getRepository('NoxIntranetPointageBundle:JustificatifTransportFile')->find($idJustificatif);
+
+        // On récupére le fichier sous forme de chaine et on rétablie sa forme d'origine en suppriment les slashes.
+        $file = stripslashes(stream_get_contents($justificatif->getContent()));
+
+        // On récupére les paramètres du fichier.
+        $filename = stripslashes($justificatif->getName());
+        $size = $justificatif->getSize();
+        $type = $justificatif->getType();
+
+        // On prépare le header pour le téléchargement.
+        header("Content-length: " + $size);
+        header("Content-type: \"$type\"");
+        header("Content-Disposition: inline; filename=\"$filename\"");
+        header('Content-Transfer-Encoding: binary');
+        header('Accept-Ranges: bytes');
+
+        // On lance le téléchargement du fichier.
+        echo $file;
+        exit;
     }
 
 }

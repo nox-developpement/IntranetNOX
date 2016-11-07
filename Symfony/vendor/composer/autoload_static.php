@@ -2218,6 +2218,8 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'NoxIntranet\\PointageBundle\\Controller\\UsersAssistanteAgenceGetter' => __DIR__ . '/../..' . '/src/NoxIntranet/PointageBundle/Controller/UsersAssistanteAgenceGetter.php',
         'NoxIntranet\\PointageBundle\\DependencyInjection\\Configuration' => __DIR__ . '/../..' . '/src/NoxIntranet/PointageBundle/DependencyInjection/Configuration.php',
         'NoxIntranet\\PointageBundle\\DependencyInjection\\NoxIntranetPointageExtension' => __DIR__ . '/../..' . '/src/NoxIntranet/PointageBundle/DependencyInjection/NoxIntranetPointageExtension.php',
+        'NoxIntranet\\PointageBundle\\Entity\\JustificatifTransportFile' => __DIR__ . '/../..' . '/src/NoxIntranet/PointageBundle/Entity/JustificatifTransportFile.php',
+        'NoxIntranet\\PointageBundle\\Entity\\JustificatifTransportFileRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/PointageBundle/Entity/JustificatifTransportFileRepository.php',
         'NoxIntranet\\PointageBundle\\Entity\\PointageValide' => __DIR__ . '/../..' . '/src/NoxIntranet/PointageBundle/Entity/PointageValide.php',
         'NoxIntranet\\PointageBundle\\Entity\\PointageValideRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/PointageBundle/Entity/PointageValideRepository.php',
         'NoxIntranet\\PointageBundle\\Entity\\Tableau' => __DIR__ . '/../..' . '/src/NoxIntranet/PointageBundle/Entity/Tableau.php',

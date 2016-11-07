@@ -98,3 +98,11 @@ nox_intranet_pointages_ajax_set_justificatif_transport_to_pointage:
     path:   /ressources/ajax-set-justificatif-transport-to-pointage
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSetJustificatifTransportToPointage }
     
+nox_intranet_pointages_ajax_delete_justificatif_transport:
+    path:   /ressources/ajax-delete-justificatif-transport
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDeleteJustificatifTransport }
+    
+nox_intranet_pointages_ajax_download_justificatif_transport:
+    path:   /ressources/ajax-download-justificatif-transport/{idJustificatif}
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDownloadJustificatifTransport, idJustificatif: '' }
+    

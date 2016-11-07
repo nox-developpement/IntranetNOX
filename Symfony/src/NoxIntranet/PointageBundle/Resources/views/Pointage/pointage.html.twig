@@ -269,12 +269,12 @@
                 <td id='titreTransportTotalMontant' style='border-width: 2px;'>0.00</td>
                 <td id='titreTransportJustificatif' style='border-width: 2px;'>
                     <form id='sendTransportJustificatifForm' enctype='multipart/form-data' style='display: none;'>           
-                        <input name='file' type='file'>
+                        <input name='file' type='file' accept=".pdf, application/pdf">
                         <button type='submit'>Submit</button>
                     </form>
                     <button type='button' id='sendTransportJustificatifFormButton' class='boutonFormulaire'>Envoyer un justificatif</button>
                     <button type='button' id='uploadLoaderButton' style="background-image: url('{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}'); ">Envoyer un justificatif</button>
-                    <button type='button' id='deleteJustificatifButton'>Justificatif envoyé &#10004;<span>Supprimer</span></button>
+                    <div id='deleteJustificatifButton'>Justificatif envoyé &#10004;<span id='downloadJustificatifButtonSpan'>Voir</span><span id='deleteJustificatifButtonSpan' onclick='ajaxDeleteJustificatifTransport();'>Supprimer</span></div>
                 </td>
             </tr>
         </table>
@@ -327,7 +327,16 @@
             ajaxUploadJustificatifTransport();
             // Affiche une fenêtre de confirmation lors de la validation du pointage.
             $('#form_Valider').click(function () {
-                return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
+                // Si un montant de titre de transport est renseigné sans justificatif...
+                if ($('#titreTransportMontant').text() !== '' && $('#deleteJustificatifButton').css('display') === 'none') {
+                    if (confirm('Vous avez indiqué un montant de titre de transport sans ajouter de justificatif, voulez-vous valider la feuille de pointage quand même ?')) {
+                        return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
+                }
             });
         });
 
@@ -1081,8 +1090,12 @@
                             });
                         }
 
-                        if (data['fichierJustificatif'] !== undefined) {
-
+                        if (data['justificatifTransport'] !== undefined) {
+                            // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression, on attribut le lien de téléchargement du fichier au bouton d'affichage et on l'affiche.
+                            $('#sendTransportJustificatifFormButton').hide();
+                            $('#deleteJustificatifButtonSpan').attr('idjustificatif', data['justificatifTransport']);
+                            $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_ajax_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
+                            $('#deleteJustificatifButton').show();
                         }
 
                         ajaxGetPointageStatus();
@@ -1861,10 +1874,20 @@
 
         // Permet d'uploader un justificatif de transport.
         function ajaxUploadJustificatifTransport() {
+            // Lors du clic sur le bouton d'envoi de fichier.
             $('#sendTransportJustificatifFormButton').click(function () {
+                // Lorsqu'un fichier est séléctionné...
                 $("#sendTransportJustificatifForm input[type='file']").change(function () {
-                    $('#sendTransportJustificatifForm').submit();
+                    // Si le fichier est de type PDF...
+                    if ($(this)[0].files[0].type === 'application/pdf') {
+                        $('#sendTransportJustificatifForm').submit(); // On valide le formulaire.
+                    }
+                    // Si le fichier n'est pas de type PDF...
+                    else {
+                        alert('Le fichier doit être de type PDF !'); // On affiche un message d'erreur.
+                    }
                 });
+                // On simule un clic sur le input de fichier du formulaire.
                 $("#sendTransportJustificatifForm input[type='file']").click();
             });
 
@@ -1886,18 +1909,52 @@
                     //Options to tell jQuery not to process data or worry about content-type.
                     contentType: false,
                     processData: false,
-                    success: function (responseId) {
+                    success: function (justificatifId) {
                         // Requette ajax pour associée le justificatif en base de donnée au tableau de pointage courant.
                         $.ajax({
                             url: '{{ path('nox_intranet_pointages_ajax_set_justificatif_transport_to_pointage') }}',
-                            data: {collaborateur: '{{ app.user.username }}', month: $('#pointage_month_selector').val(), year: $('#pointage_year_selector').val(), justificatifTransportFileId: responseId},
+                            data: {collaborateur: '{{ app.user.username }}', month: $('#pointage_month_selector').val(), year: $('#pointage_year_selector').val(), justificatifTransportFileId: justificatifId},
                             success: function () {
+                                // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression et on l'affiche.
                                 $('#uploadLoaderButton').hide();
+                                $('#deleteJustificatifButtonSpan').attr('idjustificatif', justificatifId);
+                                $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_ajax_download_justificatif_transport') }}/' + justificatifId + "';");
                                 $('#deleteJustificatifButton').show();
                             }
                         });
                     }
                 });
+            });
+        }
+
+        // Permet de supprimer le justificatif de transport associé au pointage.
+        function ajaxDeleteJustificatifTransport() {
+            var IdJustificatif = $('#deleteJustificatifButtonSpan').attr('idjustificatif'); // L'id du justificatif à supprimer.
+
+            // Requette ajax pour uploader le fichier en base de données.
+            $.ajax({
+                url: '{{ path('nox_intranet_pointages_ajax_delete_justificatif_transport') }}',
+                data: {IdJustificatif: IdJustificatif},
+                success: function () {
+                    // On cache le bouton de suppression du justificatif et on affiche celui d'upload.
+                    $('#deleteJustificatifButton').hide();
+                    $('#sendTransportJustificatifFormButton').show();
+                }
+            });
+        }
+
+        function ajaxDownloadJustificatifTransport() {
+            var IdJustificatif = $('#deleteJustificatifButtonSpan').attr('idjustificatif'); // L'id du justificatif à télécharger.
+
+            // Requette ajax pour uploader le fichier en base de données.
+            $.ajax({
+                url: '{{ path('nox_intranet_pointages_ajax_delete_justificatif_transport') }}',
+                data: {IdJustificatif: IdJustificatif},
+                success: function () {
+                    // On cache le bouton de suppression du justificatif et on affiche celui d'upload.
+                    $('#deleteJustificatifButton').hide();
+                    $('#sendTransportJustificatifFormButton').show();
+                }
             });
         }
 
