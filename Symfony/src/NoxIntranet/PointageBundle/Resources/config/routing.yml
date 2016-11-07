@@ -102,7 +102,7 @@ nox_intranet_pointages_ajax_delete_justificatif_transport:
     path:   /ressources/ajax-delete-justificatif-transport
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDeleteJustificatifTransport }
     
-nox_intranet_pointages_ajax_download_justificatif_transport:
+nox_intranet_pointages_download_justificatif_transport:
     path:   /ressources/ajax-download-justificatif-transport/{idJustificatif}
-    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDownloadJustificatifTransport, idJustificatif: '' }
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:downloadJustificatifTransport, idJustificatif: '' }
     

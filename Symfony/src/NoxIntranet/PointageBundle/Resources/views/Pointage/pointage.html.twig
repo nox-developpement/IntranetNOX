@@ -958,35 +958,48 @@
             // Désactive la sauvegarde automatique sur l'édition de cellules.
             $('td[contenteditable=true]').unbind('blur');
             $('select:not(#pointage_month_selector, #pointage_year_selector)').unbind('change');
+
+            // Initialisation d'une variable de timer pour lancer la sauvegarde après # temps sans typing.
+            var delay = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
             // Détecte l'édition de texte des cellules et sauvegarde les changement en base de donnée.
-            $('td[contenteditable=true]').on('blur', function () {
-                var data = {};
-                data['contenteditable'] = [];
-                data['select'] = [];
-                data['project'] = [];
-                data['projectName'] = [];
-                data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-                $('td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
-                    data['contenteditable'][index] = $(this).text();
-                    //$(this).css('background-color', 'orange');
-                    //$(this).text(index);
-                });
-                $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
-                    data['select'][index] = $(this).val();
-                    //$(this).css('background-color', 'orange');
-                });
-                $('.project[contenteditable=true]').each(function (index) {
-                    data['project'][index] = $(this).text();
-                });
-                $('#tableFeuillePointage tr:nth-child(2) .project').each(function (index) {
-                    data['projectName'][index] = $(this).text();
-                });
-                var serializedData = JSON.stringify(data);
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                    data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
-                });
+            $('td[contenteditable=true]').on('keyup', function () {
+                // Permet d'ajouter un temps d'attente avant de lancer la sauvegarde.
+                delay(function () {
+                    var data = {};
+                    data['contenteditable'] = [];
+                    data['select'] = [];
+                    data['project'] = [];
+                    data['projectName'] = [];
+                    data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
+                    $('td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
+                        data['contenteditable'][index] = $(this).text();
+                        //$(this).css('background-color', 'orange');
+                        //$(this).text(index);
+                    });
+                    $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
+                        data['select'][index] = $(this).val();
+                        //$(this).css('background-color', 'orange');
+                    });
+                    $('.project[contenteditable=true]').each(function (index) {
+                        data['project'][index] = $(this).text();
+                    });
+                    $('#tableFeuillePointage tr:nth-child(2) .project').each(function (index) {
+                        data['projectName'][index] = $(this).text();
+                    });
+                    var serializedData = JSON.stringify(data);
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
+                        data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
+                    });
+                }, 1500);
             });
             // Détecte l'édition de texte des selects et sauvegarde les changement en base de donnée.
             $('select:not(#pointage_month_selector, #pointage_year_selector)').change(function () {
@@ -1094,7 +1107,7 @@
                             // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression, on attribut le lien de téléchargement du fichier au bouton d'affichage et on l'affiche.
                             $('#sendTransportJustificatifFormButton').hide();
                             $('#deleteJustificatifButtonSpan').attr('idjustificatif', data['justificatifTransport']);
-                            $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_ajax_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
+                            $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
                             $('#deleteJustificatifButton').show();
                         }
 
@@ -1923,7 +1936,7 @@
                                 // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression et on l'affiche.
                                 $('#uploadLoaderButton').hide();
                                 $('#deleteJustificatifButtonSpan').attr('idjustificatif', justificatifId);
-                                $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_ajax_download_justificatif_transport') }}/' + justificatifId + "';");
+                                $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_download_justificatif_transport') }}/' + justificatifId + "';");
                                 $('#deleteJustificatifButton').show();
                             }
                         });
@@ -1962,6 +1975,9 @@
                     $('#sendTransportJustificatifFormButton').show();
                 }
             });
+        }
+
+        function copyMultipleCell() {
         }
 
     </script>

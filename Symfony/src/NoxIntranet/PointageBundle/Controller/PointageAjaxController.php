@@ -816,30 +816,4 @@ class PointageAjaxController extends Controller {
         return new Response('OK');
     }
 
-    // Permet de télécharger un fichier justificatif de transport.
-    public function ajaxDownloadJustificatifTransportAction($idJustificatif) {
-        // On récupére l'entitée du justificatif.
-        $em = $this->getDoctrine()->getManager();
-        $justificatif = $em->getRepository('NoxIntranetPointageBundle:JustificatifTransportFile')->find($idJustificatif);
-
-        // On récupére le fichier sous forme de chaine et on rétablie sa forme d'origine en suppriment les slashes.
-        $file = stripslashes(stream_get_contents($justificatif->getContent()));
-
-        // On récupére les paramètres du fichier.
-        $filename = stripslashes($justificatif->getName());
-        $size = $justificatif->getSize();
-        $type = $justificatif->getType();
-
-        // On prépare le header pour le téléchargement.
-        header("Content-length: " + $size);
-        header("Content-type: \"$type\"");
-        header("Content-Disposition: inline; filename=\"$filename\"");
-        header('Content-Transfer-Encoding: binary');
-        header('Accept-Ranges: bytes');
-
-        // On lance le téléchargement du fichier.
-        echo $file;
-        exit;
-    }
-
 }

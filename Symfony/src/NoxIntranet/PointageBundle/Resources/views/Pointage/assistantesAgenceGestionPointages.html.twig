@@ -810,7 +810,7 @@
                             // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression, on attribut le lien de téléchargement du fichier au bouton d'affichage et on l'affiche.
                             $('#sendTransportJustificatifFormButton').hide();
                             $('#deleteJustificatifButtonSpan').attr('idjustificatif', data['justificatifTransport']);
-                            $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_ajax_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
+                            $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
                             $('#deleteJustificatifButton').show();
                         }
 
@@ -911,37 +911,48 @@
                 }
             });
 
+            // Initialisation d'une variable de timer pour lancer la sauvegarde après # temps sans typing.
+            var delay = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
             // Lis le contenu des cellules du tableau et renvoie le résultat sous forme de chaine pour sauvegarde en base de données.
             function ajaxSaveData(user, month, year) {
-                $('#tableFeuillePointageDivContainer td[contenteditable=true], #tableFeuillePointageTypesAbscencesDivContainer td[contenteditable=true]').on('blur', function () {
-                    var data = {};
-                    data['contenteditable'] = [];
-                    data['select'] = [];
-                    data['project'] = [];
-                    data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
+                $('#tableFeuillePointageDivContainer td[contenteditable=true], #tableFeuillePointageTypesAbscencesDivContainer td[contenteditable=true]').on('keyup', function () {
+                    delay(function () {
+                        var data = {};
+                        data['contenteditable'] = [];
+                        data['select'] = [];
+                        data['project'] = [];
+                        data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
 
-                    $('#tableFeuillePointageDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu), #tableFeuillePointageTypesAbscencesDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
-                        data['contenteditable'][index] = $(this).text();
-                        //$(this).css('background-color', 'orange');
-                        //$(this).text(index);
-                    });
+                        $('#tableFeuillePointageDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu), #tableFeuillePointageTypesAbscencesDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
+                            data['contenteditable'][index] = $(this).text();
+                            //$(this).css('background-color', 'orange');
+                            //$(this).text(index);
+                        });
 
-                    $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
-                        data['select'][index] = $(this).val();
-                        //$(this).css('background-color', 'orange');
-                    });
+                        $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
+                            data['select'][index] = $(this).val();
+                            //$(this).css('background-color', 'orange');
+                        });
 
-                    $('.project[contenteditable=true]').each(function (index) {
-                        data['project'][index] = $(this).text();
-                    });
+                        $('.project[contenteditable=true]').each(function (index) {
+                            data['project'][index] = $(this).text();
+                        });
 
-                    var serializedData = JSON.stringify(data);
+                        var serializedData = JSON.stringify(data);
 
-                    $.ajax({
-                        type: 'POST',
-                        url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                        data: {user: user, month: month, year: year, data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
-                    });
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
+                            data: {user: user, month: month, year: year, data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
+                        });
+                    }, 1500);
                 });
 
                 $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').change(function () {
@@ -1404,35 +1415,46 @@
                 });
 
                 $('td[contenteditable]').unbind('blur');
-                $('td[contenteditable=true]').on('blur', function () {
-                    var data = {};
-                    data['contenteditable'] = [];
-                    data['select'] = [];
-                    data['project'] = [];
-                    data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
 
-                    $('td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
-                        data['contenteditable'][index] = $(this).text();
-                        //$(this).css('background-color', 'orange');
-                        //$(this).text(index);
-                    });
+                // Initialisation d'une variable de timer pour lancer la sauvegarde après # temps sans typing.
+                var delay = (function () {
+                    var timer = 0;
+                    return function (callback, ms) {
+                        clearTimeout(timer);
+                        timer = setTimeout(callback, ms);
+                    };
+                })();
+                $('td[contenteditable=true]').on('keyup', function () {
+                    delay(function () {
+                        var data = {};
+                        data['contenteditable'] = [];
+                        data['select'] = [];
+                        data['project'] = [];
+                        data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
 
-                    $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
-                        data['select'][index] = $(this).val();
-                        //$(this).css('background-color', 'orange');
-                    });
+                        $('td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
+                            data['contenteditable'][index] = $(this).text();
+                            //$(this).css('background-color', 'orange');
+                            //$(this).text(index);
+                        });
 
-                    $('.project[contenteditable=true]').each(function (index) {
-                        data['project'][index] = $(this).text();
-                    });
+                        $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
+                            data['select'][index] = $(this).val();
+                            //$(this).css('background-color', 'orange');
+                        });
 
-                    var serializedData = JSON.stringify(data);
+                        $('.project[contenteditable=true]').each(function (index) {
+                            data['project'][index] = $(this).text();
+                        });
 
-                    $.ajax({
-                        type: 'POST',
-                        url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                        data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
-                    });
+                        var serializedData = JSON.stringify(data);
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
+                            data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
+                        });
+                    }, 1500);
                 });
 
                 displayDailyProjectsTotalPercentage();
@@ -2004,7 +2026,7 @@
                                 // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression et on l'affiche.
                                 $('#uploadLoaderButton').hide();
                                 $('#deleteJustificatifButtonSpan').attr('idjustificatif', justificatifId);
-                                $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_ajax_download_justificatif_transport') }}/' + justificatifId + "';");
+                                $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_download_justificatif_transport') }}/' + justificatifId + "';");
                                 $('#deleteJustificatifButton').show();
                             }
                         });
