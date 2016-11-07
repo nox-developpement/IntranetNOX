@@ -1449,6 +1449,8 @@
             $('select:not(#pointage_month_selector, #pointage_year_selector)').removeAttr('disabled');
             $('#addProject').show();
             $('#form_Valider').show();
+            $('#sendTransportJustificatifFormButton, #uploadLoaderButton').removeAttr('disabled');
+            $('#deleteJustificatifButtonSpan').show();
             $('.pointageStatusLine div').width('10%');
             $(".pointageStatusCircle").css('background-color', 'lightgrey');
             $(".pointageStatusCircle").filter(function () {
@@ -1492,12 +1494,15 @@
                     $(".pointageStatusCircle").filter(function () {
                         return  $(this).attr("step") <= cercleNb;
                     }).css('background-color', 'green');
+                    // Si le pointage a déjà été validé...            
                     if (response !== '0' && response !== '') {
                         $('td[contenteditable=true]').css('cursor', 'default');
                         $('td[contenteditable=true]').attr('onkeydown', "return false");
                         $('select:not(#pointage_month_selector, #pointage_year_selector)').attr('disabled', 'disabled');
                         $('#addProject').hide();
                         $('#form_Valider').hide();
+                        $('#sendTransportJustificatifFormButton, #uploadLoaderButton').attr('disabled', 'disabled');
+                        $('#deleteJustificatifButtonSpan').hide();
                     }
                 }
             });
@@ -1943,6 +1948,7 @@
             });
         }
 
+        // Permet de télécharger le justificatif de transport d'un pointage.
         function ajaxDownloadJustificatifTransport() {
             var IdJustificatif = $('#deleteJustificatifButtonSpan').attr('idjustificatif'); // L'id du justificatif à télécharger.
 

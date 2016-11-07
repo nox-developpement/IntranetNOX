@@ -304,8 +304,13 @@
                 <td id='titreTransportMontant' style='border-width: 2px;' contenteditable=true></td>
                 <td id='titreTransportTotalMontant' style='border-width: 2px;'>0.00</td>
                 <td id='titreTransportJustificatif' style='border-width: 2px;'>
-                    <p style='background-color: #1F4E79; color: white; padding: 1%; cursor: pointer;'>Envoyer un fichier</p>
-                    <input type='file' style='display: none;'>
+                    <form id='sendTransportJustificatifForm' enctype='multipart/form-data' style='display: none;'>           
+                        <input name='file' type='file' accept=".pdf, application/pdf">
+                        <button type='submit'>Submit</button>
+                    </form>
+                    <button type='button' id='sendTransportJustificatifFormButton' class='boutonFormulaire'>Envoyer un justificatif</button>
+                    <button type='button' id='uploadLoaderButton' style="background-image: url('{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}'); ">Envoyer un justificatif</button>
+                    <div id='deleteJustificatifButton'>Justificatif envoyé &#10004;<span id='downloadJustificatifButtonSpan'>Voir</span><span id='deleteJustificatifButtonSpan' onclick='ajaxDeleteJustificatifTransport();'>Supprimer</span></div>
                 </td>
             </tr>
         </table>
@@ -354,6 +359,8 @@
             fixedHorizontalHeader();
             fixedVerticalHeader();
             nextLineOnEnter();
+            cloneAbsenceAMToPM();
+            ajaxUploadJustificatifTransport();
         });
 
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
@@ -695,7 +702,6 @@
                                 $(this).html('');
                                 $(this).parent('tr').find('td').css('background', 'white');
                             } else {
-                                console.log(response['dates'][index]['ferie']);
                                 $(this).html(response['dates'][index]['date']);
                                 if (response['dates'][index]['date'].indexOf('Samedi') >= 0 || response['dates'][index]['date'].indexOf('Dimanche') >= 0 || response['dates'][index]['ferie'] === true) {
                                     $(this).parent('tr').find('td').css('background', 'rgb(166,166,166)');
@@ -798,6 +804,14 @@
                             $('.project[contenteditable=true]').each(function (index) {
                                 $(this).text(data['project'][index]);
                             });
+                        }
+
+                        if (data['justificatifTransport'] !== undefined) {
+                            // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression, on attribut le lien de téléchargement du fichier au bouton d'affichage et on l'affiche.
+                            $('#sendTransportJustificatifFormButton').hide();
+                            $('#deleteJustificatifButtonSpan').attr('idjustificatif', data['justificatifTransport']);
+                            $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_ajax_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
+                            $('#deleteJustificatifButton').show();
                         }
 
                         // On change la le mois et l'année indiqué sur la feuille de pointage.
@@ -1472,7 +1486,6 @@
                         deleteTd(projectCellule);
                         setColSpan();
                         ajaxSaveData2();
-                        //console.log($._data(projectCellule[0], "events"));
                     });
                 }
 
@@ -1933,6 +1946,102 @@
             $('#tableFeuillePointage').on('change', '.abscenceMatinSelector select', function () {
                 $(this).parent('.abscenceMatinSelector').next('.abscenceAMSelector').find('select').val($(this).val()); // On change la valeur du sélecteur PM associé.
                 $(this).parent('.abscenceMatinSelector').next('.abscenceAMSelector').find('select').trigger('change'); // On simule un changement manuel du sélecteur PM pour déclancher la sauvegarde.
+            });
+        }
+
+        // Définie la valeur de l'absence PM sur la même que l'absence AM lorsque l'absence AM est modifiée.
+        function cloneAbsenceAMToPM() {
+            // Lorsque l'on change la valeur d'un sélécteur d'AM...
+            $('#tableFeuillePointage').on('change', '.abscenceMatinSelector select', function () {
+                $(this).parent('.abscenceMatinSelector').next('.abscenceAMSelector').find('select').val($(this).val()); // On change la valeur du sélecteur PM associé.
+                $(this).parent('.abscenceMatinSelector').next('.abscenceAMSelector').find('select').trigger('change'); // On simule un changement manuel du sélecteur PM pour déclancher la sauvegarde.
+            });
+        }
+
+        // Permet d'uploader un justificatif de transport.
+        function ajaxUploadJustificatifTransport() {
+            // Lors du clic sur le bouton d'envoi de fichier.
+            $('#sendTransportJustificatifFormButton').click(function () {
+                // Lorsqu'un fichier est séléctionné...
+                $("#sendTransportJustificatifForm input[type='file']").change(function () {
+                    // Si le fichier est de type PDF...
+                    if ($(this)[0].files[0].type === 'application/pdf') {
+                        $('#sendTransportJustificatifForm').submit(); // On valide le formulaire.
+                    }
+                    // Si le fichier n'est pas de type PDF...
+                    else {
+                        alert('Le fichier doit être de type PDF !'); // On affiche un message d'erreur.
+                    }
+                });
+                // On simule un clic sur le input de fichier du formulaire.
+                $("#sendTransportJustificatifForm input[type='file']").click();
+            });
+
+            // Lors de la validation du formulaire d'upload du fichier justificatif de transport.
+            $('#sendTransportJustificatifForm').on('submit', function (e) {
+                e.preventDefault(); // On bloque l'envoi du formulaire.
+
+                // On cache le bouton d'envoie et on affiche celui de chargement du transfert.
+                $('#sendTransportJustificatifFormButton').hide();
+                $('#uploadLoaderButton').show();
+
+                var formData = new FormData($('#sendTransportJustificatifForm')[0]); // Variable contenant les données du formulaire.
+                // Requette ajax pour uploader le fichier en base de données.
+                $.ajax({
+                    url: '{{ path('nox_intranet_pointages_ajax_upload_justificatif_transport_file') }}',
+                    type: 'POST',
+                    // Form data
+                    data: formData,
+                    //Options to tell jQuery not to process data or worry about content-type.
+                    contentType: false,
+                    processData: false,
+                    success: function (justificatifId) {
+                        // Requette ajax pour associée le justificatif en base de donnée au tableau de pointage courant.
+                        $.ajax({
+                            url: '{{ path('nox_intranet_pointages_ajax_set_justificatif_transport_to_pointage') }}',
+                            data: {collaborateur: $('#form_Pointage').val(), month: $('#pointage_month_selector').val(), year: $('#pointage_year_selector').val(), justificatifTransportFileId: justificatifId},
+                            success: function () {
+                                // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression et on l'affiche.
+                                $('#uploadLoaderButton').hide();
+                                $('#deleteJustificatifButtonSpan').attr('idjustificatif', justificatifId);
+                                $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_ajax_download_justificatif_transport') }}/' + justificatifId + "';");
+                                $('#deleteJustificatifButton').show();
+                            }
+                        });
+                    }
+                });
+            });
+        }
+
+        // Permet de supprimer le justificatif de transport associé au pointage.
+        function ajaxDeleteJustificatifTransport() {
+            var IdJustificatif = $('#deleteJustificatifButtonSpan').attr('idjustificatif'); // L'id du justificatif à supprimer.
+
+            // Requette ajax pour uploader le fichier en base de données.
+            $.ajax({
+                url: '{{ path('nox_intranet_pointages_ajax_delete_justificatif_transport') }}',
+                data: {IdJustificatif: IdJustificatif},
+                success: function () {
+                    // On cache le bouton de suppression du justificatif et on affiche celui d'upload.
+                    $('#deleteJustificatifButton').hide();
+                    $('#sendTransportJustificatifFormButton').show();
+                }
+            });
+        }
+
+        // Permet de télécharger le justificatif de transport d'un pointage.
+        function ajaxDownloadJustificatifTransport() {
+            var IdJustificatif = $('#deleteJustificatifButtonSpan').attr('idjustificatif'); // L'id du justificatif à télécharger.
+
+            // Requette ajax pour uploader le fichier en base de données.
+            $.ajax({
+                url: '{{ path('nox_intranet_pointages_ajax_delete_justificatif_transport') }}',
+                data: {IdJustificatif: IdJustificatif},
+                success: function () {
+                    // On cache le bouton de suppression du justificatif et on affiche celui d'upload.
+                    $('#deleteJustificatifButton').hide();
+                    $('#sendTransportJustificatifFormButton').show();
+                }
             });
         }
 
