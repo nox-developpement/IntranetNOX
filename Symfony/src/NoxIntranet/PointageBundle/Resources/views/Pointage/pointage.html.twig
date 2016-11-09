@@ -1988,12 +1988,14 @@
             var lastSelectedCell = null; // Variable contenant la dernière cellule à avoir été séléctionnée.
             var currentSelectedCells = []; // Tableau contenant les cellules en cours de séléction.
             var copyCells = []; // Tableau contenant les valeurs des cellules en cours de copie.
+            var originLine = null; // Index de la ligne de la première cellule séléctionnée.
+            var originColumn = null; // Index de la colonne de la première cellule séléctionnée.
 
             /* 
              * Initialise la séléction des cellules lorsque le bouton gauche de la souris est pressé.
              */
             // Lorsqu'un bouton de la souris est pressé dans une cellule de projet...
-            $('#tableFeuillePointage').on('mousedown', '.projectPercentageCell', function (e) {
+            $('#tableFeuillePointage').on('mousedown', ".projectPercentageCell[contenteditable='true']", function (e) {
                 // Si le bouton pressé est le gauche...
                 if (e.which === 1) {
                     lastSelectedCell = null; // On efface la dernière cellule séléctionnée.
@@ -2006,6 +2008,10 @@
 
                     mouseIdDown = true; // On sauvegarde l'état du bouton.
                     var currentCell = $(this); // On récupére la cellule courante.
+
+                    // On met à jours les variables d'index des cellules.
+                    originLine = currentCell.parent('tr').index();
+                    originColumn = currentCell.index();
 
                     lastSelectedCell = currentCell; // On met à jour la dernière cellule séléctionnée.
                     currentSelectedCells.push(currentCell); // On ajoute la cellule courante au tableau des cellules en cours de séléction.
@@ -2025,6 +2031,10 @@
                 // Si le bouton relaché est le gauche...
                 if (e.which === 1) {
                     mouseIdDown = false; // On sauvegarde l'état du bouton.
+
+                    // On efface les variables d'index de la première colonne séléctionnée.
+                    originLine = null;
+                    originColumn = null;
                 }
             });
 
@@ -2033,48 +2043,40 @@
              */
             // Lorsqu'une cellule de projet et survolée...
             $('#tableFeuillePointage').on('mouseover', '.projectPercentageCell', function () {
-                // Si la souris est enfoncé...
-                if (mouseIdDown) {
-                    // On récupère les 4 cellules qui entourent la cellule courante.
-                    var leftCell = $(this).prev();
-                    var rightCell = $(this).next();
-                    var topCell = $(this).parent('tr').prev('tr').find('td').eq($(this).index());
-                    var bottomCell = $(this).parent('tr').next('tr').find('td').eq($(this).index());
+                // Si la souris est enfoncé et la cellule survolé est éditable...
+                if (mouseIdDown && $(this).attr('contenteditable') === 'true') {
+                    // On récupére les index de la ligne et de la colonne de la cellule courante.
+                    var currentLine = $(this).parent('tr').index();
+                    var currentColumn = $(this).index();
 
-                    // Si la dernière cellule séléctionnée est placer autour de la cellule courante...
-                    if (lastSelectedCell.is(leftCell) || lastSelectedCell.is(rightCell) || lastSelectedCell.is(topCell) || lastSelectedCell.is(bottomCell)) {
-                        lastSelectedCell = $(this); // On met à jour la dernière cellule séléctionnée.
-                        currentSelectedCells.push($(this)); // On ajoute la cellule courante au tableau des cellules en cours de séléction.
+                    // On met à jours le tableau des cellules en cours de séléction.
+                    currentSelectedCells = [];
+                    for (var line = Math.min(originLine, currentLine); line <= Math.max(originLine, currentLine); line++) {
+                        for (var column = Math.min(originColumn, currentColumn); column <= Math.max(originColumn, currentColumn); column++) {
+                            var cell = $('#tableFeuillePointage').find('tr').eq(line).find('td').eq(column);
 
-                        // On colore les bords de la cellule en bleu.           
-                        $(this).css({
-                            'border': '2px solid blue'
-                        });
-
-                        // Pour chaques cellules en cours de séléction...
-                        $.each(currentSelectedCells, function () {
-                            // On récupère la cellule courante les 4 cellules qui l'entourent.
-                            var currentCell = $(this);
-                            var leftCell = currentCell.prev();
-                            var rightCell = currentCell.next();
-                            var topCell = currentCell.parent('tr').prev('tr').find('td').eq($(this).index());
-                            var bottomCell = currentCell.parent('tr').next('tr').find('td').eq($(this).index());
-
-                            /* Si l'une des autres cellules en cours de séléction est identique à l'une des cellules situé autour la cellule courante, 
-                             on redonne sa couleur d'origine à la bordure du côté concerné sur la cellule courante. */
-                            $.each(currentSelectedCells, function () {
-                                if ($(this).is(leftCell)) {
-                                    currentCell.css('border-left', '1px solid black');
-                                } else if ($(this).is(rightCell)) {
-                                    currentCell.css('border-right', '1px solid black');
-                                } else if ($(this).is(topCell)) {
-                                    currentCell.css('border-top', '1px solid black');
-                                } else if ($(this).is(bottomCell)) {
-                                    currentCell.css('border-bottom', '1px solid black');
-                                }
-                            });
-                        });
+                            // Si la cellules est éditable...
+                            if (cell.attr('contenteditable') === 'true') {
+                                currentSelectedCells.push(cell); // On l'ajoute au tableau des cellules en cours de séléction.
+                            }
+                        }
                     }
+
+                    lastSelectedCell = $(this); // On remplace la dernière cellule séléctionnée par la celules courante.
+                    $(".projectPercentageCell[contenteditable='true']").css('border', '1px solid black'); // On redonne leur bordure d'origine à toutes les cellules de projet éditable.
+
+                    // Pour chaques cellules en cours de séléction...
+                    $.each(currentSelectedCells, function (index, currentCell) {
+                        // On récupère les index de la ligne et de la colonne de la cellule courante.
+                        var currentCellLine = currentCell.parent('tr').index();
+                        var currentCellColumn = currentCell.index();
+
+                        // On change les bordures de la cellules si nescessaire.
+                        currentCell.css('border-top', currentCellLine === Math.min(originLine, currentLine) ? '2px solid blue' : '1px solid black');
+                        currentCell.css('border-bottom', currentCellLine === Math.max(originLine, currentLine) ? '2px solid blue' : '1px solid black');
+                        currentCell.css('border-left', currentCellColumn === Math.min(originColumn, currentColumn) ? '2px solid blue' : '1px solid black');
+                        currentCell.css('border-right', currentCellColumn === Math.max(originColumn, currentColumn) ? '2px solid blue' : '1px solid black');
+                    });
                 }
             });
 
@@ -2083,46 +2085,22 @@
              */
             // Lors d'une copie au d'une ou plusieurs cellules de projets...
             $('#tableFeuillePointage').on('copy', '.projectPercentageCell', function (e) {
+                e.preventDefault(); // On bloque l'action par défaut.
+
                 copyCells = []; // On vide le tableau des éléments précédement copiés.
 
-                // Si il y a >1 cellules séléctionnées...
-                if (currentSelectedCells.length > 1) {
-                    e.preventDefault(); // On bloque l'action par défaut.
+                // Pour chaques cellules en cours de séléction...
+                $.each(currentSelectedCells, function () {
 
-                    // Pour chaques cellules en cours de séléction...
-                    $.each(currentSelectedCells, function () {
-
-                        // On change les bords de la cellule en pointillés.           
-                        $(this).css({
-                            'border': '2px dotted blue'
-                        });
-
-                        // On récupère la cellule courante les 4 cellules qui l'entourent.
-                        var currentCell = $(this);
-                        var leftCell = currentCell.prev();
-                        var rightCell = currentCell.next();
-                        var topCell = currentCell.parent('tr').prev('tr').find('td').eq($(this).index());
-                        var bottomCell = currentCell.parent('tr').next('tr').find('td').eq($(this).index());
-
-                        /* Si l'une des autres cellules en cours de séléction est identique à l'une des cellules situé autour la cellule courante, 
-                         on redonne sa couleur d'origine à la bordure du côté concerné sur la cellule courante. */
-                        $.each(currentSelectedCells, function () {
-                            if ($(this).is(leftCell)) {
-                                currentCell.css('border-left', '1px solid black');
-                            } else if ($(this).is(rightCell)) {
-                                currentCell.css('border-right', '1px solid black');
-                            } else if ($(this).is(topCell)) {
-                                currentCell.css('border-top', '1px solid black');
-                            } else if ($(this).is(bottomCell)) {
-                                currentCell.css('border-bottom', '1px solid black');
-                            }
-                        });
-
-                        // On insert le contenu des cellules et leurs positions dans le tableau de copie.
-                        var cell = {value: $(this).text(), line: $(this).parent('tr').index(), column: $(this).index()};
-                        copyCells.push(cell);
-                    });
-                }
+                    // Si l'une des bordure est bleu, on la fait passé en pointillés.
+                    $(this).css('border-top-style', $(this).css('border-top-color') === 'rgb(0, 0, 255)' ? 'dashed' : 'solid');
+                    $(this).css('border-bottom-style', $(this).css('border-bottom-color') === 'rgb(0, 0, 255)' ? 'dashed' : 'solid');
+                    $(this).css('border-left-style', $(this).css('border-left-color') === 'rgb(0, 0, 255)' ? 'dashed' : 'solid');
+                    $(this).css('border-right-style', $(this).css('border-right-color') === 'rgb(0, 0, 255)' ? 'dashed' : 'solid');
+                    // On insert le contenu des cellules et leurs positions dans le tableau de copie.
+                    var cell = {value: $(this).text(), line: $(this).parent('tr').index(), column: $(this).index()};
+                    copyCells.push(cell);
+                });
             });
 
             /*
@@ -2130,30 +2108,24 @@
              */
             // Lorsqu'on colle dans une cellule de projet cellules de projets...
             $('#tableFeuillePointage').on('paste', '.projectPercentageCell', function (e) {
-                // Si il y a >1 cellules à collé...
-                if (copyCells.length > 1) {
-                    e.preventDefault(); // On bloque l'action par défaut.
+                e.preventDefault(); // On bloque l'action par défaut.
 
-                    // On récupére les coordonnées de la première cellule de destination.
-                    var pastLineIndex = $(this).parent('tr').index();
-                    var pastColumnIndex = $(this).index();
-
-                    // On calcule la différence avec les coordonnée de la première cellule d'origine.
-                    var lineDifference = pastLineIndex - copyCells[0].line;
-                    var columnDifference = pastColumnIndex - copyCells[0].column;
-
-                    // Pour chaque cellules à collé...
-                    $.each(copyCells, function (index, cell) {
-                        // On déduit la cellule dans laquelle sera collé le texte.
-                        var destinationLine = $('#tableFeuillePointage').find('tr').eq(cell.line + lineDifference);
-                        var destinationCell = destinationLine.find('td').eq(cell.column + columnDifference);
-
-                        // Si la cellule de destination est éditable...
-                        if (destinationCell.attr('contenteditable') === 'true') {
-                            destinationCell.text(cell.value); // On colle le texte dans la cellule.
-                        }
-                    });
-                }
+                // On récupére les coordonnées de la première cellule de destination.
+                var pastLineIndex = $(this).parent('tr').index();
+                var pastColumnIndex = $(this).index();
+                // On calcule la différence avec les coordonnée de la première cellule d'origine.
+                var lineDifference = pastLineIndex - copyCells[0].line;
+                var columnDifference = pastColumnIndex - copyCells[0].column;
+                // Pour chaque cellules à collé...
+                $.each(copyCells, function (index, cell) {
+                    // On déduit la cellule dans laquelle sera collé le texte.
+                    var destinationLine = $('#tableFeuillePointage').find('tr').eq(cell.line + lineDifference);
+                    var destinationCell = destinationLine.find('td').eq(cell.column + columnDifference);
+                    // Si la cellule de destination est éditable...
+                    if (destinationCell.attr('contenteditable') === 'true') {
+                        destinationCell.text(cell.value); // On colle le texte dans la cellule.
+                    }
+                });
             });
         }
     </script>
