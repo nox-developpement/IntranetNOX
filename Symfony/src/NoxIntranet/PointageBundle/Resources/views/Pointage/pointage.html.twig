@@ -970,7 +970,7 @@
             })();
 
             // Détecte l'édition de texte des cellules et sauvegarde les changement en base de donnée.
-            $('td[contenteditable=true]').on('keyup', function () {
+            $('#tableFeuillePointage').on('keyup paste', 'td[contenteditable=true]', function () {
                 // Permet d'ajouter un temps d'attente avant de lancer la sauvegarde.
                 delay(function () {
                     var data = {};
@@ -1280,36 +1280,36 @@
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
                     data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
                 });
-                $('td[contenteditable]').unbind('blur');
-                $('td[contenteditable=true]').on('blur', function () {
-                    var data = {};
-                    data['contenteditable'] = [];
-                    data['select'] = [];
-                    data['project'] = [];
-                    data['projectName'] = [];
-                    data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-                    $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
-                        data['contenteditable'][index] = $(this).text();
-                        //$(this).css('background-color', 'orange');
-                        //$(this).text(index);
-                    });
-                    $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
-                        data['select'][index] = $(this).val();
-                        //$(this).css('background-color', 'orange');
-                    });
-                    $('.project[contenteditable=true]').each(function (index) {
-                        data['project'][index] = $(this).text();
-                    });
-                    $('#tableFeuillePointage tr:nth-child(2) .project').each(function (index) {
-                        data['projectName'][index] = $(this).text();
-                    });
-                    var serializedData = JSON.stringify(data);
-                    $.ajax({
-                        type: 'POST',
-                        url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                        data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
-                    });
-                });
+                /*$('td[contenteditable]').unbind('blur');
+                 $('td[contenteditable=true]').on('blur', function () {
+                 var data = {};
+                 data['contenteditable'] = [];
+                 data['select'] = [];
+                 data['project'] = [];
+                 data['projectName'] = [];
+                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
+                 $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
+                 data['contenteditable'][index] = $(this).text();
+                 //$(this).css('background-color', 'orange');
+                 //$(this).text(index);
+                 });
+                 $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
+                 data['select'][index] = $(this).val();
+                 //$(this).css('background-color', 'orange');
+                 });
+                 $('.project[contenteditable=true]').each(function (index) {
+                 data['project'][index] = $(this).text();
+                 });
+                 $('#tableFeuillePointage tr:nth-child(2) .project').each(function (index) {
+                 data['projectName'][index] = $(this).text();
+                 });
+                 var serializedData = JSON.stringify(data);
+                 $.ajax({
+                 type: 'POST',
+                 url: '{# {{ path('nox_intranet_pointage_ajax_save_data') }} #}',
+                 data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
+                 });
+                 });*/
                 displayDailyProjectsTotalPercentage();
                 dispayMonthlyTotalHoursMod();
                 displayMonthlyTotalTitresRepas();
@@ -1416,35 +1416,35 @@
                     data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
                 });
                 $('td[contenteditable]').unbind('blur');
-                $('td[contenteditable=true]').on('blur', function () {
-                    var data = {};
-                    data['contenteditable'] = [];
-                    data['select'] = [];
-                    data['project'] = [];
-                    data['projectName'] = [];
-                    data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-                    $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
-                        data['contenteditable'][index] = $(this).text();
-                        //$(this).css('background-color', 'orange');
-                        //$(this).text(index);
-                    });
-                    $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
-                        data['select'][index] = $(this).val();
-                        //$(this).css('background-color', 'orange');
-                    });
-                    $('.project[contenteditable=true]').each(function (index) {
-                        data['project'][index] = $(this).text();
-                    });
-                    $('#tableFeuillePointage tr:nth-child(2) .project').each(function (index) {
-                        data['projectName'][index] = $(this).text();
-                    });
-                    var serializedData = JSON.stringify(data);
-                    $.ajax({
-                        type: 'POST',
-                        url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                        data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
-                    });
-                });
+                /*$('td[contenteditable=true]').on('blur', function () {
+                 var data = {};
+                 data['contenteditable'] = [];
+                 data['select'] = [];
+                 data['project'] = [];
+                 data['projectName'] = [];
+                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
+                 $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
+                 data['contenteditable'][index] = $(this).text();
+                 //$(this).css('background-color', 'orange');
+                 //$(this).text(index);
+                 });
+                 $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
+                 data['select'][index] = $(this).val();
+                 //$(this).css('background-color', 'orange');
+                 });
+                 $('.project[contenteditable=true]').each(function (index) {
+                 data['project'][index] = $(this).text();
+                 });
+                 $('#tableFeuillePointage tr:nth-child(2) .project').each(function (index) {
+                 data['projectName'][index] = $(this).text();
+                 });
+                 var serializedData = JSON.stringify(data);
+                 $.ajax({
+                 type: 'POST',
+                 url: '{# {{ path('nox_intranet_pointage_ajax_save_data') }} #}',
+                 data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
+                 });
+                 });*/
                 displayDailyProjectsTotalPercentage();
                 dispayMonthlyTotalHoursMod();
                 displayMonthlyTotalTitresRepas();
@@ -1998,11 +1998,14 @@
             $('#tableFeuillePointage').on('mousedown', ".projectPercentageCell[contenteditable='true']", function (e) {
                 // Si le bouton pressé est le gauche...
                 if (e.which === 1) {
+
                     lastSelectedCell = null; // On efface la dernière cellule séléctionnée.
                     currentSelectedCells = []; // On vide le tableau des cellules en cours de séléction.
+                    $('.maxCellSquareDiv').remove(); // On efface le carré bleu de la cellules maximum.
+                    $('.projectPercentageCellMovingDashedBorder').remove(); // On efface les pointillé mobile de copie.
 
                     // On redonne la couleur d'origine au bord des cellules.            
-                    $('.projectPercentageCell').css({
+                    $(".projectPercentageCell[contenteditable='true']").css({
                         'border': '1px solid black'
                     });
 
@@ -2045,6 +2048,7 @@
             $('#tableFeuillePointage').on('mouseover', '.projectPercentageCell', function () {
                 // Si la souris est enfoncé et la cellule survolé est éditable...
                 if (mouseIdDown && $(this).attr('contenteditable') === 'true') {
+
                     // On récupére les index de la ligne et de la colonne de la cellule courante.
                     var currentLine = $(this).parent('tr').index();
                     var currentColumn = $(this).index();
@@ -2063,7 +2067,12 @@
                     }
 
                     lastSelectedCell = $(this); // On remplace la dernière cellule séléctionnée par la celules courante.
-                    $(".projectPercentageCell[contenteditable='true']").css('border', '1px solid black'); // On redonne leur bordure d'origine à toutes les cellules de projet éditable.
+                    $(".projectPercentageCell[contenteditable='true']").css('border', '1px solid black'); // On redonne leur bordure d'origine à toutes les cellules éditable de projet.
+                    $(".projectPercentageCell[contenteditable='true']").css('background-color', 'white'); // On redonne le background d'origine à toutes les cellules éditablede projet.
+
+                    // On initialise des varibles qui contiendront les index de position de la cellule la plus éloignée de l'origine du tableau.
+                    var maxCellLine = 0;
+                    var maxColumnLine = 0;
 
                     // Pour chaques cellules en cours de séléction...
                     $.each(currentSelectedCells, function (index, currentCell) {
@@ -2076,7 +2085,16 @@
                         currentCell.css('border-bottom', currentCellLine === Math.max(originLine, currentLine) ? '2px solid blue' : '1px solid black');
                         currentCell.css('border-left', currentCellColumn === Math.min(originColumn, currentColumn) ? '2px solid blue' : '1px solid black');
                         currentCell.css('border-right', currentCellColumn === Math.max(originColumn, currentColumn) ? '2px solid blue' : '1px solid black');
+
+                        // On met à jours les variables d'index maximum si besoin.
+                        maxCellLine = currentCellLine > maxCellLine ? currentCellLine : maxCellLine;
+                        maxColumnLine = currentCellColumn > maxColumnLine ? currentCellColumn : maxColumnLine;
                     });
+
+                    // On fait apparaître un carré bleu sur le bord de la cellule la plus excentrée.
+                    $('.maxCellSquareDiv').remove(); // On efface le carré bleu de la cellules maximum.
+                    var maxCell = $('#tableFeuillePointage').find('tr').eq(maxCellLine).find('td').eq(maxColumnLine); // On récupére la cellule la plus excentrée.
+                    maxCell.append("<div class='maxCellSquareDiv' style='display: inline-block; position: absolute; top: calc(100% - 3px); left: calc(100% - 3px); background-color: blue; outline: 1px solid white; width: 6px; height: 6px;'><div>");
                 }
             });
 
@@ -2084,22 +2102,45 @@
              * Permet de copier plusieurs cellules simultanément.
              */
             // Lors d'une copie au d'une ou plusieurs cellules de projets...
-            $('#tableFeuillePointage').on('copy', '.projectPercentageCell', function (e) {
+            $('#tableFeuillePointage').on('copy cut', '.projectPercentageCell', function (e) {
                 e.preventDefault(); // On bloque l'action par défaut.
-
                 copyCells = []; // On vide le tableau des éléments précédement copiés.
 
                 // Pour chaques cellules en cours de séléction...
                 $.each(currentSelectedCells, function () {
 
-                    // Si l'une des bordure est bleu, on la fait passé en pointillés.
-                    $(this).css('border-top-style', $(this).css('border-top-color') === 'rgb(0, 0, 255)' ? 'dashed' : 'solid');
-                    $(this).css('border-bottom-style', $(this).css('border-bottom-color') === 'rgb(0, 0, 255)' ? 'dashed' : 'solid');
-                    $(this).css('border-left-style', $(this).css('border-left-color') === 'rgb(0, 0, 255)' ? 'dashed' : 'solid');
-                    $(this).css('border-right-style', $(this).css('border-right-color') === 'rgb(0, 0, 255)' ? 'dashed' : 'solid');
                     // On insert le contenu des cellules et leurs positions dans le tableau de copie.
-                    var cell = {value: $(this).text(), line: $(this).parent('tr').index(), column: $(this).index()};
+                    var cellText = ($(this).contents().filter(function () {
+                        return this.nodeType === 3;
+                    })[0]) === undefined ? '' : $(this).contents().filter(function () {
+                        return this.nodeType === 3;
+                    })[0].nodeValue;
+                    var cell = {value: cellText, line: $(this).parent('tr').index(), column: $(this).index()};
                     copyCells.push(cell);
+
+                    // Si l'event est un 'coupé'...
+                    if (e.type === 'cut') {
+                        $(this).contents().filter(function () {
+                            return this.nodeType === 3;
+                        })[0].nodeValue = ''; // On efface la valeur de la cellule.
+                    }
+
+                    if ($(this).css('border-top-color') === 'rgb(0, 0, 255)') {
+                        $(this).css('border-top', 'none');
+                        $(this).append("<div class='projectPercentageCellMovingDashedBorder projectPercentageCellMovingDashedBorderTop'><i></i></div>");
+                    }
+                    if ($(this).css('border-bottom-color') === 'rgb(0, 0, 255)') {
+                        $(this).css('border-bottom', 'none');
+                        $(this).append("<div class='projectPercentageCellMovingDashedBorder projectPercentageCellMovingDashedBorderBottom'><i></i></div>");
+                    }
+                    if ($(this).css('border-left-color') === 'rgb(0, 0, 255)') {
+                        $(this).css('border-left', 'none');
+                        $(this).append("<div class='projectPercentageCellMovingDashedBorder projectPercentageCellMovingDashedBorderLeft'><i></i></div>");
+                    }
+                    if ($(this).css('border-right-color') === 'rgb(0, 0, 255)') {
+                        $(this).css('border-right', 'none');
+                        $(this).append("<div class='projectPercentageCellMovingDashedBorder projectPercentageCellMovingDashedBorderRight'><i></i></div>");
+                    }
                 });
             });
 
@@ -2123,6 +2164,7 @@
                     var destinationCell = destinationLine.find('td').eq(cell.column + columnDifference);
                     // Si la cellule de destination est éditable...
                     if (destinationCell.attr('contenteditable') === 'true') {
+                        destinationCell.css('border', '1px solid black'); // On donne les bordures de base à la cellule.
                         destinationCell.text(cell.value); // On colle le texte dans la cellule.
                     }
                 });
