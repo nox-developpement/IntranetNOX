@@ -106,3 +106,7 @@ nox_intranet_pointages_download_justificatif_transport:
     path:   /ressources/ajax-download-justificatif-transport/{idJustificatif}
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:downloadJustificatifTransport, idJustificatif: '' }
     
+nox_intranet_pointage_ajax_export_to_excel:
+    path: /ressources/ajax-export-to-excel
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxExportToExcel }
+    

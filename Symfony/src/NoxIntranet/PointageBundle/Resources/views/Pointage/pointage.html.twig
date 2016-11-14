@@ -300,6 +300,8 @@
             {{ form_widget(form.Valider, {'label': 'Valider la feuille de pointage', 'attr': {'class': 'boutonCompilation'}}) }}
         </div>
         {{ form_end(form) }}
+
+        <button type='button' onclick="ajaxExportToExcell('tableFeuillePointage');">Imprimer</button>
     </div>
 
     <script>
@@ -2168,6 +2170,66 @@
                         destinationCell.text(cell.value); // On colle le texte dans la cellule.
                     }
                 });
+            });
+        }
+
+        function ajaxExportToExcell() {
+
+            function hexc(colorval) {
+                var parts = colorval.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+                if (parts !== null) {
+                    delete(parts[0]);
+                    for (var i = 1; i <= 3; ++i) {
+                        parts[i] = parseInt(parts[i]).toString(16);
+                        if (parts[i].length == 1)
+                            parts[i] = '0' + parts[i];
+                    }
+                    var color = parts.join('');
+                    return color;
+                }
+            }
+
+            var tableTD = $('#tableFeuillePointage').find('td');
+            var tableContent = [];
+            var lineWithColspan = [];
+            var cellWithColspan = [];
+            var cellWithRowspan = [];
+
+            tableTD.each(function (index, value) {
+                var cellLine = $(this).parent('tr').index();
+                var cellColumn = $(this).index();
+                var cellContant = $(this).has('select').length ? $(this).find('select').val() : $.trim($(this).text());
+                var cellColor = hexc($(this).css('backgroundColor'));
+                var cellHasBorder = ($(this).css('border-left-style') !== 'none' || $(this).css('border-right-style') !== 'none' || $(this).css('border-top-style') !== 'none' || $(this).css('border-bottom-style') !== 'none') ? true : false;
+                var cellTextColor = hexc($(this).css('color'));
+
+                console.log(cellHasBorder);
+
+                $.each(lineWithColspan, function (index, value) {
+                    if (value.lineIndex === cellLine) {
+                        cellColumn = parseInt(cellColumn, 10) + parseInt(value.colspan, 10) - parseInt(1, 10);
+                    }
+                });
+
+                var cell = {line: cellLine, column: cellColumn, contant: cellContant, color: cellColor, border: cellHasBorder, textColor: cellTextColor};
+                tableContent.push(cell);
+
+
+                if ($(this).attr('colspan') !== undefined) {
+                    var colspan = {lineIndex: cellLine, colspan: $(this).attr('colspan')};
+                    lineWithColspan.push(colspan);
+                    cellWithColspan.push({line: cellLine, column: cellColumn, colspan: $(this).attr('colspan') - 1});
+                } else if ($(this).attr('rowspan') !== undefined) {
+                    cellWithRowspan.push({line: cellLine, column: cellColumn, rowspan: $(this).attr('rowspan') - 1});
+                }
+            });
+
+            $.ajax({
+                url: '{{ path('nox_intranet_pointage_ajax_export_to_excel') }}',
+                type: 'POST',
+                data: {tableContent: tableContent, cellWithColspan: cellWithColspan, cellWithRowspan: cellWithRowspan},
+                success: function () {
+                }
             });
         }
     </script>

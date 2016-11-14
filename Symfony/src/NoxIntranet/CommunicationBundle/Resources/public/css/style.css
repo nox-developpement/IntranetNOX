@@ -3774,6 +3774,8 @@ form[name='formValidationRefus'] textarea {
 }
 
 #operationnel {
+    background-color: lightblue !important;
+
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#005fb2+0,2f75b5+44,5084b2+100 */
     background: rgb(0,95,178); /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(0,95,178,1) 0%, rgba(47,117,181,1) 44%, rgba(80,132,178,1) 100%); /* FF3.6-15 */
@@ -3783,6 +3785,8 @@ form[name='formValidationRefus'] textarea {
 }
 
 #tableFeuillePointage tr:first-child td:nth-child(4) {
+    background-color: lightgreen !important;
+
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#357f00+0,548235+44,647f51+100 */
     background: rgb(53,127,0); /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(53,127,0,1) 0%, rgba(84,130,53,1) 44%, rgba(100,127,81,1) 100%); /* FF3.6-15 */

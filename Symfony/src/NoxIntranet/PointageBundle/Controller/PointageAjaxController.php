@@ -816,4 +816,62 @@ class PointageAjaxController extends Controller {
         return new Response('OK');
     }
 
+    public function ajaxExportToExcelAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $tableContent = $request->get('tableContent');
+            $cellWithColspan = $request->get('cellWithColspan');
+            $cellWithRowspan = $request->get('cellWithRowspan');
+
+            $root = $this->get('kernel')->getRootDir() . '/..';
+
+            require_once $root . '\vendor\phpexcel\phpexcel\PHPExcel.php';
+
+            $objPHPExcel = new \PHPExcel();
+
+            foreach ($cellWithColspan as $cell) {
+                $objPHPExcel->getActiveSheet()->mergeCellsByColumnAndRow($cell['column'], $cell['line'] + 1, $cell['column'] + $cell['colspan'], $cell['line'] + 1);
+            }
+
+            foreach ($cellWithRowspan as $cell) {
+                $objPHPExcel->getActiveSheet()->mergeCellsByColumnAndRow($cell['column'], $cell['line'] + 1, $cell['column'], $cell['line'] + 1 + $cell['rowspan']);
+            }
+
+            foreach ($tableContent as $cell) {
+                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($cell['column'], $cell['line'] + 1, $cell['contant']);
+
+                $objPHPExcel->getActiveSheet()->getStyleByColumnAndRow($cell['column'], $cell['line'] + 1)->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+                $default_border = array(
+                    'style' => $cell['border'] === 'false' ? \PHPExcel_Style_Border::BORDER_NONE : \PHPExcel_Style_Border::BORDER_THIN,
+                    'color' => array('rgb' => '000000')
+                );
+                $style_header = array(
+                    'borders' => array(
+                        'bottom' => $default_border,
+                        'left' => $default_border,
+                        'top' => $default_border,
+                        'right' => $default_border,
+                    ),
+                    'fill' => array(
+                        'type' => \PHPExcel_Style_Fill::FILL_SOLID,
+                        'color' => array('rgb' => array_key_exists('color', $cell) ? $cell['color'] : 'E1E0F7'),
+                    ),
+                    'font' => array(
+                        'bold' => true,
+                        'color' => array('rgb' => array_key_exists('textColor', $cell) ? $cell['textColor'] : '000000')
+                    )
+                );
+                $objPHPExcel->getActiveSheet()->getStyleByColumnAndRow($cell['column'], $cell['line'] + 1)->applyFromArray($style_header);
+
+                $objPHPExcel->getActiveSheet()->getColumnDimension($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($cell['column'], $cell['line'] + 1)->getColumn())->setAutoSize(true);
+                $objPHPExcel->getActiveSheet()->getRowDimension($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($cell['column'], $cell['line'] + 1)->getRow())->setRowHeight(-1);
+            }
+
+            $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+            $objWriter->save("05featuredemo.xlsx");
+
+            return new Response('OK');
+        }
+    }
+
 }
