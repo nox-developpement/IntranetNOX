@@ -1777,6 +1777,9 @@
         function fixedVerticalHeader() {
             // Lors d'un scroll dans le container du tableau ou sur la div de contenu.
             $('#tableFeuillePointageDivContainer, #contenu').scroll(function () {
+
+                console.log('scroll !');
+
                 // Initialisation des variables de positionnement.
                 var tableFeuillePointageLeft = $('#tableFeuillePointage').offset().left; // Left de la table de la feuille de pointage.
                 var tableFeuillePointageContainerLeft = $('#tableFeuillePointageDivContainer').offset().left; // Left du container de la feuille de pointage.
@@ -1785,6 +1788,9 @@
 
                 // Si le header vertical n'est pas entiérement visible.
                 if (tableFeuillePointageLeft < tableFeuillePointageContainerLeft && divTableFeuillePointageContainerTop >= sectionPrincipalTop) {
+
+                    console.log('invisible !');
+
                     // Si le header flotant vertical n'est pas visible.
                     if (!$('#floatingVerticalHeaderContainer').is(':visible')) {
                         $('.floatingVerticalHeaderDate').remove(); // On supprime les cellules de date du header vertical flotant.

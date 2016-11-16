@@ -3472,7 +3472,7 @@ form[name='formNewSearch'] table td input, form[name='formNewSearch'] table td t
 #floatingVerticalHeaderContainer {
     display: none;
     position: fixed;
-    z-index: 0;
+    z-index: 1;
     font-size: 0;
     overflow: hidden;
 }
@@ -3503,6 +3503,7 @@ form[name='formNewSearch'] table td input, form[name='formNewSearch'] table td t
 #floatingHeaderCross {
     display: none;
     position: fixed;
+    z-index: 1;
     background-color: white;
     color: black;
     font-size: 0.7vw;
