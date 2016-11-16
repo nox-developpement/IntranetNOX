@@ -4257,3 +4257,17 @@ form[name='formNewSearch'] .textarea[contenteditable=true]:empty:before {
         transform: translateX(-50%);
     }
 }
+
+#DRHPointageList {
+    list-style-type: none;
+}
+
+#DRHPointageList li a {
+    text-decoration: none;
+    color: #1F4E79;
+    font-size: 1vw;
+}
+
+#DRHPointageList li a:hover {
+    text-decoration: underline;
+}

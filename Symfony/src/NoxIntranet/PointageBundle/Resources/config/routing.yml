@@ -110,3 +110,7 @@ nox_intranet_pointage_ajax_export_to_excel:
     path: /ressources/ajax-export-to-excel
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxExportToExcel }
     
+nox_intranet_pointage_ajax_delete_excel_file:
+    path: /ressources/ajax-delete_excel_file
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDeleteExcelFile }
+    
