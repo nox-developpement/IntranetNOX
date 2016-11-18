@@ -231,3 +231,7 @@ nox_intranet_prestation_administration_da:
 nox_intranet_prestation_administration_da_ajax_save_user_status:
     path: /ressources/prestation-administration-da-ajax-save-user-status
     defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveUserStatus }
+    
+nox_intranet_questionnaire_stress:
+    path: /questionnaire-stress
+    defaults: { _controller: NoxIntranetRessourcesBundle:QuestionnaireStress\QuestionnaireStress:questionnaireAnswer }

@@ -2235,6 +2235,7 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/ExcelReadingController.php',
         'NoxIntranet\\RessourcesBundle\\Controller\\PrestationsInternes\\PrestationsInternesAjaxController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/PrestationsInternes/PrestationsInternesAjaxController.php',
         'NoxIntranet\\RessourcesBundle\\Controller\\PrestationsInternes\\PrestationsInternesController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/PrestationsInternes/PrestationsInternesController.php',
+        'NoxIntranet\\RessourcesBundle\\Controller\\QuestionnaireStress\\QuestionnaireStressController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/QuestionnaireStress/QuestionnaireStressController.php',
         'NoxIntranet\\RessourcesBundle\\Controller\\RecrutementController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/Recrutement/RecrutementController.php',
         'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/Controller/RessourcesController.php',
         'NoxIntranet\\RessourcesBundle\\DependencyInjection\\Configuration' => __DIR__ . '/../..' . '/src/NoxIntranet/RessourcesBundle/DependencyInjection/Configuration.php',

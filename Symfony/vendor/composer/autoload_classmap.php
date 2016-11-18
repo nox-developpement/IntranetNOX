@@ -1810,6 +1810,7 @@ return array(
     'NoxIntranet\\RessourcesBundle\\Controller\\ExcelReadingController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/ExcelReadingController.php',
     'NoxIntranet\\RessourcesBundle\\Controller\\PrestationsInternes\\PrestationsInternesAjaxController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/PrestationsInternes/PrestationsInternesAjaxController.php',
     'NoxIntranet\\RessourcesBundle\\Controller\\PrestationsInternes\\PrestationsInternesController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/PrestationsInternes/PrestationsInternesController.php',
+    'NoxIntranet\\RessourcesBundle\\Controller\\QuestionnaireStress\\QuestionnaireStressController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/QuestionnaireStress/QuestionnaireStressController.php',
     'NoxIntranet\\RessourcesBundle\\Controller\\RecrutementController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/Recrutement/RecrutementController.php',
     'NoxIntranet\\RessourcesBundle\\Controller\\RessourcesController' => $baseDir . '/src/NoxIntranet/RessourcesBundle/Controller/RessourcesController.php',
     'NoxIntranet\\RessourcesBundle\\DependencyInjection\\Configuration' => $baseDir . '/src/NoxIntranet/RessourcesBundle/DependencyInjection/Configuration.php',
