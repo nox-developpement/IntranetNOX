@@ -105,7 +105,7 @@ class QuestionnaireStressController extends Controller {
             $message = \Swift_Message::newInstance()
                     ->setSubject('Questionnaire stress')
                     ->setFrom('noreply@groupe-nox.com')
-                    ->setTo('t.besson@groupe-nox.com')
+                    ->setTo('s.aujogues@groupe-nox.com')
                     ->attach(\Swift_Attachment::fromPath($fileLocation))
             ;
             $this->get('mailer')->send($message);
