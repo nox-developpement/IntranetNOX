@@ -7,20 +7,20 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class QuestionnaireStressController extends Controller {
-
-    // La liste des collaborateurs ayant déjà répondu au questionnaire.
-    private $collaborateursExclu = array();
 
     function questionnaireAnswerAction(Request $request) {
         // On récupére le collaborateur actuel.
         $em = $this->getDoctrine()->getManager();
         $collaborateur = $this->get('security.context')->getToken()->getUser();
 
-        // Si le collaborateur ne fait pas parti de NOX INGENIERIE...
-        if (!$this->get('security.context')->isGranted('ROLE_USER') || empty($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername())) || !strstr($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername())->getEtablissement(), 'SA NOX INGENIERIE')) {
+        // On récupére la liste des collaborateurs ayant déjà validé le questionnaire.
+        fclose(fopen('collaborateursExcluList', 'a'));
+        $collaborateursExcluList = explode(';', file_get_contents('collaborateursExcluList'));
+
+        // Si le collaborateur ne fait pas parti de NOX INGENIERIE ou qu'il a déjà valider le questionnaire...
+        if (!$this->get('security.context')->isGranted('ROLE_USER') || empty($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername())) || !strstr($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername())->getEtablissement(), 'SA NOX INGENIERIE') || in_array($collaborateur->getUsername(), $collaborateursExcluList)) {
             // On affiche un message d'erreur et on redirige vers l'accueil.
             $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas accès à ce sondage ou vous l'avez déjà validé.");
             return $this->redirectToRoute('nox_intranet_accueil');
@@ -95,7 +95,7 @@ class QuestionnaireStressController extends Controller {
             // Pour chaque questions...
             foreach ($questions as $key => $question) {
                 $newLine = array($question['Question'], $formQuestionnaireStress->get($key)->getData(), $formQuestionnaireStress->get('Commentaire_' . $key)->getData()); // On récupére la question, la réponse et l'éventuel commentaire.
-                fputcsv($csvFile, $newLine); // On écris ces données sur une nouvelle ligne du fichier.
+                fputcsv($csvFile, $newLine, ';'); // On écris ces données sur une nouvelle ligne du fichier.
             }
 
             // On ferme le fichier.
@@ -119,6 +119,9 @@ class QuestionnaireStressController extends Controller {
 
             // On supprime le fichier.
             unlink($fileLocation);
+
+            // On ajoute le collaborateur à la liste des collaborateurs qui ont validé le questionnaire.
+            file_put_contents('collaborateursExcluList', $collaborateur->getUsername() . ';', FILE_APPEND | LOCK_EX);
 
             // On redirige vers l'accueil et on affiche un message de confirmation.
             $request->getSession()->getFlashBag()->add('notice', "Vos réponses ont été prises en compte.");

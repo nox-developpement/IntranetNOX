@@ -65,11 +65,11 @@ class NoxIntranetExtractRHHierarchie extends Controller {
 
                     // On vérifie la nullité des cellules du personnel de la RH.
                     // Si la case d'Assistante agence n'est pas vide.
-                    if (trim($objWorksheet->getCell('G' . $rowIndex)) !== "-") {
+                    if (trim($objWorksheet->getCell('G' . $rowIndex)) !== "-" && trim($objWorksheet->getCell('G' . $rowIndex)) !== '') {
                         $newUser->setAA($objWorksheet->getCell('G' . $rowIndex)); // On attribut la valeur de la case d'assistante agence comme assistante d'agence.
                     }
                     // Sinon si la case de Directeur d'agence n'est pas nul.
-                    elseif (trim($objWorksheet->getCell('H' . $rowIndex)) !== "-") {
+                    elseif (trim($objWorksheet->getCell('H' . $rowIndex)) !== "-" && trim($objWorksheet->getCell('H' . $rowIndex)) !== '') {
                         $newUser->setAA($objWorksheet->getCell('H' . $rowIndex)); // On attribut la valeur de la case de directeur d'agence comme assistante d'agence.
                     }
                     // Sinon.
@@ -78,7 +78,7 @@ class NoxIntranetExtractRHHierarchie extends Controller {
                     }
 
                     // Si la case de Directeur d'agence n'est pas nul.
-                    if (trim($objWorksheet->getCell('H' . $rowIndex)) !== "-") {
+                    if (trim($objWorksheet->getCell('H' . $rowIndex)) !== "-" && trim($objWorksheet->getCell('H' . $rowIndex)) !== '') {
                         $newUser->setDA($objWorksheet->getCell('H' . $rowIndex)); // On attribut la valeur de la case de directeur d'agence comme directeur d'agence.
                     }
                     // Sinon.
@@ -89,7 +89,7 @@ class NoxIntranetExtractRHHierarchie extends Controller {
                     // On attribut la valeur de la case d'assistante RH comme assistante RH.
                     $newUser->setRH($objWorksheet->getCell('I' . $rowIndex));
 
-                    $newUser->setEtablissement($objWorksheet->getCell('B' . $rowIndex)); // On attribut l'agence.
+                    $newUser->setEtablissement($objWorksheet->getCell('C' . $rowIndex)); // On attribut l'agence.
                     $em->persist($newUser);
                 }
             }
