@@ -1,0 +1,10 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Devellopement Professionnel {% endblock %}
+
+{% block messageAccueil %}Devellopement Professionnel{% endblock %}
+
+{% block contenu %} 
+    {{ form_start(formulaireDevellopementProfessionnel) }}
+    {{ form_end(formulaireDevellopementProfessionnel) }}
+{% endblock %}

@@ -2281,6 +2281,7 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'NoxIntranet\\SupportSIBundle\\NoxIntranetSupportSIBundle' => __DIR__ . '/../..' . '/src/NoxIntranet/SupportSIBundle/NoxIntranetSupportSIBundle.php',
         'NoxIntranet\\SupportSIBundle\\Tests\\Controller\\DefaultControllerTest' => __DIR__ . '/../..' . '/src/NoxIntranet/SupportSIBundle/Tests/Controller/DefaultControllerTest.php',
         'NoxIntranet\\UserBundle\\Controller\\ADConnexionController' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/Controller/ADConnexionController.php',
+        'NoxIntranet\\UserBundle\\Controller\\DeveloppementProfessionnel\\DeveloppementProfessionnelControler' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/Controller/DeveloppementProfessionnel/DeveloppementProfessionnelControler.php',
         'NoxIntranet\\UserBundle\\Controller\\SecurityController' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/Controller/SecurityController.php',
         'NoxIntranet\\UserBundle\\DataFixtures\\ORM\\LoadUser' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/DataFixtures/ORM/LoadUser.php',
         'NoxIntranet\\UserBundle\\DependencyInjection\\Configuration' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/DependencyInjection/Configuration.php',

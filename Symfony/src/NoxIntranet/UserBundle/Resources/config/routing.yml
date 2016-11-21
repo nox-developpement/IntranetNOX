@@ -6,3 +6,7 @@ AD_connexion:
 AD_connexion_check:
     path:   /testConnexionCheck
     defaults: { _controller: NoxIntranetUserBundle:ADConnexion:ADConnexionCheck }
+    
+nox_intranet_developpement_professionnel_formulaire:
+    path:   /developpement-professionnel-formulaire
+    defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel/DeveloppementProfessionnel:formulaireDeveloppementProfessionnel }

@@ -1856,6 +1856,7 @@ return array(
     'NoxIntranet\\SupportSIBundle\\NoxIntranetSupportSIBundle' => $baseDir . '/src/NoxIntranet/SupportSIBundle/NoxIntranetSupportSIBundle.php',
     'NoxIntranet\\SupportSIBundle\\Tests\\Controller\\DefaultControllerTest' => $baseDir . '/src/NoxIntranet/SupportSIBundle/Tests/Controller/DefaultControllerTest.php',
     'NoxIntranet\\UserBundle\\Controller\\ADConnexionController' => $baseDir . '/src/NoxIntranet/UserBundle/Controller/ADConnexionController.php',
+    'NoxIntranet\\UserBundle\\Controller\\DeveloppementProfessionnel\\DeveloppementProfessionnelControler' => $baseDir . '/src/NoxIntranet/UserBundle/Controller/DeveloppementProfessionnel/DeveloppementProfessionnelControler.php',
     'NoxIntranet\\UserBundle\\Controller\\SecurityController' => $baseDir . '/src/NoxIntranet/UserBundle/Controller/SecurityController.php',
     'NoxIntranet\\UserBundle\\DataFixtures\\ORM\\LoadUser' => $baseDir . '/src/NoxIntranet/UserBundle/DataFixtures/ORM/LoadUser.php',
     'NoxIntranet\\UserBundle\\DependencyInjection\\Configuration' => $baseDir . '/src/NoxIntranet/UserBundle/DependencyInjection/Configuration.php',
