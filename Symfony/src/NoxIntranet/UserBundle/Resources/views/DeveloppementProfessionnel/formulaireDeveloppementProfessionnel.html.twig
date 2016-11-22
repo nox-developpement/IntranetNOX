@@ -1,0 +1,156 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Entretien annuel de développement professionnel {% endblock %}
+
+{% block messageAccueil %}Entretien annuel de développement professionnel{% endblock %}
+
+{% block contenu %} 
+
+    <style>
+        #formulaireDeveloppementProfessionnelDiv {
+            width: 70%;
+            margin: auto;
+        }
+
+        #formulaireDeveloppementProfessionnelDiv form {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        #infoGeneraleTable {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid black;
+        }
+
+        #infoGeneraleTable tr, #infoGeneraleTable td {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+
+        #infoGeneraleTable td {
+            padding: 1em;
+            color: black;
+        }
+
+        #infoGeneraleTable div {
+            display: inline-block;
+        }
+
+        .cellInputDiv {
+            display: table;
+            width: 100%;
+        }
+
+        .cellInputDiv label {
+            display: table-cell;
+            width: 1px;
+            white-space: pre;
+        }
+
+        .cellInputDiv input[type='text'], .cellInputDiv input[type='number'] {
+            display: table-cell;
+            box-sizing: border-box;
+            width: 100%;
+            text-align: center;
+        }
+
+        h3 {
+            text-decoration: underline;
+            color: rgb(0 ,32, 96);
+        }
+
+        .collaborateurTd, .collaborateurTextarea {
+            background-color: rgb(218, 238, 243);
+        }
+
+        .managerTd, .managerTextarea {
+            background-color: rgb(217, 217, 217);
+        }
+
+        .questionsTable {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        .questionsTable, .questionsTable tr, .questionsTable td {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+
+        .questionsTable td {
+            width: 50%;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+            color: black;
+        }
+
+        .questionsTable td textarea {
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            resize: none;
+            border: none;
+        }
+
+        .questionLibelle {
+            font-style: italic;
+        }
+
+    </style>
+
+    <div id="formulaireDeveloppementProfessionnelDiv">
+        {{ form_start(formulaireDevellopementProfessionnel) }}
+        <table id='infoGeneraleTable'>
+            <tr>
+                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.Nom) }}{{ form_widget(formulaireDevellopementProfessionnel.Nom) }}</div></td>
+                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.PosteActuel) }}{{ form_widget(formulaireDevellopementProfessionnel.PosteActuel) }}</div></td>
+            </tr>
+            <tr>
+                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.Prenom) }}{{ form_widget(formulaireDevellopementProfessionnel.Prenom) }}</div></td>
+                <td>{{ form_label(formulaireDevellopementProfessionnel.DateAnciennetePoste) }}{{ form_widget(formulaireDevellopementProfessionnel.DateAnciennetePoste) }}</td>
+            </tr>
+            <tr>
+                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.Age) }}{{ form_widget(formulaireDevellopementProfessionnel.Age) }}</div></td>
+                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.SalaireBrutMensuel) }}{{ form_widget(formulaireDevellopementProfessionnel.SalaireBrutMensuel) }}</div></td>
+            </tr>
+            <tr>
+                <td>{{ form_label(formulaireDevellopementProfessionnel.DateAncienneteGroupe) }}{{ form_widget(formulaireDevellopementProfessionnel.DateAncienneteGroupe) }}</td>
+                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.NomResponsable) }}{{ form_widget(formulaireDevellopementProfessionnel.NomResponsable) }}</div></td>
+            </tr>
+            <tr>
+                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.Entite) }}{{ form_widget(formulaireDevellopementProfessionnel.Entite) }}</div></td>
+                <td>{{ form_label(formulaireDevellopementProfessionnel.DateEntretien) }} : {{ form_widget(formulaireDevellopementProfessionnel.DateEntretien) }}</td>
+            </tr>
+        </table>
+
+        <h3>Thème 1 : Bilan de l'année écoulée</h3>
+
+        <table class='questionsTable'>
+            <tr>
+                <td class='collaborateurTd' style='text-align: center; font-weight: bold;'>AUTO EVALUATION</td>
+                <td class='managerTd' style='text-align: center; font-weight: bold;'>EVALUATION DU MANAGER</td>
+            </tr>
+            <tr>
+                <td colspan='2' style='text-align: center; font-weight: bold;'>Bilan de l'année écoulée</td>
+            </tr>
+            {% for key, question in questions if key >=1 and key <= 6 %}
+                <tr>
+                    {% if question['Collaborateur'] is defined %}
+                        <td class='collaborateurTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur'], {'attr': {'style': 'height: 20em;'}}) }}</td>
+                    {% endif %}
+                    {% if question['Manager'] is defined %}
+                        <td class='managerTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager'], {'attr': {'style': 'height: 20em;'}}) }}</td>
+                    {% endif %}
+                    {% if question['Neutre'] is defined %}
+                        <td colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': 'height: 20em;'}}) }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            <tr>
+        </table>
+        {{ form_end(formulaireDevellopementProfessionnel) }}
+    </div>
+{% endblock %}

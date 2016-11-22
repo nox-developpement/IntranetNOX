@@ -9,4 +9,4 @@ AD_connexion_check:
     
 nox_intranet_developpement_professionnel_formulaire:
     path:   /developpement-professionnel-formulaire
-    defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel/DeveloppementProfessionnel:formulaireDeveloppementProfessionnel }
+    defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel\DeveloppementProfessionnel:formulaireDeveloppementProfessionnel }
