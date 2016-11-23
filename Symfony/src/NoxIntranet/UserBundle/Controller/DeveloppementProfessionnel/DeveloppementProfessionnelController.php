@@ -22,15 +22,15 @@ class DeveloppementProfessionnelController extends Controller {
         // Tableau des question/choix.
         $questions = array(
             1 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Comment ai-je vécu cette année ?'),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Que retenez-vous de cette année ?')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Comment ai-je vécu cette année ?', 'Taille' => 30),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Que retenez-vous de cette année ?', 'Taille' => 30)
             ),
             2 => array(
-                'Neutre' => array('Type' => 'Texte', 'Question' => 'Mission principale : Décrivez la mission principale')
+                'Neutre' => array('Type' => 'Texte', 'Question' => 'Mission principale : Décrivez la mission principale', 'Taille' => 5)
             ),
             3 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quels résultats ai-je obtenus ?'),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les résultats obtenu ?')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quels résultats ai-je obtenus ?', 'Taille' => 20),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les résultats obtenu ?', 'Taille' => 20)
             ),
             4 => array(
                 'Collaborateur' => array('Type' => 'Choix', 'Question' => 'Cochez le niveau de maîtrise du poste : (*note explicative)', 'Choix' =>
@@ -45,12 +45,12 @@ class DeveloppementProfessionnelController extends Controller {
                 )
             ),
             5 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quelles difficultés ai-je rencontrées ?'),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles ont été les difficultés rencontrées ?')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quelles difficultés ai-je rencontrées ?', 'Taille' => 10),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles ont été les difficultés rencontrées ?', 'Taille' => 10)
             ),
             6 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quelles sont mes réussites et apports pour le Groupe ?'),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles sont les réussites et les apports pour le Groupe ?')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quelles sont mes réussites et apports pour le Groupe ?', 'Taille' => 10),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles sont les réussites et les apports pour le Groupe ?', 'Taille' => 10)
             ),
             7 => array(
                 'Neutre' => array('Type' => 'Texte', 'Question' => "Objectif 1 : Décrivez l'objectif")
