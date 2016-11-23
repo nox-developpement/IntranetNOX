@@ -1,0 +1,1 @@
+"C:/wamp/www/Symfony/scripts/GXAffairesUpdating.bat" > "C:/wamp/www/Symfony/scripts/log.log" 2>&1
