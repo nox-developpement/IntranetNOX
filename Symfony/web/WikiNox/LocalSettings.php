@@ -124,7 +124,12 @@ $wgGroupPermissions['*']['edit'] = false;
 $wgGroupPermissions['user']['edit']	= false;
 $wgGroupPermissions['bureaucrat']['edit']	= false;
 $wgGroupPermissions['sysop']['edit']	= true;
+$wgGroupPermissions['sysop']['userrights']	= true;
 $wgGroupPermissions['publicateur']['edit']	= true;
+
+$wgGroupPermissions['SAP']['edit']	= false;
+$wgGroupPermissions['SAP_Publicateur']['edit']	= false;
+$wgGroupPermissions['SAP_Publicateur']['userrights']	= true;
 
 ## Default skin: you can change the default skin. Use the internal symbolic
 ## names, ie 'vector', 'monobook':
@@ -200,9 +205,24 @@ require_once("{$IP}/extensions/CategoryTree/CategoryTree.php");
 $wgCategoryTreeSidebarRoot = 'Général';
 $wgCategoryTreeSidebarOptions = array('mode' => 'all', 'hideroot' => 'on');
 
+// Définition du namespace SAP.
+define("NS_SAP", 5500); 
+define("NS_SAP_FORUM", 5501); 
+$wgExtraNamespaces[NS_SAP] = "SAP";
+$wgExtraNamespaces[NS_SAP_FORUM] = "SAP_Forum";
+
+// Extension pour limiter la visualisation/édition des namespaces.
+require_once "$IP/extensions/Lockdown/Lockdown.php";
+
+# Limite la visualisation des pages du namespace 'SAP' au membres du groupe 'SAP'.
+$wgNamespacePermissionLockdown[NS_SAP]['read'] = array('SAP');
+
+# Limite l'édition des pages du namespace 'SAP' au membres du groupe 'SAP_Publicateur'.
+$wgNamespacePermissionLockdown[NS_SAP]['edit'] = array('SAP_Publicateur');
+
+// Plugin d'authentification LDAP.
 require_once( "$IP/extensions/LdapAuthentication/LdapAuthentication.php" );
 require_once( "$IP/extensions/LdapAuthentication/LdapAutoAuthentication.php" );
-// options go here
 
 // Option for getting debug output from the plugin. 1-3 available. 1 will show
 // non-sensitive info, 2 will show possibly sensitive user info, 3+ will show
@@ -243,7 +263,7 @@ $wgLDAPEncryptionType = array(
 );
 
 $wgLDAPSearchStrings = array(
-  'nox.local' => "NOX\USER-NAME"
+  'nox.local' => "NOX\\USER-NAME"
 );
 
-AutoAuthSetup();;
+AutoAuthSetup();
