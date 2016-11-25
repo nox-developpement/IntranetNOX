@@ -1,25 +1,4 @@
-Connexion … ®ÿSRV-NOX.nox.localÿ¯ en cours
-Connexion en tant qu'utilisateur actuel en utilisant SSPI
-Exportation de l'annuaire dans le fichier C:/wamp/www/Symfony/users.csv
-Recherche des entr‚es...
-Cr‚ation des entr‚es
-Exportation termin‚e. Traitement du r‚sultat en cours...
-1021 entr‚es export‚es
 
-La commande s'est termin‚e correctement
-.............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-Mise Ã  jour de la base de donnÃ©es utilisateur en cours...
-<div id='newUsers'>
-<h3>
-Utilisateurs ajoutÃ©
-</h3>
-<p>
-</p>
-</div>
-<div id='deleteUsers'>
-<h3>
-Utilisateurs supprimÃ©
-</h3>
-<p>
-</p>
-</div>
+C:\wamp\www\Symfony\scripts>sqlcmd -h-1 -S SRV-NOX35-APPLI\EVERWIN -d NOX -E -s; -W -i C:\wamp\www\Symfony\scripts\SQL\getAffaires.sql  1>C:\wamp\www\Symfony\web\DatabasesCSV\Affaires.csv 
+
+C:\wamp\www\Symfony\scripts>cmd.exe /a /c TYPE C:\wamp\www\Symfony\web\DatabasesCSV\Affaires.csv  1>C:\wamp\www\Symfony\web\DatabasesCSV\AffairesEncode.csv 

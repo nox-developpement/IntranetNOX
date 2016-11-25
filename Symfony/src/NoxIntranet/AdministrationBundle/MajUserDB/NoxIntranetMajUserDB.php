@@ -87,7 +87,8 @@ class NoxIntranetMajUserDB extends Controller {
                 // On découpe le nom complet en nom+prénom.
                 $fullnames = explode(' ', $user['fullname']);
                 foreach ($fullnames as $fullname) {
-                    if (ctype_upper($fullname)) {
+                    // Si le chaîne et en majuscule (on retire les éventuels '-' pour la vérification).
+                    if (ctype_upper(str_replace('-', '', $fullname))) {
                         $lastname .= ' ' . $fullname;
                     } else {
                         $firstname .= ' ' . $fullname;
@@ -118,7 +119,8 @@ class NoxIntranetMajUserDB extends Controller {
                 // On découpe le nom complet en nom+prénom.
                 $fullnames = explode(' ', $user['fullname']);
                 foreach ($fullnames as $fullname) {
-                    if (ctype_upper($fullname)) {
+                    // Si le chaîne et en majuscule (on retire les éventuels '-' pour la vérification).
+                    if (ctype_upper(str_replace('-', '', $fullname))) {
                         $lastname .= ' ' . $fullname;
                     } else {
                         $firstname .= ' ' . $fullname;
