@@ -33,12 +33,12 @@ class DeveloppementProfessionnelController extends Controller {
                 'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les résultats obtenu ?', 'Taille' => 20)
             ),
             4 => array(
-                'Collaborateur' => array('Type' => 'Choix', 'Question' => 'Cochez le niveau de maîtrise du poste : (*note explicative)', 'Choix' =>
+                'Collaborateur' => array('Type' => 'Choix', 'Question' => 'Sélectionnez le niveau de maîtrise du poste : (*note explicative)', 'Choix' =>
                     array(
                         'Construction', 'Adéquation', 'Maîtrise', 'Excellence'
                     )
                 ),
-                'Manager' => array('Type' => 'Choix', 'Question' => 'Cochez le niveau de maîtrise du poste : (*note explicative)', 'Choix' =>
+                'Manager' => array('Type' => 'Choix', 'Question' => 'Sélectionnez le niveau de maîtrise du poste : (*note explicative)', 'Choix' =>
                     array(
                         'Construction', 'Adéquation', 'Maîtrise', 'Excellence'
                     )
@@ -59,7 +59,7 @@ class DeveloppementProfessionnelController extends Controller {
                 'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les résultats obtenus ?')
             ),
             9 => array(
-                'Manager' => array('Type' => 'Choix', 'Question' => "Cochez le niveau d'atteinte de l'objectif", 'Choix' =>
+                'Manager' => array('Type' => 'Choix', 'Question' => "Sélectionnez le niveau d'atteinte de l'objectif", 'Choix' =>
                     array(
                         'Non atteint', 'Partiellement atteint', 'Atteint', 'Dépassé'
                     )
@@ -78,7 +78,7 @@ class DeveloppementProfessionnelController extends Controller {
                 'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les résultats obtenus ?')
             ),
             14 => array(
-                'Manager' => array('Type' => 'Choix', 'Question' => "Cochez le niveau d'atteinte de l'objectif", 'Choix' =>
+                'Manager' => array('Type' => 'Choix', 'Question' => "Sélectionnez le niveau d'atteinte de l'objectif", 'Choix' =>
                     array(
                         'Non atteint', 'Partiellement atteint', 'Atteint', 'Dépassé'
                     )
