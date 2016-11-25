@@ -183,7 +183,7 @@
                                 <option value='CS'>CS</option>
                                 <option value='CP'>CP</option>
                                 <option value='AV'>AV</option>
-                                <option value='JS'>JS</option>
+                                <option value='RT'>RT</option>
                                 <option value='MA'>MA</option>
                                 <option value='PM'>PM</option>
                                 <option value='RE'>RE</option>
@@ -203,7 +203,7 @@
                                 <option value='CS'>CS</option>
                                 <option value='CP'>CP</option>
                                 <option value='AV'>AV</option>
-                                <option value='JS'>JS</option>
+                                <option value='RT'>RT</option>
                                 <option value='MA'>MA</option>
                                 <option value='PM'>PM</option>
                                 <option value='RE'>RE</option>
@@ -278,7 +278,7 @@
                 <td style='border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px;'>Type absence</td>
             </tr>
             {% set typesAbscences = { 'AA': 'Absence autorisées payées', 'TJ': 'Accident trajet', 'AT': 'Accident travail', 'MT': 'Congé de maternité', 
-            'PA': 'Congé de paternité', 'CS': 'Congé sans solde', 'CP': 'Congés payés', 'AV': 'Evènement familial', 'JS': 'RTT', 'MA': 'Maladie', 'PM': 'Maladie professionnelle', 
+            'PA': 'Congé de paternité', 'CS': 'Congé sans solde', 'CP': 'Congés payés', 'AV': 'Evènement familial', 'RT': 'RTT', 'MA': 'Maladie', 'PM': 'Maladie professionnelle', 
             'RE': 'Récupération (non indiquée au bulletin)', 'Autre': 'A préciser en commentaire' } 
             %}
 
@@ -720,8 +720,8 @@
                                     $(this).parent('tr').find('td').css('background', 'white');
                                     $(this).next('td').attr('contenteditable', true);
                                     $(this).siblings('.dailyHoursMod').attr('contenteditable', true);
-                                    $(this).siblings('.abscenceMatinSelector').html("<select><option value=''></option> <option value='AA'>AA</option><option value='TJ'>TJ</option><option value='AT'>AT</option><option value='MT'>MT</option> <option value='PA'>PA</option> <option value='CS'>CS</option><option value='CP'>CP</option> <option value='AV'>AV</option> <option value='JS'>JS</option> <option value='MA'>MA</option> <option value='PM'>PM</option> <option value='RE'>RE</option> <option value='Autre'>Autre</option></select>");
-                                    $(this).siblings('.abscenceAMSelector').html("<select><option value=''></option><option value='AA'>AA</option><option value='TJ'>TJ</option><option value='AT'>AT</option><option value='MT'>MT</option><option value='PA'>PA</option><option value='CS'>CS</option><option value='CP'>CP</option><option value='AV'>AV</option><option value='JS'>JS</option><option value='MA'>MA</option><option value='PM'>PM</option><option value='RE'>RE</option><option value='Autre'>Autre</option></select>");
+                                    $(this).siblings('.abscenceMatinSelector').html("<select><option value=''></option> <option value='AA'>AA</option><option value='TJ'>TJ</option><option value='AT'>AT</option><option value='MT'>MT</option> <option value='PA'>PA</option> <option value='CS'>CS</option><option value='CP'>CP</option> <option value='AV'>AV</option> <option value='RT'>RT</option> <option value='MA'>MA</option> <option value='PM'>PM</option> <option value='RE'>RE</option> <option value='Autre'>Autre</option></select>");
+                                    $(this).siblings('.abscenceAMSelector').html("<select><option value=''></option><option value='AA'>AA</option><option value='TJ'>TJ</option><option value='AT'>AT</option><option value='MT'>MT</option><option value='PA'>PA</option><option value='CS'>CS</option><option value='CP'>CP</option><option value='AV'>AV</option><option value='RT'>RT</option><option value='MA'>MA</option><option value='PM'>PM</option><option value='RE'>RE</option><option value='Autre'>Autre</option></select>");
                                     $(this).siblings('.titreRepasNumberSelector').html("<select><option value=''></option><option value='1'>1</option></select>");
                                     $(this).siblings('.forfaitsDeplacementMontant').attr('contenteditable', true);
                                     $(this).siblings('.primesPanierNumber').attr('contenteditable', true);
