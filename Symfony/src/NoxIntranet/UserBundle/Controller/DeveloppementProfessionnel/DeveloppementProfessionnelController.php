@@ -53,10 +53,10 @@ class DeveloppementProfessionnelController extends Controller {
                 'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles sont les réussites et les apports pour le Groupe ?', 'Taille' => 10)
             ),
             7 => array(
-                'Neutre' => array('Type' => 'Texte', 'Question' => "Objectif 1 : Décrivez l'objectif")
+                'Neutre' => array('Type' => 'Texte', 'Question' => "Objectif 1 : Décrivez l'objectif", 'Taille' => 2)
             ),
             8 => array(
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les résultats obtenus ?')
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les résultats obtenus ?', 'Taille' => 10)
             ),
             9 => array(
                 'Manager' => array('Type' => 'Choix', 'Question' => "Sélectionnez le niveau d'atteinte de l'objectif", 'Choix' =>
@@ -66,16 +66,16 @@ class DeveloppementProfessionnelController extends Controller {
                 )
             ),
             10 => array(
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles ont été les difficultés rencontrées ?')
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles ont été les difficultés rencontrées ?', 'Taille' => 10)
             ),
             11 => array(
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles sont les réussites et les apports pour le Groupe ?')
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles sont les réussites et les apports pour le Groupe ?', 'Taille' => 10)
             ),
             12 => array(
-                'Neutre' => array('Type' => 'Texte', 'Question' => "Objectif 2 : Décrivez l'objectif")
+                'Neutre' => array('Type' => 'Texte', 'Question' => "Objectif 2 : Décrivez l'objectif", 'Taille' => 2)
             ),
             13 => array(
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les résultats obtenus ?')
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les résultats obtenus ?', 'Taille' => 10)
             ),
             14 => array(
                 'Manager' => array('Type' => 'Choix', 'Question' => "Sélectionnez le niveau d'atteinte de l'objectif", 'Choix' =>
@@ -85,82 +85,83 @@ class DeveloppementProfessionnelController extends Controller {
                 )
             ),
             15 => array(
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles ont été les difficultés rencontrées ?')
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles ont été les difficultés rencontrées ?', 'Taille' => 10)
             ),
             15 => array(
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles sont les réussites et les apports pour le Groupe ?')
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles sont les réussites et les apports pour le Groupe ?', 'Taille' => 10)
             ),
             16 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Comment estimez-vous votre charge de travail ? Impacte-elle votre vie personnelle ?'),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les facteurs d’aggravation ou d’amélioration de la situation ?')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Comment estimez-vous votre charge de travail ? Impacte-elle votre vie personnelle ?', 'Taille' => 10),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les facteurs d’aggravation ou d’amélioration de la situation ?', 'Taille' => 10)
             ),
             17 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quelles sont les solutions pour pallier aux éventuelles difficultés ?'),
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quelles sont les solutions pour pallier aux éventuelles difficultés ?', 'Taille' => 10),
+                'Manager' => array('Type' => 'Texte', 'Question' => '')
             ),
             18 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quelles ont été les situations de travail source de motivation et sources de frustration ?'),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles sont les zones de confort et d’inconfort dans le poste ?')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quelles ont été les situations de travail source de motivation et sources de frustration ?', 'Taille' => 10),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles sont les zones de confort et d’inconfort dans le poste ?', 'Taille' => 10)
             ),
             19 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quelles sont mes forces ?'),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles sont les forces à valoriser ?')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quelles sont mes forces ?', 'Taille' => 10),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles sont les forces à valoriser ?', 'Taille' => 10)
             ),
             20 => array(
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles formations ont été suivies cette année ?')
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles formations ont été suivies cette année ?', 'Taille' => 7)
             ),
             21 => array(
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les acquis cette année ?')
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les acquis cette année ?', 'Taille' => 7)
             ),
             22 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quels sont mes axes d’amélioration ?'),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les axes d’amélioration sur lesquels il faut travailler ?')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quels sont mes axes d’amélioration ?', 'Taille' => 10),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quels sont les axes d’amélioration sur lesquels il faut travailler ?', 'Taille' => 10)
             ),
             23 => array(
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quels vont être les impacts de l’évolution du métier sur le poste du collaborateur ?')
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quels vont être les impacts de l’évolution du métier sur le poste du collaborateur ?', 'Taille' => 10)
             ),
             24 => array(
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles autres missions/activités seraient susceptibles de l’intéresser et de lui être confiées ?')
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles autres missions/activités seraient susceptibles de l’intéresser et de lui être confiées ?', 'Taille' => 10)
             ),
             25 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Comment vous voyez-vous à CT (0/2 ans) ?'),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Avis hiérarchie')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Comment vous voyez-vous à CT (0/2 ans) ?', 'Taille' => 10),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Avis hiérarchie', 'Taille' => 10)
             ),
             26 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Comment vous voyez-vous à MT (3/5 ans) ?'),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Avis hiérarchie')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Comment vous voyez-vous à MT (3/5 ans) ?', 'Taille' => 10),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Avis hiérarchie', 'Taille' => 10)
             ),
             27 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Nationale/Internationale'),
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Nationale/Internationale', 'Taille' => 5),
             ),
             28 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Région/Pays'),
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Région/Pays', 'Taille' => 5),
             ),
             29 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quel est mon niveau en langue ?'),
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Quel est mon niveau en langue ?', 'Taille' => 5),
             ),
             30 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Les objectifs que je me fixe ?'),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Les objectifs complémentaires fixés par le manager ?')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => 'Les objectifs que je me fixe ?', 'Taille' => 15),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Les objectifs complémentaires fixés par le manager ?', 'Taille' => 15)
             ),
             31 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => "En quoi mon manager peut-il m'aider ?"),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles actions doivent être mises en oeuvre pour accompagner les changements ?')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => "En quoi mon manager peut-il m'aider ?", 'Taille' => 20),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles actions doivent être mises en oeuvre pour accompagner les changements ?', 'Taille' => 20)
             ),
             32 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => "Quels sont mes besoins en formation ?"),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles formations sont à prévoir ? Indiquez les niveaux de priorité ?')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => "Quels sont mes besoins en formation ?", 'Taille' => 20),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Quelles formations sont à prévoir ? Indiquez les niveaux de priorité ?', 'Taille' => 20)
             ),
             33 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => "Synthèse et commentaires du collaborateur"),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Synthèse et commentaires du manager')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => "Synthèse et commentaires du collaborateur", 'Taille' => 20),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Synthèse et commentaires du manager', 'Taille' => 20)
             ),
             34 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => "Signature collaborateur"),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Signature manager')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => "Signature collaborateur", 'Taille' => 7),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Signature manager', 'Taille' => 7)
             ),
             35 => array(
-                'Collaborateur' => array('Type' => 'Texte', 'Question' => "Signature N+2 (Nom, prénom, date, signature)"),
-                'Manager' => array('Type' => 'Texte', 'Question' => 'Signature DRH (Nom, prénom, date, signature)')
+                'Collaborateur' => array('Type' => 'Texte', 'Question' => "Signature N+2 (Nom, prénom, date, signature)", 'Taille' => 7),
+                'Manager' => array('Type' => 'Texte', 'Question' => 'Signature DRH (Nom, prénom, date, signature)', 'Taille' => 7)
             ),
         );
 
@@ -227,7 +228,8 @@ class DeveloppementProfessionnelController extends Controller {
                     ));
                 } else {
                     $formDeveloppementProfessionnelBuilder->add($key . '_Collaborateur', ChoiceType::class, array(
-                        'choices' => $question['Collaborateur']['Choix']
+                        'choices' => $question['Collaborateur']['Choix'],
+                        'placeholder' => 'Choisir une réponse...'
                     ));
                 }
             }
@@ -240,7 +242,8 @@ class DeveloppementProfessionnelController extends Controller {
                     ));
                 } else {
                     $formDeveloppementProfessionnelBuilder->add($key . '_Manager', ChoiceType::class, array(
-                        'choices' => $question['Manager']['Choix']
+                        'choices' => $question['Manager']['Choix'],
+                        'placeholder' => 'Choisir une réponse...'
                     ));
                 }
             }
