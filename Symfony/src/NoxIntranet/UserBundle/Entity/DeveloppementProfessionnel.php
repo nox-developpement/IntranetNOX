@@ -123,7 +123,6 @@ class DeveloppementProfessionnel {
         return $this->statut;
     }
 
-
     /**
      * Set annee
      *
@@ -131,10 +130,9 @@ class DeveloppementProfessionnel {
      *
      * @return DeveloppementProfessionnel
      */
-    public function setAnnee($annee)
-    {
+    public function setAnnee($annee) {
         $this->annee = $annee;
-    
+
         return $this;
     }
 
@@ -143,8 +141,12 @@ class DeveloppementProfessionnel {
      *
      * @return integer
      */
-    public function getAnnee()
-    {
+    public function getAnnee() {
         return $this->annee;
     }
+
+    public function __construct() {
+        $this->statut = 'N1';
+    }
+
 }

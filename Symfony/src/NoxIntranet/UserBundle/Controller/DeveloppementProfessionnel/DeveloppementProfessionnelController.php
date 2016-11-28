@@ -35,9 +35,10 @@ class DeveloppementProfessionnelController extends Controller {
             'Synthèse' => 'n.rigaudeau'
         );
 
-        // Si l'utilisateur courant n'est pas le valideur correspondant au statut actuel du formulaire...
-        if ($statutHierarchie[$formulaireDeveloppementProfessionnel->getStatut()] !== $valideur) {
-            return new \Symfony\Component\HttpFoundation\Response('Get out !');
+        // Si le formulaire existe déjà et l'utilisateur courant n'est pas le valideur correspondant au statut actuel du formulaire...
+        if (!empty($formulaireDeveloppementProfessionnel) && $statutHierarchie[$formulaireDeveloppementProfessionnel->getStatut()] !== $valideur->getUsername()) {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'êtes pas autorisé à accéder à ce formulaire.");
+            return $this->redirectToRoute('nox_intranet_accueil');
         }
 
         /* Génération du formulaire */
@@ -124,7 +125,7 @@ class DeveloppementProfessionnelController extends Controller {
                     $formDeveloppementProfessionnelBuilder->add($key . '_Collaborateur', ChoiceType::class, array(
                         'choices' => $question['Collaborateur']['Choix'],
                         'placeholder' => 'Choisir une réponse...',
-                        'data' => 1
+                        'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()[$key . '_Collaborateur']
                     ));
                 }
             }
@@ -137,7 +138,7 @@ class DeveloppementProfessionnelController extends Controller {
                         'attr' => array(
                             'class' => 'managerTextarea'
                         ),
-                        'data' => 'Test'
+                        'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()[$key . '_Manager']
                     ));
                 }
                 // Si la question est un choix...
@@ -146,7 +147,7 @@ class DeveloppementProfessionnelController extends Controller {
                     $formDeveloppementProfessionnelBuilder->add($key . '_Manager', ChoiceType::class, array(
                         'choices' => $question['Manager']['Choix'],
                         'placeholder' => 'Choisir une réponse...',
-                        'data' => 1
+                        'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()[$key . '_Manager']
                     ));
                 }
             }
@@ -154,7 +155,7 @@ class DeveloppementProfessionnelController extends Controller {
             if (array_key_exists('Neutre', $question)) {
                 // On ajoute un Textarea au formulaire.
                 $formDeveloppementProfessionnelBuilder->add($key . '_Neutre', TextareaType::class, array(
-                    'data' => 'Test'
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()[$key . '_Neutre']
                 ));
             }
         }
@@ -163,9 +164,11 @@ class DeveloppementProfessionnelController extends Controller {
         /* Traitement du formulaire */
         $formDeveloppementProfessionnel->handleRequest($request);
         if ($formDeveloppementProfessionnel->isValid()) {
+            $reponses = array();
+
             // On récupére les infos générales.          
-            $infosGenerales = array('Nom', 'Prenom', 'Age', 'DateAncienneteGroupe', 'Entite', 'PosteActuel', 'DateAnciennetePoste', 'SalaireBrutMensuel', 'NomReponsable', 'DateEntretien');
-            $this->getInfosGeneralesAnswers($infosGenerales, $reponses = array(), $formDeveloppementProfessionnel);
+            $infosGenerales = array('Nom', 'Prenom', 'Age', 'DateAncienneteGroupe', 'Entite', 'PosteActuel', 'DateAnciennetePoste', 'SalaireBrutMensuel', 'NomResponsable', 'DateEntretien');
+            $this->getInfosGeneralesAnswers($infosGenerales, $reponses, $formDeveloppementProfessionnel);
 
             // On récupére les réponses aux question.
             $this->getAnswers($questions, $reponses, $formDeveloppementProfessionnel);
@@ -176,41 +179,49 @@ class DeveloppementProfessionnelController extends Controller {
                 $newDeveloppementProfessionnel = new DeveloppementProfessionnel();
                 $newDeveloppementProfessionnel->setCollaborateur($collaborateur);
                 $newDeveloppementProfessionnel->setFormulaire($reponses);
-                $newDeveloppementProfessionnel->setStatut('Collaborateur');
+                //$newDeveloppementProfessionnel->setStatut('N1');
                 $newDeveloppementProfessionnel->setAnnee(date('Y'));
                 $em->persist($newDeveloppementProfessionnel);
             }
             // Si le formulaire existe déjà...
             else {
+                // Tableau permettant de déterminé le statut à appliquer au formulaire.
+                $nextStatut = array('N1' => 'N2', 'N2' => 'DRH', 'DRH' => 'Synthèse');
+
                 // On met ses données à jour.
                 $formulaireDeveloppementProfessionnel->setFormulaire($reponses);
+                $formulaireDeveloppementProfessionnel->setStatut($nextStatut[$formulaireDeveloppementProfessionnel->getStatut()]);
             }
 
             // On sauvegarde les changements en base de données. 
             $em->flush();
+
+            return $this->redirectToRoute('nox_intranet_accueil');
         }
 
         return $this->render('NoxIntranetUserBundle:DeveloppementProfessionnel:formulaireDeveloppementProfessionnel.html.twig', array('formulaireDevellopementProfessionnel' => $formDeveloppementProfessionnel->createView(), 'questions' => $questions));
     }
 
     // Ajoute les réponses existantes au tableau des réponses.
-    private function getAnswers($questions, $answersArray, $form) {
+    private function getAnswers($questions, &$answersArray, $form) {
+        // Pour chaques question du questionnaire...
         foreach ($questions as $key => $question) {
             // On récupére les réponses aux question.
-            if (array_key_exists($key . '_Collaborateur', $question)) {
+            if (array_key_exists($key . '_Collaborateur', $form->all())) {
                 $answersArray[$key . '_Collaborateur'] = $form->get($key . '_Collaborateur')->getData();
             }
-            if (array_key_exists($key . '_Manager', $question)) {
+            if (array_key_exists($key . '_Manager', $form->all())) {
                 $answersArray[$key . '_Manager'] = $form->get($key . '_Manager')->getData();
             }
-            if (array_key_exists($key . '_Neutre', $question)) {
+            if (array_key_exists($key . '_Neutre', $form->all())) {
                 $answersArray[$key . '_Neutre'] = $form->get($key . '_Neutre')->getData();
             }
         }
     }
 
     // Ajoute les infos générales au tableau des réponses.
-    private function getInfosGeneralesAnswers($infosGenerales, $answersArray, $form) {
+    private function getInfosGeneralesAnswers($infosGenerales, &$answersArray, $form) {
+        // Pour chaques informations générale...
         foreach ($infosGenerales as $info) {
             $answersArray[$info] = $form->get($info)->getData();
         }
