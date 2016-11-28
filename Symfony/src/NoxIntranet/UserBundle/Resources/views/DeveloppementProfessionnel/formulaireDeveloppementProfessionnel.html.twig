@@ -157,13 +157,32 @@
             border-top: none;
             border-bottom: none;
         }
-        
+
         #questionsTable5 {
             margin-bottom: 2em;
         }
-        
+
         #questionsTable6 {
+            margin-bottom: 1em;
+        }
+
+        #formValidationParagraph {
+            margin: 0;
+            text-align: center;
+        }
+
+        #form_Valider {
             margin-bottom: 5em;
+            padding: 1em;
+        }
+
+        #form_Valider:hover {
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7db9e8+0,daeef3+100 */
+            background: #7db9e8; /* Old browsers */
+            background: -moz-linear-gradient(top,  #7db9e8 0%, #daeef3 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top,  #7db9e8 0%,#daeef3 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom,  #7db9e8 0%,#daeef3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#daeef3',GradientType=0 ); /* IE6-9 */
         }
     </style>
 
@@ -471,6 +490,7 @@
                 </tr>
             {% endfor %}
         </table>
+        <p id='formValidationParagraph'>{{ form_widget(formulaireDevellopementProfessionnel.Valider) }}</p>
         {{ form_end(formulaireDevellopementProfessionnel) }}
     </div>
 {% endblock %}
