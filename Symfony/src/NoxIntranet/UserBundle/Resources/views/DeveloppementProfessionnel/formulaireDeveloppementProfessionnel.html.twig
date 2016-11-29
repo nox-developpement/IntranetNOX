@@ -70,6 +70,10 @@
             background-color: rgb(217, 217, 217);
         }
 
+        .neutreTd, .neutreTextarea {
+            background-color: white;
+        }
+
         .questionsTable {
             table-layout: fixed;
             width: 100%;
@@ -186,7 +190,7 @@
         }
     </style>
 
-    <div id="formulaireDeveloppementProfessionnelDiv">
+    <div id="formulaireDeveloppementProfessionnelDiv">        
         {{ form_start(formulaireDevellopementProfessionnel) }}
         <table id='infoGeneraleTable'>
             <tr>
@@ -238,7 +242,7 @@
                             {% endif %}
                         {% endif %}
                         {% if question['Neutre'] is defined %}
-                        <td colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
                     {% endif %}
                 </tr>
             {% endfor %}
@@ -262,7 +266,7 @@
                             {% endif %}
                         {% endif %}
                         {% if question['Neutre'] is defined %}
-                        <td colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
                     {% endif %}
                 </tr>
             {% endfor %}
@@ -292,7 +296,7 @@
                             {% endif %}
                         {% endif %}
                         {% if question['Neutre'] is defined %}
-                        <td colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
                     {% endif %}
                 </tr>
             {% endfor %}
@@ -325,7 +329,7 @@
                             {% endif %}
                         {% endif %}
                         {% if question['Neutre'] is defined %}
-                        <td colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
                     {% endif %}
                 </tr>
             {% endfor %}
@@ -351,7 +355,7 @@
                             {% endif %}
                         {% endif %}
                         {% if question['Neutre'] is defined %}
-                        <td colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
                     {% endif %}
                 </tr>
             {% endfor %}
@@ -377,7 +381,7 @@
                             {% endif %}
                         {% endif %}
                         {% if question['Neutre'] is defined %}
-                        <td colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
                     {% endif %}
                 </tr>
             {% endfor %}
@@ -410,7 +414,7 @@
                             {% endif %}
                         {% endif %}
                         {% if question['Neutre'] is defined %}
-                        <td colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
                     {% endif %}
                 </tr>
             {% endfor %}
@@ -436,7 +440,7 @@
                             {% endif %}
                         {% endif %}
                         {% if question['Neutre'] is defined %}
-                        <td colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
                     {% endif %}
                 </tr>
             {% endfor %}
@@ -461,7 +465,7 @@
                             {% endif %}
                         {% endif %}
                         {% if question['Neutre'] is defined %}
-                        <td colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
                     {% endif %}
                 </tr>
             {% endfor %}
@@ -485,12 +489,12 @@
                             {% endif %}
                         {% endif %}
                         {% if question['Neutre'] is defined %}
-                        <td colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
                     {% endif %}
                 </tr>
             {% endfor %}
         </table>
-        <p id='formValidationParagraph'>{{ form_widget(formulaireDevellopementProfessionnel.Valider) }}</p>
+        <p id='formValidationParagraph'>{% if entretien.statut != 'Synthèse' %}{{ form_widget(formulaireDevellopementProfessionnel.Valider) }}{% else %}{{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'style': 'display: none;'}}) }}{% endif %}</p>
         {{ form_end(formulaireDevellopementProfessionnel) }}
     </div>
 {% endblock %}
