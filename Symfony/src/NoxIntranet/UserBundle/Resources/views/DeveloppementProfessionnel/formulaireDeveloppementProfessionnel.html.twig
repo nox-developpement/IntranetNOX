@@ -4,6 +4,8 @@
 
 {% block messageAccueil %}Entretien annuel de développement professionnel{% endblock %}
 
+{% block sousMessageAccueil %}Année {{ 'now'|date('Y') }}{% endblock %}
+
 {% block contenu %} 
 
     <style>
@@ -57,9 +59,10 @@
             text-align: center;
         }
 
-        h3 {
+        h4 {
             text-decoration: underline;
             color: rgb(0 ,32, 96);
+            font-size: 1.2em;
         }
 
         .collaborateurTd, .collaborateurTextarea {
@@ -132,12 +135,12 @@
             border-bottom: none;
         }
 
-        #questionsTable1 tr:nth-child(n+15):nth-child(-n+17), #questionsTable1 tr:nth-child(n+15):nth-child(-n+17) td {
+        #questionsTable1 tr:nth-child(n+15):nth-child(-n+18), #questionsTable1 tr:nth-child(n+15):nth-child(-n+18) td {
             border-top: none;
             border-bottom: none;
         }
 
-        #questionsTable1 tr:nth-child(n+19):nth-child(-n+20), #questionsTable1 tr:nth-child(n+19):nth-child(-n+20) td {
+        #questionsTable1 tr:nth-child(n+20):nth-child(-n+21), #questionsTable1 tr:nth-child(n+20):nth-child(-n+21) td {
             border-top: none;
             border-bottom: none;
         }
@@ -152,7 +155,7 @@
             border-bottom: none;
         }
 
-        #questionsTable3 tr:nth-child(n+9):nth-child(-n+11), #questionsTable3 tr:nth-child(n+9):nth-child(-n+11) td {
+        #questionsTable3 tr:nth-child(n+9):nth-child(-n+15), #questionsTable3 tr:nth-child(n+9):nth-child(-n+15) td {
             border-top: none;
             border-bottom: none;
         }
@@ -188,6 +191,29 @@
             background: linear-gradient(to bottom,  #7db9e8 0%,#daeef3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#daeef3',GradientType=0 ); /* IE6-9 */
         }
+
+        #formationTable {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #formationTable, #formationTable tr, #formationTable td {
+            border: 1px solid black;
+        }
+
+        #formationTable td {
+            padding: 0;
+            text-align: center;
+            background-color: rgb(217, 217, 217); 
+        }
+
+        #formationTable tr input[type='text'] {
+            display: block;
+            box-sizing: border-box;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 
     <div id="formulaireDeveloppementProfessionnelDiv">        
@@ -215,7 +241,7 @@
             </tr>
         </table>
 
-        <h3>Thème 1 : Bilan de l'année écoulée</h3>
+        <h4>Thème 1 : Bilan de l'année écoulée</h4>
 
         <table class='questionsTable' id="questionsTable1">
             <tr>
@@ -225,7 +251,7 @@
             <tr>
                 <td colspan='2' style='text-align: center; font-weight: bold;'>Bilan de l'année écoulée</td>
             </tr>
-            {% for key, question in questions if key >=1 and key <= 15 %}
+            {% for key, question in questions if key >=1 and key <= 16 %}
                 <tr>
                     {% if question['Collaborateur'] is defined %}
                         {% if question['Collaborateur']['Type'] == 'Texte' %}
@@ -249,7 +275,7 @@
             <tr>
                 <td colspan='2' style='text-align: center; font-weight: bold;'>Charge de travail</td>
             </tr>
-            {% for key, question in questions if key >=16 and key <= 17 %}
+            {% for key, question in questions if key >=17 and key <= 18 %}
                 <tr>
                     {% if question['Collaborateur'] is defined %}
                         {% if question['Collaborateur']['Type'] == 'Texte' %}
@@ -272,14 +298,14 @@
             {% endfor %}
         </table>
 
-        <h3>Thème 2 : Acquis, forces et faiblesses</h3>
+        <h4>Thème 2 : Acquis, forces et faiblesses</h4>
         <table class='questionsTable' id="questionsTable2">
             <tr>
                 <td class='collaborateurTd' style='text-align: center; font-weight: bold;'>AUTO EVALUATION</td>
                 <td class='managerTd' style='text-align: center; font-weight: bold;'>EVALUATION DU MANAGER</td>
             </tr>
 
-            {% for key, question in questions if key >=18 and key <= 22 %}
+            {% for key, question in questions if key >=19 and key <= 23 %}
                 <tr>
                     {% if question['Collaborateur'] is defined %}
                         {% if question['Collaborateur']['Type'] == 'Texte' %}
@@ -302,7 +328,7 @@
             {% endfor %}
         </table>
 
-        <h3>Thème 3 : Projet professionnel - motivations et aspirations</h3>
+        <h4>Thème 3 : Projet professionnel - motivations et aspirations</h4>
         <table class='questionsTable' id="questionsTable3">
             <tr>
                 <td class='collaborateurTd' style='text-align: center; font-weight: bold;'>AUTO EVALUATION</td>
@@ -312,7 +338,7 @@
                 <td colspan='2' style='text-align: center; font-weight: bold;'>Evolution du métier</td>
             </tr>
 
-            {% for key, question in questions if key >=23 and key <= 24 %}
+            {% for key, question in questions if key >=24 and key <= 25 %}
                 <tr>
                     {% if question['Collaborateur'] is defined %}
                         {% if question['Collaborateur']['Type'] == 'Texte' %}
@@ -338,7 +364,7 @@
                 <td colspan='2' style='text-align: center; font-weight: bold;'>Projet professionnel</td>
             </tr>
 
-            {% for key, question in questions if key >=25 and key <= 26 %}
+            {% for key, question in questions if key >=26 and key <= 27 %}
                 <tr>
                     {% if question['Collaborateur'] is defined %}
                         {% if question['Collaborateur']['Type'] == 'Texte' %}
@@ -364,30 +390,32 @@
                 <td colspan='2' style='text-align: center; font-weight: bold;'>Mobilité géographique</td>
             </tr>
 
-            {% for key, question in questions if key >=27 and key <= 29 %}
+            {% for key, question in questions if key >=28 and key <= 28 %}
                 <tr>
-                    {% if question['Collaborateur'] is defined %}
-                        {% if question['Collaborateur']['Type'] == 'Texte' %}
-                            <td class='collaborateurTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur'], {'attr': {'style': question['Collaborateur']['Taille'] is defined ? 'height: ' ~ question['Collaborateur']['Taille']~ 'em;' : '' }}) }}</td>
-                        {% elseif question['Collaborateur']['Type'] == 'Choix' %}
-                            <td class='collaborateurTd noWhiteSpaceTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur']) }}</td>
-                            {% endif %}
-                        {% endif %}
-                        {% if question['Manager'] is defined %}
-                            {% if question['Manager']['Type'] == 'Texte' %}
-                            <td class='managerTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager'], {'attr': {'style': question['Manager']['Taille'] is defined ? 'height: ' ~ question['Manager']['Taille']~ 'em;' : ''}}) }}</td>
-                        {% elseif question['Manager']['Type'] == 'Choix' %}
-                            <td class='managerTd noWhiteSpaceTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager']) }}</td>
-                            {% endif %}
-                        {% endif %}
-                        {% if question['Neutre'] is defined %}
-                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
-                    {% endif %}
+                    <td class='collaborateurTd noWhiteSpaceTd' colspan='2'><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur']) }}</td>
                 </tr>
             {% endfor %}
+            <tr>
+                <td class='collaborateurTd' colspan='2' style='padding-top: 1em;'><span class='questionLibelle'>Région/Pays : </span></td>
+            </tr>
+            <tr>
+                <td class='collaborateurTd' colspan='2'>{{ form_label(formulaireDevellopementProfessionnel.RegionFrance) }}{{ form_widget(formulaireDevellopementProfessionnel.RegionFrance) }}</td>
+            </tr>
+            <tr>
+                <td class='collaborateurTd' colspan='2'>{{ form_label(formulaireDevellopementProfessionnel.PaysInternational) }}{{ form_widget(formulaireDevellopementProfessionnel.PaysInternational) }}</td>
+            </tr>
+            <tr>
+                <td class='collaborateurTd' colspan='2' style='padding-top: 1em;'><span class='questionLibelle'>Quels est mon niveau de langue ?</span></td>
+            </tr>
+            <tr>
+                <td class='collaborateurTd' colspan='2'>{{ form_label(formulaireDevellopementProfessionnel.Langue1) }}{{ form_widget(formulaireDevellopementProfessionnel.Langue1, {'attr': {'style': 'margin-right: 1em;'}}) }}{{ form_label(formulaireDevellopementProfessionnel.NiveauLangue1) }}{{ form_widget(formulaireDevellopementProfessionnel.NiveauLangue1) }}</td>
+            </tr>
+            <tr>
+                <td class='collaborateurTd' colspan='2'>{{ form_label(formulaireDevellopementProfessionnel.Langue2) }}{{ form_widget(formulaireDevellopementProfessionnel.Langue2, {'attr': {'style': 'margin-right: 1em;'}}) }}{{ form_label(formulaireDevellopementProfessionnel.NiveauLangue2) }}{{ form_widget(formulaireDevellopementProfessionnel.NiveauLangue2) }}</td>
+            </tr>
         </table>
 
-        <h3>Thème 4 : Objectifs de l'année à venir</h3>
+        <h4>Thème 4 : Objectifs de l'année à venir</h4>
         <table class='questionsTable' id="questionsTable4">
             <tr>
                 <td class='collaborateurTd' style='text-align: center; font-weight: bold;'>AUTO EVALUATION</td>
@@ -397,7 +425,7 @@
                 <td colspan='2' style='text-align: center; font-weight: bold;'>Objectifs personnels et professionnels pour l'année prochaine</td>
             </tr>
 
-            {% for key, question in questions if key >= 30 and key <= 30 %}
+            {% for key, question in questions if key >= 29 and key <= 29 %}
                 <tr>
                     {% if question['Collaborateur'] is defined %}
                         {% if question['Collaborateur']['Type'] == 'Texte' %}
@@ -423,7 +451,7 @@
                 <td colspan='2' style='text-align: center; font-weight: bold;'>Moyens pour atteindre les objectifs ?</td>
             </tr>
 
-            {% for key, question in questions if key >= 31 and key <= 32 %}
+            {% for key, question in questions if key >= 30 and key <= 30 %}
                 <tr>
                     {% if question['Collaborateur'] is defined %}
                         {% if question['Collaborateur']['Type'] == 'Texte' %}
@@ -444,11 +472,41 @@
                     {% endif %}
                 </tr>
             {% endfor %}
+            {% for key, question in questions if key >= 31 and key <= 31 %}
+                <tr>
+                    {% if question['Collaborateur'] is defined %}
+                        {% if question['Collaborateur']['Type'] == 'Texte' %}
+                            <td class='collaborateurTd'><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur'], {'attr': {'style': question['Collaborateur']['Taille'] is defined ? 'height: ' ~ question['Collaborateur']['Taille']~ 'em;' : '' }}) }}</td>
+                        {% endif %}
+                    {% endif %}
+                    <td class='managerTd' style='text-align: center; vertical-align: top;'>
+                        <span class='questionLibelle' style='margin-bottom: 1em;'>Quelles formations sont à prévoir ? Indiquez les niveaux de priorité ?</span>
+                        <table id='formationTable'>
+                            <tr>
+                                <td>Formation</td>
+                                <td>Priorité</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form_widget(formulaireDevellopementProfessionnel['Formation1']) }}</td>
+                                <td>{{ form_widget(formulaireDevellopementProfessionnel['Priorite1']) }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form_widget(formulaireDevellopementProfessionnel['Formation2']) }}</td>
+                                <td>{{ form_widget(formulaireDevellopementProfessionnel['Priorite2']) }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form_widget(formulaireDevellopementProfessionnel['Formation3']) }}</td>
+                                <td>{{ form_widget(formulaireDevellopementProfessionnel['Priorite3']) }}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            {% endfor %}
         </table>
 
-        <h3>Synthèse de l'entretien</h3>
+        <h4>Synthèse de l'entretien</h4>
         <table class='questionsTable' id="questionsTable5">
-            {% for key, question in questions if key >= 33 and key <= 33 %}
+            {% for key, question in questions if key >= 32 and key <= 32 %}
                 <tr>
                     {% if question['Collaborateur'] is defined %}
                         {% if question['Collaborateur']['Type'] == 'Texte' %}
@@ -472,7 +530,7 @@
         </table>
 
         <table class='questionsTable' id="questionsTable6">
-            {% for key, question in questions if key >= 34 and key <= 35 %}
+            {% for key, question in questions if key >= 33 and key <= 34 %}
                 <tr>
                     {% if question['Collaborateur'] is defined %}
                         {% if question['Collaborateur']['Type'] == 'Texte' %}
@@ -494,7 +552,7 @@
                 </tr>
             {% endfor %}
         </table>
-        <p id='formValidationParagraph'>{% if entretien.statut != 'Synthèse' %}{{ form_widget(formulaireDevellopementProfessionnel.Valider) }}{% else %}{{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'style': 'display: none;'}}) }}{% endif %}</p>
+        <p id='formValidationParagraph'>{% if entretien.statut is defined and entretien.statut != 'Synthèse' %}{{ form_widget(formulaireDevellopementProfessionnel.Valider) }}{% else %}{{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'style': 'display: none;'}}) }}{% endif %}</p>
         {{ form_end(formulaireDevellopementProfessionnel) }}
     </div>
 {% endblock %}

@@ -110,6 +110,86 @@ class DeveloppementProfessionnelController extends Controller {
                     'data' => empty($formulaireDeveloppementProfessionnel) ? new \DateTime : $formulaireDeveloppementProfessionnel->getFormulaire()['DateEntretien'],
                     'disabled' => $this->fieldIsWritable($currentFormStatut, 'Collaborateur')
                 ))
+                ->add('Formation1', TextType::class, array(
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['Formation1'],
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'N1'),
+                    'required' => false
+                ))
+                ->add('Priorite1', ChoiceType::class, array(
+                    'choices' => array(1, 2, 3),
+                    'placeholder' => 'Choisir une priorité...',
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['Priorite1'],
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'N1'),
+                    'required' => false
+                ))
+                ->add('Formation2', TextType::class, array(
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['Formation1'],
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'N1'),
+                    'required' => false
+                ))
+                ->add('Priorite2', ChoiceType::class, array(
+                    'choices' => array(1, 2, 3),
+                    'placeholder' => 'Choisir une priorité...',
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['Priorite1'],
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'N1'),
+                    'required' => false
+                ))
+                ->add('Formation3', TextType::class, array(
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['Formation1'],
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'N1'),
+                    'required' => false
+                ))
+                ->add('Priorite3', ChoiceType::class, array(
+                    'choices' => array(1, 2, 3),
+                    'placeholder' => 'Choisir une priorité...',
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['Priorite1'],
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'N1'),
+                    'required' => false
+                ))
+                ->add('RegionFrance', ChoiceType::class, array(
+                    'choices' => json_decode(file_get_contents($this->container->get('kernel')->locateResource('@NoxIntranetUserBundle/Resources/public/DeveloppementProfessionnel/DepartementsFrancais.json')), true),
+                    'placeholder' => 'Choisir un département...',
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['RegionFrance'],
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'Collaborateur'),
+                    'required' => false,
+                    'label' => 'France : '
+                ))
+                ->add('PaysInternational', ChoiceType::class, array(
+                    'choices' => json_decode(file_get_contents($this->container->get('kernel')->locateResource('@NoxIntranetUserBundle/Resources/public/DeveloppementProfessionnel/PaysMonde.json')), true),
+                    'placeholder' => 'Choisir un pays...',
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['PaysInternational'],
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'Collaborateur'),
+                    'required' => false,
+                    'label' => 'International : '
+                ))
+                ->add('Langue1', TextType::class, array(
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['Langue1'],
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'Collaborateur'),
+                    'required' => false,
+                    'label' => 'Langue 1 : '
+                ))
+                ->add('Langue2', TextType::class, array(
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['Langue2'],
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'Collaborateur'),
+                    'required' => false,
+                    'label' => 'Langue 2 : '
+                ))
+                ->add('NiveauLangue1', ChoiceType::class, array(
+                    'choices' => array('Débutant', 'Intermédiaire', 'Courant'),
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['NiveauLangue1'],
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'Collaborateur'),
+                    'required' => false,
+                    'label' => 'Niveau : ',
+                    'placeholder' => 'Choisir un niveau...'
+                ))
+                ->add('NiveauLangue2', ChoiceType::class, array(
+                    'choices' => array('Débutant', 'Intermédiaire', 'Courant'),
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['NiveauLangue2'],
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'Collaborateur'),
+                    'required' => false,
+                    'label' => 'Niveau : ',
+                    'placeholder' => 'Choisir un niveau...'
+                ))
                 ->add('Valider', SubmitType::class);
 
         // On récupére le fichier des question au format JSON et on le converti en tableau.
@@ -187,7 +267,24 @@ class DeveloppementProfessionnelController extends Controller {
             $reponses = array();
 
             // On récupére les infos générales.          
-            $infosGenerales = array('Nom', 'Prenom', 'Age', 'DateAncienneteGroupe', 'Entite', 'PosteActuel', 'DateAnciennetePoste', 'SalaireBrutMensuel', 'NomResponsable', 'DateEntretien');
+            $infosGenerales = array(
+                'Nom',
+                'Prenom',
+                'Age',
+                'DateAncienneteGroupe',
+                'Entite',
+                'PosteActuel',
+                'DateAnciennetePoste',
+                'SalaireBrutMensuel',
+                'NomResponsable',
+                'DateEntretien',
+                'Formation1',
+                'Priorite1',
+                'Formation2',
+                'Priorite2',
+                'Formation3',
+                'Priorite3'
+            );
             $this->getInfosGeneralesAnswers($infosGenerales, $reponses, $formDeveloppementProfessionnel);
 
             // On récupére les réponses aux question.
@@ -220,7 +317,7 @@ class DeveloppementProfessionnelController extends Controller {
             return $this->redirectToRoute('nox_intranet_accueil');
         }
 
-        $this->exportToExcel($questions, $formulaireDeveloppementProfessionnel);
+        //$this->exportToExcel($questions, $formulaireDeveloppementProfessionnel);
 
         return $this->render('NoxIntranetUserBundle:DeveloppementProfessionnel:formulaireDeveloppementProfessionnel.html.twig', array('formulaireDevellopementProfessionnel' => $formDeveloppementProfessionnel->createView(), 'questions' => $questions, 'entretien' => $formulaireDeveloppementProfessionnel));
     }
@@ -277,128 +374,20 @@ class DeveloppementProfessionnelController extends Controller {
     }
 
     // Export le formulaire d'entretien sous forme de fichier Excel.
-    public function exportToExcel($questions, $entretien) {
+    public function exportToExcel() {
         // On importe le module de traitement Excel.
         $root = $this->get('kernel')->getRootDir() . '\..';
         require_once $root . '\vendor\phpexcel\phpexcel\PHPExcel.php';
 
-        // On récupére les réponses du formulaire de l'entretien.
-        $answers = $entretien->getFormulaire();
 
-        // Initialisation d'un nouvelle objet PHP Excel.
-        $objPHPExcel = new \PHPExcel();
-
-        $objPHPExcel->getActiveSheet()->setCellValue('A1', 'AUTO EVALUATION');
-        // On applique le fond bleu collaborateur au cellules.
-        $objPHPExcel->getActiveSheet()->getStyle('A1')->applyFromArray(
-                array(
-                    'fill' => array(
-                        'type' => \PHPExcel_Style_Fill::FILL_SOLID,
-                        'color' => array('rgb' => 'DAEEF3')
-                    )
-                )
-        );
-        $objPHPExcel->getActiveSheet()->setCellValue('B1', 'EVALUATION DU MANAGER');
-        // On applique le fond bleu collaborateur au cellules.
-        $objPHPExcel->getActiveSheet()->getStyle('B1')->applyFromArray(
-                array(
-                    'fill' => array(
-                        'type' => \PHPExcel_Style_Fill::FILL_SOLID,
-                        'color' => array('rgb' => 'D9D9D9')
-                    )
-                )
-        );
-
-        // Initialisation du compteur de ligne du tableau Excel.
-        $line = 2;
-
-        // Pour chaques questions du formulaire...
-        foreach ($questions as $key => $question) {
-            // Si une question Collaborateur existe...
-            if (array_key_exists('Collaborateur', $question)) {
-                // On écris le texte de la question sur la feuille Excel.
-                $objPHPExcel->getActiveSheet()->setCellValue('A' . $line, $question['Collaborateur']['Question']);
-
-                // Si la question est de type Textuelle...
-                if ($question['Collaborateur']['Type'] === 'Texte') {
-                    // On attribut la réponse à la cellule.
-                    $objPHPExcel->getActiveSheet()->setCellValue('A' . ($line + 1), $answers[$key . '_Collaborateur']);
-                }
-                // Si la question est de type Sélection...
-                elseif ($question['Collaborateur']['Type'] === 'Choix') {
-                    // On attribut la valeur textuel associé à la réponse à la cellule.
-                    $objPHPExcel->getActiveSheet()->setCellValue('A' . ($line + 1), $question['Collaborateur']['Choix'][$answers[$key . '_Collaborateur']]);
-                }
-
-                // On applique le fond bleu collaborateur au cellules.
-                $objPHPExcel->getActiveSheet()->getStyle('A' . $line . ':A' . ($line + 1))->applyFromArray(
-                        array(
-                            'fill' => array(
-                                'type' => \PHPExcel_Style_Fill::FILL_SOLID,
-                                'color' => array('rgb' => 'DAEEF3')
-                            )
-                        )
-                );
-
-                // On redimensionne la colonne des cellules.
-                $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-            }
-
-            // Si une question Manager existe...
-            if (array_key_exists('Manager', $question)) {
-                // On écris le texte de la question sur la feuille Excel.
-                $objPHPExcel->getActiveSheet()->setCellValue('B' . $line, $question['Manager']['Question']);
-
-                // Si la question est de type Textuelle...
-                if ($question['Manager']['Type'] === 'Texte') {
-                    // On attribut la réponse à la cellule.
-                    $objPHPExcel->getActiveSheet()->setCellValue('B' . ($line + 1), $answers[$key . '_Manager']);
-                }
-                // Si la question est de type Sélection...
-                elseif ($question['Manager']['Type'] === 'Choix') {
-                    // On attribut la valeur textuel associé à la réponse à la cellule.
-                    $objPHPExcel->getActiveSheet()->setCellValue('B' . ($line + 1), $question['Manager']['Choix'][$answers[$key . '_Manager']]);
-                }
-
-                // On applique le fond bleu collaborateur au cellules.
-                $objPHPExcel->getActiveSheet()->getStyle('B' . $line . ':B' . ($line + 1))->applyFromArray(
-                        array(
-                            'fill' => array(
-                                'type' => \PHPExcel_Style_Fill::FILL_SOLID,
-                                'color' => array('rgb' => 'D9D9D9')
-                            )
-                        )
-                );
-
-                // On redimensionne la colonne des cellules.
-                $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-            }
-
-            // Si une question Neutre existe...
-            if (array_key_exists('Neutre', $question)) {
-                // On écris le texte de la question sur la feuille Excel.
-                $objPHPExcel->getActiveSheet()->setCellValue('A' . $line, $question['Neutre']['Question']);
-
-                // Si la question est de type Textuelle...
-                if ($question['Neutre']['Type'] === 'Texte') {
-                    // On attribut la réponse à la cellule.
-                    $objPHPExcel->getActiveSheet()->setCellValue('A' . ($line + 1), $answers[$key . '_Neutre']);
-                }
-
-                // On joints les cellules de la colonne A et de la colonne B.
-                $objPHPExcel->getActiveSheet()->mergeCells('A' . $line . ':B' . $line);
-
-                // On redimensionne la colonne des cellules.
-                $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-            }
-
-            // On incrémente le compteur de ligne de 2 (1 pour la question et 1 pour la réponse).
-            $line += 2;
-        }
 
         // On sauvegarde le fichier Excel.
         $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
         $objWriter->save('testExportExcelEntretie.xlsx');
+    }
+
+    private function sendMailToNextValidator() {
+        
     }
 
 }

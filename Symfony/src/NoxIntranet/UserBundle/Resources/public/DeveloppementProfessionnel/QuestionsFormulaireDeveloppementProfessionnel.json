@@ -144,12 +144,20 @@
     "15": {
         "Manager": {
             "Type": "Texte",
-            "Question": "Quelles sont les r\u00e9ussites et les apports pour le Groupe ?",
+            "Question": "Quelles ont \u00e9t\u00e9 les difficult\u00e9s rencontr\u00e9es ?",
             "Taille": 10,
             "Destinataire": "N1"
         }
     },
     "16": {
+        "Manager": {
+            "Type": "Texte",
+            "Question": "Quelles sont les r\u00e9ussites et les apports pour le Groupe ?",
+            "Taille": 10,
+            "Destinataire": "N1"
+        }
+    },
+    "17": {
         "Collaborateur": {
             "Type": "Texte",
             "Question": "Comment estimez-vous votre charge de travail ? Impacte-elle votre vie personnelle ?",
@@ -163,7 +171,7 @@
             "Destinataire": "N1"
         }
     },
-    "17": {
+    "18": {
         "Collaborateur": {
             "Type": "Texte",
             "Question": "Quelles sont les solutions pour pallier aux \u00e9ventuelles difficult\u00e9s ?",
@@ -176,7 +184,7 @@
             "Destinataire": ""
         }
     },
-    "18": {
+    "19": {
         "Collaborateur": {
             "Type": "Texte",
             "Question": "Quelles ont \u00e9t\u00e9 les situations de travail source de motivation et sources de frustration ?",
@@ -190,7 +198,7 @@
             "Destinataire": "N1"
         }
     },
-    "19": {
+    "20": {
         "Collaborateur": {
             "Type": "Texte",
             "Question": "Quelles sont mes forces ?",
@@ -204,7 +212,7 @@
             "Destinataire": "N1"
         }
     },
-    "20": {
+    "21": {
         "Manager": {
             "Type": "Texte",
             "Question": "Quelles formations ont \u00e9t\u00e9 suivies cette ann\u00e9e ?",
@@ -212,7 +220,7 @@
             "Destinataire": "N1"
         }
     },
-    "21": {
+    "22": {
         "Manager": {
             "Type": "Texte",
             "Question": "Quels sont les acquis cette ann\u00e9e ?",
@@ -220,7 +228,7 @@
             "Destinataire": "N1"
         }
     },
-    "22": {
+    "23": {
         "Collaborateur": {
             "Type": "Texte",
             "Question": "Quels sont mes axes d\u2019am\u00e9lioration ?",
@@ -234,7 +242,7 @@
             "Destinataire": "N1"
         }
     },
-    "23": {
+    "24": {
         "Manager": {
             "Type": "Texte",
             "Question": "Quels vont \u00eatre les impacts de l\u2019\u00e9volution du m\u00e9tier sur le poste du collaborateur ?",
@@ -242,7 +250,7 @@
             "Destinataire": "N1"
         }
     },
-    "24": {
+    "25": {
         "Manager": {
             "Type": "Texte",
             "Question": "Quelles autres missions\/activit\u00e9s seraient susceptibles de l\u2019int\u00e9resser et de lui \u00eatre confi\u00e9es ?",
@@ -250,7 +258,7 @@
             "Destinataire": "N1"
         }
     },
-    "25": {
+    "26": {
         "Collaborateur": {
             "Type": "Texte",
             "Question": "Comment vous voyez-vous \u00e0 CT (0\/2 ans) ?",
@@ -264,7 +272,7 @@
             "Destinataire": "N1"
         }
     },
-    "26": {
+    "27": {
         "Collaborateur": {
             "Type": "Texte",
             "Question": "Comment vous voyez-vous \u00e0 MT (3\/5 ans) ?",
@@ -278,31 +286,15 @@
             "Destinataire": "N1"
         }
     },
-    "27": {
-        "Collaborateur": {
-            "Type": "Texte",
-            "Question": "Nationale\/Internationale",
-            "Taille": 5,
-            "Destinataire": "Collaborateur"
-        }
-    },
     "28": {
         "Collaborateur": {
-            "Type": "Texte",
-            "Question": "R\u00e9gion\/Pays",
-            "Taille": 5,
+            "Type": "Choix",
+            "Question": "Périmètre ?",
+            "Choix": ["Régionale", "Nationale", "Internationale"],
             "Destinataire": "Collaborateur"
         }
     },
     "29": {
-        "Collaborateur": {
-            "Type": "Texte",
-            "Question": "Quel est mon niveau en langue ?",
-            "Taille": 5,
-            "Destinataire": "Collaborateur"
-        }
-    },
-    "30": {
         "Collaborateur": {
             "Type": "Texte",
             "Question": "Les objectifs que je me fixe ?",
@@ -316,7 +308,7 @@
             "Destinataire": "N1"
         }
     },
-    "31": {
+    "30": {
         "Collaborateur": {
             "Type": "Texte",
             "Question": "En quoi mon manager peut-il m'aider ?",
@@ -330,21 +322,15 @@
             "Destinataire": "N1"
         }
     },
-    "32": {
+    "31": {
         "Collaborateur": {
             "Type": "Texte",
             "Question": "Quels sont mes besoins en formation ?",
             "Taille": 20,
             "Destinataire": "Collaborateur"
-        },
-        "Manager": {
-            "Type": "Texte",
-            "Question": "Quelles formations sont \u00e0 pr\u00e9voir ? Indiquez les niveaux de priorit\u00e9 ?",
-            "Taille": 20,
-            "Destinataire": "N1"
         }
     },
-    "33": {
+    "32": {
         "Collaborateur": {
             "Type": "Texte",
             "Question": "Synth\u00e8se et commentaires du collaborateur",
@@ -358,7 +344,7 @@
             "Destinataire": "N1"
         }
     },
-    "34": {
+    "33": {
         "Collaborateur": {
             "Type": "Texte",
             "Question": "Signature collaborateur",
@@ -372,7 +358,7 @@
             "Destinataire": "N1"
         }
     },
-    "35": {
+    "34": {
         "Collaborateur": {
             "Type": "Texte",
             "Question": "Signature N+2 (Nom, pr\u00e9nom, date, signature)",
