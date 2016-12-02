@@ -552,7 +552,7 @@
                 </tr>
             {% endfor %}
         </table>
-        <p id='formValidationParagraph'>{% if entretien.statut is defined and entretien.statut != 'Synthèse' %}{{ form_widget(formulaireDevellopementProfessionnel.Valider) }}{% else %}{{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'style': 'display: none;'}}) }}{% endif %}</p>
+        <p id='formValidationParagraph'>{% if entretien.statut is defined and entretien.statut == 'Synthèse' %}{{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'style': 'display: none;'}}) }}{% else %}{{ form_widget(formulaireDevellopementProfessionnel.Valider) }}{% endif %}</p>
         {{ form_end(formulaireDevellopementProfessionnel) }}
     </div>
 {% endblock %}
