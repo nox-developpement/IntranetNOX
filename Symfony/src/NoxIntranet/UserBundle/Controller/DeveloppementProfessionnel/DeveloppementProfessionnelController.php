@@ -11,9 +11,11 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\UserBundle\Entity\DeveloppementProfessionnel;
+use Symfony\Component\HttpFoundation\Response;
 
 class DeveloppementProfessionnelController extends Controller {
 
+    // Affiche un formulaire d'entretien de développement professionnel.
     public function formulaireDeveloppementProfessionnelAction(Request $request, $collaborateurUsername) {
         // On récupére le collaborateur courant.
         $valideur = $this->get('security.context')->getToken()->getUser();
@@ -32,8 +34,8 @@ class DeveloppementProfessionnelController extends Controller {
             'Collaborateur' => $collaborateur->getUsername(),
             'N1' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $collaborateurHierarchy->getDA())[0], 'lastname' => explode(' ', $collaborateurHierarchy->getDA())[1]))->getUsername(),
             'N2' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $collaborateurHierarchy->getN2())[0], 'lastname' => explode(' ', $collaborateurHierarchy->getN2())[1]))->getUsername(),
-            'DRH' => 't.besson',
-            'Synthèse' => 't.besson'
+            'DRH' => 'n.rigaudeau',
+            'Synthèse' => 'n.rigaudeau'
         );
 
         // Fonction de sortie si visite non autorisé.
@@ -282,8 +284,6 @@ class DeveloppementProfessionnelController extends Controller {
         }
         $formDeveloppementProfessionnel = $formDeveloppementProfessionnelBuilder->getForm();
 
-        $this->exportToExcel();
-
         /* Traitement du formulaire */
         $formDeveloppementProfessionnel->handleRequest($request);
         if ($formDeveloppementProfessionnel->isValid()) {
@@ -320,6 +320,9 @@ class DeveloppementProfessionnelController extends Controller {
             // On récupére les réponses aux question.
             $this->getAnswers($questions, $reponses, $formDeveloppementProfessionnel);
 
+            // Tableau permettant de déterminé le statut à appliquer au formulaire.
+            $nextStatut = array('N1' => 'N2', 'N2' => 'DRH', 'DRH' => 'Synthèse');
+
             // Si le formulaire n'existe pas déjà...
             if (empty($formulaireDeveloppementProfessionnel)) {
                 // On en crée un nouveau.
@@ -331,15 +334,14 @@ class DeveloppementProfessionnelController extends Controller {
             }
             // Si le formulaire existe déjà...
             else {
-                // Tableau permettant de déterminé le statut à appliquer au formulaire.
-                $nextStatut = array('N1' => 'N2', 'N2' => 'DRH', 'DRH' => 'Synthèse');
-
-                // On envoi un email au prochain validateur.
-                $this->sendMailToNextValidator($statutHierarchie[$nextStatut[$formulaireDeveloppementProfessionnel->getStatut()]], $collaborateur);
-
                 // On met ses données à jour.
                 $formulaireDeveloppementProfessionnel->setFormulaire($reponses);
                 $formulaireDeveloppementProfessionnel->setStatut($nextStatut[$formulaireDeveloppementProfessionnel->getStatut()]);
+            }
+
+            // On envoi un email au prochain validateur.
+            if (empty($formulaireDeveloppementProfessionnel) ? $newDeveloppementProfessionnel->getStatut() : $formulaireDeveloppementProfessionnel->getStatut() !== 'Synthèse') {
+                $this->sendMailToNextValidator(empty($formulaireDeveloppementProfessionnel) ? $newDeveloppementProfessionnel->getStatut() : $formulaireDeveloppementProfessionnel->getStatut(), $statutHierarchie[$nextStatut[empty($formulaireDeveloppementProfessionnel) ? $newDeveloppementProfessionnel->getStatut() : $formulaireDeveloppementProfessionnel->getStatut()]], $collaborateur);
             }
 
             // On sauvegarde les changements en base de données. 
@@ -347,7 +349,7 @@ class DeveloppementProfessionnelController extends Controller {
 
             // On redirige vers l'accueil.
             $request->getSession()->getFlashBag()->add('notice', "Vous avez correctement validé l'entretien.");
-            //return $this->redirectToRoute('nox_intranet_accueil');
+            return $this->redirectToRoute('nox_intranet_accueil');
         }
 
         return $this->render('NoxIntranetUserBundle:DeveloppementProfessionnel:formulaireDeveloppementProfessionnel.html.twig', array('formulaireDevellopementProfessionnel' => $formDeveloppementProfessionnel->createView(), 'questions' => $questions, 'entretien' => $formulaireDeveloppementProfessionnel));
@@ -405,7 +407,7 @@ class DeveloppementProfessionnelController extends Controller {
     }
 
     // Exporte le formulaire d'entretien sous forme de fichier Excel.
-    public function exportToExcel() {
+    public function exportToExcelAction() {
         // On importe le module de traitement Excel.
         $root = $this->get('kernel')->getRootDir() . '\..';
         require_once $root . '\vendor\phpexcel\phpexcel\PHPExcel.php';
@@ -504,20 +506,37 @@ class DeveloppementProfessionnelController extends Controller {
 
         // On sauvegarde le fichier Excel.
         $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
-        $objWriter->save('testExportExcelEntretie.xlsx');
+        $objWriter->save('Synthèse Développement Entretien.xlsx');
+
+        // Génération de la réponse avec téléchargement du fichier.
+        $response = new Response();
+        $response->setContent(file_get_contents('Synthèse Développement Entretien.xlsx'));
+        $response->headers->set('Content-Type', 'application/force-download');
+        $response->headers->set('Content-disposition', "filename=\"" . basename('Synthèse Développement Entretien.xlsx') . "\"");
+
+        // On supprime le fichier Excel.
+        unlink('Synthèse Développement Entretien.xlsx');
+
+        // On retourne la réponse.
+        return $response;
     }
 
-    private function sendMailToNextValidator($nextValidator, $collaborateur) {
+    // Envoi un mail au prochain collaborateur de la chaîne de validation .
+    private function sendMailToNextValidator($valideurGrade, $nextValidator, $collaborateur) {
         // On génére l'email du prochain valideur depuis son username.
         $nextValidatorEmail = $nextValidator . '@groupe-nox.com';
 
+        // Tableau d'association entre le statut de l'entretien et le dernier valideur.
+        $grades = array('N1' => 'Collaborateur', 'N2' => 'N+1', 'DRH' => 'N+2');
+
+        // On envoi le message au prochain valideur.
         $message = \Swift_Message::newInstance()
                 ->setSubject('EDP en attente de votre validation')
                 ->setFrom('noreply@groupe-nox.com')
                 ->setTo($nextValidatorEmail)
                 ->setBody(
                 $this->renderView(
-                        'Emails/DeveloppementProfessionnel/AttenteValidationEDP.html.twig', array('collaborateur' => $collaborateur)
+                        'Emails/DeveloppementProfessionnel/AttenteValidationEDP.html.twig', array('valideurGrade' => $grades[$valideurGrade], 'collaborateur' => $collaborateur)
                 ), 'text/html'
                 )
         ;

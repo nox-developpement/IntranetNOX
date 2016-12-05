@@ -1861,6 +1861,8 @@ return array(
     'NoxIntranet\\UserBundle\\DataFixtures\\ORM\\LoadUser' => $baseDir . '/src/NoxIntranet/UserBundle/DataFixtures/ORM/LoadUser.php',
     'NoxIntranet\\UserBundle\\DependencyInjection\\Configuration' => $baseDir . '/src/NoxIntranet/UserBundle/DependencyInjection/Configuration.php',
     'NoxIntranet\\UserBundle\\DependencyInjection\\NoxIntranetUserExtension' => $baseDir . '/src/NoxIntranet/UserBundle/DependencyInjection/NoxIntranetUserExtension.php',
+    'NoxIntranet\\UserBundle\\Entity\\DeveloppementProfessionnel' => $baseDir . '/src/NoxIntranet/UserBundle/Entity/DeveloppementProfessionnel.php',
+    'NoxIntranet\\UserBundle\\Entity\\DeveloppementProfessionnelRepository' => $baseDir . '/src/NoxIntranet/UserBundle/Entity/DeveloppementProfessionnelRepository.php',
     'NoxIntranet\\UserBundle\\Entity\\User' => $baseDir . '/src/NoxIntranet/UserBundle/Entity/User.php',
     'NoxIntranet\\UserBundle\\Entity\\UserRepository' => $baseDir . '/src/NoxIntranet/UserBundle/Entity/UserRepository.php',
     'NoxIntranet\\UserBundle\\NoxIntranetUserBundle' => $baseDir . '/src/NoxIntranet/UserBundle/NoxIntranetUserBundle.php',

@@ -2286,6 +2286,8 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'NoxIntranet\\UserBundle\\DataFixtures\\ORM\\LoadUser' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/DataFixtures/ORM/LoadUser.php',
         'NoxIntranet\\UserBundle\\DependencyInjection\\Configuration' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/DependencyInjection/Configuration.php',
         'NoxIntranet\\UserBundle\\DependencyInjection\\NoxIntranetUserExtension' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/DependencyInjection/NoxIntranetUserExtension.php',
+        'NoxIntranet\\UserBundle\\Entity\\DeveloppementProfessionnel' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/Entity/DeveloppementProfessionnel.php',
+        'NoxIntranet\\UserBundle\\Entity\\DeveloppementProfessionnelRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/Entity/DeveloppementProfessionnelRepository.php',
         'NoxIntranet\\UserBundle\\Entity\\User' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/Entity/User.php',
         'NoxIntranet\\UserBundle\\Entity\\UserRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/Entity/UserRepository.php',
         'NoxIntranet\\UserBundle\\NoxIntranetUserBundle' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/NoxIntranetUserBundle.php',
