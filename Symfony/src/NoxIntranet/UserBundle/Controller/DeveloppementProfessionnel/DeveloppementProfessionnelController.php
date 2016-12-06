@@ -32,7 +32,7 @@ class DeveloppementProfessionnelController extends Controller {
         // Tableau qui associe le statut courant du formulaire à son valideur.
         $statutHierarchie = array(
             'Collaborateur' => $collaborateur->getUsername(),
-            'N1' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $collaborateurHierarchy->getDA())[0], 'lastname' => explode(' ', $collaborateurHierarchy->getDA())[1]))->getUsername(),
+            //'N1' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $collaborateurHierarchy->getDA())[0], 'lastname' => explode(' ', $collaborateurHierarchy->getDA())[1]))->getUsername(),
             'N2' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $collaborateurHierarchy->getN2())[0], 'lastname' => explode(' ', $collaborateurHierarchy->getN2())[1]))->getUsername(),
             'DRH' => 'n.rigaudeau',
             'Synthèse' => 'n.rigaudeau'
@@ -124,38 +124,38 @@ class DeveloppementProfessionnelController extends Controller {
                 ))
                 ->add('Formation1', TextType::class, array(
                     'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['Formation1'],
-                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'N1'),
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'Collaborateur'),
                     'required' => false
                 ))
                 ->add('Priorite1', ChoiceType::class, array(
                     'choices' => array(1 => 1, 2 => 2, 3 => 3),
                     'placeholder' => 'Choisir une priorité...',
                     'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['Priorite1'],
-                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'N1'),
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'Collaborateur'),
                     'required' => false,
                 ))
                 ->add('Formation2', TextType::class, array(
                     'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['Formation1'],
-                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'N1'),
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'Collaborateur'),
                     'required' => false
                 ))
                 ->add('Priorite2', ChoiceType::class, array(
                     'choices' => array(1 => 1, 2 => 2, 3 => 3),
                     'placeholder' => 'Choisir une priorité...',
                     'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['Priorite1'],
-                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'N1'),
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'Collaborateur'),
                     'required' => false,
                 ))
                 ->add('Formation3', TextType::class, array(
                     'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['Formation1'],
-                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'N1'),
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'Collaborateur'),
                     'required' => false
                 ))
                 ->add('Priorite3', ChoiceType::class, array(
                     'choices' => array(1 => 1, 2 => 2, 3 => 3),
                     'placeholder' => 'Choisir une priorité...',
                     'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getFormulaire()['Priorite1'],
-                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'N1'),
+                    'disabled' => $this->fieldIsWritable($currentFormStatut, 'Collaborateur'),
                     'required' => false,
                 ))
                 ->add('RegionFrance', ChoiceType::class, array(
@@ -321,7 +321,7 @@ class DeveloppementProfessionnelController extends Controller {
             $this->getAnswers($questions, $reponses, $formDeveloppementProfessionnel);
 
             // Tableau permettant de déterminé le statut à appliquer au formulaire.
-            $nextStatut = array('N1' => 'N2', 'N2' => 'DRH', 'DRH' => 'Synthèse');
+            $nextStatut = array('Collaborateur' => 'N2', 'N2' => 'DRH', 'DRH' => 'Synthèse');
 
             // Si le formulaire n'existe pas déjà...
             if (empty($formulaireDeveloppementProfessionnel)) {
@@ -331,17 +331,20 @@ class DeveloppementProfessionnelController extends Controller {
                 $newDeveloppementProfessionnel->setFormulaire($reponses);
                 $newDeveloppementProfessionnel->setAnnee(date('Y'));
                 $em->persist($newDeveloppementProfessionnel);
+
+                // On envoi un email au prochain validateur.
+                $this->sendMailToNextValidator($newDeveloppementProfessionnel->getStatut(), $statutHierarchie[$newDeveloppementProfessionnel->getStatut()], $collaborateur);
             }
             // Si le formulaire existe déjà...
             else {
                 // On met ses données à jour.
                 $formulaireDeveloppementProfessionnel->setFormulaire($reponses);
                 $formulaireDeveloppementProfessionnel->setStatut($nextStatut[$formulaireDeveloppementProfessionnel->getStatut()]);
-            }
 
-            // On envoi un email au prochain validateur.
-            if (empty($formulaireDeveloppementProfessionnel) ? $newDeveloppementProfessionnel->getStatut() : $formulaireDeveloppementProfessionnel->getStatut() !== 'Synthèse') {
-                $this->sendMailToNextValidator(empty($formulaireDeveloppementProfessionnel) ? $newDeveloppementProfessionnel->getStatut() : $formulaireDeveloppementProfessionnel->getStatut(), $statutHierarchie[$nextStatut[empty($formulaireDeveloppementProfessionnel) ? $newDeveloppementProfessionnel->getStatut() : $formulaireDeveloppementProfessionnel->getStatut()]], $collaborateur);
+                // On envoi un email au prochain validateur.
+                if ($formulaireDeveloppementProfessionnel->getStatut() !== 'Synthèse') {
+                    $this->sendMailToNextValidator($formulaireDeveloppementProfessionnel->getStatut(), $statutHierarchie[$nextStatut[$formulaireDeveloppementProfessionnel->getStatut()]], $collaborateur);
+                }
             }
 
             // On sauvegarde les changements en base de données. 
@@ -527,7 +530,7 @@ class DeveloppementProfessionnelController extends Controller {
         $nextValidatorEmail = $nextValidator . '@groupe-nox.com';
 
         // Tableau d'association entre le statut de l'entretien et le dernier valideur.
-        $grades = array('N1' => 'Collaborateur', 'N2' => 'N+1', 'DRH' => 'N+2');
+        $grades = array('N2' => 'N+1', 'DRH' => 'N+2');
 
         // On envoi le message au prochain valideur.
         $message = \Swift_Message::newInstance()
