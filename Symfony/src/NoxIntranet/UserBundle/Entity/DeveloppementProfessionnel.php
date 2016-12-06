@@ -146,7 +146,7 @@ class DeveloppementProfessionnel {
     }
 
     public function __construct() {
-        $this->statut = 'N1';
+        $this->statut = 'N2';
     }
 
 }
