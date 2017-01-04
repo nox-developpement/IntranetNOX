@@ -3,8 +3,8 @@
 namespace NoxIntranet\AdministrationBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class AdministrationUsersController extends Controller {
 
@@ -172,7 +172,7 @@ class AdministrationUsersController extends Controller {
         }
 
         $file = $root . '\utilisateurs.csv';
-        
+
         var_dump($file);
 
         if (file_exists($root . '\utilisateurs.csv')) {
@@ -188,6 +188,19 @@ class AdministrationUsersController extends Controller {
         }
 
         return $this->redirect($request->server->get('HTTP_REFERER'));
+    }
+
+    function collaborateursEnLigneAction() {
+        return $this->render('NoxIntranetAdministrationBundle:AdministrationUser:collaborateursEnLigne.html.twig');
+    }
+
+    /**
+     * @Template("@NoxIntranetAdministration/AdministrationUser/whoIsOnline.html.twig")
+     */
+    public function whoIsOnlineAction() {
+        $users = $this->getDoctrine()->getManager()->getRepository('NoxIntranetUserBundle:User')->getActive();
+
+        return array('users' => $users);
     }
 
 }

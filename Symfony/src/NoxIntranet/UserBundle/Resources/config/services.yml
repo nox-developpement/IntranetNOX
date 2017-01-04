@@ -1,4 +1,6 @@
 services:
-#    nox_intranet_user.example:
-#        class: NoxIntranet\UserBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    activity_listener:
+        class: NoxIntranet\UserBundle\Listener\ActivityListener
+        arguments: [@security.context, @doctrine.orm.entity_manager]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }

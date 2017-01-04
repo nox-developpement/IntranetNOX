@@ -203,3 +203,7 @@ nox_intranet_administration_message_alerte:
 nox_intranet_administration_upload_fichier_hierarchie_rh:
     path: /administration/upload-file-rh
     defaults: { _controller: NoxIntranetAdministrationBundle:Administration:uploadFichierHierarchieRH }
+    
+nox_intranet_collaborateurs_en_ligne:
+    path: /administration/collaborateurs-en-ligne
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationUsers:collaborateursEnLigne }
