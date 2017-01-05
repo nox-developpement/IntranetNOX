@@ -10,7 +10,7 @@
             "Type": "Texte",
             "Question": "Que retenez-vous de cette ann\u00e9e ?",
             "Taille": 30,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "2": {
@@ -32,7 +32,7 @@
             "Type": "Texte",
             "Question": "Quels sont les r\u00e9sultats obtenu ?",
             "Taille": 20,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "4": {
@@ -46,7 +46,7 @@
             "Type": "Choix",
             "Question": "S\u00e9lectionnez le niveau de ma\u00eetrise du poste : (*note explicative)",
             "Choix": ["Construction", "Ad\u00e9quation", "Ma\u00eetrise", "Excellence"],
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "5": {
@@ -60,7 +60,7 @@
             "Type": "Texte",
             "Question": "Quelles ont \u00e9t\u00e9 les difficult\u00e9s rencontr\u00e9es ?",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "6": {
@@ -74,7 +74,7 @@
             "Type": "Texte",
             "Question": "Quelles sont les r\u00e9ussites et les apports pour le Groupe ?",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "7": {
@@ -82,7 +82,7 @@
             "Type": "Texte",
             "Question": "Objectif 1 : D\u00e9crivez l'objectif",
             "Taille": 2,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "8": {
@@ -90,7 +90,7 @@
             "Type": "Texte",
             "Question": "Quels sont les r\u00e9sultats obtenus ?",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "9": {
@@ -98,7 +98,7 @@
             "Type": "Choix",
             "Question": "S\u00e9lectionnez le niveau d'atteinte de l'objectif",
             "Choix": ["Non atteint", "Partiellement atteint", "Atteint", "D\u00e9pass\u00e9"],
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "10": {
@@ -106,7 +106,7 @@
             "Type": "Texte",
             "Question": "Quelles ont \u00e9t\u00e9 les difficult\u00e9s rencontr\u00e9es ?",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "11": {
@@ -114,7 +114,7 @@
             "Type": "Texte",
             "Question": "Quelles sont les r\u00e9ussites et les apports pour le Groupe ?",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "12": {
@@ -122,7 +122,7 @@
             "Type": "Texte",
             "Question": "Objectif 2 : D\u00e9crivez l'objectif",
             "Taille": 2,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "13": {
@@ -130,7 +130,7 @@
             "Type": "Texte",
             "Question": "Quels sont les r\u00e9sultats obtenus ?",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "14": {
@@ -138,7 +138,7 @@
             "Type": "Choix",
             "Question": "S\u00e9lectionnez le niveau d'atteinte de l'objectif",
             "Choix": ["Non atteint", "Partiellement atteint", "Atteint", "D\u00e9pass\u00e9"],
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "15": {
@@ -146,7 +146,7 @@
             "Type": "Texte",
             "Question": "Quelles ont \u00e9t\u00e9 les difficult\u00e9s rencontr\u00e9es ?",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "16": {
@@ -154,7 +154,7 @@
             "Type": "Texte",
             "Question": "Quelles sont les r\u00e9ussites et les apports pour le Groupe ?",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "17": {
@@ -168,7 +168,7 @@
             "Type": "Texte",
             "Question": "Quels sont les facteurs d\u2019aggravation ou d\u2019am\u00e9lioration de la situation ?",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "18": {
@@ -195,7 +195,7 @@
             "Type": "Texte",
             "Question": "Quelles sont les zones de confort et d\u2019inconfort dans le poste ?",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "20": {
@@ -209,7 +209,7 @@
             "Type": "Texte",
             "Question": "Quelles sont les forces \u00e0 valoriser ?",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "21": {
@@ -217,7 +217,7 @@
             "Type": "Texte",
             "Question": "Quelles formations ont \u00e9t\u00e9 suivies cette ann\u00e9e ?",
             "Taille": 7,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "22": {
@@ -225,7 +225,7 @@
             "Type": "Texte",
             "Question": "Quels sont les acquis cette ann\u00e9e ?",
             "Taille": 7,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "23": {
@@ -239,7 +239,7 @@
             "Type": "Texte",
             "Question": "Quels sont les axes d\u2019am\u00e9lioration sur lesquels il faut travailler ?",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "24": {
@@ -247,7 +247,7 @@
             "Type": "Texte",
             "Question": "Quels vont \u00eatre les impacts de l\u2019\u00e9volution du m\u00e9tier sur le poste du collaborateur ?",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "25": {
@@ -255,7 +255,7 @@
             "Type": "Texte",
             "Question": "Quelles autres missions\/activit\u00e9s seraient susceptibles de l\u2019int\u00e9resser et de lui \u00eatre confi\u00e9es ?",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "26": {
@@ -269,7 +269,7 @@
             "Type": "Texte",
             "Question": "Avis hi\u00e9rarchie",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "27": {
@@ -283,7 +283,7 @@
             "Type": "Texte",
             "Question": "Avis hi\u00e9rarchie",
             "Taille": 10,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "28": {
@@ -305,7 +305,7 @@
             "Type": "Texte",
             "Question": "Les objectifs compl\u00e9mentaires fix\u00e9s par le manager ?",
             "Taille": 15,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "30": {
@@ -319,7 +319,7 @@
             "Type": "Texte",
             "Question": "Quelles actions doivent \u00eatre mises en oeuvre pour accompagner les changements ?",
             "Taille": 20,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "31": {
@@ -341,7 +341,7 @@
             "Type": "Texte",
             "Question": "Synth\u00e8se et commentaires du manager",
             "Taille": 20,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "33": {
@@ -355,7 +355,7 @@
             "Type": "Texte",
             "Question": "Signature manager",
             "Taille": 7,
-            "Destinataire": "N1"
+            "Destinataire": "Collaborateur"
         }
     },
     "34": {

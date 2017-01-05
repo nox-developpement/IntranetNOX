@@ -2290,6 +2290,7 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'NoxIntranet\\UserBundle\\Entity\\DeveloppementProfessionnelRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/Entity/DeveloppementProfessionnelRepository.php',
         'NoxIntranet\\UserBundle\\Entity\\User' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/Entity/User.php',
         'NoxIntranet\\UserBundle\\Entity\\UserRepository' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/Entity/UserRepository.php',
+        'NoxIntranet\\UserBundle\\Listener\\ActivityListener' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/Listener/ActivityListener.php',
         'NoxIntranet\\UserBundle\\NoxIntranetUserBundle' => __DIR__ . '/../..' . '/src/NoxIntranet/UserBundle/NoxIntranetUserBundle.php',
         'NoxIntranet\\VerifMajDBBundle\\Command\\ControllerGeneratorCommand' => __DIR__ . '/../..' . '/src/NoxIntranet/VerifMajDBBundle/Command/ControllerGeneratorCommand.php',
         'NoxIntranet\\VerifMajDBBundle\\Controller\\DefaultController' => __DIR__ . '/../..' . '/src/NoxIntranet/VerifMajDBBundle/Controller/DefaultController.php',

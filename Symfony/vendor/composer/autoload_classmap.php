@@ -1865,6 +1865,7 @@ return array(
     'NoxIntranet\\UserBundle\\Entity\\DeveloppementProfessionnelRepository' => $baseDir . '/src/NoxIntranet/UserBundle/Entity/DeveloppementProfessionnelRepository.php',
     'NoxIntranet\\UserBundle\\Entity\\User' => $baseDir . '/src/NoxIntranet/UserBundle/Entity/User.php',
     'NoxIntranet\\UserBundle\\Entity\\UserRepository' => $baseDir . '/src/NoxIntranet/UserBundle/Entity/UserRepository.php',
+    'NoxIntranet\\UserBundle\\Listener\\ActivityListener' => $baseDir . '/src/NoxIntranet/UserBundle/Listener/ActivityListener.php',
     'NoxIntranet\\UserBundle\\NoxIntranetUserBundle' => $baseDir . '/src/NoxIntranet/UserBundle/NoxIntranetUserBundle.php',
     'NoxIntranet\\VerifMajDBBundle\\Command\\ControllerGeneratorCommand' => $baseDir . '/src/NoxIntranet/VerifMajDBBundle/Command/ControllerGeneratorCommand.php',
     'NoxIntranet\\VerifMajDBBundle\\Controller\\DefaultController' => $baseDir . '/src/NoxIntranet/VerifMajDBBundle/Controller/DefaultController.php',

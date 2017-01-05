@@ -29,11 +29,17 @@ class DeveloppementProfessionnelController extends Controller {
         $formulaireDeveloppementProfessionnel = $em->getRepository('NoxIntranetUserBundle:DeveloppementProfessionnel')->findOneBy(array('collaborateur' => $collaborateur, 'annee' => date('Y')));
         $currentFormStatut = empty($formulaireDeveloppementProfessionnel) ? 'Collaborateur' : $formulaireDeveloppementProfessionnel->getStatut();
 
+        // Si le collaborateur à un N+2 on le récupère sinon on récupère son N+1;
+        if (!empty($collaborateurHierarchy->getN2())) {
+            $n2 = $collaborateurHierarchy->getN2();
+        } else {
+            $n2 = $collaborateurHierarchy->getDA();
+        }
+
         // Tableau qui associe le statut courant du formulaire à son valideur.
         $statutHierarchie = array(
             'Collaborateur' => $collaborateur->getUsername(),
-            //'N1' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $collaborateurHierarchy->getDA())[0], 'lastname' => explode(' ', $collaborateurHierarchy->getDA())[1]))->getUsername(),
-            'N2' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $collaborateurHierarchy->getN2())[0], 'lastname' => explode(' ', $collaborateurHierarchy->getN2())[1]))->getUsername(),
+            'N2' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $n2)[0], 'lastname' => explode(' ', $n2)[1]))->getUsername(),
             'DRH' => 'n.rigaudeau',
             'Synthèse' => 'n.rigaudeau'
         );
@@ -474,8 +480,10 @@ class DeveloppementProfessionnelController extends Controller {
 
         // On récupére tous les entretiens de l'année courante.
         $em = $this->getDoctrine()->getManager();
-        $entretiensDeveloppementProfessionnel = $em->getRepository('NoxIntranetUserBundle:DeveloppementProfessionnel')->findByAnnee(date('Y'));
+        $entretiensDeveloppementProfessionnel = $em->getRepository('NoxIntranetUserBundle:DeveloppementProfessionnel')->findBy(array('annee' => date('Y'), 'statut' => 'Synthèse'));
 
+        // On trie les entretiens pas nom et prénom des collaborateurs.
+        $this->trieSyntheseExport($entretiensDeveloppementProfessionnel);
 
         $ligne = 2; // Compteur de ligne.
         // Pour chaque entretien de développement professionnel...
@@ -544,6 +552,19 @@ class DeveloppementProfessionnelController extends Controller {
                 )
         ;
         $this->get('mailer')->send($message);
+    }
+
+    // Tries les synthèse de développement professionnel en fonction du nom et du prénom de leur collaborateur.
+    function trieSyntheseExport(&$entretiens) {
+        uasort($entretiens, function($a, $b) {
+            if ($a->getCollaborateur()->getLastname() === $b->getCollaborateur()->getLastname()) {
+                if ($a->getCollaborateur()->getFirstname() === $b->getCollaborateur()->getFirstname()) {
+                    return 0;
+                }
+                return $a->getCollaborateur()->getFirstname() < $b->getCollaborateur()->getFirstname() ? -1 : 1;
+            }
+            return $a->getCollaborateur()->getLastname() < $b->getCollaborateur()->getLastname() ? -1 : 1;
+        });
     }
 
 }

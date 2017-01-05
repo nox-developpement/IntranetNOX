@@ -318,7 +318,11 @@
                 <hr style='border-color: #1F4E79'/>
                 <li><a href="{{ path('nox_intranet_prestation_administration_da') }}">Prestations internes - Administration des DA</a></li>
                 <hr style='border-color: #1F4E79'/>
-                <li><a href="{{ path('nox_intranet_developpement_professionnel_synthese_excel') }}">Développement professionnel - Synthèse</a></li>
+                {% if app.user.username == 'n.rigaudeau' or app.user.username == 'a.forestier' %}
+                    <li>
+                        <a href="{{ path('nox_intranet_developpement_professionnel_synthese_excel') }}">Développement professionnel - Synthèse</a>
+                    </li>
+                {% endif %}
             </ul>
 
         {% endif %}
