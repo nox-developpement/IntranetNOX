@@ -393,7 +393,7 @@ class DeveloppementProfessionnelController extends Controller {
     private function exitToAccueil($collaborateurUsername, $formulaireDeveloppementProfessionnel, $valideur, $statutHierarchie, $request) {
         // Si aucun username de collaborateur n'est renseigné et que le collaborateur courant à déjà un entretien associé cette année...
         if (empty($collaborateurUsername) && !empty($formulaireDeveloppementProfessionnel)) {
-            $request->getSession()->getFlashBag()->add('noticeErreur', "Vous avez déjà remplis l'entretien de développement professionnel de cette année.");
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Vous avez déjà rempli l'entretien de développement professionnel de cette année.");
             return $this->redirectToRoute('nox_intranet_accueil');
         }
         // Sinon si un username de collaborateur est renseigné mais qu'il n'a pas d'entretien associé...
