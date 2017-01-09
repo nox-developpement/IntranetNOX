@@ -12,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\UserBundle\Entity\DeveloppementProfessionnel;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DeveloppementProfessionnelController extends Controller {
 
@@ -338,8 +340,14 @@ class DeveloppementProfessionnelController extends Controller {
                 $newDeveloppementProfessionnel->setAnnee(date('Y'));
                 $em->persist($newDeveloppementProfessionnel);
 
+                // On sauvegarde les changements en base de données. 
+                $em->flush();
+
                 // On envoi un email au prochain validateur.
                 $this->sendMailToNextValidator($newDeveloppementProfessionnel->getStatut(), $statutHierarchie[$newDeveloppementProfessionnel->getStatut()], $collaborateur);
+
+                // On retourne le PDF de l'entretien.
+                return new BinaryFileResponse($this->downloadPDFExportAction($newDeveloppementProfessionnel));
             }
             // Si le formulaire existe déjà...
             else {
@@ -347,9 +355,13 @@ class DeveloppementProfessionnelController extends Controller {
                 $formulaireDeveloppementProfessionnel->setFormulaire($reponses);
                 $formulaireDeveloppementProfessionnel->setStatut($nextStatut[$formulaireDeveloppementProfessionnel->getStatut()]);
 
-                // On envoi un email au prochain validateur.
+                // On envoi un email au prochain validateur si il y en a un.
                 if ($formulaireDeveloppementProfessionnel->getStatut() !== 'Synthèse') {
                     $this->sendMailToNextValidator($formulaireDeveloppementProfessionnel->getStatut(), $statutHierarchie[$nextStatut[$formulaireDeveloppementProfessionnel->getStatut()]], $collaborateur);
+                }
+                // Sinon on envoie l'export PDF de l'entretien par mail à la DRH.
+                else {
+                    $this->sendPDFToDRH($formulaireDeveloppementProfessionnel);
                 }
             }
 
@@ -358,7 +370,7 @@ class DeveloppementProfessionnelController extends Controller {
 
             // On redirige vers l'accueil.
             $request->getSession()->getFlashBag()->add('notice', "Vous avez correctement validé l'entretien.");
-            return $this->redirectToRoute('nox_intranet_accueil');
+            //return $this->redirectToRoute('nox_intranet_accueil');
         }
 
         return $this->render('NoxIntranetUserBundle:DeveloppementProfessionnel:formulaireDeveloppementProfessionnel.html.twig', array('formulaireDevellopementProfessionnel' => $formDeveloppementProfessionnel->createView(), 'questions' => $questions, 'entretien' => $formulaireDeveloppementProfessionnel));
@@ -565,6 +577,229 @@ class DeveloppementProfessionnelController extends Controller {
             }
             return $a->getCollaborateur()->getLastname() < $b->getCollaborateur()->getLastname() ? -1 : 1;
         });
+    }
+
+    // Exporte le formulaire de développement professionel au format PDF et retourne le chemin du fichier.
+    private function exportFormulaireToPDF($formulaire) {
+        // On importe le module de traitement Excel.
+        $root = $this->get('kernel')->getRootDir() . '\..';
+        require_once $root . '\vendor\phpexcel\phpexcel\PHPExcel.php';
+
+        // Initialisation d'un nouvel objet PHPExcel.
+        $objPHPExcel = new \PHPExcel();
+
+        // On récupére le fichier des question au format JSON et on le converti en tableau.
+        $file = $this->container->get('kernel')->locateResource('@NoxIntranetUserBundle/Resources/public/DeveloppementProfessionnel/QuestionsFormulaireDeveloppementProfessionnel.json');
+        $questions = json_decode(file_get_contents($file), true);
+
+        $questionHeader = array(
+            'Nom' => 'Nom',
+            'Prenom' => 'Prénom',
+            'Age' => 'Age',
+            'DateAncienneteGroupe' => "Date d'ancienneté Groupe",
+            'Entite' => 'Entité',
+            'PosteActuel' => 'Poste Actuel',
+            'DateAnciennetePoste' => "Date d'ancienneté dans le poste",
+            'SalaireBrutMensuel' => "Salaire brut mensuel",
+            'NomResponsable' => "Nom du responsable",
+            'DateEntretien' => "Date de l'entretien",
+            'Formation1' => 'Formation 1',
+            'Priorite1' => "Priorité 1",
+            'Formation2' => "Formation 2",
+            'Priorite2' => "Priorité 2",
+            'Formation3' => "Formation 3",
+            'Priorite3' => "Priorité 3",
+            'RegionFrance' => 'France',
+            'PaysInternational' => "International",
+            'Langue1' => "Langue 1",
+            'NiveauLangue1' => "Niveau langue 1",
+            'Langue2' => "Langue 2",
+            'NiveauLangue2' => "Niveau langue 2"
+        );
+
+        $liaisonColonneDestinatire = array(
+            'Collaborateur' => 'daeef3',
+            'Manager' => 'd9d9d9',
+            'Neutre' => 'd9d9d9'
+        );
+
+        $ligne = 1;
+        foreach ($formulaire->getFormulaire() as $key => $formData) {
+            // Si la question fait partie des informations sur le collaborateur...
+            if (array_key_exists($key, $questionHeader)) {
+                // On écris le libelle et on met en gras le texte de la cellule.
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $questionHeader[$key] . ' : ');
+                $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->getFont()->setBold(true);
+                // On aligne le texte à droite de la cellule et on ajoute des bordure
+                $styleQuestion = array(
+                    'alignment' => array(
+                        'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+                    ),
+                    'borders' => array(
+                        'top' => array(
+                            'style' => \PHPExcel_Style_Border::BORDER_THIN
+                        ),
+                        'bottom' => array(
+                            'style' => \PHPExcel_Style_Border::BORDER_THIN
+                        ),
+                        'left' => array(
+                            'style' => \PHPExcel_Style_Border::BORDER_THIN
+                        )
+                    )
+                );
+                $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleQuestion);
+
+                // On écris la valeur.
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . $ligne, $formData instanceof \DateTime ? $formData->format('d-m-Y') : $formData);
+                // On aligne le texte à gauche de la cellule.
+                $styleReponse = array(
+                    'alignment' => array(
+                        'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                    ),
+                    'borders' => array(
+                        'top' => array(
+                            'style' => \PHPExcel_Style_Border::BORDER_THIN
+                        ),
+                        'bottom' => array(
+                            'style' => \PHPExcel_Style_Border::BORDER_THIN
+                        ),
+                        'right' => array(
+                            'style' => \PHPExcel_Style_Border::BORDER_THIN
+                        )
+                    )
+                );
+                $objPHPExcel->getActiveSheet()->getStyle('B' . $ligne)->applyFromArray($styleReponse);
+
+                // On incrémente le compteur de ligne.
+                $ligne++;
+            }
+            // Si la question ne fait pas partie des informations sur le collaborateur...
+            else {
+                // On récupére le numéro et le destinataire de la question.
+                $idQuestion = explode('_', $key)[0];
+                $Destinataire = explode('_', $key)[1];
+
+                // Si la question n'est pas vide...
+                if (!empty($questions[$idQuestion][$Destinataire]['Question'])) {
+                    // On écris le libelle et on met en gras le texte de la cellule.
+                    $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $questions[$idQuestion][$Destinataire]['Question'] . ' : ');
+                    $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->getFont()->setBold(true);
+                    // On aligne le texte à droite de la cellule et on ajoute des bordure
+                    $styleQuestion = array(
+                        'alignment' => array(
+                            'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+                        ),
+                        'borders' => array(
+                            'top' => array(
+                                'style' => \PHPExcel_Style_Border::BORDER_THIN
+                            ),
+                            'bottom' => array(
+                                'style' => \PHPExcel_Style_Border::BORDER_THIN
+                            ),
+                            'left' => array(
+                                'style' => \PHPExcel_Style_Border::BORDER_THIN
+                            )
+                        )
+                    );
+                    $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleQuestion);
+
+                    // On écris la valeur.
+                    $objPHPExcel->getActiveSheet()->setCellValue('B' . $ligne, $formData instanceof \DateTime ? $formData->format('d-m-Y') : $formData);
+
+                    // On aligne le texte de la cellule à gauche, on ajoute des bordures et on colore la cellule.
+                    $styleReponse = array(
+                        'alignment' => array(
+                            'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+                        ),
+                        'fill' => array(
+                            'type' => \PHPExcel_Style_Fill::FILL_SOLID,
+                            'color' => array('rgb' => $liaisonColonneDestinatire[$Destinataire])
+                        ),
+                        'borders' => array(
+                            'top' => array(
+                                'style' => \PHPExcel_Style_Border::BORDER_THIN
+                            ),
+                            'bottom' => array(
+                                'style' => \PHPExcel_Style_Border::BORDER_THIN
+                            ),
+                            'right' => array(
+                                'style' => \PHPExcel_Style_Border::BORDER_THIN
+                            )
+                        )
+                    );
+                    $objPHPExcel->getActiveSheet()->getStyle('B' . $ligne)->applyFromArray($styleReponse);
+
+                    // On incrémente le compteur de ligne.
+                    $ligne++;
+                }
+            }
+        }
+
+        // On redimensionne les colonnes.
+        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+
+        // On récupére le collaborateur.
+        $collaborateur = $formulaire->getCollaborateur();
+
+        // On configure le module de rendu PDF.
+        $rendererName = \PHPExcel_Settings::PDF_RENDERER_MPDF;
+        $rendererLibraryPath = $root . "\\" . "vendor\phpexcel\phpexcel\PHPExcel\Writer\PDF\\" . "mpdf";
+        if (!\PHPExcel_Settings::setPdfRenderer(
+                        $rendererName, $rendererLibraryPath
+                )) {
+            die(
+                    'Please set the $rendererName and $rendererLibraryPath values' .
+                    PHP_EOL .
+                    ' as appropriate for your directory structure'
+            );
+        }
+
+        // On sauvegarde le fichier Excel.
+        $filename = 'Développement Profesionnel Export.pdf';
+        $filepath = $root . "/web/" . $filename;
+        $objWriter = new \PHPExcel_Writer_PDF($objPHPExcel);
+        $objWriter->save($filepath);
+
+        // Retourne le chemin du fichier.
+        return $filepath;
+    }
+
+    // Envoie l'export PDF de l'entretien à Amélie Forestier (DRH).
+    private function sendPDFToDRH($formulaire) {
+        // On génére le fichier PDF.
+        $pdf = $this->exportFormulaireToPDF($formulaire);
+
+        // On prépare le corps du message.
+        $message = \Swift_Message::newInstance()
+                ->setFrom('noreply@groupe-nox.com')
+                ->setTo('a.forestier@groupe-nox.com')
+                ->setSubject('Entretien développement professionnel ' . $formulaire->getCollaborateur()->getLastname() . ' ' . $formulaire->getCollaborateur()->getFirstname())
+                ->setBody("L'entretien de développement professionnel de " . $formulaire->getCollaborateur()->getLastname() . ' ' . $formulaire->getCollaborateur()->getFirstname() . " est disponible en pièce jointe.")
+                ->attach(\Swift_Attachment::fromPath($pdf))
+        ;
+
+        // On envoie le mail (on force l'envoie directe).
+        $this->get('mailer')->send($message);
+        $spool = $this->get('mailer')->getTransport()->getSpool();
+        $transport = $this->container->get('swiftmailer.transport.real');
+        if ($spool and $transport) {
+            $spool->flushQueue($transport);
+        }
+
+        // On supprime le PDF.
+        unlink($pdf);
+    }
+
+    private function downloadPDFExportAction($formulaire) {
+        // On génére le fichier PDF.
+        $pdf = $this->exportFormulaireToPDF($formulaire);
+
+        $file = new \SplFileObject($pdf);
+        // On supprime le PDF.
+        //unlink($pdf);
+
+        return $file;
     }
 
 }

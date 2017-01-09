@@ -14,3 +14,7 @@ nox_intranet_developpement_professionnel_formulaire:
 nox_intranet_developpement_professionnel_synthese_excel:
     path:   /developpement-professionnel-synthese-excel
     defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel\DeveloppementProfessionnel:exportToExcel }
+    
+nox_intranet_developpement_professionnel_download_pdf_export:
+    path:   /developpement-professionnel-download-pdf-export
+    defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel\DeveloppementProfessionnel:downloadPDFExport }
