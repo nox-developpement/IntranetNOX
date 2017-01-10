@@ -290,7 +290,7 @@
         "Collaborateur": {
             "Type": "Choix",
             "Question": "Périmètre ?",
-            "Choix": ["Régionale", "Nationale", "Internationale"],
+            "Choix": ["Aucun", "Régionale", "Nationale", "Internationale"],
             "Destinataire": "Collaborateur"
         }
     },
