@@ -791,6 +791,7 @@ class DeveloppementProfessionnelController extends Controller {
         unlink($pdf);
     }
 
+    // Génére le PDF du formulaire de développement professionnel et retourne un handler du fichier.
     private function downloadPDFExportAction($formulaire) {
         // On génére le fichier PDF.
         $pdf = $this->exportFormulaireToPDF($formulaire);
