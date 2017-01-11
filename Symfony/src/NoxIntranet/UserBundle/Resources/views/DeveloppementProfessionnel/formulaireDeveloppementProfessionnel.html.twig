@@ -25,12 +25,12 @@
             })();
 
             // Lors d'une modification sur un sélécteur...
-            $('#formulaireDeveloppementProfessionnelDiv select').change(function () {
+            $('#formulaireDeveloppementProfessionnelDiv').on('change', 'select', function () {
                 Cookies.set($(this).attr('id'), $(this).val(), {expires: 7}); // On crée un cookie contenant la valeur du sélécteur.
             });
 
             // Lorsqu'on remplis une input...
-            $('#formulaireDeveloppementProfessionnelDiv input, #formulaireDeveloppementProfessionnelDiv textarea').keyup(function () {
+            $('#formulaireDeveloppementProfessionnelDiv').on('keyup', 'input, textarea', function () {
                 var input = $(this); // On récupére l'input.
 
                 // Après une seconde sans taper...
@@ -46,10 +46,23 @@
             $('#formulaireDeveloppementProfessionnelDiv select, #formulaireDeveloppementProfessionnelDiv input, #formulaireDeveloppementProfessionnelDiv textarea').each(function () {
                 Cookies.remove($(this).attr('id')); // On supprime le cookie associé au champ du formulaire.
             });
+
+            // On supprime le cookie du nombre d'objectif.
+            Cookies.remove('ObjectifNumber');
         }
 
         // Récupére les données des champs de formulaire depuis les cookies.
         function getFormCookies() {
+            // Si il existe un cookie de nombre d'objectif et que le nombre d'objectif est supérieur à 1.
+            if (Cookies.get('ObjectifNumber') !== undefined && Cookies.get('ObjectifNumber') > 1) {
+                var objectifCount = Cookies.get('ObjectifNumber'); // On récupére le nombre d'objectif.
+
+                // Pour i de 2 à objetifCount...
+                for (var i = 2; i <= objectifCount; i++) {
+                    addObjectif(objectifCount); // On ajoute une objectif.
+                }
+            }
+
             // Pour chaques sélécteur et input du formulaire...
             $('#formulaireDeveloppementProfessionnelDiv select, #formulaireDeveloppementProfessionnelDiv input, #formulaireDeveloppementProfessionnelDiv textarea').each(function () {
                 // Si le champ a un cookie associé...
@@ -65,14 +78,20 @@
             $('.' + objectifIndex).remove(); // On supprime les champs de même class.
         }
 
+        // Ajoute un formulaire d'objectif.
         function addObjectif(objectifIndex) {
-            console.log(objectifIndex);
-
+            // Génération du code HTML à insérer.
             var objectifHtml = "<tr class='objectif_td_" + objectifIndex + "'><td class='neutreTd' colspan='2'><span class='questionLibelle'>Objectif " + objectifIndex + " : Décrivez l'objectif (<span class='deleteObjectif' tr_index='objectif_td_" + objectifIndex + "' onclick='deleteObjectif($(this));'>supprimer</span>)</span><textarea id='objectif_description_" + objectifIndex + "' required='required' class='neutreTextarea' style='height: 2em;'></textarea></td></tr><tr class='objectif_td_" + objectifIndex + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quels sont les résultats obtenus ?</span><textarea id='objectif_resultat_" + objectifIndex + "' required='required' class='managerTextarea' style='height: 10em;'></textarea></td></tr><tr class='objectif_td_" + objectifIndex + "'><td class='managerTd noWhiteSpaceTd' colspan='2'><span class='questionLibelle'>Sélectionnez le niveau d'atteinte de l'objectif</span><select id='objectif_niveau_" + objectifIndex + "' required='required'><option value='' selected='selected'>Choisir une réponse...</option><option value='Non atteint'>Non atteint</option><option value='Partiellement atteint'>Partiellement atteint</option><option value='Atteint'>Atteint</option><option value='Dépassé'>Dépassé</option></select></td></tr><tr class='objectif_td_" + objectifIndex + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quelles ont été les difficultés rencontrées ?</span><textarea id='objectif_difficulte_" + objectifIndex + "' class='managerTextarea' style='height: 10em;'></textarea></td></tr><tr class='objectif_td_" + objectifIndex + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quelles sont les réussites et les apports pour le Groupe ?</span><textarea id='objectif_reussite_" + objectifIndex + "' required='required' class='managerTextarea' style='height: 10em;'></textarea></td></tr>";
 
+            // On insère le code HTML à la suite du dernière objectif.
             $('#addObjectif').parent('td').parent('tr').before(objectifHtml);
 
+            // On incrémente la valeur du nombre d'objectif.
             $('#addObjectif').attr('objectifCount', objectifIndex);
+
+            // On crée un cookie contenant le nombre d'objectif Actuel.
+            Cookies.set('ObjectifNumber', objectifIndex);
+
         }
     </script>
 
@@ -362,7 +381,7 @@
                 <tr class="objectif_td_{{ objectifIndex }}">
                     <td class="neutreTd" colspan="2">
                         <span class="questionLibelle">Objectif {{ objectifIndex }} : Décrivez l'objectif (<span class="deleteObjectif" tr_index="objectif_td_{{ objectifIndex }}" onclick="deleteObjectif($(this));">supprimer</span>)</span>
-                        <textarea id="objectif_description_{{ objectifIndex }}" required="required" class="neutreTextarea" style="height: 2em;"></textarea>
+                        <textarea id="objectif_description_{{ objectifIndex }}" required="required" class="neutreTextarea objectifInput" style="height: 2em;"></textarea>
                     </td>
                 </tr>
                 <tr class="objectif_td_{{ objectifIndex }}">
@@ -379,7 +398,7 @@
                 </tr>
             {% endfor %}
             <tr>
-                <td colspan="2" style="text-align: center;"><span id="addObjectif" objectifCount="{{ formulaireDevellopementProfessionnel.NombreObjectifs.vars.value }}" onclick="addObjectif(parseInt($('#addObjectif').attr('objectifCount')) + 1);">Ajouter un objectif</span></td>
+                <td colspan="2" style="text-align: center; background-color: rgb(217, 217, 217);"><span id="addObjectif" objectifCount="{{ formulaireDevellopementProfessionnel.NombreObjectifs.vars.value }}" onclick="addObjectif(parseInt($('#addObjectif').attr('objectifCount')) + 1);">Ajouter un objectif</span></td>
             </tr>
 
             <tr>
