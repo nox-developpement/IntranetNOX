@@ -49,6 +49,20 @@ class DeveloppementProfessionnel {
     private $annee;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="nombreObjectifs", type="integer")
+     */
+    private $nombreObjectifs;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="objectifs", type="array")
+     */
+    private $objectifs;
+
+    /**
      * Get id
      *
      * @return integer
@@ -121,6 +135,32 @@ class DeveloppementProfessionnel {
      */
     public function getStatut() {
         return $this->statut;
+    }
+
+    /**
+     * Set annee
+     *
+     * @param integer $annee
+     *
+     * @return DeveloppementProfessionnel
+     */
+    public function setAnnee($annee) {
+        $this->annee = $annee;
+
+        return $this;
+    }
+
+    /**
+     * Get annee
+     *
+     * @return integer
+     */
+    public function getAnnee() {
+        return $this->annee;
+    }
+
+    public function __construct() {
+        $this->statut = 'N2';
     }
 
 }

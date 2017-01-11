@@ -9,10 +9,10 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\UserBundle\Entity\DeveloppementProfessionnel;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DeveloppementProfessionnelController extends Controller {
@@ -209,6 +209,9 @@ class DeveloppementProfessionnelController extends Controller {
                     'required' => false,
                     'label' => 'Niveau : ',
                     'placeholder' => 'Choisir un niveau...',
+                ))
+                ->add('NombreObjectifs', HiddenType::class, array(
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? 1 : $formulaireDeveloppementProfessionnel->getNombreObjectifs()
                 ))
                 ->add('Valider', SubmitType::class);
 

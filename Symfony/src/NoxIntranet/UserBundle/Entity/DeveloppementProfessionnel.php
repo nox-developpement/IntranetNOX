@@ -49,6 +49,20 @@ class DeveloppementProfessionnel {
     private $annee;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="nombreObjectifs", type="integer")
+     */
+    private $nombreObjectifs;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="objectifs", type="array")
+     */
+    private $objectifs;
+
+    /**
      * Get id
      *
      * @return integer
@@ -149,4 +163,52 @@ class DeveloppementProfessionnel {
         $this->statut = 'N2';
     }
 
+
+    /**
+     * Set nombreObjectifs
+     *
+     * @param integer $nombreObjectifs
+     *
+     * @return DeveloppementProfessionnel
+     */
+    public function setNombreObjectifs($nombreObjectifs)
+    {
+        $this->nombreObjectifs = $nombreObjectifs;
+    
+        return $this;
+    }
+
+    /**
+     * Get nombreObjectifs
+     *
+     * @return integer
+     */
+    public function getNombreObjectifs()
+    {
+        return $this->nombreObjectifs;
+    }
+
+    /**
+     * Set objectifs
+     *
+     * @param array $objectifs
+     *
+     * @return DeveloppementProfessionnel
+     */
+    public function setObjectifs($objectifs)
+    {
+        $this->objectifs = $objectifs;
+    
+        return $this;
+    }
+
+    /**
+     * Get objectifs
+     *
+     * @return array
+     */
+    public function getObjectifs()
+    {
+        return $this->objectifs;
+    }
 }

@@ -48,6 +48,7 @@
             });
         }
 
+        // Récupére les données des champs de formulaire depuis les cookies.
         function getFormCookies() {
             // Pour chaques sélécteur et input du formulaire...
             $('#formulaireDeveloppementProfessionnelDiv select, #formulaireDeveloppementProfessionnelDiv input, #formulaireDeveloppementProfessionnelDiv textarea').each(function () {
@@ -56,6 +57,22 @@
                     $(this).val(Cookies.get($(this).attr('id'))); // On attribue la valeur du cookie au champ du formulaire.
                 }
             });
+        }
+
+        // Supprime un formulaire d'objectifs.
+        function deleteObjectif(element) {
+            var objectifIndex = element.attr('tr_index'); // On récupére la class des champs d'objectif de l'indes séléctionné.
+            $('.' + objectifIndex).remove(); // On supprime les champs de même class.
+        }
+
+        function addObjectif(objectifIndex) {
+            console.log(objectifIndex);
+
+            var objectifHtml = "<tr class='objectif_td_" + objectifIndex + "'><td class='neutreTd' colspan='2'><span class='questionLibelle'>Objectif " + objectifIndex + " : Décrivez l'objectif (<span class='deleteObjectif' tr_index='objectif_td_" + objectifIndex + "' onclick='deleteObjectif($(this));'>supprimer</span>)</span><textarea id='objectif_description_" + objectifIndex + "' required='required' class='neutreTextarea' style='height: 2em;'></textarea></td></tr><tr class='objectif_td_" + objectifIndex + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quels sont les résultats obtenus ?</span><textarea id='objectif_resultat_" + objectifIndex + "' required='required' class='managerTextarea' style='height: 10em;'></textarea></td></tr><tr class='objectif_td_" + objectifIndex + "'><td class='managerTd noWhiteSpaceTd' colspan='2'><span class='questionLibelle'>Sélectionnez le niveau d'atteinte de l'objectif</span><select id='objectif_niveau_" + objectifIndex + "' required='required'><option value='' selected='selected'>Choisir une réponse...</option><option value='Non atteint'>Non atteint</option><option value='Partiellement atteint'>Partiellement atteint</option><option value='Atteint'>Atteint</option><option value='Dépassé'>Dépassé</option></select></td></tr><tr class='objectif_td_" + objectifIndex + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quelles ont été les difficultés rencontrées ?</span><textarea id='objectif_difficulte_" + objectifIndex + "' class='managerTextarea' style='height: 10em;'></textarea></td></tr><tr class='objectif_td_" + objectifIndex + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quelles sont les réussites et les apports pour le Groupe ?</span><textarea id='objectif_reussite_" + objectifIndex + "' required='required' class='managerTextarea' style='height: 10em;'></textarea></td></tr>";
+
+            $('#addObjectif').parent('td').parent('tr').before(objectifHtml);
+
+            $('#addObjectif').attr('objectifCount', objectifIndex);
         }
     </script>
 
@@ -265,6 +282,24 @@
             width: 100%;
             height: 100%;
         }
+
+        .deleteObjectif {
+            color: blue;
+            cursor: pointer;
+        }
+
+        .deleteObjectif:hover {
+            text-decoration: underline;
+        }
+
+        #addObjectif {
+            color: blue;
+            cursor: pointer;
+        }
+
+        #addObjectif:hover {
+            text-decoration: underline;
+        }
     </style>
 
     <div id="formulaireDeveloppementProfessionnelDiv">        
@@ -302,7 +337,7 @@
             <tr>
                 <td colspan='2' style='text-align: center; font-weight: bold;'>Bilan de l'année écoulée</td>
             </tr>
-            {% for key, question in questions if key >=1 and key <= 16 %}
+            {% for key, question in questions if key >= 1 and key <= 6 %}
                 <tr>
                     {% if question['Collaborateur'] is defined %}
                         {% if question['Collaborateur']['Type'] == 'Texte' %}
@@ -322,7 +357,31 @@
                         <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
                     {% endif %}
                 </tr>
+            {% endfor %}       
+            {% for objectifIndex in 1..formulaireDevellopementProfessionnel.NombreObjectifs.vars.value %}
+                <tr class="objectif_td_{{ objectifIndex }}">
+                    <td class="neutreTd" colspan="2">
+                        <span class="questionLibelle">Objectif {{ objectifIndex }} : Décrivez l'objectif (<span class="deleteObjectif" tr_index="objectif_td_{{ objectifIndex }}" onclick="deleteObjectif($(this));">supprimer</span>)</span>
+                        <textarea id="objectif_description_{{ objectifIndex }}" required="required" class="neutreTextarea" style="height: 2em;"></textarea>
+                    </td>
+                </tr>
+                <tr class="objectif_td_{{ objectifIndex }}">
+                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quels sont les résultats obtenus ?</span><textarea id="objectif_resultat_{{ objectifIndex }}" required="required" class="managerTextarea" style="height: 10em;"></textarea></td>
+                </tr>
+                <tr class="objectif_td_{{ objectifIndex }}">
+                    <td class="managerTd noWhiteSpaceTd" colspan="2"><span class="questionLibelle">Sélectionnez le niveau d'atteinte de l'objectif</span><select id="objectif_niveau_{{ objectifIndex }}" required="required"><option value="" selected="selected">Choisir une réponse...</option><option value="Non atteint">Non atteint</option><option value="Partiellement atteint">Partiellement atteint</option><option value="Atteint">Atteint</option><option value="Dépassé">Dépassé</option></select></td>
+                </tr>
+                <tr class="objectif_td_{{ objectifIndex }}">
+                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quelles ont été les difficultés rencontrées ?</span><textarea id="objectif_difficulte_{{ objectifIndex }}" class="managerTextarea" style="height: 10em;"></textarea></td>
+                </tr>
+                <tr class="objectif_td_{{ objectifIndex }}">
+                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quelles sont les réussites et les apports pour le Groupe ?</span><textarea id="objectif_reussite_{{ objectifIndex }}" required="required" class="managerTextarea" style="height: 10em;"></textarea></td>
+                </tr>
             {% endfor %}
+            <tr>
+                <td colspan="2" style="text-align: center;"><span id="addObjectif" objectifCount="{{ formulaireDevellopementProfessionnel.NombreObjectifs.vars.value }}" onclick="addObjectif(parseInt($('#addObjectif').attr('objectifCount')) + 1);">Ajouter un objectif</span></td>
+            </tr>
+
             <tr>
                 <td colspan='2' style='text-align: center; font-weight: bold;'>Charge de travail</td>
             </tr>
