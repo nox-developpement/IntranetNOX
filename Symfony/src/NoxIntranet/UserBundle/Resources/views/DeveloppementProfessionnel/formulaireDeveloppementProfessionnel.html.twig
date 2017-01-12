@@ -9,6 +9,7 @@
 {% block contenu %}
     <script>
         $(window).load(function () {
+            readObjectifData();
             getFormCookies();
             saveCurrentFormProgress();
         });
@@ -58,8 +59,15 @@
                 var objectifCount = Cookies.get('ObjectifNumber'); // On récupére le nombre d'objectif.
 
                 // Pour i de 2 à objetifCount...
-                for (var i = 2; i <= objectifCount; i++) {
-                    addObjectif(objectifCount); // On ajoute une objectif.
+                for (var objectifIndex = 1; objectifIndex < objectifCount; objectifIndex++) {
+                    // Génération du code HTML à insérer.
+                    var objectifHtml = "<tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='neutreTd' colspan='2'><span class='questionLibelle'>Objectif " + (parseInt(objectifIndex) + 1) + " : Décrivez l'objectif (<span class='deleteObjectif' tr_index='objectif_td_" + (parseInt(objectifIndex) + 1) + "' onclick='deleteObjectif($(this));'>supprimer</span>)</span><textarea id='objectif_description_" + (parseInt(objectifIndex) + 1) + "' required='required' class='neutreTextarea objectifInput' style='height: 2em;'></textarea></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quels sont les résultats obtenus ?</span><textarea id='objectif_resultat_" + (parseInt(objectifIndex) + 1) + "' required='required' class='managerTextarea objectifInput' style='height: 10em;'></textarea></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd noWhiteSpaceTd' colspan='2'><span class='questionLibelle'>Sélectionnez le niveau d'atteinte de l'objectif</span><select id='objectif_niveau_" + (parseInt(objectifIndex) + 1) + "' required='required' class='objectifSelect'><option value='' selected='selected'>Choisir une réponse...</option><option value='Non atteint'>Non atteint</option><option value='Partiellement atteint'>Partiellement atteint</option><option value='Atteint'>Atteint</option><option value='Dépassé'>Dépassé</option></select></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quelles ont été les difficultés rencontrées ?</span><textarea id='objectif_difficulte_" + (parseInt(objectifIndex) + 1) + "' class='managerTextarea objectifInput' style='height: 10em;'></textarea></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quelles sont les réussites et les apports pour le Groupe ?</span><textarea id='objectif_reussite_" + (parseInt(objectifIndex) + 1) + "' required='required' class='managerTextarea objectifInput' style='height: 10em;'></textarea></td></tr>";
+
+                    // On insère le code HTML à la suite du dernière objectif.
+                    $('#addObjectif').parent('td').parent('tr').before(objectifHtml);
+
+                    // On attribut le nombre d'objectif au formulaire.
+                    $('#form_NombreObjectifs').val(Cookies.get('ObjectifNumber'));
                 }
             }
 
@@ -76,22 +84,59 @@
         function deleteObjectif(element) {
             var objectifIndex = element.attr('tr_index'); // On récupére la class des champs d'objectif de l'indes séléctionné.
             $('.' + objectifIndex).remove(); // On supprime les champs de même class.
+
+            // On décrémente la valeur du nombre d'objectif.
+            $('#form_NombreObjectifs').val(parseInt($('#form_NombreObjectifs').val()) - 1);
+
+            // On crée un cookie contenant le nombre d'objectif Actuel.
+            Cookies.set('ObjectifNumber', $('#form_NombreObjectifs').val());
         }
 
         // Ajoute un formulaire d'objectif.
         function addObjectif(objectifIndex) {
             // Génération du code HTML à insérer.
-            var objectifHtml = "<tr class='objectif_td_" + objectifIndex + "'><td class='neutreTd' colspan='2'><span class='questionLibelle'>Objectif " + objectifIndex + " : Décrivez l'objectif (<span class='deleteObjectif' tr_index='objectif_td_" + objectifIndex + "' onclick='deleteObjectif($(this));'>supprimer</span>)</span><textarea id='objectif_description_" + objectifIndex + "' required='required' class='neutreTextarea' style='height: 2em;'></textarea></td></tr><tr class='objectif_td_" + objectifIndex + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quels sont les résultats obtenus ?</span><textarea id='objectif_resultat_" + objectifIndex + "' required='required' class='managerTextarea' style='height: 10em;'></textarea></td></tr><tr class='objectif_td_" + objectifIndex + "'><td class='managerTd noWhiteSpaceTd' colspan='2'><span class='questionLibelle'>Sélectionnez le niveau d'atteinte de l'objectif</span><select id='objectif_niveau_" + objectifIndex + "' required='required'><option value='' selected='selected'>Choisir une réponse...</option><option value='Non atteint'>Non atteint</option><option value='Partiellement atteint'>Partiellement atteint</option><option value='Atteint'>Atteint</option><option value='Dépassé'>Dépassé</option></select></td></tr><tr class='objectif_td_" + objectifIndex + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quelles ont été les difficultés rencontrées ?</span><textarea id='objectif_difficulte_" + objectifIndex + "' class='managerTextarea' style='height: 10em;'></textarea></td></tr><tr class='objectif_td_" + objectifIndex + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quelles sont les réussites et les apports pour le Groupe ?</span><textarea id='objectif_reussite_" + objectifIndex + "' required='required' class='managerTextarea' style='height: 10em;'></textarea></td></tr>";
+            var objectifHtml = "<tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='neutreTd' colspan='2'><span class='questionLibelle'>Objectif " + (parseInt(objectifIndex) + 1) + " : Décrivez l'objectif (<span class='deleteObjectif' tr_index='objectif_td_" + (parseInt(objectifIndex) + 1) + "' onclick='deleteObjectif($(this));'>supprimer</span>)</span><textarea id='objectif_description_" + (parseInt(objectifIndex) + 1) + "' required='required' class='neutreTextarea objectifInput' style='height: 2em;'></textarea></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quels sont les résultats obtenus ?</span><textarea id='objectif_resultat_" + (parseInt(objectifIndex) + 1) + "' required='required' class='managerTextarea objectifInput' style='height: 10em;'></textarea></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd noWhiteSpaceTd' colspan='2'><span class='questionLibelle'>Sélectionnez le niveau d'atteinte de l'objectif</span><select id='objectif_niveau_" + (parseInt(objectifIndex) + 1) + "' required='required' class='objectifSelect'><option value='' selected='selected'>Choisir une réponse...</option><option value='Non atteint'>Non atteint</option><option value='Partiellement atteint'>Partiellement atteint</option><option value='Atteint'>Atteint</option><option value='Dépassé'>Dépassé</option></select></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quelles ont été les difficultés rencontrées ?</span><textarea id='objectif_difficulte_" + (parseInt(objectifIndex) + 1) + "' class='managerTextarea objectifInput' style='height: 10em;'></textarea></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quelles sont les réussites et les apports pour le Groupe ?</span><textarea id='objectif_reussite_" + (parseInt(objectifIndex) + 1) + "' required='required' class='managerTextarea objectifInput' style='height: 10em;'></textarea></td></tr>";
 
             // On insère le code HTML à la suite du dernière objectif.
             $('#addObjectif').parent('td').parent('tr').before(objectifHtml);
 
             // On incrémente la valeur du nombre d'objectif.
-            $('#addObjectif').attr('objectifCount', objectifIndex);
+            //$('#addObjectif').attr('objectifCount', objectifIndex);
+            $('#form_NombreObjectifs').val(parseInt($('#form_NombreObjectifs').val()) + 1);
 
             // On crée un cookie contenant le nombre d'objectif Actuel.
-            Cookies.set('ObjectifNumber', objectifIndex);
+            Cookies.set('ObjectifNumber', parseInt(objectifIndex) + 1);
 
+        }
+
+        // Attribut les valeurs des objectifs au champ correspondant du formulaire.
+        function saveOjectifsData() {
+            var data = {}; // Initialisation d'un nouvel objet.
+
+            // Pour chaques champs d'objetifs...
+            $('.objectifInput, .objectifSelect').each(function () {
+                data[$(this).attr('id')] = $(this).val(); // On attibut la valeur du champs à l'objet.
+            });
+
+            // On convertie le tableau au format JSON.
+            var jsonData = JSON.stringify(data);
+
+            // On attribut la chaine JSON au champs des objectifs.
+            $('#form_Objectifs').val(jsonData);
+        }
+
+        // Lis les valeurs des objectifs sauvegardées en base de données.
+        function readObjectifData() {
+            // Si il existe des objectifs enregistrés en base de données.
+            if ($('#form_Objectifs').val() !== '') {
+                // On récupére les objectifs sous forme d'objet.
+                var objectifsDatas = JSON.parse($('#form_Objectifs').val());
+
+                // Pour chaques objectifs...
+                $.each(objectifsDatas, function (key, value) {
+                    $('#' + key).val(value); // On attribut sa valeur au champ d'objectif.
+                });
+            }
         }
     </script>
 
@@ -385,20 +430,20 @@
                     </td>
                 </tr>
                 <tr class="objectif_td_{{ objectifIndex }}">
-                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quels sont les résultats obtenus ?</span><textarea id="objectif_resultat_{{ objectifIndex }}" required="required" class="managerTextarea" style="height: 10em;"></textarea></td>
+                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quels sont les résultats obtenus ?</span><textarea id="objectif_resultat_{{ objectifIndex }}" required="required" class="managerTextarea objectifInput" style="height: 10em;"></textarea></td>
                 </tr>
                 <tr class="objectif_td_{{ objectifIndex }}">
-                    <td class="managerTd noWhiteSpaceTd" colspan="2"><span class="questionLibelle">Sélectionnez le niveau d'atteinte de l'objectif</span><select id="objectif_niveau_{{ objectifIndex }}" required="required"><option value="" selected="selected">Choisir une réponse...</option><option value="Non atteint">Non atteint</option><option value="Partiellement atteint">Partiellement atteint</option><option value="Atteint">Atteint</option><option value="Dépassé">Dépassé</option></select></td>
+                    <td class="managerTd noWhiteSpaceTd" colspan="2"><span class="questionLibelle">Sélectionnez le niveau d'atteinte de l'objectif</span><select id="objectif_niveau_{{ objectifIndex }}" required="required" class="objectifSelect"><option value="" selected="selected">Choisir une réponse...</option><option value="Non atteint">Non atteint</option><option value="Partiellement atteint">Partiellement atteint</option><option value="Atteint">Atteint</option><option value="Dépassé">Dépassé</option></select></td>
                 </tr>
                 <tr class="objectif_td_{{ objectifIndex }}">
-                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quelles ont été les difficultés rencontrées ?</span><textarea id="objectif_difficulte_{{ objectifIndex }}" class="managerTextarea" style="height: 10em;"></textarea></td>
+                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quelles ont été les difficultés rencontrées ?</span><textarea id="objectif_difficulte_{{ objectifIndex }}" class="managerTextarea objectifInput" style="height: 10em;"></textarea></td>
                 </tr>
                 <tr class="objectif_td_{{ objectifIndex }}">
-                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quelles sont les réussites et les apports pour le Groupe ?</span><textarea id="objectif_reussite_{{ objectifIndex }}" required="required" class="managerTextarea" style="height: 10em;"></textarea></td>
+                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quelles sont les réussites et les apports pour le Groupe ?</span><textarea id="objectif_reussite_{{ objectifIndex }}" required="required" class="managerTextarea objectifInput" style="height: 10em;"></textarea></td>
                 </tr>
             {% endfor %}
             <tr>
-                <td colspan="2" style="text-align: center; background-color: rgb(217, 217, 217);"><span id="addObjectif" objectifCount="{{ formulaireDevellopementProfessionnel.NombreObjectifs.vars.value }}" onclick="addObjectif(parseInt($('#addObjectif').attr('objectifCount')) + 1);">Ajouter un objectif</span></td>
+                <td colspan="2" style="text-align: center; background-color: rgb(217, 217, 217);"><span id="addObjectif" onclick="addObjectif($('#form_NombreObjectifs').val());">Ajouter un objectif</span></td>
             </tr>
 
             <tr>
@@ -681,7 +726,7 @@
                 </tr>
             {% endfor %}
         </table>
-        <p id='formValidationParagraph'>{% if entretien.statut is defined and entretien.statut == 'Synthèse' %}{{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'style': 'display: none;'}}) }}{% else %}{{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'onclick': 'deleteFormCookies();'}}) }}{% endif %}</p>
+        <p id='formValidationParagraph'>{% if entretien.statut is defined and entretien.statut == 'Synthèse' %}{{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'style': 'display: none;'}}) }}{% else %}{{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'onclick': 'deleteFormCookies(); saveOjectifsData();'}}) }}{% endif %}</p>
         {{ form_end(formulaireDevellopementProfessionnel) }}
     </div>
 {% endblock %}

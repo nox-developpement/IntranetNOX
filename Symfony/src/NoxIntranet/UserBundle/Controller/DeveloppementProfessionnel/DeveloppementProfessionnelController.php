@@ -213,6 +213,9 @@ class DeveloppementProfessionnelController extends Controller {
                 ->add('NombreObjectifs', HiddenType::class, array(
                     'data' => empty($formulaireDeveloppementProfessionnel) ? 1 : $formulaireDeveloppementProfessionnel->getNombreObjectifs()
                 ))
+                ->add('Objectifs', HiddenType::class, array(
+                    'data' => empty($formulaireDeveloppementProfessionnel) ? null : $formulaireDeveloppementProfessionnel->getObjectifs()
+                ))
                 ->add('Valider', SubmitType::class);
 
         // On récupére le fichier des question au format JSON et on le converti en tableau.
@@ -341,6 +344,8 @@ class DeveloppementProfessionnelController extends Controller {
                 $newDeveloppementProfessionnel->setCollaborateur($collaborateur);
                 $newDeveloppementProfessionnel->setFormulaire($reponses);
                 $newDeveloppementProfessionnel->setAnnee(date('Y'));
+                $newDeveloppementProfessionnel->setNombreObjectifs($formDeveloppementProfessionnel->get('NombreObjectifs')->getData());
+                $newDeveloppementProfessionnel->setObjectifs($formDeveloppementProfessionnel->get('Objectifs')->getData());
                 $em->persist($newDeveloppementProfessionnel);
 
                 // On sauvegarde les changements en base de données. 
@@ -349,8 +354,9 @@ class DeveloppementProfessionnelController extends Controller {
                 // On envoi un email au prochain validateur.
                 $this->sendMailToNextValidator($newDeveloppementProfessionnel->getStatut(), $statutHierarchie[$newDeveloppementProfessionnel->getStatut()], $collaborateur);
 
+                $this->downloadPDFExportAction($newDeveloppementProfessionnel);
                 // On retourne le PDF de l'entretien.
-                return new BinaryFileResponse($this->downloadPDFExportAction($newDeveloppementProfessionnel));
+                //return new BinaryFileResponse($this->downloadPDFExportAction($newDeveloppementProfessionnel));
             }
             // Si le formulaire existe déjà...
             else {
@@ -620,6 +626,10 @@ class DeveloppementProfessionnelController extends Controller {
             'NiveauLangue2' => "Niveau langue 2"
         );
 
+        $objectifsHeader = array(
+            1 => "Objectif 1 : Décrivez l'objectif"
+        );
+
         $liaisonColonneDestinatire = array(
             'Collaborateur' => 'daeef3',
             'Manager' => 'd9d9d9',
@@ -738,12 +748,85 @@ class DeveloppementProfessionnelController extends Controller {
             }
         }
 
+        $objectifs = json_decode($formulaire->getObjectifs());
+
+        $objectifFieldIndex = 1;
+        $objectifIndex = 1;
+        foreach ($objectifs as $objectif) {
+
+            var_dump('ObjectifFieldIndex: ' . $objectifFieldIndex . ', ObjectifIndex: ' . $objectifIndex . ', Division index: ' . $objectifFieldIndex / $objectifIndex);
+
+            if ($objectifFieldIndex / $objectifIndex === 1) {
+                $key = "Objectif " . $objectifIndex . " : Décrivez l'objectif";
+            } else if ($objectifFieldIndex / $objectifIndex === 2) {
+                $key = "Quels sont les résultats obtenus ?";
+            } else if ($objectifFieldIndex / $objectifIndex === 3) {
+                $key = "Niveau d'atteinte de l'objectif";
+            } else if ($objectifFieldIndex / $objectifIndex === 4) {
+                $key = "Difficultés rencontrées ?";
+            } else {
+                $key = "Réussites et apports pour le Groupe ?";
+                $objectifIndex++;
+            }
+
+            // On écris le libelle et on met en gras le texte de la cellule.
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $key . ' : ');
+            $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->getFont()->setBold(true);
+            // On aligne le texte à droite de la cellule et on ajoute des bordure
+            $styleQuestion = array(
+                'alignment' => array(
+                    'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+                ),
+                'borders' => array(
+                    'top' => array(
+                        'style' => \PHPExcel_Style_Border::BORDER_THIN
+                    ),
+                    'bottom' => array(
+                        'style' => \PHPExcel_Style_Border::BORDER_THIN
+                    ),
+                    'left' => array(
+                        'style' => \PHPExcel_Style_Border::BORDER_THIN
+                    )
+                )
+            );
+            $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleQuestion);
+
+            // On écris la valeur.
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . $ligne, $objectif);
+
+            // On aligne le texte de la cellule à gauche, on ajoute des bordures et on colore la cellule.
+            $styleReponse = array(
+                'alignment' => array(
+                    'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+                ),
+                'fill' => array(
+                    'type' => \PHPExcel_Style_Fill::FILL_SOLID,
+                    'color' => array('rgb' => $liaisonColonneDestinatire['Neutre'])
+                ),
+                'borders' => array(
+                    'top' => array(
+                        'style' => \PHPExcel_Style_Border::BORDER_THIN
+                    ),
+                    'bottom' => array(
+                        'style' => \PHPExcel_Style_Border::BORDER_THIN
+                    ),
+                    'right' => array(
+                        'style' => \PHPExcel_Style_Border::BORDER_THIN
+                    )
+                )
+            );
+            $objPHPExcel->getActiveSheet()->getStyle('B' . $ligne)->applyFromArray($styleReponse);
+
+            // On incrémente le compteur de ligne.
+            $ligne++;
+
+            // On incrémente l'index du champs d'objectif.
+            $objectifFieldIndex++;
+        }
+
         // On redimensionne les colonnes.
         $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
         $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-
-        // On récupére le collaborateur.
-        $collaborateur = $formulaire->getCollaborateur();
 
         // On configure le module de rendu PDF.
         $rendererName = \PHPExcel_Settings::PDF_RENDERER_MPDF;
@@ -799,10 +882,10 @@ class DeveloppementProfessionnelController extends Controller {
         // On génére le fichier PDF.
         $pdf = $this->exportFormulaireToPDF($formulaire);
 
+        // On initialise un handler pour le fichier.
         $file = new \SplFileObject($pdf);
-        // On supprime le PDF.
-        //unlink($pdf);
 
+        // On retourne le handler.
         return $file;
     }
 

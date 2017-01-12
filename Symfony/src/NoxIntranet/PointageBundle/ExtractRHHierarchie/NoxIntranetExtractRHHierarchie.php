@@ -53,7 +53,7 @@ class NoxIntranetExtractRHHierarchie extends Controller {
                 $rowIndex = $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow();
 
                 // On récupére l'utilisateur associé dans la base de données utilisateur si il existe.
-                $userDB = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($objWorksheet->getCell('E' . $rowIndex))), 'lastname' => $objWorksheet->getCell('D' . $rowIndex)));
+                $userDB = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($objWorksheet->getCell('E' . $rowIndex)->getValue())), 'lastname' => $objWorksheet->getCell('D' . $rowIndex)->getValue()));
 
                 // Si l'utilisateur existe dans la base de données utilisateurs.
                 if (!empty($userDB)) {
