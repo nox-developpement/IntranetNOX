@@ -135,6 +135,7 @@
                 // Pour chaques objectifs...
                 $.each(objectifsDatas, function (key, value) {
                     $('#' + key).val(value); // On attribut sa valeur au champ d'objectif.
+                    $('#' + key).attr('disabled', 'disabled'); // On désactive le champ.
                 });
             }
         }

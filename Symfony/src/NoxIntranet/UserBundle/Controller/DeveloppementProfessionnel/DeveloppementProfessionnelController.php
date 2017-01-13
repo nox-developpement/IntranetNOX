@@ -42,8 +42,8 @@ class DeveloppementProfessionnelController extends Controller {
         $statutHierarchie = array(
             'Collaborateur' => $collaborateur->getUsername(),
             'N2' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $n2)[0], 'lastname' => explode(' ', $n2)[1]))->getUsername(),
-            'DRH' => 'n.rigaudeau',
-            'Synthèse' => 'n.rigaudeau'
+            'DRH' => 't.besson',
+            'Synthèse' => 't.besson'
         );
 
         // Fonction de sortie si visite non autorisé.
@@ -354,9 +354,9 @@ class DeveloppementProfessionnelController extends Controller {
                 // On envoi un email au prochain validateur.
                 $this->sendMailToNextValidator($newDeveloppementProfessionnel->getStatut(), $statutHierarchie[$newDeveloppementProfessionnel->getStatut()], $collaborateur);
 
-                $this->downloadPDFExportAction($newDeveloppementProfessionnel);
+                //$this->downloadPDFExportAction($newDeveloppementProfessionnel);
                 // On retourne le PDF de l'entretien.
-                //return new BinaryFileResponse($this->downloadPDFExportAction($newDeveloppementProfessionnel));
+                return new BinaryFileResponse($this->downloadPDFExportAction($newDeveloppementProfessionnel));
             }
             // Si le formulaire existe déjà...
             else {
@@ -379,7 +379,7 @@ class DeveloppementProfessionnelController extends Controller {
 
             // On redirige vers l'accueil.
             $request->getSession()->getFlashBag()->add('notice', "Vous avez correctement validé l'entretien.");
-            //return $this->redirectToRoute('nox_intranet_accueil');
+            return $this->redirectToRoute('nox_intranet_accueil');
         }
 
         return $this->render('NoxIntranetUserBundle:DeveloppementProfessionnel:formulaireDeveloppementProfessionnel.html.twig', array('formulaireDevellopementProfessionnel' => $formDeveloppementProfessionnel->createView(), 'questions' => $questions, 'entretien' => $formulaireDeveloppementProfessionnel));
@@ -596,6 +596,13 @@ class DeveloppementProfessionnelController extends Controller {
 
         // Initialisation d'un nouvel objet PHPExcel.
         $objPHPExcel = new \PHPExcel();
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(\PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(\PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+        $objPHPExcel->getDefaultStyle()->getFont()->setName('Arial')->setSize(12);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);
+
 
         // On récupére le fichier des question au format JSON et on le converti en tableau.
         $file = $this->container->get('kernel')->locateResource('@NoxIntranetUserBundle/Resources/public/DeveloppementProfessionnel/QuestionsFormulaireDeveloppementProfessionnel.json');
@@ -641,39 +648,18 @@ class DeveloppementProfessionnelController extends Controller {
             // Si la question fait partie des informations sur le collaborateur...
             if (array_key_exists($key, $questionHeader)) {
                 // On écris le libelle et on met en gras le texte de la cellule.
-                $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $questionHeader[$key] . ' : ');
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $questionHeader[$key]);
                 $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->getFont()->setBold(true);
                 // On aligne le texte à droite de la cellule et on ajoute des bordure
                 $styleQuestion = array(
                     'alignment' => array(
-                        'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+                        'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
                     ),
                     'borders' => array(
                         'top' => array(
-                            'style' => \PHPExcel_Style_Border::BORDER_THIN
-                        ),
-                        'bottom' => array(
                             'style' => \PHPExcel_Style_Border::BORDER_THIN
                         ),
                         'left' => array(
-                            'style' => \PHPExcel_Style_Border::BORDER_THIN
-                        )
-                    )
-                );
-                $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleQuestion);
-
-                // On écris la valeur.
-                $objPHPExcel->getActiveSheet()->setCellValue('B' . $ligne, $formData instanceof \DateTime ? $formData->format('d-m-Y') : $formData);
-                // On aligne le texte à gauche de la cellule.
-                $styleReponse = array(
-                    'alignment' => array(
-                        'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-                    ),
-                    'borders' => array(
-                        'top' => array(
-                            'style' => \PHPExcel_Style_Border::BORDER_THIN
-                        ),
-                        'bottom' => array(
                             'style' => \PHPExcel_Style_Border::BORDER_THIN
                         ),
                         'right' => array(
@@ -681,133 +667,70 @@ class DeveloppementProfessionnelController extends Controller {
                         )
                     )
                 );
-                $objPHPExcel->getActiveSheet()->getStyle('B' . $ligne)->applyFromArray($styleReponse);
+                $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleQuestion);
 
                 // On incrémente le compteur de ligne.
                 $ligne++;
-            }
-            // Si la question ne fait pas partie des informations sur le collaborateur...
-            else {
-                // On récupére le numéro et le destinataire de la question.
-                $idQuestion = explode('_', $key)[0];
-                $Destinataire = explode('_', $key)[1];
 
-                // Si la question n'est pas vide...
-                if (!empty($questions[$idQuestion][$Destinataire]['Question'])) {
-                    // On écris le libelle et on met en gras le texte de la cellule.
-                    $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $questions[$idQuestion][$Destinataire]['Question'] . ' : ');
-                    $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->getFont()->setBold(true);
-                    // On aligne le texte à droite de la cellule et on ajoute des bordure
-                    $styleQuestion = array(
-                        'alignment' => array(
-                            'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+                // On écris la valeur.
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $formData instanceof \DateTime ? $formData->format('d-m-Y') : empty($formData) ? ' - ' : $formData);
+                // On aligne le texte à gauche de la cellule.
+                $styleReponse = array(
+                    'alignment' => array(
+                        'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+                    ),
+                    'borders' => array(
+                        'bottom' => array(
+                            'style' => \PHPExcel_Style_Border::BORDER_THIN
                         ),
-                        'borders' => array(
-                            'top' => array(
-                                'style' => \PHPExcel_Style_Border::BORDER_THIN
-                            ),
-                            'bottom' => array(
-                                'style' => \PHPExcel_Style_Border::BORDER_THIN
-                            ),
-                            'left' => array(
-                                'style' => \PHPExcel_Style_Border::BORDER_THIN
-                            )
+                        'left' => array(
+                            'style' => \PHPExcel_Style_Border::BORDER_THIN
+                        ),
+                        'right' => array(
+                            'style' => \PHPExcel_Style_Border::BORDER_THIN
                         )
-                    );
-                    $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleQuestion);
+                    )
+                );
+                $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleReponse);
 
-                    // On écris la valeur.
-                    $objPHPExcel->getActiveSheet()->setCellValue('B' . $ligne, $formData instanceof \DateTime ? $formData->format('d-m-Y') : $formData);
-
-                    // On aligne le texte de la cellule à gauche, on ajoute des bordures et on colore la cellule.
-                    $styleReponse = array(
-                        'alignment' => array(
-                            'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER
-                        ),
-                        'fill' => array(
-                            'type' => \PHPExcel_Style_Fill::FILL_SOLID,
-                            'color' => array('rgb' => $liaisonColonneDestinatire[$Destinataire])
-                        ),
-                        'borders' => array(
-                            'top' => array(
-                                'style' => \PHPExcel_Style_Border::BORDER_THIN
-                            ),
-                            'bottom' => array(
-                                'style' => \PHPExcel_Style_Border::BORDER_THIN
-                            ),
-                            'right' => array(
-                                'style' => \PHPExcel_Style_Border::BORDER_THIN
-                            )
-                        )
-                    );
-                    $objPHPExcel->getActiveSheet()->getStyle('B' . $ligne)->applyFromArray($styleReponse);
-
-                    // On incrémente le compteur de ligne.
-                    $ligne++;
-                }
+                // On incrémente le compteur de ligne pour sauter une ligne.
+                $ligne++;
+                $ligne++;
             }
         }
 
         $objectifs = json_decode($formulaire->getObjectifs());
-
         $objectifFieldIndex = 1;
         $objectifIndex = 1;
+        $indexQuestion = 1;
         foreach ($objectifs as $objectif) {
-
-            var_dump('ObjectifFieldIndex: ' . $objectifFieldIndex . ', ObjectifIndex: ' . $objectifIndex . ', Division index: ' . $objectifFieldIndex / $objectifIndex);
-
-            if ($objectifFieldIndex / $objectifIndex === 1) {
+            if ($indexQuestion === 1) {
                 $key = "Objectif " . $objectifIndex . " : Décrivez l'objectif";
-            } else if ($objectifFieldIndex / $objectifIndex === 2) {
+            } else if ($indexQuestion === 2) {
                 $key = "Quels sont les résultats obtenus ?";
-            } else if ($objectifFieldIndex / $objectifIndex === 3) {
+            } else if ($indexQuestion === 3) {
                 $key = "Niveau d'atteinte de l'objectif";
-            } else if ($objectifFieldIndex / $objectifIndex === 4) {
+            } else if ($indexQuestion === 4) {
                 $key = "Difficultés rencontrées ?";
             } else {
                 $key = "Réussites et apports pour le Groupe ?";
                 $objectifIndex++;
+                $indexQuestion = 0;
             }
 
             // On écris le libelle et on met en gras le texte de la cellule.
-            $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $key . ' : ');
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $key);
             $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->getFont()->setBold(true);
             // On aligne le texte à droite de la cellule et on ajoute des bordure
             $styleQuestion = array(
                 'alignment' => array(
-                    'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+                    'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
                 ),
                 'borders' => array(
                     'top' => array(
-                        'style' => \PHPExcel_Style_Border::BORDER_THIN
-                    ),
-                    'bottom' => array(
                         'style' => \PHPExcel_Style_Border::BORDER_THIN
                     ),
                     'left' => array(
-                        'style' => \PHPExcel_Style_Border::BORDER_THIN
-                    )
-                )
-            );
-            $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleQuestion);
-
-            // On écris la valeur.
-            $objPHPExcel->getActiveSheet()->setCellValue('B' . $ligne, $objectif);
-
-            // On aligne le texte de la cellule à gauche, on ajoute des bordures et on colore la cellule.
-            $styleReponse = array(
-                'alignment' => array(
-                    'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER
-                ),
-                'fill' => array(
-                    'type' => \PHPExcel_Style_Fill::FILL_SOLID,
-                    'color' => array('rgb' => $liaisonColonneDestinatire['Neutre'])
-                ),
-                'borders' => array(
-                    'top' => array(
-                        'style' => \PHPExcel_Style_Border::BORDER_THIN
-                    ),
-                    'bottom' => array(
                         'style' => \PHPExcel_Style_Border::BORDER_THIN
                     ),
                     'right' => array(
@@ -815,18 +738,118 @@ class DeveloppementProfessionnelController extends Controller {
                     )
                 )
             );
-            $objPHPExcel->getActiveSheet()->getStyle('B' . $ligne)->applyFromArray($styleReponse);
+            $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleQuestion);
 
             // On incrémente le compteur de ligne.
             $ligne++;
 
+            // On écris la valeur.
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $objectif);
+
+            // On aligne le texte de la cellule à gauche, on ajoute des bordures et on colore la cellule.
+            $styleReponse = array(
+                'alignment' => array(
+                    'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+                ),
+                'fill' => array(
+                    'type' => \PHPExcel_Style_Fill::FILL_SOLID,
+                    'color' => array('rgb' => $liaisonColonneDestinatire['Neutre'])
+                ),
+                'borders' => array(
+                    'bottom' => array(
+                        'style' => \PHPExcel_Style_Border::BORDER_THIN
+                    ),
+                    'left' => array(
+                        'style' => \PHPExcel_Style_Border::BORDER_THIN
+                    ),
+                    'right' => array(
+                        'style' => \PHPExcel_Style_Border::BORDER_THIN
+                    )
+                )
+            );
+            $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleReponse);
+
+            // On incrémente le compteur de ligne.
+            $ligne++;
+            $ligne++;
+
             // On incrémente l'index du champs d'objectif.
             $objectifFieldIndex++;
+
+            // On incrémente le compteur de question.
+            $indexQuestion++;
+        }
+
+        foreach ($formulaire->getFormulaire() as $key => $formData) {
+            // Si la question ne fait pas partie des informations sur le collaborateur...
+            if (!array_key_exists($key, $questionHeader)) {
+                // On récupére le numéro et le destinataire de la question.
+                $idQuestion = explode('_', $key)[0];
+                $Destinataire = explode('_', $key)[1];
+
+                // Si la question n'est pas vide...
+                if (!empty($questions[$idQuestion][$Destinataire]['Question'])) {
+                    // On écris le libelle et on met en gras le texte de la cellule.
+                    $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $questions[$idQuestion][$Destinataire]['Question']);
+                    $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->getFont()->setBold(true);
+                    // On aligne le texte à droite de la cellule et on ajoute des bordure
+                    $styleQuestion = array(
+                        'alignment' => array(
+                            'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+                        ),
+                        'borders' => array(
+                            'top' => array(
+                                'style' => \PHPExcel_Style_Border::BORDER_THIN
+                            ),
+                            'left' => array(
+                                'style' => \PHPExcel_Style_Border::BORDER_THIN
+                            ),
+                            'right' => array(
+                                'style' => \PHPExcel_Style_Border::BORDER_THIN
+                            )
+                        )
+                    );
+                    $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleQuestion);
+
+                    // On incrémente le compteur de ligne.
+                    $ligne++;
+
+                    // On écris la valeur.
+                    $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $formData instanceof \DateTime ? $formData->format('d-m-Y') : empty($formData) ? ' - ' : $formData);
+
+                    // On aligne le texte de la cellule à gauche, on ajoute des bordures et on colore la cellule.
+                    $styleReponse = array(
+                        'alignment' => array(
+                            'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+                        ),
+                        'fill' => array(
+                            'type' => \PHPExcel_Style_Fill::FILL_SOLID,
+                            'color' => array('rgb' => $liaisonColonneDestinatire[$Destinataire])
+                        ),
+                        'borders' => array(
+                            'bottom' => array(
+                                'style' => \PHPExcel_Style_Border::BORDER_THIN
+                            ),
+                            'left' => array(
+                                'style' => \PHPExcel_Style_Border::BORDER_THIN
+                            ),
+                            'right' => array(
+                                'style' => \PHPExcel_Style_Border::BORDER_THIN
+                            )
+                        )
+                    );
+                    $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleReponse);
+
+                    // On incrémente le compteur de ligne.
+                    $ligne++;
+                    $ligne++;
+                }
+            }
         }
 
         // On redimensionne les colonnes.
-        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(false);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(150);
 
         // On configure le module de rendu PDF.
         $rendererName = \PHPExcel_Settings::PDF_RENDERER_MPDF;
@@ -845,6 +868,8 @@ class DeveloppementProfessionnelController extends Controller {
         $filename = 'Développement Profesionnel Export.pdf';
         $filepath = $root . "/web/" . $filename;
         $objWriter = new \PHPExcel_Writer_PDF($objPHPExcel);
+        $objWriter->setOrientation(\PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+        $objWriter->setPaperSize(\PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
         $objWriter->save($filepath);
 
         // Retourne le chemin du fichier.

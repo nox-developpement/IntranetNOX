@@ -56,9 +56,9 @@ class DeveloppementProfessionnel {
     private $nombreObjectifs;
 
     /**
-     * @var string
+     * @var array
      *
-     * @ORM\Column(name="objectifs", type="string")
+     * @ORM\Column(name="objectifs", type="array")
      */
     private $objectifs;
 
@@ -193,7 +193,7 @@ class DeveloppementProfessionnel {
      * @return DeveloppementProfessionnel
      */
     public function setObjectifs($objectifs) {
-        $this->objectifs = $objectifs;
+        $this->objectifs = json_decode($objectifs, true);
 
         return $this;
     }
@@ -204,7 +204,7 @@ class DeveloppementProfessionnel {
      * @return array
      */
     public function getObjectifs() {
-        return $this->objectifs;
+        return json_encode($this->objectifs);
     }
 
 }
