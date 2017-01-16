@@ -2351,22 +2351,32 @@
 
         // Sauvegarde la valeur des sélécteur dans les cookies lors des changements.
         function setSavedDateAndAgency() {
+            // Temps d'expiration du cookie (1 heure).
+            var inOneHour = new Date(new Date().getTime() + 60 * 60 * 1000);
+
             // Lorqu'on change la date ou l'établissement...
             $('#form_Month, #form_Year, #form_Etablissement').change(function () {
-                Cookies.set($(this).attr('id'), $(this).val()); // On crée un cookie avec la nom et la valeur du sélécteur.
+                // Si il existe un cookie pour le sélécteur...
+                if (Cookies.get($(this).attr('id')) !== undefined) {
+                    Cookies.remove($(this).attr('id')); // On le supprime
+                }
+                Cookies.set($(this).attr('id'), $(this).val(), {expires: inOneHour}); // On crée un cookie avec la nom et la valeur du sélécteur.
             });
         }
 
+        // Récupére les valeurs des cookies des sélécteurs.
         function getSavedDateAndAgency() {
+            // Initialisation de la liste des sélécteurs.
             var selectors = ['form_Month', 'form_Year', 'form_Etablissement'];
+
+            // Pour chaques sélécteurs...
             $.each(selectors, function (index, value) {
+                // Si il existe un cookie pour le sélécteur et qu'il n'est pas vide...
                 if (Cookies.get(value) !== undefined && Cookies.get(value) !== '') {
-                    $('#' + value).val(Cookies.get(value));
-                    console.log('trigger: ' + value);
-                    $('#' + value).trigger('change');
+                    $('#' + value).val(Cookies.get(value)); // On assigne la valeur du cookie au sélécteur.
+                    $('#' + value).trigger('change'); // On déclanche le changement du sélécteur pour déclancher les fonctions associées.
                 }
             });
-
         }
     </script>
 {% endblock %}
