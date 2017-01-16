@@ -112,7 +112,6 @@ class PointageController extends Controller {
 
     // Affiche l'inteface de visualisation/correction/validation des pointages des collaborateurs en fonction de l'assistante d'agence.
     public function assistantesAgenceGestionPointageAction() {
-
         // Inisialisation des varibables de fonction.
         $securityName = mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8');
         $em = $this->getDoctrine()->getManager();

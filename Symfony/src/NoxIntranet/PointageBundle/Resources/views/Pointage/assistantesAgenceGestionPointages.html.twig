@@ -369,6 +369,8 @@
             cloneAbsenceAMToPM();
             ajaxUploadJustificatifTransport();
             copyMultipleCell();
+            setSavedDateAndAgency();
+            getSavedDateAndAgency();
         });
 
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
@@ -2345,6 +2347,26 @@
                     });
                 }
             });
+        }
+
+        // Sauvegarde la valeur des sélécteur dans les cookies lors des changements.
+        function setSavedDateAndAgency() {
+            // Lorqu'on change la date ou l'établissement...
+            $('#form_Month, #form_Year, #form_Etablissement').change(function () {
+                Cookies.set($(this).attr('id'), $(this).val()); // On crée un cookie avec la nom et la valeur du sélécteur.
+            });
+        }
+
+        function getSavedDateAndAgency() {
+            var selectors = ['form_Month', 'form_Year', 'form_Etablissement'];
+            $.each(selectors, function (index, value) {
+                if (Cookies.get(value) !== undefined && Cookies.get(value) !== '') {
+                    $('#' + value).val(Cookies.get(value));
+                    console.log('trigger: ' + value);
+                    $('#' + value).trigger('change');
+                }
+            });
+
         }
     </script>
 {% endblock %}
