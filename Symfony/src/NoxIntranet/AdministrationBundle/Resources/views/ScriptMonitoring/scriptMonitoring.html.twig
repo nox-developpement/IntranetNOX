@@ -1,0 +1,42 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}
+    Monitoring des scripts planifiés
+{% endblock %}
+
+{% block messageAccueil %}Monitoring des scripts planifiés{% endblock %}
+
+{% block contenu %}
+    <style>
+        form[name='addScript'] {
+            display: inline-block;
+            width: auto;
+            padding: 0;           
+            border: none;
+        }
+
+        form[name='addScript'] fieldset {
+            margin: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        #formDiv {
+            text-align: center;
+        }
+
+    </style>
+
+    <div id="formDiv">
+        {{ form_start(formAddScript) }}
+        <fieldset>
+            <legend>Ajouter un monitoring de script</legend>
+
+            <p>{{ form_label(formAddScript.scriptName) }} : {{ form_widget(formAddScript.scriptName) }}</p>
+            <p>{{ form_label(formAddScript.iterationTime) }} : {{ form_widget(formAddScript.iterationTime.children['hour']) }} heure(s)</p>
+            <p>{{ form_widget(formAddScript.add) }}</p>
+
+        </fieldset>
+        {{ form_end(formAddScript) }}
+    </div>
+{% endblock %}

@@ -207,3 +207,7 @@ nox_intranet_administration_upload_fichier_hierarchie_rh:
 nox_intranet_collaborateurs_en_ligne:
     path: /administration/collaborateurs-en-ligne
     defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationUsers:collaborateursEnLigne }
+    
+nox_intranet_monitoring_scheduled_scripts:
+    path: /administration/monitoring-scheduled-scripts
+    defaults: { _controller: NoxIntranetAdministrationBundle:MonitoringScheduledScripts:scheduledScriptsMonitoringPanel }

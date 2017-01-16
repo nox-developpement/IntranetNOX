@@ -1,4 +1,0 @@
-
-C:\wamp\www\Symfony\scripts>sqlcmd -h-1 -S SRV-NOX35-APPLI\EVERWIN -d NOX -E -s; -W -i C:\wamp\www\Symfony\scripts\SQL\getAffaires.sql  1>C:\wamp\www\Symfony\web\DatabasesCSV\Affaires.csv 
-
-C:\wamp\www\Symfony\scripts>cmd.exe /a /c TYPE C:\wamp\www\Symfony\web\DatabasesCSV\Affaires.csv  1>C:\wamp\www\Symfony\web\DatabasesCSV\AffairesEncode.csv 
