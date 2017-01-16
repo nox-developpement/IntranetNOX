@@ -898,6 +898,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
+    // Supprime un fichier excel d'export.
     function ajaxDeleteExcelFileAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $filename = $request->get('filename');

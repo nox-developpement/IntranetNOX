@@ -114,7 +114,7 @@ class PointageController extends Controller {
     public function assistantesAgenceGestionPointageAction() {
 
         // Inisialisation des varibables de fonction.
-        $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+        $securityName = mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8');
         $em = $this->getDoctrine()->getManager();
 
         // Vérifie que l'utilistateur est une assistante d'agence.
@@ -224,7 +224,7 @@ class PointageController extends Controller {
     public function pointagesCompilationAction(Request $request, $validationStep) {
 
         // Inisialisation des varibables de fonction.
-        $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+        $securityName = mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8');
         $em = $this->getDoctrine()->getManager();
 
         // On récupére la liste des utilisateurs autorisés en fonction de l'étape de validation de la compilation.
@@ -395,14 +395,14 @@ class PointageController extends Controller {
         $usersFromHierarchy = array();
         foreach ($users as $user) {
             if ($status === 'AA') {
-                $usersFromHierarchy[$user->getAA()] = $user->getAA();
-                $usersFromHierarchy[$user->getDA()] = $user->getDA();
+                $usersFromHierarchy[mb_strtoupper($user->getAA(), 'UTF-8')] = mb_strtoupper($user->getAA(), 'UTF-8');
+                $usersFromHierarchy[mb_strtoupper($user->getDA(), 'UTF-8')] = mb_strtoupper($user->getDA(), 'UTF-8');
             }
             if ($status === 'DAManager' || $status === 'Final') {
-                $usersFromHierarchy[$user->getDA()] = $user->getDA();
+                $usersFromHierarchy[mb_strtoupper($user->getDA(), 'UTF-8')] = mb_strtoupper($user->getDA(), 'UTF-8');
             }
             if ($status === 'Final' || $status === 'RH') {
-                $usersFromHierarchy[$user->getRH()] = $user->getRH();
+                $usersFromHierarchy[mb_strtoupper($user->getRH(), 'UTF-8')] = mb_strtoupper($user->getRH(), 'UTF-8');
             }
         }
 

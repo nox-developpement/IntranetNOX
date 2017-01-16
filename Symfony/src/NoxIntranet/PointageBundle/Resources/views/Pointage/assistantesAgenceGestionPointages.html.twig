@@ -9,6 +9,13 @@
 {% block contenu %}
     <div id="pointageSelection">
 
+        <p id="validationStepNavigator" style="margin-top: 0;">
+            <a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}">Assistant(e) agence: Validation pointages</a> |
+            <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'AA'}) }}">Assistant(e)s agence - Correction/Validation compilation</a> |
+            <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'DAManager'}) }}">DA/Manager - Correction/Validation compilation</a> |
+            <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'Final'}) }}">Consultation des compilations validées</a>
+        </p>
+
         {{ form_start(form, {'attr': {'style': 'float: left;'}}) }}
         {{ form_errors(form) }}
         <fieldset>

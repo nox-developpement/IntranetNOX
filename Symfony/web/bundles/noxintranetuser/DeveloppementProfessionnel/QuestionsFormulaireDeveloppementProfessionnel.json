@@ -77,86 +77,6 @@
             "Destinataire": "Collaborateur"
         }
     },
-    "7": {
-        "Neutre": {
-            "Type": "Texte",
-            "Question": "Objectif 1 : D\u00e9crivez l'objectif",
-            "Taille": 2,
-            "Destinataire": "Collaborateur"
-        }
-    },
-    "8": {
-        "Manager": {
-            "Type": "Texte",
-            "Question": "Quels sont les r\u00e9sultats obtenus ?",
-            "Taille": 10,
-            "Destinataire": "Collaborateur"
-        }
-    },
-    "9": {
-        "Manager": {
-            "Type": "Choix",
-            "Question": "S\u00e9lectionnez le niveau d'atteinte de l'objectif",
-            "Choix": ["Non atteint", "Partiellement atteint", "Atteint", "D\u00e9pass\u00e9"],
-            "Destinataire": "Collaborateur"
-        }
-    },
-    "10": {
-        "Manager": {
-            "Type": "Texte",
-            "Question": "Quelles ont \u00e9t\u00e9 les difficult\u00e9s rencontr\u00e9es ?",
-            "Taille": 10,
-            "Destinataire": "Collaborateur"
-        }
-    },
-    "11": {
-        "Manager": {
-            "Type": "Texte",
-            "Question": "Quelles sont les r\u00e9ussites et les apports pour le Groupe ?",
-            "Taille": 10,
-            "Destinataire": "Collaborateur"
-        }
-    },
-    "12": {
-        "Neutre": {
-            "Type": "Texte",
-            "Question": "Objectif 2 : D\u00e9crivez l'objectif",
-            "Taille": 2,
-            "Destinataire": "Collaborateur"
-        }
-    },
-    "13": {
-        "Manager": {
-            "Type": "Texte",
-            "Question": "Quels sont les r\u00e9sultats obtenus ?",
-            "Taille": 10,
-            "Destinataire": "Collaborateur"
-        }
-    },
-    "14": {
-        "Manager": {
-            "Type": "Choix",
-            "Question": "S\u00e9lectionnez le niveau d'atteinte de l'objectif",
-            "Choix": ["Non atteint", "Partiellement atteint", "Atteint", "D\u00e9pass\u00e9"],
-            "Destinataire": "Collaborateur"
-        }
-    },
-    "15": {
-        "Manager": {
-            "Type": "Texte",
-            "Question": "Quelles ont \u00e9t\u00e9 les difficult\u00e9s rencontr\u00e9es ?",
-            "Taille": 10,
-            "Destinataire": "Collaborateur"
-        }
-    },
-    "16": {
-        "Manager": {
-            "Type": "Texte",
-            "Question": "Quelles sont les r\u00e9ussites et les apports pour le Groupe ?",
-            "Taille": 10,
-            "Destinataire": "Collaborateur"
-        }
-    },
     "17": {
         "Collaborateur": {
             "Type": "Texte",
@@ -290,7 +210,7 @@
         "Collaborateur": {
             "Type": "Choix",
             "Question": "Périmètre ?",
-            "Choix": ["Régionale", "Nationale", "Internationale"],
+            "Choix": ["Aucun", "Régionale", "Nationale", "Internationale"],
             "Destinataire": "Collaborateur"
         }
     },
