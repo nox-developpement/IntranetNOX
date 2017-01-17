@@ -108,6 +108,8 @@ class PointageAjaxController extends Controller {
                 $user = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
             }
 
+            var_dump($user);
+
             $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user, 'month' => $month, 'year' => $year));
 
             if (empty($tableData)) {
@@ -134,12 +136,12 @@ class PointageAjaxController extends Controller {
     public function ajaxGetDataAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $month = $request->get('month'); // Le mois du pointage.
-            $year = $request->get('year'); // L'année du pointage.
-
-            $user = $this->get('security.token_storage')->getToken()->getUser(); // On récupére l'entitée de l'utilisateur courant.
+            $year = $request->get('year'); // L'année du pointage.          
+            $user = $request->get('username'); // On récupére l'entitée de l'utilisateur courant.
+            //
             // On récupére le pointage correspondant au mois, à l'année et au collaborateur.
             $em = $this->getDoctrine()->getManager();
-            $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user->getUsername(), 'month' => $month, 'year' => $year));
+            $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user, 'month' => $month, 'year' => $year));
 
             // Si le pointage existe...
             if (!empty($tableData)) {

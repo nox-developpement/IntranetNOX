@@ -48,7 +48,7 @@ class NoxIntranetExtractRHHierarchie extends Controller {
         // Pour chaque cellule non vide du tableau...
         foreach ($objPHPExcelAssistantes->getActiveSheet()->getCellCollection() as $cell) {
             // ...Si la cellule est la première de la ligne et que la ligne est au moins la 5ème.
-            if ($objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getColumn() === 'A' && $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow() > 4) {
+            if ($objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getColumn() === 'A' && $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow() > 1) {
                 // On récupère le numéro de la ligne.
                 $rowIndex = $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow();
 

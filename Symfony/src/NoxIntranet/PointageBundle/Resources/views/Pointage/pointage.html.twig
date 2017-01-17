@@ -998,7 +998,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                        data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
+                        data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text(), user: '{{ user }}'}
                     });
                 }, 1500);
             });
@@ -1029,7 +1029,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                    data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData}
+                    data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, user: '{{ user }}'}
                 });
             });
         }
@@ -1039,7 +1039,7 @@
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_get_data') }}',
-                data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val()},
+                data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), username: '{{ user }}'},
                 success: function (response) {
                     // Si il existe des données correspondant au mois et à l'année.
                     if (response !== 'null') {
@@ -1280,36 +1280,7 @@
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
                     data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
                 });
-                /*$('td[contenteditable]').unbind('blur');
-                 $('td[contenteditable=true]').on('blur', function () {
-                 var data = {};
-                 data['contenteditable'] = [];
-                 data['select'] = [];
-                 data['project'] = [];
-                 data['projectName'] = [];
-                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-                 $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
-                 data['contenteditable'][index] = $(this).text();
-                 //$(this).css('background-color', 'orange');
-                 //$(this).text(index);
-                 });
-                 $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
-                 data['select'][index] = $(this).val();
-                 //$(this).css('background-color', 'orange');
-                 });
-                 $('.project[contenteditable=true]').each(function (index) {
-                 data['project'][index] = $(this).text();
-                 });
-                 $('#tableFeuillePointage tr:nth-child(2) .project').each(function (index) {
-                 data['projectName'][index] = $(this).text();
-                 });
-                 var serializedData = JSON.stringify(data);
-                 $.ajax({
-                 type: 'POST',
-                 url: '{# {{ path('nox_intranet_pointage_ajax_save_data') }} #}',
-                 data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
-                 });
-                 });*/
+
                 displayDailyProjectsTotalPercentage();
                 dispayMonthlyTotalHoursMod();
                 displayMonthlyTotalTitresRepas();
@@ -1473,7 +1444,7 @@
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_get_status') }}',
-                data: {username: null, month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val()},
+                data: {username: '{{ user }}', month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val()},
                 success: function (response) {
                     var width = null;
                     var cercleNb = null;

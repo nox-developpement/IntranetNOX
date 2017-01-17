@@ -8,12 +8,13 @@ use NoxIntranet\PointageBundle\Entity\Tableau;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PointageController extends Controller {
 
     // Affiche le tableau de pointage vide du mois et de l'année courante.
-    public function accueilAction(Request $request) {
+    public function accueilAction(Request $request, $collaborateurExterne) {
         // On récupére la date des premiers et derniers jours du mois courant.
         $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
         $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
@@ -32,7 +33,11 @@ class PointageController extends Controller {
 
         // On récupére le nom de l'utilisateur courant.
         $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if (!empty($collaborateurExterne)) {
+            $user = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateurExterne);
+        } else {
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+        }
 
         // On récupére la feuille de pointage de l'utilisateur pour le mois et l'année courante.
         $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user->getUsername(), 'month' => $this->getMonthAndYear()['month'], 'year' => $this->getMonthAndYear()['year']));
@@ -94,7 +99,7 @@ class PointageController extends Controller {
         }
 
         return $this->render('NoxIntranetPointageBundle:Pointage:pointage.html.twig', array('monthDates' => $monthDates, 'currentMonth' => $this->getMonthAndYear()['month'],
-                    'currentYear' => $this->getMonthAndYear()['year'], 'form' => $form->createView(), 'joursFeries' => $joursFeries));
+                    'currentYear' => $this->getMonthAndYear()['year'], 'form' => $form->createView(), 'joursFeries' => $joursFeries, 'user' => $user->getUsername()));
     }
 
     // Retourne la date courante.
@@ -497,6 +502,52 @@ class PointageController extends Controller {
         // On lance le téléchargement du fichier.
         echo $file;
         exit;
+    }
+
+    // Permet aux assistantes d'accéder au remplissage du pointage d'un collaborateur.
+    public function assistanteRemplissagePointageAction(Request $request) {
+        // Génération du formulaire d'accès au pointage d'un collaborateur.
+        $formAccessCollaborateurPointageBuilder = $this->get('form.factory')->createNamedBuilder('formAcessCollaborateurPointage', 'form');
+        $formAccessCollaborateurPointageBuilder
+                ->add('username', TextType::class, array(
+                    'label' => "Login du collaborateur"
+                ))
+                ->add('access', SubmitType::class, array(
+                    'label' => 'Accéder au pointage'
+        ));
+        $formAccessCollaborateurPointage = $formAccessCollaborateurPointageBuilder->getForm();
+
+        // Traitement du formulaire d'accès au pointage d'un collaborateur.
+        $formAccessCollaborateurPointage->handleRequest($request);
+        if ($formAccessCollaborateurPointage->isValid()) {
+            // On récupére le login passé en paramêtre.
+            $username = $formAccessCollaborateurPointage->get('username')->getData();
+
+            // On récupére l'entité utilisateur associée au login.
+            $em = $this->getDoctrine()->getManager();
+            $userEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($username);
+
+            // On récupére le nom canonique du collaborateur qui cherche a accéder au pointage.
+            $securityName = mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8');
+
+            // Si il n'existe pas de collaborateur associé au login passé en paramêtre...
+            if (empty($userEntity)) {
+                // On affiche un message d'erreur et on redirige vers le formulaire d'accés au pointage collaborateur.
+                $this->get('session')->getFlashbag()->add('noticeErreur', "Il n'existe pas de collaborateur associé au login renseigné.");
+                return $this->redirectToRoute('nox_intranet_pointage_access_collaborateur_pointage');
+            }
+            // Sinon si le collaborateur courant n'est le référent du collaborateur et qu'il n'a le statut RH...
+            else if (!empty($userEntity) && !(array_key_exists($userEntity->getUsername(), $this->getUsersByStatus('AA', $securityName)) || $this->get('security.context')->isGranted('ROLE_RH'))) {
+                // On affiche un message d'erreur et on redirige vers le formulaire d'accés au pointage collaborateur.
+                $this->get('session')->getFlashbag()->add('noticeErreur', "Vous n'avez pas les droits requis pour accéder au pointage de ce collaborateur.");
+                return $this->redirectToRoute('nox_intranet_pointage_access_collaborateur_pointage');
+            }
+
+            // On retourne le pointage du collaborateur dont le login est passé en paramêtre.
+            return $this->redirectToRoute('nox_intranet_pointage', array('collaborateurExterne' => $username));
+        }
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:accessCollaborateurPointage.html.twig', array('formAccessCollaborateurPointage' => $formAccessCollaborateurPointage->createView()));
     }
 
 }
