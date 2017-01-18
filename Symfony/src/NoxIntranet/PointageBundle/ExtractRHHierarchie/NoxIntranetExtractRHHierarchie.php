@@ -45,6 +45,16 @@ class NoxIntranetExtractRHHierarchie extends Controller {
         $objPHPExcelAssistantes = $objReaderAssistantes->load($fichierRH);
         $objWorksheet = $objPHPExcelAssistantes->getActiveSheet();
 
+        $file = 'listUsername.txt';
+        $filehandller = fopen($file, 'w+');
+
+        $DBUsers = array();
+        foreach ($em->getRepository('NoxIntranetUserBundle:User')->findAll() as $user) {
+            $DBUsers[$user->getUsername()]['firstname'] = strtolower(str_replace('-', ' ', $this->wd_remove_accents($user->getFirstname())));
+            $DBUsers[$user->getUsername()]['lastname'] = strtolower(str_replace('-', ' ', $this->wd_remove_accents($user->getLastname())));
+            $DBUsers[$user->getUsername()]['entity'] = $user;
+        }
+
         // Pour chaque cellule non vide du tableau...
         foreach ($objPHPExcelAssistantes->getActiveSheet()->getCellCollection() as $cell) {
             // ...Si la cellule est la première de la ligne et que la ligne est au moins la 5ème.
@@ -53,7 +63,13 @@ class NoxIntranetExtractRHHierarchie extends Controller {
                 $rowIndex = $objPHPExcelAssistantes->getActiveSheet()->getCell($cell)->getRow();
 
                 // On récupére l'utilisateur associé dans la base de données utilisateur si il existe.
-                $userDB = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($objWorksheet->getCell('E' . $rowIndex)->getValue())), 'lastname' => $objWorksheet->getCell('D' . $rowIndex)->getValue()));
+                //$userDB = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($objWorksheet->getCell('E' . $rowIndex)->getValue())), 'lastname' => $objWorksheet->getCell('D' . $rowIndex)->getValue()));
+                $userDB = $this->findUserInDB($objWorksheet->getCell('E' . $rowIndex)->getValue(), $objWorksheet->getCell('D' . $rowIndex)->getValue(), $DBUsers);
+
+                if (empty($userDB)) {
+                    fwrite($filehandller, ucfirst(strtolower($objWorksheet->getCell('E' . $rowIndex)->getValue())) . ' ' . $objWorksheet->getCell('D' . $rowIndex)->getValue() . "\n");
+                    var_dump(strtolower($objWorksheet->getCell('E' . $rowIndex)->getValue()) . ' ' . $objWorksheet->getCell('D' . $rowIndex)->getValue());
+                }
 
                 // Si l'utilisateur existe dans la base de données utilisateurs.
                 if (!empty($userDB)) {
@@ -65,46 +81,48 @@ class NoxIntranetExtractRHHierarchie extends Controller {
 
                     // On vérifie la nullité des cellules du personnel de la RH.
                     // Si la case d'Assistante agence n'est pas vide.
-                    if (trim($objWorksheet->getCell('G' . $rowIndex)) !== "-" && trim($objWorksheet->getCell('G' . $rowIndex)) !== '') {
-                        $newUser->setAA($objWorksheet->getCell('G' . $rowIndex)); // On attribut la valeur de la case d'assistante agence comme assistante d'agence.
+                    if (trim($objWorksheet->getCell('F' . $rowIndex)) !== "-" && trim($objWorksheet->getCell('F' . $rowIndex)) !== '') {
+                        $newUser->setAA($objWorksheet->getCell('F' . $rowIndex)); // On attribut la valeur de la case d'assistante agence comme assistante d'agence.
                     }
                     // Sinon si la case de Directeur d'agence n'est pas nul.
-                    elseif (trim($objWorksheet->getCell('H' . $rowIndex)) !== "-" && trim($objWorksheet->getCell('H' . $rowIndex)) !== '') {
-                        $newUser->setAA($objWorksheet->getCell('H' . $rowIndex)); // On attribut la valeur de la case de directeur d'agence comme assistante d'agence.
+                    elseif (trim($objWorksheet->getCell('G' . $rowIndex)) !== "-" && trim($objWorksheet->getCell('G' . $rowIndex)) !== '') {
+                        $newUser->setAA($objWorksheet->getCell('G' . $rowIndex)); // On attribut la valeur de la case de directeur d'agence comme assistante d'agence.
                     }
                     // Sinon si la case d'Assistante RH n'est pas nul.
-                    elseif (trim($objWorksheet->getCell('I' . $rowIndex)) !== "-" && trim($objWorksheet->getCell('I' . $rowIndex)) !== '') {
-                        $newUser->setAA($objWorksheet->getCell('I' . $rowIndex)); // On attribut la valeur de la case d'assistante RH comme assistante d'agence.
+                    elseif (trim($objWorksheet->getCell('H' . $rowIndex)) !== "-" && trim($objWorksheet->getCell('H' . $rowIndex)) !== '') {
+                        $newUser->setAA($objWorksheet->getCell('H' . $rowIndex)); // On attribut la valeur de la case d'assistante RH comme assistante d'agence.
                     }
                     // Sinon.
                     else {
-                        $newUser->setAA($objWorksheet->getCell('J' . $rowIndex)); // On attribut la valeur de la case de N+2 comme assistante d'agence.
+                        $newUser->setAA($objWorksheet->getCell('I' . $rowIndex)); // On attribut la valeur de la case de N+2 comme assistante d'agence.
                     }
 
                     // Si la case de Directeur d'agence n'est pas nul.
-                    if (trim($objWorksheet->getCell('H' . $rowIndex)) !== "-" && trim($objWorksheet->getCell('H' . $rowIndex)) !== '') {
-                        $newUser->setDA($objWorksheet->getCell('H' . $rowIndex)); // On attribut la valeur de la case de directeur d'agence comme directeur d'agence.
+                    if (trim($objWorksheet->getCell('G' . $rowIndex)) !== "-" && trim($objWorksheet->getCell('G' . $rowIndex)) !== '') {
+                        $newUser->setDA($objWorksheet->getCell('G' . $rowIndex)); // On attribut la valeur de la case de directeur d'agence comme directeur d'agence.
                     }
                     // Sinon la case Assistante RH n'est pas nul.
-                    else if (trim($objWorksheet->getCell('I' . $rowIndex)) !== "-" && trim($objWorksheet->getCell('I' . $rowIndex)) !== '') {
-                        $newUser->setDA($objWorksheet->getCell('I' . $rowIndex)); // On attribut la valeur de la case de d'assistante RH comme directeur d'agence.
+                    else if (trim($objWorksheet->getCell('H' . $rowIndex)) !== "-" && trim($objWorksheet->getCell('H' . $rowIndex)) !== '') {
+                        $newUser->setDA($objWorksheet->getCell('H' . $rowIndex)); // On attribut la valeur de la case de d'assistante RH comme directeur d'agence.
                     }
                     // Sinon.
                     else {
-                        $newUser->setDA($objWorksheet->getCell('J' . $rowIndex)); // On attribut la valeur de la case de N+2 comme directeur d'agence.
+                        $newUser->setDA($objWorksheet->getCell('I' . $rowIndex)); // On attribut la valeur de la case de N+2 comme directeur d'agence.
                     }
 
                     // On attribut la valeur de la case d'assistante RH comme assistante RH.
-                    $newUser->setRH($objWorksheet->getCell('I' . $rowIndex));
+                    $newUser->setRH($objWorksheet->getCell('H' . $rowIndex));
 
                     // On attribut la valeur de la case de N+2 comme N+2.
-                    $newUser->setN2($objWorksheet->getCell('J' . $rowIndex));
+                    $newUser->setN2($objWorksheet->getCell('I' . $rowIndex));
 
                     $newUser->setEtablissement($objWorksheet->getCell('C' . $rowIndex)); // On attribut l'agence.
                     $em->persist($newUser);
                 }
             }
         }
+
+        fclose($filehandller);
 
         // On récupère les entités existantes pour les supprimer.
         $existingUsers = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
@@ -114,6 +132,29 @@ class NoxIntranetExtractRHHierarchie extends Controller {
 
         // On supprime les entités existantes et on ajoute les nouvelles en base de données.
         $em->flush();
+    }
+
+    // Trouve l'entité utilisateur associé au Nom et au prénom passé en paramètres.
+    function findUserInDB($firstname, $lastname, $DBUsers) {
+        $cleanFirstname = strtolower(str_replace('-', ' ', $firstname));
+        $cleanLastname = strtolower(str_replace('-', ' ', $lastname));
+
+        foreach ($DBUsers as $user) {
+            if ($user['firstname'] === $cleanFirstname && $user['lastname'] === $cleanLastname) {
+                return $user['entity'];
+            }
+        }
+    }
+
+    // Supprime les accents d'une chaîne de caractère.
+    function wd_remove_accents($str, $charset = 'utf-8') {
+        $str = htmlentities($str, ENT_NOQUOTES, $charset);
+
+        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
+        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
+        $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
+
+        return $str;
     }
 
 }

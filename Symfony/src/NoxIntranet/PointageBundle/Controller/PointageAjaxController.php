@@ -580,6 +580,7 @@ class PointageAjaxController extends Controller {
                                 }
                                 $objWorksheet->getCell('J' . $rowAbsence)->setValue(trim($absenceValue)); // On écris la/les valeur(s) d'absence(s).
                                 $objWorksheet->getCell('K' . $rowAbsence)->setValue($nbAbsence); // On écris la/les valeur(s) d'absence(s).
+                                $objWorksheet->getCell('L' . $rowAbsence)->setValue($absence['commentaires']); // On écris la/les valeur(s) d'absence(s).
                                 $rowAbsence++;
                             }
                         }
