@@ -9,7 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use NoxIntranet\PointageBundle\Entity\JustificatifFile;
 
 class PointageController extends Controller {
 
@@ -548,6 +550,22 @@ class PointageController extends Controller {
         }
 
         return $this->render('NoxIntranetPointageBundle:Pointage:accessCollaborateurPointage.html.twig', array('formAccessCollaborateurPointage' => $formAccessCollaborateurPointage->createView()));
+    }
+
+    public function justificatifFilesUploadAction(Request $request, $pointageId) {
+        $em = $this->getDoctrine()->getManager();
+
+        $newJustificatifFile = new JustificatifFile();
+
+        $formAddJustificatifFileBuilder = $this->createFormBuilder($newJustificatifFile);
+        $formAddJustificatifFileBuilder
+                ->add('content', FileType::class, array(
+                    'label' => 'Justificatif'
+                ))
+                ->add('Ajouter', SubmitType::class);
+        $formAddJustificatifFile = $formAddJustificatifFileBuilder->getForm();
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:addJustificatifFiles.html.twig', array('formAddJustificatifFile' => $formAddJustificatifFile->createView()));
     }
 
 }

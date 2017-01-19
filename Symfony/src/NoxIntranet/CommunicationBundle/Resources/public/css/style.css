@@ -2820,8 +2820,13 @@ input[type=text]:read-only {
     border-right: 1px solid black !important;
 }
 
-#tableFeuillePointage, #tableFeuillePointage select {
+#tableFeuillePointage {
     width: 100%;
+    font-size: 0.7vw;
+    white-space: nowrap;
+}
+
+#tableFeuillePointage select {
     font-size: 0.7vw;
     white-space: nowrap;
 }

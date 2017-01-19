@@ -275,6 +275,7 @@
                     <button type='button' id='sendTransportJustificatifFormButton' class='boutonFormulaire'>Envoyer un justificatif</button>
                     <button type='button' id='uploadLoaderButton' style="background-image: url('{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}'); ">Envoyer un justificatif</button>
                     <div id='deleteJustificatifButton'>Justificatif envoyé &#10004;<span id='downloadJustificatifButtonSpan'>Voir</span><span id='deleteJustificatifButtonSpan' onclick='ajaxDeleteJustificatifTransport();'>Supprimer</span></div>
+                    <div onclick="addJustificatifFile();">Envoyer un justificatif (test)</div>
                 </td>
             </tr>
         </table>
@@ -2227,6 +2228,11 @@
                     });
                 }
             });
+        }
+
+        function addJustificatifFile() {
+            var url = '{{ path('nox_intranet_pointage_add_justificatif_file', {pointageId: '1'}) }}';
+            window.open(url, '_blank', 'height=250, width=500, top=30, left=30');
         }
     </script>
 

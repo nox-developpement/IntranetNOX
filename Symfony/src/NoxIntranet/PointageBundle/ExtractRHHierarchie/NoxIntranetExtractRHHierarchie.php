@@ -45,9 +45,11 @@ class NoxIntranetExtractRHHierarchie extends Controller {
         $objPHPExcelAssistantes = $objReaderAssistantes->load($fichierRH);
         $objWorksheet = $objPHPExcelAssistantes->getActiveSheet();
 
+        // Ouverture du fichier de débugage.
         $file = 'listUsername.txt';
         $filehandller = fopen($file, 'w+');
 
+        // On récupére tous les collaborateurs de la base de données de l'intranet et on place leur entité, nom et prénom (nettoyé des accents et tirés et mis en minuscule) dans un tableau
         $DBUsers = array();
         foreach ($em->getRepository('NoxIntranetUserBundle:User')->findAll() as $user) {
             $DBUsers[$user->getUsername()]['firstname'] = strtolower(str_replace('-', ' ', $this->wd_remove_accents($user->getFirstname())));
@@ -66,6 +68,7 @@ class NoxIntranetExtractRHHierarchie extends Controller {
                 //$userDB = $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => ucfirst(strtolower($objWorksheet->getCell('E' . $rowIndex)->getValue())), 'lastname' => $objWorksheet->getCell('D' . $rowIndex)->getValue()));
                 $userDB = $this->findUserInDB($objWorksheet->getCell('E' . $rowIndex)->getValue(), $objWorksheet->getCell('D' . $rowIndex)->getValue(), $DBUsers);
 
+                // Si l'utilisateur n'est pas trouvé dans la base de donnée de l'intranet on écris son nom dans le fichier de débugage.
                 if (empty($userDB)) {
                     fwrite($filehandller, ucfirst(strtolower($objWorksheet->getCell('E' . $rowIndex)->getValue())) . ' ' . $objWorksheet->getCell('D' . $rowIndex)->getValue() . "\n");
                     var_dump(strtolower($objWorksheet->getCell('E' . $rowIndex)->getValue()) . ' ' . $objWorksheet->getCell('D' . $rowIndex)->getValue());
@@ -122,6 +125,7 @@ class NoxIntranetExtractRHHierarchie extends Controller {
             }
         }
 
+        // Fermeture du fichier de débugage.
         fclose($filehandller);
 
         // On récupère les entités existantes pour les supprimer.
@@ -136,12 +140,15 @@ class NoxIntranetExtractRHHierarchie extends Controller {
 
     // Trouve l'entité utilisateur associé au Nom et au prénom passé en paramètres.
     function findUserInDB($firstname, $lastname, $DBUsers) {
+        // On supprime les accents et tirés du nom et du prénom et on les met en minuscule.
         $cleanFirstname = strtolower(str_replace('-', ' ', $firstname));
         $cleanLastname = strtolower(str_replace('-', ' ', $lastname));
 
+        // Pour chaque collaborateur de la base de données...
         foreach ($DBUsers as $user) {
+            // Si le nom et le prénom du collaborateur correspond à ceux passés en paramètres...
             if ($user['firstname'] === $cleanFirstname && $user['lastname'] === $cleanLastname) {
-                return $user['entity'];
+                return $user['entity']; // On retourne l'entitée du collaborateur.
             }
         }
     }
