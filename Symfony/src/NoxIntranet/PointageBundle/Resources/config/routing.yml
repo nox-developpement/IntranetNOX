@@ -122,3 +122,11 @@ nox_intranet_pointage_add_justificatif_file:
     path: /ressources/pointage/add-justificatif-files/{pointageId}
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:justificatifFilesUpload }
     
+nox_intranet_pointage_delete_justificatif_file:
+    path: /ressources/pointage/delete-justificatif-files/{justificatifId}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:deleteJustificatifFile }
+    
+nox_intranet_pointage_show_justificatif_file:
+    path: /ressources/pointage/show-justificatif-files/{justificatifId}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:showJustificatifFile }
+    

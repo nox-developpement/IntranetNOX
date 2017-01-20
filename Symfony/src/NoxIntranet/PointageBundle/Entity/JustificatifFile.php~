@@ -152,26 +152,4 @@ class JustificatifFile {
         return $this->content;
     }
 
-    /**
-     * Set tableau
-     *
-     * @param \NoxIntranet\PointageBundle\Entity\Tableau $tableau
-     *
-     * @return JustificatifFile
-     */
-    public function setTableau(\NoxIntranet\PointageBundle\Entity\Tableau $tableau) {
-        $this->tableau = $tableau;
-
-        return $this;
-    }
-
-    /**
-     * Get tableau
-     *
-     * @return \NoxIntranet\PointageBundle\Entity\Tableau
-     */
-    public function getTableau() {
-        return $this->tableau;
-    }
-
 }

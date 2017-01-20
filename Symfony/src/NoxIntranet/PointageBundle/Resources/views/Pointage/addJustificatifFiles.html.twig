@@ -9,14 +9,87 @@
         margin: 0;
         background-color: #BDBDBD;
     }
+
+    #addFile {
+        display: inline-block;
+        padding: 1em;
+        background: white;
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    form {
+        text-align: center;
+        margin: 0;
+        height: 100%;
+    }
+
+    #form_content {
+        margin: 1em;
+    }
+
+    label[for='form_content'] {
+        text-decoration: underline;
+    }
+
+    table {
+        background-color: white;
+        border-collapse: collapse;
+    }
+
+    table, table tr, table th, table td {
+        border: 1px solid black;
+    }
+
+    table th {
+        padding: 0.5em;
+        text-align: center;
+    }
+
+    table td {
+        text-align: center;
+    }
+
+    #tableDiv {
+        height: 175px;
+        overflow: auto;
+    }
+
+    #formDiv {
+        height: 175px;
+    }
 </style>
 
 <html>
-    <header>
+    <head>
         <title>Fichiers justificatifs</title>
-    </header>
+    </head>
 
     <body>
-
+        <div id='tableDiv'>
+            <table>
+                <tr>
+                    <th>Nom du fichier</th>
+                    <th>Voir</th>
+                    <th>Supprimer</th>
+                </tr>
+                {% for justificatif in justificatifFiles %}
+                    <tr>
+                        <td>{{ justificatif.name }}</td>
+                        <td><a href='{{ path('nox_intranet_pointage_show_justificatif_file', {justificatifId: justificatif.Id}) }}'>Voir</a></td>
+                        <td><a href='{{ path('nox_intranet_pointage_delete_justificatif_file', {justificatifId: justificatif.Id}) }}'><img src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Delete'></a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div id='formDiv'>
+            {{ form_start(formAddJustificatifFile) }}
+            <p id="addFile">
+                {{ form_label(formAddJustificatifFile.content) }}<br />
+                {{ form_widget(formAddJustificatifFile.content) }}<br />
+                {{ form_widget(formAddJustificatifFile.ajouter) }}
+            </p>
+            {{ form_end(formAddJustificatifFile) }}
+        </div>
     </body>
 </html>
