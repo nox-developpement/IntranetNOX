@@ -119,7 +119,7 @@ nox_intranet_pointage_access_collaborateur_pointage:
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:assistanteRemplissagePointage }
     
 nox_intranet_pointage_add_justificatif_file:
-    path: /ressources/pointage/add-justificatif-files/{pointageId}
+    path: /ressources/pointage/add-justificatif-files/{month}/{year}/{username}
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:justificatifFilesUpload }
     
 nox_intranet_pointage_delete_justificatif_file:

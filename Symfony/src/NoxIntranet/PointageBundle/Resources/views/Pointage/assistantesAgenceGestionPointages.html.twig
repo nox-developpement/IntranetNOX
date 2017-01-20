@@ -322,6 +322,10 @@
             </tr>
         </table>
 
+        <div id="divJustificatifs">
+            <button id="addJustificatifButton" class="boutonFormulaire" onclick="addJustificatifFile();">Ajouter/voir justificatif(s)</button>
+        </div>
+
         <table id='tableFeuillePointageSignature' style="display: none;">
             <tr>
                 <td style='border-width: 2px;'>Signature collaborateur</td>
@@ -2377,6 +2381,21 @@
                     $('#' + value).trigger('change'); // On déclanche le changement du sélécteur pour déclancher les fonctions associées.
                 }
             });
+        }
+
+        // Ouvre une fenêtre d'ajout/consultation des fichiers justificatifs associés au pointage.
+        function addJustificatifFile(pointageId) {
+            // On récupére les variables du pointage courant.
+            var month = $('#form_Month option:selected').val();
+            var year = $('#form_Year option:selected').val();
+            var username = $('#form_Pointage option:selected').val();
+
+            // On génére l'URL de la fênetre.
+            var urlTemplate = '{{ path('nox_intranet_pointage_add_justificatif_file', {month: 'MONTH', year: 'YEAR', username: 'USERNAME'}) }}';
+            var url = urlTemplate.replace('MONTH', month).replace('YEAR', year).replace('USERNAME', username);
+
+            // On ouvre la fênetre.
+            window.open(url, '_blank', 'height=350, width=500, top=30, left=30');
         }
     </script>
 {% endblock %}

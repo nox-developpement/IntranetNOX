@@ -2907,6 +2907,18 @@ input[type=text]:read-only {
     margin-top: 0px;
 }
 
+#divJustificatifs {
+    display: inline-block;
+    margin-left: 5%;
+    border: 2px solid black;
+    text-align: center;
+    padding: 1em;
+}
+
+#addJustificatifButton {
+    padding: 1em;
+}
+
 #tableFeuillePointageSignature, #tableFeuillePointageSignature th, #tableFeuillePointageSignature td {
     border: 1px solid black;
     border-collapse: collapse;

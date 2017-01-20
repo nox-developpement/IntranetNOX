@@ -554,10 +554,16 @@ class PointageController extends Controller {
     }
 
     // Permet l'envoi de fichiers justificatif associé au pointage.
-    public function justificatifFilesUploadAction(Request $request, $pointageId) {
+    public function justificatifFilesUploadAction(Request $request, $month, $year, $username) {
         $em = $this->getDoctrine()->getManager();
-        $pointage = $em->find('NoxIntranetPointageBundle:Tableau', $pointageId);
+        if (!is_numeric($username)) {
+            $pointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $username));
+        } else {
+            $pointage = $em->find('NoxIntranetPointageBundle:Tableau', $username);
+        }
         $justificatifFiles = $em->getRepository('NoxIntranetPointageBundle:JustificatifFile')->findByTableau($pointage);
+        var_dump($username);
+        var_dump(is_numeric($username));
 
         // Initialisation d'un nouveau justificatif.
         $newJustificatifFile = new JustificatifFile();
@@ -594,7 +600,7 @@ class PointageController extends Controller {
             $em->flush();
 
             // On redirige vers l'ajout de justificatif.
-            return $this->redirectToRoute('nox_intranet_pointage_add_justificatif_file', array('pointageId' => $pointageId));
+            return $this->redirectToRoute('nox_intranet_pointage_add_justificatif_file', array('month' => $month, 'year' => $year, 'username' => $username));
         }
 
         return $this->render('NoxIntranetPointageBundle:Pointage:addJustificatifFiles.html.twig', array('formAddJustificatifFile' => $formAddJustificatifFile->createView(), 'justificatifFiles' => $justificatifFiles));
@@ -606,15 +612,14 @@ class PointageController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $justificatifFile = $em->find('NoxIntranetPointageBundle:JustificatifFile', $justificatifId);
 
-        // On récupére l'ID du pointage associé au justificatif.
-        $pointageId = $justificatifFile->getTableau()->getId();
+        // On récupére le pointage associé au justificatif.
+        $pointage = $justificatifFile->getTableau();
 
         // On le supprime
         $em->remove($justificatifFile);
         $em->flush();
 
-        // On redirige vers l'ajout de justificatif.
-        return $this->redirectToRoute('nox_intranet_pointage_add_justificatif_file', array('pointageId' => $pointageId));
+        return $this->redirectToRoute('nox_intranet_pointage_add_justificatif_file', array('month' => $pointage->getMonth(), 'year' => $pointage->getYear(), 'username' => $pointage->getUser()));
     }
 
     // Permet de consulter un fichier justificatif associé au pointage.

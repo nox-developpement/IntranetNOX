@@ -275,10 +275,13 @@
                     <button type='button' id='sendTransportJustificatifFormButton' class='boutonFormulaire'>Envoyer un justificatif</button>
                     <button type='button' id='uploadLoaderButton' style="background-image: url('{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}'); ">Envoyer un justificatif</button>
                     <div id='deleteJustificatifButton'>Justificatif envoyé &#10004;<span id='downloadJustificatifButtonSpan'>Voir</span><span id='deleteJustificatifButtonSpan' onclick='ajaxDeleteJustificatifTransport();'>Supprimer</span></div>
-                    <div onclick="addJustificatifFile();">Envoyer un justificatif (test)</div>
                 </td>
             </tr>
         </table>
+
+        <div id="divJustificatifs">
+            <button id="addJustificatifButton" class="boutonFormulaire" onclick="addJustificatifFile();">Ajouter/voir justificatif(s)</button>
+        </div>
 
         <table id='tableFeuillePointageSignature' style="display: none;">
             <tr>
@@ -2230,8 +2233,18 @@
             });
         }
 
-        function addJustificatifFile() {
-            var url = '{{ path('nox_intranet_pointage_add_justificatif_file', {pointageId: '343'}) }}';
+        // Ouvre une fenêtre d'ajout/consultation des fichiers justificatifs associés au pointage.
+        function addJustificatifFile(pointageId) {
+            // On récupére les variables du pointage courant.
+            var month = $('#pointage_month_selector option:selected').val();
+            var year = $('#pointage_year_selector option:selected').val();
+            var username = '{{ user }}';
+
+            // On génére l'URL de la fênetre.
+            var urlTemplate = '{{ path('nox_intranet_pointage_add_justificatif_file', {month: 'MONTH', year: 'YEAR', username: 'USERNAME'}) }}';
+            var url = urlTemplate.replace('MONTH', month).replace('YEAR', year).replace('USERNAME', username);
+
+            // On ouvre la fênetre.
             window.open(url, '_blank', 'height=350, width=500, top=30, left=30');
         }
     </script>
