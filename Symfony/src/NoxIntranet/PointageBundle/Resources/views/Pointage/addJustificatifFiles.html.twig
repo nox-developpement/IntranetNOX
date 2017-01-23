@@ -35,6 +35,7 @@
     table {
         background-color: white;
         border-collapse: collapse;
+        width: 100%;
     }
 
     table, table tr, table th, table td {
@@ -73,10 +74,15 @@
                     <th>Voir</th>
                     <th>Supprimer</th>
                 </tr>
+                {% if justificatifFiles is empty %}
+                    <tr>
+                        <td colspan="3">Pas de justificatif</td>
+                    </tr>
+                {% endif %}
                 {% for justificatif in justificatifFiles %}
                     <tr>
                         <td>{{ justificatif.name }}</td>
-                        <td><a href='{{ path('nox_intranet_pointage_show_justificatif_file', {justificatifId: justificatif.Id}) }}'>Voir</a></td>
+                        <td><a target='_blank' href='{{ path('nox_intranet_pointage_show_justificatif_file', {justificatifId: justificatif.Id}) }}'><img src='{{ asset('bundles/noxintranetpointage/images/Read-Only-24.png') }}' alt='Read'></a></td>
                         <td><a href='{{ path('nox_intranet_pointage_delete_justificatif_file', {justificatifId: justificatif.Id}) }}'><img src='{{ asset('bundles/noxintranetpointage/images/Delete-24.png') }}' alt='Delete'></a></td>
                     </tr>
                 {% endfor %}

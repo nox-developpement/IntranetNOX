@@ -562,8 +562,6 @@ class PointageController extends Controller {
             $pointage = $em->find('NoxIntranetPointageBundle:Tableau', $username);
         }
         $justificatifFiles = $em->getRepository('NoxIntranetPointageBundle:JustificatifFile')->findByTableau($pointage);
-        var_dump($username);
-        var_dump(is_numeric($username));
 
         // Initialisation d'un nouveau justificatif.
         $newJustificatifFile = new JustificatifFile();
