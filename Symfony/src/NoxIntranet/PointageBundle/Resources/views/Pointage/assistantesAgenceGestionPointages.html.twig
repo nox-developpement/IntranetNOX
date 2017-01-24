@@ -794,38 +794,41 @@
                             $('#operationnel').attr('colspan', colspan + 1);
                         }
 
-                        if (data['nbProject'] !== undefined) {
-                            for (var i = 0; i < data['nbProject'] - 1; i++) {
-                                addTd();
-                                setColSpan();
+                        // Si le pointage contient des données.
+                        if (data !== null) {
+                            if (data['nbProject'] !== undefined) {
+                                for (var i = 0; i < data['nbProject'] - 1; i++) {
+                                    addTd();
+                                    setColSpan();
+                                }
                             }
-                        }
 
-                        $('#signatureCollaborateur').text(data['signatureCollaborateur']);
-                        if (data['contenteditable'] !== undefined) {
-                            $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
-                                $(this).text(data['contenteditable'][index]);
-                            });
-                        }
+                            $('#signatureCollaborateur').text(data['signatureCollaborateur']);
+                            if (data['contenteditable'] !== undefined) {
+                                $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
+                                    $(this).text(data['contenteditable'][index]);
+                                });
+                            }
 
-                        if (data['select'] !== undefined) {
-                            $('#tableFeuillePointage select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
-                                $(this).val(data['select'][index]);
-                            });
-                        }
+                            if (data['select'] !== undefined) {
+                                $('#tableFeuillePointage select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
+                                    $(this).val(data['select'][index]);
+                                });
+                            }
 
-                        if (data['project'] !== undefined) {
-                            $('.project[contenteditable=true]').each(function (index) {
-                                $(this).text(data['project'][index]);
-                            });
-                        }
+                            if (data['project'] !== undefined) {
+                                $('.project[contenteditable=true]').each(function (index) {
+                                    $(this).text(data['project'][index]);
+                                });
+                            }
 
-                        if (data['justificatifTransport'] !== undefined) {
-                            // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression, on attribut le lien de téléchargement du fichier au bouton d'affichage et on l'affiche.
-                            $('#sendTransportJustificatifFormButton').hide();
-                            $('#deleteJustificatifButtonSpan').attr('idjustificatif', data['justificatifTransport']);
-                            $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
-                            $('#deleteJustificatifButton').show();
+                            if (data['justificatifTransport'] !== undefined) {
+                                // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression, on attribut le lien de téléchargement du fichier au bouton d'affichage et on l'affiche.
+                                $('#sendTransportJustificatifFormButton').hide();
+                                $('#deleteJustificatifButtonSpan').attr('idjustificatif', data['justificatifTransport']);
+                                $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
+                                $('#deleteJustificatifButton').show();
+                            }
                         }
 
                         // On change la le mois et l'année indiqué sur la feuille de pointage.
@@ -1210,9 +1213,9 @@
                 if ($(this).val() === '1') {
                     // On change la couleur de fond des cases de forfaits déplacement et de primes panier voisines et efface leur valeurs.
                     $(this).parent('.titreRepasNumberSelector').siblings('.abscenceMatinSelector').find('select').val('');
-                    $(this).parent('.titreRepasNumberSelector').siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
+                    //$(this).parent('.titreRepasNumberSelector').siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
                     $(this).parent('.titreRepasNumberSelector').siblings('.abscenceAMSelector').find('select').val('');
-                    $(this).parent('.titreRepasNumberSelector').siblings('.abscenceAMSelector').find('select').attr('disabled', true);
+                    //$(this).parent('.titreRepasNumberSelector').siblings('.abscenceAMSelector').find('select').attr('disabled', true);
                     $(this).parent('.titreRepasNumberSelector').siblings('.forfaitsDeplacementMontant').text('');
                     $(this).parent('.titreRepasNumberSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
                     $(this).parent('.titreRepasNumberSelector').siblings('.primesPanierNumber').text('');
@@ -1222,8 +1225,8 @@
                 else {
                     $(this).parent('.titreRepasNumberSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'white');
                     $(this).parent('.titreRepasNumberSelector').siblings('.primesPanierNumber').css('background-color', 'white');
-                    $(this).parent('.titreRepasNumberSelector').siblings('.abscenceMatinSelector').find('select').attr('disabled', false);
-                    $(this).parent('.titreRepasNumberSelector').siblings('.abscenceAMSelector').find('select').attr('disabled', false);
+                    //$(this).parent('.titreRepasNumberSelector').siblings('.abscenceMatinSelector').find('select').attr('disabled', false);
+                    //$(this).parent('.titreRepasNumberSelector').siblings('.abscenceAMSelector').find('select').attr('disabled', false);
                 }
             });
 
