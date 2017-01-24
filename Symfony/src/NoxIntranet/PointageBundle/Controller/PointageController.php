@@ -125,7 +125,7 @@ class PointageController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         // Vérifie que l'utilistateur est une assistante d'agence.
-        if (in_array($securityName, $this->getUserWithStatus('AA')) /* || $this->get('security.context')->isGranted('ROLE_RH') */) {
+        if (in_array($securityName, $this->getUserWithStatus('AA')) || $this->get('security.context')->isGranted('ROLE_RH')) {
             // Génére les dates du mois courant.
             $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
             $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
@@ -141,11 +141,11 @@ class PointageController extends Controller {
             $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
             // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
-            /* if ($this->get('security.context')->isGranted('ROLE_RH')) {
-              // On récupére tous les utilisateurs.
-              $userStatus = 'roleRH';
-              $users = $this->getUsersByStatus($userStatus, $securityName);
-              } else */ if (in_array($securityName, $this->getUserWithStatus('AA'))) {
+            if ($this->get('security.context')->isGranted('ROLE_RH')) {
+                // On récupére tous les utilisateurs.
+                $userStatus = 'roleRH';
+                $users = $this->getUsersByStatus($userStatus, $securityName);
+            } else if (in_array($securityName, $this->getUserWithStatus('AA'))) {
                 $userStatus = 'AA';
                 $users = $this->getUsersByStatus($userStatus, $securityName);
             }
@@ -156,11 +156,11 @@ class PointageController extends Controller {
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
                     $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
-            } /* else {
-              foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
-              $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
-              }
-              } */
+            } {
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
+                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                }
+            }
 
             // Trie du tableau des établissements.
             asort($etablissements);
@@ -243,9 +243,9 @@ class PointageController extends Controller {
         $templateTitle = array('AA' => 'Assistant(e) agence - Correction/Validation compilation', 'DAManager' => 'DA/Manager - Correction/Validation compilation', 'RH' => 'Assistant(e) RH - Correction/Validation compilation', 'Final' => 'Compilations validées');
 
         // Si l'utilisateur à le statut correspondant à l'étape de validation on lui attribut ce statut.
-        /* if ($this->get('security.context')->isGranted('ROLE_RH')) {
-          $userStatus = 'roleRH';
-          } else */ if (in_array($securityName, $authorizedUsers)) {
+        if ($this->get('security.context')->isGranted('ROLE_RH')) {
+            $userStatus = 'roleRH';
+        } else if (in_array($securityName, $authorizedUsers)) {
             $userStatus = $validationStep;
         }
         // Si l'utilisateur n'as pas les droits suffisant on le redirige vers l'accueil.
