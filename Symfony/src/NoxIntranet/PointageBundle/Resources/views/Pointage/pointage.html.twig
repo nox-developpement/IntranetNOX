@@ -306,6 +306,8 @@
         {{ form_end(form) }}
     </div>
 
+    <button onclick="ajaxDownloadCSV();">CSV</button>
+
     <script>
         $(window).load(function () {
             IECheck();
@@ -2246,6 +2248,41 @@
 
             // On ouvre la fênetre.
             window.open(url, '_blank', 'height=350, width=500, top=30, left=30');
+        }
+
+        function ajaxDownloadCSV() {
+            // On récupére le tableau du pointage.
+            var pointageTable = $('#tableFeuillePointage');
+
+            // Initialisation d'un objet qui contiendra les données du tableau.
+            var tableData = {};
+
+            // On récupére les lignes du tableau.
+            var tableLines = pointageTable.find('tr');
+            
+            console.log(tableLines);
+
+            // Pour chaque ligne...
+            tableLines.each(function (index) {
+                
+                console.log($(this));
+                
+                
+                // On récupére le cellules de la ligne.
+                var lineCells = $(this).find('td');
+
+                // On initalise un tableau pour les valeurs des cellules.
+                var cellsContent = [];
+
+                // Pour chaques cellules...
+                lineCells.each(function () {
+                    cellsContent.push($(this).text());
+                });
+
+                tableData[index] = cellsContent;
+            });
+
+            console.log(tableData);
         }
     </script>
 

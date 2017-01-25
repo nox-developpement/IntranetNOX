@@ -913,4 +913,10 @@ class PointageAjaxController extends Controller {
         }
     }
 
+    function ajaxDownloadCSV(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            
+        }
+    }
+
 }
