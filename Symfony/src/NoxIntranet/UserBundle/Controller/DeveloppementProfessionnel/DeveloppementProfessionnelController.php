@@ -42,8 +42,8 @@ class DeveloppementProfessionnelController extends Controller {
         $statutHierarchie = array(
             'Collaborateur' => $collaborateur->getUsername(),
             'N2' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $n2)[0], 'lastname' => explode(' ', $n2)[1]))->getUsername(),
-            'DRH' => 't.besson',
-            'Synthèse' => 't.besson'
+            'DRH' => 'n.rigaudeau',
+            'Synthèse' => 'n.rigaudeau'
         );
 
         // Fonction de sortie si visite non autorisé.
