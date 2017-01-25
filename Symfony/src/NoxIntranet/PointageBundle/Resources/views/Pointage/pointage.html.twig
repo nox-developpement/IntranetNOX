@@ -2259,15 +2259,9 @@
 
             // On récupére les lignes du tableau.
             var tableLines = pointageTable.find('tr');
-            
-            console.log(tableLines);
 
             // Pour chaque ligne...
             tableLines.each(function (index) {
-                
-                console.log($(this));
-                
-                
                 // On récupére le cellules de la ligne.
                 var lineCells = $(this).find('td');
 
@@ -2276,13 +2270,28 @@
 
                 // Pour chaques cellules...
                 lineCells.each(function () {
-                    cellsContent.push($(this).text());
+                    // Si la cellule contient un sélécteur...
+                    if ($(this).find('select').length > 0) {
+                        cellsContent.push($.trim($(this).find('select option:selected').text())); // On récupére la valeur du sélécteur.
+                    }
+                    // Sinon...
+                    else {
+                        cellsContent.push($.trim($(this).text())); // On récupére le contenu de la cellule.
+                    }
                 });
 
+                // On place les données de la ligne dans le tableau des données.
                 tableData[index] = cellsContent;
             });
 
-            console.log(tableData);
+            // On transforme les données en format JSON.
+            var jsonData = JSON.stringify(tableData);
+
+            $.ajax({
+                url: '{{ path('nox_intranet_pointage_download_csv') }}',
+                data: {tableData: jsonData}
+            });
+
         }
     </script>
 

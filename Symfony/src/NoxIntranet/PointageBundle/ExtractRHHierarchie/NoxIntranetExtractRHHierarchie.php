@@ -37,6 +37,9 @@ class NoxIntranetExtractRHHierarchie extends Controller {
         // Initialise le manager de base de données.
         $em = $this->getDoctrine()->getManager();
 
+        // On récupére le fichier de hiérarchie depuis le SharePoint de Laurent Morisseau.
+        file_put_contents($root . '/web/uploads/FichierHierarchieRH/HierarchieRH.xlsx', fopen("https://noxingenierie-my.sharepoint.com/personal/l_morisseau_groupe-nox_com/_layouts/15/download.aspx?docid=184616442030a4a6d8cd9b17a0fb1d49c&authkey=Ad7IJouU8hNjIhh7c8xZpe4", 'r'));
+
         // Chemin du fichier de management hiérarchique de la RH.
         $fichierRH = $root . '/web/uploads/FichierHierarchieRH/HierarchieRH.xlsx';
         //$fichierRH = "Y:/5_Partage/T.Besson/Validation Manager WF RF MAJ NR 300516.xlsx";

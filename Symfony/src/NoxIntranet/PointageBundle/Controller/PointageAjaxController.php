@@ -913,9 +913,23 @@ class PointageAjaxController extends Controller {
         }
     }
 
-    function ajaxDownloadCSV(Request $request) {
+    function ajaxDownloadCSVAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
-            
+            $tableData = $request->get('tableData');
+
+            $tableDataArray = json_decode($tableData, true);
+
+            var_dump($tableDataArray);
+
+            $newCSVFiile = fopen('testCVS.csv', 'w+');
+
+            foreach ($tableDataArray as $line) {
+                fputcsv($newCSVFiile, $line);
+            }
+
+            fclose($newCSVFiile);
+
+            return new Response('Ok');
         }
     }
 
