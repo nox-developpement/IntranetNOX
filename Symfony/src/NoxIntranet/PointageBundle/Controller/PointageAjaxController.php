@@ -839,7 +839,7 @@ class PointageAjaxController extends Controller {
     public function ajaxExportToExcelAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // On récupére le contenu du tableau est les cellules qui doivent êtres mergées.
-            $tableContent = $request->get('tableContent');
+            $tableContent = json_decode($request->get('tableContent'), true);
             $cellWithColspan = $request->get('cellWithColspan');
             $cellWithRowspan = $request->get('cellWithRowspan');
 
@@ -861,7 +861,7 @@ class PointageAjaxController extends Controller {
 
                 // On applique des bordures, couleur de fond et couleur de texte à la cellule du tableau Excel si besoin.
                 $default_border = array(
-                    'style' => $cell['border'] === 'false' ? \PHPExcel_Style_Border::BORDER_NONE : \PHPExcel_Style_Border::BORDER_THIN,
+                    'style' => (!array_key_exists('border', $cell) || $cell['border']) === 'false' ? \PHPExcel_Style_Border::BORDER_NONE : \PHPExcel_Style_Border::BORDER_THIN,
                     'color' => array('rgb' => '000000')
                 );
                 $style_header = array(
@@ -891,17 +891,21 @@ class PointageAjaxController extends Controller {
             $objPHPExcel->getActiveSheet()->calculateColumnWidths();
 
             // Pour chaque cellule devant être mergé horizontalement...
-            foreach ($cellWithColspan as $cell) {
-                // On merge la cellule avec ses cellules soeurs.
-                // $objPHPExcel->getActiveSheet()->getStyleByColumnAndRow($cell['column'], $cell['line'] + 1)
-                $objPHPExcel->getActiveSheet()->mergeCellsByColumnAndRow($cell['column'], $cell['line'] + 1, $cell['column'] + $cell['colspan'], $cell['line'] + 1);
+            if (!empty($cellWithColspan)) {
+                foreach ($cellWithColspan as $cell) {
+                    // On merge la cellule avec ses cellules soeurs.
+                    // $objPHPExcel->getActiveSheet()->getStyleByColumnAndRow($cell['column'], $cell['line'] + 1)
+                    $objPHPExcel->getActiveSheet()->mergeCellsByColumnAndRow($cell['column'], $cell['line'] + 1, $cell['column'] + $cell['colspan'], $cell['line'] + 1);
+                }
             }
 
             // Pour chaque cellule devant être mergé verticalement...
-            foreach ($cellWithRowspan as $cell) {
-                $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($cell['column'])->setAutoSize(false);
-                // On merge la cellule avec ses cellules soeurs.
-                $objPHPExcel->getActiveSheet()->mergeCellsByColumnAndRow($cell['column'], $cell['line'] + 1, $cell['column'], $cell['line'] + 1 + $cell['rowspan']);
+            if (!empty($cellWithRowspan)) {
+                foreach ($cellWithRowspan as $cell) {
+                    $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($cell['column'])->setAutoSize(false);
+                    // On merge la cellule avec ses cellules soeurs.
+                    $objPHPExcel->getActiveSheet()->mergeCellsByColumnAndRow($cell['column'], $cell['line'] + 1, $cell['column'], $cell['line'] + 1 + $cell['rowspan']);
+                }
             }
 
             // On sauvegarde le tableau sous forme de fichier Excel 2007.

@@ -2221,7 +2221,7 @@
             $.ajax({
                 url: '{{ path('nox_intranet_pointage_ajax_export_to_excel') }}',
                 type: 'POST',
-                data: {tableContent: tableContent, cellWithColspan: cellWithColspan, cellWithRowspan: cellWithRowspan},
+                data: {tableContent: JSON.stringify(tableContent), cellWithColspan: cellWithColspan, cellWithRowspan: cellWithRowspan},
                 success: function (response) {
                     var fileInfo = JSON.parse(response);
                     console.log(fileInfo);
