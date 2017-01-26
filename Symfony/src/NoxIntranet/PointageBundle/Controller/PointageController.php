@@ -640,4 +640,33 @@ class PointageController extends Controller {
         return $response;
     }
 
+    // Lance le téléchargement du fichier CSV dont le nom est passé en paramètre.
+    public function downloadCSVAction($fileName) {
+        // On récupére la racine du serveur web.
+        $root = $this->get('kernel')->getRootDir() . '\..\web\\';
+
+        // On génére le chemin du fichier à retourner.
+        $filePath = $root . $fileName;
+
+        // On ouvre le fichier.
+        $CSVFileHandler = fopen($filePath, 'r');
+
+        // On récupére les données du fichier.
+        $file = stream_get_contents($CSVFileHandler);
+
+        // On ferme le fichier.
+        fclose($CSVFileHandler);
+
+        // On supprime le fichier.
+        unlink($filePath);
+
+        // Initialisation de la réponse.
+        $response = new Response($file, 200);
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', "filename='" . 'testCVS.csv' . "'");
+
+        // On retourne le téléchargement du fichier.
+        return $response;
+    }
+
 }

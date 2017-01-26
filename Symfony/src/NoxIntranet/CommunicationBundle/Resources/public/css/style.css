@@ -71,6 +71,7 @@ footer {
     background-color: rgb(31,78,121);
     text-align: center;
     box-shadow: 0px -10px 10px white;
+    z-index: 1000;
 }
 
 footer div {

@@ -922,7 +922,7 @@ class PointageAjaxController extends Controller {
     }
 
     // Supprime un fichier excel d'export.
-    function ajaxDeleteExcelFileAction(Request $request) {
+    public function ajaxDeleteExcelFileAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $filename = $request->get('filename');
 
@@ -933,30 +933,36 @@ class PointageAjaxController extends Controller {
         }
     }
 
-    function ajaxDownloadCSVAction(Request $request) {
+    // Génére un fichier CSV et retourne son lien de téléchargement.
+    public function ajaxDownloadCSVAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
+            // On récupére les données du pointage.
             $tableData = $request->get('tableData');
 
+            // On convertie les données JSON en Array.
             $tableDataArray = json_decode($tableData, true);
 
-            $newCSVFiile = fopen('testCVS.csv', 'w+');
+            $root = $this->get('kernel')->getRootDir() . '\..\web\\';
 
+            // On génére un chemin pour le fichier CSV.
+            $newCSVFile = tempnam($root, '');
+
+            // On ouvre le fichier.
+            $newCSVFileHandler = fopen($newCSVFile, 'w+');
+
+            // On injecte les données dans le fichier.
             foreach ($tableDataArray as $line) {
-                fputcsv($newCSVFiile, $line);
+                fputcsv($newCSVFileHandler, $line);
             }
 
-            fclose($newCSVFiile);
+            // On ferme le fichier.
+            fclose($newCSVFileHandler);
 
+            // On génére le lien de téléchargement avec le nom du fichier en paramètre.
+            $downloadUrl = $this->generateUrl('nox_intranet_pointage_download_csv', array('fileName' => pathinfo($newCSVFile, PATHINFO_BASENAME)));
 
-            // On récupére le fichier.
-            $file = stream_get_contents($newCSVFiile);
-
-            // Initialisation de la réponse.
-            $response = new Response($file, 200);
-            $response->headers->set('Content-Type', 'csv');
-            $response->headers->set('Content-Disposition', "filename='" . 'testCVS.csv' . "'");
-
-            return $response;
+            // On retourne le chemin du fichier.
+            return new Response($downloadUrl);
         }
     }
 

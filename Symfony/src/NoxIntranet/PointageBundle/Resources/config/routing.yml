@@ -130,7 +130,11 @@ nox_intranet_pointage_show_justificatif_file:
     path: /ressources/pointage/show-justificatif-files/{justificatifId}
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:showJustificatifFile }
     
-nox_intranet_pointage_download_csv:
-    path: /ressources/pointage/download-csv
+nox_intranet_pointage_ajax_download_csv:
+    path: /ressources/pointage/ajax-download-csv
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDownloadCSV }
+    
+nox_intranet_pointage_download_csv:
+    path: /ressources/pointage/download-csv/{fileName}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:downloadCSV }
     

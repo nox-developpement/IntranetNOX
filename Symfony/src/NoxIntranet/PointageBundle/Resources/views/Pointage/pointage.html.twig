@@ -306,7 +306,7 @@
         {{ form_end(form) }}
     </div>
 
-    <button style="display: none;" onclick="ajaxDownloadCSV();">CSV</button>
+    <button onclick="ajaxDownloadCSV();">CSV</button>
 
     <script>
         $(window).load(function () {
@@ -2250,6 +2250,7 @@
             window.open(url, '_blank', 'height=350, width=500, top=30, left=30');
         }
 
+        // Permet de générer et télécharger un export CSV du pointage.
         function ajaxDownloadCSV() {
             // On récupére le tableau du pointage.
             var pointageTable = $('#tableFeuillePointage');
@@ -2287,14 +2288,15 @@
             // On transforme les données en format JSON.
             var jsonData = JSON.stringify(tableData);
 
+            // Requette Ajax pour générer un fichier CSV et le télécharger.
             $.ajax({
-                url: '{{ path('nox_intranet_pointage_download_csv') }}',
+                url: '{{ path('nox_intranet_pointage_ajax_download_csv') }}',
                 data: {tableData: jsonData},
                 success: function (response) {
-                    console.log(response);
+                    window.location.href = response; // On redirige vers le lien de téléchargement.
+
                 }
             });
-
         }
     </script>
 
