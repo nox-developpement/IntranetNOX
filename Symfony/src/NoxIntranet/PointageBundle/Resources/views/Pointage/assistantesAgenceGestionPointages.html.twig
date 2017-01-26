@@ -999,7 +999,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                        data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData}
+                        data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, user: $('form_Pointage option:selected').val()}
                     });
                 });
             }
@@ -1579,7 +1579,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                    data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
+                    data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text(), user: $('form_Pointage option:selected').val()}
                 });
 
                 /*$('td[contenteditable]').unbind('blur');

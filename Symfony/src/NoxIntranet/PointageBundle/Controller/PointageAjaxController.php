@@ -95,35 +95,51 @@ class PointageAjaxController extends Controller {
     // Sauvegarde le contenu des cellules du tableau en fonction de l'utilisateur et de la date.
     public function ajaxSaveDataAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
+            // On récupére les informations du pointage.
             $month = $request->get('month');
             $year = $request->get('year');
             $data = $request->get('data');
             $signatureCollaborateur = $request->get('signatureCollaborateur');
 
+            // Initialisation de l'entity manager.
             $em = $this->getDoctrine()->getManager();
 
+            // Si le collaborateur du pointage est renseigné...
             if ($request->get('user') !== '' && $request->get('user') !== null) {
-                $user = $request->get('user');
-            } else {
-                $user = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
+                // Si l'Id de son entité est fourni...
+                if (is_numeric($request->get('user'))) {
+                    $user = $em->find('NoxIntranetUserBundle:User', $request->get('user'))->getUsername(); // On récupére son username depuis son entité.
+                }
+                // Sinon...
+                else {
+                    $user = $request->get('user'); // On récupére directement l'username.
+                }
+            }
+            // Si le collaborateur n'est pas renseigné...
+            else {
+                $user = $this->get('security.token_storage')->getToken()->getUser()->getUsername(); // On récupére l'username du collaborateur courant.
             }
 
-            var_dump($user);
-
+            // On récupére les données du pointage si il existe.
             $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user, 'month' => $month, 'year' => $year));
 
+            // Si le pointage n'existe pas...
             if (empty($tableData)) {
+                // On crée un nouveau pointage.
                 $tableData = new Tableau();
 
+                // On attribut les informations.
                 $tableData->setUser($user);
                 $tableData->setMonth($month);
                 $tableData->setYear($year);
                 $tableData->setStatus(0);
             }
 
+            // On lui attribut ses données.
             $tableData->setData($data);
             $tableData->setSignatureCollaborateur($signatureCollaborateur);
 
+            // On sauvegarde le pointage en base de données.
             $em->persist($tableData);
             $em->flush();
 
@@ -919,8 +935,6 @@ class PointageAjaxController extends Controller {
 
             $tableDataArray = json_decode($tableData, true);
 
-            var_dump($tableDataArray);
-
             $newCSVFiile = fopen('testCVS.csv', 'w+');
 
             foreach ($tableDataArray as $line) {
@@ -929,7 +943,16 @@ class PointageAjaxController extends Controller {
 
             fclose($newCSVFiile);
 
-            return new Response('Ok');
+
+            // On récupére le fichier.
+            $file = stream_get_contents($newCSVFiile);
+
+            // Initialisation de la réponse.
+            $response = new Response($file, 200);
+            $response->headers->set('Content-Type', 'csv');
+            $response->headers->set('Content-Disposition', "filename='" . 'testCVS.csv' . "'");
+
+            return $response;
         }
     }
 

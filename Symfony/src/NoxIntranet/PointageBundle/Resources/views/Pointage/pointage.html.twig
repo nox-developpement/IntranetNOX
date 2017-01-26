@@ -306,7 +306,7 @@
         {{ form_end(form) }}
     </div>
 
-    <button onclick="ajaxDownloadCSV();">CSV</button>
+    <button style="display: none;" onclick="ajaxDownloadCSV();">CSV</button>
 
     <script>
         $(window).load(function () {
@@ -2289,7 +2289,10 @@
 
             $.ajax({
                 url: '{{ path('nox_intranet_pointage_download_csv') }}',
-                data: {tableData: jsonData}
+                data: {tableData: jsonData},
+                success: function (response) {
+                    console.log(response);
+                }
             });
 
         }
