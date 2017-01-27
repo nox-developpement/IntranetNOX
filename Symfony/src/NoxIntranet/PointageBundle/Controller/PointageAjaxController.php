@@ -95,33 +95,51 @@ class PointageAjaxController extends Controller {
     // Sauvegarde le contenu des cellules du tableau en fonction de l'utilisateur et de la date.
     public function ajaxSaveDataAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
+            // On récupére les informations du pointage.
             $month = $request->get('month');
             $year = $request->get('year');
             $data = $request->get('data');
             $signatureCollaborateur = $request->get('signatureCollaborateur');
 
+            // Initialisation de l'entity manager.
             $em = $this->getDoctrine()->getManager();
 
+            // Si le collaborateur du pointage est renseigné...
             if ($request->get('user') !== '' && $request->get('user') !== null) {
-                $user = $request->get('user');
-            } else {
-                $user = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
+                // Si l'Id de son entité est fourni...
+                if (is_numeric($request->get('user'))) {
+                    $user = $em->find('NoxIntranetUserBundle:User', $request->get('user'))->getUsername(); // On récupére son username depuis son entité.
+                }
+                // Sinon...
+                else {
+                    $user = $request->get('user'); // On récupére directement l'username.
+                }
+            }
+            // Si le collaborateur n'est pas renseigné...
+            else {
+                $user = $this->get('security.token_storage')->getToken()->getUser()->getUsername(); // On récupére l'username du collaborateur courant.
             }
 
+            // On récupére les données du pointage si il existe.
             $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user, 'month' => $month, 'year' => $year));
 
+            // Si le pointage n'existe pas...
             if (empty($tableData)) {
+                // On crée un nouveau pointage.
                 $tableData = new Tableau();
 
+                // On attribut les informations.
                 $tableData->setUser($user);
                 $tableData->setMonth($month);
                 $tableData->setYear($year);
                 $tableData->setStatus(0);
             }
 
+            // On lui attribut ses données.
             $tableData->setData($data);
             $tableData->setSignatureCollaborateur($signatureCollaborateur);
 
+            // On sauvegarde le pointage en base de données.
             $em->persist($tableData);
             $em->flush();
 
@@ -134,12 +152,12 @@ class PointageAjaxController extends Controller {
     public function ajaxGetDataAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $month = $request->get('month'); // Le mois du pointage.
-            $year = $request->get('year'); // L'année du pointage.
-
-            $user = $this->get('security.token_storage')->getToken()->getUser(); // On récupére l'entitée de l'utilisateur courant.
+            $year = $request->get('year'); // L'année du pointage.          
+            $user = $request->get('username'); // On récupére l'entitée de l'utilisateur courant.
+            //
             // On récupére le pointage correspondant au mois, à l'année et au collaborateur.
             $em = $this->getDoctrine()->getManager();
-            $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user->getUsername(), 'month' => $month, 'year' => $year));
+            $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user, 'month' => $month, 'year' => $year));
 
             // Si le pointage existe...
             if (!empty($tableData)) {
@@ -578,6 +596,7 @@ class PointageAjaxController extends Controller {
                                 }
                                 $objWorksheet->getCell('J' . $rowAbsence)->setValue(trim($absenceValue)); // On écris la/les valeur(s) d'absence(s).
                                 $objWorksheet->getCell('K' . $rowAbsence)->setValue($nbAbsence); // On écris la/les valeur(s) d'absence(s).
+                                $objWorksheet->getCell('L' . $rowAbsence)->setValue($absence['commentaires']); // On écris la/les valeur(s) d'absence(s).
                                 $rowAbsence++;
                             }
                         }
@@ -820,7 +839,7 @@ class PointageAjaxController extends Controller {
     public function ajaxExportToExcelAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // On récupére le contenu du tableau est les cellules qui doivent êtres mergées.
-            $tableContent = $request->get('tableContent');
+            $tableContent = json_decode($request->get('tableContent'), true);
             $cellWithColspan = $request->get('cellWithColspan');
             $cellWithRowspan = $request->get('cellWithRowspan');
 
@@ -842,7 +861,7 @@ class PointageAjaxController extends Controller {
 
                 // On applique des bordures, couleur de fond et couleur de texte à la cellule du tableau Excel si besoin.
                 $default_border = array(
-                    'style' => $cell['border'] === 'false' ? \PHPExcel_Style_Border::BORDER_NONE : \PHPExcel_Style_Border::BORDER_THIN,
+                    'style' => (!array_key_exists('border', $cell) || $cell['border']) === 'false' ? \PHPExcel_Style_Border::BORDER_NONE : \PHPExcel_Style_Border::BORDER_THIN,
                     'color' => array('rgb' => '000000')
                 );
                 $style_header = array(
@@ -872,17 +891,21 @@ class PointageAjaxController extends Controller {
             $objPHPExcel->getActiveSheet()->calculateColumnWidths();
 
             // Pour chaque cellule devant être mergé horizontalement...
-            foreach ($cellWithColspan as $cell) {
-                // On merge la cellule avec ses cellules soeurs.
-                // $objPHPExcel->getActiveSheet()->getStyleByColumnAndRow($cell['column'], $cell['line'] + 1)
-                $objPHPExcel->getActiveSheet()->mergeCellsByColumnAndRow($cell['column'], $cell['line'] + 1, $cell['column'] + $cell['colspan'], $cell['line'] + 1);
+            if (!empty($cellWithColspan)) {
+                foreach ($cellWithColspan as $cell) {
+                    // On merge la cellule avec ses cellules soeurs.
+                    // $objPHPExcel->getActiveSheet()->getStyleByColumnAndRow($cell['column'], $cell['line'] + 1)
+                    $objPHPExcel->getActiveSheet()->mergeCellsByColumnAndRow($cell['column'], $cell['line'] + 1, $cell['column'] + $cell['colspan'], $cell['line'] + 1);
+                }
             }
 
             // Pour chaque cellule devant être mergé verticalement...
-            foreach ($cellWithRowspan as $cell) {
-                $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($cell['column'])->setAutoSize(false);
-                // On merge la cellule avec ses cellules soeurs.
-                $objPHPExcel->getActiveSheet()->mergeCellsByColumnAndRow($cell['column'], $cell['line'] + 1, $cell['column'], $cell['line'] + 1 + $cell['rowspan']);
+            if (!empty($cellWithRowspan)) {
+                foreach ($cellWithRowspan as $cell) {
+                    $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($cell['column'])->setAutoSize(false);
+                    // On merge la cellule avec ses cellules soeurs.
+                    $objPHPExcel->getActiveSheet()->mergeCellsByColumnAndRow($cell['column'], $cell['line'] + 1, $cell['column'], $cell['line'] + 1 + $cell['rowspan']);
+                }
             }
 
             // On sauvegarde le tableau sous forme de fichier Excel 2007.
@@ -898,7 +921,8 @@ class PointageAjaxController extends Controller {
         }
     }
 
-    function ajaxDeleteExcelFileAction(Request $request) {
+    // Supprime un fichier excel d'export.
+    public function ajaxDeleteExcelFileAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $filename = $request->get('filename');
 
@@ -906,6 +930,39 @@ class PointageAjaxController extends Controller {
             unlink($root . '/web/' . $filename);
 
             return new Response('Deleted');
+        }
+    }
+
+    // Génére un fichier CSV et retourne son lien de téléchargement.
+    public function ajaxDownloadCSVAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupére les données du pointage.
+            $tableData = $request->get('tableData');
+
+            // On convertie les données JSON en Array.
+            $tableDataArray = json_decode($tableData, true);
+
+            $root = $this->get('kernel')->getRootDir() . '\..\web\\';
+
+            // On génére un chemin pour le fichier CSV.
+            $newCSVFile = tempnam($root, '');
+
+            // On ouvre le fichier.
+            $newCSVFileHandler = fopen($newCSVFile, 'w+');
+
+            // On injecte les données dans le fichier.
+            foreach ($tableDataArray as $line) {
+                fputcsv($newCSVFileHandler, $line);
+            }
+
+            // On ferme le fichier.
+            fclose($newCSVFileHandler);
+
+            // On génére le lien de téléchargement avec le nom du fichier en paramètre.
+            $downloadUrl = $this->generateUrl('nox_intranet_pointage_download_csv', array('fileName' => pathinfo($newCSVFile, PATHINFO_BASENAME)));
+
+            // On retourne le chemin du fichier.
+            return new Response($downloadUrl);
         }
     }
 

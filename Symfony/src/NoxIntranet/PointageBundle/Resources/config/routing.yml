@@ -1,6 +1,6 @@
 nox_intranet_pointage:
-    path:     /ressources/rh/pointage
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:accueil }
+    path:     /ressources/rh/pointage/{collaborateurExterne}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:accueil, collaborateurExterne: '' }
     
 nox_intranet_pointage_ajax_set_date:
     path:     /ressources/pointage-ajax-set-date
@@ -113,4 +113,28 @@ nox_intranet_pointage_ajax_export_to_excel:
 nox_intranet_pointage_ajax_delete_excel_file:
     path: /ressources/ajax-delete_excel_file
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDeleteExcelFile }
+    
+nox_intranet_pointage_access_collaborateur_pointage:
+    path: /ressources/access-collaborateur-pointage
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:assistanteRemplissagePointage }
+    
+nox_intranet_pointage_add_justificatif_file:
+    path: /ressources/pointage/add-justificatif-files/{month}/{year}/{username}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:justificatifFilesUpload }
+    
+nox_intranet_pointage_delete_justificatif_file:
+    path: /ressources/pointage/delete-justificatif-files/{justificatifId}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:deleteJustificatifFile }
+    
+nox_intranet_pointage_show_justificatif_file:
+    path: /ressources/pointage/show-justificatif-files/{justificatifId}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:showJustificatifFile }
+    
+nox_intranet_pointage_ajax_download_csv:
+    path: /ressources/pointage/ajax-download-csv
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDownloadCSV }
+    
+nox_intranet_pointage_download_csv:
+    path: /ressources/pointage/download-csv/{fileName}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:downloadCSV }
     

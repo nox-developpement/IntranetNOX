@@ -71,6 +71,7 @@ footer {
     background-color: rgb(31,78,121);
     text-align: center;
     box-shadow: 0px -10px 10px white;
+    z-index: 1000;
 }
 
 footer div {
@@ -2820,8 +2821,13 @@ input[type=text]:read-only {
     border-right: 1px solid black !important;
 }
 
-#tableFeuillePointage, #tableFeuillePointage select {
+#tableFeuillePointage {
     width: 100%;
+    font-size: 0.7vw;
+    white-space: nowrap;
+}
+
+#tableFeuillePointage select {
     font-size: 0.7vw;
     white-space: nowrap;
 }
@@ -2900,6 +2906,18 @@ input[type=text]:read-only {
     margin-left: 5%;
     vertical-align: top;
     margin-top: 0px;
+}
+
+#divJustificatifs {
+    display: inline-block;
+    margin-left: 5%;
+    border: 2px solid black;
+    text-align: center;
+    padding: 1em;
+}
+
+#addJustificatifButton {
+    padding: 1em;
 }
 
 #tableFeuillePointageSignature, #tableFeuillePointageSignature th, #tableFeuillePointageSignature td {

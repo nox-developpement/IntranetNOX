@@ -12,6 +12,13 @@
 
     <div id='pointageSavingNotification' style='display: none; position: fixed; z-index: 500; background-color: rgba(41,154,11, 0.7); border: 1px outset white; border-radius: 10px; padding: 0.5%;'><p style='display: inline-block; margin: 0; font-size: 0.8vw; color: white;'>Sauvegarde en cours <img src='{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}' style='vertical-align: middle; height: 2em;'></p></div>
 
+    <p id="validationStepNavigator" style="width: 70%; margin: auto; margin-top: 0; text-align: center;">
+        <a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}">Assistant(e) agence: Validation pointages</a> |
+        <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'AA'}) }}">Assistant(e)s agence - Correction/Validation compilation</a> |
+        <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'DAManager'}) }}">DA/Manager - Correction/Validation compilation</a> |
+        <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'Final'}) }}">Consultation des compilations validées</a>
+    </p>
+
     <div class="pointageSelectionDateCompilation">
 
         {{ form_start(form) }}
@@ -115,6 +122,8 @@
             });
             absencesToggle();
             ajaxSaveCompilationData();
+            setSavedDateAndAgency();
+            getSavedDateAndAgency();
         });
 
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
@@ -791,6 +800,36 @@
                 data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}', etablissement: $('#form_Etablissement').val()},
                 success: function (response) {
                     window.location = response; // Redirige vers l'URL du fichier à télécharger.
+                }
+            });
+        }
+
+        // Sauvegarde la valeur des sélécteur dans les cookies lors des changements.
+        function setSavedDateAndAgency() {
+            // Temps d'expiration du cookie (1 heure).
+            var inOneHour = new Date(new Date().getTime() + 60 * 60 * 1000);
+
+            // Lorqu'on change la date ou l'établissement...
+            $('#form_Month, #form_Year, #form_Etablissement').change(function () {
+                // Si il existe un cookie pour le sélécteur...
+                if (Cookies.get($(this).attr('id')) !== undefined) {
+                    Cookies.remove($(this).attr('id')); // On le supprime
+                }
+                Cookies.set($(this).attr('id'), $(this).val(), {expires: inOneHour}); // On crée un cookie avec la nom et la valeur du sélécteur.
+            });
+        }
+
+        // Récupére les valeurs des cookies des sélécteurs.
+        function getSavedDateAndAgency() {
+            // Initialisation de la liste des sélécteurs.
+            var selectors = ['form_Month', 'form_Year', 'form_Etablissement'];
+
+            // Pour chaques sélécteurs...
+            $.each(selectors, function (index, value) {
+                // Si il existe un cookie pour le sélécteur et qu'il n'est pas vide...
+                if (Cookies.get(value) !== undefined && Cookies.get(value) !== '') {
+                    $('#' + value).val(Cookies.get(value)); // On assigne la valeur du cookie au sélécteur.
+                    $('#' + value).trigger('change'); // On déclanche le changement du sélécteur pour déclancher les fonctions associées.
                 }
             });
         }

@@ -9,6 +9,13 @@
 {% block contenu %}
     <div id="pointageSelection">
 
+        <p id="validationStepNavigator" style="margin-top: 0;">
+            <a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}">Assistant(e) agence: Validation pointages</a> |
+            <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'AA'}) }}">Assistant(e)s agence - Correction/Validation compilation</a> |
+            <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'DAManager'}) }}">DA/Manager - Correction/Validation compilation</a> |
+            <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'Final'}) }}">Consultation des compilations validées</a>
+        </p>
+
         {{ form_start(form, {'attr': {'style': 'float: left;'}}) }}
         {{ form_errors(form) }}
         <fieldset>
@@ -128,7 +135,11 @@
                 <td id='operationnel' style="color: white; border-width: 1px;" colspan="2">OPERATIONNEL <p id="addProject" style="margin: 0; float: right; display: inline-block; cursor: pointer;">+ Affaire</p></td>
                 <td style="border-width: 1px;"></td>
                 <td style="color: white; border-width: 1px;" colspan="5">RESSOURCES HUMAINES</td>
-                <td style="border: none; border-bottom: solid 1px black;"><a href="#" onclick="ajaxExportToExcell();">Imprimer</a></td>
+                <td style="border: none; border-bottom: solid 1px black;" >
+                    <a href="#" onclick="ajaxExportToExcell();">Imprimer</a>
+                    |
+                    <a href="#" onclick="ajaxDownloadCSV();">Export CSV</a>
+                </td>
             </tr>
             <tr>
                 <td style="border: solid 1px black;">
@@ -315,6 +326,10 @@
             </tr>
         </table>
 
+        <div id="divJustificatifs">
+            <button id="addJustificatifButton" class="boutonFormulaire" onclick="addJustificatifFile();">Ajouter/voir justificatif(s)</button>
+        </div>
+
         <table id='tableFeuillePointageSignature' style="display: none;">
             <tr>
                 <td style='border-width: 2px;'>Signature collaborateur</td>
@@ -362,6 +377,8 @@
             cloneAbsenceAMToPM();
             ajaxUploadJustificatifTransport();
             copyMultipleCell();
+            setSavedDateAndAgency();
+            getSavedDateAndAgency();
         });
 
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
@@ -576,9 +593,9 @@
                     if ($(this).val() === '1') {
                         // On change la couleur de fond des cases de forfaits déplacement et de primes panier voisines et on bloque leur edition.
                         $(this).parent('.titreRepasNumberSelector').siblings('.abscenceMatinSelector').find('select').val('');
-                        $(this).parent('.titreRepasNumberSelector').siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
+                        //$(this).parent('.titreRepasNumberSelector').siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
                         $(this).parent('.titreRepasNumberSelector').siblings('.abscenceAMSelector').find('select').val('');
-                        $(this).parent('.titreRepasNumberSelector').siblings('.abscenceAMSelector').find('select').attr('disabled', true);
+                        //$(this).parent('.titreRepasNumberSelector').siblings('.abscenceAMSelector').find('select').attr('disabled', true);
                         $(this).parent('.titreRepasNumberSelector').siblings('.forfaitsDeplacementMontant').text('');
                         $(this).parent('.titreRepasNumberSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
                         $(this).parent('.titreRepasNumberSelector').siblings('.primesPanierNumber').text('');
@@ -590,7 +607,7 @@
                     if ($(this).val() !== '') {
                         // On change la couleur de fond des cases de forfaits déplacement et de primes panier voisines et on bloque leur edition.
                         $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').val('');
-                        $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
+                        //$(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
                         $(this).parent('.abscenceMatinSelector').siblings('.forfaitsDeplacementMontant').text('');
                         $(this).parent('.abscenceMatinSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
                         $(this).parent('.abscenceMatinSelector').siblings('.primesPanierNumber').text('');
@@ -602,7 +619,7 @@
                     if ($(this).val() !== '') {
                         // On change la couleur de fond des cases de forfaits déplacement et de primes panier voisines et on bloque leur edition.
                         $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').val('');
-                        $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
+                        //$(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
                         $(this).parent('.abscenceAMSelector').siblings('.forfaitsDeplacementMontant').text('');
                         $(this).parent('.abscenceAMSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
                         $(this).parent('.abscenceAMSelector').siblings('.primesPanierNumber').text('');
@@ -615,11 +632,11 @@
                     // Si la case n'est pas vide.
                     if ($(this).text() !== '') {
                         $(this).siblings('.abscenceMatinSelector').find('select').val('');
-                        $(this).siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
+                        //$(this).siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
                         $(this).siblings('.abscenceAMSelector').find('select').val('');
-                        $(this).siblings('.abscenceAMSelector').find('select').attr('disabled', true);
+                        //$(this).siblings('.abscenceAMSelector').find('select').attr('disabled', true);
                         $(this).siblings('.titreRepasNumberSelector').find('select').val('');
-                        $(this).siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
+                        //$(this).siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
                         $(this).siblings('.primesPanierNumber').text('');
                         $(this).siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
                     }
@@ -630,11 +647,11 @@
                     // Si la case n'est pas vide.
                     if ($(this).text() !== '') {
                         $(this).siblings('.abscenceMatinSelector').find('select').val('');
-                        $(this).siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
+                        //$(this).siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
                         $(this).siblings('.abscenceAMSelector').find('select').val('');
-                        $(this).siblings('.abscenceAMSelector').find('select').attr('disabled', true);
+                        //$(this).siblings('.abscenceAMSelector').find('select').attr('disabled', true);
                         $(this).siblings('.titreRepasNumberSelector').find('select').val('');
-                        $(this).siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
+                        //$(this).siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
                         $(this).siblings('.forfaitsDeplacementMontant').text('');
                         $(this).siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
                     }
@@ -781,38 +798,41 @@
                             $('#operationnel').attr('colspan', colspan + 1);
                         }
 
-                        if (data['nbProject'] !== undefined) {
-                            for (var i = 0; i < data['nbProject'] - 1; i++) {
-                                addTd();
-                                setColSpan();
+                        // Si le pointage contient des données.
+                        if (data !== null) {
+                            if (data['nbProject'] !== undefined) {
+                                for (var i = 0; i < data['nbProject'] - 1; i++) {
+                                    addTd();
+                                    setColSpan();
+                                }
                             }
-                        }
 
-                        $('#signatureCollaborateur').text(data['signatureCollaborateur']);
-                        if (data['contenteditable'] !== undefined) {
-                            $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
-                                $(this).text(data['contenteditable'][index]);
-                            });
-                        }
+                            $('#signatureCollaborateur').text(data['signatureCollaborateur']);
+                            if (data['contenteditable'] !== undefined) {
+                                $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
+                                    $(this).text(data['contenteditable'][index]);
+                                });
+                            }
 
-                        if (data['select'] !== undefined) {
-                            $('#tableFeuillePointage select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
-                                $(this).val(data['select'][index]);
-                            });
-                        }
+                            if (data['select'] !== undefined) {
+                                $('#tableFeuillePointage select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
+                                    $(this).val(data['select'][index]);
+                                });
+                            }
 
-                        if (data['project'] !== undefined) {
-                            $('.project[contenteditable=true]').each(function (index) {
-                                $(this).text(data['project'][index]);
-                            });
-                        }
+                            if (data['project'] !== undefined) {
+                                $('.project[contenteditable=true]').each(function (index) {
+                                    $(this).text(data['project'][index]);
+                                });
+                            }
 
-                        if (data['justificatifTransport'] !== undefined) {
-                            // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression, on attribut le lien de téléchargement du fichier au bouton d'affichage et on l'affiche.
-                            $('#sendTransportJustificatifFormButton').hide();
-                            $('#deleteJustificatifButtonSpan').attr('idjustificatif', data['justificatifTransport']);
-                            $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
-                            $('#deleteJustificatifButton').show();
+                            if (data['justificatifTransport'] !== undefined) {
+                                // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression, on attribut le lien de téléchargement du fichier au bouton d'affichage et on l'affiche.
+                                $('#sendTransportJustificatifFormButton').hide();
+                                $('#deleteJustificatifButtonSpan').attr('idjustificatif', data['justificatifTransport']);
+                                $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
+                                $('#deleteJustificatifButton').show();
+                            }
                         }
 
                         // On change la le mois et l'année indiqué sur la feuille de pointage.
@@ -983,7 +1003,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                        data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData}
+                        data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, user: $('form_Pointage option:selected').val()}
                     });
                 });
             }
@@ -1162,13 +1182,13 @@
             $('.abscenceMatinSelector').on('change', 'select', function () {
                 if ($(this).val() !== '' || $(this).parent('.abscenceMatinSelector').siblings('.abscenceAMSelector').find('select').val() !== '') {
                     $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').val('');
-                    $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
+                    //$(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
                     $(this).parent('.abscenceMatinSelector').siblings('.forfaitsDeplacementMontant').text('');
                     $(this).parent('.abscenceMatinSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
                     $(this).parent('.abscenceMatinSelector').siblings('.primesPanierNumber').text('');
                     $(this).parent('.abscenceMatinSelector').siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
                 } else {
-                    $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').removeAttr('disabled');
+                    //$(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').removeAttr('disabled');
                     $(this).parent('.abscenceMatinSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'white');
                     $(this).parent('.abscenceMatinSelector').siblings('.primesPanierNumber').css('background-color', 'white');
                 }
@@ -1176,13 +1196,13 @@
             $('.abscenceAMSelector').on('change', 'select', function () {
                 if ($(this).val() !== '' || $(this).parent('.abscenceAMSelector').siblings('.abscenceMatinSelector').find('select').val() !== '') {
                     $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').val('');
-                    $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
+                    //$(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
                     $(this).parent('.abscenceAMSelector').siblings('.forfaitsDeplacementMontant').text('');
                     $(this).parent('.abscenceAMSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
                     $(this).parent('.abscenceAMSelector').siblings('.primesPanierNumber').text('');
                     $(this).parent('.abscenceAMSelector').siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
                 } else {
-                    $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').removeAttr('disabled');
+                    //$(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').removeAttr('disabled');
                     $(this).parent('.abscenceAMSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'white');
                     $(this).parent('.abscenceAMSelector').siblings('.primesPanierNumber').css('background-color', 'white');
                 }
@@ -1197,9 +1217,9 @@
                 if ($(this).val() === '1') {
                     // On change la couleur de fond des cases de forfaits déplacement et de primes panier voisines et efface leur valeurs.
                     $(this).parent('.titreRepasNumberSelector').siblings('.abscenceMatinSelector').find('select').val('');
-                    $(this).parent('.titreRepasNumberSelector').siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
+                    //$(this).parent('.titreRepasNumberSelector').siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
                     $(this).parent('.titreRepasNumberSelector').siblings('.abscenceAMSelector').find('select').val('');
-                    $(this).parent('.titreRepasNumberSelector').siblings('.abscenceAMSelector').find('select').attr('disabled', true);
+                    //$(this).parent('.titreRepasNumberSelector').siblings('.abscenceAMSelector').find('select').attr('disabled', true);
                     $(this).parent('.titreRepasNumberSelector').siblings('.forfaitsDeplacementMontant').text('');
                     $(this).parent('.titreRepasNumberSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
                     $(this).parent('.titreRepasNumberSelector').siblings('.primesPanierNumber').text('');
@@ -1209,8 +1229,8 @@
                 else {
                     $(this).parent('.titreRepasNumberSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'white');
                     $(this).parent('.titreRepasNumberSelector').siblings('.primesPanierNumber').css('background-color', 'white');
-                    $(this).parent('.titreRepasNumberSelector').siblings('.abscenceMatinSelector').find('select').attr('disabled', false);
-                    $(this).parent('.titreRepasNumberSelector').siblings('.abscenceAMSelector').find('select').attr('disabled', false);
+                    //$(this).parent('.titreRepasNumberSelector').siblings('.abscenceMatinSelector').find('select').attr('disabled', false);
+                    //$(this).parent('.titreRepasNumberSelector').siblings('.abscenceAMSelector').find('select').attr('disabled', false);
                 }
             });
 
@@ -1220,19 +1240,19 @@
                 if ($(this).text() !== '') {
                     $(this).css('background-color', 'white');
                     $(this).siblings('.abscenceMatinSelector').find('select').val('');
-                    $(this).siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
+                    //$(this).siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
                     $(this).siblings('.abscenceAMSelector').find('select').val('');
-                    $(this).siblings('.abscenceAMSelector').find('select').attr('disabled', true);
+                    //$(this).siblings('.abscenceAMSelector').find('select').attr('disabled', true);
                     $(this).siblings('.titreRepasNumberSelector').find('select').val('');
-                    $(this).siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
+                    //$(this).siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
                     $(this).siblings('.primesPanierNumber').text('');
                     $(this).siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
                 }
                 // Si la case est vide.
                 else {
-                    $(this).siblings('.abscenceMatinSelector').find('select').attr('disabled', false);
-                    $(this).siblings('.abscenceAMSelector').find('select').attr('disabled', false);
-                    $(this).siblings('.titreRepasNumberSelector').find('select').attr('disabled', false);
+                    //$(this).siblings('.abscenceMatinSelector').find('select').attr('disabled', false);
+                    //$(this).siblings('.abscenceAMSelector').find('select').attr('disabled', false);
+                    //$(this).siblings('.titreRepasNumberSelector').find('select').attr('disabled', false);
                     $(this).siblings('.primesPanierNumber').css('background-color', 'white');
                 }
 
@@ -1252,19 +1272,19 @@
                 if ($(this).text() !== '') {
                     $(this).css('background-color', 'white');
                     $(this).siblings('.abscenceMatinSelector').find('select').val('');
-                    $(this).siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
+                    //$(this).siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
                     $(this).siblings('.abscenceAMSelector').find('select').val('');
-                    $(this).siblings('.abscenceAMSelector').find('select').attr('disabled', true);
+                    //$(this).siblings('.abscenceAMSelector').find('select').attr('disabled', true);
                     $(this).siblings('.titreRepasNumberSelector').find('select').val('');
-                    $(this).siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
+                    //$(this).siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
                     $(this).siblings('.forfaitsDeplacementMontant').text('');
                     $(this).siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
                 }
                 // Si la case est vide.
                 else {
-                    $(this).siblings('.abscenceMatinSelector').find('select').attr('disabled', false);
-                    $(this).siblings('.abscenceAMSelector').find('select').attr('disabled', false);
-                    $(this).siblings('.titreRepasNumberSelector').find('select').attr('disabled', false);
+                    //$(this).siblings('.abscenceMatinSelector').find('select').attr('disabled', false);
+                    //$(this).siblings('.abscenceAMSelector').find('select').attr('disabled', false);
+                    //$(this).siblings('.titreRepasNumberSelector').find('select').attr('disabled', false);
                     $(this).siblings('.forfaitsDeplacementMontant').css('background-color', 'white');
                 }
 
@@ -1563,7 +1583,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                    data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
+                    data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text(), user: $('form_Pointage option:selected').val()}
                 });
 
                 /*$('td[contenteditable]').unbind('blur');
@@ -2336,6 +2356,100 @@
                         type: 'POST',
                         data: {filename: fileInfo.filename}
                     });
+                }
+            });
+        }
+
+        // Sauvegarde la valeur des sélécteur dans les cookies lors des changements.
+        function setSavedDateAndAgency() {
+            // Temps d'expiration du cookie (1 heure).
+            var inOneHour = new Date(new Date().getTime() + 60 * 60 * 1000);
+
+            // Lorqu'on change la date ou l'établissement...
+            $('#form_Month, #form_Year, #form_Etablissement').change(function () {
+                // Si il existe un cookie pour le sélécteur...
+                if (Cookies.get($(this).attr('id')) !== undefined) {
+                    Cookies.remove($(this).attr('id')); // On le supprime
+                }
+                Cookies.set($(this).attr('id'), $(this).val(), {expires: inOneHour}); // On crée un cookie avec la nom et la valeur du sélécteur.
+            });
+        }
+
+        // Récupére les valeurs des cookies des sélécteurs.
+        function getSavedDateAndAgency() {
+            // Initialisation de la liste des sélécteurs.
+            var selectors = ['form_Month', 'form_Year', 'form_Etablissement'];
+
+            // Pour chaques sélécteurs...
+            $.each(selectors, function (index, value) {
+                // Si il existe un cookie pour le sélécteur et qu'il n'est pas vide...
+                if (Cookies.get(value) !== undefined && Cookies.get(value) !== '') {
+                    $('#' + value).val(Cookies.get(value)); // On assigne la valeur du cookie au sélécteur.
+                    $('#' + value).trigger('change'); // On déclanche le changement du sélécteur pour déclancher les fonctions associées.
+                }
+            });
+        }
+
+        // Ouvre une fenêtre d'ajout/consultation des fichiers justificatifs associés au pointage.
+        function addJustificatifFile(pointageId) {
+            // On récupére les variables du pointage courant.
+            var month = $('#form_Month option:selected').val();
+            var year = $('#form_Year option:selected').val();
+            var username = $('#form_Pointage option:selected').val();
+
+            // On génére l'URL de la fênetre.
+            var urlTemplate = '{{ path('nox_intranet_pointage_add_justificatif_file', {month: 'MONTH', year: 'YEAR', username: 'USERNAME'}) }}';
+            var url = urlTemplate.replace('MONTH', month).replace('YEAR', year).replace('USERNAME', username);
+
+            // On ouvre la fênetre.
+            window.open(url, '_blank', 'height=350, width=500, top=30, left=30');
+        }
+
+        // Permet de générer et télécharger un export CSV du pointage.
+        function ajaxDownloadCSV() {
+            // On récupére le tableau du pointage.
+            var pointageTable = $('#tableFeuillePointage');
+
+            // Initialisation d'un objet qui contiendra les données du tableau.
+            var tableData = {};
+
+            // On récupére les lignes du tableau.
+            var tableLines = pointageTable.find('tr');
+
+            // Pour chaque ligne...
+            tableLines.each(function (index) {
+                // On récupére le cellules de la ligne.
+                var lineCells = $(this).find('td');
+
+                // On initalise un tableau pour les valeurs des cellules.
+                var cellsContent = [];
+
+                // Pour chaques cellules...
+                lineCells.each(function () {
+                    // Si la cellule contient un sélécteur...
+                    if ($(this).find('select').length > 0) {
+                        cellsContent.push($.trim($(this).find('select option:selected').text())); // On récupére la valeur du sélécteur.
+                    }
+                    // Sinon...
+                    else {
+                        cellsContent.push($.trim($(this).text())); // On récupére le contenu de la cellule.
+                    }
+                });
+
+                // On place les données de la ligne dans le tableau des données.
+                tableData[index] = cellsContent;
+            });
+
+            // On transforme les données en format JSON.
+            var jsonData = JSON.stringify(tableData);
+
+            // Requette Ajax pour générer un fichier CSV et le télécharger.
+            $.ajax({
+                url: '{{ path('nox_intranet_pointage_ajax_download_csv') }}',
+                data: {tableData: jsonData},
+                success: function (response) {
+                    window.location.href = response; // On redirige vers le lien de téléchargement.
+
                 }
             });
         }

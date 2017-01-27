@@ -8,12 +8,16 @@ use NoxIntranet\PointageBundle\Entity\Tableau;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use NoxIntranet\PointageBundle\Entity\JustificatifFile;
+use Symfony\Component\HttpFoundation\Response;
 
 class PointageController extends Controller {
 
     // Affiche le tableau de pointage vide du mois et de l'année courante.
-    public function accueilAction(Request $request) {
+    public function accueilAction(Request $request, $collaborateurExterne) {
         // On récupére la date des premiers et derniers jours du mois courant.
         $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
         $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
@@ -32,7 +36,11 @@ class PointageController extends Controller {
 
         // On récupére le nom de l'utilisateur courant.
         $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if (!empty($collaborateurExterne)) {
+            $user = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateurExterne);
+        } else {
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+        }
 
         // On récupére la feuille de pointage de l'utilisateur pour le mois et l'année courante.
         $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user->getUsername(), 'month' => $this->getMonthAndYear()['month'], 'year' => $this->getMonthAndYear()['year']));
@@ -94,7 +102,7 @@ class PointageController extends Controller {
         }
 
         return $this->render('NoxIntranetPointageBundle:Pointage:pointage.html.twig', array('monthDates' => $monthDates, 'currentMonth' => $this->getMonthAndYear()['month'],
-                    'currentYear' => $this->getMonthAndYear()['year'], 'form' => $form->createView(), 'joursFeries' => $joursFeries));
+                    'currentYear' => $this->getMonthAndYear()['year'], 'form' => $form->createView(), 'joursFeries' => $joursFeries, 'user' => $user->getUsername()));
     }
 
     // Retourne la date courante.
@@ -112,14 +120,12 @@ class PointageController extends Controller {
 
     // Affiche l'inteface de visualisation/correction/validation des pointages des collaborateurs en fonction de l'assistante d'agence.
     public function assistantesAgenceGestionPointageAction() {
-
         // Inisialisation des varibables de fonction.
-        $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+        $securityName = mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8');
         $em = $this->getDoctrine()->getManager();
 
         // Vérifie que l'utilistateur est une assistante d'agence.
         if (in_array($securityName, $this->getUserWithStatus('AA')) || $this->get('security.context')->isGranted('ROLE_RH')) {
-
             // Génére les dates du mois courant.
             $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
             $end_date = $this->getMonthAndYear()['days'] . '-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
@@ -150,11 +156,14 @@ class PointageController extends Controller {
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
                     $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
-            } else {
+            } {
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
                     $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
             }
+
+            // Trie du tableau des établissements.
+            asort($etablissements);
 
             // Génére le formulaire de séléction du pointage par établissement, mois et année.
             $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
@@ -224,7 +233,7 @@ class PointageController extends Controller {
     public function pointagesCompilationAction(Request $request, $validationStep) {
 
         // Inisialisation des varibables de fonction.
-        $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+        $securityName = mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8');
         $em = $this->getDoctrine()->getManager();
 
         // On récupére la liste des utilisateurs autorisés en fonction de l'étape de validation de la compilation.
@@ -395,14 +404,14 @@ class PointageController extends Controller {
         $usersFromHierarchy = array();
         foreach ($users as $user) {
             if ($status === 'AA') {
-                $usersFromHierarchy[$user->getAA()] = $user->getAA();
-                $usersFromHierarchy[$user->getDA()] = $user->getDA();
+                $usersFromHierarchy[mb_strtoupper($user->getAA(), 'UTF-8')] = mb_strtoupper($user->getAA(), 'UTF-8');
+                $usersFromHierarchy[mb_strtoupper($user->getDA(), 'UTF-8')] = mb_strtoupper($user->getDA(), 'UTF-8');
             }
             if ($status === 'DAManager' || $status === 'Final') {
-                $usersFromHierarchy[$user->getDA()] = $user->getDA();
+                $usersFromHierarchy[mb_strtoupper($user->getDA(), 'UTF-8')] = mb_strtoupper($user->getDA(), 'UTF-8');
             }
             if ($status === 'Final' || $status === 'RH') {
-                $usersFromHierarchy[$user->getRH()] = $user->getRH();
+                $usersFromHierarchy[mb_strtoupper($user->getRH(), 'UTF-8')] = mb_strtoupper($user->getRH(), 'UTF-8');
             }
         }
 
@@ -498,6 +507,166 @@ class PointageController extends Controller {
         // On lance le téléchargement du fichier.
         echo $file;
         exit;
+    }
+
+    // Permet aux assistantes d'accéder au remplissage du pointage d'un collaborateur.
+    public function assistanteRemplissagePointageAction(Request $request) {
+        // Génération du formulaire d'accès au pointage d'un collaborateur.
+        $formAccessCollaborateurPointageBuilder = $this->get('form.factory')->createNamedBuilder('formAcessCollaborateurPointage', 'form');
+        $formAccessCollaborateurPointageBuilder
+                ->add('username', TextType::class, array(
+                    'label' => "Login du collaborateur"
+                ))
+                ->add('access', SubmitType::class, array(
+                    'label' => 'Accéder au pointage'
+        ));
+        $formAccessCollaborateurPointage = $formAccessCollaborateurPointageBuilder->getForm();
+
+        // Traitement du formulaire d'accès au pointage d'un collaborateur.
+        $formAccessCollaborateurPointage->handleRequest($request);
+        if ($formAccessCollaborateurPointage->isValid()) {
+            // On récupére le login passé en paramêtre.
+            $username = $formAccessCollaborateurPointage->get('username')->getData();
+
+            // On récupére l'entité utilisateur associée au login.
+            $em = $this->getDoctrine()->getManager();
+            $userEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($username);
+
+            // On récupére le nom canonique du collaborateur qui cherche a accéder au pointage.
+            $securityName = mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8');
+
+            // Si il n'existe pas de collaborateur associé au login passé en paramêtre...
+            if (empty($userEntity)) {
+                // On affiche un message d'erreur et on redirige vers le formulaire d'accés au pointage collaborateur.
+                $this->get('session')->getFlashbag()->add('noticeErreur', "Il n'existe pas de collaborateur associé au login renseigné.");
+                return $this->redirectToRoute('nox_intranet_pointage_access_collaborateur_pointage');
+            }
+            // Sinon si le collaborateur courant n'est le référent du collaborateur et qu'il n'a le statut RH...
+            else if (!empty($userEntity) && !(array_key_exists($userEntity->getUsername(), $this->getUsersByStatus('AA', $securityName)) || $this->get('security.context')->isGranted('ROLE_RH'))) {
+                // On affiche un message d'erreur et on redirige vers le formulaire d'accés au pointage collaborateur.
+                $this->get('session')->getFlashbag()->add('noticeErreur', "Vous n'avez pas les droits requis pour accéder au pointage de ce collaborateur.");
+                return $this->redirectToRoute('nox_intranet_pointage_access_collaborateur_pointage');
+            }
+
+            // On retourne le pointage du collaborateur dont le login est passé en paramêtre.
+            return $this->redirectToRoute('nox_intranet_pointage', array('collaborateurExterne' => $username));
+        }
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:accessCollaborateurPointage.html.twig', array('formAccessCollaborateurPointage' => $formAccessCollaborateurPointage->createView()));
+    }
+
+    // Permet l'envoi de fichiers justificatif associé au pointage.
+    public function justificatifFilesUploadAction(Request $request, $month, $year, $username) {
+        $em = $this->getDoctrine()->getManager();
+        if (!is_numeric($username)) {
+            $pointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $username));
+        } else {
+            $pointage = $em->find('NoxIntranetPointageBundle:Tableau', $username);
+        }
+        $justificatifFiles = $em->getRepository('NoxIntranetPointageBundle:JustificatifFile')->findByTableau($pointage);
+
+        // Initialisation d'un nouveau justificatif.
+        $newJustificatifFile = new JustificatifFile();
+
+        // Génération du formulaire d'ajout de fichier justificatif.
+        $formAddJustificatifFileBuilder = $this->createFormBuilder($newJustificatifFile);
+        $formAddJustificatifFileBuilder
+                ->add('content', FileType::class, array(
+                    'label' => 'Ajouter un justificatif'
+                ))
+                ->add('ajouter', SubmitType::class);
+        $formAddJustificatifFile = $formAddJustificatifFileBuilder->getForm();
+
+        // Traitement du formulaire d'ajout de fichier justificatif.
+        $formAddJustificatifFile->handleRequest($request);
+        if ($formAddJustificatifFile->isValid()) {
+            // On récupére le fichier.
+            $file = $formAddJustificatifFile->get('content')->getData();
+
+            // On associe son pointage au fichier.
+            $newJustificatifFile->setTableau($pointage);
+
+            // On récupére le nom, le type et la taille du fichier.
+            $newJustificatifFile->setName(addslashes($file->getClientOriginalName()));
+            $newJustificatifFile->setType($file->getMimeType());
+            $newJustificatifFile->setSize($file->getClientSize());
+
+            // On récupére le contenu du fichier sous forme binaire.
+            $streamFile = fopen($file->getRealPath(), 'rb');
+            $newJustificatifFile->setContent(stream_get_contents($streamFile));
+
+            // On sauvegarde les changements en base de données.
+            $em->persist($newJustificatifFile);
+            $em->flush();
+
+            // On redirige vers l'ajout de justificatif.
+            return $this->redirectToRoute('nox_intranet_pointage_add_justificatif_file', array('month' => $month, 'year' => $year, 'username' => $username));
+        }
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:addJustificatifFiles.html.twig', array('formAddJustificatifFile' => $formAddJustificatifFile->createView(), 'justificatifFiles' => $justificatifFiles));
+    }
+
+    // Supprime un fichier justificatif du pointage.
+    public function deleteJustificatifFileAction($justificatifId) {
+        // On récupére le justificatif depuis son ID.
+        $em = $this->getDoctrine()->getManager();
+        $justificatifFile = $em->find('NoxIntranetPointageBundle:JustificatifFile', $justificatifId);
+
+        // On récupére le pointage associé au justificatif.
+        $pointage = $justificatifFile->getTableau();
+
+        // On le supprime
+        $em->remove($justificatifFile);
+        $em->flush();
+
+        return $this->redirectToRoute('nox_intranet_pointage_add_justificatif_file', array('month' => $pointage->getMonth(), 'year' => $pointage->getYear(), 'username' => $pointage->getUser()));
+    }
+
+    // Permet de consulter un fichier justificatif associé au pointage.
+    public function showJustificatifFileAction($justificatifId) {
+        // On récupére le justificatif depuis son ID.
+        $em = $this->getDoctrine()->getManager();
+        $justificatifFile = $em->find('NoxIntranetPointageBundle:JustificatifFile', $justificatifId);
+
+        // On récupére le fichier.
+        $file = stream_get_contents($justificatifFile->getContent());
+
+        // Initialisation de la réponse.
+        $response = new Response($file, 200);
+        $response->headers->set('Content-Type', $justificatifFile->getType());
+        $response->headers->set('Content-Disposition', "filename='" . $justificatifFile->getName() . "'");
+
+        // On retourne le fichier.
+        return $response;
+    }
+
+    // Lance le téléchargement du fichier CSV dont le nom est passé en paramètre.
+    public function downloadCSVAction($fileName) {
+        // On récupére la racine du serveur web.
+        $root = $this->get('kernel')->getRootDir() . '\..\web\\';
+
+        // On génére le chemin du fichier à retourner.
+        $filePath = $root . $fileName;
+
+        // On ouvre le fichier.
+        $CSVFileHandler = fopen($filePath, 'r');
+
+        // On récupére les données du fichier.
+        $file = stream_get_contents($CSVFileHandler);
+
+        // On ferme le fichier.
+        fclose($CSVFileHandler);
+
+        // On supprime le fichier.
+        unlink($filePath);
+
+        // Initialisation de la réponse.
+        $response = new Response($file, 200);
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', "filename='Pointage CSV.csv'");
+
+        // On retourne le téléchargement du fichier.
+        return $response;
     }
 
 }

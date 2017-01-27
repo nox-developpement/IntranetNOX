@@ -48,57 +48,71 @@ class NoxIntranetMajUserDB extends Controller {
         if (($handle = fopen($root . "/users.csv", "r")) !== FALSE) {
             while (($data = fgetcsv($handle, ",")) !== FALSE) {
                 if (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') != false) {
-                    $name = $data[1];
+                    $name = mb_strtolower($data[3], 'UTF-8');
                     $agence = 'Bron';
-                    $fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $users[] = array('name' => utf8_encode($name), 'fullname' => utf8_encode($fullname), 'agence' => utf8_encode($agence));
+                    //$fullname = $this->GetBetween('CN=', ',', $data[0]);
+                    $firstname = $data[2];
+                    $lastname = $data[1];
+                    $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
                 } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') != false) {
-                    $name = $data[1];
+                    $name = mb_strtolower($data[3], 'UTF-8');
                     $agence = 'Siège';
-                    $fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $users[] = array('name' => utf8_encode($name), 'fullname' => utf8_encode($fullname), 'agence' => utf8_encode($agence));
+                    //$fullname = $this->GetBetween('CN=', ',', $data[0]);
+                    $firstname = $data[2];
+                    $lastname = $data[1];
+                    $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
                 } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') === false) {
-                    $name = $data[1];
+                    $name = mb_strtolower($data[3], 'UTF-8');
                     $OU = explode('OU=', $data[0]);
                     if (array_key_exists(1, $OU)) {
                         $agence = str_replace(',', '', $OU[1]);
                     } else {
                         $agence = null;
                     }
-                    $fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $users[] = array('name' => utf8_encode($name), 'fullname' => utf8_encode($fullname), 'agence' => utf8_encode($agence));
+                    //$fullname = $this->GetBetween('CN=', ',', $data[0]);
+                    $firstname = $data[2];
+                    $lastname = $data[1];
+                    $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
                 }
             }
             fclose($handle);
         }
         unset($users[0]);
 
+
+        $debugFile = fopen('debugUsers.txt', 'w+');
+
         // Pour chaque utilisateurs.
         foreach ($users as $user) {
+            // Si le nom ou le prénom est vide on passe à l'utilisateur suivant.
+            if (empty($user['firstname']) || empty($user['lastname'])) {
+                var_dump($user['firstname'] . ' ' . $user['lastname']);
+                continue;
+            }
+
             // Si l'utilisateur n'existe pas en base de données.
             if ($userEM->getRepository('NoxIntranetUserBundle:User')->findByUsername($user['name']) == null) {
                 // On crée l'utilisateur
                 $newUser = new User();
 
-                // On initialise les variables de nom et de prénom.
-                $firstname = '';
-                $lastname = '';
-
-                // On découpe le nom complet en nom+prénom.
-                $fullnames = explode(' ', $user['fullname']);
-                foreach ($fullnames as $fullname) {
-                    // Si le chaîne et en majuscule (on retire les éventuels '-' pour la vérification).
-                    if (ctype_upper(str_replace('-', '', $fullname))) {
-                        $lastname .= ' ' . $fullname;
-                    } else {
-                        $firstname .= ' ' . $fullname;
-                    }
-                }
-
+//                // On initialise les variables de nom et de prénom.
+//                $firstname = '';
+//                $lastname = '';
+//
+//                // On découpe le nom complet en nom+prénom.
+//                $fullnames = explode(' ', $user['fullname']);
+//                foreach ($fullnames as $fullname) {
+//                    // Si le chaîne et en majuscule (on retire les éventuels '-' pour la vérification).
+//                    if (ctype_upper(str_replace('-', '', $fullname))) {
+//                        $lastname .= ' ' . $fullname;
+//                    } else {
+//                        $firstname .= ' ' . $fullname;
+//                    }
+//                }
                 // On attribut les varibles au nouvel utilisateur.
                 $newUser->setUsername($user['name']);
-                $newUser->setFirstname(trim($firstname));
-                $newUser->setLastname(trim($lastname));
+                $newUser->setFirstname(trim($user['firstname']));
+                $newUser->setLastname(trim($user['lastname']));
                 $newUser->setAgence($user['agence']);
 
                 // On le persit
@@ -112,27 +126,26 @@ class NoxIntranetMajUserDB extends Controller {
                 // On récupére l'utilisateur courant en base de données.
                 $currentUser = $userEM->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($user['name']);
 
-                // On initialise les variables de nom et de prénom.
-                $firstname = '';
-                $lastname = '';
-
-                // On découpe le nom complet en nom+prénom.
-                $fullnames = explode(' ', $user['fullname']);
-                foreach ($fullnames as $fullname) {
-                    // Si le chaîne et en majuscule (on retire les éventuels '-' pour la vérification).
-                    if (ctype_upper(str_replace('-', '', $fullname))) {
-                        $lastname .= ' ' . $fullname;
-                    } else {
-                        $firstname .= ' ' . $fullname;
-                    }
-                }
-
+//                // On initialise les variables de nom et de prénom.
+//                $firstname = '';
+//                $lastname = '';
+//
+//                // On découpe le nom complet en nom+prénom.
+//                $fullnames = explode(' ', $user['fullname']);
+//                foreach ($fullnames as $fullname) {
+//                    // Si le chaîne et en majuscule (on retire les éventuels '-' pour la vérification).
+//                    if (ctype_upper(str_replace('-', '', $fullname))) {
+//                        $lastname .= ' ' . $fullname;
+//                    } else {
+//                        $firstname .= ' ' . $fullname;
+//                    }
+//                }
                 // On met à jours les informations de l'utilisateur si nécessaire
-                if ($currentUser->getFirstname() !== trim($firstname)) {
-                    $currentUser->setFirstname(trim($firstname));
+                if ($currentUser->getFirstname() !== trim($user['firstname'])) {
+                    $currentUser->setFirstname(trim($user['firstname']));
                 }
-                if ($currentUser->getLastname() !== trim($lastname)) {
-                    $currentUser->setLastname(trim($lastname));
+                if ($currentUser->getLastname() !== trim($user['lastname'])) {
+                    $currentUser->setLastname(trim($user['lastname']));
                 }
                 if ($currentUser->getAgence() !== $user['agence']) {
                     $currentUser->setAgence($user['agence']);
@@ -141,6 +154,8 @@ class NoxIntranetMajUserDB extends Controller {
                 $userEM->persist($currentUser);
             }
         }
+
+        fclose($debugFile);
 
         // On récupère tous les utilisateurs existants dans la base de données.
         $existantUsers = $userEM->getRepository('NoxIntranetUserBundle:User')->findAll();
@@ -197,25 +212,31 @@ class NoxIntranetMajUserDB extends Controller {
         if (($handle = fopen($root . "/users.csv", "r")) !== FALSE) {
             while (($data = fgetcsv($handle, ",")) !== FALSE) {
                 if (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') != false) {
-                    $name = $data[1];
+                    $name = mb_strtolower($data[3], 'UTF-8');
                     $agence = 'Bron';
-                    $fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $users[] = array('name' => utf8_encode($name), 'fullname' => utf8_encode($fullname), 'agence' => utf8_encode($agence));
+                    //$fullname = $this->GetBetween('CN=', ',', $data[0]);
+                    $firstname = $data[2];
+                    $lastname = $data[1];
+                    $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
                 } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') != false) {
-                    $name = $data[1];
+                    $name = mb_strtolower($data[3], 'UTF-8');
                     $agence = 'Siège';
-                    $fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $users[] = array('name' => utf8_encode($name), 'fullname' => utf8_encode($fullname), 'agence' => utf8_encode($agence));
+                    //$fullname = $this->GetBetween('CN=', ',', $data[0]);
+                    $firstname = $data[2];
+                    $lastname = $data[1];
+                    $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
                 } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') === false) {
-                    $name = $data[1];
+                    $name = mb_strtolower($data[3], 'UTF-8');
                     $OU = explode('OU=', $data[0]);
                     if (array_key_exists(1, $OU)) {
                         $agence = str_replace(',', '', $OU[1]);
                     } else {
                         $agence = null;
                     }
-                    $fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $users[] = array('name' => utf8_encode($name), 'fullname' => utf8_encode($fullname), 'agence' => utf8_encode($agence));
+                    //$fullname = $this->GetBetween('CN=', ',', $data[0]);
+                    $firstname = $data[2];
+                    $lastname = $data[1];
+                    $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
                 }
             }
             fclose($handle);
@@ -224,29 +245,33 @@ class NoxIntranetMajUserDB extends Controller {
 
         // Pour chaque utilisateurs.
         foreach ($users as $user) {
+            // Si le nom ou le prénom est vide on passe à l'utilisateur suivant.
+            if (empty($user['firstname']) || empty($user['lastname'])) {
+                continue;
+            }
+
             // Si l'utilisateur n'existe pas en base de données.
             if (empty($userEM->getRepository('NoxIntranetUserBundle:User')->findByUsername($user['name']))) {
                 // On crée l'utilisateur
                 $newUser = new User();
 
-                // On initialise les variables de nom et de prénom.
-                $firstname = '';
-                $lastname = '';
-
-                // On découpe le nom complet en nom+prénom.
-                $fullnames = explode(' ', $user['fullname']);
-                foreach ($fullnames as $fullname) {
-                    if (ctype_upper($fullname)) {
-                        $lastname .= ' ' . $fullname;
-                    } else {
-                        $firstname .= ' ' . $fullname;
-                    }
-                }
-
+//                // On initialise les variables de nom et de prénom.
+//                $firstname = '';
+//                $lastname = '';
+//
+//                // On découpe le nom complet en nom+prénom.
+//                $fullnames = explode(' ', $user['fullname']);
+//                foreach ($fullnames as $fullname) {
+//                    if (ctype_upper($fullname)) {
+//                        $lastname .= ' ' . $fullname;
+//                    } else {
+//                        $firstname .= ' ' . $fullname;
+//                    }
+//                }
                 // On attribut les varibles au nouvel utilisateur.
                 $newUser->setUsername($user['name']);
-                $newUser->setFirstname(trim($firstname));
-                $newUser->setLastname(trim($lastname));
+                $newUser->setFirstname(trim($user['firstname']));
+                $newUser->setLastname(trim($user['lastname']));
                 $newUser->setAgence($user['agence']);
 
                 // On récupére la liste des usernames des nouveaux utilisateurs.
@@ -258,26 +283,25 @@ class NoxIntranetMajUserDB extends Controller {
                 // On récupére l'utilisateur courant en base de données.
                 $currentUser = $userEM->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($user['name']);
 
-                // On initialise les variables de nom et de prénom.
-                $firstname = '';
-                $lastname = '';
-
-                // On découpe le nom complet en nom+prénom.
-                $fullnames = explode(' ', $user['fullname']);
-                foreach ($fullnames as $fullname) {
-                    if (ctype_upper($fullname)) {
-                        $lastname .= ' ' . $fullname;
-                    } else {
-                        $firstname .= ' ' . $fullname;
-                    }
-                }
-
+//                // On initialise les variables de nom et de prénom.
+//                $firstname = '';
+//                $lastname = '';
+//
+//                // On découpe le nom complet en nom+prénom.
+//                $fullnames = explode(' ', $user['fullname']);
+//                foreach ($fullnames as $fullname) {
+//                    if (ctype_upper($fullname)) {
+//                        $lastname .= ' ' . $fullname;
+//                    } else {
+//                        $firstname .= ' ' . $fullname;
+//                    }
+//                }
                 // On met à jours les informations de l'utilisateur si nécessaire
-                if ($currentUser->getFirstname() !== trim($firstname)) {
-                    $currentUser->setFirstname(trim($firstname));
+                if ($currentUser->getFirstname() !== trim($user['firstname'])) {
+                    $currentUser->setFirstname(trim($user['firstname']));
                 }
-                if ($currentUser->getLastname() !== trim($lastname)) {
-                    $currentUser->setLastname(trim($lastname));
+                if ($currentUser->getLastname() !== trim($user['lastname'])) {
+                    $currentUser->setLastname(trim($user['lastname']));
                 }
                 if ($currentUser->getAgence() !== $user['agence']) {
                     $currentUser->setAgence($user['agence']);

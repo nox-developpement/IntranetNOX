@@ -5,11 +5,3 @@ Bonjour {{ recipient.firstname }} {{ recipient.lastname }},<br />
 La compilation des pointages de {{ months[month] }} {{ year }} de {{ etablissement }} a été validé par {{ sender }} et est en attente de votre validation.<br />
 Vous pouvez traiter cette compilation en <a href='{{ redirectionUrl }}'>cliquant ici</a>.<br />
 <br />
-{% if collaborateursSansPointage is defined and collaborateursSansPointage|length > 0 %}
-    Attention, les utilistaurs suivant n'ont pas remplis/validé leur pointage et n'ont donc pas été inclus dans la compilation :
-    <ul>
-        {% for collaborateur in collaborateursNonValide %}
-            <li>{{ collaborateur }}</li>
-            {% endfor %}
-    </ul>
-{% endif %}
