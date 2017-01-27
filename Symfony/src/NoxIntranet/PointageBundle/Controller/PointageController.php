@@ -663,7 +663,7 @@ class PointageController extends Controller {
         // Initialisation de la réponse.
         $response = new Response($file, 200);
         $response->headers->set('Content-Type', 'text/csv');
-        $response->headers->set('Content-Disposition', "filename='" . 'testCVS.csv' . "'");
+        $response->headers->set('Content-Disposition', "filename='Pointage CSV.csv'");
 
         // On retourne le téléchargement du fichier.
         return $response;

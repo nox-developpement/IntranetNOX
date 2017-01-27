@@ -135,7 +135,11 @@
                 <td id='operationnel' style="color: white; border-width: 1px;" colspan="2">OPERATIONNEL <p id="addProject" style="margin: 0; float: right; display: inline-block; cursor: pointer;">+ Affaire</p></td>
                 <td style="border-width: 1px;"></td>
                 <td style="color: white; border-width: 1px;" colspan="5">RESSOURCES HUMAINES</td>
-                <td style="border: none; border-bottom: solid 1px black;"><a href="#" onclick="ajaxExportToExcell();">Imprimer</a></td>
+                <td style="border: none; border-bottom: solid 1px black;" >
+                    <a href="#" onclick="ajaxExportToExcell();">Imprimer</a>
+                    |
+                    <a href="#" onclick="ajaxDownloadCSV();">Export CSV</a>
+                </td>
             </tr>
             <tr>
                 <td style="border: solid 1px black;">
@@ -2399,6 +2403,55 @@
 
             // On ouvre la fênetre.
             window.open(url, '_blank', 'height=350, width=500, top=30, left=30');
+        }
+
+        // Permet de générer et télécharger un export CSV du pointage.
+        function ajaxDownloadCSV() {
+            // On récupére le tableau du pointage.
+            var pointageTable = $('#tableFeuillePointage');
+
+            // Initialisation d'un objet qui contiendra les données du tableau.
+            var tableData = {};
+
+            // On récupére les lignes du tableau.
+            var tableLines = pointageTable.find('tr');
+
+            // Pour chaque ligne...
+            tableLines.each(function (index) {
+                // On récupére le cellules de la ligne.
+                var lineCells = $(this).find('td');
+
+                // On initalise un tableau pour les valeurs des cellules.
+                var cellsContent = [];
+
+                // Pour chaques cellules...
+                lineCells.each(function () {
+                    // Si la cellule contient un sélécteur...
+                    if ($(this).find('select').length > 0) {
+                        cellsContent.push($.trim($(this).find('select option:selected').text())); // On récupére la valeur du sélécteur.
+                    }
+                    // Sinon...
+                    else {
+                        cellsContent.push($.trim($(this).text())); // On récupére le contenu de la cellule.
+                    }
+                });
+
+                // On place les données de la ligne dans le tableau des données.
+                tableData[index] = cellsContent;
+            });
+
+            // On transforme les données en format JSON.
+            var jsonData = JSON.stringify(tableData);
+
+            // Requette Ajax pour générer un fichier CSV et le télécharger.
+            $.ajax({
+                url: '{{ path('nox_intranet_pointage_ajax_download_csv') }}',
+                data: {tableData: jsonData},
+                success: function (response) {
+                    window.location.href = response; // On redirige vers le lien de téléchargement.
+
+                }
+            });
         }
     </script>
 {% endblock %}
