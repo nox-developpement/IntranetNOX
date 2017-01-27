@@ -865,8 +865,9 @@ class DeveloppementProfessionnelController extends Controller {
         }
 
         // On sauvegarde le fichier Excel.
-        $filename = 'Développement Profesionnel Export.pdf';
-        $filepath = $root . "/web/" . $filename;
+        $user = $this->get('security.context')->getToken()->getUser();
+        $filename = $user->getFirstname() . ' ' . $user->getLastname() . '.pdf';
+        $filepath = $root . "/web/DeveloppementProfessionnel/" . $filename;
         $objWriter = new \PHPExcel_Writer_PDF($objPHPExcel);
         $objWriter->setOrientation(\PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
         $objWriter->setPaperSize(\PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
