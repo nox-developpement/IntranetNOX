@@ -3,6 +3,7 @@
 namespace NoxIntranet\AdministrationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * ScriptMonitoring
@@ -29,9 +30,9 @@ class ScriptMonitoring {
     private $scriptName;
 
     /**
-     * @var \DateTime
+     * @var integer
      *
-     * @ORM\Column(name="IterationTime", type="time")
+     * @ORM\Column(name="IterationTime", type="integer")
      */
     private $iterationTime;
 
@@ -86,6 +87,37 @@ class ScriptMonitoring {
      */
     public function getIterationTime() {
         return $this->iterationTime;
+    }
+
+    public function getStatut() {
+        // On récupére le nom du script et son temps d'itération.
+        $scriptName = $this->scriptName;
+        $iterationTime = $this->iterationTime;
+
+        // On exécute le script de récupération de la dernière date d'éxecution du script et on place le résultat dans la variable $result.
+        $result = array();
+        exec('cscript //Nologo ../scripts/getScheduledTasks.vbs ' . $scriptName, $result);
+
+        // On récupére la dernière date d'execution dans le résultat sous forme de chaîne.
+        $lastIterationTime = $result[0];
+
+        // On convertie la chaîne en DateTime.
+        $lastIterationDateTime = DateTime::createFromFormat('j/m/Y H:i:s', $lastIterationTime);
+
+        // On calcule le DateTime de la prochaine itération.
+        $nextIterationDateTime = DateTime::createFromFormat('j/m/Y H:i:s', $lastIterationTime)->modify('+ ' . $iterationTime . ' hour');
+
+        // On récupére le DateTime courant.
+        $now = new DateTime();
+
+        // Si le DateTime courant est plus petit que le DateTime de la prochaine itération...
+        if ($now < $nextIterationDateTime) {
+            $statut = array('Statut' => true, 'lastIteration' => $lastIterationDateTime);
+        } else {
+            $statut = array('Statut' => false, 'lastIteration' => $lastIterationDateTime);
+        }
+
+        return $statut;
     }
 
 }

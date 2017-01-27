@@ -30,7 +30,7 @@ Dim taskFound
 taskFound = false
 
 ' Tant que le nom de tache passé en paramètre est différent de la tache courante...
-While taskFound = false And tasksIterator < numberOfTasks
+While taskFound = false And tasksIterator <= numberOfTasks
 	' Si le nom de tâche passé en paramètre est identique au nom de la tache courante...
 	if StrComp(scheduledTaskName, taskCollection(tasksIterator).Name) = 0 Then
 		taskFound = true ' On indique que la tache a été trouvée.
@@ -42,4 +42,6 @@ Wend
 ' Si la tache a été trouvée...
 If taskFound Then
 	WScript.Echo taskCollection(tasksIterator).LastRunTime ' On écris la date de la dernière exécution.
+Else 
+	WScript.Echo "Le script n'existe pas !"
 End If
