@@ -4,7 +4,6 @@ Alexis LECACHEUR
 Bruno MAU
 Rogerio DUARTE PENIDO
 Audrey JASSOUD
-Guillaume ESKANDAR LAVASANI
 Laetitia MOULARD
 Christian AUJOGUES DIT BARON
 Sandrine AUJOGUES DIT BARON
@@ -13,9 +12,6 @@ Laurence MALABARD
 El hadji momar NIANG
 Cecile SAGET
 Virginie THIEL-GOURGUES
-Diala ABDO FILFLI
-Karine DEMANGE-CATALA
-M hammed ZITOUNI
 Isabelle LE GOUX
 Kilyan FERVEUR
 Aline PLENARD
@@ -26,3 +22,7 @@ Karine NIZOU
 Mohammed mehdi BENHAOUA
 Abdellah EL MRAH
 Melanie MENAND
+Palma CARBAJAL GUERRERO
+Diala ABDO FILFLI
+Karine DEMANGE-CATALA
+M hammed ZITOUNI
