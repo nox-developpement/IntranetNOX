@@ -191,6 +191,8 @@ class AdministrationUsersController extends Controller {
     }
 
     function collaborateursEnLigneAction() {
+        var_dump($this->get('session')->getMetadataBag()->getLifeTime());
+
         return $this->render('NoxIntranetAdministrationBundle:AdministrationUser:collaborateursEnLigne.html.twig');
     }
 

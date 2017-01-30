@@ -44,6 +44,15 @@ class NoxIntranetMajUserDB extends Controller {
         $newUsersNames = null;
         $deleteUserNames = null;
 
+        // On récupére le contenu du fichier en Unicode.
+        $unicodeFile = file_get_contents($root . "/usersUnicode.csv");
+
+        // On converti le contenu en UTF-8.
+        $convertText = iconv('UTF-16LE', 'UTF-8', $unicodeFile);
+
+        // On place le contenu dans le fichier users.csv.
+        file_put_contents($root . "/users.csv", $convertText);
+
         // On extrait les informations sur chaque utilisateurs depuis le fichier CSV de l'active directory.
         if (($handle = fopen($root . "/users.csv", "r")) !== FALSE) {
             while (($data = fgetcsv($handle, ",")) !== FALSE) {
@@ -207,6 +216,15 @@ class NoxIntranetMajUserDB extends Controller {
         $users = null;
         $newUsersNames = null;
         $deleteUserNames = null;
+
+        // On récupére le contenu du fichier en Unicode.
+        $unicodeFile = file_get_contents($root . "/usersUnicode.csv");
+
+        // On converti le contenu en UTF-8.
+        $convertText = iconv('UTF-16LE', 'UTF-8', $unicodeFile);
+
+        // On place le contenu dans le fichier users.csv.
+        file_put_contents($root . "/users.csv", $convertText);
 
         // On extrait les informations sur chaque utilisateurs depuis le fichier CSV de l'active directory.
         if (($handle = fopen($root . "/users.csv", "r")) !== FALSE) {
