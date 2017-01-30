@@ -57,21 +57,21 @@ class NoxIntranetMajUserDB extends Controller {
         if (($handle = fopen($root . "/users.csv", "r")) !== FALSE) {
             while (($data = fgetcsv($handle, ",")) !== FALSE) {
                 if (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') != false) {
-                    $name = mb_strtolower($data[1], 'UTF-8');
+                    $name = mb_strtolower($data[3], 'UTF-8');
                     $agence = 'Bron';
                     //$fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $firstname = $data[3];
-                    $lastname = $data[2];
+                    $firstname = $data[2];
+                    $lastname = $data[1];
                     $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
                 } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') != false) {
-                    $name = mb_strtolower($data[1], 'UTF-8');
+                    $name = mb_strtolower($data[3], 'UTF-8');
                     $agence = 'Siège';
                     //$fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $firstname = $data[3];
-                    $lastname = $data[2];
+                    $firstname = $data[2];
+                    $lastname = $data[1];
                     $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
                 } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') === false) {
-                    $name = mb_strtolower($data[1], 'UTF-8');
+                    $name = mb_strtolower($data[3], 'UTF-8');
                     $OU = explode('OU=', $data[0]);
                     if (array_key_exists(1, $OU)) {
                         $agence = str_replace(',', '', $OU[1]);
@@ -79,8 +79,8 @@ class NoxIntranetMajUserDB extends Controller {
                         $agence = null;
                     }
                     //$fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $firstname = $data[3];
-                    $lastname = $data[2];
+                    $firstname = $data[2];
+                    $lastname = $data[1];
                     $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
                 }
             }
@@ -230,21 +230,21 @@ class NoxIntranetMajUserDB extends Controller {
         if (($handle = fopen($root . "/users.csv", "r")) !== FALSE) {
             while (($data = fgetcsv($handle, ",")) !== FALSE) {
                 if (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') != false) {
-                    $name = mb_strtolower($data[1], 'UTF-8');
+                    $name = mb_strtolower($data[3], 'UTF-8');
                     $agence = 'Bron';
                     //$fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $firstname = $data[3];
-                    $lastname = $data[2];
+                    $firstname = $data[2];
+                    $lastname = $data[1];
                     $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
                 } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') != false) {
-                    $name = mb_strtolower($data[1], 'UTF-8');
+                    $name = mb_strtolower($data[3], 'UTF-8');
                     $agence = 'Siège';
                     //$fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $firstname = $data[3];
-                    $lastname = $data[2];
+                    $firstname = $data[2];
+                    $lastname = $data[1];
                     $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
                 } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') === false) {
-                    $name = mb_strtolower($data[1], 'UTF-8');
+                    $name = mb_strtolower($data[3], 'UTF-8');
                     $OU = explode('OU=', $data[0]);
                     if (array_key_exists(1, $OU)) {
                         $agence = str_replace(',', '', $OU[1]);
@@ -252,8 +252,8 @@ class NoxIntranetMajUserDB extends Controller {
                         $agence = null;
                     }
                     //$fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $firstname = $data[3];
-                    $lastname = $data[2];
+                    $firstname = $data[2];
+                    $lastname = $data[1];
                     $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
                 }
             }
