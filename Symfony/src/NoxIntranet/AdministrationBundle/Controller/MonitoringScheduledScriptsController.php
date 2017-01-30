@@ -27,7 +27,7 @@ class MonitoringScheduledScriptsController extends Controller {
     public function scheduledScriptsMonitoringPanelAction(Request $request) {
         // On récupère tous les monitorings existants.
         $em = $this->getDoctrine()->getManager();
-        $monitoredScripts = $em->getRepository('NoxIntranetAdministrationBundle:ScriptMonitoring')->findAll();
+        $monitoredScripts = $em->getRepository('NoxIntranetAdministrationBundle:ScriptMonitoring')->findBy(array(), array('scriptName' => 'ASC'));
 
         // Initialisation d'un nouveau monitoring.
         $newScriptMonitoring = new ScriptMonitoring();
@@ -52,14 +52,21 @@ class MonitoringScheduledScriptsController extends Controller {
 
         $formAddScript->handleRequest($request);
         if ($formAddScript->isValid()) {
-            $em->persist($newScriptMonitoring);
-            $em->flush();
+            // On exécute le script de récupération de la dernière date d'éxecution du script et on place le résultat dans la variable $result.
+            $result = array();
+            exec('cscript //Nologo ../scripts/getScheduledTasks.vbs ' . $newScriptMonitoring->getScriptName(), $result);
 
-            $request->getSession()->getFlashBag()->add('notice', 'La surveillance du script ' . $newScriptMonitoring->getScriptName() . ' a été paramétré.');
-            return $this->redirectToRoute('nox_intranet_monitoring_scheduled_scripts');
+            if ($result[0] !== '0') {
+                $em->persist($newScriptMonitoring);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'La surveillance du script ' . $newScriptMonitoring->getScriptName() . ' a été paramétré.');
+                return $this->redirectToRoute('nox_intranet_monitoring_scheduled_scripts');
+            }
+            
+            //
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Il n'existe pas de script avec ce nom.");
         }
-
-
 
         return $this->render('NoxIntranetAdministrationBundle:ScriptMonitoring:scriptMonitoring.html.twig', array('formAddScript' => $formAddScript->createView(), 'monitoredScripts' => $monitoredScripts));
     }

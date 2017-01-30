@@ -40,8 +40,13 @@ While taskFound = false And tasksIterator <= numberOfTasks
 Wend
 
 ' Si la tache a été trouvée...
+Dim result(1) 'On initalise un tableau de taille 2.
+
 If taskFound Then
-	WScript.Echo taskCollection(tasksIterator).LastRunTime ' On écris la date de la dernière exécution.
+	result(0) = taskCollection(tasksIterator).LastRunTime 'On ajoute la date de la dernière éxecution au tableau.
+	result(1) = taskCollection(tasksIterator).LastTaskResult ' On ajoute la résultat de la dernière execution au tableau.
+	'WScript.Echo taskCollection(tasksIterator).LastRunTime ' On écris la date de la dernière exécution.
+	WScript.Echo Join( result, vbCrLf ) 'On retourne le tableau.
 Else 
-	WScript.Echo "Le script n'existe pas !"
+	WScript.Echo false
 End If

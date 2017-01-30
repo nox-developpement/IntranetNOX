@@ -1,11 +1,13 @@
 imports:
     - { resource: config.yml }
 
-#framework:
+framework:
 #    validation:
 #        cache: validator.mapping.cache.apc
 #    serializer:
 #        cache: serializer.mapping.cache.apc
+    session:
+        cookie_lifetime: 86400
 
 #doctrine:
 #    orm:

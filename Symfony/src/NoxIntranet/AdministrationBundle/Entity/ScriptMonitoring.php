@@ -101,6 +101,9 @@ class ScriptMonitoring {
         // On récupére la dernière date d'execution dans le résultat sous forme de chaîne.
         $lastIterationTime = $result[0];
 
+        // On récupére le résultat de la dernière éxecution.
+        $lastTaskResult = $result[1];
+
         // On convertie la chaîne en DateTime.
         $lastIterationDateTime = DateTime::createFromFormat('j/m/Y H:i:s', $lastIterationTime);
 
@@ -110,12 +113,15 @@ class ScriptMonitoring {
         // On récupére le DateTime courant.
         $now = new DateTime();
 
-        // Si le DateTime courant est plus petit que le DateTime de la prochaine itération...
-        if ($now < $nextIterationDateTime) {
-            $statut = array('Statut' => true, 'lastIteration' => $lastIterationDateTime);
-        } else {
-            $statut = array('Statut' => false, 'lastIteration' => $lastIterationDateTime);
-        }
+//        // Si le DateTime courant est plus petit que le DateTime de la prochaine itération...
+//        if ($now <= $nextIterationDateTime) {
+//            $statut = array('Statut' => true, 'lastIteration' => $lastIterationDateTime);
+//        } else {
+//            $statut = array('Statut' => false, 'lastIteration' => $lastIterationDateTime);
+//        }
+        // Si le résultat est égale à 0...
+
+        $statut = array('Statut' => $lastTaskResult, 'lastIteration' => $lastIterationDateTime);
 
         return $statut;
     }
