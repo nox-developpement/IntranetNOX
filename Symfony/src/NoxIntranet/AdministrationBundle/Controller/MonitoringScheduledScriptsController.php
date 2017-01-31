@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class MonitoringScheduledScriptsController extends Controller {
 
+    // Affiche la liste des scripts planifié avec leurs statuts et permet d'en ajouter d'autres.
     public function scheduledScriptsMonitoringPanelAction(Request $request) {
         // On récupère tous les monitorings existants.
         $em = $this->getDoctrine()->getManager();
@@ -50,7 +51,7 @@ class MonitoringScheduledScriptsController extends Controller {
 
         $formAddScript->handleRequest($request);
         if ($formAddScript->isValid()) {
-            // On exécute le script de récupération de la dernière date d'éxecution du script et on place le résultat dans la variable $result.
+            // On exécute le script de récupération de la dernière date d'exécution du script et on place le résultat dans la variable $result.
             $result = array();
             exec('cscript //Nologo ../scripts/getScheduledTasks.vbs ' . $newScriptMonitoring->getScriptName(), $result);
 

@@ -89,6 +89,7 @@ class ScriptMonitoring {
         return $this->iterationTime;
     }
 
+    // Retourne un tableau contenant les informations de la dernière éxecution du script.
     public function getStatut() {
         // On récupére le nom du script et son temps d'itération.
         $scriptName = $this->scriptName;
@@ -128,6 +129,7 @@ class ScriptMonitoring {
         $statut['lastIteration'] = $lastIterationDateTime;
         $statut['lastTaskResult'] = $lastTaskResult;
 
+        // On retourne le tableau de statut.
         return $statut;
     }
 

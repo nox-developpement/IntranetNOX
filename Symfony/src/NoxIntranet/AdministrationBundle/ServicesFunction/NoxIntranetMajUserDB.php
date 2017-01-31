@@ -12,7 +12,7 @@
  * @author t.besson
  */
 
-namespace NoxIntranet\AdministrationBundle\MajUserDB;
+namespace NoxIntranet\AdministrationBundle\ServicesFunction;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NoxIntranet\UserBundle\Entity\User;
