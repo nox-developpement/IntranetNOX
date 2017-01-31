@@ -138,3 +138,11 @@ nox_intranet_pointage_download_csv:
     path: /ressources/pointage/download-csv/{fileName}
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:downloadCSV }
     
+nox_intranet_pointage_ajax_download_justificatifs_zip:
+    path: /ressources/pointage/ajax-download-justificatifs-zip
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDownloadJustificatifZip }
+    
+nox_intranet_pointage_download_justificatif_zip:
+    path: /ressources/pointage/download-justificatif-zip/{fileName}/{etablissement}/{mois}/{annee}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:downloadJustificatifZip }
+    

@@ -669,4 +669,32 @@ class PointageController extends Controller {
         return $response;
     }
 
+    public function downloadJustificatifZipAction($fileName, $etablissement, $mois, $annee) {
+        // On récupére la racine du serveur web.
+        $root = $this->get('kernel')->getRootDir() . '\..\web\\';
+
+        // On génére le chemin du fichier à retourner.
+        $filePath = $root . $fileName;
+
+        // On ouvre le fichier.
+        $ZIPFileHandler = fopen($filePath, 'r');
+
+        // On récupére les données du fichier.
+        $file = stream_get_contents($ZIPFileHandler);
+
+        // On ferme le fichier.
+        fclose($ZIPFileHandler);
+
+        // On supprime le fichier.
+        unlink($filePath);
+
+        // Initialisation de la réponse.
+        $response = new Response($file, 200);
+        $response->headers->set('Content-Type', 'application/zip');
+        $response->headers->set('Content-Disposition', "filename='Justificatifs compilation.zip'");
+
+        // On retourne le téléchargement du fichier.
+        return $response;
+    }
+
 }
