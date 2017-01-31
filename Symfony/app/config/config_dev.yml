@@ -7,7 +7,8 @@ framework:
         strict_requirements: true
     profiler: { only_exceptions: false }
     session:
-        cookie_lifetime: 86400
+        cookie_lifetime: 31536000
+        gc_maxlifetime: 86400
 
 web_profiler:
     toolbar: true

@@ -113,15 +113,20 @@ class ScriptMonitoring {
         // On récupére le DateTime courant.
         $now = new DateTime();
 
-//        // Si le DateTime courant est plus petit que le DateTime de la prochaine itération...
-//        if ($now <= $nextIterationDateTime) {
-//            $statut = array('Statut' => true, 'lastIteration' => $lastIterationDateTime);
-//        } else {
-//            $statut = array('Statut' => false, 'lastIteration' => $lastIterationDateTime);
-//        }
-        // Si le résultat est égale à 0...
+        // Si le code de retour est égale à '267009'...
+        if ($lastTaskResult === '267009') {
+            $statut['Statut'] = 'En cours';
+        }
+        // Si le DateTime courant est plus petit que le DateTime de la prochaine itération ou si le code de retour est différent de 0...
+        else if ($now > $nextIterationDateTime || $lastTaskResult !== '0') {
+            $statut['Statut'] = 'Erreur';
+        } else {
+            $statut['Statut'] = 'OK';
+        }
 
-        $statut = array('Statut' => $lastTaskResult, 'lastIteration' => $lastIterationDateTime);
+        // On ajoute la dernière date d'éxecution et le dernier code de retour au tableau.
+        $statut['lastIteration'] = $lastIterationDateTime;
+        $statut['lastTaskResult'] = $lastTaskResult;
 
         return $statut;
     }

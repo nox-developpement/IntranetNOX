@@ -23,6 +23,7 @@
 
         #formDiv {
             text-align: center;
+            margin-bottom: 2em;
         }
 
         #monitoringTable {
@@ -152,15 +153,11 @@
                 <td>
                     Toutes les {{ script.IterationTime }} heure(s)
                 </td>
-                <td>Dernière éxecution le {{ script.Statut['lastIteration']|date('d/m/Y à H:i:s') }}</td>
+                <td>Dernière éxecution le {{ script.Statut.lastIteration|date('d/m/Y à H:i:s') }}</td>
+
+                {% set statusClass = {'En cours': 'led-yellow', 'Erreur': 'led-red', 'OK': 'led-green'} %}
                 <td class="statusLed">
-                    {% if script.Statut['Statut'] == '0' %}
-                        <div class='led-green'></div>
-                    {% elseif script.Statut['Statut'] == '267009' %}
-                        <div class='led-yellow'></div>
-                    {% else %}
-                        <div class='led-red'></div>    
-                    {% endif %}
+                    <div class='{{ statusClass[script.Statut.Statut] }}' title='Code de retour: {{ script.Statut.lastTaskResult }}'></div>
                 </td>
             </tr>
         {% endfor %}
@@ -172,9 +169,8 @@
             <legend>Ajouter un monitoring de script</legend>
 
             <p>{{ form_label(formAddScript.scriptName) }} : {{ form_widget(formAddScript.scriptName) }}</p>
-            <p>{{ form_label(formAddScript.iterationTime) }} : {{ form_widget(formAddScript.iterationTime) }} heure(s)</p>
+            <p>{{ form_label(formAddScript.iterationTime) }} : Toutes les {{ form_widget(formAddScript.iterationTime) }} heure(s)</p>
             <p>{{ form_widget(formAddScript.add) }}</p>
-
         </fieldset>
         {{ form_end(formAddScript) }}
     </div>

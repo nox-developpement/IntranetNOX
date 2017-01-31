@@ -11,9 +11,7 @@ namespace NoxIntranet\AdministrationBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NoxIntranet\AdministrationBundle\Entity\ScriptMonitoring;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -43,7 +41,7 @@ class MonitoringScheduledScriptsController extends Controller {
                         'min' => 1,
                         'max' => 48
                     ),
-                    'label' => "Durée d'itération"
+                    'label' => "Fréquence d'itération"
                 ))
                 ->add('add', SubmitType::class, array(
                     'label' => 'Ajouter'
@@ -56,15 +54,18 @@ class MonitoringScheduledScriptsController extends Controller {
             $result = array();
             exec('cscript //Nologo ../scripts/getScheduledTasks.vbs ' . $newScriptMonitoring->getScriptName(), $result);
 
+            // Si le résultat du script est différent de '0' (false)...
             if ($result[0] !== '0') {
+                // On sauvegarde l'entitée en base de données.
                 $em->persist($newScriptMonitoring);
                 $em->flush();
 
+                // On affiche un message de confirmation et on redirige vers l'affichage du monitoring.
                 $request->getSession()->getFlashBag()->add('notice', 'La surveillance du script ' . $newScriptMonitoring->getScriptName() . ' a été paramétré.');
                 return $this->redirectToRoute('nox_intranet_monitoring_scheduled_scripts');
             }
-            
-            //
+
+            // On retourne un message d'erreur si le script n'est pas trouvé.
             $request->getSession()->getFlashBag()->add('noticeErreur', "Il n'existe pas de script avec ce nom.");
         }
 

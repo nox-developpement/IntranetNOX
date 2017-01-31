@@ -7,7 +7,8 @@ framework:
 #    serializer:
 #        cache: serializer.mapping.cache.apc
     session:
-        cookie_lifetime: 86400
+        cookie_lifetime: 31536000
+        gc_maxlifetime: 86400
 
 #doctrine:
 #    orm:
