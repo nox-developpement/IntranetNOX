@@ -669,4 +669,39 @@ class PointageController extends Controller {
         return $response;
     }
 
+    // Lance le téléchargement d'un fichier ZIP contenant les justificatifs des pointages d'une compilation.
+    public function downloadJustificatifZipAction($fileName, $etablissement, $month, $year) {
+        // On récupére la racine du serveur web.
+        $root = $this->get('kernel')->getRootDir() . '\..\web\\';
+
+        // On génére le chemin du fichier à retourner.
+        $filePath = $root . $fileName;
+
+        // On ouvre le fichier.
+        $ZIPFileHandler = fopen($filePath, 'r');
+
+        // On récupére les données du fichier.
+        $file = stream_get_contents($ZIPFileHandler);
+
+        // On ferme le fichier.
+        fclose($ZIPFileHandler);
+
+        // On supprime le fichier.
+        unlink($filePath);
+
+        // Tableau de conversion numéro/nom du mois.
+        $monthName = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
+
+        // Génération du nom du fichier téléchargé.
+        $downloadFileName = "Justificatifs compilation [" . $monthName[$month] . " " . $year . "] [" . $etablissement . "].zip";
+
+        // Initialisation de la réponse.
+        $response = new Response($file, 200);
+        $response->headers->set('Content-Type', 'application/zip');
+        $response->headers->set('Content-Disposition', "filename='$downloadFileName'");
+
+        // On retourne le téléchargement du fichier.
+        return $response;
+    }
+
 }
