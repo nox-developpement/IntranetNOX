@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use NoxIntranet\PointageBundle\Entity\Tableau;
 use NoxIntranet\PointageBundle\Entity\PointageValide;
 use NoxIntranet\PointageBundle\Entity\JustificatifTransportFile;
+use ZipArchive;
 
 class PointageAjaxController extends Controller {
 
@@ -933,7 +934,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
-    // Génére un fichier CSV et retourne son lien de téléchargement.
+    // Génère un fichier CSV et retourne son lien de téléchargement.
     public function ajaxDownloadCSVAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // On récupére les données du pointage.
@@ -942,6 +943,7 @@ class PointageAjaxController extends Controller {
             // On convertie les données JSON en Array.
             $tableDataArray = json_decode($tableData, true);
 
+            // On récupére la racine du serveur web.
             $root = $this->get('kernel')->getRootDir() . '\..\web\\';
 
             // On génére un chemin pour le fichier CSV.
@@ -960,6 +962,70 @@ class PointageAjaxController extends Controller {
 
             // On génére le lien de téléchargement avec le nom du fichier en paramètre.
             $downloadUrl = $this->generateUrl('nox_intranet_pointage_download_csv', array('fileName' => pathinfo($newCSVFile, PATHINFO_BASENAME)));
+
+            // On retourne le chemin du fichier.
+            return new Response($downloadUrl);
+        }
+    }
+
+    // Génère un fichier ZIP contenant les justificatifs des pointages d'une compilation et retourne le lien de téléchargement.
+    public function ajaxDownloadJustificatifZipAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupére les infos de la compilation.
+            $justificatifsZipInfo = $request->get('justificatifsZipInfo');
+
+            // On converti les données JSON en Array.
+            $justificatifsZipInfoArray = json_decode($justificatifsZipInfo, true);
+
+            // Initialisation de l'entity manager.
+            $em = $this->getDoctrine()->getManager();
+
+            // Initialisation d'une archive ZIP.
+            $zipFile = new ZipArchive();
+
+            // On récupére la racine du serveur web.
+            $root = $this->get('kernel')->getRootDir() . '\..\web\\';
+
+            // On génére un chemin pour le fichier CSV.
+            $newZipFile = tempnam($root, '');
+
+            // Ouverture de l'archive ZIP.
+            $zipFile->open($newZipFile, ZipArchive::CREATE);
+
+            // Pour chaques usernames de la compilation...
+            foreach ($justificatifsZipInfoArray['usernames'] as $username) {
+                // On récupére le pointage associé grâce au mois, année et username.
+                $pointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('month' => $justificatifsZipInfoArray['month'], 'year' => $justificatifsZipInfoArray['year'], 'user' => $username));
+
+                // On récupére le collaborateur associé au pointage.
+                $collaborateur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($pointage->getUser());
+
+                // On récupére le/les justificatif(s) associé(s) au pointage.
+                $justificatifsPointages = $em->getRepository('NoxIntranetPointageBundle:JustificatifFile')->findByTableau($pointage);
+
+                // Pour chaques justificatif...
+                foreach ($justificatifsPointages as $justificatif) {
+                    // Le nom complet du collaborateur.
+                    $collaborateurName = $collaborateur->getLastname() . ' ' . $collaborateur->getFirstname();
+
+                    // Le contenu du fichier sous forme de chaîne.
+                    $fileContent = stream_get_contents($justificatif->getContent());
+
+                    // On ajoute le fichier à l'archive dans un dossier au nom du collaborateur.
+                    $zipFile->addFromString($collaborateurName . '/' . $justificatif->getName(), $fileContent);
+                }
+            }
+
+            // On ferme l'archive ZIP.
+            $zipFile->close();
+
+            // On génére le lien de téléchargement avec le nom du fichier en paramètre .
+            $downloadUrl = $this->generateUrl('nox_intranet_pointage_download_justificatif_zip', array(
+                'fileName' => pathinfo($newZipFile, PATHINFO_BASENAME),
+                'etablissement' => $justificatifsZipInfoArray['etablissement'],
+                'month' => $justificatifsZipInfoArray['month'],
+                'year' => $justificatifsZipInfoArray['year']
+            ));
 
             // On retourne le chemin du fichier.
             return new Response($downloadUrl);

@@ -66,7 +66,8 @@
         </div>
     </div>
 
-    <div id="compilationPointages">        
+    <div id="compilationPointages">
+        <p onclick='downloadJustificatifsZip();' style="width: 50%; margin: 0 auto 1em auto; padding: 0.2em; cursor: pointer; border: 1px solid black; border-radius: 5px; background-color: #1F4E79; color: white; text-align: center;">Télécharger les fichiers justificatifs</p>
         <table id="compilationPointagesTable">
             <tr>
                 <th id="compilationPointageNomPrenom">Nom/Prénom</th>
@@ -830,6 +831,27 @@
                 if (Cookies.get(value) !== undefined && Cookies.get(value) !== '') {
                     $('#' + value).val(Cookies.get(value)); // On assigne la valeur du cookie au sélécteur.
                     $('#' + value).trigger('change'); // On déclanche le changement du sélécteur pour déclancher les fonctions associées.
+                }
+            });
+        }
+
+        // Permet de télécharger les justificatifs des pointages de la compilation.
+        function downloadJustificatifsZip() {
+            // On récupére la listes des usernames des collaborateur de la compilation sous forme de tableau.
+            var collaborateursUsernames = [];
+            $('.pointageCompile').each(function () {
+                collaborateursUsernames.push($(this).attr('username'));
+            });
+
+            // On génére un objet contenant le mois, l'année et les usernames de la compilation.
+            var justificatifsZipInfo = {'month': $('#form_Month').val(), 'year': $('#form_Year').val(), 'etablissement': $('#form_Etablissement').val(), 'usernames': collaborateursUsernames};
+
+            // Rêquette Ajax qui lance la génération du fichier ZIP.
+            $.ajax({
+                url: '{{ path('nox_intranet_pointage_ajax_download_justificatifs_zip') }}',
+                data: {'justificatifsZipInfo': JSON.stringify(justificatifsZipInfo)},
+                success: function (downloadLink) {
+                    window.location.href = downloadLink; // Redirige vers le lien de téléchargement du fichier ZIP.
                 }
             });
         }
