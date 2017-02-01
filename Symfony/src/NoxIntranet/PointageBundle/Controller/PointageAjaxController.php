@@ -994,25 +994,44 @@ class PointageAjaxController extends Controller {
 
             // Pour chaques usernames de la compilation...
             foreach ($justificatifsZipInfoArray['usernames'] as $username) {
+
                 // On récupére le pointage associé grâce au mois, année et username.
                 $pointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('month' => $justificatifsZipInfoArray['month'], 'year' => $justificatifsZipInfoArray['year'], 'user' => $username));
 
                 // On récupére le collaborateur associé au pointage.
                 $collaborateur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($pointage->getUser());
 
+                // Le nom complet du collaborateur (encodé en 'CP850'.
+                $collaborateurName = mb_convert_encoding($collaborateur->getLastname() . ' ' . $collaborateur->getFirstname(), 'CP850', mb_detect_encoding($collaborateur->getLastname() . ' ' . $collaborateur->getFirstname()));
+
+                // Si il existe un fichier justificatif de transport associé au pointage.
+                if (!empty($pointage->getJustificatifTransportFile())) {
+                    // On récupére le fichier de justificatif de transport.
+                    $justificatifTransport = $pointage->getJustificatifTransportFile();
+
+                    // Le nom du fichier (encodé en 'CP850').
+                    $filename = mb_convert_encoding(stripslashes($justificatifTransport->getName()), 'CP850', mb_detect_encoding($justificatifTransport->getName()));
+
+                    // Le contenu du fichier sous forme de chaîne.
+                    $fileContent = stream_get_contents($justificatifTransport->getContent());
+
+                    // On ajoute le fichier à l'archive dans un dossier au nom du collaborateur.
+                    $zipFile->addFromString($collaborateurName . '/' . $filename, $fileContent);
+                }
+
                 // On récupére le/les justificatif(s) associé(s) au pointage.
                 $justificatifsPointages = $em->getRepository('NoxIntranetPointageBundle:JustificatifFile')->findByTableau($pointage);
 
                 // Pour chaques justificatif...
-                foreach ($justificatifsPointages as $justificatif) {                                 
-                    // Le nom complet du collaborateur.
-                    $collaborateurName = $collaborateur->getLastname() . ' ' . $collaborateur->getFirstname();
+                foreach ($justificatifsPointages as $justificatif) {
+                    // Le nom du fichier (encodé en 'CP850').
+                    $filename = mb_convert_encoding($justificatif->getName(), 'CP850', mb_detect_encoding($justificatif->getName()));
 
                     // Le contenu du fichier sous forme de chaîne.
                     $fileContent = stream_get_contents($justificatif->getContent());
 
                     // On ajoute le fichier à l'archive dans un dossier au nom du collaborateur.
-                    $zipFile->addFromString($collaborateurName . '/' . $justificatif->getName(), $fileContent);
+                    $zipFile->addFromString($collaborateurName . '/' . $filename, $fileContent);
                 }
             }
 
