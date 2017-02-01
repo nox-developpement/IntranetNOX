@@ -1012,7 +1012,7 @@ class PointageAjaxController extends Controller {
                     $filename = mb_convert_encoding(stripslashes($justificatifTransport->getName()), 'CP850', mb_detect_encoding($justificatifTransport->getName()));
 
                     // Le contenu du fichier sous forme de chaîne.
-                    $fileContent = stream_get_contents($justificatifTransport->getContent());
+                    $fileContent = stripslashes(stream_get_contents($justificatifTransport->getContent()));
 
                     // On ajoute le fichier à l'archive dans un dossier au nom du collaborateur.
                     $zipFile->addFromString($collaborateurName . '/' . $filename, $fileContent);
