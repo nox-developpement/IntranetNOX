@@ -1005,6 +1005,9 @@ class PointageAjaxController extends Controller {
 
                 // Pour chaques justificatif...
                 foreach ($justificatifsPointages as $justificatif) {
+                    
+                    var_dump($justificatif);
+                    
                     // Le nom complet du collaborateur.
                     $collaborateurName = $collaborateur->getLastname() . ' ' . $collaborateur->getFirstname();
 
