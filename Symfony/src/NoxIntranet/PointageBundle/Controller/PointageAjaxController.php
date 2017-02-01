@@ -994,7 +994,6 @@ class PointageAjaxController extends Controller {
 
             // Pour chaques usernames de la compilation...
             foreach ($justificatifsZipInfoArray['usernames'] as $username) {
-
                 // On récupére le pointage associé grâce au mois, année et username.
                 $pointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('month' => $justificatifsZipInfoArray['month'], 'year' => $justificatifsZipInfoArray['year'], 'user' => $username));
 
