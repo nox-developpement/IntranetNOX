@@ -934,7 +934,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
-    // Génére un fichier CSV et retourne son lien de téléchargement.
+    // Génère un fichier CSV et retourne son lien de téléchargement.
     public function ajaxDownloadCSVAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // On récupére les données du pointage.
@@ -968,6 +968,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
+    // Génère un fichier ZIP contenant les justificatifs des pointages d'une compilation et retourne le lien de téléchargement.
     public function ajaxDownloadJustificatifZipAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // On récupére les infos de la compilation.
@@ -1019,7 +1020,12 @@ class PointageAjaxController extends Controller {
             $zipFile->close();
 
             // On génére le lien de téléchargement avec le nom du fichier en paramètre .
-            $downloadUrl = $this->generateUrl('nox_intranet_pointage_download_justificatif_zip', array('fileName' => pathinfo($newZipFile, PATHINFO_BASENAME)));
+            $downloadUrl = $this->generateUrl('nox_intranet_pointage_download_justificatif_zip', array(
+                'fileName' => pathinfo($newZipFile, PATHINFO_BASENAME),
+                'etablissement' => $justificatifsZipInfoArray['etablissement'],
+                'month' => $justificatifsZipInfoArray['month'],
+                'year' => $justificatifsZipInfoArray['year']
+            ));
 
             // On retourne le chemin du fichier.
             return new Response($downloadUrl);

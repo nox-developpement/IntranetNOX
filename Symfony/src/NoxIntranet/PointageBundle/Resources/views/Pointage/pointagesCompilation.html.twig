@@ -67,7 +67,7 @@
     </div>
 
     <div id="compilationPointages">
-        <button onclick='downloadJustificatifsZip();'>Télécharger les fichiers justificatifs</button>
+        <p onclick='downloadJustificatifsZip();' style="width: 50%; margin: 0 auto 1em auto; padding: 0.2em; cursor: pointer; border: 1px solid black; border-radius: 5px; background-color: #1F4E79; color: white; text-align: center;">Télécharger les fichiers justificatifs</p>
         <table id="compilationPointagesTable">
             <tr>
                 <th id="compilationPointageNomPrenom">Nom/Prénom</th>
@@ -835,8 +835,8 @@
             });
         }
 
+        // Permet de télécharger les justificatifs des pointages de la compilation.
         function downloadJustificatifsZip() {
-
             // On récupére la listes des usernames des collaborateur de la compilation sous forme de tableau.
             var collaborateursUsernames = [];
             $('.pointageCompile').each(function () {
@@ -844,13 +844,14 @@
             });
 
             // On génére un objet contenant le mois, l'année et les usernames de la compilation.
-            var justificatifsZipInfo = {'month': $('#form_Month').val(), 'year': $('#form_Year').val(), 'usernames': collaborateursUsernames};
+            var justificatifsZipInfo = {'month': $('#form_Month').val(), 'year': $('#form_Year').val(), 'etablissement': $('#form_Etablissement').val(), 'usernames': collaborateursUsernames};
 
+            // Rêquette Ajax qui lance la génération du fichier ZIP.
             $.ajax({
                 url: '{{ path('nox_intranet_pointage_ajax_download_justificatifs_zip') }}',
                 data: {'justificatifsZipInfo': JSON.stringify(justificatifsZipInfo)},
-                success: function(downloadLink) {
-                    window.location.href = downloadLink;
+                success: function (downloadLink) {
+                    window.location.href = downloadLink; // Redirige vers le lien de téléchargement du fichier ZIP.
                 }
             });
         }

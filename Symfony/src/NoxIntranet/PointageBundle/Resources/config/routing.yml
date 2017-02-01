@@ -143,6 +143,6 @@ nox_intranet_pointage_ajax_download_justificatifs_zip:
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDownloadJustificatifZip }
     
 nox_intranet_pointage_download_justificatif_zip:
-    path: /ressources/pointage/download-justificatif-zip/{fileName}/{etablissement}/{mois}/{annee}
+    path: /ressources/pointage/download-justificatif-zip/{fileName}/{etablissement}/{month}/{year}
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:downloadJustificatifZip }
     
