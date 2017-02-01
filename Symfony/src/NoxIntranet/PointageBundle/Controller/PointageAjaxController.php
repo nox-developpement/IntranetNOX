@@ -1004,10 +1004,7 @@ class PointageAjaxController extends Controller {
                 $justificatifsPointages = $em->getRepository('NoxIntranetPointageBundle:JustificatifFile')->findByTableau($pointage);
 
                 // Pour chaques justificatif...
-                foreach ($justificatifsPointages as $justificatif) {
-                    
-                    var_dump($justificatif);
-                    
+                foreach ($justificatifsPointages as $justificatif) {                                 
                     // Le nom complet du collaborateur.
                     $collaborateurName = $collaborateur->getLastname() . ' ' . $collaborateur->getFirstname();
 

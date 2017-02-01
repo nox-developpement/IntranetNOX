@@ -846,8 +846,6 @@
             // On génére un objet contenant le mois, l'année et les usernames de la compilation.
             var justificatifsZipInfo = {'month': $('#form_Month').val(), 'year': $('#form_Year').val(), 'etablissement': $('#form_Etablissement').val(), 'usernames': collaborateursUsernames};
 
-            console.log(JSON.stringify(justificatifsZipInfo));
-
             // Rêquette Ajax qui lance la génération du fichier ZIP.
             $.ajax({
                 url: '{{ path('nox_intranet_pointage_ajax_download_justificatifs_zip') }}',
