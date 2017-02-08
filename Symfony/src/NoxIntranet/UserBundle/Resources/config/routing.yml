@@ -18,3 +18,7 @@ nox_intranet_developpement_professionnel_synthese_excel:
 nox_intranet_developpement_professionnel_download_pdf_export:
     path:   /developpement-professionnel-download-pdf-export
     defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel\DeveloppementProfessionnel:downloadPDFExport }
+    
+nox_intranet_developpement_professionnel_ajax_convert_html_to_pdf:
+    path:   /developpement-professionnel-ajax-convert-html-to-pdf
+    defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel\DeveloppementProfessionnel:ajaxConvertHtmlToPDF }

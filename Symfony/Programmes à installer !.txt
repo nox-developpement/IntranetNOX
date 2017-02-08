@@ -7,3 +7,5 @@ Microsoft® SQL Server® 2012 Express : Pour l'accès à la base de données SQL Serv
 Microsoft® SQL Server® 2012 Management Studio : Pour les commandes cmd d'import/export de la base de donnée SQL Server de GX.
 
 Mot de passe admin VM Prod (192.168.35.3) : Nox30intr&
+
+wkhtmltopdf: Permet la conversion de page HTML en PDF en ligne de commande. Utilise le module webkit (Google Chrome).

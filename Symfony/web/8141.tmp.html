@@ -1,0 +1,477 @@
+        
+
+        <style>
+            #formulaireDeveloppementProfessionnelDiv {
+                width: 70%;
+                margin: auto;
+            }
+
+            #formulaireDeveloppementProfessionnelDiv form {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+
+            #infoGeneraleTable {
+                width: 100%;
+                border-collapse: collapse;
+                border: 2px solid black;
+            }
+
+            #infoGeneraleTable tr, #infoGeneraleTable td {
+                border-collapse: collapse;
+                border: 1px solid black;
+            }
+
+            #infoGeneraleTable td {
+                padding: 1em;
+                color: black;
+            }
+
+            #infoGeneraleTable div:not(.cellInputDiv) {
+                display: inline-block;
+            }
+
+            .cellInputDiv {
+                display: table;
+                width: 100%;
+            }
+
+            .cellInputDiv label {
+                display: table-cell;
+                width: 1px;
+                white-space: pre;
+            }
+
+            .cellInputDiv input[type='text'], .cellInputDiv input[type='number'] {
+                display: table-cell;
+                box-sizing: border-box;
+                width: 100%;
+                text-align: center;
+            }
+
+            h4 {
+                text-decoration: underline;
+                color: rgb(0 ,32, 96);
+                font-size: 1.2em;
+            }
+
+            .collaborateurTd, .collaborateurTextarea {
+                background-color: rgb(218, 238, 243);
+            }
+
+            .managerTd, .managerTextarea {
+                background-color: rgb(217, 217, 217);
+            }
+
+            .neutreTd, .neutreTextarea {
+                background-color: white;
+            }
+
+            .questionsTable {
+                table-layout: fixed;
+                width: 100%;
+            }
+
+            .questionsTable, .questionsTable tr, .questionsTable td {
+                border-collapse: collapse;
+                border: 1px solid black;
+            }
+
+            .questionsTable td {
+                width: 50%;
+                padding-left: 0.5em;
+                padding-right: 0.5em;
+                color: black;
+            }
+
+            .questionsTable td textarea {
+                display: block;
+                box-sizing: border-box;
+                width: 100%;
+                resize: none;
+                border: none;
+            }
+
+            .questionLibelle {
+                display: block;
+                font-style: italic;
+                text-align: left;
+            }
+
+            .noWhiteSpaceTd {
+                padding: 0.5% !important; 
+                text-align: center;
+            }
+
+            .noWhiteSpaceTd select {
+                width: 100%;
+            }
+
+            #questionsTable1 tr:nth-child(5), #questionsTable1 tr:nth-child(5) td {
+                border-bottom: none;
+            }
+
+            #questionsTable1 tr:nth-child(6), #questionsTable1 tr:nth-child(6) td {
+                border-top: none;
+            }
+
+            #questionsTable1 tr:nth-child(n+7):nth-child(-n+8), #questionsTable1 tr:nth-child(n+7):nth-child(-n+8) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable1 tr:nth-child(n+10):nth-child(-n+13), #questionsTable1 tr:nth-child(n+10):nth-child(-n+13) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable1 tr:nth-child(n+15):nth-child(-n+18), #questionsTable1 tr:nth-child(n+15):nth-child(-n+18) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable1 tr:nth-child(n+20):nth-child(-n+21), #questionsTable1 tr:nth-child(n+20):nth-child(-n+21) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable2 tr:nth-child(n+4):nth-child(-n+5), #questionsTable2 tr:nth-child(n+4):nth-child(-n+5) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable3 tr:nth-child(n+6):nth-child(-n+7), #questionsTable3 tr:nth-child(n+6):nth-child(-n+7) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable3 tr:nth-child(n+9):nth-child(-n+15), #questionsTable3 tr:nth-child(n+9):nth-child(-n+15) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable4 tr:nth-child(n+5):nth-child(-n+6), #questionsTable4 tr:nth-child(n+5):nth-child(-n+6) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable5 {
+                margin-bottom: 2em;
+            }
+
+            #questionsTable6 {
+                margin-bottom: 1em;
+            }
+
+            #formValidationParagraph {
+                margin: 0;
+                text-align: center;
+            }
+
+            #form_Valider {
+                margin-bottom: 5em;
+                padding: 1em;
+            }
+
+            #form_Valider:hover {
+                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7db9e8+0,daeef3+100 */
+                background: #7db9e8; /* Old browsers */
+                background: -moz-linear-gradient(top,  #7db9e8 0%, #daeef3 100%); /* FF3.6-15 */
+                background: -webkit-linear-gradient(top,  #7db9e8 0%,#daeef3 100%); /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to bottom,  #7db9e8 0%,#daeef3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#daeef3',GradientType=0 ); /* IE6-9 */
+            }
+
+            #formationTable {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            #formationTable, #formationTable tr, #formationTable td {
+                border: 1px solid black;
+            }
+
+            #formationTable td {
+                padding: 0;
+                text-align: center;
+                background-color: rgb(217, 217, 217); 
+            }
+
+            #formationTable tr input[type='text'] {
+                display: block;
+                box-sizing: border-box;
+                border: none;
+                width: 100%;
+                height: 100%;
+            }
+
+            .deleteObjectif {
+                color: blue;
+                cursor: pointer;
+            }
+
+            .deleteObjectif:hover {
+                text-decoration: underline;
+            }
+
+            #addObjectif {
+                color: blue;
+                cursor: pointer;
+            }
+
+            #addObjectif:hover {
+                text-decoration: underline;
+            }
+        </style>
+
+        <form name="form" method="post">
+        <table id="infoGeneraleTable">
+            <tbody><tr>
+                <td><div class="cellInputDiv"><label for="form_Nom" class="required">Nom : </label><input type="text" id="form_Nom" name="form[Nom]" readonly="readonly" required="required" value="BESSON"></div></td>
+                <td><div class="cellInputDiv"><label for="form_PosteActuel" class="required">Poste actuel : </label><input type="text" id="form_PosteActuel" name="form[PosteActuel]" required="required"></div></td>
+            </tr>
+            <tr>
+                <td><div class="cellInputDiv"><label for="form_Prenom" class="required">Prénom : </label><input type="text" id="form_Prenom" name="form[Prenom]" readonly="readonly" required="required" value="Tristan"></div></td>
+                <td><label class="required">Date d'ancienneté dans le poste : </label><div id="form_DateAnciennetePoste"><select id="form_DateAnciennetePoste_day" name="form[DateAnciennetePoste][day]"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8" selected="selected">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select><select id="form_DateAnciennetePoste_month" name="form[DateAnciennetePoste][month]"><option value="1">janv.</option><option value="2" selected="selected">févr.</option><option value="3">mars</option><option value="4">avr.</option><option value="5">mai</option><option value="6">juin</option><option value="7">juil.</option><option value="8">août</option><option value="9">sept.</option><option value="10">oct.</option><option value="11">nov.</option><option value="12">déc.</option></select><select id="form_DateAnciennetePoste_year" name="form[DateAnciennetePoste][year]"><option value="1967">1967</option><option value="1968">1968</option><option value="1969">1969</option><option value="1970">1970</option><option value="1971">1971</option><option value="1972">1972</option><option value="1973">1973</option><option value="1974">1974</option><option value="1975">1975</option><option value="1976">1976</option><option value="1977">1977</option><option value="1978">1978</option><option value="1979">1979</option><option value="1980">1980</option><option value="1981">1981</option><option value="1982">1982</option><option value="1983">1983</option><option value="1984">1984</option><option value="1985">1985</option><option value="1986">1986</option><option value="1987">1987</option><option value="1988">1988</option><option value="1989">1989</option><option value="1990">1990</option><option value="1991">1991</option><option value="1992">1992</option><option value="1993">1993</option><option value="1994">1994</option><option value="1995">1995</option><option value="1996">1996</option><option value="1997">1997</option><option value="1998">1998</option><option value="1999">1999</option><option value="2000">2000</option><option value="2001">2001</option><option value="2002">2002</option><option value="2003">2003</option><option value="2004">2004</option><option value="2005">2005</option><option value="2006">2006</option><option value="2007">2007</option><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017" selected="selected">2017</option></select></div></td>
+            </tr>
+            <tr>
+                <td><div class="cellInputDiv"><label for="form_Age" class="required">Age : </label><input type="number" id="form_Age" name="form[Age]" required="required" min="1"></div></td>
+                <td><div class="cellInputDiv"><label for="form_SalaireBrutMensuel" class="required">Salaire brut mensuel : </label><input type="number" id="form_SalaireBrutMensuel" name="form[SalaireBrutMensuel]" required="required" min="1"></div></td>
+            </tr>
+            <tr>
+                <td><label class="required">Date d'ancienneté Groupe : </label><div id="form_DateAncienneteGroupe"><select id="form_DateAncienneteGroupe_day" name="form[DateAncienneteGroupe][day]"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8" selected="selected">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select><select id="form_DateAncienneteGroupe_month" name="form[DateAncienneteGroupe][month]"><option value="1">janv.</option><option value="2" selected="selected">févr.</option><option value="3">mars</option><option value="4">avr.</option><option value="5">mai</option><option value="6">juin</option><option value="7">juil.</option><option value="8">août</option><option value="9">sept.</option><option value="10">oct.</option><option value="11">nov.</option><option value="12">déc.</option></select><select id="form_DateAncienneteGroupe_year" name="form[DateAncienneteGroupe][year]"><option value="1967">1967</option><option value="1968">1968</option><option value="1969">1969</option><option value="1970">1970</option><option value="1971">1971</option><option value="1972">1972</option><option value="1973">1973</option><option value="1974">1974</option><option value="1975">1975</option><option value="1976">1976</option><option value="1977">1977</option><option value="1978">1978</option><option value="1979">1979</option><option value="1980">1980</option><option value="1981">1981</option><option value="1982">1982</option><option value="1983">1983</option><option value="1984">1984</option><option value="1985">1985</option><option value="1986">1986</option><option value="1987">1987</option><option value="1988">1988</option><option value="1989">1989</option><option value="1990">1990</option><option value="1991">1991</option><option value="1992">1992</option><option value="1993">1993</option><option value="1994">1994</option><option value="1995">1995</option><option value="1996">1996</option><option value="1997">1997</option><option value="1998">1998</option><option value="1999">1999</option><option value="2000">2000</option><option value="2001">2001</option><option value="2002">2002</option><option value="2003">2003</option><option value="2004">2004</option><option value="2005">2005</option><option value="2006">2006</option><option value="2007">2007</option><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017" selected="selected">2017</option></select></div></td>
+                <td><div class="cellInputDiv"><label for="form_NomResponsable" class="required">Nom du responsable : </label><input type="text" id="form_NomResponsable" name="form[NomResponsable]" required="required"></div></td>
+            </tr>
+            <tr>
+                <td><div class="cellInputDiv"><label for="form_Entite" class="required">Entité : </label><input type="text" id="form_Entite" name="form[Entite]" required="required"></div></td>
+                <td><label class="required">Date de l'entretien : </label><div id="form_DateEntretien"><select id="form_DateEntretien_day" name="form[DateEntretien][day]"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8" selected="selected">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select><select id="form_DateEntretien_month" name="form[DateEntretien][month]"><option value="1">janv.</option><option value="2" selected="selected">févr.</option><option value="3">mars</option><option value="4">avr.</option><option value="5">mai</option><option value="6">juin</option><option value="7">juil.</option><option value="8">août</option><option value="9">sept.</option><option value="10">oct.</option><option value="11">nov.</option><option value="12">déc.</option></select><select id="form_DateEntretien_year" name="form[DateEntretien][year]"><option value="1967">1967</option><option value="1968">1968</option><option value="1969">1969</option><option value="1970">1970</option><option value="1971">1971</option><option value="1972">1972</option><option value="1973">1973</option><option value="1974">1974</option><option value="1975">1975</option><option value="1976">1976</option><option value="1977">1977</option><option value="1978">1978</option><option value="1979">1979</option><option value="1980">1980</option><option value="1981">1981</option><option value="1982">1982</option><option value="1983">1983</option><option value="1984">1984</option><option value="1985">1985</option><option value="1986">1986</option><option value="1987">1987</option><option value="1988">1988</option><option value="1989">1989</option><option value="1990">1990</option><option value="1991">1991</option><option value="1992">1992</option><option value="1993">1993</option><option value="1994">1994</option><option value="1995">1995</option><option value="1996">1996</option><option value="1997">1997</option><option value="1998">1998</option><option value="1999">1999</option><option value="2000">2000</option><option value="2001">2001</option><option value="2002">2002</option><option value="2003">2003</option><option value="2004">2004</option><option value="2005">2005</option><option value="2006">2006</option><option value="2007">2007</option><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017" selected="selected">2017</option></select></div></td>
+            </tr>
+        </tbody></table>
+
+        <h4>Thème 1 : Bilan de l'année écoulée</h4>
+
+        <table class="questionsTable" id="questionsTable1">
+            <tbody><tr>
+                <td class="collaborateurTd" style="text-align: center; font-weight: bold;">AUTO EVALUATION</td>
+                <td class="managerTd" style="text-align: center; font-weight: bold;">EVALUATION DU MANAGER</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center; font-weight: bold;">Bilan de l'année écoulée</td>
+            </tr>
+                            <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Comment ai-je vécu cette année ?</span><textarea id="form_1_Collaborateur" name="form[1_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 30em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Que retenez-vous de cette année ?</span><textarea id="form_1_Manager" name="form[1_Manager]" required="required" class="managerTextarea" style="height: 30em;"></textarea></td>
+                                                                                        </tr>
+                            <tr>
+                                                                                            <td class="neutreTd" colspan="2"><span class="questionLibelle">Mission principale : Décrivez la mission principale</span><textarea id="form_2_Neutre" name="form[2_Neutre]" required="required" class="neutreTextarea" style="height: 5em;"></textarea></td>
+                                    </tr>
+                            <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Quels résultats ai-je obtenus ?</span><textarea id="form_3_Collaborateur" name="form[3_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 20em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Quels sont les résultats obtenu ?</span><textarea id="form_3_Manager" name="form[3_Manager]" required="required" class="managerTextarea" style="height: 20em;"></textarea></td>
+                                                                                        </tr>
+                            <tr>
+                                                                        <td class="collaborateurTd noWhiteSpaceTd"><span class="questionLibelle">Sélectionnez le niveau de maîtrise du poste : (*note explicative)</span><select id="form_4_Collaborateur" name="form[4_Collaborateur]" required="required"><option value="" selected="selected">Choisir une réponse...</option><option value="Construction">Construction</option><option value="Adéquation">Adéquation</option><option value="Maîtrise">Maîtrise</option><option value="Excellence">Excellence</option></select></td>
+                                                                                                                                    <td class="managerTd noWhiteSpaceTd"><span class="questionLibelle">Sélectionnez le niveau de maîtrise du poste : (*note explicative)</span><select id="form_4_Manager" name="form[4_Manager]" required="required"><option value="" selected="selected">Choisir une réponse...</option><option value="Construction">Construction</option><option value="Adéquation">Adéquation</option><option value="Maîtrise">Maîtrise</option><option value="Excellence">Excellence</option></select></td>
+                                                                                            </tr>
+                            <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Quelles difficultés ai-je rencontrées ?</span><textarea id="form_5_Collaborateur" name="form[5_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 10em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Quelles ont été les difficultés rencontrées ?</span><textarea id="form_5_Manager" name="form[5_Manager]" required="required" class="managerTextarea" style="height: 10em;"></textarea></td>
+                                                                                        </tr>
+                            <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Quelles sont mes réussites et apports pour le Groupe ?</span><textarea id="form_6_Collaborateur" name="form[6_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 10em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Quelles sont les réussites et les apports pour le Groupe ?</span><textarea id="form_6_Manager" name="form[6_Manager]" required="required" class="managerTextarea" style="height: 10em;"></textarea></td>
+                                                                                        </tr>
+                   
+                            <tr class="objectif_td_1">
+                    <td class="neutreTd" colspan="2">
+                        <span class="questionLibelle">Objectif 1 : Décrivez l'objectif (<span class="deleteObjectif" tr_index="objectif_td_1" onclick="deleteObjectif($(this));">supprimer</span>)</span>
+                        <textarea id="objectif_description_1" required="required" class="neutreTextarea objectifInput" style="height: 2em;"></textarea>
+                    </td>
+                </tr>
+                <tr class="objectif_td_1">
+                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quels sont les résultats obtenus ?</span><textarea id="objectif_resultat_1" required="required" class="managerTextarea objectifInput" style="height: 10em;"></textarea></td>
+                </tr>
+                <tr class="objectif_td_1">
+                    <td class="managerTd noWhiteSpaceTd" colspan="2"><span class="questionLibelle">Sélectionnez le niveau d'atteinte de l'objectif</span><select id="objectif_niveau_1" required="required" class="objectifSelect"><option value="" selected="selected">Choisir une réponse...</option><option value="Non atteint">Non atteint</option><option value="Partiellement atteint">Partiellement atteint</option><option value="Atteint">Atteint</option><option value="Dépassé">Dépassé</option></select></td>
+                </tr>
+                <tr class="objectif_td_1">
+                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quelles ont été les difficultés rencontrées ?</span><textarea id="objectif_difficulte_1" class="managerTextarea objectifInput" style="height: 10em;"></textarea></td>
+                </tr>
+                <tr class="objectif_td_1">
+                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quelles sont les réussites et les apports pour le Groupe ?</span><textarea id="objectif_reussite_1" required="required" class="managerTextarea objectifInput" style="height: 10em;"></textarea></td>
+                </tr>
+                        <tr>
+                <td colspan="2" style="text-align: center; background-color: rgb(217, 217, 217);"><span id="addObjectif" onclick="addObjectif($('#form_NombreObjectifs').val());">Ajouter un objectif</span></td>
+            </tr>
+
+            <tr>
+                <td colspan="2" style="text-align: center; font-weight: bold;">Charge de travail</td>
+            </tr>
+                            <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Comment estimez-vous votre charge de travail ? Impacte-elle votre vie personnelle ?</span><textarea id="form_17_Collaborateur" name="form[17_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 10em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Quels sont les facteurs d’aggravation ou d’amélioration de la situation ?</span><textarea id="form_17_Manager" name="form[17_Manager]" required="required" class="managerTextarea" style="height: 10em;"></textarea></td>
+                                                                                        </tr>
+                            <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Quelles sont les solutions pour pallier aux éventuelles difficultés ?</span><textarea id="form_18_Collaborateur" name="form[18_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 10em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle"></span><textarea id="form_18_Manager" name="form[18_Manager]" disabled="disabled" required="required" class="managerTextarea" style=""></textarea></td>
+                                                                                        </tr>
+                    </tbody></table>
+
+        <h4>Thème 2 : Acquis, forces et faiblesses</h4>
+        <table class="questionsTable" id="questionsTable2">
+            <tbody><tr>
+                <td class="collaborateurTd" style="text-align: center; font-weight: bold;">AUTO EVALUATION</td>
+                <td class="managerTd" style="text-align: center; font-weight: bold;">EVALUATION DU MANAGER</td>
+            </tr>
+
+                            <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Quelles ont été les situations de travail source de motivation et sources de frustration ?</span><textarea id="form_19_Collaborateur" name="form[19_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 10em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Quelles sont les zones de confort et d’inconfort dans le poste ?</span><textarea id="form_19_Manager" name="form[19_Manager]" required="required" class="managerTextarea" style="height: 10em;"></textarea></td>
+                                                                                        </tr>
+                            <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Quelles sont mes forces ?</span><textarea id="form_20_Collaborateur" name="form[20_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 10em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Quelles sont les forces à valoriser ?</span><textarea id="form_20_Manager" name="form[20_Manager]" required="required" class="managerTextarea" style="height: 10em;"></textarea></td>
+                                                                                        </tr>
+                            <tr>
+                                                                                                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quelles formations ont été suivies cette année ?</span><textarea id="form_21_Manager" name="form[21_Manager]" required="required" class="managerTextarea" style="height: 7em;"></textarea></td>
+                                                                                        </tr>
+                            <tr>
+                                                                                                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quels sont les acquis cette année ?</span><textarea id="form_22_Manager" name="form[22_Manager]" required="required" class="managerTextarea" style="height: 7em;"></textarea></td>
+                                                                                        </tr>
+                            <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Quels sont mes axes d’amélioration ?</span><textarea id="form_23_Collaborateur" name="form[23_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 10em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Quels sont les axes d’amélioration sur lesquels il faut travailler ?</span><textarea id="form_23_Manager" name="form[23_Manager]" required="required" class="managerTextarea" style="height: 10em;"></textarea></td>
+                                                                                        </tr>
+                    </tbody></table>
+
+        <h4>Thème 3 : Projet professionnel - motivations et aspirations</h4>
+        <table class="questionsTable" id="questionsTable3">
+            <tbody><tr>
+                <td class="collaborateurTd" style="text-align: center; font-weight: bold;">AUTO EVALUATION</td>
+                <td class="managerTd" style="text-align: center; font-weight: bold;">EVALUATION DU MANAGER</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center; font-weight: bold;">Evolution du métier</td>
+            </tr>
+
+                            <tr>
+                                                                                                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quels vont être les impacts de l’évolution du métier sur le poste du collaborateur ?</span><textarea id="form_24_Manager" name="form[24_Manager]" required="required" class="managerTextarea" style="height: 10em;"></textarea></td>
+                                                                                        </tr>
+                            <tr>
+                                                                                                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quelles autres missions/activités seraient susceptibles de l’intéresser et de lui être confiées ?</span><textarea id="form_25_Manager" name="form[25_Manager]" required="required" class="managerTextarea" style="height: 10em;"></textarea></td>
+                                                                                        </tr>
+            
+            <tr>
+                <td colspan="2" style="text-align: center; font-weight: bold;">Projet professionnel</td>
+            </tr>
+
+                            <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Comment vous voyez-vous à CT (0/2 ans) ?</span><textarea id="form_26_Collaborateur" name="form[26_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 10em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Avis hiérarchie</span><textarea id="form_26_Manager" name="form[26_Manager]" required="required" class="managerTextarea" style="height: 10em;"></textarea></td>
+                                                                                        </tr>
+                            <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Comment vous voyez-vous à MT (3/5 ans) ?</span><textarea id="form_27_Collaborateur" name="form[27_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 10em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Avis hiérarchie</span><textarea id="form_27_Manager" name="form[27_Manager]" required="required" class="managerTextarea" style="height: 10em;"></textarea></td>
+                                                                                        </tr>
+            
+            <tr>
+                <td colspan="2" style="text-align: center; font-weight: bold;">Mobilité géographique</td>
+            </tr>
+
+                            <tr>
+                    <td class="collaborateurTd noWhiteSpaceTd" colspan="2"><span class="questionLibelle">Périmètre ?</span><select id="form_28_Collaborateur" name="form[28_Collaborateur]" required="required"><option value="" selected="selected">Choisir une réponse...</option><option value="Aucun">Aucun</option><option value="Régionale">Régionale</option><option value="Nationale">Nationale</option><option value="Internationale">Internationale</option></select></td>
+                </tr>
+                        <tr>
+                <td class="collaborateurTd" colspan="2" style="padding-top: 1em;"><span class="questionLibelle">Région/Pays : </span></td>
+            </tr>
+            <tr>
+                <td class="collaborateurTd" colspan="2"><label for="form_RegionFrance">France : </label><select id="form_RegionFrance" name="form[RegionFrance]"><option value="">Choisir un département...</option><option value="01 - Ain">01 - Ain</option><option value="02 - Aisne">02 - Aisne</option><option value="03 - Allier">03 - Allier</option><option value="04 - Alpes de Haute Provence">04 - Alpes de Haute Provence</option><option value="05 - Hautes Alpes">05 - Hautes Alpes</option><option value="06 - Alpes Maritimes">06 - Alpes Maritimes</option><option value="07 - Ardèche">07 - Ardèche</option><option value="08 - Ardennes">08 - Ardennes</option><option value="09 - Ariège">09 - Ariège</option><option value="10 - Aube">10 - Aube</option><option value="11 - Aude">11 - Aude</option><option value="12 - Aveyron">12 - Aveyron</option><option value="13 - Bouches du Rhône">13 - Bouches du Rhône</option><option value="14 - Calvados">14 - Calvados</option><option value="15 - Cantal">15 - Cantal</option><option value="16 - Charente">16 - Charente</option><option value="17 - Charente Maritime">17 - Charente Maritime</option><option value="18 - Cher">18 - Cher</option><option value="19 - Corrèze">19 - Corrèze</option><option value="2A - Corse du Sud">2A - Corse du Sud</option><option value="2B - Haute Corse">2B - Haute Corse</option><option value="21 - Côte d'Or">21 - Côte d'Or</option><option value="22 - Côtes d'Armor">22 - Côtes d'Armor</option><option value="23 - Creuse">23 - Creuse</option><option value="24 - Dordogne">24 - Dordogne</option><option value="25 - Doubs">25 - Doubs</option><option value="26 - Drôme">26 - Drôme</option><option value="27 - Eure">27 - Eure</option><option value="28 - Eure et Loir">28 - Eure et Loir</option><option value="29 - Finistère">29 - Finistère</option><option value="30 - Gard">30 - Gard</option><option value="31 - Haute Garonne">31 - Haute Garonne</option><option value="32 - Gers">32 - Gers</option><option value="33 - Gironde">33 - Gironde</option><option value="34 - Hérault">34 - Hérault</option><option value="35 - Ille et Vilaine">35 - Ille et Vilaine</option><option value="36 - Indre">36 - Indre</option><option value="37 - Indre et Loire">37 - Indre et Loire</option><option value="38 - Isère">38 - Isère</option><option value="39 - Jura">39 - Jura</option><option value="40 - Landes">40 - Landes</option><option value="41 - Loir et Cher">41 - Loir et Cher</option><option value="42 - Loire">42 - Loire</option><option value="43 - Haute Loire">43 - Haute Loire</option><option value="44 - Loire Atlantique">44 - Loire Atlantique</option><option value="45 - Loiret">45 - Loiret</option><option value="46 - Lot">46 - Lot</option><option value="47 - Lot et Garonne">47 - Lot et Garonne</option><option value="48 - Lozère">48 - Lozère</option><option value="49 - Maine et Loire">49 - Maine et Loire</option><option value="50 - Manche">50 - Manche</option><option value="51 - Marne">51 - Marne</option><option value="52 - Haute Marne">52 - Haute Marne</option><option value="53 - Mayenne">53 - Mayenne</option><option value="54 - Meurthe et Moselle">54 - Meurthe et Moselle</option><option value="55 - Meuse">55 - Meuse</option><option value="56 - Morbihan">56 - Morbihan</option><option value="57 - Moselle">57 - Moselle</option><option value="58 - Nièvre">58 - Nièvre</option><option value="59 - Nord">59 - Nord</option><option value="60 - Oise">60 - Oise</option><option value="61 - Orne">61 - Orne</option><option value="62 - Pas de Calais">62 - Pas de Calais</option><option value="63 - Puy de Dôme">63 - Puy de Dôme</option><option value="64 - Pyrénées Atlantiques">64 - Pyrénées Atlantiques</option><option value="65 - Hautes Pyrénées">65 - Hautes Pyrénées</option><option value="66 - Pyrénées Orientales">66 - Pyrénées Orientales</option><option value="67 - Bas Rhin">67 - Bas Rhin</option><option value="68 - Haut Rhin">68 - Haut Rhin</option><option value="69 - Rhône">69 - Rhône</option><option value="70 - Haute Saône">70 - Haute Saône</option><option value="71 - Saône et Loire">71 - Saône et Loire</option><option value="72 - Sarthe">72 - Sarthe</option><option value="73 - Savoie">73 - Savoie</option><option value="74 - Haute Savoie">74 - Haute Savoie</option><option value="75 - Paris">75 - Paris</option><option value="76 - Seine Maritime">76 - Seine Maritime</option><option value="77 - Seine et Marne">77 - Seine et Marne</option><option value="78 - Yvelines">78 - Yvelines</option><option value="79 - Deux Sèvres">79 - Deux Sèvres</option><option value="80 - Somme">80 - Somme</option><option value="81 - Tarn">81 - Tarn</option><option value="82 - Tarn et Garonne">82 - Tarn et Garonne</option><option value="83 - Var">83 - Var</option><option value="84 - Vaucluse">84 - Vaucluse</option><option value="85 - Vendée">85 - Vendée</option><option value="86 - Vienne">86 - Vienne</option><option value="87 - Haute Vienne">87 - Haute Vienne</option><option value="88 - Vosges">88 - Vosges</option><option value="89 - Yonne">89 - Yonne</option><option value="90 - Territoire de Belfort">90 - Territoire de Belfort</option><option value="91 - Essonne">91 - Essonne</option><option value="92 - Hauts de Seine">92 - Hauts de Seine</option><option value="93 - Seine St Denis">93 - Seine St Denis</option><option value="94 - Val de Marne">94 - Val de Marne</option><option value="95 - Val d'Oise">95 - Val d'Oise</option><option value="97 - DOM">97 - DOM</option></select></td>
+            </tr>
+            <tr>
+                <td class="collaborateurTd" colspan="2"><label for="form_PaysInternational">International : </label><select id="form_PaysInternational" name="form[PaysInternational]"><option value="">Choisir un pays...</option><option value="Afghanistan">Afghanistan</option><option value="Afrique du Sud">Afrique du Sud</option><option value="Albanie">Albanie</option><option value="Algérie">Algérie</option><option value="Allemagne">Allemagne</option><option value="Andorre">Andorre</option><option value="Angola">Angola</option><option value="Anguilla">Anguilla</option><option value="Antarctique">Antarctique</option><option value="Antigua-et-Barbuda">Antigua-et-Barbuda</option><option value="Arabie saoudite">Arabie saoudite</option><option value="Argentine">Argentine</option><option value="Arménie">Arménie</option><option value="Aruba">Aruba</option><option value="Australie">Australie</option><option value="Autriche">Autriche</option><option value="Azerbaïdjan">Azerbaïdjan</option><option value="Bahamas">Bahamas</option><option value="Bahreïn">Bahreïn</option><option value="Bangladesh">Bangladesh</option><option value="Barbade">Barbade</option><option value="Belgique">Belgique</option><option value="Belize">Belize</option><option value="Bénin">Bénin</option><option value="Bermudes">Bermudes</option><option value="Bhoutan">Bhoutan</option><option value="Biélorussie">Biélorussie</option><option value="Bolivie">Bolivie</option><option value="Bosnie-Herzégovine">Bosnie-Herzégovine</option><option value="Botswana">Botswana</option><option value="Brésil">Brésil</option><option value="Brunéi Darussalam">Brunéi Darussalam</option><option value="Bulgarie">Bulgarie</option><option value="Burkina Faso">Burkina Faso</option><option value="Burundi">Burundi</option><option value="Cambodge">Cambodge</option><option value="Cameroun">Cameroun</option><option value="Canada">Canada</option><option value="Cap-Vert">Cap-Vert</option><option value="Ceuta et Melilla">Ceuta et Melilla</option><option value="Chili">Chili</option><option value="Chine">Chine</option><option value="Chypre">Chypre</option><option value="Colombie">Colombie</option><option value="Comores">Comores</option><option value="Congo-Brazzaville">Congo-Brazzaville</option><option value="Congo-Kinshasa">Congo-Kinshasa</option><option value="Corée du Nord">Corée du Nord</option><option value="Corée du Sud">Corée du Sud</option><option value="Costa Rica">Costa Rica</option><option value="Côte d’Ivoire">Côte d’Ivoire</option><option value="Croatie">Croatie</option><option value="Cuba">Cuba</option><option value="Curaçao">Curaçao</option><option value="Danemark">Danemark</option><option value="Diego Garcia">Diego Garcia</option><option value="Djibouti">Djibouti</option><option value="Dominique">Dominique</option><option value="Égypte">Égypte</option><option value="El Salvador">El Salvador</option><option value="Émirats arabes unis">Émirats arabes unis</option><option value="Équateur">Équateur</option><option value="Érythrée">Érythrée</option><option value="Espagne">Espagne</option><option value="Estonie">Estonie</option><option value="État de la Cité du Vatican">État de la Cité du Vatican</option><option value="États fédérés de Micronésie">États fédérés de Micronésie</option><option value="États-Unis">États-Unis</option><option value="Éthiopie">Éthiopie</option><option value="Fidji">Fidji</option><option value="Finlande">Finlande</option><option value="France">France</option><option value="Gabon">Gabon</option><option value="Gambie">Gambie</option><option value="Géorgie">Géorgie</option><option value="Ghana">Ghana</option><option value="Gibraltar">Gibraltar</option><option value="Grèce">Grèce</option><option value="Grenade">Grenade</option><option value="Groenland">Groenland</option><option value="Guadeloupe">Guadeloupe</option><option value="Guam">Guam</option><option value="Guatemala">Guatemala</option><option value="Guernesey">Guernesey</option><option value="Guinée">Guinée</option><option value="Guinée équatoriale">Guinée équatoriale</option><option value="Guinée-Bissau">Guinée-Bissau</option><option value="Guyana">Guyana</option><option value="Guyane française">Guyane française</option><option value="Haïti">Haïti</option><option value="Honduras">Honduras</option><option value="Hongrie">Hongrie</option><option value="Île Christmas">Île Christmas</option><option value="Île de l’Ascension">Île de l’Ascension</option><option value="Île de Man">Île de Man</option><option value="Île Norfolk">Île Norfolk</option><option value="Îles Åland">Îles Åland</option><option value="Îles Caïmans">Îles Caïmans</option><option value="Îles Canaries">Îles Canaries</option><option value="Îles Cocos">Îles Cocos</option><option value="Îles Cook">Îles Cook</option><option value="Îles Féroé">Îles Féroé</option><option value="Îles Géorgie du Sud et Sandwich du Sud">Îles Géorgie du Sud et Sandwich du Sud</option><option value="Îles Malouines">Îles Malouines</option><option value="Îles Mariannes du Nord">Îles Mariannes du Nord</option><option value="Îles Marshall">Îles Marshall</option><option value="Îles mineures éloignées des États-Unis">Îles mineures éloignées des États-Unis</option><option value="Îles Salomon">Îles Salomon</option><option value="Îles Turques-et-Caïques">Îles Turques-et-Caïques</option><option value="Îles Vierges britanniques">Îles Vierges britanniques</option><option value="Îles Vierges des États-Unis">Îles Vierges des États-Unis</option><option value="Inde">Inde</option><option value="Indonésie">Indonésie</option><option value="Irak">Irak</option><option value="Iran">Iran</option><option value="Irlande">Irlande</option><option value="Islande">Islande</option><option value="Israël">Israël</option><option value="Italie">Italie</option><option value="Jamaïque">Jamaïque</option><option value="Japon">Japon</option><option value="Jersey">Jersey</option><option value="Jordanie">Jordanie</option><option value="Kazakhstan">Kazakhstan</option><option value="Kenya">Kenya</option><option value="Kirghizistan">Kirghizistan</option><option value="Kiribati">Kiribati</option><option value="Kosovo">Kosovo</option><option value="Koweït">Koweït</option><option value="La Réunion">La Réunion</option><option value="Laos">Laos</option><option value="Lesotho">Lesotho</option><option value="Lettonie">Lettonie</option><option value="Liban">Liban</option><option value="Libéria">Libéria</option><option value="Libye">Libye</option><option value="Liechtenstein">Liechtenstein</option><option value="Lituanie">Lituanie</option><option value="Luxembourg">Luxembourg</option><option value="Macédoine">Macédoine</option><option value="Madagascar">Madagascar</option><option value="Malaisie">Malaisie</option><option value="Malawi">Malawi</option><option value="Maldives">Maldives</option><option value="Mali">Mali</option><option value="Malte">Malte</option><option value="Maroc">Maroc</option><option value="Martinique">Martinique</option><option value="Maurice">Maurice</option><option value="Mauritanie">Mauritanie</option><option value="Mayotte">Mayotte</option><option value="Mexique">Mexique</option><option value="Moldavie">Moldavie</option><option value="Monaco">Monaco</option><option value="Mongolie">Mongolie</option><option value="Monténégro">Monténégro</option><option value="Montserrat">Montserrat</option><option value="Mozambique">Mozambique</option><option value="Myanmar">Myanmar</option><option value="Namibie">Namibie</option><option value="Nauru">Nauru</option><option value="Népal">Népal</option><option value="Nicaragua">Nicaragua</option><option value="Niger">Niger</option><option value="Nigéria">Nigéria</option><option value="Niue">Niue</option><option value="Norvège">Norvège</option><option value="Nouvelle-Calédonie">Nouvelle-Calédonie</option><option value="Nouvelle-Zélande">Nouvelle-Zélande</option><option value="Oman">Oman</option><option value="Ouganda">Ouganda</option><option value="Ouzbékistan">Ouzbékistan</option><option value="Pakistan">Pakistan</option><option value="Palaos">Palaos</option><option value="Panama">Panama</option><option value="Papouasie-Nouvelle-Guinée">Papouasie-Nouvelle-Guinée</option><option value="Paraguay">Paraguay</option><option value="Pays-Bas">Pays-Bas</option><option value="Pays-Bas caribéens">Pays-Bas caribéens</option><option value="Pérou">Pérou</option><option value="Philippines">Philippines</option><option value="Pitcairn">Pitcairn</option><option value="Pologne">Pologne</option><option value="Polynésie française">Polynésie française</option><option value="Porto Rico">Porto Rico</option><option value="Portugal">Portugal</option><option value="Qatar">Qatar</option><option value="R.A.S. chinoise de Hong Kong">R.A.S. chinoise de Hong Kong</option><option value="R.A.S. chinoise de Macao">R.A.S. chinoise de Macao</option><option value="République centrafricaine">République centrafricaine</option><option value="République dominicaine">République dominicaine</option><option value="République tchèque">République tchèque</option><option value="Roumanie">Roumanie</option><option value="Royaume-Uni">Royaume-Uni</option><option value="Russie">Russie</option><option value="Rwanda">Rwanda</option><option value="Sahara occidental">Sahara occidental</option><option value="Saint-Barthélemy">Saint-Barthélemy</option><option value="Saint-Christophe-et-Niévès">Saint-Christophe-et-Niévès</option><option value="Saint-Marin">Saint-Marin</option><option value="Saint-Martin (partie française)">Saint-Martin (partie française)</option><option value="Saint-Martin (partie néerlandaise)">Saint-Martin (partie néerlandaise)</option><option value="Saint-Pierre-et-Miquelon">Saint-Pierre-et-Miquelon</option><option value="Saint-Vincent-et-les-Grenadines">Saint-Vincent-et-les-Grenadines</option><option value="Sainte-Hélène">Sainte-Hélène</option><option value="Sainte-Lucie">Sainte-Lucie</option><option value="Samoa">Samoa</option><option value="Samoa américaines">Samoa américaines</option><option value="Sao Tomé-et-Principe">Sao Tomé-et-Principe</option><option value="Sénégal">Sénégal</option><option value="Serbie">Serbie</option><option value="Seychelles">Seychelles</option><option value="Sierra Leone">Sierra Leone</option><option value="Singapour">Singapour</option><option value="Slovaquie">Slovaquie</option><option value="Slovénie">Slovénie</option><option value="Somalie">Somalie</option><option value="Soudan">Soudan</option><option value="Soudan du Sud">Soudan du Sud</option><option value="Sri Lanka">Sri Lanka</option><option value="Suède">Suède</option><option value="Suisse">Suisse</option><option value="Suriname">Suriname</option><option value="Svalbard et Jan Mayen">Svalbard et Jan Mayen</option><option value="Swaziland">Swaziland</option><option value="Syrie">Syrie</option><option value="Tadjikistan">Tadjikistan</option><option value="Taïwan">Taïwan</option><option value="Tanzanie">Tanzanie</option><option value="Tchad">Tchad</option><option value="Terres australes françaises">Terres australes françaises</option><option value="Territoire britannique de l’océan Indien">Territoire britannique de l’océan Indien</option><option value="Territoires palestiniens">Territoires palestiniens</option><option value="Thaïlande">Thaïlande</option><option value="Timor oriental">Timor oriental</option><option value="Togo">Togo</option><option value="Tokelau">Tokelau</option><option value="Tonga">Tonga</option><option value="Trinité-et-Tobago">Trinité-et-Tobago</option><option value="Tristan da Cunha">Tristan da Cunha</option><option value="Tunisie">Tunisie</option><option value="Turkménistan">Turkménistan</option><option value="Turquie">Turquie</option><option value="Tuvalu">Tuvalu</option><option value="Ukraine">Ukraine</option><option value="Uruguay">Uruguay</option><option value="Vanuatu">Vanuatu</option><option value="Venezuela">Venezuela</option><option value="Vietnam">Vietnam</option><option value="Wallis-et-Futuna">Wallis-et-Futuna</option><option value="Yémen">Yémen</option><option value="Zambie">Zambie</option><option value="Zimbabwe">Zimbabwe</option></select></td>
+            </tr>
+            <tr>
+                <td class="collaborateurTd" colspan="2" style="padding-top: 1em;"><span class="questionLibelle">Quels est mon niveau de langue ?</span></td>
+            </tr>
+            <tr>
+                <td class="collaborateurTd" colspan="2"><label for="form_Langue1">Langue 1 : </label><input type="text" id="form_Langue1" name="form[Langue1]" style="margin-right: 1em;"><label for="form_NiveauLangue1">Niveau : </label><select id="form_NiveauLangue1" name="form[NiveauLangue1]"><option value="">Choisir un niveau...</option><option value="Débutant">Débutant</option><option value="Intermédiaire">Intermédiaire</option><option value="Courant">Courant</option></select></td>
+            </tr>
+            <tr>
+                <td class="collaborateurTd" colspan="2"><label for="form_Langue2">Langue 2 : </label><input type="text" id="form_Langue2" name="form[Langue2]" style="margin-right: 1em;"><label for="form_NiveauLangue2">Niveau : </label><select id="form_NiveauLangue2" name="form[NiveauLangue2]"><option value="">Choisir un niveau...</option><option value="Débutant">Débutant</option><option value="Intermédiaire">Intermédiaire</option><option value="Courant">Courant</option></select></td>
+            </tr>
+        </tbody></table>
+
+        <h4>Thème 4 : Objectifs de l'année à venir</h4>
+        <table class="questionsTable" id="questionsTable4">
+            <tbody><tr>
+                <td class="collaborateurTd" style="text-align: center; font-weight: bold;">AUTO EVALUATION</td>
+                <td class="managerTd" style="text-align: center; font-weight: bold;">EVALUATION DU MANAGER</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center; font-weight: bold;">Objectifs personnels et professionnels pour l'année prochaine</td>
+            </tr>
+
+                            <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Les objectifs que je me fixe ?</span><textarea id="form_29_Collaborateur" name="form[29_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 15em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Les objectifs complémentaires fixés par le manager ?</span><textarea id="form_29_Manager" name="form[29_Manager]" required="required" class="managerTextarea" style="height: 15em;"></textarea></td>
+                                                                                        </tr>
+            
+            <tr>
+                <td colspan="2" style="text-align: center; font-weight: bold;">Moyens pour atteindre les objectifs ?</td>
+            </tr>
+
+                            <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">En quoi mon manager peut-il m'aider ?</span><textarea id="form_30_Collaborateur" name="form[30_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 20em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Quelles actions doivent être mises en oeuvre pour accompagner les changements ?</span><textarea id="form_30_Manager" name="form[30_Manager]" required="required" class="managerTextarea" style="height: 20em;"></textarea></td>
+                                                                                        </tr>
+                                        <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Quels sont mes besoins en formation ?</span><textarea id="form_31_Collaborateur" name="form[31_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 20em;"></textarea></td>
+                                                                <td class="managerTd" style="text-align: center; vertical-align: top;">
+                        <span class="questionLibelle" style="margin-bottom: 1em;">Quelles formations sont à prévoir ? Indiquez les niveaux de priorité ?</span>
+                        <table id="formationTable">
+                            <tbody><tr>
+                                <td>Formation</td>
+                                <td>Priorité</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="form_Formation1" name="form[Formation1]"></td>
+                                <td><select id="form_Priorite1" name="form[Priorite1]"><option value="">Choisir une priorité...</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="form_Formation2" name="form[Formation2]"></td>
+                                <td><select id="form_Priorite2" name="form[Priorite2]"><option value="">Choisir une priorité...</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="form_Formation3" name="form[Formation3]"></td>
+                                <td><select id="form_Priorite3" name="form[Priorite3]"><option value="">Choisir une priorité...</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+                            </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+                    </tbody></table>
+
+        <h4>Synthèse de l'entretien</h4>
+        <table class="questionsTable" id="questionsTable5">
+                            <tbody><tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Synthèse et commentaires du collaborateur</span><textarea id="form_32_Collaborateur" name="form[32_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 20em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Synthèse et commentaires du manager</span><textarea id="form_32_Manager" name="form[32_Manager]" required="required" class="managerTextarea" style="height: 20em;"></textarea></td>
+                                                                                        </tr>
+                    </tbody></table>
+
+        <table class="questionsTable" id="questionsTable6">
+                            <tbody><tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Signature collaborateur</span><textarea id="form_33_Collaborateur" name="form[33_Collaborateur]" required="required" class="collaborateurTextarea" style="height: 7em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Signature manager</span><textarea id="form_33_Manager" name="form[33_Manager]" required="required" class="managerTextarea" style="height: 7em;"></textarea></td>
+                                                                                        </tr>
+                            <tr>
+                                                                        <td class="collaborateurTd"><span class="questionLibelle">Signature N+2 (Nom, prénom, date, signature)</span><textarea id="form_34_Collaborateur" name="form[34_Collaborateur]" disabled="disabled" required="required" class="collaborateurTextarea" style="height: 7em;"></textarea></td>
+                                                                                                                                <td class="managerTd"><span class="questionLibelle">Signature DRH (Nom, prénom, date, signature)</span><textarea id="form_34_Manager" name="form[34_Manager]" disabled="disabled" required="required" class="managerTextarea" style="height: 7em;"></textarea></td>
+                                                                                        </tr>
+                    </tbody></table>
+        <p id="formValidationParagraph"></p>
+        <input type="hidden" id="form_NombreObjectifs" name="form[NombreObjectifs]" value="1"><input type="hidden" id="form_Objectifs" name="form[Objectifs]"><input type="hidden" id="form__token" name="form[_token]" value="PrwW375KS2GU6sy1Oed2-p2-EFr_eclpJowSGNn3sOM"></form>
+
+        
+    

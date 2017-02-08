@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\UserBundle\Entity\DeveloppementProfessionnel;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Convertio\Convertio;
 
 class DeveloppementProfessionnelController extends Controller {
 
@@ -593,6 +594,7 @@ class DeveloppementProfessionnelController extends Controller {
         // On importe le module de traitement Excel.
         $root = $this->get('kernel')->getRootDir() . '\..';
         require_once $root . '\vendor\phpexcel\phpexcel\PHPExcel.php';
+        require_once $root . '\vendor\phpexcel\html2pdf\html2pdf.class.php';
 
         // Initialisation d'un nouvel objet PHPExcel.
         $objPHPExcel = new \PHPExcel();
@@ -913,6 +915,36 @@ class DeveloppementProfessionnelController extends Controller {
 
         // On retourne le handler.
         return $file;
+    }
+
+    public function ajaxConvertHtmlToPDFAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupére la racine du serveur.
+            $root = $this->get('kernel')->getRootDir() . '\..';
+            $rootLetter = explode("\\", $root)[0];
+
+            // On récupére le code HTML du formulaire.
+            $formulaireHtml = $request->get('formulaireHtml');
+
+            // On génère un fichier HTML à convertir en PDF.
+            $tempName = tempnam($root . "/web", '');
+            $htmlFileName = $tempName . '.html';
+            $pdfFileName = $tempName . '.pdf';
+            file_put_contents($htmlFileName, $formulaireHtml);
+
+            $output = array();
+            exec("\"" . $rootLetter . "/Program Files/wkhtmltopdf/bin/wkhtmltopdf\" \"" . $htmlFileName . "\" \"" . $pdfFileName . "\"", $output);
+
+            var_dump($output);
+
+            return new Response("\"" . $rootLetter . "/Program Files/wkhtmltopdf/bin/wkhtmltopdf\" \"" . $htmlFileName . "\" \"" . $pdfFileName . "\"");
+        }
+    }
+
+    private function writePDf($pdf) {
+        //var_dump('Write !');
+        $root = $this->get('kernel')->getRootDir() . '\..';
+        file_put_contents($root . "/web/testFormulairePDF.pdf", $pdf);
     }
 
 }
