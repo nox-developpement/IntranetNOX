@@ -354,11 +354,8 @@ class DeveloppementProfessionnelController extends Controller {
 
                 // On envoi un email au prochain validateur.
                 $this->sendMailToNextValidator($newDeveloppementProfessionnel->getStatut(), $statutHierarchie[$newDeveloppementProfessionnel->getStatut()], $collaborateur);
-
-                //$this->downloadPDFExportAction($newDeveloppementProfessionnel);
-                // On retourne le PDF de l'entretien.
-                return new BinaryFileResponse($this->downloadPDFExportAction($newDeveloppementProfessionnel));
             }
+
             // Si le formulaire existe déjà...
             else {
                 // On met ses données à jour.
@@ -371,7 +368,7 @@ class DeveloppementProfessionnelController extends Controller {
                 }
                 // Sinon on envoie l'export PDF de l'entretien par mail à la DRH.
                 else {
-                    $this->sendPDFToDRH($formulaireDeveloppementProfessionnel);
+                    // $this->sendPDFToDRH($formulaireDeveloppementProfessionnel);
                 }
             }
 
@@ -589,296 +586,6 @@ class DeveloppementProfessionnelController extends Controller {
         });
     }
 
-    // Exporte le formulaire de développement professionel au format PDF et retourne le chemin du fichier.
-    private function exportFormulaireToPDF($formulaire) {
-        // On importe le module de traitement Excel.
-        $root = $this->get('kernel')->getRootDir() . '\..';
-        require_once $root . '\vendor\phpexcel\phpexcel\PHPExcel.php';
-        require_once $root . '\vendor\phpexcel\html2pdf\html2pdf.class.php';
-
-        // Initialisation d'un nouvel objet PHPExcel.
-        $objPHPExcel = new \PHPExcel();
-        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(\PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
-        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(\PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
-        $objPHPExcel->getDefaultStyle()->getFont()->setName('Arial')->setSize(12);
-        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
-        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
-        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);
-
-
-        // On récupére le fichier des question au format JSON et on le converti en tableau.
-        $file = $this->container->get('kernel')->locateResource('@NoxIntranetUserBundle/Resources/public/DeveloppementProfessionnel/QuestionsFormulaireDeveloppementProfessionnel.json');
-        $questions = json_decode(file_get_contents($file), true);
-
-        $questionHeader = array(
-            'Nom' => 'Nom',
-            'Prenom' => 'Prénom',
-            'Age' => 'Age',
-            'DateAncienneteGroupe' => "Date d'ancienneté Groupe",
-            'Entite' => 'Entité',
-            'PosteActuel' => 'Poste Actuel',
-            'DateAnciennetePoste' => "Date d'ancienneté dans le poste",
-            'SalaireBrutMensuel' => "Salaire brut mensuel",
-            'NomResponsable' => "Nom du responsable",
-            'DateEntretien' => "Date de l'entretien",
-            'Formation1' => 'Formation 1',
-            'Priorite1' => "Priorité 1",
-            'Formation2' => "Formation 2",
-            'Priorite2' => "Priorité 2",
-            'Formation3' => "Formation 3",
-            'Priorite3' => "Priorité 3",
-            'RegionFrance' => 'France',
-            'PaysInternational' => "International",
-            'Langue1' => "Langue 1",
-            'NiveauLangue1' => "Niveau langue 1",
-            'Langue2' => "Langue 2",
-            'NiveauLangue2' => "Niveau langue 2"
-        );
-
-        $objectifsHeader = array(
-            1 => "Objectif 1 : Décrivez l'objectif"
-        );
-
-        $liaisonColonneDestinatire = array(
-            'Collaborateur' => 'daeef3',
-            'Manager' => 'd9d9d9',
-            'Neutre' => 'd9d9d9'
-        );
-
-        $ligne = 1;
-        foreach ($formulaire->getFormulaire() as $key => $formData) {
-            // Si la question fait partie des informations sur le collaborateur...
-            if (array_key_exists($key, $questionHeader)) {
-                // On écris le libelle et on met en gras le texte de la cellule.
-                $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $questionHeader[$key]);
-                $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->getFont()->setBold(true);
-                // On aligne le texte à droite de la cellule et on ajoute des bordure
-                $styleQuestion = array(
-                    'alignment' => array(
-                        'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
-                    ),
-                    'borders' => array(
-                        'top' => array(
-                            'style' => \PHPExcel_Style_Border::BORDER_THIN
-                        ),
-                        'left' => array(
-                            'style' => \PHPExcel_Style_Border::BORDER_THIN
-                        ),
-                        'right' => array(
-                            'style' => \PHPExcel_Style_Border::BORDER_THIN
-                        )
-                    )
-                );
-                $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleQuestion);
-
-                // On incrémente le compteur de ligne.
-                $ligne++;
-
-                // On écris la valeur.
-                $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $formData instanceof \DateTime ? $formData->format('d-m-Y') : empty($formData) ? ' - ' : $formData);
-                // On aligne le texte à gauche de la cellule.
-                $styleReponse = array(
-                    'alignment' => array(
-                        'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
-                    ),
-                    'borders' => array(
-                        'bottom' => array(
-                            'style' => \PHPExcel_Style_Border::BORDER_THIN
-                        ),
-                        'left' => array(
-                            'style' => \PHPExcel_Style_Border::BORDER_THIN
-                        ),
-                        'right' => array(
-                            'style' => \PHPExcel_Style_Border::BORDER_THIN
-                        )
-                    )
-                );
-                $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleReponse);
-
-                // On incrémente le compteur de ligne pour sauter une ligne.
-                $ligne++;
-                $ligne++;
-            }
-        }
-
-        $objectifs = json_decode($formulaire->getObjectifs());
-        $objectifFieldIndex = 1;
-        $objectifIndex = 1;
-        $indexQuestion = 1;
-        foreach ($objectifs as $objectif) {
-            if ($indexQuestion === 1) {
-                $key = "Objectif " . $objectifIndex . " : Décrivez l'objectif";
-            } else if ($indexQuestion === 2) {
-                $key = "Quels sont les résultats obtenus ?";
-            } else if ($indexQuestion === 3) {
-                $key = "Niveau d'atteinte de l'objectif";
-            } else if ($indexQuestion === 4) {
-                $key = "Difficultés rencontrées ?";
-            } else {
-                $key = "Réussites et apports pour le Groupe ?";
-                $objectifIndex++;
-                $indexQuestion = 0;
-            }
-
-            // On écris le libelle et on met en gras le texte de la cellule.
-            $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $key);
-            $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->getFont()->setBold(true);
-            // On aligne le texte à droite de la cellule et on ajoute des bordure
-            $styleQuestion = array(
-                'alignment' => array(
-                    'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
-                ),
-                'borders' => array(
-                    'top' => array(
-                        'style' => \PHPExcel_Style_Border::BORDER_THIN
-                    ),
-                    'left' => array(
-                        'style' => \PHPExcel_Style_Border::BORDER_THIN
-                    ),
-                    'right' => array(
-                        'style' => \PHPExcel_Style_Border::BORDER_THIN
-                    )
-                )
-            );
-            $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleQuestion);
-
-            // On incrémente le compteur de ligne.
-            $ligne++;
-
-            // On écris la valeur.
-            $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $objectif);
-
-            // On aligne le texte de la cellule à gauche, on ajoute des bordures et on colore la cellule.
-            $styleReponse = array(
-                'alignment' => array(
-                    'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_LEFT
-                ),
-                'fill' => array(
-                    'type' => \PHPExcel_Style_Fill::FILL_SOLID,
-                    'color' => array('rgb' => $liaisonColonneDestinatire['Neutre'])
-                ),
-                'borders' => array(
-                    'bottom' => array(
-                        'style' => \PHPExcel_Style_Border::BORDER_THIN
-                    ),
-                    'left' => array(
-                        'style' => \PHPExcel_Style_Border::BORDER_THIN
-                    ),
-                    'right' => array(
-                        'style' => \PHPExcel_Style_Border::BORDER_THIN
-                    )
-                )
-            );
-            $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleReponse);
-
-            // On incrémente le compteur de ligne.
-            $ligne++;
-            $ligne++;
-
-            // On incrémente l'index du champs d'objectif.
-            $objectifFieldIndex++;
-
-            // On incrémente le compteur de question.
-            $indexQuestion++;
-        }
-
-        foreach ($formulaire->getFormulaire() as $key => $formData) {
-            // Si la question ne fait pas partie des informations sur le collaborateur...
-            if (!array_key_exists($key, $questionHeader)) {
-                // On récupére le numéro et le destinataire de la question.
-                $idQuestion = explode('_', $key)[0];
-                $Destinataire = explode('_', $key)[1];
-
-                // Si la question n'est pas vide...
-                if (!empty($questions[$idQuestion][$Destinataire]['Question'])) {
-                    // On écris le libelle et on met en gras le texte de la cellule.
-                    $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $questions[$idQuestion][$Destinataire]['Question']);
-                    $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->getFont()->setBold(true);
-                    // On aligne le texte à droite de la cellule et on ajoute des bordure
-                    $styleQuestion = array(
-                        'alignment' => array(
-                            'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
-                        ),
-                        'borders' => array(
-                            'top' => array(
-                                'style' => \PHPExcel_Style_Border::BORDER_THIN
-                            ),
-                            'left' => array(
-                                'style' => \PHPExcel_Style_Border::BORDER_THIN
-                            ),
-                            'right' => array(
-                                'style' => \PHPExcel_Style_Border::BORDER_THIN
-                            )
-                        )
-                    );
-                    $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleQuestion);
-
-                    // On incrémente le compteur de ligne.
-                    $ligne++;
-
-                    // On écris la valeur.
-                    $objPHPExcel->getActiveSheet()->setCellValue('A' . $ligne, $formData instanceof \DateTime ? $formData->format('d-m-Y') : empty($formData) ? ' - ' : $formData);
-
-                    // On aligne le texte de la cellule à gauche, on ajoute des bordures et on colore la cellule.
-                    $styleReponse = array(
-                        'alignment' => array(
-                            'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_LEFT
-                        ),
-                        'fill' => array(
-                            'type' => \PHPExcel_Style_Fill::FILL_SOLID,
-                            'color' => array('rgb' => $liaisonColonneDestinatire[$Destinataire])
-                        ),
-                        'borders' => array(
-                            'bottom' => array(
-                                'style' => \PHPExcel_Style_Border::BORDER_THIN
-                            ),
-                            'left' => array(
-                                'style' => \PHPExcel_Style_Border::BORDER_THIN
-                            ),
-                            'right' => array(
-                                'style' => \PHPExcel_Style_Border::BORDER_THIN
-                            )
-                        )
-                    );
-                    $objPHPExcel->getActiveSheet()->getStyle('A' . $ligne)->applyFromArray($styleReponse);
-
-                    // On incrémente le compteur de ligne.
-                    $ligne++;
-                    $ligne++;
-                }
-            }
-        }
-
-        // On redimensionne les colonnes.
-        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(false);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(150);
-
-        // On configure le module de rendu PDF.
-        $rendererName = \PHPExcel_Settings::PDF_RENDERER_MPDF;
-        $rendererLibraryPath = $root . "\\" . "vendor\phpexcel\phpexcel\PHPExcel\Writer\PDF\\" . "mpdf";
-        if (!\PHPExcel_Settings::setPdfRenderer(
-                        $rendererName, $rendererLibraryPath
-                )) {
-            die(
-                    'Please set the $rendererName and $rendererLibraryPath values' .
-                    PHP_EOL .
-                    ' as appropriate for your directory structure'
-            );
-        }
-
-        // On sauvegarde le fichier Excel.
-        $user = $this->get('security.context')->getToken()->getUser();
-        $filename = $user->getFirstname() . ' ' . $user->getLastname() . '.pdf';
-        $filepath = $root . "/web/DeveloppementProfessionnel/" . $filename;
-        $objWriter = new \PHPExcel_Writer_PDF($objPHPExcel);
-        $objWriter->setOrientation(\PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
-        $objWriter->setPaperSize(\PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
-        $objWriter->save($filepath);
-
-        // Retourne le chemin du fichier.
-        return $filepath;
-    }
-
     // Envoie l'export PDF de l'entretien à Amélie Forestier (DRH).
     private function sendPDFToDRH($formulaire) {
         // On génére le fichier PDF.
@@ -905,18 +612,37 @@ class DeveloppementProfessionnelController extends Controller {
         unlink($pdf);
     }
 
-    // Génére le PDF du formulaire de développement professionnel et retourne un handler du fichier.
-    private function downloadPDFExportAction($formulaire) {
-        // On génére le fichier PDF.
-        $pdf = $this->exportFormulaireToPDF($formulaire);
+    // Génére un téléchargement de fichier PDF.
+    public function downloadPDFExportAction($fileName) {
+        // On récupére la racine du serveur web.
+        $root = $this->get('kernel')->getRootDir() . '\..\web\\';
 
-        // On initialise un handler pour le fichier.
-        $file = new \SplFileObject($pdf);
+        // On génére le chemin du fichier à retourner.
+        rename($root . $fileName, $root . 'Entretien individuel.pdf');
+        $filePath = $root . 'Entretien individuel.pdf';
 
-        // On retourne le handler.
-        return $file;
+        // On ouvre le fichier.
+        $fileHandler = fopen($filePath, 'r');
+
+        // On récupére les données du fichier.
+        $file = stream_get_contents($fileHandler);
+
+        // On ferme le fichier.
+        fclose($fileHandler);
+
+        // On supprime le fichier.
+        //unlink($filePath);
+
+        // Initialisation de la réponse.
+        $response = new Response($file, 200);
+        $response->headers->set('Content-Type', 'application/pdf');
+        $response->headers->set('Content-Disposition:', "filename='Entretien individuel.pdf'");
+
+        // On retourne le téléchargement du fichier.
+        return $response;
     }
 
+    // Convertie un formulaire HTML en fichier PDF et retourne le liens de téléchargement.
     public function ajaxConvertHtmlToPDFAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // On récupére la racine du serveur.
@@ -932,19 +658,18 @@ class DeveloppementProfessionnelController extends Controller {
             $pdfFileName = $tempName . '.pdf';
             file_put_contents($htmlFileName, $formulaireHtml);
 
-            $output = array();
-            exec("\"" . $rootLetter . "/Program Files/wkhtmltopdf/bin/wkhtmltopdf\" \"" . $htmlFileName . "\" \"" . $pdfFileName . "\"", $output);
+            // On exécute la commande de conversion du fichier HTML en PDF.
+            exec("\"" . $rootLetter . "/Program Files/wkhtmltopdf/bin/wkhtmltopdf\" --encoding utf-8 \"" . $htmlFileName . "\" \"" . $pdfFileName . "\"");
+            
+            // On supprime le fichier temporaire et le fichier HTML.
+            unlink($tempName);
+            unlink($htmlFileName);
 
-            var_dump($output);
+            // On génere l'URL de téléchargement.
+            $downloadUrl = $this->generateUrl('nox_intranet_developpement_professionnel_download_pdf_export', array('fileName' => pathinfo($pdfFileName, PATHINFO_BASENAME)));
 
-            return new Response("\"" . $rootLetter . "/Program Files/wkhtmltopdf/bin/wkhtmltopdf\" \"" . $htmlFileName . "\" \"" . $pdfFileName . "\"");
+            return new Response($downloadUrl);
         }
-    }
-
-    private function writePDf($pdf) {
-        //var_dump('Write !');
-        $root = $this->get('kernel')->getRootDir() . '\..';
-        file_put_contents($root . "/web/testFormulairePDF.pdf", $pdf);
     }
 
 }

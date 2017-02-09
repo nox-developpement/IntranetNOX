@@ -12,6 +12,18 @@
             readObjectifData();
             getFormCookies();
             saveCurrentFormProgress();
+
+            // Lors du clique sur le bouton d'export PDF et sur celui de validation du formulaire...
+            $("#downloadPDF").click(function () {
+                ajaxConvertHtmlToPDF(); // On génére un PDF et on l'affiche.
+            });
+
+            $("form").submit(function () {
+                ajaxConvertHtmlToPDF(); // On génére un PDF et on l'affiche.
+                deleteFormCookies();
+
+                return true;
+            });
         });
 
         // Sauvegarde les données du formulaire en cours de remplissage sous forme de cookies.
@@ -140,23 +152,47 @@
             }
         }
 
-        //
+        // Génére un PDF à partir du formulaire et l'affiche dans une popup.
         function ajaxConvertHtmlToPDF() {
-            var formulaire = $('#formulaireDeveloppementProfessionnelDiv');
+            var formulaireOriginal = $('#formulaireDeveloppementProfessionnelDiv');
 
-            var formulaireCopy = formulaire;
+            // On copie le formulaire d'entretien professionnel.
+            var formulaireCopy = $('<div>' + formulaireOriginal.html() + '</div>');
 
+            // On supprime les boutons de la copie.
             formulaireCopy.find('button').remove();
 
+            // On attribut les valeurs du formulaire à la copie.
+            formulaireOriginal.find('textarea').each(function (index) {
+                formulaireCopy.find('textarea').eq(index).text($(this).val());
+            });
+
+            formulaireOriginal.find('input').each(function (index) {
+                formulaireCopy.find('textarea').eq(index).val($(this).val());
+            });
+            formulaireOriginal.find('select').each(function (index) {
+                formulaireCopy.find('select').eq(index).find('option').removeAttr('selected');
+                formulaireCopy.find('select').eq(index).find("option[value='" + $(this).find('option:selected').val() + "']").attr('selected', 'selected');
+            });
+
+            // On récupére le code HTML de la copie.
             var formulaireHtmlCopy = formulaireCopy.html();
 
+            // On initialise une fenêtre popup qui affichera le PDF.
+            var redirectWindow = window.open('http://google.com', '', 'height=1000, width=900');
 
-
+            // Génére le fichier PDF et l'affiche dans la popup.
             $.ajax({
                 url: '{{ path('nox_intranet_developpement_professionnel_ajax_convert_html_to_pdf') }}',
                 type: 'POST',
+                async: false,
                 data: {formulaireHtml: formulaireHtmlCopy},
-                dataType: 'HTML'
+                dataType: 'HTML',
+                success: function (downloadUrl) {
+                    // On renome la popul et on lui assigne le PDF.
+                    redirectWindow.document.title = "Entretien annuel de développement professionnel";
+                    redirectWindow.location.assign(downloadUrl);
+                }
             });
         }
     </script>
@@ -748,9 +784,18 @@
                 </tr>
             {% endfor %}
         </table>
-        <p id='formValidationParagraph'>{% if entretien.statut is defined and entretien.statut == 'Synthèse' %}{{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'style': 'display: none;'}}) }}{% else %}{{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'onclick': 'deleteFormCookies(); saveOjectifsData();'}}) }}{% endif %}</p>
+        <p id='formValidationParagraph'>
+            <button id="downloadPDF" type="button">Export PDF</button>
+            <br /><br />
+            {% if entretien.statut is defined and entretien.statut == 'Synthèse' %}
+                {{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'style': 'display: none;'}}) }}
+            {% else %}
+                {{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'onclick': 'saveOjectifsData();'}}) }}
+            {% endif %}
+        </p>
         {{ form_end(formulaireDevellopementProfessionnel) }}
 
-        <button onclick="ajaxConvertHtmlToPDF();">PDF</button>
+
+
     </div>
 {% endblock %}
