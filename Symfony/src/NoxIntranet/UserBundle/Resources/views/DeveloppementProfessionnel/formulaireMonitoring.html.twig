@@ -1,0 +1,72 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Entretien annuel de développement professionnel {% endblock %}
+
+{% block messageAccueil %}Entretien annuel de développement professionnel{% endblock %}
+
+{% block sousMessageAccueil %}Année {{ 'now'|date('Y') }} | <a href='{{ asset("Préparation à l'Entretien de Développement Professionnel.pdf") }}' target="_blank">Préparation à l'Entretien de Développement Professionnel</a>{% endblock %}
+
+{% block contenu %}
+    <script src="{{ asset('./js/jquery.tablesorter/jquery.tablesorter.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialisation de la fonction de trie Jquery.
+            $("#monitoringFormulaireTable").tablesorter({
+                sortList: [[0, 1]],
+                headers: {
+                    2: {
+                        sorter: false
+                    }
+                }
+            });
+        });
+    </script>
+
+    <link rel="stylesheet" href="{{ asset('./js/jquery.tablesorter/themes/blue/style.css') }}">
+    <style>
+        #monitoringFormulaireDiv {
+            width: 70%;
+            margin: auto;
+        }
+
+        #monitoringFormulaireTable {
+            width: 100%;    
+        }
+
+        #monitoringFormulaireTable, #monitoringFormulaireTable tr, #monitoringFormulaireTable th, #monitoringFormulaireTable td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        #monitoringFormulaireTable th {
+            text-align: center;
+            background-color: #1F4E79;
+            color: white;
+        }
+
+        #monitoringFormulaireTable td {
+            text-align: center;
+        }
+    </style>
+
+    <div id='monitoringFormulaireDiv'>
+        <table id='monitoringFormulaireTable' class="tablesorter">
+            <thead>
+                <tr>
+                    <th>Collaborateur</th>
+                    <th>Statut de l'entretien</th>
+                    <th>Lien de validation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entretien in entretiens %}
+                    <tr>
+                        <td>{{ entretien.Collaborateur.Lastname }} {{ entretien.Collaborateur.Firstname }}</td>
+                        <td>{{ entretien.Statut }}</td>
+                        <td><a href='{{ path('nox_intranet_developpement_professionnel_formulaire', {collaborateurUsername: entretien.Collaborateur.Username}) }}' target='_blank'>Valider</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -13,8 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\UserBundle\Entity\DeveloppementProfessionnel;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Convertio\Convertio;
 
 class DeveloppementProfessionnelController extends Controller {
 
@@ -43,8 +41,8 @@ class DeveloppementProfessionnelController extends Controller {
         $statutHierarchie = array(
             'Collaborateur' => $collaborateur->getUsername(),
             'N2' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $n2)[0], 'lastname' => explode(' ', $n2)[1]))->getUsername(),
-            'DRH' => 't.besson',
-            'Synthèse' => 't.besson' //n.rigaudeau
+            'DRH' => 'n.rigaudeau',
+            'Synthèse' => 'n.rigaudeau'
         );
 
         // Fonction de sortie si visite non autorisé.
@@ -631,7 +629,6 @@ class DeveloppementProfessionnelController extends Controller {
 
         // On supprime le fichier.
         //unlink($filePath);
-
         // Initialisation de la réponse.
         $response = new Response($file, 200);
         $response->headers->set('Content-Type', 'application/pdf');
@@ -670,6 +667,14 @@ class DeveloppementProfessionnelController extends Controller {
 
             return new Response($downloadUrl);
         }
+    }
+
+    public function formulaireMonitoringAction() {
+        $em = $this->getDoctrine()->getManager();
+
+        $entretiens = $em->getRepository('NoxIntranetUserBundle:DeveloppementProfessionnel')->findByAnnee(date('Y'));
+
+        return $this->render('NoxIntranetUserBundle:DeveloppementProfessionnel:formulaireMonitoring.html.twig', array('entretiens' => $entretiens));
     }
 
 }

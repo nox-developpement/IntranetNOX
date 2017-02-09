@@ -22,3 +22,7 @@ nox_intranet_developpement_professionnel_download_pdf_export:
 nox_intranet_developpement_professionnel_ajax_convert_html_to_pdf:
     path:   /developpement-professionnel-ajax-convert-html-to-pdf
     defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel\DeveloppementProfessionnel:ajaxConvertHtmlToPDF }
+    
+nox_intranet_developpement_professionnel_monitoring_formulaire:
+    path:   /developpement-professionnel/monitoring-formulaire
+    defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel\DeveloppementProfessionnel:formulaireMonitoring }
