@@ -41,8 +41,8 @@ class DeveloppementProfessionnelController extends Controller {
         $statutHierarchie = array(
             'Collaborateur' => $collaborateur->getUsername(),
             'N2' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $n2)[0], 'lastname' => explode(' ', $n2)[1]))->getUsername(),
-            'DRH' => 'n.rigaudeau',
-            'Synthèse' => 'n.rigaudeau'
+            'DRH' => 't.besson',
+            'Synthèse' => 't.besson'
         );
 
         // Fonction de sortie si visite non autorisé.
@@ -442,35 +442,37 @@ class DeveloppementProfessionnelController extends Controller {
         $objPHPExcel = new \PHPExcel();
 
         // Tableau des en-têtes des colonnes du fichier Excel.
+        $columnLetter = 'A';
         $collonesSynthese = array(
-            'A' => array('Header' => 'NOM', 'CleFormulaire' => 'Nom'),
-            'B' => array('Header' => 'PRENOM', 'CleFormulaire' => 'Prenom'),
-            'C' => array('Header' => 'AGE', 'CleFormulaire' => 'Age'),
-            'D' => array('Header' => 'DATE ANCIENNETE GROUPE', 'CleFormulaire' => 'DateAncienneteGroupe'),
-            'E' => array('Header' => 'ENTITE', 'CleFormulaire' => 'Entite'),
-            'F' => array('Header' => 'POSTE ACTUEL', 'CleFormulaire' => 'PosteActuel'),
-            'G' => array('Header' => 'DATE ANCIENNETE POSTE', 'CleFormulaire' => 'DateAnciennetePoste'),
-            'H' => array('Header' => 'BRUT MENSUEL', 'CleFormulaire' => 'SalaireBrutMensuel'),
-            'I' => array('Header' => 'RESPONSABLE', 'CleFormulaire' => 'NomResponsable'),
-            'J' => array('Header' => "DATE D'ENTRETIEN", 'CleFormulaire' => 'DateEntretien'),
-            'K' => array('Header' => 'NIVEAU DE MAITRISE DU POSTE', 'CleFormulaire' => '4_Manager'),
-            'L' => array('Header' => 'ATTEINTE OBJECTIF 1', 'CleFormulaire' => '9_Manager'),
-            'M' => array('Header' => 'ATTEINTE OBJECTIF 2', 'CleFormulaire' => '14_Manager'),
-            'N' => array('Header' => 'FORMATIONS REALISEES', 'CleFormulaire' => '21_Manager'),
-            'O' => array('Header' => 'BESOIN FORMATION SALARIE', 'CleFormulaire' => '31_Collaborateur'),
-            'P' => array('Header' => 'FORMATION A PREVOIR', 'CleFormulaire' => 'Formation1'),
-            'Q' => array('Header' => 'NIVEAU', 'CleFormulaire' => 'Priorite1'),
-            'R' => array('Header' => 'FORMATION A PREVOIR', 'CleFormulaire' => 'Formation2'),
-            'S' => array('Header' => 'NIVEAU', 'CleFormulaire' => 'Priorite2'),
-            'T' => array('Header' => 'FORMATION A PREVOIR', 'CleFormulaire' => 'Formation3'),
-            'U' => array('Header' => 'NIVEAU', 'CleFormulaire' => 'Priorite3'),
-            'V' => array('Header' => 'MOBILITE', 'CleFormulaire' => '28_Collaborateur'),
-            'W' => array('Header' => 'DEPARTEMENT', 'CleFormulaire' => 'RegionFrance'),
-            'X' => array('Header' => 'PAYS', 'CleFormulaire' => 'PaysInternational'),
-            'Y' => array('Header' => 'LANGUE 1', 'CleFormulaire' => 'Langue1'),
-            'Z' => array('Header' => 'NIVEAU', 'CleFormulaire' => 'NiveauLangue1'),
-            'AA' => array('Header' => 'LANGUE 2', 'CleFormulaire' => 'Langue2'),
-            'AB' => array('Header' => 'NIVEAU', 'CleFormulaire' => 'NiveauLangue2'),
+            $columnLetter++ => array('Header' => 'NOM', 'CleFormulaire' => 'Nom'),
+            $columnLetter++ => array('Header' => 'PRENOM', 'CleFormulaire' => 'Prenom'),
+            $columnLetter++ => array('Header' => 'AGE', 'CleFormulaire' => 'Age'),
+            $columnLetter++ => array('Header' => 'DATE ANCIENNETE GROUPE', 'CleFormulaire' => 'DateAncienneteGroupe'),
+            $columnLetter++ => array('Header' => 'ENTITE', 'CleFormulaire' => 'Entite'),
+            $columnLetter++ => array('Header' => 'POSTE ACTUEL', 'CleFormulaire' => 'PosteActuel'),
+            $columnLetter++ => array('Header' => 'DATE ANCIENNETE POSTE', 'CleFormulaire' => 'DateAnciennetePoste'),
+            $columnLetter++ => array('Header' => 'BRUT MENSUEL', 'CleFormulaire' => 'SalaireBrutMensuel'),
+            $columnLetter++ => array('Header' => 'RESPONSABLE', 'CleFormulaire' => 'NomResponsable'),
+            $columnLetter++ => array('Header' => "DATE D'ENTRETIEN", 'CleFormulaire' => 'DateEntretien'),
+            $columnLetter++ => array('Header' => 'NIVEAU DE MAITRISE DU POSTE', 'CleFormulaire' => '4_Manager'),
+            //'L' => array('Header' => 'ATTEINTE OBJECTIF 1', 'CleFormulaire' => '9_Manager'),
+            //'M' => array('Header' => 'ATTEINTE OBJECTIF 2', 'CleFormulaire' => '14_Manager'),
+            $columnLetter++  => array('Header' => 'ATTEINTE OBJECTIF ', 'CleFormulaire' => '14_Manager'),
+            $columnLetter++ => array('Header' => 'FORMATIONS REALISEES', 'CleFormulaire' => '21_Manager'),
+            $columnLetter++ => array('Header' => 'BESOIN FORMATION SALARIE', 'CleFormulaire' => '31_Collaborateur'),
+            $columnLetter++ => array('Header' => 'FORMATION A PREVOIR', 'CleFormulaire' => 'Formation1'),
+            $columnLetter++ => array('Header' => 'NIVEAU', 'CleFormulaire' => 'Priorite1'),
+            $columnLetter++ => array('Header' => 'FORMATION A PREVOIR', 'CleFormulaire' => 'Formation2'),
+            $columnLetter++ => array('Header' => 'NIVEAU', 'CleFormulaire' => 'Priorite2'),
+            $columnLetter++ => array('Header' => 'FORMATION A PREVOIR', 'CleFormulaire' => 'Formation3'),
+            $columnLetter++ => array('Header' => 'NIVEAU', 'CleFormulaire' => 'Priorite3'),
+            $columnLetter++ => array('Header' => 'MOBILITE', 'CleFormulaire' => '28_Collaborateur'),
+            $columnLetter++ => array('Header' => 'DEPARTEMENT', 'CleFormulaire' => 'RegionFrance'),
+            $columnLetter++ => array('Header' => 'PAYS', 'CleFormulaire' => 'PaysInternational'),
+            $columnLetter++ => array('Header' => 'LANGUE 1', 'CleFormulaire' => 'Langue1'),
+            $columnLetter++ => array('Header' => 'NIVEAU', 'CleFormulaire' => 'NiveauLangue1'),
+            $columnLetter++ => array('Header' => 'LANGUE 2', 'CleFormulaire' => 'Langue2'),
+            $columnLetter++ => array('Header' => 'NIVEAU', 'CleFormulaire' => 'NiveauLangue2'),
         );
 
         // Ecriture des en-têtes sur la feuille Excel.
@@ -528,9 +530,33 @@ class DeveloppementProfessionnelController extends Controller {
                 $objPHPExcel->getActiveSheet()->getStyle($key . $ligne)->applyFromArray($style);
             }
 
+            for ($i = 1; $i <= $entretien->getNombreObjectifs(); $i++) {
+
+                $atteinteObjectif = json_decode($entretien->getObjectifs(), true)['objectif_niveau_' . $i];
+                
+                // On attribut la valeur du formulaire correspondant à la colonne actuel du fichier Excel.
+                $objPHPExcel->getActiveSheet()->setCellValue($columnLetter++ . $ligne, $atteinteObjectif);
+                $objPHPExcel->getActiveSheet()->getColumnDimension($key)->setAutoSize(true);
+
+                // On centre le texte de la cellule.
+                $style = array(
+                    'alignment' => array(
+                        'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                    ),
+                    'borders' => array(
+                        'allborders' => array(
+                            'style' => \PHPExcel_Style_Border::BORDER_THIN
+                        )
+                    )
+                );
+                $objPHPExcel->getActiveSheet()->getStyle($key . $ligne)->applyFromArray($style);
+            }
+
             // On incrémente la valeur de la ligne.
             $ligne++;
         }
+
+
 
         // On sauvegarde le fichier Excel.
         $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
