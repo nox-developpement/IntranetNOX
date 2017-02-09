@@ -4,7 +4,7 @@
 
 {% block messageAccueil %}Entretien annuel de développement professionnel{% endblock %}
 
-{% block sousMessageAccueil %}Année {{ 'now'|date('Y') }} | <a href='{{ asset("DeveloppementProfessionnel/Préparation à l'Entretien de Développement Professionnel.pdf") }}'>Préparation à l'Entretien de Développement Professionnel</a>{% endblock %}
+{% block sousMessageAccueil %}Année {{ 'now'|date('Y') }} | <a href='{{ asset("Préparation à l'Entretien de Développement Professionnel.pdf") }}' target="_blank">Préparation à l'Entretien de Développement Professionnel</a>{% endblock %}
 
 {% block contenu %}
     <script>
@@ -186,12 +186,12 @@
                 url: '{{ path('nox_intranet_developpement_professionnel_ajax_convert_html_to_pdf') }}',
                 type: 'POST',
                 async: false,
-                data: {formulaireHtml: formulaireHtmlCopy},
+                data: {formulaireHtml: formulaireHtmlCopy, firstname: $("#form_Prenom").val(), lastname: $("#form_Nom").val()},
                 dataType: 'HTML',
                 success: function (downloadUrl) {
-                    // On renome la popul et on lui assigne le PDF.
+                    // On renome la popup et on lui assigne le PDF.
                     redirectWindow.document.title = "Entretien annuel de développement professionnel";
-                    redirectWindow.location.assign(downloadUrl);
+                    redirectWindow.location = downloadUrl;
                 }
             });
         }

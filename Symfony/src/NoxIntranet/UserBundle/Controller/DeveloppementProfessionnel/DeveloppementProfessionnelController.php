@@ -43,8 +43,8 @@ class DeveloppementProfessionnelController extends Controller {
         $statutHierarchie = array(
             'Collaborateur' => $collaborateur->getUsername(),
             'N2' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $n2)[0], 'lastname' => explode(' ', $n2)[1]))->getUsername(),
-            'DRH' => 'n.rigaudeau',
-            'Synthèse' => 'n.rigaudeau'
+            'DRH' => 't.besson',
+            'Synthèse' => 't.besson' //n.rigaudeau
         );
 
         // Fonction de sortie si visite non autorisé.
@@ -615,11 +615,10 @@ class DeveloppementProfessionnelController extends Controller {
     // Génére un téléchargement de fichier PDF.
     public function downloadPDFExportAction($fileName) {
         // On récupére la racine du serveur web.
-        $root = $this->get('kernel')->getRootDir() . '\..\web\\';
+        $root = $this->get('kernel')->getRootDir() . '\..\web\DeveloppementProfessionnel\\';
 
         // On génére le chemin du fichier à retourner.
-        rename($root . $fileName, $root . 'Entretien individuel.pdf');
-        $filePath = $root . 'Entretien individuel.pdf';
+        $filePath = $root . $fileName;
 
         // On ouvre le fichier.
         $fileHandler = fopen($filePath, 'r');
@@ -649,20 +648,21 @@ class DeveloppementProfessionnelController extends Controller {
             $root = $this->get('kernel')->getRootDir() . '\..';
             $rootLetter = explode("\\", $root)[0];
 
-            // On récupére le code HTML du formulaire.
+            // On récupére le code HTML du formulaire, le nom et le prénom.
             $formulaireHtml = $request->get('formulaireHtml');
+            $firstname = $request->get('firstname');
+            $lastname = $request->get('lastname');
 
             // On génère un fichier HTML à convertir en PDF.
-            $tempName = tempnam($root . "/web", '');
-            $htmlFileName = $tempName . '.html';
-            $pdfFileName = $tempName . '.pdf';
+            $filename = $root . "/web/DeveloppementProfessionnel/Entretien " . $lastname . " " . $firstname;
+            $htmlFileName = $filename . '.html';
+            $pdfFileName = $filename . '.pdf';
             file_put_contents($htmlFileName, $formulaireHtml);
 
             // On exécute la commande de conversion du fichier HTML en PDF.
             exec("\"" . $rootLetter . "/Program Files/wkhtmltopdf/bin/wkhtmltopdf\" --encoding utf-8 \"" . $htmlFileName . "\" \"" . $pdfFileName . "\"");
-            
+
             // On supprime le fichier temporaire et le fichier HTML.
-            unlink($tempName);
             unlink($htmlFileName);
 
             // On génere l'URL de téléchargement.
