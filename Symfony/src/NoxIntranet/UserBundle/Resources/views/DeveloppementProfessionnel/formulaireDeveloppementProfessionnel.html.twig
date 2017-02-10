@@ -179,18 +179,17 @@
             var formulaireHtmlCopy = formulaireCopy.html();
 
             // On initialise une fenêtre popup qui affichera le PDF.
-            var redirectWindow = window.open('http://google.com', '', 'height=1000, width=900');
+            var redirectWindow = window.open('', '_blank');
 
             // Génére le fichier PDF et l'affiche dans la popup.
             $.ajax({
                 url: '{{ path('nox_intranet_developpement_professionnel_ajax_convert_html_to_pdf') }}',
                 type: 'POST',
-                async: false,
+                async: true,
                 data: {formulaireHtml: formulaireHtmlCopy, firstname: $("#form_Prenom").val(), lastname: $("#form_Nom").val()},
                 dataType: 'HTML',
                 success: function (downloadUrl) {
                     // On renome la popup et on lui assigne le PDF.
-                    redirectWindow.document.title = "Entretien annuel de développement professionnel";
                     redirectWindow.location = downloadUrl;
                 }
             });
