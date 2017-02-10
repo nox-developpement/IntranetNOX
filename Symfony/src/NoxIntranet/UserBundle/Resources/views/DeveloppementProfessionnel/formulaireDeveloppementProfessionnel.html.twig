@@ -180,6 +180,7 @@
 
             // On initialise une fenêtre popup qui affichera le PDF.
             var redirectWindow = window.open('', '_blank');
+            redirectWindow.document.write("<p style='font-size: 2em;'>Vous pouvez fermer cet onglet une fois le téléchargement démarré.<p>");
 
             // Génére le fichier PDF et l'affiche dans la popup.
             $.ajax({
