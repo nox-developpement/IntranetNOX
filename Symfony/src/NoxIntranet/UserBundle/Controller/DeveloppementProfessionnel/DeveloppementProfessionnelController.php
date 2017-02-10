@@ -657,8 +657,8 @@ class DeveloppementProfessionnelController extends Controller {
         //unlink($filePath);
         // Initialisation de la réponse.
         $response = new Response($file, 200);
-        $response->headers->set('Content-Type', 'application/pdf');
-        $response->headers->set('Content-Disposition:', "filename='Entretien individuel.pdf'");
+        $response->headers->set('Content-Type', 'application/force-download');
+        $response->headers->set('Content-Disposition:', "attachment; filename='Entretien individuel.pdf'");
 
         // On retourne le téléchargement du fichier.
         return $response;

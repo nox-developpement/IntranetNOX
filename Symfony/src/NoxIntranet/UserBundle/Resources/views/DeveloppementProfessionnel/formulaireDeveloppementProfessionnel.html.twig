@@ -179,7 +179,7 @@
             var formulaireHtmlCopy = formulaireCopy.html();
 
             // On initialise une fenêtre popup qui affichera le PDF.
-            var redirectWindow = window.open('http://google.com', '', 'height=1000, width=900');
+            //var redirectWindow = window.open('http://google.com', '', 'height=1000, width=900');
 
             // Génére le fichier PDF et l'affiche dans la popup.
             $.ajax({
@@ -190,8 +190,9 @@
                 dataType: 'HTML',
                 success: function (downloadUrl) {
                     // On renome la popup et on lui assigne le PDF.
-                    redirectWindow.document.title = "Entretien annuel de développement professionnel";
-                    redirectWindow.location = downloadUrl;
+                    //redirectWindow.document.title = "Entretien annuel de développement professionnel";
+                    //redirectWindow.location = downloadUrl;
+                    window.location = downloadUrl;
                 }
             });
         }
