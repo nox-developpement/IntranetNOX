@@ -522,9 +522,9 @@ class DeveloppementProfessionnelController extends Controller {
                 // Sinon...
                 else {
                     // Pour chaques objectifs...
+                    $objectifsTexte = "";
                     for ($i = 1; $i <= $objectifsCount; $i++) {
                         // On écris le niveau d'atteinte de l'objectif.
-                        $objectifsTexte = "";
                         $objectifsTexte .= "Objectif " . $i . ": " . $objectifs['objectif_niveau_' . $i] . (($i !== $objectifsCount) ? ',' : '');
                     }
                     // On donne la des objectifs à la cellule.
