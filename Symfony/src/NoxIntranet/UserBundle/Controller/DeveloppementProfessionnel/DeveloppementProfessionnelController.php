@@ -457,7 +457,7 @@ class DeveloppementProfessionnelController extends Controller {
             $columnLetter++ => array('Header' => 'NIVEAU DE MAITRISE DU POSTE', 'CleFormulaire' => '4_Manager'),
             //'L' => array('Header' => 'ATTEINTE OBJECTIF 1', 'CleFormulaire' => '9_Manager'),
             //'M' => array('Header' => 'ATTEINTE OBJECTIF 2', 'CleFormulaire' => '14_Manager'),
-            $columnLetter++  => array('Header' => 'ATTEINTE OBJECTIF ', 'CleFormulaire' => '14_Manager'),
+            $columnLetter++ => array('Header' => 'ATTEINTE OBJECTIF ', 'CleFormulaire' => '14_Manager'),
             $columnLetter++ => array('Header' => 'FORMATIONS REALISEES', 'CleFormulaire' => '21_Manager'),
             $columnLetter++ => array('Header' => 'BESOIN FORMATION SALARIE', 'CleFormulaire' => '31_Collaborateur'),
             $columnLetter++ => array('Header' => 'FORMATION A PREVOIR', 'CleFormulaire' => 'Formation1'),
@@ -533,7 +533,7 @@ class DeveloppementProfessionnelController extends Controller {
             for ($i = 1; $i <= $entretien->getNombreObjectifs(); $i++) {
 
                 $atteinteObjectif = json_decode($entretien->getObjectifs(), true)['objectif_niveau_' . $i];
-                
+
                 // On attribut la valeur du formulaire correspondant à la colonne actuel du fichier Excel.
                 $objPHPExcel->getActiveSheet()->setCellValue($columnLetter++ . $ligne, $atteinteObjectif);
                 $objPHPExcel->getActiveSheet()->getColumnDimension($key)->setAutoSize(true);
@@ -658,7 +658,7 @@ class DeveloppementProfessionnelController extends Controller {
         // Initialisation de la réponse.
         $response = new Response($file, 200);
         $response->headers->set('Content-Type', 'application/force-download');
-        $response->headers->set('Content-Disposition:', "attachment; filename='Entretien individuel.pdf'");
+        $response->headers->set('Content-Disposition', "attachment; filename='Entretien individuel.pdf'");
 
         // On retourne le téléchargement du fichier.
         return $response;
