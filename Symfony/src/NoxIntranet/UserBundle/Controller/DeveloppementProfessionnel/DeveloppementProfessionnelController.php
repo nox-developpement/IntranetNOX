@@ -455,9 +455,7 @@ class DeveloppementProfessionnelController extends Controller {
             $columnLetter++ => array('Header' => 'RESPONSABLE', 'CleFormulaire' => 'NomResponsable'),
             $columnLetter++ => array('Header' => "DATE D'ENTRETIEN", 'CleFormulaire' => 'DateEntretien'),
             $columnLetter++ => array('Header' => 'NIVEAU DE MAITRISE DU POSTE', 'CleFormulaire' => '4_Manager'),
-            //'L' => array('Header' => 'ATTEINTE OBJECTIF 1', 'CleFormulaire' => '9_Manager'),
-            //'M' => array('Header' => 'ATTEINTE OBJECTIF 2', 'CleFormulaire' => '14_Manager'),
-            $columnLetter++ => array('Header' => 'ATTEINTE OBJECTIF ', 'CleFormulaire' => '14_Manager'),
+            $columnLetter++ => array('Header' => 'ATTEINTE OBJECTIF', 'CleFormulaire' => ''),
             $columnLetter++ => array('Header' => 'FORMATIONS REALISEES', 'CleFormulaire' => '21_Manager'),
             $columnLetter++ => array('Header' => 'BESOIN FORMATION SALARIE', 'CleFormulaire' => '31_Collaborateur'),
             $columnLetter++ => array('Header' => 'FORMATION A PREVOIR', 'CleFormulaire' => 'Formation1'),
@@ -501,62 +499,53 @@ class DeveloppementProfessionnelController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entretiensDeveloppementProfessionnel = $em->getRepository('NoxIntranetUserBundle:DeveloppementProfessionnel')->findBy(array('annee' => date('Y'), 'statut' => 'Synthèse'));
 
-        // On trie les entretiens pas nom et prénom des collaborateurs.
+        // On trie les entretiens.
         $this->trieSyntheseExport($entretiensDeveloppementProfessionnel);
 
-        $ligne = 2; // Compteur de ligne.
-        // Pour chaque entretien de développement professionnel...
-        foreach ($entretiensDeveloppementProfessionnel as $entretien) {
-            // On récupére les données du formulaire.
-            $formulaire = $entretien->getFormulaire();
+        // Pour chaques colonnes...
+        foreach ($collonesSynthese as $key => $colonne) {
+            // On initialise le l'index des lignes à 2.
+            $ligneIndex = 2;
 
-            // Pour chaque colonnes du fichier Excel...
-            foreach ($collonesSynthese as $key => $colonne) {
-                // On attribut la valeur du formulaire correspondant à la colonne actuel du fichier Excel.
-                $objPHPExcel->getActiveSheet()->setCellValue($key . $ligne, $formulaire[$colonne['CleFormulaire']]);
-                $objPHPExcel->getActiveSheet()->getColumnDimension($key)->setAutoSize(true);
+            // Pour chaques entretiens...
+            foreach ($entretiensDeveloppementProfessionnel as $entretien) {
+                // On récupère le formulaire et ses objectifs.
+                $formulaire = $entretien->getFormulaire();
+                $objectifs = json_decode($entretien->getObjectifs(), true);
+                $objectifsCount = $entretien->getNombreObjectifs();
 
-                // On centre le texte de la cellule.
-                $style = array(
-                    'alignment' => array(
-                        'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-                    ),
-                    'borders' => array(
-                        'allborders' => array(
-                            'style' => \PHPExcel_Style_Border::BORDER_THIN
-                        )
-                    )
-                );
-                $objPHPExcel->getActiveSheet()->getStyle($key . $ligne)->applyFromArray($style);
-            }
-
-            for ($i = 1; $i <= $entretien->getNombreObjectifs(); $i++) {
-
-                $atteinteObjectif = json_decode($entretien->getObjectifs(), true)['objectif_niveau_' . $i];
-
-                // On attribut la valeur du formulaire correspondant à la colonne actuel du fichier Excel.
-                $objPHPExcel->getActiveSheet()->setCellValue($columnLetter++ . $ligne, $atteinteObjectif);
-                $objPHPExcel->getActiveSheet()->getColumnDimension($key)->setAutoSize(true);
+                // Si la colonne n'est pas "ATTEINTE OBJECTIF"...
+                if (strcmp($colonne['Header'], 'ATTEINTE OBJECTIF') !== 0) {
+                    // On donne la valeur du formulaire à la cellule.
+                    $objPHPExcel->getActiveSheet()->setCellValue($key . $ligneIndex, $formulaire[$colonne['CleFormulaire']]);
+                }
+                // Sinon...
+                else {
+                    // Pour chaques objectifs...
+                    for ($i = 1; $i <= $objectifsCount; $i++) {
+                        // On écris le niveau d'atteinte de l'objectif.
+                        $objectifsTexte = "";
+                        $objectifsTexte .= "Objectif " . $i . ": " . $objectifs['objectif_niveau_' . $i] . (($i !== $objectifsCount) ? ',' : '');
+                    }
+                    // On donne la des objectifs à la cellule.
+                    $objPHPExcel->getActiveSheet()->setCellValue($key . $ligneIndex, $objectifsTexte);
+                }
 
                 // On centre le texte de la cellule.
                 $style = array(
                     'alignment' => array(
                         'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-                    ),
-                    'borders' => array(
-                        'allborders' => array(
-                            'style' => \PHPExcel_Style_Border::BORDER_THIN
-                        )
                     )
                 );
-                $objPHPExcel->getActiveSheet()->getStyle($key . $ligne)->applyFromArray($style);
+                $objPHPExcel->getActiveSheet()->getStyle($key . $ligneIndex)->applyFromArray($style);
+
+                // On passe à la ligne suivante.
+                $ligneIndex++;
             }
 
-            // On incrémente la valeur de la ligne.
-            $ligne++;
+            // On attribut la bonne largeur à la colonne.
+            $objPHPExcel->getActiveSheet()->getColumnDimension($key)->setAutoSize(true);
         }
-
-
 
         // On sauvegarde le fichier Excel.
         $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
@@ -598,7 +587,7 @@ class DeveloppementProfessionnelController extends Controller {
     }
 
     // Tries les synthèse de développement professionnel en fonction du nom et du prénom de leur collaborateur.
-    function trieSyntheseExport(&$entretiens) {
+    private function trieSyntheseExport(&$entretiens) {
         uasort($entretiens, function($a, $b) {
             if ($a->getCollaborateur()->getLastname() === $b->getCollaborateur()->getLastname()) {
                 if ($a->getCollaborateur()->getFirstname() === $b->getCollaborateur()->getFirstname()) {

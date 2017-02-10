@@ -21,20 +21,38 @@
             border-collapse: collapse;
             border: 1px solid black;
         }
-        
+
         #DRHTable th {
             color: white;
             background-color: #1F4E79;
         }
-        
+
         #DRHTable tr {
             border: none;
         }
 
         #DRHTable td {
+            padding: 1% 2% 1% 2%;
             border-top: none;
             border-bottom: none;
         }
+
+        #DRHTable td .DRHLinkDiv {
+            display: inline-block;
+            padding: 2%;
+            border-top: solid 1px rgb(192,0,0);
+            border-bottom: solid 1px rgb(192,0,0);
+        }
+
+        #DRHTable td .DRHLinkDiv:hover {
+            border-top: solid 1px black;
+            border-bottom: solid 1px black;
+        }
+
+        #DRHTable td a, #DRHTable td a:visited {
+            color: #1F4E79;
+            text-decoration: none;
+        } 
     </style>
 
     <div class="iconContener">
@@ -345,29 +363,29 @@
                 </tr>
                 <tr>
                     <td>
-                        <a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'RH'}) }}">Assistant(e) RH - Correction/Validation compilation</a>
-                    </th>
+                        <div class='DRHLinkDiv'><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'RH'}) }}">Assistant(e) RH - Correction/Validation compilation</a></div>
+                        </th>
                     <td>
                         {% if app.user.username == 'n.rigaudeau' or app.user.username == 'a.forestier' or app.user.username == 't.besson' %}
-                            <a href="{{ path('nox_intranet_developpement_professionnel_synthese_excel') }}">Développement professionnel - Synthèse</a>
+                            <div class='DRHLinkDiv'><a href="{{ path('nox_intranet_developpement_professionnel_synthese_excel') }}">Synthèse</a></div>
                         {% endif %}
-                    </th>
+                        </th>
                     <td>
-                        <a href="{{ path('nox_intranet_prestation_administration_da') }}">Prestations internes - Administration des DA</a>
-                    </th>
+                        <div class='DRHLinkDiv'><a href="{{ path('nox_intranet_prestation_administration_da') }}">Prestations internes - Administration des DA</a></div>
+                        </th>
                 </tr>
                 <tr>
-                    <td><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'Final'}) }}">Consultation des compilations validées</a></th>
-                    <td></th>
-                    <td></th>
-                </tr>
-                <tr>
-                    <td><a href="{{ path('nox_intranet_administration_upload_fichier_hierarchie_rh') }}">Upload du fichier de hiérarchie RH</a></th>
-                    <td></th>
+                    <td><div class='DRHLinkDiv'><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'Final'}) }}">Consultation des compilations validées</a></div></th>
+                    <td><div class='DRHLinkDiv'><a href="{{ path('nox_intranet_developpement_professionnel_monitoring_formulaire') }}">Suivis des entretiens</a></div></th>
                     <td></th>
                 </tr>
                 <tr>
-                    <td><a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank'>Consulter la notice</a></th>
+                    <td><div class='DRHLinkDiv'><a href="{{ path('nox_intranet_administration_upload_fichier_hierarchie_rh') }}">Upload du fichier de hiérarchie RH</a></div></th>
+                    <td></th>
+                    <td></th>
+                </tr>
+                <tr>
+                    <td><div class='DRHLinkDiv'><a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank'>Consulter la notice</a></div></th>
                     <td></th>
                     <td></th>
                 </tr>
