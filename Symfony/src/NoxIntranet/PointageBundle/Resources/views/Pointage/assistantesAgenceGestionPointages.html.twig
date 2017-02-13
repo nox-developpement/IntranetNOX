@@ -183,44 +183,40 @@
                     </td>
                     <td class='dailyHoursMod' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} style="background:rgb(166,166,166); border-left-width: 1px; border-right-width: 1px;" {% else %} contenteditable='true' style="border-left-width: 1px; border-right-width: 1px;" {% endif %}></td>
                     <td class='abscenceMatinSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} background:rgb(166,166,166); {% endif %} border-left-width: 1px;">
-                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' and date not in joursFeries %}
-                            <select>
-                                <option value=''></option>
-                                <option value='AA'>AA</option>
-                                <option value='TJ'>TJ</option>
-                                <option value='AT'>AT</option>
-                                <option value='MT'>MT</option>
-                                <option value='PA'>PA</option>
-                                <option value='CS'>CS</option>
-                                <option value='CP'>CP</option>
-                                <option value='AV'>AV</option>
-                                <option value='RT'>RT</option>
-                                <option value='MA'>MA</option>
-                                <option value='PM'>PM</option>
-                                <option value='RE'>RE</option>
-                                <option value='Autre'>Autre</option>
-                            </select>
-                        {% endif %}
+                        <select>
+                            <option value=''></option>
+                            <option value='AA'>AA</option>
+                            <option value='TJ'>TJ</option>
+                            <option value='AT'>AT</option>
+                            <option value='MT'>MT</option>
+                            <option value='PA'>PA</option>
+                            <option value='CS'>CS</option>
+                            <option value='CP'>CP</option>
+                            <option value='AV'>AV</option>
+                            <option value='RT'>RT</option>
+                            <option value='MA'>MA</option>
+                            <option value='PM'>PM</option>
+                            <option value='RE'>RE</option>
+                            <option value='Autre'>Autre</option>
+                        </select>
                     </td>
                     <td  class='abscenceAMSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} background:rgb(166,166,166); {% endif %} border-right-width: 1px;">
-                        {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' and date not in joursFeries %}
-                            <select>
-                                <option value=''></option>
-                                <option value='AA'>AA</option>
-                                <option value='TJ'>TJ</option>
-                                <option value='AT'>AT</option>
-                                <option value='MT'>MT</option>
-                                <option value='PA'>PA</option>
-                                <option value='CS'>CS</option>
-                                <option value='CP'>CP</option>
-                                <option value='AV'>AV</option>
-                                <option value='RT'>RT</option>
-                                <option value='MA'>MA</option>
-                                <option value='PM'>PM</option>
-                                <option value='RE'>RE</option>
-                                <option value='Autre'>Autre</option>
-                            </select>
-                        {% endif %}
+                        <select>
+                            <option value=''></option>
+                            <option value='AA'>AA</option>
+                            <option value='TJ'>TJ</option>
+                            <option value='AT'>AT</option>
+                            <option value='MT'>MT</option>
+                            <option value='PA'>PA</option>
+                            <option value='CS'>CS</option>
+                            <option value='CP'>CP</option>
+                            <option value='AV'>AV</option>
+                            <option value='RT'>RT</option>
+                            <option value='MA'>MA</option>
+                            <option value='PM'>PM</option>
+                            <option value='RE'>RE</option>
+                            <option value='Autre'>Autre</option>
+                        </select>
                     </td>
                     <td class='titreRepasNumberSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">
                         {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' and date not in joursFeries %}
@@ -726,8 +722,8 @@
                                     $(this).next('td').attr('contenteditable', false);
                                     $(this).siblings('.dailyHoursMod').attr('contenteditable', false);
                                     $(this).siblings('.dailyTotalPercentageCell').html('');
-                                    $(this).siblings('.abscenceMatinSelector').html('');
-                                    $(this).siblings('.abscenceAMSelector').html('');
+                                    $(this).siblings('.abscenceMatinSelector').html("<select><option value=''></option><option value='AT'>AT</option><option value='MT'>MT</option><option value='PA'>PA</option><option value='MA'>MA</option></select>");
+                                    $(this).siblings('.abscenceAMSelector').html("<select><option value=''></option><option value='AT'>AT</option><option value='MT'>MT</option><option value='PA'>PA</option><option value='MA'>MA</option></select>");
                                     $(this).siblings('.titreRepasNumberSelector').html('');
                                     $(this).siblings('.forfaitsDeplacementMontant').attr('contenteditable', false);
                                     $(this).siblings('.primesPanierNumber').attr('contenteditable', false);
@@ -1187,7 +1183,7 @@
                     $(this).parent('.abscenceMatinSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
                     $(this).parent('.abscenceMatinSelector').siblings('.primesPanierNumber').text('');
                     $(this).parent('.abscenceMatinSelector').siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
-                } else {
+                } else if ($(this).parent('td').css('background-color') !== 'rgb(166, 166, 166)') {
                     //$(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').removeAttr('disabled');
                     $(this).parent('.abscenceMatinSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'white');
                     $(this).parent('.abscenceMatinSelector').siblings('.primesPanierNumber').css('background-color', 'white');
@@ -1201,7 +1197,7 @@
                     $(this).parent('.abscenceAMSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
                     $(this).parent('.abscenceAMSelector').siblings('.primesPanierNumber').text('');
                     $(this).parent('.abscenceAMSelector').siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
-                } else {
+                } else if ($(this).parent('td').css('background-color') !== 'rgb(166, 166, 166)') {
                     //$(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').removeAttr('disabled');
                     $(this).parent('.abscenceAMSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'white');
                     $(this).parent('.abscenceAMSelector').siblings('.primesPanierNumber').css('background-color', 'white');
