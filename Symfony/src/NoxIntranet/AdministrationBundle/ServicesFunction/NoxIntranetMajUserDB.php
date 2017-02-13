@@ -60,7 +60,7 @@ class NoxIntranetMajUserDB extends Controller {
                     $name = mb_strtolower($data[1], 'UTF-8');
                     $agence = 'Bron';
                     //$fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $firstname = $data[];
+                    $firstname = $data[3];
                     $lastname = $data[2];
                     $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
                 } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') != false) {
