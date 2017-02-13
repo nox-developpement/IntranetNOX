@@ -41,8 +41,8 @@ class DeveloppementProfessionnelController extends Controller {
         $statutHierarchie = array(
             'Collaborateur' => $collaborateur->getUsername(),
             'N2' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $n2)[0], 'lastname' => explode(' ', $n2)[1]))->getUsername(),
-            'DRH' => 't.besson',
-            'Synthèse' => 't.besson'
+            'DRH' => 'n.rigaudeau',
+            'Synthèse' => 'n.rigaudeau'
         );
 
         // Fonction de sortie si visite non autorisé.
@@ -685,11 +685,29 @@ class DeveloppementProfessionnelController extends Controller {
     }
 
     public function formulaireMonitoringAction() {
+        // On récupère les entretiens de l'année courante.
         $em = $this->getDoctrine()->getManager();
-
         $entretiens = $em->getRepository('NoxIntranetUserBundle:DeveloppementProfessionnel')->findByAnnee(date('Y'));
 
-        return $this->render('NoxIntranetUserBundle:DeveloppementProfessionnel:formulaireMonitoring.html.twig', array('entretiens' => $entretiens));
+        // Initialisation du tableau des valideurs.
+        $currentValidators = array();
+
+        // Pour chaques entretiens...
+        foreach ($entretiens as $entretien) {
+            // Si le statut de l'entretien est "N2".
+            if ($entretien->getStatut() === 'N2') {
+                // On récupère le collaborateur.
+                $collaborateur = $entretien->getCollaborateur();
+
+                // On récupère sa hiérarchie.
+                $hierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername());
+
+                // On place sont N+2 dans le tableau des valideurs.
+                $currentValidators[$collaborateur->getUsername()] = $hierarchy->getN2();
+            }
+        }
+
+        return $this->render('NoxIntranetUserBundle:DeveloppementProfessionnel:formulaireMonitoring.html.twig', array('entretiens' => $entretiens, 'currentValidators' => $currentValidators));
     }
 
 }

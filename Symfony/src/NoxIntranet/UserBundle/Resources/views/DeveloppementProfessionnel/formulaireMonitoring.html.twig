@@ -60,11 +60,15 @@
                 {% for entretien in entretiens %}
                     <tr>
                         <td>{{ entretien.Collaborateur.Lastname }} {{ entretien.Collaborateur.Firstname }}</td>
-                        <td>{{ entretien.Statut }}</td>
+                        <td>
+                            {{ entretien.Statut }}{% if currentValidators[entretien.Collaborateur.Username] is defined %} ({{ currentValidators[entretien.Collaborateur.Username] }}){% endif %}
+                        </td>
                         {% if entretien.Statut != "Synthèse" %}
                             <td><a href='{{ path('nox_intranet_developpement_professionnel_formulaire', {collaborateurUsername: entretien.Collaborateur.Username}) }}' target='_blank'>Valider</a></td>
                         {% else %}
-                            <td><a href='{{ path('nox_intranet_developpement_professionnel_formulaire', {collaborateurUsername: entretien.Collaborateur.Username}) }}' target='_blank'>Consulter</a></td>
+                            <td>
+                                <a href='{{ path('nox_intranet_developpement_professionnel_formulaire', {collaborateurUsername: entretien.Collaborateur.Username}) }}' target='_blank'>Consulter</a>
+                            </td>
                         {% endif %}
                     </tr>
                 {% endfor %}
