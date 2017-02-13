@@ -180,7 +180,7 @@
                                 newHtmlContent += "<td>" + data[index].forfaitsDeplacement + "</td>";
                                 newHtmlContent += "<td>" + data[index].primesPanier + "</td>";
                                 newHtmlContent += "<td>" + data[index].titreTransport + "</td>";
-                                newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'>" + (nbAbsencesMatin + nbAbsencesAM)/2 + "<img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
+                                newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'>" + (nbAbsencesMatin + nbAbsencesAM) / 2 + "<img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
                                 newHtmlContent += "</tr>";
                                 newHtmlContent += "<tr>";
                                 newHtmlContent += "<td colspan='6' style='background-color: white; border-right: none; padding-bottom: 3%;' class='compilationPointagesTableAbsencesTd'>";
@@ -453,7 +453,7 @@
                                 newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='forfaitsDeplacement' step='0.01' min='0' value='" + data[index].forfaitsDeplacement + "'></td>";
                                 newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='primesPanier' min='0' step='0.01' value='" + data[index].primesPanier + "'></td>";
                                 newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titreTransport' min='0' step='0.01' value='" + data[index].titreTransport + "'></td>";
-                                newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><div style='display: inline-block; vertical-align: middle;'>" + (nbAbsencesMatin + nbAbsencesAM)/2 + "</div><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
+                                newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><div style='display: inline-block; vertical-align: middle;'>" + (nbAbsencesMatin + nbAbsencesAM) / 2 + "</div><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
                                 newHtmlContent += "</tr>";
                                 newHtmlContent += "<tr>";
                                 newHtmlContent += "<td colspan='6' style='background-color: white; border-right: none; padding-bottom: 3%;' class='compilationPointagesTableAbsencesTd'>";
@@ -850,13 +850,8 @@
 
         // Affiche un message de confirmation lorsque l'assitant tente de valider la compilation alors qu'il reste des pointages non validée.
         function preventUnvalidate(pointageEnAttenteValidationAA, collaborateurSansPointage, data) {
-            // Si l'assistan d'agence n'as pas valider tous les pointages.
-            if (pointageEnAttenteValidationAA !== 0) {
-                alert('Veuillez valider tous les pointages des collaborateurs avant de valider la compilation.'); // On affiche un message d'erreur.
-                return false; // On bloque l'envoi du formulaire.
-            }
             // Si il reste des collaborateurs qui n'ont pas remplis/validé leur pointage.
-            else if (collaborateurSansPointage !== 0) {
+            if (collaborateurSansPointage !== 0) {
                 var collaborateurs = JSON.parse(data)['collaborateurSansPointage']; // On convertie la chaine de caractère d'entré en objet Javascript.
                 var message = "Attention les pointages suivant n'ont pas étés validés par les collaborateur :\n";
                 $.each(collaborateurs, function (index) {
