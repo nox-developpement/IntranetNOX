@@ -954,7 +954,7 @@ class PointageAjaxController extends Controller {
 
             // On injecte les données dans le fichier.
             foreach ($tableDataArray as $line) {
-                fputcsv($newCSVFileHandler, $line);
+                fputcsv($newCSVFileHandler, $line, ";");
             }
 
             // On ferme le fichier.
