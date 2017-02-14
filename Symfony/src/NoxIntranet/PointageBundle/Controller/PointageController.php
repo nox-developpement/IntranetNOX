@@ -704,5 +704,9 @@ class PointageController extends Controller {
         // On retourne le téléchargement du fichier.
         return $response;
     }
+    
+    public function forfaitsDeplacementDetailsAction($month, $year, $username) {
+        
+    }
 
 }

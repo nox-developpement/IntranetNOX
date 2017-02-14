@@ -73,6 +73,20 @@ class PointageValide {
     /**
      * @var string
      *
+     * @ORM\Column(name="ForfaitsDeplacementDetails", type="text", nullable=true)
+     */
+    private $forfaitsDeplacementDetails;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Mods", type="text", nullable=true)
+     */
+    private $mods;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="PrimesPanier", type="string", length=255)
      */
     private $primesPanier;
@@ -325,6 +339,28 @@ class PointageValide {
      */
     public function getLastname() {
         return $this->lastname;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return PointageValide
+     */
+    public function setStatus($status) {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus() {
+        return $this->status;
     }
 
 }

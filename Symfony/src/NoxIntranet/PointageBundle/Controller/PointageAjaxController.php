@@ -297,7 +297,7 @@ class PointageAjaxController extends Controller {
             $context->get('session')->getFlashBag()->add('notice', 'Le pointage a été validé.');
         }
 
-        function sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $em) {
+        function sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $forfaitsDeplacementDetails, $mods, $em) {
 
             $user = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($username);
 
@@ -313,6 +313,8 @@ class PointageAjaxController extends Controller {
             $newPointageValide->setPrimespanier($primesPanier);
             $newPointageValide->setTitreTransport($titreTransport);
             $newPointageValide->setTitresRepas($titresRepas);
+            $newPointageValide->setForfaitsDeplacementDetails($forfaitsDeplacementDetails);
+            $newPointageValide->setMods($mods);
             $newPointageValide->setStatus(2);
 
             $em->persist($newPointageValide);
@@ -330,8 +332,10 @@ class PointageAjaxController extends Controller {
             $primesPanier = $request->get('primesPanier');
             $titreTransport = $request->get('titreTransport');
             $titresRepas = $request->get('titresRepas');
+            $forfaitsDeplacementDetails = $request->get('forfaitsDeplacementDetails');
+            $mods = $request->get('mods');
 
-            sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $em);
+            sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $forfaitsDeplacementDetails, $mods, $em);
             pointageAssistanteAgenceValidation($username, $month, $year, $this, $em);
 
             $response = new Response('Ok');
@@ -673,6 +677,7 @@ class PointageAjaxController extends Controller {
             $etablissement = $request->get('etablissement');
             $userStatus = $request->get('userStatus');
             $validationStep = $request->get('validationStep');
+            $em = $this->getDoctrine()->getManager();
 
             // Inisialisation des varibables de fonction.
             $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
@@ -680,7 +685,27 @@ class PointageAjaxController extends Controller {
             // On récupére les pointages à retourner en fonction du status de l'utilisateur.
             $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName), $month, $year, $etablissement, $validationStep);
 
-            return new Response(json_encode($pointagesValides));
+            // Initialisation du tableau de retour.
+            $returnedPointage = array();
+
+            // Pour chaque pointage valides...
+            foreach ($pointagesValides as $pointage) {
+                // On récupère son tableau associé.
+                $query = $em->createQueryBuilder()
+                        ->select('p')
+                        ->from('NoxIntranetPointageBundle:Tableau', 'p')
+                        ->where('p.month = :month AND p.year = :year AND p.user = :user')
+                        ->setParameters(array('month' => $pointage['month'], 'year' => $pointage['year'], 'user' => $pointage['user']))
+                        ->getQuery()
+                ;
+                $tableau = $query->getArrayResult();
+
+                // On ajoute le pointage valide et son tableau au tableau de retour.
+                $returnedPointage['Pointage'][] = $pointage;
+                $returnedPointage['Tableau'][$pointage['user']] = $tableau[0];
+            }
+
+            return new Response(json_encode($returnedPointage));
         }
     }
 

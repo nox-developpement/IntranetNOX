@@ -155,7 +155,13 @@
                 url: '{{ path('nox_intranet_pointage_ajax_get_compilation_by_month_year_etablissement_validationstep') }}',
                 data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}', etablissement: $('#form_Etablissement').val(), validationStep: '{{ validationStep }}'},
                 success: function (response) {
-                    var data = JSON.parse(response);
+                    // Conversion de la chaine JSON en Objet.
+                    var responseObject = JSON.parse(response);
+
+                    // On récupère les pointages sous forme d'objet.
+                    var data = responseObject.Pointage;
+
+                    // Si il existe des pointages...
                     if (data.length) {
                         var newHtmlContent = "";
                         if ('{{ validationStep }}' === 'Final') {
@@ -450,7 +456,7 @@
                                 newHtmlContent += "<tr class='pointageCompile' username='" + data[index].user + "'>";
                                 newHtmlContent += "<td>" + data[index].lastname + ' ' + data[index].firstname + "</td>";
                                 newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titresRepas' step='1' min='0' value='" + data[index].titresRepas + "'></td>";
-                                newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='forfaitsDeplacement' step='0.01' min='0' value='" + data[index].forfaitsDeplacement + "'></td>";
+                                newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='forfaitsDeplacement' step='0.01' min='0' value='" + data[index].forfaitsDeplacement + "'><span title='Détails' style='margin-left: 1em; text-decoration: underline;'>Détails</span></td>";
                                 newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='primesPanier' min='0' step='0.01' value='" + data[index].primesPanier + "'></td>";
                                 newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titreTransport' min='0' step='0.01' value='" + data[index].titreTransport + "'></td>";
                                 newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><div style='display: inline-block; vertical-align: middle;'>" + (nbAbsencesMatin + nbAbsencesAM) / 2 + "</div><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
@@ -465,11 +471,13 @@
                                 newHtmlContent += "<th>Abscence après-midi</th>";
                                 newHtmlContent += "<th>Commentaires</th>";
                                 newHtmlContent += "</tr>";
+
                                 // On récupére les jours fériés sous forme de 'timestamp'.
                                 var joursFeries = Array();
                                 $.each(JSON.parse("{{ joursFeries|json_encode }}"), function (index, value) {
                                     joursFeries.push(new Date(value * 1000).getTime());
                                 });
+
                                 // Pour chaque jours...
                                 $.each(data[index].absences.matin, function (indexAbsences) {
                                     newHtmlContent += "<tr date='" + data[index].absences.matin[indexAbsences].date + "'>";
@@ -931,7 +939,9 @@
                 // Si il existe un cookie pour le sélécteur et qu'il n'est pas vide...
                 if (Cookies.get(value) !== undefined && Cookies.get(value) !== '') {
                     $('#' + value).val(Cookies.get(value)); // On assigne la valeur du cookie au sélécteur.
-                    $('#' + value).trigger('change'); // On déclanche le changement du sélécteur pour déclancher les fonctions associées.
+                    if (index === selectors.length - 1) {
+                        $('#' + value).trigger('change'); // On déclanche le changement du sélécteur pour déclancher les fonctions associées.
+                    }
                 }
             });
         }

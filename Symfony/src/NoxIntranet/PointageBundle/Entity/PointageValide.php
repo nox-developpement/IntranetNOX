@@ -73,6 +73,20 @@ class PointageValide {
     /**
      * @var string
      *
+     * @ORM\Column(name="ForfaitsDeplacementDetails", type="text", nullable=true)
+     */
+    private $forfaitsDeplacementDetails;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Mods", type="text", nullable=true)
+     */
+    private $mods;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="PrimesPanier", type="string", length=255)
      */
     private $primesPanier;
@@ -327,7 +341,6 @@ class PointageValide {
         return $this->lastname;
     }
 
-
     /**
      * Set status
      *
@@ -335,8 +348,7 @@ class PointageValide {
      *
      * @return PointageValide
      */
-    public function setStatus($status)
-    {
+    public function setStatus($status) {
         $this->status = $status;
 
         return $this;
@@ -347,8 +359,56 @@ class PointageValide {
      *
      * @return string
      */
-    public function getStatus()
-    {
+    public function getStatus() {
         return $this->status;
+    }
+
+
+    /**
+     * Set forfaitsDeplacementDetails
+     *
+     * @param string $forfaitsDeplacementDetails
+     *
+     * @return PointageValide
+     */
+    public function setForfaitsDeplacementDetails($forfaitsDeplacementDetails)
+    {
+        $this->forfaitsDeplacementDetails = $forfaitsDeplacementDetails;
+    
+        return $this;
+    }
+
+    /**
+     * Get forfaitsDeplacementDetails
+     *
+     * @return string
+     */
+    public function getForfaitsDeplacementDetails()
+    {
+        return $this->forfaitsDeplacementDetails;
+    }
+
+    /**
+     * Set mods
+     *
+     * @param string $mods
+     *
+     * @return PointageValide
+     */
+    public function setMods($mods)
+    {
+        $this->mods = $mods;
+    
+        return $this;
+    }
+
+    /**
+     * Get mods
+     *
+     * @return string
+     */
+    public function getMods()
+    {
+        return $this->mods;
     }
 }

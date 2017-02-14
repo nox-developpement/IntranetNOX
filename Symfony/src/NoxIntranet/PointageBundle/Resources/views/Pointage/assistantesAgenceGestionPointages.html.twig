@@ -221,12 +221,12 @@
                     <td class='titreRepasNumberSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">
                         {% if date|date('l') != 'Saturday' and date|date('l') != 'Sunday' and date not in joursFeries %}
                             <select>
-                                <option value=''></option>
-                                <option value='1' selected>1</option>
+                                <option value='' selected='selected'></option>
+                                <option value='1'>1</option>
                             </select>
                         {% endif %}
                     </td>
-                    <td class='forfaitsDeplacementMontant' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} style="background:rgb(166,166,166);  border-left-width: 1px; border-right-width: 1px;" {% else %} style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true {% endif %}></td>
+                    <td class='forfaitsDeplacementMontant' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} style="background:rgb(166,166,166);  border-left-width: 1px; border-right-width: 1px;" contenteditable=true {% else %} style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true {% endif %}></td>
                     <td class='primesPanierNumber' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} style="background:rgb(166,166,166);  border-left-width: 1px; border-right-width: 1px;" {% else %} style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true {% endif %}></td>
                     <td class='comments' style="border-left-width: 1px; border-right-width: 1px;" contenteditable=true></td>
                 </tr>        
@@ -725,7 +725,7 @@
                                     $(this).siblings('.abscenceMatinSelector').html("<select><option value=''></option><option value='AT'>AT</option><option value='MT'>MT</option><option value='PA'>PA</option><option value='MA'>MA</option></select>");
                                     $(this).siblings('.abscenceAMSelector').html("<select><option value=''></option><option value='AT'>AT</option><option value='MT'>MT</option><option value='PA'>PA</option><option value='MA'>MA</option></select>");
                                     $(this).siblings('.titreRepasNumberSelector').html('');
-                                    $(this).siblings('.forfaitsDeplacementMontant').attr('contenteditable', false);
+                                    $(this).siblings('.forfaitsDeplacementMontant').attr('contenteditable', true);
                                     $(this).siblings('.primesPanierNumber').attr('contenteditable', false);
                                     $(this).siblings('.comments').attr('contenteditable', true);
                                     $(this).siblings('.comments').css('background', 'white');
@@ -1075,10 +1075,44 @@
                 return $('#titreTransportTotalMontant').text();
             }
 
+            // Retourne les valeurs des forfaits déplacement associées à leur date.
+            function getForfaitsDeplacementDetails() {
+                var forfaitsDeplacementDetails = [];
+                $('.forfaitsDeplacementMontant').each(function () {
+                    var jour = $(this).siblings('.dayDateCell').text().slice(-2);
+                    var valeur = $(this).text();
+
+                    var forfaitDeplacementDetail = {};
+                    forfaitDeplacementDetail['jour'] = jour;
+                    forfaitDeplacementDetail['valeur'] = valeur;
+
+                    forfaitsDeplacementDetails.push(forfaitDeplacementDetail);
+                });
+
+                return JSON.stringify(forfaitsDeplacementDetails);
+            }
+            
+            // Retourne les valeurs de modulation associées à leur date.
+            function getMods() {
+                var mods = [];
+                $('.dailyHoursMod').each(function () {
+                    var jour = $(this).siblings('.dayDateCell').text().slice(-2);
+                    var valeur = $(this).text();
+
+                    var mod = {};
+                    mod['jour'] = jour;
+                    mod['valeur'] = valeur;
+
+                    mods.push(mod);
+                });
+
+                return JSON.stringify(mods);
+            }
+
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_assistante_agence_validation') }}',
-                data: {username: user, month: month, year: year, absences: getAbsences(), titresRepas: getTitresRepas(), forfaitsDeplacement: getForfaitsDeplacement(), primesPanier: getPrimesPanier(), titreTransport: getTitreTransport()},
+                data: {username: user, month: month, year: year, absences: getAbsences(), titresRepas: getTitresRepas(), forfaitsDeplacement: getForfaitsDeplacement(), primesPanier: getPrimesPanier(), titreTransport: getTitreTransport(), forfaitsDeplacementDetails: getForfaitsDeplacementDetails(), mods: getMods()},
                 success: function () {
                     location.reload();
                 }
@@ -1233,7 +1267,7 @@
             // Lorsqu'on écris dans une case de forfait déplacement.
             $('.forfaitsDeplacementMontant').keyup(function () {
                 // Si la case n'est pas vide.
-                if ($(this).text() !== '') {
+                if ($(this).text() !== '' && $(this).siblings('.dayDateCell').css('background-color') !== 'rgb(166, 166, 166)') {
                     $(this).css('background-color', 'white');
                     $(this).siblings('.abscenceMatinSelector').find('select').val('');
                     //$(this).siblings('.abscenceMatinSelector').find('select').attr('disabled', true);
@@ -1245,7 +1279,7 @@
                     $(this).siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
                 }
                 // Si la case est vide.
-                else {
+                else if ($(this).siblings('.dayDateCell').css('background-color') !== 'rgb(166, 166, 166)') {
                     //$(this).siblings('.abscenceMatinSelector').find('select').attr('disabled', false);
                     //$(this).siblings('.abscenceAMSelector').find('select').attr('disabled', false);
                     //$(this).siblings('.titreRepasNumberSelector').find('select').attr('disabled', false);
