@@ -297,10 +297,8 @@ class PointageAjaxController extends Controller {
             $context->get('session')->getFlashBag()->add('notice', 'Le pointage a été validé.');
         }
 
-        function sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $CSVData, $em, $context) {
-
+        function sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $em) {
             $user = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($username);
-            $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($username);
 
             $newPointageValide = new PointageValide();
 
@@ -315,12 +313,6 @@ class PointageAjaxController extends Controller {
             $newPointageValide->setTitreTransport($titreTransport);
             $newPointageValide->setTitresRepas($titresRepas);
             $newPointageValide->setStatus(2);
-
-            // Si le collaborateur fait partie de NOX IP...
-            if (strpos($userHierarchy->getEtablissement(), 'INDUSTRIE') !== false && strpos($userHierarchy->getEtablissement(), 'PROCESS') !== false) {
-                // On lui attribut ses données CSV.
-                $newPointageValide->setCSVData($context->saveNOXIPCSV($CSVData, $user->getLastname(), $user->getFirstname()));
-            }
 
             $em->persist($newPointageValide);
             $em->flush();
@@ -337,9 +329,8 @@ class PointageAjaxController extends Controller {
             $primesPanier = $request->get('primesPanier');
             $titreTransport = $request->get('titreTransport');
             $titresRepas = $request->get('titresRepas');
-            $CSVData = $request->get('CSVData');
 
-            sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $CSVData, $em, $this);
+            sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $em);
             pointageAssistanteAgenceValidation($username, $month, $year, $this, $em);
 
             $response = new Response('Ok');
@@ -956,7 +947,7 @@ class PointageAjaxController extends Controller {
             // Pour chaques affaire un prépare la ligne CSV.
             $affaires = array();
             foreach ($affairesDataArray as $affaire) {
-                $affaires[$affaire['numAffaire']][$affaire['date']] = array('lastname' => $lastname, 'firstname' => $firstname, 'numAffaire' => $affaire['numAffaire'], 'value' => $affaire['value'], 'date' => $affaire['date']);
+                $affaires[$affaire['numAffaire']][$affaire['date']] = array('lastname' => $lastname, 'firstname' => $firstname, 'numAffaire' => $affaire['numAffaire'], 'value' => $affaire['value'], 'date' => $affaire['date'], 'comments' => $affaire['comments']);
             }
 
             // On récupére la racine du serveur web.
@@ -1069,19 +1060,51 @@ class PointageAjaxController extends Controller {
         }
     }
 
-    // Génère un code CSV et le retourne si l'utilisateur fait partie de NOX IP.
-    public function saveNOXIPCSV($CSVData, $lastname, $firstname) {
-        // On convertie les données JSON en Array.
-        $affairesDataArray = json_decode($CSVData, true);
+    // Sauvegarde les données d'affaire du pointage sous forme de Tableau pour export en CSV.
+    public function ajaxSaveNOXIPCSVAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupére les données du pointage.
+            $CSVData = $request->get('tableData');
+            $month = $request->get('month');
+            $year = $request->get('year');
+            $em = $this->getDoctrine()->getManager();
 
-        // Pour chaques affaire un prépare la ligne CSV.
-        $affaires = array();
-        foreach ($affairesDataArray as $affaire) {
-            $affaires[$affaire['numAffaire']][$affaire['date']] = array('lastname' => $lastname, 'firstname' => $firstname, 'numAffaire' => $affaire['numAffaire'], 'value' => $affaire['value'], 'date' => $affaire['date']);
+            // Si le type du paramètre username est un nombre...
+            if (is_numeric($request->get('username'))) {
+                // On récupére l'entité du collaborateur grace à son Id.
+                $user = $em->getRepository('NoxIntranetUserBundle:User')->find($request->get('username'));
+                $username = $user->getUsername();
+            }
+            // Si le type du paramètre username est une chaine...
+            else {
+                // On récupére l'entité du collaborateur grace à son Username.
+                $username = $request->get('username');
+                $user = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($username);
+            }
+
+            // On récupére les entitées du collaborateur, sa hiérachie et le tableau correspondant.  
+            $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($username);
+            $tableau = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
+
+            // Si le collaborateur fait partie de NOX IP...
+            if (strpos($userHierarchy->getEtablissement(), 'INDUSTRIE') !== false && strpos($userHierarchy->getEtablissement(), 'PROCESS') !== false) {
+                // On convertie les données JSON en Array.
+                $affairesDataArray = json_decode($CSVData, true);
+
+                // Pour chaques affaire un prépare la ligne CSV.
+                $affaires = array();
+                foreach ($affairesDataArray as $affaire) {
+                    $affaires[$affaire['numAffaire']][$affaire['date']] = array('lastname' => $user->getLastname(), 'firstname' => $user->getFirstname(), 'numAffaire' => $affaire['numAffaire'], 'value' => $affaire['value'], 'date' => $affaire['date'], 'comments' => $affaire['comments']);
+                }
+
+                // On attribut les données CSV au collaborateur et on sauvegarde en base de données.
+                $tableau->setCSVData($affaires);
+                $em->flush();
+            }
+
+            // On retourne le chemin du fichier.
+            return new Response('Saved');
         }
-
-        // On retourne le chemin du fichier.
-        return $affaires;
     }
 
 }

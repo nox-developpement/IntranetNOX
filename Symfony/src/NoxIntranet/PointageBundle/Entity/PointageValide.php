@@ -99,13 +99,6 @@ class PointageValide {
     private $status;
 
     /**
-     * @var Array
-     *
-     * @ORM\Column(name="CSVData", type="array", nullable=true)
-     */
-    private $CSVData;
-
-    /**
      * Get id
      *
      * @return integer
@@ -356,28 +349,4 @@ class PointageValide {
         return $this->status;
     }
 
-
-    /**
-     * Set cSVData
-     *
-     * @param array $cSVData
-     *
-     * @return PointageValide
-     */
-    public function setCSVData($cSVData)
-    {
-        $this->CSVData = $cSVData;
-    
-        return $this;
-    }
-
-    /**
-     * Get cSVData
-     *
-     * @return array
-     */
-    public function getCSVData()
-    {
-        return $this->CSVData;
-    }
 }

@@ -69,6 +69,13 @@ class Tableau {
     private $justificatifTransportFile;
 
     /**
+     * @var Array
+     *
+     * @ORM\Column(name="CSVData", type="array", nullable=true)
+     */
+    private $CSVData;
+
+    /**
      * Get id
      *
      * @return integer
@@ -207,6 +214,28 @@ class Tableau {
      */
     public function getStatus() {
         return $this->status;
+    }
+
+    /**
+     * Set justificatifTransportFile
+     *
+     * @param \NoxIntranet\PointageBundle\Entity\JustificatifTransportFile $justificatifTransportFile
+     *
+     * @return Tableau
+     */
+    public function setJustificatifTransportFile(\NoxIntranet\PointageBundle\Entity\JustificatifTransportFile $justificatifTransportFile = null) {
+        $this->justificatifTransportFile = $justificatifTransportFile;
+
+        return $this;
+    }
+
+    /**
+     * Get justificatifTransportFile
+     *
+     * @return \NoxIntranet\PointageBundle\Entity\JustificatifTransportFile
+     */
+    public function getJustificatifTransportFile() {
+        return $this->justificatifTransportFile;
     }
 
 }
