@@ -297,9 +297,10 @@ class PointageAjaxController extends Controller {
             $context->get('session')->getFlashBag()->add('notice', 'Le pointage a été validé.');
         }
 
-        function sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $em) {
+        function sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $CSVData, $em, $context) {
 
             $user = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($username);
+            $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($username);
 
             $newPointageValide = new PointageValide();
 
@@ -314,6 +315,12 @@ class PointageAjaxController extends Controller {
             $newPointageValide->setTitreTransport($titreTransport);
             $newPointageValide->setTitresRepas($titresRepas);
             $newPointageValide->setStatus(2);
+
+            // Si le collaborateur fait partie de NOX IP...
+            if (strpos($userHierarchy->getEtablissement(), 'INDUSTRIE') !== false && strpos($userHierarchy->getEtablissement(), 'PROCESS') !== false) {
+                // On lui attribut ses données CSV.
+                $newPointageValide->setCSVData($context->saveNOXIPCSV($CSVData, $user->getLastname(), $user->getFirstname()));
+            }
 
             $em->persist($newPointageValide);
             $em->flush();
@@ -330,8 +337,9 @@ class PointageAjaxController extends Controller {
             $primesPanier = $request->get('primesPanier');
             $titreTransport = $request->get('titreTransport');
             $titresRepas = $request->get('titresRepas');
+            $CSVData = $request->get('CSVData');
 
-            sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $em);
+            sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $CSVData, $em, $this);
             pointageAssistanteAgenceValidation($username, $month, $year, $this, $em);
 
             $response = new Response('Ok');
@@ -938,10 +946,18 @@ class PointageAjaxController extends Controller {
     public function ajaxDownloadCSVAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // On récupére les données du pointage.
-            $tableData = $request->get('tableData');
+            $affairesData = $request->get('tableData');
+            $firstname = $request->get('firstname');
+            $lastname = $request->get('lastname');
 
             // On convertie les données JSON en Array.
-            $tableDataArray = json_decode($tableData, true);
+            $affairesDataArray = json_decode($affairesData, true);
+
+            // Pour chaques affaire un prépare la ligne CSV.
+            $affaires = array();
+            foreach ($affairesDataArray as $affaire) {
+                $affaires[$affaire['numAffaire']][$affaire['date']] = array('lastname' => $lastname, 'firstname' => $firstname, 'numAffaire' => $affaire['numAffaire'], 'value' => $affaire['value'], 'date' => $affaire['date']);
+            }
 
             // On récupére la racine du serveur web.
             $root = $this->get('kernel')->getRootDir() . '\..\web\\';
@@ -952,9 +968,12 @@ class PointageAjaxController extends Controller {
             // On ouvre le fichier.
             $newCSVFileHandler = fopen($newCSVFile, 'w+');
 
-            // On injecte les données dans le fichier.
-            foreach ($tableDataArray as $line) {
-                fputcsv($newCSVFileHandler, $line, ";");
+            // On injecte les données dans le fichier pour chaques affaires...
+            foreach ($affaires as $affaireDate) {
+                // Et chaques dates...
+                foreach ($affaireDate as $affaire) {
+                    fputcsv($newCSVFileHandler, $affaire, ";");
+                }
             }
 
             // On ferme le fichier.
@@ -1048,6 +1067,21 @@ class PointageAjaxController extends Controller {
             // On retourne le chemin du fichier.
             return new Response($downloadUrl);
         }
+    }
+
+    // Génère un code CSV et le retourne si l'utilisateur fait partie de NOX IP.
+    public function saveNOXIPCSV($CSVData, $lastname, $firstname) {
+        // On convertie les données JSON en Array.
+        $affairesDataArray = json_decode($CSVData, true);
+
+        // Pour chaques affaire un prépare la ligne CSV.
+        $affaires = array();
+        foreach ($affairesDataArray as $affaire) {
+            $affaires[$affaire['numAffaire']][$affaire['date']] = array('lastname' => $lastname, 'firstname' => $firstname, 'numAffaire' => $affaire['numAffaire'], 'value' => $affaire['value'], 'date' => $affaire['date']);
+        }
+
+        // On retourne le chemin du fichier.
+        return $affaires;
     }
 
 }

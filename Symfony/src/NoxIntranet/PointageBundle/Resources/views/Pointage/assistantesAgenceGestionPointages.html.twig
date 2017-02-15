@@ -1082,7 +1082,7 @@
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_assistante_agence_validation') }}',
-                data: {username: user, month: month, year: year, absences: getAbsences(), titresRepas: getTitresRepas(), forfaitsDeplacement: getForfaitsDeplacement(), primesPanier: getPrimesPanier(), titreTransport: getTitreTransport()},
+                data: {username: user, month: month, year: year, absences: getAbsences(), titresRepas: getTitresRepas(), forfaitsDeplacement: getForfaitsDeplacement(), primesPanier: getPrimesPanier(), titreTransport: getTitreTransport(), CSVData: saveCSV()},
                 success: function () {
                     location.reload();
                 }
@@ -2452,6 +2452,46 @@
 
                 }
             });
+        }
+
+        // Sauvegarde un export CSV du pointage.
+        function saveCSV() {
+            // On récupére le tableau du pointage.
+            var pointageTable = $('#tableFeuillePointage');
+
+            // Initialisation du tableau qui contiendras les données d'affaires.
+            var affaires = [];
+
+            // On récupére les lignes du tableau.
+            var dayCells = pointageTable.find(".dayDateCell");
+
+            // Pour chaques jours...
+            dayCells.each(function () {
+                // On récupére la date date.
+                var date = $(this).text() + " " + $('#pointage_month_selector').find('option:selected').text();
+
+                // On récupére les cellules d'affaires.
+                var affairesCells = $(this).siblings('.projectPercentageCell');
+
+                // Pour chaques cellules d'affaires...
+                affairesCells.each(function () {
+                    // On crée un objet d'affaire.
+                    var affaire = {};
+
+                    // On ajoute la date, le numéro d'affaire et la valeur à l'objet d'affaire.
+                    affaire.date = date;
+                    affaire.numAffaire = $('tr:nth-child(2)').find('td').eq($(this).index()).text();
+                    affaire.value = $(this).text();
+
+                    // On ajoute l'objet au tableau des données.
+                    affaires.push(affaire);
+                });
+            });
+
+            // On transforme les données d'affaires en format JSON.
+            var jsonData = JSON.stringify(affaires);
+
+            return jsonData;
         }
     </script>
 {% endblock %}
