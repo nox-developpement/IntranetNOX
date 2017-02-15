@@ -753,7 +753,7 @@ class PointageController extends Controller {
                 $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
 
                 // Si le collaborateur du pointage appartient à NOX IP et le pointage contient des données CSV...
-                if (strpos($userHierarchy->getEtablissement(), 'INDUSTRIE') !== false && strpos($userHierarchy->getEtablissement(), 'PROCESS') !== false && !empty($pointage->getCSVData())) {
+                if (!empty($userHierarchy) && strpos($userHierarchy->getEtablissement(), 'INDUSTRIE') !== false && strpos($userHierarchy->getEtablissement(), 'PROCESS') !== false && !empty($pointage->getCSVData())) {
                     // On récupére les données CSV.
                     $CSVData = $pointage->getCSVData();
 
