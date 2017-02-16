@@ -761,7 +761,7 @@ class PointageController extends Controller {
                     foreach ($CSVData as $affaireDate) {
                         // Et chaques dates...
                         foreach ($affaireDate as $affaire) {
-                            fputcsv($newCSVFileHandler, $affaire, ";");
+                            fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values($affaire)), ";");
                         }
                     }
                 }
