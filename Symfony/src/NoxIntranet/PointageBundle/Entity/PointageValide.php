@@ -327,7 +327,6 @@ class PointageValide {
         return $this->lastname;
     }
 
-
     /**
      * Set status
      *
@@ -335,8 +334,7 @@ class PointageValide {
      *
      * @return PointageValide
      */
-    public function setStatus($status)
-    {
+    public function setStatus($status) {
         $this->status = $status;
 
         return $this;
@@ -347,8 +345,8 @@ class PointageValide {
      *
      * @return string
      */
-    public function getStatus()
-    {
+    public function getStatus() {
         return $this->status;
     }
+
 }

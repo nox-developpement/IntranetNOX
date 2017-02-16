@@ -298,7 +298,6 @@ class PointageAjaxController extends Controller {
         }
 
         function sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $em) {
-
             $user = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($username);
 
             $newPointageValide = new PointageValide();
@@ -938,10 +937,18 @@ class PointageAjaxController extends Controller {
     public function ajaxDownloadCSVAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // On récupére les données du pointage.
-            $tableData = $request->get('tableData');
+            $affairesData = $request->get('tableData');
+            $firstname = $request->get('firstname');
+            $lastname = $request->get('lastname');
 
             // On convertie les données JSON en Array.
-            $tableDataArray = json_decode($tableData, true);
+            $affairesDataArray = json_decode($affairesData, true);
+
+            // Pour chaques affaire un prépare la ligne CSV.
+            $affaires = array();
+            foreach ($affairesDataArray as $affaire) {
+                $affaires[$affaire['numAffaire']][$affaire['date']] = array('lastname' => $lastname, 'firstname' => $firstname, 'numAffaire' => $affaire['numAffaire'], 'value' => $affaire['value'], 'date' => $affaire['date'], 'comments' => $affaire['comments']);
+            }
 
             // On récupére la racine du serveur web.
             $root = $this->get('kernel')->getRootDir() . '\..\web\\';
@@ -952,9 +959,12 @@ class PointageAjaxController extends Controller {
             // On ouvre le fichier.
             $newCSVFileHandler = fopen($newCSVFile, 'w+');
 
-            // On injecte les données dans le fichier.
-            foreach ($tableDataArray as $line) {
-                fputcsv($newCSVFileHandler, $line, ";");
+            // On injecte les données dans le fichier pour chaques affaires...
+            foreach ($affaires as $affaireDate) {
+                // Et chaques dates...
+                foreach ($affaireDate as $affaire) {
+                    fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values($affaire)), ";");
+                }
             }
 
             // On ferme le fichier.
@@ -1047,6 +1057,53 @@ class PointageAjaxController extends Controller {
 
             // On retourne le chemin du fichier.
             return new Response($downloadUrl);
+        }
+    }
+
+    // Sauvegarde les données d'affaire du pointage sous forme de Tableau pour export en CSV.
+    public function ajaxSaveNOXIPCSVAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupére les données du pointage.
+            $CSVData = $request->get('tableData');
+            $month = $request->get('month');
+            $year = $request->get('year');
+            $em = $this->getDoctrine()->getManager();
+
+            // Si le type du paramètre username est un nombre...
+            if (is_numeric($request->get('username'))) {
+                // On récupére l'entité du collaborateur grace à son Id.
+                $user = $em->getRepository('NoxIntranetUserBundle:User')->find($request->get('username'));
+                $username = $user->getUsername();
+            }
+            // Si le type du paramètre username est une chaine...
+            else {
+                // On récupére l'entité du collaborateur grace à son Username.
+                $username = $request->get('username');
+                $user = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($username);
+            }
+
+            // On récupére les entitées du collaborateur, sa hiérachie et le tableau correspondant.  
+            $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($username);
+            $tableau = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
+
+            // Si le collaborateur fait partie de NOX IP...
+            if (strpos($userHierarchy->getEtablissement(), 'INDUSTRIE') !== false && strpos($userHierarchy->getEtablissement(), 'PROCESS') !== false) {
+                // On convertie les données JSON en Array.
+                $affairesDataArray = json_decode($CSVData, true);
+
+                // Pour chaques affaire un prépare la ligne CSV.
+                $affaires = array();
+                foreach ($affairesDataArray as $affaire) {
+                    $affaires[$affaire['numAffaire']][$affaire['date']] = array('lastname' => $user->getLastname(), 'firstname' => $user->getFirstname(), 'numAffaire' => $affaire['numAffaire'], 'value' => $affaire['value'], 'date' => $affaire['date'], 'comments' => $affaire['comments']);
+                }
+
+                // On attribut les données CSV au collaborateur et on sauvegarde en base de données.
+                $tableau->setCSVData($affaires);
+                $em->flush();
+            }
+
+            // On retourne le chemin du fichier.
+            return new Response('Saved');
         }
     }
 

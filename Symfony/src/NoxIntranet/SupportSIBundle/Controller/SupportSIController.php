@@ -4,7 +4,6 @@ namespace NoxIntranet\SupportSIBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use NoxIntranet\SupportSIBundle\Entity\CompteurDemande;
 use NoxIntranet\SupportSIBundle\Entity\DemandeMateriel;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -39,12 +38,33 @@ class SupportSIController extends Controller {
 
     public function demandeAction(Request $request) {
 
-        // Récupère le profil du collaborateur actuel.
+        // Récupère l'entitée du collaborateur actuel.
         $usr = $this->get('security.context')->getToken()->getUser();
+
+        // On récupère l'entitée de hiérarchie du collaborateur.
+        $em = $this->getDoctrine()->getManager();
+        $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($usr->getUsername());
+
+        // On récupére le nom canonique de tous les collaborateur pour l'association hiérachie/entitée collaborateur.
+        $allUsers = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
+        $allUsersCononicalName = array();
+        foreach ($allUsers as $user) {
+            $allUsersCononicalName[mb_strtoupper($user->getFirstname() . ' ' . $user->getLastname(), 'UTF-8')] = $user;
+        }
+
+        // Si la hiérachie n'est pas définie ou que l'entitée du DA n'est pas trouvée...
+        if (empty($userHierarchy) || !array_key_exists($userHierarchy->getDA(), $allUsersCononicalName)) {
+            // On redirige vers l'accueil et on affiche un message d'erreur.
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Erreur d'acquisition de la hiérarchie, veuillez contacter le support.");
+            return $this->redirectToRoute('nox_intranet_accueil');
+        }
+
+        // On récupére l'entitée du DA.
+        $DAEntity = $allUsersCononicalName[$userHierarchy->getDA()];
 
         // Récupère le nom d'utilisateur et l'agence du collaborateur actuel.
         $name = $usr->getUsername();
-        $agence = $usr->getAgence();
+        $agence = $userHierarchy->getEtablissement();
         $completName = $usr->getFirstname() . ' ' . $usr->getLastname();
 
         // Génére le formulaire de demande de matériel
@@ -97,8 +117,10 @@ class SupportSIController extends Controller {
                 ))
                 ->add('mailSuperieur', EmailType::class, array(
                     'attr' => array(
-                        'placeholder' => 'p.nom@groupe-nox.com'
-                    )
+                        'readonly' => true,
+                        'style' => 'background-color: #E6E6E6;'
+                    ),
+                    'data' => $DAEntity->getUsername() . '@groupe-nox.com' // On génére le mail du DA en fonction de son username.
                 ))
                 ->add('Valider', SubmitType::class)
         ;

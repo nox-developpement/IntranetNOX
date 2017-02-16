@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use DateTime;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use NoxIntranet\PointageBundle\Entity\JustificatifFile;
 use Symfony\Component\HttpFoundation\Response;
@@ -676,7 +678,7 @@ class PointageController extends Controller {
 
         // On génére le chemin du fichier à retourner.
         $filePath = $root . $fileName;
-       
+
 
         // On ouvre le fichier.
         $ZIPFileHandler = fopen($filePath, 'r');
@@ -703,6 +705,87 @@ class PointageController extends Controller {
 
         // On retourne le téléchargement du fichier.
         return $response;
+    }
+
+    // Retourne un fichier CSV de compilation des données d'affaires des collaborateurs de NOX IP pour le mois et l'années donnée.
+    public function compilationNOXIPCSVAction(Request $request) {
+        // Si l'utilisateur n'as pas les droits d'accès on le redirige vers l'accueil.
+        $currentUser = $this->get('security.context')->getToken()->getUser()->getUsername();
+        if (!($currentUser === 't.besson' || $currentUser === 'l.sauvage')) {
+            return $this->redirectToRoute('nox_intranet_accueil');
+        }
+
+        // Génération du formulaire de téléchargement de la compilation.
+        $formCompilationDateBuilder = $this->createFormBuilder();
+        $formCompilationDateBuilder
+                ->add('date', DateType::class, array(
+                    'label' => "Date de la compilation",
+                    'data' => new DateTime()
+                ))
+                ->add('download', SubmitType::class, array(
+                    'label' => "Télécharger"
+        ));
+        $formCompilationDate = $formCompilationDateBuilder->getForm();
+
+        // Traitement du formulaire de téléchargement de la compilation.
+        $formCompilationDate->handleRequest($request);
+        if ($formCompilationDate->isValid()) {
+            // On récupére le mois et la date.
+            $month = $formCompilationDate->get('date')->getData()->format('n');
+            $year = $formCompilationDate->get('date')->getData()->format('Y');
+
+            // On récupére les pointage en fonction du mois et de l'année indiqué dans le formulaire.
+            $em = $this->getDoctrine()->getManager();
+            $tableau = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $month, 'year' => $year));
+
+            // On récupére la racine du serveur web.
+            $root = $this->get('kernel')->getRootDir() . '\..\web\\';
+
+            // On génére un chemin pour le fichier CSV.
+            $newCSVFile = tempnam($root, '');
+
+            // On ouvre le fichier.
+            $newCSVFileHandler = fopen($newCSVFile, 'w+');
+
+            // Pour chaque pointage...
+            foreach ($tableau as $pointage) {
+                // On récupére la hiérarchie du collaborateur du pointage.
+                $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
+
+                // Si le collaborateur du pointage appartient à NOX IP et le pointage contient des données CSV...
+                if (!empty($userHierarchy) && strpos($userHierarchy->getEtablissement(), 'INDUSTRIE') !== false && strpos($userHierarchy->getEtablissement(), 'PROCESS') !== false && !empty($pointage->getCSVData())) {
+                    // On récupére les données CSV.
+                    $CSVData = $pointage->getCSVData();
+
+                    // On injecte les données dans le fichier pour chaques affaires...
+                    foreach ($CSVData as $affaireDate) {
+                        // Et chaques dates...
+                        foreach ($affaireDate as $affaire) {
+                            fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values($affaire)), ";");
+                        }
+                    }
+                }
+            }
+
+            // On récupére les données du fichier.
+            $file = stream_get_contents($newCSVFileHandler, -1, 0);
+
+            // On ferme le fichier.
+            fclose($newCSVFileHandler);
+
+            // On supprime le fichier.
+            unlink($newCSVFile);
+
+            // Initialisation de la réponse.
+            $response = new Response($file, 200);
+            $response->headers->set('Content-Type', 'text/csv');
+            $response->headers->set('Content-Disposition', "filename='Pointage CSV.csv'");
+
+            // On retourne le téléchargement du fichier.
+            return $response;
+        }
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:compilationNOXIPCSV.html.twig', array('formCompilationDate' => $formCompilationDate->createView()));
     }
 
 }
