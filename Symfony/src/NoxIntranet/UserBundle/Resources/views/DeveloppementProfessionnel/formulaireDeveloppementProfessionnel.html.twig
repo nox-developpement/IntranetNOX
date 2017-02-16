@@ -12,6 +12,7 @@
             readObjectifData();
             getFormCookies();
             saveCurrentFormProgress();
+            textareaAutoHeight();
 
             // Lors du clique sur le bouton d'export PDF et sur celui de validation du formulaire...
             $("#downloadPDF").click(function () {
@@ -166,18 +167,12 @@
             formulaireOriginal.find('textarea').each(function (index) {
                 formulaireCopy.find('textarea').eq(index).text($(this).val());
             });
-
             formulaireOriginal.find('input').each(function (index) {
                 formulaireCopy.find('input').eq(index).val($(this).val());
             });
             formulaireOriginal.find('select').each(function (index) {
                 formulaireCopy.find('select').eq(index).find('option').removeAttr('selected');
                 formulaireCopy.find('select').eq(index).find("option[value='" + $(this).find('option:selected').val() + "']").attr('selected', 'selected');
-            });
-            
-            formulaireCopy.find('textarea').each(function () {
-                $(this).css('height', '1px');
-                $(this).css('height', $(this)[0].scrollHeight);
             });
 
             // On récupére le code HTML de la copie.
@@ -191,13 +186,33 @@
             $.ajax({
                 url: '{{ path('nox_intranet_developpement_professionnel_ajax_convert_html_to_pdf') }}',
                 type: 'POST',
-                async: true,
+                async: false,
                 data: {formulaireHtml: formulaireHtmlCopy, firstname: $("#form_Prenom").val(), lastname: $("#form_Nom").val()},
                 dataType: 'HTML',
                 success: function (downloadUrl) {
                     // On renome la popup et on lui assigne le PDF.
                     redirectWindow.location = downloadUrl;
                 }
+            });
+        }
+
+        // Redimensionne les textarea lorsque la barre de scroll apparait.
+        function textareaAutoHeight() {
+            // Si il y a une barre de scroll, redimensionne la textarea.
+            function resizeHeight(element) {
+                if (element.scrollHeight > $(element).outerHeight()) {
+                    $(element).height(element.scrollHeight);
+                }
+            }
+
+            // Pour chaques textarea...
+            $('textarea').each(function () {
+                resizeHeight(this);
+            });
+
+            // Lorsque que l'on tape ou colle du texte dans une textara...
+            $('#formulaireDeveloppementProfessionnelDiv').on('keyup paste', 'textarea', function () {
+                resizeHeight(this);
             });
         }
     </script>
