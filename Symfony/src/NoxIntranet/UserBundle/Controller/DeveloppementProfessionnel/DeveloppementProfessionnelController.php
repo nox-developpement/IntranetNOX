@@ -664,6 +664,7 @@ class DeveloppementProfessionnelController extends Controller {
             $formulaireHtml = $request->get('formulaireHtml');
             $firstname = $request->get('firstname');
             $lastname = $request->get('lastname');
+            $pageWidth = $request->get('pageWidth');
 
             // On génère un fichier HTML à convertir en PDF.
             $filename = $root . "/web/DeveloppementProfessionnel/Entretien " . $lastname . " " . $firstname;
@@ -672,7 +673,7 @@ class DeveloppementProfessionnelController extends Controller {
             file_put_contents($htmlFileName, $formulaireHtml);
 
             // On exécute la commande de conversion du fichier HTML en PDF.
-            exec("\"" . $rootLetter . "/Program Files/wkhtmltopdf/bin/wkhtmltopdf\" --encoding utf-8 \"" . $htmlFileName . "\" \"" . $pdfFileName . "\"");
+            exec("\"" . $rootLetter . "/Program Files/wkhtmltopdf/bin/wkhtmltopdf\" --encoding utf-8 --page-width " . $pageWidth . " \"" . $htmlFileName . "\" \"" . $pdfFileName . "\"");
 
             // On supprime le fichier temporaire et le fichier HTML.
             unlink($htmlFileName);
