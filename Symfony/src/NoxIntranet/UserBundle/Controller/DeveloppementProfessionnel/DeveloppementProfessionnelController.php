@@ -672,7 +672,7 @@ class DeveloppementProfessionnelController extends Controller {
             file_put_contents($htmlFileName, $formulaireHtml);
 
             // On exécute la commande de conversion du fichier HTML en PDF.
-            exec("\"" . $rootLetter . "/Program Files/wkhtmltopdf/bin/wkhtmltopdf\" --encoding utf-8 \"" . $htmlFileName . "\" \"" . $pdfFileName . "\"");
+            exec("\"" . $rootLetter . "/Program Files/wkhtmltopdf/bin/wkhtmltopdf\" --page-size A3 --encoding utf-8 \"" . $htmlFileName . "\" \"" . $pdfFileName . "\"");
 
             // On supprime le fichier temporaire et le fichier HTML.
             unlink($htmlFileName);

@@ -363,7 +363,6 @@ class PointageValide {
         return $this->status;
     }
 
-
     /**
      * Set forfaitsDeplacementDetails
      *
@@ -411,4 +410,5 @@ class PointageValide {
     {
         return $this->mods;
     }
+    
 }
