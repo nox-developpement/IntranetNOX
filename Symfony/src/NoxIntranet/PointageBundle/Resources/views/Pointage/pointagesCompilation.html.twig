@@ -157,9 +157,13 @@
                 success: function (response) {
                     // Conversion de la chaine JSON en Objet.
                     var responseObject = JSON.parse(response);
+                    
+                    console.log(response);
+                    
+                    console.log(responseObject);
 
                     // On récupère les pointages sous forme d'objet.
-                    var data = responseObject.Pointage;
+                    var data = responseObject.Pointage;    
 
                     // Si il existe des pointages...
                     if (data.length) {

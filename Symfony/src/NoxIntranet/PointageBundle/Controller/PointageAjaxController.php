@@ -686,7 +686,7 @@ class PointageAjaxController extends Controller {
             $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName), $month, $year, $etablissement, $validationStep);
 
             // Initialisation du tableau de retour.
-            $returnedPointage = array();
+            $returnedPointage = array('Pointage' => array(), 'Tableau' => array());
 
             // Pour chaque pointage valides...
             foreach ($pointagesValides as $pointage) {
