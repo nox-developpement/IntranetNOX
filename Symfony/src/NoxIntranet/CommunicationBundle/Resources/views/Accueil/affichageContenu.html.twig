@@ -75,35 +75,59 @@
 
     </div>
 
-    {% for new in news %} 
+    {% for new in news %}  
 
         <div class="divNews">
 
-            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new.Lien }}', 'Nox Letters');">
-                <img 
-                    src="{{ app.request.schemeAndHttpHost }}/Symfony/web/ImagePDF/{{ new.Nom|convert_encoding('UTF-8', 'ISO-8859-1') }}.png" alt="PDF" 
-                    onmouseover="$(this).css('box-shadow', '0px 0px 10px #1F4E79');" 
-                    onmouseout="$(this).css('box-shadow', 'none');"
-                    >
-            </a>
+            {% if new['type'] == 'pdf' %}
 
-            <ul>
+                <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new['fichier'].Lien }}', 'News SI');">
+                    <img 
+                        src="{{ app.request.schemeAndHttpHost }}/Symfony/web/ImagePDF/{{ new['fichier'].Nom|convert_encoding('UTF-8', 'ISO-8859-1') }}.png" alt="PDF" 
+                        onmouseover="$(this).css('box-shadow', '0px 0px 10px #1F4E79');" 
+                        onmouseout="$(this).css('box-shadow', 'none');"
+                        >
+                </a>
 
-                <li> Nom du fichier : {{ new.Nom }} </li>
+                <ul>
 
-                {% if new.Title != null %} <li> Titre : {{ new.Title }} </li> {% endif %}
+                    <li> Nom du fichier : {{ new['fichier'].Nom }} </li>
 
-                {% if new.Author != null %} <li> Auteur : {{ new.Author }} </li> {% endif %}
+                    {% if new['fichier'].Title != null %} <li> Titre : {{ new['fichier'].Title }} </li> {% endif %}
 
-                {% if new.Subject != null %} <li> Sujet : {{ new.Subject }} </li> {% endif %}
+                    {% if new['fichier'].Author != null %} <li> Auteur : {{ new['fichier'].Author }} </li> {% endif %}
 
-                {% if new.Keywords != null %} <li> Mots : {{ new.Keywords }} </li> {% endif %}
+                    {% if new['fichier'].Subject != null %} <li> Sujet : {{ new['fichier'].Subject }} </li> {% endif %}
 
-                {% if new.Pages != null %} <li> Nombre de page(s) : {{ new.Pages }} </li> {% endif %}
+                    {% if new['fichier'].Keywords != null %} <li> Mots : {{ new['fichier'].Keywords }} </li> {% endif %}
 
-                <li> Posté le : {{ new.dateEnvoi|date('d/m/Y') }} </li>
+                    {% if new['fichier'].Pages != null %} <li> Nombre de page(s) : {{ new['fichier'].Pages }} </li> {% endif %}
 
-            </ul>
+                    <li> Posté le : {{ new['fichier'].dateEnvoi|date('d/m/Y') }} </li>
+
+                </ul>
+
+            {% elseif new['type'] == 'mp4' %}   
+
+                <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new['fichier'].Lien }}', 'News SI');">
+                    <img 
+                        src="data:image/jpg;base64,{{ new['fichier']['Image'] }}" alt="PDF" 
+                        onmouseover="$(this).css('box-shadow', '0px 0px 10px #1F4E79');" 
+                        onmouseout="$(this).css('box-shadow', 'none');"
+                        >
+                </a>
+
+                <ul>
+
+                    <li> Nom du fichier : {{ new['fichier'].Nom }} </li> 
+
+                    <li> Durée : {{ new['fichier'].Duree }} secondes </li>
+
+                    <li> Posté le : {{ new['fichier'].dateEnvoi|date('d/m/Y') }} </li>
+
+                </ul>
+
+            {% endif %}
 
         </div>
 

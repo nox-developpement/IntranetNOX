@@ -138,9 +138,9 @@ fm_elfinder:
                     uploads:
                         driver:           LocalFileSystem
                         path:             uploads/Communication/SI/NewsSI
-                        upload_allow:     ['application/pdf']
+                        upload_allow:     ['application/pdf', 'video/mp4']
                         upload_deny:      ['all']
-                        upload_max_size:  10M
+                        upload_max_size:  100M
         noxNews:
             locale:           %locale%
             editor:           ckeditor

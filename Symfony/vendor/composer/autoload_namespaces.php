@@ -17,6 +17,7 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src'),
     'PhpCollection' => array($vendorDir . '/phpcollection/phpcollection/src'),
+    'Neutron' => array($vendorDir . '/neutron/temporary-filesystem/src'),
     'Nelmio\\ApiDocBundle' => array($vendorDir . '/nelmio/api-doc-bundle'),
     'Michelf' => array($vendorDir . '/michelf/php-markdown'),
     'Metadata\\' => array($vendorDir . '/jms/metadata/src'),
@@ -27,6 +28,8 @@ return array(
     'Imagine' => array($vendorDir . '/imagine/imagine/lib'),
     'Gaufrette' => array($vendorDir . '/knplabs/gaufrette/src'),
     'FOS\\RestBundle' => array($vendorDir . '/friendsofsymfony/rest-bundle'),
+    'FFMpeg' => array($vendorDir . '/php-ffmpeg/php-ffmpeg/src'),
+    'Evenement' => array($vendorDir . '/evenement/evenement/src'),
     'Doctrine\\ORM\\' => array($vendorDir . '/doctrine/orm/lib'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
@@ -37,4 +40,5 @@ return array(
     'ComponentInstaller' => array($vendorDir . '/robloach/component-installer/src'),
     'Buzz' => array($vendorDir . '/kriswallsmith/buzz/lib'),
     'Assetic' => array($vendorDir . '/kriswallsmith/assetic/src'),
+    'Alchemy' => array($vendorDir . '/alchemy/binary-driver/src'),
 );
