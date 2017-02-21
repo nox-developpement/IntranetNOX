@@ -65,7 +65,7 @@ class CommunicationController extends Controller {
             $nbPages = intval(ceil(sizeof($news) / 5));
             $news5 = array_chunk($news, 5);
         }
-
+        
         return $this->render('NoxIntranetCommunicationBundle:Accueil:affichageContenu.html.twig', array('chemin' => $chemin, 'page' => $page, 'nbPage' => $nbPages, 'news' => $news5[$page - 1], 'dossier' => $dossier, 'config' => $config));
     }
 
