@@ -6,6 +6,29 @@
 
 {% block contenu %}
 
+    <script>
+
+        $(window).load(function () {
+            ajaxVideoPreview();
+        });
+
+        function ajaxVideoPreview() {
+            $('.mp4_Image').each(function () {
+                var vignette = $(this);
+
+                $.ajax({
+                    url: '{{ path('nox_intranet_communication_ajax_video_preview') }}',
+                    type: 'POST',
+                    data: {file: vignette.data('video')},
+                    success: function (gifCode) {
+                        vignette.attr('src', gifCode);
+                    }
+                });
+            });
+        }
+
+    </script>
+
     {% if is_granted('ROLE_COMMUNICATION') %} 
 
         <div id="menuAdminNewsSI" class='menuAdmin'>
@@ -80,14 +103,14 @@
         <div class="divNews">
 
             {% if new['type'] == 'pdf' %}
-
                 <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new['fichier'].Lien }}', 'News SI');">
-                    <img 
-                        src="{{ app.request.schemeAndHttpHost }}/Symfony/web/ImagePDF/{{ new['fichier'].Nom|convert_encoding('UTF-8', 'ISO-8859-1') }}.png" alt="PDF" 
-                        onmouseover="$(this).css('box-shadow', '0px 0px 10px #1F4E79');" 
-                        onmouseout="$(this).css('box-shadow', 'none');"
-                        >
-                </a>
+                    <div class="previewImageContainer" onmouseover="$(this).css('box-shadow', '0px 0px 10px #1F4E79');" onmouseout="$(this).css('box-shadow', 'none');">
+                        <img 
+                            class="pdf_Image"
+                            src="{{ app.request.schemeAndHttpHost }}/Symfony/web/ImagePDF/{{ new['fichier'].Nom|convert_encoding('UTF-8', 'ISO-8859-1') }}.png" alt="PDF"  
+                            >
+                    </div>
+                </a>      
 
                 <ul>
 
@@ -108,13 +131,16 @@
                 </ul>
 
             {% elseif new['type'] == 'mp4' %}   
-
                 <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new['fichier'].Lien }}', 'News SI');">
-                    <img 
-                        src="data:image/jpg;base64,{{ new['fichier']['Image'] }}" alt="PDF" 
-                        onmouseover="$(this).css('box-shadow', '0px 0px 10px #1F4E79');" 
-                        onmouseout="$(this).css('box-shadow', 'none');"
-                        >
+                    <div class="previewImageContainer" onmouseover="$(this).css('box-shadow', '0px 0px 10px #1F4E79');" onmouseout="$(this).css('box-shadow', 'none');">
+                        <img 
+                            class="mp4_Image"
+                            src="data:image/jpg;base64,{{ new['fichier']['Image'] }}" alt="PDF" 
+                            data-video="{{ new['fichier'].Chemin }}"
+                            >
+
+                        <div class="mp4PlayButton" style="background-image: url({{ asset('bundles/noxintranetcommunication/images/PlayButton.png') }});"></div>
+                    </div>
                 </a>
 
                 <ul>

@@ -1099,13 +1099,37 @@ divAdministrationUtilisateur {
     text-align: left;
 }
 
+.divNews .previewImageContainer {
+    display: inline-block;
+    position: relative;
+    border: 1px solid #1F4E79;
+    vertical-align: middle;
+    width: 20%;
+    margin-right: 2%;
+}
+
 .divNews img {
     display: inline-block;
     vertical-align: middle;
-    width: 15%;
-    border: 1px solid #1F4E79;
-    margin-right: 2%;
+    width: 100%;
     background-color: white;
+}
+
+.divNews .mp4PlayButton {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    opacity: 0.7
+}
+
+.divNews .previewImageContainer:hover .mp4PlayButton {
+    opacity: 1
 }
 
 

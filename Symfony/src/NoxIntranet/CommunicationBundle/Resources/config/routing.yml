@@ -34,3 +34,7 @@ nox_intranet_affichageImages:
 nox_intranet_communication_bim:
     path:   /communication/BIM
     defaults: { _controller: NoxIntranetCommunicationBundle:Communication:BIM }
+    
+nox_intranet_communication_ajax_video_preview:
+    path:   /communication/ajax-video-preview
+    defaults: { _controller: NoxIntranetCommunicationBundle:Communication:ajaxVideoPreview }

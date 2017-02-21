@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
 use FFMpeg\FFMpeg;
+use Symfony\Component\HttpFoundation\Response;
 
 class CommunicationController extends Controller {
 
@@ -35,6 +36,9 @@ class CommunicationController extends Controller {
     public function affichageContenuAction($chemin, $dossier, $config, $page) {
         // On récupère la racine du serveur.
         $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+
+        // Initialisation du tableau des news.
+        $news = array();
 
         // Pour chaques fichiers PDF du chemain passé en paramètre...
         foreach ($this->getPDF($root . "/web/uploads/Communication/" . $chemin) as $pdf) {
@@ -137,7 +141,7 @@ class CommunicationController extends Controller {
                 // On récupére des informations sur la vidéo et on l'ajoute au tableau de retour.
                 $link = "/Symfony/web/uploads/Communication/" . $chemin . "/" . pathinfo($file, PATHINFO_BASENAME);
                 $name = pathinfo($file, PATHINFO_FILENAME);
-                $listeMp4[] = array('Lien' => $link, 'Nom' => $name, 'Image' => base64_encode(file_get_contents($frameSaveName)), 'Duree' => $duree, 'dateEnvoi' => date('Y/m/d', filemtime($file)));
+                $listeMp4[] = array('Lien' => $link, 'Nom' => $name, 'Image' => base64_encode(file_get_contents($frameSaveName)), 'Duree' => $duree, 'dateEnvoi' => date('Y/m/d', filemtime($file)), 'Chemin' => $file);
 
                 // On supprime le fichier de la vignette.
                 unlink($frameSaveName);
@@ -235,6 +239,49 @@ class CommunicationController extends Controller {
         $texte = $texteEncart->getText();
 
         return $this->render('NoxIntranetCommunicationBundle:Accueil:BIM.html.twig', array('texte' => $texte, 'formulaire' => $form->createView()));
+    }
+
+    public function ajaxVideoPreviewAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupère le chemin du fichier vidéo.
+            $file = $request->get('file');
+
+            // On récupère la racine du serveur.
+            $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+            $rootLetter = explode("/", $root)[0];
+
+            // On génére un objet FFMpeg pour extraire une vignette de la vidéo.
+            $videoFFMpeg = FFMpeg::create([
+                        'ffmpeg.binaries' => $rootLetter . "/ffmpeg/bin/ffmpeg.exe",
+                        'ffprobe.binaries' => $rootLetter . "/ffmpeg/bin/ffprobe.exe"
+            ]);
+            $video = $videoFFMpeg->open($file);
+
+            // On génére un objet FFProbe pour obtenir des informations sur la vidéo.
+            $videoFFProbe = \FFMpeg\FFProbe::create([
+                        'ffmpeg.binaries' => $rootLetter . "/ffmpeg/bin/ffmpeg.exe",
+                        'ffprobe.binaries' => $rootLetter . "/ffmpeg/bin/ffprobe.exe"
+            ]);
+
+            // On récupère la durée de la vidéo.
+            $duree = round($videoFFProbe->format($file)->get('duration'), 2);
+
+            // Génération d'une vignette gif.
+            $gif = $video->gif(\FFMpeg\Coordinate\TimeCode::fromSeconds($duree / 2 - 2.5), new \FFMpeg\Coordinate\Dimension(160, 120), 5);
+
+            // Sauvegarde de la vignette.
+            $frameSaveName = $root . "/" . pathinfo($file, PATHINFO_FILENAME) . ".gif";
+            $gif->save($frameSaveName);
+
+            // On génére le code en base 64 du fichier gif.
+            $gifCode = "data:image/gif;base64," . base64_encode(file_get_contents($frameSaveName));
+
+            // On supprime le fichier gif.
+            unlink($frameSaveName);
+
+            // On retourne le code du fichier gif.
+            return new Response($gifCode);
+        }
     }
 
 }
