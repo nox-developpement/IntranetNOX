@@ -679,15 +679,8 @@ class PointageController extends Controller {
         // On génére le chemin du fichier à retourner.
         $filePath = $root . $fileName;
 
-
-        // On ouvre le fichier.
-        $ZIPFileHandler = fopen($filePath, 'r');
-
         // On récupére les données du fichier.
-        $file = stream_get_contents($ZIPFileHandler);
-
-        // On ferme le fichier.
-        fclose($ZIPFileHandler);
+        $file = file_get_contents($filePath);
 
         // On supprime le fichier.
         unlink($filePath);
