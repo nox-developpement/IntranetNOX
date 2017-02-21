@@ -139,7 +139,7 @@ class CommunicationController extends Controller {
                 $vignette->save($frameSaveName);
 
                 // On récupére des informations sur la vidéo et on l'ajoute au tableau de retour.
-                $link = "/Symfony/web/uploads/Communication/" . $chemin . "/" . pathinfo($file, PATHINFO_BASENAME);
+                $link = str_replace("\\", "/", "\\" . substr($file, strpos($file, "Symfony\\")));
                 $name = pathinfo($file, PATHINFO_FILENAME);
                 $listeMp4[] = array('Lien' => $link, 'Nom' => $name, 'Image' => base64_encode(file_get_contents($frameSaveName)), 'Duree' => $duree, 'dateEnvoi' => date('Y/m/d', filemtime($file)), 'Chemin' => $file);
 
