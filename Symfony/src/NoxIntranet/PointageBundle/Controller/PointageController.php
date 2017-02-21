@@ -706,9 +706,15 @@ class PointageController extends Controller {
         // On retourne le téléchargement du fichier.
         return $response;
     }
-    
+
     public function forfaitsDeplacementDetailsAction($month, $year, $username) {
-        
+        $em = $this->getDoctrine()->getManager();
+
+        $pointage = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $username));
+
+        $forfaitDeplacementArray = json_decode($pointage->getForfaitsDeplacementDetails(), true);
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:forfaitsDeplacementDetails.html.twig', array('forfaitDeplacementArray' => $forfaitDeplacementArray));
     }
 
     // Retourne un fichier CSV de compilation des données d'affaires des collaborateurs de NOX IP pour le mois et l'années donnée.

@@ -154,3 +154,7 @@ nox_intranet_pointage_ajax_save_csv:
     path: /ressources/pointage/ajax-save-csv
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveNOXIPCSV }
     
+nox_intranet_pointage_show_forfaits_deplacement_details:
+    path: /ressources/pointage/show-forfaits-deplacement-details/{month}/{year}/{username}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:forfaitsDeplacementDetails }
+    
