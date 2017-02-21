@@ -12,16 +12,20 @@
             ajaxVideoPreview();
         });
 
+        // Génére une prévisualisation Gif des vidéos.
         function ajaxVideoPreview() {
+            // Pour chaques vidéos mp4...
             $('.mp4_Image').each(function () {
+                // On récupére l'image.
                 var vignette = $(this);
 
+                // On lance la requête de génération du gif.
                 $.ajax({
                     url: '{{ path('nox_intranet_communication_ajax_video_preview') }}',
                     type: 'POST',
                     data: {file: vignette.data('video')},
                     success: function (gifCode) {
-                        vignette.attr('src', gifCode);
+                        vignette.attr('src', gifCode); // On attribut le git à l'image.
                     }
                 });
             });
