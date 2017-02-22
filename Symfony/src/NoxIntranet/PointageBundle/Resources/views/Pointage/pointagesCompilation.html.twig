@@ -850,8 +850,15 @@
             $.ajax({
                 url: '{{ path('nox_intranet_pointage_ajax_download_justificatifs_zip') }}',
                 data: {'justificatifsZipInfo': JSON.stringify(justificatifsZipInfo)},
-                success: function (downloadLink) {
-                    window.location.href = downloadLink; // Redirige vers le lien de téléchargement du fichier ZIP.
+                success: function (response) {
+                    // Si il n'y a pas de fichiers justificatif...
+                    if (response === "No files found") {
+                        alert("Il n'y a aucun fichier justificatif pour cette compilation."); // On affiche un message.
+                    }
+                    // Sinon
+                    else {
+                        window.location.href = response; // Redirige vers le lien de téléchargement du fichier ZIP.
+                    }
                 }
             });
         }
