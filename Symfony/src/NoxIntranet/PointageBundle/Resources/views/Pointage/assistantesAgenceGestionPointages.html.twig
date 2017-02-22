@@ -1078,19 +1078,19 @@
             function getForfaitsDeplacementDetails() {
                 var forfaitsDeplacementDetails = [];
                 $('.forfaitsDeplacementMontant').each(function () {
-                    var jour = $(this).siblings('.dayDateCell').text().slice(-2);
-                    var valeur = $(this).text();
+                    var day = $(this).siblings('.dayDateCell').text().slice(-2);
+                    var value = $(this).text();
 
                     var forfaitDeplacementDetail = {};
-                    forfaitDeplacementDetail['jour'] = jour;
-                    forfaitDeplacementDetail['valeur'] = valeur;
+                    forfaitDeplacementDetail['day'] = new Date(year, month, day);
+                    forfaitDeplacementDetail['value'] = value;
 
                     forfaitsDeplacementDetails.push(forfaitDeplacementDetail);
                 });
 
                 return JSON.stringify(forfaitsDeplacementDetails);
             }
-            
+
             // Retourne les valeurs de modulation associées à leur date.
             function getMods() {
                 var mods = [];

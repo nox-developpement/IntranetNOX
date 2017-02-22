@@ -707,7 +707,9 @@ class PointageController extends Controller {
 
         $forfaitDeplacementArray = json_decode($pointage->getForfaitsDeplacementDetails(), true);
 
-        return $this->render('NoxIntranetPointageBundle:Pointage:forfaitsDeplacementDetails.html.twig', array('forfaitDeplacementArray' => $forfaitDeplacementArray));
+        $dayToJour = array('Mon' => "Lundi", 'Tue' => "Mardi", "Wed" => "Mercredi", "Thu" => "Jeudi", "Fri" => "Vendredi", "Sat" => "Samedi", "Sun" => "Dimanche");
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:forfaitsDeplacementDetails.html.twig', array('forfaitDeplacementArray' => $forfaitDeplacementArray, 'month' => $month, 'year' => $year, 'dayToJour' => $dayToJour));
     }
 
     // Retourne un fichier CSV de compilation des données d'affaires des collaborateurs de NOX IP pour le mois et l'années donnée.

@@ -1,3 +1,45 @@
-{% for forfaitDeplacement in forfaitDeplacementArray %}
-    {{ forfaitDeplacement['jour'] }} : {{ forfaitDeplacement['valeur'] }} <br />
-{% endfor %}
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+    
+    table, tr, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    
+    table {
+        width: 100%;
+    }
+
+    th, td {
+        padding: 0.1em 0.5em 0.1em 0.5em;
+        text-align: center;
+    }
+
+    th {
+        background: linear-gradient(to bottom,  #336fa0 0%,#052775 100%);
+        color: white;
+    }
+
+    .dateTd {
+        background-color: lightgrey;
+    }
+</style>
+
+<title>Forfaits déplacement détails</title>
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Valeur du forfait déplacement</th>
+    </tr>
+    {% for forfaitDeplacement in forfaitDeplacementArray %}
+        <tr>
+            <td class="dateTd">{{ forfaitDeplacement['day']|date('d/m/Y') }}</td>
+            <td>{{ forfaitDeplacement['value'] }}</td>
+        </tr>
+    {% endfor %}
+</table>
