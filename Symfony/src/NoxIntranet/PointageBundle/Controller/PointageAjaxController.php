@@ -1071,8 +1071,17 @@ class PointageAjaxController extends Controller {
                 }
             }
 
+            // On récupére le nombre de fichiers dans l'archive.
+            $zipFileCount = $zipFile->numFiles;
+
             // On ferme l'archive ZIP.
             $zipFile->close();
+
+            // Si l'archive est vide...
+            if ($zipFileCount < 1) {
+                unlink($newZipFile); // On la supprime.
+                return new Response("No files found"); // On retourne un message indiquand qu'il n'y a pas de fichier.
+            }
 
             // On génére le lien de téléchargement avec le nom du fichier en paramètre .
             $downloadUrl = $this->generateUrl('nox_intranet_pointage_download_justificatif_zip', array(
