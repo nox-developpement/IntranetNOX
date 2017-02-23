@@ -109,7 +109,7 @@ class PointageAjaxController extends Controller {
             if ($request->get('user') !== '' && $request->get('user') !== null) {
                 // Si l'Id de son entité est fourni...
                 if (is_numeric($request->get('user'))) {
-                    $user = $em->find('NoxIntranetUserBundle:User', $request->get('user'))->getUsername(); // On récupére son username depuis son entité.
+                    $user = $em->find('NoxIntranetPointageBundle:Tableau', $request->get('user'))->getUser(); // On récupére son username depuis l'entité du tableau.
                 }
                 // Sinon...
                 else {
