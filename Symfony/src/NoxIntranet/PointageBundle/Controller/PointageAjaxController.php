@@ -109,7 +109,7 @@ class PointageAjaxController extends Controller {
             if ($request->get('user') !== '' && $request->get('user') !== null) {
                 // Si l'Id de son entité est fourni...
                 if (is_numeric($request->get('user'))) {
-                    $user = $em->find('NoxIntranetUserBundle:User', $request->get('user'))->getUsername(); // On récupére son username depuis son entité.
+                    $user = $em->find('NoxIntranetPointageBundle:Tableau', $request->get('user'))->getUser(); // On récupére son username depuis l'entité du tableau.
                 }
                 // Sinon...
                 else {
@@ -1081,8 +1081,9 @@ class PointageAjaxController extends Controller {
             // Si le type du paramètre username est un nombre...
             if (is_numeric($request->get('username'))) {
                 // On récupére l'entité du collaborateur grace à son Id.
-                $user = $em->getRepository('NoxIntranetUserBundle:User')->find($request->get('username'));
-                $username = $user->getUsername();
+                $tableau = $em->getRepository('NoxIntranetPointageBundle:Tableau')->find($request->get('username'));
+                $username = $tableau->getUser();
+                $user = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($username);
             }
             // Si le type du paramètre username est une chaine...
             else {

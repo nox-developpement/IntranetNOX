@@ -744,13 +744,8 @@
 
         // Affiche un message de confirmation lorsque l'assitant tente de valider la compilation alors qu'il reste des pointages non validée.
         function preventUnvalidate(pointageEnAttenteValidationAA, collaborateurSansPointage, data) {
-            // Si l'assistan d'agence n'as pas valider tous les pointages.
-            if (pointageEnAttenteValidationAA !== 0) {
-                alert('Veuillez valider tous les pointages des collaborateurs avant de valider la compilation.'); // On affiche un message d'erreur.
-                return false; // On bloque l'envoi du formulaire.
-            }
             // Si il reste des collaborateurs qui n'ont pas remplis/validé leur pointage.
-            else if (collaborateurSansPointage !== 0) {
+            if (collaborateurSansPointage !== 0) {
                 var collaborateurs = JSON.parse(data)['collaborateurSansPointage']; // On convertie la chaine de caractère d'entré en objet Javascript.
                 var message = "Attention les pointages suivant n'ont pas étés validés par les collaborateur :\n";
                 $.each(collaborateurs, function (index) {
