@@ -1908,7 +1908,7 @@
                         // Requette ajax pour associée le justificatif en base de donnée au tableau de pointage courant.
                         $.ajax({
                             url: '{{ path('nox_intranet_pointages_ajax_set_justificatif_transport_to_pointage') }}',
-                            data: {collaborateur: '{{ app.user.username }}', month: $('#pointage_month_selector').val(), year: $('#pointage_year_selector').val(), justificatifTransportFileId: justificatifId},
+                            data: {collaborateur: '{{ user }}', month: $('#pointage_month_selector').val(), year: $('#pointage_year_selector').val(), justificatifTransportFileId: justificatifId},
                             success: function () {
                                 // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression et on l'affiche.
                                 $('#uploadLoaderButton').hide();
