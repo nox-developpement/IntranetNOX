@@ -9,3 +9,5 @@ php app/console assets:install --env=prod
 php composer.phar dump-autoload --optimize
 
 php app/console cache:clear --env=prod
+
+pause

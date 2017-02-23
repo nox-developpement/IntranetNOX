@@ -917,6 +917,9 @@
                         $('#addProject').hide();
                         $('#form_Valider').hide();
                     } else {
+                        // Désactive les précent binding du boutton de validation.
+                        $('#form_Valider').unbind('click');
+
                         $('#form_Valider').click(function () {
                             if (confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.')) {
                                 ajaxPointageAssistanteAgenceValidation(user, month, year);
@@ -963,10 +966,12 @@
 
                         var serializedData = JSON.stringify(data);
 
+                        console.log("AjaxGetPointageStatus: " + $('#form_Pointage').val());
+
                         $.ajax({
                             type: 'POST',
                             url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                            data: {user: user, month: month, year: year, data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
+                            data: {user: $('#form_Pointage').val(), month: month, year: year, data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
                         });
                     }, 1500);
                 });
@@ -995,10 +1000,12 @@
 
                     var serializedData = JSON.stringify(data);
 
+                    console.log("ajaxGetPointageStatus: " + $('#form_Pointage').val());
+
                     $.ajax({
                         type: 'POST',
                         url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                        data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, user: $('form_Pointage option:selected').val()}
+                        data: {user: $('#form_Pointage').val(), month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData}
                     });
                 });
             }
@@ -1006,6 +1013,7 @@
 
         // Valide la feuille de pointage d'un collaborateur et sauvegarde les données d'absence, de titres repas, de forfaits déplacement, de primes panier et de titre de transport.
         function ajaxPointageAssistanteAgenceValidation(user, month, year) {
+            $('#form_Valider').attr('disabled', 'disabled');
 
             // Retourne les absences du mois.
             function getAbsences() {
@@ -1108,8 +1116,11 @@
                 return JSON.stringify(mods);
             }
 
+            console.log("ajaxPointageAssistanteAgenceValidation: " + $("#form_Pointage").val());
+
             $.ajax({
                 type: 'POST',
+                async: false,
                 url: '{{ path('nox_intranet_pointage_ajax_assistante_agence_validation') }}',
                 data: {username: user, month: month, year: year, absences: getAbsences(), titresRepas: getTitresRepas(), forfaitsDeplacement: getForfaitsDeplacement(), primesPanier: getPrimesPanier(), titreTransport: getTitreTransport(), forfaitsDeplacementDetails: getForfaitsDeplacementDetails(), mods: getMods()},
                 success: function () {
@@ -1458,54 +1469,15 @@
 
                 var serializedData = JSON.stringify(data);
 
+                console.log('addProjectColumn: ' + $("#form_Pointage").val());
+
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                    data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
+                    data: {user: $("#form_Pointage").val(), month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
                 });
 
                 $('td[contenteditable]').unbind('blur');
-
-                /*// Initialisation d'une variable de timer pour lancer la sauvegarde après # temps sans typing.
-                 var delay = (function () {
-                 var timer = 0;
-                 return function (callback, ms) {
-                 clearTimeout(timer);
-                 timer = setTimeout(callback, ms);
-                 };
-                 })();
-                 $('td[contenteditable=true]').on('keyup paste', function () {
-                 delay(function () {
-                 var data = {};
-                 data['contenteditable'] = [];
-                 data['select'] = [];
-                 data['project'] = [];
-                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-                 
-                 $('td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
-                 data['contenteditable'][index] = $(this).text();
-                 //$(this).css('background-color', 'orange');
-                 //$(this).text(index);
-                 });
-                 
-                 $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
-                 data['select'][index] = $(this).val();
-                 //$(this).css('background-color', 'orange');
-                 });
-                 
-                 $('.project[contenteditable=true]').each(function (index) {
-                 data['project'][index] = $(this).text();
-                 });
-                 
-                 var serializedData = JSON.stringify(data);
-                 
-                 $.ajax({
-                 type: 'POST',
-                 url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                 data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
-                 });
-                 }, 1500);
-                 });*/
 
                 displayDailyProjectsTotalPercentage();
                 dispayMonthlyTotalHoursMod();
@@ -1594,6 +1566,8 @@
 
             // Lis le contenu des cellules du tableau et renvoie le résultat sous forme de chaine pour sauvegarde en base de données.
             function ajaxSaveData2() {
+                $(document).unbind('mouseup');
+
                 var data = {};
                 data['contenteditable'] = [];
                 data['select'] = [];
@@ -1609,38 +1583,14 @@
                     data['project'][index] = $(this).text();
                 });
                 var serializedData = JSON.stringify(data);
+
+                console.log('deleteProjectColum: ' + $('#form_Pointage').val());
+
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                    data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text(), user: $('form_Pointage option:selected').val()}
+                    data: {user: $('#form_Pointage').val(), month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
                 });
-
-                /*$('td[contenteditable]').unbind('blur');
-                 $('td[contenteditable=true]').on('blur', function () {
-                 var data = {};
-                 data['contenteditable'] = [];
-                 data['select'] = [];
-                 data['project'] = [];
-                 data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-                 $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
-                 data['contenteditable'][index] = $(this).text();
-                 //$(this).css('background-color', 'orange');
-                 //$(this).text(index);
-                 });
-                 $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
-                 data['select'][index] = $(this).val();
-                 //$(this).css('background-color', 'orange');
-                 });
-                 $('.project[contenteditable=true]').each(function (index) {
-                 data['project'][index] = $(this).text();
-                 });
-                 var serializedData = JSON.stringify(data);
-                 $.ajax({
-                 type: 'POST',
-                 url: '{# {{ path('nox_intranet_pointage_ajax_save_data') }} #}',
-                 data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
-                 });
-                 });*/
 
                 displayDailyProjectsTotalPercentage();
                 dispayMonthlyTotalHoursMod();
@@ -2491,7 +2441,7 @@
                     $.ajax({
                         url: '{{ path('nox_intranet_pointage_ajax_save_csv') }}',
                         type: 'POST',
-                        data: {tableData: jsonData, username: $('#form_Pointage').val(), month: $('#form_Month').val(), year: $('#form_Year').val()}
+                        data: {tableData: jsonData, username: $('#form_Pointage option:selected').val(), month: $('#form_Month').val(), year: $('#form_Year').val()}
                     });
                 }, 1500);
             });
