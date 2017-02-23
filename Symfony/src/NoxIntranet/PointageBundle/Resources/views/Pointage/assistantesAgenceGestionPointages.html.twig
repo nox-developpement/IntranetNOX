@@ -1103,12 +1103,12 @@
             function getMods() {
                 var mods = [];
                 $('.dailyHoursMod').each(function () {
-                    var jour = $(this).siblings('.dayDateCell').text().slice(-2);
-                    var valeur = $(this).text();
+                    var day = $(this).siblings('.dayDateCell').text().slice(-2);
+                    var value = $(this).text();
 
                     var mod = {};
-                    mod['jour'] = jour;
-                    mod['valeur'] = valeur;
+                    mod['day'] = new Date(year, month, day);
+                    mod['value'] = value;
 
                     mods.push(mod);
                 });

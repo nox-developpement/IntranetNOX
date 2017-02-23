@@ -700,18 +700,6 @@ class PointageController extends Controller {
         return $response;
     }
 
-    public function forfaitsDeplacementDetailsAction($month, $year, $username) {
-        $em = $this->getDoctrine()->getManager();
-
-        $pointage = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $username));
-
-        $forfaitDeplacementArray = json_decode($pointage->getForfaitsDeplacementDetails(), true);
-
-        $dayToJour = array('Mon' => "Lundi", 'Tue' => "Mardi", "Wed" => "Mercredi", "Thu" => "Jeudi", "Fri" => "Vendredi", "Sat" => "Samedi", "Sun" => "Dimanche");
-
-        return $this->render('NoxIntranetPointageBundle:Pointage:forfaitsDeplacementDetails.html.twig', array('forfaitDeplacementArray' => $forfaitDeplacementArray, 'month' => $month, 'year' => $year, 'dayToJour' => $dayToJour));
-    }
-
     // Retourne un fichier CSV de compilation des données d'affaires des collaborateurs de NOX IP pour le mois et l'années donnée.
     public function compilationNOXIPCSVAction(Request $request) {
         // Si l'utilisateur n'as pas les droits d'accès on le redirige vers l'accueil.
@@ -791,6 +779,30 @@ class PointageController extends Controller {
         }
 
         return $this->render('NoxIntranetPointageBundle:Pointage:compilationNOXIPCSV.html.twig', array('formCompilationDate' => $formCompilationDate->createView()));
+    }
+
+    // Affiche un tableau affichange les valeurs de forfait déplacement en fonction du jour.
+    public function forfaitsDeplacementDetailsAction($month, $year, $username) {
+        // On récupére l'entité du pointage en fonction du mois, de l'année et de l'username.
+        $em = $this->getDoctrine()->getManager();
+        $pointage = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $username));
+
+        // On récupére les forfaits déplacement sous forme de tableau.
+        $forfaitDeplacementArray = json_decode($pointage->getForfaitsDeplacementDetails(), true);
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:forfaitsDeplacementDetails.html.twig', array('forfaitDeplacementArray' => $forfaitDeplacementArray, 'month' => $month, 'year' => $year));
+    }
+
+    // Affiche un tableau affichange les valeurs de forfait déplacement en fonction du jour.
+    public function modulationDetailsAction($month, $year, $username) {
+        // On récupére l'entité du pointage en fonction du mois, de l'année et de l'username.
+        $em = $this->getDoctrine()->getManager();
+        $pointage = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $username));
+
+        // On récupére les forfaits déplacement sous forme de tableau.
+        $modulationArray = json_decode($pointage->getMods(), true);
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:modulationDetails.html.twig', array('modulationArray' => $modulationArray, 'month' => $month, 'year' => $year));
     }
 
 }
