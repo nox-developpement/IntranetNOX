@@ -3133,6 +3133,8 @@ tr {
 
 #compilationPointagesTable th {
     color: white;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#336fa0+0,052775+100 */
     background: #336fa0; /* Old browsers */
@@ -3144,6 +3146,8 @@ tr {
 
 #compilationPointagesTable td {
     text-align: center;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 #compilationPointages form {

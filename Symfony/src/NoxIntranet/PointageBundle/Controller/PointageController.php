@@ -802,7 +802,7 @@ class PointageController extends Controller {
         // On récupére les forfaits déplacement sous forme de tableau.
         $modulationArray = json_decode($pointage->getMods(), true);
 
-        return $this->render('NoxIntranetPointageBundle:Pointage:modulationDetails.html.twig', array('modulationArray' => $modulationArray, 'month' => $month, 'year' => $year));
+        return $this->render('NoxIntranetPointageBundle:Pointage:modulationDetails.html.twig', array('modulationArray' => $modulationArray, 'month' => $month, 'year' => $year, 'user' => $pointage->getUser()));
     }
 
 }

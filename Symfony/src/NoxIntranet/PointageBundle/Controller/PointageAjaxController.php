@@ -1145,4 +1145,26 @@ class PointageAjaxController extends Controller {
         }
     }
 
+    public function ajaxSaveModsEditionAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $month = $request->get('month');
+            $year = $request->get('year');
+            $username = $request->get('user');
+            $date = $request->get('date');
+            $value = $request->get('value');
+
+            // On récupére l'entité du pointage en fonction du mois, de l'année et de l'username.
+            $em = $this->getDoctrine()->getManager();
+            $pointage = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $username));
+
+            // On récupére les forfaits déplacement sous forme de tableau.
+            $modulationArray = json_decode($pointage->getMods(), true);
+
+            var_dump($date);
+            var_dump($modulationArray);
+
+            return new Response('Ok');
+        }
+    }
+
 }
