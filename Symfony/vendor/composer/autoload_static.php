@@ -2321,6 +2321,10 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'NoxIntranet\\CommunicationBundle\\DependencyInjection\\Configuration' => __DIR__ . '/../..' . '/src/NoxIntranet/CommunicationBundle/DependencyInjection/Configuration.php',
         'NoxIntranet\\CommunicationBundle\\DependencyInjection\\NoxIntranetNewsExtension' => __DIR__ . '/../..' . '/src/NoxIntranet/CommunicationBundle/DependencyInjection/NoxIntranetNewsExtension.php',
         'NoxIntranet\\CommunicationBundle\\NoxIntranetCommunicationBundle' => __DIR__ . '/../..' . '/src/NoxIntranet/CommunicationBundle/NoxIntranetCommunicationBundle.php',
+<<<<<<< HEAD
+=======
+        'NoxIntranet\\CommunicationBundle\\Twig\\Extension\\EncryptString' => __DIR__ . '/../..' . '/src/NoxIntranet/CommunicationBundle/Twig/EncryptString.php',
+>>>>>>> master
         'NoxIntranet\\GXBundle\\Controller\\DefaultController' => __DIR__ . '/../..' . '/src/NoxIntranet/GXBundle/Controller/DefaultController.php',
         'NoxIntranet\\GXBundle\\DependencyInjection\\Configuration' => __DIR__ . '/../..' . '/src/NoxIntranet/GXBundle/DependencyInjection/Configuration.php',
         'NoxIntranet\\GXBundle\\DependencyInjection\\NoxIntranetGXExtension' => __DIR__ . '/../..' . '/src/NoxIntranet/GXBundle/DependencyInjection/NoxIntranetGXExtension.php',

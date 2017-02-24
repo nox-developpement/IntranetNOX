@@ -32,8 +32,8 @@
         }
 
     </script>
-
-    {% if is_granted('ROLE_COMMUNICATION') %} 
+    
+    {% if (authorizedUploadUsers is empty and is_granted('ROLE_COMMUNICATION')) or (app.user.username in authorizedUploadUsers) %} 
 
         <div id="menuAdminNewsSI" class='menuAdmin'>
             <h3> Interface de gestion de contenu </h3>

@@ -33,7 +33,7 @@ class CommunicationController extends Controller {
     }
 
     // Affichage la liste des news en fonction du chemin passé en paramêtre.
-    public function affichageContenuAction($chemin, $dossier, $config, $page) {
+    public function affichageContenuAction(Request $request, $chemin, $dossier, $config, $page) {
         // On récupère la racine du serveur.
         $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
 
@@ -69,8 +69,18 @@ class CommunicationController extends Controller {
             $nbPages = intval(ceil(sizeof($news) / 5));
             $news5 = array_chunk($news, 5);
         }
-        
-        return $this->render('NoxIntranetCommunicationBundle:Accueil:affichageContenu.html.twig', array('chemin' => $chemin, 'page' => $page, 'nbPage' => $nbPages, 'news' => $news5[$page - 1], 'dossier' => $dossier, 'config' => $config));
+
+        // Si des utilisateur spécifiques sont passé en paramètre GET.
+        if (!empty($request->get('uploadAcess'))) {
+            // On décode la chaine des usernames et on la passe sous forme de tableau.
+            $authorizedUploadUsers = explode(',', $this->encrypt_decrypt('decrypt', $request->get('uploadAcess')));
+        }
+        // Sinon...
+        else {
+            $authorizedUploadUsers = array(); // On retourne un tableau vide.
+        }
+
+        return $this->render('NoxIntranetCommunicationBundle:Accueil:affichageContenu.html.twig', array('chemin' => $chemin, 'page' => $page, 'nbPage' => $nbPages, 'news' => $news5[$page - 1], 'dossier' => $dossier, 'config' => $config, 'authorizedUploadUsers' => $authorizedUploadUsers));
     }
 
     // Retourne la liste des PDF du dossier passé en paramêtre.
@@ -241,6 +251,7 @@ class CommunicationController extends Controller {
         return $this->render('NoxIntranetCommunicationBundle:Accueil:BIM.html.twig', array('texte' => $texte, 'formulaire' => $form->createView()));
     }
 
+    // Génère un Gif d'apercu pour une vidéo.
     public function ajaxVideoPreviewAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // On récupère le chemin du fichier vidéo.
@@ -282,6 +293,30 @@ class CommunicationController extends Controller {
             // On retourne le code du fichier gif.
             return new Response($gifCode);
         }
+    }
+
+    // Retourne une chaîne encrypté.
+    private function encrypt_decrypt($action, $string) {
+        $output = false;
+
+        $encrypt_method = "AES-256-CBC";
+        $secret_key = 'uploadUsersKey';
+        $secret_iv = 'uploadUsersIv';
+
+        // hash
+        $key = hash('sha256', $secret_key);
+
+        // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+        $iv = substr(hash('sha256', $secret_iv), 0, 16);
+
+        if ($action == 'encrypt') {
+            $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+            $output = base64_encode($output);
+        } else if ($action == 'decrypt') {
+            $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+        }
+
+        return $output;
     }
 
 }

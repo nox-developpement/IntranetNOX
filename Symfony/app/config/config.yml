@@ -547,6 +547,20 @@ fm_elfinder:
                         upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif']
                         upload_deny:      ['all']
                         upload_max_size:  10M
+        bim:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/Communication/BIM
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  10M  
         ISO9001:
             locale:           %locale%
             editor:           ckeditor

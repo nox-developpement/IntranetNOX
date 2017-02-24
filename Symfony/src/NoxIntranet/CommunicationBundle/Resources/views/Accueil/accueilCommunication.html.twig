@@ -240,11 +240,11 @@
     </div>
     <!-- Fin Marketing -->
 
+    <!-- SI -->
     <div class="surMessageAcceuil" id='menuSI' onclick="showSubMenu2('#sousMenuSI', this);"> 
         <h4> SI <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
     </div>
 
-    <!-- SI -->
     <div id='sousMenuSI' class='menu'>
         <div class="sousMessageAcceuil"> 
             <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'SI/NewsSI', 'dossier': 'News SI', 'config': 'newsSI' }) }}'> <h4> News SI </h4> </a>
@@ -253,7 +253,14 @@
             <a href='{{ path('nox_intranet_communication_bim') }}'> <h4> BIM </h4> </a>
         </div>
     </div>
-    <!-- FIn SI -->
+    <!-- Fin SI -->
+
+    <!-- BIM -->
+    <div class="surMessageAcceuil" id='menuBIM' onclick="window.location.href = '{{ path('nox_intranet_affichageContenu', { 'chemin': 'BIM', 'dossier': 'BIM', 'config': 'bim', 'uploadAcess': 'f.delapparent,s.blanchard,l.morisseau'|encryptString }) }}';"> 
+        <h4> BIM <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
+    </div>
+
+    <!-- Fin BIM -->
 
 </div>
 
