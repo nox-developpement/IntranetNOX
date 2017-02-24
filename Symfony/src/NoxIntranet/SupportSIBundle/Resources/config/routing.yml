@@ -6,6 +6,10 @@ nox_intranet_support_licenses:
     path:     /supportSI/licenses
     defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:licenses }
     
+nox_intranet_support_base_de_connaissances:
+    path:     /supportSI/base-de-connaissances
+    defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:baseDeConnaissances }
+    
 nox_intranet_support_ticketing:
     path:     /supportSI/ticketing
     defaults: { _controller: NoxIntranetSupportSIBundle:SupportSI:ticketing }

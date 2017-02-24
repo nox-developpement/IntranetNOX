@@ -30,6 +30,11 @@ class SupportSIController extends Controller {
         return $this->redirect('http://' . $adresseCourante . '/Symfony/web/support/index.php');
     }
 
+    public function baseDeConnaissancesAction() {
+        $adresseCourante = $_SERVER['HTTP_HOST'];
+        return $this->redirect('http://' . $adresseCourante . '/Symfony/web/support/kb/index.php');
+    }
+
     public function wikiAction() {
         $adresseCourante = $_SERVER['HTTP_HOST'];
 

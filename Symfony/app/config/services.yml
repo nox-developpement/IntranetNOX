@@ -13,3 +13,8 @@ services:
         class: Twig_Extensions_Extension_Intl
         tags:
             - { name: twig.extension }
+    nox_intranet.twig_extension.encryptString:
+        class: NoxIntranet\CommunicationBundle\Twig\Extension\EncryptStringExtension
+        public: false
+        tags:
+            - { name: twig.extension }
