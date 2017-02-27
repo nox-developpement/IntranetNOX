@@ -786,11 +786,14 @@ class PointageController extends Controller {
         // On récupére l'entité du pointage en fonction du mois, de l'année et de l'username.
         $em = $this->getDoctrine()->getManager();
         $pointage = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $username));
+        
+        // On récupére l'entité du collaborateur.
+        $userEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($username);
 
         // On récupére les forfaits déplacement sous forme de tableau.
         $forfaitDeplacementArray = json_decode($pointage->getForfaitsDeplacementDetails(), true);
 
-        return $this->render('NoxIntranetPointageBundle:Pointage:forfaitsDeplacementDetails.html.twig', array('forfaitDeplacementArray' => $forfaitDeplacementArray, 'month' => $month, 'year' => $year));
+        return $this->render('NoxIntranetPointageBundle:Pointage:forfaitsDeplacementDetails.html.twig', array('forfaitDeplacementArray' => $forfaitDeplacementArray, 'month' => $month, 'year' => $year, 'user' => $userEntity));
     }
 
     // Affiche un tableau affichange les valeurs de forfait déplacement en fonction du jour.
@@ -798,11 +801,14 @@ class PointageController extends Controller {
         // On récupére l'entité du pointage en fonction du mois, de l'année et de l'username.
         $em = $this->getDoctrine()->getManager();
         $pointage = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $username));
+        
+        // On récupére l'entité du collaborateur.
+        $userEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($username);
 
         // On récupére les forfaits déplacement sous forme de tableau.
         $modulationArray = json_decode($pointage->getMods(), true);
 
-        return $this->render('NoxIntranetPointageBundle:Pointage:modulationDetails.html.twig', array('modulationArray' => $modulationArray, 'month' => $month, 'year' => $year, 'user' => $pointage->getUser()));
+        return $this->render('NoxIntranetPointageBundle:Pointage:modulationDetails.html.twig', array('modulationArray' => $modulationArray, 'month' => $month, 'year' => $year, 'user' => $userEntity));
     }
 
 }

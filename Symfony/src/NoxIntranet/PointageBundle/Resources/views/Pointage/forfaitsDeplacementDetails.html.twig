@@ -4,12 +4,12 @@
         margin: 0;
         padding: 0;
     }
-    
+
     table, tr, th, td {
         border: 1px solid black;
         border-collapse: collapse;
     }
-    
+
     table {
         width: 100%;
     }
@@ -27,11 +27,55 @@
     .dateTd {
         background-color: lightgrey;
     }
+
+    .forfaitsDeplacementValue {
+        width: 20%;
+        text-align: center;
+    }
 </style>
+
+<script src={{ asset('./js/jquery-2.2.0.min.js') }}></script>
+<script>
+    $(window).load(function () {
+        ajaxForfaitsDeplacementEdition();
+    });
+
+    // Sauvegarde les modifications de mods.
+    function ajaxForfaitsDeplacementEdition() {
+        // Initialisation d'un timer.
+        var delay = (function () {
+            var timer = 0;
+            return function (callback, ms) {
+                clearTimeout(timer);
+                timer = setTimeout(callback, ms);
+            };
+        })();
+
+        // Lorsque d'un changement de valeur...
+        $('.forfaitsDeplacementValue').change(function () {
+            // On récupère la date et la valeur.
+            var date = $(this).data('date');
+            var value = $(this).val();
+
+            // On lance le timer.
+            delay(function () {
+                // Si il n'y a pas de changement de valeur pendant plus de 1000ms on lance la requête ajax de sauvegarde.
+                $.ajax({
+                    url: '{{ path('nox_intranet_pointage_ajax_save_forfaits_deplacement_edition') }}',
+                    type: 'POST',
+                    data: {month: "{{ month }}", year: "{{ year }}", user: "{{ user.Username }}", date: date, value: value}
+                });
+            }, 1000);
+        });
+    }
+</script>
 
 <title>Forfaits déplacement détails</title>
 
 <table>
+    <tr>
+        <th colspan="2">{{ user.Lastname }} {{ user.Firstname }}</th>
+    </tr>
     <tr>
         <th>Date</th>
         <th>Valeur du forfait déplacement</th>
@@ -39,7 +83,7 @@
     {% for forfaitDeplacement in forfaitDeplacementArray %}
         <tr>
             <td class="dateTd">{{ forfaitDeplacement['day']|date('d/m/Y') }}</td>
-            <td>{{ forfaitDeplacement['value'] }}</td>
+            <td><input class="forfaitsDeplacementValue" type="number" step="0.1" value="{{ forfaitDeplacement['value'] }}" data-date="{{ forfaitDeplacement['day'] }}"></td>
         </tr>
     {% endfor %}
 </table>

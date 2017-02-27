@@ -36,34 +36,46 @@
 
 <script src={{ asset('./js/jquery-2.2.0.min.js') }}></script>
 <script>
-
-
     $(window).load(function () {
         ajaxModsEdition();
     });
 
+    // Sauvegarde les modifications de mods.
     function ajaxModsEdition() {
+        // Initialisation d'un timer.
+        var delay = (function () {
+            var timer = 0;
+            return function (callback, ms) {
+                clearTimeout(timer);
+                timer = setTimeout(callback, ms);
+            };
+        })();
+
+        // Lorsque d'un changement de valeur...
         $('.modulationValue').change(function () {
-            window.opener.console.log($(this).val());
+            // On récupère la date et la valeur.
+            var date = $(this).data('date');
+            var value = $(this).val();
 
-            $('.modulationValue').each(function () {
-
-            });
-
-            $.ajax({
-                url: '{{ path('nox_intranet_pointage_ajax_save_mods_edition') }}',
-                type: 'POST',
-                data: {month: "{{ month }}", year: "{{ year }}", user: "{{ user }}", date: $(this).data('date'), value: $(this).val()}
-            });
-
+            // On lance le timer.
+            delay(function () {
+                // Si il n'y a pas de changement de valeur pendant plus de 1000ms on lance la requête ajax de sauvegarde.
+                $.ajax({
+                    url: '{{ path('nox_intranet_pointage_ajax_save_mods_edition') }}',
+                    type: 'POST',
+                    data: {month: "{{ month }}", year: "{{ year }}", user: "{{ user.Username }}", date: date, value: value}
+                });
+            }, 1000);
         });
     }
-
 </script>
 
 <title>Modulation détails</title>
 
 <table>
+    <tr>
+        <th colspan="2">{{ user.Lastname }} {{ user.Firstname }}</th>
+    </tr>
     <tr>
         <th>Date</th>
         <th>Valeur de<br /> modulation</th>

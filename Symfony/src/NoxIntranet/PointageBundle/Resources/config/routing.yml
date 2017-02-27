@@ -166,3 +166,7 @@ nox_intranet_pointage_ajax_save_mods_edition:
     path: /ressources/pointage/ajax-save-mods-edition
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveModsEdition }
     
+nox_intranet_pointage_ajax_save_forfaits_deplacement_edition:
+    path: /ressources/pointage/ajax-save-forfaits-deplacement-edition
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveForfaitsDeplacementEdition }
+    

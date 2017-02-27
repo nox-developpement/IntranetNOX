@@ -1147,6 +1147,7 @@ class PointageAjaxController extends Controller {
 
     public function ajaxSaveModsEditionAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
+            // Variables de la requête.
             $month = $request->get('month');
             $year = $request->get('year');
             $username = $request->get('user');
@@ -1160,8 +1161,45 @@ class PointageAjaxController extends Controller {
             // On récupére les forfaits déplacement sous forme de tableau.
             $modulationArray = json_decode($pointage->getMods(), true);
 
-            var_dump($date);
-            var_dump($modulationArray);
+            // On récupére la clé correspondant à la date.
+            $key = array_search($date, array_column($modulationArray, 'day'));
+
+            // Changement de la valeur.
+            $modulationArray[$key]['value'] = $value;
+
+            // On met à jour la base de données.
+            $pointage->setMods(json_encode($modulationArray));
+            $em->flush();
+
+            return new Response('Ok');
+        }
+    }
+
+    public function ajaxSaveForfaitsDeplacementEditionAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // Variables de la requête.
+            $month = $request->get('month');
+            $year = $request->get('year');
+            $username = $request->get('user');
+            $date = $request->get('date');
+            $value = $request->get('value');
+
+            // On récupére l'entité du pointage en fonction du mois, de l'année et de l'username.
+            $em = $this->getDoctrine()->getManager();
+            $pointage = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $username));
+
+            // On récupére les forfaits déplacement sous forme de tableau.
+            $forfaitsDeplacementArray = json_decode($pointage->getForfaitsDeplacementDetails(), true);
+
+            // On récupére la clé correspondant à la date.
+            $key = array_search($date, array_column($forfaitsDeplacementArray, 'day'));
+
+            // Changement de la valeur.
+            $forfaitsDeplacementArray[$key]['value'] = $value;
+
+            // On met à jour la base de données.
+            $pointage->setForfaitsDeplacementDetails(json_encode($forfaitsDeplacementArray));
+            $em->flush();
 
             return new Response('Ok');
         }

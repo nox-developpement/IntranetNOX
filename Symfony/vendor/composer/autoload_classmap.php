@@ -1871,7 +1871,7 @@ return array(
     'NoxIntranet\\CommunicationBundle\\DependencyInjection\\Configuration' => $baseDir . '/src/NoxIntranet/CommunicationBundle/DependencyInjection/Configuration.php',
     'NoxIntranet\\CommunicationBundle\\DependencyInjection\\NoxIntranetNewsExtension' => $baseDir . '/src/NoxIntranet/CommunicationBundle/DependencyInjection/NoxIntranetNewsExtension.php',
     'NoxIntranet\\CommunicationBundle\\NoxIntranetCommunicationBundle' => $baseDir . '/src/NoxIntranet/CommunicationBundle/NoxIntranetCommunicationBundle.php',
-    'NoxIntranet\\CommunicationBundle\\Twig\\Extension\\EncryptString' => $baseDir . '/src/NoxIntranet/CommunicationBundle/Twig/EncryptString.php',
+    'NoxIntranet\\CommunicationBundle\\Twig\\Extension\\EncryptStringExtension' => $baseDir . '/src/NoxIntranet/CommunicationBundle/Twig/Extension/EncryptStringExtension.php',
     'NoxIntranet\\GXBundle\\Controller\\DefaultController' => $baseDir . '/src/NoxIntranet/GXBundle/Controller/DefaultController.php',
     'NoxIntranet\\GXBundle\\DependencyInjection\\Configuration' => $baseDir . '/src/NoxIntranet/GXBundle/DependencyInjection/Configuration.php',
     'NoxIntranet\\GXBundle\\DependencyInjection\\NoxIntranetGXExtension' => $baseDir . '/src/NoxIntranet/GXBundle/DependencyInjection/NoxIntranetGXExtension.php',
