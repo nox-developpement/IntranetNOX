@@ -5,16 +5,73 @@
 {% block messageAccueil %}Gestion des pointages{% endblock %}
 
 {% block contenu %}
-    <div style="width: 70%; margin: auto; margin-bottom: 5%; text-align: center;">
-        <ul id='DRHPointageList'>
-            <li><a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}">Assistant(e)s agence - Correction/Validation pointages</a></li>
-            <li><a href="{{ path('nox_intranet_pointage_access_collaborateur_pointage') }}">Assistant(e)s agence - Remplissage pointage collaborateur</a></li>
-            <li><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'AA'}) }}">Assistant(e)s agence - Correction/Validation compilation</a></li>
-            <li><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'DAManager'}) }}">DA/Manager - Correction/Validation compilation</a></li>
-            <li><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'Final'}) }}">Consultation des compilations validées</a></li>
-            <li><a href="{{ path('nox_intranet_pointage_compilation_nox_ip_csv') }}">Compilation des pointages NOX IP</a></li>
-            <li><a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank'>Consulter la notice</a></li>
-        </ul>
-    </div>
+    <style>
+        #gestionPointageMenu {
+            width: 60%;
+            margin: auto;
+            margin-bottom: 5em;
+        }
+
+        #gestionPointageMenu, #gestionPointageMenu tr, #gestionPointageMenu th, #gestionPointageMenu td {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+
+        #gestionPointageMenu th {
+            color: white;
+            background-color: #1F4E79;
+        }
+
+        #gestionPointageMenu tr {
+            border: none;
+        }
+
+        #gestionPointageMenu td {
+            padding: 1% 2% 1% 2%;
+            text-align: center;
+            border-top: none;
+            border-bottom: none;
+        }
+
+        #gestionPointageMenu td .gestionPointageLinkDiv {
+            display: inline-block;
+            padding: 2%;
+            border-top: solid 1px rgb(192,0,0);
+            border-bottom: solid 1px rgb(192,0,0);
+        }
+
+        #gestionPointageMenu td .gestionPointageLinkDiv:hover {
+            border-top: solid 1px black;
+            border-bottom: solid 1px black;
+        }
+
+        #gestionPointageMenu td a, #gestionPointageMenu td a:visited {
+            color: #1F4E79;
+            text-decoration: none;
+        } 
+    </style>
+
+    <table id="gestionPointageMenu">
+        <tr>
+            <th>Pointage indiviudel</th>
+            <th>Compilation</th>
+            <th>Autre</th>
+        </tr>
+        <tr>
+            <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}">Assistant(e)s agence - Correction/Validation pointages</a></div></td>
+            <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'AA'}) }}">Assistant(e)s agence - Correction/Validation compilation</a></div></td>
+            <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointage_compilation_nox_ip_csv') }}">Compilation des affaires NOX IP</a></div></td>
+        </tr>
+        <tr>
+            <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointage_access_collaborateur_pointage') }}">Assistant(e)s agence - Remplissage pointage collaborateur</a></div></td>
+            <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'DAManager'}) }}">DA/Manager - Correction/Validation compilation</a></div></td>
+            <td><div class="gestionPointageLinkDiv"><a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank'>Consulter la notice</a></div></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'Final'}) }}">Consultation des compilations validées</a></div></td>
+            <td></td>
+        </tr>
+    </table>
 
 {% endblock %}
