@@ -2958,8 +2958,10 @@ input[type=text]:read-only {
     box-sizing: border-box;
 }
 
-#divRegularisation div {
+#divRegularisation #divRegularisationText {
     height: 80%;
+    box-sizing: border-box;
+    padding: 0.1em;
 }
 
 #addJustificatifButton {

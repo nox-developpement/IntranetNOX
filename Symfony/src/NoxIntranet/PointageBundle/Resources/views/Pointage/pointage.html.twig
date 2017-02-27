@@ -357,7 +357,7 @@
             if (ajaxUrl === "pointage-ajax-set-date" || ajaxUrl === "pointage-ajax-get-data" || ajaxUrl === "pointage-ajax-get-status") {
                 $('#loadingContent').show();
             }
-            if (ajaxUrl === "pointage-ajax-save-data") {
+            if (ajaxUrl === "pointage-ajax-save-data" || ajaxUrl === "ajax-save-regularisation") {
                 savingNotification();
                 $('#pointageSavingNotification').finish().css('display', 'inline-block');
             }
@@ -1119,7 +1119,8 @@
                             }
                         }
 
-                        $('#signatureCollaborateur').text(data['signatureCollaborateur']);
+                        //$('#signatureCollaborateur').text(data['signatureCollaborateur']);
+
                         if (data['contenteditable'] !== undefined) {
                             $('td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
                                 $(this).text(data['contenteditable'][index]);
@@ -1144,6 +1145,11 @@
                             $('#deleteJustificatifButtonSpan').attr('idjustificatif', data['justificatifTransport']);
                             $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
                             $('#deleteJustificatifButton').show();
+                        }
+
+                        // Si il existe un texte de régularisation...
+                        if (data['regularisation'] !== undefined) {
+                            $('#divRegularisationText').text(data['regularisation']); // On l'assigne à la case de régularisation.
                         }
 
                         ajaxGetPointageStatus();
@@ -1496,9 +1502,9 @@
                     // Si le pointage a déjà été validé...            
                     if (response !== '0' && response !== '') {
                         // On désactive tous les éléments éditables.
-                        $('td[contenteditable=true]').css('cursor', 'default');
-                        $('td[contenteditable=true]').attr('onkeydown', "return false");
-                        $('td[contenteditable=true]').on('mousedown', function (e) {
+                        $('td[contenteditable=true], #divRegularisationText').css('cursor', 'default');
+                        $('td[contenteditable=true], #divRegularisationText').attr('onkeydown', "return false");
+                        $('td[contenteditable=true], #divRegularisationText').on('mousedown', function (e) {
                             e.preventDefault();
                         });
                         $('select:not(#pointage_month_selector, #pointage_year_selector)').attr('disabled', 'disabled');

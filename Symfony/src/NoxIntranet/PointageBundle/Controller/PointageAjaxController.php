@@ -166,6 +166,7 @@ class PointageAjaxController extends Controller {
                 $data = $tableData->getData();
                 $signatureCollaborateur = $tableData->getSignatureCollaborateur();
                 $justificatifTransport = $tableData->getJustificatifTransportFile();
+                $regularisation = $tableData->getRegularisation();
             }
             // Si le pointage n'existe pas...
             else {
@@ -173,6 +174,7 @@ class PointageAjaxController extends Controller {
                 $data = null;
                 $signatureCollaborateur = null;
                 $justificatifTransport = null;
+                $regularisation = null;
             }
 
             // On décode les données sous forme de tableau.
@@ -186,6 +188,11 @@ class PointageAjaxController extends Controller {
             // Si il existe un justificatif de transport...
             if (!empty($justificatifTransport)) {
                 $dataArray['justificatifTransport'] = $justificatifTransport->getId(); // On ajoute l'id du justificatif au tableau des données.
+            }
+
+            // Si il existe un texte de régularisation...
+            if (!empty($regularisation)) {
+                $dataArray['regularisation'] = $regularisation; // On ajoute l'id du justificatif au tableau des données.
             }
 
             // On encode le tableau de données et on le retourne.
@@ -210,6 +217,7 @@ class PointageAjaxController extends Controller {
                 $data = $tableData->getData();
                 $signatureCollaborateur = $tableData->getSignatureCollaborateur();
                 $justificatifTransport = $tableData->getJustificatifTransportFile();
+                $regularisation = $tableData->getRegularisation();
             }
             // Si le pointage n'existe pas...
             else {
@@ -217,6 +225,7 @@ class PointageAjaxController extends Controller {
                 $data = null;
                 $signatureCollaborateur = null;
                 $justificatifTransport = null;
+                $regularisation = null;
             }
 
             // On décode les données sous forme de tableau.
@@ -230,6 +239,11 @@ class PointageAjaxController extends Controller {
             // Si il existe un justificatif de transport...
             if (!empty($justificatifTransport)) {
                 $dataArray['justificatifTransport'] = $justificatifTransport->getId(); // On ajoute l'id du justificatif au tableau des données.
+            }
+
+            // Si il existe un texte de régularisation...
+            if (!empty($regularisation)) {
+                $dataArray['regularisation'] = $regularisation; // On ajoute l'id du justificatif au tableau des données.
             }
 
             // On encode le tableau de données et on le retourne.

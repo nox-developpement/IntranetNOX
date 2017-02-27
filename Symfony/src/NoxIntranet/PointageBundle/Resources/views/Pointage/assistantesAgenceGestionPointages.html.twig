@@ -324,6 +324,11 @@
             <button id="addJustificatifButton" class="boutonFormulaire" onclick="addJustificatifFile();">Ajouter/voir justificatif(s)</button>
         </div>
 
+        <div id="divRegularisation">
+            <p>Régularisation</p>
+            <div id="divRegularisationText" contenteditable="true"></div>
+        </div>
+
         <table id='tableFeuillePointageSignature' style="display: none;">
             <tr>
                 <td style='border-width: 2px;'>Signature collaborateur</td>
@@ -382,7 +387,7 @@
             if (ajaxUrl === "pointage-ajax-set-date-by-pointage-number" || ajaxUrl === "pointage-ajax-get-data-by-username" || ajaxUrl === "pointage-ajax-get-status" || ajaxUrl === "pointage-ajax-get-data-by-username" || ajaxUrl === "ajax-get-pointage-list-aa-gestion") {
                 $('#loadingContent').show();
             }
-            if (ajaxUrl === "pointage-ajax-save-data") {
+            if (ajaxUrl === "pointage-ajax-save-data" || ajaxUrl === "ajax-save-regularisation") {
                 $('#pointageSavingNotification').finish().css('display', 'inline-block');
                 savingNotification();
             }
@@ -828,6 +833,11 @@
                                 $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
                                 $('#deleteJustificatifButton').show();
                             }
+
+                            // Si il existe un texte de régularisation...
+                            if (data['regularisation'] !== undefined) {
+                                $('#divRegularisationText').text(data['regularisation']); // On l'assigne à la case de régularisation.
+                            }
                         }
 
                         // On change la le mois et l'année indiqué sur la feuille de pointage.
@@ -1007,6 +1017,23 @@
                         url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
                         data: {user: $('#form_Pointage').val(), month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData}
                     });
+                });
+
+                // Détecte l'édition de texte de la case "Régularisation et sauvegarde les changements en base de donnée.
+                $('#divRegularisation').on('keyup paste', '#divRegularisationText', function () {
+                    // On récupére le texte de la case.
+                    var regularisationText = $(this).text();
+
+                    // Permet d'ajouter un temps d'attente avant de lancer la sauvegarde.
+                    delay(function () {
+                        console.log("Sauvegarde régularisation: " + $('#form_Pointage').val());
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ path('nox_intranet_pointage_ajax_save_regularisation') }}',
+                            data: {user: $('#form_Pointage').val(), month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), regularisationText: regularisationText}
+                        });
+                    }, 1500);
                 });
             }
         }
