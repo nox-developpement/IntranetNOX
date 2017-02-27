@@ -730,11 +730,23 @@ class PointageAjaxController extends Controller {
 
         // Si l'utilisateur n'as pas le ROLE_RH.
         if ($status !== 'roleRH') {
+            // On récupére les collaborateurs en fonction du status de la compilation
+            switch ($status) {
+                case 'Final':
+                    $requestSearch = 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName';
+                    break;
+                case 'DAManager':
+                    $requestSearch = 'u.da = :securityName OR u.rh = :securityName';
+                    break;
+                case 'AA':
+                    $requestSearch = 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName';
+            }
+
             $qb = $em->createQueryBuilder();
             $qb
                     ->add('select', 'u')
                     ->add('from', 'NoxIntranetPointageBundle:UsersHierarchy u')
-                    ->add('where', ($status === 'DAManager' || $status === 'Final') ? 'u.da = :securityName OR u.rh = :securityName' : (($status === 'AA') ? 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName' : false))
+                    ->add('where', $requestSearch)
                     ->setParameter('securityName', $securityName);
             $query = $qb->getQuery();
             $usersHierarchie = $query->getResult();

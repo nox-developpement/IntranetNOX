@@ -284,6 +284,9 @@ class PointageController extends Controller {
                 }
                 break;
             case 'Final':
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
+                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                }
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
                     $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
@@ -405,7 +408,7 @@ class PointageController extends Controller {
         // Récupère le nom des assistant d'agence/DA/RH et leurs supérieurs.
         $usersFromHierarchy = array();
         foreach ($users as $user) {
-            if ($status === 'AA') {
+            if ($status === 'AA' || $status === 'Final') {
                 $usersFromHierarchy[mb_strtoupper($user->getAA(), 'UTF-8')] = mb_strtoupper($user->getAA(), 'UTF-8');
                 $usersFromHierarchy[mb_strtoupper($user->getDA(), 'UTF-8')] = mb_strtoupper($user->getDA(), 'UTF-8');
             }
