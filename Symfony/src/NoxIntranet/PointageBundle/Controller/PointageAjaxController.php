@@ -768,8 +768,8 @@ class PointageAjaxController extends Controller {
             // Si le collaborateur est définie dans la hiérarchie, qu'il fait partie de l'établissement et que qu'il dépend de l'utilisateur?
             if (!empty($userHierarchy) && $userHierarchy->getEtablissement() === $etablissement && in_array($pointage['user'], array_keys($users))) {
                 $pointage['absences'] = json_decode($pointage['absences'], true);
-                $pointage['detailsForfaitDeplacementsUrl'] = $this->generateUrl('nox_intranet_pointage_show_forfaits_deplacement_details', array('month' => $pointage['month'], 'year' => $pointage['year'], 'username' => $pointage['user'])); // On génére l'Url d'accès aux détails du forfait déplacement.
-                $pointage['detailsModsUrl'] = $this->generateUrl('nox_intranet_pointage_show_mods_details', array('month' => $pointage['month'], 'year' => $pointage['year'], 'username' => $pointage['user'])); // On génére l'Url d'accès aux détails du forfait déplacement.
+                $pointage['detailsForfaitDeplacementsUrl'] = $this->generateUrl('nox_intranet_pointage_show_forfaits_deplacement_details', array('month' => $pointage['month'], 'year' => $pointage['year'], 'username' => $pointage['user'], 'readonly' => $validationStep === 'Final' ? 'true' : 'false')); // On génére l'Url d'accès aux détails du forfait déplacement.
+                $pointage['detailsModsUrl'] = $this->generateUrl('nox_intranet_pointage_show_mods_details', array('month' => $pointage['month'], 'year' => $pointage['year'], 'username' => $pointage['user'], 'readonly' => $validationStep === 'Final' ? 'true' : 'false')); // On génére l'Url d'accès aux détails du forfait déplacement.
                 $pointagesValides[] = $pointage; // On ajoute son pointage à la liste des pointages à retourner.
             }
         }

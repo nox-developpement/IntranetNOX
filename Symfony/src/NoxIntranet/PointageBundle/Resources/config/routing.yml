@@ -155,11 +155,11 @@ nox_intranet_pointage_ajax_save_csv:
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveNOXIPCSV }
     
 nox_intranet_pointage_show_forfaits_deplacement_details:
-    path: /ressources/pointage/show-forfaits-deplacement-details/{month}/{year}/{username}
+    path: /ressources/pointage/show-forfaits-deplacement-details/{month}/{year}/{username}/{readonly}
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:forfaitsDeplacementDetails }
     
 nox_intranet_pointage_show_mods_details:
-    path: /ressources/pointage/show-mods-details/{month}/{year}/{username}
+    path: /ressources/pointage/show-mods-details/{month}/{year}/{username}/{readonly}
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:modulationDetails }
     
 nox_intranet_pointage_ajax_save_mods_edition:

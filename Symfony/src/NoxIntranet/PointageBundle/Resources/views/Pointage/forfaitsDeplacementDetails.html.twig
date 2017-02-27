@@ -83,7 +83,7 @@
     {% for forfaitDeplacement in forfaitDeplacementArray %}
         <tr>
             <td class="dateTd">{{ forfaitDeplacement['day']|date('d/m/Y') }}</td>
-            <td><input class="forfaitsDeplacementValue" type="number" step="0.1" value="{{ forfaitDeplacement['value'] }}" data-date="{{ forfaitDeplacement['day'] }}"></td>
+            <td><input class="forfaitsDeplacementValue" type="number" step="0.1" value="{{ forfaitDeplacement['value'] }}" data-date="{{ forfaitDeplacement['day'] }}" {% if readonly == 'true' %}readonly{% endif %}></td>
         </tr>
     {% endfor %}
 </table>

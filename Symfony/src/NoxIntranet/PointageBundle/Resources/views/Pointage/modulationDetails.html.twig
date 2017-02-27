@@ -83,7 +83,7 @@
     {% for mod in modulationArray %}
         <tr>
             <td class="dateTd">{{ mod['day']|date('d/m/Y') }}</td>
-            <td><input class="modulationValue" type="number" step="0.1" value="{{ mod['value'] }}" data-date="{{ mod['day'] }}"></td>
+            <td><input class="modulationValue" type="number" step="0.1" value="{{ mod['value'] }}" data-date="{{ mod['day'] }}" {% if readonly == 'true' %}readonly{% endif %}></td>
         </tr>
     {% endfor %}
 </table>
