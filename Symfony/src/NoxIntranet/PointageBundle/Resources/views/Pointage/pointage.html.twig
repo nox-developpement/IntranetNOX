@@ -283,6 +283,11 @@
             <button id="addJustificatifButton" class="boutonFormulaire" onclick="addJustificatifFile();">Ajouter/voir justificatif(s)</button>
         </div>
 
+        <div id="divRegularisation">
+            <p>Régularisation</p>
+            <div id="divRegularisationText" contenteditable="true"></div>
+        </div>
+
         <table id='tableFeuillePointageSignature' style="display: none;">
             <tr>
                 <td style='border-width: 2px;'>Signature collaborateur</td>
@@ -1010,6 +1015,7 @@
                     });
                 }, 1500);
             });
+
             // Détecte l'édition de texte des selects et sauvegarde les changement en base de donnée.
             $('select:not(#pointage_month_selector, #pointage_year_selector)').change(function () {
                 var data = {};
@@ -1042,6 +1048,23 @@
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
                     data: {user: '{{ user }}', month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData}
                 });
+            });
+
+            // Détecte l'édition de texte de la case "Régularisation et sauvegarde les changements en base de donnée.
+            $('#divRegularisation').on('keyup paste', '#divRegularisationText', function () {
+                // On récupére le texte de la case.
+                var regularisationText = $(this).text();
+
+                // Permet d'ajouter un temps d'attente avant de lancer la sauvegarde.
+                delay(function () {
+                    console.log("Sauvegarde régularisation: " + '{{ user }}');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ path('nox_intranet_pointage_ajax_save_regularisation') }}',
+                        data: {user: '{{ user }}', month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), regularisationText: regularisationText}
+                    });
+                }, 1500);
             });
         }
 

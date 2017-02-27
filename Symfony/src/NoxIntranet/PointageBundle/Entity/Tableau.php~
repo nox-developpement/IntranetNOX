@@ -76,6 +76,13 @@ class Tableau {
     private $CSVData;
 
     /**
+     * @var text
+     *
+     * @ORM\Column(name="regularisation", type="text")
+     */
+    private $regularisation;
+
+    /**
      * Get id
      *
      * @return integer
@@ -236,6 +243,28 @@ class Tableau {
      */
     public function getJustificatifTransportFile() {
         return $this->justificatifTransportFile;
+    }
+
+    /**
+     * Set cSVData
+     *
+     * @param array $cSVData
+     *
+     * @return Tableau
+     */
+    public function setCSVData($cSVData) {
+        $this->CSVData = $cSVData;
+
+        return $this;
+    }
+
+    /**
+     * Get cSVData
+     *
+     * @return array
+     */
+    public function getCSVData() {
+        return $this->CSVData;
     }
 
 }

@@ -2940,6 +2940,28 @@ input[type=text]:read-only {
     padding: 1em;
 }
 
+#divRegularisation {
+    display: inline-block;
+    width: 30%;
+    height: 200px;
+    margin-left: 5%;
+    margin-top: 2.5%;
+    border: 2px solid black;
+}
+
+#divRegularisation p {
+    height: 20%;
+    text-align: center;
+    border-bottom: 2px solid black;
+    margin: 0;
+    padding: 0.5em 0.2em;
+    box-sizing: border-box;
+}
+
+#divRegularisation div {
+    height: 80%;
+}
+
 #addJustificatifButton {
     padding: 1em;
 }

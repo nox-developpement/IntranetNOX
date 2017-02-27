@@ -1145,6 +1145,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
+    // Sauvegarde les changement de valeurs des modulations.
     public function ajaxSaveModsEditionAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // Variables de la requête.
@@ -1175,6 +1176,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
+    // Sauvegarde les changements de valeurs de forfaits deplacement.
     public function ajaxSaveForfaitsDeplacementEditionAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // Variables de la requête.
@@ -1202,6 +1204,37 @@ class PointageAjaxController extends Controller {
             $em->flush();
 
             return new Response('Ok');
+        }
+    }
+
+    // Sauvegarde la régularisation.
+    public function ajaxSaveRegularisationAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupére les informations du pointage.
+            $month = $request->get('month');
+            $year = $request->get('year');
+            $regularisationText = $request->get('regularisationText');
+
+            // Initialisation de l'entity manager.
+            $em = $this->getDoctrine()->getManager();
+
+            // Si l'Id de l'entité du collaborateur est fourni...
+            if (is_numeric($request->get('user'))) {
+                $user = $em->find('NoxIntranetPointageBundle:Tableau', $request->get('user'))->getUser(); // On récupére son username depuis l'entité du tableau.
+            }
+            // Sinon...
+            else {
+                $user = $request->get('user'); // On récupére directement l'username.
+            }
+
+            // On récupére les données du pointage si il existe.
+            $tableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user, 'month' => $month, 'year' => $year));
+
+            // On sauvegarde la valeur de régularisation en base de données.
+            $tableData->setRegularisation($regularisationText);
+            $em->flush();
+
+            Return new Response('Saved');
         }
     }
 
