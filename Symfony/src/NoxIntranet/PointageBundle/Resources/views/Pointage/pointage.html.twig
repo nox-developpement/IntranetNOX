@@ -142,38 +142,54 @@
                     <td class='dailyHoursMod' {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} style="background:rgb(166,166,166); border-left-width: 1px; border-right-width: 1px;" {% else %} contenteditable='true' style="border-left-width: 1px; border-right-width: 1px;" {% endif %}></td>
                     <td class='abscenceMatinSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} background:rgb(166,166,166); {% endif %} border-left-width: 1px;">
                         <select>
-                            <option value=''></option>
-                            <option value='AA'>AA</option>
-                            <option value='TJ'>TJ</option>
-                            <option value='AT'>AT</option>
-                            <option value='MT'>MT</option>
-                            <option value='PA'>PA</option>
-                            <option value='CS'>CS</option>
-                            <option value='CP'>CP</option>
-                            <option value='AV'>AV</option>
-                            <option value='RT'>RT</option>
-                            <option value='MA'>MA</option>
-                            <option value='PM'>PM</option>
-                            <option value='RE'>RE</option>
-                            <option value='Autre'>Autre</option>
+                            {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %}
+                                <option value=''></option>
+                                <option value='AT'>AT</option>
+                                <option value='MT'>MT</option>
+                                <option value='PA'>PA</option>
+                                <option value='MA'>MA</option>
+                            {% else %}
+                                <option value=''></option>
+                                <option value='AA'>AA</option>
+                                <option value='TJ'>TJ</option>
+                                <option value='AT'>AT</option>
+                                <option value='MT'>MT</option>
+                                <option value='PA'>PA</option>
+                                <option value='CS'>CS</option>
+                                <option value='CP'>CP</option>
+                                <option value='AV'>AV</option>
+                                <option value='RT'>RT</option>
+                                <option value='MA'>MA</option>
+                                <option value='PM'>PM</option>
+                                <option value='RE'>RE</option>
+                                <option value='Autre'>Autre</option>
+                            {% endif %}
                         </select>
                     </td>
-                    <td  class='abscenceAMSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} background:rgb(166,166,166); {% endif %} border-right-width: 1px;">
+                    <td class='abscenceAMSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} background:rgb(166,166,166); {% endif %} border-right-width: 1px;">
                         <select>
-                            <option value=''></option>
-                            <option value='AA'>AA</option>
-                            <option value='TJ'>TJ</option>
-                            <option value='AT'>AT</option>
-                            <option value='MT'>MT</option>
-                            <option value='PA'>PA</option>
-                            <option value='CS'>CS</option>
-                            <option value='CP'>CP</option>
-                            <option value='AV'>AV</option>
-                            <option value='RT'>RT</option>
-                            <option value='MA'>MA</option>
-                            <option value='PM'>PM</option>
-                            <option value='RE'>RE</option>
-                            <option value='Autre'>Autre</option>
+                            {% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' %}
+                                <option value=''></option>
+                                <option value='AT'>AT</option>
+                                <option value='MT'>MT</option>
+                                <option value='PA'>PA</option>
+                                <option value='MA'>MA</option>
+                            {% else %}
+                                <option value=''></option>
+                                <option value='AA'>AA</option>
+                                <option value='TJ'>TJ</option>
+                                <option value='AT'>AT</option>
+                                <option value='MT'>MT</option>
+                                <option value='PA'>PA</option>
+                                <option value='CS'>CS</option>
+                                <option value='CP'>CP</option>
+                                <option value='AV'>AV</option>
+                                <option value='RT'>RT</option>
+                                <option value='MA'>MA</option>
+                                <option value='PM'>PM</option>
+                                <option value='RE'>RE</option>
+                                <option value='Autre'>Autre</option>
+                            {% endif %}
                         </select>
                     </td>
                     <td class='titreRepasNumberSelector' style="{% if date|date('l') == 'Saturday' or date|date('l') == 'Sunday' or date in joursFeries %} background:rgb(166,166,166); {% endif %} border-left-width: 1px; border-right-width: 1px;">
