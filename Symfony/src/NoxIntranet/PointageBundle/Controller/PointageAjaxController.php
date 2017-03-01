@@ -483,7 +483,7 @@ class PointageAjaxController extends Controller {
             // Récupére le mois et l'année spécifiés par la requête.
             $month = $request->get('month');
             $year = $request->get('year');
-            $etablissement = $request->get('etablissement');
+            $manager = $request->get('manager');
             $userStatus = $request->get('userStatus');
 
             // On récupére la liste des collaborateurs qui dépendent de l'utilisateur.
@@ -498,7 +498,7 @@ class PointageAjaxController extends Controller {
                 // ...On récupére le plus petit status.
                 foreach ($pointageCompile as $pointage) {
                     $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
-                    if (!empty($userHierarchy) && in_array($pointage->getUser(), array_keys($users)) && $userHierarchy->getEtablissement() === $etablissement) {
+                    if (!empty($userHierarchy) && in_array($pointage->getUser(), array_keys($users)) && $userHierarchy->getDA() === $manager) {
                         $status[] = $pointage->getStatus();
                     }
                 }
@@ -643,7 +643,7 @@ class PointageAjaxController extends Controller {
             // On récupére les variables de la requête.
             $month = $request->get('month');
             $year = $request->get('year');
-            $etablissement = $request->get('etablissement');
+            $manager = $request->get('manager');
             $userStatus = $request->get('userStatus');
 
             // On récupére les pointages du mois et de l'année séléctionné qui sont en attente de validation par un AA.
@@ -659,7 +659,7 @@ class PointageAjaxController extends Controller {
                 $pointagesValide = array();
                 foreach ($pointages as $pointage) {
                     // Si le collaborateur du pointage fait partis de l'établissement passé en paramêtre et qu'il dépend de l'utilisateur.
-                    $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneBy(array('username' => $pointage->getUser(), 'aa' => $securityContextName, 'etablissement' => $etablissement));
+                    $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneBy(array('username' => $pointage->getUser(), 'aa' => $securityContextName, 'da' => $manager));
                     if (!empty($userHierarchy)) {
                         $pointagesValide[$pointage->getId()] = $userHierarchy->getNom() . ' ' . $userHierarchy->getPrenom(); // On l'ajoutes aux pointages à retourné.
                     }
@@ -671,7 +671,7 @@ class PointageAjaxController extends Controller {
                 $pointagesValide = array();
                 foreach ($pointages as $pointage) {
                     // Si le collaborateur du pointage fait partis de l'établissement passé en paramêtre.
-                    $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneBy(array('username' => $pointage->getUser(), 'etablissement' => $etablissement));
+                    $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneBy(array('username' => $pointage->getUser(), 'da' => $manager));
                     if (!empty($userHierarchy)) {
                         $pointagesValide[$pointage->getId()] = $userHierarchy->getNom() . ' ' . $userHierarchy->getPrenom(); // On l'ajoutes aux pointages à retourné.
                     }
@@ -688,7 +688,7 @@ class PointageAjaxController extends Controller {
         if ($request->isXmlHttpRequest()) {
             $month = $request->get('month');
             $year = $request->get('year');
-            $etablissement = $request->get('etablissement');
+            $manager = $request->get('manager');
             $userStatus = $request->get('userStatus');
             $validationStep = $request->get('validationStep');
             $em = $this->getDoctrine()->getManager();
@@ -697,7 +697,7 @@ class PointageAjaxController extends Controller {
             $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
 
             // On récupére les pointages à retourner en fonction du status de l'utilisateur.
-            $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName), $month, $year, $etablissement, $validationStep);
+            $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName), $month, $year, $manager, $validationStep);
 
             // Initialisation du tableau de retour.
             $returnedPointage = array('Pointage' => array(), 'Tableau' => array());
@@ -767,7 +767,7 @@ class PointageAjaxController extends Controller {
     }
 
     // Retourne les pointages valides des collaborateurs de l'utilisateur en fonction du mois, de l'année, de l'etablissement et de l'étape de validation.
-    private function getPointagesValides($users, $month, $year, $etablissement, $validationStep) {
+    private function getPointagesValides($users, $month, $year, $manager, $validationStep) {
 
         $em = $this->getDoctrine()->getManager();
 
@@ -792,7 +792,7 @@ class PointageAjaxController extends Controller {
             // On récuépe l'entité hiérarchique du collaborateur du pointage.
             $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage['user']);
             // Si le collaborateur est définie dans la hiérarchie, qu'il fait partie de l'établissement et que qu'il dépend de l'utilisateur?
-            if (!empty($userHierarchy) && $userHierarchy->getEtablissement() === $etablissement && in_array($pointage['user'], array_keys($users))) {
+            if (!empty($userHierarchy) && $userHierarchy->getDA() === $manager && in_array($pointage['user'], array_keys($users))) {
                 $pointage['absences'] = json_decode($pointage['absences'], true);
                 $pointage['detailsForfaitDeplacementsUrl'] = $this->generateUrl('nox_intranet_pointage_show_forfaits_deplacement_details', array('month' => $pointage['month'], 'year' => $pointage['year'], 'username' => $pointage['user'], 'readonly' => $validationStep === 'Final' ? 'true' : 'false')); // On génére l'Url d'accès aux détails du forfait déplacement.
                 $pointage['detailsModsUrl'] = $this->generateUrl('nox_intranet_pointage_show_mods_details', array('month' => $pointage['month'], 'year' => $pointage['year'], 'username' => $pointage['user'], 'readonly' => $validationStep === 'Final' ? 'true' : 'false')); // On génére l'Url d'accès aux détails du forfait déplacement.

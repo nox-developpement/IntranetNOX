@@ -32,9 +32,9 @@
                 {{ form_widget(form.Year) }}
             </div><br /><!--
             --><div style="width: 100%">
-                {{ form_label(form.Etablissement, 'Etablissement') }} <br />
-                {{ form_errors(form.Etablissement) }}
-                {{ form_widget(form.Etablissement) }}
+                {{ form_label(form.Manager, 'Manager') }} <br />
+                {{ form_errors(form.Manager) }}
+                {{ form_widget(form.Manager) }}
             </div>
         </fieldset>
         {{ form_end(form) }}
@@ -420,12 +420,12 @@
         // Récupére la liste des pointages en attente de validation en fonction du mois, de l'année et de l'établissement.
         function ajaxGetPointageList() {
             // Lorsque l'on change la valeur de mois, année ou établissement.
-            $('#form_Etablissement, #form_Year, #form_Month').change(function () {
+            $('#form_Manager, #form_Year, #form_Month').change(function () {
                 $('#form_Pointage option').remove(); // On supprime les options déjà présente.
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_get_pointages_list_aa_gestion') }}',
-                    data: {month: $('#form_Month').val(), year: $('#form_Year').val(), etablissement: $('#form_Etablissement').val(), userStatus: '{{ userStatus }}'},
+                    data: {month: $('#form_Month').val(), year: $('#form_Year').val(), manager: $('#form_Manager').val(), userStatus: '{{ userStatus }}'},
                     success: function (response) {
                         var items = JSON.parse(response); // On récupére la liste des pointages sous forme d'objet.
                         // Pour chaque pointages...
@@ -2372,7 +2372,7 @@
             var inOneHour = new Date(new Date().getTime() + 60 * 60 * 1000);
 
             // Lorqu'on change la date ou l'établissement...
-            $('#form_Month, #form_Year, #form_Etablissement').change(function () {
+            $('#form_Month, #form_Year, #form_Manager').change(function () {
                 // Si il existe un cookie pour le sélécteur...
                 if (Cookies.get($(this).attr('id')) !== undefined) {
                     Cookies.remove($(this).attr('id')); // On le supprime
@@ -2384,7 +2384,7 @@
         // Récupére les valeurs des cookies des sélécteurs.
         function getSavedDateAndAgency() {
             // Initialisation de la liste des sélécteurs.
-            var selectors = ['form_Month', 'form_Year', 'form_Etablissement'];
+            var selectors = ['form_Month', 'form_Year', 'form_Manager'];
 
             // Pour chaques sélécteurs...
             $.each(selectors, function (index, value) {

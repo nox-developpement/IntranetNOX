@@ -152,20 +152,20 @@ class PointageController extends Controller {
                 $users = $this->getUsersByStatus($userStatus, $securityName);
             }
 
-            // On récupére les agences des collaborateurs qui dépendent de l'assistant d'agence ou toutes les agence si ROLE_RH.
-            $etablissements = array();
+            // On récupére les DA/Manager des collaborateurs qui dépendent de l'assistant d'agence ou tous les DA/Manager si ROLE_RH.
+            $manager = array();
             if ($userStatus == 'AA') {
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
-                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
                 }
-            } {
+            } else {
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
-                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
                 }
             }
 
             // Trie du tableau des établissements.
-            asort($etablissements);
+            asort($manager);
 
             // Génére le formulaire de séléction du pointage par établissement, mois et année.
             $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
@@ -178,9 +178,9 @@ class PointageController extends Controller {
                         'choices' => array_combine(range(date("Y") - 50, date("Y") + 50), range(date("Y") - 50, date("Y") + 50)),
                         'data' => $this->getMonthAndYear()['year']
                     ))
-                    ->add('Etablissement', ChoiceType::class, array(
-                        'placeholder' => 'Choisir un établissement',
-                        'choices' => $etablissements
+                    ->add('Manager', ChoiceType::class, array(
+                        'placeholder' => 'Choisir un manager',
+                        'choices' => $manager
                     ))
                     ->getForm();
 
@@ -266,32 +266,32 @@ class PointageController extends Controller {
         $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
         // On récupére la liste des établissements qui dépendent de l'utilisateur.
-        $etablissements = array();
+        $manager = array();
         switch ($userStatus) {
             case 'AA':
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
-                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
                 }
                 break;
             case 'DAManager':
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
-                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
                 }
                 break;
             case 'roleRH':
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
-                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
                 }
                 break;
             case 'Final':
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
-                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
                 }
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
-                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
                 }
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
-                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
                 }
                 break;
         }
@@ -306,9 +306,9 @@ class PointageController extends Controller {
                     'choices' => $year,
                     'data' => $this->getMonthAndYear()['year']
                 ))
-                ->add('Etablissement', ChoiceType::class, array(
-                    'placeholder' => 'Choisir un établissement',
-                    'choices' => $etablissements
+                ->add('Manager', ChoiceType::class, array(
+                    'placeholder' => 'Choisir un manager',
+                    'choices' => $manager
                 ))
                 ->getForm();
 
@@ -321,7 +321,7 @@ class PointageController extends Controller {
                 ->add('year', HiddenType::class, array(
                     'data' => $this->getMonthAndYear()['year']
                 ))
-                ->add('etablissement', HiddenType::class)
+                ->add('manager', HiddenType::class)
                 ->add('collaborateursSansPointage', HiddenType::class)
                 ->getForm();
 

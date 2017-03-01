@@ -36,9 +36,9 @@
                 {{ form_widget(form.Year) }}
             </div><!--
             --><div style="width: 100%; margin-top: 1%;">
-                {{ form_label(form.Etablissement, 'Etablissement:') }}
-                {{ form_errors(form.Etablissement) }}
-                {{ form_widget(form.Etablissement) }}
+                {{ form_label(form.Manager, 'Manager:') }}
+                {{ form_errors(form.Manager) }}
+                {{ form_widget(form.Manager) }}
             </div>
         </fieldset>
         {{ form_end(form) }}  
@@ -112,10 +112,10 @@
             // Affiche/cache le tableau et le message d'absence de pointage en fonction du nombre de pointage.
             pointageHide();
             // Execute la fonction de récupération des pointages lorsque qu'un(e) mois/année est sélectionné(e).
-            $('#form_Month, #form_Year, #form_Etablissement').change(function () {
+            $('#form_Month, #form_Year, #form_Manager').change(function () {
                 $('#formValidationRefus_month').val($('#form_Month').val());
                 $('#formValidationRefus_year').val($('#form_Year').val());
-                $('#formValidationRefus_etablissement').val($('#form_Etablissement').val());
+                $('#formValidationRefus_manager').val($('#form_Manager').val());
                 ajaxGetPointagesCompilationByMonthYearEtablissementValidationStep();
             });
             // Affiche un message de confirmation lors du clique sur le bouton de compilation.
@@ -155,7 +155,7 @@
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_get_compilation_by_month_year_etablissement_validationstep') }}',
-                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}', etablissement: $('#form_Etablissement').val(), validationStep: '{{ validationStep }}'},
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}', manager: $('#form_Manager').val(), validationStep: '{{ validationStep }}'},
                 success: function (response) {
                     // Conversion de la chaine JSON en Objet.
                     var responseObject = JSON.parse(response);
@@ -780,7 +780,7 @@
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_compilation_ajax_get_status') }}',
-                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), etablissement: $('#form_Etablissement').val(), userStatus: '{{ userStatus }}'},
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), manager: $('#form_Manager').val(), userStatus: '{{ userStatus }}'},
                 success: function (response) {
                     var width = null;
                     var cercleNb = null;
