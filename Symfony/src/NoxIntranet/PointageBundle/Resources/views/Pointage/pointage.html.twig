@@ -12,6 +12,8 @@
 
     <div id='pointageSavingNotification' style='display: none; position: fixed; z-index: 500; background-color: rgba(41,154,11, 0.7); border: 1px outset white; border-radius: 10px; padding: 0.5%;'><p style='display: inline-block; margin: 0; font-size: 0.8vw; color: white;'>Sauvegarde en cours <img src='{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}' style='vertical-align: middle; height: 2em;'></p></div>
 
+    <div id="pointageAlert"></div>
+
     <div id="pointageStatusDiv">
         <div id="pointageStatusLabelGeneralContainer">
             <div class='pointageStatusLabelContainer'><p class='pointageStatusLabel'>Collaborateur</p></div><!--
@@ -322,7 +324,6 @@
             displayMonthlyTotalPrimesPanier();
             displayTotalAbscences();
             displayTotalTitreTransport();
-            //checkAbscencesTitreRepas();
             onePerkOnly();
             getGXAffaires();
             showAffaireName();
@@ -339,9 +340,30 @@
             ajaxSaveData();
 
             // Affiche une fenêtre de confirmation lors de la validation du pointage.
-            $('#form_Valider').click(function () {
+            $('#form_Valider').click(function (event) {
+                //event.preventDefault();
+
                 // Si un montant de titre de transport est renseigné sans justificatif...
                 if ($('#titreTransportMontant').text() !== '' && $('#deleteJustificatifButton').css('display') === 'none') {
+
+                    /*$("#pointageAlert").dialog({
+                     resizable: false,
+                     height: "auto",
+                     width: "auto",
+                     modal: true,
+                     title: "Pas de justificatif de transport",
+                     text: "Vous avez indiqué un montant de titre de transport sans ajouter de justificatif, voulez-vous valider la feuille de pointage quand même ?",
+                     buttons: {
+                     "Valider": function () {
+                     $(this).dialog("close");
+                     $("form[name='form']").submit();
+                     },
+                     "Cancel": function () {
+                     $(this).dialog("close");
+                     }
+                     }
+                     });*/
+
                     if (confirm('Vous avez indiqué un montant de titre de transport sans ajouter de justificatif, voulez-vous valider la feuille de pointage quand même ?')) {
                         return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
                     } else {
@@ -753,34 +775,6 @@
             });
         }
 
-        // Met à zéro et désactive le selecteur de titre repas lorsque le nombre d'abscence dépasse 0.
-        /*function checkAbscencesTitreRepas() {
-            $('#tableFeuillePointage').on('change', '.abscenceMatinSelector select', function () {
-                if ($(this).val() !== '' || $(this).parent('.abscenceMatinSelector').siblings('.abscenceAMSelector').find('select').val() !== '') {
-                    $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').val('');
-                    $(this).parent('.abscenceMatinSelector').siblings('.forfaitsDeplacementMontant').text('');
-                    $(this).parent('.abscenceMatinSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
-                    $(this).parent('.abscenceMatinSelector').siblings('.primesPanierNumber').text('');
-                    $(this).parent('.abscenceMatinSelector').siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
-                } else if ($(this).parent('td').css('background-color') !== 'rgb(166, 166, 166)') {
-                    $(this).parent('.abscenceMatinSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'white');
-                    $(this).parent('.abscenceMatinSelector').siblings('.primesPanierNumber').css('background-color', 'white');
-                }
-            });
-            $('#tableFeuillePointage').on('change', '.abscenceAMSelector select', function () {
-                if ($(this).val() !== '' || $(this).parent('.abscenceAMSelector').siblings('.abscenceMatinSelector').find('select').val() !== '') {
-                    $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').val('');
-                    $(this).parent('.abscenceAMSelector').siblings('.forfaitsDeplacementMontant').text('');
-                    $(this).parent('.abscenceAMSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
-                    $(this).parent('.abscenceAMSelector').siblings('.primesPanierNumber').text('');
-                    $(this).parent('.abscenceAMSelector').siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
-                } else if ($(this).parent('td').css('background-color') !== 'rgb(166, 166, 166)') {
-                    $(this).parent('.abscenceAMSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'white');
-                    $(this).parent('.abscenceAMSelector').siblings('.primesPanierNumber').css('background-color', 'white');
-                }
-            });
-        }*/
-
         // Calcule et affiche le montant total du forfaits de déplacement pour le mois courant.
         function displayMonthlyTotalForfaitsDeplacement() {
             $('#tableFeuillePointage').on('blur keyup paste input', '.forfaitsDeplacementMontant', function () {
@@ -974,7 +968,7 @@
             })();
 
             // Détecte l'édition de texte des cellules et sauvegarde les changement en base de donnée.
-            $('#tableFeuillePointage').on('keyup paste', 'td[contenteditable=true]', function () {
+            $('#tableFeuillePointage, #tableFeuillePointageTypesAbscencesDivContainer').on('keyup paste', 'td[contenteditable=true]', function () {
                 // Permet d'ajouter un temps d'attente avant de lancer la sauvegarde.
                 delay(function () {
                     var data = {};
