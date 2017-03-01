@@ -235,7 +235,7 @@ class PointageController extends Controller {
     public function pointagesCompilationAction(Request $request, $validationStep) {
 
         // Inisialisation des varibables de fonction.
-        $securityName = mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8');
+        $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
         $em = $this->getDoctrine()->getManager();
 
         // On récupére la liste des utilisateurs autorisés en fonction de l'étape de validation de la compilation.
@@ -812,6 +812,16 @@ class PointageController extends Controller {
         $modulationArray = json_decode($pointage->getMods(), true);
 
         return $this->render('NoxIntranetPointageBundle:Pointage:modulationDetails.html.twig', array('modulationArray' => $modulationArray, 'month' => $month, 'year' => $year, 'user' => $userEntity, 'readonly' => $readonly));
+    }
+
+    private function wd_remove_accents($str, $charset = 'utf-8') {
+        $str = htmlentities($str, ENT_NOQUOTES, $charset);
+
+        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
+        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
+        $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
+
+        return $str;
     }
 
 }
