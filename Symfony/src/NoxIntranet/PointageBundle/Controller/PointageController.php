@@ -331,7 +331,7 @@ class PointageController extends Controller {
             // Lors du clique sur le bouton de validation.
             if ($formValidationRefus->get('Compilation')->isClicked()) {
                 // On récupére les pointages à inclure dans la compilation en fonction du status de l'utilisateur.
-                $pointagesCompilation = $this->getPointagesACompile($this->getUsersByStatus($userStatus, $securityName), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('etablissement')->getData(), $validationStep, $formValidationRefus->get('collaborateursSansPointage')->getData());
+                $pointagesCompilation = $this->getPointagesACompile($this->getUsersByStatus($userStatus, $securityName), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('manager')->getData(), $validationStep, $formValidationRefus->get('collaborateursSansPointage')->getData());
                 // Initialisation de la liste des utilisateurs à qui envoyer un mail les prévenants qu'une compilation est disponible.
                 $mailingListUser = array();
 
@@ -366,7 +366,7 @@ class PointageController extends Controller {
                 );
                 $this->get('session')->getFlashBag()->add('notice', $flashBagMessages[$validationStep]);
 
-                $this->sendValidationMail($mailingListUser, $securityName, $validationStep, $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('etablissement')->getData(), $formValidationRefus->get('collaborateursSansPointage')->getData());
+                $this->sendValidationMail($mailingListUser, $securityName, $validationStep, $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('manager')->getData(), $formValidationRefus->get('collaborateursSansPointage')->getData());
                 // On redirige vers la compilation des pointages.
                 return $this->redirectToRoute('nox_intranet_pointages_compilation', array('validationStep' => $validationStep));
             }
@@ -380,7 +380,7 @@ class PointageController extends Controller {
     }
 
     // Retourne les pointages prêt à être compilés.
-    private function getPointagesACompile($users, $month, $year, $etablissement, $validationStep) {
+    private function getPointagesACompile($users, $month, $year, $manager, $validationStep) {
         $em = $this->getDoctrine()->getManager(); // Initialisation de l'entityManager.
         $status = array('AA' => 2, 'DAManager' => 3, 'RH' => 4); // Initialisation des status des pointages en fonction de l'étape de validation de la compilation.
         // On récupére la liste des pointages correspondant au mois, à l'année et au status définie.
@@ -389,8 +389,8 @@ class PointageController extends Controller {
         $pointages = array();
         foreach ($pointagesValides as $pointage) {
             $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser()); // On récupére l'entité hiérarchique du collaborateur du pointage.
-            // Si le collaborateur dépend de l'utilisateur, qu'il est défini dans la hiérarchie et qu'il fait partie de l'établissement.
-            if (in_array($pointage->getUser(), array_keys($users)) && !empty($userHierarchy) && $userHierarchy->getEtablissement() === $etablissement) {
+            // Si le collaborateur dépend de l'utilisateur, qu'il est défini dans la hiérarchie et qu'il à la bon manager.
+            if (in_array($pointage->getUser(), array_keys($users)) && !empty($userHierarchy) && $userHierarchy->getDA() === $manager) {
                 $pointages[] = $pointage; // On ajoute le pointage aux pointages à compiler.
             }
         }
@@ -456,7 +456,7 @@ class PointageController extends Controller {
     }
 
     // Envoie un mail au N+1 pour lui signaler qu'une compilation est disponible à la validation.
-    private function sendValidationMail($recipients, $sender, $validationStep, $month, $year, $etablissement, $collaborateursSansPointage) {
+    private function sendValidationMail($recipients, $sender, $validationStep, $month, $year, $manager, $collaborateursSansPointage) {
         // Si l'étape de validation ne correspond pas à une étape de validation final.
         if ($validationStep !== 'RH' && $validationStep !== 'Final') {
             $em = $this->getDoctrine()->getManager();
@@ -479,7 +479,7 @@ class PointageController extends Controller {
                             ->setTo($recipientEmail)
                             ->setBody(
                             $this->renderView(
-                                    'Emails/Pointages/confirmationCompilation.html.twig', array('recipient' => $recipientEntity, 'sender' => $sender, 'redirectionUrl' => $redirectionUrl, 'month' => $month, 'year' => $year, 'etablissement' => $etablissement, 'collaborateursSansPointage' => json_decode($collaborateursSansPointage))
+                                    'Emails/Pointages/confirmationCompilation.html.twig', array('recipient' => $recipientEntity, 'sender' => $sender, 'redirectionUrl' => $redirectionUrl, 'month' => $month, 'year' => $year, 'manager' => $manager, 'collaborateursSansPointage' => json_decode($collaborateursSansPointage))
                             ), 'text/html'
                     );
                     $this->get('mailer')->send($message);
@@ -675,7 +675,7 @@ class PointageController extends Controller {
     }
 
     // Lance le téléchargement d'un fichier ZIP contenant les justificatifs des pointages d'une compilation.
-    public function downloadJustificatifZipAction($fileName, $etablissement, $month, $year) {
+    public function downloadJustificatifZipAction($fileName, $manager, $month, $year) {
         // On récupére la racine du serveur web.
         $root = $this->get('kernel')->getRootDir() . '\..\web\\';
 
@@ -692,7 +692,7 @@ class PointageController extends Controller {
         $monthName = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
 
         // Génération du nom du fichier téléchargé.
-        $downloadFileName = "Justificatifs compilation [" . $monthName[$month] . " " . $year . "] [" . $etablissement . "].zip";
+        $downloadFileName = "Justificatifs compilation [" . $monthName[$month] . " " . $year . "] [" . $manager . "].zip";
 
         // Initialisation de la réponse.
         $response = new Response($file, 200);

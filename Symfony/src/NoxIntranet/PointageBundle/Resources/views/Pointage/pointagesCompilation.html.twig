@@ -12,6 +12,8 @@
 
     <div id='pointageSavingNotification' style='display: none; position: fixed; z-index: 500; background-color: rgba(41,154,11, 0.7); border: 1px outset white; border-radius: 10px; padding: 0.5%;'><p style='display: inline-block; margin: 0; font-size: 0.8vw; color: white;'>Sauvegarde en cours <img src='{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}' style='vertical-align: middle; height: 2em;'></p></div>
 
+    <div id="pointageAlert"><div id="pointageAlertText"></div></div>
+
     <p id="validationStepNavigator" style="width: 70%; margin: auto; margin-top: 0; text-align: center;">
         <a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}">Assistant(e) agence: Validation pointages</a> |
         <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'AA'}) }}">Assistant(e)s agence - Correction/Validation compilation</a> |
@@ -109,19 +111,48 @@
     <script>
         $(window).load(function () {
             IECheck();
+
             // Affiche/cache le tableau et le message d'absence de pointage en fonction du nombre de pointage.
             pointageHide();
+
             // Execute la fonction de récupération des pointages lorsque qu'un(e) mois/année est sélectionné(e).
             $('#form_Month, #form_Year, #form_Manager').change(function () {
                 $('#formValidationRefus_month').val($('#form_Month').val());
                 $('#formValidationRefus_year').val($('#form_Year').val());
                 $('#formValidationRefus_manager').val($('#form_Manager').val());
-                ajaxGetPointagesCompilationByMonthYearEtablissementValidationStep();
+                ajaxGetPointagesCompilationByMonthYearManagerValidationStep();
             });
+
             // Affiche un message de confirmation lors du clique sur le bouton de compilation.
-            $('#form_Compilation').click(function () {
-                return(confirm('Confirmer la validation de la compilation ? Celle-ci ne sera plus modifiable.'));
+            $('#formValidationRefus_Compilation').click(function (event) {
+                event.preventDefault();
+                // On affiche une fenêtre indiquant qu'il n'y a pas de justificatif de transport.
+                $("#pointageAlertText").text('Confirmer la validation de la compilation ? Celle-ci ne sera plus modifiable.');
+                $("#pointageAlert").dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: "30%",
+                    modal: true,
+                    draggable: false,
+                    dialogClass: "pointage-alert-content-class",
+                    title: "Confirmer la validation ?",
+                    buttons: {
+                        // Si l'utilisateur valide...
+                        "Valider": function () {
+                            // On affiche une fenêtre de confirmation de validation.
+                            $(this).dialog("close");
+                            $("#formValidationRefus").submit();
+                        },
+                        // Si l'utilisateur annule, on ferme la fenêtre.
+                        "Annuler": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+                $('.ui-dialog :button').blur();
+                //return(confirm('Confirmer la validation de la compilation ? Celle-ci ne sera plus modifiable.'));
             });
+
             absencesToggle();
             ajaxSaveCompilationData();
             setSavedDateAndAgency();
@@ -149,12 +180,12 @@
         });
 
         // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année, de l'assistante d'agence et de l'établissement.
-        function ajaxGetPointagesCompilationByMonthYearEtablissementValidationStep() {
+        function ajaxGetPointagesCompilationByMonthYearManagerValidationStep() {
             $('#compilationPointagesTable tr:nth-child(n+2)').remove();
 
             $.ajax({
                 type: 'POST',
-                url: '{{ path('nox_intranet_pointage_ajax_get_compilation_by_month_year_etablissement_validationstep') }}',
+                url: '{{ path('nox_intranet_pointage_ajax_get_compilation_by_month_year_manager_validationstep') }}',
                 data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}', manager: $('#form_Manager').val(), validationStep: '{{ validationStep }}'},
                 success: function (response) {
                     // Conversion de la chaine JSON en Objet.
@@ -201,11 +232,11 @@
 
                             newHtmlContent += "<tr class='pointageCompile' username='" + data[index].user + "'>";
                             newHtmlContent += "<td>" + data[index].lastname + ' ' + data[index].firstname + "</td>";
-                            newHtmlContent += "<td><span>" + mods.toFixed(2) + "</span><a href='#' onclick=\"openDetailsPopup('" + data[index].detailsModsUrl + "');\" title='Détails' style='margin-left: 1em; text-decoration: underline;'>Détails</a></td>";
-                            newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titresRepas' step='1' min='0' value='" + data[index].titresRepas + "'></td>";
-                            newHtmlContent += "<td><span>" + forfaitsDeplacement.toFixed(2) + "</span><a href='#' onclick=\"openDetailsPopup('" + data[index].detailsForfaitDeplacementsUrl + "');\" title='Détails' style='margin-left: 1em; text-decoration: underline;'>Détails</a></td>";
-                            newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='primesPanier' min='0' step='0.01' value='" + data[index].primesPanier + "'></td>";
-                            newHtmlContent += "<td><input style='text-align: center; max-width: 30%;' type='number' name='titreTransport' min='0' step='0.01' value='" + data[index].titreTransport + "'></td>";
+                            newHtmlContent += "<td><span>" + mods.toFixed(2) + "</span><br /><a href='#' onclick=\"openDetailsPopup('" + data[index].detailsModsUrl + "');\" title='Détails'>Détails</a></td>";
+                            newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='titresRepas' step='1' min='0' value='" + data[index].titresRepas + "'></td>";
+                            newHtmlContent += "<td><span>" + forfaitsDeplacement.toFixed(2) + "</span><br /><a href='#' onclick=\"openDetailsPopup('" + data[index].detailsForfaitDeplacementsUrl + "');\" title='Détails'>Détails</a></td>";
+                            newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='primesPanier' min='0' step='0.01' value='" + data[index].primesPanier + "'></td>";
+                            newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='titreTransport' min='0' step='0.01' value='" + data[index].titreTransport + "'></td>";
                             newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><div style='display: inline-block; vertical-align: middle;'>" + (nbAbsencesMatin + nbAbsencesAM) / 2 + "</div><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
                             newHtmlContent += "</tr>";
                             newHtmlContent += "<tr>";
@@ -690,7 +721,7 @@
 
                         $('#compilationPointagesTable').append(newHtmlContent);
                         absencesToggle();
-                        ajaxSaveCompilationData();
+                        //ajaxSaveCompilationData();
                         pointageShow();
                     } else {
                         pointageHide();
@@ -717,22 +748,30 @@
         }
 
         // Sauvegarde les modification sur les pointages en base de données.
-        var ajaxComment;
-        var ajaxMainInfo;
         function ajaxSaveCompilationData() {
+            var delay = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
             // Pour les données principales.
-            $('#compilationPointagesTable input').on('blur keyup paste input', function () {
-                if (typeof ajaxMainInfo !== 'undefined') {
-                    ajaxMainInfo.abort();
-                }
-                ajaxMainInfo = $.ajax({
-                    type: 'POST',
-                    url: '{{ path('nox_intranet_ajax_save_compilation_data') }}',
-                    data: {username: $(this).parent('td').parent('tr').attr('username'), month: $('#form_Month').val(), year: $('#form_Year').val(), input: $(this).attr('name'), value: $(this).val()}
-                });
+            $('#contenu').on('keyup paste change', '#compilationPointagesTable input', function () {
+                var input = $(this);
+
+                delay(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ path('nox_intranet_ajax_save_compilation_data') }}',
+                        data: {username: input.parent('td').parent('tr').attr('username'), month: $('#form_Month').val(), year: $('#form_Year').val(), input: input.attr('name'), value: input.val()}
+                    });
+                }, 500);
             });
+
             // Pour les types d'abscences.
-            $('.compilationAbscenceMatin select, .compilationAbsenceAM select').change(function () {
+            $('#contenu').on('change', '#compilationPointagesTable .compilationAbscenceMatin select, #compilationPointagesTable .compilationAbsenceAM select', function () {
                 var username = $(this).parents('tr').prev('.pointageCompile').attr('username');
                 var date = $(this).parent('td').parent('tr').attr('date');
                 var data = $(this).parent('td').attr('data');
@@ -742,19 +781,21 @@
                     data: {username: username, month: $('#form_Month').val(), year: $('#form_Year').val(), date: date, data: data, value: $(this).val()}
                 });
             });
+
             // Pour les commentaires d'abscences.
-            $('.compilationAbsenceCommentaire').on('blur keyup paste input', function () {
+            $('#contenu').on('keyup paste', '#compilationPointagesTable .compilationAbsenceCommentaire', function () {
                 var username = $(this).parents('tr').prev('.pointageCompile').attr('username');
                 var date = $(this).parent('tr').attr('date');
                 var data = $(this).attr('data');
-                if (typeof ajaxComment !== 'undefined') {
-                    ajaxComment.abort();
-                }
-                ajaxComment = $.ajax({
-                    type: 'POST',
-                    url: '{{ path('nox_intranet_ajax_save_compilation_absences') }}',
-                    data: {username: username, month: $('#form_Month').val(), year: $('#form_Year').val(), date: date, data: data, value: $(this).text()}
-                });
+                var value = $(this).text();
+
+                delay(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ path('nox_intranet_ajax_save_compilation_absences') }}',
+                        data: {username: username, month: $('#form_Month').val(), year: $('#form_Year').val(), date: date, data: data, value: value}
+                    });
+                }, 1500);
             });
         }
 
@@ -870,7 +911,7 @@
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_get_assistante_agence_unvalidate') }}',
-                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), etablissement: $('#form_Etablissement').val(), userStatus: '{{ userStatus }}'},
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), manager: $('#form_Manager').val(), userStatus: '{{ userStatus }}'},
                 success: function (response) {
                     var pointages = JSON.parse(response); // On convertie le JSON en object Javascript.
                     $('#pointageEnAttenteValidationAA').text(Object.keys(pointages['pointageEnAttenteValidationAA']).length); // On remplace le nombre du compteur de pointage non validé par un assistant d'agence.
@@ -887,7 +928,7 @@
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_generate_excel_recap') }}',
-                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}', etablissement: $('#form_Etablissement').val()},
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}', manager: $('#form_Manager').val()},
                 success: function (response) {
                     window.location = response; // Redirige vers l'URL du fichier à télécharger.
                 }
@@ -900,7 +941,7 @@
             var inOneHour = new Date(new Date().getTime() + 60 * 60 * 1000);
 
             // Lorqu'on change la date ou l'établissement...
-            $('#form_Month, #form_Year, #form_Etablissement').change(function () {
+            $('#form_Month, #form_Year, #form_Manager').change(function () {
                 // Si il existe un cookie pour le sélécteur...
                 if (Cookies.get($(this).attr('id')) !== undefined) {
                     Cookies.remove($(this).attr('id')); // On le supprime
@@ -912,7 +953,7 @@
         // Récupére les valeurs des cookies des sélécteurs.
         function getSavedDateAndAgency() {
             // Initialisation de la liste des sélécteurs.
-            var selectors = ['form_Month', 'form_Year', 'form_Etablissement'];
+            var selectors = ['form_Month', 'form_Year', 'form_Manager'];
 
             // Pour chaques sélécteurs...
             $.each(selectors, function (index, value) {
@@ -935,7 +976,7 @@
             });
 
             // On génére un objet contenant le mois, l'année et les usernames de la compilation.
-            var justificatifsZipInfo = {'month': $('#form_Month').val(), 'year': $('#form_Year').val(), 'etablissement': $('#form_Etablissement').val(), 'usernames': collaborateursUsernames};
+            var justificatifsZipInfo = {'month': $('#form_Month').val(), 'year': $('#form_Year').val(), 'manager': $('#form_Manager').val(), 'usernames': collaborateursUsernames};
 
             // Rêquette Ajax qui lance la génération du fichier ZIP.
             $.ajax({

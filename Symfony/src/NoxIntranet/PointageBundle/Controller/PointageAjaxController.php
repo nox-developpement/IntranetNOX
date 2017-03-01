@@ -366,7 +366,7 @@ class PointageAjaxController extends Controller {
             $month = $request->get('month');
             $year = $request->get('year');
             $userStatus = $request->get('userStatus');
-            $etablissement = $request->get('etablissement');
+            $manager = $request->get('manager');
 
             // On récupére la liste des collaborateurs assignés à l'utilisateur en fonction de son grade hiérarchique.
             $users = $this->getUsersByStatus($userStatus, $securityName);
@@ -374,7 +374,7 @@ class PointageAjaxController extends Controller {
             // On supprime les collaborateurs qui font pas partie de l'établissement désigné.
             foreach ($users as $username => $name) {
                 $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($username);
-                if (!(!empty($userHierarchy) && $userHierarchy->getEtablissement() === $etablissement)) {
+                if (!(!empty($userHierarchy) && $userHierarchy->getDA() === $manager)) {
                     unset($users[$username]);
                 }
             }
@@ -388,7 +388,7 @@ class PointageAjaxController extends Controller {
                 // On récupére l'entité hiérarchique du collaborateur du pointage.
                 $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
                 // Si le collaborateur est définie dans la hiérarchie, qu'il fait partie de l'établissement désigné et qu'il dépend de l'utilisateur.
-                if (!empty($userHierarchy) && $userHierarchy->getEtablissement() === $etablissement && in_array($pointage->getUser(), array_keys($users))) {
+                if (!empty($userHierarchy) && $userHierarchy->getDA() === $manager && in_array($pointage->getUser(), array_keys($users))) {
                     // Si le pointage a été validé par le collaborateur mais pas encore par l'assistant d'agence.
                     if ($pointage->getStatus() === '1') {
                         $pointageEnAttenteValidationAA[] = $pointage; // On l'ajout au tableau des pointages en attente de validation par l'assistant d'agence.
@@ -556,12 +556,12 @@ class PointageAjaxController extends Controller {
             $month = $request->get('month');
             $year = $request->get('year');
             $userStatus = $request->get('userStatus');
-            $etablissement = $request->get('etablissement');
+            $manager = $request->get('manager');
             $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
             $em = $this->getDoctrine()->getManager();
 
             // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides des collaborateurs associés à l'utilisateur.
-            $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName), $month, $year, $etablissement, 'Final');
+            $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName), $month, $year, $manager, 'Final');
 
             // On vide le dossier avant l'enregistrement.
             foreach (glob($root . "/../web/Pointage/FichierRecap/*") as $file) { // iterate files
@@ -624,8 +624,9 @@ class PointageAjaxController extends Controller {
 
                 // Initialisation d'un tableau de concordance chiffre => string pour les mois.
                 $monthString = array(1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novemvre', 12 => 'Décembre');
-                $filename = str_replace('/', '_', 'Récapitulatif compilation pointages - ' . $securityName . ' - ' . $etablissement . ' - ' . $monthString[$month] . ' ' . $year . '.xlsx'); // On génére le nom de fichier.
+                $filename = str_replace('/', '_', 'Récapitulatif compilation pointages - ' . $securityName . ' - ' . $manager . ' - ' . $monthString[$month] . ' ' . $year . '.xlsx'); // On génére le nom de fichier.
                 $folder = $root . "/../web/Pointage/FichierRecap/"; // On récupére le dossier ou sera enregistré le fichier.
+                //
                 // On sauvegarde le fichier.
                 $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
                 $objWriter->save($folder . utf8_decode($filename)); // utf8_decode est utilisé pour encoder les accents sur le nom de fichier Windows.   
@@ -684,7 +685,7 @@ class PointageAjaxController extends Controller {
     }
 
     // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
-    public function ajaxGetPointagesCompilationByMonthYearEtablissementAction(Request $request) {
+    public function ajaxGetPointagesCompilationByMonthYearManagerAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $month = $request->get('month');
             $year = $request->get('year');
@@ -1113,7 +1114,7 @@ class PointageAjaxController extends Controller {
             // On génére le lien de téléchargement avec le nom du fichier en paramètre .
             $downloadUrl = $this->generateUrl('nox_intranet_pointage_download_justificatif_zip', array(
                 'fileName' => pathinfo($newZipFile, PATHINFO_BASENAME),
-                'etablissement' => $justificatifsZipInfoArray['etablissement'],
+                'manager' => $justificatifsZipInfoArray['manager'],
                 'month' => $justificatifsZipInfoArray['month'],
                 'year' => $justificatifsZipInfoArray['year']
             ));

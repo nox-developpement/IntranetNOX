@@ -71,7 +71,7 @@ footer {
     background-color: rgb(31,78,121);
     text-align: center;
     box-shadow: 0px -10px 10px white;
-    z-index: 1000;
+    z-index: 20;
 }
 
 footer div {
@@ -3155,9 +3155,11 @@ tr {
     width: 70%;
     margin: auto;   
     margin-bottom: 5%;
+    overflow: auto;
 }
 
 #compilationPointagesTable {
+    table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
 }
@@ -3179,6 +3181,12 @@ tr {
     text-align: center;
     padding-left: 0.5em;
     padding-right: 0.5em;
+}
+
+#compilationPointagesTable a[title='Détails'], #compilationPointagesTable a[title='Détails']:visited {
+    color: #1F4E79;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 #compilationPointages form {
@@ -4348,4 +4356,20 @@ form[name='formNewSearch'] .textarea[contenteditable=true]:empty:before {
 
 #DRHPointageList li a:hover {
     text-decoration: underline;
+}
+
+.pointage-alert-content-class, .pointage-alert-content-class .ui-widget-content {
+    background: white !important;
+}
+
+.pointage-alert-content-class .ui-dialog-content {
+    color: #1F4E79 !important;
+}
+
+.pointage-alert-content-class .ui-widget-header {
+    background: linear-gradient(to bottom,  #336fa0 0%,#052775 100%) !important;
+}
+
+.pointage-alert-content-class .ui-button {
+    background: linear-gradient(to bottom,  #336fa0 0%,#052775 100%) !important;
 }
