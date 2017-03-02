@@ -549,7 +549,7 @@ class PointageController extends Controller {
             $userEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($username);
 
             // On récupére le nom canonique du collaborateur qui cherche a accéder au pointage.
-            $securityName = mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8');
+            $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
 
             // Si il n'existe pas de collaborateur associé au login passé en paramêtre...
             if (empty($userEntity)) {

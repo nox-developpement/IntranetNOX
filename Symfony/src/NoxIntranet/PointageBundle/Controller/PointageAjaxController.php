@@ -362,7 +362,7 @@ class PointageAjaxController extends Controller {
         if ($request->isXmlHttpRequest()) {
             // Initialisation des variables.
             $em = $this->getDoctrine()->getManager();
-            $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+            $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
             $month = $request->get('month');
             $year = $request->get('year');
             $userStatus = $request->get('userStatus');
@@ -477,7 +477,7 @@ class PointageAjaxController extends Controller {
     // Retourne le status du pointage en fonction du mois et de l'année.
     public function ajaxGetPointageCompilationStatusAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
-            $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+            $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
             $em = $this->getDoctrine()->getManager();
 
             // Récupére le mois et l'année spécifiés par la requête.
@@ -557,7 +557,7 @@ class PointageAjaxController extends Controller {
             $year = $request->get('year');
             $userStatus = $request->get('userStatus');
             $manager = $request->get('manager');
-            $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+            $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
             $em = $this->getDoctrine()->getManager();
 
             // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides des collaborateurs associés à l'utilisateur.
@@ -696,7 +696,7 @@ class PointageAjaxController extends Controller {
             $em = $this->getDoctrine()->getManager();
 
             // Inisialisation des varibables de fonction.
-            $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+            $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
 
             // On récupére les pointages à retourner en fonction du status de l'utilisateur.
             $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName), $month, $year, $manager, $validationStep);
@@ -1296,7 +1296,7 @@ class PointageAjaxController extends Controller {
             foreach ($usersHierachy as $hierarchy) {
                 $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
             }
-            
+
             // Trie du tableau de retour.
             sort($managers);
 
