@@ -27,17 +27,22 @@
         {{ form_errors(form) }}
         <fieldset>
             <legend>Compilation des pointages</legend>
-            <div>
+            {% if is_granted('ROLE_RH') %}
+                <div style="width: 100%; margin-bottom: 0.5em;">
+                    <label><input type="checkbox" id="RHMode" name="RHMode" style="vertical-align: bottom;" onchange="gestionPointageSetRHMode($(this));">Activer le mode DRH</label>
+                </div><!--
+            {% endif %}
+            --><div style="width: 50%; margin-bottom: 0.5em;">
                 {{ form_label(form.Month, 'Mois:') }}
                 {{ form_errors(form.Month) }}
                 {{ form_widget(form.Month) }}
             </div><!--
-            --><div>
+            --><div style="width: 50%; margin-bottom: 0.5em;">
                 {{ form_label(form.Year, 'Année:') }}
                 {{ form_errors(form.Year) }}
                 {{ form_widget(form.Year) }}
             </div><!--
-            --><div style="width: 100%; margin-top: 1%;">
+            --><div style="width: 100%; margin-bottom: 0.5em;">
                 {{ form_label(form.Manager, 'Manager:') }}
                 {{ form_errors(form.Manager) }}
                 {{ form_widget(form.Manager) }}
@@ -1006,6 +1011,35 @@
             };
 
             return false;
+        }
+
+        // Met à jours la liste des managers en fonction du mode RH.
+        function gestionPointageSetRHMode(checkbox) {
+            console.log(checkbox.is(':checked') ? 'Mode RH activé.' : 'Mode RH désactivé.');
+            $.ajax({
+                url: '{{ path('nox_intranet_pointage_ajax_gestion_pointages_rh_mode') }}',
+                type: 'POST',
+                data: {rhMode: $('#RHMode').is(':checked')},
+                success: function (managers) {
+                    // On récupère la liste des managers sous forme de tableau.
+                    var managersArray = JSON.parse(managers);
+
+                    // On supprime les choix de manager déjà existant.
+                    $('#form_Manager option').remove();
+
+                    // On ajout le choix par défaut.
+                    $('#form_Manager').append("<option value='' selected='selected'>Choisir un manager</option>");
+
+                    // Pour chaques managers de la liste...
+                    $.each(managersArray, function (index, value) {
+                        // On ajoute un choix au sélécteur de manager.
+                        $('#form_Manager').append("<option value='" + value + "'>" + value + "</option>");
+                    });
+
+                    // On déclanche un changement sur le sélécteur de manager pour mettre à jours l'affichage.
+                    $('#form_Manager').trigger('change');
+                }
+            });
         }
     </script>
 

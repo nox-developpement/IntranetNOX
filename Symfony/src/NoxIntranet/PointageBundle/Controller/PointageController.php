@@ -253,10 +253,20 @@ class PointageController extends Controller {
         // Initialise le titre afficher sur le template.
         $templateTitle = array('AA' => 'Assistant(e) agence - Correction/Validation compilation', 'DAManager' => 'DA/Manager - Correction/Validation compilation', 'RH' => 'Assistant(e) RH - Correction/Validation compilation', 'Final' => 'Compilations validées');
 
+//        // Si l'utilisateur à le statut correspondant à l'étape de validation on lui attribut ce statut.
+//        if ($this->get('security.context')->isGranted('ROLE_RH')) {
+//            $userStatus = 'roleRH';
+//        } else if (in_array($securityName, $authorizedUsers)) {
+//            $userStatus = $validationStep;
+//        }
+//        // Si l'utilisateur n'as pas les droits suffisant on le redirige vers l'accueil.
+//        else {
+//            $this->get('session')->getFlashBag()->add('noticeErreur', "Vous n'avez pas le statut requis pour accéder à cette section.");
+//            return $this->redirectToRoute('nox_intranet_accueil');
+//        }
+//        
         // Si l'utilisateur à le statut correspondant à l'étape de validation on lui attribut ce statut.
-        if ($this->get('security.context')->isGranted('ROLE_RH')) {
-            $userStatus = 'roleRH';
-        } else if (in_array($securityName, $authorizedUsers)) {
+        if (in_array($securityName, $authorizedUsers) || $this->get('security.context')->isGranted('ROLE_RH')) {
             $userStatus = $validationStep;
         }
         // Si l'utilisateur n'as pas les droits suffisant on le redirige vers l'accueil.
@@ -276,33 +286,20 @@ class PointageController extends Controller {
 
         // On récupére la liste des établissements qui dépendent de l'utilisateur.
         $manager = array();
-        switch ($userStatus) {
-            case 'AA':
-                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
-                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                }
-                break;
-            case 'DAManager':
-                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
-                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                }
-                break;
-            case 'roleRH':
-                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
-                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                }
-                break;
-            case 'Final':
-                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
-                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                }
-                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
-                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                }
-                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
-                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                }
-                break;
+        if ($userStatus === 'Final' || $userStatus === 'RH') {
+            foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
+                $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+            }
+        }
+        if ($userStatus === 'Final' || $userStatus === 'RH' || $userStatus === 'DAManager') {
+            foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
+                $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+            }
+        }
+        if ($userStatus === 'Final' || $userStatus === 'RH' || $userStatus === 'DAManager' || $userStatus === 'AA') {
+            foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
+                $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+            }
         }
 
         // Génération du formulaire de séléction du mois/année.

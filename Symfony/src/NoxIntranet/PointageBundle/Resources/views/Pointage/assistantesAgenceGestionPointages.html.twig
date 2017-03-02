@@ -20,9 +20,11 @@
         {{ form_errors(form) }}
         <fieldset>
             <legend>Séléction de pointage</legend>
-            <div style="width: 100%; margin-bottom: 0.5em;">
-                <label><input type="checkbox" id="RHMode" name="RHMode" style="vertical-align: bottom;" onchange="gestionPointageSetRHMode($(this));">Activer le mode DRH</label>
-            </div>
+            {% if is_granted('ROLE_RH') %}
+                <div style="width: 100%; margin-bottom: 0.5em;">
+                    <label><input type="checkbox" id="RHMode" name="RHMode" style="vertical-align: bottom;" onchange="gestionPointageSetRHMode($(this));">Activer le mode DRH</label>
+                </div>
+            {% endif %}
             <div style="width: 50%; margin-bottom: 0.5em;">
                 {{ form_label(form.Month, 'Mois') }} <br />
                 {{ form_errors(form.Month) }}
