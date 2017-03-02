@@ -1681,7 +1681,6 @@
 
         // Vérifie si le navigateur utilisé est Internet Explorer et affiche un message d'erreur dans ce cas.
         function IECheck() {
-
             var ms_ie = false;
             var ua = window.navigator.userAgent;
             var old_ie = ua.indexOf('MSIE ');
@@ -1693,7 +1692,7 @@
 
             if (ms_ie) {
                 // On affiche une fenêtre indiquant qu'il n'y a pas de justificatif de transport.
-                $("#pointageAlertText").text('Le module de pointage n\'est pas compatible avec Internet Explorer, veuillez utiliser Google Chrome ou Microsoft Edge à la place.');
+                $("#pointageAlertText").text('Le module de pointage n\'est pas compatible avec Internet Explorer, veuillez utiliser Google Chrome à la place.');
                 $("#pointageAlert").dialog({
                     resizable: false,
                     height: "auto",
@@ -1701,9 +1700,9 @@
                     modal: true,
                     draggable: false,
                     dialogClass: "pointage-alert-content-class",
-                    title: "Confirmer la validation ?",
+                    title: "Problème de compatibilité",
                     buttons: {
-                        "Ok": function () {
+                        "OK": function () {
                             $(this).dialog("close");
                             window.location = "{{ path('nox_intranet_accueil') }}";
                         }
