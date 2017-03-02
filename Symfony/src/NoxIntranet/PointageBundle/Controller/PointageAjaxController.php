@@ -646,33 +646,34 @@ class PointageAjaxController extends Controller {
             $year = $request->get('year');
             $manager = $request->get('manager');
             $userStatus = $request->get('userStatus');
+            $rhMode = $request->get('rhMode');
 
             // On récupére les pointages du mois et de l'année séléctionné qui sont en attente de validation par un AA.
             $em = $this->getDoctrine()->getManager();
             $pointages = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $month, 'year' => $year, 'status' => 1));
 
-            // Si l'utilisateur est une assistant d'agence.
-            if ($userStatus === 'AA') {
+            // Si l'utilisateur est une assistant d'agence et que le mode RH est activé.
+            if ($userStatus === 'AA' && $rhMode === 'true') {
+                // Pour chaque pointages...
+                $pointagesValide = array();
+                foreach ($pointages as $pointage) {
+                    // Si le collaborateur du pointage fait partis de l'établissement passé en paramêtre.
+                    $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneBy(array('username' => $pointage->getUser(), 'da' => $manager));
+                    if (!empty($userHierarchy)) {
+                        $pointagesValide[$pointage->getId()] = $userHierarchy->getNom() . ' ' . $userHierarchy->getPrenom(); // On l'ajoutes aux pointages à retourné.
+                    }
+                }
+            }
+            // Sinon l'utilisateur est une assistant d'agence.
+            else if ($userStatus === 'AA') {
                 // On récupére le nom de l'utilisateur.
                 $securityContextName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
 
                 // Pour chaque pointages...
                 $pointagesValide = array();
                 foreach ($pointages as $pointage) {
-                    // Si le collaborateur du pointage fait partis de l'établissement passé en paramêtre et qu'il dépend de l'utilisateur.
+                    // Si le collaborateur du pointage fait partis du manager passé en paramêtre et qu'il dépend de l'utilisateur.
                     $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneBy(array('username' => $pointage->getUser(), 'aa' => $securityContextName, 'da' => $manager));
-                    if (!empty($userHierarchy)) {
-                        $pointagesValide[$pointage->getId()] = $userHierarchy->getNom() . ' ' . $userHierarchy->getPrenom(); // On l'ajoutes aux pointages à retourné.
-                    }
-                }
-            }
-            // Sinon l'utilisateur a le ROLE_RH.
-            else {
-                // Pour chaque pointages...
-                $pointagesValide = array();
-                foreach ($pointages as $pointage) {
-                    // Si le collaborateur du pointage fait partis de l'établissement passé en paramêtre.
-                    $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneBy(array('username' => $pointage->getUser(), 'da' => $manager));
                     if (!empty($userHierarchy)) {
                         $pointagesValide[$pointage->getId()] = $userHierarchy->getNom() . ' ' . $userHierarchy->getPrenom(); // On l'ajoutes aux pointages à retourné.
                     }
@@ -1263,6 +1264,56 @@ class PointageAjaxController extends Controller {
 
             Return new Response('Saved');
         }
+    }
+
+    // Retourne la liste des managers pour la gestion des pointages en fonction du mode RH.
+    public function ajaxGestionPointageSetRHModeAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupére les variables de la requête.
+            $rhMode = $request->get('rhMode');
+
+            // On récupére le nom de l'utilisateur.
+            $securityContextName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
+
+            // Initialisation de l'entity manager.
+            $em = $this->getDoctrine()->getManager();
+
+            // Initialisation de la liste des managers à retourner.
+            $managers = array();
+
+            // Si le mode RH est activé...
+            if ($rhMode === 'true') {
+                // On récupére toute les entitées de hiérarchie.
+                $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+            }
+            // Sinon...
+            else {
+                // On récupére toutes les entitées de hiérachie qui on le collaborateur courant pour AA.
+                $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityContextName);
+            }
+
+            // Pour chaques entitées de hiérachie...
+            foreach ($usersHierachy as $hierarchy) {
+                $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+            }
+            
+            // Trie du tableau de retour.
+            sort($managers);
+
+            // On retourne le tableau des managers.
+            return new Response(json_encode($managers));
+        }
+    }
+
+    // Retourne une chaîne de caractère sans accents.
+    private function wd_remove_accents($str, $charset = 'utf-8') {
+        $str = htmlentities($str, ENT_NOQUOTES, $charset);
+
+        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
+        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
+        $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
+
+        return $str;
     }
 
 }

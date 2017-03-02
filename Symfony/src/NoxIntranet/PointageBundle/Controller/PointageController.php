@@ -123,10 +123,10 @@ class PointageController extends Controller {
     // Affiche l'inteface de visualisation/correction/validation des pointages des collaborateurs en fonction de l'assistante d'agence.
     public function assistantesAgenceGestionPointageAction() {
         // Inisialisation des varibables de fonction.
-        $securityName = mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8');
+        $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
         $em = $this->getDoctrine()->getManager();
 
-        // Vérifie que l'utilistateur est une assistante d'agence.
+        // Vérifie que l'utilistateur est une assistante d'agence ou qu'il fait partie de la DRH.
         if (in_array($securityName, $this->getUserWithStatus('AA')) || $this->get('security.context')->isGranted('ROLE_RH')) {
             // Génére les dates du mois courant.
             $date = '01-' . $this->getMonthAndYear()['month'] . '-' . $this->getMonthAndYear()['year'];
@@ -142,26 +142,35 @@ class PointageController extends Controller {
             // On récupére les jours fériés.
             $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
-            // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
-            if ($this->get('security.context')->isGranted('ROLE_RH')) {
-                // On récupére tous les utilisateurs.
-                $userStatus = 'roleRH';
-                $users = $this->getUsersByStatus($userStatus, $securityName);
-            } else if (in_array($securityName, $this->getUserWithStatus('AA'))) {
-                $userStatus = 'AA';
-                $users = $this->getUsersByStatus($userStatus, $securityName);
-            }
+            // On vérifie le status hiérarchique de l'utilisateur.
+            $userStatus = 'AA';
 
-            // On récupére les DA/Manager des collaborateurs qui dépendent de l'assistant d'agence ou tous les DA/Manager si ROLE_RH.
+            // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
+//            if ($this->get('security.context')->isGranted('ROLE_RH')) {
+//                // On récupére tous les utilisateurs.
+//                $userStatus = 'roleRH';
+//                $users = $this->getUsersByStatus($userStatus, $securityName);
+//            } else if (in_array($securityName, $this->getUserWithStatus('AA'))) {
+//                $userStatus = 'AA';
+//                $users = $this->getUsersByStatus($userStatus, $securityName);
+//            }
+//
+//            // On récupére les DA/Manager des collaborateurs qui dépendent de l'assistant d'agence ou tous les DA/Manager si ROLE_RH.
+//            $manager = array();
+//            if ($userStatus == 'AA') {
+//                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
+//                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+//                }
+//            } else {
+//                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
+//                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+//                }
+//            }
+//            
+            // On récupére les DA/Manager des collaborateurs qui dépendent de l'assistant d'agence.
             $manager = array();
-            if ($userStatus == 'AA') {
-                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
-                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                }
-            } else {
-                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
-                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                }
+            foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
+                $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
             }
 
             // Trie du tableau des établissements.
@@ -411,9 +420,11 @@ class PointageController extends Controller {
             if ($status === 'AA' || $status === 'Final') {
                 $usersFromHierarchy[mb_strtoupper($user->getAA(), 'UTF-8')] = mb_strtoupper($user->getAA(), 'UTF-8');
                 $usersFromHierarchy[mb_strtoupper($user->getDA(), 'UTF-8')] = mb_strtoupper($user->getDA(), 'UTF-8');
+                $usersFromHierarchy[mb_strtoupper($user->getRH(), 'UTF-8')] = mb_strtoupper($user->getRH(), 'UTF-8');
             }
             if ($status === 'DAManager' || $status === 'Final') {
                 $usersFromHierarchy[mb_strtoupper($user->getDA(), 'UTF-8')] = mb_strtoupper($user->getDA(), 'UTF-8');
+                $usersFromHierarchy[mb_strtoupper($user->getRH(), 'UTF-8')] = mb_strtoupper($user->getRH(), 'UTF-8');
             }
             if ($status === 'Final' || $status === 'RH') {
                 $usersFromHierarchy[mb_strtoupper($user->getRH(), 'UTF-8')] = mb_strtoupper($user->getRH(), 'UTF-8');
@@ -814,6 +825,7 @@ class PointageController extends Controller {
         return $this->render('NoxIntranetPointageBundle:Pointage:modulationDetails.html.twig', array('modulationArray' => $modulationArray, 'month' => $month, 'year' => $year, 'user' => $userEntity, 'readonly' => $readonly));
     }
 
+    // Retourne une chaîne de caractère sans accents.
     private function wd_remove_accents($str, $charset = 'utf-8') {
         $str = htmlentities($str, ENT_NOQUOTES, $charset);
 

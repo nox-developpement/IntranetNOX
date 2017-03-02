@@ -20,18 +20,21 @@
         {{ form_errors(form) }}
         <fieldset>
             <legend>Séléction de pointage</legend>
-            <div style="width: 50%">
+            <div style="width: 100%; margin-bottom: 0.5em;">
+                <label><input type="checkbox" id="RHMode" name="RHMode" style="vertical-align: bottom;" onchange="gestionPointageSetRHMode($(this));">Activer le mode DRH</label>
+            </div>
+            <div style="width: 50%; margin-bottom: 0.5em;">
                 {{ form_label(form.Month, 'Mois') }} <br />
                 {{ form_errors(form.Month) }}
                 {{ form_widget(form.Month) }}
             </div><!--
     
-            --><div style="width: 50%">
+            --><div style="width: 50%; margin-bottom: 0.5em;">
                 {{ form_label(form.Year, 'Année') }} <br />
                 {{ form_errors(form.Year) }}
                 {{ form_widget(form.Year) }}
             </div><br /><!--
-            --><div style="width: 100%">
+            --><div style="width: 100%; margin-bottom: 0.5em;">
                 {{ form_label(form.Manager, 'Manager') }} <br />
                 {{ form_errors(form.Manager) }}
                 {{ form_widget(form.Manager) }}
@@ -55,6 +58,8 @@
     <div id='loadingContent' style='display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; background-image: url({{asset('bundles/noxintranetressources/images/pointageLoading.svg')}}); background-size: contain; background-repeat: no-repeat; background-position: center center;'></div>
 
     <div id='pointageSavingNotification' style='display: none; position: fixed; z-index: 500; background-color: rgba(41,154,11, 0.7); border: 1px outset white; border-radius: 10px; padding: 0.5%;'><p style='display: inline-block; margin: 0; font-size: 0.8vw; color: white;'>Sauvegarde en cours <img src='{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}' style='vertical-align: middle; height: 2em;'></p></div>
+
+    <div id="pointageAlert"><div id="pointageAlertText"></div></div>
 
     <div id="pointageStatusDiv" style="clear: both;">
         <div id="pointageStatusLabelGeneralContainer">
@@ -383,11 +388,33 @@
 
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
-            var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
-            if (ajaxUrl === "pointage-ajax-set-date-by-pointage-number" || ajaxUrl === "pointage-ajax-get-data-by-username" || ajaxUrl === "pointage-ajax-get-status" || ajaxUrl === "pointage-ajax-get-data-by-username" || ajaxUrl === "ajax-get-pointage-list-aa-gestion") {
-                $('#loadingContent').show();
+            // Liens des requêtes de chargement de données.
+            var loadRequestUrls = [
+                "pointage-ajax-set-date-by-pointage-number",
+                "pointage-ajax-get-data-by-username",
+                "pointage-ajax-get-status",
+                "pointage-ajax-get-data-by-username",
+                "ajax-get-pointage-list-aa-gestion",
+                "ajax-gestion-pointage-rh-mode"
+            ];
+
+            // Liens des requêtes de sauvegarde de données.
+            var saveRequestUrls = [
+                "pointage-ajax-save-data",
+                "ajax-save-regularisation"
+            ];
+
+            // Url relative de la requête en cours.
+            var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1);
+
+            // Si la requête en cours est une requête de chargement...
+            if ($.inArray(ajaxUrl, loadRequestUrls) > -1) {
+                $('#loadingContent').show(); // On affiche la roue de chargement.
             }
-            if (ajaxUrl === "pointage-ajax-save-data" || ajaxUrl === "ajax-save-regularisation") {
+
+            // Si la requête en cours est une requête de sauvegarde...
+            if ($.inArray(ajaxUrl, saveRequestUrls) > -1) {
+                // On affiche la roue de sauvegarde.
                 $('#pointageSavingNotification').finish().css('display', 'inline-block');
                 savingNotification();
             }
@@ -407,8 +434,8 @@
             $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector), #tableFeuillePointageTypesAbscencesDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').unbind('change');
             $('#tableFeuillePointageDivContainer').hide();
             $('#tableFeuillePointageTypesAbscencesDivContainer').hide();
-            $('#form_User, #form_Month, #form_Year, #form_Pointage').change(function () {
-                if ($('#form_User option:selected').val() === '' || $('#form_Month option:selected').val() === '' || $('#form_Year option:selected').val() === '' || $('#form_Pointage option:selected')) {
+            $('#form_Manager, #form_Month, #form_Year, #form_Pointage').change(function () {
+                if ($('#form_Manager option:selected').val() === '' || $('#form_Month option:selected').val() === '' || $('#form_Year option:selected').val() === '' || $('#form_Pointage option:selected')) {
                     $('#tableFeuillePointageDivContainer td[contenteditable=true], #tableFeuillePointageTypesAbscencesDivContainer td[contenteditable=true]').unbind('blur');
                     $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector), #tableFeuillePointageTypesAbscencesDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').unbind('change');
                     $('#tableFeuillePointageDivContainer').hide();
@@ -425,7 +452,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_get_pointages_list_aa_gestion') }}',
-                    data: {month: $('#form_Month').val(), year: $('#form_Year').val(), manager: $('#form_Manager').val(), userStatus: '{{ userStatus }}'},
+                    data: {month: $('#form_Month').val(), year: $('#form_Year').val(), manager: $('#form_Manager').val(), userStatus: '{{ userStatus }}', rhMode: $('#RHMode').is(':checked')},
                     success: function (response) {
                         var items = JSON.parse(response); // On récupére la liste des pointages sous forme d'objet.
                         // Pour chaque pointages...
@@ -930,11 +957,34 @@
                         // Désactive les précent binding du boutton de validation.
                         $('#form_Valider').unbind('click');
 
-                        $('#form_Valider').click(function () {
-                            if (confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.')) {
-                                ajaxPointageAssistanteAgenceValidation(user, month, year);
-                            }
+                        $('#form_Valider').click(function (event) {
+                            event.preventDefault();
+
+                            // On affiche une fenêtre de confirmation de la validation de la feuille de pointage.
+                            $("#pointageAlertText").text('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
+                            $("#pointageAlert").dialog({
+                                resizable: false,
+                                height: "auto",
+                                width: "30%",
+                                modal: true,
+                                draggable: false,
+                                dialogClass: "pointage-alert-content-class",
+                                title: "Confirmer la validation ?",
+                                buttons: {
+                                    // Si l'utilisateur valide...
+                                    "Valider": function () {
+                                        $(this).dialog("close");
+                                        ajaxPointageAssistanteAgenceValidation(user, month, year);
+                                    },
+                                    // Si l'utilisateur annule, on ferme la fenêtre.
+                                    "Annuler": function () {
+                                        $(this).dialog("close");
+                                    }
+                                }
+                            });
+                            $('.ui-dialog :button').blur();
                         });
+
                         ajaxSaveData(user, month, year);
                     }
                 }
@@ -1460,7 +1510,6 @@
                     } else if (index > 1 && index < total - 3) {
                         var background = $(this).find('.project').last().css('background-color');
                         var contenteditable = $(this).find('.project').last().attr('contenteditable');
-                        //alert(contenteditable);
                         $(this).find('.project').last().after("<td class='projectPercentageCell project'></td>");
                         $(this).find('.project').last().css('background-color', background);
                         $(this).find('.project').last().attr('contenteditable', contenteditable);
@@ -1643,7 +1692,24 @@
             }
 
             if (ms_ie) {
-                alert('Le module de pointage n\'est pas compatible avec Internet Explorer, veuillez utiliser Google Chrome ou Microsoft Edge à la place.');
+                // On affiche une fenêtre indiquant qu'il n'y a pas de justificatif de transport.
+                $("#pointageAlertText").text('Le module de pointage n\'est pas compatible avec Internet Explorer, veuillez utiliser Google Chrome ou Microsoft Edge à la place.');
+                $("#pointageAlert").dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: "30%",
+                    modal: true,
+                    draggable: false,
+                    dialogClass: "pointage-alert-content-class",
+                    title: "Confirmer la validation ?",
+                    buttons: {
+                        "Ok": function () {
+                            $(this).dialog("close");
+                            window.location = "{{ path('nox_intranet_accueil') }}";
+                        }
+                    }
+                });
+                $('.ui-dialog :button').blur();
             }
         }
 
@@ -2368,30 +2434,43 @@
 
         // Sauvegarde la valeur des sélécteur dans les cookies lors des changements.
         function setSavedDateAndAgency() {
-            // Temps d'expiration du cookie (1 heure).
-            var inOneHour = new Date(new Date().getTime() + 60 * 60 * 1000);
-
             // Lorqu'on change la date ou l'établissement...
-            $('#form_Month, #form_Year, #form_Manager').change(function () {
+            $('#form_Month, #form_Year, #form_Manager, #RHMode').change(function () {
+                // Temps d'expiration du cookie (1 heure).
+                var inOneHour = new Date(new Date().getTime() + 60 * 60 * 1000);
+
                 // Si il existe un cookie pour le sélécteur...
                 if (Cookies.get($(this).attr('id')) !== undefined) {
                     Cookies.remove($(this).attr('id')); // On le supprime
                 }
-                Cookies.set($(this).attr('id'), $(this).val(), {expires: inOneHour}); // On crée un cookie avec la nom et la valeur du sélécteur.
+
+                // On crée un cookie avec la nom et la valeur du sélécteur.
+                if ($(this).attr('id') === 'RHMode') {
+                    Cookies.set($(this).attr('id'), $(this).is(':checked'), {expires: inOneHour});
+                } else {
+                    Cookies.set($(this).attr('id'), $(this).val(), {expires: inOneHour});
+                }
             });
         }
 
         // Récupére les valeurs des cookies des sélécteurs.
         function getSavedDateAndAgency() {
             // Initialisation de la liste des sélécteurs.
-            var selectors = ['form_Month', 'form_Year', 'form_Manager'];
+            var selectors = ['form_Month', 'form_Year', 'form_Manager', "RHMode"];
 
             // Pour chaques sélécteurs...
             $.each(selectors, function (index, value) {
                 // Si il existe un cookie pour le sélécteur et qu'il n'est pas vide...
                 if (Cookies.get(value) !== undefined && Cookies.get(value) !== '') {
-                    $('#' + value).val(Cookies.get(value)); // On assigne la valeur du cookie au sélécteur.
-                    $('#' + value).trigger('change'); // On déclanche le changement du sélécteur pour déclancher les fonctions associées.
+                    // On assigne la valeur du cookie au sélécteur.
+                    if (selectors[index] === "RHMode") {
+                        $('#' + value).prop('checked', Cookies.get(value) === 'true');
+                    } else {
+                        $('#' + value).val(Cookies.get(value));
+                    }
+
+                    // On déclanche le changement du sélécteur pour déclancher les fonctions associées.
+                    $('#' + value).trigger('change');
                 }
             });
         }
@@ -2471,6 +2550,35 @@
                         data: {tableData: jsonData, username: $('#form_Pointage option:selected').val(), month: $('#form_Month').val(), year: $('#form_Year').val()}
                     });
                 }, 1500);
+            });
+        }
+
+        // Met à jours la liste des managers en fonction du mode RH.
+        function gestionPointageSetRHMode(checkbox) {
+            console.log(checkbox.is(':checked') ? 'Mode RH activé.' : 'Mode RH désactivé.');
+            $.ajax({
+                url: '{{ path('nox_intranet_pointage_ajax_gestion_pointages_rh_mode') }}',
+                type: 'POST',
+                data: {rhMode: $('#RHMode').is(':checked')},
+                success: function (managers) {
+                    // On récupère la liste des managers sous forme de tableau.
+                    var managersArray = JSON.parse(managers);
+
+                    // On supprime les choix de manager déjà existant.
+                    $('#form_Manager option').remove();
+
+                    // On ajout le choix par défaut.
+                    $('#form_Manager').append("<option value='' selected='selected'>Choisir un manager</option>");
+
+                    // Pour chaques managers de la liste...
+                    $.each(managersArray, function (index, value) {
+                        // On ajoute un choix au sélécteur de manager.
+                        $('#form_Manager').append("<option value='" + value + "'>" + value + "</option>");
+                    });
+
+                    // On déclanche un changement sur le sélécteur de manager pour mettre à jours l'affichage.
+                    $('#form_Manager').trigger('change');
+                }
             });
         }
     </script>

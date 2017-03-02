@@ -174,3 +174,7 @@ nox_intranet_pointage_ajax_save_regularisation:
     path: /ressources/pointage/ajax-save-regularisation
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveRegularisation }
     
+nox_intranet_pointage_ajax_gestion_pointages_rh_mode:
+    path: /ressources/pointage/ajax-gestion-pointage-rh-mode
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGestionPointageSetRHMode }
+    
