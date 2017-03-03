@@ -130,11 +130,26 @@
 
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
+            // Liens des requêtes de chargement de données.
+            var loadRequestUrls = [
+                "pointage-compilation-ajax-get-status",
+                "ajax-get-assistantes-agence-pointage-compilation-by-month-and-year",
+                "pointage-compilation-ajax-get-status",
+                "ajax-get-assistante-agence-unvalidate",
+                "ajax-compilation-pointage-rh-mode"
+            ];
+
+            // Liens des requêtes de sauvegarde de données.
+            var saveRequestUrls = [
+                "ajax-save-compilation-data",
+                "ajax-save-compilation-absences"
+            ];
+
             var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
-            if (ajaxUrl === "pointage-compilation-ajax-get-status" || ajaxUrl === "ajax-get-assistantes-agence-pointage-compilation-by-month-and-year" || ajaxUrl === "pointage-compilation-ajax-get-status" || ajaxUrl === "ajax-get-assistante-agence-unvalidate") {
+            if ($.inArray(ajaxUrl, loadRequestUrls) > -1) {
                 $('#loadingContent').show();
             }
-            if (ajaxUrl === "ajax-save-compilation-data" || ajaxUrl === "ajax-save-compilation-absences") {
+            if ($.inArray(ajaxUrl, saveRequestUrls) > -1) {
                 savingNotification();
                 $('#pointageSavingNotification').finish().css('display', 'inline-block');
             }
@@ -876,12 +891,34 @@
         // Affiche une popup avec la liste des collaborateurs qui n'ont pas remplis/validé leur pointage.
         function showUnvalidateCollaborateurs(data) {
             var collaborateurs = JSON.parse(data)['collaborateurSansPointage']; // On convertie la chaine de caractère d'entré en objet Javascript.
-            var message = "Les collaborateurs suivant n'ont pas remplis/validé leur pointage :\n"; // On initialise le message d'alert.
+            var message = "Les collaborateurs suivant n'ont pas remplis/validé leur pointage :<br />"; // On initialise le message d'alert.
+            //
             // Pour chaque collaborateur.        
+            message += "<ul>";
             $.each(collaborateurs, function (index) {
-                message += '          - ' + collaborateurs[index] + '\n'; // On ajout le nom du collaborateur au message.
+                message += '<li>' + collaborateurs[index] + '</li>'; // On ajout le nom du collaborateur au message.
             });
-            alert(message); // On affiche le message.
+            message += "</ul>";
+
+            // On affiche le message.
+            $("#pointageAlertText").html(message);
+            $("#pointageAlert").dialog({
+                resizable: false,
+                height: "auto",
+                maxHeight: 0.5 * $(document).height(),
+                width: "30%",
+                modal: true,
+                draggable: false,
+                dialogClass: "pointage-alert-content-class",
+                title: "Pointage non remplis/validé.",
+                buttons: {
+                    // Si l'utilisateur valide...
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+            $('.ui-dialog :button').blur();
         }
 
         // Récupére le nombre de pointage non validé par un assistant d'agence et le nombre de collaborateur qui n'ont pas remplis/validé leur pointage en fonction du mois et de l'année.
@@ -895,7 +932,7 @@
                     $('#pointageEnAttenteValidationAA').text(Object.keys(pointages['pointageEnAttenteValidationAA']).length); // On remplace le nombre du compteur de pointage non validé par un assistant d'agence.
                     $('#collaborateurSansPointage').text(Object.keys(pointages['collaborateurSansPointage']).length); // On remplace le nombre du compteur de collaborateur qui n'ont pas remplis/validé leur pointage.
                     $('#collaborateurSansPointage').attr('onclick', "showUnvalidateCollaborateurs(" + JSON.stringify(response) + ")"); // Met à jours les données de la fonction d'affichage des collaborateur qui n'ont pas remplis/validé leur pointage.
-                    $('#formValidationRefus_Compilation').attr('onclick', "return preventUnvalidate(" + Object.keys(pointages['pointageEnAttenteValidationAA']).length + "," + Object.keys(pointages['collaborateurSansPointage']).length + "," + JSON.stringify(response) + ")"); // Met à jours les donnée de la fonction de prévention d'envoi de compilation incomplète.
+                    //$('#formValidationRefus_Compilation').attr('onclick', "return preventUnvalidate(" + Object.keys(pointages['pointageEnAttenteValidationAA']).length + "," + Object.keys(pointages['collaborateurSansPointage']).length + "," + JSON.stringify(response) + ")"); // Met à jours les donnée de la fonction de prévention d'envoi de compilation incomplète.
                     $('#formValidationRefus_collaborateursSansPointage').val(JSON.stringify(pointages['collaborateurSansPointage'])); // On attribue la liste des collaborateurs sans pointages au formulaire de compilation (pour l'envoi de mail).
                 }
             });
@@ -972,7 +1009,24 @@
                 success: function (response) {
                     // Si il n'y a pas de fichiers justificatif...
                     if (response === "No files found") {
-                        alert("Il n'y a aucun fichier justificatif pour cette compilation."); // On affiche un message.
+                        // On affiche un message.
+                        $("#pointageAlertText").text("Il n'y a aucun fichier justificatif pour cette compilation.");
+                        $("#pointageAlert").dialog({
+                            resizable: false,
+                            height: "auto",
+                            width: "30%",
+                            modal: true,
+                            draggable: false,
+                            dialogClass: "pointage-alert-content-class",
+                            title: "Pas de justificatif.",
+                            buttons: {
+                                // Si l'utilisateur valide...
+                                "OK": function () {
+                                    $(this).dialog("close");
+                                }
+                            }
+                        });
+                        $('.ui-dialog :button').blur();
                     }
                     // Sinon
                     else {
@@ -1032,6 +1086,7 @@
             // Affiche un message de confirmation lors du clique sur le bouton de compilation.
             $('#formValidationRefus_Compilation').click(function (event) {
                 event.preventDefault();
+
                 // On affiche une fenêtre indiquant qu'il n'y a pas de justificatif de transport.
                 $("#pointageAlertText").text('Confirmer la validation de la compilation ? Celle-ci ne sera plus modifiable.');
                 $("#pointageAlert").dialog({

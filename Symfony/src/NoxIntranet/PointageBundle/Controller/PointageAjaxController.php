@@ -1347,13 +1347,16 @@ class PointageAjaxController extends Controller {
                 switch ($validationStep) {
                     case 'AA':
                         $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityContextName);
+                        $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityContextName);
+                        $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName);
                         break;
                     case 'DAManager':
                         $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityContextName);
+                        $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName);
                         break;
                     case 'RH':
                     case 'Final':
-                        $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRH($securityContextName);
+                        $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName);
                         break;
                 }
             }

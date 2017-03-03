@@ -281,22 +281,38 @@ class PointageController extends Controller {
             foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
                 $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
             }
-        }
-        if ($userStatus === 'Final' || $userStatus === 'RH') {
-            foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
-                $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+        } else {
+            switch ($userStatus) {
+                case 'AA':
+                    foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
+                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    }
+                    foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
+                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    }
+                    foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
+                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    }
+                    break;
+                case 'DAManager':
+                    foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
+                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    }
+                    foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
+                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    }
+                    break;
+                case 'RH':
+                case 'Final':
+                    foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
+                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    }
+                    break;
             }
         }
-        if ($userStatus === 'Final' || $userStatus === 'RH' || $userStatus === 'DAManager') {
-            foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
-                $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-            }
-        }
-        if ($userStatus === 'Final' || $userStatus === 'RH' || $userStatus === 'DAManager' || $userStatus === 'AA') {
-            foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
-                $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-            }
-        }
+
+        // On trie la liste des managers.
+        asort($manager);
 
         // Génération du formulaire de séléction du mois/année.
         $formSelectionMonthYear = $this->createFormBuilder()
