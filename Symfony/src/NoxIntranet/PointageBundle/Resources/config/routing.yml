@@ -178,3 +178,7 @@ nox_intranet_pointage_ajax_gestion_pointages_rh_mode:
     path: /ressources/pointage/ajax-gestion-pointage-rh-mode
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGestionPointageSetRHMode }
     
+nox_intranet_pointage_ajax_compilation_pointages_rh_mode:
+    path: /ressources/pointage/ajax-compilation-pointage-rh-mode
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxCompilationPointageSetRHMode }
+    

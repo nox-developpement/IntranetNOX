@@ -253,18 +253,6 @@ class PointageController extends Controller {
         // Initialise le titre afficher sur le template.
         $templateTitle = array('AA' => 'Assistant(e) agence - Correction/Validation compilation', 'DAManager' => 'DA/Manager - Correction/Validation compilation', 'RH' => 'Assistant(e) RH - Correction/Validation compilation', 'Final' => 'Compilations validées');
 
-//        // Si l'utilisateur à le statut correspondant à l'étape de validation on lui attribut ce statut.
-//        if ($this->get('security.context')->isGranted('ROLE_RH')) {
-//            $userStatus = 'roleRH';
-//        } else if (in_array($securityName, $authorizedUsers)) {
-//            $userStatus = $validationStep;
-//        }
-//        // Si l'utilisateur n'as pas les droits suffisant on le redirige vers l'accueil.
-//        else {
-//            $this->get('session')->getFlashBag()->add('noticeErreur', "Vous n'avez pas le statut requis pour accéder à cette section.");
-//            return $this->redirectToRoute('nox_intranet_accueil');
-//        }
-//        
         // Si l'utilisateur à le statut correspondant à l'étape de validation on lui attribut ce statut.
         if (in_array($securityName, $authorizedUsers) || $this->get('security.context')->isGranted('ROLE_RH')) {
             $userStatus = $validationStep;
@@ -284,8 +272,16 @@ class PointageController extends Controller {
         // On récupére les jours fériés.
         $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
-        // On récupére la liste des établissements qui dépendent de l'utilisateur.
+        // On récupére la valeur de RHMode depuis les Cookies.
+        $rhMode = !empty(filter_input(INPUT_COOKIE, "RHMode")) ? filter_input(INPUT_COOKIE, "RHMode") : "false";
+
+        // On récupére la liste des managers du domaine de l'utilisateur.
         $manager = array();
+        if ($rhMode === 'true') {
+            foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
+                $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+            }
+        }
         if ($userStatus === 'Final' || $userStatus === 'RH') {
             foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
                 $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
@@ -328,54 +324,58 @@ class PointageController extends Controller {
                     'data' => $this->getMonthAndYear()['year']
                 ))
                 ->add('manager', HiddenType::class)
+                ->add('rhMode', HiddenType::class, array(
+                    'data' => $rhMode
+                ))
                 ->add('collaborateursSansPointage', HiddenType::class)
                 ->getForm();
 
         // Traitement du formulaire de validation de la compilation.
         $formValidationRefus->handleRequest($request);
+        // Lors du clique sur le bouton de validation.
         if ($formValidationRefus->isValid()) {
-            // Lors du clique sur le bouton de validation.
-            if ($formValidationRefus->get('Compilation')->isClicked()) {
-                // On récupére les pointages à inclure dans la compilation en fonction du status de l'utilisateur.
-                $pointagesCompilation = $this->getPointagesACompile($this->getUsersByStatus($userStatus, $securityName), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('manager')->getData(), $validationStep, $formValidationRefus->get('collaborateursSansPointage')->getData());
-                // Initialisation de la liste des utilisateurs à qui envoyer un mail les prévenants qu'une compilation est disponible.
-                $mailingListUser = array();
+            // On récupére les pointages à inclure dans la compilation en fonction du status de l'utilisateur.
+            $pointagesCompilation = $this->getPointagesACompile($this->getUsersByStatus($userStatus, $securityName, $formValidationRefus->get('rhMode')->getData()), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('manager')->getData(), $validationStep, $formValidationRefus->get('collaborateursSansPointage')->getData());
 
-                // Pour chaque pointages.
-                foreach ($pointagesCompilation as $pointage) {
-                    // On récupére l'entitée hiérarchique de l'utilisateur associé au pointage.
-                    $hierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
+            // Initialisation de la liste des utilisateurs à qui envoyer un mail les prévenants qu'une compilation est disponible.
+            $mailingListUser = array();
 
-                    // En fonction de l'étape de validation.
-                    switch ($validationStep) {
-                        case 'AA':
-                            $mailingListUser[$hierachy->getDA()] = $hierachy->getDA(); // On ajoute le DA du collaborateur à la mailingList.
-                            $pointage->setStatus(3); // On modifie le statut du pointage.
-                            break;
-                        case 'DAManager':
-                            $mailingListUser[$hierachy->getRH()] = $hierachy->getRH(); // On ajoute le DA du collaborateur à la mailingList.
-                            $pointage->setStatus(4); // On modifie le statut du pointage.
-                            break;
-                        case 'RH':
-                            $pointage->setStatus(5); // On modifie le statut du pointage.
-                    }
-                    $em->persist($pointage); // On persist le pointage.
+            // Pour chaque pointages.
+            foreach ($pointagesCompilation as $pointage) {
+                // On récupére l'entitée hiérarchique de l'utilisateur associé au pointage.
+                $hierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
+
+                // En fonction de l'étape de validation.
+                switch ($validationStep) {
+                    case 'AA':
+                        $mailingListUser[$hierachy->getDA()] = $hierachy->getDA(); // On ajoute le DA du collaborateur à la mailingList.
+                        $pointage->setStatus(3); // On modifie le statut du pointage.
+                        break;
+                    case 'DAManager':
+                        $mailingListUser[$hierachy->getRH()] = $hierachy->getRH(); // On ajoute le DA du collaborateur à la mailingList.
+                        $pointage->setStatus(4); // On modifie le statut du pointage.
+                        break;
+                    case 'RH':
+                        $pointage->setStatus(5); // On modifie le statut du pointage.
                 }
-                // On sauvegarde les changements de status en base de donnée.
-                $em->flush();
-
-                // Initialise la liste des message de confirmation de validation et affiche le message.
-                $flashBagMessages = array(
-                    'AA' => "La compilation a été envoyée au directeur d'agence/managers.",
-                    'DAManager' => "La compilation a été envoyée à la RH.",
-                    'RH' => 'La compilation a été validée définitivement.'
-                );
-                $this->get('session')->getFlashBag()->add('notice', $flashBagMessages[$validationStep]);
-
-                $this->sendValidationMail($mailingListUser, $securityName, $validationStep, $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('manager')->getData(), $formValidationRefus->get('collaborateursSansPointage')->getData());
-                // On redirige vers la compilation des pointages.
-                return $this->redirectToRoute('nox_intranet_pointages_compilation', array('validationStep' => $validationStep));
+                $em->persist($pointage); // On persist le pointage.
             }
+            // On sauvegarde les changements de status en base de donnée.
+            $em->flush();
+
+            // Initialise la liste des message de confirmation de validation et affiche le message.
+            $flashBagMessages = array(
+                'AA' => "La compilation a été envoyée au directeur d'agence/managers.",
+                'DAManager' => "La compilation a été envoyée à la RH.",
+                'RH' => 'La compilation a été validée définitivement.'
+            );
+            $this->get('session')->getFlashBag()->add('notice', $flashBagMessages[$validationStep]);
+
+            // Envoi un mail de demande de validation de pointage aux prochains valideurs.
+            $this->sendValidationMail($mailingListUser, $securityName, $validationStep, $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('manager')->getData(), $formValidationRefus->get('collaborateursSansPointage')->getData());
+
+            // On redirige vers la compilation des pointages.
+            //return $this->redirectToRoute('nox_intranet_pointages_compilation', array('validationStep' => $validationStep));
         }
 
         return $this->render('NoxIntranetPointageBundle:Pointage:pointagesCompilation.html.twig', array(
@@ -389,12 +389,16 @@ class PointageController extends Controller {
     private function getPointagesACompile($users, $month, $year, $manager, $validationStep) {
         $em = $this->getDoctrine()->getManager(); // Initialisation de l'entityManager.
         $status = array('AA' => 2, 'DAManager' => 3, 'RH' => 4); // Initialisation des status des pointages en fonction de l'étape de validation de la compilation.
+        //
         // On récupére la liste des pointages correspondant au mois, à l'année et au status définie.
         $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $month, 'year' => $year, 'status' => $status[$validationStep]));
+
         // Pour chaques pointages.
         $pointages = array();
         foreach ($pointagesValides as $pointage) {
-            $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser()); // On récupére l'entité hiérarchique du collaborateur du pointage.
+            // On récupére l'entité hiérarchique du collaborateur du pointage.
+            $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
+
             // Si le collaborateur dépend de l'utilisateur, qu'il est défini dans la hiérarchie et qu'il à la bon manager.
             if (in_array($pointage->getUser(), array_keys($users)) && !empty($userHierarchy) && $userHierarchy->getDA() === $manager) {
                 $pointages[] = $pointage; // On ajoute le pointage aux pointages à compiler.
@@ -433,12 +437,12 @@ class PointageController extends Controller {
     }
 
     // Retourne les collaborateurs qui dépende de l'utilisateur passé en paramêtre en fonction de son status.
-    private function getUsersByStatus($status, $securityName) {
+    private function getUsersByStatus($status, $securityName, $rhMode) {
         // On récupére les utilisateurs qui ont l'assistante comme supérieur hiérarchique.
         $em = $this->getDoctrine()->getManager();
 
         // Si l'utilisateur n'as pas le ROLE_RH.
-        if ($status !== 'roleRH') {
+        if ($rhMode !== 'true') {
             $qb = $em->createQueryBuilder();
             $qb
                     ->add('select', 'u')
