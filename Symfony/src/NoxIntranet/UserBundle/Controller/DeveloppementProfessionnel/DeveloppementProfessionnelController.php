@@ -30,19 +30,12 @@ class DeveloppementProfessionnelController extends Controller {
         $formulaireDeveloppementProfessionnel = $em->getRepository('NoxIntranetUserBundle:DeveloppementProfessionnel')->findOneBy(array('collaborateur' => $collaborateur, 'annee' => date('Y')));
         $currentFormStatut = empty($formulaireDeveloppementProfessionnel) ? 'Collaborateur' : $formulaireDeveloppementProfessionnel->getStatut();
 
-        // Si le collaborateur à un N+2 on le récupère sinon on récupère son N+1;
-        if (!empty($collaborateurHierarchy->getN2())) {
-            $n2 = $collaborateurHierarchy->getN2();
-        } else {
-            $n2 = $collaborateurHierarchy->getDA();
-        }
-
         // Tableau qui associe le statut courant du formulaire à son valideur.
         $statutHierarchie = array(
-            'Collaborateur' => $collaborateur->getUsername(),
-            'N2' => $em->getRepository('NoxIntranetUserBundle:User')->findOneBy(array('firstname' => explode(' ', $n2)[0], 'lastname' => explode(' ', $n2)[1]))->getUsername(),
-            'DRH' => 'n.rigaudeau',
-            'Synthèse' => 'n.rigaudeau'
+            'Collaborateur' => array($collaborateur->getUsername()),
+            'N2' => array($this->getN2($collaborateurHierarchy)),
+            'DRH' => array('n.rigaudeau', 'a.forestier'),
+            'Synthèse' => array('n.rigaudeau', 'a.forestier')
         );
 
         // Fonction de sortie si visite non autorisé.
@@ -419,7 +412,7 @@ class DeveloppementProfessionnelController extends Controller {
             return $this->redirectToRoute('nox_intranet_accueil');
         }
         // Sinon si un username de collaborateur est renseigné, qu'un entretien y est associé mais que le collaborateur courant n'est pas le représentant hiérarchique du statut acutel de l'entretien...
-        else if (!empty($collaborateurUsername) && !empty($formulaireDeveloppementProfessionnel) && $statutHierarchie[$formulaireDeveloppementProfessionnel->getStatut()] !== $valideur->getUsername()) {
+        else if (!empty($collaborateurUsername) && !empty($formulaireDeveloppementProfessionnel) && !in_array($valideur->getUsername(), $statutHierarchie[$formulaireDeveloppementProfessionnel->getStatut()])) {
             $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas l'autorisation d'accéder à l'entretien de ce collaborateur.");
             return $this->redirectToRoute('nox_intranet_accueil');
         } else {
@@ -566,24 +559,27 @@ class DeveloppementProfessionnelController extends Controller {
 
     // Envoi un mail au prochain collaborateur de la chaîne de validation .
     private function sendMailToNextValidator($valideurGrade, $nextValidator, $collaborateur) {
-        // On génére l'email du prochain valideur depuis son username.
-        $nextValidatorEmail = $nextValidator . '@groupe-nox.com';
 
         // Tableau d'association entre le statut de l'entretien et le dernier valideur.
         $grades = array('N2' => 'N+1', 'DRH' => 'N+2');
 
-        // On envoi le message au prochain valideur.
-        $message = \Swift_Message::newInstance()
-                ->setSubject('EDP en attente de votre validation')
-                ->setFrom('noreply@groupe-nox.com')
-                ->setTo($nextValidatorEmail)
-                ->setBody(
-                $this->renderView(
-                        'Emails/DeveloppementProfessionnel/AttenteValidationEDP.html.twig', array('valideurGrade' => $grades[$valideurGrade], 'collaborateur' => $collaborateur)
-                ), 'text/html'
-                )
-        ;
-        $this->get('mailer')->send($message);
+        foreach ($nextValidator as $validator) {
+            // On génére l'email du prochain valideur depuis son username.
+            $nextValidatorEmail = $validator . '@groupe-nox.com';
+
+            // On envoi le message au prochain valideur.
+            $message = \Swift_Message::newInstance()
+                    ->setSubject('EDP en attente de votre validation')
+                    ->setFrom('noreply@groupe-nox.com')
+                    ->setTo($nextValidatorEmail)
+                    ->setBody(
+                    $this->renderView(
+                            'Emails/DeveloppementProfessionnel/AttenteValidationEDP.html.twig', array('valideurGrade' => $grades[$valideurGrade], 'collaborateur' => $collaborateur)
+                    ), 'text/html'
+                    )
+            ;
+            $this->get('mailer')->send($message);
+        }
     }
 
     // Tries les synthèse de développement professionnel en fonction du nom et du prénom de leur collaborateur.
@@ -684,6 +680,7 @@ class DeveloppementProfessionnelController extends Controller {
         }
     }
 
+    // Affiche la liste des entretiens existant avec leurs statut et un lien de validation/consultation.
     public function formulaireMonitoringAction() {
         // On récupère les entretiens de l'année courante.
         $em = $this->getDoctrine()->getManager();
@@ -708,6 +705,40 @@ class DeveloppementProfessionnelController extends Controller {
         }
 
         return $this->render('NoxIntranetUserBundle:DeveloppementProfessionnel:formulaireMonitoring.html.twig', array('entretiens' => $entretiens, 'currentValidators' => $currentValidators));
+    }
+
+    // Retourne l'username du N2 ou du DA si il n'y a pas de N2;
+    private function getN2($hierarchy) {
+        // On récupére la liste de tous les collaborateurs.
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
+
+        // On récupére le nom canonique du N2 ou du DA.
+        $n2 = !empty($hierarchy->getN2()) ? $hierarchy->getN2() : $hierarchy->getDA();
+
+        // Pour chaques collaborateurs.
+        foreach ($users as $user) {
+            // On récupére son nom canonique.
+            $canonicalName = $this->wd_remove_accents(mb_strtoupper($user->getFirstname() . " " . $user->getLastname(), 'UTF-8'));
+
+            // Si le nom correspond au N2;..
+            if (strpos($n2, $canonicalName) !== false) {
+                return $user->getUsername(); // On retourne l'username du collaborateur.
+            }
+        }
+
+        return '';
+    }
+
+    // Retourne une chaine de charactères sans accents.
+    private function wd_remove_accents($str, $charset = 'utf-8') {
+        $str = htmlentities($str, ENT_NOQUOTES, $charset);
+
+        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
+        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
+        $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
+
+        return $str;
     }
 
 }
