@@ -648,37 +648,28 @@ class PointageAjaxController extends Controller {
             $month = $request->get('month');
             $year = $request->get('year');
             $manager = $request->get('manager');
-            $userStatus = $request->get('userStatus');
             $rhMode = $request->get('rhMode');
 
-            // On récupére les pointages du mois et de l'année séléctionné qui sont en attente de validation par un AA.
+            // Initialisation du tableau des pointages à retourner.
+            $pointagesValide = array();
+
+            // On récupére toute la hiérarchie.
             $em = $this->getDoctrine()->getManager();
-            $pointages = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $month, 'year' => $year, 'status' => 1));
+            $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($manager);
 
-            // Si l'utilisateur est une assistant d'agence et que le mode RH est activé.
-            if ($userStatus === 'AA' && $rhMode === 'true') {
-                // Pour chaque pointages...
-                $pointagesValide = array();
-                foreach ($pointages as $pointage) {
-                    // Si le collaborateur du pointage fait partis de l'établissement passé en paramêtre.
-                    $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneBy(array('username' => $pointage->getUser(), 'da' => $manager));
-                    if (!empty($userHierarchy)) {
-                        $pointagesValide[$pointage->getId()] = $userHierarchy->getNom() . ' ' . $userHierarchy->getPrenom(); // On l'ajoutes aux pointages à retourné.
-                    }
-                }
-            }
-            // Sinon l'utilisateur est une assistant d'agence.
-            else if ($userStatus === 'AA') {
-                // On récupére le nom de l'utilisateur.
-                $securityContextName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+            // On récupére le nom de l'utilisateur.
+            $securityContextName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
 
-                // Pour chaque pointages...
-                $pointagesValide = array();
-                foreach ($pointages as $pointage) {
-                    // Si le collaborateur du pointage fait partis du manager passé en paramêtre et qu'il dépend de l'utilisateur.
-                    $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneBy(array('username' => $pointage->getUser(), 'aa' => $securityContextName, 'da' => $manager));
-                    if (!empty($userHierarchy)) {
-                        $pointagesValide[$pointage->getId()] = $userHierarchy->getNom() . ' ' . $userHierarchy->getPrenom(); // On l'ajoutes aux pointages à retourné.
+            // Pour chaque entité hiérachique...
+            foreach ($userHierarchy as $hierarchy) {
+                // Si l'utilisateur courant est le AA, le DA, le RH ou si le mode RH est actif...
+                if ($hierarchy->getAa() === $securityContextName || $hierarchy->getDa() === $securityContextName || $hierarchy->getRh() === $securityContextName || $rhMode === 'true') {
+                    // On récupére le pointage correspondant au mois, à l'année et au collaborateur.
+                    $pointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('month' => $month, 'year' => $year, 'status' => 1, 'user' => $hierarchy->getUsername()));
+
+                    // Si le pointage existe...
+                    if (!empty($pointage)) {
+                        $pointagesValide[$pointage->getId()] = $hierarchy->getNom() . ' ' . $hierarchy->getPrenom(); // On l'ajoutes aux pointages à retourné.
                     }
                 }
             }
@@ -1288,21 +1279,26 @@ class PointageAjaxController extends Controller {
             // Si le mode RH est activé...
             if ($rhMode === 'true') {
                 // On récupére toute les entitées de hiérarchie.
-                $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
+                    $managers[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
             }
             // Sinon...
             else {
                 // On récupére toutes les entitées de hiérachie qui on le collaborateur courant pour AA.
-                $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityContextName);
-            }
-
-            // Pour chaques entitées de hiérachie...
-            foreach ($usersHierachy as $hierarchy) {
-                $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityContextName) as $userHierarchy) {
+                    $managers[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityContextName) as $userHierarchy) {
+                    $managers[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName) as $userHierarchy) {
+                    $managers[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
             }
 
             // Trie du tableau de retour.
-            sort($managers);
+            asort($managers);
 
             // On retourne le tableau des managers.
             return new Response(json_encode($managers));

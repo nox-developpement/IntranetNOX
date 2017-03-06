@@ -22,7 +22,7 @@
             <legend>Séléction de pointage</legend>
             {% if is_granted('ROLE_RH') %}
                 <div style="width: 100%; margin-bottom: 0.5em;">
-                    <label><input type="checkbox" id="RHMode" name="RHMode" style="vertical-align: bottom;" onchange="gestionPointageSetRHMode($(this));">Activer le mode DRH</label>
+                    <label><input type="checkbox" id="RHMode" name="RHMode" style="vertical-align: bottom;" onchange="gestionPointageSetRHMode($(this));" {% if app.request.cookies.get('RHMode') == "true" %}checked{% endif %}>Activer le mode DRH</label>
                 </div>
             {% endif %}
             <div style="width: 50%; margin-bottom: 0.5em;">
@@ -2457,18 +2457,14 @@
         // Récupére les valeurs des cookies des sélécteurs.
         function getSavedDateAndAgency() {
             // Initialisation de la liste des sélécteurs.
-            var selectors = ['form_Month', 'form_Year', 'form_Manager', "RHMode"];
+            var selectors = ['form_Month', 'form_Year', 'form_Manager'];
 
             // Pour chaques sélécteurs...
             $.each(selectors, function (index, value) {
                 // Si il existe un cookie pour le sélécteur et qu'il n'est pas vide...
                 if (Cookies.get(value) !== undefined && Cookies.get(value) !== '') {
                     // On assigne la valeur du cookie au sélécteur.
-                    if (selectors[index] === "RHMode") {
-                        $('#' + value).prop('checked', Cookies.get(value) === 'true');
-                    } else {
-                        $('#' + value).val(Cookies.get(value));
-                    }
+                    $('#' + value).val(Cookies.get(value));
 
                     // On déclanche le changement du sélécteur pour déclancher les fonctions associées.
                     $('#' + value).trigger('change');
@@ -2562,6 +2558,8 @@
                 type: 'POST',
                 data: {rhMode: $('#RHMode').is(':checked')},
                 success: function (managers) {
+                    console.log(managers);
+                    
                     // On récupère la liste des managers sous forme de tableau.
                     var managersArray = JSON.parse(managers);
 

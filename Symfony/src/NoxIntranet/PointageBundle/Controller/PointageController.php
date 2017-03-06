@@ -145,32 +145,29 @@ class PointageController extends Controller {
             // On vérifie le status hiérarchique de l'utilisateur.
             $userStatus = 'AA';
 
-            // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides et non validés des collaborateurs associés à l'utilisateur.
-//            if ($this->get('security.context')->isGranted('ROLE_RH')) {
-//                // On récupére tous les utilisateurs.
-//                $userStatus = 'roleRH';
-//                $users = $this->getUsersByStatus($userStatus, $securityName);
-//            } else if (in_array($securityName, $this->getUserWithStatus('AA'))) {
-//                $userStatus = 'AA';
-//                $users = $this->getUsersByStatus($userStatus, $securityName);
-//            }
-//
-//            // On récupére les DA/Manager des collaborateurs qui dépendent de l'assistant d'agence ou tous les DA/Manager si ROLE_RH.
-//            $manager = array();
-//            if ($userStatus == 'AA') {
-//                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
-//                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-//                }
-//            } else {
-//                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
-//                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-//                }
-//            }
-//            
-            // On récupére les DA/Manager des collaborateurs qui dépendent de l'assistant d'agence.
+            // On récupére la valeur de RHMode depuis les Cookies.
+            $rhMode = !empty(filter_input(INPUT_COOKIE, "RHMode")) ? filter_input(INPUT_COOKIE, "RHMode") : "false";
+
+            // On récupére la liste des managers du domaine de l'utilisateur.
             $manager = array();
-            foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
-                $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+            if ($rhMode === 'true') {
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
+            } else {
+                switch ($userStatus) {
+                    case 'AA':
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
+                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                        }
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
+                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                        }
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
+                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                        }
+                        break;
+                }
             }
 
             // Trie du tableau des établissements.
