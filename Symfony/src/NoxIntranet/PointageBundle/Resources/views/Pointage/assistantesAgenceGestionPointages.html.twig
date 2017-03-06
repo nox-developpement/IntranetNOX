@@ -861,6 +861,12 @@
                                 $('#deleteJustificatifButtonSpan').attr('idjustificatif', data['justificatifTransport']);
                                 $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
                                 $('#deleteJustificatifButton').show();
+                            } else {
+                                // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression, on attribut le lien de téléchargement du fichier au bouton d'affichage et on l'affiche.
+                                $('#sendTransportJustificatifFormButton').show();
+                                $('#deleteJustificatifButtonSpan').removeAttr('idjustificatif');
+                                $('#downloadJustificatifButtonSpan').removeAttr('onclick');
+                                $('#deleteJustificatifButton').hide();
                             }
 
                             // Si il existe un texte de régularisation...
@@ -2559,7 +2565,7 @@
                 data: {rhMode: $('#RHMode').is(':checked')},
                 success: function (managers) {
                     console.log(managers);
-                    
+
                     // On récupère la liste des managers sous forme de tableau.
                     var managersArray = JSON.parse(managers);
 
