@@ -213,9 +213,9 @@
 
                                 newHtmlContent += "<tr class='pointageCompile' username='" + data[index].user + "'>";
                                 newHtmlContent += "<td>" + data[index].lastname + ' ' + data[index].firstname + "</td>";
-                                newHtmlContent += "<td><span>" + mods.toFixed(2) + "</span><br /><a href='#' onclick=\"openDetailsPopup('" + data[index].detailsModsUrl + "');\" title='Détails'>Détails</a></td>";
+                                newHtmlContent += "<td class='modulationCell'><span class='modulationValue'>" + mods.toFixed(2) + "</span><br /><a href='#' onclick=\"openDetailsPopup('" + data[index].detailsModsUrl + "');\" title='Détails'>Détails</a></td>";
                                 newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='titresRepas' step='1' min='0' value='" + data[index].titresRepas + "'></td>";
-                                newHtmlContent += "<td><span>" + forfaitsDeplacement.toFixed(2) + "</span><br /><a href='#' onclick=\"openDetailsPopup('" + data[index].detailsForfaitDeplacementsUrl + "');\" title='Détails'>Détails</a></td>";
+                                newHtmlContent += "<td class='forfaitsDeplacementCell'><span class='forfaitsDeplacementValue'>" + forfaitsDeplacement.toFixed(2) + "</span><br /><a href='#' onclick=\"openDetailsPopup('" + data[index].detailsForfaitDeplacementsUrl + "');\" title='Détails'>Détails</a></td>";
                                 newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='primesPanier' min='0' step='0.01' value='" + data[index].primesPanier + "'></td>";
                                 newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='titreTransport' min='0' step='0.01' value='" + data[index].titreTransport + "'></td>";
                                 newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><div style='display: inline-block; vertical-align: middle;'>" + (nbAbsencesMatin + nbAbsencesAM) / 2 + "</div><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
@@ -1032,7 +1032,7 @@
 
             // Quand la popup est fermée...
             detailsPopup.onunload = function () {
-                $("#form_Month").trigger('change'); // On recharge la liste des pointages de la compilation.
+                //$("#form_Month").trigger('change'); // On recharge la liste des pointages de la compilation.
             };
 
             return false;
