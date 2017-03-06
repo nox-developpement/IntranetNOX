@@ -730,12 +730,13 @@ class PointageAjaxController extends Controller {
         if ($rhMode !== 'true') {
             // On récupére les collaborateurs en fonction du status de la compilation
             switch ($status) {
-                case 'Final':
-                    $requestSearch = 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName';
+                case 'RH':
+                    $requestSearch = 'u.rh = :securityName';
                     break;
                 case 'DAManager':
                     $requestSearch = 'u.da = :securityName OR u.rh = :securityName';
                     break;
+                case 'Final':
                 case 'AA':
                     $requestSearch = 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName';
             }
@@ -1336,31 +1337,40 @@ class PointageAjaxController extends Controller {
             // Si le mode RH est activé...
             if ($rhMode === 'true') {
                 // On récupére toute les entitées de hiérarchie.
-                $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $hierarchy) {
+                    $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                }
             }
             // Sinon...
             else {
                 // On récupére toutes les entitées de hiérachie du domaine de l'utilisateur.
                 switch ($validationStep) {
+                    case 'Final':
                     case 'AA':
-                        $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityContextName);
-                        $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityContextName);
-                        $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName);
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityContextName) as $hierarchy) {
+                            $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                        }
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityContextName) as $hierarchy) {
+                            $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                        }
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName) as $hierarchy) {
+                            $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                        }
                         break;
                     case 'DAManager':
-                        $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityContextName);
-                        $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName);
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityContextName) as $hierarchy) {
+                            $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                        }
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName) as $hierarchy) {
+                            $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                        }
                         break;
                     case 'RH':
-                    case 'Final':
-                        $usersHierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName);
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName) as $hierarchy) {
+                            $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                        }
                         break;
                 }
-            }
-
-            // Pour chaques entitées de hiérachie...
-            foreach ($usersHierachy as $hierarchy) {
-                $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
             }
 
             // Trie du tableau de retour.

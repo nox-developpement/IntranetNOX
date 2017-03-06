@@ -280,6 +280,7 @@ class PointageController extends Controller {
             }
         } else {
             switch ($userStatus) {
+                case 'Final':
                 case 'AA':
                     foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
                         $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
@@ -300,7 +301,6 @@ class PointageController extends Controller {
                     }
                     break;
                 case 'RH':
-                case 'Final':
                     foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
                         $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
                     }
