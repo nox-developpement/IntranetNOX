@@ -362,19 +362,20 @@ class PointageAjaxController extends Controller {
         if ($request->isXmlHttpRequest()) {
             // Initialisation des variables.
             $em = $this->getDoctrine()->getManager();
-            $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+            $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
             $month = $request->get('month');
             $year = $request->get('year');
             $userStatus = $request->get('userStatus');
-            $etablissement = $request->get('etablissement');
+            $manager = $request->get('manager');
+            $rhMode = $request->get('rhMode');
 
             // On récupére la liste des collaborateurs assignés à l'utilisateur en fonction de son grade hiérarchique.
-            $users = $this->getUsersByStatus($userStatus, $securityName);
+            $users = $this->getUsersByStatus($userStatus, $securityName, $rhMode);
 
-            // On supprime les collaborateurs qui font pas partie de l'établissement désigné.
+            // On supprime les collaborateurs qui le manager passé en paramètre comme Manager.
             foreach ($users as $username => $name) {
                 $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($username);
-                if (!(!empty($userHierarchy) && $userHierarchy->getEtablissement() === $etablissement)) {
+                if (!(!empty($userHierarchy) && $userHierarchy->getDA() === $manager)) {
                     unset($users[$username]);
                 }
             }
@@ -383,12 +384,13 @@ class PointageAjaxController extends Controller {
             $pointagesEntity = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $month, 'year' => $year));
             $pointageEnAttenteValidationAA = array(); // Initialisation du tableau des pointages en attente de validation par l'assistant d'agence.
             $pointageValideParCollaborateur = array(); // Initialisation du tableau des pointages validés par le collaborateur.
+            //
             // Pour chaque pointage.
             foreach ($pointagesEntity as $pointage) {
                 // On récupére l'entité hiérarchique du collaborateur du pointage.
                 $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
                 // Si le collaborateur est définie dans la hiérarchie, qu'il fait partie de l'établissement désigné et qu'il dépend de l'utilisateur.
-                if (!empty($userHierarchy) && $userHierarchy->getEtablissement() === $etablissement && in_array($pointage->getUser(), array_keys($users))) {
+                if (!empty($userHierarchy) && $userHierarchy->getDA() === $manager && in_array($pointage->getUser(), array_keys($users))) {
                     // Si le pointage a été validé par le collaborateur mais pas encore par l'assistant d'agence.
                     if ($pointage->getStatus() === '1') {
                         $pointageEnAttenteValidationAA[] = $pointage; // On l'ajout au tableau des pointages en attente de validation par l'assistant d'agence.
@@ -477,17 +479,18 @@ class PointageAjaxController extends Controller {
     // Retourne le status du pointage en fonction du mois et de l'année.
     public function ajaxGetPointageCompilationStatusAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
-            $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+            $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
             $em = $this->getDoctrine()->getManager();
 
             // Récupére le mois et l'année spécifiés par la requête.
             $month = $request->get('month');
             $year = $request->get('year');
-            $etablissement = $request->get('etablissement');
+            $manager = $request->get('manager');
             $userStatus = $request->get('userStatus');
+            $rhMode = $request->get('rhMode');
 
             // On récupére la liste des collaborateurs qui dépendent de l'utilisateur.
-            $users = $this->getUsersByStatus($userStatus, $securityName);
+            $users = $this->getUsersByStatus($userStatus, $securityName, $rhMode);
 
             // Récupére les pointages compilés correspondants aux données fournis.
             $pointageCompile = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('month' => $month, 'year' => $year));
@@ -498,7 +501,7 @@ class PointageAjaxController extends Controller {
                 // ...On récupére le plus petit status.
                 foreach ($pointageCompile as $pointage) {
                     $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
-                    if (!empty($userHierarchy) && in_array($pointage->getUser(), array_keys($users)) && $userHierarchy->getEtablissement() === $etablissement) {
+                    if (!empty($userHierarchy) && in_array($pointage->getUser(), array_keys($users)) && $userHierarchy->getDA() === $manager) {
                         $status[] = $pointage->getStatus();
                     }
                 }
@@ -556,12 +559,13 @@ class PointageAjaxController extends Controller {
             $month = $request->get('month');
             $year = $request->get('year');
             $userStatus = $request->get('userStatus');
-            $etablissement = $request->get('etablissement');
-            $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+            $manager = $request->get('manager');
+            $rhMode = $request->get('rhMode');
+            $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
             $em = $this->getDoctrine()->getManager();
 
             // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides des collaborateurs associés à l'utilisateur.
-            $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName), $month, $year, $etablissement, 'Final');
+            $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName, $rhMode), $month, $year, $manager, 'Final');
 
             // On vide le dossier avant l'enregistrement.
             foreach (glob($root . "/../web/Pointage/FichierRecap/*") as $file) { // iterate files
@@ -624,8 +628,9 @@ class PointageAjaxController extends Controller {
 
                 // Initialisation d'un tableau de concordance chiffre => string pour les mois.
                 $monthString = array(1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novemvre', 12 => 'Décembre');
-                $filename = str_replace('/', '_', 'Récapitulatif compilation pointages - ' . $securityName . ' - ' . $etablissement . ' - ' . $monthString[$month] . ' ' . $year . '.xlsx'); // On génére le nom de fichier.
+                $filename = str_replace('/', '_', 'Récapitulatif compilation pointages - ' . $securityName . ' - ' . $manager . ' - ' . $monthString[$month] . ' ' . $year . '.xlsx'); // On génére le nom de fichier.
                 $folder = $root . "/../web/Pointage/FichierRecap/"; // On récupére le dossier ou sera enregistré le fichier.
+                //
                 // On sauvegarde le fichier.
                 $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
                 $objWriter->save($folder . utf8_decode($filename)); // utf8_decode est utilisé pour encoder les accents sur le nom de fichier Windows.   
@@ -643,37 +648,29 @@ class PointageAjaxController extends Controller {
             // On récupére les variables de la requête.
             $month = $request->get('month');
             $year = $request->get('year');
-            $etablissement = $request->get('etablissement');
-            $userStatus = $request->get('userStatus');
+            $manager = $request->get('manager');
+            $rhMode = $request->get('rhMode');
 
-            // On récupére les pointages du mois et de l'année séléctionné qui sont en attente de validation par un AA.
+            // Initialisation du tableau des pointages à retourner.
+            $pointagesValide = array();
+
+            // On récupére toute la hiérarchie.
             $em = $this->getDoctrine()->getManager();
-            $pointages = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findBy(array('month' => $month, 'year' => $year, 'status' => 1));
+            $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($manager);
 
-            // Si l'utilisateur est une assistant d'agence.
-            if ($userStatus === 'AA') {
-                // On récupére le nom de l'utilisateur.
-                $securityContextName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+            // On récupére le nom de l'utilisateur.
+            $securityContextName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
 
-                // Pour chaque pointages...
-                $pointagesValide = array();
-                foreach ($pointages as $pointage) {
-                    // Si le collaborateur du pointage fait partis de l'établissement passé en paramêtre et qu'il dépend de l'utilisateur.
-                    $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneBy(array('username' => $pointage->getUser(), 'aa' => $securityContextName, 'etablissement' => $etablissement));
-                    if (!empty($userHierarchy)) {
-                        $pointagesValide[$pointage->getId()] = $userHierarchy->getNom() . ' ' . $userHierarchy->getPrenom(); // On l'ajoutes aux pointages à retourné.
-                    }
-                }
-            }
-            // Sinon l'utilisateur a le ROLE_RH.
-            else {
-                // Pour chaque pointages...
-                $pointagesValide = array();
-                foreach ($pointages as $pointage) {
-                    // Si le collaborateur du pointage fait partis de l'établissement passé en paramêtre.
-                    $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneBy(array('username' => $pointage->getUser(), 'etablissement' => $etablissement));
-                    if (!empty($userHierarchy)) {
-                        $pointagesValide[$pointage->getId()] = $userHierarchy->getNom() . ' ' . $userHierarchy->getPrenom(); // On l'ajoutes aux pointages à retourné.
+            // Pour chaque entité hiérachique...
+            foreach ($userHierarchy as $hierarchy) {
+                // Si l'utilisateur courant est le AA, le DA, le RH ou si le mode RH est actif...
+                if ($hierarchy->getAa() === $securityContextName || $hierarchy->getDa() === $securityContextName || $hierarchy->getRh() === $securityContextName || $rhMode === 'true') {
+                    // On récupére le pointage correspondant au mois, à l'année et au collaborateur.
+                    $pointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('month' => $month, 'year' => $year, 'status' => 1, 'user' => $hierarchy->getUsername()));
+
+                    // Si le pointage existe...
+                    if (!empty($pointage)) {
+                        $pointagesValide[$pointage->getId()] = $hierarchy->getNom() . ' ' . $hierarchy->getPrenom(); // On l'ajoutes aux pointages à retourné.
                     }
                 }
             }
@@ -684,20 +681,21 @@ class PointageAjaxController extends Controller {
     }
 
     // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année et de l'assistante d'agence.
-    public function ajaxGetPointagesCompilationByMonthYearEtablissementAction(Request $request) {
+    public function ajaxGetPointagesCompilationByMonthYearManagerAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $month = $request->get('month');
             $year = $request->get('year');
-            $etablissement = $request->get('etablissement');
+            $manager = $request->get('manager');
+            $rhMode = $request->get('rhMode');
             $userStatus = $request->get('userStatus');
             $validationStep = $request->get('validationStep');
             $em = $this->getDoctrine()->getManager();
 
             // Inisialisation des varibables de fonction.
-            $securityName = $this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname();
+            $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
 
             // On récupére les pointages à retourner en fonction du status de l'utilisateur.
-            $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName), $month, $year, $etablissement, $validationStep);
+            $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName, $rhMode), $month, $year, $manager, $validationStep);
 
             // Initialisation du tableau de retour.
             $returnedPointage = array('Pointage' => array(), 'Tableau' => array());
@@ -724,20 +722,21 @@ class PointageAjaxController extends Controller {
     }
 
     // Retourne les collaborateurs qui dépende de l'utilisateur passé en paramêtre en fonction de son status.
-    private function getUsersByStatus($status, $securityName) {
+    private function getUsersByStatus($status, $securityName, $rhMode) {
         // On récupére les utilisateurs qui ont l'assistante comme supérieur hiérarchique.
         $em = $this->getDoctrine()->getManager();
 
-        // Si l'utilisateur n'as pas le ROLE_RH.
-        if ($status !== 'roleRH') {
+        // Si le mode RH n'est pas actif...
+        if ($rhMode !== 'true') {
             // On récupére les collaborateurs en fonction du status de la compilation
             switch ($status) {
-                case 'Final':
-                    $requestSearch = 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName';
+                case 'RH':
+                    $requestSearch = 'u.rh = :securityName';
                     break;
                 case 'DAManager':
                     $requestSearch = 'u.da = :securityName OR u.rh = :securityName';
                     break;
+                case 'Final':
                 case 'AA':
                     $requestSearch = 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName';
             }
@@ -752,7 +751,7 @@ class PointageAjaxController extends Controller {
             $usersHierarchie = $query->getResult();
         }
 
-        // Si l'utilisateur à le ROLE_RH.
+        // Si le mode RH est actif...
         else {
             $usersHierarchie = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
         }
@@ -767,7 +766,7 @@ class PointageAjaxController extends Controller {
     }
 
     // Retourne les pointages valides des collaborateurs de l'utilisateur en fonction du mois, de l'année, de l'etablissement et de l'étape de validation.
-    private function getPointagesValides($users, $month, $year, $etablissement, $validationStep) {
+    private function getPointagesValides($users, $month, $year, $manager, $validationStep) {
 
         $em = $this->getDoctrine()->getManager();
 
@@ -792,7 +791,7 @@ class PointageAjaxController extends Controller {
             // On récuépe l'entité hiérarchique du collaborateur du pointage.
             $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage['user']);
             // Si le collaborateur est définie dans la hiérarchie, qu'il fait partie de l'établissement et que qu'il dépend de l'utilisateur?
-            if (!empty($userHierarchy) && $userHierarchy->getEtablissement() === $etablissement && in_array($pointage['user'], array_keys($users))) {
+            if (!empty($userHierarchy) && $userHierarchy->getDA() === $manager && in_array($pointage['user'], array_keys($users))) {
                 $pointage['absences'] = json_decode($pointage['absences'], true);
                 $pointage['detailsForfaitDeplacementsUrl'] = $this->generateUrl('nox_intranet_pointage_show_forfaits_deplacement_details', array('month' => $pointage['month'], 'year' => $pointage['year'], 'username' => $pointage['user'], 'readonly' => $validationStep === 'Final' ? 'true' : 'false')); // On génére l'Url d'accès aux détails du forfait déplacement.
                 $pointage['detailsModsUrl'] = $this->generateUrl('nox_intranet_pointage_show_mods_details', array('month' => $pointage['month'], 'year' => $pointage['year'], 'username' => $pointage['user'], 'readonly' => $validationStep === 'Final' ? 'true' : 'false')); // On génére l'Url d'accès aux détails du forfait déplacement.
@@ -1113,7 +1112,7 @@ class PointageAjaxController extends Controller {
             // On génére le lien de téléchargement avec le nom du fichier en paramètre .
             $downloadUrl = $this->generateUrl('nox_intranet_pointage_download_justificatif_zip', array(
                 'fileName' => pathinfo($newZipFile, PATHINFO_BASENAME),
-                'etablissement' => $justificatifsZipInfoArray['etablissement'],
+                'manager' => $justificatifsZipInfoArray['manager'],
                 'month' => $justificatifsZipInfoArray['month'],
                 'year' => $justificatifsZipInfoArray['year']
             ));
@@ -1261,6 +1260,124 @@ class PointageAjaxController extends Controller {
             $em->flush();
 
             Return new Response('Saved');
+        }
+    }
+
+    // Retourne la liste des managers pour la gestion des pointages en fonction du mode RH.
+    public function ajaxGestionPointageSetRHModeAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupére les variables de la requête.
+            $rhMode = $request->get('rhMode');
+
+            // On récupére le nom de l'utilisateur.
+            $securityContextName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
+
+            // Initialisation de l'entity manager.
+            $em = $this->getDoctrine()->getManager();
+
+            // Initialisation de la liste des managers à retourner.
+            $managers = array();
+
+            // Si le mode RH est activé...
+            if ($rhMode === 'true') {
+                // On récupére toute les entitées de hiérarchie.
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
+                    $managers[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
+            }
+            // Sinon...
+            else {
+                // On récupére toutes les entitées de hiérachie qui on le collaborateur courant pour AA.
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityContextName) as $userHierarchy) {
+                    $managers[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityContextName) as $userHierarchy) {
+                    $managers[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName) as $userHierarchy) {
+                    $managers[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
+            }
+
+            // Trie du tableau de retour.
+            asort($managers);
+
+            // On retourne le tableau des managers.
+            return new Response(json_encode($managers));
+        }
+    }
+
+    // Retourne une chaîne de caractère sans accents.
+    private function wd_remove_accents($str, $charset = 'utf-8') {
+        $str = htmlentities($str, ENT_NOQUOTES, $charset);
+
+        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
+        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
+        $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
+
+        return $str;
+    }
+
+    // Retourne la liste des managers pour la compilation des pointages en fonction du mode RH.
+    public function ajaxCompilationPointageSetRHModeAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupére les variables de la requête.
+            $rhMode = $request->get('rhMode');
+            $validationStep = $request->get('validationStep');
+
+            // On récupére le nom de l'utilisateur.
+            $securityContextName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
+
+            // Initialisation de l'entity manager.
+            $em = $this->getDoctrine()->getManager();
+
+            // Initialisation de la liste des managers à retourner.
+            $managers = array();
+
+            // Si le mode RH est activé...
+            if ($rhMode === 'true') {
+                // On récupére toute les entitées de hiérarchie.
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $hierarchy) {
+                    $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                }
+            }
+            // Sinon...
+            else {
+                // On récupére toutes les entitées de hiérachie du domaine de l'utilisateur.
+                switch ($validationStep) {
+                    case 'Final':
+                    case 'AA':
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityContextName) as $hierarchy) {
+                            $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                        }
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityContextName) as $hierarchy) {
+                            $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                        }
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName) as $hierarchy) {
+                            $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                        }
+                        break;
+                    case 'DAManager':
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityContextName) as $hierarchy) {
+                            $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                        }
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName) as $hierarchy) {
+                            $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                        }
+                        break;
+                    case 'RH':
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName) as $hierarchy) {
+                            $managers[$hierarchy->getDA()] = $hierarchy->getDA(); // On ajoute le DA au tableau des DA.
+                        }
+                        break;
+                }
+            }
+
+            // Trie du tableau de retour.
+            sort($managers);
+
+            // On retourne le tableau des managers.
+            return new Response(json_encode($managers));
         }
     }
 

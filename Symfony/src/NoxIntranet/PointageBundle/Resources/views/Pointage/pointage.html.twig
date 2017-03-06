@@ -12,7 +12,7 @@
 
     <div id='pointageSavingNotification' style='display: none; position: fixed; z-index: 500; background-color: rgba(41,154,11, 0.7); border: 1px outset white; border-radius: 10px; padding: 0.5%;'><p style='display: inline-block; margin: 0; font-size: 0.8vw; color: white;'>Sauvegarde en cours <img src='{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}' style='vertical-align: middle; height: 2em;'></p></div>
 
-    <div id="pointageAlert"></div>
+    <div id="pointageAlert"><div id="pointageAlertText"></div></div>
 
     <div id="pointageStatusDiv">
         <div id="pointageStatusLabelGeneralContainer">
@@ -357,36 +357,79 @@
 
             // Affiche une fenêtre de confirmation lors de la validation du pointage.
             $('#form_Valider').click(function (event) {
-                //event.preventDefault();
+                event.preventDefault();
 
                 // Si un montant de titre de transport est renseigné sans justificatif...
                 if ($('#titreTransportMontant').text() !== '' && $('#deleteJustificatifButton').css('display') === 'none') {
-
-                    /*$("#pointageAlert").dialog({
-                     resizable: false,
-                     height: "auto",
-                     width: "auto",
-                     modal: true,
-                     title: "Pas de justificatif de transport",
-                     text: "Vous avez indiqué un montant de titre de transport sans ajouter de justificatif, voulez-vous valider la feuille de pointage quand même ?",
-                     buttons: {
-                     "Valider": function () {
-                     $(this).dialog("close");
-                     $("form[name='form']").submit();
-                     },
-                     "Cancel": function () {
-                     $(this).dialog("close");
-                     }
-                     }
-                     });*/
-
-                    if (confirm('Vous avez indiqué un montant de titre de transport sans ajouter de justificatif, voulez-vous valider la feuille de pointage quand même ?')) {
-                        return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return confirm('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
+                    // On affiche une fenêtre indiquant qu'il n'y a pas de justificatif de transport.
+                    $("#pointageAlertText").text("Vous avez indiqué un montant de titre de transport sans ajouter de justificatif, voulez-vous valider la feuille de pointage quand même ?");
+                    $("#pointageAlert").dialog({
+                        resizable: false,
+                        height: "auto",
+                        width: "30%",
+                        modal: true,
+                        draggable: false,
+                        dialogClass: "pointage-alert-content-class",
+                        title: "Pas de justificatif de transport",
+                        buttons: {
+                            // Si l'utilisateur valide...
+                            "Valider": function () {
+                                // On affiche une fenêtre de confirmation de validation.
+                                $(this).dialog("close");
+                                $('#pointageAlertText').text('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
+                                $("#pointageAlert").dialog({
+                                    resizable: false,
+                                    height: "auto",
+                                    width: "30%",
+                                    modal: true,
+                                    draggable: false,
+                                    dialogClass: "pointage-alert-content-class",
+                                    title: "Confirmer la validation ?",
+                                    buttons: {
+                                        // Si l'utilisateur valide...
+                                        "Valider": function () {
+                                            // On envoi le formulaire.
+                                            $(this).dialog("close");
+                                            $("form[name='form']").submit();
+                                        },
+                                        "Annuler": function () {
+                                            $(this).dialog("close");
+                                        }
+                                    }
+                                });
+                                $('.ui-dialog :button').blur();
+                            },
+                            // Si l'utilisateur annule, on ferme la fenêtre.
+                            "Annuler": function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
+                    $('.ui-dialog :button').blur();
+                }
+                // Sinon...
+                else {
+                    // On affiche une fenêtre de confirmation de validation.
+                    $('#pointageAlertText').text('Confirmer la validation de la feuille de pointage ? Celle-ci ne sera plus modifiable.');
+                    $("#pointageAlert").dialog({
+                        resizable: false,
+                        height: "auto",
+                        width: "30%",
+                        modal: true,
+                        draggable: false,
+                        dialogClass: "pointage-alert-content-class",
+                        title: "Confirmer la validation ?",
+                        buttons: {
+                            "Valider": function () {
+                                $(this).dialog("close");
+                                $("form[name='form']").submit();
+                            },
+                            "Annuler": function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
+                    $('.ui-dialog :button').blur();
                 }
             });
         });
@@ -845,7 +888,7 @@
 
         // Calcule le montant de remboursement des titres de tranport.
         function displayTotalTitreTransport() {
-            $('#tableFeuillePointage').on('blur keyup paste input', '#titreTransportMontant', function () {
+            $('#tableFeuillePointageTypesAbscencesDivContainer').on('keyup paste', '#titreTransportMontant', function () {
                 var total = 0;
                 if ($('#titreTransportMontant').text() !== '') {
                     total = parseFloat($('#titreTransportMontant').text(), 10) / 2;
@@ -1227,6 +1270,7 @@
                 addTd();
                 setColSpan();
             });
+            
             // Ajoute un td après chaque td du dernier projet.
             function addTd() {
                 var total = $('#tableFeuillePointage').find('tr').length;
@@ -1429,12 +1473,30 @@
             var ua = window.navigator.userAgent;
             var old_ie = ua.indexOf('MSIE ');
             var new_ie = ua.indexOf('Trident/');
+
             if ((old_ie > -1) || (new_ie > -1)) {
                 ms_ie = true;
             }
 
             if (ms_ie) {
-                alert('Le module de pointage n\'est pas compatible avec Internet Explorer, veuillez utiliser Google Chrome ou Microsoft Edge à la place.');
+                // On affiche une fenêtre indiquant qu'il n'y a pas de justificatif de transport.
+                $("#pointageAlertText").text('Le module de pointage n\'est pas compatible avec Internet Explorer, veuillez utiliser Google Chrome à la place.');
+                $("#pointageAlert").dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: "30%",
+                    modal: true,
+                    draggable: false,
+                    dialogClass: "pointage-alert-content-class",
+                    title: "Problème de compatibilité",
+                    buttons: {
+                        "OK": function () {
+                            $(this).dialog("close");
+                            window.location = "{{ path('nox_intranet_accueil') }}";
+                        }
+                    }
+                });
+                $('.ui-dialog :button').blur();
             }
         }
 

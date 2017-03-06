@@ -29,7 +29,7 @@
     }
 
     .forfaitsDeplacementValue {
-        width: 20%;
+        width: 100%;
         text-align: center;
     }
 </style>
@@ -63,7 +63,19 @@
                 $.ajax({
                     url: '{{ path('nox_intranet_pointage_ajax_save_forfaits_deplacement_edition') }}',
                     type: 'POST',
-                    data: {month: "{{ month }}", year: "{{ year }}", user: "{{ user.Username }}", date: date, value: value}
+                    data: {month: "{{ month }}", year: "{{ year }}", user: "{{ user.Username }}", date: date, value: value},
+                    success: function () {
+                        // On récupére la valeur total des forfaits déplacement.
+                        var totalValue = 0;
+                        $('.forfaitsDeplacementValue').each(function () {
+                            if ($(this).val() !== "") {
+                                totalValue = parseFloat(totalValue) + parseFloat($(this).val());
+                            }
+                        });
+
+                        // On attribut la valeur total du forfait déplacement dans la compilation.
+                        $("tr[username='{{ user.Username }}']", window.opener.document).find('.forfaitsDeplacementValue').text(totalValue.toFixed(2));
+                    }
                 });
             }, 1000);
         });
