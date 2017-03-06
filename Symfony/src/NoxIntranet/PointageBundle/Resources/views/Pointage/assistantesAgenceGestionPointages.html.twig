@@ -386,6 +386,7 @@
             saveCSV();
             setSavedDateAndAgency();
             getSavedDateAndAgency();
+            ajaxSaveData();
         });
 
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
@@ -432,14 +433,10 @@
 
         // Cache les tables de la feuille de pointage.
         function hidePointageTables() {
-            $('#tableFeuillePointageDivContainer td[contenteditable=true], #tableFeuillePointageTypesAbscencesDivContainer td[contenteditable=true]').unbind('blur');
-            $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector), #tableFeuillePointageTypesAbscencesDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').unbind('change');
             $('#tableFeuillePointageDivContainer').hide();
             $('#tableFeuillePointageTypesAbscencesDivContainer').hide();
             $('#form_Manager, #form_Month, #form_Year, #form_Pointage').change(function () {
                 if ($('#form_Manager option:selected').val() === '' || $('#form_Month option:selected').val() === '' || $('#form_Year option:selected').val() === '' || $('#form_Pointage option:selected')) {
-                    $('#tableFeuillePointageDivContainer td[contenteditable=true], #tableFeuillePointageTypesAbscencesDivContainer td[contenteditable=true]').unbind('blur');
-                    $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector), #tableFeuillePointageTypesAbscencesDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').unbind('change');
                     $('#tableFeuillePointageDivContainer').hide();
                     $('#tableFeuillePointageTypesAbscencesDivContainer').hide();
                 }
@@ -688,6 +685,103 @@
             }
         }
 
+        // Lis le contenu des cellules du tableau et renvoie le résultat sous forme de chaine pour sauvegarde en base de données.
+        function ajaxSaveData() {
+            // Initialisation d'une variable de timer pour lancer la sauvegarde après # temps sans typing.
+            var delay = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            $('#tableFeuillePointage, #tableFeuillePointageTypesAbscencesDivContainer').on('keyup paste', 'td[contenteditable=true]', function () {
+                delay(function () {
+                    var data = {};
+                    data['contenteditable'] = [];
+                    data['select'] = [];
+                    data['project'] = [];
+                    data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
+
+                    $('#tableFeuillePointageDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu), #tableFeuillePointageTypesAbscencesDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
+                        data['contenteditable'][index] = $(this).text();
+                        //$(this).css('background-color', 'orange');
+                        //$(this).text(index);
+                    });
+
+                    $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
+                        data['select'][index] = $(this).val();
+                        //$(this).css('background-color', 'orange');
+                    });
+
+                    $('.project[contenteditable=true]').each(function (index) {
+                        data['project'][index] = $(this).text();
+                    });
+
+                    var serializedData = JSON.stringify(data);
+
+                    console.log("AjaxGetPointageStatus: " + $('#form_Pointage').val());
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
+                        data: {user: $('#form_Pointage').val(), month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
+                    });
+                }, 1500);
+            });
+
+            $('#tableFeuillePointage').on('change', 'select:not(#pointage_month_selector, #pointage_year_selector)', function () {
+                var data = {};
+                data['contenteditable'] = [];
+                data['select'] = [];
+                data['project'] = [];
+                data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
+
+                $('#tableFeuillePointageDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu), #tableFeuillePointageTypesAbscencesDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
+                    data['contenteditable'][index] = $(this).text();
+                    //$(this).css('background-color', 'orange');
+                    //$(this).text(index);
+                });
+
+                $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
+                    data['select'][index] = $(this).val();
+                    //$(this).css('background-color', 'orange');
+                });
+
+                $('.project[contenteditable=true]').each(function (index) {
+                    data['project'][index] = $(this).text();
+                });
+
+                var serializedData = JSON.stringify(data);
+
+                console.log("ajaxGetPointageStatus: " + $('#form_Pointage').val());
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
+                    data: {user: $('#form_Pointage').val(), month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData}
+                });
+            });
+
+            // Détecte l'édition de texte de la case "Régularisation et sauvegarde les changements en base de donnée.
+            $('#tableFeuillePointageTypesAbscencesDivContainer').on('keyup paste', '#divRegularisation #divRegularisationText', function () {
+                // On récupére le texte de la case.
+                var regularisationText = $(this).text();
+
+                // Permet d'ajouter un temps d'attente avant de lancer la sauvegarde.
+                delay(function () {
+                    console.log("Sauvegarde régularisation: " + $('#form_Pointage').val());
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ path('nox_intranet_pointage_ajax_save_regularisation') }}',
+                        data: {user: $('#form_Pointage').val(), month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), regularisationText: regularisationText}
+                    });
+                }, 1500);
+            });
+        }
+
         // Affiche les jours du moi en fonction du mois et de l'année séléctionées.
         function getNewDate() {
 
@@ -775,9 +869,6 @@
                                 }
                             }
                         });
-                        $('td[contenteditable]').unbind('blur');
-                        $('.projet[contenteditable]').unbind('blur');
-                        $('#tableFeuillePointage select:not(#pointage_month_selector, #pointage_year_selector)').unbind('change');
                         ajaxGetData(response['username'], response['month'], response['year']);
                     }
                 });
@@ -862,7 +953,7 @@
                                 $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
                                 $('#deleteJustificatifButton').show();
                             } else {
-                                // On cache le bouton d'upload, on attribut l'id du justificatif au bouton de suppression, on attribut le lien de téléchargement du fichier au bouton d'affichage et on l'affiche.
+                                // On affiche le bouton d'upload, on supprime les attribut d'id du justificatif, on cache le bouton de suppression, on supprime l'attribut du lien de téléchargement du fichier.
                                 $('#sendTransportJustificatifFormButton').show();
                                 $('#deleteJustificatifButtonSpan').removeAttr('idjustificatif');
                                 $('#downloadJustificatifButtonSpan').removeAttr('onclick');
@@ -881,14 +972,6 @@
 
                         deleteProjectColumn();
                         tableEventHandler();
-                        displayDailyProjectsTotalPercentage();
-                        dispayMonthlyTotalHoursMod();
-                        displayMonthlyTotalTitresRepas();
-                        displayMonthlyTotalForfaitsDeplacement();
-                        displayMonthlyTotalPrimesPanier();
-                        displayTotalAbscences();
-                        displayTotalTitreTransport();
-                        checkAbscencesTitreRepas();
                         ajaxGetPointageStatus(user, month, year);
                     }
                 }
@@ -949,7 +1032,6 @@
                             break;
                     }
 
-
                     $('.pointageStatusLine div').width(width + '%');
                     $(".pointageStatusCircle").filter(function () {
                         return  $(this).attr("step") <= cercleNb;
@@ -962,9 +1044,10 @@
                         $('#addProject').hide();
                         $('#form_Valider').hide();
                     } else {
-                        // Désactive les précent binding du boutton de validation.
+                        // Désactive les précent binding du bouton de validation.
                         $('#form_Valider').unbind('click');
 
+                        // Lors du clique sur le bouton de validation...
                         $('#form_Valider').click(function (event) {
                             event.preventDefault();
 
@@ -992,108 +1075,9 @@
                             });
                             $('.ui-dialog :button').blur();
                         });
-
-                        ajaxSaveData(user, month, year);
                     }
                 }
             });
-
-            // Initialisation d'une variable de timer pour lancer la sauvegarde après # temps sans typing.
-            var delay = (function () {
-                var timer = 0;
-                return function (callback, ms) {
-                    clearTimeout(timer);
-                    timer = setTimeout(callback, ms);
-                };
-            })();
-
-            // Lis le contenu des cellules du tableau et renvoie le résultat sous forme de chaine pour sauvegarde en base de données.
-            function ajaxSaveData(user, month, year) {
-                $('#tableFeuillePointage').on('keyup paste', 'td[contenteditable=true]', function () {
-                    delay(function () {
-                        var data = {};
-                        data['contenteditable'] = [];
-                        data['select'] = [];
-                        data['project'] = [];
-                        data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-
-                        $('#tableFeuillePointageDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu), #tableFeuillePointageTypesAbscencesDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
-                            data['contenteditable'][index] = $(this).text();
-                            //$(this).css('background-color', 'orange');
-                            //$(this).text(index);
-                        });
-
-                        $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
-                            data['select'][index] = $(this).val();
-                            //$(this).css('background-color', 'orange');
-                        });
-
-                        $('.project[contenteditable=true]').each(function (index) {
-                            data['project'][index] = $(this).text();
-                        });
-
-                        var serializedData = JSON.stringify(data);
-
-                        console.log("AjaxGetPointageStatus: " + $('#form_Pointage').val());
-
-                        $.ajax({
-                            type: 'POST',
-                            url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                            data: {user: $('#form_Pointage').val(), month: month, year: year, data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
-                        });
-                    }, 1500);
-                });
-
-                $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').change(function () {
-                    var data = {};
-                    data['contenteditable'] = [];
-                    data['select'] = [];
-                    data['project'] = [];
-                    data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-
-                    $('#tableFeuillePointageDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu), #tableFeuillePointageTypesAbscencesDivContainer td[contenteditable=true]:not(#signatureCollaborateur, .project)').each(function (index) {
-                        data['contenteditable'][index] = $(this).text();
-                        //$(this).css('background-color', 'orange');
-                        //$(this).text(index);
-                    });
-
-                    $('#tableFeuillePointageDivContainer select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
-                        data['select'][index] = $(this).val();
-                        //$(this).css('background-color', 'orange');
-                    });
-
-                    $('.project[contenteditable=true]').each(function (index) {
-                        data['project'][index] = $(this).text();
-                    });
-
-                    var serializedData = JSON.stringify(data);
-
-                    console.log("ajaxGetPointageStatus: " + $('#form_Pointage').val());
-
-                    $.ajax({
-                        type: 'POST',
-                        url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                        data: {user: $('#form_Pointage').val(), month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData}
-                    });
-                });
-
-                // Détecte l'édition de texte de la case "Régularisation et sauvegarde les changements en base de donnée.
-                $('#divRegularisation').on('keyup paste', '#divRegularisationText', function () {
-                    // On récupére le texte de la case.
-                    var regularisationText = $(this).text();
-
-                    // Permet d'ajouter un temps d'attente avant de lancer la sauvegarde.
-                    delay(function () {
-                        console.log("Sauvegarde régularisation: " + $('#form_Pointage').val());
-
-                        $.ajax({
-                            type: 'POST',
-                            url: '{{ path('nox_intranet_pointage_ajax_save_regularisation') }}',
-                            data: {user: $('#form_Pointage').val(), month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), regularisationText: regularisationText}
-                        });
-                    }, 1500);
-                });
-            }
         }
 
         // Valide la feuille de pointage d'un collaborateur et sauvegarde les données d'absence, de titres repas, de forfaits déplacement, de primes panier et de titre de transport.
@@ -1244,7 +1228,7 @@
                 }
             }
 
-            $('.projectPercentageCell').on('blur keyup paste input', function () {
+            $('#tableFeuillePointage').on('blur keyup paste input', '.projectPercentageCell', function () {
                 $('.dailyTotalPercentageCell').each(function () {
                     var total = 0;
                     $(this).siblings('.projectPercentageCell[contenteditable=true]').each(function () {
@@ -1261,7 +1245,7 @@
 
         // Calcule et affiche le nombre d'heure total pour le mois courant.
         function dispayMonthlyTotalHoursMod() {
-            $('.dailyHoursMod').on('blur keyup paste input', function () {
+            $('#tableFeuillePointage').on('blur keyup paste input', '.dailyHoursMod', function () {
                 var total = 0;
                 var error = false;
                 $('.dailyHoursMod').each(function () {
@@ -1291,7 +1275,7 @@
 
         // Calcule et affiche le nombre total de titres repas pour le mois courant.
         function displayMonthlyTotalTitresRepas() {
-            $('.titreRepasNumberSelector select, .abscenceMatinSelector select, .abscenceAMSelector select').change(function () {
+            $('#tableFeuillePointage').on('change', '.titreRepasNumberSelector select, .abscenceMatinSelector select, .abscenceAMSelector select', function () {
                 var total = 0;
                 $('.titreRepasNumberSelector select').each(function () {
                     if ($(this).find('option:selected').val() !== '') {
@@ -1304,7 +1288,7 @@
 
         // Met à zéro et désactive le selecteur de titre repas lorsque le nombre d'abscence dépasse 0.
         function checkAbscencesTitreRepas() {
-            $('.abscenceMatinSelector').on('change', 'select', function () {
+            $('#tableFeuillePointage').on('change', '.abscenceMatinSelector select', function () {
                 if ($(this).val() !== '' || $(this).parent('.abscenceMatinSelector').siblings('.abscenceAMSelector').find('select').val() !== '') {
                     $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').val('');
                     //$(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
@@ -1318,7 +1302,7 @@
                     $(this).parent('.abscenceMatinSelector').siblings('.primesPanierNumber').css('background-color', 'white');
                 }
             });
-            $('.abscenceAMSelector').on('change', 'select', function () {
+            $('#tableFeuillePointage').on('change', '.abscenceAMSelector select', function () {
                 if ($(this).val() !== '' || $(this).parent('.abscenceAMSelector').siblings('.abscenceMatinSelector').find('select').val() !== '') {
                     $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').val('');
                     //$(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').attr('disabled', true);
@@ -1337,7 +1321,7 @@
         // Vérifie qu'une seule option est renseignée parmis les titres repas, la prime panier ou le forfait déplacement pour chaque jours.
         function onePerkOnly() {
             // Lors d'un changement sur les selecteur de titre repas.
-            $('.titreRepasNumberSelector').on('change', 'select', function () {
+            $('#tableFeuillePointage').on('change', '.titreRepasNumberSelector select', function () {
                 // Si la valeur du sélécteur est à '1'.
                 if ($(this).val() === '1') {
                     // On change la couleur de fond des cases de forfaits déplacement et de primes panier voisines et efface leur valeurs.
@@ -1360,7 +1344,7 @@
             });
 
             // Lorsqu'on écris dans une case de forfait déplacement.
-            $('.forfaitsDeplacementMontant').keyup(function () {
+            $('#tableFeuillePointage').on('keyup', '.forfaitsDeplacementMontant', function () {
                 // Si la case n'est pas vide.
                 if ($(this).text() !== '' && $(this).siblings('.dayDateCell').css('background-color') !== 'rgb(166, 166, 166)') {
                     $(this).css('background-color', 'white');
@@ -1392,7 +1376,7 @@
             });
 
             // Lorsqu'on écris dans une case de prime panier.
-            $('.primesPanierNumber').keyup(function () {
+            $('#tableFeuillePointage').on('keyup', '.primesPanierNumber', function () {
                 // Si la case n'est pas vide.
                 if ($(this).text() !== '') {
                     $(this).css('background-color', 'white');
@@ -1426,7 +1410,7 @@
 
         // Calcule et affiche le montant total du forfaits de déplacement pour le mois courant.
         function displayMonthlyTotalForfaitsDeplacement() {
-            $('.forfaitsDeplacementMontant').on('blur keyup paste input', function () {
+            $('#tableFeuillePointage').on('blur keyup paste input', '.forfaitsDeplacementMontant', function () {
                 var total = 0;
                 $('.forfaitsDeplacementMontant').each(function () {
                     if ($(this).text() !== '') {
@@ -1439,7 +1423,7 @@
 
         // Calcule et affiche le montant total des primes de panier pour le mois courant.
         function displayMonthlyTotalPrimesPanier() {
-            $('.primesPanierNumber').on('blur keyup paste input', function () {
+            $('#tableFeuillePointage').on('blur keyup paste input', '.primesPanierNumber', function () {
                 var total = 0;
                 $('.primesPanierNumber').each(function () {
                     if ($(this).text() !== '') {
@@ -1471,7 +1455,7 @@
                 $(nbAbscencesCell).text(total);
             }
 
-            $('.abscenceMatinSelector select, .abscenceAMSelector select').change(function () {
+            $('#tableFeuillePointage').on('change', '.abscenceMatinSelector select, .abscenceAMSelector select', function () {
                 $('.nbAbscences').each(function () {
                     getAbscencesCount(this);
                 });
@@ -1480,7 +1464,7 @@
 
         // Calcule le montant de remboursement des titres de tranport.
         function displayTotalTitreTransport() {
-            $('#titreTransportMontant').on('blur keyup paste input', function () {
+            $('#tableFeuillePointageTypesAbscencesDivContainer').on('keyup paste', '#titreTransportMontant', function () {
                 var total = 0;
                 if ($('#titreTransportMontant').text() !== '') {
                     total = parseFloat($('#titreTransportMontant').text(), 10) / 2;
@@ -1494,8 +1478,6 @@
             $('#addProject').click(function () {
                 addTd();
                 setColSpan();
-                ajaxSaveData();
-                deleteProjectColumn();
             });
 
             // Ajoute un td après chaque td du dernier projet.
@@ -1530,60 +1512,12 @@
                 var colspan = parseInt($('#operationnel').attr('colspan'), 10);
                 $('#operationnel').attr('colspan', colspan + 1);
             }
-
-            // Lis le contenu des cellules du tableau et renvoie le résultat sous forme de chaine pour sauvegarde en base de données.
-            function ajaxSaveData() {
-                var data = {};
-                data['contenteditable'] = [];
-                data['select'] = [];
-                data['project'] = [];
-                data['nbProject'] = $('#tableFeuillePointage tr:nth-child(3) .project').length;
-
-                $('td[contenteditable=true]:not(#signatureCollaborateur, .project, #ajaxSearchAffairesDiv, #projectDeleteMenu)').each(function (index) {
-                    data['contenteditable'][index] = $(this).text();
-                });
-
-                $('select:not(#pointage_month_selector, #pointage_year_selector)').each(function (index) {
-                    data['select'][index] = $(this).val();
-                });
-
-                $('.project[contenteditable=true]').each(function (index) {
-                    data['project'][index] = $(this).text();
-                });
-
-                var serializedData = JSON.stringify(data);
-
-                console.log('addProjectColumn: ' + $("#form_Pointage").val());
-
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
-                    data: {user: $("#form_Pointage").val(), month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
-                });
-
-                $('td[contenteditable]').unbind('blur');
-
-                displayDailyProjectsTotalPercentage();
-                dispayMonthlyTotalHoursMod();
-                displayMonthlyTotalTitresRepas();
-                displayMonthlyTotalForfaitsDeplacement();
-                displayMonthlyTotalPrimesPanier();
-                displayTotalAbscences();
-                displayTotalTitreTransport();
-                checkAbscencesTitreRepas();
-                getGXAffaires();
-            }
         }
 
         // Supprime une colonne de projet au tableau.
         function deleteProjectColumn() {
-
-            // On supprime le trigger de contextmenu déjà existant.
-            $('#tableFeuillePointage tr:nth-child(2) .project').unbind('contextmenu');
-
             // Lors d'un clic droit sur une cellule de nom d'affaire.
-            $('#tableFeuillePointage tr:nth-child(2) .project').bind('contextmenu', function (e) {
-
+            $('#tableFeuillePointage').bind('contextmenu', 'tr:nth-child(2) .project', function (e) {
                 var projectCellule = $(this);
 
                 // On supprime le trigger de clique déjà existant.
@@ -1603,29 +1537,22 @@
                     $('#projectDeleteMenu').css('left', cursorX);
                     $('#projectDeleteMenu').css('display', 'inline-block');
 
-                    // On supprime les events sur la cellule.
-                    //projectCellule.unbind('blur');
-                    //projectCellule.unbind('keyup');
-                    //projectCellule.unbind('paste');
-
                     // Lors du clic sur le menu de suppression.
                     $('#projectDeleteMenu').click(function () {
                         $('#projectDeleteMenu').hide();
                         deleteTd(projectCellule);
                         setColSpan();
-                        ajaxSaveData2();
+                        ajaxSaveColumnDelete();
                     });
                 }
 
                 // Si on clique en dehors de la fenêtre de suppression, elle disparaît.
                 $(document).mouseup(function (e) {
                     var container = $('#projectDeleteMenu');
-                    if (!container.is(e.target) // if the target of the click isn't the container...
-                            && container.has(e.target).length === 0) // ... nor a descendant of the container
-                    {
+
+                    // if the target of the click isn't the container... nor a descendant of the container...
+                    if (!container.is(e.target) && container.has(e.target).length === 0) {
                         container.hide();
-                        ajaxSaveData2();
-                        getGXAffaires();
                     }
 
                 });
@@ -1649,7 +1576,7 @@
             }
 
             // Lis le contenu des cellules du tableau et renvoie le résultat sous forme de chaine pour sauvegarde en base de données.
-            function ajaxSaveData2() {
+            function ajaxSaveColumnDelete() {
                 $(document).unbind('mouseup');
 
                 var data = {};
@@ -1668,22 +1595,13 @@
                 });
                 var serializedData = JSON.stringify(data);
 
-                console.log('deleteProjectColum: ' + $('#form_Pointage').val());
+                console.log("Sauvegarde suppression colonne: " + $('#form_Pointage').val());
 
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
                     data: {user: $('#form_Pointage').val(), month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData, signatureCollaborateur: $('#signatureCollaborateur').text()}
                 });
-
-                displayDailyProjectsTotalPercentage();
-                dispayMonthlyTotalHoursMod();
-                displayMonthlyTotalTitresRepas();
-                displayMonthlyTotalForfaitsDeplacement();
-                displayMonthlyTotalPrimesPanier();
-                displayTotalAbscences();
-                displayTotalTitreTransport();
-                checkAbscencesTitreRepas();
             }
         }
 
@@ -1722,15 +1640,8 @@
 
         // Renvoi les affaires dont le numéro contient la chaine "search".
         function getGXAffaires() {
-
-            // Supprime les triggers d'event déjà existant.
-            $('#tableFeuillePointage tr:nth-child(2) .project').unbind('blur');
-            $('#tableFeuillePointage tr:nth-child(2) .project').unbind('keyup');
-            $('#tableFeuillePointage tr:nth-child(2) .project').unbind('paste');
-            //$('#tableFeuillePointage tr:nth-child(2) .project').unbind('input');
-
             // Pour toutes action dans une cellule titre d'affaire.
-            $('#tableFeuillePointage tr:nth-child(2) .project').on('blur keyup paste', function () {
+            $('#tableFeuillePointage').on('blur keyup paste', 'tr:nth-child(2) .project', function () {
 
                 $('#ajaxSearchAffairesDiv').hide(); // On cache la div des résultats de recherche.
 
@@ -1804,7 +1715,6 @@
                         });
                     });
                 }
-
             });
         }
 

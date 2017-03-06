@@ -888,7 +888,7 @@
 
         // Calcule le montant de remboursement des titres de tranport.
         function displayTotalTitreTransport() {
-            $('#tableFeuillePointage').on('blur keyup paste input', '#titreTransportMontant', function () {
+            $('#tableFeuillePointageTypesAbscencesDivContainer').on('keyup paste', '#titreTransportMontant', function () {
                 var total = 0;
                 if ($('#titreTransportMontant').text() !== '') {
                     total = parseFloat($('#titreTransportMontant').text(), 10) / 2;
@@ -1270,6 +1270,7 @@
                 addTd();
                 setColSpan();
             });
+            
             // Ajoute un td après chaque td du dernier projet.
             function addTd() {
                 var total = $('#tableFeuillePointage').find('tr').length;
