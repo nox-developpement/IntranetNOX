@@ -182,3 +182,24 @@ nox_intranet_pointage_ajax_compilation_pointages_rh_mode:
     path: /ressources/pointage/ajax-compilation-pointage-rh-mode
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxCompilationPointageSetRHMode }
     
+nox_intranet_pointage_archives_compilation_etablissements:
+    path: /ressources/pointage/archives-compilation-etablissements
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationArchiveEtablissement }
+    
+nox_intranet_pointage_archives_compilation_years:
+    path: /ressources/pointage/archives-compilation-years/{etablissement}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationArchiveYear }
+    requirements:
+        etablissement: .+
+        
+nox_intranet_pointage_archives_compilation_month:
+    path: /ressources/pointage/archives-compilation-month/{year}/{etablissement}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationArchiveMonth }
+    requirements:
+        etablissement: .+
+    
+nox_intranet_pointage_archives_compilation_export_excel:
+    path: /ressources/pointage/archives-compilation-export-excel/{month}/{year}/{etablissement}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:generateExcelRecap }
+    requirements:
+        etablissement: .+

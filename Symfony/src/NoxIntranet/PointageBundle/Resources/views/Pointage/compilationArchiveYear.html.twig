@@ -1,0 +1,89 @@
+{% extends "layout.html.twig" %}
+
+{% block titrePage %}Archives compilation des pointages{% endblock %}
+
+{% block messageAccueil %}Archives compilation des pointages{% endblock %}
+
+{% block sousMessageAccueil %}Etablissement: {{ etablissement }}{% endblock %}
+
+{% block contenu %}
+
+    <style>
+        #formDownloadArchive {
+            width: 70%;
+            margin: auto;
+            text-align: center;
+        }
+
+        #formDownloadArchive form {
+            display: inline-block;
+            width: auto;
+            border: 2px outset #1F4E79;
+            background-color: rgba(255,255,255, 0.6);
+        }
+
+        #formDownloadArchive p {
+            text-align: center;
+        }
+
+        #pointage_compilation_archives {
+            width: 70%;
+            margin: auto;
+            margin-bottom: 5%;
+            text-align: center;
+        }
+
+        .archive_folder {
+            display: inline-block;
+            vertical-align: top;
+            margin: 0.25em 0.5em;
+            text-align: center;
+        }
+
+        .archive_folder:hover .archive_folder_label {
+            background-color: rgba(31, 78, 121,0.5);
+            box-shadow: 0px 0px 5px 5px rgba(31, 78, 121,0.5);
+        }
+
+        .archive_folder:hover .archive_folder_icon {
+            animation-name: folder_shaking;
+            animation-duration: 0.15s;
+            animation-iteration-count: 2;
+        }
+
+        .archive_folder_link {
+            display: block;
+            text-decoration: none;
+        }
+
+        .archive_folder_icon {
+            width: 70px
+        }
+
+        .archive_folder_label {
+            width: 115px;
+            margin: 0;
+            font-size: 13px;
+            color: black;
+        }
+
+        @keyframes folder_shaking {
+            0% {transform: translate(0%, 0%);}
+            25% {transform: translate(5%, 0%);}
+            75% {transform: translate(-5%, 0%);}
+            100% {transform: translate(0%, 0%);}
+        }
+    </style>
+
+    <div id="pointage_compilation_archives">
+        {% for year in years %}
+            <div class="archive_folder">
+                <a class="archive_folder_link" href="{{ path('nox_intranet_pointage_archives_compilation_month', {etablissement: etablissement, year: year.Year}) }}">
+                    <img class="archive_folder_icon" src="{{ asset('bundles/noxintranetpointage/images/Folder.png') }}">
+                    <p class="archive_folder_label">{{ year.Year }}</p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
