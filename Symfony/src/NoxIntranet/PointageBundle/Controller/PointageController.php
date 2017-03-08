@@ -907,6 +907,7 @@ class PointageController extends Controller {
 
     // Génére un fichier Excel qui résume la compilation en fonction du mois, de l'année, et de l'utilisateur séléctionné.
     public function generateExcelRecapAction($filepath) {
+        $filepath = utf8_decode(base64_decode($filepath));
         $stream = file_get_contents($filepath);
 
         unlink($filepath);
@@ -914,7 +915,7 @@ class PointageController extends Controller {
         $response = new Response();
         $response->setContent($stream);
         $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); // modification du content-type pour forcer le téléchargement (sinon le navigateur internet essaie d'afficher le document)
-        $response->headers->set('Content-disposition', 'filename=' . utf8_decode(pathinfo($filepath, PATHINFO_BASENAME)));
+        $response->headers->set('Content-disposition', 'filename=' . utf8_encode(pathinfo($filepath, PATHINFO_BASENAME)));
 
         return $response;
     }

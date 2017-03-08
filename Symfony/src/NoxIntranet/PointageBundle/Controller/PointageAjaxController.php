@@ -581,6 +581,7 @@ class PointageAjaxController extends Controller {
             $rowTotaux = 2; // Initialisation du compteur de ligne des totaux.
             $rowAbsence = 2; // Initialisation du compteur de ligne des absences
             $rowDeplacement = 2; // Initialisation du compteur de ligne des forfaits déplacement.
+            $rowCommentaires = 2; // Initialisation du compteur de ligne des commentaires.
             //
             // Pour chaque pointage.
             foreach ($pointagesValides as $pointage) {
@@ -625,17 +626,15 @@ class PointageAjaxController extends Controller {
                                 }
                                 $objWorksheet->getCell('L' . $rowAbsence)->setValue(trim($absenceValue)); // On écris la/les valeur(s) d'absence(s).
                                 $objWorksheet->getCell('M' . $rowAbsence)->setValue($nbAbsence); // On écris la/les valeur(s) d'absence(s).    
+                                $rowAbsence++;
                             }
                             // Si il y a un commentaire...
                             if ($absence['commentaires'] !== '') {
-                                $objWorksheet->getCell('P' . $rowAbsence)->setValue($usersHierarchyEntity->getMatricule()); // On écris le matricule.
-                                $objWorksheet->getCell('Q' . $rowAbsence)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
-                                $objWorksheet->getCell('R' . $rowAbsence)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
-                                $objWorksheet->getCell('S' . $rowAbsence)->setValue($absence['commentaires']); // On écris la/les valeur(s) d'absence(s).
-                            }
-                            // Si des valeurs d'absence ou de commentaires on été écrite...
-                            if ($absence['valeur'] !== '' || $pointage['absences']['am'][$key]['valeur'] !== '' || $absence['commentaires'] !== '') {
-                                $rowAbsence++; // On passe à la ligne.
+                                $objWorksheet->getCell('P' . $rowCommentaires)->setValue($usersHierarchyEntity->getMatricule()); // On écris le matricule.
+                                $objWorksheet->getCell('Q' . $rowCommentaires)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
+                                $objWorksheet->getCell('R' . $rowCommentaires)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
+                                $objWorksheet->getCell('S' . $rowCommentaires)->setValue($absence['commentaires']); // On écris la/les valeur(s) d'absence(s).
+                                $rowCommentaires++;
                             }
                         }
                     }
@@ -1462,6 +1461,7 @@ class PointageAjaxController extends Controller {
         $rowTotaux = 2; // Initialisation du compteur de ligne des totaux.
         $rowAbsence = 2; // Initialisation du compteur de ligne des absences.
         $rowDeplacement = 2; // Initialisation du compteur de ligne des forfaits déplacement.
+        $rowCommentaires = 2; // Initialisation du compteur de ligne des commentaires.
         //
         // Pour chaque pointage.
         foreach ($pointages as $pointage) {
@@ -1481,8 +1481,8 @@ class PointageAjaxController extends Controller {
                 foreach ($pointage['absences']['matin'] as $key => $absence) {
                     // Si un clé de valeur existe pour l'absence du matin et pour celle de l'après-midi.
                     if (array_key_exists('valeur', $absence) && array_key_exists('valeur', $pointage['absences']['am'][$key])) {
-                        if ($absence['valeur'] !== '' || $pointage['absences']['am'][$key]['valeur'] !== '' || $absence['commentaires'] !== '') {
-                            $objWorksheet->getCell('I' . $rowTotaux)->setValue($usersHierarchyEntity->getMatricule()); // On écris le matricule.
+                        if ($absence['valeur'] !== '' || $pointage['absences']['am'][$key]['valeur'] !== '') {
+                            $objWorksheet->getCell('I' . $rowAbsence)->setValue($usersHierarchyEntity->getMatricule()); // On écris le matricule.
                             $objWorksheet->getCell('J' . $rowAbsence)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
                             $objWorksheet->getCell('K' . $rowAbsence)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
                             $nbAbsence = 0;
@@ -1505,18 +1505,15 @@ class PointageAjaxController extends Controller {
                             }
                             $objWorksheet->getCell('L' . $rowAbsence)->setValue(trim($absenceValue)); // On écris la/les valeur(s) d'absence(s).
                             $objWorksheet->getCell('M' . $rowAbsence)->setValue($nbAbsence); // On écris la/les valeur(s) d'absence(s).
-                            $rowAbsence++;
+                            $rowAbsence++; // On passe à la ligne.
                         }
                         // Si il y a un commentaire...
                         if ($absence['commentaires'] !== '') {
-                            $objWorksheet->getCell('P' . $rowAbsence)->setValue($usersHierarchyEntity->getMatricule()); // On écris le matricule.
-                            $objWorksheet->getCell('Q' . $rowAbsence)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
-                            $objWorksheet->getCell('R' . $rowAbsence)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
-                            $objWorksheet->getCell('S' . $rowAbsence)->setValue($absence['commentaires']); // On écris la/les valeur(s) d'absence(s).
-                        }
-                        // Si des valeurs d'absence ou de commentaires on été écrite...
-                        if ($absence['valeur'] !== '' || $pointage['absences']['am'][$key]['valeur'] !== '' || $absence['commentaires'] !== '') {
-                            $rowAbsence++; // On passe à la ligne.
+                            $objWorksheet->getCell('P' . $rowCommentaires)->setValue($usersHierarchyEntity->getMatricule()); // On écris le matricule.
+                            $objWorksheet->getCell('Q' . $rowCommentaires)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
+                            $objWorksheet->getCell('R' . $rowCommentaires)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
+                            $objWorksheet->getCell('S' . $rowCommentaires)->setValue($absence['commentaires']); // On écris la/les valeur(s) d'absence(s).
+                            $rowCommentaires++;
                         }
                     }
                 }
@@ -1549,8 +1546,7 @@ class PointageAjaxController extends Controller {
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $objWriter->save($folder . utf8_decode($filename)); // utf8_decode est utilisé pour encoder les accents sur le nom de fichier Windows.   
 
-
-        $downloadUrl = $this->generateUrl('nox_intranet_pointage_archives_compilation_export_excel', array('filepath' => $folder . $filename));
+        $downloadUrl = $this->generateUrl('nox_intranet_pointage_archives_compilation_export_excel', array('filepath' => base64_encode($folder . $filename)));
 
         return new Response($downloadUrl);
     }

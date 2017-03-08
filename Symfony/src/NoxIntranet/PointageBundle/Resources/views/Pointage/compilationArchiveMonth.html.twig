@@ -86,6 +86,7 @@
                 data: {etablissement: etablissement, month: month, year: year},
                 success: function (url) {
                     console.log(url);
+                    window.location = url;
                 }
             });
 
@@ -102,9 +103,7 @@
                 buttons: {
                     // Si l'utilisateur annule, on ferme la fenêtre.
                     "OK": function () {
-                        $(window).load(function () {
-                            $(this).dialog("close");
-                        });
+                        $(this).dialog("close");
                     }
                 }
             });
