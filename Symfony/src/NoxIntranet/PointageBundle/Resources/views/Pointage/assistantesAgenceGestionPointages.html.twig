@@ -1156,10 +1156,11 @@
                 var forfaitsDeplacementDetails = [];
                 $('.forfaitsDeplacementMontant').each(function () {
                     var day = $(this).siblings('.dayDateCell').text().slice(-2);
+                    console.log(day);
                     var value = $(this).text();
 
                     var forfaitDeplacementDetail = {};
-                    forfaitDeplacementDetail['day'] = new Date(year, month, day);
+                    forfaitDeplacementDetail['day'] = new Date(year, month - 1, day);
                     forfaitDeplacementDetail['value'] = value;
 
                     forfaitsDeplacementDetails.push(forfaitDeplacementDetail);
@@ -1176,7 +1177,7 @@
                     var value = $(this).text();
 
                     var mod = {};
-                    mod['day'] = new Date(year, month, day);
+                    mod['day'] = new Date(year, month - 1, day);
                     mod['value'] = value;
 
                     mods.push(mod);

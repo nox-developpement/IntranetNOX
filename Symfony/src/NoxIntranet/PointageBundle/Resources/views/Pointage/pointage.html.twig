@@ -2327,7 +2327,7 @@
 
                     // On transforme les données d'affaires en format JSON.
                     var jsonData = JSON.stringify(affaires);
-
+                    
                     // Requette Ajax pour générer un fichier CSV et le télécharger.
                     $.ajax({
                         url: '{{ path('nox_intranet_pointage_ajax_save_csv') }}',
