@@ -78,10 +78,46 @@
         }
     </style>
 
+    <script>
+        function downloadLoader(etablissement, month, year) {
+            $.ajax({
+                url: '{{ path('nox_intranet_pointage_ajax_archives_compilation_export_excel') }}',
+                type: 'POST',
+                data: {etablissement: etablissement, month: month, year: year},
+                success: function (url) {
+                    console.log(url);
+                }
+            });
+
+            // On affiche une fenêtre indiquant qu'il n'y a pas de justificatif de transport.
+            $("#pointageAlertText").text("Veuillez patienter pendant la génération du fichier...");
+            $("#pointageAlert").dialog({
+                resizable: false,
+                height: "auto",
+                width: "30%",
+                modal: true,
+                draggable: false,
+                dialogClass: "pointage-alert-content-class",
+                title: "Téléchargement de la compilation.",
+                buttons: {
+                    // Si l'utilisateur annule, on ferme la fenêtre.
+                    "OK": function () {
+                        $(window).load(function () {
+                            $(this).dialog("close");
+                        });
+                    }
+                }
+            });
+            $('.ui-dialog :button').blur();
+        }
+    </script>
+
+    <div id="pointageAlert"><div id="pointageAlertText"></div></div>
+
     <div id="pointage_compilation_archives">
         {% for month in months %}
             <div class="archive_folder">
-                <a class="archive_folder_link" href="{{ path('nox_intranet_pointage_archives_compilation_export_excel', {etablissement: etablissement, year: year, month: month.Month}) }}">
+                <a class="archive_folder_link" onclick="downloadLoader('{{ etablissement }}', '{{ month.Month }}', '{{ year }}');" href="#">
                     <img class="archive_folder_icon" src="{{ asset('bundles/noxintranetpointage/images/ExcelFile.png') }}">
                     <p class="archive_folder_label">{{ month.MonthName }}</p>
                 </a>

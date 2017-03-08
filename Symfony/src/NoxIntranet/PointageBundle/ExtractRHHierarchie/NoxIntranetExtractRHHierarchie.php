@@ -1,17 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of NoxIntranetExtractRHHierarchie
- *
- * @author t.besson
- */
-
 namespace NoxIntranet\PointageBundle\ExtractRHHierarchie;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -122,7 +110,11 @@ class NoxIntranetExtractRHHierarchie extends Controller {
                     // On attribut la valeur de la case de N+2 comme N+2.
                     $newUser->setN2($objWorksheet->getCell('I' . $rowIndex));
 
-                    $newUser->setEtablissement($objWorksheet->getCell('C' . $rowIndex)); // On attribut l'agence.
+                    // On attribut la valeur de la case de Matricule comme matricule.
+                    $newUser->setMatricule($objWorksheet->getCell('A' . $rowIndex));
+
+                    // On attribut l'agence.
+                    $newUser->setEtablissement($objWorksheet->getCell('C' . $rowIndex));
                     $em->persist($newUser);
                 }
             }

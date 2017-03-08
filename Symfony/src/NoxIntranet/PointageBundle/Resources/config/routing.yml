@@ -199,7 +199,13 @@ nox_intranet_pointage_archives_compilation_month:
         etablissement: .+
     
 nox_intranet_pointage_archives_compilation_export_excel:
-    path: /ressources/pointage/archives-compilation-export-excel/{month}/{year}/{etablissement}
+    path: /ressources/pointage/archives-compilation-export-excel/{filepath}
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:generateExcelRecap }
+    requirements:
+        etablissement: .+
+        
+nox_intranet_pointage_ajax_archives_compilation_export_excel:
+    path: /ressources/pointage/ajax-archives-compilation-export-excel
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGenerateExcelArchiveRecap }
     requirements:
         etablissement: .+

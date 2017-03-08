@@ -76,6 +76,13 @@ class UsersHierarchy {
      * @ORM\Column(name="Etablissement", type="string", length=255)
      */
     private $etablissement;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Matricule", type="string")
+     */
+    private $matricule;
 
     /**
      * Get id
@@ -267,5 +274,29 @@ class UsersHierarchy {
     public function getN2()
     {
         return $this->n2;
+    }
+
+    /**
+     * Set matricule
+     *
+     * @param integer $matricule
+     *
+     * @return UsersHierarchy
+     */
+    public function setMatricule($matricule)
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    /**
+     * Get matricule
+     *
+     * @return integer
+     */
+    public function getMatricule()
+    {
+        return $this->matricule;
     }
 }
