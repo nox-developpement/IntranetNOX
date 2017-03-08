@@ -856,6 +856,23 @@ class PointageController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $hierarchies = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
 
+        // On récupére la liste des collaborateurs ayant l'autorisation d'accès.
+        $authoriezdUsers = array();
+        foreach ($hierarchies as $hierarchy) {
+            $authoriezdUsers[$hierarchy->getAa()] = $hierarchy->getAa();
+            $authoriezdUsers[$hierarchy->getDa()] = $hierarchy->getDa();
+            $authoriezdUsers[$hierarchy->getRh()] = $hierarchy->getRh();
+        }
+
+        // On récupère le nom canonique du collaborateur.
+        $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
+
+        // Si le collaborateur n'as pas les droits d'accès on le redirige vers l'accueil.
+        if (!(in_array($securityName, $authoriezdUsers) || $this->get('security.context')->isGranted('ROLE_RH'))) {
+            $this->get('session')->getFlashBag()->add('noticeErreur', "Vous n'avez pas l'autorisation pour accéder à cette espace.");
+            return $this->redirectToRoute('nox_intranet_accueil');
+        }
+
         // On récupére tous les établissement et on les trie.
         $etablissements = array();
         foreach ($hierarchies as $hierarchy) {
