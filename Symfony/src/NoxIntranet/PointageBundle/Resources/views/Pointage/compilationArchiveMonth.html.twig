@@ -79,19 +79,25 @@
     </style>
 
     <script>
+        // Génére le liens de téléchargement et affiche une fenêtre de dialogue.
         function downloadLoader(etablissement, month, year) {
             $.ajax({
                 url: '{{ path('nox_intranet_pointage_ajax_archives_compilation_export_excel') }}',
                 type: 'POST',
                 data: {etablissement: etablissement, month: month, year: year},
                 success: function (url) {
-                    console.log(url);
+                    // On redirige vers le téléchargement et on ferme la fenêtre de dialogue.
                     window.location = url;
+                    $("#pointageAlert").dialog('close');
                 }
             });
 
             // On affiche une fenêtre indiquant qu'il n'y a pas de justificatif de transport.
-            $("#pointageAlertText").text("Veuillez patienter pendant la génération du fichier...");
+            var generationExcelText = "Veuillez patienter pendant la génération du fichier...<br />";
+            generationExcelText += "<div style='text-align: center;'>";
+            generationExcelText += "<img src='{{ asset('bundles/noxintranetpointage/images/CompilationExcelGeneration.gif') }}' style='width: 5em;'>";
+            generationExcelText += "</div>";
+            $("#pointageAlertText").html(generationExcelText);
             $("#pointageAlert").dialog({
                 resizable: false,
                 height: "auto",
@@ -99,13 +105,7 @@
                 modal: true,
                 draggable: false,
                 dialogClass: "pointage-alert-content-class",
-                title: "Téléchargement de la compilation.",
-                buttons: {
-                    // Si l'utilisateur annule, on ferme la fenêtre.
-                    "OK": function () {
-                        $(this).dialog("close");
-                    }
-                }
+                title: "Téléchargement de la compilation."
             });
             $('.ui-dialog :button').blur();
         }

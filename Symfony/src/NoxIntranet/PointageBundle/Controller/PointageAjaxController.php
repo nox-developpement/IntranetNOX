@@ -1545,9 +1545,9 @@ class PointageAjaxController extends Controller {
         // On sauvegarde le fichier.
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $objWriter->save($folder . utf8_decode($filename)); // utf8_decode est utilisé pour encoder les accents sur le nom de fichier Windows.   
-
+        //
+        // On génére et retourne le liens de téléchargement du fichier.
         $downloadUrl = $this->generateUrl('nox_intranet_pointage_archives_compilation_export_excel', array('filepath' => base64_encode($folder . $filename)));
-
         return new Response($downloadUrl);
     }
 

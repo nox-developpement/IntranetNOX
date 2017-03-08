@@ -850,7 +850,8 @@ class PointageController extends Controller {
         return $str;
     }
 
-    public function compilationArchiveEtablissementAction(Request $request) {
+    // Affiche l'accès au archives par etablissement.
+    public function compilationArchiveEtablissementAction() {
         // On récupère les entitées hiérarchique.
         $em = $this->getDoctrine()->getManager();
         $hierarchies = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
@@ -865,14 +866,14 @@ class PointageController extends Controller {
         return $this->render('NoxIntranetPointageBundle:Pointage:compilationArchiveEtablissement.html.twig', array('etablissements' => $etablissements));
     }
 
+    // Affiche l'accès aux archives par année liés à l'établissement.
     public function compilationArchiveYearAction($etablissement) {
-
+        // On récupére les entitées hiérarchiques des collaborateurs liés à l'établissement.
         $em = $this->getDoctrine()->getManager();
-
-        $years = array();
-
         $collaborateurs = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement);
 
+        // On récupére les années liés aux pointages des collaborateurs de l'établissement.
+        $years = array();
         foreach ($collaborateurs as $collaborateur) {
             $userPointages = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findByUser($collaborateur->getUsername());
             foreach ($userPointages as $pointage) {
@@ -883,17 +884,17 @@ class PointageController extends Controller {
         return $this->render('NoxIntranetPointageBundle:Pointage:compilationArchiveYear.html.twig', array('years' => $years, 'etablissement' => $etablissement));
     }
 
+    // Affiche l'accès aux archives par mois lié à l'année et à l'établissement.
     public function compilationArchiveMonthAction($etablissement, $year) {
-
+        // On récupére les entitées hiérarchiques des collaborateurs liés à l'établissement.
         $em = $this->getDoctrine()->getManager();
-
-
-        $monthString = array(1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novemvre', 12 => 'Décembre');
-
-        $months = array();
-
         $collaborateurs = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement);
 
+        // Convertie l'index du mois en textuelle.
+        $monthString = array(1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novemvre', 12 => 'Décembre');
+
+        // On récupére les mois liés aux pointages des collaborateurs de l'établissement et de l'année.
+        $months = array();
         foreach ($collaborateurs as $collaborateur) {
             $userPointages = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('user' => $collaborateur->getUsername(), 'year' => $year));
             foreach ($userPointages as $pointage) {
@@ -907,16 +908,20 @@ class PointageController extends Controller {
 
     // Génére un fichier Excel qui résume la compilation en fonction du mois, de l'année, et de l'utilisateur séléctionné.
     public function generateExcelRecapAction($filepath) {
+        // On décode le chemin du fichier.
         $filepath = utf8_decode(base64_decode($filepath));
+
+        // On récupére le fichier sous forme de stream.
         $stream = file_get_contents($filepath);
 
+        // On supprime le fichier du serveur.
         unlink($filepath);
 
+        // On retourne le fichier en téléchargement.
         $response = new Response();
         $response->setContent($stream);
         $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); // modification du content-type pour forcer le téléchargement (sinon le navigateur internet essaie d'afficher le document)
         $response->headers->set('Content-disposition', 'filename=' . utf8_encode(pathinfo($filepath, PATHINFO_BASENAME)));
-
         return $response;
     }
 
