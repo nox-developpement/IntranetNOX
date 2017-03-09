@@ -83,6 +83,7 @@
                 <th id="compilationPointageForfaitsDeplacement">Forfaits déplacement</th>
                 <th id="compilationPointagePrimesPanier">Primes panier</th>
                 <th id="compilationPointageTitreTransport">Titre transport</th>
+                <th id="compilationPointageRégularisation">Régularisation</th>
                 <th>Absences</th>
             </tr>
         </table>
@@ -213,11 +214,12 @@
 
                                 newHtmlContent += "<tr class='pointageCompile' username='" + data[index].user + "'>";
                                 newHtmlContent += "<td>" + data[index].lastname + ' ' + data[index].firstname + "</td>";
-                                newHtmlContent += "<td class='modulationCell'><span class='modulationValue'>" + mods.toFixed(2) + "</span><br /><a href='#' onclick=\"openDetailsPopup('" + data[index].detailsModsUrl + "');\" title='Détails'>Détails</a></td>";
+                                newHtmlContent += "<td class='modulationCell'><span class='modulationValue'>" + data[index].totalMods.toFixed(2) + "</span><br /><a href='#' onclick=\"openDetailsPopup('" + data[index].detailsModsUrl + "');\" title='Détails'>Détails</a></td>";
                                 newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='titresRepas' step='1' min='0' value='" + data[index].titresRepas + "'></td>";
                                 newHtmlContent += "<td class='forfaitsDeplacementCell'><span class='forfaitsDeplacementValue'>" + forfaitsDeplacement.toFixed(2) + "</span><br /><a href='#' onclick=\"openDetailsPopup('" + data[index].detailsForfaitDeplacementsUrl + "');\" title='Détails'>Détails</a></td>";
                                 newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='primesPanier' min='0' step='0.01' value='" + data[index].primesPanier + "'></td>";
                                 newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='titreTransport' min='0' step='0.01' value='" + data[index].titreTransport + "'></td>";
+                                newHtmlContent += "<td title='Cliquez pour voir le texte complet.' style='cursor: help; word-wrap: break-word;' onclick=\"showFullTexte('" + data[index].regularisation + "');\">" + truncateString(data[index].regularisation) + "</td>";
                                 newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><div style='display: inline-block; vertical-align: middle;'>" + (nbAbsencesMatin + nbAbsencesAM) / 2 + "</div><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
                                 newHtmlContent += "</tr>";
                                 newHtmlContent += "<tr>";
@@ -1101,6 +1103,36 @@
                 });
                 $('.ui-dialog :button').blur();
             });
+        }
+
+        // Coupe une chaîne de charactères plus grande que 30 lettres et ajout '...' à la fin.
+        function truncateString(string) {
+            if (string.length > 30) {
+                return string.substring(0, 30) + '...';
+            } else {
+                return string;
+            }
+        }
+
+        function showFullTexte(string) {
+            // On affiche le message.
+            $("#pointageAlertText").text(string);
+            $("#pointageAlert").dialog({
+                resizable: false,
+                height: "auto",
+                maxHeight: 0.5 * $(document).height(),
+                width: "30%",
+                modal: true,
+                draggable: false,
+                dialogClass: "pointage-alert-content-class",
+                title: "Régularisation.",
+                buttons: {
+                    "Fermer": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+            $('.ui-dialog :button').blur();
         }
     </script>
 

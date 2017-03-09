@@ -52,10 +52,20 @@
         })();
 
         // Lorsque d'un changement de valeur...
-        $('.forfaitsDeplacementValue').change(function () {
-            // On récupère la date et la valeur.
-            var date = $(this).data('date');
-            var value = $(this).val();
+        $('.forfaitsDeplacementValue').on('change keyup', function () {
+            // On récupére toutes les valeurs et leurs dates sous forme de tableau.
+            var forfaitsDeplacementArray = [];
+            $('.forfaitsDeplacementValue').each(function () {
+                // On récupère la date et la valeur.
+                var date = $(this).data('date');
+                var value = $(this).val();
+
+                // On les place dans un objet.
+                var forfait = {day: date, value: value};
+
+                // On ajoute l'objet au tableau.
+                forfaitsDeplacementArray.push(forfait);
+            });
 
             // On lance le timer.
             delay(function () {
@@ -63,18 +73,13 @@
                 $.ajax({
                     url: '{{ path('nox_intranet_pointage_ajax_save_forfaits_deplacement_edition') }}',
                     type: 'POST',
-                    data: {month: "{{ month }}", year: "{{ year }}", user: "{{ user.Username }}", date: date, value: value},
-                    success: function () {
-                        // On récupére la valeur total des forfaits déplacement.
-                        var totalValue = 0;
-                        $('.forfaitsDeplacementValue').each(function () {
-                            if ($(this).val() !== "") {
-                                totalValue = parseFloat(totalValue) + parseFloat($(this).val());
-                            }
-                        });
+                    data: {month: "{{ month }}", year: "{{ year }}", user: "{{ user.Username }}", forfaitDeplacementValues: JSON.stringify(forfaitsDeplacementArray)},
+                    success: function (totalForfaitDeplacementValue) {
+                        // On met à jour l'affichage de la valeur total de modulation.
+                        $('#totalForfaitDeplacementValue').text(totalForfaitDeplacementValue);
 
                         // On attribut la valeur total du forfait déplacement dans la compilation.
-                        $("tr[username='{{ user.Username }}']", window.opener.document).find('.forfaitsDeplacementValue').text(totalValue.toFixed(2));
+                        $("tr[username='{{ user.Username }}']", window.opener.document).find('.forfaitsDeplacementValue').text(totalForfaitDeplacementValue);
                     }
                 });
             }, 1000);
@@ -87,6 +92,9 @@
 <table>
     <tr>
         <th colspan="2">{{ user.Lastname }} {{ user.Firstname }}</th>
+    </tr>
+    <tr>
+        <th colspan="2">Forfaits deplacement total {{ year }}: <span id="totalForfaitDeplacementValue">{{ totalForfaitDeplacement }}</span></th>
     </tr>
     <tr>
         <th>Date</th>

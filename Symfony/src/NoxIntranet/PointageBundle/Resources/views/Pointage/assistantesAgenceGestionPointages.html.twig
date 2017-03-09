@@ -1186,13 +1186,17 @@
                 return JSON.stringify(mods);
             }
 
+            function getRegularisation() {
+                return $('#divRegularisationText').text();
+            }
+
             console.log("ajaxPointageAssistanteAgenceValidation: " + $("#form_Pointage").val());
 
             $.ajax({
                 type: 'POST',
                 async: false,
                 url: '{{ path('nox_intranet_pointage_ajax_assistante_agence_validation') }}',
-                data: {username: user, month: month, year: year, absences: getAbsences(), titresRepas: getTitresRepas(), forfaitsDeplacement: getForfaitsDeplacement(), primesPanier: getPrimesPanier(), titreTransport: getTitreTransport(), forfaitsDeplacementDetails: getForfaitsDeplacementDetails(), mods: getMods()},
+                data: {username: user, month: month, year: year, absences: getAbsences(), titresRepas: getTitresRepas(), forfaitsDeplacement: getForfaitsDeplacement(), primesPanier: getPrimesPanier(), titreTransport: getTitreTransport(), forfaitsDeplacementDetails: getForfaitsDeplacementDetails(), mods: getMods(), regularisation: getRegularisation()},
                 success: function () {
                     location.reload();
                 }

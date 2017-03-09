@@ -52,10 +52,21 @@
         })();
 
         // Lorsque d'un changement de valeur...
-        $('.modulationValue').change(function () {
-            // On récupère la date et la valeur.
-            var date = $(this).data('date');
-            var value = $(this).val();
+        $('.modulationValue').on('change keyup', function () {
+            // On récupére toutes les valeurs et leurs dates sous forme de tableau.
+            var modsArray = [];
+            $('.modulationValue').each(function () {
+                // On récupère la date et la valeur.
+                var date = $(this).data('date');
+                var value = $(this).val();
+
+                // On les place dans un objet.
+                var mod = {day: date, value: value};
+
+                // On ajoute l'objet au tableau.
+                modsArray.push(mod);
+            });
+
 
             // On lance le timer.
             delay(function () {
@@ -63,18 +74,13 @@
                 $.ajax({
                     url: '{{ path('nox_intranet_pointage_ajax_save_mods_edition') }}',
                     type: 'POST',
-                    data: {month: "{{ month }}", year: "{{ year }}", user: "{{ user.Username }}", date: date, value: value},
-                    success: function () {
-                        // On récupére la valeur total de modulation.
-                        var totalValue = 0;
-                        $('.modulationValue').each(function () {
-                            if ($(this).val() !== "") {
-                                totalValue = parseFloat(totalValue) + parseFloat($(this).val());
-                            }
-                        });
+                    data: {month: "{{ month }}", year: "{{ year }}", user: "{{ user.Username }}", modsValues: JSON.stringify(modsArray)},
+                    success: function (totalModsValue) {
+                        // On met à jour l'affichage de la valeur total de modulation.
+                        $('#totalModulationValue').text(totalModsValue);
 
                         // On attribut la valeur total de modulation dans la compilation.
-                        $("tr[username='{{ user.Username }}']", window.opener.document).find('.modulationValue').text(totalValue.toFixed(2));
+                        $("tr[username='{{ user.Username }}']", window.opener.document).find('.modulationValue').text(totalModsValue);
                     }
                 });
             }, 1000);
@@ -87,6 +93,9 @@
 <table>
     <tr>
         <th colspan="2">{{ user.Lastname }} {{ user.Firstname }}</th>
+    </tr>
+    <tr>
+        <th colspan="2">Modulation total {{ year }}: <span id="totalModulationValue">{{ totalModulation }}</span></th>
     </tr>
     <tr>
         <th>Date</th>

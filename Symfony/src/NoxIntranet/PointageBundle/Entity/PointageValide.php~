@@ -113,11 +113,18 @@ class PointageValide {
     private $status;
 
     /**
-     * @var Array
+     * @var text
      *
-     * @ORM\Column(name="CSVData", type="array", nullable=true)
+     * @ORM\Column(name="regularisation", type="text", nullable=true)
      */
-    private $CSVData;
+    private $regularisation;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="totalMods", type="integer", nullable=true)
+     */
+    private $totalMods;
 
     /**
      * Get id
@@ -368,6 +375,72 @@ class PointageValide {
      */
     public function getStatus() {
         return $this->status;
+    }
+
+    /**
+     * Set forfaitsDeplacementDetails
+     *
+     * @param string $forfaitsDeplacementDetails
+     *
+     * @return PointageValide
+     */
+    public function setForfaitsDeplacementDetails($forfaitsDeplacementDetails) {
+        $this->forfaitsDeplacementDetails = $forfaitsDeplacementDetails;
+
+        return $this;
+    }
+
+    /**
+     * Get forfaitsDeplacementDetails
+     *
+     * @return string
+     */
+    public function getForfaitsDeplacementDetails() {
+        return $this->forfaitsDeplacementDetails;
+    }
+
+    /**
+     * Set mods
+     *
+     * @param string $mods
+     *
+     * @return PointageValide
+     */
+    public function setMods($mods) {
+        $this->mods = $mods;
+
+        return $this;
+    }
+
+    /**
+     * Get mods
+     *
+     * @return string
+     */
+    public function getMods() {
+        return $this->mods;
+    }
+
+    /**
+     * Set regularisation
+     *
+     * @param string $regularisation
+     *
+     * @return PointageValide
+     */
+    public function setRegularisation($regularisation) {
+        $this->regularisation = $regularisation;
+
+        return $this;
+    }
+
+    /**
+     * Get regularisation
+     *
+     * @return string
+     */
+    public function getRegularisation() {
+        return $this->regularisation;
     }
 
 }

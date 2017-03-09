@@ -311,11 +311,18 @@ class PointageAjaxController extends Controller {
             $context->get('session')->getFlashBag()->add('notice', 'Le pointage a été validé.');
         }
 
-        function sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $forfaitsDeplacementDetails, $mods, $em) {
+        function sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $forfaitsDeplacementDetails, $mods, $regularisation, $em) {
 
             $user = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($username);
 
             $newPointageValide = new PointageValide();
+
+            // On récupére la valeur total de modulation de l'année courante.
+            $totalMod = 0;
+            $detailsMods = json_decode($mods, true);
+            foreach ($detailsMods as $mod) {
+                $totalMod += $mod['value'];
+            }
 
             $newPointageValide->setUser($username);
             $newPointageValide->setFirstname($user->getFirstname());
@@ -329,6 +336,8 @@ class PointageAjaxController extends Controller {
             $newPointageValide->setTitresRepas($titresRepas);
             $newPointageValide->setForfaitsDeplacementDetails($forfaitsDeplacementDetails);
             $newPointageValide->setMods($mods);
+            $newPointageValide->setTotalMods($totalMod);
+            $newPointageValide->setRegularisation($regularisation);
             $newPointageValide->setStatus(2);
 
             $em->persist($newPointageValide);
@@ -348,8 +357,9 @@ class PointageAjaxController extends Controller {
             $titresRepas = $request->get('titresRepas');
             $forfaitsDeplacementDetails = $request->get('forfaitsDeplacementDetails');
             $mods = $request->get('mods');
+            $regularisation = $request->get('regularisation');
 
-            sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $forfaitsDeplacementDetails, $mods, $em);
+            sauvegardePointageValide($username, $month, $year, $absences, $forfaitsDeplacement, $primesPanier, $titreTransport, $titresRepas, $forfaitsDeplacementDetails, $mods, $regularisation, $em);
             pointageAssistanteAgenceValidation($username, $month, $year, $this, $em);
 
             $response = new Response('Ok');
@@ -1226,27 +1236,23 @@ class PointageAjaxController extends Controller {
             $month = $request->get('month');
             $year = $request->get('year');
             $username = $request->get('user');
-            $date = $request->get('date');
-            $value = $request->get('value');
+            $modsArray = $request->get('modsValues');
 
             // On récupére l'entité du pointage en fonction du mois, de l'année et de l'username.
             $em = $this->getDoctrine()->getManager();
             $pointage = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $username));
 
-            // On récupére les forfaits déplacement sous forme de tableau.
-            $modulationArray = json_decode($pointage->getMods(), true);
-
-            // On récupére la clé correspondant à la date.
-            $key = array_search($date, array_column($modulationArray, 'day'));
-
-            // Changement de la valeur.
-            $modulationArray[$key]['value'] = $value;
+            $totalMods = 0;
+            foreach (json_decode($modsArray, true) as $mod) {
+                $totalMods += $mod['value'];
+            }
 
             // On met à jour la base de données.
-            $pointage->setMods(json_encode($modulationArray));
+            $pointage->setMods($modsArray);
+            $pointage->setTotalMods($totalMods);
             $em->flush();
 
-            return new Response('Ok');
+            return new Response($totalMods);
         }
     }
 
@@ -1257,27 +1263,23 @@ class PointageAjaxController extends Controller {
             $month = $request->get('month');
             $year = $request->get('year');
             $username = $request->get('user');
-            $date = $request->get('date');
-            $value = $request->get('value');
+            $forfaitDeplacementArray = $request->get('forfaitDeplacementValues');
 
             // On récupére l'entité du pointage en fonction du mois, de l'année et de l'username.
             $em = $this->getDoctrine()->getManager();
             $pointage = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $username));
 
-            // On récupére les forfaits déplacement sous forme de tableau.
-            $forfaitsDeplacementArray = json_decode($pointage->getForfaitsDeplacementDetails(), true);
-
-            // On récupére la clé correspondant à la date.
-            $key = array_search($date, array_column($forfaitsDeplacementArray, 'day'));
-
-            // Changement de la valeur.
-            $forfaitsDeplacementArray[$key]['value'] = $value;
 
             // On met à jour la base de données.
-            $pointage->setForfaitsDeplacementDetails(json_encode($forfaitsDeplacementArray));
+            $pointage->setForfaitsDeplacementDetails($forfaitDeplacementArray);
             $em->flush();
 
-            return new Response('Ok');
+            $totalForfait = 0;
+            foreach (json_decode($forfaitDeplacementArray, true) as $mod) {
+                $totalForfait += $mod['value'];
+            }
+
+            return new Response($totalForfait);
         }
     }
 

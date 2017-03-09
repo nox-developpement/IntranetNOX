@@ -113,6 +113,20 @@ class PointageValide {
     private $status;
 
     /**
+     * @var text
+     *
+     * @ORM\Column(name="regularisation", type="text", nullable=true)
+     */
+    private $regularisation;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="totalMods", type="integer", nullable=true)
+     */
+    private $totalMods;
+
+    /**
      * Get id
      *
      * @return integer
@@ -370,10 +384,9 @@ class PointageValide {
      *
      * @return PointageValide
      */
-    public function setForfaitsDeplacementDetails($forfaitsDeplacementDetails)
-    {
+    public function setForfaitsDeplacementDetails($forfaitsDeplacementDetails) {
         $this->forfaitsDeplacementDetails = $forfaitsDeplacementDetails;
-    
+
         return $this;
     }
 
@@ -382,8 +395,7 @@ class PointageValide {
      *
      * @return string
      */
-    public function getForfaitsDeplacementDetails()
-    {
+    public function getForfaitsDeplacementDetails() {
         return $this->forfaitsDeplacementDetails;
     }
 
@@ -394,10 +406,9 @@ class PointageValide {
      *
      * @return PointageValide
      */
-    public function setMods($mods)
-    {
+    public function setMods($mods) {
         $this->mods = $mods;
-    
+
         return $this;
     }
 
@@ -406,9 +417,52 @@ class PointageValide {
      *
      * @return string
      */
-    public function getMods()
-    {
+    public function getMods() {
         return $this->mods;
     }
-    
+
+    /**
+     * Set regularisation
+     *
+     * @param string $regularisation
+     *
+     * @return PointageValide
+     */
+    public function setRegularisation($regularisation) {
+        $this->regularisation = $regularisation;
+
+        return $this;
+    }
+
+    /**
+     * Get regularisation
+     *
+     * @return string
+     */
+    public function getRegularisation() {
+        return $this->regularisation;
+    }
+
+    /**
+     * Set totalMods
+     *
+     * @param integer $totalMods
+     *
+     * @return PointageValide
+     */
+    public function setTotalMods($totalMods) {
+        $this->totalMods = $totalMods;
+
+        return $this;
+    }
+
+    /**
+     * Get totalMods
+     *
+     * @return integer
+     */
+    public function getTotalMods() {
+        return $this->totalMods;
+    }
+
 }

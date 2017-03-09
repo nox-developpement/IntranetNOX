@@ -847,7 +847,7 @@ class PointageController extends Controller {
         // On récupére les forfaits déplacement sous forme de tableau.
         $forfaitDeplacementArray = json_decode($pointage->getForfaitsDeplacementDetails(), true);
 
-        return $this->render('NoxIntranetPointageBundle:Pointage:forfaitsDeplacementDetails.html.twig', array('forfaitDeplacementArray' => $forfaitDeplacementArray, 'month' => $month, 'year' => $year, 'user' => $userEntity, 'readonly' => $readonly));
+        return $this->render('NoxIntranetPointageBundle:Pointage:forfaitsDeplacementDetails.html.twig', array('forfaitDeplacementArray' => $forfaitDeplacementArray, 'totalForfaitDeplacement' => $pointage->getForfaitsDeplacement() , 'month' => $month, 'year' => $year, 'user' => $userEntity, 'readonly' => $readonly));
     }
 
     // Affiche un tableau affichange les valeurs de forfait déplacement en fonction du jour.
@@ -859,10 +859,10 @@ class PointageController extends Controller {
         // On récupére l'entité du collaborateur.
         $userEntity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($username);
 
-        // On récupére les forfaits déplacement sous forme de tableau.
+        // On récupére la modulation sous forme de tableau.
         $modulationArray = json_decode($pointage->getMods(), true);
 
-        return $this->render('NoxIntranetPointageBundle:Pointage:modulationDetails.html.twig', array('modulationArray' => $modulationArray, 'month' => $month, 'year' => $year, 'user' => $userEntity, 'readonly' => $readonly));
+        return $this->render('NoxIntranetPointageBundle:Pointage:modulationDetails.html.twig', array('modulationArray' => $modulationArray, 'totalModulation' => $pointage->getTotalMods(), 'month' => $month, 'year' => $year, 'user' => $userEntity, 'readonly' => $readonly));
     }
 
     // Retourne une chaîne de caractère sans accents.
