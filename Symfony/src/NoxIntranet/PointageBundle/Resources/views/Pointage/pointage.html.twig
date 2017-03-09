@@ -2309,6 +2309,21 @@
                         // On récupére les cellules d'affaires.
                         var affairesCells = $(this).siblings('.projectPercentageCell');
 
+                        // On récupére la valeur de modulation
+                        var modulation = $(this).siblings('.dailyHoursMod').first().text();
+
+                        // On récupére les valeurs d'absences.
+                        var absences = {matin: $(this).siblings('.abscenceMatinSelector').first().val(), am: $(this).siblings('.abscenceAMSelector').first().val()};
+
+                        // On récupére les valeurs de titre repas.
+                        var titre_repas = $(this).siblings('.titreRepasNumberSelector').first().val();
+
+                        // On récupére les valeurs de forfait déplacement.
+                        var forfait_deplacement = $(this).siblings('.forfaitsDeplacementMontant').first().text();
+
+                        // On récupére les valeurs de primes panier.
+                        var prime_panier = $(this).siblings('.primesPanierNumber').first().text();
+
                         // Pour chaques cellules d'affaires...
                         affairesCells.each(function () {
                             // On crée un objet d'affaire.
@@ -2319,6 +2334,11 @@
                             affaire.numAffaire = $('tr:nth-child(2)').find('td').eq($(this).index()).text();
                             affaire.value = $(this).text();
                             affaire.comments = comments;
+                            affaire.modulation = modulation;
+                            affaire.absences = absences;
+                            affaire.titre_repas = titre_repas;
+                            affaire.forfait_deplacement = forfait_deplacement;
+                            affaire.prime_panier = prime_panier;
 
                             // On ajoute l'objet au tableau des données.
                             affaires.push(affaire);
@@ -2327,7 +2347,9 @@
 
                     // On transforme les données d'affaires en format JSON.
                     var jsonData = JSON.stringify(affaires);
-                    
+
+                    console.log(jsonData);
+
                     // Requette Ajax pour générer un fichier CSV et le télécharger.
                     $.ajax({
                         url: '{{ path('nox_intranet_pointage_ajax_save_csv') }}',

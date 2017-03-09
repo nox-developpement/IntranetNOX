@@ -33,7 +33,8 @@
             {{ form_widget(formCompilationDate.children['date'].children["year"]) }}
         </p>
         <p>
-            {{ form_widget(formCompilationDate.download) }}
+            {{ form_widget(formCompilationDate.download_variables_affaires) }}
+            {{ form_widget(formCompilationDate.download_variables_paie) }}
         </p>
         {{ form_widget(formCompilationDate.children['date'].children["day"], {'attr': {'style': 'display: none'}}) }}
         {{ form_end(formCompilationDate) }}

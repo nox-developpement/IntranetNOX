@@ -743,9 +743,19 @@ class PointageController extends Controller {
                     'label' => "Date de la compilation",
                     'data' => new DateTime()
                 ))
-                ->add('download', SubmitType::class, array(
-                    'label' => "Télécharger"
-        ));
+                ->add('download_variables_affaires', SubmitType::class, array(
+                    'label' => "Télécharger compilation des variables d'affaires",
+                    'attr' => array(
+                        'style' => 'width: 10em;'
+                    )
+                ))
+                ->add('download_variables_paie', SubmitType::class, array(
+                    'label' => "Télécharger compilation des variables de paie",
+                    'attr' => array(
+                        'style' => 'width: 10em;'
+                    )
+                ))
+        ;
         $formCompilationDate = $formCompilationDateBuilder->getForm();
 
         // Traitement du formulaire de téléchargement de la compilation.
@@ -768,21 +778,37 @@ class PointageController extends Controller {
             // On ouvre le fichier.
             $newCSVFileHandler = fopen($newCSVFile, 'w+');
 
+            if ($formCompilationDate->get('download_variables_affaires')->isClicked()) {
+                fputcsv($newCSVFileHandler, array('Nom', 'Prénom', "Numéro d'affaire", 'Valeur', 'Date'));
+                $filename = "Compilation des variables d'affaires";
+            } else if ($formCompilationDate->get('download_variables_paie')->isClicked()) {
+                fputcsv($newCSVFileHandler, array('Date', 'Nom', 'Prénom', "Modulation", 'Absence matin', 'Absence après-midi', 'Titre repas', 'Forfait déplacement', 'Prime panier', 'Commentaire'));
+                $filename = "Compilation des variables de paie";
+            }
+
+
             // Pour chaque pointage...
             foreach ($tableau as $pointage) {
                 // On récupére la hiérarchie du collaborateur du pointage.
                 $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
 
                 // Si le collaborateur du pointage appartient à NOX IP et le pointage contient des données CSV...
-                if (!empty($userHierarchy) && strpos($userHierarchy->getEtablissement(), 'INDUSTRIE') !== false && strpos($userHierarchy->getEtablissement(), 'PROCESS') !== false && !empty($pointage->getCSVData())) {
+                if (!empty($userHierarchy) && strpos($userHierarchy->getEtablissement(), 'INDUSTRIE') === false && strpos($userHierarchy->getEtablissement(), 'PROCESS') === false && !empty($pointage->getCSVData())) {
                     // On récupére les données CSV.
                     $CSVData = $pointage->getCSVData();
 
-                    // On injecte les données dans le fichier pour chaques affaires...
-                    foreach ($CSVData as $affaireDate) {
-                        // Et chaques dates...
-                        foreach ($affaireDate as $affaire) {
-                            fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values($affaire)), ";");
+                    if ($formCompilationDate->get('download_variables_affaires')->isClicked()) {
+                        // On injecte les données dans le fichier pour chaques affaires...
+                        foreach ($CSVData['variables_affaires'] as $affaireDate) {
+                            // Et chaques dates...
+                            foreach ($affaireDate as $affaire) {
+                                fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values($affaire)), ";");
+                            }
+                        }
+                    } else if ($formCompilationDate->get('download_variables_paie')->isClicked()) {
+                        // On injecte les données dans le fichier pour chaques affaires...
+                        foreach ($CSVData['variables_paie'] as $variables_paies) {
+                            fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values($variables_paies)), ";");
                         }
                     }
                 }
@@ -800,7 +826,7 @@ class PointageController extends Controller {
             // Initialisation de la réponse.
             $response = new Response($file, 200);
             $response->headers->set('Content-Type', 'text/csv');
-            $response->headers->set('Content-Disposition', "filename='Pointage CSV.csv'");
+            $response->headers->set('Content-Disposition', "filename='" . $filename . ".csv'");
 
             // On retourne le téléchargement du fichier.
             return $response;

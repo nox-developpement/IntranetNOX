@@ -1181,18 +1181,36 @@ class PointageAjaxController extends Controller {
             $tableau = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
 
             // Si le collaborateur fait partie de NOX IP...
-            if (strpos($userHierarchy->getEtablissement(), 'INDUSTRIE') !== false && strpos($userHierarchy->getEtablissement(), 'PROCESS') !== false) {
+            if (strpos($userHierarchy->getEtablissement(), 'INDUSTRIE') === false && strpos($userHierarchy->getEtablissement(), 'PROCESS') === false) {
                 // On convertie les données JSON en Array.
                 $affairesDataArray = json_decode($CSVData, true);
 
                 // Pour chaques affaire un prépare la ligne CSV.
-                $affaires = array();
+                $pointageValues = array();
                 foreach ($affairesDataArray as $affaire) {
-                    $affaires[$affaire['numAffaire']][$affaire['date']] = array('lastname' => $user->getLastname(), 'firstname' => $user->getFirstname(), 'numAffaire' => $affaire['numAffaire'], 'value' => $affaire['value'], 'date' => $affaire['date'], 'comments' => $affaire['comments']);
+                    $pointageValues['variables_affaires'][$affaire['numAffaire']][$affaire['date']] = array(
+                        'lastname' => $user->getLastname(),
+                        'firstname' => $user->getFirstname(),
+                        'numAffaire' => $affaire['numAffaire'],
+                        'value' => $affaire['value'],
+                        'date' => $affaire['date'],
+                    );
+                    $pointageValues['variables_paie'][$affaire['date']] = array(
+                        'date' => $affaire['date'],
+                        'lastname' => $user->getLastname(),
+                        'firstname' => $user->getFirstname(),
+                        'modulation' => $affaire['modulation'],
+                        'absence_matin' => $affaire['absences']['matin'],
+                        'absence_am' => $affaire['absences']['am'],
+                        'titre_repas' => $affaire['titre_repas'],
+                        'forfait_deplacement' => $affaire['forfait_deplacement'],
+                        'prime_panier' => $affaire['prime_panier'],
+                        'comments' => $affaire['comments']
+                    );
                 }
 
                 // On attribut les données CSV au collaborateur et on sauvegarde en base de données.
-                $tableau->setCSVData($affaires);
+                $tableau->setCSVData($pointageValues);
                 $em->flush();
             }
 
