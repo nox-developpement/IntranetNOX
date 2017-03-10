@@ -861,7 +861,16 @@ class PointageController extends Controller {
         // On récupére la modulation sous forme de tableau.
         $modulationArray = json_decode($pointage->getMods(), true);
 
-        return $this->render('NoxIntranetPointageBundle:Pointage:modulationDetails.html.twig', array('modulationArray' => $modulationArray, 'totalModulation' => $pointage->getTotalMods(), 'month' => $month, 'year' => $year, 'user' => $userEntity, 'readonly' => $readonly));
+        // On récupère tous les pointages de l'année pour le collaborateur.
+        $yearPointages = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('year' => $year, 'user' => $username));
+
+        // On calcule la valeur total de modulation de l'année.
+        $yearTotalMods = 0;
+        foreach ($yearPointages as $mod) {
+            $yearTotalMods += $mod->getTotalMods();
+        }
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:modulationDetails.html.twig', array('modulationArray' => $modulationArray, 'totalModulation' => $yearTotalMods, 'month' => $month, 'year' => $year, 'user' => $userEntity, 'readonly' => $readonly));
     }
 
     // Retourne une chaîne de caractère sans accents.

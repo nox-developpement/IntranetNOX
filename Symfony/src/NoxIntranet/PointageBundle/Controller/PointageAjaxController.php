@@ -831,9 +831,20 @@ class PointageAjaxController extends Controller {
         foreach ($pointages as $pointage) {
             // On récuépe l'entité hiérarchique du collaborateur du pointage.
             $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage['user']);
+
             // Si le collaborateur est définie dans la hiérarchie, qu'il fait partie de l'établissement et que qu'il dépend de l'utilisateur?
             if (!empty($userHierarchy) && $userHierarchy->getDA() === $manager && in_array($pointage['user'], array_keys($users))) {
+                // On récupère tous les pointage de l'année correspondant au collaborateur.
+                $yearPointages = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('user' => $pointage['user'], 'year' => $year));
+
+                // On récupère la valeur total de modulation de l'année.
+                $totalMods = 0;
+                foreach ($yearPointages as $mod) {
+                    $totalMods += $mod->getTotalMods();
+                }
+
                 $pointage['absences'] = json_decode($pointage['absences'], true);
+                $pointage['yearTotalMods'] = $totalMods;
                 $pointage['detailsForfaitDeplacementsUrl'] = $this->generateUrl('nox_intranet_pointage_show_forfaits_deplacement_details', array('month' => $pointage['month'], 'year' => $pointage['year'], 'username' => $pointage['user'], 'readonly' => $validationStep === 'Final' ? 'true' : 'false')); // On génére l'Url d'accès aux détails du forfait déplacement.
                 $pointage['detailsModsUrl'] = $this->generateUrl('nox_intranet_pointage_show_mods_details', array('month' => $pointage['month'], 'year' => $pointage['year'], 'username' => $pointage['user'], 'readonly' => $validationStep === 'Final' ? 'true' : 'false')); // On génére l'Url d'accès aux détails du forfait déplacement.
                 $pointagesValides[] = $pointage; // On ajoute son pointage à la liste des pointages à retourner.
@@ -1242,6 +1253,7 @@ class PointageAjaxController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $pointage = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $username));
 
+            // On calcule la valeur total de modulation du mois courant.
             $totalMods = 0;
             foreach (json_decode($modsArray, true) as $mod) {
                 $totalMods += $mod['value'];
@@ -1252,7 +1264,16 @@ class PointageAjaxController extends Controller {
             $pointage->setTotalMods($totalMods);
             $em->flush();
 
-            return new Response($totalMods);
+            // On récupére tous les pointage de l'année courante du collaborateur.
+            $yearPointages = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('year' => $year, 'user' => $username));
+
+            // On calcule le total de modulation sur l'année.
+            $yearTotalMods = 0;
+            foreach ($yearPointages as $pointage) {
+                $yearTotalMods += $pointage->getTotalMods();
+            }
+
+            return new Response($yearTotalMods);
         }
     }
 
