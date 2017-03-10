@@ -3168,6 +3168,8 @@ tr {
     color: white;
     padding-left: 0.5em;
     padding-right: 0.5em;
+    font-size: calc(12px + 0.2vw);
+    word-wrap: break-word;
 
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#336fa0+0,052775+100 */
     background: #336fa0; /* Old browsers */
@@ -3181,6 +3183,8 @@ tr {
     text-align: center;
     padding-left: 0.5em;
     padding-right: 0.5em;
+    font-size: calc(12px + 0.2vw);
+    word-wrap: break-word;
 }
 
 #compilationPointagesTable a[title='Détails'], #compilationPointagesTable a[title='Détails']:visited {
