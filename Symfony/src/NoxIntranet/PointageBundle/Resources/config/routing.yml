@@ -209,3 +209,7 @@ nox_intranet_pointage_ajax_archives_compilation_export_excel:
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGenerateExcelArchiveRecap }
     requirements:
         etablissement: .+
+                
+nox_intranet_pointage_compilation_modulation:
+    path: /ressources/pointage/compilation-modulation
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationModulation }

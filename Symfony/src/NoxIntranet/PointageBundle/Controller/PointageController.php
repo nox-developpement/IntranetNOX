@@ -779,13 +779,12 @@ class PointageController extends Controller {
             $newCSVFileHandler = fopen($newCSVFile, 'w+');
 
             if ($formCompilationDate->get('download_variables_affaires')->isClicked()) {
-                fputcsv($newCSVFileHandler, array('Nom', 'Prénom', "Numéro d'affaire", 'Valeur', 'Date'));
+                fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values(array('Nom', 'Prénom', 'Numéro d\'affaire', 'Valeur', 'Date'))));
                 $filename = "Compilation des variables d'affaires";
             } else if ($formCompilationDate->get('download_variables_paie')->isClicked()) {
-                fputcsv($newCSVFileHandler, array('Date', 'Nom', 'Prénom', "Modulation", 'Absence matin', 'Absence après-midi', 'Titre repas', 'Forfait déplacement', 'Prime panier', 'Commentaire'));
+                fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values(array('Date', 'Nom', 'Prénom', 'Modulation', 'Absence matin', 'Absence après-midi', 'Titre repas', 'Forfait déplacement', 'Prime panier', 'Commentaire'))));
                 $filename = "Compilation des variables de paie";
             }
-
 
             // Pour chaque pointage...
             foreach ($tableau as $pointage) {
@@ -847,7 +846,7 @@ class PointageController extends Controller {
         // On récupére les forfaits déplacement sous forme de tableau.
         $forfaitDeplacementArray = json_decode($pointage->getForfaitsDeplacementDetails(), true);
 
-        return $this->render('NoxIntranetPointageBundle:Pointage:forfaitsDeplacementDetails.html.twig', array('forfaitDeplacementArray' => $forfaitDeplacementArray, 'totalForfaitDeplacement' => $pointage->getForfaitsDeplacement() , 'month' => $month, 'year' => $year, 'user' => $userEntity, 'readonly' => $readonly));
+        return $this->render('NoxIntranetPointageBundle:Pointage:forfaitsDeplacementDetails.html.twig', array('forfaitDeplacementArray' => $forfaitDeplacementArray, 'totalForfaitDeplacement' => $pointage->getForfaitsDeplacement(), 'month' => $month, 'year' => $year, 'user' => $userEntity, 'readonly' => $readonly));
     }
 
     // Affiche un tableau affichange les valeurs de forfait déplacement en fonction du jour.
@@ -966,6 +965,107 @@ class PointageController extends Controller {
         $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); // modification du content-type pour forcer le téléchargement (sinon le navigateur internet essaie d'afficher le document)
         $response->headers->set('Content-disposition', 'filename=' . utf8_encode(pathinfo($filepath, PATHINFO_BASENAME)));
         return $response;
+    }
+
+    // Permet de générer et télécharger une compilation des modulations.
+    public function compilationModulationAction(Request $request) {
+        // Si l'utilisateur n'as pas le role RH.
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_RH')) {
+            // On le redirige vers l'accueil.
+            $this->get('session')->getFlashBag()->add('noticeErreur', "Vous n'avez pas les droits requis.");
+            $this->redirectToRoute('nox_intranet_accueil');
+        }
+
+        // Génération du formulaire de téléchargement de la compilation des modulations.
+        $formGenerateCompilationModulationBuilder = $this->createFormBuilder();
+        $formGenerateCompilationModulationBuilder
+                ->add('Year', DateType::class, array(
+                    'data' => new DateTime(),
+                    'label' => 'Année'
+                ))
+                ->add('Download', SubmitType::class, array(
+                    'label' => 'Télécharger la compilation des modulations'
+                ))
+        ;
+        $formGenerateCompilationModulation = $formGenerateCompilationModulationBuilder->getForm();
+
+        // Traitement du formulaire.
+        $formGenerateCompilationModulation->handleRequest($request);
+        if ($formGenerateCompilationModulation->isValid()) {
+            // On récupère l'année du formulaire.
+            $year = $formGenerateCompilationModulation->get('Year')->getData()->format('Y');
+
+            // On récupète toutes les entitées hiérarchiques.
+            $em = $this->getDoctrine()->getManager();
+            $hierarchies = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array(), array('nom' => 'ASC', 'prenom' => 'ASC'));
+
+            // Initialisation du tableau de retour.
+            $modulationArray = array();
+
+            // Pour chaques entitées hiérarchiques...
+            foreach ($hierarchies as $userHierarchy) {
+                // On récupère les pointages correspondant à l'année et au collaborateur.
+                $pointages = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('user' => $userHierarchy->getUsername(), 'year' => $year));
+
+                // Initialisation du total de modulation du collaborateur.
+                $totalMod = 0;
+
+                // Pour chaque pointages...
+                foreach ($pointages as $pointage) {
+                    // On additione la valeur de modulation avec le total de modulation.
+                    $totalMod += $pointage->getTotalMods();
+                }
+
+                // On place les données dans le tableau de retour.
+                $modulationArray[] = array(
+                    'Username' => $userHierarchy->getUsername(),
+                    'Firstname' => $userHierarchy->getPrenom(),
+                    'Lastname' => $userHierarchy->getNom(),
+                    'Modulation' => $totalMod
+                );
+            }
+
+            // On récupére le module PHP de traitement des fichiers Excel.
+            $root = str_replace('\\', '/', $this->get('kernel')->getRootDir());
+            require_once $root . '\..\vendor\phpexcel\phpexcel\PHPExcel.php';
+
+            // Initialisation d'un nouveau fichier Excel.
+            $objPHPExcel = new \PHPExcel();
+            $objWorksheet = $objPHPExcel->getActiveSheet();
+
+            $objWorksheet->setCellValue('A1', 'Nom');
+            $objWorksheet->setCellValue('B1', 'Prénom');
+            $objWorksheet->setCellValue('C1', 'Modulation');
+
+            $rowIndex = 2;
+            foreach ($modulationArray as $mod) {
+                $objWorksheet->setCellValue('A' . $rowIndex, $mod['Lastname']);
+                $objWorksheet->setCellValue('B' . $rowIndex, $mod['Firstname']);
+                $objWorksheet->setCellValue('C' . $rowIndex, $mod['Modulation']);
+                $rowIndex++;
+            }
+
+            // On sauvegarde le tableau sous forme de fichier Excel 2007.
+            $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+            $filename = tempnam('', '');
+            $objWriter->save($filename);
+
+            // On récupére le fichier sous forme de stream.
+            $stream_file = file_get_contents($filename);
+
+            // On supprime le fichier.
+            unlink($filename);
+
+            // On retourne le téléchargement du fichier.
+            $response = new Response();
+            $response->setContent($stream_file);
+            $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); // modification du content-type pour forcer le téléchargement (sinon le navigateur internet essaie d'afficher le document)
+            $response->headers->set('Content-disposition', "filename='Compilation_modulations.xlsx'");
+
+            return $response;
+        }
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:compilationModulation.html.twig', array('formGenerationCompilation' => $formGenerateCompilationModulation->createView()));
     }
 
 }
