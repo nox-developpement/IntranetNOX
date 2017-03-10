@@ -1033,16 +1033,24 @@ class PointageController extends Controller {
             $objPHPExcel = new \PHPExcel();
             $objWorksheet = $objPHPExcel->getActiveSheet();
 
+            // Ecriture des en-têtes de colonnes.
             $objWorksheet->setCellValue('A1', 'Nom');
             $objWorksheet->setCellValue('B1', 'Prénom');
             $objWorksheet->setCellValue('C1', 'Modulation');
+            $objPHPExcel->getActiveSheet()->getStyle('A1:C1')->getFont()->setBold(true);
 
+            // Ecriture des valeurs.
             $rowIndex = 2;
             foreach ($modulationArray as $mod) {
                 $objWorksheet->setCellValue('A' . $rowIndex, $mod['Lastname']);
                 $objWorksheet->setCellValue('B' . $rowIndex, $mod['Firstname']);
                 $objWorksheet->setCellValue('C' . $rowIndex, $mod['Modulation']);
                 $rowIndex++;
+            }
+
+            // On redimensionne les colonnes.
+            foreach (range('A', 'C') as $columnID) {
+                $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
             }
 
             // On sauvegarde le tableau sous forme de fichier Excel 2007.
