@@ -172,7 +172,7 @@
             });
             formulaireOriginal.find('select').each(function (index) {
                 formulaireCopy.find('select').eq(index).find('option').removeAttr('selected');
-                formulaireCopy.find('select').eq(index).find("option[value='" + $(this).find('option:selected').val() + "']").attr('selected', 'selected');
+                formulaireCopy.find('select').eq(index).find("option[value=\"" + $(this).find('option:selected').val() + "\"]").attr('selected', 'selected');
             });
 
             // On récupére le code HTML de la copie.
@@ -814,8 +814,6 @@
             {% endif %}
         </p>
         {{ form_end(formulaireDevellopementProfessionnel) }}
-
-
 
     </div>
 {% endblock %}
