@@ -213,3 +213,7 @@ nox_intranet_pointage_ajax_archives_compilation_export_excel:
 nox_intranet_pointage_compilation_modulation:
     path: /ressources/pointage/compilation-modulation
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationModulation }
+    
+nox_intranet_pointage_ajax_search_gx_affaire:
+    path: /ressources/pointage/ajax-search-gx-affaire
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSearchGXAffaire }

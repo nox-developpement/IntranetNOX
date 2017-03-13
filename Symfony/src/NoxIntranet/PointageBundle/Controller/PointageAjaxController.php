@@ -1592,4 +1592,40 @@ class PointageAjaxController extends Controller {
         return new Response($downloadUrl);
     }
 
+    // Retourne les affaires qui correspondent à la chaine passé en charactère.
+    public function ajaxSearchGXAffaireAction(Request $request) {
+        $timestamp_debut = microtime(true);
+
+        if ($request->isXmlHttpRequest()) {
+            // Racine du serveur.
+            $root = $this->get('kernel')->getRootDir() . '/..';
+
+            // Chaîne de charactère de la recherche.
+            $searchString = $request->get('searchString');
+
+            // Initialisation du tableau de retour.
+            $resultArray = array();
+
+            $convert = function($string) {
+                return mb_convert_encoding($string, 'UTF-8', 'ASCII');
+            };
+
+            // On cherche les affaires dans le fichier CSV.
+            if (($handle = fopen($root . "/web/DatabasesCSV/AffairesEncode.csv", "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 0, ";")) !== FALSE) {
+                    $encodedResult = array_map($convert, $data);
+                    if (stripos($encodedResult[0], $searchString) !== false) {
+                        $resultArray[] = $encodedResult;
+                    }
+                }
+                fclose($handle);
+            }
+            $timestamp_fin = microtime(true);
+
+            $difference_ms = $timestamp_fin - $timestamp_debut;
+
+            return new Response(json_encode($resultArray));
+        }
+    }
+
 }
