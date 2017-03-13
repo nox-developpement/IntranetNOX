@@ -54,11 +54,11 @@ class SupportSIController extends Controller {
         $allUsers = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
         $allUsersCononicalName = array();
         foreach ($allUsers as $user) {
-            $allUsersCononicalName[mb_strtoupper($user->getFirstname() . ' ' . $user->getLastname(), 'UTF-8')] = $user;
+            $allUsersCononicalName[$this->wd_remove_accents(mb_strtoupper($user->getFirstname() . ' ' . $user->getLastname(), 'UTF-8'))] = $user;
         }
 
         // Si la hiérachie n'est pas définie ou que l'entitée du DA n'est pas trouvée...
-        if (empty($userHierarchy) || !array_key_exists($userHierarchy->getDA(), $allUsersCononicalName)) {
+        if (empty($userHierarchy) || !array_key_exists($this->wd_remove_accents($userHierarchy->getDA()), $allUsersCononicalName)) {
             // On redirige vers l'accueil et on affiche un message d'erreur.
             $request->getSession()->getFlashBag()->add('noticeErreur', "Erreur d'acquisition de la hiérarchie, veuillez contacter le support.");
             return $this->redirectToRoute('nox_intranet_accueil');
@@ -415,6 +415,16 @@ class SupportSIController extends Controller {
             $request->getSession()->getFlashBag()->add('noticeErreur', "Cette demande de matériel a déjà été traitée.");
             return $this->redirectToRoute('nox_intranet_accueil');
         }
+    }
+
+    private function wd_remove_accents($str, $charset = 'utf-8') {
+        $str = htmlentities($str, ENT_NOQUOTES, $charset);
+
+        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
+        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
+        $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
+
+        return $str;
     }
 
 }
