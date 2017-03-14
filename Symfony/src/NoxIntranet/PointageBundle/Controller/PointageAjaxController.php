@@ -1223,9 +1223,9 @@ class PointageAjaxController extends Controller {
                         'modulation' => $affaire['modulation'],
                         'absence_matin' => $affaire['absences']['matin'],
                         'absence_am' => $affaire['absences']['am'],
-                        'titre_repas' => $affaire['titre_repas'],
+                        //'titre_repas' => $affaire['titrerepas'],
                         'forfait_deplacement' => $affaire['forfait_deplacement'],
-                        'prime_panier' => $affaire['prime_panier'],
+                        //'prime_panier' => $affaire['primepanier'],
                         'comments' => $affaire['comments']
                     );
                 }

@@ -732,7 +732,7 @@ class PointageController extends Controller {
     public function compilationNOXIPCSVAction(Request $request) {
         // Si l'utilisateur n'as pas les droits d'accès on le redirige vers l'accueil.
         $currentUser = $this->get('security.context')->getToken()->getUser()->getUsername();
-        if (!($currentUser === 't.besson' || $currentUser === 'l.sauvage')) {
+        if (!($currentUser === 't.besson' || $currentUser === 'l.sauvage' || $currentUser === 'v.genini')) {
             return $this->redirectToRoute('nox_intranet_accueil');
         }
 
@@ -779,10 +779,10 @@ class PointageController extends Controller {
             $newCSVFileHandler = fopen($newCSVFile, 'w+');
 
             if ($formCompilationDate->get('download_variables_affaires')->isClicked()) {
-                fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values(array('Nom', 'Prénom', 'Numéro d\'affaire', 'Valeur', 'Date'))));
+                fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values(array('Nom', 'Prénom', 'Numéro d\'affaire', 'Valeur', 'Date'))), ';');
                 $filename = "Compilation des variables d'affaires";
             } else if ($formCompilationDate->get('download_variables_paie')->isClicked()) {
-                fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values(array('Date', 'Nom', 'Prénom', 'Modulation', 'Absence matin', 'Absence après-midi', 'Titre repas', 'Forfait déplacement', 'Prime panier', 'Commentaire'))));
+                fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values(array('Date', 'Nom', 'Prénom', 'Modulation', 'Absence matin', 'Absence après-midi', 'Titre repas', 'Forfait déplacement', 'Prime panier', 'Commentaire'))), ';');
                 $filename = "Compilation des variables de paie";
             }
 

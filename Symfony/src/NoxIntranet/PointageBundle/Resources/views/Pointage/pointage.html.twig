@@ -2345,7 +2345,7 @@
             })();
 
             // Lors d'une action sur les cellules de pourcentage d'affaire...
-            $('#tableFeuillePointage').on('keyup paste', '.projectPercentageCell, .comments', function () {
+            $('#tableFeuillePointage').on('keyup paste change', ".projectPercentageCell, .comments, td[contenteditable='true'], select", function () {
                 delay(function () {
                     // On récupére le tableau du pointage.
                     var pointageTable = $('#tableFeuillePointage');
@@ -2371,11 +2371,11 @@
                         var modulation = $(this).siblings('.dailyHoursMod').first().text();
 
                         // On récupére les valeurs d'absences.
-                        var absences = {matin: $(this).siblings('.abscenceMatinSelector').first().val(), am: $(this).siblings('.abscenceAMSelector').first().val()};
+                        var absences = {matin: $(this).siblings('.abscenceMatinSelector').first().find('select').val(), am: $(this).siblings('.abscenceAMSelector').first().find('select').val()};
 
                         // On récupére les valeurs de titre repas.
-                        var titre_repas = $(this).siblings('.titreRepasNumberSelector').first().val();
-
+                        var titre_repas = $(this).siblings('.titreRepasNumberSelector').first().find('select').val();
+                                                
                         // On récupére les valeurs de forfait déplacement.
                         var forfait_deplacement = $(this).siblings('.forfaitsDeplacementMontant').first().text();
 
@@ -2405,8 +2405,6 @@
 
                     // On transforme les données d'affaires en format JSON.
                     var jsonData = JSON.stringify(affaires);
-
-                    console.log(jsonData);
 
                     // Requette Ajax pour générer un fichier CSV et le télécharger.
                     $.ajax({
