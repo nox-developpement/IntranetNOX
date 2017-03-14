@@ -123,11 +123,10 @@ class NoxIntranetExtractRHHierarchie extends Controller {
         // Fermeture du fichier de débugage.
         fclose($filehandller);
 
-        // On récupère les entités existantes pour les supprimer.
-        $existingUsers = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
-        foreach ($existingUsers as $user) {
-            $em->remove($user);
-        }
+        // On truncate la table des hiérarchie pour la vider et remettre les Id à zéro.
+        $connection = $this->em->getConnection();
+        $platform = $connection->getDatabasePlatform();
+        $connection->executeUpdate($platform->getTruncateTableSQL('users_hierarchy', true));
 
         // On supprime les entités existantes et on ajoute les nouvelles en base de données.
         $em->flush();
