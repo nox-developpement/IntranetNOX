@@ -779,10 +779,10 @@ class PointageController extends Controller {
             $newCSVFileHandler = fopen($newCSVFile, 'w+');
 
             if ($formCompilationDate->get('download_variables_affaires')->isClicked()) {
-                fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values(array('Nom', 'Prénom', 'Numéro d\'affaire', 'Valeur', 'Date'))));
+                fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values(array('Nom', 'Prénom', 'Numéro d\'affaire', 'Valeur', 'Date'))), ';');
                 $filename = "Compilation des variables d'affaires";
             } else if ($formCompilationDate->get('download_variables_paie')->isClicked()) {
-                fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values(array('Date', 'Nom', 'Prénom', 'Modulation', 'Absence matin', 'Absence après-midi', 'Titre repas', 'Forfait déplacement', 'Prime panier', 'Commentaire'))));
+                fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values(array('Date', 'Nom', 'Prénom', 'Modulation', 'Absence matin', 'Absence après-midi', 'Titre repas', 'Forfait déplacement', 'Prime panier', 'Commentaire'))), ';');
                 $filename = "Compilation des variables de paie";
             }
 
