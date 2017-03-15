@@ -1594,37 +1594,21 @@ class PointageAjaxController extends Controller {
 
     // Retourne les affaires qui correspondent à la chaine passé en charactère.
     public function ajaxSearchGXAffaireAction(Request $request) {
-        $timestamp_debut = microtime(true);
-
         if ($request->isXmlHttpRequest()) {
-            // Racine du serveur.
-            $root = $this->get('kernel')->getRootDir() . '/..';
-
             // Chaîne de charactère de la recherche.
             $searchString = $request->get('searchString');
 
-            // Initialisation du tableau de retour.
-            $resultArray = array();
+            // On génère un requête de recherche dans la base de données de afaires avec la chaîne recherché.
+            $queryBuilder = $this->getDoctrine()->getRepository('NoxIntranetPointageBundle:AffairesGX')->createQueryBuilder('a');
+            $queryBuilder
+                    ->select('a.numero, a.nom')
+                    ->where('a.numero LIKE :searchString OR a.nom LIKE :searchString')
+                    ->setParameters(array('searchString' => '%' . $searchString . '%'));
 
-            $convert = function($string) {
-                return mb_convert_encoding($string, 'UTF-8', 'ASCII');
-            };
+            // On retourne les résultats sous forme de tableau.
+            $results = $queryBuilder->getQuery()->getArrayResult();
 
-            // On cherche les affaires dans le fichier CSV.
-            if (($handle = fopen($root . "/web/DatabasesCSV/AffairesEncode.csv", "r")) !== FALSE) {
-                while (($data = fgetcsv($handle, 0, ";")) !== FALSE) {
-                    $encodedResult = array_map($convert, $data);
-                    if (stripos($encodedResult[0], $searchString) !== false) {
-                        $resultArray[] = $encodedResult;
-                    }
-                }
-                fclose($handle);
-            }
-            $timestamp_fin = microtime(true);
-
-            $difference_ms = $timestamp_fin - $timestamp_debut;
-
-            return new Response(json_encode($resultArray));
+            return new Response(json_encode($results));
         }
     }
 

@@ -52,6 +52,19 @@ class AffairesGX {
     }
 
     /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return AffairesGX
+     */
+    public function setId($id) {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Set numero
      *
      * @param string $numero

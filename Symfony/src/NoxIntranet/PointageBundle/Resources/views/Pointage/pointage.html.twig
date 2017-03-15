@@ -1513,6 +1513,7 @@
                 };
             })();
 
+            // Initialisation de la variable de stockage des requêtes ajax.
             var searchRequest = null;
 
             // Pour toutes action dans une cellule titre d'affaire.
@@ -1528,7 +1529,6 @@
 
                 var search = $(this).text().trim().toUpperCase(); // La chaine de caractères recherchée.
                 var celluleProject = $(this); // La cellule dans laquelle on effectu la recherche.
-                var affaires = "http://" + window.location.hostname + "/Symfony/web/DatabasesCSV/AffairesEncode.csv"; // Le fichier dans lesquel on recherche les affaires.
                 var compteur = 0; // Le compteur de résultat(s) positif(s).
 
                 // Supprime les paragraphes de résultats existants.
@@ -1556,48 +1556,26 @@
 
                                 // Pour chaque lignes...
                                 $.each(resultsArray, function (index, value) {
-                                    numsAffaires.push(value[0]); // On ajoute le numéro de l'affaire dans le tableau des numéros d'affaires.
+                                    numsAffaires.push(value['numero']); // On ajoute le numéro de l'affaire dans le tableau des numéros d'affaires.
 
                                     // Si l'affaire possède un nom...
-                                    if (1 in value) {
+                                    if ('nom' in value) {
                                         // Si le compteur de résultat positif est inférieur à 10 et qu'il y a une correspondance entre la chaine recherchée et un numéro ou un nom d'affaire...
-                                        if (compteur < 10 && value[0].trim() !== search.trim()) {
+                                        if (compteur < 10 && value['numero'].trim() !== search.trim()) {
                                             // On injecte un paragraphe avec le nom et le numéro de l'affaire et on incrémente le compteur de résultat positif.
-                                            $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + value[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + value[0] + " " + value[1] + "</p>");
+                                            $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + value['numero'] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + value['numero'] + " " + value['nom'] + "</p>");
                                             compteur++;
                                         }
                                     }
                                     // Si l'affaire n'est pas nomée...
                                     else {
                                         // Si le compteur de résultat positif est inférieur à 10 et qu'il y a une correspondance entre la chaine recherchée et un numéro d'affaire...
-                                        if (compteur < 10 && value[0].trim() !== search.trim()) {
+                                        if (compteur < 10 && value['numero'].trim() !== search.trim()) {
                                             // On injecte un paragraphe avec le nom et le numéro de l'affaire et on incrémente le compteur de résultat positif.
-                                            $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + value[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + value[0] + " " + value[1] + "</p>");
+                                            $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + value['numero'] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + value['numero'] + "</p>");
                                             compteur++;
                                         }
                                     }
-
-                                    /*var donnes = value.split(';'); // On découpe les données de la ligne dans un tableau.
-                                     numsAffaires.push(donnes[0]); // On ajoute le numéro de l'affaire dans le tableau des numéros d'affaires.
-                                     
-                                     // Si l'affaire possède un nom...
-                                     if (1 in donnes) {
-                                     // Si le compteur de résultat positif est inférieur à 10 et qu'il y a une correspondance entre la chaine recherchée et un numéro ou un nom d'affaire...
-                                     if (compteur < 10 && (donnes[0].indexOf(search) >= 0 || donnes[1].toUpperCase().indexOf(search) >= 0) && donnes[0].trim() !== search.trim()) {
-                                     // On injecte un paragraphe avec le nom et le numéro de l'affaire et on incrémente le compteur de résultat positif.
-                                     $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
-                                     compteur++;
-                                     }
-                                     }
-                                     // Si l'affaire n'est pas nomée...
-                                     else {
-                                     // Si le compteur de résultat positif est inférieur à 10 et qu'il y a une correspondance entre la chaine recherchée et un numéro d'affaire...
-                                     if (compteur < 10 && (donnes[0].indexOf(search) >= 0) && donnes[0].trim() !== search.trim()) {
-                                     // On injecte un paragraphe avec le nom et le numéro de l'affaire et on incrémente le compteur de résultat positif.
-                                     $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
-                                     compteur++;
-                                     }
-                                     }*/
                                 });
 
                                 // Effet visuel au passage de la souris sur les résultats.
@@ -1633,7 +1611,7 @@
                                 });
                             }
                         });
-                    }, 500);
+                    }, 1000);
                 }
             });
         }
@@ -2375,7 +2353,7 @@
 
                         // On récupére les valeurs de titre repas.
                         var titre_repas = $(this).siblings('.titreRepasNumberSelector').first().find('select').val();
-                                                
+
                         // On récupére les valeurs de forfait déplacement.
                         var forfait_deplacement = $(this).siblings('.forfaitsDeplacementMontant').first().text();
 

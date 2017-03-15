@@ -30,7 +30,7 @@ class NoxIntranetExtractRHHierarchie extends Controller {
 
         // Chemin du fichier de management hiérarchique de la RH.
         $fichierRH = $root . '/web/uploads/FichierHierarchieRH/HierarchieRH.xlsx';
-        //$fichierRH = "Y:/5_Partage/T.Besson/Validation Manager WF RF MAJ NR 300516.xlsx";
+
         // Initialise la lecture du fichier Excel.
         $objReaderAssistantes = new \PHPExcel_Reader_Excel2007();
         $objPHPExcelAssistantes = $objReaderAssistantes->load($fichierRH);
@@ -62,7 +62,7 @@ class NoxIntranetExtractRHHierarchie extends Controller {
                 // Si l'utilisateur n'est pas trouvé dans la base de donnée de l'intranet on écris son nom dans le fichier de débugage.
                 if (empty($userDB)) {
                     fwrite($filehandller, ucfirst(strtolower($objWorksheet->getCell('E' . $rowIndex)->getValue())) . ' ' . $objWorksheet->getCell('D' . $rowIndex)->getValue() . "\n");
-                    var_dump(strtolower($objWorksheet->getCell('E' . $rowIndex)->getValue()) . ' ' . $objWorksheet->getCell('D' . $rowIndex)->getValue());
+                    echo strtolower($objWorksheet->getCell('E' . $rowIndex)->getValue()) . ' ' . $objWorksheet->getCell('D' . $rowIndex)->getValue() . "\n";
                 }
 
                 // Si l'utilisateur existe dans la base de données utilisateurs.
@@ -124,7 +124,7 @@ class NoxIntranetExtractRHHierarchie extends Controller {
         fclose($filehandller);
 
         // On truncate la table des hiérarchie pour la vider et remettre les Id à zéro.
-        $connection = $this->em->getConnection();
+        $connection = $em->getConnection();
         $platform = $connection->getDatabasePlatform();
         $connection->executeUpdate($platform->getTruncateTableSQL('users_hierarchy', true));
 
