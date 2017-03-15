@@ -13,6 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class AffairesGX {
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="Numero", type="string", length=255)
@@ -32,15 +41,6 @@ class AffairesGX {
      * @ORM\Column(name="Identifiant", type="string", length=255)
      */
     private $identifiant;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
 
     /**
      * Get id
