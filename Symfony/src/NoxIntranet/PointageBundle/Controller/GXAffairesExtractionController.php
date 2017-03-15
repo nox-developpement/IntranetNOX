@@ -76,6 +76,8 @@ class GXAffairesExtractionController extends Controller {
 
                     // On supprime l'entité existante.
                     $this->em->remove($affairesEntity);
+                    $this->em->flush();
+                    $this->em->clear();
                 }
             }
             fclose($handle);
@@ -98,7 +100,7 @@ class GXAffairesExtractionController extends Controller {
             $flushCount++;
 
             // Toutes les 500 itérations...
-            if ($flushCount % 500 === 0) {
+            if ($flushCount % 200 === 0) {
                 // On flush la création des entitées.
                 $this->em->flush();
                 $this->em->clear();
