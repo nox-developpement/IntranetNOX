@@ -38,7 +38,7 @@ class GXAffairesExtractionController extends Controller {
         $scriptRoot = $this->container->get('kernel')->getRootDir() . "/../scripts";
 
         // Exécution du script d'extraction des affaires.
-        exec($scriptRoot . "/GXAffairesUpdating.bat");
+        exec($scriptRoot . "/GXExtractAffaires.bat");
     }
 
     // Import les affaires depuis le fichier CSV vers la base de données de l'intranet.

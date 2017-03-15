@@ -1603,12 +1603,29 @@ class PointageAjaxController extends Controller {
             $queryBuilder
                     ->select('a.numero, a.nom')
                     ->where('a.numero LIKE :searchString OR a.nom LIKE :searchString')
-                    ->setParameters(array('searchString' => '%' . $searchString . '%'));
+                    ->addOrderBy('a.numero')
+                    ->addOrderBy('a.nom')
+                    ->setParameters(array('searchString' => '%' . $searchString . '%'))
+                    ->setMaxResults(10);
 
             // On retourne les résultats sous forme de tableau.
             $results = $queryBuilder->getQuery()->getArrayResult();
 
             return new Response(json_encode($results));
+        }
+    }
+
+    // Retourne le nom de l'affaire en fonction de son numéro.
+    public function ajaxGetNomAffaireAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // Chaîne de charactère de la recherche.
+            $numAffaire = $request->get('numAffaire');
+
+            // On récupére le nom de l'affaire en fonction de son numéro.
+            $em = $this->getDoctrine()->getManager();
+            $nomAffaire = $em->getRepository('NoxIntranetPointageBundle:AffairesGX')->findOneByNumero($numAffaire)->getNom();
+
+            return new Response($nomAffaire);
         }
     }
 

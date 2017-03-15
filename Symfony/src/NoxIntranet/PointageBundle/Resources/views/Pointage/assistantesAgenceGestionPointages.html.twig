@@ -1645,80 +1645,98 @@
 
         // Renvoi les affaires dont le numéro contient la chaine "search".
         function getGXAffaires() {
+            // Initialisation d'une variable de timer pour lancer la sauvegarde après # temps sans typing.
+            var delay = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            // Initialisation de la variable de stockage des requêtes ajax.
+            var searchRequest = null;
+
             // Pour toutes action dans une cellule titre d'affaire.
             $('#tableFeuillePointage').on('blur keyup paste', 'tr:nth-child(2) .project', function () {
+
+                // Si une requête est déjà en cours on l'annule.
+                if (searchRequest !== null) {
+                    searchRequest.abort();
+                    searchRequest = null;
+                }
 
                 $('#ajaxSearchAffairesDiv').hide(); // On cache la div des résultats de recherche.
 
                 var search = $(this).text().trim().toUpperCase(); // La chaine de caractères recherchée.
                 var celluleProject = $(this); // La cellule dans laquelle on effectu la recherche.
-                var affaires = "http://" + window.location.hostname + "/Symfony/web/DatabasesCSV/AffairesEncode.csv"; // Le fichier dans lesquel on recherche les affaires.
-                var compteur = 0; // Le compteur de résultat(s) positif(s).
 
                 // Supprime les paragraphes de résultats existants.
                 $('#ajaxSearchAffairesDiv').empty();
+
                 // Fixe la largeur minimale de la 'div' des résultats a 1.1 fois la taille de la cellule.
                 var minWidth = celluleProject.outerWidth() * 1.1;
                 $('#ajaxSearchAffairesDiv').css('min-width', minWidth);
+
                 // Cherche la chaine saisi dans le fichier csv des affaires et ajoute une balise 'p' par résultats.
                 if (search !== '') {
-                    // On lis le fichier csv contenant les affaires.
-                    $.get(affaires, function (data) {
-                        var lineByLine = data.split("\n"); // On découpe le fichier ligne par ligne.
-                        var numsAffaires = []; // On initialise le tableau qui contiendras les affaires.
+                    delay(function () {
+                        searchRequest = $.ajax({
+                            url: '{{ path('nox_intranet_pointage_ajax_search_gx_affaire') }}',
+                            data: {searchString: search},
+                            success: function (results) {
+                                // Supprime les éventuels event de blur déjà existant.
+                                celluleProject.unbind('blur');
 
-                        // Pour chaque lignes...
-                        $.each(lineByLine, function (index, value) {
-                            var donnes = value.split(';'); // On découpe les données de la ligne dans un tableau.
-                            numsAffaires.push(donnes[0]); // On ajoute le numéro de l'affaire dans le tableau des numéros d'affaires.
+                                // On initialise le tableau qui contiendras les affaires.
+                                var numsAffaires = [];
 
-                            // Si l'affaire possède un nom...
-                            if (1 in donnes) {
-                                // Si le compteur de résultat positif est inférieur à 10 et qu'il y a une correspondance entre la chaine recherchée et un numéro ou un nom d'affaire...
-                                if (compteur < 10 && (donnes[0].indexOf(search) >= 0 || donnes[1].toUpperCase().indexOf(search) >= 0) && donnes[0].trim() !== search.trim()) {
-                                    // On injecte un paragraphe avec le nom et le numéro de l'affaire et on incrémente le compteur de résultat positif.
-                                    $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
-                                    compteur++;
+                                // Tableau des résultats de la recherche.
+                                var resultsArray = JSON.parse(results);
+
+                                // Pour chaque lignes...
+                                $.each(resultsArray, function (index, value) {
+                                    numsAffaires.push(value['numero']); // On ajoute le numéro de l'affaire dans le tableau des numéros d'affaires.
+
+                                    if (value['numero'].trim() !== search.trim()) {
+                                        // On injecte un paragraphe avec le nom et le numéro de l'affaire et on incrémente le compteur de résultat positif.
+                                        $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + value['numero'] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + value['numero'] + (('nom' in value) ? " " + value['nom'] : '') + "</p>");
+                                    }
+                                });
+
+                                // Effet visuel au passage de la souris sur les résultats.
+                                $('.ajaxSearchAffairesDivResults').hover(function () {
+                                    $(this).css('background-color', 'rgb(217, 217, 217)');
+                                }, function () {
+                                    $(this).css('background-color', 'white');
+                                });
+
+                                // Lors du clique sur un résultat on remplace le contenu de la recherche par le résultat.
+                                $('.ajaxSearchAffairesDivResults').mousedown(function () {
+                                    celluleProject.text($(this).data('numaffaire'));
+                                });
+
+                                // Positione la 'div' contenant les résultats sous la cellules focus.
+                                $('#ajaxSearchAffairesDiv').css('top', celluleProject.offset().top + celluleProject.outerHeight() - $('#tableFeuillePointageDivContainer').offset().top);
+                                $('#ajaxSearchAffairesDiv').css('left', celluleProject.offset().left - $('#tableFeuillePointageDivContainer').offset().left);
+
+                                // Affiche la 'div' des résultats si elle n'est pas vide.
+                                if (resultsArray.length > 0) {
+                                    $('#ajaxSearchAffairesDiv').show();
                                 }
-                            }
-                            // Si l'affaire n'est pas nomée...
-                            else {
-                                // Si le compteur de résultat positif est inférieur à 10 et qu'il y a une correspondance entre la chaine recherchée et un numéro d'affaire...
-                                if (compteur < 10 && (donnes[0].indexOf(search) >= 0) && donnes[0].trim() !== search.trim()) {
-                                    // On injecte un paragraphe avec le nom et le numéro de l'affaire et on incrémente le compteur de résultat positif.
-                                    $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + donnes[0] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + donnes[0] + " " + donnes[1] + "</p>");
-                                    compteur++;
-                                }
-                            }
-                        });
-                        // Effet visuel au passage de la souris sur les résultats.
-                        $('.ajaxSearchAffairesDivResults').hover(function () {
-                            $(this).css('background-color', 'rgb(217, 217, 217)');
-                        }, function () {
-                            $(this).css('background-color', 'white');
-                        });
-                        // Lors du clique sur un résultat on remplace le contenu de la recherche par le résultat.
-                        $('.ajaxSearchAffairesDivResults').mousedown(function () {
-                            celluleProject.text($(this).attr('data-numaffaire'));
-                            celluleProject.attr('data-nomaffaire', $(this).attr('data-nomaffaire'));
-                        });
-                        // Positione la 'div' contenant les résultats sous la cellules focus.
-                        $('#ajaxSearchAffairesDiv').css('top', celluleProject.offset().top + celluleProject.outerHeight() - $('#tableFeuillePointageDivContainer').offset().top);
-                        $('#ajaxSearchAffairesDiv').css('left', celluleProject.offset().left - $('#tableFeuillePointageDivContainer').offset().left);
-                        // Affiche la 'div' des résultats si elle n'est pas vide.
-                        if (compteur > 0) {
-                            $('#ajaxSearchAffairesDiv').show();
-                        }
 
-                        // Cache la div des résultats lors du blur du champ de recherche et vide la cellule si le contenu n'est pas un numéro d'affaire existant.
-                        celluleProject.blur(function () {
-                            $('#ajaxSearchAffairesDiv').empty();
-                            $('#ajaxSearchAffairesDiv').hide();
-                            if ($.inArray(celluleProject.text(), numsAffaires) === -1) {
-                                celluleProject.text('');
+                                // Cache la div des résultats lors du blur du champ de recherche et vide la cellule si le contenu n'est pas un numéro d'affaire existant.
+                                celluleProject.blur(function () {
+                                    $('#ajaxSearchAffairesDiv').empty();
+                                    $('#ajaxSearchAffairesDiv').hide();
+                                    if ($.inArray(celluleProject.text(), numsAffaires) === -1) {
+                                        celluleProject.text('');
+                                    }
+                                    $('td[contenteditable=true]:not(tr:nth-child(2) .project)').trigger('keyup');
+                                });
                             }
                         });
-                    });
+                    }, 1000);
                 }
             });
         }
@@ -1736,52 +1754,79 @@
                 var celluleAffaire = $(this); // Récupére la cellule d'affaire courante.
                 var top = celluleAffaire.offset().top; // Récupére la position verticale de la cellule de l'affaire.
                 var left = celluleAffaire.offset().left; // Récupére la position horizontale de la cellule de l'affaire.
-                var affaires = "http://" + window.location.hostname + "/Symfony/web/DatabasesCSV/AffairesEncode.csv"; // Récupére le fichier contenant les affaires.
                 var numAffaire = celluleAffaire.text(); // Récupére le numéro d'affaire.
-                var nomAffaire = ''; // Initialise le nom d'affaire.       
 
-                getAffaire(affaires, numAffaire, nomAffaire, top, left, celluleAffaire, $(this));
-            });
-
-            function getAffaire(affaires, numAffaire, nomAffaire, top, left, celluleAffaire, element) {
-                // On cherche le nom d'affaire correspondant au numéro dans le fichier des affaires.
-                $.get(affaires, function (data) {
-                    var lineByLine = data.split("\n");
-                    $.each(lineByLine, function (index, value) {
-                        var donnes = value.split(';');
-                        if (numAffaire === donnes[0]) {
-                            nomAffaire = donnes[1];
-                            return false;
+                $.ajax({
+                    url: '{{ path('nox_intranet_pointage_ajax_get_nom_affaire') }}',
+                    type: 'POST',
+                    data: {numAffaire: numAffaire},
+                    success: function (nomAffaire) {
+                        // Code html de la tooltip.
+                        var tooltip = '';
+                        tooltip += "<div id='tooltipAffaire' style='display: inline-block; padding: 0%; position: absolute; background-color: rgba(255, 0, 0, 0.8); border-radius: 6px; z-index: 3;'>";
+                        tooltip += "<p style='text-align: center; color: white; font-size: 0.8vw; margin-left: 5%; margin-right: 5%;'>";
+                        if (nomAffaire) {
+                            tooltip += nomAffaire;
+                            tooltip += "<br />";
                         }
-                    });
+                        tooltip += "(Cliquez-droit sur l'affaire pour la supprimer.)";
+                        tooltip += "</p>";
+                        tooltip += '</div>';
 
-                    // Code html de la tooltip.
-                    var tooltip = '';
-                    tooltip += "<div id='tooltipAffaire' style='display: inline-block; padding: 0%; position: absolute; background-color: rgba(255, 0, 0, 0.8); border-radius: 6px; z-index: 3;'>";
-                    tooltip += "<p style='text-align: center; color: white; font-size: 0.8vw; margin-left: 5%; margin-right: 5%;'>";
-                    if (nomAffaire) {
-                        tooltip += nomAffaire;
-                        tooltip += "<br />";
+                        // Si la souris est toujours sur la cellules une fois la génération du code HTML terminée, on fait apparaître et on positionne la tooltip.
+                        if (celluleAffaire.is(':hover')) {
+                            $('body').append(tooltip);
+                            $('#tooltipAffaire').css('top', top - $('#tooltipAffaire').outerHeight() - 5);
+                            $('#tooltipAffaire').css('left', left - ($('#tooltipAffaire').outerWidth() - celluleAffaire.outerWidth()) / 2);
+                        }
                     }
-                    tooltip += "(Cliquez-droit sur l'affaire pour la supprimer.)";
-                    tooltip += "</p>";
-                    tooltip += '</div>';
-
-                    // Si la souris est toujours sur la cellules une fois la génération du code HTML terminée, on fait apparaître et on positionne la tooltip.
-                    if (element.is(':hover')) {
-                        $('body').append(tooltip);
-                        $('#tooltipAffaire').css('top', top - $('#tooltipAffaire').outerHeight() - 5);
-                        $('#tooltipAffaire').css('left', left - ($('#tooltipAffaire').outerWidth() - celluleAffaire.outerWidth()) / 2);
-                    }
-
                 }).done(function () {
-                    // Lorsqu'on retire la souris d'une cellule de numéro d'affaire.
                     $('#tableFeuillePointage tr:nth-child(2)').on('mouseout', '.project', function () {
                         //On supprime la tooltip.
                         $('#tooltipAffaire').remove();
                     });
                 });
-            }
+            });
+
+            /*function getAffaire(affaires, numAffaire, nomAffaire, top, left, celluleAffaire, element) {
+             // On cherche le nom d'affaire correspondant au numéro dans le fichier des affaires.
+             $.get(affaires, function (data) {
+             var lineByLine = data.split("\n");
+             $.each(lineByLine, function (index, value) {
+             var donnes = value.split(';');
+             if (numAffaire === donnes[0]) {
+             nomAffaire = donnes[1];
+             return false;
+             }
+             });
+             
+             // Code html de la tooltip.
+             var tooltip = '';
+             tooltip += "<div id='tooltipAffaire' style='display: inline-block; padding: 0%; position: absolute; background-color: rgba(255, 0, 0, 0.8); border-radius: 6px; z-index: 3;'>";
+             tooltip += "<p style='text-align: center; color: white; font-size: 0.8vw; margin-left: 5%; margin-right: 5%;'>";
+             if (nomAffaire) {
+             tooltip += nomAffaire;
+             tooltip += "<br />";
+             }
+             tooltip += "(Cliquez-droit sur l'affaire pour la supprimer.)";
+             tooltip += "</p>";
+             tooltip += '</div>';
+             
+             // Si la souris est toujours sur la cellules une fois la génération du code HTML terminée, on fait apparaître et on positionne la tooltip.
+             if (element.is(':hover')) {
+             $('body').append(tooltip);
+             $('#tooltipAffaire').css('top', top - $('#tooltipAffaire').outerHeight() - 5);
+             $('#tooltipAffaire').css('left', left - ($('#tooltipAffaire').outerWidth() - celluleAffaire.outerWidth()) / 2);
+             }
+             
+             }).done(function () {
+             // Lorsqu'on retire la souris d'une cellule de numéro d'affaire.
+             $('#tableFeuillePointage tr:nth-child(2)').on('mouseout', '.project', function () {
+             //On supprime la tooltip.
+             $('#tooltipAffaire').remove();
+             });
+             });
+             }*/
         }
 
         // Retourne la largeur des barres de scrolling.
