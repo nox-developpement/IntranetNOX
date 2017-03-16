@@ -1,0 +1,116 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Grille de compétences {% endblock %}
+
+{% block messageAccueil %}Grille de compétences{% endblock %}
+
+{% block contenu %}
+
+    <script>
+        // Variable globale du nombre de compétences secondaires actuels.
+        var competence_secondaire_counts = "{{ formCompetence.Competences_Secondaires|length }}";
+
+        $(document).ready(function () {
+            addCompetenceSecondaire();
+            addRemoveCompetenceSecondaireButton();
+        });
+
+        // Ajoute une nouvelle compétence secondaire au formulaire.
+        function addCompetenceSecondaire() {
+            // Lors du clique sur le bouton d'ajout de compétence secondaire.
+            $('#add_competence_secondaire_button').click(function (e) {
+                e.preventDefault();
+
+                // La div qui contient les sélécteurs de compétence secondaire.
+                var competence_secondaire_div = $('#competence_secondaire_fields_div');
+
+                // Le prototype de sélécteur de compétence secondaire.
+                var new_competence_secondaire_widget = competence_secondaire_div.data('prototype');
+
+                // On remplace le nom du sélécteur en fonction du nombre de sélécteurs.
+                new_competence_secondaire_widget = new_competence_secondaire_widget.replace(/__name__/g, competence_secondaire_counts);
+
+                // On incérement le compteur de compétence secondaire.
+                competence_secondaire_counts++;
+
+                // On ajoute le nouveau sélécteur de compétence secondaire à la div.
+                var new_competence_secondaire_p = $("<p class='competence_secondaire_p'></p>").html(new_competence_secondaire_widget);
+                removeCompetenceSecondaire(new_competence_secondaire_p);
+                new_competence_secondaire_p.appendTo(competence_secondaire_div);
+            });
+        }
+
+        // Ajoute un bouton de suppression à la compétence secondaire.
+        function removeCompetenceSecondaire(new_competence_secondaire_p) {
+            var remove_competence_secondaire_button = $("<button type='button' class='remove_competence_secondaire_button'>Supprimer</button>");
+            new_competence_secondaire_p.append(remove_competence_secondaire_button);
+
+            remove_competence_secondaire_button.on('click', function (e) {
+                e.preventDefault();
+
+                new_competence_secondaire_p.remove();
+            });
+        }
+
+        // Ajoute un bouton de suppression au compétence secondaire d'origine.
+        function addRemoveCompetenceSecondaireButton() {
+            $('.competence_secondaire_p').each(function () {
+                removeCompetenceSecondaire($(this));
+            });
+        }
+
+    </script>
+
+    {{ form_start(formCompetence) }}
+
+    <p>
+        {{ form_label(formCompetence.Societe) }}
+        {{ form_widget(formCompetence.Societe) }}
+    </p>
+    <p>
+        {{ form_label(formCompetence.Etablissement) }}
+        {{ form_widget(formCompetence.Etablissement) }}
+    </p>
+    <p>
+        {{ form_label(formCompetence.Nom) }}
+        {{ form_widget(formCompetence.Nom) }}
+    </p>
+    <p>
+        {{ form_label(formCompetence.Prenom) }}
+        {{ form_widget(formCompetence.Prenom) }}
+    </p>
+    <p>
+        {{ form_label(formCompetence.Date_Naissance) }}
+        {{ form_widget(formCompetence.Date_Naissance) }}
+    </p>
+    <p>
+        {{ form_label(formCompetence.Date_Anciennete) }}
+        {{ form_widget(formCompetence.Date_Anciennete) }}
+    </p>
+    <p>
+        {{ form_label(formCompetence.Statut) }}
+        {{ form_widget(formCompetence.Statut) }}
+    </p>
+    <p>
+        {{ form_label(formCompetence.Poste) }}
+        {{ form_widget(formCompetence.Poste) }}
+    </p>
+    <p>
+        {{ form_label(formCompetence.Competence_Principale) }}
+        {{ form_widget(formCompetence.Competence_Principale) }}
+    </p>
+    <div id="competence_secondaire_fields_div" data-prototype="{{ form_label(formCompetence.Competences_Secondaires.vars.prototype)|e }}{{ form_widget(formCompetence.Competences_Secondaires.vars.prototype)|e }}">
+        {% for competence_secondaire_field in formCompetence.Competences_Secondaires %}
+            <p class='competence_secondaire_p'>
+                {{ form_label(competence_secondaire_field) }}
+                {{ form_widget(competence_secondaire_field) }}
+            </p>
+        {% endfor %}
+    </div>
+    <p>
+        <button type="button" id="add_competence_secondaire_button">Ajouter une compétence secondaire</button>
+    </p>
+
+    {{ form_end(formCompetence) }}
+
+{% endblock %}

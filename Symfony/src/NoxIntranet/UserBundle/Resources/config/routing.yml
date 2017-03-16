@@ -26,3 +26,7 @@ nox_intranet_developpement_professionnel_ajax_convert_html_to_pdf:
 nox_intranet_developpement_professionnel_monitoring_formulaire:
     path:   administration/developpement-professionnel/monitoring-formulaire
     defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel\DeveloppementProfessionnel:formulaireMonitoring }
+    
+nox_intranet_developpement_professionnel_matrice_competence_formulaire:
+    path:   /matrice-competence-formulaire
+    defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:competenceForm }
