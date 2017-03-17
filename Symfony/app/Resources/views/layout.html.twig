@@ -17,7 +17,7 @@
 
         <link rel="icon" type="image/png" href="{{ app.request.getSchemeAndHttpHost() }}/Symfony/web/favicon.ico" />
 
-        <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet" />
+        <link href="{{ asset('js/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" />
         <style type="text/css">
             @font-face {
                 font-family: 'NoxFont'; 
@@ -94,7 +94,7 @@
             </div>
         </div>
 
-        <div id ="section_principal">
+        <div id="section_principal" style="background-image: url('{{ asset('images/fond2.png')}}');">
 
             <div id="contenu">
 
@@ -170,7 +170,7 @@
         </script>
 
         <script src="{{ asset('./js/affichageImageResizing.js') }}"/></script>
-    <script src="{{ asset('./js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('./js/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
     <script src="{{ asset('./js/googleSearch.js') }}"></script>

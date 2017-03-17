@@ -6,11 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use NoxIntranet\UserBundle\Form\Type\CompetenceSecondaireType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
-use SimpleXMLElement;
+use NoxIntranet\UserBundle\Entity\MatriceCompetence;
+use DateTime;
 
 class MatriceCompetenceController extends Controller {
 
@@ -28,72 +28,114 @@ class MatriceCompetenceController extends Controller {
             $this->redirectToRoute('nox_intranet_accueil');
         }
 
+        // On récupére la matrice de compétence associé au collaborateur ou on en crée une si elle n'existe pas.
+        if (!empty($currentUser->getMatriceCompetence())) {
+            $matrice_competence = $currentUser->getMatriceCompetence();
+        } else {
+            $matrice_competence = new MatriceCompetence();
+            $matrice_competence->setUser($currentUser);
+        }
 
+        // Chemin du fichier de liste des compétences.
+        $competenceListFile = $this->get('kernel')->getRootDir() . '/../src/NoxIntranet/UserBundle/Resources/public/MatriceCompetence/competencesList.xml';
 
-        $competenceList = $this->get('kernel')->getRootDir() . '/../src/NoxIntranet/UserBundle/Resources/public/MatriceCompetence/competencesList.xml';
+        // Fichier de compétence sous forme de chaîne nettoyer des charactères interdits.
+        $competenceListString = str_replace('&', '&amp;', file_get_contents($competenceListFile));
 
-        $competenceListString = file_get_contents($competenceList);
+        // Objet XML des compétences.
+        $competences = simplexml_load_string($competenceListString);
 
+        // On récupère les compétences sous forme de tableau.
+        $competencesArray = array();
+        foreach ($competences->categorie as $categorie) {
+            $competencesArray[(string) $categorie->categorie_name] = array();
+            foreach ($categorie->competence as $competence) {
+                $competencesArray[(string) $categorie->categorie_name][(string) $competence] = (string) $competence;
+            }
+        }
 
-        $competences = simplexml_load_string(str_replace('&', '&amp;', $competenceListString));
-
-        $json = json_encode($competences);
-        $array = json_decode($json, TRUE);
-
-        var_dump($array['categorie']);
-
+        //var_dump($matrice_competence->getCompetencesSecondaires());
         // Génération du formulaire.
-        $formCompetenceBuilder = $this->createFormBuilder();
+        $formCompetenceBuilder = $this->createFormBuilder($matrice_competence);
         $formCompetenceBuilder
                 ->add('Societe', TextType::class, array(
                     'read_only' => true,
                     'data' => $userHierarchy->getSociete(),
-                    'label' => "SOCIETE"
+                    'label' => "SOCIETE",
+                    'attr' => array(
+                        'style' => "width: 100%;"
+                    )
                 ))
                 ->add('Etablissement', TextType::class, array(
                     'read_only' => true,
                     'data' => $userHierarchy->getEtablissement(),
-                    'label' => "ETABLISSEMENT"
+                    'label' => "ETABLISSEMENT",
+                    'attr' => array(
+                        'style' => "width: 100%;"
+                    )
                 ))
                 ->add('Nom', TextType::class, array(
                     'read_only' => true,
                     'data' => $currentUser->getLastname(),
-                    'label' => "NOM"
+                    'label' => "NOM",
+                    'attr' => array(
+                        'style' => "width: 100%;"
+                    )
                 ))
                 ->add('Prenom', TextType::class, array(
                     'read_only' => true,
                     'data' => $currentUser->getFirstname(),
-                    'label' => "PRENOM"
+                    'label' => "PRENOM",
+                    'attr' => array(
+                        'style' => "width: 100%;"
+                    )
                 ))
                 ->add('Date_Naissance', DateType::class, array(
-                    'label' => "DATE DE NAISSANCE"
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
+                    'label' => "DATE DE NAISSANCE",
+                    'years' => range(date('Y') - 100, date('Y')),
+                    'attr' => array(
+                        'class' => "datepicker",
+                        'style' => "display: inline-block;"
+                    )
                 ))
                 ->add('Date_Anciennete', DateType::class, array(
-                    'label' => 'DATE ANCIENNETE'
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
+                    'label' => 'DATE ANCIENNETE',
+                    'years' => range(date('Y') - 100, date('Y')),
+                    'attr' => array(
+                        'class' => "datepicker",
+                        'style' => "display: inline-block;"
+                    )
                 ))
                 ->add('Statut', TextType::class, array(
-                    'label' => "STATUT"
+                    'label' => "STATUT",
+                    'attr' => array(
+                        'style' => "width: 100%;"
+                    )
                 ))
                 ->add('Poste', TextType::class, array(
-                    'label' => 'POSTE'
+                    'label' => 'POSTE',
+                    'attr' => array(
+                        'style' => "width: 100%;"
+                    )
                 ))
                 ->add('Competence_Principale', ChoiceType::class, array(
-                    'choices' => array(
-                        'Test' => 'Test'
-                    ),
+                    'choices' => $competencesArray,
                     'placeholder' => 'Séléctionnez une compétence...',
                     'label' => 'COMPETENCE PRINCIPALE'
                 ))
                 ->add('Competences_Secondaires', CollectionType::class, array(
                     'entry_type' => ChoiceType::class,
                     'entry_options' => array(
-                        'choices' => array(
-                            'Test' => 'Test'
-                        ),
+                        'choices' => $competencesArray,
                         'placeholder' => 'Séléctionnez une compétence...',
                         'label' => "COMPETENCE SECONDAIRE"
                     ),
                     'allow_add' => true,
+                    'allow_delete' => true,
                     'prototype' => true,
                     'label' => false,
                     'attr' => array(
@@ -101,7 +143,11 @@ class MatriceCompetenceController extends Controller {
                     )
                 ))
                 ->add('Sauvegarder', SubmitType::class, array(
-                    'label' => "SAUVEGARDER"
+                    'label' => "Sauvegarder",
+                    'attr' => array(
+                        'style' => "padding: 0.8em;",
+                        'class' => "boutonFormulaire"
+                    )
                 ))
         ;
         $formCompetence = $formCompetenceBuilder->getForm();
@@ -109,7 +155,10 @@ class MatriceCompetenceController extends Controller {
         // Traitement du formaulaire.
         $formCompetence->handleRequest($request);
         if ($formCompetence->isSubmitted() && $formCompetence->isValid()) {
-            //var_dump($formCompetence->get('Competences_Secondaires')->getData());
+            $em->persist($matrice_competence);
+            $em->flush();
+
+            return $this->redirectToRoute('nox_intranet_developpement_professionnel_matrice_competence_formulaire');
         }
 
         return $this->render('NoxIntranetUserBundle:MatriceCompetence:formulaireMatriceCompetence.html.twig', array('formCompetence' => $formCompetence->createView()));
@@ -124,10 +173,6 @@ class MatriceCompetenceController extends Controller {
         $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
 
         return $str;
-    }
-
-    private function xmlEscape($string) {
-        return str_replace(array('&', '<', '>', '\'', '"'), array('&amp;', '&lt;', '&gt;', '&apos;', '&quot;'), $string);
     }
 
 }

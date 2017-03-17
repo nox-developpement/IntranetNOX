@@ -63,7 +63,13 @@ class User implements UserInterface, \Serializable {
      */
     private $lastActivity;
 
+    /**
+     * @ORM\OneToOne(targetEntity="NoxIntranet\UserBundle\Entity\MatriceCompetence", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $matriceCompetence;
+
     // Les getters et setters
+
     public function getUsername() {
         return $this->username;
     }
@@ -335,6 +341,28 @@ class User implements UserInterface, \Serializable {
 
     public function isActiveNow() {
         $this->setLastActivity(new DateTime());
+    }
+
+    /**
+     * Set matriceCompetence
+     *
+     * @param \NoxIntranet\UserBundle\Entity\MatriceCompetence $matriceCompetence
+     *
+     * @return User
+     */
+    public function setMatriceCompetence(\NoxIntranet\UserBundle\Entity\MatriceCompetence $matriceCompetence = null) {
+        $this->matriceCompetence = $matriceCompetence;
+
+        return $this;
+    }
+
+    /**
+     * Get matriceCompetence
+     *
+     * @return \NoxIntranet\UserBundle\Entity\MatriceCompetence
+     */
+    public function getMatriceCompetence() {
+        return $this->matriceCompetence;
     }
 
 }

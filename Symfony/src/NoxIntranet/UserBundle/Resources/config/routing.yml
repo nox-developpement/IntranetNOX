@@ -28,5 +28,5 @@ nox_intranet_developpement_professionnel_monitoring_formulaire:
     defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel\DeveloppementProfessionnel:formulaireMonitoring }
     
 nox_intranet_developpement_professionnel_matrice_competence_formulaire:
-    path:   /matrice-competence-formulaire
+    path:   /ressources/matrice-competence-formulaire
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:competenceForm }
