@@ -732,7 +732,7 @@ class PointageController extends Controller {
     public function compilationNOXIPCSVAction(Request $request) {
         // Si l'utilisateur n'as pas les droits d'accès on le redirige vers l'accueil.
         $currentUser = $this->get('security.context')->getToken()->getUser()->getUsername();
-        if (!($currentUser === 't.besson' || $currentUser === 'l.sauvage' || $currentUser === 'v.genini')) {
+        if (!($currentUser === 't.besson' || $currentUser === 'l.sauvage' || $currentUser === 'v.genini' || $currentUser === 'n.hollenweger')) {
             return $this->redirectToRoute('nox_intranet_accueil');
         }
 
