@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\UserBundle\Entity\MatriceCompetence;
-use DateTime;
 
 class MatriceCompetenceController extends Controller {
 
@@ -92,7 +91,7 @@ class MatriceCompetenceController extends Controller {
                 ))
                 ->add('Date_Naissance', DateType::class, array(
                     'widget' => 'single_text',
-                    'format' => 'dd-MM-yyyy',
+                    'format' => 'dd/MM/yyyy',
                     'label' => "DATE DE NAISSANCE",
                     'years' => range(date('Y') - 100, date('Y')),
                     'attr' => array(
@@ -102,7 +101,7 @@ class MatriceCompetenceController extends Controller {
                 ))
                 ->add('Date_Anciennete', DateType::class, array(
                     'widget' => 'single_text',
-                    'format' => 'dd-MM-yyyy',
+                    'format' => 'dd/MM/yyyy',
                     'label' => 'DATE ANCIENNETE',
                     'years' => range(date('Y') - 100, date('Y')),
                     'attr' => array(
@@ -158,7 +157,9 @@ class MatriceCompetenceController extends Controller {
             $em->persist($matrice_competence);
             $em->flush();
 
-            return $this->redirectToRoute('nox_intranet_developpement_professionnel_matrice_competence_formulaire');
+            $this->updateMatriceCompetenceExcelFile();
+
+            //return $this->redirectToRoute('nox_intranet_developpement_professionnel_matrice_competence_formulaire');
         }
 
         return $this->render('NoxIntranetUserBundle:MatriceCompetence:formulaireMatriceCompetence.html.twig', array('formCompetence' => $formCompetence->createView()));
@@ -173,6 +174,18 @@ class MatriceCompetenceController extends Controller {
         $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
 
         return $str;
+    }
+
+    private function updateMatriceCompetenceExcelFile() {
+        $root = $this->get('kernel')->getRootDir() . '/../src/NoxIntranet/UserBundle/Resources/public/MatriceCompetence';
+
+        $objPHPExcel = \PHPExcel_IOFactory::load($root . "/Matrice_Competence.xlsx");
+
+        $rowIterator = $objPHPExcel->getActiveSheet()->getRowIterator();
+        foreach ($rowIterator as $row) {
+            $rowIndex = $row->getRowIndex();
+            var_dump($objPHPExcel->getActiveSheet()->getCell("D" . $rowIndex) . " " . $objPHPExcel->getActiveSheet()->getCell("E" . $rowIndex));
+        }
     }
 
 }
