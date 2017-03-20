@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\UserBundle\Entity\MatriceCompetence;
+use DateTime;
 
 class MatriceCompetenceController extends Controller {
 
@@ -53,7 +54,6 @@ class MatriceCompetenceController extends Controller {
             }
         }
 
-        //var_dump($matrice_competence->getCompetencesSecondaires());
         // Génération du formulaire.
         $formCompetenceBuilder = $this->createFormBuilder($matrice_competence);
         $formCompetenceBuilder
@@ -97,7 +97,7 @@ class MatriceCompetenceController extends Controller {
                     'attr' => array(
                         'class' => "datepicker",
                         'style' => "display: inline-block;"
-                    )
+                    ),
                 ))
                 ->add('Date_Anciennete', DateType::class, array(
                     'widget' => 'single_text',
@@ -107,19 +107,19 @@ class MatriceCompetenceController extends Controller {
                     'attr' => array(
                         'class' => "datepicker",
                         'style' => "display: inline-block;"
-                    )
+                    ),
                 ))
                 ->add('Statut', TextType::class, array(
                     'label' => "STATUT",
                     'attr' => array(
                         'style' => "width: 100%;"
-                    )
+                    ),
                 ))
                 ->add('Poste', TextType::class, array(
                     'label' => 'POSTE',
                     'attr' => array(
                         'style' => "width: 100%;"
-                    )
+                    ),
                 ))
                 ->add('Competence_Principale', ChoiceType::class, array(
                     'choices' => $competencesArray,
@@ -157,9 +157,9 @@ class MatriceCompetenceController extends Controller {
             $em->persist($matrice_competence);
             $em->flush();
 
-            $this->updateMatriceCompetenceExcelFile();
+            $this->getMatriceCompetenceData($currentUser, $matrice_competence);
 
-            //return $this->redirectToRoute('nox_intranet_developpement_professionnel_matrice_competence_formulaire');
+            return $this->redirectToRoute('nox_intranet_developpement_professionnel_matrice_competence_formulaire');
         }
 
         return $this->render('NoxIntranetUserBundle:MatriceCompetence:formulaireMatriceCompetence.html.twig', array('formCompetence' => $formCompetence->createView()));
@@ -176,16 +176,62 @@ class MatriceCompetenceController extends Controller {
         return $str;
     }
 
-    private function updateMatriceCompetenceExcelFile() {
+    private function getMatriceCompetenceData($user, $matrice_competence) {
+        // Racine du bundle User.
         $root = $this->get('kernel')->getRootDir() . '/../src/NoxIntranet/UserBundle/Resources/public/MatriceCompetence';
 
-        $objPHPExcel = \PHPExcel_IOFactory::load($root . "/Matrice_Competence.xlsx");
+        // Initialisation de l'objet Excel du fichier de matrice.
+        $objReader = new \PHPExcel_Reader_Excel2007();
+        $objPHPExcel = $objReader->load($root . "/Matrice_Competence.xlsx");
+        $sheet = $objPHPExcel->getActiveSheet();
 
-        $rowIterator = $objPHPExcel->getActiveSheet()->getRowIterator();
+        // On récupère le nom et le prénom du collaborateur.
+        $nom = str_replace('-', ' ', mb_strtoupper($this->wd_remove_accents($user->getLastname()), 'UTF-8'));
+        $prenom = str_replace('-', ' ', mb_strtoupper($this->wd_remove_accents($user->getFirstname()), 'UTF-8'));
+
+        $columns = array(
+            'Date_Naissance' => 'F',
+            'Date_Anciennete' => 'G',
+            'Statut' => 'H',
+            'Poste' => 'I',
+            'Competences' => range('A', 'DA')
+        );
+
+        // Pour chaques lignes du tableau...
+        $rowIterator = $sheet->getRowIterator();
         foreach ($rowIterator as $row) {
+            // On récupère l'index de la ligne.
             $rowIndex = $row->getRowIndex();
-            var_dump($objPHPExcel->getActiveSheet()->getCell("D" . $rowIndex) . " " . $objPHPExcel->getActiveSheet()->getCell("E" . $rowIndex));
+
+            // On lis le nom et le prénom de la ligne.
+            $rowNom = str_replace('-', ' ', mb_strtoupper($this->wd_remove_accents(trim($sheet->getCell("D" . $rowIndex)->getValue())), 'UTF-8'));
+            $rowPrenom = str_replace('-', ' ', mb_strtoupper($this->wd_remove_accents(trim($sheet->getCell("E" . $rowIndex)->getValue())), 'UTF-8'));
+
+            // Si le nom et le prénom de la ligne correspondent à ceux du collaborateurs...
+            if ($rowNom === $nom && $rowPrenom === $prenom) {
+
+                $sheet->setCellValue($columns['Date_Naissance'] . $rowIndex, \PHPExcel_Shared_Date::PHPToExcel($matrice_competence->getDateNaissance()));
+                $sheet->setCellValue($columns['Date_Anciennete'] . $rowIndex, \PHPExcel_Shared_Date::PHPToExcel($matrice_competence->getDateAnciennete()));
+                $sheet->setCellValue($columns['Statut'] . $rowIndex, $matrice_competence->getStatut());
+                $sheet->setCellValue($columns['Poste'] . $rowIndex, $matrice_competence->getPoste());
+
+                foreach ($columns['Competences'] as $column) {
+                    $competence = $sheet->getCell($column . "3");
+
+                    if ($competence === $matrice_competence->getCompetencePrincipale()) {
+                        $sheet->setCellValue($column . $rowIndex, "1");
+                    }
+                }
+
+                break;
+            }
         }
+
+        $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+        $objWriter->save($root . "/Matrice_Competence2.xlsx");
+
+        //unset($objPHPExcel);
+        //unset($objWriter);
     }
 
 }
