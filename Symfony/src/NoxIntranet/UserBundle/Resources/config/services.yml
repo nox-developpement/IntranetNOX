@@ -4,3 +4,6 @@ services:
         arguments: [@security.context, @doctrine.orm.entity_manager]
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }
+    noxintranet_userbundle.updatematricecompetencefile:
+        class: NoxIntranet\UserBundle\Controller\MatriceCompetence\UpdateMatriceCompetenceController
+        arguments: ['@service_container', "@doctrine.orm.entity_manager"]

@@ -84,6 +84,26 @@ class Configuration implements ConfigurationInterface
                     ->booleanNode('enable_cache')->defaultTrue()->end()
                 ->end()
             ->end()
+            ->arrayNode('expression_evaluator')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->scalarNode('id')
+                        ->defaultValue(function () {
+                            if (interface_exists('Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface')) {
+                                return 'jms_serializer.expression_evaluator';
+                            }
+                            return null;
+                        })
+                        ->validate()
+                            ->always(function($v) {
+                                if (!empty($v) && !class_exists('Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface')) {
+                                    throw new InvalidArgumentException('You need at least symfony/expression language v2.6 or v3.0 to use the expression evaluator features');
+                                }
+                                return $v;
+                            })
+                        ->end()
+                ->end()
+            ->end()
         ;
     }
 
@@ -178,6 +198,9 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->arrayNode('doctype_whitelist')
                                 ->prototype('scalar')->end()
+                            ->end()
+                            ->booleanNode('format_output')
+                                ->defaultTrue()
                             ->end()
                         ->end()
                     ->end()

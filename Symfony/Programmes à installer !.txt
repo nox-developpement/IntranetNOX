@@ -9,3 +9,7 @@ Microsoft® SQL Server® 2012 Management Studio : Pour les commandes cmd d'import/
 Mot de passe admin VM Prod (192.168.35.3) : Nox30intr&
 
 wkhtmltopdf: Permet la conversion de page HTML en PDF en ligne de commande. Utilise le module webkit (Google Chrome).
+
+Modules composer:
+	=> PHPExcel: Lecture et génération de fichiers Excel.
+	=> box/spout: Lecture et écriture de fichiers Excel de grande taille.

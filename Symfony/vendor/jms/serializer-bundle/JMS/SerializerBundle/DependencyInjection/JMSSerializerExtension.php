@@ -57,6 +57,14 @@ class JMSSerializerExtension extends ConfigurableExtension
 
         $bundles = $container->getParameter('kernel.bundles');
 
+        if (!empty($config['expression_evaluator']['id'])) {
+            $container
+                ->getDefinition('jms_serializer.serializer')
+                ->replaceArgument(7, new Reference($config['expression_evaluator']['id']));
+        } else {
+            $container->removeDefinition('jms_serializer.expression_evaluator');
+        }
+
         // metadata
         if ('none' === $config['metadata']['cache']) {
             $container->removeAlias('jms_serializer.metadata.cache');
@@ -116,6 +124,7 @@ class JMSSerializerExtension extends ConfigurableExtension
         ;
 
         $container->setParameter('jms_serializer.xml_deserialization_visitor.doctype_whitelist', $config['visitors']['xml']['doctype_whitelist']);
+        $container->setParameter('jms_serializer.xml_serialization_visitor.format_output', $config['visitors']['xml']['format_output']);
         $container->setParameter('jms_serializer.json_serialization_visitor.options', $config['visitors']['json']['options']);
 
         if ( ! $config['enable_short_alias']) {

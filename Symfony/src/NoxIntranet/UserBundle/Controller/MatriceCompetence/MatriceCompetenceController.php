@@ -10,7 +10,10 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\UserBundle\Entity\MatriceCompetence;
-use DateTime;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class MatriceCompetenceController extends Controller {
 
@@ -154,84 +157,36 @@ class MatriceCompetenceController extends Controller {
         // Traitement du formaulaire.
         $formCompetence->handleRequest($request);
         if ($formCompetence->isSubmitted() && $formCompetence->isValid()) {
+            // On sauvegarde les modifications en base de données.
             $em->persist($matrice_competence);
             $em->flush();
 
-            $this->getMatriceCompetenceData($currentUser, $matrice_competence);
+            // On execture la commande de mise à jour du fichier de matrice de compétence.
+//            $process = new Process("php ../app/console noxintranet:updatematricecompetencefile " . $currentUser->getId());
+//            $process->setTimeout(null);
+//            $process->disableOutput();
+//            $process->start();
 
+            $root = $this->get('kernel')->getRootDir() . '/../scripts';
+
+            exec("start " . $root . "/updateMatriceCompetenceFile " . $currentUser->getId());
+
+//
+            $process = new Process("start " . $root . "/updateMatriceCompetenceFile " . $currentUser->getId());
+            $process->setTimeout(null);
+            $process->disableOutput();
+            $process->start();
+//
+//            while ($process->isRunning()) {
+//                return $this->redirectToRoute('nox_intranet_developpement_professionnel_matrice_competence_formulaire');
+//            }
+//
+//            var_dump($process->getOutput());
+            //exec("php app/console noxintranet:updatematricecompetencefile " . $currentUser->getId());
             return $this->redirectToRoute('nox_intranet_developpement_professionnel_matrice_competence_formulaire');
         }
 
         return $this->render('NoxIntranetUserBundle:MatriceCompetence:formulaireMatriceCompetence.html.twig', array('formCompetence' => $formCompetence->createView()));
-    }
-
-    // Retourne une chaine de charactère sans accent.
-    private function wd_remove_accents($str, $charset = 'utf-8') {
-        $str = htmlentities($str, ENT_NOQUOTES, $charset);
-
-        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
-        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
-        $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
-
-        return $str;
-    }
-
-    private function getMatriceCompetenceData($user, $matrice_competence) {
-        // Racine du bundle User.
-        $root = $this->get('kernel')->getRootDir() . '/../src/NoxIntranet/UserBundle/Resources/public/MatriceCompetence';
-
-        // Initialisation de l'objet Excel du fichier de matrice.
-        $objReader = new \PHPExcel_Reader_Excel2007();
-        $objPHPExcel = $objReader->load($root . "/Matrice_Competence.xlsx");
-        $sheet = $objPHPExcel->getActiveSheet();
-
-        // On récupère le nom et le prénom du collaborateur.
-        $nom = str_replace('-', ' ', mb_strtoupper($this->wd_remove_accents($user->getLastname()), 'UTF-8'));
-        $prenom = str_replace('-', ' ', mb_strtoupper($this->wd_remove_accents($user->getFirstname()), 'UTF-8'));
-
-        $columns = array(
-            'Date_Naissance' => 'F',
-            'Date_Anciennete' => 'G',
-            'Statut' => 'H',
-            'Poste' => 'I',
-            'Competences' => range('A', 'DA')
-        );
-
-        // Pour chaques lignes du tableau...
-        $rowIterator = $sheet->getRowIterator();
-        foreach ($rowIterator as $row) {
-            // On récupère l'index de la ligne.
-            $rowIndex = $row->getRowIndex();
-
-            // On lis le nom et le prénom de la ligne.
-            $rowNom = str_replace('-', ' ', mb_strtoupper($this->wd_remove_accents(trim($sheet->getCell("D" . $rowIndex)->getValue())), 'UTF-8'));
-            $rowPrenom = str_replace('-', ' ', mb_strtoupper($this->wd_remove_accents(trim($sheet->getCell("E" . $rowIndex)->getValue())), 'UTF-8'));
-
-            // Si le nom et le prénom de la ligne correspondent à ceux du collaborateurs...
-            if ($rowNom === $nom && $rowPrenom === $prenom) {
-
-                $sheet->setCellValue($columns['Date_Naissance'] . $rowIndex, \PHPExcel_Shared_Date::PHPToExcel($matrice_competence->getDateNaissance()));
-                $sheet->setCellValue($columns['Date_Anciennete'] . $rowIndex, \PHPExcel_Shared_Date::PHPToExcel($matrice_competence->getDateAnciennete()));
-                $sheet->setCellValue($columns['Statut'] . $rowIndex, $matrice_competence->getStatut());
-                $sheet->setCellValue($columns['Poste'] . $rowIndex, $matrice_competence->getPoste());
-
-                foreach ($columns['Competences'] as $column) {
-                    $competence = $sheet->getCell($column . "3");
-
-                    if ($competence === $matrice_competence->getCompetencePrincipale()) {
-                        $sheet->setCellValue($column . $rowIndex, "1");
-                    }
-                }
-
-                break;
-            }
-        }
-
-        $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
-        $objWriter->save($root . "/Matrice_Competence2.xlsx");
-
-        //unset($objPHPExcel);
-        //unset($objWriter);
     }
 
 }

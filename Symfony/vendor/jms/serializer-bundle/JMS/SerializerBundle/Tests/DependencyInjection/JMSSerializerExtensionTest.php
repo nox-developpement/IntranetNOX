@@ -19,6 +19,7 @@
 namespace JMS\SerializerBundle\Tests\DependencyInjection;
 
 use JMS\Serializer\SerializationContext;
+use JMS\SerializerBundle\Tests\DependencyInjection\Fixture\ObjectUsingExpressionLanguage;
 use Symfony\Component\DependencyInjection\Compiler\ResolveParameterPlaceHoldersPass;
 use Doctrine\Common\Annotations\AnnotationReader;
 use JMS\SerializerBundle\JMSSerializerBundle;
@@ -56,6 +57,35 @@ class JMSSerializerExtensionTest extends \PHPUnit_Framework_TestCase
 
             @rmdir($dir);
         }
+    }
+
+    public function testHasContextFactories()
+    {
+        $container = $this->getContainerForConfig(array(array()));
+
+        $factory = $container->get('jms_serializer.serialization_context_factory');
+        $this->assertInstanceOf('JMS\Serializer\ContextFactory\SerializationContextFactoryInterface', $factory);
+
+        $factory = $container->get('jms_serializer.deserialization_context_factory');
+        $this->assertInstanceOf('JMS\Serializer\ContextFactory\DeserializationContextFactoryInterface', $factory);
+    }
+
+    public function testSerializerContextFactoriesAreSet()
+    {
+        $container = $this->getContainerForConfig(array(array()));
+
+        $def = $container->getDefinition('jms_serializer.serializer');
+        $calls = $def->getMethodCalls();
+
+        $this->assertCount(2, $calls);
+
+        $serializationCall = $calls[0];
+        $this->assertEquals('setSerializationContextFactory', $serializationCall[0]);
+        $this->assertEquals('jms_serializer.serialization_context_factory', (string)$serializationCall[1][0]);
+
+        $serializationCall = $calls[1];
+        $this->assertEquals('setDeserializationContextFactory', $serializationCall[0]);
+        $this->assertEquals('jms_serializer.deserialization_context_factory', (string)$serializationCall[1][0]);
     }
 
     public function testLoad()
@@ -120,6 +150,42 @@ class JMSSerializerExtensionTest extends \PHPUnit_Framework_TestCase
         return $configs;
     }
 
+    public function testExpressionLanguage()
+    {
+        if (!interface_exists('Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface')) {
+            $this->markTestSkipped("The Symfony Expression Language is not available");
+        }
+        $container = $this->getContainerForConfig(array(array()));
+        $serializer = $container->get('serializer');
+        // test that all components have been wired correctly
+        $object = new ObjectUsingExpressionLanguage('foo', true);
+        $this->assertEquals('{"name":"foo"}', $serializer->serialize($object, 'json'));
+        $object = new ObjectUsingExpressionLanguage('foo', false);
+        $this->assertEquals('{}', $serializer->serialize($object, 'json'));
+    }
+
+    /**
+     * @expectedException \JMS\Serializer\Exception\ExpressionLanguageRequiredException
+     * @expectedExceptionMessage  To use conditional exclude/expose in JMS\SerializerBundle\Tests\DependencyInjection\Fixture\ObjectUsingExpressionLanguage you must configure the expression language.
+     */
+    public function testExpressionLanguageNotLoaded()
+    {
+        $container = $this->getContainerForConfig(array(array('expression_evaluator' => array('id' => null))));
+        $serializer = $container->get('serializer');
+        // test that all components have been wired correctly
+        $object = new ObjectUsingExpressionLanguage('foo', true);
+        $serializer->serialize($object, 'json');
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     * @expectedExceptionMessage Invalid configuration for path "jms_serializer.expression_evaluator.id": You need at least symfony/expression language v2.6 or v3.0 to use the expression evaluator features
+     */
+    public function testExpressionInvalidEvaluator()
+    {
+        $this->getContainerForConfig(array(array('expression_evaluator' => array('id' => 'foo'))));
+    }
+
     /**
      * @dataProvider getXmlVisitorWhitelists
      */
@@ -144,6 +210,26 @@ class JMSSerializerExtensionTest extends \PHPUnit_Framework_TestCase
         $configs[] = array(array(), array());
 
         return $configs;
+    }
+
+    public function testXmlVisitorFormatOutput()
+    {
+        $config = array(
+            'visitors' => array(
+                'xml' => array(
+                    'format_output' => false,
+                )
+            )
+        );
+        $container = $this->getContainerForConfig(array($config));
+
+        $this->assertFalse($container->get('jms_serializer.xml_serialization_visitor')->isFormatOutput());
+    }
+
+    public function testXmlVisitorDefaultValueToFormatOutput()
+    {
+        $container = $this->getContainerForConfig(array());
+        $this->assertTrue($container->get('jms_serializer.xml_serialization_visitor')->isFormatOutput());
     }
 
     private function getContainerForConfig(array $configs, KernelInterface $kernel = null)
