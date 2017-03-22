@@ -10,10 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\UserBundle\Entity\MatriceCompetence;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class MatriceCompetenceController extends Controller {
 
@@ -157,32 +153,13 @@ class MatriceCompetenceController extends Controller {
         // Traitement du formaulaire.
         $formCompetence->handleRequest($request);
         if ($formCompetence->isSubmitted() && $formCompetence->isValid()) {
+            // On indique que la matrice n'est plus à jour.
+            $matrice_competence->setIsUpdated(false);
+
             // On sauvegarde les modifications en base de données.
             $em->persist($matrice_competence);
             $em->flush();
 
-            // On execture la commande de mise à jour du fichier de matrice de compétence.
-//            $process = new Process("php ../app/console noxintranet:updatematricecompetencefile " . $currentUser->getId());
-//            $process->setTimeout(null);
-//            $process->disableOutput();
-//            $process->start();
-
-            $root = $this->get('kernel')->getRootDir() . '/../scripts';
-
-            exec("start " . $root . "/updateMatriceCompetenceFile " . $currentUser->getId());
-
-//
-            $process = new Process("start " . $root . "/updateMatriceCompetenceFile " . $currentUser->getId());
-            $process->setTimeout(null);
-            $process->disableOutput();
-            $process->start();
-//
-//            while ($process->isRunning()) {
-//                return $this->redirectToRoute('nox_intranet_developpement_professionnel_matrice_competence_formulaire');
-//            }
-//
-//            var_dump($process->getOutput());
-            //exec("php app/console noxintranet:updatematricecompetencefile " . $currentUser->getId());
             return $this->redirectToRoute('nox_intranet_developpement_professionnel_matrice_competence_formulaire');
         }
 

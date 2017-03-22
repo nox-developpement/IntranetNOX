@@ -98,6 +98,13 @@ class MatriceCompetence {
     private $competencesSecondaires;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="IsUpdated", type="boolean")
+     */
+    private $isUpdated = false;
+
+    /**
      * Get id
      *
      * @return integer
@@ -263,7 +270,6 @@ class MatriceCompetence {
         return $this->user;
     }
 
-
     /**
      * Set societe
      *
@@ -271,8 +277,7 @@ class MatriceCompetence {
      *
      * @return MatriceCompetence
      */
-    public function setSociete($societe)
-    {
+    public function setSociete($societe) {
         $this->societe = $societe;
 
         return $this;
@@ -283,8 +288,7 @@ class MatriceCompetence {
      *
      * @return string
      */
-    public function getSociete()
-    {
+    public function getSociete() {
         return $this->societe;
     }
 
@@ -295,8 +299,7 @@ class MatriceCompetence {
      *
      * @return MatriceCompetence
      */
-    public function setEtablissement($etablissement)
-    {
+    public function setEtablissement($etablissement) {
         $this->etablissement = $etablissement;
 
         return $this;
@@ -307,8 +310,7 @@ class MatriceCompetence {
      *
      * @return string
      */
-    public function getEtablissement()
-    {
+    public function getEtablissement() {
         return $this->etablissement;
     }
 
@@ -319,8 +321,7 @@ class MatriceCompetence {
      *
      * @return MatriceCompetence
      */
-    public function setNom($nom)
-    {
+    public function setNom($nom) {
         $this->nom = $nom;
 
         return $this;
@@ -331,8 +332,7 @@ class MatriceCompetence {
      *
      * @return string
      */
-    public function getNom()
-    {
+    public function getNom() {
         return $this->nom;
     }
 
@@ -343,8 +343,7 @@ class MatriceCompetence {
      *
      * @return MatriceCompetence
      */
-    public function setPrenom($prenom)
-    {
+    public function setPrenom($prenom) {
         $this->prenom = $prenom;
 
         return $this;
@@ -355,8 +354,32 @@ class MatriceCompetence {
      *
      * @return string
      */
-    public function getPrenom()
-    {
+    public function getPrenom() {
         return $this->prenom;
+    }
+
+
+    /**
+     * Set isUpdated
+     *
+     * @param boolean $isUpdated
+     *
+     * @return MatriceCompetence
+     */
+    public function setIsUpdated($isUpdated)
+    {
+        $this->isUpdated = $isUpdated;
+
+        return $this;
+    }
+
+    /**
+     * Get isUpdated
+     *
+     * @return boolean
+     */
+    public function getIsUpdated()
+    {
+        return $this->isUpdated;
     }
 }

@@ -98,6 +98,13 @@ class MatriceCompetence {
     private $competencesSecondaires;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="IsUpdated", type="boolean")
+     */
+    private $isUpdated = true;
+
+    /**
      * Get id
      *
      * @return integer
@@ -261,6 +268,94 @@ class MatriceCompetence {
      */
     public function getUser() {
         return $this->user;
+    }
+
+    /**
+     * Set societe
+     *
+     * @param string $societe
+     *
+     * @return MatriceCompetence
+     */
+    public function setSociete($societe) {
+        $this->societe = $societe;
+
+        return $this;
+    }
+
+    /**
+     * Get societe
+     *
+     * @return string
+     */
+    public function getSociete() {
+        return $this->societe;
+    }
+
+    /**
+     * Set etablissement
+     *
+     * @param string $etablissement
+     *
+     * @return MatriceCompetence
+     */
+    public function setEtablissement($etablissement) {
+        $this->etablissement = $etablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get etablissement
+     *
+     * @return string
+     */
+    public function getEtablissement() {
+        return $this->etablissement;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     *
+     * @return MatriceCompetence
+     */
+    public function setNom($nom) {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string
+     */
+    public function getNom() {
+        return $this->nom;
+    }
+
+    /**
+     * Set prenom
+     *
+     * @param string $prenom
+     *
+     * @return MatriceCompetence
+     */
+    public function setPrenom($prenom) {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get prenom
+     *
+     * @return string
+     */
+    public function getPrenom() {
+        return $this->prenom;
     }
 
 }
