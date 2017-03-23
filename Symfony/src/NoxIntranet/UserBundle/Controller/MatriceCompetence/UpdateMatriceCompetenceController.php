@@ -44,13 +44,17 @@ class UpdateMatriceCompetenceController extends Controller {
 
         // On récupère les matrices à mettre à jour dans le tableau.
         $matricesToUpdate = $this->getUpdatedMatrices();
+        
+        // Si il n'y a pas de matrice à mettre à jours...
+        if(empty($matricesToUpdate)) {
+            return; // On quitte la fonction.
+        }
 
         // Pour chaques lignes du tableau...
         $rowIterator = $sheet->getRowIterator();
         foreach ($rowIterator as $row) {
             // Si il n'y a plus de matrice à mettre à jour...
             if (empty($matricesToUpdate)) {
-                echo "BREAK";
                 break; // On quitte la boucle.
             }
 
@@ -88,7 +92,8 @@ class UpdateMatriceCompetenceController extends Controller {
                 }
 
                 // On indique que la matrice a été mise à jour.
-                //$matrice_competence->setIsUpdated(true);
+                $matrice_competence->setIsUpdated(true);
+
                 // On supprime la matrice du tableau des matrices à modifier.
                 unset($matricesToUpdate[$rowNom][$rowPrenom]);
             }
@@ -97,10 +102,15 @@ class UpdateMatriceCompetenceController extends Controller {
         // Sauvegarde des modifications en base de donnée.
         $this->em->flush();
 
+        // On fige les en-têtes de la feuille Excel pour une meilleur lisibilité.
+        $sheet->freezePane('E4');
+
         // Ecriture et sauvegarde du fichier Excel.
         $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
         $objWriter->setPreCalculateFormulas(false);
-        $objWriter->save($root . "/Matrice_Competence2.xlsx");
+        $objWriter->save($root . "/Matrice_Competence_Updated.xlsx");
+        unlink($root . "/Matrice_Competence.xlsx");
+        rename($root . "/Matrice_Competence_Updated.xlsx", $root . "/Matrice_Competence.xlsx");
 
         // Nettoyage des variables.
         unset($objPHPExcel);
