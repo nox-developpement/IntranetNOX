@@ -454,13 +454,27 @@ class PointageController extends Controller {
         // On récupére les utilisateurs qui ont l'assistante comme supérieur hiérarchique.
         $em = $this->getDoctrine()->getManager();
 
+        // On génére la requête en fonction du statut.
+        switch ($status) {
+            case 'Final':
+            case 'AA':
+                $request = 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName';
+                break;
+            case 'DA':
+                $request = 'u.da = :securityName OR u.rh = :securityName';
+                break;
+            case 'RH':
+                $request = 'u.rh = :securityName';
+                break;
+        }
+
         // Si l'utilisateur n'as pas le ROLE_RH.
         if ($rhMode !== 'true') {
             $qb = $em->createQueryBuilder();
             $qb
                     ->add('select', 'u')
                     ->add('from', 'NoxIntranetPointageBundle:UsersHierarchy u')
-                    ->add('where', ($status === 'DAManager' || $status === 'Final') ? 'u.da = :securityName OR u.rh = :securityName' : (($status === 'AA') ? 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName' : false))
+                    ->add('where', $request)
                     ->setParameter('securityName', $securityName);
             $query = $qb->getQuery();
             $usersHierarchie = $query->getResult();
