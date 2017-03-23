@@ -1140,8 +1140,10 @@ class PointageAjaxController extends Controller {
                     // Le contenu du fichier sous forme de chaîne.
                     $fileContent = stripslashes(stream_get_contents($justificatifTransport->getContent()));
 
+                    //var_dump($collaborateurName . "/" . $filename);
+                    
                     // On ajoute le fichier à l'archive dans un dossier au nom du collaborateur.
-                    $zipFile->addFromString($collaborateurName . '/' . $filename, $fileContent);
+                    $zipFile->addFromString($collaborateurName . "/" . $filename, $fileContent);
                 }
 
                 // On récupére le/les justificatif(s) associé(s) au pointage.
@@ -1155,8 +1157,10 @@ class PointageAjaxController extends Controller {
                     // Le contenu du fichier sous forme de chaîne.
                     $fileContent = stream_get_contents($justificatif->getContent());
 
+                    //var_dump($collaborateurName . "/" . $filename);
+                    
                     // On ajoute le fichier à l'archive dans un dossier au nom du collaborateur.
-                    $zipFile->addFromString($collaborateurName . '/' . $filename, $fileContent);
+                    $zipFile->addFromString($collaborateurName . "/" . $filename, $fileContent);
                 }
             }
 

@@ -460,7 +460,7 @@ class PointageController extends Controller {
             case 'AA':
                 $request = 'u.aa = :securityName OR u.da = :securityName OR u.rh = :securityName';
                 break;
-            case 'DA':
+            case 'DAManager':
                 $request = 'u.da = :securityName OR u.rh = :securityName';
                 break;
             case 'RH':
