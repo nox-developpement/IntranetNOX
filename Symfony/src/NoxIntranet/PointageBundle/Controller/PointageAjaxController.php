@@ -1135,13 +1135,11 @@ class PointageAjaxController extends Controller {
                     $justificatifTransport = $pointage->getJustificatifTransportFile();
 
                     // Le nom du fichier (encodé en 'CP850').
-                    $filename = mb_convert_encoding(stripslashes($justificatifTransport->getName()), 'CP850', mb_detect_encoding($justificatifTransport->getName()));
+                    $filename = mb_convert_encoding(stripslashes(stripslashes($justificatifTransport->getName())), 'CP850', mb_detect_encoding(stripslashes($justificatifTransport->getName())));
 
                     // Le contenu du fichier sous forme de chaîne.
                     $fileContent = stripslashes(stream_get_contents($justificatifTransport->getContent()));
 
-                    //var_dump($collaborateurName . "/" . $filename);
-                    
                     // On ajoute le fichier à l'archive dans un dossier au nom du collaborateur.
                     $zipFile->addFromString($collaborateurName . "/" . $filename, $fileContent);
                 }
@@ -1152,13 +1150,11 @@ class PointageAjaxController extends Controller {
                 // Pour chaques justificatif...
                 foreach ($justificatifsPointages as $justificatif) {
                     // Le nom du fichier (encodé en 'CP850').
-                    $filename = mb_convert_encoding($justificatif->getName(), 'CP850', mb_detect_encoding($justificatif->getName()));
+                    $filename = mb_convert_encoding(stripslashes($justificatif->getName()), 'CP850', mb_detect_encoding(stripslashes($justificatif->getName())));
 
                     // Le contenu du fichier sous forme de chaîne.
                     $fileContent = stream_get_contents($justificatif->getContent());
 
-                    //var_dump($collaborateurName . "/" . $filename);
-                    
                     // On ajoute le fichier à l'archive dans un dossier au nom du collaborateur.
                     $zipFile->addFromString($collaborateurName . "/" . $filename, $fileContent);
                 }
