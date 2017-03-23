@@ -47,6 +47,7 @@ class MatriceCompetenceController extends Controller {
         // On récupère les compétences sous forme de tableau.
         $competencesArray = array();
         foreach ($competences->categorie as $categorie) {
+            //var_dump((string) $categorie->categorie_name);
             $competencesArray[(string) $categorie->categorie_name] = array();
             foreach ($categorie->competence as $competence) {
                 $competencesArray[(string) $categorie->categorie_name][(string) $competence] = (string) $competence;
@@ -164,6 +165,10 @@ class MatriceCompetenceController extends Controller {
         }
 
         return $this->render('NoxIntranetUserBundle:MatriceCompetence:formulaireMatriceCompetence.html.twig', array('formCompetence' => $formCompetence->createView()));
+    }
+    
+    public function generateMatriceCompetenceExcelFile() {
+        
     }
 
 }

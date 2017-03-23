@@ -103,7 +103,7 @@ class UpdateMatriceCompetenceController extends Controller {
         $this->em->flush();
 
         // On fige les en-têtes de la feuille Excel pour une meilleur lisibilité.
-        $sheet->freezePane('E4');
+        $sheet->freezePane('J4');
 
         // Ecriture et sauvegarde du fichier Excel.
         $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
