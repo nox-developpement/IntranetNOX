@@ -5,6 +5,7 @@ namespace NoxIntranet\UserBundle\Controller\MatriceCompetence;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\EntityManager;
+use PHPExcel_Reader_Excel2007;
 
 class UpdateMatriceCompetenceController extends Controller {
 
@@ -14,12 +15,13 @@ class UpdateMatriceCompetenceController extends Controller {
         $this->em = $em;
     }
 
-    public function getMatriceCompetenceData() {
+    // Met à jour le fichier Excel de matrice de compétence.
+    public function updateMatriceCompetenceFile() {
         // Racine du bundle User.
         $root = $this->get('kernel')->getRootDir() . '/../src/NoxIntranet/UserBundle/Resources/public/MatriceCompetence';
 
         // Initialisation de l'objet Excel du fichier de matrice.
-        $objReader = new \PHPExcel_Reader_Excel2007();
+        $objReader = new PHPExcel_Reader_Excel2007();
         $objPHPExcel = $objReader->load($root . "/Matrice_Competence.xlsx");
         $sheet = $objPHPExcel->getActiveSheet();
 
@@ -44,9 +46,9 @@ class UpdateMatriceCompetenceController extends Controller {
 
         // On récupère les matrices à mettre à jour dans le tableau.
         $matricesToUpdate = $this->getUpdatedMatrices();
-        
+
         // Si il n'y a pas de matrice à mettre à jours...
-        if(empty($matricesToUpdate)) {
+        if (empty($matricesToUpdate)) {
             return; // On quitte la fonction.
         }
 

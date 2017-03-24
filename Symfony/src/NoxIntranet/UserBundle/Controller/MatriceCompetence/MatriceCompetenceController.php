@@ -10,9 +10,12 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\UserBundle\Entity\MatriceCompetence;
+use PHPExcel_Reader_Excel2007;
+use Symfony\Component\HttpFoundation\Response;
 
 class MatriceCompetenceController extends Controller {
 
+    // Formulaire de compétences professionels.
     public function competenceFormAction(Request $request) {
         // Entité du collaborateur actuel.
         $currentUser = $this->get('security.context')->getToken()->getUser();
@@ -166,9 +169,145 @@ class MatriceCompetenceController extends Controller {
 
         return $this->render('NoxIntranetUserBundle:MatriceCompetence:formulaireMatriceCompetence.html.twig', array('formCompetence' => $formCompetence->createView()));
     }
-    
-    public function generateMatriceCompetenceExcelFile() {
-        
+
+    // Génère et télécharge un fichier Excel de matrice de compétence.
+    public function generateMatriceCompetenceExcelFileAction() {
+        $matrice_competence_root = $this->get('kernel')->getRootDir() . "/../src/NoxIntranet/UserBundle/Resources/public/MatriceCompetence";
+
+        $em = $this->getDoctrine()->getManager();
+
+        // On récupére les matrices.
+        $matrice_request = $em->createQueryBuilder()
+                ->select('u')
+                ->from('NoxIntranetUserBundle:MatriceCompetence', 'u')
+                ->addOrderBy('u.nom')
+                ->addOrderBy('u.prenom')
+                ->getQuery();
+        $matrice_to_update = $matrice_request->getResult();
+
+        // Initialisation de l'objet Excel du fichier de matrice.
+        $objReader = new PHPExcel_Reader_Excel2007();
+        $objPHPExcel = $objReader->load($matrice_competence_root . "/Matrice_Competence_Model.xlsx");
+        $sheet = $objPHPExcel->getActiveSheet();
+
+        // Lettres des colonnes de compétence.
+        $letters = array();
+        $letter = 'I';
+        while ($letter !== 'DA') {
+            $letters[] = $letter++;
+        }
+
+        // Tableau de liaison donnée/colonne dans le fichier de matrice.
+        $columns = array(
+            'Societe' => 'A',
+            'Etablissement' => 'B',
+            'Nom' => 'C',
+            'Prenom' => 'D',
+            'Date_Naissance' => 'E',
+            'Date_Anciennete' => 'F',
+            'Statut' => 'G',
+            'Poste' => 'H',
+            'Competences' => $letters
+        );
+
+        // Si il n'y a pas de matrice à mettre à jours...
+        if (empty($matrice_to_update)) {
+            return; // On quitte la fonction.
+        }
+
+        $rowIndex = 4;
+        foreach ($matrice_to_update as $matrice) {
+            $sheet->getStyle($columns['Date_Naissance'])->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY);
+            $sheet->getStyle($columns['Date_Anciennete'])->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY);
+
+            // On remplace les informations du collaborateur.
+            $sheet->setCellValue($columns['Societe'] . $rowIndex, $matrice->getSociete());
+            $sheet->setCellValue($columns['Etablissement'] . $rowIndex, $matrice->getEtablissement());
+            $sheet->setCellValue($columns['Nom'] . $rowIndex, $matrice->getNom());
+            $sheet->setCellValue($columns['Prenom'] . $rowIndex, $matrice->getPrenom());
+            $sheet->setCellValue($columns['Date_Naissance'] . $rowIndex, \PHPExcel_Shared_Date::PHPToExcel($matrice->getDateNaissance()));
+            $sheet->setCellValue($columns['Date_Anciennete'] . $rowIndex, \PHPExcel_Shared_Date::PHPToExcel($matrice->getDateAnciennete()));
+            $sheet->setCellValue($columns['Statut'] . $rowIndex, $matrice->getStatut());
+            $sheet->setCellValue($columns['Poste'] . $rowIndex, $matrice->getPoste());
+
+            // Pour chaques colonne de compétence du tableau...
+            foreach ($columns['Competences'] as $column) {
+                // On récupère le nom de la compétence...
+                $competence = $sheet->getCell($column . "3")->getValue();
+
+                // Si la compétence est égale à la compétence principale du collaborateur...
+                if ($competence === $matrice->getCompetencePrincipale()) {
+                    $sheet->getCell($column . $rowIndex)->setValue("1"); // On ajoute un "1" dans la cellule.
+                } else if (in_array($competence, $matrice->getCompetencesSecondaires())) {
+                    $sheet->getCell($column . $rowIndex)->setValue("*"); // On ajoute un "*" dans la cellule.
+                } else {
+                    $sheet->getCell($column . $rowIndex)->setValue(""); // On vide la cellule.
+                }
+            }
+
+            $sheet->getStyle($columns['Societe'] . $rowIndex . ":" . $columns['Poste'] . $rowIndex)->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+            $rowIndex++;
+        }
+
+        $columnLetter = 'A';
+        while ($columnLetter !== 'I') {
+            //var_dump($columnLetter);
+            $sheet->getColumnDimension($columnLetter)->setAutoSize(true);
+            $columnLetter++;
+        }
+
+        // On fige les en-têtes de la feuille Excel pour une meilleur lisibilité.
+        $sheet->freezePane('I4');
+
+        // Ecriture et sauvegarde du fichier Excel.
+        $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+        $objWriter->save($matrice_competence_root . "/Matrice_Competence_Generated.xlsx");
+
+        // Nettoyage des variables.
+        unset($objPHPExcel);
+        unset($objWriter);
+
+        $file_content = file_get_contents($matrice_competence_root . "/Matrice_Competence_Generated.xlsx");
+
+        unlink($matrice_competence_root . "/Matrice_Competence_Generated.xlsx");
+
+        $response = new Response();
+        $response->setContent($file_content);
+        $response->headers->set('Content-Type', 'application/force-download'); // modification du content-type pour forcer le téléchargement (sinon le navigateur internet essaie d'afficher le document)
+        $response->headers->set('Content-disposition', "filename='Matrice_Compétences.xlsx'");
+
+        return $response;
+
+        //return new Response('test');
+    }
+
+    public function matriceCompetenceTableAction() {
+        $em = $this->getDoctrine()->getManager();
+        $matrices_competences = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->findBy(array(), array('nom' => 'ASC', 'prenom' => 'ASC'));
+
+        // Chemin du fichier de liste des compétences.
+        $competenceListFile = $this->get('kernel')->getRootDir() . '/../src/NoxIntranet/UserBundle/Resources/public/MatriceCompetence/competencesList.xml';
+
+        // Fichier de compétence sous forme de chaîne nettoyer des charactères interdits.
+        $competenceListString = str_replace('&', '&amp;', file_get_contents($competenceListFile));
+
+        // Objet XML des compétences.
+        $competences = simplexml_load_string($competenceListString);
+
+        // On récupère les compétences sous forme de tableau.
+        $competencesArray = array();
+        foreach ($competences->categorie as $categorie) {
+            //var_dump((string) $categorie->categorie_name);
+            $competencesArray[(string) $categorie->categorie_name] = array();
+            foreach ($categorie->competence as $competence) {
+                $competencesArray[(string) $categorie->categorie_name][(string) $competence] = (string) $competence;
+            }
+        }
+
+        var_dump($competencesArray);
+
+        return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCompetence.html.twig', array('matrices_competences' => $matrices_competences, 'competences' => $competencesArray));
     }
 
 }

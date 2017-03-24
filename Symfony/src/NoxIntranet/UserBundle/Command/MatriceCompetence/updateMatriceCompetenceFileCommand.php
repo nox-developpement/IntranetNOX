@@ -25,7 +25,7 @@ class updateMatriceCompetenceFileCommand extends ContainerAwareCommand {
 
         // On appel la fonction de mise à jour du fichier de matrice de compétence.
         $matrice_competence_controller = $this->getContainer()->get('noxintranet_userbundle.updatematricecompetencefile');
-        $matrice_competence_controller->getMatriceCompetenceData();
+        $matrice_competence_controller->updateMatriceCompetenceFile();
 
         $output->writeln("Mise à jour terminé.");
     }
