@@ -305,9 +305,9 @@ class MatriceCompetenceController extends Controller {
             }
         }
 
-        var_dump($competencesArray);
+        $competencesCount = count($competencesArray, COUNT_RECURSIVE) - count($competencesArray);
 
-        return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCompetence.html.twig', array('matrices_competences' => $matrices_competences, 'competences' => $competencesArray));
+        return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCompetence.html.twig', array('matrices_competences' => $matrices_competences, 'competencesArray' => $competencesArray, 'competencesCount' => $competencesCount));
     }
 
 }

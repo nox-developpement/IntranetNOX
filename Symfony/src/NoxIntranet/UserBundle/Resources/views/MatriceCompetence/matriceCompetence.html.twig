@@ -5,14 +5,78 @@
 {% block messageAccueil %}Matrice de compétences{% endblock %}
 
 {% block contenu %}
-    <table>
+    <script>
+        $(document).ready(function () {
+            /*$('.competenceHeader').each(function () {
+             var width = $(this).width();
+             $(this).height(width);
+             });
+             $('.rotateCategorieDiv').each(function () {
+             var height = $(this).height();
+             $(this).width(height);
+             });*/
+
+            var width = $('.rotateCategorieDiv').height();
+            console.log(width);
+
+            var maxHeight = 0;
+            $('.rotateCategorieDiv').each(function () {
+                if ($(this).width() > maxHeight) {
+                    maxHeight = $(this).width();
+                }
+            });
+
+            $('.competenceHeader').height(maxHeight);
+            $('.competenceHeader').css('min-width', width);
+
+            $('.categorieHeader').click(function () {
+                var element = $(this);
+                var categorie = element.data('categorie');
+                element.attr('colspan', '0');
+                $('.competenceHeader').each(function () {
+                    if ($(this).data('categorie') === categorie) {
+                        $(this).toggle();
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+        #matriceCompetenceTable {
+            table-layout: fixed;
+        }
+
+        #matriceCompetenceTable, #matriceCompetenceTable tr, #matriceCompetenceTable th, #matriceCompetenceTable td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .competenceHeader {
+            white-space: nowrap;
+            position: relative;
+            padding: 0.5em;
+        }
+
+        .rotateCategorieDiv {
+            position: absolute;
+            transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+
+    <table id='matriceCompetenceTable'>
         <theader>
             <tr>
                 <th colspan='8'>DONNEES INDIVIDUELLES</th>
-                <th>MATRICES COMPETENCES</th>
+                <th colspan='{{ competencesCount }}'>MATRICES COMPETENCES</th>
             </tr>
             <tr>
                 <th colspan='8'>INFOS SALARIES</th>
+                    {% for categorie, competences in competencesArray %}
+                    <th colspan='{{ competences|length }}' class='categorieHeader' data-categorie='{{ categorie }}' data-colspan='{{ competences|length }}'>{{ categorie }}</th>
+                    {% endfor %}
             </tr>
             <tr>
                 <th>Société</th>
@@ -23,10 +87,14 @@
                 <th>Date d'ancienneté</th>
                 <th>Statut</th>
                 <th>Poste</th>
+                    {% for categorie_name, categorie in competencesArray %}
+                        {% for competence in categorie %}
+                        <th class='competenceHeader' data-categorie='{{ categorie_name }}'><div class='rotateCategorieDiv'>{{ competence }}</div></th>
+                        {% endfor %}
+                    {% endfor %}
             </tr>
         </theader>
-        {% for matrice in matrices_competences %}
-            {{ matrice.Nom }}
-        {% endfor %}
+        <tbody>
+        </tbody>
     </table>
 {% endblock %}
