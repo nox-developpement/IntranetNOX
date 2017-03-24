@@ -592,6 +592,7 @@ class PointageAjaxController extends Controller {
             $rowAbsence = 2; // Initialisation du compteur de ligne des absences
             $rowDeplacement = 2; // Initialisation du compteur de ligne des forfaits déplacement.
             $rowCommentaires = 2; // Initialisation du compteur de ligne des commentaires.
+            $rowRegularisation = 2; // Initialisation du compteur de ligne de la régularisation.
             //
             // Pour chaque pointage.
             foreach ($pointagesValides as $pointage) {
@@ -660,11 +661,21 @@ class PointageAjaxController extends Controller {
                             $rowDeplacement++;
                         }
                     }
+
+                    // On écris la valeur de régularisation si elle existe.
+                    if (!empty($pointage['regularisation'])) {
+                        $objWorksheet->getCell('AB' . $rowRegularisation)->setValue($usersHierarchyEntity->getMatricule()); // On écris le matricule.
+                        $objWorksheet->getCell('AC' . $rowRegularisation)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
+                        $objWorksheet->getCell('AD' . $rowRegularisation)->setValue($pointage['regularisation']);
+                        $rowRegularisation++;
+                    }
                 }
 
                 // On applique la bonne largeur au colonnes.
-                foreach (range('A', 'Y') as $columnID) {
-                    $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+                $columLetter = 'A';
+                while ($columLetter !== "AE") {
+                    $objPHPExcel->getActiveSheet()->getColumnDimension($columLetter)->setAutoSize(true);
+                    $columLetter++;
                 }
 
                 // Initialisation d'un tableau de concordance chiffre => string pour les mois.
@@ -1124,13 +1135,13 @@ class PointageAjaxController extends Controller {
                     $justificatifTransport = $pointage->getJustificatifTransportFile();
 
                     // Le nom du fichier (encodé en 'CP850').
-                    $filename = mb_convert_encoding(stripslashes($justificatifTransport->getName()), 'CP850', mb_detect_encoding($justificatifTransport->getName()));
+                    $filename = mb_convert_encoding(stripslashes(stripslashes($justificatifTransport->getName())), 'CP850', mb_detect_encoding(stripslashes($justificatifTransport->getName())));
 
                     // Le contenu du fichier sous forme de chaîne.
                     $fileContent = stripslashes(stream_get_contents($justificatifTransport->getContent()));
 
                     // On ajoute le fichier à l'archive dans un dossier au nom du collaborateur.
-                    $zipFile->addFromString($collaborateurName . '/' . $filename, $fileContent);
+                    $zipFile->addFromString($collaborateurName . "/" . $filename, $fileContent);
                 }
 
                 // On récupére le/les justificatif(s) associé(s) au pointage.
@@ -1139,13 +1150,13 @@ class PointageAjaxController extends Controller {
                 // Pour chaques justificatif...
                 foreach ($justificatifsPointages as $justificatif) {
                     // Le nom du fichier (encodé en 'CP850').
-                    $filename = mb_convert_encoding($justificatif->getName(), 'CP850', mb_detect_encoding($justificatif->getName()));
+                    $filename = mb_convert_encoding(stripslashes($justificatif->getName()), 'CP850', mb_detect_encoding(stripslashes($justificatif->getName())));
 
                     // Le contenu du fichier sous forme de chaîne.
                     $fileContent = stream_get_contents($justificatif->getContent());
 
                     // On ajoute le fichier à l'archive dans un dossier au nom du collaborateur.
-                    $zipFile->addFromString($collaborateurName . '/' . $filename, $fileContent);
+                    $zipFile->addFromString($collaborateurName . "/" . $filename, $fileContent);
                 }
             }
 
@@ -1503,6 +1514,7 @@ class PointageAjaxController extends Controller {
         $rowAbsence = 2; // Initialisation du compteur de ligne des absences.
         $rowDeplacement = 2; // Initialisation du compteur de ligne des forfaits déplacement.
         $rowCommentaires = 2; // Initialisation du compteur de ligne des commentaires.
+        $rowRegularisation = 2; // Initialisation du compteur de ligne de la régularisation.
         //
         // Pour chaque pointage.
         foreach ($pointages as $pointage) {
@@ -1571,11 +1583,21 @@ class PointageAjaxController extends Controller {
                     $rowDeplacement++;
                 }
             }
+
+            // On écris la valeur de régularisation si elle existe.
+            if (!empty($pointage['regularisation'])) {
+                $objWorksheet->getCell('AB' . $rowRegularisation)->setValue($usersHierarchyEntity->getMatricule()); // On écris le matricule.
+                $objWorksheet->getCell('AC' . $rowRegularisation)->setValue($pointage['lastname'] . ' ' . $pointage['firstname']); // On écris le NOM+Prénom.
+                $objWorksheet->getCell('AD' . $rowRegularisation)->setValue($pointage['regularisation']);
+                $rowRegularisation++;
+            }
         }
 
         // On applique la bonne largeur au colonnes.
-        foreach (range('A', 'Y') as $columnID) {
-            $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+        $columLetter = 'A';
+        while ($columLetter !== "AE") {
+            $objPHPExcel->getActiveSheet()->getColumnDimension($columLetter)->setAutoSize(true);
+            $columLetter++;
         }
 
         // Initialisation d'un tableau de concordance chiffre => string pour les mois.
