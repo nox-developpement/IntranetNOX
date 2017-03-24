@@ -924,7 +924,10 @@ class PointageController extends Controller {
         // On récupére tous les établissement et on les trie.
         $etablissements = array();
         foreach ($hierarchies as $hierarchy) {
-            $etablissements[$hierarchy->getEtablissement()]['Etablissement'] = $hierarchy->getEtablissement();
+            // Si l'établissement fait partie du domaine hiérarchique du collaborateur...
+            if ($hierarchy->getAA() === $securityName || $hierarchy->getDA() === $securityName || $hierarchy->getRH() === $securityName || $this->get('security.context')->isGranted('ROLE_RH')) {
+                $etablissements[$hierarchy->getEtablissement()]['Etablissement'] = $hierarchy->getEtablissement(); // On l'ajoute à la liste des établissements.
+            }
         }
         asort($etablissements);
 
