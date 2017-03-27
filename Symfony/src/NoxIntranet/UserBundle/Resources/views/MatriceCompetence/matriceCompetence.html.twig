@@ -7,18 +7,15 @@
 {% block contenu %}
     <script>
         $(document).ready(function () {
-            /*$('.competenceHeader').each(function () {
-             var width = $(this).width();
-             $(this).height(width);
-             });
-             $('.rotateCategorieDiv').each(function () {
-             var height = $(this).height();
-             $(this).width(height);
-             });*/
+            resizeRotatedCompetencesCells();
+            toggleCompetences();
+        });
 
+        function resizeRotatedCompetencesCells() {
+            // Largeur des cellules de compétence.
             var width = $('.rotateCategorieDiv').height();
-            console.log(width);
 
+            // Hauteur maximum des cellules.
             var maxHeight = 0;
             $('.rotateCategorieDiv').each(function () {
                 if ($(this).width() > maxHeight) {
@@ -26,20 +23,41 @@
                 }
             });
 
+            // On applique les nouvelles mesures.
             $('.competenceHeader').height(maxHeight);
             $('.competenceHeader').css('min-width', width);
+        }
 
-            $('.categorieHeader').click(function () {
-                var element = $(this);
-                var categorie = element.data('categorie');
-                element.attr('colspan', '0');
+        function toggleCompetences() {
+            // Lors du clique sur un titre de catégorie.
+            $('.categorieHeader').on('click', function () {
+                // Cellule et catégorie.
+                var categorieCell = $(this);
+                var categorie = categorieCell.data('categorie');
+
+                // Si la catégorie est ouverte...
+                if (categorieCell.data('state') === 'visible') {
+                    // On réduit le colspan à 1 et on modifie l'état.
+                    categorieCell.attr('colspan', '1');
+                    categorieCell.data('state', 'hidden');
+                }
+                // Sinon...
+                else {
+                    // On redonne le colsapn et l'état d'origine.
+                    categorieCell.attr('colspan', categorieCell.data('colspan'));
+                    categorieCell.data('state', 'visible');
+                }
+
+                // Pour chaques titre de compétence...
                 $('.competenceHeader').each(function () {
+                    // Si la compétence fait partie de la catégorie...
                     if ($(this).data('categorie') === categorie) {
-                        $(this).toggle();
+                        $(this).toggle(); // On l'affiche/cache.
                     }
                 });
             });
-        });
+        }
+
     </script>
 
     <style>
@@ -64,7 +82,30 @@
             top: 50%;
             left: 50%;
         }
+
+        .hiddenTh {
+            display: none;
+        }
+
+        .categorie_selection_section {
+            display: inline-block;
+            vertical-align: top;
+        }
     </style>
+
+
+    <div>
+        {% for categorie, competences in competencesArray %}
+            <section class='categorie_selection_section'>
+                <h3>{{ categorie }}</h3>
+                {% for competence in competences %}
+                    <li>
+                        {{ competence }}
+                    </li>
+                {% endfor %}
+            </section>
+        {% endfor %}
+    </div>
 
     <table id='matriceCompetenceTable'>
         <theader>
@@ -73,10 +114,14 @@
                 <th colspan='{{ competencesCount }}'>MATRICES COMPETENCES</th>
             </tr>
             <tr>
-                <th colspan='8'>INFOS SALARIES</th>
-                    {% for categorie, competences in competencesArray %}
-                    <th colspan='{{ competences|length }}' class='categorieHeader' data-categorie='{{ categorie }}' data-colspan='{{ competences|length }}'>{{ categorie }}</th>
-                    {% endfor %}
+                <th colspan='8'>
+                    INFOS SALARIES
+                </th>
+                {% for categorie, competences in competencesArray %}
+                    <th colspan='{{ competences|length }}' class='categorieHeader' data-categorie='{{ categorie }}' data-colspan='{{ competences|length }}' data-state='visible'>
+                        {{ categorie }}
+                    </th>
+                {% endfor %}
             </tr>
             <tr>
                 <th>Société</th>
@@ -88,10 +133,15 @@
                 <th>Statut</th>
                 <th>Poste</th>
                     {% for categorie_name, categorie in competencesArray %}
-                        {% for competence in categorie %}
-                        <th class='competenceHeader' data-categorie='{{ categorie_name }}'><div class='rotateCategorieDiv'>{{ competence }}</div></th>
-                        {% endfor %}
+                    <th class='competenceHeader hiddenTh' data-categorie='{{ categorie_name }}'>
+                        <span>...</span>
+                    </th>
+                    {% for competence in categorie %}
+                        <th class='competenceHeader' data-categorie='{{ categorie_name }}'>
+                            <div class='rotateCategorieDiv'>{{ competence }}</div>
+                        </th>
                     {% endfor %}
+                {% endfor %}
             </tr>
         </theader>
         <tbody>
