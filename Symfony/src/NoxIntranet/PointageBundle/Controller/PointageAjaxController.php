@@ -700,6 +700,7 @@ class PointageAjaxController extends Controller {
             // On récupére les variables de la requête.
             $month = $request->get('month');
             $year = $request->get('year');
+            $etablissement = $request->get('etablissement');
             $manager = $request->get('manager');
             $rhMode = $request->get('rhMode');
 
@@ -708,7 +709,7 @@ class PointageAjaxController extends Controller {
 
             // On récupére toute la hiérarchie.
             $em = $this->getDoctrine()->getManager();
-            $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($manager);
+            $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('da' => $manager, 'etablissement' => $etablissement));
 
             // On récupére le nom de l'utilisateur.
             $securityContextName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
@@ -726,6 +727,9 @@ class PointageAjaxController extends Controller {
                     }
                 }
             }
+
+            // On trie les pointages.
+            asort($pointagesValide);
 
             // On retourne la liste des pointages valides.
             return new Response(json_encode($pointagesValide));
@@ -1359,34 +1363,34 @@ class PointageAjaxController extends Controller {
             $em = $this->getDoctrine()->getManager();
 
             // Initialisation de la liste des managers à retourner.
-            $managers = array();
+            $etablissements = array();
 
             // Si le mode RH est activé...
             if ($rhMode === 'true') {
                 // On récupére toute les entitées de hiérarchie.
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
-                    $managers[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
             }
             // Sinon...
             else {
                 // On récupére toutes les entitées de hiérachie qui on le collaborateur courant pour AA.
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityContextName) as $userHierarchy) {
-                    $managers[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityContextName) as $userHierarchy) {
-                    $managers[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityContextName) as $userHierarchy) {
-                    $managers[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    $etablissements[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
             }
 
             // Trie du tableau de retour.
-            asort($managers);
+            asort($etablissements);
 
             // On retourne le tableau des managers.
-            return new Response(json_encode($managers));
+            return new Response(json_encode($etablissements));
         }
     }
 
@@ -1648,6 +1652,42 @@ class PointageAjaxController extends Controller {
             $nomAffaire = $em->getRepository('NoxIntranetPointageBundle:AffairesGX')->findOneByNumero($numAffaire)->getNom();
 
             return new Response($nomAffaire);
+        }
+    }
+
+    public function ajaxGetManagerListAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // On récupère les données de la requête.
+            $rhMode = $request->get('rhMode');
+            $etablissement = $request->get('etablissement');
+
+            // On récupére le nom du collaborateur.
+            $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
+
+            // Initialisation de l'entity manager.
+            $em = $this->getDoctrine()->getManager();
+
+            $manager = array();
+            if ($rhMode === 'true') {
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement) as $userHierarchy) {
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
+            } else {
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('aa' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('da' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
+            }
+
+            // On trie les managers.
+            asort($manager);
+
+            return new Response(json_encode($manager));
         }
     }
 

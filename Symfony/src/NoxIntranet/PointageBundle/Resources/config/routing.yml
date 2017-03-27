@@ -82,6 +82,10 @@ nox_intranet_pointage_ajax_get_pointages_list_aa_gestion:
     path:   /ressources/ajax-get-pointage-list-aa-gestion
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetPointageList }
     
+nox_intranet_pointage_ajax_get_managers_list_aa_gestion:
+    path:   /ressources/ajax-get-managers-list-aa-gestion
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetManagerList }
+    
 nox_intranet_pointages_compilation:
     path:   /ressources/pointages-compilation/{validationStep}
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:pointagesCompilation }

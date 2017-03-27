@@ -148,30 +148,31 @@ class PointageController extends Controller {
             // On récupére la valeur de RHMode depuis les Cookies.
             $rhMode = !empty(filter_input(INPUT_COOKIE, "RHMode")) ? filter_input(INPUT_COOKIE, "RHMode") : "false";
 
-            // On récupére la liste des managers du domaine de l'utilisateur.
-            $manager = array();
+            // On récupére la liste des etablissements du domaine de l'utilisateur.
+            $etablissement = array();
             if ($rhMode === 'true') {
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
                     $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
             } else {
                 switch ($userStatus) {
                     case 'AA':
                         foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
-                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                            $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                         }
                         foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
-                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                            $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                         }
                         foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
-                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                            $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                         }
                         break;
                 }
             }
 
             // Trie du tableau des établissements.
-            asort($manager);
+            asort($etablissement);
 
             // Génére le formulaire de séléction du pointage par établissement, mois et année.
             $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
@@ -184,9 +185,12 @@ class PointageController extends Controller {
                         'choices' => array_combine(range(date("Y") - 50, date("Y") + 50), range(date("Y") - 50, date("Y") + 50)),
                         'data' => $this->getMonthAndYear()['year']
                     ))
+                    ->add('Etablissement', ChoiceType::class, array(
+                        'placeholder' => 'Choisir un établissement',
+                        'choices' => $etablissement
+                    ))
                     ->add('Manager', ChoiceType::class, array(
-                        'placeholder' => 'Choisir un manager',
-                        'choices' => $manager
+                        'placeholder' => 'Choisir un manager'
                     ))
                     ->getForm();
 
