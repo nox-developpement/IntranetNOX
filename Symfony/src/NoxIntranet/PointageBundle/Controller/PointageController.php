@@ -152,7 +152,6 @@ class PointageController extends Controller {
             $etablissement = array();
             if ($rhMode === 'true') {
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
-                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
                     $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
             } else {
@@ -171,8 +170,31 @@ class PointageController extends Controller {
                 }
             }
 
+            $etablissement_cookie = filter_input(INPUT_COOKIE, "form_Etablissement");
+            $manager = array();
+            if ($rhMode === 'true') {
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement_cookie) as $userHierarchy) {
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
+            } else {
+                switch ($userStatus) {
+                    case 'AA':
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('aa' => $securityName, 'etablissement' => $etablissement_cookie)) as $userHierarchy) {
+                            $manager[$userHierarchy->getDa()] = $userHierarchy->getDa();
+                        }
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('da' => $securityName, 'etablissement' => $etablissement_cookie)) as $userHierarchy) {
+                            $manager[$userHierarchy->getDa()] = $userHierarchy->getDa();
+                        }
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement_cookie)) as $userHierarchy) {
+                            $manager[$userHierarchy->getDa()] = $userHierarchy->getDa();
+                        }
+                        break;
+                }
+            }
+
             // Trie du tableau des établissements.
             asort($etablissement);
+            asort($manager);
 
             // Génére le formulaire de séléction du pointage par établissement, mois et année.
             $month = array('1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril', '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août', '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
@@ -190,7 +212,8 @@ class PointageController extends Controller {
                         'choices' => $etablissement
                     ))
                     ->add('Manager', ChoiceType::class, array(
-                        'placeholder' => 'Choisir un manager'
+                        'placeholder' => 'Choisir un manager',
+                        'choices' => $manager
                     ))
                     ->getForm();
 
@@ -434,7 +457,7 @@ class PointageController extends Controller {
             $this->sendValidationMail($mailingListUser, $securityName, $validationStep, $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('manager')->getData(), $formValidationRefus->get('collaborateursSansPointage')->getData());
 
             // On redirige vers la compilation des pointages.
-            //return $this->redirectToRoute('nox_intranet_pointages_compilation', array('validationStep' => $validationStep));
+            return $this->redirectToRoute('nox_intranet_pointages_compilation', array('validationStep' => $validationStep));
         }
 
         return $this->render('NoxIntranetPointageBundle:Pointage:pointagesCompilation.html.twig', array(

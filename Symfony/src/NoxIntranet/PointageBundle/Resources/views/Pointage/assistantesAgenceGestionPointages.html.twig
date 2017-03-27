@@ -2448,7 +2448,7 @@
         // Sauvegarde la valeur des sélécteur dans les cookies lors des changements.
         function setSavedDateAndAgency() {
             // Lorqu'on change la date ou l'établissement...
-            $('#form_Month, #form_Year, #form_Etablissement, #RHMode').change(function () {
+            $('#form_Month, #form_Year, #form_Etablissement, #form_Manager, #RHMode').change(function () {
                 // Temps d'expiration du cookie (1 heure).
                 var inOneHour = new Date(new Date().getTime() + 60 * 60 * 1000);
 
@@ -2469,7 +2469,7 @@
         // Récupére les valeurs des cookies des sélécteurs.
         function getSavedDateAndAgency() {
             // Initialisation de la liste des sélécteurs.
-            var selectors = ['form_Month', 'form_Year', 'form_Etablissement'];
+            var selectors = ['form_Month', 'form_Year', 'form_Etablissement', 'form_Manager'];
 
             // Pour chaques sélécteurs...
             $.each(selectors, function (index, value) {
@@ -2479,7 +2479,9 @@
                     $('#' + value).val(Cookies.get(value));
 
                     // On déclanche le changement du sélécteur pour déclancher les fonctions associées.
-                    $('#' + value).trigger('change');
+                    if (index === selectors.length - 1) {
+                        $('#' + value).trigger('change');
+                    }
                 }
             });
         }
