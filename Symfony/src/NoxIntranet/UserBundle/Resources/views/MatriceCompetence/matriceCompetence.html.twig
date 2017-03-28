@@ -9,6 +9,8 @@
         $(document).ready(function () {
             resizeRotatedCompetencesCells();
             toggleCompetences();
+            toggleCompetencesSelection();
+
         });
 
         function resizeRotatedCompetencesCells() {
@@ -58,10 +60,25 @@
             });
         }
 
+        function toggleCompetencesSelection() {
+            $('#categorie_selection_foldbar').on('click', function () {
+                $('#categorie_selection_box').slideToggle();
+                $('.categorie_selection_foldbar_indicator').toggle();
+            });
+        }
+
     </script>
 
     <style>
-        #matriceCompetenceTable {
+        #matriceCompetenceTable_Div {
+            width: 70%;
+            margin: auto;
+            margin-top: 2em;
+            margin-bottom: 2em;
+            overflow: auto;
+        }
+
+        #competenceTable, #infosSalariesTable {
             table-layout: fixed;
         }
 
@@ -89,62 +106,182 @@
 
         .categorie_selection_section {
             display: inline-block;
+            box-sizing: border-box;
+            width: calc(100% / 3);
+            font-size: calc(11px + 0.2vw);
             vertical-align: top;
+            padding: 1em;
+        }
+
+        .competences_ul {
+            margin: 0;
+            padding-left: 1em;
+            font-size: calc(11px + 0.2vw);
+            list-style-type: none;
+        }
+
+        .categorie_selection_title {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: calc(12px + 0.2vw);
+        }
+
+        #categorie_selection_div {
+            width: 60%;
+            margin: auto;
+            font-size: 0;
+            background-color: rgba(255,255,255, 0.6);
+            border: 2px solid #1F4E79;
+        }
+
+        .competences_li label {
+            font-size: calc(11px + 0.2vw);
+        }
+
+        #categorie_selection_foldbar {
+            background-color: rgba(31,78,121,0.8);
+        }
+
+        .categorie_selection_foldbar_indicator {
+            display: inline-block;
+            width: 50%;
+            box-sizing: border-box;
+            text-align: right;
+            font-size: calc(12px + 0.2vw);
+            padding: 0.25em 1em 0.25em 0.25em;
+            margin: 0;
+            color: white;
+        }
+
+        #categorie_selection_foldbar_text {
+            display: inline-block;
+            width: 50%;
+            box-sizing: border-box;
+            font-size: calc(12px + 0.2vw);
+            padding: 0.25em 0.25em 0.25em 2em;
+            margin: 0;
+            color: white;
+        }
+
+        #categorie_selection_box {
+            border-top: 2px solid #1F4E79;
+        }
+
+        .info_salarie {
+            padding-right: 0.5em;
+            padding-left: 0.5em;
+        }
+
+        #matriceCompetence_table {
+            width: 100%;
+            table-layout: fixed;
         }
     </style>
 
 
-    <div>
-        {% for categorie, competences in competencesArray %}
-            <section class='categorie_selection_section'>
-                <h3>{{ categorie }}</h3>
-                {% for competence in competences %}
-                    <li>
-                        {{ competence }}
-                    </li>
-                {% endfor %}
-            </section>
-        {% endfor %}
+    <div id="categorie_selection_div">
+        <div id="categorie_selection_foldbar">
+            <p id="categorie_selection_foldbar_text">Sélection des compétences</p>
+            <p class="categorie_selection_foldbar_indicator" style="display: none;">&#10134;</p>
+            <p class="categorie_selection_foldbar_indicator">&#10133;</p>
+        </div>
+        <div id="categorie_selection_box" style="display: none;" data-state="open">
+            {% for categorie, competences in competencesArray %}
+                <section class='categorie_selection_section'>
+                    <h3 class="categorie_selection_title">
+                        <label><input type="checkbox">{{ categorie }}</label>
+                    </h3>
+                    <ul class="competences_ul">
+                        {% for competence in competences %}
+                            <li class="competences_li">
+                                <label><input type="checkbox">{{ competence }}</label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            {% endfor %}
+        </div>
     </div>
 
-    <table id='matriceCompetenceTable'>
-        <theader>
-            <tr>
-                <th colspan='8'>DONNEES INDIVIDUELLES</th>
-                <th colspan='{{ competencesCount }}'>MATRICES COMPETENCES</th>
-            </tr>
-            <tr>
-                <th colspan='8'>
-                    INFOS SALARIES
-                </th>
-                {% for categorie, competences in competencesArray %}
-                    <th colspan='{{ competences|length }}' class='categorieHeader' data-categorie='{{ categorie }}' data-colspan='{{ competences|length }}' data-state='visible'>
-                        {{ categorie }}
+    <div id="matriceCompetenceTable_Div">
+        <table id='matriceCompetenceTable'>
+            <div id="fixed_header"></div>
+            <thead>
+                <tr>
+                    <th colspan='3' class="table_left_header">DONNEES INDIVIDUELLES</th>
+                    <th colspan='{{ competencesCount }}'>MATRICES COMPETENCES</th>
+                </tr>
+                <tr>
+                    <th colspan='3' class="table_left_header">
+                        INFOS SALARIES
                     </th>
-                {% endfor %}
-            </tr>
-            <tr>
-                <th>Société</th>
-                <th>Etablissement</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Date de naissance</th>
-                <th>Date d'ancienneté</th>
-                <th>Statut</th>
-                <th>Poste</th>
-                    {% for categorie_name, categorie in competencesArray %}
-                    <th class='competenceHeader hiddenTh' data-categorie='{{ categorie_name }}'>
-                        <span>...</span>
-                    </th>
-                    {% for competence in categorie %}
-                        <th class='competenceHeader' data-categorie='{{ categorie_name }}'>
-                            <div class='rotateCategorieDiv'>{{ competence }}</div>
+                    {% for categorie, competences in competencesArray %}
+                        <th colspan='{{ competences|length }}' class='categorieHeader' data-categorie='{{ categorie }}' data-colspan='{{ competences|length }}' data-state='visible'>
+                            {{ categorie }}
                         </th>
                     {% endfor %}
+                </tr>
+                <tr>
+                    <th class="info_salarie table_left_header" rowspan="6">Nom</th>
+                    <th class="info_salarie table_left_header" rowspan="6">Prénom</th>
+                    <th class="info_salarie table_left_header">Société</th>
+                    <th>
+                    </th>
+                    {% for categorie_name, categorie in competencesArray %}
+                        <th class='competenceHeader hiddenTh' data-categorie='{{ categorie_name }}' rowspan="6">
+                            <span>...</span>
+                        </th>
+                        {% for competence in categorie %}
+                            <th class='competenceHeader' data-categorie='{{ categorie_name }}' rowspan="6">
+                                <div class='rotateCategorieDiv'>{{ competence }}</div>
+                            </th>
+                        {% endfor %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    
+                </tr>
+                <tr>
+                    <th class="info_salarie table_left_header">Etablissement</th>
+                </tr>
+                <tr>
+                    <th class="info_salarie table_left_header">Date<br /> de<br /> naissance</th>
+                </tr>
+                <tr>
+                    <th class="info_salarie table_left_header">Date<br /> d'ancienneté</th>
+                </tr>
+                <tr>
+                    <th class="info_salarie table_left_header">Statut</th>
+                </tr>
+                <tr>
+                    <th class="info_salarie table_left_header">Poste</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for matrice in matrices_competences %}
+                    <tr>
+                        <td class="table_left_header">{{ matrice.Societe }}</td>
+                        <td class="table_left_header">{{ matrice.Etablissement }}</td>
+                        <td class="table_left_header">{{ matrice.Nom }}</td>
+                        <td class="table_left_header">{{ matrice.Prenom }}</td>
+                        <td class="table_left_header">{{ matrice.DateNaissance|date('d/m/Y') }}</td>
+                        <td class="table_left_header">{{ matrice.DateAnciennete|date('d/m/Y') }}</td>
+                        <td class="table_left_header">{{ matrice.Statut }}</td>
+                        <td class="table_left_header">{{ matrice.Poste }}</td>
+                        {% for categorie in competencesArray %}
+                            {% for competence in categorie %}
+                                {% if competence == matrice.CompetencePrincipale %}
+                                    <td>1</td>
+                                {% elseif competence in matrice.CompetencesSecondaires %}
+                                    <td>*</td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </tr>
                 {% endfor %}
-            </tr>
-        </theader>
-        <tbody>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
