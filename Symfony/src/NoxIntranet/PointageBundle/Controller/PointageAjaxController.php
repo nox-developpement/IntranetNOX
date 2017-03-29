@@ -1716,4 +1716,29 @@ class PointageAjaxController extends Controller {
         }
     }
 
+    // Met à jour la valeur de régularisation.
+    public function ajaxUpdateRegularisationAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // Variables de la requête.
+            $regularisationText = $request->get('regularisationText');
+            $username = $request->get('username');
+            $month = $request->get('month');
+            $year = $request->get('year');
+
+            // On récupére le tableau et le pointage valide correspondant aux paramètres.
+            $em = $this->getDoctrine()->getManager();
+            $pointage = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
+            $tableau = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
+
+            // On applique la nouvelle valeur de régularisation au tableau et pointage.
+            $pointage->setRegularisation($regularisationText);
+            $tableau->setRegularisation($regularisationText);
+
+            // On sauvegarde le changements en base de données.
+            $em->flush();
+
+            return new Response('Saved');
+        }
+    }
+
 }

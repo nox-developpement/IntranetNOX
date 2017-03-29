@@ -225,3 +225,7 @@ nox_intranet_pointage_ajax_search_gx_affaire:
 nox_intranet_pointage_ajax_get_nom_affaire:
     path: /ressources/pointage/ajax-get-nom-affaire
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetNomAffaire }
+    
+nox_intranet_pointage_ajax_update_regularisation:
+    path: /ressources/pointage/ajax-update-regularisation
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxUpdateRegularisation }
