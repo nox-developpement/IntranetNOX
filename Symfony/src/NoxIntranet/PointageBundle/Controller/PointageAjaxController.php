@@ -1716,7 +1716,13 @@ class PointageAjaxController extends Controller {
         }
     }
 
-    // Met à jour la valeur de régularisation.
+    /**
+     * 
+     * Met à jour la valeur de régularisation dans le pointage et le tableau de pointage.
+     * 
+     * @param Request $request Les paramètres de la requête Ajax.
+     * @return Response
+     */
     public function ajaxUpdateRegularisationAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // Variables de la requête.
@@ -1736,7 +1742,7 @@ class PointageAjaxController extends Controller {
 
             // On sauvegarde le changements en base de données.
             $em->flush();
-
+            
             return new Response('Saved');
         }
     }
