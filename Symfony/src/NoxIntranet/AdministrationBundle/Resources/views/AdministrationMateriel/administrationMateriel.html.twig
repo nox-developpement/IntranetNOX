@@ -1,0 +1,33 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Administration matériel/logiciel {% endblock %}
+
+{% block messageAccueil %} Administration matériel/logiciel {% endblock %}
+
+{% block contenu %}
+
+    {{ form_start(form, {'attr': {'class': 'formulaireAdministrationMateriel'}}) }}
+    {{ form_errors(form) }}
+
+    {% if adresseHelpdesk == null %}
+
+        <p> Pas d'adresse configué pour le Helpdesk </p> 
+
+    {% else %}
+
+        <p> Adresse actuelle du Helpdesk : {{ adresseHelpdesk }} </p> 
+
+    {% endif %}
+
+    {{ form_label(form.email, "Nouvel email :", {'label_attr': {'class': 'labelFormulaireAdministrationMaterielEmail'}}) }}
+    {{ form_errors(form.email) }}
+    {{ form_widget(form.email, {'attr': {'class': 'FormulaireAdministrationMaterielEmail', 'placeholder': 'ex: helpdek@groupe-nox.com'}}) }}
+
+    {{ form_widget(form._token) }}
+
+    {{ form_widget(form.modifier, {'attr': {'class': 'submitformulaireAdministrationMateriel', 'class': 'boutonFormulaire' }}) }}
+
+    {{ form_end(form) }}
+
+{% endblock %}
+{# empty Twig template #}

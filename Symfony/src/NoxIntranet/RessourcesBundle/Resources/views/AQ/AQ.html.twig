@@ -1,0 +1,69 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Assurance qualité {% endblock %}
+
+{% block messageAccueil %}Assurance qualité<div id="DivAQMail"><div style="float: right;"><p style="font-size: 0.8vw;" ><a style="text-decoration: none; display: inline-block; width: 110%; color: rgb(31,78,121);" href="mailto:g.toure@groupe-nox.com?subject=Demande d'informations 'Assurance qualité'"><span style="vertical-align:middle; margin-right: 3%; display: inline-block;">Contact</span><img style="vertical-align: middle; width: 25%;" src="{{ asset('bundles/noxintranetressources/images/Message-Mail-32.png') }}"></a></p></div></div>{% endblock %}
+
+{% block contenu %}
+
+    <div class="surMessageAcceuil" id='menuInfoQSE' onclick="showSubMenu2('#sousMenuInfoQSE', this);"> 
+        <h4> Infos QSE <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
+    </div>
+
+    <div id="sousMenuInfoQSE" class="menu">
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'INFOSQSE/EQUIPEQSE', 'dossier': 'Equipe QSE', 'config': 'equipeQSE' }) }}'> <h4> Equipe QSE </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'INFOSQSE/CITATIONS', 'dossier': 'Citations', 'config': 'citations' }) }}'> <h4> Citations </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'INFOSQSE/EVENEMENTS', 'dossier': 'Evénements', 'config': 'evenements' }) }}'> <h4> Evénements </h4> </a>
+        </div>
+    </div>
+
+    <!-- Externe -->
+    <div class="surMessageAcceuil" id='menuCertificatsISO' onclick="showSubMenu2('#sousMenuCertificatsISO', this);"> 
+        <h4> Certificats ISO et OPQIBI <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
+    </div>
+
+
+    <div id='sousMenuCertificatsISO' class='menu'>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/ISO9001', 'dossier': 'ISO 9001', 'config': 'ISO9001' }) }}'> <h4> ISO 9001 </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/ISO14001&18001', 'dossier': 'ISO 14001 & 18001', 'config': 'ISO14001&18001' }) }}'> <h4> ISO 14001 & 18001 </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'CERTIFICATSISOETOPQIBI/OPQIBI', 'dossier': 'OPQIBI', 'config': 'OPQIBI' }) }}'> <h4> OPQIBI </h4> </a>
+        </div>
+
+    </div>
+
+    <div class="surMessageAcceuil" id='menuDocumentQSE' onclick="showSubMenu2('#sousMenuDocumentQSE', this);"> 
+        <h4> Documents QSE <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
+    </div>
+
+    <div id='sousMenuDocumentQSE' class='menu'>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'DOCUMENTQSE/MANUELQUALITE', 'dossier': 'Manuel Qualité', 'config': 'manuelQualite' }) }}'> <h4> Manuel Qualité </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'DOCUMENTQSE/PROCESSUS', 'dossier': 'Nos Processus', 'config': 'processus' }) }}'> <h4> Nos Processus </h4> </a>
+        </div>
+
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageAQ', { 'chemin': 'DOCUMENTQSE/INDICATEURS', 'dossier': 'Indicateurs', 'config': 'indicateurs' }) }}'> <h4> Indicateurs </h4> </a>
+        </div>
+
+    </div> 
+
+{% endblock %}

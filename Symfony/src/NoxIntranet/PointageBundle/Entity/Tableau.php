@@ -1,0 +1,294 @@
+<?php
+
+namespace NoxIntranet\PointageBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Tableau
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="NoxIntranet\PointageBundle\Entity\TableauRepository")
+ */
+class Tableau {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="User", type="string", length=255)
+     */
+    private $user;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Month", type="string", length=255)
+     */
+    private $month;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Year", type="string", length=255)
+     */
+    private $year;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Data", type="text")
+     */
+    private $data;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="SignatureCollaborateur", type="text")
+     */
+    private $signatureCollaborateur;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Status", type="string", length=255)
+     */
+    private $status;
+
+    /**
+     * @ORM\OneToOne(targetEntity="NoxIntranet\PointageBundle\Entity\JustificatifTransportFile", cascade={"persist", "remove"})
+     */
+    private $justificatifTransportFile;
+
+    /**
+     * @var Array
+     *
+     * @ORM\Column(name="CSVData", type="array", nullable=true)
+     */
+    private $CSVData;
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="regularisation", type="text", nullable=true)
+     */
+    private $regularisation;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set data
+     *
+     * @param string $data
+     *
+     * @return Tableau
+     */
+    public function setData($data) {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return string
+     */
+    public function getData() {
+        return $this->data;
+    }
+
+    /**
+     * Set month
+     *
+     * @param string $month
+     *
+     * @return Tableau
+     */
+    public function setMonth($month) {
+        $this->month = $month;
+
+        return $this;
+    }
+
+    /**
+     * Get month
+     *
+     * @return string
+     */
+    public function getMonth() {
+        return $this->month;
+    }
+
+    /**
+     * Set year
+     *
+     * @param string $year
+     *
+     * @return Tableau
+     */
+    public function setYear($year) {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return string
+     */
+    public function getYear() {
+        return $this->year;
+    }
+
+    /**
+     * Set user
+     *
+     * @param string $user
+     *
+     * @return Tableau
+     */
+    public function setUser($user) {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return string
+     */
+    public function getUser() {
+        return $this->user;
+    }
+
+    /**
+     * Set signatureCollaborateur
+     *
+     * @param string $signatureCollaborateur
+     *
+     * @return Tableau
+     */
+    public function setSignatureCollaborateur($signatureCollaborateur) {
+        $this->signatureCollaborateur = $signatureCollaborateur;
+
+        return $this;
+    }
+
+    /**
+     * Get signatureCollaborateur
+     *
+     * @return string
+     */
+    public function getSignatureCollaborateur() {
+        return $this->signatureCollaborateur;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Tableau
+     */
+    public function setStatus($status) {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus() {
+        return $this->status;
+    }
+
+    /**
+     * Set justificatifTransportFile
+     *
+     * @param \NoxIntranet\PointageBundle\Entity\JustificatifTransportFile $justificatifTransportFile
+     *
+     * @return Tableau
+     */
+    public function setJustificatifTransportFile(\NoxIntranet\PointageBundle\Entity\JustificatifTransportFile $justificatifTransportFile = null) {
+        $this->justificatifTransportFile = $justificatifTransportFile;
+
+        return $this;
+    }
+
+    /**
+     * Get justificatifTransportFile
+     *
+     * @return \NoxIntranet\PointageBundle\Entity\JustificatifTransportFile
+     */
+    public function getJustificatifTransportFile() {
+        return $this->justificatifTransportFile;
+    }
+
+    /**
+     * Set cSVData
+     *
+     * @param array $cSVData
+     *
+     * @return Tableau
+     */
+    public function setCSVData($cSVData) {
+        $this->CSVData = $cSVData;
+
+        return $this;
+    }
+
+    /**
+     * Get cSVData
+     *
+     * @return array
+     */
+    public function getCSVData() {
+        return $this->CSVData;
+    }
+
+
+    /**
+     * Set regularisation
+     *
+     * @param string $regularisation
+     *
+     * @return Tableau
+     */
+    public function setRegularisation($regularisation)
+    {
+        $this->regularisation = $regularisation;
+
+        return $this;
+    }
+
+    /**
+     * Get regularisation
+     *
+     * @return string
+     */
+    public function getRegularisation()
+    {
+        return $this->regularisation;
+    }
+}

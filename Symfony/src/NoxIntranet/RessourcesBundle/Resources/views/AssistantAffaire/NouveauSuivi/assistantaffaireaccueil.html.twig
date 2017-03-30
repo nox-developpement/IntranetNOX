@@ -1,0 +1,49 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Assistant d'affaire {% endblock %}
+
+{% block messageAccueil %}Assistant d'affaire{% endblock %}
+
+{% block contenu %}
+
+    <div class="iconContener">
+
+        <!-- Créer un suivis -->
+        <a href="{{ path('nox_intranet_assistant_affaire_nouvelle') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetressources/images/Document-Add-02-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Document-Add-02-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Document-Add-02-128.png') }}';"
+                    > 
+                <figcaption>Créer un suivis</figcaption>
+            </figure>
+        </a>
+
+        <!-- Parcourir les suivis en cours -->
+        <a href="{{ path('nox_intranet_assistant_affaire_parcour_suivi_en_cours') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetressources/images/Document-Exchange-02-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Document-Exchange-02-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Document-Exchange-02-128.png') }}';"
+                    > 
+                <figcaption>Parcourir les suivis en cours</figcaption>
+            </figure>
+        </a>
+
+        <!-- Parcourir les suivis terminés -->
+        <a href="{{ path('nox_intranet_assistant_affaire_parcour_suivi_termine') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetressources/images/Document-Zoom-In-03-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Document-Zoom-In-03-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Document-Zoom-In-03-128.png') }}';"
+                    > 
+                <figcaption>Parcourir les suivis terminés</figcaption>
+            </figure>
+        </a>
+
+    </div>
+
+{% endblock %}

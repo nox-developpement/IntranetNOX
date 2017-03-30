@@ -1,0 +1,43 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Edition {% endblock %}
+
+{% block messageAccueil %}Administration assistant d'affaires{% endblock %}
+
+{% block contenu %}
+
+    <div id='divExcelTableBinding' style='width: 70%; height: 80%; margin: auto;'>
+        <table id='excelTableBinding'>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+
+        $(window).load(function () {
+            excelTableExpansion();
+        });
+
+        function excelTableExpansion() {
+            // On récupére le tableau et la div qui le contient.
+            var table = $('#excelTableBinding');
+            var div = $('#divExcelTableBinding');
+
+            // On récupére les coodonnées de longueur et de largeur de la div.
+            var width = div.offset().left + div.outerWidth();
+            var height = div.offset().top + div.outerHeight();
+
+            while ((table.offset().top + table.outerHeight()) < height) {
+                var tr = table.append('<tr></tr>');
+
+                /*while ((tr.find('td:last-child').offset().left + tr.find('td:last-child').outerWidth()) < width) {
+                 tr.append('<td></td>');
+                 }*/
+            }
+        }
+
+    </script>
+
+{% endblock %}

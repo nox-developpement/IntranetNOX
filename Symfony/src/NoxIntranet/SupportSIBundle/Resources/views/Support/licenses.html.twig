@@ -1,0 +1,20 @@
+{% extends '::layout.html.twig' %}
+
+{% block titrePage %} Licences {% endblock %}
+
+{% block messageAccueil %}Licences{% endblock %}
+
+{% block contenu %}
+
+
+
+    <div style="width: 70%; margin: auto;">
+        <iframe id="doodleIframe" src="http://doodle.com/poll/sgn6icw64hgiidt7" style="width: 100%;">
+        </iframe>
+    </div>
+
+    <script type="text/javascript">
+        $('#doodleIframe').height($('#contenu').height()*0.7);
+    </script>
+
+{% endblock %}

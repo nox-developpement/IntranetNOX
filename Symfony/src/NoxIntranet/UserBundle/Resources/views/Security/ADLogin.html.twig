@@ -1,0 +1,29 @@
+{% if app.user != null %}
+    <div id="identifiants">
+        <p> <img src="{{ asset('bundles/noxintranetuser/images/User-128-hover.png') }}" alt='Utilisateur' onmousedown="return false;"><br>
+            <span id="usernameSpan"> {{ app.user.firstname }} {{ app.user.lastname }} </span>
+        </p>
+        <a href= {{ path('logout') }} > Déconnexion </a> 
+    </div>
+{% else %}
+
+
+    <div id='login' class="tooltipLogin">
+        <span class="tooltipLoginText">
+            Utilisez les mêmes identifiants que pour votre session Windows. <br />
+            ex: Vous êtes 'Henry Martin', votre login est 'h.martin'.
+        </span>
+        <form method="POST" action="{{ path("AD_connexion_check") }}" name='connexion'>
+
+            <input type='text' id='username' name='username' placeholder="Nom d'utilisateur">
+
+            <input type='password' id='password'  name='password' placeholder="Mot de passe">
+
+            <p>
+                <input class="boutonFormulaireInverse" type='submit' value='Connexion'>
+            </p>
+
+        </form>
+    </div>
+
+{% endif %}

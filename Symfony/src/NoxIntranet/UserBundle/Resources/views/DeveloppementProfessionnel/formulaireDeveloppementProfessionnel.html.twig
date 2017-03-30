@@ -1,0 +1,819 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Entretien annuel de développement professionnel {% endblock %}
+
+{% block messageAccueil %}Entretien annuel de développement professionnel{% endblock %}
+
+{% block sousMessageAccueil %}Année {{ 'now'|date('Y') }} | <a href='{{ asset("Préparation à l'Entretien de Développement Professionnel.pdf") }}' target="_blank">Préparation à l'Entretien de Développement Professionnel</a>{% endblock %}
+
+{% block contenu %}
+    <script>
+        $(window).load(function () {
+            readObjectifData();
+            getFormCookies();
+            saveCurrentFormProgress();
+            textareaAutoHeight();
+
+            // Lors du clique sur le bouton d'export PDF et sur celui de validation du formulaire...
+            $("#downloadPDF").click(function () {
+                ajaxConvertHtmlToPDF(); // On génére un PDF et on l'affiche.
+            });
+
+            $("form").submit(function () {
+                ajaxConvertHtmlToPDF(); // On génére un PDF et on l'affiche.
+                deleteFormCookies();
+
+                return true;
+            });
+        });
+
+        // Sauvegarde les données du formulaire en cours de remplissage sous forme de cookies.
+        function saveCurrentFormProgress() {
+            // Initialisation d'une variable de timer.
+            var delay = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            // Lors d'une modification sur un sélécteur...
+            $('#formulaireDeveloppementProfessionnelDiv').on('change', 'select', function () {
+                Cookies.set($(this).attr('id'), $(this).val(), {expires: 7}); // On crée un cookie contenant la valeur du sélécteur.
+            });
+
+            // Lorsqu'on remplis une input...
+            $('#formulaireDeveloppementProfessionnelDiv').on('keyup', 'input, textarea', function () {
+                var input = $(this); // On récupére l'input.
+
+                // Après une seconde sans taper...
+                delay(function () {
+                    Cookies.set(input.attr('id'), input.val(), {expires: 7}); // On crée un cookie contenant la valeur de l'input.
+                }, 1000);
+            });
+        }
+
+        // Supprime tous les cookies du formulaire.
+        function deleteFormCookies() {
+            // Pour chaques sélécteur et input du formulaire...
+            $('#formulaireDeveloppementProfessionnelDiv select, #formulaireDeveloppementProfessionnelDiv input, #formulaireDeveloppementProfessionnelDiv textarea').each(function () {
+                Cookies.remove($(this).attr('id')); // On supprime le cookie associé au champ du formulaire.
+            });
+
+            // On supprime le cookie du nombre d'objectif.
+            Cookies.remove('ObjectifNumber');
+        }
+
+        // Récupére les données des champs de formulaire depuis les cookies.
+        function getFormCookies() {
+            // Si il existe un cookie de nombre d'objectif et que le nombre d'objectif est supérieur à 1.
+            if (Cookies.get('ObjectifNumber') !== undefined && Cookies.get('ObjectifNumber') > 1) {
+                var objectifCount = Cookies.get('ObjectifNumber'); // On récupére le nombre d'objectif.
+
+                // Pour i de 2 à objetifCount...
+                for (var objectifIndex = 1; objectifIndex < objectifCount; objectifIndex++) {
+                    // Génération du code HTML à insérer.
+                    var objectifHtml = "<tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='neutreTd' colspan='2'><span class='questionLibelle'>Objectif " + (parseInt(objectifIndex) + 1) + " : Décrivez l'objectif (<span class='deleteObjectif' tr_index='objectif_td_" + (parseInt(objectifIndex) + 1) + "' onclick='deleteObjectif($(this));'>supprimer</span>)</span><textarea id='objectif_description_" + (parseInt(objectifIndex) + 1) + "' required='required' class='neutreTextarea objectifInput' style='height: 2em;'></textarea></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quels sont les résultats obtenus ?</span><textarea id='objectif_resultat_" + (parseInt(objectifIndex) + 1) + "' required='required' class='managerTextarea objectifInput' style='height: 10em;'></textarea></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd noWhiteSpaceTd' colspan='2'><span class='questionLibelle'>Sélectionnez le niveau d'atteinte de l'objectif</span><select id='objectif_niveau_" + (parseInt(objectifIndex) + 1) + "' required='required' class='objectifSelect'><option value='' selected='selected'>Choisir une réponse...</option><option value='Non atteint'>Non atteint</option><option value='Partiellement atteint'>Partiellement atteint</option><option value='Atteint'>Atteint</option><option value='Dépassé'>Dépassé</option></select></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quelles ont été les difficultés rencontrées ?</span><textarea id='objectif_difficulte_" + (parseInt(objectifIndex) + 1) + "' class='managerTextarea objectifInput' style='height: 10em;'></textarea></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quelles sont les réussites et les apports pour le Groupe ?</span><textarea id='objectif_reussite_" + (parseInt(objectifIndex) + 1) + "' required='required' class='managerTextarea objectifInput' style='height: 10em;'></textarea></td></tr>";
+
+                    // On insère le code HTML à la suite du dernière objectif.
+                    $('#addObjectif').parent('td').parent('tr').before(objectifHtml);
+
+                    // On attribut le nombre d'objectif au formulaire.
+                    $('#form_NombreObjectifs').val(Cookies.get('ObjectifNumber'));
+                }
+            }
+
+            // Pour chaques sélécteur et input du formulaire...
+            $('#formulaireDeveloppementProfessionnelDiv select, #formulaireDeveloppementProfessionnelDiv input, #formulaireDeveloppementProfessionnelDiv textarea').each(function () {
+                // Si le champ a un cookie associé...
+                if (Cookies.get($(this).attr('id')) !== undefined) {
+                    $(this).val(Cookies.get($(this).attr('id'))); // On attribue la valeur du cookie au champ du formulaire.
+                }
+            });
+        }
+
+        // Supprime un formulaire d'objectifs.
+        function deleteObjectif(element) {
+            var objectifIndex = element.attr('tr_index'); // On récupére la class des champs d'objectif de l'indes séléctionné.
+            $('.' + objectifIndex).remove(); // On supprime les champs de même class.
+
+            // On décrémente la valeur du nombre d'objectif.
+            $('#form_NombreObjectifs').val(parseInt($('#form_NombreObjectifs').val()) - 1);
+
+            // On crée un cookie contenant le nombre d'objectif Actuel.
+            Cookies.set('ObjectifNumber', $('#form_NombreObjectifs').val());
+        }
+
+        // Ajoute un formulaire d'objectif.
+        function addObjectif(objectifIndex) {
+            // Génération du code HTML à insérer.
+            var objectifHtml = "<tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='neutreTd' colspan='2'><span class='questionLibelle'>Objectif " + (parseInt(objectifIndex) + 1) + " : Décrivez l'objectif (<span class='deleteObjectif' tr_index='objectif_td_" + (parseInt(objectifIndex) + 1) + "' onclick='deleteObjectif($(this));'>supprimer</span>)</span><textarea id='objectif_description_" + (parseInt(objectifIndex) + 1) + "' required='required' class='neutreTextarea objectifInput' style='height: 2em;'></textarea></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quels sont les résultats obtenus ?</span><textarea id='objectif_resultat_" + (parseInt(objectifIndex) + 1) + "' required='required' class='managerTextarea objectifInput' style='height: 10em;'></textarea></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd noWhiteSpaceTd' colspan='2'><span class='questionLibelle'>Sélectionnez le niveau d'atteinte de l'objectif</span><select id='objectif_niveau_" + (parseInt(objectifIndex) + 1) + "' required='required' class='objectifSelect'><option value='' selected='selected'>Choisir une réponse...</option><option value='Non atteint'>Non atteint</option><option value='Partiellement atteint'>Partiellement atteint</option><option value='Atteint'>Atteint</option><option value='Dépassé'>Dépassé</option></select></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quelles ont été les difficultés rencontrées ?</span><textarea id='objectif_difficulte_" + (parseInt(objectifIndex) + 1) + "' class='managerTextarea objectifInput' style='height: 10em;'></textarea></td></tr><tr class='objectif_td_" + (parseInt(objectifIndex) + 1) + "'><td class='managerTd' colspan='2'><span class='questionLibelle'>Quelles sont les réussites et les apports pour le Groupe ?</span><textarea id='objectif_reussite_" + (parseInt(objectifIndex) + 1) + "' required='required' class='managerTextarea objectifInput' style='height: 10em;'></textarea></td></tr>";
+
+            // On insère le code HTML à la suite du dernière objectif.
+            $('#addObjectif').parent('td').parent('tr').before(objectifHtml);
+
+            // On incrémente la valeur du nombre d'objectif.
+            //$('#addObjectif').attr('objectifCount', objectifIndex);
+            $('#form_NombreObjectifs').val(parseInt($('#form_NombreObjectifs').val()) + 1);
+
+            // On crée un cookie contenant le nombre d'objectif Actuel.
+            Cookies.set('ObjectifNumber', parseInt(objectifIndex) + 1);
+
+        }
+
+        // Attribut les valeurs des objectifs au champ correspondant du formulaire.
+        function saveOjectifsData() {
+            var data = {}; // Initialisation d'un nouvel objet.
+
+            // Pour chaques champs d'objetifs...
+            $('.objectifInput, .objectifSelect').each(function () {
+                data[$(this).attr('id')] = $(this).val(); // On attibut la valeur du champs à l'objet.
+            });
+
+            // On convertie le tableau au format JSON.
+            var jsonData = JSON.stringify(data);
+
+            // On attribut la chaine JSON au champs des objectifs.
+            $('#form_Objectifs').val(jsonData);
+        }
+
+        // Lis les valeurs des objectifs sauvegardées en base de données.
+        function readObjectifData() {
+            // Si il existe des objectifs enregistrés en base de données.
+            if ($('#form_Objectifs').val() !== '') {
+                // On récupére les objectifs sous forme d'objet.
+                var objectifsDatas = JSON.parse($('#form_Objectifs').val());
+
+                // Pour chaques objectifs...
+                $.each(objectifsDatas, function (key, value) {
+                    $('#' + key).val(value); // On attribut sa valeur au champ d'objectif.
+                    $('#' + key).attr('disabled', 'disabled'); // On désactive le champ.
+                });
+            }
+        }
+
+        // Génére un PDF à partir du formulaire et l'affiche dans une popup.
+        function ajaxConvertHtmlToPDF() {
+            var formulaireOriginal = $('#formulaireDeveloppementProfessionnelDiv');
+
+            // On copie le formulaire d'entretien professionnel.
+            var formulaireCopy = $('<div>' + formulaireOriginal.html() + '</div>');
+
+            // On supprime les boutons de la copie.
+            formulaireCopy.find('button').remove();
+
+            // On attribut les valeurs du formulaire à la copie.
+            formulaireOriginal.find('textarea').each(function (index) {
+                formulaireCopy.find('textarea').eq(index).text($(this).val());
+            });
+            formulaireOriginal.find('input').each(function (index) {
+                formulaireCopy.find('input').eq(index).val($(this).val());
+            });
+            formulaireOriginal.find('select').each(function (index) {
+                formulaireCopy.find('select').eq(index).find('option').removeAttr('selected');
+                formulaireCopy.find('select').eq(index).find("option[value=\"" + $(this).find('option:selected').val() + "\"]").attr('selected', 'selected');
+            });
+
+            // On récupére le code HTML de la copie.
+            var formulaireHtmlCopy = formulaireCopy.html();
+
+            // On initialise une fenêtre popup qui affichera le PDF.
+            var redirectWindow = window.open('', '_blank');
+            redirectWindow.document.write("<p style='font-size: 2em;'>Vous pouvez fermer cet onglet une fois le téléchargement démarré.<p>");
+
+            // Génére le fichier PDF et l'affiche dans la popup.
+            $.ajax({
+                url: '{{ path('nox_intranet_developpement_professionnel_ajax_convert_html_to_pdf') }}',
+                type: 'POST',
+                async: false,
+                data: {formulaireHtml: formulaireHtmlCopy, firstname: $("#form_Prenom").val(), lastname: $("#form_Nom").val()},
+                dataType: 'HTML',
+                success: function (downloadUrl) {
+                    // On renome la popup et on lui assigne le PDF.
+                    redirectWindow.location = downloadUrl;
+                }
+            });
+        }
+
+        // Redimensionne les textarea lorsque la barre de scroll apparait.
+        function textareaAutoHeight() {
+            // Si il y a une barre de scroll, redimensionne la textarea.
+            function resizeHeight(element) {
+                if (element.scrollHeight > $(element).outerHeight()) {
+                    $(element).height(element.scrollHeight);
+                }
+            }
+
+            // Pour chaques textarea...
+            $('textarea').each(function () {
+                resizeHeight(this);
+            });
+
+            // Lorsque que l'on tape ou colle du texte dans une textara...
+            $('#formulaireDeveloppementProfessionnelDiv').on('keyup paste', 'textarea', function () {
+                resizeHeight(this);
+            });
+        }
+    </script>
+
+    <div id="formulaireDeveloppementProfessionnelDiv">        
+
+        <style>
+            #formulaireDeveloppementProfessionnelDiv {
+                width: 70%;
+                margin: auto;
+            }
+
+            #formulaireDeveloppementProfessionnelDiv form {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+
+            #infoGeneraleTable {
+                width: 100%;
+                border-collapse: collapse;
+                border: 2px solid black;
+            }
+
+            #infoGeneraleTable tr, #infoGeneraleTable td {
+                border-collapse: collapse;
+                border: 1px solid black;
+            }
+
+            #infoGeneraleTable td {
+                padding: 1em;
+                color: black;
+            }
+
+            #infoGeneraleTable div:not(.cellInputDiv) {
+                display: inline-block;
+            }
+
+            .cellInputDiv {
+                display: table;
+                width: 100%;
+            }
+
+            .cellInputDiv label {
+                display: table-cell;
+                width: 1px;
+                white-space: pre;
+            }
+
+            .cellInputDiv input[type='text'], .cellInputDiv input[type='number'] {
+                display: table-cell;
+                box-sizing: border-box;
+                width: 100%;
+                text-align: center;
+            }
+
+            h4 {
+                text-decoration: underline;
+                color: rgb(0 ,32, 96);
+                font-size: 1.2em;
+            }
+
+            .collaborateurTd, .collaborateurTextarea {
+                background-color: rgb(218, 238, 243);
+            }
+
+            .managerTd, .managerTextarea {
+                background-color: rgb(217, 217, 217);
+            }
+
+            .neutreTd, .neutreTextarea {
+                background-color: white;
+            }
+
+            .questionsTable {
+                table-layout: fixed;
+                width: 100%;
+            }
+
+            .questionsTable, .questionsTable tr, .questionsTable td {
+                border-collapse: collapse;
+                border: 1px solid black;
+            }
+
+            .questionsTable td {
+                width: 50%;
+                padding-left: 0.5em;
+                padding-right: 0.5em;
+                color: black;
+            }
+
+            .questionsTable td textarea {
+                display: block;
+                box-sizing: border-box;
+                width: 100%;
+                resize: none;
+                border: none;
+            }
+
+            .questionLibelle {
+                display: block;
+                font-style: italic;
+                text-align: left;
+            }
+
+            .noWhiteSpaceTd {
+                padding: 0.5% !important; 
+                text-align: center;
+            }
+
+            .noWhiteSpaceTd select {
+                width: 100%;
+            }
+
+            #questionsTable1 tr:nth-child(5), #questionsTable1 tr:nth-child(5) td {
+                border-bottom: none;
+            }
+
+            #questionsTable1 tr:nth-child(6), #questionsTable1 tr:nth-child(6) td {
+                border-top: none;
+            }
+
+            #questionsTable1 tr:nth-child(n+7):nth-child(-n+8), #questionsTable1 tr:nth-child(n+7):nth-child(-n+8) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable1 tr:nth-child(n+10):nth-child(-n+13), #questionsTable1 tr:nth-child(n+10):nth-child(-n+13) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable1 tr:nth-child(n+15):nth-child(-n+18), #questionsTable1 tr:nth-child(n+15):nth-child(-n+18) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable1 tr:nth-child(n+20):nth-child(-n+21), #questionsTable1 tr:nth-child(n+20):nth-child(-n+21) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable2 tr:nth-child(n+4):nth-child(-n+5), #questionsTable2 tr:nth-child(n+4):nth-child(-n+5) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable3 tr:nth-child(n+6):nth-child(-n+7), #questionsTable3 tr:nth-child(n+6):nth-child(-n+7) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable3 tr:nth-child(n+9):nth-child(-n+15), #questionsTable3 tr:nth-child(n+9):nth-child(-n+15) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable4 tr:nth-child(n+5):nth-child(-n+6), #questionsTable4 tr:nth-child(n+5):nth-child(-n+6) td {
+                border-top: none;
+                border-bottom: none;
+            }
+
+            #questionsTable5 {
+                margin-bottom: 2em;
+            }
+
+            #questionsTable6 {
+                margin-bottom: 1em;
+            }
+
+            #formValidationParagraph {
+                margin: 0;
+                text-align: center;
+            }
+
+            #form_Valider {
+                margin-bottom: 5em;
+                padding: 1em;
+            }
+
+            #form_Valider:hover {
+                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7db9e8+0,daeef3+100 */
+                background: #7db9e8; /* Old browsers */
+                background: -moz-linear-gradient(top,  #7db9e8 0%, #daeef3 100%); /* FF3.6-15 */
+                background: -webkit-linear-gradient(top,  #7db9e8 0%,#daeef3 100%); /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to bottom,  #7db9e8 0%,#daeef3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#daeef3',GradientType=0 ); /* IE6-9 */
+            }
+
+            #formationTable {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            #formationTable, #formationTable tr, #formationTable td {
+                border: 1px solid black;
+            }
+
+            #formationTable td {
+                padding: 0;
+                text-align: center;
+                background-color: rgb(217, 217, 217); 
+            }
+
+            #formationTable tr input[type='text'] {
+                display: block;
+                box-sizing: border-box;
+                border: none;
+                width: 100%;
+                height: 100%;
+            }
+
+            .deleteObjectif {
+                color: blue;
+                cursor: pointer;
+            }
+
+            .deleteObjectif:hover {
+                text-decoration: underline;
+            }
+
+            #addObjectif {
+                color: blue;
+                cursor: pointer;
+            }
+
+            #addObjectif:hover {
+                text-decoration: underline;
+            }
+        </style>
+
+        {{ form_start(formulaireDevellopementProfessionnel) }}
+        <table id='infoGeneraleTable'>
+            <tr>
+                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.Nom) }}{{ form_widget(formulaireDevellopementProfessionnel.Nom) }}</div></td>
+                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.PosteActuel) }}{{ form_widget(formulaireDevellopementProfessionnel.PosteActuel) }}</div></td>
+            </tr>
+            <tr>
+                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.Prenom) }}{{ form_widget(formulaireDevellopementProfessionnel.Prenom) }}</div></td>
+                <td>{{ form_label(formulaireDevellopementProfessionnel.DateAnciennetePoste) }}{{ form_widget(formulaireDevellopementProfessionnel.DateAnciennetePoste) }}</td>
+            </tr>
+            <tr>
+                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.Age) }}{{ form_widget(formulaireDevellopementProfessionnel.Age) }}</div></td>
+                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.SalaireBrutMensuel) }}{{ form_widget(formulaireDevellopementProfessionnel.SalaireBrutMensuel) }}</div></td>
+            </tr>
+            <tr>
+                <td>{{ form_label(formulaireDevellopementProfessionnel.DateAncienneteGroupe) }}{{ form_widget(formulaireDevellopementProfessionnel.DateAncienneteGroupe) }}</td>
+                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.NomResponsable) }}{{ form_widget(formulaireDevellopementProfessionnel.NomResponsable) }}</div></td>
+            </tr>
+            <tr>
+                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.Entite) }}{{ form_widget(formulaireDevellopementProfessionnel.Entite) }}</div></td>
+                <td>{{ form_label(formulaireDevellopementProfessionnel.DateEntretien) }}{{ form_widget(formulaireDevellopementProfessionnel.DateEntretien) }}</td>
+            </tr>
+        </table>
+
+        <h4>Thème 1 : Bilan de l'année écoulée</h4>
+
+        <table class='questionsTable' id="questionsTable1">
+            <tr>
+                <td class='collaborateurTd' style='text-align: center; font-weight: bold;'>AUTO EVALUATION</td>
+                <td class='managerTd' style='text-align: center; font-weight: bold;'>EVALUATION DU MANAGER</td>
+            </tr>
+            <tr>
+                <td colspan='2' style='text-align: center; font-weight: bold;'>Bilan de l'année écoulée</td>
+            </tr>
+            {% for key, question in questions if key >= 1 and key <= 6 %}
+                <tr>
+                    {% if question['Collaborateur'] is defined %}
+                        {% if question['Collaborateur']['Type'] == 'Texte' %}
+                            <td class='collaborateurTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur'], {'attr': {'style': question['Collaborateur']['Taille'] is defined ? 'height: ' ~ question['Collaborateur']['Taille']~ 'em;' : '' }}) }}</td>
+                        {% elseif question['Collaborateur']['Type'] == 'Choix' %}
+                            <td class='collaborateurTd noWhiteSpaceTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Manager'] is defined %}
+                            {% if question['Manager']['Type'] == 'Texte' %}
+                            <td class='managerTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager'], {'attr': {'style': question['Manager']['Taille'] is defined ? 'height: ' ~ question['Manager']['Taille']~ 'em;' : ''}}) }}</td>
+                        {% elseif question['Manager']['Type'] == 'Choix' %}
+                            <td class='managerTd noWhiteSpaceTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Neutre'] is defined %}
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}       
+            {% for objectifIndex in 1..formulaireDevellopementProfessionnel.NombreObjectifs.vars.value %}
+                <tr class="objectif_td_{{ objectifIndex }}">
+                    <td class="neutreTd" colspan="2">
+                        <span class="questionLibelle">Objectif {{ objectifIndex }} : Décrivez l'objectif (<span class="deleteObjectif" tr_index="objectif_td_{{ objectifIndex }}" onclick="deleteObjectif($(this));">supprimer</span>)</span>
+                        <textarea id="objectif_description_{{ objectifIndex }}" required="required" class="neutreTextarea objectifInput" style="height: 2em;"></textarea>
+                    </td>
+                </tr>
+                <tr class="objectif_td_{{ objectifIndex }}">
+                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quels sont les résultats obtenus ?</span><textarea id="objectif_resultat_{{ objectifIndex }}" required="required" class="managerTextarea objectifInput" style="height: 10em;"></textarea></td>
+                </tr>
+                <tr class="objectif_td_{{ objectifIndex }}">
+                    <td class="managerTd noWhiteSpaceTd" colspan="2"><span class="questionLibelle">Sélectionnez le niveau d'atteinte de l'objectif</span><select id="objectif_niveau_{{ objectifIndex }}" required="required" class="objectifSelect"><option value="" selected="selected">Choisir une réponse...</option><option value="Non atteint">Non atteint</option><option value="Partiellement atteint">Partiellement atteint</option><option value="Atteint">Atteint</option><option value="Dépassé">Dépassé</option></select></td>
+                </tr>
+                <tr class="objectif_td_{{ objectifIndex }}">
+                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quelles ont été les difficultés rencontrées ?</span><textarea id="objectif_difficulte_{{ objectifIndex }}" class="managerTextarea objectifInput" style="height: 10em;"></textarea></td>
+                </tr>
+                <tr class="objectif_td_{{ objectifIndex }}">
+                    <td class="managerTd" colspan="2"><span class="questionLibelle">Quelles sont les réussites et les apports pour le Groupe ?</span><textarea id="objectif_reussite_{{ objectifIndex }}" required="required" class="managerTextarea objectifInput" style="height: 10em;"></textarea></td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2" style="text-align: center; background-color: rgb(217, 217, 217);"><span id="addObjectif" onclick="addObjectif($('#form_NombreObjectifs').val());">Ajouter un objectif</span></td>
+            </tr>
+
+            <tr>
+                <td colspan='2' style='text-align: center; font-weight: bold;'>Charge de travail</td>
+            </tr>
+            {% for key, question in questions if key >=17 and key <= 18 %}
+                <tr>
+                    {% if question['Collaborateur'] is defined %}
+                        {% if question['Collaborateur']['Type'] == 'Texte' %}
+                            <td class='collaborateurTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur'], {'attr': {'style': question['Collaborateur']['Taille'] is defined ? 'height: ' ~ question['Collaborateur']['Taille']~ 'em;' : '' }}) }}</td>
+                        {% elseif question['Collaborateur']['Type'] == 'Choix' %}
+                            <td class='collaborateurTd noWhiteSpaceTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Manager'] is defined %}
+                            {% if question['Manager']['Type'] == 'Texte' %}
+                            <td class='managerTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager'], {'attr': {'style': question['Manager']['Taille'] is defined ? 'height: ' ~ question['Manager']['Taille']~ 'em;' : ''}}) }}</td>
+                        {% elseif question['Manager']['Type'] == 'Choix' %}
+                            <td class='managerTd noWhiteSpaceTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Neutre'] is defined %}
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h4>Thème 2 : Acquis, forces et faiblesses</h4>
+        <table class='questionsTable' id="questionsTable2">
+            <tr>
+                <td class='collaborateurTd' style='text-align: center; font-weight: bold;'>AUTO EVALUATION</td>
+                <td class='managerTd' style='text-align: center; font-weight: bold;'>EVALUATION DU MANAGER</td>
+            </tr>
+
+            {% for key, question in questions if key >=19 and key <= 23 %}
+                <tr>
+                    {% if question['Collaborateur'] is defined %}
+                        {% if question['Collaborateur']['Type'] == 'Texte' %}
+                            <td class='collaborateurTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur'], {'attr': {'style': question['Collaborateur']['Taille'] is defined ? 'height: ' ~ question['Collaborateur']['Taille']~ 'em;' : '' }}) }}</td>
+                        {% elseif question['Collaborateur']['Type'] == 'Choix' %}
+                            <td class='collaborateurTd noWhiteSpaceTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Manager'] is defined %}
+                            {% if question['Manager']['Type'] == 'Texte' %}
+                            <td class='managerTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager'], {'attr': {'style': question['Manager']['Taille'] is defined ? 'height: ' ~ question['Manager']['Taille']~ 'em;' : ''}}) }}</td>
+                        {% elseif question['Manager']['Type'] == 'Choix' %}
+                            <td class='managerTd noWhiteSpaceTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Neutre'] is defined %}
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h4>Thème 3 : Projet professionnel - motivations et aspirations</h4>
+        <table class='questionsTable' id="questionsTable3">
+            <tr>
+                <td class='collaborateurTd' style='text-align: center; font-weight: bold;'>AUTO EVALUATION</td>
+                <td class='managerTd' style='text-align: center; font-weight: bold;'>EVALUATION DU MANAGER</td>
+            </tr>
+            <tr>
+                <td colspan='2' style='text-align: center; font-weight: bold;'>Evolution du métier</td>
+            </tr>
+
+            {% for key, question in questions if key >=24 and key <= 25 %}
+                <tr>
+                    {% if question['Collaborateur'] is defined %}
+                        {% if question['Collaborateur']['Type'] == 'Texte' %}
+                            <td class='collaborateurTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur'], {'attr': {'style': question['Collaborateur']['Taille'] is defined ? 'height: ' ~ question['Collaborateur']['Taille']~ 'em;' : '' }}) }}</td>
+                        {% elseif question['Collaborateur']['Type'] == 'Choix' %}
+                            <td class='collaborateurTd noWhiteSpaceTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Manager'] is defined %}
+                            {% if question['Manager']['Type'] == 'Texte' %}
+                            <td class='managerTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager'], {'attr': {'style': question['Manager']['Taille'] is defined ? 'height: ' ~ question['Manager']['Taille']~ 'em;' : ''}}) }}</td>
+                        {% elseif question['Manager']['Type'] == 'Choix' %}
+                            <td class='managerTd noWhiteSpaceTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Neutre'] is defined %}
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+
+            <tr>
+                <td colspan='2' style='text-align: center; font-weight: bold;'>Projet professionnel</td>
+            </tr>
+
+            {% for key, question in questions if key >=26 and key <= 27 %}
+                <tr>
+                    {% if question['Collaborateur'] is defined %}
+                        {% if question['Collaborateur']['Type'] == 'Texte' %}
+                            <td class='collaborateurTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur'], {'attr': {'style': question['Collaborateur']['Taille'] is defined ? 'height: ' ~ question['Collaborateur']['Taille']~ 'em;' : '' }}) }}</td>
+                        {% elseif question['Collaborateur']['Type'] == 'Choix' %}
+                            <td class='collaborateurTd noWhiteSpaceTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Manager'] is defined %}
+                            {% if question['Manager']['Type'] == 'Texte' %}
+                            <td class='managerTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager'], {'attr': {'style': question['Manager']['Taille'] is defined ? 'height: ' ~ question['Manager']['Taille']~ 'em;' : ''}}) }}</td>
+                        {% elseif question['Manager']['Type'] == 'Choix' %}
+                            <td class='managerTd noWhiteSpaceTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Neutre'] is defined %}
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+
+            <tr>
+                <td colspan='2' style='text-align: center; font-weight: bold;'>Mobilité géographique</td>
+            </tr>
+
+            {% for key, question in questions if key >=28 and key <= 28 %}
+                <tr>
+                    <td class='collaborateurTd noWhiteSpaceTd' colspan='2'><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur']) }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td class='collaborateurTd' colspan='2' style='padding-top: 1em;'><span class='questionLibelle'>Région/Pays : </span></td>
+            </tr>
+            <tr>
+                <td class='collaborateurTd' colspan='2'>{{ form_label(formulaireDevellopementProfessionnel.RegionFrance) }}{{ form_widget(formulaireDevellopementProfessionnel.RegionFrance) }}</td>
+            </tr>
+            <tr>
+                <td class='collaborateurTd' colspan='2'>{{ form_label(formulaireDevellopementProfessionnel.PaysInternational) }}{{ form_widget(formulaireDevellopementProfessionnel.PaysInternational) }}</td>
+            </tr>
+            <tr>
+                <td class='collaborateurTd' colspan='2' style='padding-top: 1em;'><span class='questionLibelle'>Quels est mon niveau de langue ?</span></td>
+            </tr>
+            <tr>
+                <td class='collaborateurTd' colspan='2'>{{ form_label(formulaireDevellopementProfessionnel.Langue1) }}{{ form_widget(formulaireDevellopementProfessionnel.Langue1, {'attr': {'style': 'margin-right: 1em;'}}) }}{{ form_label(formulaireDevellopementProfessionnel.NiveauLangue1) }}{{ form_widget(formulaireDevellopementProfessionnel.NiveauLangue1) }}</td>
+            </tr>
+            <tr>
+                <td class='collaborateurTd' colspan='2'>{{ form_label(formulaireDevellopementProfessionnel.Langue2) }}{{ form_widget(formulaireDevellopementProfessionnel.Langue2, {'attr': {'style': 'margin-right: 1em;'}}) }}{{ form_label(formulaireDevellopementProfessionnel.NiveauLangue2) }}{{ form_widget(formulaireDevellopementProfessionnel.NiveauLangue2) }}</td>
+            </tr>
+        </table>
+
+        <h4>Thème 4 : Objectifs de l'année à venir</h4>
+        <table class='questionsTable' id="questionsTable4">
+            <tr>
+                <td class='collaborateurTd' style='text-align: center; font-weight: bold;'>AUTO EVALUATION</td>
+                <td class='managerTd' style='text-align: center; font-weight: bold;'>EVALUATION DU MANAGER</td>
+            </tr>
+            <tr>
+                <td colspan='2' style='text-align: center; font-weight: bold;'>Objectifs personnels et professionnels pour l'année prochaine</td>
+            </tr>
+
+            {% for key, question in questions if key >= 29 and key <= 29 %}
+                <tr>
+                    {% if question['Collaborateur'] is defined %}
+                        {% if question['Collaborateur']['Type'] == 'Texte' %}
+                            <td class='collaborateurTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur'], {'attr': {'style': question['Collaborateur']['Taille'] is defined ? 'height: ' ~ question['Collaborateur']['Taille']~ 'em;' : '' }}) }}</td>
+                        {% elseif question['Collaborateur']['Type'] == 'Choix' %}
+                            <td class='collaborateurTd noWhiteSpaceTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Manager'] is defined %}
+                            {% if question['Manager']['Type'] == 'Texte' %}
+                            <td class='managerTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager'], {'attr': {'style': question['Manager']['Taille'] is defined ? 'height: ' ~ question['Manager']['Taille']~ 'em;' : ''}}) }}</td>
+                        {% elseif question['Manager']['Type'] == 'Choix' %}
+                            <td class='managerTd noWhiteSpaceTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Neutre'] is defined %}
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+
+            <tr>
+                <td colspan='2' style='text-align: center; font-weight: bold;'>Moyens pour atteindre les objectifs ?</td>
+            </tr>
+
+            {% for key, question in questions if key >= 30 and key <= 30 %}
+                <tr>
+                    {% if question['Collaborateur'] is defined %}
+                        {% if question['Collaborateur']['Type'] == 'Texte' %}
+                            <td class='collaborateurTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur'], {'attr': {'style': question['Collaborateur']['Taille'] is defined ? 'height: ' ~ question['Collaborateur']['Taille']~ 'em;' : '' }}) }}</td>
+                        {% elseif question['Collaborateur']['Type'] == 'Choix' %}
+                            <td class='collaborateurTd noWhiteSpaceTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Manager'] is defined %}
+                            {% if question['Manager']['Type'] == 'Texte' %}
+                            <td class='managerTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager'], {'attr': {'style': question['Manager']['Taille'] is defined ? 'height: ' ~ question['Manager']['Taille']~ 'em;' : ''}}) }}</td>
+                        {% elseif question['Manager']['Type'] == 'Choix' %}
+                            <td class='managerTd noWhiteSpaceTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Neutre'] is defined %}
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            {% for key, question in questions if key >= 31 and key <= 31 %}
+                <tr>
+                    {% if question['Collaborateur'] is defined %}
+                        {% if question['Collaborateur']['Type'] == 'Texte' %}
+                            <td class='collaborateurTd'><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur'], {'attr': {'style': question['Collaborateur']['Taille'] is defined ? 'height: ' ~ question['Collaborateur']['Taille']~ 'em;' : '' }}) }}</td>
+                        {% endif %}
+                    {% endif %}
+                    <td class='managerTd' style='text-align: center; vertical-align: top;'>
+                        <span class='questionLibelle' style='margin-bottom: 1em;'>Quelles formations sont à prévoir ? Indiquez les niveaux de priorité ?</span>
+                        <table id='formationTable'>
+                            <tr>
+                                <td>Formation</td>
+                                <td>Priorité</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form_widget(formulaireDevellopementProfessionnel['Formation1']) }}</td>
+                                <td>{{ form_widget(formulaireDevellopementProfessionnel['Priorite1']) }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form_widget(formulaireDevellopementProfessionnel['Formation2']) }}</td>
+                                <td>{{ form_widget(formulaireDevellopementProfessionnel['Priorite2']) }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form_widget(formulaireDevellopementProfessionnel['Formation3']) }}</td>
+                                <td>{{ form_widget(formulaireDevellopementProfessionnel['Priorite3']) }}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h4>Synthèse de l'entretien</h4>
+        <table class='questionsTable' id="questionsTable5">
+            {% for key, question in questions if key >= 32 and key <= 32 %}
+                <tr>
+                    {% if question['Collaborateur'] is defined %}
+                        {% if question['Collaborateur']['Type'] == 'Texte' %}
+                            <td class='collaborateurTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur'], {'attr': {'style': question['Collaborateur']['Taille'] is defined ? 'height: ' ~ question['Collaborateur']['Taille']~ 'em;' : '' }}) }}</td>
+                        {% elseif question['Collaborateur']['Type'] == 'Choix' %}
+                            <td class='collaborateurTd noWhiteSpaceTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Manager'] is defined %}
+                            {% if question['Manager']['Type'] == 'Texte' %}
+                            <td class='managerTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager'], {'attr': {'style': question['Manager']['Taille'] is defined ? 'height: ' ~ question['Manager']['Taille']~ 'em;' : ''}}) }}</td>
+                        {% elseif question['Manager']['Type'] == 'Choix' %}
+                            <td class='managerTd noWhiteSpaceTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Neutre'] is defined %}
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+
+        <table class='questionsTable' id="questionsTable6">
+            {% for key, question in questions if key >= 33 and key <= 34 %}
+                <tr>
+                    {% if question['Collaborateur'] is defined %}
+                        {% if question['Collaborateur']['Type'] == 'Texte' %}
+                            <td class='collaborateurTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur'], {'attr': {'style': question['Collaborateur']['Taille'] is defined ? 'height: ' ~ question['Collaborateur']['Taille']~ 'em;' : '' }}) }}</td>
+                        {% elseif question['Collaborateur']['Type'] == 'Choix' %}
+                            <td class='collaborateurTd noWhiteSpaceTd' {{ question['Manager'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Collaborateur']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Collaborateur']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Manager'] is defined %}
+                            {% if question['Manager']['Type'] == 'Texte' %}
+                            <td class='managerTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager'], {'attr': {'style': question['Manager']['Taille'] is defined ? 'height: ' ~ question['Manager']['Taille']~ 'em;' : ''}}) }}</td>
+                        {% elseif question['Manager']['Type'] == 'Choix' %}
+                            <td class='managerTd noWhiteSpaceTd' {{ question['Collaborateur'] is defined ? '' : "colspan='2'" }}><span class='questionLibelle'>{{ question['Manager']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Manager']) }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% if question['Neutre'] is defined %}
+                        <td class='neutreTd' colspan='2'><span class='questionLibelle'>{{ question['Neutre']['Question'] }}</span>{{ form_widget(formulaireDevellopementProfessionnel[key ~ '_Neutre'], {'attr': {'style': question['Neutre']['Taille'] is defined ? 'height: ' ~ question['Neutre']['Taille']~ 'em;' : '' }}) }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+        <p id='formValidationParagraph'>
+            <button id="downloadPDF" type="button">Export PDF</button>
+            <br /><br />
+            {% if entretien.statut is defined and entretien.statut == 'Synthèse' %}
+                {{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'style': 'display: none;'}}) }}
+            {% else %}
+                {{ form_widget(formulaireDevellopementProfessionnel.Valider, {'attr': {'onclick': 'saveOjectifsData();'}}) }}
+            {% endif %}
+        </p>
+        {{ form_end(formulaireDevellopementProfessionnel) }}
+
+    </div>
+{% endblock %}

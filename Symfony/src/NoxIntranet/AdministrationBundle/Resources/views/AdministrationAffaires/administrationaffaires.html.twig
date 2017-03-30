@@ -1,0 +1,397 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Administration assistant d'affaires {% endblock %}
+
+{% block messageAccueil %}Administration assistant d'affaires{% endblock %}
+
+{% block contenu %}
+
+    <div id="DivChoixActionInfo" style='width: 70%; margin: auto; text-align: center; margin-bottom: 2%;'>
+        <div style='display: inline-block; width: 33.33%; text-align: center;'>
+            <button type="button" name='profils' class='boutonFormulaire' style='font-size: 0.9vw;'>Profils</button>
+        </div><!--
+        --><div style='display: inline-block; width: 33.33%; text-align: center;'>
+            <button type="button" name='champs' class='boutonFormulaire' style='font-size: 0.9vw;'>Champs</button>
+        </div><!--
+        --><div style='display: inline-block; width: 33.33%; text-align: center;'>
+            <button type="button" name='modeles' class='boutonFormulaire' style='font-size: 0.9vw;'>Modèles</button>
+        </div>
+    </div>
+
+    <div id='DivProfils' style='{% if section != 'profils' %}display: none;{% endif %} width: 70%; margin: auto;'>
+
+        {{ form_start(formProfils, {'attr': {'class': 'formulaireAdministrationAjoutProfil'}}) }}
+        {{ form_errors(formProfils) }}
+
+        <fieldset>
+
+            <legend>Ajouter un profil</legend>
+
+            <p style="margin: 0;">
+                <label for='addProfilName' style='display: inline-block; width: 100%; text-align: center; margin-top: 2%;'>Profils</label><br />
+                <input type='text' name='addProfilName'  style='width: 30%; margin: 0; margin-bottom: 1%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; text-align: center;'><button type='button' name='addProfil' class='boutonFormulaire' style='width: 9%; margin-left: 1%;'>+</button><br />
+                {{ form_errors(formProfils.Profils) }}
+                {{ form_widget(formProfils.Profils, {'attr': {'class': 'textFormulaireAdministrationAjoutProfil', 'size': '15', 'style': 'width: 40%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box;' }}) }}<br />
+                <button name='deleteProfil' type='button' class='boutonFormulaire' style='width: 40%; font-size: 0.8vw; margin-top: 1%;'>Supprimer</button>
+            </p>
+
+        </fieldset>
+
+        {{ form_end(formProfils) }}
+
+    </div>
+
+    <div id='DivChamps' style='{% if section != 'champs' %}display: none;{% endif %}'>
+        <table id='administrationChampsTable'>
+            <tr>
+                <th data-sorter="true" sorter-order="none" data-type="Champs_Nom">
+                    Nom
+                    <div style='display: inline-block; vertical-align: middle; height: 0.8vw'><!--
+                        --><img class='sortArrowUp' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --><img class='sortArrowDown' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --></div>
+                </th>
+                <th data-sorter="true" sorter-order="none" data-type="Champs_Profil">
+                    Profil
+                    <div style='display: inline-block; vertical-align: middle; height: 0.8vw'><!--
+                        --><img class='sortArrowUp' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --><img class='sortArrowDown' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --></div>
+                </th>
+                <th data-sorter="true" sorter-order="none" data-type="Champs_Type">
+                    Type
+                    <div style='display: inline-block; vertical-align: middle; height: 0.8vw'><!--
+                        --><img class='sortArrowUp' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --><img class='sortArrowDown' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --></div>
+                </th>
+                <th>Editer</th>
+                <th>Supprimer</th>
+            </tr>
+            <tr>
+                {{ form_start(formNewChamp) }}
+                <td>{{ form_widget(formNewChamp.Nom) }}</td>
+                <td>{{ form_widget(formNewChamp.Profil) }}</td>
+                <td>{{ form_widget(formNewChamp.Type) }}</td>
+                <td style="opacity: 0;">
+                    {{ form_label(formNewChamp.AjoutDonnees) }}<br />
+                    {{ form_widget(formNewChamp.AjoutDonnees, {'attr': {'style': 'vertical-align: middle;'}}) }}
+                </td>
+                <td style='background-color: lightgrey;'></td>
+                <td>{{ form_widget(formNewChamp.Ajouter, {'attr': {'class': 'boutonFormulaire'}}) }}</td>
+                {{ form_end(formNewChamp) }}
+            </tr>
+            {% for champ in champs %}
+                <tr>
+                    <td data-type="Champs_Nom">{{ champ.Nom }}</td>
+                    <td data-type="Champs_Profil">{{ champ.Profil }}</td>
+                    <td data-type="Champs_Type">{{ champ.Type }}</td>
+                    {% if champ.AjoutDonnees == true %}
+                        <td><a href='{{ path('nox_intranet_administration_affaires_edition_champ', { 'IDChamp': champ.Id }) }}'><img src='{{ asset('bundles/noxintranetadministration/images/Data-Edit-48.png') }}' alt='Editer' class='editChampImg'></a></td>
+                            {% else %}
+                        <td style='background-color: lightgrey'></td>
+                    {% endif %}
+                    <td><a href='{{ path('nox_intranet_administration_affaire_delete_champ', { 'IDChamp': champ.Id }) }}'><img src='{{ asset('bundles/noxintranetadministration/images/Delete-48.png') }}' alt='Supprimer' class='deleteChampImg'></a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div id='DivModeles' style='{% if section != 'modeles' %}display: none;{% endif %}'>
+        <table id="administrationModelesTable">
+            <tr>
+                <th data-sorter="true" sorter-order="none" data-type="Modeles_Nom">
+                    Nom
+                    <div style='display: inline-block; vertical-align: middle; height: 0.8vw'><!--
+                        --><img class='sortArrowUp' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --><img class='sortArrowDown' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --></div>
+                </th>
+                <th data-sorter="true" sorter-order="none" data-type="Modeles_Profil">
+                    Profil
+                    <div style='display: inline-block; vertical-align: middle; height: 0.8vw'><!--
+                        --><img class='sortArrowUp' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Up-White-32.png') }}' alt='croissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --><img class='sortArrowDown' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-White-32.png') }}' alt='decroissant' style='height: 0.4vw; vertical-align: middle; display: block;'><!--
+                        --></div>
+                </th>
+                <th>Editer</th>
+                <th>Supprimer</th>
+            </tr>
+            <tr>
+                {{ form_start(formNewModele) }}
+                <td>{{ form_widget(formNewModele.Chemin) }}</td>
+                <td>{{ form_widget(formNewModele.Profil) }}</td>
+                <td style='background-color: lightgrey;'></th>
+                <td style='background-color: lightgrey;'></th>
+                <td>{{ form_widget(formNewModele.Ajouter) }}</td>
+                {{ form_end(formNewModele) }}
+            </tr>
+            {% for modele in modeles %}
+                <tr>
+                    <td data-type="Modeles_Nom">{{ modele['filename'] }}</td>
+                    <td data-type="Modeles_Profil">{{ modele['modele'].Profil }}</td>
+                    <td></td>
+                    <td><a href='{{ path('nox_intranet_administration_affaires_delete_modele', { 'IDModele': modele['modele'].Id }) }}'><img src='{{ asset('bundles/noxintranetadministration/images/Delete-48.png') }}' alt='Supprimer' class='deleteModeleImg'></a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <script>
+
+        $(window).load(function () {
+            selectInterlocuteurAction();
+            toggleCheckboxAjoutDonnees();
+            searchSuivi('#rechercheSuivi', '.selectFormulaireSelectionVersion');
+            ajaxAddProfil();
+            ajaxDeleteProfil();
+            trieTableau();
+        });
+
+        // Affiche/Cache les 'div' de profils/Champs/Modèles.
+        function selectInterlocuteurAction() {
+            // Lors d'un clique sur le bouton de profils.
+            $("button[name='profils']").click(function () {
+                $('#DivProfils').show(); // Affiche la 'div' de profils.
+                $('#DivChamps').hide(); // Cache la 'div' de champs.
+                $('#DivModeles').hide(); // Cache la 'div' de modèles.
+            });
+            // Lors d'un clique sur le bouton de champs.
+            $("button[name='champs']").click(function () {
+                $('#DivProfils').hide(); // Affiche la 'div' de profils.
+                $('#DivChamps').show(); // Cache la 'div' de champs.
+                $('#DivModeles').hide(); // Cache la 'div' de modèles.
+            });
+            // Lors d'un clique sur le bouton de modèles.
+            $("button[name='modeles']").click(function () {
+                $('#DivProfils').hide(); // Affiche la 'div' de profils.
+                $('#DivChamps').hide(); // Cache la 'div' de champs.
+                $('#DivModeles').show(); // Cache la 'div' de modèles.
+            });
+        }
+
+        // Affiche cache la 'checkbox' d'ajout de données supplémentaire par l'utilisateur en fonction du type de champ séléctionné.
+        function toggleCheckboxAjoutDonnees() {
+            $('#formNewChamp_Type').change(function () {
+                // Si le type de champ séléctioné est 'Données'.
+                if ($('#formNewChamp_Type option:selected').text() === 'Données') {
+                    $('#formNewChamp_AjoutDonnees').closest('td').css('opacity', '1');
+                    $('#formNewChamp_AjoutDonnees').attr('required', 'required');
+                }
+                // Si le type de champ séléctioné n'est pas 'Données'.
+                else {
+                    $('#formNewChamp_AjoutDonnees').closest('td').css('opacity', '0');
+                    $('#formNewChamp_AjoutDonnees').removeAttr('required');
+                }
+            });
+        }
+
+        // Affiche les suivis selon le nom recherché.
+        function searchSuivi(champRecherche, selecteur) {
+
+            // Initialisation d'un timer pour executer la fonction après 1 seconde sans frappe.
+            var typewatch = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            // Lorsque une valeur est entré dans la barre de recherche.
+            $(champRecherche).keyup(function () {
+                typewatch(function () {
+                    // Pour chaque résultat.
+                    $(selecteur + ' option').each(function () {
+                        // Si il ne correspond pas à la recherche...
+                        if ($(this).text().search(new RegExp($(champRecherche).val(), 'i')) === -1) {
+                            $(this).hide(); // ...On le cache.
+                        }
+                        // Si il correspond à la recherche.
+                        else {
+                            // On le montre et on lui donne son nom comme attribut 'title'.
+                            $(this).show();
+                            $(this).attr('title', $(this).text());
+                        }
+                    });
+                    // On applique une couleur différente au résultat pair et impair.
+                    $(selecteur + ' option:visible:odd').css('background', 'SeaShell');
+                    $(selecteur + ' option:visible:even').css('background', 'white');
+                }, 500);
+            });
+        }
+
+        // Ajoute un profil.
+        function ajaxAddProfil() {
+            // Lors d'un clic sur le bouton d'ajout de N°Commande.
+            $("button[name='addProfil']").click(function () {
+                // Si le numéro de commande n'est pas vide.
+                if ($.trim($("input[name='addProfilName']").val()).length > 0) {
+                    // On change le contenu du bouton d'ajout de numéro de commande par un gif de chargement et on le désactive.
+                    $("button[name='addProfil']").attr('disabled', true);
+                    $("button[name='addProfil']").html('&nbsp;');
+                    $("button[name='addProfil']").css({
+                        'background-image': "url({{ asset('bundles/noxintranetressources/images/noCommandeTraitement.gif')}})",
+                        'background-position': 'center center',
+                        'background-repeat': 'no-repeat',
+                        'background-size': 'auto 50%'
+                    });
+                    // On sauvegarde le numéro en base de donnée avec une fonction Ajax.        
+                    $.ajax({
+                        url: '{{ path('nox_intranet_administration_affaires_add_profil') }}',
+                        type: 'POST',
+                        data: {'profil': $("input[name='addProfilName']").val()},
+                        success: function (response) {
+                            // On change le contenu du bouton par celui d'origine et on le réactive.
+                            $("button[name='addProfil']").removeAttr('disabled');
+                            $("button[name='addProfil']").html('+');
+                            $("button[name='addProfil']").css({
+                                'background-image': "none",
+                                'background-position': 'center center',
+                                'background-repeat': 'no-repeat',
+                                'background-size': 'auto 50%'
+                            });
+                            // Si le numéro d'affaire n'existe pas déjà.
+                            if (response === 'true') {
+                                // On fait apparaître le nouveau numéro dans le selecteur de numéros.
+                                var newOption = $("<option value='" + $("input[name='addProfilName']").val() + "' style='text-align: center; background-color: green;'>" + $("input[name='addProfilName']").val() + "</option>");
+                                $("select[name='formAjoutProfil[Profils]']").append(newOption);
+                                // On scroll en bas du sélécteur de numéro.
+                                $("select[name='formAjoutProfil[Profils]']").scrollTop($("select[name='formAjoutProfil[Profils]']")[0].scrollHeight);
+                                // On anime la couleur de fond du nouveau numéro.
+                                newOption.animate({
+                                    backgroundColor: 'white'
+                                }, 3000);
+                                // On efface le contenue de nouveau numéro.
+                                $("input[name='addProfilName']").val('');
+                            }
+                            // Si le numéro d'affaire existe déjà.
+                            else {
+                                // On efface le contenue de nouveau numéro et on affiche un message d'avertissement.
+                                var messageErreur = $("<p style='display: inline-block; margin: 0% 0% 1% 0%; color: red;'>Le profil existe déjà !</p>");
+                                $("label[for='addProfilName']").after(messageErreur);
+                                setTimeout(function () {
+                                    messageErreur.fadeOut(1000, function () {
+                                        messageErreur.remove();
+                                    });
+                                }, 4000);
+                                $("input[name='addProfilName']").val('');
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        // Supprime un profil.
+        function ajaxDeleteProfil() {
+            // Lors d'un clic sur le bouton de suppression de numéro de commande.
+            $("button[name='deleteProfil']").click(function () {
+                // Si une valeur est séléctionnée.
+                if ($("select[name='formAjoutProfil[Profils]']").val() !== null) {
+                    // On change le contenu du bouton de suppression de numéro de commande par un gif de chargement et on le désactive.
+                    $("button[name='deleteProfil']").attr('disabled', true);
+                    $("button[name='deleteProfil']").html('&nbsp;');
+                    $("button[name='deleteProfil']").css({
+                        'background-image': "url({{ asset('bundles/noxintranetressources/images/noCommandeTraitement.gif')}})",
+                        'background-position': 'center center',
+                        'background-repeat': 'no-repeat',
+                        'background-size': 'auto 50%'
+                    });
+                    // On supprime le numéro de la base de données avec une fonction Ajax.
+                    $.ajax({
+                        url: '{{ path('nox_intranet_administration_affaires_delete_profil') }}',
+                        type: 'POST',
+                        data: {'profil': $("select[name='formAjoutProfil[Profils]']").val()},
+                        success: function () {
+                            // On change le contenu du bouton par celui d'origine et on le réactive.
+                            $("button[name='deleteProfil']").removeAttr('disabled');
+                            $("button[name='deleteProfil']").html('Supprimer');
+                            $("button[name='deleteProfil']").css({
+                                'background-image': "none",
+                                'background-position': 'center center',
+                                'background-repeat': 'no-repeat',
+                                'background-size': 'auto 50%'
+                            });
+                            // On efface le numéros de commande dans le sélécteur de numéro.
+                            $("select[name='formAjoutProfil[Profils]'] option:selected").remove();
+                        }
+                    });
+
+                }
+            });
+        }
+
+        // Trie un tableau en fonction de la colonne séléctionnée.
+        function trieTableau() {
+
+            // Trie les chaîne de caractères par odres croissant.
+            function compareStringCroissant(a, b) {
+                if (a.text < b.text)
+                    return -1;
+                if (a.text > b.text)
+                    return 1;
+                return 0;
+            }
+
+            // Trie les chaîne de caractères par odres décroissant.
+            function compareStringDecroissant(a, b) {
+                if (a.text < b.text)
+                    return 1;
+                if (a.text > b.text)
+                    return -1;
+                return 0;
+            }
+
+            // Lors du clique sur un titre de colonne.
+            $("th[data-sorter='true']").click(function () {
+
+                // On récupére le tableau contenant le titre.
+                var table = $(this).closest('table');
+
+                // On initialise un tableau qui contiendras les lignes du tableau.
+                var rows = [];
+
+                // Pour chaque cellule de type identique à celui du titre.
+                $("td[data-type='" + $(this).attr('data-type') + "']").each(function () {
+                    // On récupére le contenu de la cellule.
+                    var text = $(this).text();
+                    // On récupére la structure HTML de la ligne parente de la cellule.
+                    var element = $(this).closest('tr').clone();
+
+                    // On crée un objet javascript contenant le contenu et la structure et on l'empile dans le tableau des lignes.
+                    var row = {text: text, element: element};
+                    rows.push(row);
+                });
+
+                // Si l'odre de trie de la cellule titre est 'none' ou 'decroissant'.
+                if ($(this).attr('sorter-order') === 'none' || $(this).attr('sorter-order') === 'decroissant') {
+                    rows.sort(compareStringCroissant); // On trie les données du tableau par ordre croissant.
+                    $(this).attr('sorter-order', 'croissant'); // On passe l'attribut d'odre de trie à croissant.
+                    $("th[data-sorter='true'] div").css('height', '0.8vw'); // On redonne leur taille d'origine aux div d'img.
+                    $("th[data-sorter='true'] img").show(); // On fait apparaître les flêches de trie des cellules titres.
+                    $(this).find('div').css('height', '0.4vw'); // On divise la taille de la div d'img de la cellule titre courante par deux.
+                    $(this).find('.sortArrowDown').hide(); // On fait disparaitre la flêche décroissante de la cellule titre courante.
+                }
+                // Si l'odre de trie de la cellule titre est 'croissant'.
+                else {
+                    rows.sort(compareStringDecroissant); // On trie les données du tableau par ordre décroissant.
+                    $(this).attr('sorter-order', 'decroissant'); // On passe l'attribut d'odre de trie à décroissant.
+                    $("th[data-sorter='true'] div").css('height', '0.8vw'); // On redonne leur taille d'origine aux div d'img.
+                    $("th[data-sorter='true'] img").show(); // On fait apparaître les flêches de trie des cellules titres.
+                    $(this).find('div').css('height', '0.4vw'); // On divise la taille de la div d'img de la cellule titre courante par deux.
+                    $(this).find('.sortArrowUp').hide(); // On fait disparaitre la flêche croissante de la cellule titre courante.
+                }
+
+                // On supprime les lignes du tableau.
+                $("td[data-type='" + $(this).attr('data-type') + "']").closest('tr').remove();
+
+                // On injecte chaque ligne dans le tableau.
+                $.each(rows, function (index, value) {
+                    table.append(value.element);
+                });
+            });
+        }
+    </script>
+
+{% endblock %}

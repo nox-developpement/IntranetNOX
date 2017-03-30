@@ -1,0 +1,231 @@
+nox_intranet_pointage:
+    path:     /ressources/rh/pointage/{collaborateurExterne}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:accueil, collaborateurExterne: '' }
+    
+nox_intranet_pointage_ajax_set_date:
+    path:     /ressources/pointage-ajax-set-date
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSetDate}
+    
+nox_intranet_pointage_ajax_save_data:
+    path:     /ressources/pointage-ajax-save-data
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveData}
+    
+nox_intranet_pointage_ajax_get_data:
+    path:     /ressources/pointage-ajax-get-data
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetData}  
+    
+nox_intranet_assistantes_agence_gestion_pointage:
+    path:   /ressources/assistantes-agence-gestion-pointages
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:assistantesAgenceGestionPointage }   
+    
+nox_intranet_pointage_ajax_get_data_by_username:
+    path:     /ressources/pointage-ajax-get-data-by-username
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetDataByUsername }
+    
+nox_intranet_pointage_ajax_get_status:
+    path:     /ressources/pointage-ajax-get-status
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetPointageStatus }
+    
+nox_intranet_pointage_ajax_set_date_by_pointage_number:
+    path:     /ressources/pointage-ajax-set-date-by-pointage-number
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSetDateByPointageNumber}
+    
+nox_intranet_pointage_ajax_assistante_agence_validation:
+    path:     /ressources/pointage-ajax-assistante-agence-validation
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxAssistanteValidation}  
+    
+nox_intranet_pointage_ajax_get_assistantes_agence_pointage_compilation_by_month_and_year:
+    path:   /ressources/ajax-get-assistantes-agence-pointage-compilation-by-month-and-year
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetAssistanceAgencePointageCompilationByMonthAndYear }
+    
+nox_intranet_ajax_save_compilation_data:
+    path:   /ressources/ajax-save-compilation-data
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveCompilationData }
+    
+nox_intranet_ajax_save_compilation_absences:
+    path:   /ressources/ajax-save-compilation-absences
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveCompilationAbsences }   
+    
+nox_intranet_pointage_ajax_get_da_manager_pointage_compilation_by_month_and_year:
+    path:   /ressources/ajax-get-da-manager-pointage-compilation-by-month-and-year
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetDAManagerPointageCompilationByMonthAndYear }
+    
+nox_intranet_pointage_ajax_get_assistantes_rh_pointage_compilation_by_month_and_year:
+    path:   /ressources/ajax-get-assistantes-rh-pointage-compilation-by-month-and-year
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetAssistantesRHPointageCompilationByMonthAndYear }
+    
+nox_intranet_pointage_compilation_ajax_get_status:
+    path:     /ressources/pointage-compilation-ajax-get-status
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetPointageCompilationStatus }
+    
+nox_intranet_pointage_get_affaires_by_number:
+    path:     /ressources/pointage-get-affaires-by-number
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetAffairesByNumber }
+    
+nox_intranet_affichage_compilation_valide:
+    path:     /ressources/affichage-compilations-valides
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationValides}
+    
+nox_intranet_pointage_ajax_get_compilation_valide_by_month_and_year:
+    path:   /ressources/ajax-get-compilations-valides-by-month-and-year
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetCompilationsValideByMonthAndYear }
+    
+nox_intranet_pointage_ajax_get_assistante_agence_unvalidate:
+    path:   /ressources/ajax-get-assistante-agence-unvalidate
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetUnvalidate }
+    
+nox_intranet_pointage_ajax_generate_excel_recap:
+    path:   /ressources/ajax-get-pointage-generate-excel-recap
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:generateExcelRecap }
+    
+nox_intranet_pointage_ajax_get_pointages_list_aa_gestion:
+    path:   /ressources/ajax-get-pointage-list-aa-gestion
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetPointageList }
+    
+nox_intranet_pointage_ajax_get_managers_list_aa_gestion:
+    path:   /ressources/ajax-get-managers-list-aa-gestion
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetManagerList }
+    
+nox_intranet_pointages_compilation:
+    path:   /ressources/pointages-compilation/{validationStep}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:pointagesCompilation }
+    
+nox_intranet_pointage_ajax_get_compilation_by_month_year_manager_validationstep:
+    path:   /ressources/ajax-get-compilations-by-month-year-etablissement-validationstep
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetPointagesCompilationByMonthYearManager }
+    
+nox_intranet_pointages_ajax_upload_justificatif_transport_file:
+    path:   /ressources/ajax-upload-justificatif-transport-file
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxUploadJustificatifTransportFile }
+    
+nox_intranet_pointages_ajax_set_justificatif_transport_to_pointage:
+    path:   /ressources/ajax-set-justificatif-transport-to-pointage
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSetJustificatifTransportToPointage }
+    
+nox_intranet_pointages_ajax_delete_justificatif_transport:
+    path:   /ressources/ajax-delete-justificatif-transport
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDeleteJustificatifTransport }
+    
+nox_intranet_pointages_download_justificatif_transport:
+    path:   /ressources/ajax-download-justificatif-transport/{idJustificatif}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:downloadJustificatifTransport, idJustificatif: '' }
+    
+nox_intranet_pointage_ajax_export_to_excel:
+    path: /ressources/ajax-export-to-excel
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxExportToExcel }
+    
+nox_intranet_pointage_ajax_delete_excel_file:
+    path: /ressources/ajax-delete_excel_file
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDeleteExcelFile }
+    
+nox_intranet_pointage_access_collaborateur_pointage:
+    path: /ressources/access-collaborateur-pointage
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:assistanteRemplissagePointage }
+    
+nox_intranet_pointage_add_justificatif_file:
+    path: /ressources/pointage/add-justificatif-files/{month}/{year}/{username}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:justificatifFilesUpload }
+    
+nox_intranet_pointage_delete_justificatif_file:
+    path: /ressources/pointage/delete-justificatif-files/{justificatifId}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:deleteJustificatifFile }
+    
+nox_intranet_pointage_show_justificatif_file:
+    path: /ressources/pointage/show-justificatif-files/{justificatifId}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:showJustificatifFile }
+    
+nox_intranet_pointage_ajax_download_csv:
+    path: /ressources/pointage/ajax-download-csv
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDownloadCSV }
+    
+nox_intranet_pointage_download_csv:
+    path: /ressources/pointage/download-csv/{fileName}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:downloadCSV }
+    
+nox_intranet_pointage_ajax_download_justificatifs_zip:
+    path: /ressources/pointage/ajax-download-justificatifs-zip
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDownloadJustificatifZip }
+    
+nox_intranet_pointage_download_justificatif_zip:
+    path: /ressources/pointage/download-justificatif-zip/{fileName}/{manager}/{month}/{year}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:downloadJustificatifZip }
+        
+nox_intranet_pointage_compilation_nox_ip_csv:
+    path: /ressources/pointage/compilation-nox-ip-csv
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationNOXIPCSV }
+    
+nox_intranet_pointage_ajax_save_csv:
+    path: /ressources/pointage/ajax-save-csv
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveNOXIPCSV }
+    
+nox_intranet_pointage_show_forfaits_deplacement_details:
+    path: /ressources/pointage/show-forfaits-deplacement-details/{month}/{year}/{username}/{readonly}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:forfaitsDeplacementDetails }
+    
+nox_intranet_pointage_show_mods_details:
+    path: /ressources/pointage/show-mods-details/{month}/{year}/{username}/{readonly}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:modulationDetails }
+    
+nox_intranet_pointage_ajax_save_mods_edition:
+    path: /ressources/pointage/ajax-save-mods-edition
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveModsEdition }
+    
+nox_intranet_pointage_ajax_save_forfaits_deplacement_edition:
+    path: /ressources/pointage/ajax-save-forfaits-deplacement-edition
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveForfaitsDeplacementEdition }
+    
+nox_intranet_pointage_ajax_save_regularisation:
+    path: /ressources/pointage/ajax-save-regularisation
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSaveRegularisation }
+    
+nox_intranet_pointage_ajax_gestion_pointages_rh_mode:
+    path: /ressources/pointage/ajax-gestion-pointage-rh-mode
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGestionPointageSetRHMode }
+    
+nox_intranet_pointage_ajax_compilation_pointages_rh_mode:
+    path: /ressources/pointage/ajax-compilation-pointage-rh-mode
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxCompilationPointageSetRHMode }
+    
+nox_intranet_pointage_archives_compilation_etablissements:
+    path: /ressources/pointage/archives-compilation-etablissements
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationArchiveEtablissement }
+    
+nox_intranet_pointage_archives_compilation_years:
+    path: /ressources/pointage/archives-compilation-years/{etablissement}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationArchiveYear }
+    requirements:
+        etablissement: .+
+        
+nox_intranet_pointage_archives_compilation_month:
+    path: /ressources/pointage/archives-compilation-month/{year}/{etablissement}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationArchiveMonth }
+    requirements:
+        etablissement: .+
+    
+nox_intranet_pointage_archives_compilation_export_excel:
+    path: /ressources/pointage/archives-compilation-export-excel/{filepath}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:generateExcelRecap }
+    requirements:
+        etablissement: .+
+        
+nox_intranet_pointage_ajax_archives_compilation_export_excel:
+    path: /ressources/pointage/ajax-archives-compilation-export-excel
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGenerateExcelArchiveRecap }
+    requirements:
+        etablissement: .+
+                
+nox_intranet_pointage_compilation_modulation:
+    path: /ressources/pointage/compilation-modulation
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationModulation }
+    
+nox_intranet_pointage_ajax_search_gx_affaire:
+    path: /ressources/pointage/ajax-search-gx-affaire
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxSearchGXAffaire }
+    
+nox_intranet_pointage_ajax_get_nom_affaire:
+    path: /ressources/pointage/ajax-get-nom-affaire
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetNomAffaire }
+    
+nox_intranet_pointage_ajax_update_regularisation:
+    path: /ressources/pointage/ajax-update-regularisation
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxUpdateRegularisation }

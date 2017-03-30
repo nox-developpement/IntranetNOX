@@ -1,0 +1,237 @@
+nox_intranet_ressources:
+    path:     /ressources
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:accueil }
+    
+nox_intranet_liens:
+    path:   /ressources/liens
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:liens }
+    
+nox_intranet_faq:
+    path: /ressources/faq
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:faq }
+    
+nox_intranet_archives:
+    path:   /ressources/archives
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:archives } 
+    
+nox_intranet_nox_virtual_reality:
+    path:   /ressources/nox-virtual-reality
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:NOXVirtualReality } 
+    
+nox_intranet_references:
+    path:   /ressources/references/{page}
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:references, page: 1 }
+    
+nox_intranet_references_recherche:
+    path:   /ressources/references/{page}/recherche
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:referencesKeyword, page: 1 }
+    
+nox_intranet_procedures:
+    path: /ressources/procedures
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:procedures }
+    
+nox_intranet_download_script_connexion:
+    path: /ressources/archives/connexion/{agence}
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptConnexionDownload }
+    
+nox_intranet_download_script_deconnexion:
+    path: /ressources/archives/deconnexion
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptDeconnexionDownload }
+    
+nox_intranet_imprimantes:
+    path: /ressources/imprimantes
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:imprimantes }
+    
+nox_intranet_imprimantes_download:
+    path: /ressources/imprimantes/{agence}/{nom}
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptImprimanteDownload }
+    
+nox_intranet_serveurs:
+    path: /ressources/serveurs
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:serveurs }
+    
+nox_intranet_serveur_download_script_connexion:
+    path: /ressources/serveurs/connexion/{agence}
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptServeurConnexionDownload }
+    
+nox_intranet_serveur_download_script_deconnexion:
+    path: /ressources/serveurs/deconnexion
+    defaults:   { _controller: NoxIntranetRessourcesBundle:Ressources:scriptServeurDeconnexionDownload }
+    
+nox_intranet_aq:
+    path: /ressources/aq
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:aq }
+    
+nox_intranet_affichageAQ:
+    path:   /ressources/aq/{page}/{dossier}/{config}/{chemin}
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:affichageAQ, page: 1 }
+    requirements:
+         chemin: .+
+         
+nox_intranet_assistant_affaire:
+    path: /ressources/assistant-affaires
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:accueilAssistantAffaire }
+    
+nox_intranet_assistant_affaire_nouvelle:
+    path: /ressources/assistant-affaires/creation-suivi
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuivi }
+    
+nox_intranet_assistant_affaire_nouvelle_choix_modele:
+    path: /ressources/assistant-affaires/creation-suivi/choix-modèle/{IdSuivi}
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuiviChoixModele }
+    
+nox_intranet_assistant_affaire_nouvelle_choix_client:
+    path: /ressources/assistant-affaires/creation-suivi/choix-client/{IdSuivi}
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuiviChoixClient }
+    
+nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur:
+    path: /ressources/assistant-affaires/creation-suivi/choix-interlocuteur/{IdSuivi}
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuiviChoixInterlocuteur }
+    
+nox_intranet_assistant_affaire_nouvelle_infos:
+    path: /ressources/assistant-affaires/creation-suivi/info-suivi/{IdSuivi}
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:creationSuiviInfos }
+    
+nox_intranet_assistant_affaire_edition:
+    path: /ressources/assistant-affaires/edition-suivi/{IdSuivi}/{version}
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:editionSuiviEnCours, version: "" }
+    
+nox_intranet_assistant_affaire_generation:
+    path: /ressources/assistantAffaireGeneration
+    defaults: { _controller: NoxIntranetRessourcesBundle:ExcelReading:generateExcelFile }
+    
+nox_intranet_assistant_affaire_parcour_suivi_en_cours:
+    path: /ressources/assistant-affaires/parcours-suivis-en-cours/{agence}
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:consulterSuivi, agence: Toutes }
+    
+nox_intranet_assistant_affaire_parcour_suivi_termine:
+    path: /ressources/assistant-affaires/parcours-suivis-terminés/{agence}
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviTermine:consulterSuiviTermine, agence: Toutes }
+    
+nox_intranet_assistant_affaire_consultation:
+    path: /ressources/assistant-affaires/consulter-suivi/{IdSuivi}/{version}
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviTermine:suiviTermine, version: "" }
+    
+nox_intranet_rh:
+    path: /ressources/rh
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:rh }
+    
+nox_intranet_affichageRH:
+    path:   /ressources/rh/{page}/{dossier}/{config}/{chemin}
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:affichageRH, page: 1 }
+    requirements:
+         chemin: .+
+         
+nox_intranet_rh_gestion_pointages:
+    path: /ressources/rh/gestion-pointages
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:rhGestionPointage }
+    
+nox_intranet_aq_procedures:
+    path: /ressources/aq/documentsQSE/procédures
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:AQProcedures }
+    
+nox_intranet_aq_modes_operatoires:
+    path: /ressources/aq/documentsQSE/modes-opératoires
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:modesOperatoires }
+    
+nox_intranet_aq_formulaires_et_documents_types:
+    path: /ressources/aq/documentsQSE/formulaires-et-documents-types
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:formulairesEtDocumentsTypes }
+    
+nox_intranet_rh_excel:
+    path: /ressources/rh-excel/{dossier}/{config}/{chemin}
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:ExcelParsing }
+    requirements:
+        chemin: .+
+        
+nox_intranet_assistant_affaire_ajax_client_getter:
+    path: /ressources/assistant-affaires/creation-suivi/getClient
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:ajaxClientGetter }
+    
+nox_intranet_assistant_affaire_ajax_client_adr_getter:
+    path: /ressources/assistant-affaires/creation-suivi/getClientAdr
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:ajaxClientAdrGetter }
+    
+nox_intranet_assistant_affaire_ajax_interlocuteur_getter:
+    path: /ressources/assistant-affaires/creation-suivi/getInterlocuteur
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\NouveauSuivi:ajaxInterlocuteurGetter }
+    
+nox_intranet_assistant_affaire_ajax_nocommande_add:
+    path: /ressources/assistant-affaires/edition-suivi-add-no-commande
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:ajaxAddNoCommande }
+    
+nox_intranet_assistant_affaire_ajax_nocommande_delete:
+    path: /ressources/assistant-affaires/edition-suivi-suppression-nocommande
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:ajaxDeleteNoCommande }
+    
+nox_intranet_assistant_affaire_ajax_save_new_infos:
+    path: /ressources/assistant-affaires/edition-suivi-save-new-info
+    defaults: { _controller: NoxIntranetRessourcesBundle:AssistantAffaire\SuiviEnCours:ajaxSaveNewInfos }
+    
+nox_intranet_prestation_search:
+    path: /ressources/recherche-prestation
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:newPrestationSearch }
+
+nox_intranet_validation_da1:
+    path: /ressources/validation-da1/{cleDemande}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:validationDA1 }
+    
+nox_intranet_reponse_da2:
+    path: /ressources/reponse-da2/{cleDemande}/{reponse}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:DA2answer }
+    
+nox_intranet_ajax_save_proposition_da1_answer:
+    path: /ressources/gestion-proposition-ajax-save-proposition-da1-answer
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveDA2PropositionAnswer }
+    
+nox_intranet_ajax_save_echanges:
+    path: /ressources/gestion-proposition-ajax-save-echanges
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveEchanges }
+    
+nox_intranet_demande_prestation_reporting:
+    path: /ressources/demande-prestation-reporting/{orderTime}/{trieStatus}/{page}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesReporting, search: '', trieStatus: 'tous', page: 0, orderTime: 'desc' }
+    
+nox_intranet_demande_prestation_summary:
+    path: /ressources/demande-prestation-summary/{cleDemande}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:demandePrestationSummary }
+    
+nox_intranet_demande_prestation_perso_reporting:
+    path: /ressources/demande-prestation-perso-reporting/{orderTime}/{trieStatus}/{page}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesPersoReporting, search: '', trieStatus: 'tous', page: 0, orderTime: 'desc' }
+    
+nox_intranet_propositions_reporting:
+    path: /ressources/propositions-perso-reporting/{orderTime}/{page}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:propositionsPersoReporting, search: '', page: 0, orderTime: 'desc' }
+    
+nox_intranet_prestations_internes:
+    path: /ressources/prestations-internes
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:prestationsInternesAccueil }
+    
+nox_intranet_ajax_edit_demande:
+    path: /ressources/ajax-edition-demande-prestation-interne
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxEditDemande }
+    
+nox_intranet_demande_prestation_proposition_echanges:
+    path: /ressources/demande-prestation-proposition-echanges/{cleDemande}/{da2}
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:propositionEchanges }
+    
+nox_intranet_demande_prestation_proposition_echanges_message_ajax_saving:
+    path: /ressources/demande-prestation-proposition-echanges-message-ajax-saving
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveMessage }
+    
+nox_intranet_demande_prestation_proposition_echanges_message_ajax_receive:
+    path: /ressources/demande-prestation-proposition-echanges-message-ajax-receive
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxGetMessage }
+    
+nox_intranet_prestation_administration_da:
+    path: /ressources/prestation-administration-da
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternes:administrationDA }
+    
+nox_intranet_prestation_administration_da_ajax_save_user_status:
+    path: /ressources/prestation-administration-da-ajax-save-user-status
+    defaults: { _controller: NoxIntranetRessourcesBundle:PrestationsInternes\PrestationsInternesAjax:ajaxSaveUserStatus }
+    
+nox_intranet_questionnaire_stress:
+    path: /questionnaire-stress
+    defaults: { _controller: NoxIntranetRessourcesBundle:QuestionnaireStress\QuestionnaireStress:questionnaireAnswer }

@@ -1,0 +1,40 @@
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+nox_intranet_communication:
+    path:     /communication
+    defaults: { _controller: NoxIntranetCommunicationBundle:Communication:communication }   
+        
+nox_intranet_communication_download:
+    path:     /communication/telechargemenet
+    defaults: { _controller: NoxIntranetCommunicationBundle:Interne:downloadFiles }
+    options:
+        expose: true
+    
+nox_intranet_affichageContenu:
+    path:   /communication/contenu/{page}/{dossier}/{config}/{chemin}
+    defaults: { _controller: NoxIntranetCommunicationBundle:Communication:affichageContenu, page: 1 }
+    requirements:
+         chemin: .+
+         
+nox_intranet_affichageImages:
+    path:   /communication/images/{page}/{dossier}/{config}/{chemin}
+    defaults: { _controller: NoxIntranetCommunicationBundle:Communication:affichageImages, page: 1 }
+    requirements:
+         chemin: .+
+         
+#nox_intranet_downloadImages:
+#    path:   /communication/images-download/{image}
+#    defaults: { _controller: NoxIntranetCommunicationBundle:Communication:downloadImages }
+#    requirements:
+#         chemin: .+
+#    options:
+#        expose: true
+
+nox_intranet_communication_bim:
+    path:   /communication/BIM
+    defaults: { _controller: NoxIntranetCommunicationBundle:Communication:BIM }
+    
+nox_intranet_communication_ajax_video_preview:
+    path:   /communication/ajax-video-preview
+    defaults: { _controller: NoxIntranetCommunicationBundle:Communication:ajaxVideoPreview }

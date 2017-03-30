@@ -1,0 +1,366 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Accueil {% endblock %}
+
+{% block messageAccueil %}Bienvenue {% if app.user != null %} {{ app.user.firstname }} {{ app.user.lastname }} {% endif %}{% endblock %}
+{% block sousMessageAccueil %}Nous sommes le {{ date()|date("d/m/Y") }}, l'intranet a été visité {{ nombreVues }} fois.{% endblock %}
+
+{% block contenu %}
+
+    <div class='zoneEditionAccueil'>
+
+        {% if is_granted('ROLE_COMMUNICATION') %}
+
+            <button id='texteEditButton' class='boutonFormulaire'>Editer</button>
+
+        {% endif %}
+
+        {{ form_start(formulaire, {'attr': {'id': 'formulaireTexte' }}) }}
+
+        {{ form_errors(formulaire) }}
+
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(formulaire.text) }}
+
+        {# Génération de l'input. #}
+        {{ form_widget(formulaire.text, {'attr': {'class': 'textField' }}) }}
+
+        {{ form_end(formulaire) }}
+
+    </div>
+
+
+    <div class='zoneTexteAccueil'>
+        <p id='edito'> Édito </p>
+        <div id='texteAccueil'>
+            {{ texte|raw }}
+        </div>
+    </div>
+
+    <div id="zoneNewsAccueil">
+
+        <script src={{ asset('./js/jquery-2.2.0.min.js') }}></script>
+        <script src="{{ asset('./js/jquery-ui.min.js') }}"></script>
+        <script src={{ asset('./js/menuAnimation.js') }}></script>
+        <script type="text/javascript">
+            $(window).load(function () {
+                DivNewsSliding();
+            });
+        </script>
+
+        <!-- Affichage défilant mise à jours Externe -->
+        {% if majExterne is defined and majExterne != null %}
+            <div class="DivMaj">
+                <p class="maj"> Mises à jour Externe </p>
+
+                <div id='majExterne'>
+                    <p></p>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+
+                var newsExterne = new Array();
+
+                {% for maj in majExterne %}
+                    newsExterne.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
+                {% endfor %}
+
+                    function showNews(arr) {
+                        $('#majExterne p').fadeTo(500, 100, 'linear');
+                        $('#majExterne p').html(arr[0]);
+                        $('#majExterne p').fadeTo(4500, 0, 'easeInExpo'); // fade to "0" with a 100, easeInExpo0ms duration
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    $('#majExterne p').fadeTo(500, 100, 'linear');
+                                    $('#majExterne p').html(arr[i]);
+                                    $('#majExterne p').fadeTo(4500, 0, 'easeInExpo'); // fade to "0" with a 100, easeInExpo0ms duration
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 6000);
+                    }
+
+                    showNews(newsExterne);
+
+            </script>
+        {% endif %}
+        <!-------------------------------------------------->
+
+        <!-- Affichage défilant mise à jours Interne -->
+        {% if majInterne is defined and majInterne != null %}
+            <div class="DivMaj">
+                <p class="maj"> Mises à jour Interne </p>
+                <div id='majInterne'>
+                    <p></p>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+
+                var newsInterne = new Array();
+
+                {% for maj in majInterne %}
+                    newsInterne.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
+                {% endfor %}
+
+                    function showNews(arr) {
+                        $('#majInterne p').fadeTo(500, 100, 'linear');
+                        $('#majInterne p').html(arr[0]);
+                        $('#majInterne p').fadeTo(4500, 0, 'easeInExpo');
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    $('#majInterne p').fadeTo(500, 100, 'linear');
+                                    $('#majInterne p').html(arr[i]);
+                                    $('#majInterne p').fadeTo(4500, 0, 'easeInExpo');
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 6000);
+                    }
+
+                    showNews(newsInterne);
+
+            </script>
+        {% endif %}
+        <!-------------------------------------------------->
+
+        <!-- Affichage défilant mise à jours Marketing -->
+        {% if majMarketing is defined and majMarketing != null %}
+            <div class="DivMaj">
+                <p class="maj"> Mises à jour Marketing </p>
+                <div id='majMarketing'>
+                    <p></p>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+
+                var newsMarketing = new Array();
+
+                {% for maj in majMarketing %}
+                    newsMarketing.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
+                {% endfor %}
+
+                    function showNews(arr) {
+                        $('#majMarketing p').fadeTo(500, 100, 'linear');
+                        $('#majMarketing p').html(arr[0]);
+                        $('#majMarketing p').fadeTo(4500, 0, 'easeInExpo');
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    $('#majMarketing p').fadeTo(500, 100, 'linear');
+                                    $('#majMarketing p').html(arr[i]);
+                                    $('#majMarketing p').fadeTo(4500, 0, 'easeInExpo');
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 6000);
+                    }
+
+                    showNews(newsMarketing);
+
+            </script>
+        {% endif %}
+        <!-------------------------------------------------->
+
+        <!-- Affichage défilant mise à jours SI -->
+        {% if majSI is defined and majSI != null %}
+            <div class="DivMaj">
+                <p class="maj"> Mises à jour SI </p>
+                <div id='majSI'>
+                    <p></p>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+
+                var newsSI = new Array();
+
+                {% for maj in majSI %}
+                    newsSI.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
+                {% endfor %}
+
+                    function showNews(arr) {
+                        $('#majSI p').fadeTo(500, 100, 'linear');
+                        $('#majSI p').html(arr[0]);
+                        $('#majSI p').fadeTo(4500, 0, 'easeInExpo');
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    $('#majSI p').fadeTo(500, 100, 'linear');
+                                    $('#majSI p').html(arr[i]);
+                                    $('#majSI p').fadeTo(4500, 0, 'easeInExpo');
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 6000);
+                    }
+
+                    showNews(newsSI);
+
+            </script>
+        {% endif %}
+        <!-------------------------------------------------->
+
+        <!-- Affichage défilant mise à jours AQ -->
+        {% if majAQ is defined and majAQ != null %}
+            <div class="DivMaj">
+                <p class="maj"> Mises à jour Assurance qualité </p>
+                <div id='majAQ'>
+                    <p></p>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+
+                var newsAQ = new Array();
+
+                {% for maj in majAQ %}
+                    newsAQ.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
+                {% endfor %}
+
+                    function showNews(arr) {
+                        $('#majAQ p').fadeTo(500, 100, 'linear');
+                        $('#majAQ p').html(arr[0]);
+                        $('#majAQ p').fadeTo(4500, 0, 'easeInExpo');
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    $('#majAQ p').fadeTo(500, 100, 'linear');
+                                    $('#majAQ p').html(arr[i]);
+                                    $('#majAQ p').fadeTo(4500, 0, 'easeInExpo');
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 6000);
+                    }
+
+                    showNews(newsAQ);
+
+            </script>
+        {% endif %}
+        <!-------------------------------------------------->
+
+        <!-- Affichage défilant mise à jours RH -->
+        {% if majRH is defined and majRH != null %}
+            <div class="DivMaj">
+                <p class="maj"> Mises à jour RH </p>
+                <div id='majRH'>
+                    <p></p>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+
+                var newsRH = new Array();
+
+                {% for maj in majRH %}
+                    newsRH.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
+                {% endfor %}
+
+                    function showNews(arr) {
+                        $('#majRH p').fadeTo(500, 100, 'linear');
+                        $('#majRH p').html(arr[0]);
+                        $('#majRH p').fadeTo(4500, 0, 'easeInExpo');
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    $('#majRH p').fadeTo(500, 100, 'linear');
+                                    $('#majRH p').html(arr[i]);
+                                    $('#majRH p').fadeTo(4500, 0, 'easeInExpo');
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 6000);
+                    }
+
+                    showNews(newsRH);
+
+            </script>
+        {% endif %}
+        <!-------------------------------------------------->
+
+        <!-- Affichage défilant Poste à pourvoir -->
+        {% if posteAPourvoir is defined and posteAPourvoir != null %}
+            <div class="DivMaj">
+                <p class="maj"> Poste à pourvoir </p>
+                <div id='posteAPourvoir'>
+                    <p></p>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+
+                var newsPosteAPourvoir = new Array();
+
+                {% for maj in posteAPourvoir %}
+                    newsPosteAPourvoir.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
+                {% endfor %}
+
+                    function showNews(arr) {
+                        $('#posteAPourvoir p').fadeTo(500, 100, 'linear');
+                        $('#posteAPourvoir p').html(arr[0]);
+                        $('#posteAPourvoir p').fadeTo(4500, 0, 'easeInExpo');
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    $('#posteAPourvoir p').fadeTo(500, 100, 'linear');
+                                    $('#posteAPourvoir p').html(arr[i]);
+                                    $('#posteAPourvoir p').fadeTo(4500, 0, 'easeInExpo');
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 6000);
+                    }
+
+                    showNews(newsPosteAPourvoir);
+
+            </script>
+        {% endif %}
+        <!-------------------------------------------------->
+
+        <!-- Affichage défilant Nomination / organisation -->
+        {% if nominationOrganisation is defined and nominationOrganisation != null %}
+            <div class="DivMaj">
+                <p class="maj"> Nomination / organisation </p>
+                <div id='nominationOrganisation'>
+                    <p></p>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+
+                var newsNominationOrganisation = new Array();
+
+                {% for maj in nominationOrganisation %}
+                    newsNominationOrganisation.push("<span class='dateMaj'>{{ maj.dateEnvoi|date('d/m/Y') }}</span> <br /> <a onclick=\"openDetailsPopUpWindow('http://' + document.location.hostname + '{{  maj.Lien }}', '{{ maj.Nom }}');\">{{ maj.Nom }}</a>");
+                {% endfor %}
+
+                    function showNews(arr) {
+                        $('#nominationOrganisation p').fadeTo(500, 100, 'linear');
+                        $('#nominationOrganisation p').html(arr[0]);
+                        $('#nominationOrganisation p').fadeTo(4500, 0, 'easeInExpo');
+                        var i = 1;
+                        setInterval(
+                                function () {
+                                    $('#nominationOrganisation p').fadeTo(500, 100, 'linear');
+                                    $('#nominationOrganisation p').html(arr[i]);
+                                    $('#nominationOrganisation p').fadeTo(4500, 0, 'easeInExpo');
+                                    i++;
+                                    if (i >= arr.length)
+                                        i = 0;
+                                }, 6000);
+                    }
+
+                    showNews(newsNominationOrganisation);
+
+            </script>
+        {% endif %}
+        <!-------------------------------------------------->
+
+    </div>
+
+{% endblock %}

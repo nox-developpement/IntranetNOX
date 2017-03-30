@@ -1,0 +1,42 @@
+{% extends "layout.html.twig" %}
+
+{% block titrePage %} Compilation des modulations {% endblock %}
+
+{% block messageAccueil %}Compilation des modulations{% endblock %}
+
+{% block contenu %}
+
+    <style>
+        #formCompilationModulation {
+            width: 70%;
+            margin: auto;
+            text-align: center;
+        }
+
+        #formCompilationModulation form {
+            display: inline-block;
+            width: auto;
+            border: 2px outset #1F4E79;
+            background-color: rgba(255,255,255, 0.6);
+        }
+
+        #formCompilationModulation p {
+            text-align: center;
+        }
+    </style>
+
+    <div id="formCompilationModulation">
+        {{ form_start(formGenerationCompilation) }}
+        <p>
+            {{ form_label(formGenerationCompilation.Year) }} : 
+            {{ form_widget(formGenerationCompilation.children['Year'].children["year"]) }}
+        </p>
+        <p>
+            {{ form_widget(formGenerationCompilation.Download) }}
+        </p>
+        {{ form_widget(formGenerationCompilation.children['Year'].children["day"], {'attr': {'style': 'display: none'}}) }}
+        {{ form_widget(formGenerationCompilation.children['Year'].children["month"], {'attr': {'style': 'display: none'}}) }}
+        {{ form_end(formGenerationCompilation) }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,4 @@
+services:
+#    nox_intranet_verif_maj_db.example:
+#        class: NoxIntranet\VerifMajDBBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

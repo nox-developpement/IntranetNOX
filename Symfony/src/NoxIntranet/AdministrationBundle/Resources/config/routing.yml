@@ -1,0 +1,213 @@
+nox_intranet_administration:
+    path: /administration
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administration }
+    
+nox_intranet_administration_news:
+    path: /administration/news
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationNews }
+
+nox_intranet_administration_news_ajouter:
+    path:     /administration/news/ajouter
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationNews:ajouterNews }
+
+nox_intranet_administration_news_supprimer:
+    path:     /administration/news/supprimer
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationNews:supprimerNews }
+    
+nox_intranet_administration_user:
+    path: /administration/utilisateur/{roleUser}/{numPage}
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationUser, roleUser: "ROLE_USER" , numPage: 1 }
+    
+nox_intranet_administration_username:
+    path: /administration/utilisateurRecherche/{roleUser}/{termeRecherche}/{numPage}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationUsers:administrationUsername, roleUser: "ROLE_USER" , numPage: 1, termeRecherche: 'aucun' }
+    
+nox_intranet_user_edit:
+    path: /administration/utilisateurEdition/{roleUser}/{userID}/{numPage}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationUsers:editionUser, numPage: 1, roleUser: 'ROLE_USER' }
+        
+nox_intranet_administration_userDB:
+    path: /administration/utilisateurDB
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationUserDB }
+    
+nox_intranet_user_verifupdateDB:
+    path: /administration/utilisateurDB/confirmation
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationUserVerifDBMaj }
+    
+nox_intranet_restaurationBDD:
+    path: /administration/utilisateurDB/restauration
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationBDDRestauration }
+    
+nox_intranet_restaurationBDDConfirmation:
+    path: /administration/utilisateurDB/restaurationConfirmation
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationBDDRestaurationConfirmation }
+    
+nox_intranet_sauvegardeBDD:
+    path: /administration/utilisateurDB/sauvegarde
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:sauvegardeBDD }
+    
+nox_intranet_user_updateDB:
+    path: /administration/utilisateurDB/maj
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationUserDBMaj }
+    
+nox_intranet_administration_user_admin:
+    path: /administration/admin
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationAdmin }
+    
+nox_intranet_suppression_admin:
+    path: /administration/admin/suppression/{adminID}
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationAdminSuppression }
+    
+nox_intranet_creation_admin:
+    path: /administration/admin/creation
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationAdminCreation }
+    
+nox_intranet_admin_mdp:
+    path: /administration/admin/changementMDP
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationAdminMDP }
+    
+nox_intranet_admin_mdp_check:
+    path: /administration/admin/changementMDPCheck
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationAdminMDPACheck }
+    
+nox_intranet_administration_ticketing:
+    path: /administration/ticketing
+    defaults: { _controller:NoxIntranetAdministrationBundle:Administration:administrationTicketing }
+    
+nox_intranet_administration_liens:
+    path: /administration/liens
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationLiens }
+    
+nox_intranet_suppression_lien:
+    path: /administration/liens/suppression/{lienID}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationLiens:administrationLiensSuppression }
+    
+nox_intranet_modification_lien:
+    path: /administration/liens/modification/{lienID}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationLiens:administrationLiensModification }
+    
+nox_intranet_modification_lien_check:
+    path: /administration/liens/modificationCheck/{lienID}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationLiens:administrationLiensModificationCheck }
+    
+nox_intranet_ajout_lien:
+    path: /administration/liens/ajout
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationLiens:administrationLiensAjout }
+    
+nox_intranet_export_users:
+    path: /administration/utilisateurExport
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationUsers:exportUser }
+    
+nox_intranet_administration_archives:
+    path: /administration/archives
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationArchives:administrationArchive }
+     
+nox_intranet_suppression_archive:
+    path: /administration/archives/suppression/{id}
+    defaults: {  _controller: NoxIntranetAdministrationBundle:AdministrationArchives:suppressionArchive }
+    
+nox_intranet_administration_texteEncart:
+    path: /administration/texteEncart/{section}/{newText}
+    defaults: {  _controller: NoxIntranetAdministrationBundle:Administration:modifierTexteEncart, newText: '' }
+    options:
+        expose: true
+        
+nox_intranet_text:
+    path: /administration/test
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationNews:pdfConversion }
+    
+nox_intranet_administration_imprimantes:
+    path: /administration/imprimantes
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationImprimantes:administrationImprimantes }
+    
+nox_intranet_administration_imprimantes_suppression:
+    path: /administration/imprimantes/suppression/{id}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationImprimantes:suppressionImprimante }
+    
+nox_intranet_administration_serveurs:
+    path: /administration/serveurs
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationServeurs:administrationServeur }
+     
+nox_intranet_suppression_serveur:
+    path: /administration/serveurs/suppression/{id}
+    defaults: {  _controller: NoxIntranetAdministrationBundle:AdministrationServeurs:suppressionServeur }
+   
+nox_intranet_administration_communication:
+    path: /administration/communication
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationCommunication:administrationCommunicationAccueil }
+    
+nox_intranet_administration_communication_externe:
+    path: /administration/communication/externe
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationCommunication:administrationCommunicationExterne }
+    
+nox_intranet_administration_communication_interne:
+    path: /administration/communication/interne
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationCommunication:administrationCommunicationInterne }
+    
+nox_intranet_administration_communication_marketing:
+    path: /administration/communication/marketing
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationCommunication:administrationCommunicationmarketing }
+    
+nox_intranet_administration_materiel:
+    path: /administration/materiel
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationMateriel:materielAccueil }
+    
+nox_intranet_administration_affaires:
+    path: /administration/assistant-affaires/{section}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\AdministrationAffaires:administrationAffairesAccueil, section: '' }
+    
+nox_intranet_administration_affaires_add_profil:
+    path: /administraton/assistant-affaires/add-profil
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Profils\Profils:ajaxAddProfil }
+    
+nox_intranet_administration_affaires_delete_profil:
+    path: /administraton/assistant-affaires/delete-profil
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Profils\Profils:ajaxDeleteProfil }
+    
+nox_intranet_administration_affaires_edition:
+    path: /administration/assistant-affaires-edition-fichier/{profil}/{file}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Modeles\Modeles:administrationAffairesEdition, profil: '' }
+    requirements:
+        file: .+
+    
+nox_intranet_administration_affaires_edition_sauvegarde:
+    path: /administration/assistant-affaires/sauvegarde-fichier/{filename}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAffaires:administrationAffaireSauvegardeModification }
+    requirements:
+        filename: .+
+        
+nox_intranet_administration_affaire_delete_champ:
+    path: /administration/assistant-affaires-delete-champ/{IDChamp}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Champs\Champs:deleteChamp }
+        
+nox_intranet_administration_affaires_edition_champ:
+    path: /administration/assistant-affaires-edition-champ/{IDChamp}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Champs\Champs:editionChamp }
+
+nox_intranet_administration_affaires_ajax_ajout_donnee:
+    path: /administration/assistant-affaires-ajout-donnee
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Champs\Champs:ajaxAddDonnee } 
+    
+nox_intranet_administration_affaires_ajax_delete_donnee:
+    path: /administration/assistant-affaires-delete-donnee
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Champs\Champs:ajaxDeleteDonnee } 
+    
+nox_intranet_administration_affaires_delete_modele:
+    path: /administration/assistant-affaires-delete-modele/{IDModele}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationAssistantAffaire\Modeles\Modeles:deleteModele }
+    
+nox_intranet_administration_message_alerte:
+    path: /administration/message-alerte
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationMessageAlert:editMessageAlert }
+    
+nox_intranet_administration_upload_fichier_hierarchie_rh:
+    path: /administration/upload-file-rh
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:uploadFichierHierarchieRH }
+    
+nox_intranet_collaborateurs_en_ligne:
+    path: /administration/collaborateurs-en-ligne
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationUsers:collaborateursEnLigne }
+    
+nox_intranet_monitoring_scheduled_scripts:
+    path: /administration/monitoring-scheduled-scripts
+    defaults: { _controller: NoxIntranetAdministrationBundle:MonitoringScheduledScripts:scheduledScriptsMonitoringPanel }

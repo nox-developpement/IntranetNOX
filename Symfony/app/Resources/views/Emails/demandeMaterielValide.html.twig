@@ -1,0 +1,19 @@
+N° ordre : {{ donneesMessage.numOrdre }} <br /><br />
+
+Bonjour, <br />
+
+La demande de matériel/logiciel de l'utilisateur <strong>{{ donneesMessage.demandeur }}</strong> situé dans l'agence de <strong>{{ donneesMessage.agence }}</strong> a été
+validée par {{ superieur }} : <br/><br/>
+{% if donneesMessage.materielCheckbox == true %}
+    - Matériel :  <strong>{{ donneesMessage.materiel }}</strong>. <br />
+{% endif %}
+{% if donneesMessage.logicielCheckbox == true %}
+    - Logiciel : <strong>{{ donneesMessage.logiciel }}.</strong> <br />
+{% endif %}
+<br />
+Raison de la demande : {{ donneesMessage.raison }}
+<br /><br />
+Date désirée : <strong>{{ donneesMessage.date|date('d/m/Y') }}</strong>
+<br /><br />
+Email du supérieur hiérarchique : {{ donneesMessage.emailSuperieur }}
+<br /><br />

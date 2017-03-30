@@ -1,0 +1,32 @@
+services:
+    nox_intranet_accueil.compteur_vues.incrementation:
+        class: NoxIntranet\AccueilBundle\CompteurVues\CompteurVuesIncrementation
+        arguments: ['@doctrine.orm.entity_manager']
+
+    nox_intranet_accueil.compteur_vues.listener:
+        class: NoxIntranet\AccueilBundle\CompteurVues\CompteurVuesListener
+        arguments: [@nox_intranet_accueil.compteur_vues.incrementation, '@service_container']
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: processCompteurVues }
+        
+    nox_intranet_accueil.accueilrandomimage:
+        class: NoxIntranet\AccueilBundle\ImageAleatoire\NoxIntranetImageAleatoire
+        arguments: [ @doctrine.orm.entity_manager, '@service_container']
+        
+    nox_intranet_accueil.message_alert.html:
+        class: NoxIntranet\AccueilBundle\MessageAlert\MessageAlertHTML
+        
+    nox_intranet_accueil.message_alert.listener:
+        class: NoxIntranet\AccueilBundle\MessageAlert\MessageAlertListener
+        arguments: [@nox_intranet_accueil.message_alert.html, "@doctrine.orm.entity_manager"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: processMessage }
+            
+    nox_intranet_accueil.acces_interdit.html:
+        class: NoxIntranet\AccueilBundle\MessageAlert\AccesInterditHTML
+        
+    nox_intranet_accueil.acces_interdit.listener:
+        class: NoxIntranet\AccueilBundle\MessageAlert\AccesInterditListener
+        arguments: [@nox_intranet_accueil.acces_interdit.html, '@service_container']
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: processAcessInterdit }      

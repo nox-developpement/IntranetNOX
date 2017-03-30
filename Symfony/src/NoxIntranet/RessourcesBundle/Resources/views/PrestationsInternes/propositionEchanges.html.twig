@@ -1,0 +1,168 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Echanges avec {{ da2Entity.Firstname }} {{ da2Entity.Lastname }} {% endblock %}
+
+{% block messageAccueil %}Echanges avec {{ da2Entity.Firstname }} {{ da2Entity.Lastname }}{% endblock %}
+
+{% block contenu %} 
+
+    <div style='width: 70%; margin: auto; margin-bottom: 1%; margin-top: 0; font-size: 0.8vw;'>
+        <span style='display: inline-block; height: 100%; vertical-align: middle;'></span>
+        <img style='width: 1em; vertical-align: middle;' src='{{ asset('bundles/noxintranetressources/images/Left-Arrow-48.png') }}'>
+        <a style='color: #1F4E79; text-decoration: none; display: inline-block; vertical-align: middle;' href='{{ path('nox_intranet_demande_prestation_summary', {cleDemande: cleDemande}) }}'>Revenir au résumé</a>
+    </div>
+    <div style='width: 70%; margin: auto; border: 1px solid #1F4E79; height: 70%; margin-bottom: 5%; font-size: 0;'>   
+        <div id='propositionEchangesAffichageMessages'>
+            {% for echange in echanges %}
+                <div class='propositionEchangesMessage {% if echange.sender == app.user.username %}propositionEchangesMessageTo{% else %}propositionEchangesMessageFrom{% endif %}' {% if loop.last %}id="echangesLastMessage"{% endif %} postdate='{{ echange.postDate|date('d/m/Y H:i:s') }}' postId='{{ echange.Id }}'>
+                    <span style='display: inline-block; vertical-align: middle; height: 100%;'></span>
+                    <div>
+                        <p>
+                            {{ echange.message }}
+                        </p>
+                        <hr>                    
+                        <time datetime="{{ echange.postDate|date('Y-m-d H:i:s') }}">Posté le : {{ echange.postDate|date('d/m/Y à H:i:s') }}</time>
+                    </div>
+                </div><br />
+            {% endfor %}
+        </div>
+        <div id='propositionEchangesEcritureMessages'> 
+            <div id='propositionEchangesEcritureMessagesTextArea' contenteditable='true'> 
+            </div>
+            <div id='propositionEchangesEcritureMessagesSubmitButton' onclick='sendMessage();'>
+                <span style='display: inline-block; vertical-align: middle; height: 100%;'></span>
+                <p style='font-size: 0.8vw; vertical-align: middle; display: inline-block; margin: 0;'>Envoyer</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        $(window).load(function () {
+            scrollToLastMessage(); // Scroll jusqu'au dernier message.
+            receptMessage(); // On débute la récéption des nouveaux messages.
+            // Permet d'envoyer un message en appuyant sur 'Entrer'.
+            $('#propositionEchangesEcritureMessagesTextArea').keydown(function (e) {
+                if (e.which == 13) {
+                    $('#propositionEchangesEcritureMessagesSubmitButton').click();
+                    return false;
+                }
+            });
+        });
+
+        // Affiche les nouveaux message et les sauvegarde en base de données.
+        function sendMessage() {
+            var message = $.trim($('#propositionEchangesEcritureMessagesTextArea').text()); // On récupére le texte de la zone d'écriture en effacent les espaces avant et après le texte.
+
+            // Si le bouton d'envoie de message n'est pas désactivé et le contenu de message n'est pas vide.
+            if ($('#propositionEchangesEcritureMessagesSubmitButton').attr('disabled') !== 'disabled' && message !== '') {
+                $('#propositionEchangesEcritureMessagesTextArea').attr('contenteditable', false); // On bloque la saisi de nouveau texte.
+                $('#propositionEchangesEcritureMessagesTextArea').css('background-color', 'lightgrey'); // On modifie la couleur d'arrière plan de la zone d'écriture pour indiquer le blocage.
+                $('#propositionEchangesEcritureMessagesSubmitButton').attr('disabled', 'disabled'); // On désactive le bouton d'envoie.
+                $('#propositionEchangesEcritureMessagesSubmitButton').css('color', 'transparent'); // On cache le texte du bouton.
+                $('#propositionEchangesEcritureMessagesSubmitButton').css('background-image', 'url({{ asset('bundles/noxintranetressources/images/sendEchangeMessage.svg') }})'); // On ajout une image de chargement en fond du bouton.
+                $('#propositionEchangesEcritureMessagesSubmitButton').css('cursor', 'default'); // On rétablie le curseur par défaut.
+                $.ajax({
+                    url: '{{ path('nox_intranet_demande_prestation_proposition_echanges_message_ajax_saving') }}',
+                    type: 'POST',
+                    data: {'cleDemande': '{{ cleDemande }}', 'da2': '{{ da2 }}', 'message': message, 'sender': '{{ app.user.username }}'},
+                    success: function () {
+                        // On suprime l'id du dernier message.
+                        $('#echangesLastMessage').removeAttr('id');
+
+                        // On récupére la date et l'heure courante.
+                        var currentDate = new Date();
+                        var stringDate = ((currentDate.getDate() < 10) ? '0' + currentDate.getDate() : currentDate.getDate()) + '/' + ((currentDate.getMonth() < 10) ? '0' + currentDate.getMonth() : currentDate.getMonth()) + '/' + currentDate.getFullYear() + ' à ' + ((currentDate.getHours() < 10) ? '0' + currentDate.getHours() : currentDate.getHours()) + ':' + ((currentDate.getMinutes() < 10) ? '0' + currentDate.getMinutes() : currentDate.getMinutes()) + ':' + ((currentDate.getSeconds() < 10) ? '0' + currentDate.getSeconds() : currentDate.getSeconds());
+                        // On génére le code HTML du nouveau message et on le fait apparaître.
+                        var newMessage = "<div id='echangesLastMessage' class='propositionEchangesMessage propositionEchangesMessageTo'>";
+                        newMessage += "<span style='display: inline-block; vertical-align: middle; height: 100%;'></span>";
+                        newMessage += "<div>";
+                        newMessage += "<p>" + message + "</p>";
+                        newMessage += "<hr>";
+                        newMessage += "<time datetime='" + stringDate + "'>Posté le : " + stringDate + "</time>";
+                        newMessage += "</div>";
+                        newMessage += "</div><br />";
+                        $('#propositionEchangesAffichageMessages').append(newMessage);
+
+                        // On scroll jusqu'au haut du message.
+                        scrollToLastMessage();
+
+                        // On redonne les propriété d'origine à la zone d'écriture et au bouton d'envoie.
+                        $('#propositionEchangesEcritureMessagesTextArea').text(''); // On efface le texte de la zone d'écriture.
+                        $('#propositionEchangesEcritureMessagesTextArea').attr('contenteditable', true);
+                        $('#propositionEchangesEcritureMessagesTextArea').css('background-color', 'white');
+                        $('#propositionEchangesEcritureMessagesSubmitButton').removeAttr('disabled');
+                        $('#propositionEchangesEcritureMessagesSubmitButton').css('color', 'white');
+                        $('#propositionEchangesEcritureMessagesSubmitButton').css('background-image', 'none');
+                        $('#propositionEchangesEcritureMessagesSubmitButton').css('cursor', 'pointer');
+                    }
+                });
+            }
+            // Sinon on remet la zone d'écriture à zéro.
+            else {
+                $('#propositionEchangesEcritureMessagesTextArea').text('');
+            }
+        }
+
+        // Recoi les nouveaux messages.
+        function receptMessage() {
+            $.ajax({
+                url: '{{ path('nox_intranet_demande_prestation_proposition_echanges_message_ajax_receive') }}',
+                type: 'POST',
+                data: {'cleDemande': '{{cleDemande}}', 'da2': '{{da2}}'},
+                success: function (Response) {
+
+                    var nbMessage = $('#propositionEchangesAffichageMessages .propositionEchangesMessage').length;
+
+                    // Pour chaque messages.
+                    var newMessage = '';
+                    $.each(Response, function (index, value) {
+                        // On génera la date du message sous forme de chaine de charactère.
+                        var currentDate = new Date(value.postDate.date);
+                        var stringDate = ((currentDate.getDate() < 10) ? '0' + currentDate.getDate() : currentDate.getDate()) + '/' + ((currentDate.getMonth() < 10) ? '0' + currentDate.getMonth() : currentDate.getMonth()) + '/' + currentDate.getFullYear() + ' à ' + ((currentDate.getHours() < 10) ? '0' + currentDate.getHours() : currentDate.getHours()) + ':' + ((currentDate.getMinutes() < 10) ? '0' + currentDate.getMinutes() : currentDate.getMinutes()) + ':' + ((currentDate.getSeconds() < 10) ? '0' + currentDate.getSeconds() : currentDate.getSeconds());
+
+                        // On génére le code HTML du nouveau message.
+                        newMessage += "<div " + ((Response.length - 1 === index) ? "id='echangesLastMessage'" : '') + " class='propositionEchangesMessage " + ((value.sender === '{{ app.user.username }}') ? 'propositionEchangesMessageTo' : 'propositionEchangesMessageFrom') + "'>";
+                        newMessage += "<span style='display: inline-block; vertical-align: middle; height: 100%;'></span>";
+                        newMessage += "<div>";
+                        newMessage += "<p>" + value.message + "</p>";
+                        newMessage += "<hr>";
+                        newMessage += "<time datetime='" + stringDate + "'>Posté le : " + stringDate + "</time>";
+                        newMessage += "</div>";
+                        newMessage += "</div><br />";
+                    });
+
+                    // On supprime les messages déjà existants.
+                    $('#propositionEchangesAffichageMessages').contents().remove();
+
+                    // On fait apparaitre les nouveaux messages.
+                    $('#propositionEchangesAffichageMessages').append(newMessage);
+
+                    // Si il y a des nouvezaux message, on appel la fonction de scroll.              
+                    if ($('#propositionEchangesAffichageMessages .propositionEchangesMessage').length > nbMessage) {
+                        scrollToLastMessage();
+                    }
+
+                    // On rapelle la fonction.
+                    receptMessage();
+                }
+            });
+        }
+
+        // Scroll la fênetre d'affichage des messages au début du dernier message posté.
+        function scrollToLastMessage() {
+            var height = 0;
+            var lastHeight = 0;
+            $('#propositionEchangesAffichageMessages .propositionEchangesMessage').each(function () {
+                height += parseInt($(this).height());
+                lastHeight = parseInt($(this).height());
+            });
+
+            height = height - lastHeight;
+            height += '';
+
+            $('#propositionEchangesAffichageMessages').animate({scrollTop: height}, 1000);
+        }
+    </script>
+
+{% endblock %}

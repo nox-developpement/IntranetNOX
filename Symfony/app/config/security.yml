@@ -1,0 +1,68 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+    
+#    access_denied_url: /accueil
+    
+    encoders:
+        NoxIntranet\UserBundle\Entity\User: sha512
+           
+    role_hierarchy:
+        # Un admin hérite des droits d'auteur et de modérateur
+        ROLE_USER: 
+        ROLE_REFERENCES: [ROLE_USER]
+        ROLE_LIENS: [ROLE_USER]
+        ROLE_FAQ: [ROLE_USER]
+        ROLE_CE: [ROLE_USER]
+        ROLE_CHSCT: [ROLE_USER]
+        ROLE_QUALITE: [ROLE_USER]
+        ROLE_COMPETENCES: [ROLE_USER]
+        ROLE_COMMUNICATION: [ROLE_USER]
+        ROLE_PROCEDURES: [ROLE_USER]
+        ROLE_RH: [ROLE_USER]
+        ROLE_ADMIN: [ROLE_USER, ROLE_PROCEDURES, ROLE_COMMUNICATION, ROLE_COMPETENCES, ROLE_REFERENCES, ROLE_LIENS, ROLE_CE, ROLE_CHSCT, ROLE_QUALITE, ROLE_FAQ, ROLE_RH]
+        # On garde ce rôle superadmin, il nous resservira par la suite
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        main:
+            entity:
+                class: NoxIntranetUserBundle:User
+                property: username
+                # if you're using multiple entity managers
+                # manager_name: customer
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern:   ^/
+            anonymous: true
+            provider:  main
+#            form_login:
+#                login_path: /connexionRequise
+            logout:
+                path:   logout
+                target: /accueil
+    
+    access_control:
+        - { path: ^/elfinder/archives, role: ROLE_ARCHIVES }
+        - { path: ^/elfinder/competences, role: ROLE_COMPETENCES }
+        - { path: ^/elfinder/references, role: ROLE_REFERENCES }
+        - { path: ^/elfinder/newsSI, role: ROLE_COMMUNICATION }
+        - { path: ^/efconnect, role: ROLE_USER }
+        - { path: ^/elfinder, role: ROLE_USER }
+        - { path: ^/administration/assistant-affaires, role: ROLE_SUPER_ADMIN }
+        - { path: ^/administration/procedures, role: ROLE_PROCEDURES }
+        - { path: ^/administration/qualite, role: ROLE_QUALITE }
+        - { path: ^/administration/liens, role: ROLE_LIENS }
+        - { path: ^/administration/communication, role: ROLE_COMMUNICATION }
+        - { path: ^/administration, role: [ROLE_ADMIN, ROLE_REFERENCES, ROLE_COMPETENCES, ROLE_COMMUNICATION, ROLE_PROCEDURES, ROLE_FAQ, ROLE_LIENS, ROLE_QUALITE, ROLE_RH] }    
+        - { path: ^/communication, role: ROLE_USER }
+        - { path: ^/ressources/assistant-affaires, role: ROLE_SUPER_ADMIN }
+        - { path: ^/ressources, role: ROLE_USER }
+        - { path: ^/supportSI, role: ROLE_USER }
+        

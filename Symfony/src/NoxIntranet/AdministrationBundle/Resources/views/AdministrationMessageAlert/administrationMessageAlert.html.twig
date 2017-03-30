@@ -1,0 +1,40 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Administration message d'alerte {% endblock %}
+
+{% block messageAccueil %}Administration message d'alerte{% endblock %}
+
+{% block contenu %}
+
+    <div class='DivFormulaireMessageAlerte'>
+
+        {{ form_start(form, {'attr': {'class': 'formulaireMessageAlerte'}}) }}
+        {{ form_errors(form) }}
+
+        <fieldset>
+
+            <legend>Message d'alerte</legend>
+
+            <p>
+                {{ form_label(form.Message, "Message :", {'label_attr': {'class': 'labelFormulaireMessageAlerte'}}) }}
+                {{ form_errors(form.Message) }}
+                {{ form_widget(form.Message, {'attr': {'class': 'textFormulaireMessageAlerte' }}) }} 
+
+                <br />
+
+                {{ form_label(form.Status, "Activé alerte :", {'label_attr': {'class': 'labelFormulaireMessageAlerte'}}) }}
+                {{ form_errors(form.Status) }}
+                {{ form_widget(form.Status, {'attr': {'class': 'checkboxFormulaireMessageAlerte' }}) }}
+
+                <br />
+
+                {{ form_widget(form.Valider, {'attr': {'class': 'submitFormulairePlacementChamp', 'class': 'boutonFormulaire' }}) }}
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}

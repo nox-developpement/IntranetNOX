@@ -1,0 +1,398 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}
+    Administration
+{% endblock %}
+
+{% block messageAccueil %}Administration{% endblock %}
+{% block sousMessageAccueil %}Veuillez sélectionner le type de contenu à gérer.{% endblock %}
+
+
+{% block contenu %}
+
+    <style>
+        #DRHTable {
+            width: 50%;
+            margin: auto;
+            margin-bottom: 5em;
+        }
+
+        #DRHTable, #DRHTable tr, #DRHTable th, #DRHTable td {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+
+        #DRHTable th {
+            color: white;
+            background-color: #1F4E79;
+        }
+
+        #DRHTable tr {
+            border: none;
+        }
+
+        #DRHTable td {
+            padding: 1% 2% 1% 2%;
+            border-top: none;
+            border-bottom: none;
+        }
+
+        #DRHTable td .DRHLinkDiv {
+            display: inline-block;
+            padding: 2%;
+            border-top: solid 1px rgb(192,0,0);
+            border-bottom: solid 1px rgb(192,0,0);
+        }
+
+        #DRHTable td .DRHLinkDiv:hover {
+            border-top: solid 1px black;
+            border-bottom: solid 1px black;
+        }
+
+        #DRHTable td a, #DRHTable td a:visited {
+            color: #1F4E79;
+            text-decoration: none;
+        } 
+    </style>
+
+    <div class="iconContener">
+
+        {% if app.user and is_granted('ROLE_ADMIN') %}
+
+            <div class="sousMessageAcceuil"> 
+                <h4> Configuration Intranet :  </h4>
+            </div>
+
+            {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
+
+                <!-- Administration Administrateur -->
+                <a href="{{ path('nox_intranet_administration_user_admin') }}" class="icon">
+                    <figure>
+                        <img 
+                            src="{{ asset('bundles/noxintranetadministration/images/User-Shield-128.png') }}" 
+                            onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/User-Shield-128-hover.png') }}';" 
+                            onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/User-Shield-128.png') }}';"
+                            > 
+                        <figcaption>Administrateurs</figcaption>
+                    </figure>
+                </a>
+
+            {% endif %}
+
+            <!-- Licenses (A faire) 
+            <a href="{{ path('nox_intranet_administration_userDB') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Licenses-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Licenses-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Licenses-128.png') }}';"
+                        > 
+                    <figcaption>Licenses</figcaption>
+                </figure>
+            </a>
+            -->
+
+            {% if app.user and app.user.local == true %}
+
+                <!-- Mot de passe -->
+                <a href="{{ path('nox_intranet_admin_mdp') }}" class="icon">
+                    <figure>
+                        <img 
+                            src="{{ asset('bundles/noxintranetadministration/images/Password-Text-01-128.png') }}" 
+                            onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Password-Text-01-128-hover.png') }}';" 
+                            onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Password-Text-01-128.png') }}';"
+                            > 
+                        <figcaption>Modif. MDP</figcaption>
+                    </figure>
+                </a>
+
+            {% endif %}
+
+            <!-- Synchro. AD -->
+            <a href="{{ path('nox_intranet_administration_userDB') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Data-Connect-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Connect-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Connect-128.png') }}';"
+                        > 
+                    <figcaption>Synchro. AD</figcaption>
+                </figure>
+            </a>
+
+            <!-- Administration Utilisateurs -->
+            <a href="{{ path('nox_intranet_administration_user') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/User-Group-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/User-Group-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/User-Group-128.png') }}';"
+                        > 
+                    <figcaption>Utilisateurs</figcaption>
+                </figure>
+            </a>
+
+            <br>
+
+            <div class="sousMessageAcceuil"> 
+                <h4> Publication DSI :  </h4>
+            </div>
+
+            <!-- Archives -->
+            <a href="{{ path('nox_intranet_archives') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Archive-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Archive-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Archive-128.png') }}';"
+                        > 
+                    <figcaption>Archives</figcaption>
+                </figure>
+            </a>
+
+            <!-- Avancement Projet -->
+            <a href="{{ path('nox_intranet_avancement_projet') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Calendar-Date-04-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Calendar-Date-04-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Calendar-Date-04-128.png') }}';"
+                        > 
+                    <figcaption>Av. projet</figcaption>
+                </figure>
+            </a>
+
+            <!-- Demande Mat/log -->
+            <a href="{{ path('nox_intranet_administration_materiel') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Mobile-Phone-Message-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Mobile-Phone-Message-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Mobile-Phone-Message-128.png') }}';"
+                        > 
+                    <figcaption>Demande Mat/log</figcaption>
+                </figure>
+            </a> 
+
+            <br>
+
+            <!-- Imprimantes (A faire)
+            <a href="{{ path('nox_intranet_administration_imprimantes') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Printer-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Printer-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Printer-128.png') }}';"
+                        > 
+                    <figcaption>Imprimantes</figcaption>
+                </figure>
+            </a> 
+            -->
+
+            <!-- Informations -->
+            <a href="{{ path('nox_intranet_information') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Message-Information-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Message-Information-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Message-Information-128.png') }}';"
+                        > 
+                    <figcaption>Informations</figcaption>
+                </figure>
+            </a> 
+
+            <!-- News DSI -->
+            <a href="{{ path('nox_intranet_administration_news') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Newspaper-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Newspaper-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Newspaper-128.png') }}';"
+                        > 
+                    <figcaption>News DSI</figcaption>
+                </figure>
+            </a>
+
+            <!-- Serveurs -->
+            <a href="{{ path('nox_intranet_administration_serveurs') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Server-02-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Server-02-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Server-02-128.png') }}';"
+                        > 
+                    <figcaption>Serveurs</figcaption>
+                </figure>
+            </a>
+
+            <!-- Message d'alerte -->
+            <a href="{{ path('nox_intranet_administration_message_alerte') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Message-Warning-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Message-Warning-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Message-Warning-128.png') }}';"
+                        > 
+                    <figcaption>Message d'alerte</figcaption>
+                </figure>
+            </a>
+
+        {% endif %}
+
+        <div class="sousMessageAcceuil"> 
+            <h4> Publication Collaborateurs :  </h4>
+        </div>
+
+        {% if app.user and is_granted('ROLE_ADMIN') %}
+
+            <!-- Assistant d'affaire -->
+            <a href="{{ path('nox_intranet_administration_affaires') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Business-Man-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Business-Man-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Business-Man-128.png') }}';"
+                        > 
+                    <figcaption>Assistant d'affaire</figcaption>
+                </figure>
+            </a>
+
+        {% endif %}
+
+        <!-- Assurance qualité -->
+        <a href="{{ path('nox_intranet_aq') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetadministration/images/Hand-Sign-06-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Hand-Sign-06-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Hand-Sign-06-128.png') }}';"
+                    > 
+                <figcaption>Assurance qualité</figcaption>
+            </figure>
+        </a>
+
+        <!-- Communication -->
+        <a href="{{ path('nox_intranet_communication') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetadministration/images/Messages-Information-01-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Messages-Information-01-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Messages-Information-01-128.png') }}';"
+                    > 
+                <figcaption>Communication</figcaption>
+            </figure>
+        </a>    
+
+        <br>
+
+        {% if app.user and is_granted('ROLE_FAQ') %}        
+            <!-- FAQ -->
+            <a href="{{ path('nox_intranet_faq') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Help-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Help-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Help-128.png') }}';"
+                        > 
+                    <figcaption>FAQ</figcaption>
+                </figure>
+            </a>
+
+        {% endif %}
+
+        <!-- Liens -->
+        <a href="{{ path('nox_intranet_administration_liens') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetadministration/images/Link-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Link-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Link-128.png') }}';"
+                    > 
+                <figcaption>Liens</figcaption>
+            </figure>
+        </a>
+
+        <!-- Procédures (A ajouté)
+        <a href="{{ path('nox_intranet_administration_liens') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetadministration/images/Procedures-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Procedures-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Procedures-128.png') }}';"
+                    > 
+                <figcaption>Procédures</figcaption>
+            </figure>
+        </a>
+        -->
+
+        <!-- Références -->
+        <a href="{{ path('nox_intranet_references') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetadministration/images/Sort-Ascending-01-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Sort-Ascending-01-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Sort-Ascending-01-128.png') }}';"
+                    > 
+                <figcaption>Références</figcaption>
+            </figure>
+        </a>
+
+        <!-- Ticketing -->
+        <a href="{{ path('nox_intranet_administration_ticketing') }}" class="icon">
+            <figure>
+                <img 
+                    src="{{ asset('bundles/noxintranetadministration/images/Ticketing-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Ticketing-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Ticketing-128.png') }}';"
+                    > 
+                <figcaption>Ticketing</figcaption>
+            </figure>
+        </a>
+
+        {% if app.user and is_granted('ROLE_RH') %}
+
+            <div class="sousMessageAcceuil"> 
+                <h4> DRH :  </h4>
+            </div>
+
+            <table id='DRHTable'>
+                <tr>
+                    <th>Pointage</th>
+                    <th>Développement professionnel</th>
+                    <th>Autre</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div class='DRHLinkDiv'><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'RH'}) }}">Assistant(e) RH - Correction/Validation compilation</a></div>
+                        </th>
+                    <td>
+                        {% if app.user.username == 'n.rigaudeau' or app.user.username == 'a.forestier' or app.user.username == 't.besson' %}
+                            <div class='DRHLinkDiv'><a href="{{ path('nox_intranet_developpement_professionnel_synthese_excel') }}">Synthèse</a></div>
+                        {% endif %}
+                        </th>
+                    <td>
+                        <div class='DRHLinkDiv'><a href="{{ path('nox_intranet_prestation_administration_da') }}">Prestations internes - Administration des DA</a></div>
+                        </th>
+                </tr>
+                <tr>
+                    <td><div class='DRHLinkDiv'><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'Final'}) }}">Consultation des compilations validées</a></div></th>
+                    <td><div class='DRHLinkDiv'><a href="{{ path('nox_intranet_developpement_professionnel_monitoring_formulaire') }}">Suivis des entretiens</a></div></th>
+                    <td></th>
+                </tr>
+                <tr>
+                    <td><div class='DRHLinkDiv'><a href="https://noxingenierie-my.sharepoint.com/personal/l_morisseau_groupe-nox_com/_layouts/15/WopiFrame.aspx?sourcedoc=%7B84616442-030A-4A6D-8CD9-B17A0FB1D49C%7D&file=COMPILATION%20FICHIER%20HIERARCHIQUE%20110117.xlsx&action=default" target="_blank">Fichier de hiérarchie RH</a></div></th>
+                    <td></th>
+                    <td></th>
+                </tr>
+                <tr>
+                    <td><div class='DRHLinkDiv'><a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank'>Consulter la notice</a></div></th>
+                    <td></th>
+                    <td></th>
+                </tr>
+            </table>
+
+        {% endif %}
+
+    </div>
+
+{% endblock %}

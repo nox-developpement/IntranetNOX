@@ -1,0 +1,52 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}{{ dossier }}{% endblock %}
+
+{% block messageAccueil %}{{ dossier }}{% endblock %}
+
+{% block contenu %}
+
+    {% if is_granted('ROLE_RH') %} 
+
+        <div id="menuAdminNewsSI" class='menuAdmin'>
+            <h3> Interface de gestion de contenu </h3>
+            <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/{{ config }}', 'Gestionnaire de fichiers - {{ dossier }}');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>
+        </div>
+
+    {% endif %}
+
+    {% for new in news %} 
+
+        <div class="divNews">
+
+            <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new.Lien }}', 'RH');">
+                <img 
+                    src="{{ app.request.schemeAndHttpHost }}/Symfony/web/ImagePDF/{{ new.Nom|convert_encoding('UTF-8', 'ISO-8859-1') }}.png" alt="PDF" 
+                    onmouseover="$(this).css('box-shadow', '0px 0px 10px #1F4E79');" 
+                    onmouseout="$(this).css('box-shadow', 'none');"
+                    >
+            </a>
+
+            <ul>
+
+                <li> Nom du fichier : {{ new.Nom }} </li>
+
+                {% if new.proprietes.Title != null %} <li> Titre : {{ new.proprietes.Title }} </li> {% endif %}
+
+                {% if new.proprietes.Creator != null %} <li> Auteur : {{ new.proprietes.Creator }} </li> {% endif %}
+
+                {% if new.proprietes.Subject != null %} <li> Sujet : {{ new.proprietes.Subject }} </li> {% endif %}
+
+                {% if new.proprietes.Keywords != null %} <li> Mots : {{ new.proprietes.Keywords }} </li> {% endif %}
+
+                <li> Posté le : {{ new.dateEnvoi }} </li>
+
+            </ul>
+
+        </div>
+
+    {% endfor %}
+
+
+
+{% endblock %}

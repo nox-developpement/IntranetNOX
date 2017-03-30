@@ -1,0 +1,93 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}
+    Administration imprimantes
+{% endblock %}
+
+{% block messageAccueil %}Administration imprimantes{% endblock %}
+
+{% block contenu %}
+
+    <div id="divAdministrationAdmin">
+
+        <div id="creationAdmin">
+            <div id="creationAdminDiv">
+
+                {{ form_start(form, {'attr': {'class': 'formulaireImprimante'}}) }}
+                {{ form_errors(form) }}
+
+                {{ form_label(form.agence, "Agence :", {'label_attr': {'class': 'labelFormulaireImprimante'}}) }}
+                {{ form_errors(form.agence) }}
+                {{ form_widget(form.agence, {'attr': {'class': 'textFormulaireArchive', 'placeholder': 'ex: Bron'}}) }}
+
+
+                {{ form_label(form.nom, "Nom de l'imprimante :", {'label_attr': {'class': 'labelFormulaireImprimante'}}) }}
+                {{ form_errors(form.nom) }}
+                {{ form_widget(form.nom, {'attr': {'class': 'textFormulaireImprimante', 'placeholder': 'ex: IMP-ANG-SS'}}) }}
+
+                <br />
+
+                {{ form_label(form.type, "Type :", {'label_attr': {'class': 'labelFormulaireImprimante'}}) }}
+                {{ form_errors(form.type) }}
+                {{ form_widget(form.type, {'attr': {'class': 'radioFormulaireImprimante'}}) }}
+
+                <br />
+
+                {{ form_label(form.nomReseau, "Nom imprimante réseau :", {'label_attr': {'class': 'labelFormulaireImprimante', 'class': 'formTraceur' }}) }}
+                {{ form_errors(form.nomReseau) }}
+                {{ form_widget(form.nomReseau, {'attr': {'class': 'textFormulaireArchive', 'class': 'formTraceur'}, 'required': false }) }}
+                
+                {{ form_label(form.ip, "Ip :", {'label_attr': {'class': 'labelFormulaireImprimante', 'class': 'formTraceur'}}) }}
+                {{ form_errors(form.ip) }}
+                {{ form_widget(form.ip, {'attr': {'class': 'textFormulaireArchive', 'class': 'formTraceur'}, 'required': false }) }}
+                
+                <br />
+                
+                {{ form_label(form.cheminPilote, "Chemin pilote :", {'label_attr': {'class': 'labelFormulaireImprimante', 'class': 'formTraceur'}}) }}
+                {{ form_errors(form.cheminPilote) }}
+                {{ form_widget(form.cheminPilote, {'attr': {'class': 'textFormulaireArchive', 'class': 'formTraceur'}, 'required': false }) }}
+                
+                {{ form_label(form.fileLPR, "File d'attente LPR :", {'label_attr': {'class': 'labelFormulaireImprimante', 'class': 'formTraceur'}}) }}
+                {{ form_errors(form.fileLPR) }}
+                {{ form_widget(form.fileLPR, {'attr': {'class': 'textFormulaireArchive', 'class': 'formTraceur'}, 'required': false }) }}
+
+                {{ form_widget(form._token) }}
+
+                {{ form_widget(form.ajouter, {'attr': {'class': 'submitFormulaireImprimante', 'class': 'boutonFormulaire' }}) }}
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+
+        <table>
+
+            <tr>
+                <td> Agence </td>
+                <td> Nom </td>
+                <td> Type </td>
+                <td> Supprimer </td>
+            </tr>
+
+            {% for imprimante in imprimantes %}
+
+                <tr>
+                    <td> <p> {{ imprimante.agence }} <p> </td>
+
+                    <td>
+                        <p> {{ imprimante.nom }} </p>
+                    </td>
+                    
+                    <td> <p> {% if imprimante.type == 'imp' %} Imprimante {% else %} Traceur {% endif %} </p> </td>
+
+                    <td> <a href='{{ path('nox_intranet_administration_imprimantes_suppression', {'id': imprimante.id}) }}'> <img class="suppressionImprimanteImg" src='{{ asset('bundles/noxintranetadministration/images/Delete-48.png') }}'> </a> </td>
+                </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+{% endblock %}
+{# empty Twig template #}

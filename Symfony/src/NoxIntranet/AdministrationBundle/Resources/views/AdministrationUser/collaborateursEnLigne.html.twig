@@ -1,0 +1,65 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}Collaborateurs en ligne{% endblock %}
+
+{% block messageAccueil %}Collaborateurs en ligne{% endblock %}
+
+{% block contenu %}
+    <style>
+        #online_users_div {
+            width: 70%;
+            margin: auto;
+        }
+
+        #online_users_table {
+            table-layout: fixed;
+            width: auto;
+            max-width: 100%;
+            margin: auto;
+        }
+
+        #online_users_table, #online_users_table tr, #online_users_table th, #online_users_table td {
+            border-collapse: collapse;
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        #online_users_table th {
+            color: white;
+            background-color: #1F4E79;
+        }
+
+        #online_users_table td, #online_users_table th {
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+        }
+
+        .last_viewed_page_td {
+            word-break: break-all;
+        }
+    </style>
+
+    <div id="online_users_div">
+        <table id="online_users_table">
+            <thead>
+                <tr>
+                    <th colspan="3">Utilisateurs en ligne ({{ online_users|length }})</th>
+                </tr>
+                <tr>
+                    <th>Collaborateur</th>
+                    <th>Dernière activitée</th>
+                    <th>Dernière page consultée</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in online_users %}
+                    <tr>
+                        <td>{{ user.Lastname ~ ' ' ~ user.Firstname }}</td>
+                        <td>{{ user.LastActivity|date('d/m/Y à H:i:s') }}</td>
+                        <td class="last_viewed_page_td">{{ user.LastViewedPage['route'] }}<br />({{ user.LastViewedPage['path'] }})</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

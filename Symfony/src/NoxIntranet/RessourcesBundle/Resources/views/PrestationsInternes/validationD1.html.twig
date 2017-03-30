@@ -1,0 +1,321 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Nouvelle demande de prestation interne {% endblock %}
+
+{% block messageAccueil %}Nouvelle demande de prestation interne{% endblock %}
+
+{% block contenu %} 
+
+    <div id='pointageSavingNotification' style='display: none; position: fixed; z-index: 500; background-color: rgba(41,154,11, 0.7); border: 1px outset white; border-radius: 10px; padding: 0.5%;'><p style='display: inline-block; margin: 0; font-size: 0.8vw; color: white;'>Sauvegarde en cours <img src='{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}' style='vertical-align: middle; height: 2em;'></p></div>
+
+    <table id='validationD1Sum'>
+        <tr>
+            <th class='trLabel' colspan='2' style='padding-top: 5%; padding-bottom: 5%;'>Demande de prestation interne<br />Les champs éditables sont marqués d'un *.</th>
+        </tr>
+        <tr>
+            <td class='trLabel'>Libellé*</td>
+            <td class='editableField' contenteditable='true' field='Libelle'>{{ demande.Libelle }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Demandeur</td>
+            <td>{{ demandeur.Firstname() }} {{ demandeur.Lastname() }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Lieu de l'opération*</td>
+            <td class='editableField' contenteditable='true' field='LieuOperation'>{{ demande.LieuOperation }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Lieu de la prestation*</td>
+            <td class='editableField' contenteditable='true' field='LieuPrestation'>{{ demande.LieuPrestation }}</td>
+        </tr>
+        <tr class='editableField' contenteditable='true' field='Descriptif'>
+            <td class='trLabel'>Descriptif de la prestation*</td>
+            <td style='padding: 0;'>
+                <div class='editableField' contenteditable='true' field='Descriptif' style="height: 10em; overflow: auto; word-wrap: break-word;">{{ demande.Descriptif }}</div>
+            </td>
+        </tr>
+        <tr class='editableField' contenteditable='true' field='Deplacement'>
+            <td class='trLabel'>Déplacements à prévoir*</td>
+            <td>{{ demande.Deplacement }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Date de démarrage de la prestation*</td>
+            <td class='editableFieldDate' field='DateDemarrage'>
+                <select class='editableFieldDateDay'>
+                    {% for i in 1..31 %}
+                        <option value='{{ i }}' {% if demande.DateDemarrage|date('d') == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}
+                </select>
+                <select class='editableFieldDateMonth'>
+                    {% set months = { 01: 'Janvier', 02: 'Février', 03: 'Mars', 04: 'Avril', 05: 'Mai', 06: 'Juin', 07: 'Juillet', 08: 'Août', 09: 'Septembre', 10: 'Octobre', 11: 'Novembre', 12: 'Décembre' } %}
+                    {% for i in 1..12 %}
+                        <option value='{{ i }}' {% if demande.DateDemarrage|date('m') == i %}selected{% endif %}>{{ months[i] }}</option>
+                    {% endfor %}     
+                </select>
+                <select class='editableFieldDateYear'>
+                    {% for i in demande.DateDemarrage|date('Y')-50..demande.DateDemarrage|date('Y')+50 %}
+                        <option value='{{ i }}' {% if demande.DateDemarrage|date('Y') == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}     
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Date de rendu*</td>
+            <td class='editableFieldDate' field='DateRendu'>
+                <select class='editableFieldDateDay'>
+                    {% for i in 1..31 %}
+                        <option value='{{ i }}' {% if demande.DateRendu|date('d') == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}
+                </select>
+                <select class='editableFieldDateMonth'>
+                    {% for i in 1..12 %}
+                        <option value='{{ i }}' {% if demande.DateRendu|date('m') == i %}selected{% endif %}>{{ months[i] }}</option>
+                    {% endfor %}     
+                </select>
+                <select class='editableFieldDateYear'>
+                    {% for i in demande.DateRendu|date('Y')-50..demande.DateRendu|date('Y')+50 %}
+                        <option value='{{ i }}' {% if demande.DateRendu|date('Y') == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}     
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Livrables attendus*</td>
+            <td style='padding: 0;'>
+                <div class='editableField' contenteditable='true' field='Livrables' style="height: 10em; overflow: auto; word-wrap: break-word;">{{ demande.Livrables }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Volume de sous traitance envisagé (€)*</td>
+            <td class='editableField' contenteditable='true' field='VolumeSousTraitance' title='La valeur doit être un chiffre.'>{{ demande.VolumeSousTraitance }}</td>
+        </tr>
+    </table>
+
+    {{ form_start(formValidationRefus, {'attr': {'style': 'font-size: 0.8vw; border: 2px outset #1F4E79; background-color: rgba(255,255,255, 0.6);'}}) }}
+
+    <div style='display: inline-block; width: 100%;'>
+        <div style='display: inline-bloc; float: left;'>
+            {{ form_label(formValidationRefus.ValidationRefus.children[0], formValidationRefus.ValidationRefus.children[0].vars.label, {'label_attr': {'style': 'vertical-align: middle;' }}) }}{{ form_widget(formValidationRefus.ValidationRefus.children[0], {'attr': {'style': 'vertical-align: middle;' }}) }}
+        </div>
+        <div style='display: inline-bloc; float: right;'>
+            {{ form_label(formValidationRefus.ValidationRefus.children[1], formValidationRefus.ValidationRefus.children[1].vars.label, {'label_attr': {'style': 'vertical-align: middle;' }}) }}{{ form_widget(formValidationRefus.ValidationRefus.children[1], {'attr': {'style': 'vertical-align: middle;' }}) }}
+        </div>
+    </div>
+
+    <p style='margin: 1% 0 1% 0; display: none; text-align: center;' id='refusDemandeRaison'>
+        {{ form_label(formValidationRefus.RaisonRefus, 'Si vous le souhaitez, indiquer la raison du refus.') }}<br />
+        {{ form_widget(formValidationRefus.RaisonRefus, {'attr': {'style': 'box-sizing: border-box;'}}) }}
+    </p>
+
+    <div style='display: inline-block; width: 100%; position: relative; margin-top: 1%;' id='validationSelectionDA'><!--
+        --><label style='display: inline-block; text-align: center; width: 100%; margin-bottom: 2%;'>Séléctionnez les directeurs d'agences à contacter.</label><!--
+        --><p style='display: inline-block; width: 40%; margin: 0; float: left; text-align: center;'><!--
+            -->{{ form_label(formValidationRefus.ChoixDA2, "Disponible(s)") }}<!--
+            -->{{ form_widget(formValidationRefus.ChoixDA2, {'attr': {'size': 5, 'style': 'width: 100%;' }}) }}<!--
+            --></p><!--
+        --><p style='display: inline-block; width: 20%; margin: 0; position: absolute; top: 77.5%; left: 50%; transform: translateY(-77.5%) translateX(-50%); text-align: center;'><!--
+            --><button type='button' class="boutonFormulaire" name='addDA' style='width: 50%; font-size: 0.8vw; margin-bottom: 2%; padding: 3%;'>>></button><br /><!--
+            --><button type='button' class="boutonFormulaire" name='removeDA' style='width: 50%; font-size: 0.8vw; margin-top: 2%; padding: 3%;'><<</button><!--
+            --></p><!--
+        --><p style='display: inline-block; width: 40%; margin: 0; float: right; text-align: center;'><!--
+            -->{{ form_label(formValidationRefus.SelectionDA2, "Sélectionné(s)") }}<!--
+            -->{{ form_widget(formValidationRefus.SelectionDA2, {'attr': {'size': 5, 'style': 'width: 100%;'}}) }}<!--
+            --></p><!--
+        --></div>
+
+    <p style='text-align: center; margin-bottom: 0;'>
+        {{ form_widget(formValidationRefus.Valider, {'attr': {'class': 'boutonFormulaire'}}) }}
+    </p>
+
+    {{ form_end(formValidationRefus) }}
+
+    <script>
+
+        $(window).load(function () {
+            toggleFormValidationRefus();
+            selectAndRemoveDA();
+            checkAndSendForm();
+            editDemande();
+            $('.editableField').tooltip({
+                position: {
+                    my: "left+10% center",
+                    at: "right center"
+                },
+                disabled: true,
+                hide: {
+                    fixed: true
+                }
+            });
+        });
+
+        // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
+        $(document).ajaxSend(function (event, request, settings) {
+            var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
+            if (ajaxUrl === "ajax-edition-demande-prestation-interne") {
+                savingNotification();
+                $('#pointageSavingNotification').finish().css('display', 'inline-block');
+            }
+        });
+
+        // Cache l'écran de chargement et la notification de sauvegarde quand les requêtes ajax de chargement de la page et de sauvegarde sont terminées.
+        $(document).ajaxComplete(function () {
+            if ($.active <= 1) {
+                $('#pointageSavingNotification').finish().delay(2000).fadeOut();
+            }
+        });
+
+        // Affiche/Caches les élément du formulaire en fonction du radiobutton séléctionné.
+        function toggleFormValidationRefus() {
+            // Lors de la séléction d'un radiobutton.
+            $("input[name='formValidationRefus[ValidationRefus]']").change(function () {
+                // Si le boutton séléctionné est 'Accepter'.
+                if ($(this).val() === 'Validation') {
+                    // On cache la zone de texte d'explication du refus.
+                    $('#refusDemandeRaison').hide();
+                    // On affiche la séléction des DA.
+                    $('#validationSelectionDA').show();
+                    // On rend la séléction de DA obligatoire.
+                    $('#formValidationRefus_SelectionDA2').attr('required', true);
+                }
+                // Si le button séléctionné est 'Refuser'.
+                else if ($(this).val() === 'Refus') {
+                    // On affiche la zone de texte d'explication du refus.
+                    $('#refusDemandeRaison').show();
+                    // On cache la séléction des DA.
+                    $('#validationSelectionDA').hide();
+                    // On rend la séléction de DA optionnelle.
+                    $('#formValidationRefus_SelectionDA2').attr('required', false);
+                }
+            });
+        }
+
+        // Permet d'ajouter/retirer des DA.
+        function selectAndRemoveDA() {
+            // Lorsque le selecteur de choix de DA est séléctionné.
+            $('#formValidationRefus_ChoixDA2').focus(function () {
+                $("button[name='addDA']").attr('disabled', false); // On active le bouton d'ajout de DA.
+                $("button[name='removeDA']").attr('disabled', true); // On désactive le bouton de retrait de DA.
+            });
+
+            // Lorsque le sélécteur de DA choisis est séléctionné.
+            $('#formValidationRefus_SelectionDA2').focus(function () {
+                $("button[name='addDA']").attr('disabled', true); // On désactive le bouton d'ajout de DA.
+                $("button[name='removeDA']").attr('disabled', false); // On active le bouton de retrait de DA.
+            });
+
+            // Lors d'un clic sur le bouton d'ajout de DA.
+            $("button[name='addDA']").click(function () {
+                // Pour chaque option du sélécteur de choix de DA.
+                $('#formValidationRefus_ChoixDA2 option').each(function () {
+                    // Si la valeur est séléctionné.
+                    if ($(this).is(':selected')) {
+                        $(this).hide(); // On la cache.
+                        $("#formValidationRefus_SelectionDA2 option[value='" + $(this).val() + "']").show(); // On affiche son équivalent dans le sélécteur de DA choisis.
+                        $('#formValidationRefus_SelectionDA2').focus(); // On focus le sélécteur de DA choisis.
+                    }
+                });
+            });
+            // Lors d'un clic sur le bouton de retrait de DA.
+            $("button[name='removeDA']").click(function () {
+                // Pour chaque option du sélécteur de DA choisi.
+                $('#formValidationRefus_SelectionDA2 option').each(function () {
+                    // Si la valeur est séléctionné.
+                    if ($(this).is(':selected')) {
+                        $(this).hide(); // On la cache.
+                        $("#formValidationRefus_ChoixDA2  option[value='" + $(this).val() + "']").show(); // On affiche son équivalent dans le sélécteur de choix de DA.
+                        $('#formValidationRefus_ChoixDA2').focus(); // On focus le sélécteur de choix de DA.
+                    }
+                });
+            });
+        }
+
+        // Traite envoi le formulaire.
+        function checkAndSendForm() {
+            // Lors d'un clic sur le bouton de validation du formulaire.
+            $('#formValidationRefus_Valider').click(function () {
+                // Pour chaque option visible du sélecteur de DA choisis.
+                $('#formValidationRefus_SelectionDA2 option:visible').each(function () {
+                    $(this).attr('selected', true); // On la séléctionne.
+                });
+                $('#formValidationRefus_Validator').click(); // On effectu un clic sur un submit caché pour envoyer le formulaire tous en gardant le contrôle de formulaire HTML5.
+            });
+        }
+
+        // Permet d'éditer les valeurs des champs de la demande.
+        function editDemande() {
+            // Lorsqu'un champ text est séléctionné.
+            $('#validationD1Sum .editableField').focus(function () {
+                $(this).css('background-color', 'seashell'); // On change la couleur de fond.
+            });
+            // Lorsqu'un champ texte n'est plus séléctionné.
+            $('#validationD1Sum .editableField').blur(function () {
+                $(this).css('background-color', 'initial'); // On lui redonne sa couleur d'origine.
+            });
+
+            // Initialisation d'un timer pour executer la fonction après # seconde sans frappe.
+            var typewatch = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            // Lorsqu'on modifie la valeur d'un champ texte.
+            $('#validationD1Sum .editableField').on("keyup paste input", function () {
+
+
+                var ajaxFieldInput = $(this); // On récupére le champ.
+                typewatch(function () {
+                    // On enregistre sa nouvelle valeur avec un appel Ajax.
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ path('nox_intranet_ajax_edit_demande') }}',
+                        data: {'field': ajaxFieldInput.attr('field'), 'value': ajaxFieldInput.text(), 'cleDemande': '{{ demande.CleDemande }}'},
+                        success: function (result) {
+                            // Si la sauvegarde retourne une erreur de type de données (valeurs non numériques pour le volume de sous traitance.
+                            if (result === 'VolumeSousTraitance error') {
+                                ajaxFieldInput.css('background-color', '#FF6666'); // On color les bordure du champ en rouge.
+                                ajaxFieldInput.tooltip("option", "disabled", false); // On active l'affichage de la tooltip d'erreur.
+                                ajaxFieldInput.tooltip('open'); // On ouvre la tooltip d'erreur.
+                                ajaxFieldInput.off("mouseleave"); // On désactive la disparition de la tooltip lors du survol de la souris.
+                                // Lorsque on focus le champ.
+                                ajaxFieldInput.focus(function () {
+                                    ajaxFieldInput.tooltip("option", "disabled", true); // On fait disparaitre la tooltip.
+                                    ajaxFieldInput.css('border-color', 'black'); // On redonne la couleur d'origine à la bordure.
+                                });
+                            }
+                            // Si la sauvegarde s'est déroulé avec succé.
+                            else if (ajaxFieldInput.is(':focus')) {
+                                ajaxFieldInput.css('background-color', 'seashell'); // On redonne la couleur de focus au champ.
+                            }
+                        }
+                    });
+                }, 500);
+            });
+
+            // Lorsque qu'on modifie les valeurs des sélécteurs de date.
+            $('#validationD1Sum .editableFieldDate select').change(function () {
+                // On récupére la nouvelle date.
+                var date = $(this).parent('.editableFieldDate').children('.editableFieldDateYear').val() + '-' + $(this).parent('.editableFieldDate').children('.editableFieldDateMonth').val() + '-' + $(this).parent('.editableFieldDate').children('.editableFieldDateDay').val();
+                // On enregistre sa nouvelle valeur avec un appel Ajax.        
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path('nox_intranet_ajax_edit_demande') }}',
+                    data: {'field': $(this).parent('.editableFieldDate').attr('field'), 'value': date, 'cleDemande': '{{ demande.CleDemande }}'}
+                });
+            });
+        }
+
+        // Affiche une fenêtre de notification de sauvegarde qui suit la souris.
+        function savingNotification() {
+            // Lorsque la souris bouge.
+            $(document).mousemove(function (event) {
+                $('#pointageSavingNotification').css('left', event.pageX + 20);
+                $('#pointageSavingNotification').css('top', event.pageY);
+            });
+        }
+
+    </script>
+
+{% endblock %}

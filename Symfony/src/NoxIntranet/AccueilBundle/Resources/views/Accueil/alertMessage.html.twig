@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <title> Groupe-Nox / Alerte </title>
+
+
+        {% stylesheets '@NoxIntranetCommunicationBundle/Resources/public/css/style.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
+
+        <link rel="icon" type="image/png" href="{{ app.request.getSchemeAndHttpHost() }}/Symfony/web/favicon.ico" />
+
+        <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet" />
+        <style type="text/css">
+            @font-face {
+                font-family: 'NoxFont'; 
+                src:    url({{asset('fonts/MuseoSans_100.otf')}}) format('opentype');
+            }
+
+            #alert {
+                background-image: url({{ asset('bundles/noxintranetaccueil/images/AccueilIntranetBackground.png') }});
+                background-position: center; 
+                background-repeat: no-repeat;
+                background-size: 100%;
+            }
+
+            #alertMessage {
+                text-align: center;
+                font-size: 2vw;
+                margin: auto;
+            }
+
+            #tutoConnexion {
+                margin-top: 1%; 
+                height: 50%;
+            }
+
+            #hideAlertButtonParagraph {
+                margin-top: 1%; 
+                margin-bottom: 1%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id='alert'>
+            <div id='alertContainer'>
+                <div id='alertMessage'> 
+                    {{ message|raw }}
+                    <p id='hideAlertButtonParagraph'>
+                        <button id='hideAlertButton' onclick="location.href = '{{ pagePrecedente }}';">J'ai compris</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

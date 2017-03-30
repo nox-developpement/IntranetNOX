@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <title> Groupe-Nox / {% block titrePage %}{% endblock %}</title>
+        {# app/Resources/views/layout.html.twig #}
+
+        <script src={{ asset('./js/jquery-2.2.0.min.js') }}></script>
+        <script src={{ asset('./js/js.cookie.js') }}></script>
+        <script src="{{ asset('./js/texteActions.js') }}"></script>
+
+        {% stylesheets '@NoxIntranetCommunicationBundle/Resources/public/css/style.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
+
+        <link rel="icon" type="image/png" href="{{ app.request.getSchemeAndHttpHost() }}/Symfony/web/favicon.ico" />
+
+        <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet" />
+        <style type="text/css">
+            @font-face {
+                font-family: 'NoxFont'; 
+                src:    url({{asset('fonts/MuseoSans_100.otf')}}) format('opentype');
+            }
+
+            #alert {
+                background-image: url({{ asset('bundles/noxintranetaccueil/images/AccueilIntranetBackground.png') }});
+                background-position: center; 
+                background-repeat: no-repeat;
+                background-size: 100%;
+            }
+        </style>
+    </head>
+
+    <body onload="menuAnimation();">
+
+        <header>
+
+            <div style="border: none; width: 15%; display:inline-block; text-align: center; vertical-align: middle; margin-top: 2.5%;"> <a style="cursor: pointer; font-size: 0.85vw;" onclick="$(function () {
+                        $('#dialog').dialog({width: 970, height: 600});
+                    });"> Plan du site <br /><img style="width: 10%;" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}" onmousedown="return false;"> </a> 
+            </div><!-- 
+            
+            --><div id ="bandeau">  
+                <img src="{{ asset('bundles/noxintranetcommunication/images/bandeau.png') }}" id ="image_bandeau" alt="bandeau" onmousedown="return false;">
+            </div>
+
+            {{ include('NoxIntranetUserBundle:Security:ADlogin.html.twig') }}
+
+        </header>
+
+        <div id="dialog" title="Plan du site" style="display: none; text-align: center;">
+            <img src="{{ asset('bundles/noxintranetaccueil/images/PlanIntranet.png') }}" style="width: 100%; vertical-align: middle;
+                 text-align: center;">
+        </div>
+
+        <div id="bar_menu">
+
+            <div id="EmailHelpdesk">
+                <a href="mailto:helpdesk@groupe-nox.com"> Une question ? </a>
+            </div><!--
+
+            --><div id="div_menu">
+
+                <ul id="menu">
+
+                    <li class="menuElement"> <a href="{{ path('nox_intranet_accueil') }}" class="liens"> Accueil </a> </li> 
+
+                    <li class="menuElement"> <a href="{{ path('nox_intranet_communication') }}" class="liens"> Communication </a> </li> 
+
+                    <li class="menuElement"> <a href="{{ path('nox_intranet_ressources') }}" class="liens"> Ressources </a> </li> 
+
+                    <li class="menuElement tooltipSupportSI">  <span class="tooltipSupportSIText">Aide pour les problèmes informatiques.</span> <a href="{{ path('nox_intranet_support_si') }}" class="liens"> Support SI </a> </li> 
+
+                    <li id="google_search"> 
+                        <form id="google_form">
+                            <img src ="{{ asset('bundles/noxintranetcommunication/images/logoRecherche.png') }}" alt="Logo Recherche" onmousedown="return false;">
+                            <input type="text" id="search_input" name="seach_input" placeholder="Rechercher sur Google">
+                            <button id="search" onclick="googleSearch(this)
+                                            ;"> Rechercher 
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="administrationBouton" >
+                {% if app.user != null and (is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENCES') or is_granted('ROLE_COMPETENCES') or is_granted('ROLE_COMMUNICATION') or is_granted('ROLE_PROCEDURES') or is_granted('ROLE_FAQ') or is_granted('ROLE_CE') or is_granted('ROLE_CHSCT') or is_granted('ROLE_LIENS') or is_granted('ROLE_QUALITE') or is_granted('ROLE_RH')) %}
+                    <p> <a href="{{ path('nox_intranet_administration') }}"> Administration </a> </p>
+                {% elseif is_granted('ROLE_PUBLICATEUR') %}
+                    <p> Publication </p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div id ="section_principal">
+
+            <div id="contenu">
+
+                {% for flashMessage in app.session.flashbag.get('notice') %}
+                    <p class="flashbag"> 
+                        {{ flashMessage }}
+                    </p>
+                {% endfor %} 
+
+                {% for flashMessage in app.session.flashbag.get('noticeErreur') %}
+                    <p class="flashbagErreur"> 
+                        {{ flashMessage }}
+                    </p>
+                {% endfor %} 
+
+                <div class="messageAcceuil"> 
+                    <h2> {% block messageAccueil %} {% endblock %} </h2>
+                    <h3> {% block sousMessageAccueil %} {% endblock %} </h3>
+                    <span>{% block textEncart %}{% endblock %}</span>
+                </div>
+
+                {% block contenu %}
+
+                {% endblock %}
+
+            </div>  
+
+        </div>
+
+        <footer> 
+            <div>
+                <p> @Copyright 2016 - <a href="http://groupe-nox.com/" target="_blank">GROUPE NOX</a> - IT Dpt, All rights reserved - {{ intranet_version }} </p> 
+            </div>
+        </footer>
+
+        <script>
+
+            function footerAlign() {
+                $('footer').css('display', 'block');
+                $('footer').css('height', 'auto');
+                var footerHeight = $('footer').outerHeight();
+
+                $('footer').css('height', footerHeight);
+
+
+            }
+
+            function resizeContenu() {
+                $('#contenu').height($('footer').offset().top - $('header').height() - $('#bar_menu').height() - $('footer').height() / 5);
+            }
+
+
+            function centerContent()
+            {
+                var container = $('footer div');
+                var content = $('footer div p');
+                content.css("left", (container.width() - content.width()) / 2);
+                content.css("top", (container.height() - content.height()) / 2);
+            }
+
+            $(window).load(function () {
+                footerAlign();
+                centerContent();
+                resizeContenu();
+            });
+
+            $(window).resize(function () {
+                footerAlign();
+                centerContent();
+                resizeContenu();
+            });
+
+        </script>
+
+        <script src="{{ asset('./js/affichageImageResizing.js') }}"/></script>
+    <script src="{{ asset('./js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    <script src="{{ asset('./js/googleSearch.js') }}"></script>
+    <script src="{{ asset('./js/menuAnimation.js') }}"></script>
+    <script src="{{ asset('./js/positionement.js') }}"></script>
+    <script src="{{ asset('./js/checkboxClick.js') }}"></script>   
+    <script src="{{ asset('./js/textareaLogiciel.js') }}"></script>  
+    <script src="{{ asset('./js/gestionFichiersPopup.js') }}"></script>
+    <script src="{{ asset('./js/texteEncartActions.js') }}"></script>
+    <script src="{{ asset('./js/popupDownloadArchive.js') }}"></script>
+    <script src="{{ asset('./js/menuAdministrationCommunication.js') }}"></script>
+    <script src="{{ asset('./js/formImprimanteScript.js') }}"></script>
+    <script src="{{ asset('./js/editionLiens.js') }}"></script>
+    <script src="{{ asset('./js/jscroller2-1.61.js') }}"></script>
+    <script src="{{ asset('./js/submitFormAffaires.js') }}"></script>
+    <script src="{{ asset('./js/tableurEdition.js') }}"/></script>
+<script src="{{ asset('./js/suiviRecherche.js') }}"/></script>
+<script src="{{ asset('./js/jquery.transit.min.js') }}"/></script>
+<script src="{{ asset('./js/tableHeadFixer.js') }}"/></script>
+
+</body>
+
+</html>

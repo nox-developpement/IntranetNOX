@@ -1,0 +1,226 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}{{ dossier|raw }}{% endblock %}
+
+{% block messageAccueil %}{{ dossier|raw }}{% endblock %}
+
+{% block contenu %}
+
+    <script>
+
+        $(window).load(function () {
+            ajaxVideoPreview();
+        });
+
+        // Génére une prévisualisation Gif des vidéos.
+        function ajaxVideoPreview() {
+            // Pour chaques vidéos mp4...
+            $('.mp4_Image').each(function () {
+                // On récupére l'image.
+                var vignette = $(this);
+
+                // On lance la requête de génération du gif.
+                $.ajax({
+                    url: '{{ path('nox_intranet_communication_ajax_video_preview') }}',
+                    type: 'POST',
+                    data: {file: vignette.data('video')},
+                    success: function (gifCode) {
+                        vignette.attr('src', gifCode); // On attribut le git à l'image.
+                    }
+                });
+            });
+        }
+
+    </script>
+    
+    {% if (authorizedUploadUsers is empty and is_granted('ROLE_COMMUNICATION')) or (app.user.username in authorizedUploadUsers) %} 
+
+        <div id="menuAdminNewsSI" class='menuAdmin'>
+            <h3> Interface de gestion de contenu </h3>
+            <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/{{ config }}', 'Gestionnaire de fichiers - {{ dossier|raw }}');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>
+        </div>
+
+    {% endif %}
+
+    <div id="choixPage">
+
+        {% if nbPage > 1 %}
+
+            <!-- Affiche un lien vers la première page si ce n'est pas la page actuel -->
+            {% if page > 1 %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': 1, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> << </a>
+            {% endif %}
+            <!-------------------------------------------------------------------------->
+
+            <!-- Affiche un lien vers la page précédente si elle existe -->
+            {% if page-1  >= 1 %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': page-1, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> < </a>
+            {% endif %}
+            <!---------------------------------------------------------->
+
+            <!-- Affichage des liens vers les pages précédente. -->
+            {% if page-1  >= 1 %}
+                {% for i in 1..page-1 %}
+
+                    {% if i >= (page - 2) %}
+                        <a href="{{ path('nox_intranet_affichageContenu', { 'page': i, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> {{ i }} </a>
+                    {% endif %}
+
+                {% endfor %}
+            {% endif %}
+            <!--------------------------------------------------->
+
+            <!-- Page courante -->
+            <a href="{{ path('nox_intranet_affichageContenu', { 'page': page, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> <p id="pageActuel">{{ page }}</p> </a>
+            <!------------------->
+
+            <!-- Affichage des liens vers les pages suivantes. -->
+            {% if page+1  <= nbPage %}
+                {% for i in page+1..nbPage %}
+
+                    {% if i <= (page + 2) %}
+                        <a href="{{ path('nox_intranet_affichageContenu', { 'page': i, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> {{ i }} </a>
+                    {% endif %}
+
+                {% endfor %}
+            {% endif %}
+            <!--------------------------------------------------->
+
+            <!-- Affiche un lien vers la page suivante si elle existe -->
+            {% if page+1  <= nbPage %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': page+1, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> > </a>
+            {% endif %}
+            <!------------------------------------------------------------>
+
+            <!-- Affiche un lien vers la dernière page si ce n'est pas la page actuel -->
+            {% if page < nbPage %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': nbPage, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> >> </a>
+            {% endif %}
+            <!-------------------------------------------------------------------------->
+
+        {% endif %}
+
+    </div>
+
+    {% for new in news %}  
+
+        <div class="divNews">
+
+            {% if new['type'] == 'pdf' %}
+                <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new['fichier'].Lien }}', 'News SI');">
+                    <div class="previewImageContainer" onmouseover="$(this).css('box-shadow', '0px 0px 10px #1F4E79');" onmouseout="$(this).css('box-shadow', 'none');">
+                        <img 
+                            class="pdf_Image"
+                            src="{{ app.request.schemeAndHttpHost }}/Symfony/web/ImagePDF/{{ new['fichier'].Nom|convert_encoding('UTF-8', 'ISO-8859-1') }}.png" alt="PDF"  
+                            >
+                    </div>
+                </a>      
+
+                <ul>
+
+                    <li> Nom du fichier : {{ new['fichier'].Nom }} </li>
+
+                    {% if new['fichier'].Title != null %} <li> Titre : {{ new['fichier'].Title }} </li> {% endif %}
+
+                    {% if new['fichier'].Author != null %} <li> Auteur : {{ new['fichier'].Author }} </li> {% endif %}
+
+                    {% if new['fichier'].Subject != null %} <li> Sujet : {{ new['fichier'].Subject }} </li> {% endif %}
+
+                    {% if new['fichier'].Keywords != null %} <li> Mots : {{ new['fichier'].Keywords }} </li> {% endif %}
+
+                    {% if new['fichier'].Pages != null %} <li> Nombre de page(s) : {{ new['fichier'].Pages }} </li> {% endif %}
+
+                    <li> Posté le : {{ new['fichier'].dateEnvoi|date('d/m/Y') }} </li>
+
+                </ul>
+
+            {% elseif new['type'] == 'mp4' %}   
+                <a onclick="openDetailsPopUpWindow('http://' + document.location.hostname + '{{ new['fichier'].Lien }}', 'News SI');">
+                    <div class="previewImageContainer" onmouseover="$(this).css('box-shadow', '0px 0px 10px #1F4E79');" onmouseout="$(this).css('box-shadow', 'none');">
+                        <img 
+                            class="mp4_Image"
+                            src="data:image/jpg;base64,{{ new['fichier']['Image'] }}" alt="PDF" 
+                            data-video="{{ new['fichier'].Chemin }}"
+                            >
+
+                        <div class="mp4PlayButton" style="background-image: url({{ asset('bundles/noxintranetcommunication/images/PlayButton.png') }});"></div>
+                    </div>
+                </a>
+
+                <ul>
+
+                    <li> Nom du fichier : {{ new['fichier'].Nom }} </li> 
+
+                    <li> Durée : {{ new['fichier'].Duree }} secondes </li>
+
+                    <li> Posté le : {{ new['fichier'].dateEnvoi|date('d/m/Y') }} </li>
+
+                </ul>
+
+            {% endif %}
+
+        </div>
+
+    {% endfor %}
+
+    <div id="choixPage">
+
+        {% if nbPage > 1 %}
+
+            <!-- Affiche un lien vers la première page si ce n'est pas la page actuel -->
+            {% if page > 1 %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': 1, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> << </a>
+            {% endif %}
+            <!-------------------------------------------------------------------------->
+
+            <!-- Affiche un lien vers la page précédente si elle existe -->
+            {% if page-1  >= 1 %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': page-1, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> < </a>
+            {% endif %}
+            <!---------------------------------------------------------->
+
+            <!-- Affichage des liens vers les pages précédente. -->
+            {% if page-1  >= 1 %}
+                {% for i in 1..page-1 %}
+
+                    {% if i >= (page - 2) %}
+                        <a href="{{ path('nox_intranet_affichageContenu', { 'page': i, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> {{ i }} </a>
+                    {% endif %}
+
+                {% endfor %}
+            {% endif %}
+            <!--------------------------------------------------->
+
+            <!-- Page courante -->
+            <a href="{{ path('nox_intranet_affichageContenu', { 'page': page, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> <p id="pageActuel">{{ page }}</p> </a>
+            <!------------------->
+
+            <!-- Affichage des liens vers les pages suivantes. -->
+            {% if page+1  <= nbPage %}
+                {% for i in page+1..nbPage %}
+
+                    {% if i <= (page + 2) %}
+                        <a href="{{ path('nox_intranet_affichageContenu', { 'page': i, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> {{ i }} </a>
+                    {% endif %}
+
+                {% endfor %}
+            {% endif %}
+            <!--------------------------------------------------->
+
+            <!-- Affiche un lien vers la page suivante si elle existe -->
+            {% if page+1  <= nbPage %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': page+1, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> > </a>
+            {% endif %}
+            <!------------------------------------------------------------>
+
+            <!-- Affiche un lien vers la dernière page si ce n'est pas la page actuel -->
+            {% if page < nbPage %}
+                <a href="{{ path('nox_intranet_affichageContenu', { 'page': nbPage, 'dossier': dossier, 'config': config, 'chemin': chemin}) }}"> >> </a>
+            {% endif %}
+            <!-------------------------------------------------------------------------->
+
+        {% endif %}
+
+    </div>
+
+{% endblock %}

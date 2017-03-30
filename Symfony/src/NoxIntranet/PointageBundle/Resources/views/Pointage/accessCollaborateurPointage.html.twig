@@ -1,0 +1,17 @@
+{% extends "layout.html.twig" %}
+
+{% block titrePage %} Accéder au pointage d'un collaborateur {% endblock %}
+
+{% block messageAccueil %}Accéder au pointage d'un collaborateur{% endblock %}
+
+{% block contenu %}
+    <div style='width: 30%; text-align: center; margin: auto;'>
+        {{ form_start(formAccessCollaborateurPointage) }}
+        <p>
+            {{ form_label(formAccessCollaborateurPointage.username) }}<br />
+            {{ form_widget(formAccessCollaborateurPointage.username) }}
+        </p>
+        <p>{{ form_widget(formAccessCollaborateurPointage.access) }}</p>
+        {{ form_end(formAccessCollaborateurPointage) }}
+    </div>
+{% endblock %}

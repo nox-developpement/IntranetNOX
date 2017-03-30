@@ -1,0 +1,77 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Informations sur le suivi {% endblock %}
+
+{% block messageAccueil %}Informations sur le suivi{% endblock %}
+
+{% block contenu %}
+
+    <div class="DivCreationSuiviRetour">
+        <a href="{{ path('nox_intranet_assistant_affaire_nouvelle_choix_interlocuteur', {'IdSuivi': IdSuivi}) }}"><img src='{{ asset('bundles/noxintranetressources/images/Left-Arrow-48.png') }}' alt='Flêche retour'>Retourner au choix de l'interlocuteur</a>
+    </div>
+
+    <div id="DivFormulaireInfoSuivi">
+
+        {{ form_start(form, {'attr': {'class': 'formulaireInfoSuivi'}}) }}
+        {{ form_errors(form) }}
+
+        <fieldset>
+
+            <legend>Suivi</legend>
+
+            <p style='margin: 0;'>
+
+                {{ form_label(form.Marche, "Marché :", {'label_attr': {'class': 'labelFormulaireInfoSuivi'}}) }}
+                {{ form_errors(form.Marche) }}
+                {{ form_widget(form.Marche, {'attr': {'class': 'textFormulaireInfoSuivi champInfoSuivi'}}) }}<!--
+
+                --><br /><!--
+
+                -->{{ form_label(form.NoCommande, "N°Commande :", {'label_attr': {'class': 'labelFormulaireInfoSuivi'}}) }}
+                {{ form_errors(form.NoCommande) }}
+                {{ form_widget(form.NoCommande, {'attr': {'class': 'textFormulaireInfoSuivi champInfoSuivi'}}) }}<!--
+
+                --><br /><!--
+
+                -->{{ form_label(form.NoClient, "N°Client :", {'label_attr': {'class': 'labelFormulaireInfoSuivi'}}) }}
+                {{ form_errors(form.NoClient) }}
+                {{ form_widget(form.NoClient, {'attr': {'class': 'textFormulaireInfoSuivi champInfoSuivi'}}) }}<!--
+
+                --><br /><!--
+
+                -->{{ form_label(form.Commune, "Commune :", {'label_attr': {'class': 'labelFormulaireInfoSuivi'}}) }}
+                {{ form_errors(form.Commune) }}
+                {{ form_widget(form.Commune, {'attr': {'class': 'textFormulaireInfoSuivi champInfoSuivi'}}) }}<!--
+
+                --><br /><!--
+
+                -->{{ form_label(form.Objet, "Objet :", {'label_attr': {'class': 'labelFormulaireInfoSuivi'}}) }}
+                {{ form_errors(form.Objet) }}
+                {{ form_widget(form.Objet, {'attr': {'class': 'textFormulaireInfoSuivi champInfoSuivi'}}) }}<!--
+
+                --><br /><!--
+ 
+                -->{{ form_label(form.NoINGEDIABEP, "N°INGEDIA BEP :", {'label_attr': {'class': 'labelFormulaireInfoSuivi'}}) }}
+                {{ form_errors(form.NoINGEDIABEP) }}
+                {{ form_widget(form.NoINGEDIABEP, {'attr': {'class': 'textFormulaireInfoSuivi champInfoSuivi'}}) }}<!--
+
+                --><br /><!--
+                -->{{ form_label(form.Estimatif, "Estimatif :", {'label_attr': {'class': 'labelFormulaireInfoSuivi'}}) }}<!--
+                -->{{ form_errors(form.Estimatif) }}<!--
+                -->{{ form_widget(form.Estimatif, {'attr': {'class': 'textFormulaireInfoSuivi champInfoSuivi'}}) }}<!--
+
+                --><br /><!--
+                
+                -->{{ form_widget(form.Valider, {'attr': {'class': 'boutonFormulaire champInfoSuivi', 'style': 'margin-top: 1%;'}}) }}
+
+            </p>
+
+        </fieldset> 
+
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}
+
+
