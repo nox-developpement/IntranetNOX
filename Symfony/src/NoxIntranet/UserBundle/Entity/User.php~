@@ -4,6 +4,7 @@ namespace NoxIntranet\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="NoxIntranet\UserBundle\Entity\UserRepository")
@@ -58,9 +59,14 @@ class User implements UserInterface, \Serializable {
     private $agence;
 
     /**
-     * @ORM\Column(name="lastActivity", type="date")
+     * @ORM\Column(name="lastActivity", type="datetime", nullable=true)
      */
     private $lastActivity;
+
+    /**
+     * @ORM\Column(name="lastViewedPage", type="array", nullable=true)
+     */
+    private $lastViewedPage;
 
     // Les getters et setters
     public function getUsername() {
@@ -310,7 +316,6 @@ class User implements UserInterface, \Serializable {
         return $this->lastname;
     }
 
-
     /**
      * Set lastActivity
      *
@@ -318,10 +323,9 @@ class User implements UserInterface, \Serializable {
      *
      * @return User
      */
-    public function setLastActivity($lastActivity)
-    {
+    public function setLastActivity($lastActivity) {
         $this->lastActivity = $lastActivity;
-    
+
         return $this;
     }
 
@@ -330,8 +334,12 @@ class User implements UserInterface, \Serializable {
      *
      * @return \DateTime
      */
-    public function getLastActivity()
-    {
+    public function getLastActivity() {
         return $this->lastActivity;
     }
+
+    public function isActiveNow() {
+        $this->setLastActivity(new DateTime());
+    }
+
 }

@@ -19,7 +19,9 @@ class ActivityListener {
     }
 
     /**
-     * Update the user "lastActivity" on each request
+     * 
+     * Met à jour les valeurs de date de dernière activité et de dernière page consulté pour l'utilisateur courant.
+     * 
      * @param FilterControllerEvent $event
      */
     public function onCoreController(FilterControllerEvent $event) {
@@ -37,8 +39,19 @@ class ActivityListener {
             $delay->setTimestamp(strtotime('2 minutes ago'));
 
             // Nous vérifions que l'utilisateur est bien du bon type pour ne pas appeler getLastActivity() sur un objet autre objet User
-            if ($user instanceof User && $user->getLastActivity() < $delay) {
-                $user->isActiveNow();
+            if ($user instanceof User) {
+                // Si la reqûete n'est pas ajax, récupére les paramètres de route de l'event et on l'attribut au collaborateur.
+                if (!$event->getRequest()->isXmlHttpRequest()) {
+                    $route_param = array('route' => $event->getRequest()->attributes->get('_route'), 'path' => $event->getRequest()->getPathInfo());
+                    $user->setLastViewedPage($route_param);
+                }
+
+                // Si la dernière maj date de plus de 2 min.
+                if ($user->getLastActivity() < $delay) {
+                    $user->isActiveNow();
+                }
+
+                // On met à jour les informations utilisateur.
                 $this->em->flush($user);
             }
         }

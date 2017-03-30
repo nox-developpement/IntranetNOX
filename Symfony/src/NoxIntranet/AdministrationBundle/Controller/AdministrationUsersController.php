@@ -173,8 +173,6 @@ class AdministrationUsersController extends Controller {
 
         $file = $root . '\utilisateurs.csv';
 
-        var_dump($file);
-
         if (file_exists($root . '\utilisateurs.csv')) {
             header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
@@ -190,19 +188,17 @@ class AdministrationUsersController extends Controller {
         return $this->redirect($request->server->get('HTTP_REFERER'));
     }
 
-    function collaborateursEnLigneAction() {
-        var_dump($this->get('session')->getMetadataBag()->getLifeTime());
-
-        return $this->render('NoxIntranetAdministrationBundle:AdministrationUser:collaborateursEnLigne.html.twig');
-    }
-
     /**
-     * @Template("@NoxIntranetAdministration/AdministrationUser/whoIsOnline.html.twig")
+     * 
+     * Affiche les collaborateur actuellement en ligne et la dernière page qu'ils ont consulté.
+     * 
+     * @return View
      */
-    public function whoIsOnlineAction() {
-        $users = $this->getDoctrine()->getManager()->getRepository('NoxIntranetUserBundle:User')->getActive();
+    function collaborateursEnLigneAction() {
+        // On récupère les collaborateurs actifs.
+        $online_users = $this->getDoctrine()->getManager()->getRepository('NoxIntranetUserBundle:User')->getActive();
 
-        return array('users' => $users);
+        return $this->render('NoxIntranetAdministrationBundle:AdministrationUser:collaborateursEnLigne.html.twig', array('online_users' => $online_users));
     }
 
 }

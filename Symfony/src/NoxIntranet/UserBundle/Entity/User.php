@@ -63,6 +63,11 @@ class User implements UserInterface, \Serializable {
      */
     private $lastActivity;
 
+    /**
+     * @ORM\Column(name="lastViewedPage", type="array", nullable=true)
+     */
+    private $lastViewedPage;
+
     // Les getters et setters
     public function getUsername() {
         return $this->username;
@@ -337,4 +342,28 @@ class User implements UserInterface, \Serializable {
         $this->setLastActivity(new DateTime());
     }
 
+
+    /**
+     * Set lastViewedPage
+     *
+     * @param array $lastViewedPage
+     *
+     * @return User
+     */
+    public function setLastViewedPage($lastViewedPage)
+    {
+        $this->lastViewedPage = $lastViewedPage;
+
+        return $this;
+    }
+
+    /**
+     * Get lastViewedPage
+     *
+     * @return array
+     */
+    public function getLastViewedPage()
+    {
+        return $this->lastViewedPage;
+    }
 }

@@ -10,6 +10,12 @@ namespace NoxIntranet\UserBundle\Entity;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository {
 
+    /**
+     * 
+     * Retourne les collaborateurs qui ont consulté l'intranet durant les 2 dernières minutes.
+     * 
+     * @return UserEntity Les entitées des collaborateur actifs.
+     */
     public function getActive() {
         // Comme vous le voyez, le délais est redondant ici, l'idéale serait de le rendre configurable via votre bundle
         $delay = new \DateTime();
@@ -17,6 +23,8 @@ class UserRepository extends \Doctrine\ORM\EntityRepository {
 
         $qb = $this->createQueryBuilder('u')
                 ->where('u.lastActivity > :delay')
+                ->addOrderBy('u.lastname')
+                ->addOrderBy('u.firstname')
                 ->setParameter('delay', $delay)
         ;
 
