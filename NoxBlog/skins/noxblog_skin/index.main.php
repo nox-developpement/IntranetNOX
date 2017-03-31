@@ -39,34 +39,43 @@ siteskin_include( '_site_body_header.inc.php' );
 
 <div class="container">
 
+<!-- Bandeau de haut de page. -->
 <div id="page_top_bandeau">
 	<img src="./images/bandeau.png" alt="Bandeau_NOX" id="page_top_bandeau_img">
 </div>
 
 <header class="row">
 
-	<div>
-		<div class="evo_container evo_container__menu_top">
+	<div id="menu_top_div">
+		<ul class="evo_container evo_container__menu_top">
 		<?php
 			// ------------------------- "Page Top" CONTAINER EMBEDDED HERE --------------------------
 			// Display container and contents:
 			skin_container( NT_('Menu Top'), array(
 					// The following params will be used as defaults for widgets included in this container:
-					'block_start'         => '<div class="evo_widget $wi_class$">',
-					'block_end'           => '</div>',
+					'block_start'         => '<li>',
+					'block_end'           => '</li>',
 					'block_display_title' => false,
-					'list_start'          => '<ul>',
-					'list_end'            => '</ul>',
-					'item_start'          => '<li>',
-					'item_end'            => '</li>',
+					'list_start'          => '',
+					'list_end'            => '',
+					'item_start'          => '',
+					'item_end'            => '',
 				) );
 			// ----------------------------- END OF "Page Top" CONTAINER -----------------------------
 		?>
-		</div>
+			<?php 
+			// Affichage d'un lien de connexion si l'utilisateur est déconnecté.
+				if(empty($Session->get_User())) {
+					?>
+						<li><?php user_login_link( $before = '', $after = '', $link_text = '', $link_title = '#' ); ?></li>
+					<?php
+				}
+			?>
+		</ul>
 	</div>
 
 	<div class="coll-xs-12 coll-sm-12 col-md-4 col-md-push-8">
-		<div class="evo_container evo_container__page_top">
+		<!--<div class="evo_container evo_container__page_top">
 		<?php
 			// ------------------------- "Page Top" CONTAINER EMBEDDED HERE --------------------------
 			// Display container and contents:
@@ -82,8 +91,8 @@ siteskin_include( '_site_body_header.inc.php' );
 				) );
 			// ----------------------------- END OF "Page Top" CONTAINER -----------------------------
 		?>
-		</div>
-	</div><!-- .col -->
+		</div>-->
+	</div>
 
 	<div class="coll-xs-12 col-sm-12 col-md-8 col-md-pull-4">
 		<div class="evo_container evo_container__header">
