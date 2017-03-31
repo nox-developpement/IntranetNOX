@@ -36,60 +36,65 @@ class NoxIntranetMajUserDB extends Controller {
         return substr($result, 0, $dd);
     }
 
+    /**
+     * 
+     * Extrait les collaborateur de l'Active Directory et met à jour la base de données de l'intranet en fonction.
+     * 
+     * @return Array Tableau contenant la liste des collaborateurs ajoutés et la liste des collaborateurs supprimés.
+     */
     public function majUserDB() {
 
-        $root = str_replace('\\', '/', $this->container->getParameter('kernel.root_dir')) . '/..';
+        //$root = str_replace('\\', '/', $this->container->getParameter('kernel.root_dir')) . '/..';
         $userEM = $this->em;
-        $users = null;
+        //$users = null;
         $newUsersNames = null;
         $deleteUserNames = null;
 
         // On récupére le contenu du fichier en Unicode.
-        $unicodeFile = file_get_contents($root . "/usersUnicode.csv");
-
+        //$unicodeFile = file_get_contents($root . "/usersUnicode.csv");
         // On converti le contenu en UTF-8.
-        $convertText = iconv('UTF-16LE', 'UTF-8', $unicodeFile);
-
+        //$convertText = iconv('UTF-16LE', 'UTF-8', $unicodeFile);
         // On place le contenu dans le fichier users.csv.
-        file_put_contents($root . "/users.csv", $convertText);
-
+        //file_put_contents($root . "/users.csv", $convertText);
         // On extrait les informations sur chaque utilisateurs depuis le fichier CSV de l'active directory.
-        if (($handle = fopen($root . "/users.csv", "r")) !== FALSE) {
-            while (($data = fgetcsv($handle, ",")) !== FALSE) {
-                if (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') != false) {
-                    $name = mb_strtolower($data[1], 'UTF-8');
-                    $agence = 'Bron';
-                    //$fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $firstname = $data[3];
-                    $lastname = $data[2];
-                    $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
-                } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') != false) {
-                    $name = mb_strtolower($data[1], 'UTF-8');
-                    $agence = 'Siège';
-                    //$fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $firstname = $data[3];
-                    $lastname = $data[2];
-                    $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
-                } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') === false) {
-                    $name = mb_strtolower($data[1], 'UTF-8');
-                    $OU = explode('OU=', $data[0]);
-                    if (array_key_exists(1, $OU)) {
-                        $agence = str_replace(',', '', $OU[1]);
-                    } else {
-                        $agence = null;
-                    }
-                    //$fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $firstname = $data[3];
-                    $lastname = $data[2];
-                    $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
-                }
-            }
-            fclose($handle);
-        }
-        unset($users[0]);
-
+        /* if (($handle = fopen($root . "/users.csv", "r")) !== FALSE) {
+          while (($data = fgetcsv($handle, ",")) !== FALSE) {
+          if (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') != false) {
+          $name = mb_strtolower($data[1], 'UTF-8');
+          $agence = 'Bron';
+          //$fullname = $this->GetBetween('CN=', ',', $data[0]);
+          $firstname = $data[3];
+          $lastname = $data[2];
+          $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
+          } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') != false) {
+          $name = mb_strtolower($data[1], 'UTF-8');
+          $agence = 'Siège';
+          //$fullname = $this->GetBetween('CN=', ',', $data[0]);
+          $firstname = $data[3];
+          $lastname = $data[2];
+          $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
+          } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') === false) {
+          $name = mb_strtolower($data[1], 'UTF-8');
+          $OU = explode('OU=', $data[0]);
+          if (array_key_exists(1, $OU)) {
+          $agence = str_replace(',', '', $OU[1]);
+          } else {
+          $agence = null;
+          }
+          //$fullname = $this->GetBetween('CN=', ',', $data[0]);
+          $firstname = $data[3];
+          $lastname = $data[2];
+          $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
+          }
+          }
+          fclose($handle);
+          }
+          unset($users[0]); */
 
         $debugFile = fopen('debugUsers.txt', 'w+');
+
+        // On récupére les utilisateurs depuis l'active directory.
+        $users = $this->ldapGetADCollaborateur($this->initLDAPConnection());
 
         // Pour chaque utilisateurs.
         foreach ($users as $user) {
@@ -104,26 +109,11 @@ class NoxIntranetMajUserDB extends Controller {
                 // On crée l'utilisateur
                 $newUser = new User();
 
-//                // On initialise les variables de nom et de prénom.
-//                $firstname = '';
-//                $lastname = '';
-//
-//                // On découpe le nom complet en nom+prénom.
-//                $fullnames = explode(' ', $user['fullname']);
-//                foreach ($fullnames as $fullname) {
-//                    // Si le chaîne et en majuscule (on retire les éventuels '-' pour la vérification).
-//                    if (ctype_upper(str_replace('-', '', $fullname))) {
-//                        $lastname .= ' ' . $fullname;
-//                    } else {
-//                        $firstname .= ' ' . $fullname;
-//                    }
-//                }
                 // On attribut les varibles au nouvel utilisateur.
                 $newUser->setUsername($user['name']);
                 $newUser->setFirstname(trim($user['firstname']));
                 $newUser->setLastname(trim($user['lastname']));
-                $newUser->setAgence($user['agence']);
-
+                //$newUser->setAgence($user['agence']);
                 // On le persit
                 $userEM->persist($newUser);
 
@@ -135,20 +125,6 @@ class NoxIntranetMajUserDB extends Controller {
                 // On récupére l'utilisateur courant en base de données.
                 $currentUser = $userEM->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($user['name']);
 
-//                // On initialise les variables de nom et de prénom.
-//                $firstname = '';
-//                $lastname = '';
-//
-//                // On découpe le nom complet en nom+prénom.
-//                $fullnames = explode(' ', $user['fullname']);
-//                foreach ($fullnames as $fullname) {
-//                    // Si le chaîne et en majuscule (on retire les éventuels '-' pour la vérification).
-//                    if (ctype_upper(str_replace('-', '', $fullname))) {
-//                        $lastname .= ' ' . $fullname;
-//                    } else {
-//                        $firstname .= ' ' . $fullname;
-//                    }
-//                }
                 // On met à jours les informations de l'utilisateur si nécessaire
                 if ($currentUser->getFirstname() !== trim($user['firstname'])) {
                     $currentUser->setFirstname(trim($user['firstname']));
@@ -156,9 +132,9 @@ class NoxIntranetMajUserDB extends Controller {
                 if ($currentUser->getLastname() !== trim($user['lastname'])) {
                     $currentUser->setLastname(trim($user['lastname']));
                 }
-                if ($currentUser->getAgence() !== $user['agence']) {
-                    $currentUser->setAgence($user['agence']);
-                }
+                /* if ($currentUser->getAgence() !== $user['agence']) {
+                  $currentUser->setAgence($user['agence']);
+                  } */
 
                 $userEM->persist($currentUser);
             }
@@ -171,10 +147,10 @@ class NoxIntranetMajUserDB extends Controller {
 
         // Pour chaque utilisateur existant.
         foreach ($existantUsers as $existantUser) {
-            $i = 1;
+            $i = 0;
             $find = false;
             // Tant que l'utilisateur en base de données ne correspond pas à un utilisateur de l'active directory.
-            while (!$find && $i <= sizeof($users)) {
+            while (!$find && $i < sizeof($users)) {
                 if ($existantUser->getUsername() == $users[$i]['name']) {
                     $find = true;
                 }
@@ -209,60 +185,67 @@ class NoxIntranetMajUserDB extends Controller {
         return $usersAction;
     }
 
+    /**
+     * 
+     * Extrait les collaborateur de l'Active Directory et affiche les collaborateurs à ajouter/supprimer.
+     * 
+     * @return Array Tableau contenant la liste des collaborateurs ajoutés et la liste des collaborateurs supprimés.
+     */
     public function verifMajUserDB() {
 
-        $root = str_replace('\\', '/', $this->container->getParameter('kernel.root_dir')) . '/..';
+        //$root = str_replace('\\', '/', $this->container->getParameter('kernel.root_dir')) . '/..';
         $userEM = $this->em;
-        $users = null;
+        //$users = null;
         $newUsersNames = null;
         $deleteUserNames = null;
 
         // On récupére le contenu du fichier en Unicode.
-        $unicodeFile = file_get_contents($root . "/usersUnicode.csv");
-
+        //$unicodeFile = file_get_contents($root . "/usersUnicode.csv");
         // On converti le contenu en UTF-8.
-        $convertText = iconv('UTF-16LE', 'UTF-8', $unicodeFile);
-
+        //$convertText = iconv('UTF-16LE', 'UTF-8', $unicodeFile);
         // On place le contenu dans le fichier users.csv.
-        file_put_contents($root . "/users.csv", $convertText);
-
+        //file_put_contents($root . "/users.csv", $convertText);
         // On extrait les informations sur chaque utilisateurs depuis le fichier CSV de l'active directory.
-        if (($handle = fopen($root . "/users.csv", "r")) !== FALSE) {
-            while (($data = fgetcsv($handle, ",")) !== FALSE) {
-                if (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') != false) {
-                    $name = mb_strtolower($data[1], 'UTF-8');
-                    $agence = 'Bron';
-                    //$fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $firstname = $data[3];
-                    $lastname = $data[2];
-                    $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
-                } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') != false) {
-                    $name = mb_strtolower($data[1], 'UTF-8');
-                    $agence = 'Siège';
-                    //$fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $firstname = $data[3];
-                    $lastname = $data[2];
-                    $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
-                } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') === false) {
-                    $name = mb_strtolower($data[1], 'UTF-8');
-                    $OU = explode('OU=', $data[0]);
-                    if (array_key_exists(1, $OU)) {
-                        $agence = str_replace(',', '', $OU[1]);
-                    } else {
-                        $agence = null;
-                    }
-                    //$fullname = $this->GetBetween('CN=', ',', $data[0]);
-                    $firstname = $data[3];
-                    $lastname = $data[2];
-                    $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
-                }
-            }
-            fclose($handle);
-        }
-        unset($users[0]);
+        /* if (($handle = fopen($root . "/users.csv", "r")) !== FALSE) {
+          while (($data = fgetcsv($handle, ",")) !== FALSE) {
+          if (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') != false) {
+          $name = mb_strtolower($data[1], 'UTF-8');
+          $agence = 'Bron';
+          //$fullname = $this->GetBetween('CN=', ',', $data[0]);
+          $firstname = $data[3];
+          $lastname = $data[2];
+          $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
+          } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') != false) {
+          $name = mb_strtolower($data[1], 'UTF-8');
+          $agence = 'Siège';
+          //$fullname = $this->GetBetween('CN=', ',', $data[0]);
+          $firstname = $data[3];
+          $lastname = $data[2];
+          $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
+          } elseif (strpos($data[0], "CN=Users") === false && strpos($data[0], "OU=_Old") === false && mb_stristr($data[0], 'OU=Bron') === false && mb_stristr(utf8_encode($data[0]), 'OU=Siège') === false) {
+          $name = mb_strtolower($data[1], 'UTF-8');
+          $OU = explode('OU=', $data[0]);
+          if (array_key_exists(1, $OU)) {
+          $agence = str_replace(',', '', $OU[1]);
+          } else {
+          $agence = null;
+          }
+          //$fullname = $this->GetBetween('CN=', ',', $data[0]);
+          $firstname = $data[3];
+          $lastname = $data[2];
+          $users[] = array('name' => utf8_encode($name), 'firstname' => $firstname, 'lastname' => $lastname, 'agence' => utf8_encode($agence));
+          }
+          }
+          fclose($handle);
+          }
+          unset($users[0]); */
+
+        // On récupére les utilisateurs depuis l'active directory.
+        $users = $this->ldapGetADCollaborateur($this->initLDAPConnection());
 
         // Pour chaque utilisateurs.
         foreach ($users as $user) {
+
             // Si le nom ou le prénom est vide on passe à l'utilisateur suivant.
             if (empty($user['firstname']) || empty($user['lastname'])) {
                 continue;
@@ -273,25 +256,11 @@ class NoxIntranetMajUserDB extends Controller {
                 // On crée l'utilisateur
                 $newUser = new User();
 
-//                // On initialise les variables de nom et de prénom.
-//                $firstname = '';
-//                $lastname = '';
-//
-//                // On découpe le nom complet en nom+prénom.
-//                $fullnames = explode(' ', $user['fullname']);
-//                foreach ($fullnames as $fullname) {
-//                    if (ctype_upper($fullname)) {
-//                        $lastname .= ' ' . $fullname;
-//                    } else {
-//                        $firstname .= ' ' . $fullname;
-//                    }
-//                }
                 // On attribut les varibles au nouvel utilisateur.
                 $newUser->setUsername($user['name']);
                 $newUser->setFirstname(trim($user['firstname']));
                 $newUser->setLastname(trim($user['lastname']));
-                $newUser->setAgence($user['agence']);
-
+                //$newUser->setAgence($user['agence']);
                 // On récupére la liste des usernames des nouveaux utilisateurs.
                 $newUsersNames[] = $user['name'];
             }
@@ -301,19 +270,6 @@ class NoxIntranetMajUserDB extends Controller {
                 // On récupére l'utilisateur courant en base de données.
                 $currentUser = $userEM->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($user['name']);
 
-//                // On initialise les variables de nom et de prénom.
-//                $firstname = '';
-//                $lastname = '';
-//
-//                // On découpe le nom complet en nom+prénom.
-//                $fullnames = explode(' ', $user['fullname']);
-//                foreach ($fullnames as $fullname) {
-//                    if (ctype_upper($fullname)) {
-//                        $lastname .= ' ' . $fullname;
-//                    } else {
-//                        $firstname .= ' ' . $fullname;
-//                    }
-//                }
                 // On met à jours les informations de l'utilisateur si nécessaire
                 if ($currentUser->getFirstname() !== trim($user['firstname'])) {
                     $currentUser->setFirstname(trim($user['firstname']));
@@ -321,9 +277,9 @@ class NoxIntranetMajUserDB extends Controller {
                 if ($currentUser->getLastname() !== trim($user['lastname'])) {
                     $currentUser->setLastname(trim($user['lastname']));
                 }
-                if ($currentUser->getAgence() !== $user['agence']) {
-                    $currentUser->setAgence($user['agence']);
-                }
+                /* if ($currentUser->getAgence() !== $user['agence']) {
+                  $currentUser->setAgence($user['agence']);
+                  } */
 
                 $userEM->persist($currentUser);
             }
@@ -334,10 +290,10 @@ class NoxIntranetMajUserDB extends Controller {
 
         // Pour chaque utilisateur existant.
         foreach ($existantUsers as $existantUser) {
-            $i = 1;
+            $i = 0;
             $find = false;
             // Tant que l'utilisateur en base de données ne correspond pas à un utilisateur de l'active directory.
-            while (!$find && $i <= sizeof($users)) {
+            while (!$find && $i < sizeof($users)) {
                 if ($existantUser->getUsername() == $users[$i]['name']) {
                     $find = true;
                 }
@@ -364,6 +320,66 @@ class NoxIntranetMajUserDB extends Controller {
         // On retourne la liste des nouveaux utilisateurs et la liste des utilisateurs à supprimer.
         $usersAction = array('new' => $newUsersNames, 'delete' => $deleteUserNames);
         return $usersAction;
+    }
+
+    /**
+     * 
+     * Retourne le tableau des collaborateurs extraits de l'AD NOX.
+     * 
+     * @param TokenActiveDirectory $ldap_connection Un token de connexion à un Active Directory.
+     * @return Array Tableau des collaborateurs de l'Active Directory.
+     */
+    private function ldapGetADCollaborateur($ldap_connection) {
+        // Tableau des collaborateurs.
+        $collaborateurs = array();
+        // Clé de pagination de la requête LDAP.
+        $cookie = '';
+        // On récupére les entrées LDAP une par une tant qu'il y en a.
+        do {
+            // Limite la requête LDAP à 1 résultat.
+            ldap_control_paged_result($ldap_connection, 1, true, $cookie);
+            $dn = "DC=nox,DC=local"; // Le domaine de recherche.
+            $attribute = array('samaccountname', 'cn', 'givenname', 'sn', 'dn'); // Les attributs de sortie.
+            $result = ldap_search($ldap_connection, $dn, "(&(objectCategory=person)(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2))(samaccountname=*))", $attribute); // La recherche avec les filtres qui nous intéressent.
+            $entries = ldap_get_entries($ldap_connection, $result); // Les résultats de la recherche.
+            array_shift($entries); // Supprime l'indicateur du nombre de résultats.
+            // On récupére l'username, le nom et le prénom de chaques collaborateurs et on l'ajoute au tableau des collaborateurs.
+            foreach ($entries as $entrie) {
+                if (array_key_exists('givenname', $entrie) && array_key_exists('sn', $entrie)) {
+                    $collaborateurs[] = array(
+                        'name' => $entrie['samaccountname'][0],
+                        'firstname' => $entrie['givenname'][0],
+                        'lastname' => $entrie['sn'][0],
+                        'dn' => $entrie['dn'],
+                        'cn' => $entrie['cn'][0]
+                    );
+                }
+            }
+            // Initialisation de la page suivante.
+            ldap_control_paged_result_response($ldap_connection, $result, $cookie);
+        } while ($cookie !== null && $cookie != '');
+        return $collaborateurs;
+    }
+
+    /**
+     * 
+     * Initialise une connection LDAP paramétré pour l'AD de NOX et retourne le token de connection.
+     * 
+     * @return TokenActiveDirectory Un token de connexion à un Active Directory.
+     */
+    private function initLDAPConnection() {
+        // On initialise la connexion au domaine (doit être un serveur LDAP valide !)
+        $ldap_connection = ldap_connect("nox.local");
+        
+        // We have to set this option for the version of Active Directory we are using.
+        ldap_set_option($ldap_connection, LDAP_OPT_PROTOCOL_VERSION, 3);
+        ldap_set_option($ldap_connection, LDAP_OPT_REFERRALS, 0);
+        
+        // On se connecte à l'AD.
+        ldap_bind($ldap_connection, 't.besson@nox.local', 'Chegfp95');
+                
+        // On retourne le token de connexion.
+        return $ldap_connection;
     }
 
 }

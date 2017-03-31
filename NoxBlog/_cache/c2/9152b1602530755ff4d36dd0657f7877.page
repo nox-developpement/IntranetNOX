@@ -1,0 +1,348 @@
+http://192.168.35.217/NoxBlog/
+1490954202
+skin:noxblog_skin
+
+Content-type: text/html; charset=utf-8
+
+<!DOCTYPE html>
+<html lang="fr-FR"><head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<base href="/NoxBlog/skins/noxblog_skin/" />
+		<title>Blog du Groupe NOX</title>
+						<meta name="generator" content="b2evolution 6.8.8-stable" /> <!-- Please leave this for stats -->
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://192.168.35.217/NoxBlog/?tempskin=_rss2" />
+	<link rel="alternate" type="application/atom+xml" title="Atom" href="http://192.168.35.217/NoxBlog/?tempskin=_atom" />
+			<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://192.168.35.217/NoxBlog/xmlsrv/rsd.php?blog=2" />
+	
+	<!-- headlines: -->
+	<script type="text/javascript" src="/NoxBlog/rsc/js/jquery.min.js?v=6.8.8-stable-2017-03-09"></script>
+	<link type="text/css" rel="stylesheet" href="/NoxBlog/rsc/css/font-awesome.min.css?v=6.8.8-stable-2017-03-09" />
+	<script type="text/javascript" src="/NoxBlog/rsc/js/bootstrap/bootstrap.min.js?v=6.8.8-stable-2017-03-09"></script>
+	<link type="text/css" rel="stylesheet" href="/NoxBlog/rsc/css/bootstrap/bootstrap.min.css?v=6.8.8-stable-2017-03-09" />
+	<link type="text/css" rel="stylesheet" href="/NoxBlog/rsc/build/bootstrap-b2evo_base.bmin.css?v=6.8.8-stable-2017-03-09" />
+	<link type="text/css" rel="stylesheet" href="style.css?v=noxblog_skin+1.0+6.8.8-stable-2017-03-09" />
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		var b2evo_colorbox_params = {
+						maxWidth: jQuery( window ).width() > 480 ? "95%" : "100%",
+						maxHeight: jQuery( window ).height() > 480 ? "90%" : "100%",
+						slideshow: true,
+						slideshowAuto: false
+					};
+					var b2evo_colorbox_params_post = {current: "image {current} sur {total}",
+					previous: "Précédente",
+					next: "Suivante",
+					close: "Fermer",
+					openNewWindowText: "Ouvrir dans une nouvelle fenêtre",
+					slideshowStart: "Démarrer diaporama",
+					slideshowStop: "Arrêter diaporama",
+					minWidth: 255};
+					b2evo_colorbox_params_post = jQuery.extend( {}, b2evo_colorbox_params, b2evo_colorbox_params_post );
+					var b2evo_colorbox_params_cmnt = {current: "image {current} sur {total}",
+					previous: "Précédente",
+					next: "Suivante",
+					close: "Fermer",
+					openNewWindowText: "Ouvrir dans une nouvelle fenêtre",
+					slideshowStart: "Démarrer diaporama",
+					slideshowStop: "Arrêter diaporama",
+					minWidth: 255};
+					b2evo_colorbox_params_cmnt = jQuery.extend( {}, b2evo_colorbox_params, b2evo_colorbox_params_cmnt );
+					var b2evo_colorbox_params_user = {current: "image {current} sur {total}",
+					previous: "Précédente",
+					next: "Suivante",
+					close: "Fermer",
+					openNewWindowText: "Ouvrir dans une nouvelle fenêtre",
+					slideshowStart: "Démarrer diaporama",
+					slideshowStop: "Arrêter diaporama",
+					minWidth: 255};
+					b2evo_colorbox_params_user = jQuery.extend( {}, b2evo_colorbox_params, b2evo_colorbox_params_user );
+					var b2evo_colorbox_params_other = {current: "image {current} sur {total}",
+					previous: "Précédente",
+					next: "Suivante",
+					close: "Fermer",
+					openNewWindowText: "Ouvrir dans une nouvelle fenêtre",
+					slideshowStart: "Démarrer diaporama",
+					slideshowStop: "Arrêter diaporama",
+					minWidth: 255};
+					b2evo_colorbox_params = jQuery.extend( {}, b2evo_colorbox_params, b2evo_colorbox_params_other );
+	/* ]]> */
+	</script>
+	<script type="text/javascript" async src="/NoxBlog/rsc/js/build/colorbox.bmin.js?v=6.8.8-stable-2017-03-09"></script>
+	<link type="text/css" rel="stylesheet" href="/NoxBlog/rsc/css/colorbox/colorbox.css?v=6.8.8-stable-2017-03-09" />
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		jQuery( function () { jQuery( '[data-toggle="tooltip"]' ).tooltip() } )
+	/* ]]> */
+	</script>
+	<script type="text/javascript" src="/NoxBlog/rsc/js/build/bootstrap-evo_frontoffice.bmin.js?v=6.8.8-stable-2017-03-09"></script>
+	<link type="text/css" rel="stylesheet" href="/NoxBlog/rsc/css/sitewide_style.css?v=6.8.8-stable-2017-03-09" />
+	<!--[if IE 9 ]>
+	<link type="text/css" rel="stylesheet" href="/NoxBlog/rsc/css/ie9.css?v=6.8.8-stable-2017-03-09" />
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="/NoxBlog/plugins/wikitables_plugin/wikitables.css?v=6.7.9+6.8.8-stable-2017-03-09" />
+	<script type="text/javascript" src="/NoxBlog/rsc/js/flowplayer/flowplayer.min.js?v=6.8.8-stable-2017-03-09"></script>
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		flowplayer.conf = { flashfit: true, embed: false }
+	/* ]]> */
+	</script>
+	<link type="text/css" rel="stylesheet" href="/NoxBlog/plugins/flowplayer_plugin/skin/minimalist.css?v=6.7.9+6.8.8-stable-2017-03-09" />
+	<style type="text/css">
+	.flowplayer_block {
+	margin: 1em auto 0;
+	background: #000;
+}
+.flowplayer_block .flowplayer {
+	display: block;
+	margin: auto;
+}
+.flowplayer_text {
+	font-size: 84%;
+	text-align: center;
+	margin: 4px 0;
+}
+	</style>
+	<link type="text/css" rel="stylesheet" href="/NoxBlog/rsc/css/mediaelement/mediaelementplayer.min.css?v=6.8.8-stable-2017-03-09" />
+	<script type="text/javascript" src="/NoxBlog/rsc/js/mediaelement/mediaelement-and-player.min.js?v=6.8.8-stable-2017-03-09"></script>
+	<style type="text/css">
+	video.html5_mediaelementjs_player{ width: 460px !important; height: 320px !important; display: block; margin: auto; }
+audio.html5_mediaelementjs_player{ width: 460px !important; display: block; margin: auto; }
+.mediajs_block {
+	width: 460px !important;
+	margin: 0 auto 1em;
+	text-align: center;
+}
+.mediajs_block .mediajs_text {
+	font-size: 84%;
+	text-align: center;
+	margin: 4px 0;
+}
+	</style>
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		var html5_mediaelementjs_player_width = parseInt( "460px" );
+			if( jQuery( window ).width() < html5_mediaelementjs_player_width )
+			{
+				html5_mediaelementjs_player_width = jQuery( window ).width();
+			}
+			jQuery( document ).ready( function() {
+				jQuery( ".html5_mediaelementjs_player" ).mediaelementplayer( {
+					defaultVideoWidth: html5_mediaelementjs_player_width,
+					defaultVideoHeight: "320",
+					videoWidth: html5_mediaelementjs_player_width,
+					videoHeight: "320",
+					audioWidth: html5_mediaelementjs_player_width,
+				} );
+			} );
+	/* ]]> */
+	</script>
+	<link type="text/css" rel="stylesheet" href="/NoxBlog/rsc/css/videojs/video-js.min.css?v=6.8.8-stable-2017-03-09" />
+	<script type="text/javascript" src="/NoxBlog/rsc/js/videojs/video.min.js?v=6.8.8-stable-2017-03-09"></script>
+	<style type="text/css">
+	.video-js{ width: 100% !important; max-width: 100% !important; height: 300px !important; margin: auto; }
+.videojs_block {
+	margin: 0 auto 1em;
+}
+.videojs_block .videojs_text {
+	font-size: 84%;
+	text-align: center;
+	margin: 4px 0;
+}
+	</style>
+	<script type="text/javascript" src="/NoxBlog/plugins/widescroll_plugin/jquery.scrollwide.min.js?v=6.7.9+6.8.8-stable-2017-03-09"></script>
+	<link type="text/css" rel="stylesheet" href="/NoxBlog/plugins/widescroll_plugin/jquery.scrollwide.css?v=6.7.9+6.8.8-stable-2017-03-09" />
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		// Paths and vars are used by JS functions:
+		var htsrv_url = 'http://192.168.35.217/NoxBlog/htsrv/';
+		var restapi_url = 'http://192.168.35.217/NoxBlog/htsrv/rest.php?api_version=1&api_request=';
+		var b2evo_icons_type = 'fontawesome-glyphicons';
+		var blog_id = '2';
+	/* ]]> */
+	</script>
+
+		</head>
+
+<body class="unknown_device page_cached coll_2 disp_posts detail_posts-default item_none anonymous usergroup_none">
+
+
+<div id="skin_wrapper" class="skin_wrapper_anonymous">
+<!-- Start of skin_wrapper -->
+
+<nav class="sitewide_header">
+
+<a href="http://192.168.35.217/NoxBlog/" class="swhead_sitename swhead_logo"><img src="http://192.168.35.217/NoxBlog/media/shared/global/jpeg_logo_nox.jpg?mtime=1490887904" alt="NOX Blog" title="Le blog du Groupe NOX" /></a>
+
+<a href="http://192.168.35.217/NoxBlog/" class="swhead_item swhead_item_selected" title="Blog du Groupe NOX">Blog</a><a href="http://192.168.35.217/NoxBlog/?disp=msgform&amp;recipient_id=1&amp;redirect_to=http%3A%2F%2F192.168.35.217%2FNoxBlog%2F%3Fblog%3D2%26disp%3Dposts" class="swhead_item swhead_item_nav_md ">Contact</a>
+	<div class="floatright">
+	<a href="http://192.168.35.217/NoxBlog/htsrv/login.php?redirect_to=%2FNoxBlog%2F%3Fblog%3D2%26disp%3Dposts&return_to=%2FNoxBlog%2F%3Fblog%3D2%26disp%3Dposts&source=menu%20link" class="swhead_item_login swhead_item ">Se connecter</a><a href="http://192.168.35.217/NoxBlog/htsrv/register.php?source=menu%20link&amp;redirect_to=%2FNoxBlog%2F%3Fblog%3D2%26amp%3Bdisp%3Dposts&amp;return_to=%2FNoxBlog%2F%3Fblog%3D2%26disp%3Dposts" class="swhead_item_white swhead_item ">S'inscrire</a>	<label for="nav-trigger"></label>
+	</div>
+	<div class="clear"></div>
+</nav>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger">
+<div class="sitewide_header_menu_wrapper">
+	<ul class="sitewide_header_menu">
+		<li class="swhead_item swhead_item_menu_sm"><a href="http://192.168.35.217/NoxBlog/" class="swhead_item_selected" title="Blog du Groupe NOX">Blog</a></li><li class="swhead_item swhead_item_menu_md"><a href="http://192.168.35.217/NoxBlog/?disp=msgform&amp;recipient_id=1&amp;redirect_to=http%3A%2F%2F192.168.35.217%2FNoxBlog%2F%3Fblog%3D2%26disp%3Dposts" class="swhead_item">Contact</a></li><hr style="margin: 0; border-color: #696c72;"><li class="swhead_item_menu_sm"><a href="http://192.168.35.217/NoxBlog/htsrv/register.php?source=menu%20link&amp;redirect_to=%2FNoxBlog%2F%3Fblog%3D2%26amp%3Bdisp%3Dposts&amp;return_to=%2FNoxBlog%2F%3Fblog%3D2%26disp%3Dposts" class="swhead_item_white">S'inscrire</a></li>	</ul>
+</div>
+<div class="container">
+
+<div id="page_top_bandeau">
+	<img src="./images/bandeau.png" alt="Bandeau_NOX" id="page_top_bandeau_img">
+</div>
+
+<header class="row">
+
+	<div>
+		<div class="evo_container evo_container__menu_top">
+				</div>
+	</div>
+
+	<div class="coll-xs-12 coll-sm-12 col-md-4 col-md-push-8">
+		<div class="evo_container evo_container__page_top">
+				</div>
+	</div><!-- .col -->
+
+	<div class="coll-xs-12 col-sm-12 col-md-8 col-md-pull-4">
+		<div class="evo_container evo_container__header">
+		<div class="evo_widget widget_core_coll_title"><h1><a href="http://192.168.35.217/NoxBlog/">Blog du Groupe NOX</a></h1></div>		</div>
+	</div><!-- .col -->
+
+</header><!-- .row -->
+
+
+<nav class="row">
+
+	<div class="col-md-12">
+		<ul class="nav nav-tabs evo_container evo_container__menu">
+		<li class="active evo_widget widget_core_menu_link"><a href="http://192.168.35.217/NoxBlog/" class="selected">Page de garde</a></li><li class="evo_widget widget_core_menu_link"><a href="http://192.168.35.217/NoxBlog/?disp=catdir" class="default">Catégories</a></li><li class="evo_widget widget_core_menu_link"><a href="http://192.168.35.217/NoxBlog/?disp=arcdir" class="default">Archives</a></li><li class="evo_widget widget_core_menu_link"><a href="http://192.168.35.217/NoxBlog/?disp=comments" class="default">Derniers commentaires</a></li>		</ul>
+	</div><!-- .col -->
+
+</nav><!-- .row -->
+
+
+<div class="row">
+
+	<div class="col-md-9">
+
+		<main><!-- This is were a link like "Jump to main content" would land -->
+
+		<!-- ================================= START OF MAIN AREA ================================== -->
+
+		
+		
+		
+		
+		<p class="msg_nothing">Désolé, il n'y a rien à afficher...</p>		</main>
+
+	</div><!-- .col -->
+
+
+		<aside class="col-md-3">
+		<!-- =================================== START OF SIDEBAR =================================== -->
+		<div class="evo_container evo_container__sidebar">
+		<div class="panel panel-default evo_widget widget_plugin_evo_Calr"><div class="panel-body"><table class="bCalendarTable" title="Monthly calendar with links to each day's posts">
+<caption><a title="Voir l&#039;archive du mois" href="http://192.168.35.217/NoxBlog/2017/03/" >Mars 2017</a></caption>
+<thead><tr class="bCalendarRow">
+<th class="bCalendarHeaderCell" scope="col" title="Lundi">Lun</th>
+<th class="bCalendarHeaderCell" scope="col" title="Mardi">Mar</th>
+<th class="bCalendarHeaderCell" scope="col" title="Mercredi">Mer</th>
+<th class="bCalendarHeaderCell" scope="col" title="Jeudi">Jeu</th>
+<th class="bCalendarHeaderCell" scope="col" title="Vendredi">Ven</th>
+<th class="bCalendarHeaderCell" scope="col" title="Samedi">Sam</th>
+<th class="bCalendarHeaderCell" scope="col" title="Dimanche">Dim</th>
+</tr></thead>
+<tfoot>
+<tr>
+<td colspan="3" id="prev">&nbsp;<a title="Année précédente (2016-03)" href="http://192.168.35.217/NoxBlog/2016/03/" >&lt;&lt;</a>&nbsp;<a title="Mois précédent (2017-02)" href="http://192.168.35.217/NoxBlog/2017/02/" >&lt;</a></td>
+<td class="pad">&nbsp;</td>
+<td colspan="3" id="next"><a title="Mois suivant (2017-04)" href="http://192.168.35.217/NoxBlog/2017/04/" >&gt;</a>&nbsp;<a title="Année suivante (2018-03)" href="http://192.168.35.217/NoxBlog/2018/03/" >&gt;&gt;</a></td>
+</tr>
+</tfoot>
+<tbody><tr class="bCalendarRow">
+<td class="bCalendarEmptyCell">&nbsp;</td>
+<td class="bCalendarEmptyCell">&nbsp;</td>
+<td class="bCalendarCell">1</td>
+<td class="bCalendarCell">2</td>
+<td class="bCalendarCell">3</td>
+<td class="bCalendarCell">4</td>
+<td class="bCalendarCell">5</td>
+</tr>
+<tr class="bCalendarRow">
+<td class="bCalendarCell">6</td>
+<td class="bCalendarCell">7</td>
+<td class="bCalendarCell">8</td>
+<td class="bCalendarCell">9</td>
+<td class="bCalendarCell">10</td>
+<td class="bCalendarCell">11</td>
+<td class="bCalendarCell">12</td>
+</tr>
+<tr class="bCalendarRow">
+<td class="bCalendarCell">13</td>
+<td class="bCalendarCell">14</td>
+<td class="bCalendarCell">15</td>
+<td class="bCalendarCell">16</td>
+<td class="bCalendarCell">17</td>
+<td class="bCalendarCell">18</td>
+<td class="bCalendarCell">19</td>
+</tr>
+<tr class="bCalendarRow">
+<td class="bCalendarCell">20</td>
+<td class="bCalendarCell">21</td>
+<td class="bCalendarCell">22</td>
+<td class="bCalendarCell">23</td>
+<td class="bCalendarCell">24</td>
+<td class="bCalendarCell">25</td>
+<td class="bCalendarCell">26</td>
+</tr>
+<tr class="bCalendarRow">
+<td class="bCalendarCell">27</td>
+<td class="bCalendarCell">28</td>
+<td class="bCalendarCell">29</td>
+<td class="bCalendarCell">30</td>
+<td id="bCalendarToday">31</td>
+<td class="bCalendarEmptyCell">&nbsp;</td>
+<td class="bCalendarEmptyCell">&nbsp;</td>
+</tr>
+</tbody>
+</table></div></div><div class="panel panel-default evo_widget widget_core_coll_longdesc"><div class="panel-heading"><h4 class="panel-title"><a href="http://192.168.35.217/NoxBlog/">Blog du Groupe NOX</a></h4></div><div class="panel-body"></div></div><div class="panel panel-default evo_widget widget_core_coll_search_form"><div class="panel-heading"><h4 class="panel-title">Rechercher</h4></div><div class="panel-body"><form action="http://192.168.35.217/NoxBlog/" method="get" class="search"><div class="compact_search_form"><div class="input-group"><input type="text" name="s" size="25" value="" class="search_field SearchField form-control" title="Entrez le texte à rechercher" /><span class="input-group-btn"><input type="submit" name="submit" class="search_submit submit btn btn-primary" value="Go" /></span></div></div><input type="hidden" name="disp" value="search" /></form></div></div><div class="panel panel-default evo_widget widget_core_coll_category_list"><div class="panel-heading"><h4 class="panel-title">Catégories</h4></div><div class="panel-body"><ul><li class="evo_cat_all"><a href="http://192.168.35.217/NoxBlog/">Toutes</a></li><li class="evo_cat_leaf"><a href="http://192.168.35.217/NoxBlog/noxblog-main/">Non catégorisé</a></li></ul></div></div>		</div>
+
+		<div class="evo_container evo_container__sidebar2">
+				</div>
+	</aside><!-- .col -->
+	
+</div><!-- .row -->
+
+
+<footer class="row">
+
+	<!-- =================================== START OF FOOTER =================================== -->
+	<div class="col-md-12 center">
+
+		<div class="evo_container evo_container__footer">
+				</div>
+
+		<p>
+			This collection &copy;2017 by Tristan Besson &bull; 
+			<a href="http://192.168.35.217/NoxBlog/?disp=msgform&amp;recipient_id=1&amp;redirect_to=http%3A%2F%2F192.168.35.217%2FNoxBlog%2F%3Fblog%3D2%26disp%3Dposts%26coll_comment_list_show_statuses%255B%255D%3Dpublished%26coll_comment_list_show_statuses%255B%255D%3Dcommunity%26coll_comment_list_show_statuses%255B%255D%3Dprotected%26coll_comment_list_show_statuses%255B%255D%3Dprivate%26coll_comment_list_show_statuses%255B%255D%3Dreview%26coll_comment_list_order%3DDESC" title="Envoyer un messager au propriétaire de ce blog..." class="contact_link">Contact</a> &bull;  <a href="http://192.168.35.217/NoxBlog/help" title="" class="help_link">Aide</a> 
+			&bull; <a href="http://evocore.net/" target="_blank">framework</a>  		</p>
+
+	</div><!-- .col -->
+	
+</footer><!-- .row -->
+
+
+</div><!-- .container -->
+
+
+
+<footer class="sitewide_footer">
+	<p>@Copyright 2017 - GROUPE NOX - IT Dpt, All rights reserved</p>
+</footer>
+<!-- End of skin_wrapper -->
+</div>
+
+</body>
+</html>
