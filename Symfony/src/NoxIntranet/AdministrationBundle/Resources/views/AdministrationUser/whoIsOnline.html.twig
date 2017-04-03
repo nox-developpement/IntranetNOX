@@ -1,6 +1,0 @@
-<p id="who-is-online">
-    <strong>Utilisateurs en ligne ({{ users|length }}) :</strong> 
-    {% for user in users %}
-        {{ user.Lastname ~ ' ' ~ user.Firstname }}{{ loop.last ? '.' : ', ' }}
-    {% endfor %}
-</p>

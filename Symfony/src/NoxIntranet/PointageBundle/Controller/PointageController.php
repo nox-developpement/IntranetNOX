@@ -148,29 +148,52 @@ class PointageController extends Controller {
             // On récupére la valeur de RHMode depuis les Cookies.
             $rhMode = !empty(filter_input(INPUT_COOKIE, "RHMode")) ? filter_input(INPUT_COOKIE, "RHMode") : "false";
 
-            // On récupére la liste des managers du domaine de l'utilisateur.
-            $manager = array();
+            // On récupére la liste des etablissements du domaine de l'utilisateur.
+            $etablissement = array();
             if ($rhMode === 'true') {
                 foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
-                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                 }
             } else {
                 switch ($userStatus) {
                     case 'AA':
                         foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
-                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                            $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                         }
                         foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
-                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                            $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                         }
                         foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
-                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                            $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                        }
+                        break;
+                }
+            }
+
+            $etablissement_cookie = filter_input(INPUT_COOKIE, "form_Etablissement");
+            $manager = array();
+            if ($rhMode === 'true') {
+                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement_cookie) as $userHierarchy) {
+                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                }
+            } else {
+                switch ($userStatus) {
+                    case 'AA':
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('aa' => $securityName, 'etablissement' => $etablissement_cookie)) as $userHierarchy) {
+                            $manager[$userHierarchy->getDa()] = $userHierarchy->getDa();
+                        }
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('da' => $securityName, 'etablissement' => $etablissement_cookie)) as $userHierarchy) {
+                            $manager[$userHierarchy->getDa()] = $userHierarchy->getDa();
+                        }
+                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement_cookie)) as $userHierarchy) {
+                            $manager[$userHierarchy->getDa()] = $userHierarchy->getDa();
                         }
                         break;
                 }
             }
 
             // Trie du tableau des établissements.
+            asort($etablissement);
             asort($manager);
 
             // Génére le formulaire de séléction du pointage par établissement, mois et année.
@@ -183,6 +206,10 @@ class PointageController extends Controller {
                     ->add('Year', ChoiceType::class, array(
                         'choices' => array_combine(range(date("Y") - 50, date("Y") + 50), range(date("Y") - 50, date("Y") + 50)),
                         'data' => $this->getMonthAndYear()['year']
+                    ))
+                    ->add('Etablissement', ChoiceType::class, array(
+                        'placeholder' => 'Choisir un établissement',
+                        'choices' => $etablissement
                     ))
                     ->add('Manager', ChoiceType::class, array(
                         'placeholder' => 'Choisir un manager',
@@ -269,46 +296,83 @@ class PointageController extends Controller {
         // On récupére les jours fériés.
         $joursFeries = $this->getPublicHoliday($this->getMonthAndYear()['year']);
 
-        // On récupére la valeur de RHMode depuis les Cookies.
+        // On récupére la valeur de RHMode et d'établissement depuis les Cookies.
         $rhMode = !empty(filter_input(INPUT_COOKIE, "RHMode")) ? filter_input(INPUT_COOKIE, "RHMode") : "false";
+        $etablissement_cookie = filter_input(INPUT_COOKIE, "form_Etablissement");
 
         // On récupére la liste des managers du domaine de l'utilisateur.
-        $manager = array();
+        $etablissement = array();
         if ($rhMode === 'true') {
             foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll() as $userHierarchy) {
-                $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
             }
         } else {
             switch ($userStatus) {
                 case 'Final':
                 case 'AA':
                     foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByAa($securityName) as $userHierarchy) {
-                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                        $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                     }
                     foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
-                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                        $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                     }
                     foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
-                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                        $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                     }
                     break;
                 case 'DAManager':
                     foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($securityName) as $userHierarchy) {
-                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                        $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                     }
                     foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
-                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                        $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
                     }
                     break;
                 case 'RH':
                     foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByRh($securityName) as $userHierarchy) {
+                        $etablissement[$userHierarchy->getEtablissement()] = $userHierarchy->getEtablissement();
+                    }
+                    break;
+            }
+        }
+
+        $manager = array();
+        if ($rhMode === 'true') {
+            foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement_cookie) as $userHierarchy) {
+                $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+            }
+        } else {
+            switch ($userStatus) {
+                case 'Final':
+                case 'AA':
+                    foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('aa' => $securityName, 'etablissement' => $etablissement_cookie)) as $userHierarchy) {
+                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    }
+                    foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('da' => $securityName, 'etablissement' => $etablissement_cookie)) as $userHierarchy) {
+                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    }
+                    foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement_cookie)) as $userHierarchy) {
+                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    }
+                    break;
+                case 'DAManager':
+                    foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('da' => $securityName, 'etablissement' => $etablissement_cookie)) as $userHierarchy) {
+                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    }
+                    foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement_cookie)) as $userHierarchy) {
+                        $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+                    }
+                    break;
+                case 'RH':
+                    foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement_cookie)) as $userHierarchy) {
                         $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
                     }
                     break;
             }
         }
 
-        // On trie la liste des managers.
+        // On trie la liste des managers et des établissements.
+        asort($etablissement);
         asort($manager);
 
         // Génération du formulaire de séléction du mois/année.
@@ -320,6 +384,10 @@ class PointageController extends Controller {
                 ->add('Year', ChoiceType::class, array(
                     'choices' => $year,
                     'data' => $this->getMonthAndYear()['year']
+                ))
+                ->add('Etablissement', ChoiceType::class, array(
+                    'placeholder' => 'Choisir un etablissement',
+                    'choices' => $etablissement
                 ))
                 ->add('Manager', ChoiceType::class, array(
                     'placeholder' => 'Choisir un manager',
@@ -336,6 +404,7 @@ class PointageController extends Controller {
                 ->add('year', HiddenType::class, array(
                     'data' => $this->getMonthAndYear()['year']
                 ))
+                ->add('etablissement', HiddenType::class)
                 ->add('manager', HiddenType::class)
                 ->add('rhMode', HiddenType::class, array(
                     'data' => $rhMode
@@ -348,7 +417,7 @@ class PointageController extends Controller {
         // Lors du clique sur le bouton de validation.
         if ($formValidationRefus->isValid()) {
             // On récupére les pointages à inclure dans la compilation en fonction du status de l'utilisateur.
-            $pointagesCompilation = $this->getPointagesACompile($this->getUsersByStatus($userStatus, $securityName, $formValidationRefus->get('rhMode')->getData()), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('manager')->getData(), $validationStep, $formValidationRefus->get('collaborateursSansPointage')->getData());
+            $pointagesCompilation = $this->getPointagesACompile($this->getUsersByStatus($userStatus, $securityName, $formValidationRefus->get('rhMode')->getData()), $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('etablissement')->getData(), $formValidationRefus->get('manager')->getData(), $validationStep, $formValidationRefus->get('collaborateursSansPointage')->getData());
 
             // Initialisation de la liste des utilisateurs à qui envoyer un mail les prévenants qu'une compilation est disponible.
             $mailingListUser = array();
@@ -388,7 +457,7 @@ class PointageController extends Controller {
             $this->sendValidationMail($mailingListUser, $securityName, $validationStep, $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('manager')->getData(), $formValidationRefus->get('collaborateursSansPointage')->getData());
 
             // On redirige vers la compilation des pointages.
-            //return $this->redirectToRoute('nox_intranet_pointages_compilation', array('validationStep' => $validationStep));
+            return $this->redirectToRoute('nox_intranet_pointages_compilation', array('validationStep' => $validationStep));
         }
 
         return $this->render('NoxIntranetPointageBundle:Pointage:pointagesCompilation.html.twig', array(
@@ -399,7 +468,7 @@ class PointageController extends Controller {
     }
 
     // Retourne les pointages prêt à être compilés.
-    private function getPointagesACompile($users, $month, $year, $manager, $validationStep) {
+    private function getPointagesACompile($users, $month, $year, $etablissement, $manager, $validationStep) {
         $em = $this->getDoctrine()->getManager(); // Initialisation de l'entityManager.
         $status = array('AA' => 2, 'DAManager' => 3, 'RH' => 4); // Initialisation des status des pointages en fonction de l'étape de validation de la compilation.
         //
@@ -413,7 +482,7 @@ class PointageController extends Controller {
             $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
 
             // Si le collaborateur dépend de l'utilisateur, qu'il est défini dans la hiérarchie et qu'il à la bon manager.
-            if (in_array($pointage->getUser(), array_keys($users)) && !empty($userHierarchy) && $userHierarchy->getDA() === $manager) {
+            if (in_array($pointage->getUser(), array_keys($users)) && !empty($userHierarchy) && $userHierarchy->getDA() === $manager && $userHierarchy->getEtablissement() === $etablissement) {
                 $pointages[] = $pointage; // On ajoute le pointage aux pointages à compiler.
             }
         }

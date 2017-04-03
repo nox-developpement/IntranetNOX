@@ -68,6 +68,11 @@ class User implements UserInterface, \Serializable {
      */
     private $matriceCompetence;
 
+    /**
+     * @ORM\Column(name="lastViewedPage", type="array", nullable=true)
+     */
+    private $lastViewedPage;
+
     // Les getters et setters
 
     public function getUsername() {
@@ -357,12 +362,34 @@ class User implements UserInterface, \Serializable {
     }
 
     /**
+     * Set lastViewedPage
+     *
+     * @param array $lastViewedPage
+     *
+     * @return User
+     */
+    public function setLastViewedPage($lastViewedPage) {
+        $this->lastViewedPage = $lastViewedPage;
+
+        return $this;
+    }
+
+    /**
      * Get matriceCompetence
      *
      * @return \NoxIntranet\UserBundle\Entity\MatriceCompetence
      */
     public function getMatriceCompetence() {
         return $this->matriceCompetence;
+    }
+
+    /**
+     * Get lastViewedPage
+     *
+     * @return array
+     */
+    public function getLastViewedPage() {
+        return $this->lastViewedPage;
     }
 
 }
