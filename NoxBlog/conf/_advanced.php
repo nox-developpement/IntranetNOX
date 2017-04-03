@@ -20,7 +20,7 @@ if( !defined('EVO_CONFIG_LOADED') ) die( 'Please, do not access this page direct
  *
  * @global integer
  */
-$debug = 1;
+$debug = 0;
 $debug_jslog = 'pwd';
 
 /**

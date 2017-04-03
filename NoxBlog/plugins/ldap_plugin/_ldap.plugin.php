@@ -303,6 +303,7 @@ class ldap_plugin extends Plugin
 				$try_versions = array_unique($try_versions);
 			}
 			$this->debug_log( 'We will try protocol versions: '.implode(', ', $try_versions) );
+			ldap_set_option($ldap_conn, LDAP_OPT_REFERRALS, 0);
 
 
 			// --- VERIFY USER CREDENTIALS BY BINDING TO SERVER ---
