@@ -342,7 +342,7 @@ class ldap_plugin extends Plugin
 			// Search user info
 			$filter = str_replace( '%s', $params['login'], $l_set['search_filter'] );
 			$this->debug_log( sprintf( 'Step 2 : Now querying for additional user info. base_dn: <b>%s</b>, filter: <b>%s</b>', $l_set['base_dn'], $filter ) );
-			$search_result = @ldap_search( $ldap_conn, $l_set['base_dn'], $filter );
+			$search_result = ldap_search( $ldap_conn, $l_set['base_dn'], $filter );
 			if( ! $search_result )
 			{ // this may happen with an empty base_dn
 				$this->debug_log( 'Invalid ldap_search result. Skipping to next search set. Errno: '.ldap_errno($ldap_conn).' Error: '.ldap_error($ldap_conn) );
