@@ -1,0 +1,41 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}{{ dossier|raw }}{% endblock %}
+
+{% block messageAccueil %}{{ dossier|raw }}{% endblock %}
+
+{% block contenu %}
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('js/jqueryfiletree/dist/jQueryFileTree.min.css') }}">
+    <style>
+        .fileTree {
+            width: 70%;
+            margin: auto;
+            text-align: center;
+        }
+
+        .fileTree > .jqueryFileTree {
+            display: inline-block !important;
+            text-align: left;
+        }
+    </style>
+
+    <script type="text/javascript" src="{{ asset('js/jqueryfiletree/dist/jQueryFileTree.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.fileTree').fileTree({
+                root: '{{ asset(folder) }}',
+                script: '{{ asset('js/jqueryfiletree/dist/connectors/jqueryFileTree.php') }}'
+            });
+
+            $('.fileTree').on('filetreeclicked', function (e, data) {
+                window.open(data.rel, '_blank');
+            });
+        });
+    </script>
+
+    <div class="fileTree">
+
+    </div>
+
+{% endblock %}

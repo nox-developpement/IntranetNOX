@@ -319,4 +319,23 @@ class CommunicationController extends Controller {
         return $output;
     }
 
+    public function fileTreeAction(Request $request, $chemin, $dossier, $config) {
+        // On récupère la racine du serveur.
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
+
+        $folder = "uploads/Communication/" . $chemin . "/";
+        
+        // Si des utilisateur spécifiques sont passé en paramètre GET.
+        if (!empty($request->get('uploadAcess'))) {
+            // On décode la chaine des usernames et on la passe sous forme de tableau.
+            $authorizedUploadUsers = explode(',', $this->encrypt_decrypt('decrypt', $request->get('uploadAcess')));
+        }
+        // Sinon...
+        else {
+            $authorizedUploadUsers = array(); // On retourne un tableau vide.
+        }
+
+        return $this->render('NoxIntranetCommunicationBundle:Accueil:fileTree.html.twig', array('chemin' => $chemin, 'dossier' => $dossier, 'config' => $config, 'authorizedUploadUsers' => $authorizedUploadUsers, 'folder' => $folder));
+    }
+
 }
