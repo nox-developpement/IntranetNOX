@@ -256,8 +256,23 @@
     <!-- Fin SI -->
 
     <!-- BIM -->
-    <div class="surMessageAcceuil" id='menuBIM' onclick="window.location.href = '{{ path('nox_intranet_communication_file_tree', { 'chemin': 'BIM', 'dossier': 'BIM', 'config': 'bim', 'uploadAcess': 'f.delapparent,s.blanchard,l.morisseau'|encryptString }) }}';"> 
+    <div class="surMessageAcceuil" id='menuBIM' onclick="showSubMenu2('#sousMenuBIM', this);"> 
         <h4> BIM <img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'><img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'></h4>
+    </div>
+
+    <div id='sousMenuBIM' class='menu'>
+        <div class="sousMessageAcceuil"> 
+            <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'BIM/Communication', 'dossier': 'Communication', 'config': 'bimCommunication', 'uploadAcess': 'f.delapparent,s.blanchard,l.morisseau'|encryptString }) }}'> <h4> Communication </h4> </a>
+        </div>
+        <div class="sousMessageAcceuil">  
+            <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'BIM/Formation', 'dossier': 'Formation', 'config': 'bimFormation', 'uploadAcess': 'f.delapparent,s.blanchard,l.morisseau'|encryptString }) }}'> <h4> Formation </h4> </a>
+        </div>
+        <div class="sousMessageAcceuil">  
+            <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'BIM/Notices', 'dossier': 'Notices', 'config': 'bimNotices', 'uploadAcess': 'f.delapparent,s.blanchard,l.morisseau'|encryptString }) }}'> <h4> Notices </h4> </a>
+        </div>
+        <div class="sousMessageAcceuil">  
+            <a href='{{ path('nox_intranet_affichageContenu', { 'chemin': 'BIM/Protocole', 'dossier': 'Protocole', 'config': 'bimProtocole', 'uploadAcess': 'f.delapparent,s.blanchard,l.morisseau'|encryptString }) }}'> <h4> Protocole </h4> </a>
+        </div>
     </div>
 
     <!-- Fin BIM -->
