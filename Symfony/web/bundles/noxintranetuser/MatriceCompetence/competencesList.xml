@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<competences>
+    <categorie>
+        <categorie_name>BATIMENT</categorie_name>
+        <competence>Génie Civil</competence>
+        <competence>Structure béton</competence>
+        <competence>Structure Métallique</competence>
+        <competence>Enveloppe du bâtiment</competence>
+        <competence>Génie thermique CVC</competence>
+        <competence>Second œuvre </competence>
+        <competence>Génie électrique</competence>
+        <competence>Architecture</competence>
+        <competence>Economie de la construction</competence>
+        <competence>Programmes immobiliers</competence>
+        <competence>Opérations immobilières</competence>
+        <competence>Aménagement</competence>
+    </categorie>
+    
+    <categorie>
+        <categorie_name>INDUSTRIE</categorie_name>
+        <competence>Industrie</competence>
+    </categorie>
+
+    <categorie>
+        <categorie_name>INFRASTRCUTURES</categorie_name>
+        <competence>Trafic</competence>
+        <competence>Aménagement urbain</competence>
+        <competence>Routes et autoroute</competence>
+        <competence>Paysage</competence>
+        <competence>Ouvrages d’art – Neuf et réparation</competence>
+        <competence>Topographie – Cartographie</competence>
+    </categorie>
+
+    <categorie>
+        <categorie_name>ENVIRONNEMENT</categorie_name>
+        <competence>Hydraulique & Assainis.</competence>
+        <competence>Acoustique</competence>
+        <competence>Etudes environnementales</competence>
+        <competence>Faune et flore</competence>
+    </categorie>
+
+    <categorie>
+        <categorie_name>ENERGIE</categorie_name>
+        <competence>GIV - Gestion Inform Végétation</competence>
+        <competence>Transport énergie</competence>
+        <competence>Fibre optique</competence>
+        <competence>Distribution électricité -gaz - éclairage public</competence>
+        <competence>Nucléaire</competence>
+    </categorie>
+    
+    <categorie>
+        <categorie_name>SANTE</categorie_name>
+        <competence>SST</competence>
+        <competence>Habilitation électrique</competence>
+        <competence>SPS</competence>
+    </categorie>
+    
+    <categorie>
+        <categorie_name>SPECIFIQUE</categorie_name>
+        <competence>BIM</competence>
+        <competence>Maquettiste PAO</competence>
+        <competence>Correspondant informatique</competence>
+        <competence>Correspondant qualité</competence>
+        <competence>Montage de structure</competence>
+        <competence>Formation</competence>
+        <competence>Auditeur interne</competence>
+        <competence>Correspondant SSE</competence>
+        <competence>OPC</competence>
+    </categorie>
+
+    <categorie>
+        <categorie_name>INGENIERIE</categorie_name>
+        <competence>Process pharma</competence>
+        <competence>Process industrie</competence>
+        <competence>Equipement process</competence>
+        <competence>Tuyauterie</competence>
+        <competence>Plomberie</competence>
+        <competence>Protection Incendie</competence>
+        <competence>Instrumentation & Contrôle</competence>
+        <competence>Electricité HT</competence>
+        <competence>GC Charpente Métallique</competence>
+    </categorie>
+    
+    <categorie>
+        <categorie_name>MANAGEMENT DE PROJET</categorie_name>
+        <competence>Management Projet Bâtiment</competence>
+        <competence>Management Projet Hôpitaux</competence>
+        <competence>AMO</competence>
+        <competence>Management Projet Pharma</competence>
+        <competence>Management Projet Industrie T.</competence>
+        <competence>Management Projet Power</competence>
+        <competence>Management Projet Gaz</competence>
+        <competence>Management Projet Chimie</competence>
+        <competence>Management Construction</competence>
+        <competence>Suivi Chantier</competence>
+    </categorie>
+    
+    <categorie>
+        <categorie_name>SUPPORT AU PROJET</categorie_name>
+        <competence>Achat Projet</competence>
+        <competence>Achat Ss-traitance / Fonctionn.</competence>
+        <competence>Planification</competence>
+        <competence>Estimation</competence>
+        <competence>Contrôle des Coûts</competence>
+        <competence>Gestion Documentaire</competence>
+    </categorie>
+    
+    <categorie>
+        <categorie_name>FINANCES</categorie_name>
+        <competence>Compta Géné</competence>
+        <competence>Compta Fournisseurs</competence>
+        <competence>Taxes</competence>
+        <competence>Trésorerie</competence>
+        <competence>Compta Projet</competence>
+        <competence>Facturation Client</competence>
+        <competence>Notes de Frais</competence>
+    </categorie>
+    
+    <categorie>
+        <categorie_name>RH</categorie_name>
+        <competence>SI RH + Reporting</competence>
+        <competence>Mobilité Internationale</competence>
+        <competence>Paie</competence>
+        <competence>Droit Social</competence>
+        <competence>Gestion Formation</competence>
+    </categorie>
+
+    <categorie>
+        <categorie_name>JURIDIQUE</categorie_name>
+        <competence>Contrat Industrie+Energie</competence>
+        <competence>Contrat Bâtiment+Marché Public</competence>
+        <competence>Assurances</competence>
+        <competence>Vie des sociétés</competence>
+    </categorie>
+
+    <categorie>
+        <categorie_name>IT</categorie_name>
+        <competence>Logiciel</competence>
+        <competence>Revit</competence>
+        <competence>PDMS</competence>
+        <competence>Infrastructure</competence>
+        <competence>PC et support</competence>
+        <competence>Serveurs et Backup</competence>
+    </categorie>
+
+    <categorie>
+        <categorie_name>COMMERCIAL</categorie_name>
+        <competence>Stratégie Commerciale</competence>
+        <competence>Développement Prospectif</competence>
+        <competence>Développement Relations existantes</competence>
+        <competence>Marketing – Communication</competence>
+        <competence>Coordination Offres</competence>
+        <competence>Production Offres</competence>
+        <competence>Production Dossiers Administratifs</competence>
+    </categorie>
+
+    <categorie>
+        <categorie_name>SG</categorie_name>
+        <competence>Services Généraux</competence>
+        <competence>Secrétarait Direction</competence>
+    </categorie>
+</competences>

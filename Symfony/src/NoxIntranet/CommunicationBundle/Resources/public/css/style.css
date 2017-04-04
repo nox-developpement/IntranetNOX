@@ -1765,7 +1765,7 @@ divAdministrationUtilisateur {
 
 #sousMenuSupport, #sousMenuVideoInstitutionnelle, #sousMenuReseauxSociaux, #sousMenuBanqueImages, #sousMenuOrganigrammes, #sousMenuExterne, 
 #sousMenuInterne, #sousMenuMarketing, #sousMenuSI, #sousMenuCertificatsISO, #sousMenuDocumentQSE, #sousMenuInfoQSE, 
-#sousMenuVieDeLentreprise, #sousMenuRHQuotidien, #sousMenuReglementationRH {
+#sousMenuVieDeLentreprise, #sousMenuRHQuotidien, #sousMenuReglementationRH, #sousMenuBIM {
     display: none;
 }
 

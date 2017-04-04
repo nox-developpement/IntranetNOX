@@ -547,6 +547,62 @@ fm_elfinder:
                         upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif']
                         upload_deny:      ['all']
                         upload_max_size:  10M
+        bimCommunication:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/Communication/BIM/Communication
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  10M  
+        bimFormation:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/Communication/BIM/Formation
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  10M  
+        bimNotices:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/Communication/BIM/Notices
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  10M  
+        bimProtocole:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       true
+            include_assets:   true
+            connector:
+                debug:        true
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             uploads/Communication/BIM/Protocole
+                        upload_allow:     ['application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  10M  
         bim:
             locale:           %locale%
             editor:           ckeditor
@@ -557,7 +613,7 @@ fm_elfinder:
                 roots:
                     uploads:
                         driver:           LocalFileSystem
-                        path:             uploads/Communication/BIM
+                        path:             uploads/Communication/BIM/Communication
                         upload_allow:     ['application/pdf']
                         upload_deny:      ['all']
                         upload_max_size:  10M  

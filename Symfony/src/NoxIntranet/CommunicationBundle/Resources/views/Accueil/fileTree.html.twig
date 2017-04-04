@@ -1,0 +1,58 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}{{ dossier|raw }}{% endblock %}
+
+{% block messageAccueil %}{{ dossier|raw }}{% endblock %}
+
+{% block contenu %}
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('js/jqueryfiletree/dist/jQueryFileTree.min.css') }}">
+    <style>
+        .fileTree {
+            width: 70%;
+            margin: auto;
+            text-align: center;
+            margin-bottom: 2em;
+            background-color: white;
+        }
+
+        .fileTree > .jqueryFileTree {
+            display: inline-block !important;
+            height: 500px;
+            padding: 1em;
+            overflow: auto;
+            text-align: left;
+            border: 1px inset lightgrey;
+        }
+    </style>
+
+    <script type="text/javascript" src="{{ asset('js/jqueryfiletree/dist/jQueryFileTree.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            // Affichage d'un arbre de navigation pour le dossier.
+            $('.fileTree').fileTree({
+                root: '{{ folder }}',
+                script: '{{ asset('js/jqueryfiletree/dist/connectors/communication_file_tree_connector.php') }}'
+            });
+
+            // Ouverture du fichier lors du clique sur son nom.
+            $('.fileTree').on('filetreeclicked', function (e, data) {
+                window.open(data.rel, '_blank');
+            });
+        });
+    </script>
+
+    {% if (authorizedUploadUsers is empty and is_granted('ROLE_COMMUNICATION')) or (app.user.username in authorizedUploadUsers) %} 
+
+        <div id="menuAdminNewsSI" class='menuAdmin'>
+            <h3> Interface de gestion de contenu </h3>
+            <a onclick="openFichiersPopUpWindow('http://' + document.location.hostname + '/Symfony/web/app.php/elfinder/{{ config }}', 'Gestionnaire de fichiers - {{ dossier|raw }}');"> <h3> Ouvrir le gestionnaire de fichier </h3> </a>
+        </div>
+
+    {% endif %}
+
+    <div class="fileTree">
+
+    </div>
+
+{% endblock %}

@@ -10,11 +10,25 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CommunicationController extends Controller {
 
-    public function communicationAction(Request $request) {
+    /**
+     * 
+     * Affiche la liste des section de "Communication".
+     * 
+     * @return View
+     */
+    public function communicationAction() {
 
         return $this->render('NoxIntranetCommunicationBundle:Accueil:accueilCommunication.html.twig');
     }
 
+    /**
+     * 
+     * Retourne le contenu d'un dossier sous forme de tableau.
+     * 
+     * @param String $dir Chemin du dossier à analyser.
+     * @param Array $results Tableau du contenu du dossier analysé.
+     * @return Array
+     */
     function getDirContents($dir, &$results = array()) {
         $files = scandir($dir);
 
@@ -32,7 +46,17 @@ class CommunicationController extends Controller {
         return $results;
     }
 
-    // Affichage la liste des news en fonction du chemin passé en paramêtre.
+    /**
+     * 
+     * Affichage la liste des news en fonction du chemin passé en paramêtre.
+     * 
+     * @param Request $request Requête qui contient éventuellement des noms de collaborateurs.
+     * @param String $chemin Chemin du dossier dont on veux afficher le contenu.
+     * @param String $dossier Nom du dossier à afficher.
+     * @param String $config Nom de la configuration du gestionnaire de fichiers.
+     * @param Integer $page Index de la page à afficher.
+     * @return View
+     */
     public function affichageContenuAction(Request $request, $chemin, $dossier, $config, $page) {
         // On récupère la racine du serveur.
         $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
@@ -83,7 +107,13 @@ class CommunicationController extends Controller {
         return $this->render('NoxIntranetCommunicationBundle:Accueil:affichageContenu.html.twig', array('chemin' => $chemin, 'page' => $page, 'nbPage' => $nbPages, 'news' => $news5[$page - 1], 'dossier' => $dossier, 'config' => $config, 'authorizedUploadUsers' => $authorizedUploadUsers));
     }
 
-    // Retourne la liste des PDF du dossier passé en paramêtre.
+    /**
+     * 
+     * Retourne la liste des PDF du dossier passé en paramêtre.
+     * 
+     * @param String $chemin Chemin du dossier contenant les PDF.
+     * @return Array
+     */
     public function getPDF($chemin) {
         // On récupérère les fichiers du dossier "chemin".
         $files = $this->getDirContents($chemin);
@@ -109,7 +139,13 @@ class CommunicationController extends Controller {
         return $listePDF;
     }
 
-    // Retourne la liste des mp4 du dossier passé en paramêtre.
+    /**
+     * 
+     * Retourne la liste des mp4 du dossier passé en paramêtre.
+     * 
+     * @param String $chemin Chemin du dossier contenant les mp4.
+     * @return Array
+     */
     private function getMp4($chemin) {
         // On récupère la racine du serveur.
         $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
@@ -161,6 +197,16 @@ class CommunicationController extends Controller {
         return $listeMp4;
     }
 
+    /**
+     * 
+     * Affiche les images du dossier, éventuellement sur plusieurs pages.
+     * 
+     * @param String $chemin Chemin du dossier contenant les images.
+     * @param String $dossier Nom du dossier à afficher.
+     * @param String $config Nom de la configuration pour le gestionnaire de fichiers.
+     * @param Integer $page Index de la page à afficher.
+     * @return View
+     */
     function affichageImagesAction($chemin, $dossier, $config, $page) {
 
         $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
@@ -196,6 +242,13 @@ class CommunicationController extends Controller {
         return $this->render('NoxIntranetCommunicationBundle:Accueil:affichageImage.html.twig', array('page' => $page, 'nbPage' => $nbPages, 'images' => $images10[$page - 1], 'dossier' => $dossier, 'config' => $config, 'chemin' => $chemin));
     }
 
+    /**
+     * 
+     * Lance le téléchargement d'une image.
+     * 
+     * @param String $image Nom du fichier image.
+     * @return Response Header de téléchargement.
+     */
     function downloadImageAction($image) {
 
         $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
@@ -251,7 +304,13 @@ class CommunicationController extends Controller {
         return $this->render('NoxIntranetCommunicationBundle:Accueil:BIM.html.twig', array('texte' => $texte, 'formulaire' => $form->createView()));
     }
 
-    // Génère un Gif d'apercu pour une vidéo.
+    /**
+     * 
+     * Génère un Gif d'apercu pour une vidéo.
+     * 
+     * @param Request $request La requêtte contenant le chemin du fichier.
+     * @return Response Le gif encodé en base64.
+     */
     public function ajaxVideoPreviewAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // On récupère le chemin du fichier vidéo.
@@ -295,7 +354,14 @@ class CommunicationController extends Controller {
         }
     }
 
-    // Retourne une chaîne encrypté.
+    /**
+     * 
+     * Encrypte ou décrypte une chaine de charactères.
+     * 
+     * @param String $action Indique quelle action effectuer.
+     * @param String $string La chaine à encrypté/décrypté.
+     * @return String La chaine encrypté/décrypté.
+     */
     private function encrypt_decrypt($action, $string) {
         $output = false;
 
@@ -317,6 +383,33 @@ class CommunicationController extends Controller {
         }
 
         return $output;
+    }
+
+    /**
+     * 
+     * Retourne un arbre de navigation dans un dossier.
+     * 
+     * @param Request $request Requête qui contient éventuellement des noms de collaborateurs.
+     * @param String $chemin Chemin vers le dossier depuis le dossier "Communication".
+     * @param String $dossier Nom du dossier à afficher.
+     * @param String $config Nom de la configuration pour l'interface de gestion de fichier.
+     * @return View
+     */
+    public function fileTreeAction(Request $request, $chemin, $dossier, $config) {
+        // Le chemin du dossier à explorer.
+        $folder = "/Symfony/web/uploads/Communication/" . $chemin . "/";
+
+        // Si des utilisateur spécifiques sont passé en paramètre GET.
+        if (!empty($request->get('uploadAcess'))) {
+            // On décode la chaine des usernames et on la passe sous forme de tableau.
+            $authorizedUploadUsers = explode(',', $this->encrypt_decrypt('decrypt', $request->get('uploadAcess')));
+        }
+        // Sinon...
+        else {
+            $authorizedUploadUsers = array(); // On retourne un tableau vide.
+        }
+
+        return $this->render('NoxIntranetCommunicationBundle:Accueil:fileTree.html.twig', array('chemin' => $chemin, 'dossier' => $dossier, 'config' => $config, 'authorizedUploadUsers' => $authorizedUploadUsers, 'folder' => $folder));
     }
 
 }
