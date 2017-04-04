@@ -397,7 +397,7 @@ class CommunicationController extends Controller {
      */
     public function fileTreeAction(Request $request, $chemin, $dossier, $config) {
         // Le chemin du dossier à explorer.
-        $folder = "uploads/Communication/" . $chemin . "/";
+        $folder = "/Symfony/web/uploads/Communication/" . $chemin . "/";
 
         // Si des utilisateur spécifiques sont passé en paramètre GET.
         if (!empty($request->get('uploadAcess'))) {

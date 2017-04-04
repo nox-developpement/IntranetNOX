@@ -13,6 +13,7 @@
             margin: auto;
             text-align: center;
             margin-bottom: 2em;
+            background-color: white;
         }
 
         .fileTree > .jqueryFileTree {
@@ -30,7 +31,7 @@
         $(document).ready(function () {
             // Affichage d'un arbre de navigation pour le dossier.
             $('.fileTree').fileTree({
-                root: '{{ asset(folder) }}',
+                root: '{{ folder }}',
                 script: '{{ asset('js/jqueryfiletree/dist/connectors/communication_file_tree_connector.php') }}'
             });
 
