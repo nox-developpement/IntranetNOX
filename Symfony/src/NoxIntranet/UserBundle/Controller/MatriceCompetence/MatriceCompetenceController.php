@@ -15,7 +15,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MatriceCompetenceController extends Controller {
 
-    // Formulaire de compétences professionels.
+    /**
+     * 
+     * Formulaire permettant d'indiquer les compétences professionelles du collaborateur.
+     * 
+     * @param Request $request Requête contenant les données du formulaires.
+     * @return View
+     */
     public function competenceFormAction(Request $request) {
         // Entité du collaborateur actuel.
         $currentUser = $this->get('security.context')->getToken()->getUser();
@@ -308,6 +314,70 @@ class MatriceCompetenceController extends Controller {
         $competencesCount = count($competencesArray, COUNT_RECURSIVE) - count($competencesArray);
 
         return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCompetence.html.twig', array('matrices_competences' => $matrices_competences, 'competencesArray' => $competencesArray, 'competencesCount' => $competencesCount));
+    }
+
+    public function extractMatriceCompetenceDataAction() {
+        $em = $this->getDoctrine()->getManager();
+
+        $allUsers = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
+
+        $users = array();
+        foreach ($allUsers as $user) {
+            $nom = strtoupper($this->wd_remove_accents(str_replace('-', ' ', $user->getLastname())));
+            $prenom = strtoupper($this->wd_remove_accents(str_replace('-', ' ', $user->getFirstname())));
+
+            $users[$nom][$prenom] = $user;
+        }
+
+
+
+        $matrice_competence_root = $this->get('kernel')->getRootDir() . "/../src/NoxIntranet/UserBundle/Resources/public/MatriceCompetence";
+
+        $matrice_competence_file = $matrice_competence_root . "/Matrice_Competence.xlsx";
+
+        // Initialisation de l'objet Excel du fichier de matrice.
+        $objReader = new PHPExcel_Reader_Excel2007();
+        $objPHPExcel = $objReader->load($matrice_competence_file);
+        $sheet = $objPHPExcel->getActiveSheet();
+
+        $rowsIterator = $sheet->getRowIterator();
+
+        $count = 0;
+        foreach ($rowsIterator as $row) {
+            $rowIndex = $row->getRowIndex();
+
+            $matrice_nom = trim(strtoupper($this->wd_remove_accents(str_replace('-', ' ', $sheet->getCell('D' . $rowIndex)))));
+            $matrice_prenom = trim(strtoupper($this->wd_remove_accents(str_replace('-', ' ', $sheet->getCell('E' . $rowIndex)))));
+
+            if (isset($users[$matrice_nom][$matrice_prenom])) {
+                //echo $users[$matrice_nom][$matrice_prenom]->getUsername() . "<br />";
+                $count++;
+            } else {
+                echo $matrice_nom . ' ' . $matrice_prenom . "<br />";
+            }
+        }
+
+        echo $count;
+
+        return new Response('');
+    }
+
+    /**
+     * 
+     * Supprime les accents d'une chaîne de charactères.
+     * 
+     * @param String $str La chaîne de charactère à nettoyer.
+     * @param String $charset L'encodage de la chaîne d'origine. UTF-8 par défaut.
+     * @return String La chaîne nettoyée de ses accents.
+     */
+    private function wd_remove_accents($str, $charset = 'utf-8') {
+        $str = htmlentities($str, ENT_NOQUOTES, $charset);
+
+        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
+        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
+        $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
+
+        return $str;
     }
 
 }

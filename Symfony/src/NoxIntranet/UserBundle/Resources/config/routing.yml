@@ -38,3 +38,7 @@ nox_intranet_developpement_professionnel_matrice_competence_download:
 nox_intranet_developpement_professionnel_matrice_competence:
     path:   /ressources/matrice-competence
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:matriceCompetenceTable }
+    
+nox_intranet_developpement_professionnel_matrice_competence_file_extraction:
+    path:   /ressources/matrice-competence/file-extraction
+    defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:extractMatriceCompetenceData }
