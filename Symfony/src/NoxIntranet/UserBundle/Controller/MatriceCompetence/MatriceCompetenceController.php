@@ -346,10 +346,24 @@ class MatriceCompetenceController extends Controller {
         foreach ($rowsIterator as $row) {
             $rowIndex = $row->getRowIndex();
 
-            $matrice_nom = trim(strtoupper($this->wd_remove_accents(str_replace('-', ' ', $sheet->getCell('D' . $rowIndex)))));
-            $matrice_prenom = trim(strtoupper($this->wd_remove_accents(str_replace('-', ' ', $sheet->getCell('E' . $rowIndex)))));
+            $matrice_nom = trim(strtoupper($this->wd_remove_accents(str_replace('-', ' ', $sheet->getCell('D' . $rowIndex)->getValue()))));
+            $matrice_prenom = trim(strtoupper($this->wd_remove_accents(str_replace('-', ' ', $sheet->getCell('E' . $rowIndex)->getValue()))));
 
             if (isset($users[$matrice_nom][$matrice_prenom])) {
+
+                $user = $users[$matrice_nom][$matrice_prenom];
+
+                $matrice_competence_entity = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->findOneByUser($user);
+
+                if (empty($matrice_competence_entity)) {
+
+                    $matrice_societe = $sheet->getCell('A' . $rowIndex)->getValue();
+                    $matrice_etablissement = $sheet->getCell('C' . $rowIndex)->getValue();
+                    $matrice_date_naissance = $sheet->getCell('F' . $rowIndex)->getValue();
+
+                    $new_matrice_competence = new MatriceCompetence();
+                }
+
                 //echo $users[$matrice_nom][$matrice_prenom]->getUsername() . "<br />";
                 $count++;
             } else {
