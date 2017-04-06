@@ -61,8 +61,13 @@ class JMSSerializerExtension extends ConfigurableExtension
             $container
                 ->getDefinition('jms_serializer.serializer')
                 ->replaceArgument(7, new Reference($config['expression_evaluator']['id']));
+
+            $container
+                ->setAlias('jms_serializer.accessor_strategy', 'jms_serializer.accessor_strategy.expression');
+
         } else {
             $container->removeDefinition('jms_serializer.expression_evaluator');
+            $container->removeDefinition('jms_serializer.accessor_strategy.expression');
         }
 
         // metadata
@@ -106,7 +111,8 @@ class JMSSerializerExtension extends ConfigurableExtension
             $directory['path'] = rtrim(str_replace('\\', '/', $directory['path']), '/');
 
             if ('@' === $directory['path'][0]) {
-                $bundleName = substr($directory['path'], 1, strpos($directory['path'], '/') - 1);
+                $pathParts = explode('/', $directory['path']);
+                $bundleName = substr($pathParts[0], 1);
 
                 if (!isset($bundles[$bundleName])) {
                     throw new RuntimeException(sprintf('The bundle "%s" has not been registered with AppKernel. Available bundles: %s', $bundleName, implode(', ', array_keys($bundles))));

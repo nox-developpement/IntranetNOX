@@ -329,20 +329,27 @@ class MatriceCompetenceController extends Controller {
             $users[$nom][$prenom] = $user;
         }
 
-
-
         $matrice_competence_root = $this->get('kernel')->getRootDir() . "/../src/NoxIntranet/UserBundle/Resources/public/MatriceCompetence";
 
         $matrice_competence_file = $matrice_competence_root . "/Matrice_Competence.xlsx";
 
+        // Modification de la méthode de caching pour économiser la mémoire.
+        \PHPExcel_Settings::setCacheStorageMethod(\PHPExcel_CachedObjectStorageFactory::cache_to_sqlite3);
+
         // Initialisation de l'objet Excel du fichier de matrice.
-        $objReader = new PHPExcel_Reader_Excel2007();
+        $objReader = new \PHPExcel_Reader_Excel2007();
+        $objReader->setReadDataOnly(true); // Permet de lire seulement les valeurs des cellules pour économiser la mémoire.
         $objPHPExcel = $objReader->load($matrice_competence_file);
+
         $sheet = $objPHPExcel->getActiveSheet();
+
+
 
         $rowsIterator = $sheet->getRowIterator();
 
         $count = 0;
+
+
         foreach ($rowsIterator as $row) {
             $rowIndex = $row->getRowIndex();
 
@@ -359,21 +366,50 @@ class MatriceCompetenceController extends Controller {
 
                     $matrice_societe = $sheet->getCell('A' . $rowIndex)->getValue();
                     $matrice_etablissement = $sheet->getCell('C' . $rowIndex)->getValue();
-                    $matrice_date_naissance = $sheet->getCell('F' . $rowIndex)->getValue();
+                    $matrice_date_naissance = $sheet->getCell('F' . $rowIndex)->getFormattedValue();
+                    var_dump($matrice_date_naissance);
+                    $matrice_date_anciennete = $sheet->getCell('G' . $rowIndex)->getValue();
+                    $matrice_statut = $sheet->getCell('H' . $rowIndex)->getValue();
+                    $matrice_poste = $sheet->getCell('I' . $rowIndex)->getValue();
+
+                    $matrice_competence_principale = null;
+                    for ($column = 'J'; $column !== 'DA'; $column++) {
+                        if (trim($sheet->getCell($column . $rowIndex)->getValue()) === "1") {
+                            $matrice_competence_principale = $sheet->getCell($column . '3')->getValue();
+                        }
+                    }
+
+                    $matrice_competences_secondaires = array();
+                    for ($column = 'J'; $column !== 'DA'; $column++) {
+                        if (trim($sheet->getCell($column . $rowIndex)->getValue()) === "*") {
+                            $matrice_competences_secondaires[] = $sheet->getCell($column . '3')->getValue();
+                        }
+                    }
 
                     $new_matrice_competence = new MatriceCompetence();
+                    $new_matrice_competence->setSociete($matrice_societe);
+                    $new_matrice_competence->setEtablissement($matrice_etablissement);
+                    $new_matrice_competence->setDateNaissance($matrice_date_naissance);
+                    $new_matrice_competence->setDateAnciennete($matrice_date_anciennete);
+                    $new_matrice_competence->setStatut($matrice_statut);
+                    $new_matrice_competence->setPoste($matrice_poste);
+                    $new_matrice_competence->setCompetencePrincipale($matrice_competence_principale);
+                    $new_matrice_competence->setCompetencesSecondaires($matrice_competences_secondaires);
+                    $em->persist($new_matrice_competence);
                 }
 
                 //echo $users[$matrice_nom][$matrice_prenom]->getUsername() . "<br />";
                 $count++;
             } else {
-                echo $matrice_nom . ' ' . $matrice_prenom . "<br />";
+                //echo $matrice_nom . ' ' . $matrice_prenom . "<br />";
             }
         }
+        
+        $em->flush();
 
-        echo $count;
+        //echo $count;
 
-        return new Response('');
+        return new Response((memory_get_usage() / 1024) / 1024);
     }
 
     /**
