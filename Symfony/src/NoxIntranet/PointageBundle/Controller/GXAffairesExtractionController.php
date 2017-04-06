@@ -31,120 +31,73 @@ class GXAffairesExtractionController extends Controller {
         $this->em = $em;
     }
 
-    // Extrait les affaires de la base de données GX et les importes dans la base de données de l'intranet.
-    public function gxAffairesExtraction() {
-        $this->extractAffairesFromGX();
-        $this->importAffairesToDatabase();
-    }
+    /**
+     * 
+     * Importe les affaires depuis la base de données GX vers la base de données de l'intranet.
+     * 
+     */
+    public function importAffairesToDatabase() {
+        // Nombre d'affaires dans la base de données GX.
+        $affairesCount = $this->getAffairesCountFromGXDatabase();
 
-    // Extrait les affaires de la base de données GX dans un fichier csv.
-    private function extractAffairesFromGX() {
-        // Chemin vers le dossier de script.
-        $scriptRoot = $this->container->get('kernel')->getRootDir() . "/../scripts";
-
-        // Exécution du script d'extraction des affaires.
-        exec($scriptRoot . "/GXExtractAffaires.bat");
-    }
-
-    // Import les affaires depuis le fichier CSV vers la base de données de l'intranet.
-    private function importAffairesToDatabase() {
-
-        $GXConnectionToken = $this->connectToGXDatabase(self::$SERVER_NAME, self::$DATABASE, self::$UID, self::$PWD);
-        $this->getAffairesFromeGXDatabase($GXConnectionToken);
-
-        // Chemin vers le dossier web.
-        $webRoot = $this->container->get('kernel')->getRootDir() . "/../web";
+        // On récupére les affaires depuis la base de données GX.
+        $affaires = $this->getAffairesFromeGXDatabase();
 
         // On désactive le log SQL pour optimiser les performances.
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
 
-        // Initialisation du tableau des affaires à ajouter en base de donnnées.
-        $affairesArray = array();
+        echo "Extraction des affaires... \n";
 
-        /* echo "Extraction des affaires... \n";
+        // Compteur d'affaire et de flush.
+        $affaireIndex = 0;
+        $flushIndex = 0;
 
-          // On parcours le fichier CSV et on place les informations de chaques affaires dans un tableau.
-          if (($handle = fopen($webRoot . "/DatabasesCSV/Affaires.csv", "r")) !== FALSE) {
+        while ($affaire = odbc_fetch_array($affaires)) {
+            printf("Traitement de l'affaire " . $affaireIndex++ . "/" . $affairesCount . ".\r");
 
-          // Compteur d'affaire.
-          $affaireIndex = 0;
-          while (($data = fgetcsv($handle, 0, ";")) !== FALSE) {
+            // Données de l'affaire.
+            $GX_affaire_numero = utf8_encode($affaire['Champ2']);
+            $GX_affaire_nom = utf8_encode($affaire['Champ9']);
+            $GX_affaire_identifiant = utf8_encode($affaire['Designation']);
 
-          echo "Extraction de l'affaire " . $affaireIndex . "\n";
+            // On tente de récupérer l'entité de la base de données correspondant au numéro d'affaire.
+            $affairesEntity = $this->em->getRepository('NoxIntranetPointageBundle:AffairesGX')->findOneByNumero($GX_affaire_numero);
 
-          // Incrémentation du compteur d'affaire.
-          $affaireIndex++;
+            // Si l'entité n'existe pas...
+            if (empty($affairesEntity)) {
+                // On crée une nouvelle entité et on la persiste.
+                $newAffaires = new AffairesGX();
+                $newAffaires->setNumero($GX_affaire_numero);
+                $newAffaires->setNom($GX_affaire_nom);
+                $newAffaires->setIdentifiant($GX_affaire_identifiant);
+                $this->em->persist($newAffaires);
 
-          // On tente de récupérer l'entité de la base de données correspondant au numéro d'affaire.
-          $affairesEntity = $this->em->getRepository('NoxIntranetPointageBundle:AffairesGX')->findOneByNumero($data[0]);
+                // Incrémentation du compteur d'affaire.
+                $flushIndex++;
+            }
+            // Si l'entité existe mais ses informations sont différentes...
+            else if ($affairesEntity->getNom() !== $GX_affaire_nom || $affairesEntity->getIdentifiant() !== $GX_affaire_identifiant) {
+                // On met à jour les informations de l'affaire.
+                $affairesEntity->setNom($GX_affaire_nom);
+                $affairesEntity->setIdentifiant($GX_affaire_identifiant);
 
-          // Si l'entité n'existe pas ou si l'entité existe mais ses informations sont différentes.
-          if (empty($affairesEntity)) {
-          // On ajoute les informations de l'affaires au tableau des affaires.
-          $affairesArray[] = array(
-          'Numero' => $data[0],
-          'Nom' => utf8_encode($data[1]),
-          'Identifiant' => utf8_encode($data[2])
-          );
-          } else if ($affairesEntity->getNom() !== utf8_encode($data[1]) || $affairesEntity->getIdentifiant() !== utf8_encode($data[2])) {
-          // On met à jour les informations de l'affaire.
-          $affairesEntity->setNom(utf8_encode($data[1]));
-          $affairesEntity->setIdentifiant(utf8_encode($data[2]));
-          $this->em->flush();
-          $this->em->clear();
-          }
+                // Incrémentation du compteur d'affaire.
+                $flushIndex++;
+            }
 
-          // Toute les 200 affaires...
-          if ($affaireIndex % 200 === 0) {
+            // Toute les 200 affaires...
+            if ($flushIndex !== 0 && $flushIndex % 200 === 0) {
+                echo mb_convert_encoding("Insertion/Mise à jour de 200 affaires dans la base de données.\n", "CP850", mb_detect_encoding("Insertion/Mise à jour de 200 affaires dans la base de données.\n"));
 
-          echo "Insertion des affaires " . ($affaireIndex - 200) . " à " . $affaireIndex . " dans la base de données.\n";
+                // On flush la création/modification des entitées.
+                $this->em->flush();
+                $this->em->clear();
+            }
+        }
 
-          // Pour chaques affaires du tableau des affaires...
-          foreach ($affairesArray as $affaire) {
-          // On créer une nouvelle affaire, on la persist et on incrémente le compteur de flush.
-          $newAffaires = new AffairesGX();
-          $newAffaires->setNumero($affaire['Numero']);
-          $newAffaires->setNom($affaire['Nom']);
-          $newAffaires->setIdentifiant($affaire['Identifiant']);
-          $this->em->persist($newAffaires);
-          }
-
-          // On flush la création des entitées.
-          $this->em->flush();
-          $this->em->clear();
-
-          // On efface le contenu du tableau des affaires.
-          $affairesArray = array();
-          }
-
-          echo round((memory_get_usage(true) / 1024) / 1024, 0) . "MO/" . ini_get('memory_limit') . "O\n";
-          }
-
-          // On flush les modifications restantes.
-          $this->em->flush();
-          $this->em->clear();
-
-          fclose($handle);
-          }
-
-          echo "Mis à jours des Id... \n";
-
-          // On récupére toutes les entitées d'affaires.
-          $allAffaires = $this->em->getRepository('NoxIntranetPointageBundle:AffairesGX')->findAll();
-
-          // Pour chaques affaires...
-          $affaireIndex = 1;
-          foreach ($allAffaires as $affaire) {
-          // On change l'index.
-          $affaire->setId($affaireIndex);
-          $affaireIndex++;
-
-          echo round((memory_get_usage(true) / 1024) / 1024, 0) . "MO/" . ini_get('memory_limit') . "O\n";
-          }
-
-          // On sauvegarde le changement en base de données.
-          $this->em->flush();
-         */
+        // On flush les modifications restantes.
+        $this->em->flush();
+        $this->em->clear();
     }
 
     /**
@@ -158,12 +111,15 @@ class GXAffairesExtractionController extends Controller {
      * @return ODBC_Connection Token de connexion à la base de données.
      */
     private function connectToGXDatabase($server_name, $database, $uid, $pwd) {
-
+        // Connexion à la base de données GX.
         $connection = odbc_connect("Driver={SQL Server};Server=$server_name;Database=$database;", $uid, $pwd);
 
+        // Si la connexion à marché, on retourne le token.
         if ($connection) {
             return $connection;
-        } else {
+        }
+        // Sinon on retourne l'erreur.
+        else {
             echo "La connexion a échouée.";
             die(print_r(sqlsrv_errors(), true));
         }
@@ -176,15 +132,70 @@ class GXAffairesExtractionController extends Controller {
      * @param ODBC_Connection $connexion_token
      * @return ODCC_Result
      */
-    private function getAffairesFromeGXDatabase($connexion_token) {
+    private function getAffairesFromeGXDatabase() {
+        $connexion_token = $this->connectToGXDatabase(self::$SERVER_NAME, self::$DATABASE, self::$UID, self::$PWD);
+
         // Requête qui retourne les affaires.
-        $query = "SET NOCOUNT ON SELECT Champ2, Champ9, Designation FROM AFFAIRE GO";
+        $query = "SET NOCOUNT ON SELECT Champ2, Champ9, Designation FROM AFFAIRE WHERE Champ2 <> 'NULL'";
 
         // On execute la requête.
         $result = odbc_exec($connexion_token, $query);
 
         // On retourne le résultat de la requête.
         return $result;
+    }
+
+    /**
+     * 
+     * Retourne true si l'affaire existe dans la base de données GX, false sinon.
+     * 
+     * @param ODBC_Connection $connexion_token Token de connexion à la base de données.
+     * @param String $numero_affaire Numéro de l'affaire dont on veux vérifié l'existance.
+     * @return Boolean
+     */
+    private function affairesExistInGXDatabase($numero_affaire) {
+        $connexion_token = $this->connectToGXDatabase(self::$SERVER_NAME, self::$DATABASE, self::$UID, self::$PWD);
+
+        // Requête qui retourne les affaires.
+        $query = "SET NOCOUNT ON SELECT Count(Champ2) FROM AFFAIRE WHERE Champ2 = '$numero_affaire' GO";
+
+        // On execute la requête.
+        $result = odbc_exec($connexion_token, $query);
+
+        // Nombre de résultat pour la requête.
+        $resultCount = odbc_num_rows($result);
+
+        // Fermeture de la connexion.
+        odbc_close($connexion_token);
+
+        // On retourne true si il y a un ou plusieurs résultat, false sinon.
+        return $resultCount > 0;
+    }
+
+    /**
+     * 
+     * Retourne le nombre d'affaires dans la base de données GX.
+     * 
+     * @param ODBC_Connexion $connexion_token Token de connexion à la base de données.
+     * @return Integer
+     */
+    private function getAffairesCountFromGXDatabase() {
+        $connexion_token = $this->connectToGXDatabase(self::$SERVER_NAME, self::$DATABASE, self::$UID, self::$PWD);
+
+        // Requête qui retourne les affaires.
+        $query = "SET NOCOUNT ON SELECT Count(Champ2) FROM AFFAIRE WHERE Champ2 <> 'NULL'";
+
+        // On execute la requête.
+        $result = odbc_exec($connexion_token, $query);
+
+        // On récupére le résultat de count.
+        $count = array_values(odbc_fetch_array($result))[0];
+
+        // Fermeture de la connexion.
+        odbc_close($connexion_token);
+
+        // On retourne le résultat de la requête.
+        return $count;
     }
 
 }
