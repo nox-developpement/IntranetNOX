@@ -377,7 +377,7 @@ class PointageAjaxController extends Controller {
             $year = $request->get('year');
             $userStatus = $request->get('userStatus');
             $etablissement = $request->get('etablissement');
-            $manager = $request->get('manager');
+            //$manager = $request->get('manager');
             $rhMode = $request->get('rhMode');
 
             // On récupére la liste des collaborateurs assignés à l'utilisateur en fonction de son grade hiérarchique.
@@ -386,7 +386,7 @@ class PointageAjaxController extends Controller {
             // On supprime les collaborateurs qui le manager passé en paramètre comme Manager.
             foreach ($users as $username => $name) {
                 $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($username);
-                if (!(!empty($userHierarchy) && $userHierarchy->getDA() === $manager && $userHierarchy->getEtablissement() === $etablissement)) {
+                if (!(!empty($userHierarchy) && $userHierarchy->getEtablissement() === $etablissement)) {
                     unset($users[$username]);
                 }
             }
@@ -401,7 +401,7 @@ class PointageAjaxController extends Controller {
                 // On récupére l'entité hiérarchique du collaborateur du pointage.
                 $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
                 // Si le collaborateur est définie dans la hiérarchie, qu'il fait partie de l'établissement désigné et qu'il dépend de l'utilisateur.
-                if (!empty($userHierarchy) && $userHierarchy->getDA() === $manager && $userHierarchy->getEtablissement() === $etablissement && in_array($pointage->getUser(), array_keys($users))) {
+                if (!empty($userHierarchy) && $userHierarchy->getEtablissement() === $etablissement && in_array($pointage->getUser(), array_keys($users))) {
                     // Si le pointage a été validé par le collaborateur mais pas encore par l'assistant d'agence.
                     if ($pointage->getStatus() === '1') {
                         $pointageEnAttenteValidationAA[] = $pointage; // On l'ajout au tableau des pointages en attente de validation par l'assistant d'agence.
@@ -497,7 +497,7 @@ class PointageAjaxController extends Controller {
             $month = $request->get('month');
             $year = $request->get('year');
             $etablissement = $request->get('etablissement');
-            $manager = $request->get('manager');
+            //$manager = $request->get('manager');
             $userStatus = $request->get('userStatus');
             $rhMode = $request->get('rhMode');
 
@@ -571,13 +571,13 @@ class PointageAjaxController extends Controller {
             $month = $request->get('month');
             $year = $request->get('year');
             $userStatus = $request->get('userStatus');
-            $manager = $request->get('manager');
+            //$manager = $request->get('manager');
             $rhMode = $request->get('rhMode');
             $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
             $em = $this->getDoctrine()->getManager();
 
             // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides des collaborateurs associés à l'utilisateur.
-            $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName, $rhMode), $month, $year, $manager, 'Final');
+            $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName, $rhMode), $month, $year, /* $manager, */ 'Final');
 
             // On vide le dossier avant l'enregistrement.
             foreach (glob($root . "/../web/Pointage/FichierRecap/*") as $file) { // iterate files
@@ -682,7 +682,7 @@ class PointageAjaxController extends Controller {
 
                 // Initialisation d'un tableau de concordance chiffre => string pour les mois.
                 $monthString = array(1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novemvre', 12 => 'Décembre');
-                $filename = str_replace('/', '_', 'Récapitulatif compilation pointages - ' . $securityName . ' - ' . $manager . ' - ' . $monthString[$month] . ' ' . $year . '.xlsx'); // On génére le nom de fichier.
+                $filename = str_replace('/', '_', 'Récapitulatif compilation pointages - ' . $securityName . ' - ' . $monthString[$month] . ' ' . $year . '.xlsx'); // On génére le nom de fichier.
                 $folder = $root . "/../web/Pointage/FichierRecap/"; // On récupére le dossier ou sera enregistré le fichier.
                 //
                 // On sauvegarde le fichier.
@@ -703,7 +703,7 @@ class PointageAjaxController extends Controller {
             $month = $request->get('month');
             $year = $request->get('year');
             $etablissement = $request->get('etablissement');
-            $manager = $request->get('manager');
+            //$manager = $request->get('manager');
             $rhMode = $request->get('rhMode');
 
             // Initialisation du tableau des pointages à retourner.
@@ -711,7 +711,7 @@ class PointageAjaxController extends Controller {
 
             // On récupére toute la hiérarchie.
             $em = $this->getDoctrine()->getManager();
-            $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('da' => $manager, 'etablissement' => $etablissement));
+            $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('etablissement' => $etablissement));
 
             // On récupére le nom de l'utilisateur.
             $securityContextName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
@@ -744,7 +744,7 @@ class PointageAjaxController extends Controller {
             $month = $request->get('month');
             $year = $request->get('year');
             $etablissement = $request->get('etablissement');
-            $manager = $request->get('manager');
+            //$manager = $request->get('manager');
             $rhMode = $request->get('rhMode');
             $userStatus = $request->get('userStatus');
             $validationStep = $request->get('validationStep');
@@ -754,7 +754,7 @@ class PointageAjaxController extends Controller {
             $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
 
             // On récupére les pointages à retourner en fonction du status de l'utilisateur.
-            $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName, $rhMode), $month, $year, $etablissement, $manager, $validationStep);
+            $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName, $rhMode), $month, $year, $etablissement, /* $manager, */ $validationStep);
 
             // Initialisation du tableau de retour.
             $returnedPointage = array('Pointage' => array(), 'Tableau' => array());
@@ -825,9 +825,9 @@ class PointageAjaxController extends Controller {
     }
 
     // Retourne les pointages valides des collaborateurs de l'utilisateur en fonction du mois, de l'année, de l'etablissement et de l'étape de validation.
-    private function getPointagesValides($users, $month, $year, $etablissement, $manager, $validationStep) {
+    private function getPointagesValides($users, $month, $year, $etablissement, /* $manager, */ $validationStep) {
 
-        //var_dump($etablissement);
+        var_dump($etablissement);
 
         $em = $this->getDoctrine()->getManager();
 
@@ -853,7 +853,7 @@ class PointageAjaxController extends Controller {
             $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage['user']);
 
             // Si le collaborateur est définie dans la hiérarchie, qu'il fait partie de l'établissement et que qu'il dépend de l'utilisateur?
-            if (!empty($userHierarchy) && $userHierarchy->getDA() === $manager && $userHierarchy->getEtablissement() === $etablissement && in_array($pointage['user'], array_keys($users))) {
+            if (!empty($userHierarchy) && $userHierarchy->getEtablissement() === $etablissement && in_array($pointage['user'], array_keys($users))) {
                 // On récupère tous les pointage de l'année correspondant au collaborateur.
                 $yearPointages = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findBy(array('user' => $pointage['user'], 'year' => $year));
 
@@ -1184,7 +1184,7 @@ class PointageAjaxController extends Controller {
             // On génére le lien de téléchargement avec le nom du fichier en paramètre .
             $downloadUrl = $this->generateUrl('nox_intranet_pointage_download_justificatif_zip', array(
                 'fileName' => pathinfo($newZipFile, PATHINFO_BASENAME),
-                'manager' => $justificatifsZipInfoArray['manager'],
+                //'manager' => $justificatifsZipInfoArray['manager'],
                 'month' => $justificatifsZipInfoArray['month'],
                 'year' => $justificatifsZipInfoArray['year']
             ));
@@ -1660,7 +1660,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
-    // Retourne la liste des managers en fonction de l'établisement.
+    /*// Retourne la liste des managers en fonction de l'établisement.
     public function ajaxGetManagerListAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // On récupère les données de la requête.
@@ -1714,7 +1714,7 @@ class PointageAjaxController extends Controller {
 
             return new Response(json_encode($manager));
         }
-    }
+    }*/
 
     /**
      * 
@@ -1742,7 +1742,7 @@ class PointageAjaxController extends Controller {
 
             // On sauvegarde le changements en base de données.
             $em->flush();
-            
+
             return new Response('Saved');
         }
     }

@@ -423,6 +423,7 @@
                         title: "Confirmer la validation ?",
                         buttons: {
                             "Valider": function () {
+                                ajaxPointageAssistanteAgenceValidation($('#form_month').val(), $('#form_year').val());
                                 $(this).dialog("close");
                                 $("form[name='form']").submit();
                             },
@@ -2403,6 +2404,140 @@
                     });
                 }, 1500);
             });
+        }
+
+        // Valide la feuille de pointage d'un collaborateur et sauvegarde les données d'absence, de titres repas, de forfaits déplacement, de primes panier et de titre de transport.
+        function ajaxPointageAssistanteAgenceValidation(month, year) {
+            // Retourne les absences du mois.
+            function getAbsences() {
+
+                var absences = {'matin': getAbscenceMatin(), 'am': getAbscenceAM()};
+
+                // Retourne les absences du matin par dates et les commentaires.
+                function getAbscenceMatin() {
+                    var absencesMatin = [];
+                    $('.abscenceMatinSelector').each(function () {
+                        var jour = $(this).siblings('.dayDateCell').text().slice(-2);
+                        var mois = month;
+                        if (mois < 10) {
+                            var mois = '0' + mois;
+                        }
+                        var annee = year;
+                        var absenceMatin = {};
+                        absenceMatin['valeur'] = $(this).children('select').val();
+                        absenceMatin['date'] = jour + '-' + mois + '-' + annee;
+                        absenceMatin['commentaires'] = $(this).siblings('.comments').text();
+                        absencesMatin.push(absenceMatin);
+                    });
+
+                    return absencesMatin;
+                }
+
+                // Retourne les absences de l'après-midi par dates.
+                function getAbscenceAM() {
+                    var absencesAM = [];
+                    $('.abscenceAMSelector').each(function () {
+                        var jour = $(this).siblings('.dayDateCell').text().slice(-2);
+                        var mois = month;
+                        if (mois < 10) {
+                            var mois = '0' + mois;
+                        }
+                        var annee = year;
+                        var absenceAM = {};
+                        absenceAM['valeur'] = $(this).children('select').val();
+                        absenceAM['date'] = jour + '-' + mois + '-' + annee;
+                        absencesAM.push(absenceAM);
+                    });
+
+                    return absencesAM;
+                }
+
+                return JSON.stringify(absences);
+            }
+
+            //Retourne le nombre total de titre repas du mois.
+            function getTitresRepas() {
+                return $('#titreRepasTotalNumber').text();
+            }
+
+            //Retourne le nombre total de forfaits déplacement du mois.
+            function getForfaitsDeplacement() {
+                return $('#ForfaitDeplacementTotalMontant').text();
+            }
+
+            //Retourne le nombre total de primes panier du mois.
+            function getPrimesPanier() {
+                return $('#PrimesPanierTotalNumber').text();
+            }
+
+            //Retourne le nombre total de titre de transport du mois.
+            function getTitreTransport() {
+                return $('#titreTransportTotalMontant').text();
+            }
+
+            // Retourne les valeurs des forfaits déplacement associées à leur date.
+            function getForfaitsDeplacementDetails() {
+                var forfaitsDeplacementDetails = [];
+                $('.forfaitsDeplacementMontant').each(function () {
+                    var day = $(this).siblings('.dayDateCell').text().slice(-2);
+                    console.log(day);
+                    var value = $(this).text();
+
+                    var forfaitDeplacementDetail = {};
+                    forfaitDeplacementDetail['day'] = new Date(year, month - 1, day);
+                    forfaitDeplacementDetail['value'] = value;
+
+                    forfaitsDeplacementDetails.push(forfaitDeplacementDetail);
+                });
+
+                return JSON.stringify(forfaitsDeplacementDetails);
+            }
+
+            // Retourne les valeurs de modulation associées à leur date.
+            function getMods() {
+                var mods = [];
+                $('.dailyHoursMod').each(function () {
+                    var day = $(this).siblings('.dayDateCell').text().slice(-2);
+                    var value = $(this).text();
+
+                    var mod = {};
+                    mod['day'] = new Date(year, month - 1, day);
+                    mod['value'] = value;
+
+                    mods.push(mod);
+                });
+
+                return JSON.stringify(mods);
+            }
+
+            function getRegularisation() {
+                return $('#divRegularisationText').text();
+            }
+
+            var pointageData = {
+                absences: getAbsences(),
+                titresRepas: getTitresRepas(),
+                forfaitsDeplacement: getForfaitsDeplacement(),
+                primesPanier: getPrimesPanier(),
+                titreTransport: getTitreTransport(),
+                forfaitsDeplacementDetails: getForfaitsDeplacementDetails(),
+                mods: getMods(),
+                regularisation: getRegularisation()
+            };
+
+            $('#form_pointageData').val(JSON.stringify(pointageData));
+
+            console.log("ajaxPointageAssistanteAgenceValidation: " + $("#form_Pointage").val());
+
+            /*$.ajax({
+             type: 'POST',
+             async: false,
+             url: '{{ path('nox_intranet_pointage_ajax_assistante_agence_validation') }}',
+             data: {username: user, month: month, year: year, absences: getAbsences(), titresRepas: getTitresRepas(), forfaitsDeplacement: getForfaitsDeplacement(), primesPanier: getPrimesPanier(), titreTransport: getTitreTransport(), forfaitsDeplacementDetails: getForfaitsDeplacementDetails(), mods: getMods(), regularisation: getRegularisation()},
+             success: function () {
+             location.reload();
+             }
+             });*/
         }
     </script>
 

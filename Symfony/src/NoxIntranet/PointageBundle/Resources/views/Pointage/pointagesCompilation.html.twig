@@ -46,11 +46,6 @@
                 {{ form_label(form.Etablissement, 'Etablissement') }}<br />
                 {{ form_errors(form.Etablissement) }}
                 {{ form_widget(form.Etablissement) }}
-            </div><!--
-            --><div style="width: 100%; margin-bottom: 0.5em;">
-                {{ form_label(form.Manager, 'Manager') }}<br />
-                {{ form_errors(form.Manager) }}
-                {{ form_widget(form.Manager) }}
             </div>
         </fieldset>
         {{ form_end(form) }}  
@@ -115,7 +110,7 @@
             // Affiche/cache le tableau et le message d'absence de pointage en fonction du nombre de pointage.
             pointageHide();
 
-            ajaxGetManagerList();
+            //ajaxGetManagerList();
             ajaxGetPointagesCompilationByMonthYearManagerValidationStep();
             absencesToggle();
             ajaxSaveCompilationData();
@@ -164,22 +159,21 @@
         // Retourne la compilation des pointages collaborateurs validés en fonction du mois, de l'année, de l'assistante d'agence et de l'établissement.
         function ajaxGetPointagesCompilationByMonthYearManagerValidationStep() {
             // Lorsqu'on séléctionne un mois, une année ou un manager...
-            $('#form_Month, #form_Year, #form_Etablissement, #form_Manager').change(function () {
+            $('#form_Month, #form_Year, #form_Etablissement').change(function () {
                 // On met à jours la valeurs du formulaire de validation.
                 $('#formValidationRefus_month').val($('#form_Month').val());
                 $('#formValidationRefus_year').val($('#form_Year').val());
-                $('#formValidationRefus_manager').val($('#form_Manager').val());
                 $('#formValidationRefus_etablissement').val($('#form_Etablissement').val());
 
                 // On supprime la compilation existante.
                 $('#compilationPointagesTable tr:nth-child(n+2)').remove();
 
                 // Si tous les champs sont séléctionné...
-                if ($('#form_Month').val() !== '' && $('#form_Year').val() !== '' && $('#form_Manager').val() !== '' && $('#form_Etablissement').val() !== '') {
+                if ($('#form_Month').val() !== '' && $('#form_Year').val() !== '' && $('#form_Etablissement').val() !== '') {
                     $.ajax({
                         type: 'POST',
                         url: '{{ path('nox_intranet_pointage_ajax_get_compilation_by_month_year_manager_validationstep') }}',
-                        data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}', rhMode: $('#RHMode').is(':checked'), etablissement: $('#form_Etablissement').val(), manager: $('#form_Manager').val(), validationStep: '{{ validationStep }}'},
+                        data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}', rhMode: $('#RHMode').is(':checked'), etablissement: $('#form_Etablissement').val(), validationStep: '{{ validationStep }}'},
                         success: function (response) {
                             // Conversion de la chaine JSON en Objet.
                             var responseObject = JSON.parse(response);
@@ -817,7 +811,7 @@
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_compilation_ajax_get_status') }}',
-                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), etablissement: $('#form_Etablissement').val(), manager: $('#form_Manager').val(), userStatus: '{{ userStatus }}'},
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), etablissement: $('#form_Etablissement').val(), userStatus: '{{ userStatus }}'},
                 success: function (response) {
                     var width = null;
                     var cercleNb = null;
@@ -929,7 +923,7 @@
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_get_assistante_agence_unvalidate') }}',
-                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), etablissement: $('#form_Etablissement').val(), manager: $('#form_Manager').val(), userStatus: '{{ userStatus }}', rhMode: $('#RHMode').is(':checked')},
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), etablissement: $('#form_Etablissement').val(), userStatus: '{{ userStatus }}', rhMode: $('#RHMode').is(':checked')},
                 success: function (response) {
                     var pointages = JSON.parse(response); // On convertie le JSON en object Javascript.
                     $('#pointageEnAttenteValidationAA').text(Object.keys(pointages['pointageEnAttenteValidationAA']).length); // On remplace le nombre du compteur de pointage non validé par un assistant d'agence.
@@ -946,7 +940,7 @@
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_generate_excel_recap') }}',
-                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}', manager: $('#form_Manager').val(), rhMode: $('#RHMode').is(':checked')},
+                data: {month: $('#form_Month').val(), year: $('#form_Year').val(), userStatus: '{{ userStatus }}', rhMode: $('#RHMode').is(':checked')},
                 success: function (response) {
                     window.location = response; // Redirige vers l'URL du fichier à télécharger.
                 }
@@ -956,7 +950,7 @@
         // Sauvegarde la valeur des sélécteur dans les cookies lors des changements.
         function setSavedDateAndAgency() {
             // Lorqu'on change la date ou l'établissement...
-            $('#form_Month, #form_Year, #form_Manager, #RHMode, #form_Etablissement').change(function () {
+            $('#form_Month, #form_Year, #RHMode, #form_Etablissement').change(function () {
                 // Temps d'expiration du cookie (1 heure).
                 var inOneHour = new Date(new Date().getTime() + 60 * 60 * 1000);
 
@@ -977,7 +971,7 @@
         // Récupére les valeurs des cookies des sélécteurs.
         function getSavedDateAndAgency() {
             // Initialisation de la liste des sélécteurs.
-            var selectors = ['form_Month', 'form_Year', 'form_Etablissement', 'form_Manager'];
+            var selectors = ['form_Month', 'form_Year', 'form_Etablissement'];
 
             // Pour chaques sélécteurs...
             $.each(selectors, function (index, value) {
@@ -1003,7 +997,7 @@
             });
 
             // On génére un objet contenant le mois, l'année et les usernames de la compilation.
-            var justificatifsZipInfo = {'month': $('#form_Month').val(), 'year': $('#form_Year').val(), 'manager': $('#form_Manager').val(), 'usernames': collaborateursUsernames};
+            var justificatifsZipInfo = {'month': $('#form_Month').val(), 'year': $('#form_Year').val(), 'usernames': collaborateursUsernames};
 
             // Rêquette Ajax qui lance la génération du fichier ZIP.
             $.ajax({
@@ -1184,41 +1178,41 @@
         }
 
         // Récupère la liste des managers en fonction de l'établissement.
-        function ajaxGetManagerList() {
-            // Lorsque l'on change la valeur de mois, année ou établissement.
-            $('#form_Year, #form_Month, #form_Etablissement').change(function () {
-                // On supprime les options déjà présente.
-                $('#form_Manager option').remove();
-
-                // On ajoute un placeholder.
-                $('#form_Manager').append($('<option>', {
-                    value: '',
-                    text: "Choisir un manager"
-                }));
-
-                // Si un mois, une année et un etablissement sont séléctionné...
-                if ($('#form_Month').val() !== '' && $('#form_Year').val() !== '' && $('#form_Etablissement').val() !== '') {
-                    $.ajax({
-                        type: 'POST',
-                        url: '{{ path('nox_intranet_pointage_ajax_get_managers_list_aa_gestion') }}',
-                        data: {etablissement: $('#form_Etablissement').val(), userStatus: '{{ userStatus }}', rhMode: $('#RHMode').is(':checked')},
-                        success: function (response) {
-                            // On récupére la liste des pointages sous forme d'objet.
-                            var items = JSON.parse(response);
-
-                            // Pour chaque pointages...
-                            $.each(items, function (id, label) {
-                                // On ajoute une option au sélécteur de manager.
-                                $('#form_Manager').append($('<option>', {
-                                    value: id,
-                                    text: label
-                                }));
-                            });
-                        }
-                    });
-                }
-            });
-        }
+        /*function ajaxGetManagerList() {
+         // Lorsque l'on change la valeur de mois, année ou établissement.
+         $('#form_Year, #form_Month, #form_Etablissement').change(function () {
+         // On supprime les options déjà présente.
+         $('#form_Manager option').remove();
+         
+         // On ajoute un placeholder.
+         $('#form_Manager').append($('<option>', {
+         value: '',
+         text: "Choisir un manager"
+         }));
+         
+         // Si un mois, une année et un etablissement sont séléctionné...
+         if ($('#form_Month').val() !== '' && $('#form_Year').val() !== '' && $('#form_Etablissement').val() !== '') {
+         $.ajax({
+         type: 'POST',
+         url: '{{ path('nox_intranet_pointage_ajax_get_managers_list_aa_gestion') }}',
+         data: {etablissement: $('#form_Etablissement').val(), userStatus: '{{ userStatus }}', rhMode: $('#RHMode').is(':checked')},
+         success: function (response) {
+         // On récupére la liste des pointages sous forme d'objet.
+         var items = JSON.parse(response);
+         
+         // Pour chaque pointages...
+         $.each(items, function (id, label) {
+         // On ajoute une option au sélécteur de manager.
+         $('#form_Manager').append($('<option>', {
+         value: id,
+         text: label
+         }));
+         });
+         }
+         });
+         }
+         });
+         }*/
     </script>
 
 {% endblock %}
