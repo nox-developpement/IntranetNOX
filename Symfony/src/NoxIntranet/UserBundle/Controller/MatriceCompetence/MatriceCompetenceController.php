@@ -366,9 +366,9 @@ class MatriceCompetenceController extends Controller {
 
                     $matrice_societe = $sheet->getCell('A' . $rowIndex)->getValue();
                     $matrice_etablissement = $sheet->getCell('C' . $rowIndex)->getValue();
-                    $matrice_date_naissance = $sheet->getCell('F' . $rowIndex)->getFormattedValue();
+                    $matrice_date_naissance = \PHPExcel_Shared_Date::ExcelToPHP($sheet->getCell('F' . $rowIndex)->getFormattedValue());
                     var_dump($matrice_date_naissance);
-                    $matrice_date_anciennete = $sheet->getCell('G' . $rowIndex)->getValue();
+                    $matrice_date_anciennete = \PHPExcel_Shared_Date::ExcelToPHP($sheet->getCell('G' . $rowIndex)->getFormattedValue());
                     $matrice_statut = $sheet->getCell('H' . $rowIndex)->getValue();
                     $matrice_poste = $sheet->getCell('I' . $rowIndex)->getValue();
 
@@ -404,7 +404,7 @@ class MatriceCompetenceController extends Controller {
                 //echo $matrice_nom . ' ' . $matrice_prenom . "<br />";
             }
         }
-        
+
         $em->flush();
 
         //echo $count;
