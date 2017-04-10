@@ -1652,9 +1652,14 @@ class PointageAjaxController extends Controller {
 
             // On récupére le nom de l'affaire en fonction de son numéro.
             $em = $this->getDoctrine()->getManager();
-            $nomAffaire = $em->getRepository('NoxIntranetPointageBundle:AffairesGX')->findOneByNumero($numAffaire)->getNom();
+            $affaire = $em->getRepository('NoxIntranetPointageBundle:AffairesGX')->findOneByNumero($numAffaire);
 
-            return new Response($nomAffaire);
+            // Si l'affaire existe on retourne son nom, sinon on retourne "NULL".
+            if (!empty($affaire)) {
+                return new Response($affaire->getNom());
+            } else {
+                return new Response('NULL');
+            }
         }
     }
 
