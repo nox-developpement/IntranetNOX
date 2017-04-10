@@ -826,9 +826,6 @@ class PointageAjaxController extends Controller {
 
     // Retourne les pointages valides des collaborateurs de l'utilisateur en fonction du mois, de l'année, de l'etablissement et de l'étape de validation.
     private function getPointagesValides($users, $month, $year, $etablissement, /* $manager, */ $validationStep) {
-
-        var_dump($etablissement);
-
         $em = $this->getDoctrine()->getManager();
 
         // Initialisation des status des pointages en fonction de l'étape de validation de la compilation.
@@ -1186,7 +1183,8 @@ class PointageAjaxController extends Controller {
                 'fileName' => pathinfo($newZipFile, PATHINFO_BASENAME),
                 //'manager' => $justificatifsZipInfoArray['manager'],
                 'month' => $justificatifsZipInfoArray['month'],
-                'year' => $justificatifsZipInfoArray['year']
+                'year' => $justificatifsZipInfoArray['year'],
+                'etablissement' => $justificatifsZipInfoArray['etablissement']
             ));
 
             // On retourne le chemin du fichier.
@@ -1660,61 +1658,61 @@ class PointageAjaxController extends Controller {
         }
     }
 
-    /*// Retourne la liste des managers en fonction de l'établisement.
-    public function ajaxGetManagerListAction(Request $request) {
-        if ($request->isXmlHttpRequest()) {
-            // On récupère les données de la requête.
-            $rhMode = $request->get('rhMode');
-            $etablissement = $request->get('etablissement');
-            $userStatus = $request->get('userStatus');
+    /* // Retourne la liste des managers en fonction de l'établisement.
+      public function ajaxGetManagerListAction(Request $request) {
+      if ($request->isXmlHttpRequest()) {
+      // On récupère les données de la requête.
+      $rhMode = $request->get('rhMode');
+      $etablissement = $request->get('etablissement');
+      $userStatus = $request->get('userStatus');
 
-            // On récupére le nom du collaborateur.
-            $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
+      // On récupére le nom du collaborateur.
+      $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
 
-            // Initialisation de l'entity manager.
-            $em = $this->getDoctrine()->getManager();
+      // Initialisation de l'entity manager.
+      $em = $this->getDoctrine()->getManager();
 
-            $manager = array();
-            if ($rhMode === 'true') {
-                foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement) as $userHierarchy) {
-                    $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                }
-            } else {
-                switch ($userStatus) {
-                    case 'Final':
-                    case 'AA':
-                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('aa' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
-                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                        }
-                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('da' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
-                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                        }
-                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
-                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                        }
-                        break;
-                    case 'DAManager':
-                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('da' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
-                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                        }
-                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
-                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                        }
-                        break;
-                    case 'RH':
-                        foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
-                            $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-                        }
-                        break;
-                }
-            }
+      $manager = array();
+      if ($rhMode === 'true') {
+      foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement) as $userHierarchy) {
+      $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+      }
+      } else {
+      switch ($userStatus) {
+      case 'Final':
+      case 'AA':
+      foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('aa' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
+      $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+      }
+      foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('da' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
+      $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+      }
+      foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
+      $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+      }
+      break;
+      case 'DAManager':
+      foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('da' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
+      $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+      }
+      foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
+      $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+      }
+      break;
+      case 'RH':
+      foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
+      $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
+      }
+      break;
+      }
+      }
 
-            // On trie les managers.
-            asort($manager);
+      // On trie les managers.
+      asort($manager);
 
-            return new Response(json_encode($manager));
-        }
-    }*/
+      return new Response(json_encode($manager));
+      }
+      } */
 
     /**
      * 
@@ -1744,6 +1742,21 @@ class PointageAjaxController extends Controller {
             $em->flush();
 
             return new Response('Saved');
+        }
+    }
+
+    public function ajaxGetLastMonthAffairesAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $user = $request->get('user');
+            $month = $request->get('month');
+            $year = $request->get('year');
+
+            $em = $this->getDoctrine()->getManager();
+            $pointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $user));
+
+            $pointesData = json_decode($pointage->getData(), true);
+
+            Return new Response(json_encode($pointesData['projectName']));
         }
     }
 

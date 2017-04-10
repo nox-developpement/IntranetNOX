@@ -92,7 +92,7 @@
                         {% endfor %}
                     </select>
                 </td>
-                <td id='operationnel' style="color: white; border-width: 1px;" colspan="2">OPERATIONNEL <p id="addProject" style="margin: 0; float: right; display: inline-block; cursor: pointer;">+ Affaire</p></td>
+                <td id='operationnel' style="color: white; border-width: 1px;" colspan="2"><p id="getLastMonthAffairesButton" style="margin: 0; margin-right: 1em; display: inline-block; cursor: pointer; vertical-align: middle;"><button type="button" onclick="importLastMonthAffaires();">Importer les affaires<br /> du mois précédent</button></p>OPERATIONNEL<p id="addProject" style="margin: 0; margin-left: 1em; display: inline-block; cursor: pointer; vertical-align: middle;"><button>+ Affaire</button></p></td>
                 <td style="border-width: 1px;"></td>
                 <td style="color: white; border-width: 1px;" colspan="5">RESSOURCES HUMAINES</td>
                 <td style="border: none; border-bottom: solid 1px black;" >
@@ -356,11 +356,9 @@
             copyMultipleCell();
             saveCSV();
             ajaxSaveData();
-
             // Affiche une fenêtre de confirmation lors de la validation du pointage.
             $('#form_Valider').click(function (event) {
                 event.preventDefault();
-
                 // Si un montant de titre de transport est renseigné sans justificatif...
                 if ($('#titreTransportMontant').text() !== '' && $('#deleteJustificatifButton').css('display') === 'none') {
                     // On affiche une fenêtre indiquant qu'il n'y a pas de justificatif de transport.
@@ -436,7 +434,6 @@
                 }
             });
         });
-
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
             var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
@@ -455,7 +452,6 @@
                 $('#pointageSavingNotification').finish().delay(2000).fadeOut();
             }
         });
-
         // Met à jours les cellules des valeurs totals.
         function tableEventHandler() {
             displayDailyProjectsTotalPercentage();
@@ -920,7 +916,6 @@
                     $(this).parent('.titreRepasNumberSelector').siblings('.primesPanierNumber').css('background-color', 'white');
                 }
             });
-
             // Lorsqu'on écris dans une case de forfait déplacement.
             $('#tableFeuillePointage').on('keyup', '.forfaitsDeplacementMontant', function () {
                 // Si la case n'est pas vide.
@@ -946,7 +941,6 @@
                 });
                 $('#titreRepasTotalNumber').text(total);
             });
-
             // Lorsqu'on écris dans une case de prime panier.
             $('#tableFeuillePointage').on('keyup', '.primesPanierNumber', function () {
                 // Si la case n'est pas vide.
@@ -972,7 +966,6 @@
                 });
                 $('#titreRepasTotalNumber').text(total);
             });
-
             $('#tableFeuillePointage').on('change', '.abscenceMatinSelector select', function () {
                 if ($(this).val() !== '' || $(this).parent('.abscenceMatinSelector').siblings('.abscenceAMSelector').find('select').val() !== '') {
                     $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').val('');
@@ -994,7 +987,6 @@
                 });
                 $('#titreRepasTotalNumber').text(total);
             });
-
             $('#tableFeuillePointage').on('change', '.abscenceAMSelector select', function () {
                 if ($(this).val() !== '' || $(this).parent('.abscenceAMSelector').siblings('.abscenceMatinSelector').find('select').val() !== '') {
                     $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').val('');
@@ -1028,7 +1020,6 @@
                     timer = setTimeout(callback, ms);
                 };
             })();
-
             // Détecte l'édition de texte des cellules et sauvegarde les changement en base de donnée.
             $('#tableFeuillePointage, #tableFeuillePointageTypesAbscencesDivContainer').on('keyup paste', 'td[contenteditable=true]:not(tr:nth-child(2) .project)', function () {
                 // Permet d'ajouter un temps d'attente avant de lancer la sauvegarde.
@@ -1052,9 +1043,7 @@
                         data['projectName'][index] = $(this).text();
                     });
                     var serializedData = JSON.stringify(data);
-
                     console.log("Sauvegarde cellule texte: " + "{{ user }}");
-
                     $.ajax({
                         type: 'POST',
                         url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
@@ -1062,7 +1051,6 @@
                     });
                 }, 1500);
             });
-
             // Détecte l'édition de texte des selects et sauvegarde les changement en base de donnée.
             $('#tableFeuillePointage').on('change', 'select:not(#pointage_month_selector, #pointage_year_selector)', function () {
                 var data = {};
@@ -1084,25 +1072,20 @@
                     data['projectName'][index] = $(this).text();
                 });
                 var serializedData = JSON.stringify(data);
-
                 console.log("Sauvegarde sélecteur: " + "{{ user }}");
-
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
                     data: {user: '{{ user }}', month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val(), data: serializedData}
                 });
             });
-
             // Détecte l'édition de texte de la case "Régularisation et sauvegarde les changements en base de donnée.
             $('#tableFeuillePointageTypesAbscencesDivContainer').on('keyup paste', '#divRegularisation #divRegularisationText', function () {
                 // On récupére le texte de la case.
                 var regularisationText = $(this).text();
-
                 // Permet d'ajouter un temps d'attente avant de lancer la sauvegarde.
                 delay(function () {
                     console.log("Sauvegarde régularisation: " + '{{ user }}');
-
                     $.ajax({
                         type: 'POST',
                         url: '{{ path('nox_intranet_pointage_ajax_save_regularisation') }}',
@@ -1122,7 +1105,6 @@
                     // Si il existe des données correspondant au mois et à l'année.
                     if (response !== 'null') {
                         var data = JSON.parse(response);
-
                         // Ajoute un td après chaque td du dernier projet.
                         function addTd() {
                             var total = $('#tableFeuillePointage').find('tr').length;
@@ -1198,7 +1180,6 @@
                         // On récupére les valeurs du mois précédent et de l'année séléctionnés.
                         var month = $('#pointage_month_selector option:selected').val() - 1;
                         var year = $('#pointage_year_selector option:selected').val();
-
                         // Si le mois de janvier est séléctionné, on retourne le mois de décembre de l'année précedente.
                         if (month === 0) {
                             month = 12;
@@ -1273,7 +1254,6 @@
                 addTd();
                 setColSpan();
             });
-
             // Ajoute un td après chaque td du dernier projet.
             function addTd() {
                 var total = $('#tableFeuillePointage').find('tr').length;
@@ -1310,24 +1290,19 @@
             // Lors d'un clic droit sur une cellule de nom d'affaire.
             $('#tableFeuillePointage').on('contextmenu', 'tr:nth-child(2) .project', function (e) {
                 var projectCellule = $(this);
-
                 // On supprime le trigger de clique déjà existant.
                 $('#projectDeleteMenu').unbind('click');
-
                 // On bloque l'apparition du menu contextuel.
                 e.preventDefault();
-
                 // On récupére les coordonnées du pointeur de la souris.
                 var cursorY = 1.01 * e.pageY;
                 var cursorX = 1.01 * e.pageX;
-
                 // Si le nombre d'affaire est supérieur à 1.
                 if ($('#tableFeuillePointage tr:nth-child(2) .project').length > 1) {
                     // On positione et fait apparaître le menu de suppression.
                     $('#projectDeleteMenu').css('top', cursorY);
                     $('#projectDeleteMenu').css('left', cursorX);
                     $('#projectDeleteMenu').css('display', 'inline-block');
-
                     // Lors du clic sur le menu de suppression.
                     $('#projectDeleteMenu').click(function () {
                         $('#projectDeleteMenu').hide();
@@ -1340,7 +1315,6 @@
                 // Si on clique en dehors de la fenêtre de suppression, elle disparaît.
                 $(document).mouseup(function (e) {
                     var container = $('#projectDeleteMenu');
-
                     // if the target of the click isn't the container... nor a descendant of the container...
                     if (!container.is(e.target) && container.has(e.target).length === 0) {
                         container.hide();
@@ -1348,7 +1322,6 @@
 
                 });
             });
-
             // Supprime les td de la colonne.
             function deleteTd(column) {
                 var cellIndex = $(column).index() - 1;
@@ -1369,7 +1342,6 @@
             // Lis le contenu des cellules du tableau et renvoie le résultat sous forme de chaine pour sauvegarde en base de données.
             function ajaxSaveColumnDelete() {
                 $(document).unbind('mouseup');
-
                 var data = {};
                 data['contenteditable'] = [];
                 data['select'] = [];
@@ -1389,9 +1361,7 @@
                     data['projectName'][index] = $(this).text();
                 });
                 var serializedData = JSON.stringify(data);
-
                 console.log("Sauvegarde suppression colonne: " + "{{ user }}");
-
                 $.ajax({
                     type: 'POST',
                     url: '{{ path('nox_intranet_pointage_ajax_save_data') }}',
@@ -1476,7 +1446,6 @@
             var ua = window.navigator.userAgent;
             var old_ie = ua.indexOf('MSIE ');
             var new_ie = ua.indexOf('Trident/');
-
             if ((old_ie > -1) || (new_ie > -1)) {
                 ms_ie = true;
             }
@@ -1513,10 +1482,8 @@
                     timer = setTimeout(callback, ms);
                 };
             })();
-
             // Initialisation de la variable de stockage des requêtes ajax.
             var searchRequest = null;
-
             // Pour toutes action dans une cellule titre d'affaire.
             $('#tableFeuillePointage').on('blur keyup paste', 'tr:nth-child(2) .project', function () {
 
@@ -1533,11 +1500,9 @@
 
                 // Supprime les paragraphes de résultats existants.
                 $('#ajaxSearchAffairesDiv').empty();
-
                 // Fixe la largeur minimale de la 'div' des résultats a 1.1 fois la taille de la cellule.
                 var minWidth = celluleProject.outerWidth() * 1.1;
                 $('#ajaxSearchAffairesDiv').css('min-width', minWidth);
-
                 // Cherche la chaine saisi dans le fichier csv des affaires et ajoute une balise 'p' par résultats.
                 if (search !== '') {
                     delay(function () {
@@ -1547,13 +1512,10 @@
                             success: function (results) {
                                 // Supprime les éventuels event de blur déjà existant.
                                 celluleProject.unbind('blur');
-
                                 // On initialise le tableau qui contiendras les affaires.
                                 var numsAffaires = [];
-
                                 // Tableau des résultats de la recherche.
                                 var resultsArray = JSON.parse(results);
-
                                 // Pour chaque lignes...
                                 $.each(resultsArray, function (index, value) {
                                     numsAffaires.push(value['numero']); // On ajoute le numéro de l'affaire dans le tableau des numéros d'affaires.
@@ -1563,23 +1525,19 @@
                                         $('#ajaxSearchAffairesDiv').append("<p class='ajaxSearchAffairesDivResults' data-numaffaire='" + value['numero'] + "' style='background-color: white; text-align: center; margin: 0; padding: 0.5vw 0.5vw 0.5vw 0.5vw;'>" + value['numero'] + (('nom' in value) ? " " + value['nom'] : '') + "</p>");
                                     }
                                 });
-
                                 // Effet visuel au passage de la souris sur les résultats.
                                 $('.ajaxSearchAffairesDivResults').hover(function () {
                                     $(this).css('background-color', 'rgb(217, 217, 217)');
                                 }, function () {
                                     $(this).css('background-color', 'white');
                                 });
-
                                 // Lors du clique sur un résultat on remplace le contenu de la recherche par le résultat.
                                 $('.ajaxSearchAffairesDivResults').mousedown(function () {
                                     celluleProject.text($(this).data('numaffaire'));
                                 });
-
                                 // Positione la 'div' contenant les résultats sous la cellules focus.
                                 $('#ajaxSearchAffairesDiv').css('top', celluleProject.offset().top + celluleProject.outerHeight() - $('#tableFeuillePointageDivContainer').offset().top);
                                 $('#ajaxSearchAffairesDiv').css('left', celluleProject.offset().left - $('#tableFeuillePointageDivContainer').offset().left);
-
                                 // Affiche la 'div' des résultats si elle n'est pas vide.
                                 if (resultsArray.length > 0) {
                                     $('#ajaxSearchAffairesDiv').show();
@@ -1604,10 +1562,10 @@
         // Affiche le nom de l'affaire correspondant au numéro survollé par la souris.
         function showAffaireName() {
             // Lorsqu'on passe la souris sur une cellule de numéro d'affaire.
-            $('#tableFeuillePointage tr:nth-child(2)').on('mouseover', '.project', function () {
+            $('#tableFeuillePointage tr:nth-child(2), #floatingHeader').on('mouseover', '.project, .floatingHeaderNumAffaireCell', function () {
 
                 // On supprime les eventuels event de mouseout existants pour ne pas surcharger la mémoire.
-                $('#tableFeuillePointage tr:nth-child(2)').unbind('mouseout');
+                $('#tableFeuillePointage tr:nth-child(2), #floatingHeader').unbind('mouseout');
 
                 //On supprime la tooltip.
                 $('#tooltipAffaire').remove();
@@ -1616,6 +1574,11 @@
                 var left = celluleAffaire.offset().left; // Récupére la position horizontale de la cellule de l'affaire.
                 var numAffaire = celluleAffaire.text(); // Récupére le numéro d'affaire.
 
+                // Si le numéro d'affaire est vide, on quitte la fonction.
+                if (numAffaire === "") {
+                    return false;
+                }
+
                 $.ajax({
                     url: '{{ path('nox_intranet_pointage_ajax_get_nom_affaire') }}',
                     type: 'POST',
@@ -1623,7 +1586,7 @@
                     success: function (nomAffaire) {
                         // Code html de la tooltip.
                         var tooltip = '';
-                        tooltip += "<div id='tooltipAffaire' style='display: inline-block; padding: 0%; position: absolute; background-color: rgba(255, 0, 0, 0.8); border-radius: 6px; z-index: 3;'>";
+                        tooltip += "<div id='tooltipAffaire' style='display: inline-block; padding: 0%; position: absolute; background-color: rgba(31, 78, 121, 0.8); border-radius: 6px; z-index: 3;'>";
                         tooltip += "<p style='text-align: center; color: white; font-size: 0.8vw; margin-left: 5%; margin-right: 5%;'>";
                         if (nomAffaire) {
                             tooltip += nomAffaire;
@@ -1632,7 +1595,6 @@
                         tooltip += "(Cliquez-droit sur l'affaire pour la supprimer.)";
                         tooltip += "</p>";
                         tooltip += '</div>';
-
                         // Si la souris est toujours sur la cellules une fois la génération du code HTML terminée, on fait apparaître et on positionne la tooltip.
                         if (celluleAffaire.is(':hover')) {
                             $('body').append(tooltip);
@@ -1641,52 +1603,12 @@
                         }
                     }
                 }).done(function () {
-                    $('#tableFeuillePointage tr:nth-child(2)').on('mouseout', '.project', function () {
+                    $('#tableFeuillePointage tr:nth-child(2), #floatingHeader').on('mouseout', '.project, .floatingHeaderNumAffaireCell', function () {
                         //On supprime la tooltip.
                         $('#tooltipAffaire').remove();
                     });
                 });
             });
-
-            /*function getAffaire(affaires, numAffaire, nomAffaire, top, left, celluleAffaire, element) {
-             // On cherche le nom d'affaire correspondant au numéro dans le fichier des affaires.
-             $.get(affaires, function (data) {
-             var lineByLine = data.split("\n");
-             $.each(lineByLine, function (index, value) {
-             var donnes = value.split(';');
-             if (numAffaire === donnes[0]) {
-             nomAffaire = donnes[1];
-             return false;
-             }
-             });
-             
-             // Code html de la tooltip.
-             var tooltip = '';
-             tooltip += "<div id='tooltipAffaire' style='display: inline-block; padding: 0%; position: absolute; background-color: rgba(255, 0, 0, 0.8); border-radius: 6px; z-index: 3;'>";
-             tooltip += "<p style='text-align: center; color: white; font-size: 0.8vw; margin-left: 5%; margin-right: 5%;'>";
-             if (nomAffaire) {
-             tooltip += nomAffaire;
-             tooltip += "<br />";
-             }
-             tooltip += "(Cliquez-droit sur l'affaire pour la supprimer.)";
-             tooltip += "</p>";
-             tooltip += '</div>';
-             
-             // Si la souris est toujours sur la cellules une fois la génération du code HTML terminée, on fait apparaître et on positionne la tooltip.
-             if (element.is(':hover')) {
-             $('body').append(tooltip);
-             $('#tooltipAffaire').css('top', top - $('#tooltipAffaire').outerHeight() - 5);
-             $('#tooltipAffaire').css('left', left - ($('#tooltipAffaire').outerWidth() - celluleAffaire.outerWidth()) / 2);
-             }
-             
-             }).done(function () {
-             // Lorsqu'on retire la souris d'une cellule de numéro d'affaire.
-             $('#tableFeuillePointage tr:nth-child(2)').on('mouseout', '.project', function () {
-             //On supprime la tooltip.
-             $('#tooltipAffaire').remove();
-             });
-             });
-             }*/
         }
 
         // Retourne la largeur des barres de scrolling.
@@ -1729,24 +1651,20 @@
 
                         // On ajoute les cellules de numéros d'affaires au header flotant.
                         $('#tableFeuillePointageDivContainer tr:nth-child(2) td:nth-child(n+2):nth-last-child(n+8)').each(function (index) {
-                            $('#floatingHeader > div:nth-child(' + (index + 1) + ')').after("<div class='floatingHeaderNumGX'><div>" + $(this).text() + "</div><br /><div>%</div></div>");
+                            $('#floatingHeader > div:nth-child(' + (index + 1) + ')').after("<div class='floatingHeaderNumGX'><div class='floatingHeaderNumAffaireCell'>" + $(this).text() + "</div><br /><div>%</div></div>");
                         });
-
                         // Pour chaque container de header on récupére la largeur et on l'attribut aux cellules du header flotant.
                         var tableHeader = $('#tableFeuillePointageDivContainer tr:nth-child(2)');
                         tableHeader.children().each(function (index) {
                             $('#floatingHeader').children().eq(index).width($(this).outerWidth());
                         });
-
                         // On récupére la largeur des cellules d'absences du matin et de l'après midi et on l'attribut aux cellules correspondantes du header flotant.
                         $('#floatingHeaderMatin').width($('#feuillePointageMatin').innerWidth());
                         $('#floatingHeaderAM').width($('#feuillePointageAM').innerWidth());
-
                         // Lorsqu'on scroll horizontalement les tableau, le header flotant subit le même scroll.
                         $('#tableFeuillePointageDivContainer').on('scroll', function () {
                             $('#floatingHeaderContainer').scrollLeft($(this).scrollLeft());
                         });
-
                         $('#floatingHeaderContainer').hide(); // On cache le header flotant pour préparer l'animation d'apparition.
                     }
 
@@ -1755,7 +1673,6 @@
                     $('#floatingHeaderContainer').css('left', $('#tableFeuillePointageDivContainer').offset().left); // A gauche du container de la table.
                     $('#floatingHeaderContainer').css('width', $('#tableFeuillePointageDivContainer').innerWidth() - getScrollbarWidth()); // La taille du container moins celle de la scrollbar.
                     $('#floatingHeader').css('width', $('#tableFeuillePointage').innerWidth());
-
                     $('#floatingHeaderContainer').fadeIn(500); // On affiche le header flotant.
 
                     $('#floatingHeader > div:last-child').height($('#floatingHeader > div:first-child').height()); // On attribut la même hauteur à la dernière cellule que pour les autres.
@@ -1777,7 +1694,6 @@
             $('#tableFeuillePointageDivContainer, #contenu').scroll(function () {
 
                 console.log('scroll !');
-
                 // Initialisation des variables de positionnement.
                 var tableFeuillePointageLeft = $('#tableFeuillePointage').offset().left; // Left de la table de la feuille de pointage.
                 var tableFeuillePointageContainerLeft = $('#tableFeuillePointageDivContainer').offset().left; // Left du container de la feuille de pointage.
@@ -1788,7 +1704,6 @@
                 if (tableFeuillePointageLeft < tableFeuillePointageContainerLeft && divTableFeuillePointageContainerTop >= sectionPrincipalTop) {
 
                     console.log('invisible !');
-
                     // Si le header flotant vertical n'est pas visible.
                     if (!$('#floatingVerticalHeaderContainer').is(':visible')) {
                         $('.floatingVerticalHeaderDate').remove(); // On supprime les cellules de date du header vertical flotant.
@@ -1797,20 +1712,16 @@
                         $('.dayDateCell').each(function () {
                             $('#floatingVerticalHeader').append("<div class='floatingVerticalHeaderDate'>" + $(this).text() + "</div>");
                         });
-
                         // On attribut la bonne hauteur à chaque div du header flotant.
                         $('#tableFeuillePointage tr td:first-child').each(function (index) {
                             $('#floatingVerticalHeader').find('div').eq(index).height($(this).height());
                         });
-
                         // On attribut la bonne largeur à chaque div du header flotant.
                         $('#floatingVerticalHeader div').width($('.dayDateCell').width());
-
                         // Lorsqu'on scroll horizontalement les tableau, le header flotant subit le même scroll.
                         $('#tableFeuillePointageDivContainer').on('scroll', function () {
                             $('#floatingVerticalHeaderContainer').scrollTop($(this).scrollTop());
                         });
-
                         $('#floatingVerticalHeaderContainer').hide(); // On cache le header flotant pour préparer l'animation d'apparition.
                     }
 
@@ -1819,7 +1730,6 @@
                     $('#floatingVerticalHeaderContainer').css('left', tableFeuillePointageContainerLeft); // A gauche du container de la table.
                     $('#floatingVerticalHeaderContainer').height($('#tableFeuillePointageDivContainer').height() - getScrollbarWidth());
                     $('#floatingVerticalHeader').height($('#tableFeuillePointage').height());
-
                     $('#floatingVerticalHeaderContainer').fadeIn(500); // On affiche le header flotant.
                 }
                 // Si le header vertical est entiérement visible.
@@ -1917,7 +1827,6 @@
                 // On simule un clic sur le input de fichier du formulaire.
                 $("#sendTransportJustificatifForm input[type='file']").click();
             });
-
             // Lors de la validation du formulaire d'upload du fichier justificatif de transport.
             $('#sendTransportJustificatifForm').on('submit', function (e) {
                 e.preventDefault(); // On bloque l'envoi du formulaire.
@@ -1925,7 +1834,6 @@
                 // On cache le bouton d'envoie et on affiche celui de chargement du transfert.
                 $('#sendTransportJustificatifFormButton').hide();
                 $('#uploadLoaderButton').show();
-
                 var formData = new FormData($('#sendTransportJustificatifForm')[0]); // Variable contenant les données du formulaire.
                 // Requette ajax pour uploader le fichier en base de données.
                 $.ajax({
@@ -2012,14 +1920,12 @@
                     $(".projectPercentageCell[contenteditable='true']").css({
                         'border': '1px solid black'
                     });
-
                     mouseIdDown = true; // On sauvegarde l'état du bouton.
                     var currentCell = $(this); // On récupére la cellule courante.
 
                     // On met à jours les variables d'index des cellules.
                     originLine = currentCell.parent('tr').index();
                     originColumn = currentCell.index();
-
                     lastSelectedCell = currentCell; // On met à jour la dernière cellule séléctionnée.
                     currentSelectedCells.push(currentCell); // On ajoute la cellule courante au tableau des cellules en cours de séléction.
 
@@ -2029,7 +1935,6 @@
                     });
                 }
             });
-
             /*
              * Permet de détecter le relachement du bouton gauche de la souris.
              */
@@ -2044,7 +1949,6 @@
                     originColumn = null;
                 }
             });
-
             /*
              * Permet la séléction multiple de cellule au survol de la souris.
              */
@@ -2056,13 +1960,11 @@
                     // On récupére les index de la ligne et de la colonne de la cellule courante.
                     var currentLine = $(this).parent('tr').index();
                     var currentColumn = $(this).index();
-
                     // On met à jours le tableau des cellules en cours de séléction.
                     currentSelectedCells = [];
                     for (var line = Math.min(originLine, currentLine); line <= Math.max(originLine, currentLine); line++) {
                         for (var column = Math.min(originColumn, currentColumn); column <= Math.max(originColumn, currentColumn); column++) {
                             var cell = $('#tableFeuillePointage').find('tr').eq(line).find('td').eq(column);
-
                             // Si la cellules est éditable...
                             if (cell.attr('contenteditable') === 'true') {
                                 currentSelectedCells.push(cell); // On l'ajoute au tableau des cellules en cours de séléction.
@@ -2077,31 +1979,26 @@
                     // On initialise des varibles qui contiendront les index de position de la cellule la plus éloignée de l'origine du tableau.
                     var maxCellLine = 0;
                     var maxColumnLine = 0;
-
                     // Pour chaques cellules en cours de séléction...
                     $.each(currentSelectedCells, function (index, currentCell) {
                         // On récupère les index de la ligne et de la colonne de la cellule courante.
                         var currentCellLine = currentCell.parent('tr').index();
                         var currentCellColumn = currentCell.index();
-
                         // On change les bordures de la cellules si nescessaire.
                         currentCell.css('border-top', currentCellLine === Math.min(originLine, currentLine) ? '2px solid blue' : '1px solid black');
                         currentCell.css('border-bottom', currentCellLine === Math.max(originLine, currentLine) ? '2px solid blue' : '1px solid black');
                         currentCell.css('border-left', currentCellColumn === Math.min(originColumn, currentColumn) ? '2px solid blue' : '1px solid black');
                         currentCell.css('border-right', currentCellColumn === Math.max(originColumn, currentColumn) ? '2px solid blue' : '1px solid black');
-
                         // On met à jours les variables d'index maximum si besoin.
                         maxCellLine = currentCellLine > maxCellLine ? currentCellLine : maxCellLine;
                         maxColumnLine = currentCellColumn > maxColumnLine ? currentCellColumn : maxColumnLine;
                     });
-
                     // On fait apparaître un carré bleu sur le bord de la cellule la plus excentrée.
                     $('.maxCellSquareDiv').remove(); // On efface le carré bleu de la cellules maximum.
                     var maxCell = $('#tableFeuillePointage').find('tr').eq(maxCellLine).find('td').eq(maxColumnLine); // On récupére la cellule la plus excentrée.
                     maxCell.append("<div class='maxCellSquareDiv' style='display: inline-block; position: absolute; top: calc(100% - 3px); left: calc(100% - 3px); background-color: blue; outline: 1px solid white; width: 6px; height: 6px;'><div>");
                 }
             });
-
             /* 
              * Permet de copier plusieurs cellules simultanément.
              */
@@ -2121,7 +2018,6 @@
                     })[0].nodeValue;
                     var cell = {value: cellText, line: $(this).parent('tr').index(), column: $(this).index()};
                     copyCells.push(cell);
-
                     // Si l'event est un 'coupé'...
                     if (e.type === 'cut') {
                         $(this).contents().filter(function () {
@@ -2147,7 +2043,6 @@
                     }
                 });
             });
-
             /*
              * Permet de coller plusieurs cellules simultanément en conservant leurs position.
              */
@@ -2201,7 +2096,7 @@
 
             // Pour chaque cellules du tableau...
             tableTD.each(function (index, value) {
-                var cellLine = $(this).parent('tr').index();  // L'index de la ligne de la cellule.
+                var cellLine = $(this).parent('tr').index(); // L'index de la ligne de la cellule.
                 var cellColumn = $(this).index(); // L'index de la colonne de la cellule.
                 // Le texte brut (non html) de la cellule si il existe.
                 var cellText = ($(this).contents().filter(function () {
@@ -2222,11 +2117,9 @@
                         cellColumn = parseInt(cellColumn, 10) + parseInt(value.colspan, 10) - parseInt(1, 10);
                     }
                 });
-
                 // On ajoute la cellule au tableau des cellules.
                 var cell = {line: cellLine, column: cellColumn, contant: cellContant, color: cellColor, border: cellHasBorder, textColor: cellTextColor};
                 tableContent.push(cell);
-
                 // Si la cellule est mergé horizontalement avec une autre cellule...
                 if ($(this).attr('colspan') !== undefined) {
                     lineWithColspan.push({lineIndex: cellLine, colspan: $(this).attr('colspan')}); // On ajoute la ligne au tableau des lignes ayant des cellules mergées.
@@ -2237,7 +2130,6 @@
                     cellWithRowspan.push({line: cellLine, column: cellColumn, rowspan: $(this).attr('rowspan') - 1}); // On ajoute la cellule au tableau des cellules mergées verticalement.
                 }
             });
-
             // On envoie les différents tableau avec une requête Ajax pour la génération du fichier Excel.
             $.ajax({
                 url: '{{ path('nox_intranet_pointage_ajax_export_to_excel') }}',
@@ -2262,11 +2154,9 @@
             var month = $('#pointage_month_selector option:selected').val();
             var year = $('#pointage_year_selector option:selected').val();
             var username = '{{ user }}';
-
             // On génére l'URL de la fênetre.
             var urlTemplate = '{{ path('nox_intranet_pointage_add_justificatif_file', {month: 'MONTH', year: 'YEAR', username: 'USERNAME'}) }}';
             var url = urlTemplate.replace('MONTH', month).replace('YEAR', year).replace('USERNAME', username);
-
             // On ouvre la fênetre.
             window.open(url, '_blank', 'height=350, width=500, top=30, left=30');
         }
@@ -2275,43 +2165,33 @@
         function ajaxDownloadCSV() {
             // On récupére le tableau du pointage.
             var pointageTable = $('#tableFeuillePointage');
-
             // Initialisation du tableau qui contiendras les données d'affaires.
             var affaires = [];
-
             // On récupére les lignes du tableau.
             var dayCells = pointageTable.find(".dayDateCell");
-
             // Pour chaques jours...
             dayCells.each(function () {
                 // On récupére la date date.
                 var date = $(this).text() + " " + $('#pointage_month_selector').find('option:selected').text();
-
                 // On récupére les cellules d'affaires.
                 var affairesCells = $(this).siblings('.projectPercentageCell');
-
                 // On récupére les cellules d'affaires.
                 var comments = $(this).siblings('.comments').first().text();
-
                 // Pour chaques cellules d'affaires...
                 affairesCells.each(function () {
                     // On crée un objet d'affaire.
                     var affaire = {};
-
                     // On ajoute la date, le numéro d'affaire et la valeur à l'objet d'affaire.
                     affaire.date = date;
                     affaire.numAffaire = $('tr:nth-child(2)').find('td').eq($(this).index()).text();
                     affaire.value = $(this).text();
                     affaire.comments = comments;
-
                     // On ajoute l'objet au tableau des données.
                     affaires.push(affaire);
                 });
             });
-
             // On transforme les données d'affaires en format JSON.
             var jsonData = JSON.stringify(affaires);
-
             // Requette Ajax pour générer un fichier CSV et le télécharger.
             $.ajax({
                 url: '{{ path('nox_intranet_pointage_ajax_download_csv') }}',
@@ -2333,50 +2213,37 @@
                     timer = setTimeout(callback, ms);
                 };
             })();
-
             // Lors d'une action sur les cellules de pourcentage d'affaire...
             $('#tableFeuillePointage').on('keyup paste change', ".projectPercentageCell, .comments, td[contenteditable='true'], select", function () {
                 delay(function () {
                     // On récupére le tableau du pointage.
                     var pointageTable = $('#tableFeuillePointage');
-
                     // Initialisation du tableau qui contiendras les données d'affaires.
                     var affaires = [];
-
                     // On récupére les lignes du tableau.
                     var dayCells = pointageTable.find(".dayDateCell");
-
                     // Pour chaques jours...
                     dayCells.each(function () {
                         // On récupére la date.
                         var date = $(this).text() + " " + $('#pointage_month_selector').find('option:selected').text();
-
                         // On récupére le commentaire.
                         var comments = $(this).siblings('.comments').first().text();
-
                         // On récupére les cellules d'affaires.
                         var affairesCells = $(this).siblings('.projectPercentageCell');
-
                         // On récupére la valeur de modulation
                         var modulation = $(this).siblings('.dailyHoursMod').first().text();
-
                         // On récupére les valeurs d'absences.
                         var absences = {matin: $(this).siblings('.abscenceMatinSelector').first().find('select').val(), am: $(this).siblings('.abscenceAMSelector').first().find('select').val()};
-
                         // On récupére les valeurs de titre repas.
                         var titre_repas = $(this).siblings('.titreRepasNumberSelector').first().find('select').val();
-
                         // On récupére les valeurs de forfait déplacement.
                         var forfait_deplacement = $(this).siblings('.forfaitsDeplacementMontant').first().text();
-
                         // On récupére les valeurs de primes panier.
                         var prime_panier = $(this).siblings('.primesPanierNumber').first().text();
-
                         // Pour chaques cellules d'affaires...
                         affairesCells.each(function () {
                             // On crée un objet d'affaire.
                             var affaire = {};
-
                             // On ajoute la date, le numéro d'affaire et la valeur à l'objet d'affaire.
                             affaire.date = date;
                             affaire.numAffaire = $('tr:nth-child(2)').find('td').eq($(this).index()).text();
@@ -2387,15 +2254,12 @@
                             affaire.titre_repas = titre_repas;
                             affaire.forfait_deplacement = forfait_deplacement;
                             affaire.prime_panier = prime_panier;
-
                             // On ajoute l'objet au tableau des données.
                             affaires.push(affaire);
                         });
                     });
-
                     // On transforme les données d'affaires en format JSON.
                     var jsonData = JSON.stringify(affaires);
-
                     // Requette Ajax pour générer un fichier CSV et le télécharger.
                     $.ajax({
                         url: '{{ path('nox_intranet_pointage_ajax_save_csv') }}',
@@ -2412,7 +2276,6 @@
             function getAbsences() {
 
                 var absences = {'matin': getAbscenceMatin(), 'am': getAbscenceAM()};
-
                 // Retourne les absences du matin par dates et les commentaires.
                 function getAbscenceMatin() {
                     var absencesMatin = [];
@@ -2429,7 +2292,6 @@
                         absenceMatin['commentaires'] = $(this).siblings('.comments').text();
                         absencesMatin.push(absenceMatin);
                     });
-
                     return absencesMatin;
                 }
 
@@ -2448,7 +2310,6 @@
                         absenceAM['date'] = jour + '-' + mois + '-' + annee;
                         absencesAM.push(absenceAM);
                     });
-
                     return absencesAM;
                 }
 
@@ -2482,14 +2343,11 @@
                     var day = $(this).siblings('.dayDateCell').text().slice(-2);
                     console.log(day);
                     var value = $(this).text();
-
                     var forfaitDeplacementDetail = {};
                     forfaitDeplacementDetail['day'] = new Date(year, month - 1, day);
                     forfaitDeplacementDetail['value'] = value;
-
                     forfaitsDeplacementDetails.push(forfaitDeplacementDetail);
                 });
-
                 return JSON.stringify(forfaitsDeplacementDetails);
             }
 
@@ -2499,14 +2357,11 @@
                 $('.dailyHoursMod').each(function () {
                     var day = $(this).siblings('.dayDateCell').text().slice(-2);
                     var value = $(this).text();
-
                     var mod = {};
                     mod['day'] = new Date(year, month - 1, day);
                     mod['value'] = value;
-
                     mods.push(mod);
                 });
-
                 return JSON.stringify(mods);
             }
 
@@ -2524,11 +2379,8 @@
                 mods: getMods(),
                 regularisation: getRegularisation()
             };
-
             $('#form_pointageData').val(JSON.stringify(pointageData));
-
             console.log("ajaxPointageAssistanteAgenceValidation: " + $("#form_Pointage").val());
-
             /*$.ajax({
              type: 'POST',
              async: false,
@@ -2538,6 +2390,25 @@
              location.reload();
              }
              });*/
+        }
+
+        function importLastMonthAffaires() {
+            var lastMonth = $('#pointage_month_selector').val() === "1" ? "12" : $('#pointage_month_selector').val() - 1;
+            var year = $('#pointage_month_selector').val() === "1" ? $('#pointage_year_selector').val() - 1 : $('#pointage_year_selector').val();
+            $.ajax({
+                url: "{{ path('nox_intranet_pointage_ajax_get_last_month_affaires') }}",
+                type: "POST",
+                data: {user: "{{ user }}", month: lastMonth, year: year},
+                success: function (affaires) {
+                    var affairesArray = JSON.parse(affaires);
+                    $.each(affairesArray, function (index, affaire) {
+                        if ($.trim(affaires) !== '') {
+                            console.log(affaire);
+                            $('#addProject').trigger('click');
+                        }
+                    });
+                }
+            });
         }
     </script>
 

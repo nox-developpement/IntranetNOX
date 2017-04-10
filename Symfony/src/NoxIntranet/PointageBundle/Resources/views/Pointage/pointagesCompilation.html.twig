@@ -997,7 +997,7 @@
             });
 
             // On génére un objet contenant le mois, l'année et les usernames de la compilation.
-            var justificatifsZipInfo = {'month': $('#form_Month').val(), 'year': $('#form_Year').val(), 'usernames': collaborateursUsernames};
+            var justificatifsZipInfo = {'month': $('#form_Month').val(), 'year': $('#form_Year').val(), 'usernames': collaborateursUsernames, 'etablissement': $('#form_Etablissement').val()};
 
             // Rêquette Ajax qui lance la génération du fichier ZIP.
             $.ajax({

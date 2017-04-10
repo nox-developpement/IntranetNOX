@@ -147,7 +147,7 @@ nox_intranet_pointage_ajax_download_justificatifs_zip:
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxDownloadJustificatifZip }
     
 nox_intranet_pointage_download_justificatif_zip:
-    path: /ressources/pointage/download-justificatif-zip/{fileName}/{month}/{year}
+    path: /ressources/pointage/download-justificatif-zip/{fileName}/{month}/{year}/{etablissement}
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:downloadJustificatifZip }
         
 nox_intranet_pointage_compilation_nox_ip_csv:
@@ -229,3 +229,7 @@ nox_intranet_pointage_ajax_get_nom_affaire:
 nox_intranet_pointage_ajax_update_regularisation:
     path: /ressources/pointage/ajax-update-regularisation
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxUpdateRegularisation }
+    
+nox_intranet_pointage_ajax_get_last_month_affaires:
+    path: /ressources/pointage/ajax-get-last-month-affaires
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetLastMonthAffaires }

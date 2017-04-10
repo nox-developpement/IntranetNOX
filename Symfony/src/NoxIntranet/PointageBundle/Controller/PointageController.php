@@ -15,6 +15,7 @@ use DateTime;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use NoxIntranet\PointageBundle\Entity\JustificatifFile;
 use Symfony\Component\HttpFoundation\Response;
+use NoxIntranet\PointageBundle\Entity\PointageValide;
 
 class PointageController extends Controller {
 
@@ -80,63 +81,58 @@ class PointageController extends Controller {
             // On récupére l'entitée de la feuille de pointage.
             $newTableData = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $user->getUsername(), 'month' => $form->get('month')->getData(), 'year' => $form->get('year')->getData()));
 
-            /*
-              // Si il n'existe pas encore d'entitée pour cette feuille de pointage, on en crée une nouvelle.
-              if (empty($newTableData)) {
-              $newTableData = new Tableau();
+            // Si il n'existe pas encore d'entitée pour cette feuille de pointage, on en crée une nouvelle.
+            if (empty($newTableData)) {
+                $newTableData = new Tableau();
 
-              $newTableData->setUser($user->getUsername());
-              $newTableData->setMonth($form->get('month')->getData());
-              $newTableData->setYear($form->get('year')->getData());
-              $newTableData->setData('');
-              $newTableData->setSignatureCollaborateur('');
-              $newTableData->setStatus(0);
+                $newTableData->setUser($user->getUsername());
+                $newTableData->setMonth($form->get('month')->getData());
+                $newTableData->setYear($form->get('year')->getData());
+                $newTableData->setData('');
+                $newTableData->setSignatureCollaborateur('');
+                $newTableData->setStatus(0);
+            }
 
-              $em->persist($newTableData);
-              $em->flush();
-              }
+            // On change le statut de la feuille de pointage à 2 (Compilation assistante d'agence).
+            $newTableData->setStatus(2);
 
-              // On change le statut de la feuille de pointage à 2 (Compilation assistante d'agence).
-              $newTableData->setStatus(2);
+            // Données détaillés du pointage.
+            $pointageDataArray = json_decode($form->get('pointageData')->getData(), true);
 
-              // On sauvegarde la feuille de pointage en base de données.
-              $em->persist($newTableData);
-              $em->flush();
-             */
-            $pointageData = json_decode($form->get('pointageData')->getData(), true);
-            var_dump($pointageData);
+            // Création d'un nouveau pointage valide.
+            $newPointageValide = new PointageValide();
 
-            /*
-              $newPointageValide = new PointageValide();
+            // On récupére la valeur total de modulation de l'année courante.
+            $totalMod = 0;
+            $detailsMods = json_decode($pointageDataArray['mods'], true);
+            foreach ($detailsMods as $mod) {
+                $totalMod += $mod['value'];
+            }
 
-              // On récupére la valeur total de modulation de l'année courante.
-              $totalMod = 0;
-              $detailsMods = json_decode($mods, true);
-              foreach ($detailsMods as $mod) {
-              $totalMod += $mod['value'];
-              }
+            // On renseigne les données du pointage.
+            $newPointageValide->setUser($user->getUsername());
+            $newPointageValide->setFirstname($user->getFirstname());
+            $newPointageValide->setLastname($user->getLastname());
+            $newPointageValide->setMonth($form->get('month')->getData());
+            $newPointageValide->setYear($form->get('year')->getData());
+            $newPointageValide->setAbsences($pointageDataArray['absences']);
+            $newPointageValide->setForfaitsdeplacement($pointageDataArray['forfaitsDeplacement']);
+            $newPointageValide->setPrimespanier($pointageDataArray['primesPanier']);
+            $newPointageValide->setTitreTransport($pointageDataArray['titreTransport']);
+            $newPointageValide->setTitresRepas($pointageDataArray['titresRepas']);
+            $newPointageValide->setForfaitsDeplacementDetails($pointageDataArray['forfaitsDeplacementDetails']);
+            $newPointageValide->setMods($pointageDataArray['mods']);
+            $newPointageValide->setTotalMods($totalMod);
+            $newPointageValide->setRegularisation($pointageDataArray['regularisation']);
+            $newPointageValide->setStatus(2);
 
-              $newPointageValide->setUser($user->getUsername());
-              $newPointageValide->setFirstname($user->getFirstname());
-              $newPointageValide->setLastname($user->getLastname());
-              $newPointageValide->setMonth($month);
-              $newPointageValide->setYear($year);
-              $newPointageValide->setAbsences($absences);
-              $newPointageValide->setForfaitsdeplacement($forfaitsDeplacement);
-              $newPointageValide->setPrimespanier($primesPanier);
-              $newPointageValide->setTitreTransport($titreTransport);
-              $newPointageValide->setTitresRepas($titresRepas);
-              $newPointageValide->setForfaitsDeplacementDetails($forfaitsDeplacementDetails);
-              $newPointageValide->setMods($mods);
-              $newPointageValide->setTotalMods($totalMod);
-              $newPointageValide->setRegularisation($regularisation);
-              $newPointageValide->setStatus(2);
+            // Sauvegarde du tableau et du pointage détaillé en base de données.
+            $em->persist($newTableData);
+            $em->persist($newPointageValide);
+            $em->flush();
 
-              $em->persist($newPointageValide);
-              $em->flush();
-
-              $this->get('session')->getFlashBag()->add('notice', 'La feuille de pointage a été validé.');
-             */
+            // Affichage d'un message de confirmation et redirection vers le pointage.
+            $this->get('session')->getFlashBag()->add('notice', 'La feuille de pointage a été validé.');
             $this->redirectToRoute('nox_intranet_pointage');
         }
 
@@ -497,7 +493,7 @@ class PointageController extends Controller {
             $this->get('session')->getFlashBag()->add('notice', $flashBagMessages[$validationStep]);
 
             // Envoi un mail de demande de validation de pointage aux prochains valideurs.
-            $this->sendValidationMail($mailingListUser, $securityName, $validationStep, $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValiationRefus->get('etablissement')->getData(), /* $formValidationRefus->get('manager')->getData(), */ $formValidationRefus->get('collaborateursSansPointage')->getData());
+            $this->sendValidationMail($mailingListUser, $securityName, $validationStep, $formValidationRefus->get('month')->getData(), $formValidationRefus->get('year')->getData(), $formValidationRefus->get('etablissement')->getData(), /* $formValidationRefus->get('manager')->getData(), */ $formValidationRefus->get('collaborateursSansPointage')->getData());
 
             // On redirige vers la compilation des pointages.
             return $this->redirectToRoute('nox_intranet_pointages_compilation', array('validationStep' => $validationStep));
@@ -824,7 +820,16 @@ class PointageController extends Controller {
         return $response;
     }
 
-    // Lance le téléchargement d'un fichier ZIP contenant les justificatifs des pointages d'une compilation.
+    /**
+     * 
+     * Lance le téléchargement d'un fichier ZIP contenant les justificatifs des pointages d'une compilation.
+     * 
+     * @param String $fileName Le nom du fichier à télécharger.
+     * @param String $etablissement Le nom de l'établissement de la compilation de fichiers.
+     * @param String $month Le mois de la compilation de fichiers.
+     * @param String $year L'année de la compilation de fichiers.
+     * @return Response La compilation des fichiers justificatifs.
+     */
     public function downloadJustificatifZipAction($fileName, $etablissement, /* $manager, */ $month, $year) {
         // On récupére la racine du serveur web.
         $root = $this->get('kernel')->getRootDir() . '\..\web\\';
