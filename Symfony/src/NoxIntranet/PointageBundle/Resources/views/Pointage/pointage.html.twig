@@ -209,7 +209,7 @@
             {% endfor %}
             <tr>
                 <td style='border: none;'></td>
-                <td style='border: none;'></td>
+                <td style="border: none;"></td>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
                 <td style='border: none;'></td>
@@ -220,8 +220,8 @@
                 <td style='border: none; border-left: solid 1px black;'></td>    
             </tr>
             <tr>
-                <td style='border: none;'></td>
-                <td class='monthlyTotalPercentageCell' style='border: none; color:white;'></td>
+                <td style='border: 1px solid black;'>Heure/Affaire</td>
+                <td class='monthlyTotalPercentageCell' border>0.00</td>
                 <td style='border: none;'></td>
                 <td id='monthlyTotalHoursMod' style='border-bottom: none;'>0</td>
                 <td style='border: none;'></td>
@@ -233,7 +233,7 @@
             </tr>
             <tr>
                 <td style='border: none;'></td>
-                <td class='monthlyTotalCell' style='border: none; color:white;'></td>
+                <td class='monthlyTotalCell' style='border: none; color: white;'></td>
                 <td style='border: none;'></td>
                 <td style='border-bottom: none;'>hmod</td>
                 <td style='border: none;'></td>
@@ -342,6 +342,7 @@
             displayMonthlyTotalPrimesPanier();
             displayTotalAbscences();
             displayTotalTitreTransport();
+            displayTotalHeureAffaires();
             onePerkOnly();
             getGXAffaires();
             showAffaireName();
@@ -434,6 +435,7 @@
                 }
             });
         });
+
         // Affiche un écran de chargement lors de l'exéction de requettes ajax lourdes.
         $(document).ajaxSend(function (event, request, settings) {
             var ajaxUrl = settings.url.substr(settings.url.lastIndexOf('/') + 1); // Retourne une URL relative.
@@ -445,6 +447,7 @@
                 $('#pointageSavingNotification').finish().css('display', 'inline-block');
             }
         });
+
         // Cache l'écran de chargement et la notification de sauvegarde quand les requêtes ajax de chargement de la page et de sauvegarde sont terminées.
         $(document).ajaxComplete(function () {
             if ($.active <= 1) {
@@ -452,6 +455,7 @@
                 $('#pointageSavingNotification').finish().delay(2000).fadeOut();
             }
         });
+
         // Met à jours les cellules des valeurs totals.
         function tableEventHandler() {
             displayDailyProjectsTotalPercentage();
@@ -590,6 +594,36 @@
                     total = parseFloat($('#titreTransportMontant').text(), 10) / 2;
                 }
                 $('#titreTransportTotalMontant').text(total.toFixed(2));
+            }
+
+            displayTotalHeureAffaires();
+            /**
+             * 
+             * Calcule et met à jour l'affichage du nombre d'heure total sur une affaire.
+             * 
+             * @returns null         
+             */
+            function displayTotalHeureAffaires() {
+                // Lorsqu'on édite une cellule de pourcentage d'affaire.
+                $('#tableFeuillePointage tr:nth-child(2) .project').each(function () {
+                    // Index de la cellule dans la ligne.
+                    var index = $(this).index();
+
+                    // Calcule du total de pourcentage.
+                    var totalPourcentage = 0;
+                    $('#tableFeuillePointage tr').each(function () {
+                        var value = $(this).find('.projectPercentageCell').eq(index - 1).text();
+                        if (value !== '') {
+                            totalPourcentage += parseFloat(value);
+                        }
+                    });
+
+                    // Conversion en heure.
+                    var totalHeure = (totalPourcentage / 100 * 7.4).toFixed(2);
+
+                    // On écris la valeur dans la cellule de total.
+                    $('.monthlyTotalPercentageCell').eq(index - 1).text(totalHeure);
+                });
             }
 
             onePerkOnly();
@@ -896,6 +930,35 @@
             });
         }
 
+        /**
+         * 
+         * Calcule et met à jour l'affichage du nombre d'heure total sur une affaire.
+         * 
+         * @returns null         
+         */
+        function displayTotalHeureAffaires() {
+            // Lorsqu'on édite une cellule de pourcentage d'affaire.
+            $('#tableFeuillePointage').on('keyup past', '.projectPercentageCell', function () {
+                // Index de la cellule dans la ligne.
+                var index = $(this).index();
+
+                // Calcule du total de pourcentage.
+                var totalPourcentage = 0;
+                $('#tableFeuillePointage tr').each(function () {
+                    var value = $(this).find('.projectPercentageCell').eq(index - 1).text();
+                    if (value !== '') {
+                        totalPourcentage += parseFloat(value);
+                    }
+                });
+
+                // Conversion en heure.
+                var totalHeure = (totalPourcentage / 100 * 7.4).toFixed(2);
+
+                // On écris la valeur dans la cellule de total.
+                $('.monthlyTotalPercentageCell').eq(index - 1).text(totalHeure);
+            });
+        }
+
         // Vérifie qu'une seule option est renseignée parmis les titres repas, la prime panier ou le forfait déplacement pour chaque jours.
         function onePerkOnly() {
             // Lors d'un changement sur les selecteur de titre repas.
@@ -1115,7 +1178,7 @@
                                     $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;'>%</td>");
                                 } else if (index === total - 2) {
                                     //$('.monthlyTotalPercentageCell').last().css('background-color', 'orange');
-                                    $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell' style='border: none; color:white;'>0.00</td>");
+                                    $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell' style='border: 1px solid black;'>0.00</td>");
                                 } else if (index === total - 1) {
                                     $('.monthlyTotalCell').last().after("<td class='monthlyTotalCell' style='border: none; color:white;'>0.00</td>");
                                     //$('.monthlyTotalCell').last().css('background-color', 'orange');
@@ -1204,7 +1267,7 @@
                                                 } else if (index === 2) {
                                                     $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;'>%</td>");
                                                 } else if (index === total - 2) {
-                                                    $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell' style='border: none; color:white;'>0.00</td>");
+                                                    $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell' style='border: 1px solid black;'>0.00</td>");
                                                 } else if (index === total - 1) {
                                                     $('.monthlyTotalCell').last().after("<td class='monthlyTotalCell' style='border: none; color:white;'>0.00</td>");
                                                 } else if (index === total - 3) {
@@ -1263,7 +1326,7 @@
                     } else if (index === 2) {
                         $(this).find('.project').last().after("<td class='project' style='border-top-width: 1px; border-bottom-width: 1px;'>%</td>");
                     } else if (index === total - 2) {
-                        $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell' style='border: none; color:white;'>0.00</td>");
+                        $('.monthlyTotalPercentageCell').last().after("<td class='monthlyTotalPercentageCell' style='border: 1px solid black;'>0.00</td>");
                     } else if (index === total - 1) {
                         $('.monthlyTotalCell').last().after("<td class='monthlyTotalCell' style='border: none; color:white;'>0.00</td>");
                     } else if (index === total - 3) {
