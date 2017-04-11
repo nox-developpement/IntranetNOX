@@ -32,6 +32,7 @@ body {
     padding-top: 0%;
     background-color:white;
     padding-bottom: 0%;
+    background-image: url('../images/fond2.png');
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -4371,14 +4372,9 @@ form[name='formNewSearch'] .textarea[contenteditable=true]:empty:before {
 }
 
 .pointage-alert-content-class .ui-widget-header {
-    color: white;
     background: linear-gradient(to bottom,  #336fa0 0%,#052775 100%) !important;
 }
 
 .pointage-alert-content-class .ui-button {
     background: linear-gradient(to bottom,  #336fa0 0%,#052775 100%) !important;
-}
-
-.pointage-alert-content-class .ui-button-text {
-    color: white;
 }

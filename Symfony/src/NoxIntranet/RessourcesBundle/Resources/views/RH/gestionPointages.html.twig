@@ -58,25 +58,25 @@
             <th>Autre</th>
         </tr>
         <tr>
-            <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}">Assistant(e)s agence - Correction/Validation pointages</a></div></td>
+            <!--<td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}">Assistant(e)s agence - Correction/Validation pointages</a></div></td>-->
+            <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointage_access_collaborateur_pointage') }}">Assistant(e)s agence - Remplissage pointage collaborateur</a></div></td>
             <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'AA'}) }}">Assistant(e)s agence - Correction/Validation compilation</a></div></td>
             <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointage_compilation_nox_ip_csv') }}">Compilation des affaires NOX IP</a></div></td>
         </tr>
         <tr>
-            <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointage_access_collaborateur_pointage') }}">Assistant(e)s agence - Remplissage pointage collaborateur</a></div></td>
+            <td></td>
             <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'DAManager'}) }}">DA/Manager - Correction/Validation compilation</a></div></td>
-            <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointage_archives_compilation_etablissements') }}">Archives des compilations</a></div></td>
+            <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointage_compilation_modulation') }}">Compilation des modulations</a></div></td>
         </tr>
         <tr>
             <td></td>
             <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'Final'}) }}">Consultation des compilations validées</a></div></td>
-            <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointage_compilation_modulation') }}">Compilation des modulations</a></div></td>
-
+            <td><div class="gestionPointageLinkDiv"><a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank'>Consulter la notice</a></div></td>
         </tr>
         <tr>
             <td></td>
+            <td><div class="gestionPointageLinkDiv"><a href="{{ path('nox_intranet_pointage_archives_compilation_etablissements') }}">Archives des compilations</a></div></td>
             <td></td>
-            <td><div class="gestionPointageLinkDiv"><a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank'>Consulter la notice</a></div></td>
         </tr>
     </table>
 
