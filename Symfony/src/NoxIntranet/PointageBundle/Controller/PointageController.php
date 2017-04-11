@@ -1064,6 +1064,7 @@ class PointageController extends Controller {
                 $years[$pointage->getYear()]['Year'] = $pointage->getYear();
             }
         }
+        asort($years);
 
         return $this->render('NoxIntranetPointageBundle:Pointage:compilationArchiveYear.html.twig', array('years' => $years, 'etablissement' => $etablissement));
     }
@@ -1086,6 +1087,7 @@ class PointageController extends Controller {
                 $months[$pointage->getMonth()]['MonthName'] = $monthString[$pointage->getMonth()];
             }
         }
+        asort($months);
 
         return $this->render('NoxIntranetPointageBundle:Pointage:compilationArchiveMonth.html.twig', array('months' => $months, 'year' => $year, 'etablissement' => $etablissement));
     }
