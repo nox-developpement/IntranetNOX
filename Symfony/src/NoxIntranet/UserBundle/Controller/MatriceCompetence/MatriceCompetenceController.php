@@ -366,8 +366,13 @@ class MatriceCompetenceController extends Controller {
 
                     $matrice_societe = $sheet->getCell('A' . $rowIndex)->getValue();
                     $matrice_etablissement = $sheet->getCell('C' . $rowIndex)->getValue();
-                    $matrice_date_naissance = \PHPExcel_Shared_Date::ExcelToPHP($sheet->getCell('F' . $rowIndex)->getFormattedValue());
-                    var_dump($matrice_date_naissance);
+                    if (\PHPExcel_Shared_Date::isDateTime($sheet->getCell('F' . $rowIndex))) {
+                        $matrice_date_naissance = \PHPExcel_Shared_Date::ExcelToPHP($sheet->getCell('F' . $rowIndex)->getValue());
+                    } else {
+                        $matrice_date_naissance = $sheet->getCell('F' . $rowIndex)->getValue();
+                    }
+
+                    var_dump($matrice_date_naissance . "<br />");
                     $matrice_date_anciennete = \PHPExcel_Shared_Date::ExcelToPHP($sheet->getCell('G' . $rowIndex)->getFormattedValue());
                     $matrice_statut = $sheet->getCell('H' . $rowIndex)->getValue();
                     $matrice_poste = $sheet->getCell('I' . $rowIndex)->getValue();
