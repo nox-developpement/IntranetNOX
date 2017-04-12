@@ -4,7 +4,7 @@
 
 {% block messageAccueil %}{{ templateTitle }}{% endblock %}
 
-{% block sousMessageAccueil %}<a href='{{ asset('Pointage/Aide/Prise en main du pointage collaborateur.pdf') }}' target='_blank' style='text-decoration: none;'>Notice de remplissage collaborateurs</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank' style='text-decoration: none;'>Notice RH</a>{% endblock %}
+{% block sousMessageAccueil %}<a href='{{ asset('Pointage/Aide/Prise en main des compilations.pdf') }}' target='_blank' style='text-decoration: none;'>Prise en main des compilations</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage Ass  Agence.pdf') }}' target='_blank' style='text-decoration: none;'>Prise en main du pointage assistant(e) agence</a>{% endblock %}
 
 {% block contenu %}
 
@@ -15,7 +15,6 @@
     <div id="pointageAlert"><div id="pointageAlertText"></div></div>
 
     <p id="validationStepNavigator" style="width: 70%; margin: auto; margin-top: 0; text-align: center;">
-        <a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}">Assistant(e) agence: Validation pointages</a> |
         <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'AA'}) }}">Assistant(e)s agence - Correction/Validation compilation</a> |
         <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'DAManager'}) }}">DA/Manager - Correction/Validation compilation</a> |
         <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'Final'}) }}">Consultation des compilations validées</a>
@@ -51,7 +50,6 @@
         {{ form_end(form) }}  
 
         <p id="pointageAValideNumber" style="font-size: 1vw;">
-            {% if validationStep == 'AA' %}Pointage(s) collaborateurs non validé(s) par un(e) assistant(e) d'agence : <a id="pointageEnAttenteValidationAA" href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}" style="color: red;">0</a><br />{% endif %}
             Collaborateur(s) n'ayant pas remplis/validé leur pointage : <span id="collaborateurSansPointage" style="color: red; text-decoration: underline; cursor: pointer;">0</span>
         </p> 
 
@@ -220,10 +218,10 @@
                                     newHtmlContent += "<tr class='pointageCompile' username='" + data[index].user + "'>";
                                     newHtmlContent += "<td>" + data[index].lastname + ' ' + data[index].firstname + "</td>";
                                     newHtmlContent += "<td class='modulationCell'><span class='modulationValue'>" + data[index].yearTotalMods.toFixed(2) + "</span><br /><a href='#' onclick=\"openDetailsPopup('" + data[index].detailsModsUrl + "');\" title='Détails'>Détails</a></td>";
-                                    newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='titresRepas' step='1' min='0' value='" + data[index].titresRepas + "'></td>";
+                                    newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='titresRepas' step='1' min='0' value='" + data[index].titresRepas + "' " + (('{{ validationStep }}' === 'Final') ? "readonly" : "") + "></td>";
                                     newHtmlContent += "<td class='forfaitsDeplacementCell'><span class='forfaitsDeplacementValue'>" + forfaitsDeplacement.toFixed(2) + "</span><br /><a href='#' onclick=\"openDetailsPopup('" + data[index].detailsForfaitDeplacementsUrl + "');\" title='Détails'>Détails</a></td>";
-                                    newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='primesPanier' min='0' step='0.01' value='" + data[index].primesPanier + "'></td>";
-                                    newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='titreTransport' min='0' step='0.01' value='" + data[index].titreTransport + "'></td>";
+                                    newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='primesPanier' min='0' step='0.01' value='" + data[index].primesPanier + "' " + (('{{ validationStep }}' === 'Final') ? "readonly" : "") + "></td>";
+                                    newHtmlContent += "<td><input style='text-align: center; max-width: 100%;' type='number' name='titreTransport' min='0' step='0.01' value='" + data[index].titreTransport + "' " + (('{{ validationStep }}' === 'Final') ? "readonly" : "") + "></td>";
                                     newHtmlContent += "<td title='Cliquez pour voir le texte complet.' style='cursor: help; word-wrap: break-word;' onclick=\"showFullTexte('" + data[index].regularisation + "', $(this));\">" + truncateString(data[index].regularisation) + "</td>";
                                     newHtmlContent += "<td style='background-color: white; padding-top: 1%; padding-bottom: 1%;'><div style='display: inline-block; vertical-align: middle;'>" + (nbAbsencesMatin + nbAbsencesAM) / 2 + "</div><img style='vertical-align: middle; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' alt='Déplier'><img style='vertical-align: middle; display: none; width: 20%; cursor: pointer;' src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' alt='Replier'></td>";
                                     newHtmlContent += "</tr>";

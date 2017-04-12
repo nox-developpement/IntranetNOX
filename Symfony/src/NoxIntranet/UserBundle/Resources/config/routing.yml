@@ -42,3 +42,7 @@ nox_intranet_developpement_professionnel_matrice_competence:
 nox_intranet_developpement_professionnel_matrice_competence_file_extraction:
     path:   /ressources/matrice-competence/file-extraction
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:extractMatriceCompetenceData }
+
+nox_intranet_developpement_professionnel_gestion_entretien_professionnel:
+    path:   /developpement-professionnel/gestion-entretien-professionnel
+    defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel\DeveloppementProfessionnel:gestionEntretienProfessionnelN2 }
