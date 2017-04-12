@@ -741,4 +741,46 @@ class DeveloppementProfessionnelController extends Controller {
         return $str;
     }
 
+    /**
+     * 
+     * Affiche la liste des entretiens qui doivent être validé par le N2 courant.
+     * 
+     * @return View
+     */
+    public function gestionEntretienProfessionnelN2Action() {
+        // On récupère les nom canoniques de tous les collaborateurs.
+        $em = $this->getDoctrine()->getManager();
+        $allUsersEntity = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
+        $allUser = array();
+        foreach ($allUsersEntity as $user) {
+            $canonicalName = strtoupper(str_replace('-', ' ', $this->wd_remove_accents($user->getFirstname() . " " . $user->getLastname())));
+            $allUser[$canonicalName] = $user;
+        }
+
+        // Entretiens de l'année en cour.
+        $entretiens = $em->getRepository('NoxIntranetUserBundle:DeveloppementProfessionnel')->findByAnnee(date('Y'));
+
+        // Pour chaques entretiens...
+        $userEntretiens = array();
+        foreach ($entretiens as $entretien) {
+            // Si l'entretien est au stade de validation N2...
+            if ($entretien->getStatut() === "N2") {
+                // On récupére le collaborateur de l'entretien et sa hiérarchie.
+                $collaborateur = $entretien->getCollaborateur();
+                $hierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername());
+
+                // On récupère l'entitée du N2.
+                $N2 = strtoupper(str_replace('-', ' ', $this->wd_remove_accents($hierarchy->getN2())));
+                $N2Entity = $allUser[$N2];
+
+                // Si le N2 est le collaborateur courant...
+                if ($N2Entity === $this->get('security.token_storage')->getToken()->getUser()) {
+                    $userEntretiens[] = $entretien; // On ajoute l'entretiens aux tableau des entretiens à retourné.
+                }
+            }
+        }
+
+        return $this->render('NoxIntranetUserBundle:DeveloppementProfessionnel:gestionEntretienProfessionel.html.twig', array('entretiens' => $userEntretiens));
+    }
+
 }
