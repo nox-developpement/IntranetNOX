@@ -5,61 +5,19 @@
 {% block messageAccueil %}Matrice de compétences{% endblock %}
 
 {% block contenu %}
+    <script src="{{ asset('./js/jquery.tablesorter/jquery.tablesorter.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            resizeRotatedCompetencesCells();
-            toggleCompetences();
             toggleCompetencesSelection();
 
+            // Initialisation de la fonction de trie Jquery.
+            $("#matriceCompetenceTable").tablesorter({
+                sortList: [[1, 0]],
+                headers: {
+                    6: {sorter: false}
+                }
+            });
         });
-
-        function resizeRotatedCompetencesCells() {
-            // Largeur des cellules de compétence.
-            var width = $('.rotateCategorieDiv').height();
-
-            // Hauteur maximum des cellules.
-            var maxHeight = 0;
-            $('.rotateCategorieDiv').each(function () {
-                if ($(this).width() > maxHeight) {
-                    maxHeight = $(this).width();
-                }
-            });
-
-            // On applique les nouvelles mesures.
-            $('.competenceHeader').height(maxHeight);
-            $('.competenceHeader').css('min-width', width);
-        }
-
-        function toggleCompetences() {
-            // Lors du clique sur un titre de catégorie.
-            $('.categorieHeader').on('click', function () {
-                // Cellule et catégorie.
-                var categorieCell = $(this);
-                var categorie = categorieCell.data('categorie');
-
-                // Si la catégorie est ouverte...
-                if (categorieCell.data('state') === 'visible') {
-                    // On réduit le colspan à 1 et on modifie l'état.
-                    categorieCell.attr('colspan', '1');
-                    categorieCell.data('state', 'hidden');
-                }
-                // Sinon...
-                else {
-                    // On redonne le colsapn et l'état d'origine.
-                    categorieCell.attr('colspan', categorieCell.data('colspan'));
-                    categorieCell.data('state', 'visible');
-                }
-
-                // Pour chaques titre de compétence...
-                $('.competenceHeader').each(function () {
-                    // Si la compétence fait partie de la catégorie...
-                    if ($(this).data('categorie') === categorie) {
-                        $(this).toggle(); // On l'affiche/cache.
-                    }
-                });
-            });
-        }
-
         function toggleCompetencesSelection() {
             $('#categorie_selection_foldbar').on('click', function () {
                 $('#categorie_selection_box').slideToggle();
@@ -71,37 +29,66 @@
 
     <style>
         #matriceCompetenceTable_Div {
-            width: 70%;
+            width: 100%;
             margin: auto;
             margin-top: 2em;
             margin-bottom: 2em;
             overflow: auto;
+            height: 500px;
         }
 
         #competenceTable, #infosSalariesTable {
             table-layout: fixed;
         }
 
-        #matriceCompetenceTable, #matriceCompetenceTable tr, #matriceCompetenceTable th, #matriceCompetenceTable td {
-            border: 1px solid black;
+        #matriceCompetenceTable {
+            margin: auto;
             border-collapse: collapse;
+            width: 100%;
         }
 
-        .competenceHeader {
-            white-space: nowrap;
-            position: relative;
+        #matriceCompetenceTable, #matriceCompetenceTable tr, #matriceCompetenceTable th, #matriceCompetenceTable td {
+            border: 1px solid black;
+            text-align: center;
+            font-size: calc(9px + 0.2vw);
+            background-color: transparent;
+        }
+
+        #matriceCompetenceTable th, #matriceCompetenceTable td {
             padding: 0.5em;
         }
 
-        .rotateCategorieDiv {
-            position: absolute;
-            transform: translateX(-50%) translateY(-50%) rotate(-90deg);
-            top: 50%;
-            left: 50%;
+        #matriceCompetenceTable th {
+            background-color: rgba(31,78,121,0.8);
+            color: white;
         }
 
-        .hiddenTh {
-            display: none;
+        #matriceCompetenceTable th.header {
+            padding-right: 1.5em;
+            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/bg.gif') }}'); 
+            background-repeat: no-repeat;
+            background-position: center right;
+            cursor: pointer;
+        }
+
+        #matriceCompetenceTable th.headerSortUp { 
+            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/asc.gif') }}'); 
+        } 
+
+        #matriceCompetenceTable th.headerSortDown { 
+            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/desc.gif') }}'); 
+        }
+
+        #matriceCompetenceTable th div {
+            position: absolute;
+            padding: 0.5em;
+            padding-right: 1.5em;
+            top: 0;
+            left: 0;
+        }
+
+        #matriceCompetenceTable td {
+            background-color: rgba(255,255,255,0.8);
         }
 
         .categorie_selection_section {
@@ -164,21 +151,44 @@
         }
 
         #categorie_selection_box {
+            height: 250px;
+            overflow-y: auto;
             border-top: 2px solid #1F4E79;
         }
 
-        .info_salarie {
-            padding-right: 0.5em;
-            padding-left: 0.5em;
+        .competence_td {
+            font-size: 0;
         }
 
-        #matriceCompetence_table {
-            width: 100%;
-            table-layout: fixed;
+        .competence_container {
+            display: inline-block;
+            padding: 0.25em 0.10em;
+        }
+
+        .competence_principale_div, .competence_secondaire_div {
+            display: inline-block;
+            padding: 0.25em;
+            font-size: calc(11px + 0.2vw);
+            border-radius: 5px;
+        }
+
+        .competence_principale_div {
+            background-color: #1f4e79;
+            color: white;
+        }
+
+        .competence_secondaire_div {
+            background-color: #5d9bd5;
+            color: white;
+        }
+
+        #matriceTableSection {
+            position: relative;
         }
     </style>
 
 
+    <!-- Sélécteur de compétences -->
     <div id="categorie_selection_div">
         <div id="categorie_selection_foldbar">
             <p id="categorie_selection_foldbar_text">Sélection des compétences</p>
@@ -202,86 +212,50 @@
             {% endfor %}
         </div>
     </div>
+    <!-- Fin du sélécteur de compétences -->
 
-    <div id="matriceCompetenceTable_Div">
-        <table id='matriceCompetenceTable'>
-            <div id="fixed_header"></div>
-            <thead>
-                <tr>
-                    <th colspan='3' class="table_left_header">DONNEES INDIVIDUELLES</th>
-                    <th colspan='{{ competencesCount }}'>MATRICES COMPETENCES</th>
-                </tr>
-                <tr>
-                    <th colspan='3' class="table_left_header">
-                        INFOS SALARIES
-                    </th>
-                    {% for categorie, competences in competencesArray %}
-                        <th colspan='{{ competences|length }}' class='categorieHeader' data-categorie='{{ categorie }}' data-colspan='{{ competences|length }}' data-state='visible'>
-                            {{ categorie }}
-                        </th>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <th class="info_salarie table_left_header" rowspan="6">Nom</th>
-                    <th class="info_salarie table_left_header" rowspan="6">Prénom</th>
-                    <th class="info_salarie table_left_header">Société</th>
-                    <th>
-                    </th>
-                    {% for categorie_name, categorie in competencesArray %}
-                        <th class='competenceHeader hiddenTh' data-categorie='{{ categorie_name }}' rowspan="6">
-                            <span>...</span>
-                        </th>
-                        {% for competence in categorie %}
-                            <th class='competenceHeader' data-categorie='{{ categorie_name }}' rowspan="6">
-                                <div class='rotateCategorieDiv'>{{ competence }}</div>
-                            </th>
-                        {% endfor %}
-                    {% endfor %}
-                </tr>
-                <tr>
-                    
-                </tr>
-                <tr>
-                    <th class="info_salarie table_left_header">Etablissement</th>
-                </tr>
-                <tr>
-                    <th class="info_salarie table_left_header">Date<br /> de<br /> naissance</th>
-                </tr>
-                <tr>
-                    <th class="info_salarie table_left_header">Date<br /> d'ancienneté</th>
-                </tr>
-                <tr>
-                    <th class="info_salarie table_left_header">Statut</th>
-                </tr>
-                <tr>
-                    <th class="info_salarie table_left_header">Poste</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for matrice in matrices_competences %}
+    <section id='matriceTableSection'>
+        <div id="matriceCompetenceTable_Div">
+            <table id='matriceCompetenceTable'>
+                <thead>
                     <tr>
-                        <td class="table_left_header">{{ matrice.Societe }}</td>
-                        <td class="table_left_header">{{ matrice.Etablissement }}</td>
-                        <td class="table_left_header">{{ matrice.Nom }}</td>
-                        <td class="table_left_header">{{ matrice.Prenom }}</td>
-                        <td class="table_left_header">{{ matrice.DateNaissance|date('d/m/Y') }}</td>
-                        <td class="table_left_header">{{ matrice.DateAnciennete|date('d/m/Y') }}</td>
-                        <td class="table_left_header">{{ matrice.Statut }}</td>
-                        <td class="table_left_header">{{ matrice.Poste }}</td>
-                        {% for categorie in competencesArray %}
-                            {% for competence in categorie %}
-                                {% if competence == matrice.CompetencePrincipale %}
-                                    <td>1</td>
-                                {% elseif competence in matrice.CompetencesSecondaires %}
-                                    <td>*</td>
-                                {% else %}
-                                    <td></td>
-                                {% endif %}
-                            {% endfor %}
-                        {% endfor %}
+                        <th>Société<hr>Etablissement<div>Société<hr>Etablissement</div></th>     
+                        <th>NOM<br />Prénom</th>
+                        <th>Date<br /> de<br /> naissance</th>
+                        <th>Date<br /> d'ancienneté</th>
+                        <th>Statut</th>
+                        <th>Poste</th>
+                        <th>Compétence principale<hr>Compétences secondaires</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    {% for matrice in matrices_competences %}
+                        <tr>
+                            <td class="table_left_header">{{ matrice.Societe }}<hr>{{ matrice.Etablissement }}</td>
+                            <td class="table_left_header">{{ matrice.Nom }}<br />{{ matrice.Prenom }}</td>
+                            <td class="table_left_header">{{ matrice.DateNaissance|date('d/m/Y') }}</td>
+                            <td class="table_left_header">{{ matrice.DateAnciennete|date('d/m/Y') }}</td>
+                            <td class="table_left_header">{{ matrice.Statut }}</td>
+                            <td class="table_left_header">{{ matrice.Poste }}</td>
+                            <td>
+                                <span class='competence_container'>
+                                    <div class='competence_principale_div'>{{ matrice.CompetencePrincipale is not null ? matrice.CompetencePrincipale : "Aucune" }}</div>
+                                </span>
+                                <hr>
+                                {% if matrice.CompetencesSecondaires is not empty %}
+                                    {% for competence in matrice.CompetencesSecondaires %}
+                                        <span class='competence_container'>
+                                            <div class='competence_secondaire_div'>{{ competence }}</div>
+                                        </span>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class='competence_secondaire_div'>Aucune</div>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
 {% endblock %}

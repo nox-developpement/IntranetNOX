@@ -86,14 +86,14 @@ class MatriceCompetence {
     /**
      * @var string
      *
-     * @ORM\Column(name="Competence_Principale", type="string", length=255)
+     * @ORM\Column(name="Competence_Principale", type="string", length=255, nullable=true)
      */
     private $competencePrincipale;
 
     /**
      * @var array
      *
-     * @ORM\Column(name="Competences_Secondaires", type="array")
+     * @ORM\Column(name="Competences_Secondaires", type="array", nullable=true)
      */
     private $competencesSecondaires;
 
@@ -358,7 +358,6 @@ class MatriceCompetence {
         return $this->prenom;
     }
 
-
     /**
      * Set isUpdated
      *
@@ -366,8 +365,7 @@ class MatriceCompetence {
      *
      * @return MatriceCompetence
      */
-    public function setIsUpdated($isUpdated)
-    {
+    public function setIsUpdated($isUpdated) {
         $this->isUpdated = $isUpdated;
 
         return $this;
@@ -378,8 +376,8 @@ class MatriceCompetence {
      *
      * @return boolean
      */
-    public function getIsUpdated()
-    {
+    public function getIsUpdated() {
         return $this->isUpdated;
     }
+
 }

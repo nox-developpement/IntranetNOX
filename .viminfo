@@ -12,7 +12,7 @@
 ~h
 # Command Line History (newest to oldest):
 :wq
-|2,0,1491484009,,"wq"
+|2,0,1492068897,,"wq"
 :w
 |2,0,1490006239,,"w"
 :quit!
@@ -39,27 +39,29 @@
 
 # File marks:
 '0  2  0  ~/.git/MERGE_MSG
-|4,48,2,0,1491484009,"~/.git/MERGE_MSG"
+|4,48,2,0,1492068897,"~/.git/MERGE_MSG"
 '1  2  0  ~/.git/MERGE_MSG
-|4,49,2,0,1491316407,"~/.git/MERGE_MSG"
+|4,49,2,0,1491484009,"~/.git/MERGE_MSG"
 '2  2  0  ~/.git/MERGE_MSG
-|4,50,2,0,1490884560,"~/.git/MERGE_MSG"
+|4,50,2,0,1491316407,"~/.git/MERGE_MSG"
 '3  2  0  ~/.git/MERGE_MSG
-|4,51,2,0,1490884560,"~/.git/MERGE_MSG"
+|4,51,2,0,1491316407,"~/.git/MERGE_MSG"
 '4  2  0  ~/.git/MERGE_MSG
-|4,52,2,0,1490798388,"~/.git/MERGE_MSG"
+|4,52,2,0,1490884560,"~/.git/MERGE_MSG"
 '5  2  0  ~/.git/MERGE_MSG
-|4,53,2,0,1490798388,"~/.git/MERGE_MSG"
+|4,53,2,0,1490884560,"~/.git/MERGE_MSG"
 '6  2  0  ~/.git/MERGE_MSG
-|4,54,2,0,1490798388,"~/.git/MERGE_MSG"
+|4,54,2,0,1490884560,"~/.git/MERGE_MSG"
 '7  2  0  ~/.git/MERGE_MSG
-|4,55,2,0,1490798388,"~/.git/MERGE_MSG"
+|4,55,2,0,1490884560,"~/.git/MERGE_MSG"
 '8  2  0  ~/.git/MERGE_MSG
-|4,56,2,0,1490365157,"~/.git/MERGE_MSG"
+|4,56,2,0,1490798388,"~/.git/MERGE_MSG"
 '9  2  0  ~/.git/MERGE_MSG
-|4,57,2,0,1490365157,"~/.git/MERGE_MSG"
+|4,57,2,0,1490798388,"~/.git/MERGE_MSG"
 
 # Jumplist (newest first):
+-'  2  0  ~/.git/MERGE_MSG
+|4,39,2,0,1492068897,"~/.git/MERGE_MSG"
 -'  2  0  ~/.git/MERGE_MSG
 |4,39,2,0,1491484009,"~/.git/MERGE_MSG"
 -'  2  0  ~/.git/MERGE_MSG
@@ -258,13 +260,11 @@
 |4,39,1,25,1486998507,"~/.git/COMMIT_EDITMSG"
 -'  1  25  ~/.git/COMMIT_EDITMSG
 |4,39,1,25,1486998507,"~/.git/COMMIT_EDITMSG"
--'  1  25  ~/.git/COMMIT_EDITMSG
-|4,39,1,25,1486998507,"~/.git/COMMIT_EDITMSG"
 
 # History of marks within files (newest to oldest):
 
 > ~/.git/MERGE_MSG
-	*	1491484006	0
+	*	1492068894	0
 	"	2	0
 	^	1	0
 	.	9	0
