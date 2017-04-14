@@ -19,15 +19,12 @@
                 }
             });
 
-            tableFixedHeader();
-            
-            // Initialisation de la fonction de trie Jquery.
-            $("#matriceCompetenceTable").tablesorter({
-                sortList: [[1, 0]],
-                headers: {
-                    6: {sorter: false}
-                }
+            // Lorsque le tableau est trié on met à jour l'affichage du header fixe.
+            $("#matriceCompetenceTable").on('sortEnd', function () {
+                initializeFixedHeader();
             });
+
+            tableFixedHeader();
         });
 
 
@@ -38,66 +35,78 @@
             });
         }
 
+        // Actualise le header fixe lors di redimensionnement et cache le header originale.
         function tableFixedHeader() {
-            var initializeFixedHeader = function () {
-                // Clonage du header.
-                var tableHeader = $("#matriceCompetenceTable thead").clone(true);
-                $("#matriceCompetenceTable").prepend(tableHeader);
+            console.log('Ajout et paramètrage header fixe');
 
-                // Attribution de la longueur des éléments.
-                tableHeader.width(tableHeader.width());
-                tableHeader.find("tr").each(function () {
-                    $(this).width($(this).width());
-                });
-                tableHeader.find("th").each(function () {
-                    $(this).width($(this).width() + 2);
-                });
-
-                // Attribution du css des éléments.
-                tableHeader.css({
-                    "width": tableHeader.width(),
-                    "display": "table",
-                    "border-collapse": "collapse",
-                    "top": "1px",
-                    "left": "0px"
-                });
-
-                tableHeader.find("tr").each(function () {
-                    $(this).css({
-                        //"width": $(this).width(),
-                        "display": "table-row",
-                        "border-collapse": "collapse",
-                        "border": "none"
-                    });
-                });
-                tableHeader.find("th").each(function () {
-                    $(this).css({
-                        //"width": $(this).outerWidth(),
-                        "display": "table-cell",
-                        "border-collapse": "collapse",
-                        //"border-top": "none",
-                        "border-bottom": "none"
-                    });
-                });
-                tableHeader.css('position', 'absolute');
-
-                // Positionnement du tableau dans le container.
-                $("#matriceCompetence_Container").css("padding-top", $("#matriceCompetenceTable thead:first-child").height());
-                $("#matriceCompetenceTable_Div").scrollTop($("#matriceCompetenceTable thead:first-child").height());
-            };
-
-            initializeFixedHeader();
+            // Initialise le header au chargement et lors du redisionnement de la fenêtre. 
             $(window).resize(function () {
-                $("#matriceCompetenceTable thead:first-child").remove();
+                $("#matriceCompetenceTable thead").first().remove();
                 initializeFixedHeader();
             });
 
             // Permet de cacher le header d'origine ne permanance.
             $("#matriceCompetenceTable_Div").scroll(function () {
-                if ($(this).scrollTop() < $("#matriceCompetenceTable thead:first-child").height()) {
+                if ($(this).scrollTop() < $("#matriceCompetenceTable thead").first().height()) {
                     $(this).scrollTop($("#matriceCompetenceTable thead:first-child").height());
                 }
-                $("#matriceCompetenceTable thead:first-child").css("left", -$(this).scrollLeft());
+                $("#matriceCompetenceTable thead").first().css("left", -$(this).scrollLeft());
+            });
+        }
+
+        // Génere et ajoute un header fixe au tableau.
+        function initializeFixedHeader() {
+            console.log("Création d'un header fixe.");
+
+            // Clonage du header.
+            var tableHeader = $("#matriceCompetenceTable thead").clone();
+            $("#matriceCompetenceTable").prepend(tableHeader);
+
+            // Attribution de la longueur des éléments.
+            tableHeader.width(tableHeader.width());
+            tableHeader.find("tr").each(function () {
+                $(this).width($(this).width());
+            });
+            tableHeader.find("th").each(function () {
+                $(this).width($(this).width() + 2);
+            });
+
+            // Attribution du css des éléments.
+            tableHeader.css({
+                "width": tableHeader.width(),
+                "display": "table",
+                "border-collapse": "collapse",
+                "top": "1px",
+                "left": "0px"
+            });
+
+            tableHeader.find("tr").each(function () {
+                $(this).css({
+                    //"width": $(this).width(),
+                    "display": "table-row",
+                    "border-collapse": "collapse",
+                    "border": "none"
+                });
+            });
+            tableHeader.find("th").each(function () {
+                $(this).css({
+                    //"width": $(this).outerWidth(),
+                    "display": "table-cell",
+                    "border-collapse": "collapse",
+                    //"border-top": "none",
+                    "border-bottom": "none"
+                });
+            });
+            tableHeader.css('position', 'absolute');
+
+            // Positionnement du tableau dans le container.
+            $("#matriceCompetence_Container").css("padding-top", $("#matriceCompetenceTable thead:first-child").height());
+            $("#matriceCompetenceTable_Div").scrollTop($("#matriceCompetenceTable thead:first-child").height());
+
+            // Lors d'un clique sur une cellules du header fixe, simule un clique sur la cellule correspondante du header d'origine.
+            $("#matriceCompetenceTable thead").first().find('tr').find('th').click(function () {
+                $("#matriceCompetenceTable thead").last().find('tr').find('th').eq($(this).index()).trigger('click');
+                $("#matriceCompetenceTable thead").first().remove();
             });
         }
 
