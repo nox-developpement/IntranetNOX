@@ -10,6 +10,17 @@
         $(document).ready(function () {
             toggleCompetencesSelection();
 
+
+            // Initialisation de la fonction de trie Jquery.
+            $("#matriceCompetenceTable").tablesorter({
+                sortList: [[1, 0]],
+                headers: {
+                    6: {sorter: false}
+                }
+            });
+
+            tableFixedHeader();
+            
             // Initialisation de la fonction de trie Jquery.
             $("#matriceCompetenceTable").tablesorter({
                 sortList: [[1, 0]],
@@ -18,10 +29,75 @@
                 }
             });
         });
+
+
         function toggleCompetencesSelection() {
             $('#categorie_selection_foldbar').on('click', function () {
                 $('#categorie_selection_box').slideToggle();
                 $('.categorie_selection_foldbar_indicator').toggle();
+            });
+        }
+
+        function tableFixedHeader() {
+            var initializeFixedHeader = function () {
+                // Clonage du header.
+                var tableHeader = $("#matriceCompetenceTable thead").clone(true);
+                $("#matriceCompetenceTable").prepend(tableHeader);
+
+                // Attribution de la longueur des éléments.
+                tableHeader.width(tableHeader.width());
+                tableHeader.find("tr").each(function () {
+                    $(this).width($(this).width());
+                });
+                tableHeader.find("th").each(function () {
+                    $(this).width($(this).width() + 2);
+                });
+
+                // Attribution du css des éléments.
+                tableHeader.css({
+                    "width": tableHeader.width(),
+                    "display": "table",
+                    "border-collapse": "collapse",
+                    "top": "1px",
+                    "left": "0px"
+                });
+
+                tableHeader.find("tr").each(function () {
+                    $(this).css({
+                        //"width": $(this).width(),
+                        "display": "table-row",
+                        "border-collapse": "collapse",
+                        "border": "none"
+                    });
+                });
+                tableHeader.find("th").each(function () {
+                    $(this).css({
+                        //"width": $(this).outerWidth(),
+                        "display": "table-cell",
+                        "border-collapse": "collapse",
+                        //"border-top": "none",
+                        "border-bottom": "none"
+                    });
+                });
+                tableHeader.css('position', 'absolute');
+
+                // Positionnement du tableau dans le container.
+                $("#matriceCompetence_Container").css("padding-top", $("#matriceCompetenceTable thead:first-child").height());
+                $("#matriceCompetenceTable_Div").scrollTop($("#matriceCompetenceTable thead:first-child").height());
+            };
+
+            initializeFixedHeader();
+            $(window).resize(function () {
+                $("#matriceCompetenceTable thead:first-child").remove();
+                initializeFixedHeader();
+            });
+
+            // Permet de cacher le header d'origine ne permanance.
+            $("#matriceCompetenceTable_Div").scroll(function () {
+                if ($(this).scrollTop() < $("#matriceCompetenceTable thead:first-child").height()) {
+                    $(this).scrollTop($("#matriceCompetenceTable thead:first-child").height());
+                }
+                $("#matriceCompetenceTable thead:first-child").css("left", -$(this).scrollLeft());
             });
         }
 
@@ -31,7 +107,6 @@
         #matriceCompetenceTable_Div {
             width: 100%;
             margin: auto;
-            margin-top: 2em;
             margin-bottom: 2em;
             overflow: auto;
             height: 500px;
@@ -44,7 +119,6 @@
         #matriceCompetenceTable {
             margin: auto;
             border-collapse: collapse;
-            width: 100%;
         }
 
         #matriceCompetenceTable, #matriceCompetenceTable tr, #matriceCompetenceTable th, #matriceCompetenceTable td {
@@ -77,14 +151,6 @@
 
         #matriceCompetenceTable th.headerSortDown { 
             background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/desc.gif') }}'); 
-        }
-
-        #matriceCompetenceTable th div {
-            position: absolute;
-            padding: 0.5em;
-            padding-right: 1.5em;
-            top: 0;
-            left: 0;
         }
 
         #matriceCompetenceTable td {
@@ -182,8 +248,10 @@
             color: white;
         }
 
-        #matriceTableSection {
+        #matriceCompetence_Container {
             position: relative;
+            margin-top: 2em;
+            overflow-y: hidden;
         }
     </style>
 
@@ -214,12 +282,12 @@
     </div>
     <!-- Fin du sélécteur de compétences -->
 
-    <section id='matriceTableSection'>
+    <section id="matriceCompetence_Container">
         <div id="matriceCompetenceTable_Div">
             <table id='matriceCompetenceTable'>
                 <thead>
                     <tr>
-                        <th>Société<hr>Etablissement<div>Société<hr>Etablissement</div></th>     
+                        <th>Société<hr>Etablissement</th>     
                         <th>NOM<br />Prénom</th>
                         <th>Date<br /> de<br /> naissance</th>
                         <th>Date<br /> d'ancienneté</th>
@@ -256,6 +324,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
     </section>
+</div>
 {% endblock %}
