@@ -8,9 +8,6 @@
     <script src="{{ asset('./js/jquery.tablesorter/jquery.tablesorter.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            toggleCompetencesSelection();
-
-
             // Initialisation de la fonction de trie Jquery.
             $("#matriceCompetenceTable").tablesorter({
                 sortList: [[1, 0]],
@@ -25,6 +22,8 @@
             });
 
             tableFixedHeader();
+            toggleCompetencesSelection();
+            competenceFilter();
         });
 
 
@@ -107,6 +106,42 @@
             $("#matriceCompetenceTable thead").first().find('tr').find('th').click(function () {
                 $("#matriceCompetenceTable thead").last().find('tr').find('th').eq($(this).index()).trigger('click');
                 $("#matriceCompetenceTable thead").first().remove();
+            });
+        }
+
+        function competenceFilter() {
+            function hasCommonElement(arr1, arr2) {
+                var bExists = false;
+                $.each(arr2, function (index, value) {
+
+                    if ($.inArray(value, arr1) != -1) {
+                        console.log(value);
+                        bExists = true;
+                    }
+
+                    if (bExists) {
+                        return false;  //break
+                    }
+                });
+                return bExists;
+            }
+
+            $(".competence_checkbox").change(function () {
+                var competence_list = [];
+                $(".competence_checkbox:checked").each(function () {
+                    competence_list.push($(this).val());
+                });
+
+                $(".matrice_tr").each(function () {
+                    console.log($(this).data('competence-secondaire'));
+                    //console.log(JSON.parse($(this).data('competence-secondaire')));
+
+                    if ($.inArray($(this).data('competence-principale'), competence_list) > -1 || hasCommonElement(competence_list, $(this).data('competence-secondaire'))) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
             });
         }
 
@@ -264,7 +299,6 @@
         }
     </style>
 
-
     <!-- Sélécteur de compétences -->
     <div id="categorie_selection_div">
         <div id="categorie_selection_foldbar">
@@ -281,7 +315,7 @@
                     <ul class="competences_ul">
                         {% for competence in competences %}
                             <li class="competences_li">
-                                <label><input type="checkbox">{{ competence }}</label>
+                                <label><input type="checkbox" class="competence_checkbox" value="{{ competence }}">{{ competence }}</label>
                             </li>
                         {% endfor %}
                     </ul>
@@ -307,13 +341,13 @@
                 </thead>
                 <tbody>
                     {% for matrice in matrices_competences %}
-                        <tr>
-                            <td class="table_left_header">{{ matrice.Societe }}<hr>{{ matrice.Etablissement }}</td>
-                            <td class="table_left_header">{{ matrice.Nom }}<br />{{ matrice.Prenom }}</td>
-                            <td class="table_left_header">{{ matrice.DateNaissance|date('d/m/Y') }}</td>
-                            <td class="table_left_header">{{ matrice.DateAnciennete|date('d/m/Y') }}</td>
-                            <td class="table_left_header">{{ matrice.Statut }}</td>
-                            <td class="table_left_header">{{ matrice.Poste }}</td>
+                        <tr class="matrice_tr" data-competence-principale="{{ matrice.CompetencePrincipale }}" data-competence-secondaire="{{ matrice.CompetencesSecondaires|json_encode() }}">
+                            <td>{{ matrice.Societe }}<hr>{{ matrice.Etablissement }}</td>
+                            <td>{{ matrice.Nom }}<br />{{ matrice.Prenom }}</td>
+                            <td>{{ matrice.DateNaissance|date('d/m/Y') }}</td>
+                            <td>{{ matrice.DateAnciennete|date('d/m/Y') }}</td>
+                            <td>{{ matrice.Statut }}</td>
+                            <td>{{ matrice.Poste }}</td>
                             <td>
                                 <span class='competence_container'>
                                     <div class='competence_principale_div'>{{ matrice.CompetencePrincipale is not null ? matrice.CompetencePrincipale : "Aucune" }}</div>
