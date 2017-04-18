@@ -24,6 +24,7 @@
             tableFixedHeader();
             toggleCompetencesSelection();
             competenceFilter();
+            categorieSelection();
         });
 
 
@@ -109,13 +110,14 @@
             });
         }
 
+        // Affiche/cache les lignes de la matrice en fonction des compétences séléctionnées.
         function competenceFilter() {
+            // Vérifie la présence de valeur d'un tableau dans un autre.
             function hasCommonElement(arr1, arr2) {
                 var bExists = false;
                 $.each(arr2, function (index, value) {
 
                     if ($.inArray(value, arr1) != -1) {
-                        console.log(value);
                         bExists = true;
                     }
 
@@ -126,22 +128,63 @@
                 return bExists;
             }
 
+            // Lors de la séléction/désélction d'une compétence...
             $(".competence_checkbox").change(function () {
+                // On récupére la liste des compétences cochées.
                 var competence_list = [];
                 $(".competence_checkbox:checked").each(function () {
                     competence_list.push($(this).val());
                 });
 
+                // Pour chaques ligne de la matrice...
                 $(".matrice_tr").each(function () {
-                    console.log($(this).data('competence-secondaire'));
-                    //console.log(JSON.parse($(this).data('competence-secondaire')));
-
+                    // Si les compétence correspondent à la liste des compétences cochées on affiche la ligne, sinon on la cache.
                     if ($.inArray($(this).data('competence-principale'), competence_list) > -1 || hasCommonElement(competence_list, $(this).data('competence-secondaire'))) {
                         $(this).show();
                     } else {
                         $(this).hide();
                     }
                 });
+            });
+        }
+
+        // Gestion de la séléction des catégorie et de leurs éléments.
+        function categorieSelection() {
+            // Lors de la séléction/déséléction d'une catégorie...
+            $(".categorie_checkbox").change(function () {
+                // On séléctionne/déséléctionne les compétences correspondantes et on simule un évenement de changement.
+                $(".competence_checkbox[data-categorie='" + $(this).val() + "']").prop('checked', $(this).is(':checked'));
+                $(".competence_checkbox").first().trigger('change');
+            });
+
+
+            // Lors de la séléction/désélction d'une compétence...
+            $(".competence_checkbox").change(function () {
+                // Initialisation d'un compteur de compétence cochées.
+                var checked_competence_count = 0;
+
+                // On récupére les checkbox de la catégorie et des compétences correspondantes.
+                var categorie_checkbox = $(".categorie_checkbox[value='" + $(this).data('categorie') + "']");
+                var competence_checkbox = $(".competence_checkbox[data-categorie='" + $(this).data('categorie') + "']");
+
+                // Pour chaques compétences on incrémente le compteur de compétence si la compétence est cochée.
+                competence_checkbox.each(function () {
+                    if ($(this).is(':checked')) {
+                        checked_competence_count++;
+                    }
+                });
+
+                // On met à jour l'état de la checkbox de categorie en fonction des compétences.
+                if (checked_competence_count === competence_checkbox.length) {
+                    categorie_checkbox.prop('checked', true);
+                    categorie_checkbox.prop('indeterminate', false);
+                } else if (checked_competence_count > 0) {
+                    categorie_checkbox.prop('checked', false);
+                    categorie_checkbox.prop('indeterminate', true);
+                } else {
+                    categorie_checkbox.prop('checked', false);
+                    categorie_checkbox.prop('indeterminate', false);
+                }
             });
         }
 
@@ -310,12 +353,12 @@
             {% for categorie, competences in competencesArray %}
                 <section class='categorie_selection_section'>
                     <h3 class="categorie_selection_title">
-                        <label><input type="checkbox">{{ categorie }}</label>
+                        <label><input type="checkbox" class="categorie_checkbox" value="{{ categorie }}">{{ categorie }}</label>
                     </h3>
                     <ul class="competences_ul">
                         {% for competence in competences %}
                             <li class="competences_li">
-                                <label><input type="checkbox" class="competence_checkbox" value="{{ competence }}">{{ competence }}</label>
+                                <label><input type="checkbox" class="competence_checkbox" value="{{ competence }}" data-categorie="{{ categorie }}">{{ competence }}</label>
                             </li>
                         {% endfor %}
                     </ul>
