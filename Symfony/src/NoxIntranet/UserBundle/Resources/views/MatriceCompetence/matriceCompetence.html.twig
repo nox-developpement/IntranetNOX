@@ -9,19 +9,42 @@
     <script>
         $(document).ready(function () {
             // Initialisation de la fonction de trie Jquery.
-            $("#matriceCompetenceTable").tablesorter({
-                sortList: [[1, 0]],
-                headers: {
-                    6: {sorter: false}
+            /*$("#matriceCompetenceTable").tablesorter({
+             sortList: [[1, 0]],
+             headers: {
+             6: {sorter: false}
+             }
+             });
+             
+             // Lorsque le tableau est trié on met à jour l'affichage du header fixe.
+             $("#matriceCompetenceTable").on('sortEnd', function () {
+             
+             });*/
+
+            var maxHeight = 0;
+            $('.fixedHeaderCell').each(function () {
+                if ($(this).height() > maxHeight) {
+                    maxHeight = $(this).height();
                 }
             });
 
-            // Lorsque le tableau est trié on met à jour l'affichage du header fixe.
-            $("#matriceCompetenceTable").on('sortEnd', function () {
-                initializeFixedHeader();
+            //$('.fixedHeaderCell').height(maxHeight);
+            $('#header-background').height(maxHeight);
+            //$('.fixedHeaderCell').css('line-height', maxHeight + "px");
+            $('#matriceCompetence_Container').css('padding-top', maxHeight + "px");
+
+            $('.fixedHeaderCell').each(function () {
+                var marginTop = (maxHeight - $(this).height()) / 2;
+                var marginLeft = ($(this).parent("th").width() - $(this).width() + 2) / 2;
+                $(this).css({
+                    'margin-top': marginTop,
+                    'margin-bottom': marginTop,
+                    'margin-left': marginLeft,
+                    'margin-right': marginLeft
+                });
             });
 
-            tableFixedHeader();
+            //tableFixedHeader();
             toggleCompetencesSelection();
             competenceFilter();
             categorieSelection();
@@ -195,8 +218,10 @@
             width: 100%;
             margin: auto;
             margin-bottom: 2em;
-            overflow: auto;
             height: 500px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 100%;
         }
 
         #competenceTable, #infosSalariesTable {
@@ -206,6 +231,9 @@
         #matriceCompetenceTable {
             margin: auto;
             border-collapse: collapse;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         #matriceCompetenceTable, #matriceCompetenceTable tr, #matriceCompetenceTable th, #matriceCompetenceTable td {
@@ -215,7 +243,7 @@
             background-color: transparent;
         }
 
-        #matriceCompetenceTable th, #matriceCompetenceTable td {
+        #matriceCompetenceTable td {
             padding: 0.5em;
         }
 
@@ -337,8 +365,24 @@
 
         #matriceCompetence_Container {
             position: relative;
-            margin-top: 2em;
-            overflow-y: hidden;
+            height: 500px;
+            width: 100%;
+            /*margin-top: 2em;
+            overflow-y: hidden;*/
+        }
+
+        .fixedHeaderCell {
+            position: absolute;
+            top: 0;
+        }
+
+        #header-background {
+            background-color: rgba(31,78,121,0.8);;
+            height: 30px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;   
         }
     </style>
 
@@ -368,18 +412,19 @@
     </div>
     <!-- Fin du sélécteur de compétences -->
 
-    <section id="matriceCompetence_Container">
+    <div id="matriceCompetence_Container">
+        <div id="header-background"></div>
         <div id="matriceCompetenceTable_Div">
             <table id='matriceCompetenceTable'>
                 <thead>
                     <tr>
-                        <th>Société<hr>Etablissement</th>     
-                        <th>NOM<br />Prénom</th>
-                        <th>Date<br /> de<br /> naissance</th>
-                        <th>Date<br /> d'ancienneté</th>
-                        <th>Statut</th>
-                        <th>Poste</th>
-                        <th>Compétence principale<hr>Compétences secondaires</th>
+                        <th><div class="fixedHeaderCell">Société<hr>Etablissement</div></th>     
+                        <th><div class="fixedHeaderCell">NOM<br />Prénom</div></th>
+                        <th><div class="fixedHeaderCell">Date<br /> de<br /> naissance</div></th>
+                        <th><div class="fixedHeaderCell">Date<br /> d'ancienneté</div></th>
+                        <th><div class="fixedHeaderCell">Statut</div></th>
+                        <th><div class="fixedHeaderCell">Poste</div></th>
+                        <th><div class="fixedHeaderCell">Compétence principale<hr>Compétences secondaires</div></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -410,6 +455,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-    </section>
-</div>
+        </div>
+    </div>
 {% endblock %}
