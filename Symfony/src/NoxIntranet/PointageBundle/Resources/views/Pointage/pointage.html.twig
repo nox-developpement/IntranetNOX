@@ -389,6 +389,7 @@
                                     buttons: {
                                         // Si l'utilisateur valide...
                                         "Valider": function () {
+                                            ajaxPointageAssistanteAgenceValidation($('#form_month').val(), $('#form_year').val());
                                             // On envoi le formulaire.
                                             $(this).dialog("close");
                                             $("form[name='form']").submit();
