@@ -73,6 +73,7 @@
 
     <div id="compilationPointages">
         <p onclick='downloadJustificatifsZip();' style="width: 50%; margin: 0 auto 1em auto; padding: 0.2em; cursor: pointer; border: 1px solid black; border-radius: 5px; background-color: #1F4E79; color: white; text-align: center;">Télécharger les fichiers justificatifs</p>
+        <p onclick='uploadJustificatifCompilation();' style="width: 50%; margin: 0 auto 1em auto; padding: 0.2em; cursor: pointer; border: 1px solid black; border-radius: 5px; background-color: #1F4E79; color: white; text-align: center;">Ajouter des justificatifs supplémentaires</p>
         <table id="compilationPointagesTable">
             <tr>
                 <th id="compilationPointageNomPrenom">Nom/Prénom</th>
@@ -1047,6 +1048,10 @@
         // Met à jours la liste des managers en fonction du mode RH.
         function gestionPointageSetRHMode(checkbox) {
             console.log(checkbox.is(':checked') ? 'Mode RH activé.' : 'Mode RH désactivé.');
+
+            // Cache les pointages déjà affiché.
+            pointageHide();
+
             $.ajax({
                 url: '{{ path('nox_intranet_pointage_ajax_compilation_pointages_rh_mode') }}',
                 type: 'POST',
@@ -1211,6 +1216,46 @@
          }
          });
          }*/
+
+        function uploadJustificatifCompilation() {
+            $("#pointageAlert").html("<input type='file' id='uploadJustificatifCompilationFileInput'>");
+            $("#pointageAlert").dialog({
+                resizable: false,
+                height: "auto",
+                maxHeight: 0.5 * $(document).height(),
+                width: "30%",
+                modal: true,
+                draggable: false,
+                dialogClass: "pointage-alert-content-class",
+                title: "Ajouter un justificatif",
+                buttons: {
+                    "Ajouter": function () {
+                        // Liste des fichiers.
+                        var files = $('#uploadJustificatifCompilationFileInput')[0].files;
+                        console.log(files);
+
+                        // Initialisation d'un lecteur de fichier.
+                        var reader = new FileReader();
+
+                        // Lorsque le fichier est chargé...
+                        $(reader).on('load', function () {
+                            // On l'upload en base de données.
+                            $.ajax({
+                                url: '{{ path('nox_intranet_pointage_ajax_upload_justificatif_compilation') }}',
+                                type: 'POST',
+                                data: {file: reader.result, filename: files[0].name}
+                            });
+                        });
+
+                        // On lis le fichier.
+                        reader.readAsText(files[0]);
+                    },
+                    "Fermer": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
     </script>
 
 {% endblock %}

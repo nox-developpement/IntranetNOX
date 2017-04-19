@@ -1750,6 +1750,7 @@ class PointageAjaxController extends Controller {
         }
     }
 
+    // Retourne le nom des affaires du mois précédent.
     public function ajaxGetLastMonthAffairesAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $user = $request->get('user');
@@ -1762,6 +1763,24 @@ class PointageAjaxController extends Controller {
             $pointesData = json_decode($pointage->getData(), true);
 
             Return new Response(json_encode($pointesData['projectName']));
+        }
+    }
+
+    public function ajaxUploadJustificatifCompilationAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            var_dump($_FILES);
+
+            $file = $request->get('file');
+            $filename = $request->get('filename');
+
+            $stream = fopen('php://memory', 'r+');
+            fwrite($stream, $file);
+            rewind($stream);
+
+            var_dump(filesize("php://memory"));
+            var_dump(filetype("php://memory"));
+
+            return new Response('OK');
         }
     }
 
