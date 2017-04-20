@@ -233,3 +233,7 @@ nox_intranet_pointage_ajax_update_regularisation:
 nox_intranet_pointage_ajax_get_last_month_affaires:
     path: /ressources/pointage/ajax-get-last-month-affaires
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetLastMonthAffaires }
+    
+nox_intranet_pointage_ajax_upload_justificatif_compilation:
+    path: /ressources/pointage/ajax-upload-justificatif-compilation
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxUploadJustificatifCompilation }
