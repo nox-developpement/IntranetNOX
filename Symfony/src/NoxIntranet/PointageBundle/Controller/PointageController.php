@@ -693,7 +693,7 @@ class PointageController extends Controller {
                 return $this->redirectToRoute('nox_intranet_pointage_access_collaborateur_pointage');
             }
             // Sinon si le collaborateur courant n'est le référent du collaborateur et qu'il n'a le statut RH...
-            else if (!empty($userEntity) && !(array_key_exists($userEntity->getUsername(), $this->getUsersByStatus('AA', $securityName)) || $this->get('security.context')->isGranted('ROLE_RH'))) {
+            else if (!empty($userEntity) && !(array_key_exists($userEntity->getUsername(), $this->getUsersByStatus('AA', $securityName, 'false')) || $this->get('security.context')->isGranted('ROLE_RH'))) {
                 // On affiche un message d'erreur et on redirige vers le formulaire d'accés au pointage collaborateur.
                 $this->get('session')->getFlashbag()->add('noticeErreur', "Vous n'avez pas les droits requis pour accéder au pointage de ce collaborateur.");
                 return $this->redirectToRoute('nox_intranet_pointage_access_collaborateur_pointage');
@@ -1051,7 +1051,9 @@ class PointageController extends Controller {
     }
 
     // Affiche l'accès aux archives par année liés à l'établissement.
-    public function compilationArchiveYearAction($etablissement) {
+    public function compilationArchiveYearAction(Request $request) {
+        $etablissement = $request->get('etablissement');
+        
         // On récupére les entitées hiérarchiques des collaborateurs liés à l'établissement.
         $em = $this->getDoctrine()->getManager();
         $collaborateurs = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement);
@@ -1070,7 +1072,10 @@ class PointageController extends Controller {
     }
 
     // Affiche l'accès aux archives par mois lié à l'année et à l'établissement.
-    public function compilationArchiveMonthAction($etablissement, $year) {
+    public function compilationArchiveMonthAction(Request $request) {
+        $etablissement = $request->get('etablissement');
+        $year = $request->get('year');
+        
         // On récupére les entitées hiérarchiques des collaborateurs liés à l'établissement.
         $em = $this->getDoctrine()->getManager();
         $collaborateurs = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement);

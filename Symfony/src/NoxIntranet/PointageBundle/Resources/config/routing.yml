@@ -191,13 +191,13 @@ nox_intranet_pointage_archives_compilation_etablissements:
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationArchiveEtablissement }
     
 nox_intranet_pointage_archives_compilation_years:
-    path: /ressources/pointage/archives-compilation-years/{etablissement}
+    path: /ressources/pointage/archives-compilation-years
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationArchiveYear }
     requirements:
         etablissement: .+
         
 nox_intranet_pointage_archives_compilation_month:
-    path: /ressources/pointage/archives-compilation-month/{year}/{etablissement}
+    path: /ressources/pointage/archives-compilation-month
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationArchiveMonth }
     requirements:
         etablissement: .+
@@ -233,3 +233,7 @@ nox_intranet_pointage_ajax_update_regularisation:
 nox_intranet_pointage_ajax_get_last_month_affaires:
     path: /ressources/pointage/ajax-get-last-month-affaires
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGetLastMonthAffaires }
+    
+nox_intranet_pointage_ajax_upload_justificatif_compilation:
+    path: /ressources/pointage/ajax-upload-justificatif-compilation
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxUploadJustificatifCompilation }

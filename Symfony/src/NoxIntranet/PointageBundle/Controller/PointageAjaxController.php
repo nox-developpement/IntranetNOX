@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use NoxIntranet\PointageBundle\Entity\Tableau;
 use NoxIntranet\PointageBundle\Entity\PointageValide;
 use NoxIntranet\PointageBundle\Entity\JustificatifTransportFile;
+use NoxIntranet\PointageBundle\Entity\JustificatifSupplementairesCompilation;
 use ZipArchive;
 
 class PointageAjaxController extends Controller {
@@ -1164,6 +1165,21 @@ class PointageAjaxController extends Controller {
                 }
             }
 
+            // On récupére les justificatif supplémentaire de la compilation.
+            $justificatifsSupplementaires = $em->getRepository('NoxIntranetPointageBundle:JustificatifSupplementairesCompilation')->findBy(array('month' => $justificatifsZipInfoArray['month'], 'year' => $justificatifsZipInfoArray['year'], 'etablissement' => $justificatifsZipInfoArray['etablissement']));
+
+            // Pour chaques justificatif supplémentaires...
+            foreach ($justificatifsSupplementaires as $justificatif) {
+                // Le nom du fichier (encodé en 'CP850').
+                $filename = mb_convert_encoding(stripslashes($justificatif->getName()), 'CP850', mb_detect_encoding(stripslashes($justificatif->getName())));
+
+                // Le contenu du fichier sous forme de chaîne.
+                $fileContent = stream_get_contents($justificatif->getContent());
+
+                // On ajoute le fichier à l'archive dans un dossier au nom du collaborateur.
+                $zipFile->addFromString(mb_convert_encoding("Justificatif(s) supplémentaire(s)/", 'CP850', mb_detect_encoding("Justificatif(s) supplémentaire(s)/")) . stripcslashes($filename), $fileContent);
+            }
+
             // On récupére le nombre de fichiers dans l'archive.
             $zipFileCount = $zipFile->numFiles;
 
@@ -1660,62 +1676,6 @@ class PointageAjaxController extends Controller {
         }
     }
 
-    /* // Retourne la liste des managers en fonction de l'établisement.
-      public function ajaxGetManagerListAction(Request $request) {
-      if ($request->isXmlHttpRequest()) {
-      // On récupère les données de la requête.
-      $rhMode = $request->get('rhMode');
-      $etablissement = $request->get('etablissement');
-      $userStatus = $request->get('userStatus');
-
-      // On récupére le nom du collaborateur.
-      $securityName = $this->wd_remove_accents(mb_strtoupper($this->get('security.context')->getToken()->getUser()->getFirstname() . ' ' . $this->get('security.context')->getToken()->getUser()->getLastname(), 'UTF-8'));
-
-      // Initialisation de l'entity manager.
-      $em = $this->getDoctrine()->getManager();
-
-      $manager = array();
-      if ($rhMode === 'true') {
-      foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement) as $userHierarchy) {
-      $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-      }
-      } else {
-      switch ($userStatus) {
-      case 'Final':
-      case 'AA':
-      foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('aa' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
-      $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-      }
-      foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('da' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
-      $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-      }
-      foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
-      $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-      }
-      break;
-      case 'DAManager':
-      foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('da' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
-      $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-      }
-      foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
-      $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-      }
-      break;
-      case 'RH':
-      foreach ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findBy(array('rh' => $securityName, 'etablissement' => $etablissement)) as $userHierarchy) {
-      $manager[$userHierarchy->getDA()] = $userHierarchy->getDA();
-      }
-      break;
-      }
-      }
-
-      // On trie les managers.
-      asort($manager);
-
-      return new Response(json_encode($manager));
-      }
-      } */
-
     /**
      * 
      * Met à jour la valeur de régularisation dans le pointage et le tableau de pointage.
@@ -1747,6 +1707,13 @@ class PointageAjaxController extends Controller {
         }
     }
 
+    /**
+     * 
+     * Retourne le nom des affaires du mois précédent.
+     * 
+     * @param Request $request Requête contenant les informations du pointage.
+     * @return Response
+     */
     public function ajaxGetLastMonthAffairesAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $user = $request->get('user');
@@ -1759,6 +1726,50 @@ class PointageAjaxController extends Controller {
             $pointesData = json_decode($pointage->getData(), true);
 
             Return new Response(json_encode($pointesData['projectName']));
+        }
+    }
+
+    /**
+     * 
+     * Upload un ou plusieurs fichiers justificatifs supplémentaires dans la base de données.
+     * 
+     * @param Request $request Requête contenant les données du formulaire d'upload.
+     * @return Response
+     */
+    public function ajaxUploadJustificatifCompilationAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+
+            // Formulaire uploadé.
+            $files = $request->files->get('files');
+            $month = $request->get('month');
+            $year = $request->get('year');
+            $etablissement = $request->get('etablissement');
+
+            foreach ($files as $file) {
+                // On crée une nouvelle entitée de fichier.
+                $newJustificatif = new JustificatifSupplementairesCompilation();
+                $newJustificatif->setName(addslashes($file->getClientOriginalName()));
+                $newJustificatif->setType($file->getMimeType());
+                $newJustificatif->setSize($file->getSize());
+                $newJustificatif->setMonth($month);
+                $newJustificatif->setYear($year);
+                $newJustificatif->setEtablissement($etablissement);
+
+                // On récupère le contenu du fichier et on l'attribut à son entitée.
+                $fp = fopen($file->getPathName(), 'r');
+                $content = fread($fp, filesize($file->getPathName()));
+                fclose($fp);
+                $newJustificatif->setContent($content);
+
+                // Préparation à la sauvegarde en BDD.
+                $em->persist($newJustificatif);
+            }
+
+            // Sauvegarde en BDD.
+            $em->flush();
+
+            return new Response("Uploaded");
         }
     }
 
