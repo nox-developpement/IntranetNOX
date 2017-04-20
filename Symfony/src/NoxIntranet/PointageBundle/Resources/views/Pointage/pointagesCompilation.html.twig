@@ -1218,7 +1218,7 @@
          }*/
 
         function uploadJustificatifCompilation() {
-            $("#pointageAlert").html("<input type='file' id='uploadJustificatifCompilationFileInput'>");
+            $("#pointageAlert").html("<form id='uploadJustificatifCompilationFileForm' type='POST' enctype='multipart/form-data'><input name='files[]' type='file' multiple></form>");
             $("#pointageAlert").dialog({
                 resizable: false,
                 height: "auto",
@@ -1230,25 +1230,44 @@
                 title: "Ajouter un justificatif",
                 buttons: {
                     "Ajouter": function () {
-                        // Liste des fichiers.
-                        var files = $('#uploadJustificatifCompilationFileInput')[0].files;
-                        console.log(files);
+                        var fenetre = $(this);
 
-                        // Initialisation d'un lecteur de fichier.
-                        var reader = new FileReader();
+                        // Lors de l'envoi du formulaire.
+                        $('#uploadJustificatifCompilationFileForm').on('submit', function (e) {
+                            // On bloque l'envoi du formulaire.
+                            e.preventDefault();
 
-                        // Lorsque le fichier est chargé...
-                        $(reader).on('load', function () {
-                            // On l'upload en base de données.
+                            // On récupère les données du formulaire.
+                            var formData = new FormData($('#uploadJustificatifCompilationFileForm')[0]);
+
+                            // On envoi les données du formulaire.
                             $.ajax({
                                 url: '{{ path('nox_intranet_pointage_ajax_upload_justificatif_compilation') }}',
                                 type: 'POST',
-                                data: {file: reader.result, filename: files[0].name}
+                                data: formData,
+                                contentType: false,
+                                processData: false,
+                                success: function (result) {
+                                    console.log(result);
+                                    $("#pointageAlert").html("Envoi terminé, fermeture de la fenêtre dans 3 secondes...");
+                                    var timer = 2;
+                                    var closingMessageInterval = setInterval(function () {
+                                        $("#pointageAlert").html("Envoi terminé, fermeture de la fenêtre dans " + timer + " secondes...");
+                                        timer--;
+                                    }, 1000);
+                                    setTimeout(function () {
+                                        clearInterval(closingMessageInterval);
+                                        fenetre.dialog("close");
+                                    }, 3000);
+                                }
                             });
+
+                            $("#pointageAlert").html("Envoi en cours...");
+
                         });
 
-                        // On lis le fichier.
-                        reader.readAsText(files[0]);
+                        // On envoi le formulaire.
+                        $('#uploadJustificatifCompilationFileForm').submit();
                     },
                     "Fermer": function () {
                         $(this).dialog("close");

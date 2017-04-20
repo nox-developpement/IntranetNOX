@@ -1768,19 +1768,7 @@ class PointageAjaxController extends Controller {
 
     public function ajaxUploadJustificatifCompilationAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
-            var_dump($_FILES);
-
-            $file = $request->get('file');
-            $filename = $request->get('filename');
-
-            $stream = fopen('php://memory', 'r+');
-            fwrite($stream, $file);
-            rewind($stream);
-
-            var_dump(filesize("php://memory"));
-            var_dump(filetype("php://memory"));
-
-            return new Response('OK');
+            return new Response(var_dump($_FILES));
         }
     }
 
