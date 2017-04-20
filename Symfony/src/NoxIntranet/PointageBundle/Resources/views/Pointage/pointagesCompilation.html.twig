@@ -73,7 +73,9 @@
 
     <div id="compilationPointages">
         <p onclick='downloadJustificatifsZip();' style="width: 50%; margin: 0 auto 1em auto; padding: 0.2em; cursor: pointer; border: 1px solid black; border-radius: 5px; background-color: #1F4E79; color: white; text-align: center;">Télécharger les fichiers justificatifs</p>
-        <p onclick='uploadJustificatifCompilation();' style="width: 50%; margin: 0 auto 1em auto; padding: 0.2em; cursor: pointer; border: 1px solid black; border-radius: 5px; background-color: #1F4E79; color: white; text-align: center;">Ajouter des justificatifs supplémentaires</p>
+        {% if validationStep != 'Final' %}
+            <p onclick='uploadJustificatifCompilation();' style="width: 50%; margin: 0 auto 1em auto; padding: 0.2em; cursor: pointer; border: 1px solid black; border-radius: 5px; background-color: #1F4E79; color: white; text-align: center;">Ajouter des justificatifs supplémentaires</p>
+        {% endif %}
         <table id="compilationPointagesTable">
             <tr>
                 <th id="compilationPointageNomPrenom">Nom/Prénom</th>
@@ -996,7 +998,12 @@
             });
 
             // On génére un objet contenant le mois, l'année et les usernames de la compilation.
-            var justificatifsZipInfo = {'month': $('#form_Month').val(), 'year': $('#form_Year').val(), 'usernames': collaborateursUsernames, 'etablissement': $('#form_Etablissement').val()};
+            var justificatifsZipInfo = {
+                'month': $('#form_Month').val(),
+                'year': $('#form_Year').val(),
+                'usernames': collaborateursUsernames,
+                'etablissement': $('#form_Etablissement').val()
+            };
 
             // Rêquette Ajax qui lance la génération du fichier ZIP.
             $.ajax({
@@ -1180,45 +1187,61 @@
             $('.ui-dialog :button').blur();
         }
 
-        // Récupère la liste des managers en fonction de l'établissement.
-        /*function ajaxGetManagerList() {
-         // Lorsque l'on change la valeur de mois, année ou établissement.
-         $('#form_Year, #form_Month, #form_Etablissement').change(function () {
-         // On supprime les options déjà présente.
-         $('#form_Manager option').remove();
-         
-         // On ajoute un placeholder.
-         $('#form_Manager').append($('<option>', {
-         value: '',
-         text: "Choisir un manager"
-         }));
-         
-         // Si un mois, une année et un etablissement sont séléctionné...
-         if ($('#form_Month').val() !== '' && $('#form_Year').val() !== '' && $('#form_Etablissement').val() !== '') {
-         $.ajax({
-         type: 'POST',
-         url: '{{ path('nox_intranet_pointage_ajax_get_managers_list_aa_gestion') }}',
-         data: {etablissement: $('#form_Etablissement').val(), userStatus: '{{ userStatus }}', rhMode: $('#RHMode').is(':checked')},
-         success: function (response) {
-         // On récupére la liste des pointages sous forme d'objet.
-         var items = JSON.parse(response);
-         
-         // Pour chaque pointages...
-         $.each(items, function (id, label) {
-         // On ajoute une option au sélécteur de manager.
-         $('#form_Manager').append($('<option>', {
-         value: id,
-         text: label
-         }));
-         });
-         }
-         });
-         }
-         });
-         }*/
-
+        // Permet d'ajouter des fichiers justificatifs complémentaires à la compilation.
         function uploadJustificatifCompilation() {
-            $("#pointageAlert").html("<form id='uploadJustificatifCompilationFileForm' type='POST' enctype='multipart/form-data'><input name='files[]' type='file' multiple></form>");
+            function sendFiles(popup) {
+                // Vérifie qu'un fichier est séléctionné.
+                if ($('#uploadJustificatifCompilationFileForm').find("input[name='files[]']").val() === "") {
+                    return false;
+                }
+
+                // Lors de l'envoi du formulaire.
+                $('#uploadJustificatifCompilationFileForm').on('submit', function (e) {
+                    // On bloque l'envoi du formulaire.
+                    e.preventDefault();
+
+                    // On récupère les données du formulaire.
+                    var formData = new FormData($('#uploadJustificatifCompilationFileForm')[0]);
+
+                    // On envoi les données du formulaire.
+                    $.ajax({
+                        url: '{{ path('nox_intranet_pointage_ajax_upload_justificatif_compilation') }}',
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function () {
+                            // Affichage d'un message de confirmation et fermeture de la fenêtre.
+                            $("#pointageAlert").html("<p style='color: green; text-align: center;'>Envoi terminé, fermeture de la fenêtre dans 3 secondes...</p>");
+                            var timer = 2;
+                            var closingMessageInterval = setInterval(function () {
+                                if (timer === 0) {
+                                    clearInterval(closingMessageInterval);
+                                    popup.dialog("close");
+                                }
+                                $("#pointageAlert").html("<p style='color: green; text-align: center;'>Envoi terminé, fermeture de la fenêtre dans " + timer + " secondes...</p>");
+                                timer--;
+                            }, 1000);
+                        }
+                    });
+
+                    // Affichage d'un message de confirmation d'envoi en cours et on cache le bouton d'ajout.
+                    $("#pointageAlert").html("<p style='text-align: center;'>Envoi en cours...</p>");
+                    $(":button:contains('Ajouter')").hide();
+                });
+
+                // On envoi le formulaire.
+                $('#uploadJustificatifCompilationFileForm').submit();
+            }
+
+            // Ouverture d'une pop-up d'envoi de fichiers.
+            var form = "<form id='uploadJustificatifCompilationFileForm' type='POST' enctype='multipart/form-data' style='border: none;'>";
+            form += "<input name='files[]' type='file' multiple>";
+            form += "<input name='month' type='hidden' value='" + $("#form_Month").val() + "'>";
+            form += "<input name='year' type='hidden' value='" + $("#form_Year").val() + "'>";
+            form += "<input name='etablissement' type='hidden' value='" + $("#form_Etablissement").val() + "'>";
+            form += "</form>";
+            $("#pointageAlert").html(form);
             $("#pointageAlert").dialog({
                 resizable: false,
                 height: "auto",
@@ -1230,50 +1253,14 @@
                 title: "Ajouter un justificatif",
                 buttons: {
                     "Ajouter": function () {
-                        var fenetre = $(this);
-
-                        // Lors de l'envoi du formulaire.
-                        $('#uploadJustificatifCompilationFileForm').on('submit', function (e) {
-                            // On bloque l'envoi du formulaire.
-                            e.preventDefault();
-
-                            // On récupère les données du formulaire.
-                            var formData = new FormData($('#uploadJustificatifCompilationFileForm')[0]);
-
-                            // On envoi les données du formulaire.
-                            $.ajax({
-                                url: '{{ path('nox_intranet_pointage_ajax_upload_justificatif_compilation') }}',
-                                type: 'POST',
-                                data: formData,
-                                contentType: false,
-                                processData: false,
-                                success: function (result) {
-                                    console.log(result);
-                                    $("#pointageAlert").html("Envoi terminé, fermeture de la fenêtre dans 3 secondes...");
-                                    var timer = 2;
-                                    var closingMessageInterval = setInterval(function () {
-                                        $("#pointageAlert").html("Envoi terminé, fermeture de la fenêtre dans " + timer + " secondes...");
-                                        timer--;
-                                    }, 1000);
-                                    setTimeout(function () {
-                                        clearInterval(closingMessageInterval);
-                                        fenetre.dialog("close");
-                                    }, 3000);
-                                }
-                            });
-
-                            $("#pointageAlert").html("Envoi en cours...");
-
-                        });
-
-                        // On envoi le formulaire.
-                        $('#uploadJustificatifCompilationFileForm').submit();
+                        sendFiles($(this));
                     },
                     "Fermer": function () {
                         $(this).dialog("close");
                     }
                 }
             });
+            $("#uploadJustificatifCompilationFileForm input").blur();
         }
     </script>
 
