@@ -1051,7 +1051,9 @@ class PointageController extends Controller {
     }
 
     // Affiche l'accès aux archives par année liés à l'établissement.
-    public function compilationArchiveYearAction($etablissement) {
+    public function compilationArchiveYearAction(Request $request) {
+        $etablissement = $request->get('etablissement');
+        
         // On récupére les entitées hiérarchiques des collaborateurs liés à l'établissement.
         $em = $this->getDoctrine()->getManager();
         $collaborateurs = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement);
@@ -1070,7 +1072,10 @@ class PointageController extends Controller {
     }
 
     // Affiche l'accès aux archives par mois lié à l'année et à l'établissement.
-    public function compilationArchiveMonthAction($etablissement, $year) {
+    public function compilationArchiveMonthAction(Request $request) {
+        $etablissement = $request->get('etablissement');
+        $year = $request->get('year');
+        
         // On récupére les entitées hiérarchiques des collaborateurs liés à l'établissement.
         $em = $this->getDoctrine()->getManager();
         $collaborateurs = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement);
