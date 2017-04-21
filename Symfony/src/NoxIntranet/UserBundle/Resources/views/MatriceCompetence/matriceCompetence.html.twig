@@ -9,28 +9,34 @@
     <script>
         $(document).ready(function () {
             // Initialisation de la fonction de trie Jquery.
-            /*$("#matriceCompetenceTable").tablesorter({
-             sortList: [[1, 0]],
-             headers: {
-             6: {sorter: false}
-             }
-             });
-             
-             // Lorsque le tableau est trié on met à jour l'affichage du header fixe.
-             $("#matriceCompetenceTable").on('sortEnd', function () {
-             
-             });*/
+            $("#matriceCompetenceTable").tablesorter({
+                sortList: [[1, 0]],
+                headers: {
+                    6: {sorter: false}
+                }
+            });
 
+
+            initFixedHeader();
+            $(window).resize(function () {
+                initFixedHeader();
+            });
+
+            toggleCompetencesSelection();
+            competenceFilter();
+            categorieSelection();
+        });
+
+        function initFixedHeader() {
             var maxHeight = 0;
             $('.fixedHeaderCell').each(function () {
                 if ($(this).height() > maxHeight) {
                     maxHeight = $(this).height();
                 }
             });
+            maxHeight = maxHeight + 0.4 * maxHeight;
 
-            //$('.fixedHeaderCell').height(maxHeight);
             $('#header-background').height(maxHeight);
-            //$('.fixedHeaderCell').css('line-height', maxHeight + "px");
             $('#matriceCompetence_Container').css('padding-top', maxHeight + "px");
 
             $('.fixedHeaderCell').each(function () {
@@ -43,93 +49,12 @@
                     'margin-right': marginLeft
                 });
             });
-
-            //tableFixedHeader();
-            toggleCompetencesSelection();
-            competenceFilter();
-            categorieSelection();
-        });
-
+        }
 
         function toggleCompetencesSelection() {
             $('#categorie_selection_foldbar').on('click', function () {
                 $('#categorie_selection_box').slideToggle();
                 $('.categorie_selection_foldbar_indicator').toggle();
-            });
-        }
-
-        // Actualise le header fixe lors di redimensionnement et cache le header originale.
-        function tableFixedHeader() {
-            console.log('Ajout et paramètrage header fixe');
-
-            // Initialise le header au chargement et lors du redisionnement de la fenêtre. 
-            $(window).resize(function () {
-                $("#matriceCompetenceTable thead").first().remove();
-                initializeFixedHeader();
-            });
-
-            // Permet de cacher le header d'origine ne permanance.
-            $("#matriceCompetenceTable_Div").scroll(function () {
-                if ($(this).scrollTop() < $("#matriceCompetenceTable thead").first().height()) {
-                    $(this).scrollTop($("#matriceCompetenceTable thead:first-child").height());
-                }
-                $("#matriceCompetenceTable thead").first().css("left", -$(this).scrollLeft());
-            });
-        }
-
-        // Génere et ajoute un header fixe au tableau.
-        function initializeFixedHeader() {
-            console.log("Création d'un header fixe.");
-
-            // Clonage du header.
-            var tableHeader = $("#matriceCompetenceTable thead").clone();
-            $("#matriceCompetenceTable").prepend(tableHeader);
-
-            // Attribution de la longueur des éléments.
-            tableHeader.width(tableHeader.width());
-            tableHeader.find("tr").each(function () {
-                $(this).width($(this).width());
-            });
-            tableHeader.find("th").each(function () {
-                $(this).width($(this).width() + 2);
-            });
-
-            // Attribution du css des éléments.
-            tableHeader.css({
-                "width": tableHeader.width(),
-                "display": "table",
-                "border-collapse": "collapse",
-                "top": "1px",
-                "left": "0px"
-            });
-
-            tableHeader.find("tr").each(function () {
-                $(this).css({
-                    //"width": $(this).width(),
-                    "display": "table-row",
-                    "border-collapse": "collapse",
-                    "border": "none"
-                });
-            });
-            tableHeader.find("th").each(function () {
-                $(this).css({
-                    //"width": $(this).outerWidth(),
-                    "display": "table-cell",
-                    "border-collapse": "collapse",
-                    //"border-top": "none",
-                    "border-bottom": "none"
-                });
-            });
-            tableHeader.css('position', 'absolute');
-
-            // Positionnement du tableau dans le container.
-            $("#matriceCompetence_Container").css("padding-top", $("#matriceCompetenceTable thead:first-child").height());
-            $("#matriceCompetenceTable_Div").scrollTop($("#matriceCompetenceTable thead:first-child").height());
-
-            // Lors d'un clique sur une cellules du header fixe, simule un clique sur la cellule correspondante du header d'origine.
-            $("#matriceCompetenceTable thead").first().find('tr').find('th').click(function () {
-                $("#matriceCompetenceTable thead").last().find('tr').find('th').eq($(this).index()).trigger('click');
-                $("#matriceCompetenceTable thead").first().remove();
             });
         }
 
@@ -168,6 +93,9 @@
                         $(this).hide();
                     }
                 });
+
+                // Affiche/cache l'undicateur de résultat nulle en fonction du nombre de résultat.
+                $(".matrice_tr:not([style='display: none;'])").length > 0 ? $('#no_results_tr').hide() : $('#no_results_tr').show();
             });
         }
 
@@ -208,6 +136,8 @@
                     categorie_checkbox.prop('checked', false);
                     categorie_checkbox.prop('indeterminate', false);
                 }
+
+                initFixedHeader();
             });
         }
 
@@ -367,13 +297,14 @@
             position: relative;
             height: 500px;
             width: 100%;
-            /*margin-top: 2em;
-            overflow-y: hidden;*/
+            margin-top: 2em;
         }
 
         .fixedHeaderCell {
             position: absolute;
             top: 0;
+            font-size: calc(9px + 0.2vw);
+            cursor: pointer;
         }
 
         #header-background {
@@ -383,6 +314,11 @@
             top: 0;
             right: 0;
             left: 0;   
+        }
+
+        #matriceCompetenceTable thead tr th {
+            font-size: 0;
+            padding: 0;
         }
     </style>
 
@@ -397,12 +333,12 @@
             {% for categorie, competences in competencesArray %}
                 <section class='categorie_selection_section'>
                     <h3 class="categorie_selection_title">
-                        <label><input type="checkbox" class="categorie_checkbox" value="{{ categorie }}">{{ categorie }}</label>
+                        <label><input type="checkbox" class="categorie_checkbox" value="{{ categorie }}" checked>{{ categorie }}</label>
                     </h3>
                     <ul class="competences_ul">
                         {% for competence in competences %}
                             <li class="competences_li">
-                                <label><input type="checkbox" class="competence_checkbox" value="{{ competence }}" data-categorie="{{ categorie }}">{{ competence }}</label>
+                                <label><input type="checkbox" class="competence_checkbox" value="{{ competence }}" data-categorie="{{ categorie }}" checked>{{ competence }}</label>
                             </li>
                         {% endfor %}
                     </ul>
@@ -412,6 +348,7 @@
     </div>
     <!-- Fin du sélécteur de compétences -->
 
+    <!-- Table des compétences -->
     <div id="matriceCompetence_Container">
         <div id="header-background"></div>
         <div id="matriceCompetenceTable_Div">
@@ -453,8 +390,12 @@
                             </td>
                         </tr>
                     {% endfor %}
+                    <tr class="matrice_tr" id="no_results_tr" style="display: none;">
+                        <td colspan="7">Aucun résultat...</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
+    <!-- Fin de la table des compétences -->
 {% endblock %}
