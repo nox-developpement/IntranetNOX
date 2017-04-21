@@ -16,18 +16,24 @@
                 }
             });
 
-
+            // Initialisation du header fixe et mise à jour lors du recadrage de la fenêtre.
             initFixedHeader();
             $(window).resize(function () {
                 initFixedHeader();
             });
 
+            // Mise à jour des compétences séléctionnées.
+            updateSelectedCompetenceText();
+
+            // Fonction de séléction et filtrage des compétences.
             toggleCompetencesSelection();
             competenceFilter();
             categorieSelection();
         });
 
+        // Fixe le header du tableau des compétences.
         function initFixedHeader() {
+            // Taille maximum des cellules du header.
             var maxHeight = 0;
             $('.fixedHeaderCell').each(function () {
                 if ($(this).height() > maxHeight) {
@@ -36,9 +42,11 @@
             });
             maxHeight = maxHeight + 0.4 * maxHeight;
 
+            // Attribution de la taille et positionnement du fond du header.
             $('#header-background').height(maxHeight);
             $('#matriceCompetence_Container').css('padding-top', maxHeight + "px");
 
+            // Centrage des texte du header.
             $('.fixedHeaderCell').each(function () {
                 var marginTop = (maxHeight - $(this).height()) / 2;
                 var marginLeft = ($(this).parent("th").width() - $(this).width() + 2) / 2;
@@ -51,6 +59,7 @@
             });
         }
 
+        // Affichage cache le sélécteur de catégories/compétences.
         function toggleCompetencesSelection() {
             $('#categorie_selection_foldbar').on('click', function () {
                 $('#categorie_selection_box').slideToggle();
@@ -105,7 +114,7 @@
             $(".categorie_checkbox").change(function () {
                 // On séléctionne/déséléctionne les compétences correspondantes et on simule un évenement de changement.
                 $(".competence_checkbox[data-categorie='" + $(this).val() + "']").prop('checked', $(this).is(':checked'));
-                $(".competence_checkbox").first().trigger('change');
+                $(".competence_checkbox[data-categorie='" + $(this).val() + "']").first().trigger('change');
             });
 
 
@@ -137,7 +146,30 @@
                     categorie_checkbox.prop('indeterminate', false);
                 }
 
+                updateSelectedCompetenceText();
                 initFixedHeader();
+            });
+        }
+
+        // Met à jour l'affichage des compétences séléctionnées.
+        function updateSelectedCompetenceText() {
+            // On efface le texte déjà présent.
+            $('#selected_competences').text("Aucune");
+
+            // Pour chaques compétences...
+            $(".competence_checkbox:checked").each(function (index) {
+                // Si le texte dépasse 150 charactères on affiche le nombre de compétences restante et on quitte la boucle.
+                if ($('#selected_competences').text().length > 150) {
+                    $('#selected_competences').text($('#selected_competences').text() + " et " + ($(".competence_checkbox:checked").length - index) + " autres...");
+                    return false;
+                }
+
+                // On affiche les compétences.
+                if (index === 0) {
+                    $('#selected_competences').text($(this).val());
+                } else {
+                    $('#selected_competences').text($('#selected_competences').text() + ", " + $(this).val());
+                }
             });
         }
 
@@ -320,6 +352,14 @@
             font-size: 0;
             padding: 0;
         }
+
+        #selected_competence_text {
+            margin: 0;
+            padding: 0.5em;
+            background-color: rgba(255,255,255,0.8);
+            border-top: 1px solid #1F4E79;
+            font-size: calc(11px + 0.2vw);   
+        }
     </style>
 
     <!-- Sélécteur de compétences -->
@@ -344,6 +384,9 @@
                     </ul>
                 </section>
             {% endfor %}
+        </div>
+        <div id="selected_competence_div">
+            <p id="selected_competence_text">Compétence(s) séléctionnée(s) : <span id="selected_competences"></span></p>
         </div>
     </div>
     <!-- Fin du sélécteur de compétences -->
