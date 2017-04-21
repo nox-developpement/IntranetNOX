@@ -173,6 +173,18 @@
             });
         }
 
+        // Coche/Décoche toutes les case de catégorie et de compétence.
+        function selectDeselectAllCompetences(action) {
+            if (action === "check") {
+                $(".competence_checkbox").prop('checked', true);
+                $(".categorie_checkbox").prop('checked', true);
+            } else if (action === "unckeck") {
+                $(".competence_checkbox").prop('checked', false);
+                $(".categorie_checkbox").prop('checked', false);
+            }
+            $(".competence_checkbox").first().trigger('change');
+        }
+
     </script>
 
     <style>
@@ -360,6 +372,18 @@
             border-top: 1px solid #1F4E79;
             font-size: calc(11px + 0.2vw);   
         }
+
+        #select_deselect_competences {
+            margin: 0;
+            padding: 0.5em;
+            padding-bottom: 0;
+            font-size: calc(11px + 0.2vw);   
+            cursor: pointer;
+        }
+
+        #select_deselect_competences span:hover {
+            text-decoration: underline;
+        }
     </style>
 
     <!-- Sélécteur de compétences -->
@@ -370,6 +394,7 @@
             <p class="categorie_selection_foldbar_indicator">&#10133;</p>
         </div>
         <div id="categorie_selection_box" style="display: none;" data-state="open">
+            <p id="select_deselect_competences"><span onclick="selectDeselectAllCompetences('check');">Tout cocher</span>/<span onclick="selectDeselectAllCompetences('unckeck');">Tout décocher</span></p>
             {% for categorie, competences in competencesArray %}
                 <section class='categorie_selection_section'>
                     <h3 class="categorie_selection_title">
