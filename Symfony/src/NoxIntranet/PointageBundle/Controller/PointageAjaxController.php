@@ -571,6 +571,7 @@ class PointageAjaxController extends Controller {
             // Inisialisation des varibables de fonction.
             $month = $request->get('month');
             $year = $request->get('year');
+            $etablissement = $request->get('etablissement');
             $userStatus = $request->get('userStatus');
             //$manager = $request->get('manager');
             $rhMode = $request->get('rhMode');
@@ -578,7 +579,7 @@ class PointageAjaxController extends Controller {
             $em = $this->getDoctrine()->getManager();
 
             // On vérifie le status hiérarchique de l'utilisateur et on retourne les pointages valides des collaborateurs associés à l'utilisateur.
-            $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName, $rhMode), $month, $year, /* $manager, */ 'Final');
+            $pointagesValides = $this->getPointagesValides($this->getUsersByStatus($userStatus, $securityName, $rhMode), $month, $year, $etablissement, /* $manager, */ 'Final');
 
             // On vide le dossier avant l'enregistrement.
             foreach (glob($root . "/../web/Pointage/FichierRecap/*") as $file) { // iterate files
