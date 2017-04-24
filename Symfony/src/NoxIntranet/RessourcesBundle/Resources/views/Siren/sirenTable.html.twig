@@ -1,0 +1,112 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Ressources {% endblock %}
+
+{% block messageAccueil %}Ressources{% endblock %}
+
+{% block contenu %} 
+
+    <script>
+        $(window).load(function () {
+            ajaxSendSearchForm();
+        });
+
+        function ajaxSendSearchForm() {
+            $("form[name='form']").submit(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: '{{ path('nox_intranet_ressources_ajax_search_siren') }}',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (sirens) {
+                        console.log(sirens);
+                    }
+                });
+            });
+        }
+    </script>
+
+    <style>
+        #siren_table_container {
+            width: 100%;
+            margin: auto;
+        }
+
+        #siren_table {
+            width: 100%;
+        }
+
+        #siren_table, #siren_table tr, #siren_table th, #siren_table td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        #siren_table th {
+            word-wrap: break-word;
+            background-color: rgba(31,78,121,0.8);
+            color: white;
+        }
+
+        #siren_table th, #siren_table td {
+            padding: 0.5em;
+            font-size: calc(9px + 0.2vw);
+            text-align: center;
+        }
+    </style>
+
+    {{ form(searchSirenForm) }}
+    <div id="siren_table_container">
+        <div></div>
+        <div>
+            <table id="siren_table">
+                <thead>
+                    <tr>
+                        <th>SIREN</th>
+                        <th>SIRET</th>
+                        <th>NumTVAIntra</th>
+                        <th>NICSIEGE</th>
+                        <th>RaisonSociale</th>
+                        <th>SIGLE</th>
+                        <th>ENSEIGNE</th>
+                        <th>NAF</th>
+                        <th>CATJUR</th>
+                        <th>LIBNJ</th>
+                        <th>NUMVOIE</th>
+                        <th>INDREP</th>
+                        <th>TYPVOIE</th>
+                        <th>LIBVOIE</th>
+                        <th>CP</th>
+                        <th>CEDEX</th>
+                        <th>VILLE</th>
+                        <th>PAYS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for siren in sirens %}
+                        <tr>
+                            <td>{{ siren['SIREN'] }}</td>
+                            <td>{{ siren['SIRET'] }}</td>
+                            <td>{{ siren['NumTVAIntra'] }}</td>
+                            <td>{{ siren['NICSIEGE'] }}</td>
+                            <td>{{ siren['RaisonSociale'] }}</td>
+                            <td>{{ siren['SIGLE'] }}</td>
+                            <td>{{ siren['ENSEIGNE'] }}</td>
+                            <td>{{ siren['NAF'] }}</td>
+                            <td>{{ siren['CATJUR'] }}</td>
+                            <td>{{ siren['LIBNJ'] }}</td>
+                            <td>{{ siren['NUMVOIE'] }}</td>
+                            <td>{{ siren['INDREP'] }}</td>
+                            <td>{{ siren['TYPVOIE'] }}</td>
+                            <td>{{ siren['LIBVOIE'] }}</td>
+                            <td>{{ siren['CP'] }}</td>
+                            <td>{{ siren['CEDEX'] }}</td>
+                            <td>{{ siren['VILLE'] }}</td>
+                            <td>{{ siren['PAYS'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
