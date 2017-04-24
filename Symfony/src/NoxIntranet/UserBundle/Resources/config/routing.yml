@@ -28,15 +28,15 @@ nox_intranet_developpement_professionnel_monitoring_formulaire:
     defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel\DeveloppementProfessionnel:formulaireMonitoring }
     
 nox_intranet_developpement_professionnel_matrice_competence_formulaire:
-    path:   /ressources/matrice-competence-formulaire
+    path:   /ressources/matrice-competence/mes-competences
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:competenceForm }
     
 nox_intranet_developpement_professionnel_matrice_competence_download:
     path:   /ressources/matrice-competence-download
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:generateMatriceCompetenceExcelFile }
     
-nox_intranet_developpement_professionnel_matrice_competence:
-    path:   /ressources/matrice-competence
+nox_intranet_developpement_professionnel_matrice_competence_tableau:
+    path:   /ressources/matrice-competence/competences-collaborateurs
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:matriceCompetenceTable }
     
 nox_intranet_developpement_professionnel_matrice_competence_file_extraction:
