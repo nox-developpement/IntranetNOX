@@ -11,10 +11,10 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class SirenController extends Controller {
 
-    static $SERVER = "SRV-NOX35-APPLI\EVERWIN";
+    static $SERVER = "SRVM-SQL";
     static $DATABASE = "BaseSiren";
-    static $USER = "NOXGXreader";
-    static $PASSWORD = "NOX35GXreader";
+    static $USER = "NoxReader";
+    static $PASSWORD = "NoxReader";
 
     private function sirenExtraction($rowIndex) {
         $server = self::$SERVER;
@@ -34,7 +34,6 @@ class SirenController extends Controller {
 
         // On execute la requête.
         $result = odbc_exec($connection, $query);
-
 
         $sirens = array();
         while ($siren = odbc_fetch_array($result)) {
@@ -80,17 +79,20 @@ class SirenController extends Controller {
 
         $connection = odbc_connect("Driver={SQL Server};Server=$server;Database=$database;", $user, $password);
 
-        $query = "SELECT SIREN, SIRET, NumTVAIntra, NICSIEGE, RaisonSociale, SIGLE, ENSEIGNE, NAF, CATJUR, LIBNJ, NUMVOIE, INDREP, TYPVOIE, LIBVOIE, CP, CEDEX, VILLE, PAYS ";
-        $query .= "FROM ( SELECT ROW_NUMBER() OVER ( ORDER BY SIREN ) AS RowNum, SIREN, SIRET, NumTVAIntra, NICSIEGE, RaisonSociale, SIGLE, ENSEIGNE, NAF, CATJUR, LIBNJ, NUMVOIE, INDREP, TYPVOIE, LIBVOIE, CP, CEDEX, VILLE, PAYS ";
-        $query .= "FROM V_entreprise ";
-        $query .= ") AS RowConstrainedResult ";
-        $query .= "WHERE RowNum >= " . "0" . " ";
-        //$query .= "AND RowNum < " . ($form['rowIndex'] + 500) . " ";
-        $query .= isset($form['SIREN']) ? "AND SIREN = '" . $form['SIREN'] . "' " : "";
-        $query .= isset($form['SIRET']) ? "AND SIRET = '" . $form['SIRET'] . "' " : "";
-        $query .= "ORDER BY RowNum";
+        /* $query = "SELECT SIREN, SIRET, NumTVAIntra, NICSIEGE, RaisonSociale, SIGLE, ENSEIGNE, NAF, CATJUR, LIBNJ, NUMVOIE, INDREP, TYPVOIE, LIBVOIE, CP, CEDEX, VILLE, PAYS ";
+          $query .= "FROM ( SELECT ROW_NUMBER() OVER ( ORDER BY SIREN ) AS RowNum, SIREN, SIRET, NumTVAIntra, NICSIEGE, RaisonSociale, SIGLE, ENSEIGNE, NAF, CATJUR, LIBNJ, NUMVOIE, INDREP, TYPVOIE, LIBVOIE, CP, CEDEX, VILLE, PAYS ";
+          $query .= "FROM V_entreprise WITH (NOLOCK)";
+          $query .= ") AS RowConstrainedResult ";
+          $query .= "WHERE RowNum >= " . "0" . " ";
+          //$query .= "AND RowNum < " . ($form['rowIndex'] + 500) . " ";
+          $query .= isset($form['SIREN']) ? "AND SIREN = '" . $form['SIREN'] . "' " : "";
+          $query .= isset($form['SIRET']) ? "AND SIRET = '" . $form['SIRET'] . "' " : "";
+          $query .= "ORDER BY RowNum"; */
 
-        var_dump($query);
+        $query = "SELECT * FROM V_entreprise WITH (NOLOCK) WHERE ";
+        $query .= isset($form['SIREN']) ? "SIREN LIKE '%" . $form['SIREN'] . "%' " : "";
+        $query .= isset($form['SIRET']) ? "AND SIRET LIKE '%" . $form['SIRET'] . "%' " : "";
+        $query .= "ORDER BY SIREN";
 
         // On execute la requête.
         $result = odbc_exec($connection, $query);
