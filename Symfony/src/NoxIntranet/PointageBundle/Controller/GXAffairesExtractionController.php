@@ -41,7 +41,8 @@ class GXAffairesExtractionController extends Controller {
         $affairesCount = $this->getAffairesCountFromGXDatabase();
 
         // On récupére les affaires depuis la base de données GX.
-        $affaires = $this->getAffairesFromeGXDatabase();
+        $GXDatabase = $this->getAffairesFromeGXDatabase();
+        $affaires = $GXDatabase['affaires'];
 
         // On désactive le log SQL pour optimiser les performances.
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
@@ -98,6 +99,9 @@ class GXAffairesExtractionController extends Controller {
         // On flush les modifications restantes.
         $this->em->flush();
         $this->em->clear();
+
+        // On ferme la connexion à la base de données GX.
+        odbc_close($GXDatabase['connexion_token']);
     }
 
     /**
@@ -136,13 +140,13 @@ class GXAffairesExtractionController extends Controller {
         $connexion_token = $this->connectToGXDatabase(self::$SERVER_NAME, self::$DATABASE, self::$UID, self::$PWD);
 
         // Requête qui retourne les affaires.
-        $query = "SET NOCOUNT ON SELECT Champ2, Champ9, Designation FROM AFFAIRE WHERE Champ2 <> 'NULL'";
+        $query = "SET NOCOUNT ON SELECT Champ2, Champ9, Designation FROM AFFAIRE WITH (NOLOCK) WHERE Champ2 <> 'NULL'";
 
         // On execute la requête.
         $result = odbc_exec($connexion_token, $query);
 
         // On retourne le résultat de la requête.
-        return $result;
+        return array('affaires' => $result, 'connexion_token' => $connexion_token);
     }
 
     /**
