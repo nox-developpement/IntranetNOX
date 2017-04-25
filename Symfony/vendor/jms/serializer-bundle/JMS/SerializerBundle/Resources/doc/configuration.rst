@@ -125,12 +125,16 @@ values:
                         namespace_prefix: "My\\BarBundle"
                         path: "@MyBarBundle/Resources/config/serializer"
 
+            expression_evaluator:
+                id: jms_serializer.expression_evaluator # auto detected
+
             visitors:
                 json:
                     options: 0 # json_encode options bitmask
                 xml:
                     doctype_whitelist:
                         - '<!DOCTYPE authorized SYSTEM "http://some_url">' # an authorized document type for xml deserialization
+                    format_output: true
 
     .. code-block :: xml
 

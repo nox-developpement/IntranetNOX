@@ -566,7 +566,6 @@ class PointageAjaxController extends Controller {
         if ($request->isXmlHttpRequest()) {
             // On récupére le module PHP de traitement des fichiers Excel.
             $root = str_replace('\\', '/', $this->get('kernel')->getRootDir());
-            require_once $root . '\..\vendor\phpexcel\phpexcel\PHPExcel.php';
 
             // Inisialisation des varibables de fonction.
             $month = $request->get('month');
@@ -969,7 +968,6 @@ class PointageAjaxController extends Controller {
 
             // On récupére la racine du serveur et on importe le module PHP Excel.
             $root = $this->get('kernel')->getRootDir() . '/..';
-            require_once $root . '\vendor\phpexcel\phpexcel\PHPExcel.php';
 
             // On initialise une nouvelle feuille Excel.
             $objPHPExcel = new \PHPExcel();
@@ -1492,7 +1490,6 @@ class PointageAjaxController extends Controller {
     public function ajaxGenerateExcelArchiveRecapAction(Request $request) {
         // On récupére le module PHP de traitement des fichiers Excel.
         $root = str_replace('\\', '/', $this->get('kernel')->getRootDir());
-        require_once $root . '\..\vendor\phpexcel\phpexcel\PHPExcel.php';
 
         $etablissement = $request->get('etablissement');
         $month = $request->get('month');

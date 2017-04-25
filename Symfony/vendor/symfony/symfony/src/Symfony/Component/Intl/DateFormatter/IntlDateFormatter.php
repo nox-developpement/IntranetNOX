@@ -173,7 +173,7 @@ class IntlDateFormatter
      *                         One of the calendar constants.
      * @param string $pattern  Optional pattern to use when formatting
      *
-     * @return IntlDateFormatter
+     * @return self
      *
      * @see http://www.php.net/manual/en/intldateformatter.create.php
      * @see http://userguide.icu-project.org/formatparse/datetime
@@ -566,7 +566,7 @@ class IntlDateFormatter
         try {
             $this->dateTimeZone = new \DateTimeZone($timeZoneId);
             if ('GMT' !== $timeZoneId && $this->dateTimeZone->getName() !== $timeZoneId) {
-                $timeZoneId = $timeZone = $this->getTimeZoneId();
+                $timeZone = $this->getTimeZoneId();
             }
         } catch (\Exception $e) {
             if (PHP_VERSION_ID >= 50500 || (extension_loaded('intl') && method_exists('IntlDateFormatter', 'setTimeZone'))) {

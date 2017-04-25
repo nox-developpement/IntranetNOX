@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2013 Johannes M. Schmitt <schmittjoh@gmail.com>
+ * Copyright 2016 Johannes M. Schmitt <schmittjoh@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -180,7 +180,8 @@ abstract class GenericDeserializationVisitor extends AbstractVisitor
 
         $v = $data[$name] !== null ? $this->navigator->accept($data[$name], $metadata->type, $context) : null;
 
-        $metadata->setValue($this->currentObject, $v);
+        $this->accessor->setValue($this->currentObject, $v, $metadata);
+
     }
 
     public function endVisitingObject(ClassMetadata $metadata, $data, array $type, Context $context)

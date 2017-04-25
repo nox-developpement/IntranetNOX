@@ -1,0 +1,469 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}Matrice de compétences{% endblock %}
+
+{% block messageAccueil %}Matrice de compétences{% endblock %}
+
+{% block contenu %}
+    <script src="{{ asset('./js/jquery.tablesorter/jquery.tablesorter.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialisation de la fonction de trie Jquery.
+            $("#matriceCompetenceTable").tablesorter({
+                sortList: [[1, 0]],
+                headers: {
+                    6: {sorter: false}
+                }
+            });
+
+            // Initialisation du header fixe et mise à jour lors du recadrage de la fenêtre.
+            initFixedHeader();
+            $(window).resize(function () {
+                initFixedHeader();
+            });
+
+            // Mise à jour des compétences séléctionnées.
+            updateSelectedCompetenceText();
+
+            // Fonction de séléction et filtrage des compétences.
+            toggleCompetencesSelection();
+            competenceFilter();
+            categorieSelection();
+        });
+
+        // Fixe le header du tableau des compétences.
+        function initFixedHeader() {
+            // Taille maximum des cellules du header.
+            var maxHeight = 0;
+            $('.fixedHeaderCell').each(function () {
+                if ($(this).height() > maxHeight) {
+                    maxHeight = $(this).height();
+                }
+            });
+            maxHeight = maxHeight + 0.4 * maxHeight;
+
+            // Attribution de la taille et positionnement du fond du header.
+            $('#header-background').height(maxHeight);
+            $('#matriceCompetence_Container').css('padding-top', maxHeight + "px");
+
+            // Centrage des texte du header.
+            $('.fixedHeaderCell').each(function () {
+                var marginTop = (maxHeight - $(this).height()) / 2;
+                var marginLeft = ($(this).parent("th").width() - $(this).width() + 2) / 2;
+                $(this).css({
+                    'margin-top': marginTop,
+                    'margin-bottom': marginTop,
+                    'margin-left': marginLeft,
+                    'margin-right': marginLeft
+                });
+            });
+        }
+
+        // Affichage cache le sélécteur de catégories/compétences.
+        function toggleCompetencesSelection() {
+            $('#categorie_selection_foldbar').on('click', function () {
+                $('#categorie_selection_box').slideToggle();
+                $('.categorie_selection_foldbar_indicator').toggle();
+            });
+        }
+
+        // Affiche/cache les lignes de la matrice en fonction des compétences séléctionnées.
+        function competenceFilter() {
+            // Vérifie la présence de valeur d'un tableau dans un autre.
+            function hasCommonElement(arr1, arr2) {
+                var bExists = false;
+                $.each(arr2, function (index, value) {
+
+                    if ($.inArray(value, arr1) != -1) {
+                        bExists = true;
+                    }
+
+                    if (bExists) {
+                        return false;  //break
+                    }
+                });
+                return bExists;
+            }
+
+            // Lors de la séléction/désélction d'une compétence...
+            $(".competence_checkbox").change(function () {
+                // On récupére la liste des compétences cochées.
+                var competence_list = [];
+                $(".competence_checkbox:checked").each(function () {
+                    competence_list.push($(this).val());
+                });
+
+                // Pour chaques ligne de la matrice...
+                $(".matrice_tr").each(function () {
+                    // Si les compétence correspondent à la liste des compétences cochées on affiche la ligne, sinon on la cache.
+                    if ($.inArray($(this).data('competence-principale'), competence_list) > -1 || hasCommonElement(competence_list, $(this).data('competence-secondaire'))) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+
+                // Affiche/cache l'undicateur de résultat nulle en fonction du nombre de résultat.
+                $(".matrice_tr:not([style='display: none;'])").length > 0 ? $('#no_results_tr').hide() : $('#no_results_tr').show();
+            });
+        }
+
+        // Gestion de la séléction des catégorie et de leurs éléments.
+        function categorieSelection() {
+            // Lors de la séléction/déséléction d'une catégorie...
+            $(".categorie_checkbox").change(function () {
+                // On séléctionne/déséléctionne les compétences correspondantes et on simule un évenement de changement.
+                $(".competence_checkbox[data-categorie='" + $(this).val() + "']").prop('checked', $(this).is(':checked'));
+                $(".competence_checkbox[data-categorie='" + $(this).val() + "']").first().trigger('change');
+            });
+
+
+            // Lors de la séléction/désélction d'une compétence...
+            $(".competence_checkbox").change(function () {
+                // Initialisation d'un compteur de compétence cochées.
+                var checked_competence_count = 0;
+
+                // On récupére les checkbox de la catégorie et des compétences correspondantes.
+                var categorie_checkbox = $(".categorie_checkbox[value='" + $(this).data('categorie') + "']");
+                var competence_checkbox = $(".competence_checkbox[data-categorie='" + $(this).data('categorie') + "']");
+
+                // Pour chaques compétences on incrémente le compteur de compétence si la compétence est cochée.
+                competence_checkbox.each(function () {
+                    if ($(this).is(':checked')) {
+                        checked_competence_count++;
+                    }
+                });
+
+                // On met à jour l'état de la checkbox de categorie en fonction des compétences.
+                if (checked_competence_count === competence_checkbox.length) {
+                    categorie_checkbox.prop('checked', true);
+                    categorie_checkbox.prop('indeterminate', false);
+                } else if (checked_competence_count > 0) {
+                    categorie_checkbox.prop('checked', false);
+                    categorie_checkbox.prop('indeterminate', true);
+                } else {
+                    categorie_checkbox.prop('checked', false);
+                    categorie_checkbox.prop('indeterminate', false);
+                }
+
+                updateSelectedCompetenceText();
+                initFixedHeader();
+            });
+        }
+
+        // Met à jour l'affichage des compétences séléctionnées.
+        function updateSelectedCompetenceText() {
+            // On efface le texte déjà présent.
+            $('#selected_competences').text("Aucune");
+
+            // Pour chaques compétences...
+            $(".competence_checkbox:checked").each(function (index) {
+                // Si le texte dépasse 150 charactères on affiche le nombre de compétences restante et on quitte la boucle.
+                if ($('#selected_competences').text().length > 150) {
+                    $('#selected_competences').text($('#selected_competences').text() + " et " + ($(".competence_checkbox:checked").length - index) + " autres...");
+                    return false;
+                }
+
+                // On affiche les compétences.
+                if (index === 0) {
+                    $('#selected_competences').text($(this).val());
+                } else {
+                    $('#selected_competences').text($('#selected_competences').text() + ", " + $(this).val());
+                }
+            });
+        }
+
+        // Coche/Décoche toutes les case de catégorie et de compétence.
+        function selectDeselectAllCompetences(action) {
+            if (action === "check") {
+                $(".competence_checkbox").prop('checked', true);
+                $(".categorie_checkbox").prop('checked', true);
+            } else if (action === "unckeck") {
+                $(".competence_checkbox").prop('checked', false);
+                $(".categorie_checkbox").prop('checked', false);
+            }
+            $(".competence_checkbox").first().trigger('change');
+        }
+
+    </script>
+
+    <style>
+        #matriceCompetenceTable_Div {
+            width: 100%;
+            margin: auto;
+            margin-bottom: 2em;
+            height: 500px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        #competenceTable, #infosSalariesTable {
+            table-layout: fixed;
+        }
+
+        #matriceCompetenceTable {
+            margin: auto;
+            border-collapse: collapse;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        #matriceCompetenceTable, #matriceCompetenceTable tr, #matriceCompetenceTable th, #matriceCompetenceTable td {
+            border: 1px solid black;
+            text-align: center;
+            font-size: calc(9px + 0.2vw);
+            background-color: transparent;
+        }
+
+        #matriceCompetenceTable td {
+            padding: 0.5em;
+        }
+
+        #matriceCompetenceTable th {
+            background-color: rgba(31,78,121,0.8);
+            color: white;
+        }
+
+        #matriceCompetenceTable th.header {
+            padding-right: 1.5em;
+            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/bg.gif') }}'); 
+            background-repeat: no-repeat;
+            background-position: center right;
+            cursor: pointer;
+        }
+
+        #matriceCompetenceTable th.headerSortUp { 
+            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/asc.gif') }}'); 
+        } 
+
+        #matriceCompetenceTable th.headerSortDown { 
+            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/desc.gif') }}'); 
+        }
+
+        #matriceCompetenceTable td {
+            background-color: rgba(255,255,255,0.8);
+        }
+
+        .categorie_selection_section {
+            display: inline-block;
+            box-sizing: border-box;
+            width: calc(100% / 3);
+            font-size: calc(11px + 0.2vw);
+            vertical-align: top;
+            padding: 1em;
+        }
+
+        .competences_ul {
+            margin: 0;
+            padding-left: 1em;
+            font-size: calc(11px + 0.2vw);
+            list-style-type: none;
+        }
+
+        .categorie_selection_title {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: calc(12px + 0.2vw);
+        }
+
+        #categorie_selection_div {
+            width: 60%;
+            margin: auto;
+            font-size: 0;
+            background-color: rgba(255,255,255, 0.6);
+            border: 2px solid #1F4E79;
+        }
+
+        .competences_li label {
+            font-size: calc(11px + 0.2vw);
+        }
+
+        #categorie_selection_foldbar {
+            background-color: rgba(31,78,121,0.8);
+        }
+
+        .categorie_selection_foldbar_indicator {
+            display: inline-block;
+            width: 50%;
+            box-sizing: border-box;
+            text-align: right;
+            font-size: calc(12px + 0.2vw);
+            padding: 0.25em 1em 0.25em 0.25em;
+            margin: 0;
+            color: white;
+        }
+
+        #categorie_selection_foldbar_text {
+            display: inline-block;
+            width: 50%;
+            box-sizing: border-box;
+            font-size: calc(12px + 0.2vw);
+            padding: 0.25em 0.25em 0.25em 2em;
+            margin: 0;
+            color: white;
+        }
+
+        #categorie_selection_box {
+            height: 250px;
+            overflow-y: auto;
+            border-top: 2px solid #1F4E79;
+        }
+
+        .competence_td {
+            font-size: 0;
+        }
+
+        .competence_container {
+            display: inline-block;
+            padding: 0.25em 0.10em;
+        }
+
+        .competence_principale_div, .competence_secondaire_div {
+            display: inline-block;
+            padding: 0.25em;
+            font-size: calc(11px + 0.2vw);
+            border-radius: 5px;
+        }
+
+        .competence_principale_div {
+            background-color: #1f4e79;
+            color: white;
+        }
+
+        .competence_secondaire_div {
+            background-color: #5d9bd5;
+            color: white;
+        }
+
+        #matriceCompetence_Container {
+            position: relative;
+            height: 500px;
+            width: 100%;
+            margin-top: 2em;
+        }
+
+        .fixedHeaderCell {
+            position: absolute;
+            top: 0;
+            font-size: calc(9px + 0.2vw);
+            cursor: pointer;
+        }
+
+        #header-background {
+            background-color: rgba(31,78,121,0.8);;
+            height: 30px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;   
+        }
+
+        #matriceCompetenceTable thead tr th {
+            font-size: 0;
+            padding: 0;
+        }
+
+        #selected_competence_text {
+            margin: 0;
+            padding: 0.5em;
+            background-color: rgba(255,255,255,0.8);
+            border-top: 1px solid #1F4E79;
+            font-size: calc(11px + 0.2vw);   
+        }
+
+        #select_deselect_competences {
+            margin: 0;
+            padding: 0.5em;
+            padding-bottom: 0;
+            font-size: calc(11px + 0.2vw);   
+            cursor: pointer;
+        }
+
+        #select_deselect_competences span:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <!-- Sélécteur de compétences -->
+    <div id="categorie_selection_div">
+        <div id="categorie_selection_foldbar">
+            <p id="categorie_selection_foldbar_text">Sélection des compétences</p>
+            <p class="categorie_selection_foldbar_indicator" style="display: none;">&#10134;</p>
+            <p class="categorie_selection_foldbar_indicator">&#10133;</p>
+        </div>
+        <div id="categorie_selection_box" style="display: none;" data-state="open">
+            <p id="select_deselect_competences"><span onclick="selectDeselectAllCompetences('check');">Tout cocher</span>/<span onclick="selectDeselectAllCompetences('unckeck');">Tout décocher</span></p>
+            {% for categorie, competences in competencesArray %}
+                <section class='categorie_selection_section'>
+                    <h3 class="categorie_selection_title">
+                        <label><input type="checkbox" class="categorie_checkbox" value="{{ categorie }}" checked>{{ categorie }}</label>
+                    </h3>
+                    <ul class="competences_ul">
+                        {% for competence in competences %}
+                            <li class="competences_li">
+                                <label><input type="checkbox" class="competence_checkbox" value="{{ competence }}" data-categorie="{{ categorie }}" checked>{{ competence }}</label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            {% endfor %}
+        </div>
+        <div id="selected_competence_div">
+            <p id="selected_competence_text">Compétence(s) séléctionnée(s) : <span id="selected_competences"></span></p>
+        </div>
+    </div>
+    <!-- Fin du sélécteur de compétences -->
+
+    <!-- Table des compétences -->
+    <div id="matriceCompetence_Container">
+        <div id="header-background"></div>
+        <div id="matriceCompetenceTable_Div">
+            <table id='matriceCompetenceTable'>
+                <thead>
+                    <tr>
+                        <th><div class="fixedHeaderCell">Société<hr>Etablissement</div></th>     
+                        <th><div class="fixedHeaderCell">NOM<br />Prénom</div></th>
+                        <th><div class="fixedHeaderCell">Date<br /> de<br /> naissance</div></th>
+                        <th><div class="fixedHeaderCell">Date<br /> d'ancienneté</div></th>
+                        <th><div class="fixedHeaderCell">Statut</div></th>
+                        <th><div class="fixedHeaderCell">Poste</div></th>
+                        <th><div class="fixedHeaderCell">Compétence principale<hr>Compétences secondaires</div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for matrice in matrices_competences %}
+                        <tr class="matrice_tr" data-competence-principale="{{ matrice.CompetencePrincipale }}" data-competence-secondaire="{{ matrice.CompetencesSecondaires|json_encode() }}">
+                            <td>{{ matrice.Societe }}<hr>{{ matrice.Etablissement }}</td>
+                            <td>{{ matrice.Nom }}<br />{{ matrice.Prenom }}</td>
+                            <td>{{ matrice.DateNaissance|date('d/m/Y') }}</td>
+                            <td>{{ matrice.DateAnciennete|date('d/m/Y') }}</td>
+                            <td>{{ matrice.Statut }}</td>
+                            <td>{{ matrice.Poste }}</td>
+                            <td>
+                                <span class='competence_container'>
+                                    <div class='competence_principale_div'>{{ matrice.CompetencePrincipale is not null ? matrice.CompetencePrincipale : "Aucune" }}</div>
+                                </span>
+                                <hr>
+                                {% if matrice.CompetencesSecondaires is not empty %}
+                                    {% for competence in matrice.CompetencesSecondaires %}
+                                        <span class='competence_container'>
+                                            <div class='competence_secondaire_div'>{{ competence }}</div>
+                                        </span>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class='competence_secondaire_div'>Aucune</div>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="matrice_tr" id="no_results_tr" style="display: none;">
+                        <td colspan="7">Aucun résultat...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Fin de la table des compétences -->
+{% endblock %}
