@@ -53,9 +53,33 @@
             font-size: calc(9px + 0.2vw);
             text-align: center;
         }
+
+        form[name='form'] {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            border: none;
+        }
+
+        #siren_search_container {
+            width: 70%;
+            margin: auto;
+        }
     </style>
 
-    {{ form(searchSirenForm) }}
+    <div id="siren_search_container">
+        {{ form_start(searchSirenForm) }}
+        <p>
+            {{ form_label(searchSirenForm.SIREN) }} : {{ form_widget(searchSirenForm.SIREN) }}
+        </p>
+        <p>
+            {{ form_label(searchSirenForm.SIRET) }} : {{ form_widget(searchSirenForm.SIRET) }}
+        </p>
+        <p style="text-align: center;">
+            {{ form_widget(searchSirenForm.Search) }}
+        </p>
+        {{ form_end(searchSirenForm) }}
+    </div>
     <div id="siren_table_container">
         <div></div>
         <div>
@@ -83,28 +107,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for siren in sirens %}
-                        <tr>
-                            <td>{{ siren['SIREN'] }}</td>
-                            <td>{{ siren['SIRET'] }}</td>
-                            <td>{{ siren['NumTVAIntra'] }}</td>
-                            <td>{{ siren['NICSIEGE'] }}</td>
-                            <td>{{ siren['RaisonSociale'] }}</td>
-                            <td>{{ siren['SIGLE'] }}</td>
-                            <td>{{ siren['ENSEIGNE'] }}</td>
-                            <td>{{ siren['NAF'] }}</td>
-                            <td>{{ siren['CATJUR'] }}</td>
-                            <td>{{ siren['LIBNJ'] }}</td>
-                            <td>{{ siren['NUMVOIE'] }}</td>
-                            <td>{{ siren['INDREP'] }}</td>
-                            <td>{{ siren['TYPVOIE'] }}</td>
-                            <td>{{ siren['LIBVOIE'] }}</td>
-                            <td>{{ siren['CP'] }}</td>
-                            <td>{{ siren['CEDEX'] }}</td>
-                            <td>{{ siren['VILLE'] }}</td>
-                            <td>{{ siren['PAYS'] }}</td>
-                        </tr>
-                    {% endfor %}
+
                 </tbody>
             </table>
         </div>

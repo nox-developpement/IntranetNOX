@@ -48,7 +48,7 @@ class SirenController extends Controller {
     public function sirenTableAction(Request $request) {
         $rowIndex = $request->get('rowIndex');
 
-        $sirens = $this->sirenExtraction($rowIndex);
+        //$sirens = $this->sirenExtraction($rowIndex);
 
         $formSirenSearchBuilder = $this->createFormBuilder();
         $formSirenSearchBuilder
@@ -67,7 +67,7 @@ class SirenController extends Controller {
         ;
         $formSirenSearch = $formSirenSearchBuilder->getForm();
 
-        return $this->render("NoxIntranetRessourcesBundle:Siren:sirenTable.html.twig", array('sirens' => $sirens, 'searchSirenForm' => $formSirenSearch->createView(), 'rowIndex' => $rowIndex));
+        return $this->render("NoxIntranetRessourcesBundle:Siren:sirenTable.html.twig", array('searchSirenForm' => $formSirenSearch->createView(), 'rowIndex' => $rowIndex));
     }
 
     public function ajaxSearchSirenAction(Request $request) {
@@ -84,11 +84,13 @@ class SirenController extends Controller {
         $query .= "FROM ( SELECT ROW_NUMBER() OVER ( ORDER BY SIREN ) AS RowNum, SIREN, SIRET, NumTVAIntra, NICSIEGE, RaisonSociale, SIGLE, ENSEIGNE, NAF, CATJUR, LIBNJ, NUMVOIE, INDREP, TYPVOIE, LIBVOIE, CP, CEDEX, VILLE, PAYS ";
         $query .= "FROM V_entreprise ";
         $query .= ") AS RowConstrainedResult ";
-        $query .= "WHERE RowNum >= " . $form['rowIndex'] . " ";
-        $query .= "AND RowNum < " . ($form['rowIndex'] + 500) . " ";
+        $query .= "WHERE RowNum >= " . "0" . " ";
+        //$query .= "AND RowNum < " . ($form['rowIndex'] + 500) . " ";
         $query .= isset($form['SIREN']) ? "AND SIREN = '" . $form['SIREN'] . "' " : "";
         $query .= isset($form['SIRET']) ? "AND SIRET = '" . $form['SIRET'] . "' " : "";
         $query .= "ORDER BY RowNum";
+
+        var_dump($query);
 
         // On execute la requête.
         $result = odbc_exec($connection, $query);
@@ -97,6 +99,8 @@ class SirenController extends Controller {
         while ($siren = odbc_fetch_array($result)) {
             $sirens[] = array_map('utf8_encode', $siren);
         }
+
+        odbc_close($connection);
 
         return new Response(json_encode($sirens));
     }
