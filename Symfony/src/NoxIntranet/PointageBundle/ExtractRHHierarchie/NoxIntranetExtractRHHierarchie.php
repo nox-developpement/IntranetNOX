@@ -19,9 +19,6 @@ class NoxIntranetExtractRHHierarchie extends Controller {
         // Récupère le chemin d'instalation de Symfony.
         $root = $this->container->getParameter('kernel.root_dir') . '\..';
 
-        // Permet de lire les fichiers Excel.
-        include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
-
         // Initialise le manager de base de données.
         $em = $this->getDoctrine()->getManager();
 
