@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the symfony package.
- * (c) Fabien Potencier <fabien.potencier@symfony-project.com>
- * (c) Jonathan H. Wage <jonwage@gmail.com>
+ * This file is part of the Sonata Project package.
+ *
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -17,7 +17,7 @@ use Sonata\DatagridBundle\Pager\BasePager;
 /**
  * Doctrine pager class.
  *
- * @author     Jonathan H. Wage <jonwage@gmail.com>
+ * @author Jonathan H. Wage <jonwage@gmail.com>
  */
 class Pager extends BasePager
 {
@@ -36,7 +36,11 @@ class Pager extends BasePager
             $countQuery->getQueryBuilder()->resetDQLPart('orderBy');
         }
 
-        $countQuery->select(sprintf('count(DISTINCT %s.%s) as cnt', $countQuery->getRootAlias(), current($this->getCountColumn())));
+        $countQuery->select(sprintf(
+            'count(DISTINCT %s.%s) as cnt',
+            current($countQuery->getRootAliases()),
+            current($this->getCountColumn())
+        ));
 
         return $countQuery->getQuery()->getSingleScalarResult();
     }

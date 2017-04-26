@@ -429,7 +429,6 @@ class DeveloppementProfessionnelController extends Controller {
     public function exportToExcelAction() {
         // On importe le module de traitement Excel.
         $root = $this->get('kernel')->getRootDir() . '\..';
-        require_once $root . '\vendor\phpexcel\phpexcel\PHPExcel.php';
 
         // Initialisation d'un nouvel objet PHPExcel.
         $objPHPExcel = new \PHPExcel();

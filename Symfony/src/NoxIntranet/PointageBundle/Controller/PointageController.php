@@ -1176,7 +1176,6 @@ class PointageController extends Controller {
 
             // On récupére le module PHP de traitement des fichiers Excel.
             $root = str_replace('\\', '/', $this->get('kernel')->getRootDir());
-            require_once $root . '\..\vendor\phpexcel\phpexcel\PHPExcel.php';
 
             // Initialisation d'un nouveau fichier Excel.
             $objPHPExcel = new \PHPExcel();

@@ -64,11 +64,18 @@ class User implements UserInterface, \Serializable {
     private $lastActivity;
 
     /**
+<<<<<<< HEAD
+     * @ORM\OneToOne(targetEntity="NoxIntranet\UserBundle\Entity\MatriceCompetence", mappedBy="user")
+     */
+    private $matriceCompetence;
+=======
      * @ORM\Column(name="lastViewedPage", type="array", nullable=true)
      */
     private $lastViewedPage;
+>>>>>>> master
 
     // Les getters et setters
+
     public function getUsername() {
         return $this->username;
     }

@@ -364,30 +364,30 @@
                 <tr>
                     <td>
                         <div class='DRHLinkDiv'><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'RH'}) }}">Assistant(e) RH - Correction/Validation compilation</a></div>
-                        </th>
+                    </td>
                     <td>
                         {% if app.user.username == 'n.rigaudeau' or app.user.username == 'a.forestier' or app.user.username == 't.besson' %}
                             <div class='DRHLinkDiv'><a href="{{ path('nox_intranet_developpement_professionnel_synthese_excel') }}">Synthèse</a></div>
                         {% endif %}
-                        </th>
+                    </td>
                     <td>
                         <div class='DRHLinkDiv'><a href="{{ path('nox_intranet_prestation_administration_da') }}">Prestations internes - Administration des DA</a></div>
-                        </th>
+                    </td>
                 </tr>
                 <tr>
-                    <td><div class='DRHLinkDiv'><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'Final'}) }}">Consultation des compilations validées</a></div></th>
-                    <td><div class='DRHLinkDiv'><a href="{{ path('nox_intranet_developpement_professionnel_monitoring_formulaire') }}">Suivis des entretiens</a></div></th>
-                    <td></th>
+                    <td><div class='DRHLinkDiv'><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'Final'}) }}">Consultation des compilations validées</a></div></td>
+                    <td><div class='DRHLinkDiv'><a href="{{ path('nox_intranet_developpement_professionnel_monitoring_formulaire') }}">Suivis des entretiens</a></div></td>
+                    <td><div class='DRHLinkDiv'><a href="{{ path('nox_intranet_developpement_professionnel_matrice_competence_download') }}">Matrice de compétences</a></div></td>
                 </tr>
                 <tr>
-                    <td><div class='DRHLinkDiv'><a href="https://noxingenierie-my.sharepoint.com/personal/l_morisseau_groupe-nox_com/_layouts/15/WopiFrame.aspx?sourcedoc=%7B84616442-030A-4A6D-8CD9-B17A0FB1D49C%7D&file=COMPILATION%20FICHIER%20HIERARCHIQUE%20110117.xlsx&action=default" target="_blank">Fichier de hiérarchie RH</a></div></th>
-                    <td></th>
-                    <td></th>
+                    <td><div class='DRHLinkDiv'><a href="https://noxingenierie-my.sharepoint.com/personal/l_morisseau_groupe-nox_com/_layouts/15/WopiFrame.aspx?sourcedoc=%7B84616442-030A-4A6D-8CD9-B17A0FB1D49C%7D&file=COMPILATION%20FICHIER%20HIERARCHIQUE%20110117.xlsx&action=default" target="_blank">Fichier de hiérarchie RH</a></div></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <td><div class='DRHLinkDiv'><a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank'>Consulter la notice</a></div></th>
-                    <td></th>
-                    <td></th>
+                    <td><div class='DRHLinkDiv'><a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank'>Consulter la notice</a></div></td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </table>
 

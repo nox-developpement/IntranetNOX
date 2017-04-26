@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -34,8 +34,6 @@ abstract class BaseHelper extends Helper
     protected $localeDetector;
 
     /**
-     * Constructor.
-     *
      * @param string                  $charset        The output charset of the helper
      * @param LocaleDetectorInterface $localeDetector
      */
@@ -47,32 +45,19 @@ abstract class BaseHelper extends Helper
     }
 
     /**
-     * Fixes the charset by converting a string from an UTF-8 charset to the
-     * charset of the kernel.
+     * Typo in the method name.
      *
-     * Precondition: the kernel charset is not UTF-8
-     *
-     * @param string $string The string to fix
-     *
-     * @return string A string with the %kernel.charset% encoding
-     */
-    protected function fixCharset($string)
-    {
-        if ('UTF-8' !== $this->getCharset()) {
-            $string = mb_convert_encoding($string, $this->getCharset(), 'UTF-8');
-        }
-
-        return $string;
-    }
-
-    /**
-     * Typo in the fonction name.
+     * NEXT_MAJOR: remove this method
      *
      * @deprecated
      */
     public static function getUCIDataVersion()
     {
-        @trigger_error('The '.__METHOD__.' is deprecated since 2.2 and will be removed on 3.0. Use '.__CLASS__.'::getICUDataVersion instead.', E_USER_DEPRECATED);
+        @trigger_error(
+            'The '.__METHOD__.' method is deprecated since 2.2 and will be removed on 3.0. '.
+            'Use '.__CLASS__.'::getICUDataVersion instead.',
+            E_USER_DEPRECATED
+        );
 
         return self::getICUDataVersion();
     }
@@ -121,6 +106,25 @@ abstract class BaseHelper extends Helper
     }
 
     /**
+     * Fixes the charset by converting a string from an UTF-8 charset to the
+     * charset of the kernel.
+     *
+     * Precondition: the kernel charset is not UTF-8
+     *
+     * @param string $string The string to fix
+     *
+     * @return string A string with the %kernel.charset% encoding
+     */
+    protected function fixCharset($string)
+    {
+        if ('UTF-8' !== $this->getCharset()) {
+            $string = mb_convert_encoding($string, $this->getCharset(), 'UTF-8');
+        }
+
+        return $string;
+    }
+
+    /**
      * https://wiki.php.net/rfc/internal_constructor_behaviour.
      *
      * @param mixed  $instance
@@ -138,6 +142,10 @@ abstract class BaseHelper extends Helper
             $messages[] = sprintf('%s => %s', $name, $value);
         }
 
-        throw new \RuntimeException(sprintf('Unable to create internal class: %s, with params: %s', $class, implode(', ', $messages)));
+        throw new \RuntimeException(sprintf(
+            'Unable to create internal class: %s, with params: %s',
+            $class,
+            implode(', ', $messages)
+        ));
     }
 }

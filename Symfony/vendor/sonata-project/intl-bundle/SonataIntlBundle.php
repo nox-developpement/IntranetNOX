@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -26,6 +26,8 @@ class SonataIntlBundle extends Bundle
      */
     public static function getSymfonyVersion($version)
     {
-        return implode('.', array_slice(array_map(function ($val) { return (int) $val; }, explode('.', $version)), 0, 3));
+        return implode('.', array_slice(array_map(function ($val) {
+            return (int) $val;
+        }, explode('.', $version)), 0, 3));
     }
 }

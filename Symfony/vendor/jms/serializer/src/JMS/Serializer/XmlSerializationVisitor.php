@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2013 Johannes M. Schmitt <schmittjoh@gmail.com>
+ * Copyright 2016 Johannes M. Schmitt <schmittjoh@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,11 @@
 
 namespace JMS\Serializer;
 
+use JMS\Serializer\Accessor\AccessorStrategyInterface;
 use JMS\Serializer\Exception\RuntimeException;
 use JMS\Serializer\Metadata\ClassMetadata;
 use JMS\Serializer\Metadata\PropertyMetadata;
+use JMS\Serializer\Naming\PropertyNamingStrategyInterface;
 
 /**
  * XmlSerializationVisitor.
@@ -44,10 +46,14 @@ class XmlSerializationVisitor extends AbstractVisitor
     private $nullWasVisited;
     private $objectMetadataStack;
 
-    public function __construct($namingStrategy)
+    /** @var boolean */
+    private $formatOutput;
+
+    public function __construct(PropertyNamingStrategyInterface $namingStrategy, AccessorStrategyInterface $accessorStrategy = null)
     {
-        parent::__construct($namingStrategy);
+        parent::__construct($namingStrategy, $accessorStrategy);
         $this->objectMetadataStack = new \SplStack;
+        $this->formatOutput = true;
     }
 
     public function setDefaultRootName($name, $namespace = null)
@@ -171,6 +177,11 @@ class XmlSerializationVisitor extends AbstractVisitor
         $namespace = (null !== $this->currentMetadata && null !== $this->currentMetadata->xmlEntryNamespace) ? $this->currentMetadata->xmlEntryNamespace : null;
 
         foreach ($data as $k => $v) {
+
+            if (null === $v && $context->shouldSerializeNull() !== true) {
+                continue;
+            }
+
             $tagName = (null !== $this->currentMetadata && $this->currentMetadata->xmlKeyValuePairs && $this->isElementNameValid($k)) ? $k : $entryName;
 
             $entryNode = $this->createElement($tagName, $namespace);
@@ -219,9 +230,9 @@ class XmlSerializationVisitor extends AbstractVisitor
 
     public function visitProperty(PropertyMetadata $metadata, $object, Context $context)
     {
-        $v = $metadata->getValue($object);
+        $v = $this->accessor->getValue($object, $metadata);
 
-        if (null === $v && ! $context->shouldSerializeNull()) {
+        if (null === $v && $context->shouldSerializeNull() !== true) {
             return;
         }
 
@@ -280,15 +291,15 @@ class XmlSerializationVisitor extends AbstractVisitor
             return;
         }
 
-        if ($addEnclosingElement = ( ! $metadata->xmlCollection || ! $metadata->xmlCollectionInline) && ! $metadata->inline) {
+        if ($addEnclosingElement = !$this->isInLineCollection($metadata) && ! $metadata->inline) {
             $elementName = $this->namingStrategy->translateName($metadata);
 
-            if (null !== $metadata->xmlNamespace) {
-                $element = $this->createElement($elementName, $metadata->xmlNamespace);
-            } else {
-                $defaultNamespace = $this->getClassDefaultNamespace($this->objectMetadataStack->top());
-                $element = $this->createElement($elementName, $defaultNamespace);
-            }
+            $namespace = null !== $metadata->xmlNamespace
+                ? $metadata->xmlNamespace
+                : $this->getClassDefaultNamespace($this->objectMetadataStack->top());
+
+            $element = $this->createElement($elementName, $namespace);
+            $this->currentNode->appendChild($element);
             $this->setCurrentNode($element);
         }
 
@@ -303,17 +314,27 @@ class XmlSerializationVisitor extends AbstractVisitor
         if ($addEnclosingElement) {
             $this->revertCurrentNode();
 
-            if ($this->nodeNotEmpty($element) || ((!$metadata->xmlCollection || !$metadata->xmlCollectionSkipWhenEmpty) && $node === null && $v !== null && !$context->isVisiting($v))) {
-                $this->currentNode->appendChild($element);
+            if ($this->isElementEmpty($element) && ($this->isSkippableCollection($metadata) || $v === null || $context->isVisiting($v))) {
+                $this->currentNode->removeChild($element);
             }
         }
 
         $this->hasValue = false;
     }
 
-    private function nodeNotEmpty(\DOMElement $element)
+    private function isInLineCollection(PropertyMetadata $metadata)
     {
-        return $element->hasChildNodes() || $element->hasAttributes();
+        return $metadata->xmlCollection && $metadata->xmlCollectionInline;
+    }
+
+    private function isSkippableCollection(PropertyMetadata $metadata)
+    {
+        return $metadata->xmlCollection && $metadata->xmlCollectionSkipWhenEmpty;
+    }
+
+    private function isElementEmpty(\DOMElement $element)
+    {
+        return !$element->hasChildNodes() && !$element->hasAttributes();
     }
 
     public function endVisitingObject(ClassMetadata $metadata, $data, array $type, Context $context)
@@ -366,7 +387,7 @@ class XmlSerializationVisitor extends AbstractVisitor
     public function createDocument($version = null, $encoding = null, $addRoot = true)
     {
         $doc = new \DOMDocument($version ?: $this->defaultVersion, $encoding ?: $this->defaultEncoding);
-        $doc->formatOutput = true;
+        $doc->formatOutput = $this->isFormatOutput();
 
         if ($addRoot) {
             if ($this->defaultRootNamespace) {
@@ -453,9 +474,8 @@ class XmlSerializationVisitor extends AbstractVisitor
         }
         if (!($prefix = $this->currentNode->lookupPrefix($namespace)) && !($prefix = $this->document->lookupPrefix($namespace))) {
             $prefix = 'ns-'.  substr(sha1($namespace), 0, 8);
-            return $this->document->createElementNS($namespace, $prefix . ':' . $tagName);
         }
-        return $this->document->createElement($prefix . ':' . $tagName);
+        return $this->document->createElementNS($namespace, $prefix . ':' . $tagName);
     }
 
     private function setAttributeOnNode(\DOMElement $node, $name, $value, $namespace = null)
@@ -475,4 +495,19 @@ class XmlSerializationVisitor extends AbstractVisitor
         return (isset($metadata->xmlNamespaces[''])?$metadata->xmlNamespaces['']:null);
     }
 
+    /**
+     * @return bool
+     */
+    public function isFormatOutput()
+    {
+        return $this->formatOutput;
+    }
+
+    /**
+     * @param bool $formatOutput
+     */
+    public function setFormatOutput($formatOutput)
+    {
+        $this->formatOutput = (boolean) $formatOutput;
+    }
 }

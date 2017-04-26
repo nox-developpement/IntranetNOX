@@ -62,21 +62,28 @@ class UsersHierarchy {
      * @ORM\Column(name="RH", type="string", length=255)
      */
     private $rh;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="N2", type="string", length=255)
      */
     private $n2;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="Etablissement", type="string", length=255)
      */
     private $etablissement;
-    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Societe", type="string", length=255)
+     */
+    private $societe;
+
     /**
      * @var string
      *
@@ -203,7 +210,6 @@ class UsersHierarchy {
         return $this->rh;
     }
 
-
     /**
      * Set username
      *
@@ -211,8 +217,7 @@ class UsersHierarchy {
      *
      * @return UsersHierarchy
      */
-    public function setUsername($username)
-    {
+    public function setUsername($username) {
         $this->username = $username;
 
         return $this;
@@ -223,8 +228,7 @@ class UsersHierarchy {
      *
      * @return string
      */
-    public function getUsername()
-    {
+    public function getUsername() {
         return $this->username;
     }
 
@@ -235,10 +239,9 @@ class UsersHierarchy {
      *
      * @return UsersHierarchy
      */
-    public function setEtablissement($etablissement)
-    {
+    public function setEtablissement($etablissement) {
         $this->etablissement = $etablissement;
-    
+
         return $this;
     }
 
@@ -247,8 +250,7 @@ class UsersHierarchy {
      *
      * @return string
      */
-    public function getEtablissement()
-    {
+    public function getEtablissement() {
         return $this->etablissement;
     }
 
@@ -259,10 +261,9 @@ class UsersHierarchy {
      *
      * @return UsersHierarchy
      */
-    public function setN2($n2)
-    {
+    public function setN2($n2) {
         $this->n2 = $n2;
-    
+
         return $this;
     }
 
@@ -271,8 +272,7 @@ class UsersHierarchy {
      *
      * @return string
      */
-    public function getN2()
-    {
+    public function getN2() {
         return $this->n2;
     }
 
@@ -283,8 +283,7 @@ class UsersHierarchy {
      *
      * @return UsersHierarchy
      */
-    public function setMatricule($matricule)
-    {
+    public function setMatricule($matricule) {
         $this->matricule = $matricule;
 
         return $this;
@@ -295,8 +294,32 @@ class UsersHierarchy {
      *
      * @return integer
      */
-    public function getMatricule()
-    {
+    public function getMatricule() {
         return $this->matricule;
+    }
+
+
+    /**
+     * Set societe
+     *
+     * @param string $societe
+     *
+     * @return UsersHierarchy
+     */
+    public function setSociete($societe)
+    {
+        $this->societe = $societe;
+
+        return $this;
+    }
+
+    /**
+     * Get societe
+     *
+     * @return string
+     */
+    public function getSociete()
+    {
+        return $this->societe;
     }
 }
