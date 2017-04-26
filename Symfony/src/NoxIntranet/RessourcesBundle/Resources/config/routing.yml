@@ -242,4 +242,4 @@ nox_intranet_ressources_siren:
     
 nox_intranet_ressources_ajax_search_siren:
     path: /ressources/ajax_search_siren
-    defaults: { _controller: NoxIntranetRessourcesBundle:Siren\Siren:ajaxSearchSiren }
+    defaults: { _controller: NoxIntranetRessourcesBundle:Siren\Siren:ajaxSearchSirenBy }

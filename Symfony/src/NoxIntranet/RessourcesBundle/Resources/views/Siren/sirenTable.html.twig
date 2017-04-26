@@ -12,15 +12,52 @@
         });
 
         function ajaxSendSearchForm() {
-            $("form[name='form']").submit(function (e) {
+            $("form[name='searchBySIREN'], form[name='searchByRaisonSociale']").submit(function (e) {
                 e.preventDefault();
+
+                $('#search_waiting_td').hide();
+                $('#search_no_result_td').hide();
+                $('#search_loading_td').show();
+                $('.search_result_tr').remove();
 
                 $.ajax({
                     url: '{{ path('nox_intranet_ressources_ajax_search_siren') }}',
                     type: 'POST',
                     data: $(this).serialize(),
-                    success: function (sirens) {
-                        console.log(sirens);
+                    success: function (sirensJSON) {
+                        var sirens = JSON.parse(sirensJSON);
+                        console.log(sirens.length);
+
+                        $('#search_loading_td').hide();
+                        if (sirens.length > 0) {
+                            $.each(sirens, function (index, siren) {
+                                var html = "<tr class='search_result_tr'>";
+                                html += "<td>" + siren.SIREN + "</td>";
+                                html += "<td>" + siren.SIRET + "</td>";
+                                html += "<td>" + siren.NumTVAIntra + "</td>";
+                                html += "<td>" + siren.NICSIEGE + "</td>";
+                                html += "<td>" + siren.RaisonSociale + "</td>";
+                                html += "<td>" + siren.SIGLE + "</td>";
+                                html += "<td>" + siren.ENSEIGNE + "</td>";
+                                html += "<td>" + siren.NAF + "</td>";
+                                html += "<td>" + siren.CATJUR + "</td>";
+                                html += "<td>" + siren.LIBNJ + "</td>";
+                                html += "<td>" + siren.NUMVOIE + "</td>";
+                                html += "<td>" + siren.INDREP + "</td>";
+                                html += "<td>" + siren.TYPEVOIE + "</td>";
+                                html += "<td>" + siren.LIBVOIE + "</td>";
+                                html += "<td>" + siren.CP + "</td>";
+                                html += "<td>" + siren.CEDEX + "</td>";
+                                html += "<td>" + siren.VILLE + "</td>";
+                                html += "<td>" + siren.PAYS + "</td>";
+                                html += "</tr>";
+                                $('#siren_table tbody').append(html);
+                            });
+                        } else {
+                            $('#search_no_result_td').show();
+                        }
+
+
                     }
                 });
             });
@@ -54,31 +91,46 @@
             text-align: center;
         }
 
-        form[name='form'] {
-            width: 100%;
+        form[name='searchBySIREN'], form[name='searchByRaisonSociale'] {
             padding: 0;
             margin: 0;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
             border: none;
+        }
+
+        form[name='searchBySIREN'] p, form[name='searchByRaisonSociale'] p {
+            display: inline-block;
+            margin: 0;
         }
 
         #siren_search_container {
             width: 70%;
             margin: auto;
         }
+
+        #search_no_result_td, #search_loading_td {
+            display: none;
+        }
+
+        #search_loading_td img {
+            width: 15em;
+        }
     </style>
 
     <div id="siren_search_container">
-        {{ form_start(searchSirenForm) }}
+        {{ form_start(searchBySIREN) }}
         <p>
-            {{ form_label(searchSirenForm.SIREN) }} : {{ form_widget(searchSirenForm.SIREN) }}
+            {{ form_label(searchBySIREN.searchValue) }} : {{ form_widget(searchBySIREN.searchValue) }}
+            {{ form_widget(searchBySIREN.Search) }}
         </p>
+        {{ form_end(searchBySIREN) }}
+        {{ form_start(searchByRaisonSociale) }}
         <p>
-            {{ form_label(searchSirenForm.SIRET) }} : {{ form_widget(searchSirenForm.SIRET) }}
+            {{ form_label(searchByRaisonSociale.searchValue) }} : {{ form_widget(searchByRaisonSociale.searchValue) }}
+            {{ form_widget(searchByRaisonSociale.Search) }}
         </p>
-        <p style="text-align: center;">
-            {{ form_widget(searchSirenForm.Search) }}
-        </p>
-        {{ form_end(searchSirenForm) }}
+        {{ form_end(searchByRaisonSociale) }}
     </div>
     <div id="siren_table_container">
         <div></div>
@@ -107,7 +159,18 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                    <tr>
+                        <td colspan="18" id="search_waiting_td">Lancez une recherche pour afficher des résultats.</td>
+                    </tr>
+                    <tr>
+                        <td colspan="18" id="search_no_result_td">Aucun résultat.</td>
+                    </tr>
+                    <tr>
+                        <td colspan="18" id="search_loading_td">
+                            <p>Recherche en cours, veuillez patienter...</p>
+                            <img src="{{ asset('bundles/noxintranetressources/images/loading.gif') }}" onmousedown="return false;">
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

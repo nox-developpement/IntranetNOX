@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 class SirenController extends Controller {
 
@@ -49,60 +50,73 @@ class SirenController extends Controller {
 
         //$sirens = $this->sirenExtraction($rowIndex);
 
-        $formSirenSearchBuilder = $this->createFormBuilder();
-        $formSirenSearchBuilder
-                ->add('SIREN', TextType::class, array(
-                    'label' => "SIREN"
-                ))
-                ->add('SIRET', TextType::class, array(
-                    'label' => 'SIRET'
+        $formSirenSearchBySIRENBuilder = $this->get('form.factory')->createNamedBuilder('searchBySIREN', FormType::class);
+        $formSirenSearchBySIRENBuilder
+                ->add('searchValue', TextType::class, array(
+                    'label' => "Recherche par SIREN"
                 ))
                 ->add('Search', SubmitType::class, array(
                     'label' => 'Rechercher'
                 ))
-                ->add('rowIndex', HiddenType::class, array(
-                    'data' => $rowIndex
+                ->add('searchParameter', HiddenType::class, array(
+                    'data' => 'SIREN'
                 ))
         ;
-        $formSirenSearch = $formSirenSearchBuilder->getForm();
+        $formSirenSearchBySIREN = $formSirenSearchBySIRENBuilder->getForm();
 
-        return $this->render("NoxIntranetRessourcesBundle:Siren:sirenTable.html.twig", array('searchSirenForm' => $formSirenSearch->createView(), 'rowIndex' => $rowIndex));
+        $formSirenSearchByRaisonSocialeBuilder = $this->get('form.factory')->createNamedBuilder('searchByRaisonSociale', FormType::class);
+        $formSirenSearchByRaisonSocialeBuilder
+                ->add('searchValue', TextType::class, array(
+                    'label' => "Recherche par Raison Sociale"
+                ))
+                ->add('Search', SubmitType::class, array(
+                    'label' => 'Rechercher'
+                ))
+                ->add('searchParameter', HiddenType::class, array(
+                    'data' => 'RaisonSociale'
+                ))
+        ;
+        $formSirenSearchByRaisonSociale = $formSirenSearchByRaisonSocialeBuilder->getForm();
+
+        return $this->render("NoxIntranetRessourcesBundle:Siren:sirenTable.html.twig", array('searchBySIREN' => $formSirenSearchBySIREN->createView(), 'searchByRaisonSociale' => $formSirenSearchByRaisonSociale->createView(), 'rowIndex' => $rowIndex));
     }
 
-    public function ajaxSearchSirenAction(Request $request) {
+    public function ajaxSearchSirenByAction(Request $request) {
         $server = self::$SERVER;
         $database = self::$DATABASE;
         $user = self::$USER;
         $password = self::$PASSWORD;
 
-        $form = $request->get('form');
+        $start = microtime(true);
 
-        $connection = odbc_connect("Driver={SQL Server};Server=$server;Database=$database;", $user, $password);
-
-        /* $query = "SELECT SIREN, SIRET, NumTVAIntra, NICSIEGE, RaisonSociale, SIGLE, ENSEIGNE, NAF, CATJUR, LIBNJ, NUMVOIE, INDREP, TYPVOIE, LIBVOIE, CP, CEDEX, VILLE, PAYS ";
-          $query .= "FROM ( SELECT ROW_NUMBER() OVER ( ORDER BY SIREN ) AS RowNum, SIREN, SIRET, NumTVAIntra, NICSIEGE, RaisonSociale, SIGLE, ENSEIGNE, NAF, CATJUR, LIBNJ, NUMVOIE, INDREP, TYPVOIE, LIBVOIE, CP, CEDEX, VILLE, PAYS ";
-          $query .= "FROM V_entreprise WITH (NOLOCK)";
-          $query .= ") AS RowConstrainedResult ";
-          $query .= "WHERE RowNum >= " . "0" . " ";
-          //$query .= "AND RowNum < " . ($form['rowIndex'] + 500) . " ";
-          $query .= isset($form['SIREN']) ? "AND SIREN = '" . $form['SIREN'] . "' " : "";
-          $query .= isset($form['SIRET']) ? "AND SIRET = '" . $form['SIRET'] . "' " : "";
-          $query .= "ORDER BY RowNum"; */
-
-        $query = "SELECT * FROM V_entreprise WITH (NOLOCK) WHERE ";
-        $query .= isset($form['SIREN']) ? "SIREN LIKE '%" . $form['SIREN'] . "%' " : "";
-        $query .= isset($form['SIRET']) ? "AND SIRET LIKE '%" . $form['SIRET'] . "%' " : "";
-        $query .= "ORDER BY SIREN";
-
-        // On execute la requête.
-        $result = odbc_exec($connection, $query);
+        $formArray = $request->request->all();
 
         $sirens = array();
-        while ($siren = odbc_fetch_array($result)) {
-            $sirens[] = array_map('utf8_encode', $siren);
+        foreach ($formArray as $form) {
+
+            $connection = odbc_connect("Driver={SQL Server};Server=$server;Database=$database;", $user, $password);
+
+            $query = "SELECT SIREN, SIRET, NumTVAIntra, NICSIEGE, RaisonSociale, SIGLE, ENSEIGNE, NAF, CATJUR, LIBNJ, NUMVOIE, INDREP, TYPVOIE, LIBVOIE, CP, CEDEX, VILLE, PAYS FROM V_entreprise WITH (NOLOCK) WHERE ";
+            $query .= $form['searchParameter'] . " LIKE '%" . $form['searchValue'] . "%' ";
+            $query .= "ORDER BY SIREN";
+
+            var_dump($query);
+
+            // On execute la requête.
+            $result = odbc_exec($connection, $query);
+
+            $time_elapsed_secs = microtime(true) - $start;
+
+            var_dump($time_elapsed_secs);
+
+            while ($siren = odbc_fetch_array($result)) {
+                $sirens[] = array_map('utf8_encode', $siren);
+            }
+
+            odbc_close($connection);
         }
 
-        odbc_close($connection);
+
 
         return new Response(json_encode($sirens));
     }
