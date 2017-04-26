@@ -5,6 +5,7 @@
 {% block messageAccueil %}Matrice de compétences{% endblock %}
 
 {% block contenu %}
+    <!-- Script -->
     <script src="{{ asset('./js/jquery.tablesorter/jquery.tablesorter.min.js') }}"></script>
     <script>
         $(document).ready(function () {
@@ -185,8 +186,37 @@
             $(".competence_checkbox").first().trigger('change');
         }
 
-    </script>
+        function openEditionPopUp(path) {
+            $("#matrice_edition_popup").dialog({
+                open: function (event, ui) {
+                    $('#matrice_edition_popup_content').load(path);
+                },
+                resizable: false,
+                height: $(window).height() * 0.6,
+                width: $(window).width() / 2,
+                modal: true,
+                draggable: false,
+                dialogClass: "pointage-alert-content-class",
+                title: "Edition compétence collaborateur",
+                buttons: {
+                    // Si l'utilisateur valide...
+                    "Valider": function () {
+                        // On affiche une fenêtre de confirmation de validation.
+                        $("#matrice_edition_popup").dialog("close");
+                    },
+                    // Si l'utilisateur annule, on ferme la fenêtre.
+                    "Annuler": function () {
+                        $("#matrice_edition_popup").dialog("close");
+                    }
+                }
+            });
+            $('.ui-dialog :button').blur();
+        }
 
+    </script>
+    <!-- Fin script -->
+
+    <!-- CSS -->
     <style>
         #matriceCompetenceTable_Div {
             width: 100%;
@@ -385,6 +415,7 @@
             text-decoration: underline;
         }
     </style>
+    <!-- Fin CSS -->
 
     <!-- Sélécteur de compétences -->
     <div id="categorie_selection_div">
@@ -416,6 +447,11 @@
     </div>
     <!-- Fin du sélécteur de compétences -->
 
+    <div id="matrice_edition_popup">
+        <div id="matrice_edition_popup_content">
+        </div>
+    </div>
+
     <!-- Table des compétences -->
     <div id="matriceCompetence_Container">
         <div id="header-background"></div>
@@ -434,7 +470,7 @@
                 </thead>
                 <tbody>
                     {% for matrice in matrices_competences %}
-                        <tr class="matrice_tr" data-competence-principale="{{ matrice.CompetencePrincipale }}" data-competence-secondaire="{{ matrice.CompetencesSecondaires|json_encode() }}">
+                        <tr class="matrice_tr" data-competence-principale="{{ matrice.CompetencePrincipale }}" data-competence-secondaire="{{ matrice.CompetencesSecondaires|json_encode() }}" ondblclick="openEditionPopUp('{{ path('nox_intranet_developpement_professionnel_matrice_competence_edition_collaborateur', {userId: matrice.user.id}) }}');">
                             <td>{{ matrice.Societe }}<hr>{{ matrice.Etablissement }}</td>
                             <td>{{ matrice.Nom }}<br />{{ matrice.Prenom }}</td>
                             <td>{{ matrice.DateNaissance|date('d/m/Y') }}</td>
