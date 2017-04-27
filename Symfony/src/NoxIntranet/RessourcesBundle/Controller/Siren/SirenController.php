@@ -53,13 +53,15 @@ class SirenController extends Controller {
         $formSirenSearchBySIRENBuilder = $this->get('form.factory')->createNamedBuilder('searchBySIREN', FormType::class);
         $formSirenSearchBySIRENBuilder
                 ->add('searchValue', TextType::class, array(
-                    'label' => "Recherche par SIREN"
+                    'label' => "Recherche par SIREN",
+                    'attr' => array(
+                        'pattern' => ".{3,}",
+                        'title' => "3 caractères minimum.",
+                        'placeholder' => "3 caractères minimum."
+                    )
                 ))
                 ->add('Search', SubmitType::class, array(
                     'label' => 'Rechercher'
-                ))
-                ->add('searchParameter', HiddenType::class, array(
-                    'data' => 'SIREN'
                 ))
         ;
         $formSirenSearchBySIREN = $formSirenSearchBySIRENBuilder->getForm();
@@ -79,6 +81,41 @@ class SirenController extends Controller {
         $formSirenSearchByRaisonSociale = $formSirenSearchByRaisonSocialeBuilder->getForm();
 
         return $this->render("NoxIntranetRessourcesBundle:Siren:sirenTable.html.twig", array('searchBySIREN' => $formSirenSearchBySIREN->createView(), 'searchByRaisonSociale' => $formSirenSearchByRaisonSociale->createView(), 'rowIndex' => $rowIndex));
+    }
+
+    public function ajaxSearchBySirenAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // Paramètres de connexion à la BDD.
+            $server = self::$SERVER;
+            $database = self::$DATABASE;
+            $user = self::$USER;
+            $password = self::$PASSWORD;
+
+            // Données du formulaire.
+            $form = $request->get('searchBySIREN');
+
+            // Connexion à la BDD.
+            $connection = odbc_connect("Driver={SQL Server};Server=$server;Database=$database;", $user, $password);
+
+            // Requête de recherche par SIREN (Procédure de Cédric THUREAU).
+            $query = "EXEC SEARCH_ENTP '" . $form['searchValue'] . "'";
+
+            // On execute la requête.
+            $result = odbc_exec($connection, $query);
+
+            // Tableau qui contiendras les résultats.
+            $sirens = array();
+
+            // Pour chaques résultats et tant que le tableau des résultat <= 100 éléments...
+            while (($siren = odbc_fetch_array($result)) && count($sirens) <= 100) {
+                // Encodage en utf-8.
+                $sirens[] = array_map('utf8_encode', $siren);
+            }
+            odbc_close($connection);
+
+            // On retourne le tableau des résultats au format JSON.
+            return new Response(json_encode($sirens));
+        }
     }
 
     public function ajaxSearchSirenByAction(Request $request) {

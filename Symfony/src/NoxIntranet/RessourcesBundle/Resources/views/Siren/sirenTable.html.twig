@@ -12,7 +12,7 @@
         });
 
         function ajaxSendSearchForm() {
-            $("form[name='searchBySIREN'], form[name='searchByRaisonSociale']").submit(function (e) {
+            $("form[name='searchBySIREN']").submit(function (e) {
                 e.preventDefault();
 
                 $('#search_waiting_td').hide();
@@ -21,7 +21,7 @@
                 $('.search_result_tr').remove();
 
                 $.ajax({
-                    url: '{{ path('nox_intranet_ressources_ajax_search_siren') }}',
+                    url: '{{ path('nox_intranet_ressources_ajax_search_by_siren') }}',
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function (sirensJSON) {
