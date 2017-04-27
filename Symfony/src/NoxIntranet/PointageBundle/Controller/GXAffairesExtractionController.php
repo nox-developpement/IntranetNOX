@@ -56,6 +56,11 @@ class GXAffairesExtractionController extends Controller {
         while ($affaire = odbc_fetch_array($affaires)) {
             printf("Traitement de l'affaire " . $affaireIndex++ . "/" . $affairesCount . ".\r");
 
+            // Si l'affaire est vide, on passe à la suivante.
+            if (empty($affaire['Champ2'])) {
+                continue;
+            }
+
             // Données de l'affaire.
             $GX_affaire_numero = utf8_encode($affaire['Champ2']);
             $GX_affaire_nom = utf8_encode($affaire['Champ9']);
