@@ -45,6 +45,7 @@
         addCompetenceSecondaire();
         addRemoveCompetenceSecondaireButton();
         initDatepicker();
+        formMatriceSaveData();
     });
 
     // Ajoute une nouvelle compétence secondaire au formulaire.
@@ -142,11 +143,26 @@
         $.datepicker.setDefaults($.datepicker.regional.fr);
     }
 
+    function formMatriceSaveData() {
+        $("form[name='formMatriceCollaborateurEdition']").submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '{{ path('nox_intranet_ajax_matrice_collaborateur_edition_save') }}',
+                type: 'POST',
+                data: $("form[name='formMatriceCollaborateurEdition']").serialize(),
+                success: function () {
+
+                }
+            });
+        });
+    }
+
 </script>
 
 <div id="form_competence_div">
     {{ form_start(formCompetence) }}
-
+    {{ form_widget(formCompetence.Id) }}
     <table id="competence_secondaire_fields_table" data-prototype="<td class='form_label'>{{ form_label(formCompetence.Competences_Secondaires.vars.prototype)|e }} :&nbsp;</td><td class='competence_select'>{{ form_widget(formCompetence.Competences_Secondaires.vars.prototype)|e }}</td>">
         <tr>
             <td class='form_label'>{{ form_label(formCompetence.Societe) }} :&nbsp;</td> 
@@ -198,5 +214,4 @@
         </tr>
     </table>
 </div>
-
 {{ form_end(formCompetence) }}

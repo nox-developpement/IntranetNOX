@@ -8,6 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\UserBundle\Entity\MatriceCompetence;
 use PHPExcel_Reader_Excel2007;
@@ -491,8 +493,9 @@ class MatriceCompetenceController extends Controller {
         }
 
         // Génération du formulaire.
-        $formCompetenceBuilder = $this->createFormBuilder($matrice_competence);
+        $formCompetenceBuilder = $this->get('form.factory')->createNamedBuilder('formMatriceCollaborateurEdition', FormType::class, $matrice_competence);
         $formCompetenceBuilder
+                ->add('Id', HiddenType::class)
                 ->add('Societe', TextType::class, array(
                     'read_only' => true,
                     'data' => $userHierarchy->getSociete(),
@@ -594,6 +597,17 @@ class MatriceCompetenceController extends Controller {
         }
 
         return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCollaborateurEdition.html.twig', array('formCompetence' => $formCompetence->createView()));
+    }
+
+    public function ajaxSaveMatriceCollaborateurEditionAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $form = $request->get('formMatriceCollaborateurEdition');
+
+            $em = $this->getDoctrine()->getManager();
+            $matrice_collaborateur_entity = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->find($form['Id']);
+
+            return new Response('');
+        }
     }
 
 }

@@ -201,8 +201,10 @@
                 buttons: {
                     // Si l'utilisateur valide...
                     "Valider": function () {
+                        $("form[name='formMatriceCollaborateurEdition']").submit();
+                        
                         // On affiche une fenêtre de confirmation de validation.
-                        $("#matrice_edition_popup").dialog("close");
+                        //$("#matrice_edition_popup").dialog("close");
                     },
                     // Si l'utilisateur annule, on ferme la fenêtre.
                     "Annuler": function () {
