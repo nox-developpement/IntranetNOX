@@ -19,9 +19,6 @@ class NoxIntranetExtractRHHierarchie extends Controller {
         // Récupère le chemin d'instalation de Symfony.
         $root = $this->container->getParameter('kernel.root_dir') . '\..';
 
-        // Permet de lire les fichiers Excel.
-        include_once $this->get('kernel')->getRootDir() . '/../vendor/phpexcel/phpexcel/PHPExcel.php';
-
         // Initialise le manager de base de données.
         $em = $this->getDoctrine()->getManager();
 
@@ -115,10 +112,10 @@ class NoxIntranetExtractRHHierarchie extends Controller {
 
                     // On attribut l'agence.
                     $newUser->setEtablissement($objWorksheet->getCell('C' . $rowIndex));
-                    
+
                     // On attribut l'agence.
                     $newUser->setSociete($objWorksheet->getCell('B' . $rowIndex));
-                    
+
                     $em->persist($newUser);
                 }
             }
@@ -139,8 +136,8 @@ class NoxIntranetExtractRHHierarchie extends Controller {
     // Trouve l'entité utilisateur associé au Nom et au prénom passé en paramètres.
     function findUserInDB($firstname, $lastname, $DBUsers) {
         // On supprime les accents et tirés du nom et du prénom et on les met en minuscule.
-        $cleanFirstname = strtolower(str_replace('-', ' ', $firstname));
-        $cleanLastname = strtolower(str_replace('-', ' ', $lastname));
+        $cleanFirstname = trim(strtolower(str_replace('-', ' ', $this->wd_remove_accents($firstname))));
+        $cleanLastname = trim(strtolower(str_replace('-', ' ', $this->wd_remove_accents($lastname))));
 
         // Pour chaque collaborateur de la base de données...
         foreach ($DBUsers as $user) {

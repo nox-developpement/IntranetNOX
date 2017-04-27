@@ -5,9 +5,14 @@ namespace NoxIntranet\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use DateTime;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="NoxIntranet\UserBundle\Entity\UserRepository")
+ * @UniqueEntity(
+ *      fields={"username"},
+ *      message="L'username existe déjà !"
+ * )
  */
 class User implements UserInterface, \Serializable {
 
