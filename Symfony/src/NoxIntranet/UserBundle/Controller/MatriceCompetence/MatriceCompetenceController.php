@@ -289,6 +289,12 @@ class MatriceCompetenceController extends Controller {
         //return new Response('test');
     }
 
+    /**
+     * 
+     * Affiche le tableau des compétences des collaborateurs.
+     * 
+     * @return view
+     */
     public function matriceCompetenceTableAction() {
         $em = $this->getDoctrine()->getManager();
         $matrices_competences = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->findBy(array(), array('nom' => 'ASC', 'prenom' => 'ASC'));
@@ -569,13 +575,6 @@ class MatriceCompetenceController extends Controller {
                     'label' => false,
                     'attr' => array(
                         'style' => "display: none;"
-                    )
-                ))
-                ->add('Sauvegarder', SubmitType::class, array(
-                    'label' => "Sauvegarder",
-                    'attr' => array(
-                        'style' => "padding: 0.8em;",
-                        'class' => "boutonFormulaire"
                     )
                 ))
         ;
