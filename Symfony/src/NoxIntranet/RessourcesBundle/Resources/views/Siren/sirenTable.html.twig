@@ -9,6 +9,7 @@
     <script>
         $(window).load(function () {
             ajaxSendSearchForm();
+            sirenTableSizing();
         });
 
         function ajaxSendSearchForm() {
@@ -62,12 +63,26 @@
                 });
             });
         }
+
+        function sirenTableSizing() {
+            console.log($("#contenu").outerHeight(true));
+            console.log($(".messageAcceuil").height());
+            console.log($("#siren_search_container").outerHeight(true));
+            $("#siren_table_container").height($("#contenu").outerHeight(true) - $("#siren_search_container").offset().top + $("#siren_search_container").height());
+            $(window).resize(function () {
+                console.log($("#contenu").outerHeight(true));
+                console.log($(".messageAcceuil").outerHeight(true));
+                console.log($("#siren_search_container").outerHeight(true));
+                $("#siren_table_container").height($("#contenu").outerHeight(true) - $(".messageAcceuil").outerHeight(true) - $("#siren_search_container").outerHeight(true));
+            });
+        }
     </script>
 
     <style>
         #siren_table_container {
             width: 100%;
             margin: auto;
+            overflow: auto;
         }
 
         #siren_table {
