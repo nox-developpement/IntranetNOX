@@ -17,6 +17,12 @@ class SirenController extends Controller {
     static $USER = "NoxReader";
     static $PASSWORD = "NoxReader";
 
+    /**
+     * 
+     * Affiche un tableau et un formulaire de recherche de SIREN.
+     * 
+     * @return view
+     */
     public function sirenTableAction() {
         $formSirenSearchBySIRENBuilder = $this->get('form.factory')->createNamedBuilder('searchBySIREN', FormType::class);
         $formSirenSearchBySIRENBuilder
@@ -38,6 +44,13 @@ class SirenController extends Controller {
         return $this->render("NoxIntranetRessourcesBundle:Siren:sirenTable.html.twig", array('searchBySIREN' => $formSirenSearchBySIREN->createView()));
     }
 
+    /**
+     * 
+     * Retourne les SIREN correspondant au paramètre de recherche.
+     * 
+     * @param Request $request Requête contenant le formulaire de recherche de SIREN.
+     * @return Response La liste des SIREN à afficher.
+     */
     public function ajaxSearchBySirenAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // Paramètres de connexion à la BDD.
