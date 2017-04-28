@@ -17,70 +17,25 @@ class SirenController extends Controller {
     static $USER = "NoxReader";
     static $PASSWORD = "NoxReader";
 
-    private function sirenExtraction($rowIndex) {
-        $server = self::$SERVER;
-        $database = self::$DATABASE;
-        $user = self::$USER;
-        $password = self::$PASSWORD;
-
-        $connection = odbc_connect("Driver={SQL Server};Server=$server;Database=$database;", $user, $password);
-
-        $query = "SELECT SIREN, SIRET, NumTVAIntra, NICSIEGE, RaisonSociale, SIGLE, ENSEIGNE, NAF, CATJUR, LIBNJ, NUMVOIE, INDREP, TYPVOIE, LIBVOIE, CP, CEDEX, VILLE, PAYS ";
-        $query .= "FROM ( SELECT ROW_NUMBER() OVER ( ORDER BY SIREN ) AS RowNum, SIREN, SIRET, NumTVAIntra, NICSIEGE, RaisonSociale, SIGLE, ENSEIGNE, NAF, CATJUR, LIBNJ, NUMVOIE, INDREP, TYPVOIE, LIBVOIE, CP, CEDEX, VILLE, PAYS ";
-        $query .= "FROM V_entreprise ";
-        $query .= ") AS RowConstrainedResult ";
-        $query .= "WHERE RowNum >= " . $rowIndex . " AND SIREN = ''";
-        $query .= "AND RowNum < " . ($rowIndex + 500) . " ";
-        $query .= "ORDER BY RowNum";
-
-        // On execute la requête.
-        $result = odbc_exec($connection, $query);
-
-        $sirens = array();
-        while ($siren = odbc_fetch_array($result)) {
-            $sirens[] = array_map('utf8_encode', $siren);
-        }
-
-        // On retourne le résultat de la requête.
-        return $sirens;
-    }
-
-    public function sirenTableAction(Request $request) {
-        $rowIndex = $request->get('rowIndex');
-
-        //$sirens = $this->sirenExtraction($rowIndex);
-
+    public function sirenTableAction() {
         $formSirenSearchBySIRENBuilder = $this->get('form.factory')->createNamedBuilder('searchBySIREN', FormType::class);
         $formSirenSearchBySIRENBuilder
                 ->add('searchValue', TextType::class, array(
-                    'label' => "Recherche par SIREN",
+                    'label' => "Recherche par SIREN, SIRET ou Raison Sociale",
                     'attr' => array(
                         'pattern' => ".{3,}",
                         'title' => "3 caractères minimum.",
                         'placeholder' => "3 caractères minimum."
                     )
                 ))
+                ->add('firstRow', HiddenType::class)
                 ->add('Search', SubmitType::class, array(
                     'label' => 'Rechercher'
                 ))
         ;
         $formSirenSearchBySIREN = $formSirenSearchBySIRENBuilder->getForm();
 
-        $formSirenSearchByRaisonSocialeBuilder = $this->get('form.factory')->createNamedBuilder('searchByRaisonSociale', FormType::class);
-        $formSirenSearchByRaisonSocialeBuilder
-                ->add('searchValue', TextType::class, array(
-                    'label' => "Recherche par Raison Sociale"
-                ))
-                ->add('Search', SubmitType::class, array(
-                    'label' => 'Rechercher'
-                ))
-                ->add('searchParameter', HiddenType::class, array(
-                    'data' => 'RaisonSociale'
-                ))
-        ;
-        $formSirenSearchByRaisonSociale = $formSirenSearchByRaisonSocialeBuilder->getForm();
-
-        return $this->render("NoxIntranetRessourcesBundle:Siren:sirenTable.html.twig", array('searchBySIREN' => $formSirenSearchBySIREN->createView(), 'searchByRaisonSociale' => $formSirenSearchByRaisonSociale->createView(), 'rowIndex' => $rowIndex));
+        return $this->render("NoxIntranetRessourcesBundle:Siren:sirenTable.html.twig", array('searchBySIREN' => $formSirenSearchBySIREN->createView()));
     }
 
     public function ajaxSearchBySirenAction(Request $request) {
@@ -106,56 +61,24 @@ class SirenController extends Controller {
             // Tableau qui contiendras les résultats.
             $sirens = array();
 
-            // Pour chaques résultats et tant que le tableau des résultat <= 100 éléments...
-            while (($siren = odbc_fetch_array($result)) && count($sirens) <= 100) {
+            // Pour chaques résultats et tant que le tableau des résultat <= 10 éléments...
+            $currentRow = 1;
+            while (($siren = odbc_fetch_array($result)) && count($sirens) <= 10) {
+                if ($currentRow < $form['firstRow']) {
+                    $currentRow++;
+                    continue;
+                }
+
                 // Encodage en utf-8.
                 $sirens[] = array_map('utf8_encode', $siren);
+
+                $currentRow++;
             }
             odbc_close($connection);
 
             // On retourne le tableau des résultats au format JSON.
             return new Response(json_encode($sirens));
         }
-    }
-
-    public function ajaxSearchSirenByAction(Request $request) {
-        $server = self::$SERVER;
-        $database = self::$DATABASE;
-        $user = self::$USER;
-        $password = self::$PASSWORD;
-
-        $start = microtime(true);
-
-        $formArray = $request->request->all();
-
-        $sirens = array();
-        foreach ($formArray as $form) {
-
-            $connection = odbc_connect("Driver={SQL Server};Server=$server;Database=$database;", $user, $password);
-
-            $query = "SELECT SIREN, SIRET, NumTVAIntra, NICSIEGE, RaisonSociale, SIGLE, ENSEIGNE, NAF, CATJUR, LIBNJ, NUMVOIE, INDREP, TYPVOIE, LIBVOIE, CP, CEDEX, VILLE, PAYS FROM V_entreprise WITH (NOLOCK) WHERE ";
-            $query .= $form['searchParameter'] . " LIKE '%" . $form['searchValue'] . "%' ";
-            $query .= "ORDER BY SIREN";
-
-            var_dump($query);
-
-            // On execute la requête.
-            $result = odbc_exec($connection, $query);
-
-            $time_elapsed_secs = microtime(true) - $start;
-
-            var_dump($time_elapsed_secs);
-
-            while ($siren = odbc_fetch_array($result)) {
-                $sirens[] = array_map('utf8_encode', $siren);
-            }
-
-            odbc_close($connection);
-        }
-
-
-
-        return new Response(json_encode($sirens));
     }
 
 }

@@ -9,71 +9,100 @@
     <script>
         $(window).load(function () {
             ajaxSendSearchForm();
-            sirenTableSizing();
+            sirenTableInfiniteScroll();
         });
 
+        // Rercherche les SIREN correspondant à la recherche et les ajoute au tableau.
         function ajaxSendSearchForm() {
+            // Lors de l'envoi du formulaire...
             $("form[name='searchBySIREN']").submit(function (e) {
-                e.preventDefault();
+                e.preventDefault(); // On bloque l'envoi.
 
+                // On affiche le chargement et on supprime les précedent résultats.
                 $('#search_waiting_td').hide();
                 $('#search_no_result_td').hide();
                 $('#search_loading_td').show();
                 $('.search_result_tr').remove();
+
+                $("#searchBySIREN_firstRow").val(1);
 
                 $.ajax({
                     url: '{{ path('nox_intranet_ressources_ajax_search_by_siren') }}',
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function (sirensJSON) {
+                        // Résultat sous forme d'objets.
                         var sirens = JSON.parse(sirensJSON);
-                        console.log(sirens.length);
 
+                        // On cache la fenêter de chargement.
                         $('#search_loading_td').hide();
-                        if (sirens.length > 0) {
-                            $.each(sirens, function (index, siren) {
-                                var html = "<tr class='search_result_tr'>";
-                                html += "<td>" + siren.SIREN + "</td>";
-                                html += "<td>" + siren.SIRET + "</td>";
-                                html += "<td>" + siren.NumTVAIntra + "</td>";
-                                html += "<td>" + siren.NICSIEGE + "</td>";
-                                html += "<td>" + siren.RaisonSociale + "</td>";
-                                html += "<td>" + siren.SIGLE + "</td>";
-                                html += "<td>" + siren.ENSEIGNE + "</td>";
-                                html += "<td>" + siren.NAF + "</td>";
-                                html += "<td>" + siren.CATJUR + "</td>";
-                                html += "<td>" + siren.LIBNJ + "</td>";
-                                html += "<td>" + siren.NUMVOIE + "</td>";
-                                html += "<td>" + siren.INDREP + "</td>";
-                                html += "<td>" + siren.TYPEVOIE + "</td>";
-                                html += "<td>" + siren.LIBVOIE + "</td>";
-                                html += "<td>" + siren.CP + "</td>";
-                                html += "<td>" + siren.CEDEX + "</td>";
-                                html += "<td>" + siren.VILLE + "</td>";
-                                html += "<td>" + siren.PAYS + "</td>";
-                                html += "</tr>";
-                                $('#siren_table tbody').append(html);
-                            });
-                        } else {
-                            $('#search_no_result_td').show();
-                        }
 
-
+                        // Ajoute les résultats au tableau.
+                        appendSirenResults(sirens);
                     }
                 });
             });
         }
 
-        function sirenTableSizing() {
-            console.log($("#contenu").outerHeight(true));
-            console.log($(".messageAcceuil").height());
-            console.log($("#siren_search_container").outerHeight(true));
-            $("#siren_table_container").height($("#contenu").outerHeight(true) - $("#siren_search_container").offset().top + $("#siren_search_container").height());
-            $(window).resize(function () {
-                console.log($("#contenu").outerHeight(true));
-                console.log($(".messageAcceuil").outerHeight(true));
-                console.log($("#siren_search_container").outerHeight(true));
-                $("#siren_table_container").height($("#contenu").outerHeight(true) - $(".messageAcceuil").outerHeight(true) - $("#siren_search_container").outerHeight(true));
+        // Ajoute les sirens passé en paramètres au tableau des sirens.
+        function appendSirenResults(sirens) {
+            if (sirens.length > 0) {
+                $.each(sirens, function (index, siren) {
+                    var html = "<tr class='search_result_tr'>";
+                    html += "<td>" + siren.SIREN + "</td>";
+                    html += "<td>" + siren.SIRET + "</td>";
+                    html += "<td>" + siren.NumTVAIntra + "</td>";
+                    html += "<td>" + siren.NICSIEGE + "</td>";
+                    html += "<td>" + siren.RaisonSociale + "</td>";
+                    html += "<td>" + siren.SIGLE + "</td>";
+                    html += "<td>" + siren.ENSEIGNE + "</td>";
+                    html += "<td>" + siren.NAF + "</td>";
+                    html += "<td>" + siren.CATJUR + "</td>";
+                    html += "<td>" + siren.LIBNJ + "</td>";
+                    html += "<td>" + siren.NUMVOIE + "</td>";
+                    html += "<td>" + siren.INDREP + "</td>";
+                    html += "<td>" + siren.TYPEVOIE + "</td>";
+                    html += "<td>" + siren.LIBVOIE + "</td>";
+                    html += "<td>" + siren.CP + "</td>";
+                    html += "<td>" + siren.CEDEX + "</td>";
+                    html += "<td>" + siren.VILLE + "</td>";
+                    html += "<td>" + siren.PAYS + "</td>";
+                    html += "</tr>";
+                    $('#siren_table tbody').append(html);
+                });
+            } else {
+                $('#search_no_result_td').show();
+            }
+        }
+
+        function sirenTableInfiniteScroll() {
+            var isRunning = null;
+
+            // Lors du scroll...
+            $("#siren_table_container").scroll(function () {
+                // Valeur maximum et valeur courante du scroll.
+                var maxScroll = $(this)[0].scrollHeight - $(this).height();
+                var currentScroll = $(this).scrollTop();
+
+
+
+                // Si le scroll est presque en bas et qu'un requête de récupération des siren n'est pas déjà en cours...
+                if (currentScroll >= maxScroll * 0.95 && (isRunning === null || isRunning.readyState === 4)) {
+                    $("#searchBySIREN_firstRow").val($(".search_result_tr").length + 1);
+
+                    isRunning = $.ajax({
+                        url: '{{ path('nox_intranet_ressources_ajax_search_by_siren') }}',
+                        type: 'POST',
+                        data: $("form[name='searchBySIREN']").serialize(),
+                        success: function (sirensJSON) {
+                            // Résultat sous forme d'objets.
+                            var sirens = JSON.parse(sirensJSON);
+
+                            // Ajoute les résultats au tableau.
+                            appendSirenResults(sirens);
+                        }
+                    });
+                }
             });
         }
     </script>
@@ -81,6 +110,7 @@
     <style>
         #siren_table_container {
             width: 100%;
+            height: 60%;
             margin: auto;
             overflow: auto;
         }
@@ -106,7 +136,8 @@
             text-align: center;
         }
 
-        form[name='searchBySIREN'], form[name='searchByRaisonSociale'] {
+        form[name='searchBySIREN'] {
+            width: 100%;
             padding: 0;
             margin: 0;
             margin-top: 0.5em;
@@ -114,8 +145,7 @@
             border: none;
         }
 
-        form[name='searchBySIREN'] p, form[name='searchByRaisonSociale'] p {
-            display: inline-block;
+        form[name='searchBySIREN'] p {
             margin: 0;
         }
 
@@ -140,12 +170,6 @@
             {{ form_widget(searchBySIREN.Search) }}
         </p>
         {{ form_end(searchBySIREN) }}
-        {{ form_start(searchByRaisonSociale) }}
-        <p>
-            {{ form_label(searchByRaisonSociale.searchValue) }} : {{ form_widget(searchByRaisonSociale.searchValue) }}
-            {{ form_widget(searchByRaisonSociale.Search) }}
-        </p>
-        {{ form_end(searchByRaisonSociale) }}
     </div>
     <div id="siren_table_container">
         <div></div>
