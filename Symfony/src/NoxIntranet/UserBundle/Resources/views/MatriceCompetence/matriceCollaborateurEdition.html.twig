@@ -143,7 +143,9 @@
         $.datepicker.setDefaults($.datepicker.regional.fr);
     }
 
+    // Sauvegade les modification de la matrice collaborateur en base de données.
     function formMatriceSaveData() {
+        // Lors de l'envoi du formulaire...
         $("form[name='formMatriceCollaborateurEdition']").submit(function (e) {
             e.preventDefault();
 
@@ -151,8 +153,9 @@
                 url: '{{ path('nox_intranet_ajax_matrice_collaborateur_edition_save') }}',
                 type: 'POST',
                 data: $("form[name='formMatriceCollaborateurEdition']").serialize(),
-                success: function () {
-
+                success: function () {                  
+                    // On ferme la pop-up d'édition.
+                    $("#matrice_edition_popup").dialog("close");
                 }
             });
         });

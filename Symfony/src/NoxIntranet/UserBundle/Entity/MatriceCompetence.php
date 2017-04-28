@@ -3,6 +3,7 @@
 namespace NoxIntranet\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * MatriceCompetence
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="NoxIntranet\UserBundle\Entity\MatriceCompetenceRepository")
  */
-class MatriceCompetence {
+class MatriceCompetence implements JsonSerializable {
 
     /**
      * @var integer
@@ -378,6 +379,26 @@ class MatriceCompetence {
      */
     public function getIsUpdated() {
         return $this->isUpdated;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function jsonSerialize() {
+        return array(
+            'user' => $this->user,
+            'societe' => $this->societe,
+            'etablissement' => $this->etablissement,
+            'nom' => $this->nom,
+            'prenom' => $this->prenom,
+            'date_naissance' => $this->dateNaissance->format("d/m/Y"),
+            'date_anciennete' => $this->dateAnciennete->format("d/m/Y"),
+            'statut' => $this->statut,
+            'poste' => $this->poste,
+            'competence_principale' => $this->competencePrincipale,
+            'competences_secondaires' => $this->competencesSecondaires
+        );
     }
 
 }

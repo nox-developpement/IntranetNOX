@@ -54,3 +54,7 @@ nox_intranet_developpement_professionnel_gestion_entretien_professionnel:
 nox_intranet_ajax_matrice_collaborateur_edition_save:
     path:   /matrice-competence/ajax-collaborateur-edition-save
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:ajaxSaveMatriceCollaborateurEdition }
+    
+nox_intranet_ajax_matrice_collaborateur_get_matrice_collaborateur:
+    path:   /matrice-competence/ajax-get-matrice-collaborateur
+    defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:ajaxGetMatriceCollaborateur }

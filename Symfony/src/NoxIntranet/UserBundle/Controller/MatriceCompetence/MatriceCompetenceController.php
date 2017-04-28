@@ -599,14 +599,55 @@ class MatriceCompetenceController extends Controller {
         return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCollaborateurEdition.html.twig', array('formCompetence' => $formCompetence->createView()));
     }
 
+    /**
+     * 
+     * Sauvegarde les modifications sur une matrice collaborateur en base de données.
+     * 
+     * @param Request $request Requête contenant les données du formulaire.
+     * @return Response
+     */
     public function ajaxSaveMatriceCollaborateurEditionAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
+            // Données du formulaire
             $form = $request->get('formMatriceCollaborateurEdition');
 
+            // On récuépre l'entitée de matrice de compétence.
             $em = $this->getDoctrine()->getManager();
             $matrice_collaborateur_entity = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->find($form['Id']);
 
-            return new Response('');
+            // On met à jour les données.
+            $matrice_collaborateur_entity->setDateNaissance(DateTime::createFromFormat('d/m/Y', $form['Date_Naissance']));
+            $matrice_collaborateur_entity->setDateAnciennete(DateTime::createFromFormat('d/m/Y', $form['Date_Anciennete']));
+            $matrice_collaborateur_entity->setStatut($form['Statut']);
+            $matrice_collaborateur_entity->setPoste($form['Poste']);
+            if (!empty($form['Competence_Principale'])) {
+                $matrice_collaborateur_entity->setCompetencePrincipale($form['Competence_Principale']);
+            } else {
+                $matrice_collaborateur_entity->setCompetencePrincipale(null);
+            }
+            if (isset($form['Competences_Secondaires'])) {
+                $matrice_collaborateur_entity->setCompetencesSecondaires($form['Competences_Secondaires']);
+            } else {
+                $matrice_collaborateur_entity->setCompetencesSecondaires(null);
+            }
+
+            // Sauvegarde en base de données.
+            $em->flush();
+
+            return new Response('Saved');
+        }
+    }
+
+    public function ajaxGetMatriceCollaborateurAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $userId = $request->get('userId');
+
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->find('NoxIntranetUserBundle:User', $userId);
+
+            $matrice = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->findOneByUser($user);
+
+            return new Response(json_encode($matrice));
         }
     }
 
