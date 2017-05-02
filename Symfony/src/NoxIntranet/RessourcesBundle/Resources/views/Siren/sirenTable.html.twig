@@ -10,6 +10,7 @@
         $(window).load(function () {
             ajaxSendSearchForm();
             sirenTableInfiniteScroll();
+            horizontalScroll();
         });
 
         // Rercherche les SIREN correspondant à la recherche et les ajoute au tableau.
@@ -75,19 +76,18 @@
             }
         }
 
+        // Charge des nouvelles ligne au tableau des siren lorsque la barre de scroll arrive en bas.
         function sirenTableInfiniteScroll() {
             var isRunning = null;
 
             // Lors du scroll...
-            $("#siren_table_container").scroll(function () {
+            $("#siren_table_container_inner").scroll(function () {
                 // Valeur maximum et valeur courante du scroll.
                 var maxScroll = $(this)[0].scrollHeight - $(this).height();
                 var currentScroll = $(this).scrollTop();
 
-
-
                 // Si le scroll est presque en bas et qu'un requête de récupération des siren n'est pas déjà en cours...
-                if (currentScroll >= maxScroll * 0.95 && (isRunning === null || isRunning.readyState === 4)) {
+                if (currentScroll >= maxScroll * 0.90 && (isRunning === null || isRunning.readyState === 4)) {
                     $("#searchBySIREN_firstRow").val($(".search_result_tr").length + 1);
 
                     isRunning = $.ajax({
@@ -99,10 +99,18 @@
                             var sirens = JSON.parse(sirensJSON);
 
                             // Ajoute les résultats au tableau.
-                            appendSirenResults(sirens);
+                            if (sirens.length > 0) {
+                                appendSirenResults(sirens);
+                            }
                         }
                     });
                 }
+            });
+        }
+
+        function horizontalScroll() {
+            $("#siren_table_container_inner").scroll(function () {
+                $("#siren_table thead tr:first-child .th-inner").css('transform', "translateX(-" + $(this).scrollLeft() + "px)");
             });
         }
     </script>
@@ -110,32 +118,55 @@
 
     <!-- Style -->
     <style>
+        #contenu {
+            overflow-x: hidden;
+        }
+
         #siren_table_container {
             width: 100%;
             height: 60%;
-            margin: auto;
-            overflow: auto;
+            position: relative;
+            padding-top: 30px;
+        }
+
+        #header-background {
+            height: 30px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            background-color: rgba(31,78,121,0.8);
+        }
+
+        #siren_table_container_inner {
+            overflow-x: auto;
+            overflow-y: auto;
+            height: 100%;
         }
 
         #siren_table {
             width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
-        #siren_table, #siren_table tr, #siren_table th, #siren_table td {
+        #siren_table, #siren_table tr, #siren_table th, #siren_table td, table, table tr, table th, table td  {
             border: 1px solid black;
             border-collapse: collapse;
-        }
-
-        #siren_table th {
-            word-wrap: break-word;
-            background-color: rgba(31,78,121,0.8);
-            color: white;
         }
 
         #siren_table th, #siren_table td {
             padding: 0.5em;
             font-size: calc(9px + 0.2vw);
             text-align: center;
+        }
+
+        #siren_table th {
+            word-wrap: break-word;
+            background-color: rgba(31,78,121,0.8);
+            color: white;
+            text-align: center;
+            padding: 0;
         }
 
         form[name='searchBySIREN'] {
@@ -163,6 +194,26 @@
         #search_loading_td img {
             width: 15em;
         }
+
+        .th-inner {
+            position: absolute;
+            top: 0;
+            line-height: 30px;
+            text-align: center;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        #hidden-header .th-inner {
+            position: static;
+            overflow-y: hidden;
+            height: 0;
+            white-space: nowrap;
+        }
+
+        #siren_table thead tr, #siren_table thead th {
+            border-color: transparent;
+        }
     </style>
     <!-- Fin style -->
 
@@ -179,29 +230,49 @@
 
     <!-- Tableau des SIREN -->
     <div id="siren_table_container">
-        <div></div>
-        <div>
+        <div id="header-background"></div>
+        <div id="siren_table_container_inner">
             <table id="siren_table">
                 <thead>
                     <tr>
-                        <th>SIREN</th>
-                        <th>SIRET</th>
-                        <th>NumTVAIntra</th>
-                        <th>NICSIEGE</th>
-                        <th>RaisonSociale</th>
-                        <th>SIGLE</th>
-                        <th>ENSEIGNE</th>
-                        <th>NAF</th>
-                        <th>CATJUR</th>
-                        <th>LIBNJ</th>
-                        <th>NUMVOIE</th>
-                        <th>INDREP</th>
-                        <th>TYPVOIE</th>
-                        <th>LIBVOIE</th>
-                        <th>CP</th>
-                        <th>CEDEX</th>
-                        <th>VILLE</th>
-                        <th>PAYS</th>
+                        <th><div class="th-inner">SIREN</div></th>
+                        <th><div class="th-inner">SIRET</div></th>
+                        <th><div class="th-inner">NumTVAIntra</div></th>
+                        <th><div class="th-inner">NICSIEGE</div></th>
+                        <th><div class="th-inner">RaisonSociale</div></th>
+                        <th><div class="th-inner">SIGLE</div></th>
+                        <th><div class="th-inner">ENSEIGNE</div></th>
+                        <th><div class="th-inner">NAF</div></th>
+                        <th><div class="th-inner">CATJUR</div></th>
+                        <th><div class="th-inner">LIBNJ</div></th>
+                        <th><div class="th-inner">NUMVOIE</div></th>
+                        <th><div class="th-inner">INDREP</div></th>
+                        <th><div class="th-inner">TYPVOIE</div></th>
+                        <th><div class="th-inner">LIBVOIE</div></th>
+                        <th><div class="th-inner">CP</div></th>
+                        <th><div class="th-inner">CEDEX</div></th>
+                        <th><div class="th-inner">VILLE</div></th>
+                        <th><div class="th-inner">PAYS</div></th>
+                    </tr>
+                    <tr id="hidden-header">
+                        <th><div class="th-inner">SIREN</div></th>
+                        <th><div class="th-inner">SIRET</div></th>
+                        <th><div class="th-inner">NumTVAIntra</div></th>
+                        <th><div class="th-inner">NICSIEGE</div></th>
+                        <th><div class="th-inner">RaisonSociale</div></th>
+                        <th><div class="th-inner">SIGLE</div></th>
+                        <th><div class="th-inner">ENSEIGNE</div></th>
+                        <th><div class="th-inner">NAF</div></th>
+                        <th><div class="th-inner">CATJUR</div></th>
+                        <th><div class="th-inner">LIBNJ</div></th>
+                        <th><div class="th-inner">NUMVOIE</div></th>
+                        <th><div class="th-inner">INDREP</div></th>
+                        <th><div class="th-inner">TYPVOIE</div></th>
+                        <th><div class="th-inner">LIBVOIE</div></th>
+                        <th><div class="th-inner">CP</div></th>
+                        <th><div class="th-inner">CEDEX</div></th>
+                        <th><div class="th-inner">VILLE</div></th>
+                        <th><div class="th-inner">PAYS</div></th>
                     </tr>
                 </thead>
                 <tbody>
