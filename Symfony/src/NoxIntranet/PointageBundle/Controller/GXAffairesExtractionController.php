@@ -23,7 +23,7 @@ class GXAffairesExtractionController extends Controller {
     private static $SERVER_NAME = "SRV-NOX35-APPLI\EVERWIN";
     private static $DATABASE = "NOX";
     private static $UID = "NOXGXreader";
-    private static $PWD = "NOX35GXreader";
+    private static $PWD = "NoxReader";
 
     // Initialise le container de service.
     public function __construct(Container $container, EntityManager $em) {
@@ -192,7 +192,7 @@ class GXAffairesExtractionController extends Controller {
         $connexion_token = $this->connectToGXDatabase(self::$SERVER_NAME, self::$DATABASE, self::$UID, self::$PWD);
 
         // Requête qui retourne les affaires.
-        $query = "SET NOCOUNT ON SELECT Count(Champ2) FROM AFFAIRE WHERE Champ2 <> 'NULL'";
+        $query = "SET NOCOUNT ON SELECT Count(Champ2) FROM AFFAIRE WITH (NOLOCK) WHERE Champ2 <> 'NULL'";
 
         // On execute la requête.
         $result = odbc_exec($connexion_token, $query);
