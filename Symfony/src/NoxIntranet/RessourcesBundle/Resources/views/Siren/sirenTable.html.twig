@@ -108,8 +108,11 @@
             });
         }
 
+        // Permet de faire suivre le scrolling du header avec celui du tableau.
         function horizontalScroll() {
+            // Lorsqu'on scroll sur le container du tableau...
             $("#siren_table_container_inner").scroll(function () {
+                // On applique un translation équivalente sur les en-tête du header.
                 $("#siren_table thead tr:first-child .th-inner").css('transform', "translateX(-" + $(this).scrollLeft() + "px)");
             });
         }
@@ -200,8 +203,9 @@
             top: 0;
             line-height: 30px;
             text-align: center;
-            padding-left: 15px;
-            padding-right: 15px;
+            width: 100%;
+            margin-left: -50%;
+            text-align: center;
         }
 
         #hidden-header .th-inner {
@@ -209,10 +213,17 @@
             overflow-y: hidden;
             height: 0;
             white-space: nowrap;
+            padding-left: 15px;
+            padding-right: 15px;
         }
 
         #siren_table thead tr, #siren_table thead th {
             border-color: transparent;
+        }
+
+        .horizontal-align-header-div {
+            margin: 0 auto;
+            width: 0;
         }
     </style>
     <!-- Fin style -->
@@ -235,24 +246,24 @@
             <table id="siren_table">
                 <thead>
                     <tr>
-                        <th><div class="th-inner">SIREN</div></th>
-                        <th><div class="th-inner">SIRET</div></th>
-                        <th><div class="th-inner">NumTVAIntra</div></th>
-                        <th><div class="th-inner">NICSIEGE</div></th>
-                        <th><div class="th-inner">RaisonSociale</div></th>
-                        <th><div class="th-inner">SIGLE</div></th>
-                        <th><div class="th-inner">ENSEIGNE</div></th>
-                        <th><div class="th-inner">NAF</div></th>
-                        <th><div class="th-inner">CATJUR</div></th>
-                        <th><div class="th-inner">LIBNJ</div></th>
-                        <th><div class="th-inner">NUMVOIE</div></th>
-                        <th><div class="th-inner">INDREP</div></th>
-                        <th><div class="th-inner">TYPVOIE</div></th>
-                        <th><div class="th-inner">LIBVOIE</div></th>
-                        <th><div class="th-inner">CP</div></th>
-                        <th><div class="th-inner">CEDEX</div></th>
-                        <th><div class="th-inner">VILLE</div></th>
-                        <th><div class="th-inner">PAYS</div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>SIREN</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>SIRET</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>NumTVAIntra</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>NICSIEGE</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>RaisonSociale</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>SIGLE</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>ENSEIGNE</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>NAF</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>CATJUR</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>LIBNJ</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>NUMVOIE</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>INDREP</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>TYPVOIE</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>LIBVOIE</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>CP</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>CEDEX</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>VILLE</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>PAYS</span></div></div></th>
                     </tr>
                     <tr id="hidden-header">
                         <th><div class="th-inner">SIREN</div></th>
