@@ -21,3 +21,8 @@ nox_intranet_ajax_get_message_alerte:
 nox_intranet_message_alerte:
     path: /accueil/message-alerte
     defaults: { _controller: NoxIntranetAccueilBundle:Accueil:messageAlerte }
+    
+nox_intranet_charte_informatique:
+    path: /accueil/charte-informatique
+    defaults: { _controller: NoxIntranetAccueilBundle:CharteInformatique:displayCharteInformatique }
+    

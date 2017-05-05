@@ -79,6 +79,11 @@ class User implements UserInterface, \Serializable, JsonSerializable {
      */
     private $lastViewedPage;
 
+    /**
+     * @ORM\Column(name="hasReadCharteInformatique", type="boolean")
+     */
+    private $hasReadCharteInformatique = false;
+
     // Les getters et setters
 
     public function getUsername() {
@@ -404,4 +409,28 @@ class User implements UserInterface, \Serializable, JsonSerializable {
         );
     }
 
+
+    /**
+     * Set hasReadCharteInformatique
+     *
+     * @param boolean $hasReadCharteInformatique
+     *
+     * @return User
+     */
+    public function setHasReadCharteInformatique($hasReadCharteInformatique)
+    {
+        $this->hasReadCharteInformatique = $hasReadCharteInformatique;
+
+        return $this;
+    }
+
+    /**
+     * Get hasReadCharteInformatique
+     *
+     * @return boolean
+     */
+    public function getHasReadCharteInformatique()
+    {
+        return $this->hasReadCharteInformatique;
+    }
 }

@@ -5,11 +5,17 @@ namespace NoxIntranet\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use DateTime;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass="NoxIntranet\UserBundle\Entity\UserRepository")
+ * @UniqueEntity(
+ *      fields={"username"},
+ *      message="L'username existe déjà !"
+ * )
  */
-class User implements UserInterface, \Serializable {
+class User implements UserInterface, \Serializable, JsonSerializable {
 
     /**
      * @ORM\Column(name="id", type="integer")
@@ -64,15 +70,19 @@ class User implements UserInterface, \Serializable {
     private $lastActivity;
 
     /**
-<<<<<<< HEAD
-     * @ORM\OneToOne(targetEntity="NoxIntranet\UserBundle\Entity\MatriceCompetence", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="NoxIntranet\UserBundle\Entity\MatriceCompetence", mappedBy="user", cascade={"persist", "remove"})
      */
     private $matriceCompetence;
-=======
+
+    /**
      * @ORM\Column(name="lastViewedPage", type="array", nullable=true)
      */
     private $lastViewedPage;
->>>>>>> master
+
+    /**
+     * @ORM\Column(name="hasReadCharteInformatique", type="boolean")
+     */
+    private $hasReadCharteInformatique = false;
 
     // Les getters et setters
 
@@ -201,40 +211,6 @@ class User implements UserInterface, \Serializable {
         return $this;
     }
 
-    /** @see \Serializable::serialize() */
-    public function serialize() {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->password,
-            $this->local,
-            // see section on salt below
-            $this->salt,
-            serialize($this->roles),
-        ));
-    }
-
-    /** @see \Serializable::unserialize() */
-    public function unserialize($serialized) {
-        list (
-                $this->id,
-                $this->username,
-                $this->password,
-                $this->local,
-                // see section on salt below
-                $this->salt,
-                $roles,
-                ) = unserialize($serialized);
-        $this->roles = unserialize($roles);
-    }
-
-    public function __construct() {
-        $this->password = "default";
-        $this->local = false;
-        $this->salt = md5(uniqid(null, true));
-        $this->roles = array('ROLE_USER');
-    }
-
     /**
      * Set agence
      *
@@ -347,6 +323,90 @@ class User implements UserInterface, \Serializable {
 
     public function isActiveNow() {
         $this->setLastActivity(new DateTime());
+    }
+
+    /**
+     * Set matriceCompetence
+     *
+     * @param \NoxIntranet\UserBundle\Entity\MatriceCompetence $matriceCompetence
+     *
+     * @return User
+     */
+    public function setMatriceCompetence(\NoxIntranet\UserBundle\Entity\MatriceCompetence $matriceCompetence = null) {
+        $this->matriceCompetence = $matriceCompetence;
+
+        return $this;
+    }
+
+    /**
+     * Set lastViewedPage
+     *
+     * @param array $lastViewedPage
+     *
+     * @return User
+     */
+    public function setLastViewedPage($lastViewedPage) {
+        $this->lastViewedPage = $lastViewedPage;
+
+        return $this;
+    }
+
+    /**
+     * Get matriceCompetence
+     *
+     * @return \NoxIntranet\UserBundle\Entity\MatriceCompetence
+     */
+    public function getMatriceCompetence() {
+        return $this->matriceCompetence;
+    }
+
+    /**
+     * Get lastViewedPage
+     *
+     * @return array
+     */
+    public function getLastViewedPage() {
+        return $this->lastViewedPage;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize() {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->local,
+            // see section on salt below
+            $this->salt,
+            serialize($this->roles),
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized) {
+        list (
+                $this->id,
+                $this->username,
+                $this->password,
+                $this->local,
+                // see section on salt below
+                $this->salt,
+                $roles,
+                ) = unserialize($serialized);
+        $this->roles = unserialize($roles);
+    }
+
+    public function __construct() {
+        $this->password = "default";
+        $this->local = false;
+        $this->salt = md5(uniqid(null, true));
+        $this->roles = array('ROLE_USER');
+    }
+
+    public function jsonSerialize() {
+        return array(
+            'id' => $this->id
+        );
     }
 
 }
