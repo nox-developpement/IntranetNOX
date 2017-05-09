@@ -1,3 +1,105 @@
-{{ form_start(formCharteInformatique) }}
+<style>
+    html, body {
+        padding: 0;
+        margin: 0;
+        background-color: #1F4E79;
+    }
 
-{{ form_end(formCharteInformatique) }}
+    #charte_intro {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: calc(30px + 0.2vw);
+        color: white;
+        text-align: center;
+        display: table;
+    }
+
+    #charte_intro p {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    #charte_informatique_frame {
+        width: 100%;
+        height: 80%;
+        border: none;
+        opacity: 0;
+    }
+
+    #form_container {
+        display: table;
+        height: 20%;
+        width: 30%;
+        margin: auto;
+        opacity: 0;
+    }
+
+    #form_wrapper {
+        border: 1px solid black;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+    form[name='form'] {
+        display: table-cell;
+        margin: 0 auto;    
+        vertical-align: middle;
+    }
+
+    form[name='form'] p {
+        font-size: calc(15px + 0.2vw);
+        text-align: center;
+        color: #1F4E79;
+    }
+
+    #form_Validate {
+        background-color: rgb(31,78,121);
+        color: white;
+        border-radius: 5px;
+        border: inset 1px rgb(31,78,121);
+        padding: 1%;
+        cursor: pointer;
+        font-size: calc(15px + 0.2vw);
+    }
+
+    #form_Validate:hover {
+        color: #010101;
+        background-color: #FEFEFE;
+    }
+</style>
+
+<script src={{ asset('./js/jquery-2.2.0.min.js') }}></script>
+<script>
+    $(window).load(function () {
+        setTimeout(function () {
+            $("#charte_intro").fadeOut(5000, function () {
+                $("#charte_intro").hide();
+                $("#charte_informatique_frame").fadeTo(0, 1);
+                $("#form_container").fadeTo(0, 1);
+            });
+        }, 1000);
+    });
+
+</script>
+
+<div id="charte_intro">
+    <p>Veuillez lire la charte informatique pour poursuivre la navigation.</p>
+</div>
+
+<iframe id="charte_informatique_frame" src="{{ asset('bundles/noxintranetaccueil/Charte_Informatique/Charte informatique Groupe NOX Janvier 2016.pdf') }}"></iframe>
+<div id="form_container">
+    {{ form_start(formCharteInformatique) }}
+    <div id="form_wrapper">
+        <p>
+            {{ form_widget(formCharteInformatique.Read) }}
+            {{ form_label(formCharteInformatique.Read) }}
+        </p>
+        <p>
+            {{ form_widget(formCharteInformatique.Validate) }}
+        </p>
+        {{ form_end(formCharteInformatique) }}
+    </div>
+</div>
