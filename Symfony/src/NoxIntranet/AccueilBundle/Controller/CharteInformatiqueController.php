@@ -21,16 +21,13 @@ class CharteInformatiqueController extends Controller {
         $formCharteInformatiqueBuilder = $this->get('form.factory')->createBuilder();
         $formCharteInformatiqueBuilder
                 ->add('Read', CheckboxType::class, array(
-                    'label' => "J'ai lu et j'approuve la charte informatique.",
-                    'attr' => array(
-                        'title' => "Faite défiler la charte en entier pour pouvoir cocher la case."
-                    ),
-                    'label_attr' => array(
-                        'title' => "Faite défiler la charte en entier pour pouvoir cocher la case."
-                    )
+                    'label' => "Je m'engage à lire et signer la charte informatique.",
                 ))
                 ->add('Validate', SubmitType::class, array(
-                    'label' => 'Valider'
+                    'label' => 'Valider',
+                    'attr' => array(
+                        'style' => "display: none"
+                    )
         ));
         $formCharteInformatique = $formCharteInformatiqueBuilder->getForm();
 
@@ -54,6 +51,14 @@ class CharteInformatiqueController extends Controller {
 
         // Affichage de la charte informatique et du formulaire de validation de lecture.
         return $this->render('NoxIntranetAccueilBundle:CharteInformatique:charteInformatique.html.twig', array('formCharteInformatique' => $formCharteInformatique->createView()));
+    }
+
+    public function showCollaborateurWhoHasNotReadCharteInformatique() {
+        /* $em = $this->getDoctrine()->getManager();
+
+          $collaborateurs = $em->getRepository('NoxIntranetUserBundle:User');
+
+         */
     }
 
 }
