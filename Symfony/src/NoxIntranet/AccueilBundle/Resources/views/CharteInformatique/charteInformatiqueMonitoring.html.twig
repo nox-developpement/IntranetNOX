@@ -1,0 +1,69 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Monitoring charte informatique {% endblock %}
+
+{% block messageAccueil %}Monitoring charte informatique{% endblock %}
+
+{% block sousMessageAccueil %}Année {{ 'now'|date('Y') }} | <a href='{{ asset("Préparation à l'Entretien de Développement Professionnel.pdf") }}' target="_blank">Préparation à l'Entretien de Développement Professionnel</a>{% endblock %}
+
+{% block contenu %}
+    <style>
+        #charte_informatique_collaborateurs_list_container {
+            width: 70%;
+            height: 60%;
+            margin: auto;
+        }
+
+        #collaborateurs_who_read_charte_informatique_container, #collaborateurs_who_hasnt_read_charte_informatique_container {
+            width: 50%;
+            height: 100%;
+            display: inline-block;
+        }
+
+        #collaborateurs_who_read_charte_informatique_container {
+            float: left;
+        }
+
+        #collaborateurs_who_hasnt_read_charte_informatique_container {
+            float: right;
+        }
+
+        #collaborateurs_who_read_charte_informatique, #collaborateurs_who_hasnt_read_charte_informatique {
+            list-style-type: none;
+            overflow: auto;
+            height: 100%;
+        }
+
+        #collaborateurs_who_read_charte_informatique li, #collaborateurs_who_hasnt_read_charte_informatique li {
+            text-align: center;
+        }
+
+        h4 {
+            text-align: center;
+        }
+    </style>
+
+    <div id="charte_informatique_collaborateurs_list_container">
+        <div id="collaborateurs_who_read_charte_informatique_container">
+            <h4>Collaborateurs qui ont imprimé la charte informatique</h4>
+            <ul id="collaborateurs_who_read_charte_informatique">
+                {% for collaborateur in collaborateurWhoHasReadCharteInformatique %}
+                    <li>
+                        <span>{{ collaborateur.Lastname }} {{ collaborateur.Firstname }} ({{ collaborateur.charteInformatiqueReadingDate|date('d/m/Y') }})</span> <a href='{{ path('nox_intranet_charte_informatique_reset', {collaborateurUsername: collaborateur.Username}) }}' title='Réinitialise la lecture de la charte informatique.'>Reset</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div id="collaborateurs_who_hasnt_read_charte_informatique_container">
+            <h4>Collaborateurs qui n'ont pas vues la charte informatique</h4>
+            <ul id="collaborateurs_who_hasnt_read_charte_informatique">
+                {% for collaborateur in collaborateurWhoHasntReadCharteInformatique %}
+                    <li>
+                        {{ collaborateur.Lastname }} {{ collaborateur.Firstname }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}

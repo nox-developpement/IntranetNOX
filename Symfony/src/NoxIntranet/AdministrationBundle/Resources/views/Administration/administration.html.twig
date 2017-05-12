@@ -174,8 +174,6 @@
                 </figure>
             </a> 
 
-            <br>
-
             <!-- Imprimantes (A faire)
             <a href="{{ path('nox_intranet_administration_imprimantes') }}" class="icon">
                 <figure>
@@ -200,6 +198,20 @@
                     <figcaption>Informations</figcaption>
                 </figure>
             </a> 
+
+            <br>
+
+            <!-- Monitoring charte informatique -->
+            <a href="{{ path('nox_intranet_charte_informatique_monitoring') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Bullets-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Bullets-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Bullets-128.png') }}';"
+                        > 
+                    <figcaption>Monitoring charte informatique</figcaption>
+                </figure>
+            </a>
 
             <!-- News DSI -->
             <a href="{{ path('nox_intranet_administration_news') }}" class="icon">

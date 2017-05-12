@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use DateTime;
 
 class CharteInformatiqueController extends Controller {
 
@@ -37,8 +38,9 @@ class CharteInformatiqueController extends Controller {
             // On récupére l'utilisateur courant.
             $user = $this->get('security.token_storage')->getToken()->getUser();
 
-            // On indique qu'il a lu la charte informatique.
+            // On indique qu'il a lu la charte informatique et la date de lecture.
             $user->setHasReadCharteInformatique(true);
+            $user->setCharteInformatiqueReadingDate(new DateTime());
 
             // On sauvegarde les changement en base de données.
             $em = $this->getDoctrine()->getManager();
@@ -53,12 +55,42 @@ class CharteInformatiqueController extends Controller {
         return $this->render('NoxIntranetAccueilBundle:CharteInformatique:charteInformatique.html.twig', array('formCharteInformatique' => $formCharteInformatique->createView()));
     }
 
-    public function showCollaborateurWhoHasNotReadCharteInformatique() {
-        /* $em = $this->getDoctrine()->getManager();
+    /**
+     * 
+     * Affiche les listes des collaborateur qui ont vues et qui n'ont pas vues la charte informatique.
+     * 
+     * @return View
+     */
+    public function monitoringCharteInformatiqueAction() {
+        // On récupére les listes des collaborateurs.
+        $em = $this->getDoctrine()->getManager();
+        $collaborateursWhoHasReadCharteInformatique = $em->getRepository('NoxIntranetUserBundle:User')->findBy(array('hasReadCharteInformatique' => true), array('charteInformatiqueReadingDate' => 'ASC', 'lastname' => 'ASC', 'firstname' => 'ASC'));
+        $collaborateursWhoHasntReadCharteInformatique = $em->getRepository('NoxIntranetUserBundle:User')->findBy(array('hasReadCharteInformatique' => false), array('lastname' => 'ASC', 'firstname' => 'ASC'));
 
-          $collaborateurs = $em->getRepository('NoxIntranetUserBundle:User');
+        return $this->render('NoxIntranetAccueilBundle:CharteInformatique:charteInformatiqueMonitoring.html.twig', array('collaborateurWhoHasReadCharteInformatique' => $collaborateursWhoHasReadCharteInformatique, 'collaborateurWhoHasntReadCharteInformatique' => $collaborateursWhoHasntReadCharteInformatique));
+    }
 
-         */
+    /**
+     * 
+     * Réinitisalise un utilisateur pour indiquer qu'il n'as pas vue la charte informatique.
+     * 
+     * @param type $collaborateurUsername L'username du collaborateur.
+     * @return View
+     */
+    public function resetCharteInformatiqueReadingAction($collaborateurUsername) {
+        // On récupére l'entitée du collaborateur.
+        $em = $this->getDoctrine()->getManager();
+        $collaborateur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateurUsername);
+        
+        // On indique qu'il n'as pas vue la charte informatique.
+        $collaborateur->setHasReadCharteInformatique(false);
+        $collaborateur->setCharteInformatiqueReadingDate(null);
+
+        //Sauvegarde en base de données.
+        $em->flush();
+
+        // Redirection vers le monitoring de charte informatique.
+        return $this->redirectToRoute('nox_intranet_charte_informatique_monitoring');
     }
 
 }

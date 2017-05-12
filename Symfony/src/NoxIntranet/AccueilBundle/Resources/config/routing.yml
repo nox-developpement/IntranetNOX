@@ -26,3 +26,11 @@ nox_intranet_charte_informatique:
     path: /accueil/charte-informatique
     defaults: { _controller: NoxIntranetAccueilBundle:CharteInformatique:displayCharteInformatique }
     
+nox_intranet_charte_informatique_monitoring:
+    path: /administration/charte-informatique-monitoring
+    defaults: { _controller: NoxIntranetAccueilBundle:CharteInformatique:monitoringCharteInformatique }
+    
+nox_intranet_charte_informatique_reset:
+    path: /administration/charte-informatique-reset/{collaborateurUsername}
+    defaults: { _controller: NoxIntranetAccueilBundle:CharteInformatique:resetCharteInformatiqueReading }
+    

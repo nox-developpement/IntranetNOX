@@ -84,6 +84,11 @@ class User implements UserInterface, \Serializable, JsonSerializable {
      */
     private $hasReadCharteInformatique = false;
 
+    /**
+     * @ORM\Column(name="charteInformatiqueReadingDate", type="date", nullable=true)
+     */
+    private $charteInformatiqueReadingDate;
+
     // Les getters et setters
 
     public function getUsername() {
@@ -409,7 +414,6 @@ class User implements UserInterface, \Serializable, JsonSerializable {
         );
     }
 
-
     /**
      * Set hasReadCharteInformatique
      *
@@ -417,8 +421,7 @@ class User implements UserInterface, \Serializable, JsonSerializable {
      *
      * @return User
      */
-    public function setHasReadCharteInformatique($hasReadCharteInformatique)
-    {
+    public function setHasReadCharteInformatique($hasReadCharteInformatique) {
         $this->hasReadCharteInformatique = $hasReadCharteInformatique;
 
         return $this;
@@ -429,8 +432,32 @@ class User implements UserInterface, \Serializable, JsonSerializable {
      *
      * @return boolean
      */
-    public function getHasReadCharteInformatique()
-    {
+    public function getHasReadCharteInformatique() {
         return $this->hasReadCharteInformatique;
+    }
+
+
+    /**
+     * Set charteInformatiqueReadingDate
+     *
+     * @param \DateTime $charteInformatiqueReadingDate
+     *
+     * @return User
+     */
+    public function setCharteInformatiqueReadingDate($charteInformatiqueReadingDate)
+    {
+        $this->charteInformatiqueReadingDate = $charteInformatiqueReadingDate;
+
+        return $this;
+    }
+
+    /**
+     * Get charteInformatiqueReadingDate
+     *
+     * @return \DateTime
+     */
+    public function getCharteInformatiqueReadingDate()
+    {
+        return $this->charteInformatiqueReadingDate;
     }
 }
