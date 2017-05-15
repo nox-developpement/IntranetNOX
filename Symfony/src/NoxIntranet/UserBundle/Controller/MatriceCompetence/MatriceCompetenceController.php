@@ -638,6 +638,13 @@ class MatriceCompetenceController extends Controller {
         }
     }
 
+    /**
+     * 
+     * Retourne la matrice de compétence d'un collaborateur en fonction de son Id.
+     * 
+     * @param Request $request Requête contenant l'Id du collaborateur.
+     * @return Response Matrice du collaborateur.
+     */
     public function ajaxGetMatriceCollaborateurAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             $userId = $request->get('userId');
@@ -651,4 +658,27 @@ class MatriceCompetenceController extends Controller {
         }
     }
 
-}
+    public function collaborateurSelectionAction() {
+        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+        $canonicalName = strtoupper($this->wd_remove_accents($currentUser->getFirstname() . " " . $currentUser->getLastname()));
+
+        $em = $this->getDoctrine()->getManager();
+        $collaborateurs = $em->getRepository('NoxIntranetUserBunde:User')->findBy(array(), array('lastname' => 'ASC', 'firstname' => 'ASC'));
+
+        $collaborateurList = array();
+
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_RH')) {
+            foreach ($collaborateurs as $collaborateur) {
+                if ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername())) {
+                    $collaborateurList[] = $collaborateur;
+                }
+            }
+        } else {
+            foreach ($collaborateurs as $collaborateur) {
+                if ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername())) {
+                    $collaborateurList[] = $collaborateur;
+                }
+            }
+        }
+    }
+    
