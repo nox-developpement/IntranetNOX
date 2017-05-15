@@ -89,6 +89,11 @@ class User implements UserInterface, \Serializable, JsonSerializable {
      */
     private $charteInformatiqueReadingDate;
 
+    /**
+     * @ORM\OneToMany(targetEntity="NoxIntranet\UserBundle\Entity\DeveloppementProfessionnel", mappedBy="collaborateur", cascade={"persist", "remove"})
+     */
+    private $developpementsProfessionnels; // Notez le « s », une annonce est liée à plusieurs candidatures
+
     // Les getters et setters
 
     public function getUsername() {
@@ -436,7 +441,6 @@ class User implements UserInterface, \Serializable, JsonSerializable {
         return $this->hasReadCharteInformatique;
     }
 
-
     /**
      * Set charteInformatiqueReadingDate
      *
@@ -444,8 +448,7 @@ class User implements UserInterface, \Serializable, JsonSerializable {
      *
      * @return User
      */
-    public function setCharteInformatiqueReadingDate($charteInformatiqueReadingDate)
-    {
+    public function setCharteInformatiqueReadingDate($charteInformatiqueReadingDate) {
         $this->charteInformatiqueReadingDate = $charteInformatiqueReadingDate;
 
         return $this;
@@ -456,8 +459,39 @@ class User implements UserInterface, \Serializable, JsonSerializable {
      *
      * @return \DateTime
      */
-    public function getCharteInformatiqueReadingDate()
-    {
+    public function getCharteInformatiqueReadingDate() {
         return $this->charteInformatiqueReadingDate;
     }
+
+    /**
+     * Add developpementsProfessionnel
+     *
+     * @param \NoxIntranet\UserBundle\Entity\DeveloppementProfessionnel $developpementsProfessionnel
+     *
+     * @return User
+     */
+    public function addDeveloppementsProfessionnel(\NoxIntranet\UserBundle\Entity\DeveloppementProfessionnel $developpementsProfessionnel) {
+        $this->developpementsProfessionnels[] = $developpementsProfessionnel;
+
+        return $this;
+    }
+
+    /**
+     * Remove developpementsProfessionnel
+     *
+     * @param \NoxIntranet\UserBundle\Entity\DeveloppementProfessionnel $developpementsProfessionnel
+     */
+    public function removeDeveloppementsProfessionnel(\NoxIntranet\UserBundle\Entity\DeveloppementProfessionnel $developpementsProfessionnel) {
+        $this->developpementsProfessionnels->removeElement($developpementsProfessionnel);
+    }
+
+    /**
+     * Get developpementsProfessionnels
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDeveloppementsProfessionnels() {
+        return $this->developpementsProfessionnels;
+    }
+
 }

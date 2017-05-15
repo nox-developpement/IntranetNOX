@@ -29,7 +29,7 @@ class DeveloppementProfessionnel {
     private $formulaire;
 
     /**
-     * @ORM\ManyToOne(targetEntity="NoxIntranet\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="NoxIntranet\UserBundle\Entity\User", inversedBy="developpementsProfessionnels")
      * @ORM\JoinColumn(nullable=false)
      */
     private $collaborateur;
@@ -102,6 +102,8 @@ class DeveloppementProfessionnel {
      */
     public function setCollaborateur(\NoxIntranet\UserBundle\Entity\User $collaborateur) {
         $this->collaborateur = $collaborateur;
+
+        $collaborateur->addDeveloppementsProfessionnel($this);
 
         return $this;
     }

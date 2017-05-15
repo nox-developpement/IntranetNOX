@@ -29,7 +29,7 @@ class DeveloppementProfessionnel {
     private $formulaire;
 
     /**
-     * @ORM\ManyToOne(targetEntity="NoxIntranet\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="NoxIntranet\UserBundle\Entity\User", inversedBy="developpementsProfessionnels")
      * @ORM\JoinColumn(nullable=false)
      */
     private $collaborateur;
@@ -161,6 +161,50 @@ class DeveloppementProfessionnel {
 
     public function __construct() {
         $this->statut = 'N2';
+    }
+
+    /**
+     * Set nombreObjectifs
+     *
+     * @param integer $nombreObjectifs
+     *
+     * @return DeveloppementProfessionnel
+     */
+    public function setNombreObjectifs($nombreObjectifs) {
+        $this->nombreObjectifs = $nombreObjectifs;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreObjectifs
+     *
+     * @return integer
+     */
+    public function getNombreObjectifs() {
+        return $this->nombreObjectifs;
+    }
+
+    /**
+     * Set objectifs
+     *
+     * @param array $objectifs
+     *
+     * @return DeveloppementProfessionnel
+     */
+    public function setObjectifs($objectifs) {
+        $this->objectifs = json_decode($objectifs, true);
+
+        return $this;
+    }
+
+    /**
+     * Get objectifs
+     *
+     * @return array
+     */
+    public function getObjectifs() {
+        return json_encode($this->objectifs);
     }
 
 }

@@ -675,10 +675,12 @@ class MatriceCompetenceController extends Controller {
             }
         } else {
             foreach ($collaborateurs as $collaborateur) {
-                if ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername())) {
+                $hierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername());
+                if (!empty($hierachy) && $hierachy->getDA($canonicalName)) {
                     $collaborateurList[] = $collaborateur;
                 }
             }
         }
     }
-    
+
+}

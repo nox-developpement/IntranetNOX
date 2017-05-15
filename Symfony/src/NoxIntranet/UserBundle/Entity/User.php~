@@ -89,6 +89,11 @@ class User implements UserInterface, \Serializable, JsonSerializable {
      */
     private $charteInformatiqueReadingDate;
 
+    /**
+     * @ORM\OneToMany(targetEntity="NoxIntranet\UserBundle\Entity\DeveloppementProfessionnel", mappedBy="collaborateur")
+     */
+    private $developpementsProfessionnels; // Notez le « s », une annonce est liée à plusieurs candidatures
+
     // Les getters et setters
 
     public function getUsername() {
@@ -434,6 +439,28 @@ class User implements UserInterface, \Serializable, JsonSerializable {
      */
     public function getHasReadCharteInformatique() {
         return $this->hasReadCharteInformatique;
+    }
+
+    /**
+     * Set charteInformatiqueReadingDate
+     *
+     * @param \DateTime $charteInformatiqueReadingDate
+     *
+     * @return User
+     */
+    public function setCharteInformatiqueReadingDate($charteInformatiqueReadingDate) {
+        $this->charteInformatiqueReadingDate = $charteInformatiqueReadingDate;
+
+        return $this;
+    }
+
+    /**
+     * Get charteInformatiqueReadingDate
+     *
+     * @return \DateTime
+     */
+    public function getCharteInformatiqueReadingDate() {
+        return $this->charteInformatiqueReadingDate;
     }
 
 }
