@@ -698,8 +698,10 @@ class DeveloppementProfessionnelController extends Controller {
                 // On récupère sa hiérarchie.
                 $hierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername());
 
-                // On place sont N+2 dans le tableau des valideurs.
-                $currentValidators[$collaborateur->getUsername()] = $hierarchy->getN2();
+                if (!empty($hierarchy)) {
+                    // On place sont N+2 dans le tableau des valideurs.
+                    $currentValidators[$collaborateur->getUsername()] = $hierarchy->getN2();
+                }
             }
         }
 
