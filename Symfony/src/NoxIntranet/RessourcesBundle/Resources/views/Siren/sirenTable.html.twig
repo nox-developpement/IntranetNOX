@@ -49,6 +49,7 @@
         function appendSirenResults(sirens) {
             if (sirens.length > 0) {
                 $.each(sirens, function (index, siren) {
+                    console.log(siren);
                     var html = "<tr class='search_result_tr'>";
                     html += "<td>" + siren.SIREN + "</td>";
                     html += "<td>" + siren.SIRET + "</td>";
@@ -62,7 +63,7 @@
                     html += "<td>" + siren.LIBNJ + "</td>";
                     html += "<td>" + siren.NUMVOIE + "</td>";
                     html += "<td>" + siren.INDREP + "</td>";
-                    html += "<td>" + siren.TYPEVOIE + "</td>";
+                    html += "<td>" + siren.TYPVOIE + "</td>";
                     html += "<td>" + siren.LIBVOIE + "</td>";
                     html += "<td>" + siren.CP + "</td>";
                     html += "<td>" + siren.CEDEX + "</td>";
@@ -263,7 +264,7 @@
                         <th><div class="horizontal-align-header-div"><div class="th-inner"><span>LIBNJ</span></div></div></th>
                         <th><div class="horizontal-align-header-div"><div class="th-inner"><span>NUMVOIE</span></div></div></th>
                         <th><div class="horizontal-align-header-div"><div class="th-inner"><span>INDREP</span></div></div></th>
-                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>TYPVOIE</span></div></div></th>
+                        <th><div class="horizontal-align-header-div"><div class="th-inner"><span>TYPEVOIE</span></div></div></th>
                         <th><div class="horizontal-align-header-div"><div class="th-inner"><span>LIBVOIE</span></div></div></th>
                         <th><div class="horizontal-align-header-div"><div class="th-inner"><span>CP</span></div></div></th>
                         <th><div class="horizontal-align-header-div"><div class="th-inner"><span>CEDEX</span></div></div></th>
