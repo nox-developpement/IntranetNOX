@@ -45,8 +45,11 @@ class CharteInformatiqueListener {
         // On récupére l'utilisateur.
         $user = $token->getToken()->getUser();
 
-        // Si l'utilisateur a déjà signé la charte informatique...
-        if ($user->getHasReadCharteInformatique()) {
+        // On récupére la hiérachie de l'utilisateur.
+        $hierachy = $container->get('doctrine.orm.default_entity_manager')->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($user->getUsername());
+
+        // Si l'utilisateur fait partie de NOX IP ou si il a déjà signé la charte informatique...
+        if ((!empty($hierachy) && $hierachy->getSociete() === "NOX INDUSTRIE & PROCESS") || $user->getHasReadCharteInformatique()) {
             return; // On quitte la fonction.
         }
 

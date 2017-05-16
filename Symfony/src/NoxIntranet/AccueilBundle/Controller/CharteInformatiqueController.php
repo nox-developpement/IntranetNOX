@@ -62,10 +62,22 @@ class CharteInformatiqueController extends Controller {
      * @return View
      */
     public function monitoringCharteInformatiqueAction() {
-        // On récupére les listes des collaborateurs.
+        // On récupére les listes des collaborateurs en excluant ceux de NOX IP.
         $em = $this->getDoctrine()->getManager();
         $collaborateursWhoHasReadCharteInformatique = $em->getRepository('NoxIntranetUserBundle:User')->findBy(array('hasReadCharteInformatique' => true), array('charteInformatiqueReadingDate' => 'ASC', 'lastname' => 'ASC', 'firstname' => 'ASC'));
+        foreach ($collaborateursWhoHasReadCharteInformatique as $key => $collaborateur) {
+            $hierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername());
+            if (!empty($hierarchy) && $hierarchy->getSociete() === "NOX INDUSTRIE & PROCESS") {
+                unset($collaborateursWhoHasReadCharteInformatique[$key]);
+            }
+        }
         $collaborateursWhoHasntReadCharteInformatique = $em->getRepository('NoxIntranetUserBundle:User')->findBy(array('hasReadCharteInformatique' => false), array('lastname' => 'ASC', 'firstname' => 'ASC'));
+        foreach ($collaborateursWhoHasntReadCharteInformatique as $key => $collaborateur) {
+            $hierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername());
+            if (!empty($hierarchy) && $hierarchy->getSociete() === "NOX INDUSTRIE & PROCESS") {
+                unset($collaborateursWhoHasntReadCharteInformatique[$key]);
+            }
+        }
 
         return $this->render('NoxIntranetAccueilBundle:CharteInformatique:charteInformatiqueMonitoring.html.twig', array('collaborateurWhoHasReadCharteInformatique' => $collaborateursWhoHasReadCharteInformatique, 'collaborateurWhoHasntReadCharteInformatique' => $collaborateursWhoHasntReadCharteInformatique));
     }
@@ -81,7 +93,7 @@ class CharteInformatiqueController extends Controller {
         // On récupére l'entitée du collaborateur.
         $em = $this->getDoctrine()->getManager();
         $collaborateur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateurUsername);
-        
+
         // On indique qu'il n'as pas vue la charte informatique.
         $collaborateur->setHasReadCharteInformatique(false);
         $collaborateur->setCharteInformatiqueReadingDate(null);
