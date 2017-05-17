@@ -55,7 +55,7 @@ class GXAffairesExtractionController extends Controller {
         $insertRequests = array();
 
         // Pour chaques affaires...
-        echo "Extraction des affaires...\n";
+        echo "\nExtraction des affaires...\n";
         while ($affaire = odbc_fetch_array($affaires)) {
             // On crée une réquette d'insertion dans la base temporaire.
             $sql = "INSERT INTO update_gx_affaires (Numero, Nom, Identifiant) VALUES (:Champ2, :Champ9, :Designation)";
@@ -72,7 +72,7 @@ class GXAffairesExtractionController extends Controller {
         $affairesCount = count($insertRequests);
 
         // Pour chaques requêtes...
-        echo "Remplissage de la table temporaire...\n";
+        echo "\nRemplissage de la table temporaire...\n";
         foreach ($insertRequests as $key => $request) {
             printf("Traitement de l'affaire " . $affaireIndex++ . "/" . $affairesCount . ".\r");
 
@@ -90,7 +90,7 @@ class GXAffairesExtractionController extends Controller {
         echo "\nFin de remplissage de la table temporaire.\n";
 
         // Pour chaques nouvelle affaire...
-        echo "Ajout des nouvelles affaires dans la base de données de l'intranet...\n";
+        echo "\nAjout des nouvelles affaires dans la base de données de l'intranet...\n";
         $new_affaires = $this->em->getConnection()->query("SELECT * FROM update_gx_affaires t1 WHERE t1.Numero NOT IN (SELECT t2.Numero FROM affaires_gx t2)")->fetchAll();
         foreach ($new_affaires as $key => $affaire) {
             // On crée une nouvelle entitée d'affaire.
@@ -106,11 +106,19 @@ class GXAffairesExtractionController extends Controller {
         echo "Fin de l'ajout des nouvelles affaires dans la base de données de l'intranet.\n";
 
         // Pour chaques affaires qui n'existe plus...
-        echo "Suppression des affaires qui n'existent plus de la base de données de l'intranet...\n";
+        echo "\nSuppression des affaires qui n'existent plus de la base de données de l'intranet...\n";
         $deleted_affaires = $this->em->getConnection()->query("SELECT Numero FROM affaires_GX t1 WHERE t1.Numero NOT IN (SELECT t2.Numero FROM update_gx_affaires t2)")->fetchAll();
         foreach ($deleted_affaires as $key => $affaire) {
-            
+            $affaire_entity = $this->em->getRepository('NoxIntranetPointageBundle:AffairesGX')->findOneByNumero($affaire['Numero']);
+            $this->em->remove($affaire_entity);
+
+            // Libération de la mémoire.
+            unset($deleted_affaires[$key]);
         }
+        echo "Fin de la suppression des affaires qui n'existent plus de la base de données de l'intranet.\n\n";
+
+        // Mise à jour et sauvegarde de la base de données de l'intranet.
+        $this->em->flush();
     }
 
     /**

@@ -25,7 +25,7 @@ class GXAffairesExtractionCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $output->writeln(mb_convert_encoding('Mise à jours des affaires GX...', 'CP850', mb_detect_encoding('Mis à jours des affaires GX...')));
+        $output->writeln(mb_convert_encoding('| Début de la mise à jour des affaires GX |', 'CP850', mb_detect_encoding('Mis à jours des affaires GX...')));
 
         // On récupére le service.
         $gxAffairesExtractionService = $this->getContainer()->get('noxintranet_pointagebundle.gxaffairesextraction');
@@ -33,7 +33,7 @@ class GXAffairesExtractionCommand extends ContainerAwareCommand {
         // On execute la fonction d'extraction des affaires.
         $gxAffairesExtractionService->importAffairesToDatabase();
 
-        $output->writeln(mb_convert_encoding('Mise à jours terminé.', 'CP850', mb_detect_encoding('Mise à jours terminé.')));
+        $output->writeln(mb_convert_encoding('| Fin de la mise à jour des affaires GX |', 'CP850', mb_detect_encoding('Mise à jours terminé.')));
     }
 
 }
