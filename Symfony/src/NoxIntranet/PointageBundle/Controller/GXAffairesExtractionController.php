@@ -37,9 +37,6 @@ class GXAffairesExtractionController extends Controller {
      * 
      */
     public function importAffairesToDatabase() {
-        // Nombre d'affaires dans la base de données GX.
-        $affairesCount = $this->getAffairesCountFromGXDatabase();
-
         // On récupére les affaires depuis la base de données GX.
         $GXDatabase = $this->getAffairesFromeGXDatabase();
         $affaires = $GXDatabase['affaires'];
@@ -47,99 +44,73 @@ class GXAffairesExtractionController extends Controller {
         // On désactive le log SQL pour optimiser les performances.
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
 
+        // On crée une table temporaire pour stocker les affaires extraites de GX.
         $temporaryTableRequest = "CREATE TEMPORARY TABLE update_gx_affaires (Numero varchar(255), Nom varchar(255), Identifiant varchar(255)) CHARACTER SET utf8 COLLATE utf8_unicode_ci";
         $this->em->getConnection()->query($temporaryTableRequest);
 
-        //var_dump($this->em->getConnection()->query("SHOW FULL COLUMNS FROM update_gx_affaires")->fetchAll());
+        // Initialisation d'une limite infini de mémoire.
+        ini_set('memory_limit', '-1');
 
+        // Tableau des affaires extraites de GX.
         $insertRequests = array();
 
-        // Compteur d'affaire et de flush.
-        $affaireIndex = 0;
-        $flushIndex = 0;
-
-        echo "Extraction des affaires... \n";
+        // Pour chaques affaires...
+        echo "Extraction des affaires...\n";
         while ($affaire = odbc_fetch_array($affaires)) {
-
-            //$insertRequest = "INSERT INTO update_gx_affaires (Numero, Nom, Identifiant) VALUES ('" . $affaire['Champ2'] . "', '" . $affaire['Champ9'] . "', '" . $affaire['Designation'] . "')";
-            //$this->em->getConnection()->query(mb_convert_encoding($insertRequest, mb_detect_encoding($insertRequest), 'UTF-8'));
-            //printf("Traitement de l'affaire " . $affaireIndex++ . "/" . $affairesCount . ".\r");
-
-            $sql = "INSERT INTO update_gx_affaires (Numero, Nom, Identifiant) VALUES (':Champ2', ':Champ9', ':Designation')";
+            // On crée une réquette d'insertion dans la base temporaire.
+            $sql = "INSERT INTO update_gx_affaires (Numero, Nom, Identifiant) VALUES (:Champ2, :Champ9, :Designation)";
             $params = array('Champ2' => $affaire['Champ2'], 'Champ9' => $affaire['Champ9'], 'Designation' => $affaire['Designation']);
             $insertRequests[] = array('sql' => $sql, 'params' => $params);
-
-            /*
-              // Si l'affaire est vide, on passe à la suivante.
-              if (empty($affaire['Champ2'])) {
-              continue;
-              }
-
-              // Données de l'affaire.
-              $GX_affaire_numero = utf8_encode($affaire['Champ2']);
-              $GX_affaire_nom = utf8_encode($affaire['Champ9']);
-              $GX_affaire_identifiant = utf8_encode($affaire['Designation']);
-
-              echo $GX_affaire_numero . "\n";
-              echo $GX_affaire_nom . "\n";
-              echo $GX_affaire_identifiant . "\n";
-             */
-
-            /*
-              // On tente de récupérer l'entité de la base de données correspondant au numéro d'affaire.
-              $affairesEntity = $this->em->getRepository('NoxIntranetPointageBundle:AffairesGX')->findOneByNumero($GX_affaire_numero);
-
-              // Si l'entité n'existe pas...
-              if (empty($affairesEntity)) {
-              // On crée une nouvelle entité et on la persiste.
-              $newAffaires = new AffairesGX();
-              $newAffaires->setNumero($GX_affaire_numero);
-              $newAffaires->setNom($GX_affaire_nom);
-              $newAffaires->setIdentifiant($GX_affaire_identifiant);
-              $this->em->persist($newAffaires);
-
-              // Incrémentation du compteur d'affaire.
-              $flushIndex++;
-              }
-              // Si l'entité existe mais ses informations sont différentes...
-              else if ($affairesEntity->getNom() !== $GX_affaire_nom || $affairesEntity->getIdentifiant() !== $GX_affaire_identifiant) {
-              // On met à jour les informations de l'affaire.
-              $affairesEntity->setNom($GX_affaire_nom);
-              $affairesEntity->setIdentifiant($GX_affaire_identifiant);
-
-              // Incrémentation du compteur d'affaire.
-              $flushIndex++;
-              }
-
-              // Toute les 200 affaires...
-              if ($flushIndex !== 0 && $flushIndex % 200 === 0) {
-              echo mb_convert_encoding("Insertion/Mise à jour de 200 affaires dans la base de données.\n", "CP850", mb_detect_encoding("Insertion/Mise à jour de 200 affaires dans la base de données.\n"));
-
-              // On flush la création/modification des entitées.
-              $this->em->flush();
-              $this->em->clear();
-              }
-             */
         }
-
-        /*
-          // On flush les modifications restantes.
-          $this->em->flush();
-          $this->em->clear();
-         */
 
         // On ferme la connexion à la base de données GX.
         odbc_close($GXDatabase['connexion_token']);
-        echo "Fin de l'extraction... \n";
+        echo "Fin de l'extraction.\n";
 
-        foreach ($insertRequests as $request) {
-            $insertRequest = $this->em->getConnection()->prepare($request['sql']);
-            $insertRequest->execute($request['params']);
-            var_dump($request['params']);
+        // Compteur d'affaire.
+        $affaireIndex = 1;
+        $affairesCount = count($insertRequests);
+
+        // Pour chaques requêtes...
+        echo "Remplissage de la table temporaire...\n";
+        foreach ($insertRequests as $key => $request) {
+            printf("Traitement de l'affaire " . $affaireIndex++ . "/" . $affairesCount . ".\r");
+
+            // Requête et paramètres.
+            $sql = $request['sql'];
+            $params = array_map("utf8_encode", $request['params']);
+
+            // On exécute la requête.
+            $insertRequest = $this->em->getConnection()->prepare($sql);
+            $insertRequest->execute($params);
+
+            // Libération de la mémoire.
+            unset($insertRequests[$key]);
         }
+        echo "\nFin de remplissage de la table temporaire.\n";
 
-        $select = $this->em->getConnection()->query('SELECT * FROM update_gx_affaires')->fetchAll();
-        //var_dump($select);
+        // Pour chaques nouvelle affaire...
+        echo "Ajout des nouvelles affaires dans la base de données de l'intranet...\n";
+        $new_affaires = $this->em->getConnection()->query("SELECT * FROM update_gx_affaires t1 WHERE t1.Numero NOT IN (SELECT t2.Numero FROM affaires_gx t2)")->fetchAll();
+        foreach ($new_affaires as $key => $affaire) {
+            // On crée une nouvelle entitée d'affaire.
+            $new_affaire = new AffairesGX();
+            $new_affaire->setNumero($affaire['Numero']);
+            $new_affaire->setNom($affaire['Nom']);
+            $new_affaire->setIdentifiant($affaire['Identifiant']);
+            $this->em->persist($new_affaire);
+
+            // Libération de la mémoire.
+            unset($new_affaires[$key]);
+        }
+        echo "Fin de l'ajout des nouvelles affaires dans la base de données de l'intranet.\n";
+
+        // Pour chaques affaires qui n'existe plus...
+        echo "Suppression des affaires qui n'existent plus de la base de données de l'intranet...\n";
+        $deleted_affaires = $this->em->getConnection()->query("SELECT Numero FROM affaires_GX t1 WHERE t1.Numero NOT IN (SELECT t2.Numero FROM update_gx_affaires t2)")->fetchAll();
+        foreach ($deleted_affaires as $key => $affaire) {
+            
+        }
     }
 
     /**
