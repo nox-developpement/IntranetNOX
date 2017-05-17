@@ -663,24 +663,26 @@ class MatriceCompetenceController extends Controller {
         $canonicalName = strtoupper($this->wd_remove_accents($currentUser->getFirstname() . " " . $currentUser->getLastname()));
 
         $em = $this->getDoctrine()->getManager();
-        $collaborateurs = $em->getRepository('NoxIntranetUserBunde:User')->findBy(array(), array('lastname' => 'ASC', 'firstname' => 'ASC'));
+        $collaborateurs = $em->getRepository('NoxIntranetUserBundle:User')->findBy(array(), array('lastname' => 'ASC', 'firstname' => 'ASC'));
 
-        $collaborateurList = array();
+        $collaborateursList = array();
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_RH')) {
             foreach ($collaborateurs as $collaborateur) {
                 if ($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername())) {
-                    $collaborateurList[] = $collaborateur;
+                    $collaborateursList[] = $collaborateur;
                 }
             }
         } else {
             foreach ($collaborateurs as $collaborateur) {
                 $hierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername());
                 if (!empty($hierachy) && $hierachy->getDA($canonicalName)) {
-                    $collaborateurList[] = $collaborateur;
+                    $collaborateursList[] = $collaborateur;
                 }
             }
         }
+
+        return $this->render('NoxIntranetUserBundle:MatriceCompetence:collaborateurSelection.html.twig', array('collaborateursList' => $collaborateursList));
     }
 
 }

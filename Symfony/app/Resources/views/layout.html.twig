@@ -7,8 +7,8 @@
         <title> Groupe-Nox / {% block titrePage %}{% endblock %}</title>
         {# app/Resources/views/layout.html.twig #}
 
-        <script src={{ asset('./js/jquery-2.2.0.min.js') }}></script>
-        <script src={{ asset('./js/js.cookie.js') }}></script>
+        <script src="{{ asset('./js/jquery-2.2.0.min.js') }}"></script>
+        <script src="{{ asset('./js/js.cookie.js') }}"></script>
         <script src="{{ asset('./js/texteActions.js') }}"></script>
 
         {% stylesheets '@NoxIntranetCommunicationBundle/Resources/public/css/style.css' %}
@@ -30,7 +30,11 @@
                 background-repeat: no-repeat;
                 background-size: 100%;
             }
+
+
         </style>
+        {% block style %}
+        {% endblock %}
     </head>
 
     <body onload="menuAnimation();">
@@ -39,7 +43,7 @@
 
             <div style="border: none; width: 15%; display:inline-block; text-align: center; vertical-align: middle; margin-top: 2.5%;"> <a style="cursor: pointer; font-size: 0.85vw;" onclick="$(function () {
                         $('#dialog').dialog({width: 970, height: 600});
-                    });"> Plan du site <br /><img style="width: 10%;" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}" onmousedown="return false;"> </a> 
+                    });"> Plan du site <br /><img style="width: 10%;" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}" alt="Accès au plan de l'intranet" onmousedown="return false;"> </a> 
             </div><!-- 
             
             --><div id ="bandeau">  
@@ -51,8 +55,7 @@
         </header>
 
         <div id="dialog" title="Plan du site" style="display: none; text-align: center;">
-            <img src="{{ asset('bundles/noxintranetaccueil/images/PlanIntranet.png') }}" style="width: 100%; vertical-align: middle;
-                 text-align: center;">
+            <img src="{{ asset('bundles/noxintranetaccueil/images/PlanIntranet.png') }}" alt="Plan de l'intranet" style="width: 100%; vertical-align: middle; text-align: center;">
         </div>
 
         <div id="bar_menu">
@@ -60,7 +63,7 @@
             <div id="EmailHelpdesk">
                 <a href="mailto:helpdesk@groupe-nox.com"> Une question ? </a>
             </div><!--
-
+    
             --><div id="div_menu">
 
                 <ul id="menu">
@@ -169,28 +172,28 @@
 
         </script>
 
-        <script src="{{ asset('./js/affichageImageResizing.js') }}"/></script>
-    <script src="{{ asset('./js/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-    <script src="{{ asset('./js/googleSearch.js') }}"></script>
-    <script src="{{ asset('./js/menuAnimation.js') }}"></script>
-    <script src="{{ asset('./js/positionement.js') }}"></script>
-    <script src="{{ asset('./js/checkboxClick.js') }}"></script>   
-    <script src="{{ asset('./js/textareaLogiciel.js') }}"></script>  
-    <script src="{{ asset('./js/gestionFichiersPopup.js') }}"></script>
-    <script src="{{ asset('./js/texteEncartActions.js') }}"></script>
-    <script src="{{ asset('./js/popupDownloadArchive.js') }}"></script>
-    <script src="{{ asset('./js/menuAdministrationCommunication.js') }}"></script>
-    <script src="{{ asset('./js/formImprimanteScript.js') }}"></script>
-    <script src="{{ asset('./js/editionLiens.js') }}"></script>
-    <script src="{{ asset('./js/jscroller2-1.61.js') }}"></script>
-    <script src="{{ asset('./js/submitFormAffaires.js') }}"></script>
-    <script src="{{ asset('./js/tableurEdition.js') }}"/></script>
-<script src="{{ asset('./js/suiviRecherche.js') }}"/></script>
-<script src="{{ asset('./js/jquery.transit.min.js') }}"/></script>
-<script src="{{ asset('./js/tableHeadFixer.js') }}"/></script>
+        <script src="{{ asset('./js/affichageImageResizing.js') }}"></script>
+        <script src="{{ asset('./js/jquery-ui/jquery-ui.min.js') }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+        <script src="{{ asset('./js/googleSearch.js') }}"></script>
+        <script src="{{ asset('./js/menuAnimation.js') }}"></script>
+        <script src="{{ asset('./js/positionement.js') }}"></script>
+        <script src="{{ asset('./js/checkboxClick.js') }}"></script>   
+        <script src="{{ asset('./js/textareaLogiciel.js') }}"></script>  
+        <script src="{{ asset('./js/gestionFichiersPopup.js') }}"></script>
+        <script src="{{ asset('./js/texteEncartActions.js') }}"></script>
+        <script src="{{ asset('./js/popupDownloadArchive.js') }}"></script>
+        <script src="{{ asset('./js/menuAdministrationCommunication.js') }}"></script>
+        <script src="{{ asset('./js/formImprimanteScript.js') }}"></script>
+        <script src="{{ asset('./js/editionLiens.js') }}"></script>
+        <script src="{{ asset('./js/jscroller2-1.61.js') }}"></script>
+        <script src="{{ asset('./js/submitFormAffaires.js') }}"></script>
+        <script src="{{ asset('./js/tableurEdition.js') }}"></script>
+        <script src="{{ asset('./js/suiviRecherche.js') }}"></script>
+        <script src="{{ asset('./js/jquery.transit.min.js') }}"></script>
+        <script src="{{ asset('./js/tableHeadFixer.js') }}"></script>
 
-</body>
+    </body>
 
 </html>

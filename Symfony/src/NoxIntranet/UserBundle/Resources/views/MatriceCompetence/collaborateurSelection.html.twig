@@ -1,0 +1,33 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Edition matrice collaborateur {% endblock %}
+
+{% block messageAccueil %}Edition matrice collaborateur{% endblock %}
+
+{% block contenu %}
+
+    <link href="{{ asset('js/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
+    <script src="{{ asset('js/select2/dist/js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/select2/dist/js/i18n/fr.js') }}"></script>
+    <script>
+        $(window).load(function () {
+            $("#collaborateurs_matrice_selector").select2({
+                placeholder: "Choisir un collaborateur...",
+                language: "fr"
+            });
+        });
+    </script>
+
+    <label for="collaborateurs_matrice_selector">Séléction du collaborateur : </label>
+    <select id="collaborateurs_matrice_selector">
+        <option></option>
+        {% for collaborateur in collaborateursList %}
+            <option value="{{ collaborateur.id }}">
+                {{ collaborateur.Lastname }} {{ collaborateur.Firstname }}
+            </option>
+        {% endfor %}
+
+
+    </select>
+
+{% endblock %}
