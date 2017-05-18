@@ -1,33 +1,89 @@
 {% extends "::layout.html.twig" %}
 
+{% block style %}
+    <link href="{{ asset('js/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
+    <style>
+        #collaborateur_selector_container {
+            width: 70%;
+            margin: auto;
+            text-align: center;
+            margin-bottom: 5em;
+        }
+
+        #collaborateur_selector {
+            display: inline-block; 
+            text-align: left;
+            margin: 0;
+            margin-bottom: 0.5em;
+        }
+
+        #matrice_editor {
+            width: 100%;
+            overflow: auto;
+        }
+
+        #save_matrice_competence_button {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
 {% block titrePage %} Edition matrice collaborateur {% endblock %}
 
 {% block messageAccueil %}Edition matrice collaborateur{% endblock %}
 
 {% block contenu %}
-
-    <link href="{{ asset('js/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
     <script src="{{ asset('js/select2/dist/js/select2.min.js') }}"></script>
     <script src="{{ asset('js/select2/dist/js/i18n/fr.js') }}"></script>
     <script>
-        $(window).load(function () {
+        $(document).ready(function () {
             $("#collaborateurs_matrice_selector").select2({
                 placeholder: "Choisir un collaborateur...",
                 language: "fr"
             });
+
+            $("#collaborateurs_matrice_selector").on("select2:select", function () {
+                $("#matrice_editor").load($(this).val(), function () {
+                    $("#save_matrice_competence_button").show();
+                });
+            });
+
+            // Lors d'un clique sur le bouton de sauvegarde...
+            $("#save_matrice_competence_button").on('click', function () {
+                // On envoie le formulaire.
+                $("form[name='formMatriceCollaborateurEdition']").submit();
+
+                // Ecoute des requêtes ajax.
+                $(document).ajaxComplete(function (event, xhr, settings) {
+                    // Si une requête de sauvegarde de la matrice de compétence a été effectué...
+                    if (settings.headers.name === "save_matrice_competence" && xhr.readyState === 4) {
+                        // On réinitialise la séléction de collaborateur.
+                        $("#collaborateurs_matrice_selector").val(null).trigger("change");
+                        $("#save_matrice_competence_button").hide();
+                        $("#matrice_editor").html(null);
+                    }
+                });
+            });
         });
     </script>
 
-    <label for="collaborateurs_matrice_selector">Séléction du collaborateur : </label>
-    <select id="collaborateurs_matrice_selector">
-        <option></option>
-        {% for collaborateur in collaborateursList %}
-            <option value="{{ collaborateur.id }}">
-                {{ collaborateur.Lastname }} {{ collaborateur.Firstname }}
-            </option>
-        {% endfor %}
-
-
-    </select>
+    <div id="collaborateur_selector_container">
+        <p id="collaborateur_selector">
+            <label for="collaborateurs_matrice_selector">Séléction du collaborateur : </label>
+            <select id="collaborateurs_matrice_selector">
+                <option></option>
+                {% for collaborateur in collaborateursList %}
+                    <option value="{{ path('nox_intranet_developpement_professionnel_matrice_competence_edition_collaborateur', {userId: collaborateur.id}) }}">
+                        {{ collaborateur.Lastname }} {{ collaborateur.Firstname }}
+                    </option>
+                {% endfor %}
+            </select>
+        </p>
+        <br />
+        <div id="matrice_editor"></div>
+        <p>
+            <button type="button" class="boutonFormulaire" id="save_matrice_competence_button">Sauvegarder</button>
+        </p>
+    </div>
 
 {% endblock %}

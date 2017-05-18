@@ -28,7 +28,7 @@
             competenceFilter();
             categorieSelection();
         });
-        
+
         // Fixe le header du tableau des compétences.
         function initFixedHeader() {
             // Taille maximum des cellules du header.
@@ -191,6 +191,16 @@
                     "Valider": function () {
                         // On envoie le formulaire de modification de matrice collaborateur.
                         $("form[name='formMatriceCollaborateurEdition']").submit();
+
+                        // Ecoute des requêtes ajax.
+                        $(document).ajaxComplete(function (event, xhr, settings) {
+                            // Si une requête de sauvegarde de la matrice de compétence a été effectué...
+                            if (settings.headers.name === "save_matrice_competence" && xhr.readyState === 4) {
+                                // On ferme la pop-up d'édition.
+                                $("#matrice_edition_popup").dialog("close");
+                            }
+                        });
+
                     },
                     // Si l'utilisateur annule, on ferme la fenêtre.
                     "Annuler": function () {

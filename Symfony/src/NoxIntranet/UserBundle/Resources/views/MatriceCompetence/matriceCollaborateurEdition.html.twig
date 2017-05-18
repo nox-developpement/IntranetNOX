@@ -1,4 +1,9 @@
 <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+
     #form_competence_div {
         text-align: center;
     }
@@ -6,8 +11,7 @@
     #form_competence_div form {
         display: inline-block;
         width: auto;
-        padding-top: 0.5em;
-        padding-bottom: 0.5em;
+        padding: 0.5em;
         background-color: rgba(255,255,255, 0.6);
         border: 2px outset #1F4E79;
         text-align: left;
@@ -147,17 +151,24 @@
     function formMatriceSaveData() {
         // Lors de l'envoi du formulaire...
         $("form[name='formMatriceCollaborateurEdition']").submit(function (e) {
+            // Bloquage de l'envoie.
             e.preventDefault();
 
-            $.ajax({
-                url: '{{ path('nox_intranet_ajax_matrice_collaborateur_edition_save') }}',
-                type: 'POST',
-                data: $("form[name='formMatriceCollaborateurEdition']").serialize(),
-                success: function () {                  
-                    // On ferme la pop-up d'édition.
-                    $("#matrice_edition_popup").dialog("close");
-                }
-            });
+            // Si le formulaire est valide...
+            if (this.checkValidity()) {
+                // Requête ajax de sauvegarde.
+                $.ajax({
+                    url: '{{ path('nox_intranet_ajax_matrice_collaborateur_edition_save') }}',
+                    type: 'POST',
+                    data: $("form[name='formMatriceCollaborateurEdition']").serialize(),
+                    headers: {name: "save_matrice_competence"} // On attribue un nom à la requête ajax pour la retrouver facilement dans d'autres fonctions.
+                });
+            }
+            // Sinon...
+            else {
+                // Simulation du bloquage par le navigateur.
+                $('<input type="submit">').hide().appendTo($(this)).click().remove();
+            }
         });
     }
 
