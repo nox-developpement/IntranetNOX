@@ -41,6 +41,13 @@ class SupportSIController extends Controller {
         return $this->redirect('http://' . $adresseCourante . '/Symfony/web/WikiNox/index.php');
     }
 
+    /**
+     * 
+     * Affiche un formulaire demande de matériel/logiciel et transmet la demande à la DSI.
+     * 
+     * @param Request Requête contenant les données de la demande de matériel.
+     * @return View
+     */
     public function demandeAction(Request $request) {
 
         // Récupère l'entitée du collaborateur actuel.
@@ -217,6 +224,14 @@ class SupportSIController extends Controller {
         return $this->render('NoxIntranetSupportSIBundle:Support:demandeMateriel.html.twig', array('formDemandeMateriel' => $form->createView()));
     }
 
+    /**
+     * 
+     * Affiche la demande de matériel d'un collaborateur et permet de la valider pour l'envoyer au N+1 ou de la refuser.
+     * 
+     * @param Request Requête contenant la décision de validation ou de refus et optionnelement l'estimation du prix de la demande.
+     * @param String Clé correspondant à la demande de matériel.
+     * @return View
+     */
     public function demandeConfirmationDSIAction(Request $request, $cleDemande) {
 
         // Récupère la demande de matériel/logiciel
@@ -296,7 +311,6 @@ class SupportSIController extends Controller {
             if ($form->isValid()) {
                 // Si la demande est validée par la DSI...
                 if ($form->get('Valider')->isClicked()) {
-
                     // On envoi un email au supérieur hiérachique pour demander la confirmation d'achat.
                     $messageHelpdesk = \Swift_Message::newInstance()
                             ->setSubject('Demande de matériel/logiciel ' . $donneesMessage['demandeur'])
@@ -311,7 +325,6 @@ class SupportSIController extends Controller {
 
                     // On modifie le status de la demande pour que la DSI n'y ai plus accés.
                     $demande->setStatus('SupérieurHiérarchique');
-                    $em->persist($demande);
                     $em->flush();
 
                     $request->getSession()->getFlashBag()->add('notice', "La demande de matériel de " . $donneesMessage['demandeur'] . " a été validée.");
@@ -347,6 +360,15 @@ class SupportSIController extends Controller {
         return $this->render('NoxIntranetSupportSIBundle:Support:demandeConfirmationDSI.html.twig', array('form' => $form->createView(), 'numOrdre' => $donneesMessage['numOrdre']));
     }
 
+    /**
+     * 
+     * Permet de valider ou refuser une demande de matériel en fonction de la réponse séléctionnée.
+     * 
+     * @param Request
+     * @param String Clé de la demande de matériel.
+     * @param String Reponse à la demande de matériel.
+     * @return View
+     */
     public function demandeConfirmationSuperieurHierarchiqueAction(Request $request, $cleDemande, $reponse) {
 
         $em = $this->getDoctrine()->getManager();
