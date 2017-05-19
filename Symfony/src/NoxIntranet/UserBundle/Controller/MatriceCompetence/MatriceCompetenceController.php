@@ -12,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\UserBundle\Entity\MatriceCompetence;
-use PHPExcel_Reader_Excel2007;
 use Symfony\Component\HttpFoundation\Response;
 use DateTime;
 
@@ -166,9 +165,6 @@ class MatriceCompetenceController extends Controller {
         // Traitement du formaulaire.
         $formCompetence->handleRequest($request);
         if ($formCompetence->isSubmitted() && $formCompetence->isValid()) {
-            // On indique que la matrice n'est plus à jour.
-            $matrice_competence->setIsUpdated(false);
-
             // On sauvegarde les modifications en base de données.
             $em->persist($matrice_competence);
             $em->flush();
@@ -339,7 +335,14 @@ class MatriceCompetenceController extends Controller {
         return $str;
     }
 
-    public function collaborateurMatriceEditonAction(Request $request, $userId) {
+    /**
+     * 
+     * Affiche une fenêtre d'édition de la matrice de compétence d'un utilisateur en fonction de son Id.
+     * 
+     * @param type $userId Id de l'entitée du collaborateur.
+     * @return Response View
+     */
+    public function collaborateurMatriceEditonAction($userId) {
         // Entité du collaborateur.
         $em = $this->getDoctrine()->getManager();
         $currentUser = $em->getRepository('NoxIntranetUserBundle:User')->find($userId);
@@ -471,19 +474,6 @@ class MatriceCompetenceController extends Controller {
         ;
         $formCompetence = $formCompetenceBuilder->getForm();
 
-        // Traitement du formaulaire.
-        $formCompetence->handleRequest($request);
-        if ($formCompetence->isSubmitted() && $formCompetence->isValid()) {
-            // On indique que la matrice n'est plus à jour.
-            $matrice_competence->setIsUpdated(false);
-
-            // On sauvegarde les modifications en base de données.
-            $em->persist($matrice_competence);
-            $em->flush();
-
-            return new Response('');
-        }
-
         return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCollaborateurEdition.html.twig', array('formCompetence' => $formCompetence->createView()));
     }
 
@@ -559,23 +549,37 @@ class MatriceCompetenceController extends Controller {
         }
     }
 
+    /**
+     * 
+     * Affiche un fenêtre de séléction de collaborateur et d'édition individuel de leur matrice de compétence.
+     * 
+     * @return View
+     */
     public function collaborateurSelectionAction() {
+        // On récupère l'entité du collaborateur courant et son nom canonique.
         $currentUser = $this->get('security.token_storage')->getToken()->getUser();
         $canonicalName = strtoupper($this->wd_remove_accents($currentUser->getFirstname() . " " . $currentUser->getLastname()));
 
+        // On récupère l'ensemble des entitées des collaborateurs.
         $em = $this->getDoctrine()->getManager();
         $collaborateurs = $em->getRepository('NoxIntranetUserBundle:User')->findBy(array(), array('lastname' => 'ASC', 'firstname' => 'ASC'));
 
+        // Initialisation du tableau de retour.
         $collaborateursList = array();
 
+        // Si l'utilisateur courant fait partie de la DRH...
         if ($this->get('security.authorization_checker')->isGranted('ROLE_RH')) {
+            // On ajoute tous les collaborateur qui sont définis dans la hiérarchie au tableau de sortie.
             foreach ($collaborateurs as $collaborateur) {
                 $hierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername());
                 if (!empty($hierachy)) {
                     $collaborateursList[] = $collaborateur;
                 }
             }
-        } else {
+        }
+        // Sinon..
+        else {
+            // On ajoute les collaborateur qui sont définis dans la hiérarchie et qui ont le collaborateur courant comme DA au tableau de sortie.
             foreach ($collaborateurs as $collaborateur) {
                 $hierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername());
                 if (!empty($hierachy) && $hierachy->getDA($canonicalName)) {

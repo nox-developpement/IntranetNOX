@@ -28,15 +28,15 @@ nox_intranet_developpement_professionnel_monitoring_formulaire:
     defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel\DeveloppementProfessionnel:formulaireMonitoring }
     
 nox_intranet_developpement_professionnel_matrice_competence_formulaire:
-    path:   /ressources/test/matrice-competence/mes-competences
+    path:   /ressources/matrice-competence/mes-competences
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:competenceForm }
     
 nox_intranet_developpement_professionnel_matrice_competence_edition_collaborateur:
-    path:   /ressources/test/matrice-competence/edition-matrice-collaborateur/{userId}
+    path:   /ressources/matrice-competence/edition-matrice-collaborateur/{userId}
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:collaborateurMatriceEditon }
     
 nox_intranet_developpement_professionnel_matrice_competence_tableau:
-    path:   /ressources/test/matrice-competence/competences-collaborateurs
+    path:   /ressources/matrice-competence/competences-collaborateurs
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:matriceCompetenceTable }
     
 nox_intranet_developpement_professionnel_matrice_competence_file_extraction:
@@ -48,11 +48,11 @@ nox_intranet_developpement_professionnel_gestion_entretien_professionnel:
     defaults: { _controller: NoxIntranetUserBundle:DeveloppementProfessionnel\DeveloppementProfessionnel:gestionEntretienProfessionnelN2 }
     
 nox_intranet_ajax_matrice_collaborateur_edition_save:
-    path:   /matrice-competence/ajax-collaborateur-edition-save
+    path:   ressources/matrice-competence/ajax-collaborateur-edition-save
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:ajaxSaveMatriceCollaborateurEdition }
     
 nox_intranet_ajax_matrice_collaborateur_get_matrice_collaborateur:
-    path:   /matrice-competence/ajax-get-matrice-collaborateur
+    path:   ressources/matrice-competence/ajax-get-matrice-collaborateur
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:ajaxGetMatriceCollaborateur }
     
 nox_intranet_matrice_collaborateur_selection_collaborateur:
