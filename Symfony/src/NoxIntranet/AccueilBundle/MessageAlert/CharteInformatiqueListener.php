@@ -49,7 +49,7 @@ class CharteInformatiqueListener {
         $hierachy = $container->get('doctrine.orm.default_entity_manager')->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($user->getUsername());
 
         // Si l'utilisateur fait partie de NOX IP ou si il a déjà signé la charte informatique...
-        if ((!empty($hierachy) && $hierachy->getSociete() === "NOX INDUSTRIE & PROCESS") || $user->getHasReadCharteInformatique()) {
+        if ((!empty($hierachy) && ($hierachy->getSociete() === "NOX INDUSTRIE & PROCESS" || $hierachy->getSociete() === "NOX ENERGIE")) || $user->getHasReadCharteInformatique()) {
             return; // On quitte la fonction.
         }
 
