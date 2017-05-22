@@ -3,6 +3,7 @@
 namespace NoxIntranet\SupportSIBundle\Controller\DemandeMateriel;
 
 use Doctrine\ORM\EntityManager;
+use DateTime;
 
 class DemandeMaterielRevival {
 
@@ -15,9 +16,13 @@ class DemandeMaterielRevival {
 
         $demandesMateriel = $em->getRepository('NoxIntranetSupportSIBundle:DemandeMateriel')->findAll();
 
+        $now = new DateTime();
+
         foreach ($demandesMateriel as $demande) {
             $message = $demande->getMessage();
-            echo $message["date"]->format("d/m/Y") . " : " . $demande->getStatus() . "\n";
+            if (strtotime("+2 weeks", $message['date']) < $now) {
+                echo $message["date"]->format("d/m/Y") . " : " . $demande->getStatus() . "\n";
+            }
         }
     }
 
