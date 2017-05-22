@@ -1,5 +1,209 @@
 {% extends "::layout.html.twig" %}
 
+{% block style %}
+    <!-- CSS -->
+    <style>
+        #matriceCompetenceTable_Div {
+            width: 100%;
+            margin: auto;
+            margin-bottom: 2em;
+            height: 500px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        #competenceTable, #infosSalariesTable {
+            table-layout: fixed;
+        }
+
+        #matriceCompetenceTable {
+            margin: auto;
+            border-collapse: collapse;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        #matriceCompetenceTable, #matriceCompetenceTable tr, #matriceCompetenceTable th, #matriceCompetenceTable td {
+            border: 1px solid black;
+            text-align: center;
+            font-size: calc(9px + 0.2vw);
+            background-color: transparent;
+        }
+
+        #matriceCompetenceTable td {
+            padding: 0.5em;
+        }
+
+        #matriceCompetenceTable th {
+            background-color: rgba(31,78,121,0.8);
+            color: white;
+        }
+
+        #matriceCompetenceTable th.header {
+            padding-right: 1.5em;
+            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/bg.gif') }}'); 
+            background-repeat: no-repeat;
+            background-position: center right;
+            cursor: pointer;
+        }
+
+        #matriceCompetenceTable th.headerSortUp { 
+            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/asc.gif') }}'); 
+        } 
+
+        #matriceCompetenceTable th.headerSortDown { 
+            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/desc.gif') }}'); 
+        }
+
+        #matriceCompetenceTable td {
+            background-color: rgba(255,255,255,0.8);
+        }
+
+        .categorie_selection_section {
+            display: inline-block;
+            box-sizing: border-box;
+            width: calc(100% / 3);
+            font-size: calc(11px + 0.2vw);
+            vertical-align: top;
+            padding: 1em;
+        }
+
+        .competences_ul {
+            margin: 0;
+            padding-left: 1em;
+            font-size: calc(11px + 0.2vw);
+            list-style-type: none;
+        }
+
+        .categorie_selection_title {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: calc(12px + 0.2vw);
+        }
+
+        #categorie_selection_div {
+            width: 60%;
+            margin: auto;
+            font-size: 0;
+            background-color: rgba(255,255,255, 0.6);
+            border: 2px solid #1F4E79;
+        }
+
+        .competences_li label {
+            font-size: calc(11px + 0.2vw);
+        }
+
+        #categorie_selection_foldbar {
+            background-color: rgba(31,78,121,0.8);
+        }
+
+        .categorie_selection_foldbar_indicator {
+            display: inline-block;
+            width: 50%;
+            box-sizing: border-box;
+            text-align: right;
+            font-size: calc(12px + 0.2vw);
+            padding: 0.25em 1em 0.25em 0.25em;
+            margin: 0;
+            color: white;
+        }
+
+        #categorie_selection_foldbar_text {
+            display: inline-block;
+            width: 50%;
+            box-sizing: border-box;
+            font-size: calc(12px + 0.2vw);
+            padding: 0.25em 0.25em 0.25em 2em;
+            margin: 0;
+            color: white;
+        }
+
+        #categorie_selection_box {
+            height: 250px;
+            overflow-y: auto;
+            border-top: 2px solid #1F4E79;
+        }
+
+        .competence_td {
+            font-size: 0;
+        }
+
+        .competence_container {
+            display: inline-block;
+            padding: 0.25em 0.10em;
+        }
+
+        .competence_principale_div, .competence_secondaire_div {
+            display: inline-block;
+            padding: 0.25em;
+            margin: 0.1em;
+            font-size: calc(11px + 0.2vw);
+            border-radius: 5px;
+        }
+
+        .competence_principale_div {
+            background-color: #1f4e79;
+            color: white;
+        }
+
+        .competence_secondaire_div {
+            background-color: #5d9bd5;
+            color: white;
+        }
+
+        #matriceCompetence_Container {
+            position: relative;
+            height: 500px;
+            width: 100%;
+            margin-top: 2em;
+        }
+
+        .fixedHeaderCell {
+            position: absolute;
+            top: 0;
+            font-size: calc(9px + 0.2vw);
+            cursor: pointer;
+        }
+
+        #header-background {
+            background-color: rgba(31,78,121,0.8);;
+            height: 30px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;   
+        }
+
+        #matriceCompetenceTable thead tr th {
+            font-size: 0;
+            padding: 0;
+        }
+
+        #selected_competence_text {
+            margin: 0;
+            padding: 0.5em;
+            background-color: rgba(255,255,255,0.8);
+            border-top: 1px solid #1F4E79;
+            font-size: calc(11px + 0.2vw);   
+        }
+
+        #select_deselect_competences {
+            margin: 0;
+            padding: 0.5em;
+            padding-bottom: 0;
+            font-size: calc(11px + 0.2vw);   
+            cursor: pointer;
+        }
+
+        #select_deselect_competences span:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <!-- Fin CSS -->
+{% endblock %}
+
 {% block titrePage %}Matrice de compétences{% endblock %}
 
 {% block messageAccueil %}Matrice de compétences{% endblock %}
@@ -27,6 +231,7 @@
             toggleCompetencesSelection();
             competenceFilter();
             categorieSelection();
+            initDatepicker();
         });
 
         // Fixe le header du tableau des compétences.
@@ -254,210 +459,44 @@
             });
         }
 
+        // Ajoute un widget de séléction de date au input de date.
+        function initDatepicker() {
+            // On change le type des input de date pour désactiver le datepicker par défaut de chrome.
+            $("input[type='date']").attr('type', 'text');
+
+            // Initialisation des datepicker.
+            $('.datepicker').datepicker({
+                minDate: "-100Y",
+                maxDate: "0",
+                yearRange: "-100:+0",
+                changeMonth: true,
+                changeYear: true
+            });
+
+            // On passe les datepicker en français.
+            $.datepicker.regional.fr = {
+                closeText: "Fermer",
+                prevText: "Précédent",
+                nextText: "Suivant",
+                currentText: "Aujourd'hui",
+                monthNames: ["janvier", "février", "mars", "avril", "mai", "juin",
+                    "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+                monthNamesShort: ["janv.", "févr.", "mars", "avr.", "mai", "juin",
+                    "juil.", "août", "sept.", "oct.", "nov.", "déc."],
+                dayNames: ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
+                dayNamesShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
+                dayNamesMin: ["D", "L", "M", "M", "J", "V", "S"],
+                weekHeader: "Sem.",
+                dateFormat: "dd/mm/yy",
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ""};
+            $.datepicker.setDefaults($.datepicker.regional.fr);
+        }
+
     </script>
     <!-- Fin script -->
-
-    <!-- CSS -->
-    <style>
-        #matriceCompetenceTable_Div {
-            width: 100%;
-            margin: auto;
-            margin-bottom: 2em;
-            height: 500px;
-            overflow-x: hidden;
-            overflow-y: auto;
-            height: 100%;
-        }
-
-        #competenceTable, #infosSalariesTable {
-            table-layout: fixed;
-        }
-
-        #matriceCompetenceTable {
-            margin: auto;
-            border-collapse: collapse;
-            width: 100%;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
-
-        #matriceCompetenceTable, #matriceCompetenceTable tr, #matriceCompetenceTable th, #matriceCompetenceTable td {
-            border: 1px solid black;
-            text-align: center;
-            font-size: calc(9px + 0.2vw);
-            background-color: transparent;
-        }
-
-        #matriceCompetenceTable td {
-            padding: 0.5em;
-        }
-
-        #matriceCompetenceTable th {
-            background-color: rgba(31,78,121,0.8);
-            color: white;
-        }
-
-        #matriceCompetenceTable th.header {
-            padding-right: 1.5em;
-            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/bg.gif') }}'); 
-            background-repeat: no-repeat;
-            background-position: center right;
-            cursor: pointer;
-        }
-
-        #matriceCompetenceTable th.headerSortUp { 
-            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/asc.gif') }}'); 
-        } 
-
-        #matriceCompetenceTable th.headerSortDown { 
-            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/desc.gif') }}'); 
-        }
-
-        #matriceCompetenceTable td {
-            background-color: rgba(255,255,255,0.8);
-        }
-
-        .categorie_selection_section {
-            display: inline-block;
-            box-sizing: border-box;
-            width: calc(100% / 3);
-            font-size: calc(11px + 0.2vw);
-            vertical-align: top;
-            padding: 1em;
-        }
-
-        .competences_ul {
-            margin: 0;
-            padding-left: 1em;
-            font-size: calc(11px + 0.2vw);
-            list-style-type: none;
-        }
-
-        .categorie_selection_title {
-            margin-top: 0;
-            margin-bottom: 0;
-            font-size: calc(12px + 0.2vw);
-        }
-
-        #categorie_selection_div {
-            width: 60%;
-            margin: auto;
-            font-size: 0;
-            background-color: rgba(255,255,255, 0.6);
-            border: 2px solid #1F4E79;
-        }
-
-        .competences_li label {
-            font-size: calc(11px + 0.2vw);
-        }
-
-        #categorie_selection_foldbar {
-            background-color: rgba(31,78,121,0.8);
-        }
-
-        .categorie_selection_foldbar_indicator {
-            display: inline-block;
-            width: 50%;
-            box-sizing: border-box;
-            text-align: right;
-            font-size: calc(12px + 0.2vw);
-            padding: 0.25em 1em 0.25em 0.25em;
-            margin: 0;
-            color: white;
-        }
-
-        #categorie_selection_foldbar_text {
-            display: inline-block;
-            width: 50%;
-            box-sizing: border-box;
-            font-size: calc(12px + 0.2vw);
-            padding: 0.25em 0.25em 0.25em 2em;
-            margin: 0;
-            color: white;
-        }
-
-        #categorie_selection_box {
-            height: 250px;
-            overflow-y: auto;
-            border-top: 2px solid #1F4E79;
-        }
-
-        .competence_td {
-            font-size: 0;
-        }
-
-        .competence_container {
-            display: inline-block;
-            padding: 0.25em 0.10em;
-        }
-
-        .competence_principale_div, .competence_secondaire_div {
-            display: inline-block;
-            padding: 0.25em;
-            margin: 0.1em;
-            font-size: calc(11px + 0.2vw);
-            border-radius: 5px;
-        }
-
-        .competence_principale_div {
-            background-color: #1f4e79;
-            color: white;
-        }
-
-        .competence_secondaire_div {
-            background-color: #5d9bd5;
-            color: white;
-        }
-
-        #matriceCompetence_Container {
-            position: relative;
-            height: 500px;
-            width: 100%;
-            margin-top: 2em;
-        }
-
-        .fixedHeaderCell {
-            position: absolute;
-            top: 0;
-            font-size: calc(9px + 0.2vw);
-            cursor: pointer;
-        }
-
-        #header-background {
-            background-color: rgba(31,78,121,0.8);;
-            height: 30px;
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;   
-        }
-
-        #matriceCompetenceTable thead tr th {
-            font-size: 0;
-            padding: 0;
-        }
-
-        #selected_competence_text {
-            margin: 0;
-            padding: 0.5em;
-            background-color: rgba(255,255,255,0.8);
-            border-top: 1px solid #1F4E79;
-            font-size: calc(11px + 0.2vw);   
-        }
-
-        #select_deselect_competences {
-            margin: 0;
-            padding: 0.5em;
-            padding-bottom: 0;
-            font-size: calc(11px + 0.2vw);   
-            cursor: pointer;
-        }
-
-        #select_deselect_competences span:hover {
-            text-decoration: underline;
-        }
-    </style>
-    <!-- Fin CSS -->
 
     <!-- Sélécteur de compétences -->
     <div id="categorie_selection_div">
@@ -489,6 +528,34 @@
     </div>
     <!-- Fin du sélécteur de compétences -->
 
+    <div id="recherche_avance_div">
+        <form>
+            <p>
+                <label for="Nom_Prenom">Nom/Prénom : </label>
+                <input type="text" id="Nom_Prenom" name="Nom_Prenom">
+            </p>
+            <p>
+                <label for="Statut">Statut : </label>
+                <input type="text" id="Statut" name="Statut">
+            </p>
+            <p>
+                <label for="Poste">Poste : </label>
+                <input type="text" id="Poste" name="Poste">
+            </p>
+            <p>
+                <label for="Date_Naissance">Date de naissance : </label>
+                <input type="date" id="Date_Naissance" name="Date_Naissance" class="datepicker">
+            </p>
+            <p>
+                <label for="Date_Anciennete">Date d'ancienneté : </label>
+                <input type="date" id="Date_Anciennete" name="Date_Anciennete" class="datepicker">
+            </p>
+            <p>
+                <input type="reset" id="Reset" name="Reset" value="RAZ">
+            </p>
+        </form>
+    </div>
+
     <div id="matrice_edition_popup">
         <div id="matrice_edition_popup_content">
         </div>
@@ -512,7 +579,7 @@
                 </thead>
                 <tbody>
                     {% for matrice in matrices_competences %}
-                        <tr class="matrice_tr" data-competence-principale="{{ matrice.CompetencePrincipale }}" data-competence-secondaire="{{ matrice.CompetencesSecondaires|json_encode() }}" data-user-id="{{ matrice.user.id }}" ondblclick="openEditionPopUp('{{ path('nox_intranet_developpement_professionnel_matrice_competence_edition_collaborateur', {userId: matrice.user.id}) }}', {{ matrice.user.id }});">
+                        <tr class="matrice_tr" data-competence-principale="{{ matrice.CompetencePrincipale }}" data-competence-secondaire="{{ matrice.CompetencesSecondaires|json_encode() }}" data-user-id="{{ matrice.user.id }}" {% if is_granted('ROLE_RH') %}ondblclick="openEditionPopUp('{{ path('nox_intranet_developpement_professionnel_matrice_competence_edition_collaborateur', {userId: matrice.user.id}) }}', {{ matrice.user.id }});"{% endif %}>
                             <td class="matrice_societe_etablissement">{{ matrice.Societe }}<hr>{{ matrice.Etablissement }}</td>
                             <td class="matrice_nom_prenom">{{ matrice.Nom }}<br />{{ matrice.Prenom }}</td>
                             <td class="date_naissance">{{ matrice.DateNaissance|date('d/m/Y') }}</td>

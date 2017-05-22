@@ -181,8 +181,20 @@ class MatriceCompetenceController extends Controller {
      * 
      * @return view
      */
-    public function matriceCompetenceTableAction() {
+    public function matriceCompetenceTableAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
+
+        // On récupère les infos de l'utilisateur courant.
+        $current_user = $this->get('security.token_storage')->getToken()->getUser();
+        $user_canonical_name = $this->wd_remove_accents(strtoupper($current_user->getFirstname() . " " . $current_user->getLastname()));
+
+        // Si l'utilisateur n'as pas les droits requis on le redirige vers l'accueil.
+        if (!($this->get('security.authorization_checker')->isGranted('ROLE_RH') || $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDA($user_canonical_name))) {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas l'autorisation d'accéder à ce service.");
+            $this->redirectToRoute("nox_intranet_accueil");
+        }
+
+        // Compétences des collaborateurs.
         $matrices_competences = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->findBy(array(), array('nom' => 'ASC', 'prenom' => 'ASC'));
 
         // Chemin du fichier de liste des compétences.
@@ -204,9 +216,20 @@ class MatriceCompetenceController extends Controller {
             }
         }
 
-        $competencesCount = count($competencesArray, COUNT_RECURSIVE) - count($competencesArray);
-
-        return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCompetence.html.twig', array('matrices_competences' => $matrices_competences, 'competencesArray' => $competencesArray, 'competencesCount' => $competencesCount));
+        //$competencesCount = count($competencesArray, COUNT_RECURSIVE) - count($competencesArray);
+        
+        // On récupére les société et établissements.
+        $hierachies = $em->getRepository('NoxIntranetUsersHierarchy')->findAll();
+        $societes = array();
+        foreach($hierachies as $hierachy) {
+            $societes[$hierachy->getSociete()] = $hierachy->getSociete();
+        }
+        $etablissements = array();
+        foreach($hierachies as $hierachy) {
+            $etablissements[$hierachy->getEtablissement()] = $hierachy->getEtablissement();
+        }
+        
+        return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCompetence.html.twig', array('matrices_competences' => $matrices_competences, 'competencesArray' => $competencesArray, 'societes' => $societes, 'etablissement' => $etablissements));
     }
 
     public function extractMatriceCompetenceDataAction() {
