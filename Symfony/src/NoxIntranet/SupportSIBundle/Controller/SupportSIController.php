@@ -322,6 +322,10 @@ class SupportSIController extends Controller {
                             ), 'text/html'
                     );
                     $this->get('mailer')->send($messageHelpdesk);
+                    
+                    // On sauvegarde la valeur du prix estimé.
+                    $donneesMessage['prixEstime'] = $form->get('prix')->getData();
+                    $demande->setMessage($donneesMessage);
 
                     // On modifie le status de la demande pour que la DSI n'y ai plus accés.
                     $demande->setStatus('SupérieurHiérarchique');

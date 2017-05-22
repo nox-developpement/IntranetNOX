@@ -5,4 +5,4 @@ services:
 
     nox_intranet_support_si.demande_materiel_revival:
         class: NoxIntranet\SupportSIBundle\Controller\DemandeMateriel\DemandeMaterielRevival
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine.orm.entity_manager, @service_container]

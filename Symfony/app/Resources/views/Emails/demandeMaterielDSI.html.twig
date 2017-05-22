@@ -15,4 +15,4 @@ Raison de la demande : {{ raison }}
 <br /><br />
 Date désirée : <strong>{{ date|date('d/m/Y') }}</strong>
 <br /><br />
-Pour répondre à cette demande merci de <a style="color: blue;" href="{{ app.request.schemeAndHttpHost }}/intranet/supportSI/confirmation-demande-dsi/{{ cle }}"> cliquer ici </a>.
+Pour répondre à cette demande merci de <a style="color: blue;" href="{{ absolute_url(path('nox_intranet_demande_materiel_confirmation_dsi', {cleDemande: cle})) }}"> cliquer ici </a>.

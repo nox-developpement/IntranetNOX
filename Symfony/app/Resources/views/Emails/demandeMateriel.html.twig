@@ -18,5 +18,5 @@ Date désirée : <strong>{{ donneesMessage.date|date('d/m/Y') }}</strong>
 {% if prixEstime != null %}
     Le prix estimé par la DSI est de <strong>{{ prixEstime }}</strong> €. <br /><br />
 {% endif %}
-Pour <span style='color: green;'>valider</span> la demande, merci de <a style="color: green;" href="{{ app.request.schemeAndHttpHost }}/intranet/supportSI/confirmation-demande-superieur-hierarchique/{{ cle }}/validation">cliquer ici</a>.
-Pour <span style='color: red;'>refuser</span> la demande, merci de <a style="color: red;" href="{{ app.request.schemeAndHttpHost }}/intranet/supportSI/confirmation-demande-superieur-hierarchique/{{ cle }}/rejet">cliquer ici</a>.
+Pour <span style='color: green;'>valider</span> la demande, merci de <a style="color: green;" href="{{ absolute_url(path('nox_intranet_demande_materiel_confirmation_superieur_hierarchique', {cleDemande: cle, reponse: 'validation'})) }}">cliquer ici</a>.
+Pour <span style='color: red;'>refuser</span> la demande, merci de <a style="color: red;" href="{{ absolute_url(path('nox_intranet_demande_materiel_confirmation_superieur_hierarchique', {cleDemande: cle, reponse: 'rejet'})) }}">cliquer ici</a>.
