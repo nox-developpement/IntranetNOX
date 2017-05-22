@@ -4,6 +4,7 @@ namespace NoxIntranet\SupportSIBundle\Controller\DemandeMateriel;
 
 use Doctrine\ORM\EntityManager;
 use DateTime;
+use DateInterval;
 
 class DemandeMaterielRevival {
 
@@ -20,8 +21,10 @@ class DemandeMaterielRevival {
 
         foreach ($demandesMateriel as $demande) {
             $message = $demande->getMessage();
-            if (strtotime("+2 weeks", $message['date']) < $now) {
-                echo $message["date"]->format("d/m/Y") . " : " . $demande->getStatus() . "\n";
+
+            $revivalDate = $message['date']->add(new DateInterval("P7D"));
+            if ($revivalDate < $now) {
+                echo "=>" . $revivalDate->format("d/m/Y") . " : " . $demande->getStatus() . "\n";
             }
         }
     }
