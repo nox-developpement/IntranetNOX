@@ -217,19 +217,18 @@ class MatriceCompetenceController extends Controller {
         }
 
         //$competencesCount = count($competencesArray, COUNT_RECURSIVE) - count($competencesArray);
-        
         // On récupére les société et établissements.
-        $hierachies = $em->getRepository('NoxIntranetUsersHierarchy')->findAll();
+        $hierachies = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
         $societes = array();
-        foreach($hierachies as $hierachy) {
+        foreach ($hierachies as $hierachy) {
             $societes[$hierachy->getSociete()] = $hierachy->getSociete();
         }
         $etablissements = array();
-        foreach($hierachies as $hierachy) {
+        foreach ($hierachies as $hierachy) {
             $etablissements[$hierachy->getEtablissement()] = $hierachy->getEtablissement();
         }
-        
-        return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCompetence.html.twig', array('matrices_competences' => $matrices_competences, 'competencesArray' => $competencesArray, 'societes' => $societes, 'etablissement' => $etablissements));
+
+        return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCompetence.html.twig', array('matrices_competences' => $matrices_competences, 'competencesArray' => $competencesArray, 'societes' => $societes, 'etablissements' => $etablissements));
     }
 
     public function extractMatriceCompetenceDataAction() {
@@ -612,6 +611,38 @@ class MatriceCompetenceController extends Controller {
         }
 
         return $this->render('NoxIntranetUserBundle:MatriceCompetence:collaborateurSelection.html.twig', array('collaborateursList' => $collaborateursList));
+    }
+
+    /**
+     * 
+     * Recherche les matrices correspondantes au paramètres d'entrés.
+     * 
+     * @param Request $request Requête contenant les paramètres de la recherche.
+     * @return Response Chaîne JSON contenant les matrices qui résulte de la recherche.
+     */
+    public function ajaxSearchInMatriceAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // Préparation de la requête de recherche des matrices.
+            $em = $this->getDoctrine()->getManager();
+            $searchQueryBuilder = $em->createQueryBuilder();
+            $searchQueryBuilder
+                    ->select('u')
+                    ->from('NoxIntranetUserBundle:MatriceCompetence', 'u');
+
+            // Pour chaques champs de la recherche...
+            foreach ($request->request as $key => $field) {
+                // Si il existe une valeur pour le champ...
+                if (!empty($field)) {
+                    // On ajoute un condition à la requête.
+                    $searchQueryBuilder->andWhere('u.' . strtolower($key) . " = '" . $field . "'");
+                }
+            }
+
+            // Récupération des résultats de la requête.
+            $results = $searchQueryBuilder->getQuery()->getResult();
+
+            return new Response(json_encode($results));
+        }
     }
 
 }

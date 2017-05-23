@@ -2,6 +2,7 @@
 
 {% block style %}
     <!-- CSS -->
+    <link href="{{ asset("./js/select2/dist/css/select2.min.css") }}" rel="stylesheet" />
     <style>
         #matriceCompetenceTable_Div {
             width: 100%;
@@ -200,6 +201,38 @@
         #select_deselect_competences span:hover {
             text-decoration: underline;
         }
+
+        #recherche_avance_div {
+            width: 70%;
+            margin: auto;
+            background-color: rgba(31,78,121,0.8);
+        }
+
+        #recherche_avance_form {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            border: none;
+            text-align: center;
+            font-size: calc(9px + 0.2vw);
+        }
+
+        #recherche_avance_form p {
+            display: inline-block;
+            padding: 0 0.5em;
+        }
+
+        #recherche_avance_form label {
+            color: white;
+        }
+
+        #recherche_avance_form input, #recherche_avance_form select {
+            font-size: calc(9px + 0.2vw);
+        }
+
+        .select2-container .select2-selection--multiple {
+            min-height: 0;
+        }
     </style>
     <!-- Fin CSS -->
 {% endblock %}
@@ -210,28 +243,36 @@
 
 {% block contenu %}
     <!-- Script -->
+    <script src="{{ asset("./js/select2/dist/js/select2.min.js") }}"></script>;
     <script src="{{ asset('./js/jquery.tablesorter/jquery.tablesorter.min.js') }}"></script>
     <script>
         $(document).ready(function () {
             // Initialisation de la fonction de trie Jquery.
-            $("#matriceCompetenceTable").tablesorter({
-                sortList: [[1, 0]],
-                headers: {
-                    6: {sorter: false}
-                }
-            });
+            /*$("#matriceCompetenceTable").tablesorter({
+             sortList: [[1, 0]],
+             headers: {
+             6: {sorter: false}
+             }
+             });*/
+
             // Initialisation du header fixe et mise à jour lors du recadrage de la fenêtre.
             initFixedHeader();
             $(window).resize(function () {
                 initFixedHeader();
             });
+
             // Mise à jour des compétences séléctionnées.
-            updateSelectedCompetenceText();
+            //updateSelectedCompetenceText();
+
             // Fonction de séléction et filtrage des compétences.
-            toggleCompetencesSelection();
-            competenceFilter();
-            categorieSelection();
+            //toggleCompetencesSelection();
+            //competenceFilter();
+            //categorieSelection();
             initDatepicker();
+            ajaxSearchInMatrice();
+            $("#Competence_Principale, #Competences_Secondaires").select2({
+                placeholder: "Choisir une compétence..."
+            });
         });
 
         // Fixe le header du tableau des compétences.
@@ -495,44 +536,113 @@
             $.datepicker.setDefaults($.datepicker.regional.fr);
         }
 
+        // Lance une recherche des matrices correspondantes aux paramêtres d'entrés.
+        function ajaxSearchInMatrice() {
+            // Variable de fonction de retardement entre les frappes.
+            var delay = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            // Lorsqu'on on écris dans les champs de recherche ou les sélécteur...
+            $("#recherche_avance_form select, #recherche_avance_form input").on("change keyup", function () {
+                // Au bout de 500ms d'inactivité...
+                delay(function () {
+                    // Requête ajax de recherche des matrices.
+                    $.ajax({
+                        url: "{{ path('nox_intranet_matrice_collaborateur_ajax_search_in_matrice') }}",
+                        type: "POST",
+                        data: $("#recherche_avance_form").serialize(),
+                        success: function (matrice_json) {
+                            // Conversion du résultat en object javascript.
+                            var matriceList = JSON.parse(matrice_json);
+
+                            // Si le résultat contient des matrices...
+                            if (matriceList.length > 0) {
+                                // On cache la ligne d'absence de résultat.
+                                $('#no_results_tr').hide();
+
+                                // Pour chaques matrice...
+                                $.each(matriceList, function (index, matrice) {
+                                    // HTML de la compétences principales.
+                                    var competence_principale_container = $("<span class='competence_container competence_principale_container'></span>")
+                                            .append("<span class='competence_principale_div'>" + (matrice.competence_principale !== null ? matrice.competence_principale : "Aucune") + "</span>");
+
+                                    // HTML des compétences secondaires.
+                                    var competences_secondaires_container = $("<span class='competence_container competences_secondaires_container'></span>");
+                                    if (matrice.competences_secondaires > 0) {
+                                        $.each(matrice.competences_secondaires, function (index, competence) {
+                                            competences_secondaires_container.append("<span class='competence_secondaire_div'>" + competence + "</span>");
+                                        });
+                                    } else {
+                                        competences_secondaires_container.append("<span class='competence_secondaire_div'>Aucune</span>");
+                                    }
+
+                                    // HTML de la cellule des compétences.
+                                    var competencesTd = $("<td></td>")
+                                            .append(competence_principale_container)
+                                            .append("<hr>")
+                                            .append(competences_secondaires_container);
+
+                                    // HTML de la nouvelle ligne du tableau.
+                                    var newTr = $("<tr></tr>")
+                                            .append("<td>" + matrice.societe + "<hr>" + matrice.etablissement + "</td>")
+                                            .append("<td>" + matrice.nom + "<br>" + matrice.prenom + "</td>")
+                                            .append("<td>" + matrice.date_naissance + "</td>")
+                                            .append("<td>" + matrice.date_anciennete + "</td>")
+                                            .append("<td>" + matrice.statut + "</td>")
+                                            .append("<td>" + matrice.poste + "</td>")
+                                            .append(competencesTd);
+
+                                    // Ajout de la ligne au tableau.
+                                    newTr.appendTo($("#matriceCompetenceTable tbody"));
+                                });
+                            }
+                            // Si le résultat ne contient pas de matrice.
+                            else {
+                                // On affiche la ligne d'absence de résultat.
+                                $('#no_results_tr').show();
+                            }
+                        }
+                    });
+                }, 500);
+            });
+        }
+
     </script>
     <!-- Fin script -->
 
-    <!-- Sélécteur de compétences -->
-    <div id="categorie_selection_div">
-        <div id="categorie_selection_foldbar">
-            <p id="categorie_selection_foldbar_text">Sélection des compétences</p>
-            <p class="categorie_selection_foldbar_indicator" style="display: none;">&#10134;</p>
-            <p class="categorie_selection_foldbar_indicator">&#10133;</p>
-        </div>
-        <div id="categorie_selection_box" style="display: none;" data-state="open">
-            <p id="select_deselect_competences"><span onclick="selectDeselectAllCompetences('check');">Tout cocher</span>/<span onclick="selectDeselectAllCompetences('unckeck');">Tout décocher</span></p>
-            {% for categorie, competences in competencesArray %}
-                <section class='categorie_selection_section'>
-                    <h3 class="categorie_selection_title">
-                        <label><input type="checkbox" class="categorie_checkbox" value="{{ categorie }}" checked>{{ categorie }}</label>
-                    </h3>
-                    <ul class="competences_ul">
-                        {% for competence in competences %}
-                            <li class="competences_li">
-                                <label><input type="checkbox" class="competence_checkbox" value="{{ competence }}" data-categorie="{{ categorie }}" checked>{{ competence }}</label>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </section>
-            {% endfor %}
-        </div>
-        <div id="selected_competence_div">
-            <p id="selected_competence_text">Compétence(s) séléctionnée(s) : <span id="selected_competences"></span></p>
-        </div>
-    </div>
-    <!-- Fin du sélécteur de compétences -->
-
+    <!-- Recherche avancée -->
     <div id="recherche_avance_div">
-        <form>
+        <form id="recherche_avance_form">
             <p>
-                <label for="Nom_Prenom">Nom/Prénom : </label>
-                <input type="text" id="Nom_Prenom" name="Nom_Prenom">
+                <label for="Societe">Société : </label>
+                <select id="Societe" name="Societe">
+                    <option value="">Choisir une société...</option>
+                    {% for societe in societes %}
+                        <option value="{{ societe }}">{{ societe }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+            <p>
+                <label for="Etablissement">Etablissement : </label>
+                <select id="Etablissement" name="Etablissement">
+                    <option value="">Choisir un établissement...</option>
+                    {% for etablissement in etablissements %}
+                        <option value="{{ etablissement }}">{{ etablissement }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+            <p>
+                <label for="Nom">Nom : </label>
+                <input type="text" id="Nom" name="Nom">
+            </p>
+            <p>
+                <label for="Prenom">Prénom : </label>
+                <input type="text" id="Prenom" name="Prenom">
             </p>
             <p>
                 <label for="Statut">Statut : </label>
@@ -551,15 +661,43 @@
                 <input type="date" id="Date_Anciennete" name="Date_Anciennete" class="datepicker">
             </p>
             <p>
+                <label for="Competence_Principale">Compétence principale : </label>
+                <select id="Competence_Principale" name="Competence_Principale">
+                    <option value=""></option>
+                    {% for nom_categorie, liste_competences in competencesArray %}
+                        <optgroup label="{{ nom_categorie }}">
+                            {% for competence in liste_competences %}
+                                <option value="{{ competence }}">{{ competence }}</option>
+                            {% endfor %}
+                        </optgroup>
+                    {% endfor %}
+                </select>
+            </p>
+            <p>
+                <label for="Competences_Secondaires">Compétences secondaires : </label>
+                <select id="Competences_Secondaires" name="Competences_Secondaires[]" multiple="multiple" >
+                    {% for nom_categorie, liste_competences in competencesArray %}
+                        <optgroup label="{{ nom_categorie }}">
+                            {% for competence in liste_competences %}
+                                <option value="{{ competence }}">{{ competence }}</option>
+                            {% endfor %}
+                        </optgroup>
+                    {% endfor %}
+                </select>
+            </p>
+            <p>
                 <input type="reset" id="Reset" name="Reset" value="RAZ">
             </p>
         </form>
     </div>
+    <!-- Fin de la recherche avancée -->
 
+    <!-- Pop-up d'édition de la matrice -->
     <div id="matrice_edition_popup">
         <div id="matrice_edition_popup_content">
         </div>
     </div>
+    <!-- Fin de la pop-up d'édition de la matrice -->
 
     <!-- Table des compétences -->
     <div id="matriceCompetence_Container">
@@ -578,31 +716,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for matrice in matrices_competences %}
-                        <tr class="matrice_tr" data-competence-principale="{{ matrice.CompetencePrincipale }}" data-competence-secondaire="{{ matrice.CompetencesSecondaires|json_encode() }}" data-user-id="{{ matrice.user.id }}" {% if is_granted('ROLE_RH') %}ondblclick="openEditionPopUp('{{ path('nox_intranet_developpement_professionnel_matrice_competence_edition_collaborateur', {userId: matrice.user.id}) }}', {{ matrice.user.id }});"{% endif %}>
-                            <td class="matrice_societe_etablissement">{{ matrice.Societe }}<hr>{{ matrice.Etablissement }}</td>
-                            <td class="matrice_nom_prenom">{{ matrice.Nom }}<br />{{ matrice.Prenom }}</td>
-                            <td class="date_naissance">{{ matrice.DateNaissance|date('d/m/Y') }}</td>
-                            <td class="date_ancienette">{{ matrice.DateAnciennete|date('d/m/Y') }}</td>
-                            <td class="statut">{{ matrice.Statut }}</td>
-                            <td class="poste">{{ matrice.Poste }}</td>
-                            <td>
-                                <span class='competence_container competence_principale_container'>
-                                    <div class='competence_principale_div'>{{ matrice.CompetencePrincipale is not null ? matrice.CompetencePrincipale : "Aucune" }}</div>
-                                </span>
-                                <hr>
-                                <span class='competence_container competences_secondaires_container'>
-                                    {% if matrice.CompetencesSecondaires is not empty %}
-                                        {% for competence in matrice.CompetencesSecondaires %}
-                                            <div class='competence_secondaire_div'>{{ competence }}</div>
-                                        {% endfor %}
-                                    {% else %}
-                                        <div class='competence_secondaire_div'>Aucune</div>
-                                    {% endif %}
-                                </span>
-                            </td>
-                        </tr>
-                    {% endfor %}
                     <tr class="matrice_tr" id="no_results_tr" style="display: none;">
                         <td colspan="7">Aucun résultat...</td>
                     </tr>
