@@ -233,6 +233,14 @@
         .select2-container .select2-selection--multiple {
             min-height: 0;
         }
+
+        #loading_tr td {
+            background-image: url("{{ asset('bundles/noxintranetuser/images/loading.gif') }}");
+            background-size: contain;
+            background-position: center center;
+            background-repeat: no-repeat;
+            padding: 5em;
+        }
     </style>
     <!-- Fin CSS -->
 {% endblock %}
@@ -255,24 +263,21 @@
              }
              });*/
 
+            // Initialisation des sélécteurs de dates et de compétences. 
+            $("#Competence_Principale, #Competences_Secondaires").select2({
+                placeholder: "Choisir une compétence..."
+            });
+            initDatepicker();
+
             // Initialisation du header fixe et mise à jour lors du recadrage de la fenêtre.
             initFixedHeader();
             $(window).resize(function () {
                 initFixedHeader();
             });
 
-            // Mise à jour des compétences séléctionnées.
-            //updateSelectedCompetenceText();
-
-            // Fonction de séléction et filtrage des compétences.
-            //toggleCompetencesSelection();
-            //competenceFilter();
-            //categorieSelection();
-            initDatepicker();
+            // Initialisation de la recheche dans la matrice.
             ajaxSearchInMatrice();
-            $("#Competence_Principale, #Competences_Secondaires").select2({
-                placeholder: "Choisir une compétence..."
-            });
+
         });
 
         // Fixe le header du tableau des compétences.
@@ -299,124 +304,6 @@
                     'margin-right': marginLeft
                 });
             });
-        }
-
-        // Affichage cache le sélécteur de catégories/compétences.
-        function toggleCompetencesSelection() {
-            $('#categorie_selection_foldbar').on('click', function () {
-                $('#categorie_selection_box').slideToggle();
-                $('.categorie_selection_foldbar_indicator').toggle();
-            });
-        }
-
-        // Affiche/cache les lignes de la matrice en fonction des compétences séléctionnées.
-        function competenceFilter() {
-            // Vérifie la présence de valeur d'un tableau dans un autre.
-            function hasCommonElement(arr1, arr2) {
-                var bExists = false;
-                $.each(arr2, function (index, value) {
-
-                    if ($.inArray(value, arr1) != -1) {
-                        bExists = true;
-                    }
-
-                    if (bExists) {
-                        return false; //break
-                    }
-                });
-                return bExists;
-            }
-
-            // Lors de la séléction/désélction d'une compétence...
-            $(".competence_checkbox").change(function () {
-                // On récupére la liste des compétences cochées.
-                var competence_list = [];
-                $(".competence_checkbox:checked").each(function () {
-                    competence_list.push($(this).val());
-                });
-                // Pour chaques ligne de la matrice...
-                $(".matrice_tr").each(function () {
-                    // Si les compétence correspondent à la liste des compétences cochées on affiche la ligne, sinon on la cache.
-                    if ($.inArray($(this).data('competence-principale'), competence_list) > -1 || hasCommonElement(competence_list, $(this).data('competence-secondaire'))) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
-                // Affiche/cache l'undicateur de résultat nulle en fonction du nombre de résultat.
-                $(".matrice_tr:not([style='display: none;'])").length > 0 ? $('#no_results_tr').hide() : $('#no_results_tr').show();
-            });
-        }
-
-        // Gestion de la séléction des catégorie et de leurs éléments.
-        function categorieSelection() {
-            // Lors de la séléction/déséléction d'une catégorie...
-            $(".categorie_checkbox").change(function () {
-                // On séléctionne/déséléctionne les compétences correspondantes et on simule un évenement de changement.
-                $(".competence_checkbox[data-categorie='" + $(this).val() + "']").prop('checked', $(this).is(':checked'));
-                $(".competence_checkbox[data-categorie='" + $(this).val() + "']").first().trigger('change');
-            });
-            // Lors de la séléction/désélction d'une compétence...
-            $(".competence_checkbox").change(function () {
-                // Initialisation d'un compteur de compétence cochées.
-                var checked_competence_count = 0;
-                // On récupére les checkbox de la catégorie et des compétences correspondantes.
-                var categorie_checkbox = $(".categorie_checkbox[value='" + $(this).data('categorie') + "']");
-                var competence_checkbox = $(".competence_checkbox[data-categorie='" + $(this).data('categorie') + "']");
-                // Pour chaques compétences on incrémente le compteur de compétence si la compétence est cochée.
-                competence_checkbox.each(function () {
-                    if ($(this).is(':checked')) {
-                        checked_competence_count++;
-                    }
-                });
-                // On met à jour l'état de la checkbox de categorie en fonction des compétences.
-                if (checked_competence_count === competence_checkbox.length) {
-                    categorie_checkbox.prop('checked', true);
-                    categorie_checkbox.prop('indeterminate', false);
-                } else if (checked_competence_count > 0) {
-                    categorie_checkbox.prop('checked', false);
-                    categorie_checkbox.prop('indeterminate', true);
-                } else {
-                    categorie_checkbox.prop('checked', false);
-                    categorie_checkbox.prop('indeterminate', false);
-                }
-
-                updateSelectedCompetenceText();
-                initFixedHeader();
-            });
-        }
-
-        // Met à jour l'affichage des compétences séléctionnées.
-        function updateSelectedCompetenceText() {
-            // On efface le texte déjà présent.
-            $('#selected_competences').text("Aucune");
-            // Pour chaques compétences...
-            $(".competence_checkbox:checked").each(function (index) {
-                // Si le texte dépasse 150 charactères on affiche le nombre de compétences restante et on quitte la boucle.
-                if ($('#selected_competences').text().length > 150) {
-                    $('#selected_competences').text($('#selected_competences').text() + " et " + ($(".competence_checkbox:checked").length - index) + " autres...");
-                    return false;
-                }
-
-                // On affiche les compétences.
-                if (index === 0) {
-                    $('#selected_competences').text($(this).val());
-                } else {
-                    $('#selected_competences').text($('#selected_competences').text() + ", " + $(this).val());
-                }
-            });
-        }
-
-        // Coche/Décoche toutes les case de catégorie et de compétence.
-        function selectDeselectAllCompetences(action) {
-            if (action === "check") {
-                $(".competence_checkbox").prop('checked', true);
-                $(".categorie_checkbox").prop('checked', true);
-            } else if (action === "unckeck") {
-                $(".competence_checkbox").prop('checked', false);
-                $(".categorie_checkbox").prop('checked', false);
-            }
-            $(".competence_checkbox").first().trigger('change');
         }
 
         // Ouvre une pop-up permettant l'édition de la matrice de compétence du collaborateur.
@@ -507,11 +394,12 @@
 
             // Initialisation des datepicker.
             $('.datepicker').datepicker({
-                minDate: "-100Y",
-                maxDate: "0",
                 yearRange: "-100:+0",
                 changeMonth: true,
                 changeYear: true
+            });
+            $('.datepicker').on('change', function () {
+                $(this).trigger('input');
             });
 
             // On passe les datepicker en français.
@@ -547,10 +435,15 @@
                 };
             })();
 
-            // Lorsqu'on on écris dans les champs de recherche ou les sélécteur...
-            $("#recherche_avance_form select, #recherche_avance_form input").on("change keyup", function () {
+            // Requête ajax de recherche dans la matrice de compétence.
+            function ajaxSearch() {
                 // Au bout de 500ms d'inactivité...
                 delay(function () {
+                    // On cache la ligne d'absence de résultat, on efface les résultats précédent et on affiche la ligne de chargement.
+                    $('#no_results_tr').hide();
+                    $(".matrice_collaborateur_tr").remove();
+                    $("#loading_tr").show();
+
                     // Requête ajax de recherche des matrices.
                     $.ajax({
                         url: "{{ path('nox_intranet_matrice_collaborateur_ajax_search_in_matrice') }}",
@@ -562,9 +455,6 @@
 
                             // Si le résultat contient des matrices...
                             if (matriceList.length > 0) {
-                                // On cache la ligne d'absence de résultat.
-                                $('#no_results_tr').hide();
-
                                 // Pour chaques matrice...
                                 $.each(matriceList, function (index, matrice) {
                                     // HTML de la compétences principales.
@@ -588,7 +478,7 @@
                                             .append(competences_secondaires_container);
 
                                     // HTML de la nouvelle ligne du tableau.
-                                    var newTr = $("<tr></tr>")
+                                    var newTr = $("<tr class='matrice_collaborateur_tr'></tr>")
                                             .append("<td>" + matrice.societe + "<hr>" + matrice.etablissement + "</td>")
                                             .append("<td>" + matrice.nom + "<br>" + matrice.prenom + "</td>")
                                             .append("<td>" + matrice.date_naissance + "</td>")
@@ -606,9 +496,23 @@
                                 // On affiche la ligne d'absence de résultat.
                                 $('#no_results_tr').show();
                             }
+
+                            // On cache la ligne de chargement et on réinitialise la taille du header.
+                            $("#loading_tr").hide();
+                            initFixedHeader();
                         }
                     });
                 }, 500);
+            }
+
+            // Lorsqu'on séléctionne une valeur sur un sélécteur...
+            $("#recherche_avance_form select").on("change", function () {
+                ajaxSearch(); // On lance la recherche.
+            });
+
+            // Lorsqu'on on écris dans les champs de recherche...
+            $("#recherche_avance_form input").on("input", function () {
+                ajaxSearch(); // On lance la recherche.
             });
         }
 
@@ -620,7 +524,7 @@
         <form id="recherche_avance_form">
             <p>
                 <label for="Societe">Société : </label>
-                <select id="Societe" name="Societe">
+                <select id="Societe" name="societe">
                     <option value="">Choisir une société...</option>
                     {% for societe in societes %}
                         <option value="{{ societe }}">{{ societe }}</option>
@@ -629,7 +533,7 @@
             </p>
             <p>
                 <label for="Etablissement">Etablissement : </label>
-                <select id="Etablissement" name="Etablissement">
+                <select id="Etablissement" name="etablissement">
                     <option value="">Choisir un établissement...</option>
                     {% for etablissement in etablissements %}
                         <option value="{{ etablissement }}">{{ etablissement }}</option>
@@ -638,31 +542,31 @@
             </p>
             <p>
                 <label for="Nom">Nom : </label>
-                <input type="text" id="Nom" name="Nom">
+                <input type="text" id="Nom" name="nom">
             </p>
             <p>
                 <label for="Prenom">Prénom : </label>
-                <input type="text" id="Prenom" name="Prenom">
+                <input type="text" id="Prenom" name="prenom">
             </p>
             <p>
                 <label for="Statut">Statut : </label>
-                <input type="text" id="Statut" name="Statut">
+                <input type="text" id="Statut" name="statut">
             </p>
             <p>
                 <label for="Poste">Poste : </label>
-                <input type="text" id="Poste" name="Poste">
+                <input type="text" id="Poste" name="poste">
             </p>
             <p>
                 <label for="Date_Naissance">Date de naissance : </label>
-                <input type="date" id="Date_Naissance" name="Date_Naissance" class="datepicker">
+                <input type="date" id="Date_Naissance" name="dateNaissance" class="datepicker">
             </p>
             <p>
                 <label for="Date_Anciennete">Date d'ancienneté : </label>
-                <input type="date" id="Date_Anciennete" name="Date_Anciennete" class="datepicker">
+                <input type="date" id="Date_Anciennete" name="dateAnciennete" class="datepicker">
             </p>
             <p>
                 <label for="Competence_Principale">Compétence principale : </label>
-                <select id="Competence_Principale" name="Competence_Principale">
+                <select id="Competence_Principale" name="competence_principale">
                     <option value=""></option>
                     {% for nom_categorie, liste_competences in competencesArray %}
                         <optgroup label="{{ nom_categorie }}">
@@ -675,7 +579,7 @@
             </p>
             <p>
                 <label for="Competences_Secondaires">Compétences secondaires : </label>
-                <select id="Competences_Secondaires" name="Competences_Secondaires[]" multiple="multiple" >
+                <select id="Competences_Secondaires" name="competences_secondaires[]" multiple="multiple" >
                     {% for nom_categorie, liste_competences in competencesArray %}
                         <optgroup label="{{ nom_categorie }}">
                             {% for competence in liste_competences %}
@@ -716,8 +620,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="matrice_tr" id="no_results_tr" style="display: none;">
+                    <tr id="no_results_tr" style="display: none;">
                         <td colspan="7">Aucun résultat...</td>
+                    </tr>
+                    <tr id="loading_tr" style="display: none;">
+                        <td colspan="7"></td>
                     </tr>
                 </tbody>
             </table>

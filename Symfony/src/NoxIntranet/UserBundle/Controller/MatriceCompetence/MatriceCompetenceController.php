@@ -630,11 +630,25 @@ class MatriceCompetenceController extends Controller {
                     ->from('NoxIntranetUserBundle:MatriceCompetence', 'u');
 
             // Pour chaques champs de la recherche...
-            foreach ($request->request as $key => $field) {
+            foreach ($request->request as $field => $value) {
                 // Si il existe une valeur pour le champ...
-                if (!empty($field)) {
-                    // On ajoute un condition à la requête.
-                    $searchQueryBuilder->andWhere('u.' . strtolower($key) . " = '" . $field . "'");
+                if (!empty($value)) {
+
+                    // On cherche à convertir la valeur en DateTime.
+                    $date_from_value = DateTime::createFromFormat("d/m/Y", $value);
+
+                    // Si la conversion est possible.
+                    if ($date_from_value !== false) {
+                        // On ajoute une recheche de date à la requête.
+                        $searchQueryBuilder
+                                ->andWhere('u.' . $field . " = :" . $field)
+                                ->setParameter($field, $date_from_value, \Doctrine\DBAL\Types\Type::DATE);
+                    }
+                    // Si la valeur n'est pas une date.
+                    else {
+                        // On ajoute un condition à la requête.
+                        $searchQueryBuilder->andWhere('u.' . $field . " LIKE '%" . $value . "%'");
+                    }
                 }
             }
 
