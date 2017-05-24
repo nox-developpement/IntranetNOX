@@ -99,13 +99,6 @@ class MatriceCompetence implements JsonSerializable {
     private $competencesSecondaires;
 
     /**
-     * @var array
-     *
-     * @ORM\Column(name="IsUpdated", type="boolean")
-     */
-    private $isUpdated = false;
-
-    /**
      * Get id
      *
      * @return integer
@@ -357,28 +350,6 @@ class MatriceCompetence implements JsonSerializable {
      */
     public function getPrenom() {
         return $this->prenom;
-    }
-
-    /**
-     * Set isUpdated
-     *
-     * @param boolean $isUpdated
-     *
-     * @return MatriceCompetence
-     */
-    public function setIsUpdated($isUpdated) {
-        $this->isUpdated = $isUpdated;
-
-        return $this;
-    }
-
-    /**
-     * Get isUpdated
-     *
-     * @return boolean
-     */
-    public function getIsUpdated() {
-        return $this->isUpdated;
     }
 
     /**

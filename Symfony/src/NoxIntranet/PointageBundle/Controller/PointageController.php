@@ -862,7 +862,7 @@ class PointageController extends Controller {
     public function compilationNOXIPCSVAction(Request $request) {
         // Si l'utilisateur n'as pas les droits d'accès on le redirige vers l'accueil.
         $currentUser = $this->get('security.context')->getToken()->getUser()->getUsername();
-        if (!($currentUser === 't.besson' || $currentUser === 'l.sauvage' || $currentUser === 'v.genini' || $currentUser === 'n.hollenweger')) {
+        if (!($currentUser === 't.besson' || $currentUser === 'l.sauvage' || $currentUser === 'v.genini' || $currentUser === 'n.hollenweger' || $this->get('security.authorization_checker')->isGranted('ROLE_RH'))) {
             return $this->redirectToRoute('nox_intranet_accueil');
         }
 
@@ -1053,7 +1053,7 @@ class PointageController extends Controller {
     // Affiche l'accès aux archives par année liés à l'établissement.
     public function compilationArchiveYearAction(Request $request) {
         $etablissement = $request->get('etablissement');
-        
+
         // On récupére les entitées hiérarchiques des collaborateurs liés à l'établissement.
         $em = $this->getDoctrine()->getManager();
         $collaborateurs = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement);
@@ -1075,7 +1075,7 @@ class PointageController extends Controller {
     public function compilationArchiveMonthAction(Request $request) {
         $etablissement = $request->get('etablissement');
         $year = $request->get('year');
-        
+
         // On récupére les entitées hiérarchiques des collaborateurs liés à l'établissement.
         $em = $this->getDoctrine()->getManager();
         $collaborateurs = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement);

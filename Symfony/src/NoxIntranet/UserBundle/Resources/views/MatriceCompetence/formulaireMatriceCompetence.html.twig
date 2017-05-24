@@ -1,11 +1,6 @@
 {% extends "::layout.html.twig" %}
 
-{% block titrePage %} Mes compétences {% endblock %}
-
-{% block messageAccueil %}Mes compétences{% endblock %}
-
-{% block contenu %}
-
+{% block style %}
     <style>
         #form_competence_div {
             text-align: center;
@@ -44,7 +39,13 @@
             vertical-align: middle;
         }
     </style>
+{% endblock %}
 
+{% block titrePage %} Mes compétences {% endblock %}
+
+{% block messageAccueil %}Mes compétences{% endblock %}
+
+{% block contenu %}
     <script>
         // Variable globale du nombre de compétences secondaires actuels.
         var competence_secondaire_counts = "{{ formCompetence.Competences_Secondaires|length }}";

@@ -1,0 +1,106 @@
+{% extends "::layout.html.twig" %}
+
+{% block style %}
+    <link href="{{ asset('js/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
+    <style>
+        #collaborateur_selector_container {
+            width: 70%;
+            margin: auto;
+            text-align: center;
+            margin-bottom: 5em;
+        }
+
+        #collaborateur_selector {
+            display: inline-block; 
+            text-align: left;
+            margin: 0;
+            margin-bottom: 0.5em;
+        }
+
+        #matrice_editor {
+            width: 100%;
+            overflow: auto;
+        }
+
+        #save_matrice_competence_button {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block titrePage %} Saisie des compétences {% endblock %}
+
+{% block messageAccueil %}Saisie des compétences{% endblock %}
+
+{% block contenu %}
+    <script src="{{ asset('js/select2/dist/js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/select2/dist/js/i18n/fr.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialisation du sélécteur avancé.
+            $("#collaborateurs_matrice_selector").select2({
+                placeholder: "Choisir un collaborateur...",
+                language: "fr"
+            });
+
+            // Lorsque un collaborateur est séléctionné...
+            $("#collaborateurs_matrice_selector").on("select2:select", function () {
+                // On charge sa matrice de compétence.
+                $("#matrice_editor").load($(this).val(), function () {
+                    // On affiche le bouton de sauvegarde de la matrice.
+                    $("#save_matrice_competence_button").show();
+                });
+            });
+
+            // Lorsqu'on change le sélécteur...
+            $("#collaborateurs_matrice_selector").on("change", function () {
+                // On cache le bouton de sauvegarde et on efface la div de matrice.
+                $("#save_matrice_competence_button").hide();
+                $("#matrice_editor").html(null);
+            });
+
+            // Lors d'un clique sur le bouton de sauvegarde...
+            $("#save_matrice_competence_button").on('click', function () {
+                // On envoie le formulaire.
+                $("form[name='formMatriceCollaborateurEdition']").submit();
+
+                // Ecoute des requêtes ajax.
+                $(document).ajaxComplete(function (event, xhr, settings) {
+                    // Si une requête de sauvegarde de la matrice de compétence a été effectué...
+                    if (settings.headers.name === "save_matrice_competence" && xhr.readyState === 4) {
+                        // On réinitialise la séléction de collaborateur et on affiche une confirmation de sauvegarde.
+                        $("#collaborateurs_matrice_selector").val(null).trigger("change");
+                        $("<p style='display: inline-block; white-space: nowrap; border: 1px solid black; border-radius: 10px; padding: 1em; background-color: green; color: white;'>Sauvegardé &#10004;</p>")
+                                .appendTo($("#matrice_editor"))
+                                .hide()
+                                .animate({width: 'toggle'}, 500)
+                                .delay(3000)
+                                .animate({width: 'toggle'}, 500, function () {
+                                    $(this).remove();
+                                });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <div id="collaborateur_selector_container">
+        <p id="collaborateur_selector">
+            <label for="collaborateurs_matrice_selector">Séléction du collaborateur : </label>
+            <select id="collaborateurs_matrice_selector">
+                <option></option>
+                {% for collaborateur in collaborateursList %}
+                    <option value="{{ path('nox_intranet_developpement_professionnel_matrice_competence_edition_collaborateur', {userId: collaborateur.id}) }}">
+                        {{ collaborateur.Lastname }} {{ collaborateur.Firstname }}
+                    </option>
+                {% endfor %}
+            </select>
+        </p>
+        <br />
+        <div id="matrice_editor"></div>
+        <p>
+            <button type="button" class="boutonFormulaire" id="save_matrice_competence_button">Sauvegarder</button>
+        </p>
+    </div>
+
+{% endblock %}
