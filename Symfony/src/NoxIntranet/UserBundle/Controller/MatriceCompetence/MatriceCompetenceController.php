@@ -633,24 +633,36 @@ class MatriceCompetenceController extends Controller {
             foreach ($request->request as $field => $value) {
                 // Si il existe une valeur pour le champ...
                 if (!empty($value)) {
+                    // Si le champ est une date...
+                    if ($field === "dateAnciennete" || $field === "dateNaissance") {
+                        // On cherche à convertir la valeur en DateTime.
+                        $date_from_value = DateTime::createFromFormat("d/m/Y", $value);
 
-                    // On cherche à convertir la valeur en DateTime.
-                    $date_from_value = DateTime::createFromFormat("d/m/Y", $value);
-
-                    // Si la conversion est possible.
-                    if ($date_from_value !== false) {
                         // On ajoute une recheche de date à la requête.
                         $searchQueryBuilder
                                 ->andWhere('u.' . $field . " = :" . $field)
                                 ->setParameter($field, $date_from_value, \Doctrine\DBAL\Types\Type::DATE);
                     }
-                    // Si la valeur n'est pas une date.
+                    // Sinon si la valeur est une compétence secondaire...
+                    else if ($field === "competencesSecondaires") {
+                        // Pour chaques valeurs de compétence...
+                        foreach ($value as $competence) {
+                            // On ajoute un condition à la requête.
+                            $searchQueryBuilder->andWhere("u." . $field . " LIKE '%" . $competence . "%'");
+                        }
+                    }
+                    // Si la valeur n'est pas une date ou une compétence secondaire...
                     else {
                         // On ajoute un condition à la requête.
                         $searchQueryBuilder->andWhere('u.' . $field . " LIKE '%" . $value . "%'");
                     }
                 }
             }
+
+            // Trie des résultats.
+            $searchQueryBuilder
+                    ->addOrderBy('u.nom', 'ASC')
+                    ->addOrderBy('u.prenom', 'ASC');
 
             // Récupération des résultats de la requête.
             $results = $searchQueryBuilder->getQuery()->getResult();

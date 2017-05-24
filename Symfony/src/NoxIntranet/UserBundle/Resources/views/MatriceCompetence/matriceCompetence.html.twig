@@ -265,7 +265,8 @@
 
             // Initialisation des sélécteurs de dates et de compétences. 
             $("#Competence_Principale, #Competences_Secondaires").select2({
-                placeholder: "Choisir une compétence..."
+                placeholder: "Choisir une compétence...",
+                allowClear: true
             });
             initDatepicker();
 
@@ -277,7 +278,9 @@
 
             // Initialisation de la recheche dans la matrice.
             ajaxSearchInMatrice();
-
+            
+            // Simulation d'une recherche pour afficher les résultats complet.
+            $("#recherche_avance_form input").first().trigger('input');
         });
 
         // Fixe le header du tableau des compétences.
@@ -463,7 +466,7 @@
 
                                     // HTML des compétences secondaires.
                                     var competences_secondaires_container = $("<span class='competence_container competences_secondaires_container'></span>");
-                                    if (matrice.competences_secondaires > 0) {
+                                    if (matrice.competences_secondaires.length > 0) {
                                         $.each(matrice.competences_secondaires, function (index, competence) {
                                             competences_secondaires_container.append("<span class='competence_secondaire_div'>" + competence + "</span>");
                                         });
@@ -487,19 +490,27 @@
                                             .append("<td>" + matrice.poste + "</td>")
                                             .append(competencesTd);
 
+                                    // On cache la ligne de chargement.
+                                    $("#loading_tr").hide();
+
                                     // Ajout de la ligne au tableau.
                                     newTr.appendTo($("#matriceCompetenceTable tbody"));
+
+                                    // On réinitialise la taille du header.
+                                    initFixedHeader();
                                 });
                             }
                             // Si le résultat ne contient pas de matrice.
                             else {
+                                // On cache la ligne de chargement et on réinitialise la taille du header.
+                                $("#loading_tr").hide();
+
                                 // On affiche la ligne d'absence de résultat.
                                 $('#no_results_tr').show();
-                            }
 
-                            // On cache la ligne de chargement et on réinitialise la taille du header.
-                            $("#loading_tr").hide();
-                            initFixedHeader();
+                                // On réinitialise la taille du header.
+                                initFixedHeader();
+                            }
                         }
                     });
                 }, 500);
@@ -566,8 +577,8 @@
             </p>
             <p>
                 <label for="Competence_Principale">Compétence principale : </label>
-                <select id="Competence_Principale" name="competence_principale">
-                    <option value=""></option>
+                <select id="Competence_Principale" name="competencePrincipale">
+                    <option value="">dqdzz</option>
                     {% for nom_categorie, liste_competences in competencesArray %}
                         <optgroup label="{{ nom_categorie }}">
                             {% for competence in liste_competences %}
@@ -579,7 +590,7 @@
             </p>
             <p>
                 <label for="Competences_Secondaires">Compétences secondaires : </label>
-                <select id="Competences_Secondaires" name="competences_secondaires[]" multiple="multiple" >
+                <select id="Competences_Secondaires" name="competencesSecondaires[]" multiple="multiple" >
                     {% for nom_categorie, liste_competences in competencesArray %}
                         <optgroup label="{{ nom_categorie }}">
                             {% for competence in liste_competences %}
