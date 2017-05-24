@@ -209,9 +209,10 @@
         }
 
         #recherche_avance_form {
+            box-sizing: border-box;
             width: 100%;
             margin: 0;
-            padding: 0;
+            padding: 0.1em;
             border: none;
             text-align: center;
             font-size: calc(9px + 0.2vw);
@@ -278,7 +279,7 @@
 
             // Initialisation de la recheche dans la matrice.
             ajaxSearchInMatrice();
-            
+
             // Simulation d'une recherche pour afficher les résultats complet.
             $("#recherche_avance_form input").first().trigger('input');
         });
@@ -600,8 +601,9 @@
                     {% endfor %}
                 </select>
             </p>
-            <p>
-                <input type="reset" id="Reset" name="Reset" value="RAZ">
+            <p style="display: block;">
+                <input type="reset" id="Reset" name="Reset" value="Remise à zéro" onclick="$('#Competence_Principale, #Competences_Secondaires').val('').trigger('change');
+                        $('#recherche_avance_form input').first().trigger('input');">
             </p>
         </form>
     </div>
