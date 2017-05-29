@@ -81,6 +81,15 @@
                     }
                 });
             });
+
+            // Si un collaborateur par défaut est défini...
+            var default_collaborateur_id = Cookies.get('default_collaborateur_id');
+            if (default_collaborateur_id !== undefined) {
+                // On change la valeur du sélécteur et on affiche ses données.
+                $("#collaborateurs_matrice_selector").val(default_collaborateur_id);
+                $("#collaborateurs_matrice_selector").trigger('change');
+                $("#collaborateurs_matrice_selector").trigger('select2:select');
+            }
         });
     </script>
 

@@ -2,6 +2,11 @@ services:
     noxintranet_pointagebundle.extractrhdata:
         class: NoxIntranet\PointageBundle\ExtractRHHierarchie\NoxIntranetExtractRHHierarchie
         arguments: ['@service_container']
+        
     noxintranet_pointagebundle.gxaffairesextraction:
         class: NoxIntranet\PointageBundle\Controller\GXAffairesExtractionController
+        arguments: ['@service_container', "@doctrine.orm.entity_manager"]
+        
+    noxintranet.hierarchy_helper:
+        class: NoxIntranet\PointageBundle\Controller\HierarchyHelper\HierarchyHelper
         arguments: ['@service_container', "@doctrine.orm.entity_manager"]

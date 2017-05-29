@@ -1,0 +1,15 @@
+<p>
+    Bonjour {{ N1.Firstname }} {{ N1.Lastname }},<br />
+    <br />
+    Les matrices de compétences du/des collaborateur(s) suivant(s) doit/doivent êtres complété(s) :
+</p>
+<ul>
+    {% for collaborateur in Collaborateurs %}
+        <li>
+            <a href="http://intranet.groupe-nox.com/{{ path("nox_intranet_matrice_collaborateur_selection_collaborateur", {Collaborateur: collaborateur.id}) }}">{{ collaborateur.Firstname }} {{ collaborateur.Lastname }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<p>
+    Merci de la/les remplir(s) dès que possible.
+</p>

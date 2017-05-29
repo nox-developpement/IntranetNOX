@@ -577,7 +577,7 @@ class MatriceCompetenceController extends Controller {
      * 
      * @return View
      */
-    public function collaborateurSelectionAction() {
+    public function collaborateurSelectionAction(Request $request) {
         // On récupère l'entité du collaborateur courant et son nom canonique.
         $currentUser = $this->get('security.token_storage')->getToken()->getUser();
         $canonicalName = strtoupper($this->wd_remove_accents($currentUser->getFirstname() . " " . $currentUser->getLastname()));
@@ -608,6 +608,13 @@ class MatriceCompetenceController extends Controller {
                     $collaborateursList[] = $collaborateur;
                 }
             }
+        }
+
+        // Si une Id de collaborateur est passé en paramêtre.
+        if (!empty($request->query->get('Collaborateur'))) {
+            // On récupère l'Id est on génére un cookie contenant le liens faire la matrice du collaborateur.
+            $default_collaborateur_id = $request->query->get('Collaborateur');
+            setcookie("default_collaborateur_id", $this->generateUrl('nox_intranet_developpement_professionnel_matrice_competence_edition_collaborateur', array('userId' => $default_collaborateur_id)), time() + 1);
         }
 
         return $this->render('NoxIntranetUserBundle:MatriceCompetence:collaborateurSelection.html.twig', array('collaborateursList' => $collaborateursList));
