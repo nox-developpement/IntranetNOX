@@ -41,13 +41,20 @@ class DemandeMateriel {
      * @ORM\Column(name="Message", type="array")
      */
     private $message;
-    
-     /**
+
+    /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=255)
      */
     private $status;
+    
+    /**
+     * @var date
+     *
+     * @ORM\Column(name="dateDemande", type="date")
+     */
+    private $date;
 
     /**
      * Get id
@@ -124,7 +131,6 @@ class DemandeMateriel {
         return $this->message;
     }
 
-
     /**
      * Set status
      *
@@ -132,8 +138,7 @@ class DemandeMateriel {
      *
      * @return DemandeMateriel
      */
-    public function setStatus($status)
-    {
+    public function setStatus($status) {
         $this->status = $status;
 
         return $this;
@@ -144,8 +149,32 @@ class DemandeMateriel {
      *
      * @return string
      */
-    public function getStatus()
-    {
+    public function getStatus() {
         return $this->status;
+    }
+
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return DemandeMateriel
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }
