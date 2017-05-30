@@ -361,6 +361,7 @@
             </figure>
         </a>
 
+        <!-- DRH -->
         {% if app.user and is_granted('ROLE_RH') %}
 
             <div class="sousMessageAcceuil"> 
@@ -389,7 +390,7 @@
                 <tr>
                     <td><div class='DRHLinkDiv'><a href="{{ path('nox_intranet_pointages_compilation', {'validationStep': 'Final'}) }}">Consultation des compilations validées</a></div></td>
                     <td><div class='DRHLinkDiv'><a href="{{ path('nox_intranet_developpement_professionnel_monitoring_formulaire') }}">Suivis des entretiens</a></div></td>
-                    <td></td>
+                    <td><div class='DRHLinkDiv'><a href="{{ path("nox_intranet_matrice_collaborateur_info_file_uploading") }}">Informations matrice de compétence</a></div></td>
                 </tr>
                 <tr>
                     <td><div class='DRHLinkDiv'><a href="https://noxingenierie-my.sharepoint.com/personal/l_morisseau_groupe-nox_com/_layouts/15/WopiFrame.aspx?sourcedoc=%7B84616442-030A-4A6D-8CD9-B17A0FB1D49C%7D&file=COMPILATION%20FICHIER%20HIERARCHIQUE%20110117.xlsx&action=default" target="_blank">Fichier de hiérarchie RH</a></div></td>
@@ -404,6 +405,7 @@
             </table>
 
         {% endif %}
+        <!-- Fin DRH -->
 
     </div>
 

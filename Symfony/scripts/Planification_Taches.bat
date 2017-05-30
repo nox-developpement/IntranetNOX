@@ -17,3 +17,5 @@ SCHTASKS /Create /RU "SRVM-INTRANET\Administrateur" /RP "Nox30intr&" /SC HOURLY 
 SCHTASKS /Create /RU "SRVM-INTRANET\Administrateur" /RP "Nox30intr&" /SC DAILY /ST 08:00:00 /TN AccueilRandomImage /TR %~d0\wamp\www\Symfony\scripts\AccueilRandomImage.bat /RL HIGHEST
 
 SCHTASKS /Create /RU "SRVM-INTRANET\Administrateur" /RP "Nox30intr&" /SC DAILY /ST 08:00:00 /TN DemandeMaterielRevival /TR %~d0\wamp\www\Symfony\scripts\demandeMaterielRevival.bat /RL HIGHEST
+
+SCHTASKS /Create /RU "SRVM-INTRANET\Administrateur" /RP "Nox30intr&" /SC DAILY /ST 08:00:00 /TN CompetenceUpdateMailing /TR %~d0\wamp\www\Symfony\scripts\competenceUpdateMailing.bat /RL HIGHEST

@@ -10,10 +10,12 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\UserBundle\Entity\MatriceCompetence;
 use Symfony\Component\HttpFoundation\Response;
 use DateTime;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class MatriceCompetenceController extends Controller {
 
@@ -189,7 +191,7 @@ class MatriceCompetenceController extends Controller {
         $user_canonical_name = $this->wd_remove_accents(strtoupper($current_user->getFirstname() . " " . $current_user->getLastname()));
 
         // Si l'utilisateur n'as pas les droits requis on le redirige vers l'accueil.
-        if (!($this->get('security.authorization_checker')->isGranted('ROLE_RH') || $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDA($user_canonical_name))) {
+        if (!($this->get('security.authorization_checker')->isGranted('ROLE_RH') || !empty($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($user_canonical_name)))) {
             $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas l'autorisation d'accéder à ce service.");
             $this->redirectToRoute("nox_intranet_accueil");
         }
@@ -676,6 +678,56 @@ class MatriceCompetenceController extends Controller {
 
             return new Response(json_encode($results));
         }
+    }
+
+    /**
+     * 
+     * Formulaire d'envoi d'un fichier contenant des informations sur les collaborateurs pour la matrice de compétence.
+     * 
+     * @param Request $request
+     * @return type
+     * 
+     * @Security("has_role('ROLE_RH')")
+     */
+    public function collaborateursInfoUploadingAction(Request $request) {
+
+        $formUploadInfoFileBuilder = $this->createFormBuilder();
+        $formUploadInfoFileBuilder
+                ->add("InfoFile", FileType::class, array(
+                    'label' => "Mise à jour des informations des collaborateurs"
+                ))
+                ->add("SendFile", SubmitType::class, array(
+                    'label' => "Envoyer le fichier"
+                ))
+        ;
+        $formUploadInfoFile = $formUploadInfoFileBuilder->getForm();
+
+        // Traitement du formulaire.
+        $formUploadInfoFile->handleRequest($request);
+        if ($formUploadInfoFile->isValid()) {
+            // On récupére les informations sur le fichier.
+            $file = $formUploadInfoFile->get('InfoFile')->getData();
+
+            // Nom du fichier.
+            $filename = $file->getClientOriginalName();
+
+            // Upload du fichier sur le serveur.
+            $file->move("./uploads", $filename);
+
+            /*
+             * 
+             * Traitement à ajouter ici...
+             * 
+             */
+
+            // Suppression du fichier.
+            unlink("./uploads/" . $filename);
+
+            $request->getSession()->getFlashBag()->add('notice', "Les informations des collaborateurs ont été mise à jour.");
+            $this->redirectToRoute("nox_intranet_matrice_collaborateur_info_file_uploading");
+        }
+
+        return $this->render("NoxIntranetUserBundle:MatriceCompetence:collaborateursInfoFileUploading.html.twig", array('formUploadInfoFile' => $formUploadInfoFile->createView()));
     }
 
 }

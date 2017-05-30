@@ -6,7 +6,7 @@
 <ul>
     {% for collaborateur in Collaborateurs %}
         <li>
-            <a href="http://intranet.groupe-nox.com/{{ path("nox_intranet_matrice_collaborateur_selection_collaborateur", {Collaborateur: collaborateur.id}) }}">{{ collaborateur.Firstname }} {{ collaborateur.Lastname }}</a>
+            <a href="{{ absolute_url(path("nox_intranet_matrice_collaborateur_selection_collaborateur", {Collaborateur: collaborateur.id})) }}">{{ collaborateur.Firstname }} {{ collaborateur.Lastname }}</a>
         </li>
     {% endfor %}
 </ul>

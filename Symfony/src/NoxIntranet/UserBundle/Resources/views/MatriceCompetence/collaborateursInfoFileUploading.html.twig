@@ -1,0 +1,39 @@
+{% extends "::layout.html.twig" %}
+
+{% block style %}
+    <style>
+        #upload_info_div {
+            width: 70%;
+            margin: auto;
+            text-align: center;
+        }
+
+        #upload_info_div form {
+            display: inline-block;
+            width: auto;
+            text-align: center;
+            background-color: rgba(255,255,255, 0.6);
+            border: 1px solid #1F4E79;
+        }
+    </style>
+{% endblock %}
+
+{% block titrePage %} Envoi informations collaborateurs {% endblock %}
+
+{% block messageAccueil %}Envoi informations collaborateurs{% endblock %}
+
+{% block contenu %}
+
+    <div id="upload_info_div">
+        {{ form_start(formUploadInfoFile) }}
+        <p>
+            {{ form_label(formUploadInfoFile.InfoFile) }}<br />
+            {{ form_widget(formUploadInfoFile.InfoFile) }}
+        </p>
+        <p>
+            {{ form_widget(formUploadInfoFile.SendFile) }}
+        </p>
+        {{ form_end(formUploadInfoFile) }}
+    </div>
+
+{% endblock %}

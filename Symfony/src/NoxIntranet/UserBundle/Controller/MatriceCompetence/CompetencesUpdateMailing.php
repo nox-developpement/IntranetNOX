@@ -64,7 +64,7 @@ class CompetencesUpdateMailing {
         // Génération du mail du N+1;
         $n1_mail = $n1_list['N+1']->getUsername() . "@groupe-nox.com";
 
-        // Génération et envoi du mail.
+        // Génération du mail.
         $message = new \Swift_Message('Matrice de compétences');
         $message
                 ->setFrom('noreply@groupe-nox.com')
@@ -75,7 +75,13 @@ class CompetencesUpdateMailing {
                         ), 'text/html'
                 )
         ;
+
+        echo "Envoi d'une demande à " . $n1_mail;
+
+        // Envoi du mail.
         $container->get('mailer')->send($message);
+
+        echo " => OK.\n";
     }
 
 }

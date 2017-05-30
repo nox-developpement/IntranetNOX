@@ -1,3 +1,3 @@
 cd %~d0\wamp\www\Symfony
 
-php app/console noxintranet:competencesUpdateMailing --env=prod
+php app/console noxintranet:competencesUpdateMailing
