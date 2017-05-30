@@ -456,11 +456,12 @@
                         success: function (matrice_json) {
                             // Conversion du résultat en object javascript.
                             var matriceList = JSON.parse(matrice_json);
-                            
-                            console.log(matriceList);
 
                             // Si le résultat contient des matrices...
                             if (matriceList.length > 0) {
+                                // Initialisation du code HTML qui sera ajouté au tableau.
+                                var stringHTML = "";
+
                                 // Pour chaques matrice...
                                 $.each(matriceList, function (index, matrice) {
                                     // HTML de la compétences principales.
@@ -496,12 +497,17 @@
                                     // On cache la ligne de chargement.
                                     $("#loading_tr").hide();
 
-                                    // Ajout de la ligne au tableau.
-                                    newTr.appendTo($("#matriceCompetenceTable tbody"));
+                                    // Ajout de la ligne au code HTML.
+                                    stringHTML += newTr.prop("outerHTML");
 
-                                    // On réinitialise la taille du header.
-                                    initFixedHeader();
+
                                 });
+
+                                // Ajout du code HTML au tableau.
+                                $("#matriceCompetenceTable tbody").append(stringHTML);
+
+                                // On réinitialise la taille du header.
+                                initFixedHeader();
                             }
                             // Si le résultat ne contient pas de matrice.
                             else {
