@@ -181,8 +181,20 @@ class MatriceCompetenceController extends Controller {
      * 
      * @return view
      */
-    public function matriceCompetenceTableAction() {
+    public function matriceCompetenceTableAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
+
+        // On récupère les infos de l'utilisateur courant.
+        $current_user = $this->get('security.token_storage')->getToken()->getUser();
+        $user_canonical_name = $this->wd_remove_accents(strtoupper($current_user->getFirstname() . " " . $current_user->getLastname()));
+
+        // Si l'utilisateur n'as pas les droits requis on le redirige vers l'accueil.
+        if (!($this->get('security.authorization_checker')->isGranted('ROLE_RH') || $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDA($user_canonical_name))) {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas l'autorisation d'accéder à ce service.");
+            $this->redirectToRoute("nox_intranet_accueil");
+        }
+
+        // Compétences des collaborateurs.
         $matrices_competences = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->findBy(array(), array('nom' => 'ASC', 'prenom' => 'ASC'));
 
         // Chemin du fichier de liste des compétences.
@@ -204,9 +216,19 @@ class MatriceCompetenceController extends Controller {
             }
         }
 
-        $competencesCount = count($competencesArray, COUNT_RECURSIVE) - count($competencesArray);
+        //$competencesCount = count($competencesArray, COUNT_RECURSIVE) - count($competencesArray);
+        // On récupére les société et établissements.
+        $hierachies = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+        $societes = array();
+        foreach ($hierachies as $hierachy) {
+            $societes[$hierachy->getSociete()] = $hierachy->getSociete();
+        }
+        $etablissements = array();
+        foreach ($hierachies as $hierachy) {
+            $etablissements[$hierachy->getEtablissement()] = $hierachy->getEtablissement();
+        }
 
-        return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCompetence.html.twig', array('matrices_competences' => $matrices_competences, 'competencesArray' => $competencesArray, 'competencesCount' => $competencesCount));
+        return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCompetence.html.twig', array('matrices_competences' => $matrices_competences, 'competencesArray' => $competencesArray, 'societes' => $societes, 'etablissements' => $etablissements));
     }
 
     public function extractMatriceCompetenceDataAction() {
@@ -555,7 +577,7 @@ class MatriceCompetenceController extends Controller {
      * 
      * @return View
      */
-    public function collaborateurSelectionAction() {
+    public function collaborateurSelectionAction(Request $request) {
         // On récupère l'entité du collaborateur courant et son nom canonique.
         $currentUser = $this->get('security.token_storage')->getToken()->getUser();
         $canonicalName = strtoupper($this->wd_remove_accents($currentUser->getFirstname() . " " . $currentUser->getLastname()));
@@ -588,7 +610,72 @@ class MatriceCompetenceController extends Controller {
             }
         }
 
+        // Si une Id de collaborateur est passé en paramêtre.
+        if (!empty($request->query->get('Collaborateur'))) {
+            // On récupère l'Id est on génére un cookie contenant le liens faire la matrice du collaborateur.
+            $default_collaborateur_id = $request->query->get('Collaborateur');
+            setcookie("default_collaborateur_id", $this->generateUrl('nox_intranet_developpement_professionnel_matrice_competence_edition_collaborateur', array('userId' => $default_collaborateur_id)), time() + 1);
+        }
+
         return $this->render('NoxIntranetUserBundle:MatriceCompetence:collaborateurSelection.html.twig', array('collaborateursList' => $collaborateursList));
+    }
+
+    /**
+     * 
+     * Recherche les matrices correspondantes au paramètres d'entrés.
+     * 
+     * @param Request $request Requête contenant les paramètres de la recherche.
+     * @return Response Chaîne JSON contenant les matrices qui résulte de la recherche.
+     */
+    public function ajaxSearchInMatriceAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // Préparation de la requête de recherche des matrices.
+            $em = $this->getDoctrine()->getManager();
+            $searchQueryBuilder = $em->createQueryBuilder();
+            $searchQueryBuilder
+                    ->select('u')
+                    ->from('NoxIntranetUserBundle:MatriceCompetence', 'u');
+
+            // Pour chaques champs de la recherche...
+            foreach ($request->request as $field => $value) {
+                // Si il existe une valeur pour le champ...
+                if (!empty($value)) {
+                    // Si le champ est une date...
+                    if ($field === "dateAnciennete" || $field === "dateNaissance") {
+                        // On cherche à convertir la valeur en DateTime.
+                        $date_from_value = DateTime::createFromFormat("d/m/Y", $value);
+
+                        // On ajoute une recheche de date à la requête.
+                        $searchQueryBuilder
+                                ->andWhere('u.' . $field . " = :" . $field)
+                                ->setParameter($field, $date_from_value, \Doctrine\DBAL\Types\Type::DATE);
+                    }
+                    // Sinon si la valeur est une compétence secondaire...
+                    else if ($field === "competencesSecondaires") {
+                        // Pour chaques valeurs de compétence...
+                        foreach ($value as $competence) {
+                            // On ajoute un condition à la requête.
+                            $searchQueryBuilder->andWhere("u." . $field . " LIKE '%" . $competence . "%'");
+                        }
+                    }
+                    // Si la valeur n'est pas une date ou une compétence secondaire...
+                    else {
+                        // On ajoute un condition à la requête.
+                        $searchQueryBuilder->andWhere('u.' . $field . " LIKE '%" . $value . "%'");
+                    }
+                }
+            }
+
+            // Trie des résultats.
+            $searchQueryBuilder
+                    ->addOrderBy('u.nom', 'ASC')
+                    ->addOrderBy('u.prenom', 'ASC');
+
+            // Récupération des résultats de la requête.
+            $results = $searchQueryBuilder->getQuery()->getResult();
+
+            return new Response(json_encode($results));
+        }
     }
 
 }

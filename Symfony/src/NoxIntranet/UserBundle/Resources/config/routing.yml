@@ -58,3 +58,7 @@ nox_intranet_ajax_matrice_collaborateur_get_matrice_collaborateur:
 nox_intranet_matrice_collaborateur_selection_collaborateur:
     path:   ressources/matrice-competence/selection-collaborateur
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:collaborateurSelection }
+    
+nox_intranet_matrice_collaborateur_ajax_search_in_matrice:
+    path:   ressources/matrice-competence/ajax-search-in-matrice
+    defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:ajaxSearchInMatrice }

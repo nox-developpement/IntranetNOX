@@ -1,263 +1,8 @@
 {% extends "::layout.html.twig" %}
 
-{% block titrePage %}Matrice de compétences{% endblock %}
-
-{% block messageAccueil %}Matrice de compétences{% endblock %}
-
-{% block contenu %}
-    <!-- Script -->
-    <script src="{{ asset('./js/jquery.tablesorter/jquery.tablesorter.min.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            // Initialisation de la fonction de trie Jquery.
-            $("#matriceCompetenceTable").tablesorter({
-                sortList: [[1, 0]],
-                headers: {
-                    6: {sorter: false}
-                }
-            });
-            // Initialisation du header fixe et mise à jour lors du recadrage de la fenêtre.
-            initFixedHeader();
-            $(window).resize(function () {
-                initFixedHeader();
-            });
-            // Mise à jour des compétences séléctionnées.
-            updateSelectedCompetenceText();
-            // Fonction de séléction et filtrage des compétences.
-            toggleCompetencesSelection();
-            competenceFilter();
-            categorieSelection();
-        });
-
-        // Fixe le header du tableau des compétences.
-        function initFixedHeader() {
-            // Taille maximum des cellules du header.
-            var maxHeight = 0;
-            $('.fixedHeaderCell').each(function () {
-                if ($(this).height() > maxHeight) {
-                    maxHeight = $(this).height();
-                }
-            });
-            maxHeight = maxHeight + 0.4 * maxHeight;
-            // Attribution de la taille et positionnement du fond du header.
-            $('#header-background').height(maxHeight);
-            $('#matriceCompetence_Container').css('padding-top', maxHeight + "px");
-            // Centrage des texte du header.
-            $('.fixedHeaderCell').each(function () {
-                var marginTop = (maxHeight - $(this).height()) / 2;
-                var marginLeft = ($(this).parent("th").width() - $(this).width() + 2) / 2;
-                $(this).css({
-                    'margin-top': marginTop,
-                    'margin-bottom': marginTop,
-                    'margin-left': marginLeft,
-                    'margin-right': marginLeft
-                });
-            });
-        }
-
-        // Affichage cache le sélécteur de catégories/compétences.
-        function toggleCompetencesSelection() {
-            $('#categorie_selection_foldbar').on('click', function () {
-                $('#categorie_selection_box').slideToggle();
-                $('.categorie_selection_foldbar_indicator').toggle();
-            });
-        }
-
-        // Affiche/cache les lignes de la matrice en fonction des compétences séléctionnées.
-        function competenceFilter() {
-            // Vérifie la présence de valeur d'un tableau dans un autre.
-            function hasCommonElement(arr1, arr2) {
-                var bExists = false;
-                $.each(arr2, function (index, value) {
-
-                    if ($.inArray(value, arr1) != -1) {
-                        bExists = true;
-                    }
-
-                    if (bExists) {
-                        return false; //break
-                    }
-                });
-                return bExists;
-            }
-
-            // Lors de la séléction/désélction d'une compétence...
-            $(".competence_checkbox").change(function () {
-                // On récupére la liste des compétences cochées.
-                var competence_list = [];
-                $(".competence_checkbox:checked").each(function () {
-                    competence_list.push($(this).val());
-                });
-                // Pour chaques ligne de la matrice...
-                $(".matrice_tr").each(function () {
-                    // Si les compétence correspondent à la liste des compétences cochées on affiche la ligne, sinon on la cache.
-                    if ($.inArray($(this).data('competence-principale'), competence_list) > -1 || hasCommonElement(competence_list, $(this).data('competence-secondaire'))) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
-                // Affiche/cache l'undicateur de résultat nulle en fonction du nombre de résultat.
-                $(".matrice_tr:not([style='display: none;'])").length > 0 ? $('#no_results_tr').hide() : $('#no_results_tr').show();
-            });
-        }
-
-        // Gestion de la séléction des catégorie et de leurs éléments.
-        function categorieSelection() {
-            // Lors de la séléction/déséléction d'une catégorie...
-            $(".categorie_checkbox").change(function () {
-                // On séléctionne/déséléctionne les compétences correspondantes et on simule un évenement de changement.
-                $(".competence_checkbox[data-categorie='" + $(this).val() + "']").prop('checked', $(this).is(':checked'));
-                $(".competence_checkbox[data-categorie='" + $(this).val() + "']").first().trigger('change');
-            });
-            // Lors de la séléction/désélction d'une compétence...
-            $(".competence_checkbox").change(function () {
-                // Initialisation d'un compteur de compétence cochées.
-                var checked_competence_count = 0;
-                // On récupére les checkbox de la catégorie et des compétences correspondantes.
-                var categorie_checkbox = $(".categorie_checkbox[value='" + $(this).data('categorie') + "']");
-                var competence_checkbox = $(".competence_checkbox[data-categorie='" + $(this).data('categorie') + "']");
-                // Pour chaques compétences on incrémente le compteur de compétence si la compétence est cochée.
-                competence_checkbox.each(function () {
-                    if ($(this).is(':checked')) {
-                        checked_competence_count++;
-                    }
-                });
-                // On met à jour l'état de la checkbox de categorie en fonction des compétences.
-                if (checked_competence_count === competence_checkbox.length) {
-                    categorie_checkbox.prop('checked', true);
-                    categorie_checkbox.prop('indeterminate', false);
-                } else if (checked_competence_count > 0) {
-                    categorie_checkbox.prop('checked', false);
-                    categorie_checkbox.prop('indeterminate', true);
-                } else {
-                    categorie_checkbox.prop('checked', false);
-                    categorie_checkbox.prop('indeterminate', false);
-                }
-
-                updateSelectedCompetenceText();
-                initFixedHeader();
-            });
-        }
-
-        // Met à jour l'affichage des compétences séléctionnées.
-        function updateSelectedCompetenceText() {
-            // On efface le texte déjà présent.
-            $('#selected_competences').text("Aucune");
-            // Pour chaques compétences...
-            $(".competence_checkbox:checked").each(function (index) {
-                // Si le texte dépasse 150 charactères on affiche le nombre de compétences restante et on quitte la boucle.
-                if ($('#selected_competences').text().length > 150) {
-                    $('#selected_competences').text($('#selected_competences').text() + " et " + ($(".competence_checkbox:checked").length - index) + " autres...");
-                    return false;
-                }
-
-                // On affiche les compétences.
-                if (index === 0) {
-                    $('#selected_competences').text($(this).val());
-                } else {
-                    $('#selected_competences').text($('#selected_competences').text() + ", " + $(this).val());
-                }
-            });
-        }
-
-        // Coche/Décoche toutes les case de catégorie et de compétence.
-        function selectDeselectAllCompetences(action) {
-            if (action === "check") {
-                $(".competence_checkbox").prop('checked', true);
-                $(".categorie_checkbox").prop('checked', true);
-            } else if (action === "unckeck") {
-                $(".competence_checkbox").prop('checked', false);
-                $(".categorie_checkbox").prop('checked', false);
-            }
-            $(".competence_checkbox").first().trigger('change');
-        }
-
-        // Ouvre une pop-up permettant l'édition de la matrice de compétence du collaborateur.
-        function openEditionPopUp(path, userId) {
-            $("#matrice_edition_popup").dialog({
-                open: function (event, ui) {
-                    $('#matrice_edition_popup_content').load(path);
-                },
-                resizable: false,
-                height: $(window).height() * 0.6,
-                width: $(window).width() / 2,
-                modal: true,
-                draggable: false,
-                dialogClass: "pointage-alert-content-class",
-                title: "Edition compétence collaborateur",
-                buttons: {
-                    // Si l'utilisateur valide...
-                    "Valider": function () {
-                        // On envoie le formulaire de modification de matrice collaborateur.
-                        $("form[name='formMatriceCollaborateurEdition']").submit();
-
-                        // Ecoute des requêtes ajax.
-                        $(document).ajaxComplete(function (event, xhr, settings) {
-                            // Si une requête de sauvegarde de la matrice de compétence a été effectué...
-                            if (settings.headers.name === "save_matrice_competence" && xhr.readyState === 4) {
-                                // On ferme la pop-up d'édition.
-                                $("#matrice_edition_popup").dialog("close");
-                            }
-                        });
-
-                    },
-                    // Si l'utilisateur annule, on ferme la fenêtre.
-                    "Annuler": function () {
-                        $("#matrice_edition_popup").dialog("close");
-                    }
-                },
-                close: function (event, ui) {
-                    // On appel la fonction de mise à jour de l'affichage du tableau.
-                    updateMatriceView(userId);
-                }
-            });
-            $('.ui-dialog :button').blur();
-        }
-
-        // Met à jour l'affichage tu tableau avec les dernières mise à jours du collaborateur passé en paramêtre.
-        function updateMatriceView(userId) {
-            $.ajax({
-                url: '{{ path('nox_intranet_ajax_matrice_collaborateur_get_matrice_collaborateur') }}',
-                type: "POST",
-                data: {userId: userId},
-                success: function (matrice) {
-                    // Donnée de la matrice du collaborateur.
-                    var matriceObject = JSON.parse(matrice);
-
-                    // Ligne du tableau associé au collaborateur.
-                    var tr = $("#matriceCompetenceTable tbody tr[data-user-id='" + matriceObject.user.id + "']");
-
-                    // Mise à jour de l'affichage.
-                    tr.find('.date_naissance').text(matriceObject.date_naissance);
-                    tr.find('.date_anciennete').text(matriceObject.date_anciennete);
-                    tr.find('.statut').text(matriceObject.statut);
-                    tr.find('.poste').text(matriceObject.poste);
-                    tr.find('.competence_principale_container').html("");
-                    if (matriceObject.competence_principale !== null) {
-                        tr.find('.competence_principale_container').append("<div class='competence_principale_div'>" + matriceObject.competence_principale + "</div>");
-                    } else {
-                        tr.find('.competence_principale_container').append("<div class='competence_principale_div'>Aucune</div>");
-                    }
-                    tr.find('.competences_secondaires_container').html("");
-                    if (matriceObject.competences_secondaires !== null) {
-                        $.each(matriceObject.competences_secondaires, function (index, competence) {
-                            tr.find('.competences_secondaires_container').append("<div class='competence_secondaire_div'>" + competence + "</div> ");
-                        });
-                    } else {
-                        tr.find('.competences_secondaires_container').append("<div class='competence_secondaire_div'>Aucune</div>");
-                    }
-
-                    // Redimensionnement du header.
-                    initFixedHeader();
-                }
-            });
-        }
-
-    </script>
-    <!-- Fin script -->
-
+{% block style %}
     <!-- CSS -->
+    <link href="{{ asset("./js/select2/dist/css/select2.min.css") }}" rel="stylesheet" />
     <style>
         #matriceCompetenceTable_Div {
             width: 100%;
@@ -456,43 +201,420 @@
         #select_deselect_competences span:hover {
             text-decoration: underline;
         }
+
+        #recherche_avance_div {
+            width: 70%;
+            margin: auto;
+            background-color: rgba(31,78,121,0.8);
+        }
+
+        #recherche_avance_form {
+            box-sizing: border-box;
+            width: 100%;
+            margin: 0;
+            padding: 0.1em;
+            border: none;
+            text-align: center;
+            font-size: calc(9px + 0.2vw);
+        }
+
+        #recherche_avance_form p {
+            display: inline-block;
+            padding: 0 0.5em;
+        }
+
+        #recherche_avance_form label {
+            color: white;
+        }
+
+        #recherche_avance_form input, #recherche_avance_form select {
+            font-size: calc(9px + 0.2vw);
+        }
+
+        .select2-container .select2-selection--multiple {
+            min-height: 0;
+        }
+
+        #loading_tr td {
+            background-image: url("{{ asset('bundles/noxintranetuser/images/loading.gif') }}");
+            background-size: contain;
+            background-position: center center;
+            background-repeat: no-repeat;
+            padding: 5em;
+        }
     </style>
     <!-- Fin CSS -->
+{% endblock %}
 
-    <!-- Sélécteur de compétences -->
-    <div id="categorie_selection_div">
-        <div id="categorie_selection_foldbar">
-            <p id="categorie_selection_foldbar_text">Sélection des compétences</p>
-            <p class="categorie_selection_foldbar_indicator" style="display: none;">&#10134;</p>
-            <p class="categorie_selection_foldbar_indicator">&#10133;</p>
-        </div>
-        <div id="categorie_selection_box" style="display: none;" data-state="open">
-            <p id="select_deselect_competences"><span onclick="selectDeselectAllCompetences('check');">Tout cocher</span>/<span onclick="selectDeselectAllCompetences('unckeck');">Tout décocher</span></p>
-            {% for categorie, competences in competencesArray %}
-                <section class='categorie_selection_section'>
-                    <h3 class="categorie_selection_title">
-                        <label><input type="checkbox" class="categorie_checkbox" value="{{ categorie }}" checked>{{ categorie }}</label>
-                    </h3>
-                    <ul class="competences_ul">
-                        {% for competence in competences %}
-                            <li class="competences_li">
-                                <label><input type="checkbox" class="competence_checkbox" value="{{ competence }}" data-categorie="{{ categorie }}" checked>{{ competence }}</label>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </section>
-            {% endfor %}
-        </div>
-        <div id="selected_competence_div">
-            <p id="selected_competence_text">Compétence(s) séléctionnée(s) : <span id="selected_competences"></span></p>
-        </div>
+{% block titrePage %}Matrice de compétences{% endblock %}
+
+{% block messageAccueil %}Matrice de compétences{% endblock %}
+
+{% block contenu %}
+    <!-- Script -->
+    <script src="{{ asset("./js/select2/dist/js/select2.min.js") }}"></script>;
+    <script src="{{ asset('./js/jquery.tablesorter/jquery.tablesorter.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialisation de la fonction de trie Jquery.
+            /*$("#matriceCompetenceTable").tablesorter({
+             sortList: [[1, 0]],
+             headers: {
+             6: {sorter: false}
+             }
+             });*/
+
+            // Initialisation des sélécteurs de dates et de compétences. 
+            $("#Competence_Principale, #Competences_Secondaires").select2({
+                placeholder: "Choisir une compétence...",
+                allowClear: true
+            });
+            initDatepicker();
+
+            // Initialisation du header fixe et mise à jour lors du recadrage de la fenêtre.
+            initFixedHeader();
+            $(window).resize(function () {
+                initFixedHeader();
+            });
+
+            // Initialisation de la recheche dans la matrice.
+            ajaxSearchInMatrice();
+
+            // Simulation d'une recherche pour afficher les résultats complet.
+            $("#recherche_avance_form input").first().trigger('input');
+        });
+
+        // Fixe le header du tableau des compétences.
+        function initFixedHeader() {
+            // Taille maximum des cellules du header.
+            var maxHeight = 0;
+            $('.fixedHeaderCell').each(function () {
+                if ($(this).height() > maxHeight) {
+                    maxHeight = $(this).height();
+                }
+            });
+            maxHeight = maxHeight + 0.4 * maxHeight;
+            // Attribution de la taille et positionnement du fond du header.
+            $('#header-background').height(maxHeight);
+            $('#matriceCompetence_Container').css('padding-top', maxHeight + "px");
+            // Centrage des texte du header.
+            $('.fixedHeaderCell').each(function () {
+                var marginTop = (maxHeight - $(this).height()) / 2;
+                var marginLeft = ($(this).parent("th").width() - $(this).width() + 2) / 2;
+                $(this).css({
+                    'margin-top': marginTop,
+                    'margin-bottom': marginTop,
+                    'margin-left': marginLeft,
+                    'margin-right': marginLeft
+                });
+            });
+        }
+
+        // Ouvre une pop-up permettant l'édition de la matrice de compétence du collaborateur.
+        function openEditionPopUp(path, userId) {
+            $("#matrice_edition_popup").dialog({
+                open: function (event, ui) {
+                    $('#matrice_edition_popup_content').load(path);
+                },
+                resizable: false,
+                height: $(window).height() * 0.6,
+                width: $(window).width() / 2,
+                modal: true,
+                draggable: false,
+                dialogClass: "pointage-alert-content-class",
+                title: "Edition compétence collaborateur",
+                buttons: {
+                    // Si l'utilisateur valide...
+                    "Valider": function () {
+                        // On envoie le formulaire de modification de matrice collaborateur.
+                        $("form[name='formMatriceCollaborateurEdition']").submit();
+
+                        // Ecoute des requêtes ajax.
+                        $(document).ajaxComplete(function (event, xhr, settings) {
+                            // Si une requête de sauvegarde de la matrice de compétence a été effectué...
+                            if (settings.headers.name === "save_matrice_competence" && xhr.readyState === 4) {
+                                // On ferme la pop-up d'édition.
+                                $("#matrice_edition_popup").dialog("close");
+                            }
+                        });
+
+                    },
+                    // Si l'utilisateur annule, on ferme la fenêtre.
+                    "Annuler": function () {
+                        $("#matrice_edition_popup").dialog("close");
+                    }
+                },
+                close: function (event, ui) {
+                    // On appel la fonction de mise à jour de l'affichage du tableau.
+                    updateMatriceView(userId);
+                }
+            });
+            $('.ui-dialog :button').blur();
+        }
+
+        // Met à jour l'affichage tu tableau avec les dernières mise à jours du collaborateur passé en paramêtre.
+        function updateMatriceView(userId) {
+            $.ajax({
+                url: '{{ path('nox_intranet_ajax_matrice_collaborateur_get_matrice_collaborateur') }}',
+                type: "POST",
+                data: {userId: userId},
+                success: function (matrice) {
+                    // Donnée de la matrice du collaborateur.
+                    var matriceObject = JSON.parse(matrice);
+
+                    // Ligne du tableau associé au collaborateur.
+                    var tr = $("#matriceCompetenceTable tbody tr[data-user-id='" + matriceObject.user.id + "']");
+
+                    // Mise à jour de l'affichage.
+                    tr.find('.date_naissance').text(matriceObject.date_naissance);
+                    tr.find('.date_anciennete').text(matriceObject.date_anciennete);
+                    tr.find('.statut').text(matriceObject.statut);
+                    tr.find('.poste').text(matriceObject.poste);
+                    tr.find('.competence_principale_container').html("");
+                    if (matriceObject.competence_principale !== null) {
+                        tr.find('.competence_principale_container').append("<div class='competence_principale_div'>" + matriceObject.competence_principale + "</div>");
+                    } else {
+                        tr.find('.competence_principale_container').append("<div class='competence_principale_div'>Aucune</div>");
+                    }
+                    tr.find('.competences_secondaires_container').html("");
+                    if (matriceObject.competences_secondaires !== null) {
+                        $.each(matriceObject.competences_secondaires, function (index, competence) {
+                            tr.find('.competences_secondaires_container').append("<div class='competence_secondaire_div'>" + competence + "</div> ");
+                        });
+                    } else {
+                        tr.find('.competences_secondaires_container').append("<div class='competence_secondaire_div'>Aucune</div>");
+                    }
+
+                    // Redimensionnement du header.
+                    initFixedHeader();
+                }
+            });
+        }
+
+        // Ajoute un widget de séléction de date au input de date.
+        function initDatepicker() {
+            // On change le type des input de date pour désactiver le datepicker par défaut de chrome.
+            $("input[type='date']").attr('type', 'text');
+
+            // Initialisation des datepicker.
+            $('.datepicker').datepicker({
+                yearRange: "-100:+0",
+                changeMonth: true,
+                changeYear: true
+            });
+            $('.datepicker').on('change', function () {
+                $(this).trigger('input');
+            });
+
+            // On passe les datepicker en français.
+            $.datepicker.regional.fr = {
+                closeText: "Fermer",
+                prevText: "Précédent",
+                nextText: "Suivant",
+                currentText: "Aujourd'hui",
+                monthNames: ["janvier", "février", "mars", "avril", "mai", "juin",
+                    "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+                monthNamesShort: ["janv.", "févr.", "mars", "avr.", "mai", "juin",
+                    "juil.", "août", "sept.", "oct.", "nov.", "déc."],
+                dayNames: ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
+                dayNamesShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
+                dayNamesMin: ["D", "L", "M", "M", "J", "V", "S"],
+                weekHeader: "Sem.",
+                dateFormat: "dd/mm/yy",
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ""};
+            $.datepicker.setDefaults($.datepicker.regional.fr);
+        }
+
+        // Lance une recherche des matrices correspondantes aux paramêtres d'entrés.
+        function ajaxSearchInMatrice() {
+            // Variable de fonction de retardement entre les frappes.
+            var delay = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            // Requête ajax de recherche dans la matrice de compétence.
+            function ajaxSearch() {
+                // Au bout de 500ms d'inactivité...
+                delay(function () {
+                    // On cache la ligne d'absence de résultat, on efface les résultats précédent et on affiche la ligne de chargement.
+                    $('#no_results_tr').hide();
+                    $(".matrice_collaborateur_tr").remove();
+                    $("#loading_tr").show();
+
+                    // Requête ajax de recherche des matrices.
+                    $.ajax({
+                        url: "{{ path('nox_intranet_matrice_collaborateur_ajax_search_in_matrice') }}",
+                        type: "POST",
+                        data: $("#recherche_avance_form").serialize(),
+                        success: function (matrice_json) {
+                            // Conversion du résultat en object javascript.
+                            var matriceList = JSON.parse(matrice_json);
+
+                            // Si le résultat contient des matrices...
+                            if (matriceList.length > 0) {
+                                // Pour chaques matrice...
+                                $.each(matriceList, function (index, matrice) {
+                                    // HTML de la compétences principales.
+                                    var competence_principale_container = $("<span class='competence_container competence_principale_container'></span>")
+                                            .append("<span class='competence_principale_div'>" + (matrice.competence_principale !== null ? matrice.competence_principale : "Aucune") + "</span>");
+
+                                    // HTML des compétences secondaires.
+                                    var competences_secondaires_container = $("<span class='competence_container competences_secondaires_container'></span>");
+                                    if (matrice.competences_secondaires.length > 0) {
+                                        $.each(matrice.competences_secondaires, function (index, competence) {
+                                            competences_secondaires_container.append("<span class='competence_secondaire_div'>" + competence + "</span>");
+                                        });
+                                    } else {
+                                        competences_secondaires_container.append("<span class='competence_secondaire_div'>Aucune</span>");
+                                    }
+
+                                    // HTML de la cellule des compétences.
+                                    var competencesTd = $("<td></td>")
+                                            .append(competence_principale_container)
+                                            .append("<hr>")
+                                            .append(competences_secondaires_container);
+
+                                    // HTML de la nouvelle ligne du tableau.
+                                    var newTr = $("<tr class='matrice_collaborateur_tr'></tr>")
+                                            .append("<td>" + matrice.societe + "<hr>" + matrice.etablissement + "</td>")
+                                            .append("<td>" + matrice.nom + "<br>" + matrice.prenom + "</td>")
+                                            .append("<td>" + matrice.date_naissance + "</td>")
+                                            .append("<td>" + matrice.date_anciennete + "</td>")
+                                            .append("<td>" + matrice.statut + "</td>")
+                                            .append("<td>" + matrice.poste + "</td>")
+                                            .append(competencesTd);
+
+                                    // On cache la ligne de chargement.
+                                    $("#loading_tr").hide();
+
+                                    // Ajout de la ligne au tableau.
+                                    newTr.appendTo($("#matriceCompetenceTable tbody"));
+
+                                    // On réinitialise la taille du header.
+                                    initFixedHeader();
+                                });
+                            }
+                            // Si le résultat ne contient pas de matrice.
+                            else {
+                                // On cache la ligne de chargement et on réinitialise la taille du header.
+                                $("#loading_tr").hide();
+
+                                // On affiche la ligne d'absence de résultat.
+                                $('#no_results_tr').show();
+
+                                // On réinitialise la taille du header.
+                                initFixedHeader();
+                            }
+                        }
+                    });
+                }, 500);
+            }
+
+            // Lorsqu'on séléctionne une valeur sur un sélécteur...
+            $("#recherche_avance_form select").on("change", function () {
+                ajaxSearch(); // On lance la recherche.
+            });
+
+            // Lorsqu'on on écris dans les champs de recherche...
+            $("#recherche_avance_form input").on("input", function () {
+                ajaxSearch(); // On lance la recherche.
+            });
+        }
+
+    </script>
+    <!-- Fin script -->
+
+    <!-- Recherche avancée -->
+    <div id="recherche_avance_div">
+        <form id="recherche_avance_form">
+            <p>
+                <label for="Societe">Société : </label>
+                <select id="Societe" name="societe">
+                    <option value="">Choisir une société...</option>
+                    {% for societe in societes %}
+                        <option value="{{ societe }}">{{ societe }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+            <p>
+                <label for="Etablissement">Etablissement : </label>
+                <select id="Etablissement" name="etablissement">
+                    <option value="">Choisir un établissement...</option>
+                    {% for etablissement in etablissements %}
+                        <option value="{{ etablissement }}">{{ etablissement }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+            <p>
+                <label for="Nom">Nom : </label>
+                <input type="text" id="Nom" name="nom">
+            </p>
+            <p>
+                <label for="Prenom">Prénom : </label>
+                <input type="text" id="Prenom" name="prenom">
+            </p>
+            <p>
+                <label for="Statut">Statut : </label>
+                <input type="text" id="Statut" name="statut">
+            </p>
+            <p>
+                <label for="Poste">Poste : </label>
+                <input type="text" id="Poste" name="poste">
+            </p>
+            <p>
+                <label for="Date_Naissance">Date de naissance : </label>
+                <input type="date" id="Date_Naissance" name="dateNaissance" class="datepicker">
+            </p>
+            <p>
+                <label for="Date_Anciennete">Date d'ancienneté : </label>
+                <input type="date" id="Date_Anciennete" name="dateAnciennete" class="datepicker">
+            </p>
+            <p>
+                <label for="Competence_Principale">Compétence principale : </label>
+                <select id="Competence_Principale" name="competencePrincipale">
+                    <option value="">dqdzz</option>
+                    {% for nom_categorie, liste_competences in competencesArray %}
+                        <optgroup label="{{ nom_categorie }}">
+                            {% for competence in liste_competences %}
+                                <option value="{{ competence }}">{{ competence }}</option>
+                            {% endfor %}
+                        </optgroup>
+                    {% endfor %}
+                </select>
+            </p>
+            <p>
+                <label for="Competences_Secondaires">Compétences secondaires : </label>
+                <select id="Competences_Secondaires" name="competencesSecondaires[]" multiple="multiple" >
+                    {% for nom_categorie, liste_competences in competencesArray %}
+                        <optgroup label="{{ nom_categorie }}">
+                            {% for competence in liste_competences %}
+                                <option value="{{ competence }}">{{ competence }}</option>
+                            {% endfor %}
+                        </optgroup>
+                    {% endfor %}
+                </select>
+            </p>
+            <p style="display: block;">
+                <input type="reset" id="Reset" name="Reset" value="Remise à zéro" onclick="$('#Competence_Principale, #Competences_Secondaires').val('').trigger('change');
+                        $('#recherche_avance_form input').first().trigger('input');">
+            </p>
+        </form>
     </div>
-    <!-- Fin du sélécteur de compétences -->
+    <!-- Fin de la recherche avancée -->
 
+    <!-- Pop-up d'édition de la matrice -->
     <div id="matrice_edition_popup">
         <div id="matrice_edition_popup_content">
         </div>
     </div>
+    <!-- Fin de la pop-up d'édition de la matrice -->
 
     <!-- Table des compétences -->
     <div id="matriceCompetence_Container">
@@ -511,33 +633,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for matrice in matrices_competences %}
-                        <tr class="matrice_tr" data-competence-principale="{{ matrice.CompetencePrincipale }}" data-competence-secondaire="{{ matrice.CompetencesSecondaires|json_encode() }}" data-user-id="{{ matrice.user.id }}" ondblclick="openEditionPopUp('{{ path('nox_intranet_developpement_professionnel_matrice_competence_edition_collaborateur', {userId: matrice.user.id}) }}', {{ matrice.user.id }});">
-                            <td class="matrice_societe_etablissement">{{ matrice.Societe }}<hr>{{ matrice.Etablissement }}</td>
-                            <td class="matrice_nom_prenom">{{ matrice.Nom }}<br />{{ matrice.Prenom }}</td>
-                            <td class="date_naissance">{{ matrice.DateNaissance|date('d/m/Y') }}</td>
-                            <td class="date_ancienette">{{ matrice.DateAnciennete|date('d/m/Y') }}</td>
-                            <td class="statut">{{ matrice.Statut }}</td>
-                            <td class="poste">{{ matrice.Poste }}</td>
-                            <td>
-                                <span class='competence_container competence_principale_container'>
-                                    <div class='competence_principale_div'>{{ matrice.CompetencePrincipale is not null ? matrice.CompetencePrincipale : "Aucune" }}</div>
-                                </span>
-                                <hr>
-                                <span class='competence_container competences_secondaires_container'>
-                                    {% if matrice.CompetencesSecondaires is not empty %}
-                                        {% for competence in matrice.CompetencesSecondaires %}
-                                            <div class='competence_secondaire_div'>{{ competence }}</div>
-                                        {% endfor %}
-                                    {% else %}
-                                        <div class='competence_secondaire_div'>Aucune</div>
-                                    {% endif %}
-                                </span>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    <tr class="matrice_tr" id="no_results_tr" style="display: none;">
+                    <tr id="no_results_tr" style="display: none;">
                         <td colspan="7">Aucun résultat...</td>
+                    </tr>
+                    <tr id="loading_tr" style="display: none;">
+                        <td colspan="7"></td>
                     </tr>
                 </tbody>
             </table>
