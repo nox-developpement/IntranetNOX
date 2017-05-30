@@ -456,6 +456,8 @@
                         success: function (matrice_json) {
                             // Conversion du résultat en object javascript.
                             var matriceList = JSON.parse(matrice_json);
+                            
+                            console.log(matriceList);
 
                             // Si le résultat contient des matrices...
                             if (matriceList.length > 0) {
@@ -467,7 +469,7 @@
 
                                     // HTML des compétences secondaires.
                                     var competences_secondaires_container = $("<span class='competence_container competences_secondaires_container'></span>");
-                                    if (matrice.competences_secondaires.length > 0) {
+                                    if (matrice.competences_secondaires !== null && matrice.competences_secondaires.length > 0) {
                                         $.each(matrice.competences_secondaires, function (index, competence) {
                                             competences_secondaires_container.append("<span class='competence_secondaire_div'>" + competence + "</span>");
                                         });
