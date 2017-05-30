@@ -57,22 +57,15 @@ class SupportSIController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($usr->getUsername());
 
-        // On récupére le nom canonique de tous les collaborateur pour l'association hiérachie/entitée collaborateur.
-        $allUsers = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
-        $allUsersCononicalName = array();
-        foreach ($allUsers as $user) {
-            $allUsersCononicalName[$this->wd_remove_accents(mb_strtoupper($user->getFirstname() . ' ' . $user->getLastname(), 'UTF-8'))] = $user;
-        }
-
         // Si la hiérachie n'est pas définie ou que l'entitée du DA n'est pas trouvée...
-        if (empty($userHierarchy) || !array_key_exists($this->wd_remove_accents($userHierarchy->getDA()), $allUsersCononicalName)) {
+        if (empty($userHierarchy) || $this->get('noxintranet.hierarchy_helper')->getUserEntityFromCanonicalName($userHierarchy->getDA()) === null) {
             // On redirige vers l'accueil et on affiche un message d'erreur.
             $request->getSession()->getFlashBag()->add('noticeErreur', "Erreur d'acquisition de la hiérarchie, veuillez contacter le support.");
             return $this->redirectToRoute('nox_intranet_accueil');
         }
 
         // On récupére l'entitée du DA.
-        $DAEntity = $allUsersCononicalName[$userHierarchy->getDA()];
+        $DAEntity = $this->get('noxintranet.hierarchy_helper')->getUserEntityFromCanonicalName($userHierarchy->getDA());
 
         // Récupère le nom d'utilisateur et l'agence du collaborateur actuel.
         $name = $usr->getUsername();
@@ -191,7 +184,7 @@ class SupportSIController extends Controller {
                     ->setBody(
                     $this->renderView(
                             'Emails/demandeMaterielDSI.html.twig', array('materielCheckbox' => $form->get('materielList')->getData(), 'materiel' => $form->get('materielList')->getData(), 'logicielCheckbox' => $form->get('logicielCheckbox')->getData(), 'demandeur' => $name, 'agence' => $agence,
-                        'numOrdre' => $numRequette, 'logiciel' => $form->get('logicielName')->getData(), 'date' => $date, 'cle' => $cle, 'raison' => $form->get('raison')->getData()
+                        'numOrdre' => $numRequette, 'logiciel' => $form->get('logicielName')->getData(), 'date' => $form->get('date')->getData(), 'cle' => $cle, 'raison' => $form->get('raison')->getData()
                             )
                     ), 'text/html'
             );
@@ -204,7 +197,7 @@ class SupportSIController extends Controller {
             // Stock les données de la demande.
             $donneesMessage = array('materielCheckbox' => $form->get('materielList')->getData(), 'materiel' => $form->get('materielList')->getData(), 'logicielCheckbox' => $form->get('logicielCheckbox')->getData(), 'demandeur' => $name, 'agence' => $agence,
                 'numOrdre' => $numRequette, 'logiciel' => $form->get('logicielName')->getData(), 'emailSuperieur' => $form->get('mailSuperieur')->getData(), 'raison' => $form->get('raison')->getData(),
-                'date' => $date, 'cle' => $cle, 'emailDemandeur' => $emailDemandeur
+                'date' => $form->get('date')->getData(), 'cle' => $cle, 'emailDemandeur' => $emailDemandeur
             );
 
             // Stock la demande en base de donnée en attente de traitement.
@@ -322,10 +315,11 @@ class SupportSIController extends Controller {
                             ), 'text/html'
                     );
                     $this->get('mailer')->send($messageHelpdesk);
-                    
-                    // On sauvegarde la valeur du prix estimé.
+
+                    // On sauvegarde la valeur du prix estimé et on met à jour la date d'intervention.
                     $donneesMessage['prixEstime'] = $form->get('prix')->getData();
                     $demande->setMessage($donneesMessage);
+                    $demande->setDate(new \DateTime());
 
                     // On modifie le status de la demande pour que la DSI n'y ai plus accés.
                     $demande->setStatus('SupérieurHiérarchique');
@@ -441,16 +435,6 @@ class SupportSIController extends Controller {
             $request->getSession()->getFlashBag()->add('noticeErreur', "Cette demande de matériel a déjà été traitée.");
             return $this->redirectToRoute('nox_intranet_accueil');
         }
-    }
-
-    private function wd_remove_accents($str, $charset = 'utf-8') {
-        $str = htmlentities($str, ENT_NOQUOTES, $charset);
-
-        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
-        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
-        $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
-
-        return $str;
     }
 
 }

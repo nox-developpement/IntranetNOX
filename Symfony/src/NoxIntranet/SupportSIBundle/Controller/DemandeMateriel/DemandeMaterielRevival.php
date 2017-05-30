@@ -18,21 +18,36 @@ class DemandeMaterielRevival {
         $this->container = $container;
     }
 
+    /**
+     * 
+     * Vérifie la date de dernière intervention sur une demande de matériel et envoi un rappel au valideur si la dernière intervention date de plus de 7 jours.
+     * 
+     */
     public function checkDemandeMaterielDuration() {
+        // Récupération des demandes de matériel en cours.
         $em = $this->em;
-
         $demandesMateriel = $em->getRepository('NoxIntranetSupportSIBundle:DemandeMateriel')->findAll();
 
+        // Date actuel.
         $now = new DateTime();
 
+        // Pour chaques demandes de matériel...
         foreach ($demandesMateriel as $demande) {
-            $message = $demande->getMessage();
+            // On ajoute 7 jours à la date de création/actualisation de la demande.
+            $revivalDate = $demande->getDate()->add(new DateInterval("P7D"));
 
-            $revivalDate = $message['date']->add(new DateInterval("P7D"));
+            // Si la demande date de plus de 7 jours...
             if ($revivalDate < $now) {
+                // On met à jour la date de demande.
+                $demande->setDate($now);
+
+                // On envoi un mail de rappel au valideur.
                 $this->sendRevivalMail($demande);
             }
         }
+
+        // Sauvegarde des changements en base de données.
+        $em->flush();
     }
 
     /**
@@ -66,7 +81,7 @@ class DemandeMaterielRevival {
                     ), 'text/html'
             );
             $container->get('mailer')->send($message);
-            
+
             echo "Envoi de la demande de " . $demande_message['demandeur'] . " à " . $adresseHelpdesk . " => OK\n";
         }
         // Si le status de la demande est la validation par le supérieur hiérarchique.
@@ -85,7 +100,7 @@ class DemandeMaterielRevival {
                     ), 'text/html'
             );
             $container->get('mailer')->send($messageHelpdesk);
-            
+
             echo "Envoi de la demande de " . $demande_message['demandeur'] . " à " . $mailSuperieur . " => OK\n";
         }
     }

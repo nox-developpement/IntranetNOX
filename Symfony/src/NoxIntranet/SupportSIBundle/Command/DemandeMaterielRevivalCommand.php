@@ -16,8 +16,10 @@ class DemandeMaterielRevivalCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
+        // Récupération du service de rappel de demande de matériel.
         $demandeMaterielRevivalService = $this->getContainer()->get('nox_intranet_support_si.demande_materiel_revival');
-        
+
+        // Execution de la fonction de vérification des demandes de matériel.
         $demandeMaterielRevivalService->checkDemandeMaterielDuration();
     }
 

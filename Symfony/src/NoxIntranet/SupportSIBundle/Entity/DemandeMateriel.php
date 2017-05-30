@@ -48,7 +48,7 @@ class DemandeMateriel {
      * @ORM\Column(name="status", type="string", length=255)
      */
     private $status;
-    
+
     /**
      * @var date
      *
@@ -153,7 +153,6 @@ class DemandeMateriel {
         return $this->status;
     }
 
-
     /**
      * Set date
      *
@@ -161,8 +160,7 @@ class DemandeMateriel {
      *
      * @return DemandeMateriel
      */
-    public function setDate($date)
-    {
+    public function setDate($date) {
         $this->date = $date;
 
         return $this;
@@ -173,8 +171,12 @@ class DemandeMateriel {
      *
      * @return \DateTime
      */
-    public function getDate()
-    {
+    public function getDate() {
         return $this->date;
     }
+
+    public function __construct() {
+        $this->date = new \DateTime();
+    }
+
 }

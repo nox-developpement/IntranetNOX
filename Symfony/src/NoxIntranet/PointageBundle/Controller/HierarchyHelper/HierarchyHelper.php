@@ -43,6 +43,14 @@ class HierarchyHelper {
         }
     }
 
+    /**
+     * 
+     * Remplace les caractères accentué par leur équivalent non accentué dans une chaine de charatère.
+     * 
+     * @param String $str La chaîne dont ont veux supprimer les accents.
+     * @param String $charset L'encodage de la chaîne (utf-8 par défaut).
+     * @return String La chaîne sans accents.
+     */
     private function wd_remove_accents($str, $charset = 'utf-8') {
         $str = htmlentities($str, ENT_NOQUOTES, $charset);
 
