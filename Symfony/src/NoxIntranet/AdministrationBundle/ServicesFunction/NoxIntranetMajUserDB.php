@@ -332,14 +332,16 @@ class NoxIntranetMajUserDB extends Controller {
     private function ldapGetADCollaborateur($ldap_connection) {
         // Tableau des collaborateurs.
         $collaborateurs = array();
+
         // Clé de pagination de la requête LDAP.
         $cookie = '';
+
         // On récupére les entrées LDAP une par une tant qu'il y en a.
         do {
             // Limite la requête LDAP à 1 résultat.
             ldap_control_paged_result($ldap_connection, 1, true, $cookie);
             $dn = "DC=nox,DC=local"; // Le domaine de recherche.
-            $attribute = array('samaccountname', 'cn', 'givenname', 'sn', 'dn'); // Les attributs de sortie.
+            $attribute = array('samaccountname', 'cn', 'givenname', 'sn', 'dn', '*'); // Les attributs de sortie.
             $result = ldap_search($ldap_connection, $dn, "(&(objectCategory=person)(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2))(samaccountname=*))", $attribute); // La recherche avec les filtres qui nous intéressent.
             $entries = ldap_get_entries($ldap_connection, $result); // Les résultats de la recherche.
             array_shift($entries); // Supprime l'indicateur du nombre de résultats.
@@ -358,6 +360,7 @@ class NoxIntranetMajUserDB extends Controller {
             // Initialisation de la page suivante.
             ldap_control_paged_result_response($ldap_connection, $result, $cookie);
         } while ($cookie !== null && $cookie != '');
+
         return $collaborateurs;
     }
 
@@ -370,14 +373,14 @@ class NoxIntranetMajUserDB extends Controller {
     private function initLDAPConnection() {
         // On initialise la connexion au domaine (doit être un serveur LDAP valide !)
         $ldap_connection = ldap_connect("nox.local");
-        
+
         // We have to set this option for the version of Active Directory we are using.
         ldap_set_option($ldap_connection, LDAP_OPT_PROTOCOL_VERSION, 3);
         ldap_set_option($ldap_connection, LDAP_OPT_REFERRALS, 0);
-        
+
         // On se connecte à l'AD.
         ldap_bind($ldap_connection, 't.besson@nox.local', 'Chegfp95');
-                
+
         // On retourne le token de connexion.
         return $ldap_connection;
     }

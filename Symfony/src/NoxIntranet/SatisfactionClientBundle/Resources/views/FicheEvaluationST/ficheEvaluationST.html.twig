@@ -1,0 +1,171 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Fiche d'evaluation des sous-traitants {% endblock %}
+
+{% block messageAccueil %} Fiche d'évaluation des sous-traitants {% endblock %}
+
+{% block contenu %}
+
+    <style>
+        #formulaireFicheEvaluationST {
+            width: 70%;
+            margin: auto;
+        }
+
+        #formulaireFicheEvaluationST form {
+            border: none;
+            margin: 0;
+            width: 100%;
+            padding: 0;
+        }
+
+        #formulaireFicheEvaluationST form table {
+            table-layout: fixed;
+        }
+
+        #formulaireFicheEvaluationST form table, #formulaireFicheEvaluationST form table tr, #formulaireFicheEvaluationST form table th, #formulaireFicheEvaluationST form table td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        #formulaireFicheEvaluationST form table td, #formulaireFicheEvaluationST form table th {
+            color: rgb(147, 63, 105);
+            padding: 1em;
+        }
+
+        #formulaireFicheEvaluationST p {
+            color: black;
+        }
+
+        #formulaireFicheEvaluationST h3 {
+            color: rgb(147, 63, 105);
+            margin-top: 3em;
+            margin-bottom: 0;
+        }
+
+        .questionTd {
+            width: 35%;
+        }
+
+
+        .questionLabel {
+            display: block;
+            color: rgb(168,165,163);
+            font-weight: bold;
+        }
+
+        .questionTexte {
+        color:rgb(31,78,121);
+        font-weight:bold;
+        }
+
+        .questionDetails {
+            display: block;
+            color: black;
+            font-style: italic;
+        }
+
+        .commentaire textarea {
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            height: 5em;
+            margin: 0; 
+            resize: none;
+        }
+
+        #validationFormulaireFicheEvaluationST {
+            text-align: center;
+        }
+
+        #validationFormulaireFicheEvaluationST button {
+            color: rgb(147, 63, 105);
+            border-color: rgb(175,133,153);
+            font-size: 1.5em;
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+47,ededed+100;White+3D+%231 */
+            background: rgb(255,255,255); /* Old browsers */
+            background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+        }
+
+        #validationFormulaireFicheEvaluationST button:hover { 
+            color: rgb(147, 63, 105);
+            border-color: rgb(147, 63, 105);
+        }
+        
+        .notationTd{
+            font-size:13px;
+            width: 35%;
+        }
+        
+    </style>
+
+    <div id='formulaireFicheEvaluationST'>
+
+        {{ form_start(ficheEvaluationST) }}
+
+        <h3>1. QUALITE</h3>
+        </br>
+        <table>    
+
+            {% for key, question in questions if key >= 1 and key <= 5 %}
+                <tr>
+                    <td class='questionTd' colspan='1'>
+                        <span class='questionTexte'>{{ question['Question'] }}</span>
+                    </td>
+                    <td class='notationTd' colspan='1'> {{ form_widget(ficheEvaluationST[key]) }}</td>
+                </tr>
+                
+            {% endfor %}
+        </table>
+        </br>
+        <h3>2. PRIX</h3> 
+        </br>
+        
+        <table>
+            {% for key, question in questions if key >= 6 and key <= 9 %}
+                <tr>
+                    <td class='questionTd'>
+                        <span class='questionTexte'>{{ question['Question'] }}</span>
+                    </td>
+                    <td class='notationTd'>{{ form_widget(ficheEvaluationST[key]) }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        </br>
+        <h3>3. DELAI</h3>
+        </br>
+        <table>
+            {% for key, question in questions if key >= 10 and key <= 12 %}
+                <tr>
+                    <td class='questionTd'>
+                        <span class='questionTexte'>{{ question['Question'] }}</span>
+                    </td>
+                    <td class='notationTd'>{{ form_widget(ficheEvaluationST[key]) }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        </br>
+        <h3>4. RELATIONS FOURNISSEUR</h3>
+        </br>
+        <table>
+            {% for key, question in questions if key >= 13 and key <= 15 %}
+                <tr>
+                    <td class='questionTd'>
+                        <span class='questionTexte'>{{ question['Question'] }}</span>
+                    </td>
+                    <td class='notationTd'>{{ form_widget(ficheEvaluationST[key]) }}</td>
+
+                </tr>
+            {% endfor %}
+        </table>
+        </br>
+
+        <p id='validationFormulaireFicheEvaluationST'>{{ form_widget(ficheEvaluationST.Valider) }}</p>
+
+        {{ form_end(ficheEvaluationST) }}
+    </div>
+
+{% endblock %}

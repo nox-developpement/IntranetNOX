@@ -1,0 +1,42 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Résumé de l'évaluation {% endblock %}
+
+{% block messageAccueil %} Résumé de l'évaluation {% endblock %}
+
+{% block contenu %} 
+    <table id='ficheEvaluationSTSum'>
+        <tr>
+            <td class='trLabel'>Numéro d'affaire</td>
+            <td>{{ envoi.NumAffaire }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Intitulé d'affaire</td>
+            <td>{{ envoi.IntituleAffaire }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Agence de l'évaluateur</td>
+            <td>{{ envoi.Agence }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Evaluateur</td>
+            <td>{{ envoi.Evaluateur }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Nom du sous-traitant</td>
+            <td>{{ envoi.NomST }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Dénomination sociale du sous-traitant</td>
+            <td>{{ envoi.DenominationSocialeST }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Siret du sous-traitant</td>
+            <td>{{ envoi.SiretST }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Chargé d'affaire</td>
+            <td>{{ envoi.CA }}</td>
+        </tr>
+    </table>
+{% endblock %}

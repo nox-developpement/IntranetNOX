@@ -1,0 +1,19 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}Questionnaire de satisfaction client{% endblock %}
+
+{% block messageAccueil %}Questionnaire de satisfaction client{% endblock %}
+
+{% block contenu %}
+    <div style='width: 70%; margin: auto; text-align: center;'>
+        <ul class='DRHAdministrationList'>
+            <li>
+                <a href='{{ path('nox_intranet_info_envoi_questionnaire_satisfaction_client') }}'>Envoyer un questionnaire</a>
+            </li>
+            <li>
+                <a href='{{ path('nox_intranet_consulter_questionnaire_satisfaction_client') }}'>Consulter la liste de tous les questionnaires</a>
+            </li>
+        </ul>
+    </div>
+
+{% endblock %}

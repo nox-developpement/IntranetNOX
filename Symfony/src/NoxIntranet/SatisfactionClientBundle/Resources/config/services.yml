@@ -1,0 +1,4 @@
+services:
+#    nox_intranet_satisfaction_client.example:
+#        class: NoxIntranet\SatisfactionClientBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

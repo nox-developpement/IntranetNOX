@@ -1,0 +1,68 @@
+Bonjour,
+</br>
+</br>
+Le collaborateur <span style='text-decoration: underline;'>{{ emetteur.Firstname }} {{ emetteur.Lastname }}</span> vient d'éffectuer l'évaluation d'un sous-traitant.</br>
+</br>
+
+<style>
+    table, tr, td {
+        border: solid 1px black;
+        border-collapse: collapse;        
+    }
+
+    td {
+        padding: 2%;
+    }
+
+    .trLabel {
+        text-align:center;
+        color: white;
+        font-weight: bold;
+        background-color: rgb(31, 78, 121);
+    }
+</style>
+
+<table>
+    <tr>
+        <td class='trLabel' colspan='2'>Fiche d'évaluation sous-traitant</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Numéro d'affaire</td>
+        <td>{{ envoi.NumAffaire }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Intitulé d'affaire</td>
+        <td>{{ envoi.IntituleAffaire }}</td>
+    </tr>    
+    <tr>
+        <td class='trLabel'>Agence</td>
+        <td>{{ envoi.Agence }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Nom du sous-traitant</td>
+        <td>{{ envoi.NomST }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Dénomination sociale du sous-traitant</td>
+        <td>{{ envoi.DenominationSocialeST }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Siret du sous-traitant</td>
+        <td>{{ envoi.SiretST }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Chargé d'affaire</td>
+        <td>{{ envoi.CA }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Date d'envoi</td>
+        <td>{{ envoi.DateEvaluation|date('d/m/Y') }}</td>
+    </tr>
+</table>
+    
+<br />
+<br />
+Cordialement,
+<br />
+<br />
+(Ceci est un message automatique, veuillez ne pas y répondre)

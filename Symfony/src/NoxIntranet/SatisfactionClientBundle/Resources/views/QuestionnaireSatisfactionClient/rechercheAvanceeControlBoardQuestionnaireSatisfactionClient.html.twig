@@ -1,0 +1,23 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Liste de tous les questionnaires de satisfaction client {% endblock %}
+
+{% block messageAccueil %}Liste de tous les questionnaires de satisfaction client{% endblock %}
+
+{% block contenu %}
+
+    <div class='prestationReportingNavigation'>
+
+        <div id='prestationReportingSearch' style='width: calc(100% / 3);'>
+
+            <div style='margin-top:3px'></div>
+            {{ form_widget(formSearchDetailed.validateSearchDetailedButton, {'label': 'Valider'}) }}
+
+        </div>
+       
+
+
+    </div>
+
+
+{% endblock %}

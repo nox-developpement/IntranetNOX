@@ -1,0 +1,19 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %}Fiche Evaluation Sous-Traitants{% endblock %}
+
+{% block messageAccueil %}Fiche d'évaluation sous-traitants{% endblock %}
+
+{% block contenu %}
+    <div style='width: 70%; margin: auto; text-align: center;'>
+        <ul class='DRHAdministrationList'>
+            <li>
+                <a href='{{ path('nox_intranet_info_effectuer_fiche_evaluation_st') }}'>Evaluer un sous-traitants</a>
+            </li>
+            <li>
+                <a href='{{ path('nox_intranet_consulter_fiche_evaluation_st') }}'>Consulter la liste des sous-traitants évalués</a>
+            </li>
+        </ul>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>
+        Evaluation d'un sous-traitant par un collaborateur
+    </title>
+
+    <style>
+        table, tr, td {
+            border: solid 1px black;
+            border-collapse: collapse;        
+            text-decoration: none;
+        }
+
+        td {
+            padding: 2%;
+        }
+
+        .trLabel {
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            background-color: rgb(31, 78, 121);
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+Bonjour,<br />
+<br />
+Le collaborateur {{ Evaluateur.Firstname }} {{ Evaluateur.Lastname }} vient d'effectuer l'évaluation du sous-traitant {{ InfoFicheEvaluation.NomST }}.<br />
+Vous trouverez la fiche d'évaluation en pièce jointe.
+<br />
+Cordialement,<br />
+<br />
+(Ceci est un message automatique, merci de ne pas y répondre)

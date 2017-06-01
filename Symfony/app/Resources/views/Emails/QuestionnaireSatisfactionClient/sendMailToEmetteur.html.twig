@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>
+        Information envoi d'un questionnaire de satisfaction client
+    </title>
+
+    <style>
+        table, tr, td {
+            border: solid 1px black;
+            border-collapse: collapse;     
+        }
+
+        td {
+            padding: 2%;
+        }
+
+        .trLabel {
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            background-color: rgb(31, 78, 121);
+        }
+    </style>
+</head>
+
+Bonjour {{ emetteur.Firstname }} {{ emetteur.Lastname }},<br />
+<br />
+Vous venez d'effectuer l'envoi d'un questionnaire de satisfaction client dont les informations sont les suivantes :<br />
+<br />
+
+<table>
+    <tr>
+        <td class='trLabel' colspan='2'>Questionnaire de satisfaction client</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Numéro d'affaire</td>
+        <td>{{ envoi.NumAffaire }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Intitulé d'affaire</td>
+        <td>{{ envoi.IntituleAffaire }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Client</td>
+        <td>{{ envoi.Client }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Agence</td>
+        <td>{{ envoi.Agence }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Chargé d'affaire</td>
+        <td>{{ envoi.CA }}</td>
+    </tr>
+    <tr>
+        <td class='trLabel'>Date d'envoi</td>
+        <td>{{ envoi.DateEnvoi|date('d/m/Y') }}</td>
+    </tr>
+</table>
+<br />
+<br />
+Cordialement,<br />
+<br />
+(Ceci est un message automatique, merci de ne pas y répondre)

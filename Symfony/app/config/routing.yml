@@ -1,3 +1,7 @@
+nox_intranet_satisfaction_client:
+    resource: "@NoxIntranetSatisfactionClientBundle/Resources/config/routing.yml"
+    prefix:   /
+
 nox_intranet_pointage:
     resource: "@NoxIntranetPointageBundle/Resources/config/routing.yml"
     prefix:   /

@@ -1,0 +1,40 @@
+ 
+nox_intranet_menu_questionnaire_satisfaction_client:
+    path:   /ressources/menu-questionnaire-satisfaction-client
+    defaults: { _controller: NoxIntranetSatisfactionClientBundle:Ressources:menuQuestionnaireSatisfactionClient }
+    
+nox_intranet_info_envoi_questionnaire_satisfaction_client:
+    path: /ressources/info-envoi-questionnaire-satisfaction-client
+    defaults: { _controller: NoxIntranetSatisfactionClientBundle:QuestionnaireSatisfactionClient/QuestionnaireSatisfactionClient:infoEnvoiQuestionnaireSatisfactionClient }
+
+nox_intranet_consulter_questionnaire_satisfaction_client:    
+    path: /ressources/consulter-questionnaire-satisfaction-client/{orderTime}/{page}
+    defaults: { _controller: NoxIntranetSatisfactionClientBundle:QuestionnaireSatisfactionClient/QuestionnaireSatisfactionClient:consulterQuestionnaireSatisfactionClient, search: '', page: 0, orderTime: 'desc'}    
+
+nox_intranet_info_questionnaire_satisfaction_client_summary:
+    path: /ressources/info-questionnaire-satisfaction-client-summary/{cleEnvoiQuestioSatisfClient}
+    defaults: { _controller: NoxIntranetSatisfactionClientBundle:QuestionnaireSatisfactionClient/QuestionnaireSatisfactionClient:infoQuestionnaireSatisfactionClientSummary }
+    
+nox_intranet_recherche_avancee_consulter_questionnaire_satisfaction_client:
+    path: /ressources/recherche-avancee-consulter-questionnaire-satisfaction-client/{orderTime}/{page}
+    defaults: { _controller: NoxIntranetSatisfactionClientBundle:QuestionnaireSatisfactionClient/QuestionnaireSatisfactionClient:rechercheAvanceeConsulterQuestionnaireSatisfactionClient, search: '', page: 0, orderTime: 'desc'}    
+       
+nox_intranet_menu_fiche_evaluation_st:
+    path:   /ressources/menu-fiche-evaluation-st
+    defaults: { _controller: NoxIntranetSatisfactionClientBundle:Ressources:menuFicheEvaluationST }
+
+nox_intranet_info_effectuer_fiche_evaluation_st:
+    path: /ressources/info-effectuer-fiche-evaluation-st
+    defaults: { _controller: NoxIntranetSatisfactionClientBundle:FicheEvaluationST/FicheEvaluationST:infoEffectuerFicheEvaluationST }
+    
+nox_intranet_consulter_fiche_evaluation_st:    
+    path: /ressources/consulter-fiche-evaluation-st/{orderTime}/{trieStatus}/{page}
+    defaults: { _controller: NoxIntranetSatisfactionClientBundle:FicheEvaluationST/FicheEvaluationST:consulterFicheEvaluationST, search: '', trieStatus: 'tous', page: 0, orderTime: 'desc'  }    
+
+nox_intranet_info_fiche_evaluation_st_summary:
+    path: /ressources/info-fiche-evaluation-st-summary/{cleEffectuerFicheEvaluationST}
+    defaults: { _controller: NoxIntranetSatisfactionClientBundle:FicheEvaluationST/FicheEvaluationST:infoFicheEvaluationSTSummary }
+
+nox_intranet_fiche_evaluation_st:
+    path: /ressources/fiche-evaluation-st/{cleFicheEvaluation}
+    defaults: { _controller: NoxIntranetSatisfactionClientBundle:FicheEvaluationST/FicheEvaluationST:ficheEvaluationST}

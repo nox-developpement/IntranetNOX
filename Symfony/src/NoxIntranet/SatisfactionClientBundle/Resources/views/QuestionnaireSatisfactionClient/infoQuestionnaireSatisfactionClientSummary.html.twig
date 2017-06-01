@@ -1,0 +1,42 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Résumé du questionnaire {% endblock %}
+
+{% block messageAccueil %} Résumé du questionnaire {% endblock %}
+
+{% block contenu %} 
+    <table id='ficheEvaluationSTSum'>
+        <tr>
+            <td class='trLabel'>Numéro d'affaire</td>
+            <td>{{ envoi.NumAffaire }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Intitulé d'affaire</td>
+            <td>{{ envoi.IntituleAffaire }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Agence de l'émetteur</td>
+            <td>{{ envoi.Agence }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Emetteur</td>
+            <td>{{ envoi.Emetteur }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Emis le</td>
+            <td>{{ envoi.DateEnvoi|date('d/m/Y') }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Nom du client</td>
+            <td>{{ envoi.Client }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Email du client</td>
+            <td>{{ envoi.EmailClient }}</td>
+        </tr>
+        <tr>
+            <td class='trLabel'>Chargé d'affaire</td>
+            <td>{{ envoi.CA }}</td>
+        </tr>
+    </table>
+{% endblock %}
