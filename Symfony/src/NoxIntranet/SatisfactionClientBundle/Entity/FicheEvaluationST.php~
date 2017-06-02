@@ -33,14 +33,14 @@ class FicheEvaluationST {
      *
      * @ORM\Column(name="QuestionReponses", type="array")
      */
-    private $questions_reponses;
+    private $questionsReponses;
 
     /**
      * @var string
      *
      * @ORM\Column(name="CleFicheEvaluation", type="string")
      */
-    private $cle_fiche_evaluation;
+    private $cleFicheEvaluation;
 
     /**
      * Get id

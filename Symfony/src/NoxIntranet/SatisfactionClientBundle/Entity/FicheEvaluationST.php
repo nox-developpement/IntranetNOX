@@ -33,14 +33,14 @@ class FicheEvaluationST {
      *
      * @ORM\Column(name="QuestionReponses", type="array")
      */
-    private $questions_reponses;
+    private $questionsReponses;
 
     /**
      * @var string
      *
      * @ORM\Column(name="CleFicheEvaluation", type="string")
      */
-    private $cle_fiche_evaluation;
+    private $cleFicheEvaluation;
 
     /**
      * Get id
@@ -85,7 +85,7 @@ class FicheEvaluationST {
      */
     public function setQuestionsReponses($questionsReponses)
     {
-        $this->questions_reponses = $questionsReponses;
+        $this->questionsReponses = $questionsReponses;
 
         return $this;
     }
@@ -97,7 +97,7 @@ class FicheEvaluationST {
      */
     public function getQuestionsReponses()
     {
-        return $this->questions_reponses;
+        return $this->questionsReponses;
     }
 
     /**
@@ -109,7 +109,7 @@ class FicheEvaluationST {
      */
     public function setCleFicheEvaluation($cleFicheEvaluation)
     {
-        $this->cle_fiche_evaluation = $cleFicheEvaluation;
+        $this->cleFicheEvaluation = $cleFicheEvaluation;
 
         return $this;
     }
@@ -121,6 +121,6 @@ class FicheEvaluationST {
      */
     public function getCleFicheEvaluation()
     {
-        return $this->cle_fiche_evaluation;
+        return $this->cleFicheEvaluation;
     }
 }

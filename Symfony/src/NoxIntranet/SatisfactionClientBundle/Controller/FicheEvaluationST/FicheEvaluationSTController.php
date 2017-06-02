@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class FicheEvaluationSTController extends Controller {
     /* Formulaire d'informations pour pouvoir une remplir une fiche d'evaluation des ST. */
-
     public function infoEffectuerFicheEvaluationSTAction(Request $request) {
 
         $em = $this->getDoctrine()->getManager();
@@ -95,7 +94,6 @@ class FicheEvaluationSTController extends Controller {
     }
 
     /* Fiche d'évaluation des sous-traitants */
-
     public function ficheEvaluationSTAction(Request $request, $cleFicheEvaluation) {
         $em = $this->getDoctrine()->getManager();
 
@@ -242,7 +240,6 @@ class FicheEvaluationSTController extends Controller {
     }
 
     /* Tableau de bord qui permet de consulter toutes les fiches qui ont été effectuées */
-
     public function consulterFicheEvaluationSTAction(Request $request, $page, $orderTime) {
         $em = $this->getDoctrine()->getManager();
 
