@@ -25,8 +25,17 @@ class DeveloppementProfessionnelController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $collaborateur = empty($collaborateurUsername) ? $valideur : $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($collaborateurUsername);
 
-        // On récupére son entitée hiérarchique, formulaire associé si il existe et le statut courant du formulaire.  
+        // On récupére son entitée hiérarchique,
         $collaborateurHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername());
+
+        // Si le collaborateur n'est pas défini dans la hiérarchie...
+        if (empty($collaborateurHierarchy)) {
+            // On redirige vers l'accueil et on affiche un message d'erreur.
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Le collaborateur n'est pas défini dans la hiérarchie, veuillez contacter le support.");
+            return $this->redirectToRoute('nox_intranet_accueil');
+        }
+
+        // On récupére son formulaire associé si il existe et le statut courant du formulaire.  
         $formulaireDeveloppementProfessionnel = $em->getRepository('NoxIntranetUserBundle:DeveloppementProfessionnel')->findOneBy(array('collaborateur' => $collaborateur, 'annee' => date('Y')));
         $currentFormStatut = empty($formulaireDeveloppementProfessionnel) ? 'Collaborateur' : $formulaireDeveloppementProfessionnel->getStatut();
 
