@@ -28,8 +28,8 @@ nox_intranet_info_effectuer_fiche_evaluation_st:
     defaults: { _controller: NoxIntranetSatisfactionClientBundle:FicheEvaluationST/FicheEvaluationST:infoEffectuerFicheEvaluationST }
     
 nox_intranet_consulter_fiche_evaluation_st:    
-    path: /ressources/consulter-fiche-evaluation-st/{orderTime}/{trieStatus}/{page}
-    defaults: { _controller: NoxIntranetSatisfactionClientBundle:FicheEvaluationST/FicheEvaluationST:consulterFicheEvaluationST, search: '', trieStatus: 'tous', page: 0, orderTime: 'desc'  }    
+    path: /ressources/liste-fiche-evaluation-st/{orderTime}/{trieStatus}/{page}
+    defaults: { _controller: NoxIntranetSatisfactionClientBundle:FicheEvaluationST/FicheEvaluationST:listeFicheEvaluationST, search: '', trieStatus: 'tous', page: 0, orderTime: 'desc'  }    
 
 nox_intranet_info_fiche_evaluation_st_summary:
     path: /ressources/info-fiche-evaluation-st-summary/{cleEffectuerFicheEvaluationST}
@@ -38,3 +38,7 @@ nox_intranet_info_fiche_evaluation_st_summary:
 nox_intranet_fiche_evaluation_st:
     path: /ressources/fiche-evaluation-st/{cleFicheEvaluation}
     defaults: { _controller: NoxIntranetSatisfactionClientBundle:FicheEvaluationST/FicheEvaluationST:ficheEvaluationST}
+    
+nox_intranet_consulter_fiche_evaluation:
+    path: /ressources/consulter-fiche-evaluation-st/{cleFicheEvaluationST}
+    defaults: { _controller: NoxIntranetSatisfactionClientBundle:FicheEvaluationST/FicheEvaluationST:consulterFicheEvaluationST}

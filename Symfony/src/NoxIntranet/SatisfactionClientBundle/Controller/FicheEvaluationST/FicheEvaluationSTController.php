@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class FicheEvaluationSTController extends Controller {
     /* Formulaire d'informations pour pouvoir une remplir une fiche d'evaluation des ST. */
+
     public function infoEffectuerFicheEvaluationSTAction(Request $request) {
 
         $em = $this->getDoctrine()->getManager();
@@ -78,14 +79,14 @@ class FicheEvaluationSTController extends Controller {
                 $infoEffectuerFicheEvaluationST->setCA($CA->getUsername());
 
                 // On affiche un message de confirmation à la session actuelle.
-                $request->getSession()->getFlashBag()->add('notice', 'Informations enrengistrés');
+                $request->getSession()->getFlashBag()->add('notice', 'Informations enregistrées');
 
                 // On sauvegarde les données du formulaire d'informations de la fiche d'évaluation ST en base de donnée.
                 $em->persist($infoEffectuerFicheEvaluationST);
                 $em->flush();
 
                 // On redirige vers le la fiche d'évaluation avec la clé unique associée.
-                return $this->redirectToRoute('nox_intranet_fiche_evaluation_st', array('cleEffectuerFicheEvaluationST' => $infoEffectuerFicheEvaluationST->getCleEffectuerFicheEvaluationST()));
+                return $this->redirectToRoute('nox_intranet_fiche_evaluation_st', array('cleFicheEvaluation' => $infoEffectuerFicheEvaluationST->getCleEffectuerFicheEvaluationST()));
             }
         }
 
@@ -93,9 +94,23 @@ class FicheEvaluationSTController extends Controller {
         return $this->render('NoxIntranetSatisfactionClientBundle:FicheEvaluationST:infoEffectuerFicheEvaluationST.html.twig', array('formInfoEffectuerFicheEvaluationST' => $formInfoEffectuerFicheEvaluationST->createView()));
     }
 
-    /* Fiche d'évaluation des sous-traitants */
+    /**
+     * 
+     * Remplissage d'un questionnaire de satisfaction client et envoi des informations au charché d'affaire et du questionnaire à la qualité.
+     * 
+     * @param Request $request Formulaire d'évaluation du sous-traitant.
+     * @param String $cleFicheEvaluation Clé correspondant à la fiche d'évaluation sous-traitant.
+     * @return View
+     */
     public function ficheEvaluationSTAction(Request $request, $cleFicheEvaluation) {
         $em = $this->getDoctrine()->getManager();
+
+        // Si il existe déjà une fiche d'évaluation correspondant à la clé passé en paramêtre...
+        if (!empty($em->getRepository('NoxIntranetSatisfactionClientBundle:FicheEvaluationST')->findOneByCleFicheEvaluation($cleFicheEvaluation))) {
+            // On redirige vers l'accueil et on affiche un message d'erreur.
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Cette fiche d'évaluation a déjà été remplie.");
+            return $this->redirectToRoute('nox_intranet_accueil');
+        }
 
         // Création d'une liste de question avec leurs détails.
         $questions = array(
@@ -163,7 +178,7 @@ class FicheEvaluationSTController extends Controller {
             // Récupération des réponses dans un tableau de questions/réponses.
             $fiche_evaluation_reponses = array();
             foreach ($questions as $key => $question) {
-                $fiche_evaluation_reponses[$key] = array('Question' => $question, 'Reponse' => $formFicheEvaluationST->get($key)->getData());
+                $fiche_evaluation_reponses[$key] = array('Question' => $question['Question'], 'Reponse' => $formFicheEvaluationST->get($key)->getData());
             }
 
             // Création d'un fiche d'évalutation à laquelle on attribut l'évaluateur, les guestions/réponses et les informations du sous-traitant.
@@ -180,12 +195,17 @@ class FicheEvaluationSTController extends Controller {
             $infoFicheEvaluationST = $em->getRepository('NoxIntranetSatisfactionClientBundle:InfoEffectuerFicheEvaluationST')->findOneByCleEffectuerFicheEvaluationST($cleFicheEvaluation);
             $evaluateur = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($infoFicheEvaluationST->getEvaluateur());
 
-            // On prépare un mail avec le fichier en pièce jointe.
+            // Génération de la fiche d'évaluation sous forme de PDF.
+            $pdfFile = $this->ficheEvaluationSTToPDF($this->renderView('NoxIntranetSatisfactionClientBundle:FicheEvaluationST:consulterFicheEvaluationST.html.twig', array('ficheEvaluationST' => $ficheEvaluationST->getQuestionsReponses(), 'infoFicheEvaluation' => $infoFicheEvaluationST)));
+            $named_PDF_file = pathinfo($pdfFile, PATHINFO_DIRNAME) . "/Fiche d'évaluation de sous-traitant." . pathinfo($pdfFile, PATHINFO_EXTENSION);
+            rename($pdfFile, $named_PDF_file);
+
+            // On prépare un mail avec le fichier PDF en pièce jointe.
             $message = \Swift_Message::newInstance()
                     ->setSubject("Fiche d'évaluation sous-traitant")
                     ->setFrom('noreply@groupe-nox.com')
                     ->setTo('g.toure@groupe-nox.com')
-                    //->attach(\Swift_Attachment::fromPath($fileLocation))
+                    ->attach(\Swift_Attachment::fromPath($named_PDF_file))
                     ->setBody(
                     // On retourne le template de l'email sendMailToRQ.html.twig
                     $this->renderView('Emails/FicheEvaluationST/sendMailToRQ.html.twig', array('InfoFicheEvaluation' => $infoFicheEvaluationST, 'Evaluateur' => $evaluateur)
@@ -200,12 +220,11 @@ class FicheEvaluationSTController extends Controller {
                 $spool->flushQueue($transport);
             }
 
-//            $im = imagegrabscreen();
-//            imagepng($im, "myscreenshot.png");
-//            imagedestroy($im);
+            // Suppression du PDF.
+            unlink($named_PDF_file);
 
+            // Envoi d'un mail de signalement au chargé d'affaire.
             $this->sendMailToCA($cleFicheEvaluation);
-
 
             // On redirige vers l'accueil et on affiche un message de confirmation.
             $request->getSession()->getFlashBag()->add('notice', "Votre évaluation a bien été effectuée.");
@@ -216,8 +235,13 @@ class FicheEvaluationSTController extends Controller {
         return $this->render('NoxIntranetSatisfactionClientBundle:FicheEvaluationST:ficheEvaluationST.html.twig', array('ficheEvaluationST' => $formFicheEvaluationST->createView(), 'questions' => $questions));
     }
 
+    /**
+     * 
+     * Envoi un mail indiquant le remplissage d'une fiche d'évaluation au chargé d'affaire de l'affaire correspondant au sous-traitant.
+     * 
+     * @param String $cleFicheEvaluation La clé correspondant à la fiche d'évaluation du sous-traitant.
+     */
     private function sendMailToCA($cleFicheEvaluation) {
-
         // On récupére les entitées de la demande et du demandeur.
         $em = $this->getDoctrine()->getManager();
         $envoi = $em->getRepository('NoxIntranetSatisfactionClientBundle:FicheEvaluationST')->findOneByCleFicheEvaluation($cleFicheEvaluation);
@@ -228,10 +252,10 @@ class FicheEvaluationSTController extends Controller {
         $message = \Swift_Message::newInstance()
                 ->setSubject("Fiche d'évaluation completé")
                 ->setFrom('noreply@groupe-nox.com')
-                ->setTo($envoi->getEmailCA())
+                ->setTo($infoFicheEvaluation->getEmailCA())
                 ->setBody(
                 $this->renderView(
-                        'Emails/FicheEvaluationST/sendMailToCA.html.twig', array('envoi' => $envoi, 'evaluateur' => $evaluateur)
+                        'Emails/FicheEvaluationST/sendMailToCA.html.twig', array('envoi' => $infoFicheEvaluation, 'evaluateur' => $evaluateur)
                 ), 'text/html'
         );
 
@@ -240,7 +264,8 @@ class FicheEvaluationSTController extends Controller {
     }
 
     /* Tableau de bord qui permet de consulter toutes les fiches qui ont été effectuées */
-    public function consulterFicheEvaluationSTAction(Request $request, $page, $orderTime) {
+
+    public function listeFicheEvaluationSTAction(Request $request, $page, $orderTime) {
         $em = $this->getDoctrine()->getManager();
 
         // On créer la variable de recherche et on lui donne la valeur de 'search' pour qu'on puisse récupérer celle-ci.
@@ -280,7 +305,7 @@ class FicheEvaluationSTController extends Controller {
             $envois = $em->createQueryBuilder()
                     // On donne une valeur qu'on appelle 'texte' qui correspond à la donnée entrée dans le champs 'searchText' du formulaire de recherche.
                     ->select('texte')
-                    ->from('NoxIntranetRessourcesBundle:InfoEffectuerFicheEvaluationST', 'texte')
+                    ->from('NoxIntranetSatisfactionClientBundle:InfoEffectuerFicheEvaluationST', 'texte')
                     // On tri les entités selon leur numéro d'affaire.
                     ->where('texte.numAffaire LIKE :search')
                     // Mais on garde le tri choisi de l'ordre par la date.
@@ -293,7 +318,7 @@ class FicheEvaluationSTController extends Controller {
 
         /* Si on ne recherche pas de demande spécifique */ else {
             // On affiche les entités infoEffectuerFicheEvaluationST des envois selon l'ordre choisi de leur date d'évaluation.
-            $envois = $em->getRepository('NoxIntranetRessourcesBundle:InfoEffectuerFicheEvaluationST')->findBy(array(), array('dateEvaluation' => $orderTime));
+            $envois = $em->getRepository('NoxIntranetSatisfactionClientBundle:InfoEffectuerFicheEvaluationST')->findBy(array(), array('dateEvaluation' => $orderTime));
         }
 
         /* On récupère les évaluations ST et leurs infos */
@@ -301,7 +326,7 @@ class FicheEvaluationSTController extends Controller {
         $fichesEvaluationST = array();
 
         // Pour toutes les évaluations trouvées dans le repository de l'entité InfoEffectuerFicheEvaluationST.
-        foreach ($em->getRepository('NoxIntranetRessourcesBundle:InfoEffectuerFicheEvaluationST')->findAll() as $ficheEvaluationST) {
+        foreach ($em->getRepository('NoxIntranetSatisfactionClientBundle:InfoEffectuerFicheEvaluationST')->findAll() as $ficheEvaluationST) {
             // On récupère leurs clés et leurs évaluateurs.
             $fichesEvaluationST[$ficheEvaluationST->getCleEffectuerFicheEvaluationST()][$ficheEvaluationST->getEvaluateur()] = $ficheEvaluationST;
         }
@@ -309,7 +334,7 @@ class FicheEvaluationSTController extends Controller {
         $envois10 = array_chunk($envois, 10);
 
         // On retourne le template controlBoardFicheEvaluationST.html.twig
-        return $this->render('NoxIntranetRessourcesBundle:FicheEvaluationST:controlBoardFicheEvaluationST.html.twig', array(
+        return $this->render('NoxIntranetSatisfactionClientBundle:FicheEvaluationST:controlBoardFicheEvaluationST.html.twig', array(
                     'envois' => $envois10, 'fichesEvaluationST' => $fichesEvaluationST, 'page' => $page, 'orderTime' => $orderTime, 'search' => $search, 'formSearch' => $formSearch->createView()));
     }
 
@@ -317,9 +342,87 @@ class FicheEvaluationSTController extends Controller {
     public function infoFicheEvaluationSTSummaryAction($cleEffectuerFicheEvaluationST) {
         // On récupére les entitées de l'évaluation.
         $em = $this->getDoctrine()->getManager();
-        $envoi = $em->getRepository('NoxIntranetRessourcesBundle:InfoEffectuerFicheEvaluationST')->findOneByCleEffectuerFicheEvaluationST($cleEffectuerFicheEvaluationST);
+        $envoi = $em->getRepository('NoxIntranetSatisfactionClientBundle:InfoEffectuerFicheEvaluationST')->findOneByCleEffectuerFicheEvaluationST($cleEffectuerFicheEvaluationST);
         // On return le template infoFicheEvaluationSTSumary
-        return $this->render('NoxIntranetRessourcesBundle:FicheEvaluationST:infoFicheEvaluationSTSummary.html.twig', array('envoi' => $envoi));
+        return $this->render('NoxIntranetSatisfactionClientBundle:FicheEvaluationST:infoFicheEvaluationSTSummary.html.twig', array('envoi' => $envoi));
+    }
+
+    /**
+     * 
+     * Permet de consulter une fiche d'évaluation de sous-traitant.
+     * 
+     * @param Request $request
+     * @param String $cleFicheEvaluationST Clé de la fiche d'évaluation du sous-traitant.
+     * @return View
+     */
+    public function consulterFicheEvaluationSTAction(Request $request, $cleFicheEvaluationST) {
+        $em = $this->getDoctrine()->getManager();
+
+        $infoFicheEvaluation = $em->getRepository('NoxIntranetSatisfactionClientBundle:InfoEffectuerFicheEvaluationST')->findOneByCleEffectuerFicheEvaluationST($cleFicheEvaluationST);
+        $ficheEvaluationST = $em->getRepository('NoxIntranetSatisfactionClientBundle:FicheEvaluationST')->findOneByCleFicheEvaluation($cleFicheEvaluationST);
+
+        if (empty($ficheEvaluationST)) {
+            // On redirige vers l'accueil et on affiche un message d'erreur.
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Il n'existe pas de fiche d'évaluation correspondant à la clé passé en paramêtre.");
+            return $this->redirectToRoute('nox_intranet_accueil');
+        }
+
+        // Génération de la fiche d'évaluation sous forme de PDF.
+        $this->ficheEvaluationSTToPDF($this->renderView('NoxIntranetSatisfactionClientBundle:FicheEvaluationST:consulterFicheEvaluationST.html.twig', array('ficheEvaluationST' => $ficheEvaluationST->getQuestionsReponses(), 'infoFicheEvaluation' => $infoFicheEvaluation)));
+
+        return $this->render('NoxIntranetSatisfactionClientBundle:FicheEvaluationST:consulterFicheEvaluationST.html.twig', array('ficheEvaluationST' => $ficheEvaluationST->getQuestionsReponses(), 'infoFicheEvaluation' => $infoFicheEvaluation));
+    }
+
+    /**
+     * 
+     * Convertie le code HTML d'une fiche d'évaluation de sous-traitant en PDF et retourne le chemin du fichier PDF.
+     * 
+     * @param String $fiche_evaluation_html Code HTML de la fiche d'évaluation du sous-traitant.
+     * @return String Chemin du fichier PDF.
+     */
+    private function ficheEvaluationSTToPDF($fiche_evaluation_html) {
+        // On récupére la racine du serveur.
+        $root = $this->get('kernel')->getRootDir() . '\..';
+        $rootLetter = explode("\\", $root)[0];
+
+        // Désactivation du warning pour le support de l'HTML5.
+        libxml_use_internal_errors(true);
+
+        // On charge un nouvelle objet DOM avec le code HTML passé en paramêtre.
+        $html_dom = new \DOMDocument();
+        $html_dom->loadHTML($fiche_evaluation_html);
+
+        // Réactivation du warning.
+        libxml_use_internal_errors(false);
+
+        // Extraction du code HTML de la fiche d'évaluation.
+        $fiche_evaluation_code = $html_dom->saveHTML($html_dom->getElementById("formulaireFicheEvaluationST"));
+
+        // Extraction du code CSS.
+        $css_code = "";
+        foreach ($html_dom->getElementsByTagName("style") as $css) {
+            $css_code .= $html_dom->saveHTML($css);
+        }
+
+        // On génère un fichier HTML à convertir en PDF.
+        while (true) {
+            $filename = $root . "/web/" . uniqid('EvaluationST', true);
+            if (!file_exists(sys_get_temp_dir() . $filename)) {
+                break;
+            }
+        }
+        $htmlFileName = $filename . '.html';
+        $pdfFileName = $filename . '.pdf';
+        file_put_contents($htmlFileName, $css_code . $fiche_evaluation_code);
+
+        // On exécute la commande de conversion du fichier HTML en PDF.
+        exec("\"" . $rootLetter . "/Program Files/wkhtmltopdf/bin/wkhtmltopdf\" --page-size A4 --encoding utf-8 \"" . $htmlFileName . "\" \"" . $pdfFileName . "\"");
+
+        // On supprime le fichier HTML.
+        unlink($htmlFileName);
+
+        // Retourne le chemin du fichier PDF.
+        return $pdfFileName;
     }
 
 }

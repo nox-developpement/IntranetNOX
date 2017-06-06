@@ -8,27 +8,22 @@
 
     <style>
         #formulaireFicheEvaluationST {
+            border: none;
             width: 70%;
             margin: auto;
-        }
-
-        #formulaireFicheEvaluationST form {
-            border: none;
-            margin: 0;
-            width: 100%;
             padding: 0;
         }
 
-        #formulaireFicheEvaluationST form table {
+        #formulaireFicheEvaluationST table {
             table-layout: fixed;
         }
 
-        #formulaireFicheEvaluationST form table, #formulaireFicheEvaluationST form table tr, #formulaireFicheEvaluationST form table th, #formulaireFicheEvaluationST form table td {
+        #formulaireFicheEvaluationST table, #formulaireFicheEvaluationST table tr, #formulaireFicheEvaluationST table th, #formulaireFicheEvaluationST table td {
             border: 1px solid black;
             border-collapse: collapse;
         }
 
-        #formulaireFicheEvaluationST form table td, #formulaireFicheEvaluationST form table th {
+        #formulaireFicheEvaluationST table td, #formulaireFicheEvaluationST table th {
             color: rgb(147, 63, 105);
             padding: 1em;
         }
@@ -99,24 +94,29 @@
             font-size:13px;
             width: 35%;
         }
+        
+        #ficheEvaluationTitle {
+            margin: 0;
+        }
 
     </style>
 
     <div id='formulaireFicheEvaluationST'>
-
-        {{ form_start(ficheEvaluationST) }}
-
+        <h2 id='ficheEvaluationTitle'>
+            Evaluation : {{ infoFicheEvaluation.DenominationSocialeST }}<br />
+            SIRET : {{ infoFicheEvaluation.SiretST }}
+        </h2>
+        
         <h3>1. QUALITE</h3>
         <br />
         <table>    
-            {% for key, question in questions if key >= 1 and key <= 5 %}
+            {% for key, ficheEvaluation in ficheEvaluationST if key >= 1 and key <= 5 %}
                 <tr>
                     <td class='questionTd' colspan='1'>
-                        <span class='questionTexte'>{{ question['Question'] }}</span>
+                        <span class='questionTexte'>{{ ficheEvaluation['Question'] }}</span>
                     </td>
-                    <td class='notationTd' colspan='1'> {{ form_widget(ficheEvaluationST[key]) }}</td>
+                    <td class='notationTd' colspan='1'>{{ ficheEvaluation['Reponse'] }}</td>
                 </tr>
-
             {% endfor %}
         </table>
         <br />
@@ -124,12 +124,12 @@
         <br />
 
         <table>
-            {% for key, question in questions if key >= 6 and key <= 9 %}
+            {% for key, ficheEvaluation in ficheEvaluationST if key >= 6 and key <= 9 %}
                 <tr>
                     <td class='questionTd'>
-                        <span class='questionTexte'>{{ question['Question'] }}</span>
+                        <span class='questionTexte'>{{ ficheEvaluation['Question'] }}</span>
                     </td>
-                    <td class='notationTd'>{{ form_widget(ficheEvaluationST[key]) }}</td>
+                    <td class='notationTd'>{{ ficheEvaluation['Reponse'] }}</td>
                 </tr>
             {% endfor %}
         </table>
@@ -137,12 +137,12 @@
         <h3>3. DELAI</h3>
         <br />
         <table>
-            {% for key, question in questions if key >= 10 and key <= 12 %}
+            {% for key, ficheEvaluation in ficheEvaluationST if key >= 10 and key <= 12 %}
                 <tr>
                     <td class='questionTd'>
-                        <span class='questionTexte'>{{ question['Question'] }}</span>
+                        <span class='questionTexte'>{{ ficheEvaluation['Question'] }}</span>
                     </td>
-                    <td class='notationTd'>{{ form_widget(ficheEvaluationST[key]) }}</td>
+                    <td class='notationTd'>{{ ficheEvaluation['Reponse'] }}</td>
                 </tr>
             {% endfor %}
         </table>
@@ -150,20 +150,16 @@
         <h3>4. RELATIONS FOURNISSEUR</h3>
         <br />
         <table>
-            {% for key, question in questions if key >= 13 and key <= 15 %}
+            {% for key, ficheEvaluation in ficheEvaluationST if key >= 13 and key <= 15 %}
                 <tr>
                     <td class='questionTd'>
-                        <span class='questionTexte'>{{ question['Question'] }}</span>
+                        <span class='questionTexte'>{{ ficheEvaluation['Question'] }}</span>
                     </td>
-                    <td class='notationTd'>{{ form_widget(ficheEvaluationST[key]) }}</td>
+                    <td class='notationTd'>{{ ficheEvaluation['Reponse'] }}</td>
                 </tr>
             {% endfor %}
         </table>
         <br />
-
-        <p id='validationFormulaireFicheEvaluationST'>{{ form_widget(ficheEvaluationST.Valider) }}</p>
-
-        {{ form_end(ficheEvaluationST) }}
     </div>
 
 {% endblock %}

@@ -4,7 +4,7 @@
 
 {% block messageAccueil %} Résumé de l'évaluation {% endblock %}
 
-{% block contenu %} 
+{% block contenu %}    
     <table id='ficheEvaluationSTSum'>
         <tr>
             <td class='trLabel'>Numéro d'affaire</td>
@@ -37,6 +37,9 @@
         <tr>
             <td class='trLabel'>Chargé d'affaire</td>
             <td>{{ envoi.CA }}</td>
+        </tr>
+        <tr>
+            <td colspan='2'><a href="{{ path('nox_intranet_consulter_fiche_evaluation', {cleFicheEvaluationST: envoi.cleEffectuerFicheEvaluationST}) }}">DQZd</a></td>
         </tr>
     </table>
 {% endblock %}

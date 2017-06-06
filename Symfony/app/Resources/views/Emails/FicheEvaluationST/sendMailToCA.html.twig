@@ -1,27 +1,36 @@
-Bonjour,
-</br>
-</br>
-Le collaborateur <span style='text-decoration: underline;'>{{ evaluateur.Firstname }} {{ evaluateur.Lastname }}</span> vient d'effectuer l'évaluation d'un sous-traitant, 
-dont vous êtes le chargé d'affaire.</br>
-</br>
+<!DOCTYPE HTML>
 
-<style>
-    table, tr, td {
-        border: solid 1px black;
-        border-collapse: collapse;        
-    }
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>
+        Information évaluation d'un sous traitant
+    </title>
 
-    td {
-        padding: 2%;
-    }
+    <style>
+        table, tr, td {
+            border: solid 1px black;
+            border-collapse: collapse;        
+            text-decoration: none;
+        }
 
-    .trLabel {
-        text-align:center;
-        color: white;
-        font-weight: bold;
-        background-color: rgb(31, 78, 121);
-    }
-</style>
+        td {
+            padding: 2%;
+        }
+
+        .trLabel {
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            background-color: rgb(31, 78, 121);
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+Bonjour,<br />
+<br />
+Le collaborateur {{ evaluateur.Firstname }} {{ evaluateur.Lastname }} vient d'effectuer l'évaluation d'un sous-traitant dont vous êtes le chargé d'affaire.<br />
+<br />
 
 <table>
     <tr>
@@ -62,4 +71,4 @@ dont vous êtes le chargé d'affaire.</br>
 Cordialement,
 <br />
 <br />
-(Ceci est un message automatique, veuillez ne pas y répondre)
+(Ceci est un message automatique, merci de ne pas y répondre)
