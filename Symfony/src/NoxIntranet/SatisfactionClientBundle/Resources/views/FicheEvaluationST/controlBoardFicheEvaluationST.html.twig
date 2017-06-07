@@ -1,8 +1,8 @@
 {% extends "::layout.html.twig" %}
 
-{% block titrePage %} Liste de toute les fiches d'évaluation ST effectuées {% endblock %}
+{% block titrePage %}Evaluation des sous-traitant{% endblock %}
 
-{% block messageAccueil %} Liste de toute les fiches d'évaluation ST effectuées {% endblock %}
+{% block messageAccueil %}Evaluation des sous-traitant{% endblock %}
 
 {% block contenu %}
 
@@ -22,100 +22,100 @@
         <div class='prestationReportingPagination' style='width: calc(100% / 3);'>
             {% if envois|keys|first != page %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'search': search, 'orderTime': orderTime,  
         'page': envois|keys|first}) }}' title='Page {{ envois|keys|first+1 }}'><<</a>{% endif %}
-            {% if envois[page-1] is defined %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'search': search, 'orderTime': orderTime, 
+                {% if envois[page-1] is defined %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'search': search, 'orderTime': orderTime, 
         'page': page-1}) }}' title='Page {{ page }}'><</a>{% endif %}
-            Page: <select onchange='location = this.value;'>
-                {% for i in 1..envois|length %}
-                    {% if i >= 1 %}
-                        <option value='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'search': search, 'orderTime': orderTime, 'page': i-1}) }}' 
-                                {% if i-1 == page %}selected{% endif %}>{{ i }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-            {% if envois[page+1] is defined %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'search': search, 'orderTime': orderTime, 
+                    Page: <select onchange='location = this.value;'>
+                        {% for i in 1..envois|length %}
+                            {% if i >= 1 %}
+                                <option value='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'search': search, 'orderTime': orderTime, 'page': i-1}) }}' 
+                                        {% if i-1 == page %}selected{% endif %}>{{ i }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    {% if envois[page+1] is defined %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'search': search, 'orderTime': orderTime, 
         'page': page+1}) }}' title='Page {{ page+2 }}'>></a>{% endif %}
-            {% if envois|keys|last != page %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'search': search, 'orderTime': orderTime, 
+                        {% if envois|keys|last != page %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'search': search, 'orderTime': orderTime, 
         'page': envois|keys|last}) }}' title='Page {{ envois|keys|last+1 }}'>>></a>{% endif %}
-        </div>
+                        </div>
 
-        <div style='display: inline-block; text-align: right; width: calc(100% / 3);'>
-            <div id='prestationReportOrderTime'>
-                Ordre d'affichage: <select onchange='location = this.value;'>
-                    <option value='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'search': search, 'orderTime': 'desc',}) }}' 
-                            {% if orderTime == 'desc' %}selected{% endif %}>Du + récent au - récent</option>
-                    <option value='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'search': search, 'orderTime': 'asc'}) }}' 
-                            {% if orderTime == 'asc' %}selected{% endif %}>Du + vieux au - vieux</option>
-                </select>
-            </div><br />
-        </div>
-    </div>
+                        <div style='display: inline-block; text-align: right; width: calc(100% / 3);'>
+                            <div id='prestationReportOrderTime'>
+                                Ordre d'affichage: <select onchange='location = this.value;'>
+                                    <option value='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'search': search, 'orderTime': 'desc',}) }}' 
+                                            {% if orderTime == 'desc' %}selected{% endif %}>Du + récent au - récent</option>
+                                    <option value='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'search': search, 'orderTime': 'asc'}) }}' 
+                                            {% if orderTime == 'asc' %}selected{% endif %}>Du + vieux au - vieux</option>
+                                </select>
+                            </div><br />
+                        </div>
+                    </div>
 
-    <table id='tablePrestationsInternesReporting'>
-        <tr>
-            <th rowspan='1'>Numéro de l'affaire</th>
-            <th rowspan='1'>Intitulé de l'affaire</th>
-            <th rowspan='1'>Evaluateur</th>
-            <th rowspan='1'>Nom du sous-traitant</th>
-            <th rowspan='1'>Date d'évaluation</th>
-            <th rowspan='1'>Details</th>
-            <th rowspan='1'>Exporter CSV</th>
-        </tr>
+                    <table id='tablePrestationsInternesReporting'>
+                        <tr>
+                            <th rowspan='1'>Numéro de l'affaire</th>
+                            <th rowspan='1'>Intitulé de l'affaire</th>
+                            <th rowspan='1'>Evaluateur</th>
+                            <th rowspan='1'>Nom du sous-traitant</th>
+                            <th rowspan='1'>Date d'évaluation</th>
+                            <th rowspan='1'>Details</th>
+                            <th rowspan='1'>Exporter CSV</th>
+                        </tr>
 
-        {% if envois[page] is defined and envois[page] != null %}
-            {% for envoi in envois[page] %}
-                <tr>
-                    <td {% if fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST] is defined %}rowspan='{{ fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST]|length }}'
-                    {% endif %}>{% if envoi.NumAffaire is defined %}{{ envoi.NumAffaire}}{% endif %}</td>
-                    <td {% if fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST] is defined %}rowspan='{{ fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST]|length }}'
-                    {% endif %}>{% if envoi.IntituleAffaire is defined %}{{ envoi.IntituleAffaire}}{% endif %}</td>
-                    <td {% if fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST] is defined %}rowspan='{{ fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST]|length }}'
-                    {% endif %}>{% if envoi.Evaluateur is defined %}{{ envoi.Evaluateur}}{% endif %}</td>
-                    <td {% if fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST] is defined %}rowspan='{{ fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST]|length }}'
-                    {% endif %}>{% if envoi.NomST is defined %}{{ envoi.NomST}}{% endif %}</td>
-                    <td {% if fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST] is defined %}rowspan='{{ fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST]|length }}'
-                    {% endif %}>{% if envoi.DateEvaluation is defined %}{{ envoi.DateEvaluation|date("d/m/Y")}}{% endif %}</td>
-                    <td><a href='{{ path('nox_intranet_info_fiche_evaluation_st_summary', {'cleEffectuerFicheEvaluationST': envoi.CleEffectuerFicheEvaluationST}) }}'>
-                    <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' class='prestationsInternesReportingGoToDetailsImg'></a></td>
-                    <td><a><img src='{{ asset('bundles/noxintranetressources/images/exporter.png') }}' class='prestationsInternesReportingGoToDetailsImg'></a></td>
-                </tr>
-
-
-                <tr style="/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#606c88+0,3f4c6b+100;Grey+3D+%232 */
-                    background: rgb(96,108,136); /* Old browsers */
-                    background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
-                    background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
-                    background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            {% endfor %}
-        {% else %}
-            <tr><td colspan='9'>Il n'y a aucun résultat à afficher.</td></tr>
-        {% endif %}
-
-    </table>
-        
-    <div class='prestationReportingNavigation'>
-        <div class='prestationReportingPagination'>
-            {% if envois|keys|first != page %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'orderTime': orderTime,'page': envois|keys|first}) }}' title='Page {{ envois|keys|first+1 }}'><<</a>{% endif %}
-            {% if envois[page-1] is defined %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'orderTime': orderTime,  'page': page-1}) }}' title='Page {{ page }}'><</a>{% endif %}
-            Page: <select onchange='location = this.value;'>
-                {% for i in 1..envois|length %}
-                    {% if i >= 1 %}
-                        <option value='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'orderTime': orderTime,  'page': i-1}) }}' {% if i-1 == page %}selected{% endif %}>{{ i }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-            {% if envois[page+1] is defined %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'orderTime': orderTime,  'page': page+1}) }}' title='Page {{ page+2 }}'>></a>{% endif %}
-            {% if envois|keys|last != page %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'orderTime': orderTime,  'page': envois|keys|last}) }}' title='Page {{ envois|keys|last+1 }}'>>></a>{% endif %}
-        </div>
-    </div>
+                        {% if envois[page] is defined and envois[page] != null %}
+                            {% for envoi in envois[page] %}
+                                <tr>
+                                    <td {% if fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST] is defined %}rowspan='{{ fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST]|length }}'
+                                                                                                                   {% endif %}>{% if envoi.NumAffaire is defined %}{{ envoi.NumAffaire}}{% endif %}</td>
+                                                                                                                   <td {% if fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST] is defined %}rowspan='{{ fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST]|length }}'
+                                                                                                                                                                                                  {% endif %}>{% if envoi.IntituleAffaire is defined %}{{ envoi.IntituleAffaire}}{% endif %}</td>
+                                                                                                                                                                                                  <td {% if fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST] is defined %}rowspan='{{ fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST]|length }}'
+                                                                                                                                                                                                        {% endif %}>{% if envoi.Evaluateur is defined %}{{ envoi.Evaluateur}}{% endif %}</td>
+                                                                                                                                                                                                        <td {% if fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST] is defined %}rowspan='{{ fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST]|length }}'
+                                                                                                                                                                                                        {% endif %}>{% if envoi.NomST is defined %}{{ envoi.NomST}}{% endif %}</td>
+                                                                                                                                                                                                        <td {% if fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST] is defined %}rowspan='{{ fichesEvaluationST[envoi.CleEffectuerFicheEvaluationST]|length }}'
+                                                                                                                                                                                                        {% endif %}>{% if envoi.DateEvaluation is defined %}{{ envoi.DateEvaluation|date("d/m/Y")}}{% endif %}</td>
+                                                                                                                                                                                                        <td><a href='{{ path('nox_intranet_info_fiche_evaluation_st_summary', {'cleEffectuerFicheEvaluationST': envoi.CleEffectuerFicheEvaluationST}) }}'>
+                                                                                                                                                                                                        <img src='{{ asset('bundles/noxintranetressources/images/Arrowhead-Right-48.png') }}' class='prestationsInternesReportingGoToDetailsImg'></a></td>
+                                                                                                                                                                                                        <td><a><img src='{{ asset('bundles/noxintranetressources/images/exporter.png') }}' class='prestationsInternesReportingGoToDetailsImg'></a></td>
+                                                                                                                                                                                                        </tr>
 
 
-{% endblock %}
+                                                                                                                                                                                                        <tr style="/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#606c88+0,3f4c6b+100;Grey+3D+%232 */
+                                                                                                                                                                                                        background: rgb(96,108,136); /* Old browsers */
+                                                                                                                                                                                                        background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
+                                                                                                                                                                                                        background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
+                                                                                                                                                                                                        background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                                                                                                                                                                                                        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */">
+                                                                                                                                                                                                        <td></td>
+                                                                                                                                                                                                        <td></td>
+                                                                                                                                                                                                        <td></td>
+                                                                                                                                                                                                        <td></td>
+                                                                                                                                                                                                        <td></td>
+                                                                                                                                                                                                        <td></td>
+                                                                                                                                                                                                        <td></td>
+                                                                                                                                                                                                        </tr>
+                                                                                                                                                                                                        {% endfor %}
+                                                                                                                                                                                                        {% else %}
+                                                                                                                                                                                                        <tr><td colspan='9'>Il n'y a aucun résultat à afficher.</td></tr>
+                                                                                                                                                                                                        {% endif %}
+
+                                                                                                                                                                                                        </table>
+
+                                                                                                                                                                                                        <div class='prestationReportingNavigation'>
+                                                                                                                                                                                                        <div class='prestationReportingPagination'>
+                                                                                                                                                                                                        {% if envois|keys|first != page %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'orderTime': orderTime,'page': envois|keys|first}) }}' title='Page {{ envois|keys|first+1 }}'><<</a>{% endif %}
+                                                                                                                                                                                                        {% if envois[page-1] is defined %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'orderTime': orderTime,  'page': page-1}) }}' title='Page {{ page }}'><</a>{% endif %}
+                                                                                                                                                                                                        Page: <select onchange='location = this.value;'>
+                                                                                                                                                                                                        {% for i in 1..envois|length %}
+                                                                                                                                                                                                        {% if i >= 1 %}
+                                                                                                                                                                                                        <option value='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'orderTime': orderTime,  'page': i-1}) }}' {% if i-1 == page %}selected{% endif %}>{{ i }}</option>
+                                                                                                                                                                                                        {% endif %}
+                                                                                                                                                                                                        {% endfor %}
+                                                                                                                                                                                                        </select>
+                                                                                                                                                                                                        {% if envois[page+1] is defined %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'orderTime': orderTime,  'page': page+1}) }}' title='Page {{ page+2 }}'>></a>{% endif %}
+                                                                                                                                                                                                        {% if envois|keys|last != page %}<a href='{{ path('nox_intranet_consulter_fiche_evaluation_st', {'orderTime': orderTime,  'page': envois|keys|last}) }}' title='Page {{ envois|keys|last+1 }}'>>></a>{% endif %}
+                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                        </div>
+
+
+                                                                                                                                                                                                        {% endblock %}

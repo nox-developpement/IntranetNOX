@@ -21,7 +21,7 @@ nox_intranet_recherche_avancee_consulter_questionnaire_satisfaction_client:
        
 nox_intranet_menu_fiche_evaluation_st:
     path:   /ressources/menu-fiche-evaluation-st
-    defaults: { _controller: NoxIntranetSatisfactionClientBundle:Ressources:menuFicheEvaluationST }
+    defaults: { _controller: NoxIntranetSatisfactionClientBundle:FicheEvaluationST/FicheEvaluationST:menuFicheEvaluationST }
 
 nox_intranet_info_effectuer_fiche_evaluation_st:
     path: /ressources/info-effectuer-fiche-evaluation-st

@@ -1,43 +1,66 @@
 {% extends "::layout.html.twig" %}
 
-{% block titrePage %}Nouvel envoi d'un questionnaire de satisfaction client{% endblock %}
+{% block style %}
+    <style>
+        #formQuestionnaireSatisfactionClient_Container {
+            width: 70%;
+            margin: auto;
+            text-align: center;
+        }
 
-{% block messageAccueil %}Nouvel envoi d'un questionnaire de satisfaction client{% endblock %}
+        #formQuestionnaireSatisfactionClient_Container form {
+            display: inline-block;
+            width: auto;
+            text-align: center;
+            background-color: rgba(255,255,255, 0.6);
+        }
+
+        .form_field {
+            display: table-row;
+        }
+
+        .form_field label {
+            display: table-cell;
+            padding: 0.3em 0.5em;
+            text-align: right;
+        }
+    </style>
+{% endblock %}
+
+{% block titrePage %}Nouveau questionnaire de satisfaction client{% endblock %}
+
+{% block messageAccueil %}Nouveau questionnaire de satisfaction client{% endblock %}
 
 {% block contenu %}
-<div style='width: 70%; margin: auto;'>
-        {{ form_start(formInfoEnvoiQuestionnaireSatisfactionClient, {'attr': {'style': 'text-align: center; background-color: rgba(255,255,255, 0.6);'}}) }}
-        <table>
-            <tr>
-                <th>{{ form_label(formInfoEnvoiQuestionnaireSatisfactionClient.NumAffaire, "Numéro de l'affaire") }}</th>
-                <td>{{ form_widget(formInfoEnvoiQuestionnaireSatisfactionClient.NumAffaire) }}</td>
-            </tr>
-            <tr>
-                <th>{{ form_label(formInfoEnvoiQuestionnaireSatisfactionClient.IntituleAffaire, "Intitulé de l'affaire") }}</th>
-                <td>{{ form_widget(formInfoEnvoiQuestionnaireSatisfactionClient.IntituleAffaire) }}</td>
-            </tr>
-            <tr>
-                <th>{{ form_label(formInfoEnvoiQuestionnaireSatisfactionClient.Agence, "Votre agence") }}</th>
-                <td>{{ form_widget(formInfoEnvoiQuestionnaireSatisfactionClient.Agence) }}</td>
-            </tr>
-            <tr>
-                <th>{{ form_label(formInfoEnvoiQuestionnaireSatisfactionClient.Client, "Nom du client") }}</th>
-                <td>{{ form_widget(formInfoEnvoiQuestionnaireSatisfactionClient.Client) }}</td>
-            </tr>
-            <tr>
-                <th>{{ form_label(formInfoEnvoiQuestionnaireSatisfactionClient.EmailClient, "Email du client") }}</th>
-                <td>{{ form_widget(formInfoEnvoiQuestionnaireSatisfactionClient.EmailClient) }}</td>
-            </tr>
-            <tr>
-                <th>{{ form_label(formInfoEnvoiQuestionnaireSatisfactionClient.EmailCA, "Email du CA (chargé d'affaire)") }}</th>
-                <td>{{ form_widget(formInfoEnvoiQuestionnaireSatisfactionClient.EmailCA) }}</td>
-            </tr>
-        </table>
-        </br>
+
+    <div id="formQuestionnaireSatisfactionClient_Container">
+        {{ form_start(formInfoEnvoiQuestionnaireSatisfactionClient) }}
+        <div class="form_field">
+            {{ form_label(formInfoEnvoiQuestionnaireSatisfactionClient.NumAffaire, "Numéro de l'affaire :") }}
+            {{ form_widget(formInfoEnvoiQuestionnaireSatisfactionClient.NumAffaire) }}
+        </div>
+        <div class="form_field">
+            {{ form_label(formInfoEnvoiQuestionnaireSatisfactionClient.IntituleAffaire, "Intitulé de l'affaire :") }}
+            {{ form_widget(formInfoEnvoiQuestionnaireSatisfactionClient.IntituleAffaire) }}
+        </div>
+        <div class="form_field">
+            {{ form_label(formInfoEnvoiQuestionnaireSatisfactionClient.Agence, "Votre agence :") }}
+            {{ form_widget(formInfoEnvoiQuestionnaireSatisfactionClient.Agence) }}
+        </div>
+        <div class="form_field">
+            {{ form_label(formInfoEnvoiQuestionnaireSatisfactionClient.Client, "Nom du client :") }}
+            {{ form_widget(formInfoEnvoiQuestionnaireSatisfactionClient.Client) }}
+        </div>
+        <div class="form_field">
+            {{ form_label(formInfoEnvoiQuestionnaireSatisfactionClient.EmailClient, "Email du client :") }}
+            {{ form_widget(formInfoEnvoiQuestionnaireSatisfactionClient.EmailClient) }}
+        </div>
+        <div class="form_field">
+            {{ form_label(formInfoEnvoiQuestionnaireSatisfactionClient.EmailCA, "Email du CA (chargé d'affaire) :") }}
+            {{ form_widget(formInfoEnvoiQuestionnaireSatisfactionClient.EmailCA) }}
+        </div>
         {{ form_widget(formInfoEnvoiQuestionnaireSatisfactionClient.Valider, {'attr': {'class': 'boutonFormulaire', 'style': 'margin-top: 1%; padding: 2%;' }}) }}
         {{ form_end(formInfoEnvoiQuestionnaireSatisfactionClient) }}
-        
     </div>
 
 {% endblock %}
- 

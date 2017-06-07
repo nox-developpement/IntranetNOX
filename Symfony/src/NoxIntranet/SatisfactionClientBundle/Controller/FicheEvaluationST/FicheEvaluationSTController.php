@@ -9,11 +9,20 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class FicheEvaluationSTController extends Controller {
+    
+    /**
+     * 
+     * Affiche le menu d'accès aux service de fiche d'évaluation de sous-traitant.
+     * 
+     * @return View
+     */
+    public function menuFicheEvaluationSTAction() {
+        return $this->render("NoxIntranetSatisfactionClientBundle:FicheEvaluationST:menuFicheEvaluationST.html.twig");
+    }
 
     /**
      * 

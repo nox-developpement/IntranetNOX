@@ -13,7 +13,6 @@ class QuestionnaireSatisfactionClientController extends Controller {
 
     // Formulaire d'informations pour pouvoir une remplir une fiche d'evaluation des ST
     public function infoEnvoiQuestionnaireSatisfactionClientAction(Request $request) {
-
         $em = $this->getDoctrine()->getManager();
 
         $infoEnvoiQuestionnaireSatisfactionClient = new InfoEnvoiQuestionnaireSatisfactionClient();
@@ -44,9 +43,8 @@ class QuestionnaireSatisfactionClientController extends Controller {
             }
             // Si l'email est valide.
             else {
-                // On attribut le nom de l'utilisateur courant comme émetteur.
+                // On attribut l'username de l'utilisateur courant comme émetteur et on déduit son mail.
                 $infoEnvoiQuestionnaireSatisfactionClient->setEmetteur($this->get('security.token_storage')->getToken()->getUser()->getUsername());
-
                 $infoEnvoiQuestionnaireSatisfactionClient->setEmailEmetteur($this->get('security.context')->getToken()->getUser()->getUsername() . "@groupe-nox.com");
 
                 // On génére aléatoirement une clé et on l'attribut à la demande.
@@ -59,7 +57,6 @@ class QuestionnaireSatisfactionClientController extends Controller {
                 // On récupére l'entité du CA en fonction de l'adresse email passée en parametre et on l'attribut à la demande.
                 $CA = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername(trim(str_replace('@groupe-nox.com', '', $formInfoEnvoiQuestionnaireSatisfactionClient->getData()->getEmailCA())));
                 $infoEnvoiQuestionnaireSatisfactionClient->setCA($CA->getUsername());
-
 
                 // On sauvegarde la demande en base de donnée.
                 $em->persist($infoEnvoiQuestionnaireSatisfactionClient);
