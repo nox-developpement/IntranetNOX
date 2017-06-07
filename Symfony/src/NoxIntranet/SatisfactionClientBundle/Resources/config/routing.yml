@@ -42,3 +42,7 @@ nox_intranet_fiche_evaluation_st:
 nox_intranet_consulter_fiche_evaluation:
     path: /ressources/consulter-fiche-evaluation-st/{cleFicheEvaluationST}
     defaults: { _controller: NoxIntranetSatisfactionClientBundle:FicheEvaluationST/FicheEvaluationST:consulterFicheEvaluationST}
+    
+nox_intranet_download_fiche_evaluation_pdf:
+    path: /ressources/download-fiche-evaluation/{cleFicheEvaluationST}
+    defaults: { _controller: NoxIntranetSatisfactionClientBundle:FicheEvaluationST/FicheEvaluationST:dowloadPDF}

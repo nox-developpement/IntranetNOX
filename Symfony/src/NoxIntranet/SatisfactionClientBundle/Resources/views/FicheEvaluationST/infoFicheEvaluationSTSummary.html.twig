@@ -1,45 +1,92 @@
 {% extends "::layout.html.twig" %}
 
+{% block style %}
+    <style>
+        #ficheEvaluationSTSum_Container {
+            width: 70%;
+            margin: auto;
+        }
+
+        #ficheEvaluationSTSum {
+            margin: auto;
+            border-collapse: collapse;
+        }
+
+        #ficheEvaluationSTSum, #ficheEvaluationSTSum tr, #ficheEvaluationSTSum th, #ficheEvaluationSTSum td {
+            border: 1px solid black;
+        }
+
+        #ficheEvaluationSTSum th, #ficheEvaluationSTSum td {
+            padding: 0.2em;
+        }
+
+        #ficheEvaluationSTSum th {
+            text-align: right;
+        }
+
+        #ficheEvaluationSTSum td {
+            text-align: center;
+        }
+        
+        #ficheEvaluationSTSum td a {
+            padding: 0 1em;
+        }
+        
+        #ficheEvaluationSTSum td hr {
+            margin: 0.2em 0;
+        }
+    </style>
+{% endblock %}
+
 {% block titrePage %} Résumé de l'évaluation {% endblock %}
 
 {% block messageAccueil %} Résumé de l'évaluation {% endblock %}
 
 {% block contenu %}    
-    <table id='ficheEvaluationSTSum'>
-        <tr>
-            <td class='trLabel'>Numéro d'affaire</td>
-            <td>{{ envoi.NumAffaire }}</td>
-        </tr>
-        <tr>
-            <td class='trLabel'>Intitulé d'affaire</td>
-            <td>{{ envoi.IntituleAffaire }}</td>
-        </tr>
-        <tr>
-            <td class='trLabel'>Agence de l'évaluateur</td>
-            <td>{{ envoi.Agence }}</td>
-        </tr>
-        <tr>
-            <td class='trLabel'>Evaluateur</td>
-            <td>{{ envoi.Evaluateur }}</td>
-        </tr>
-        <tr>
-            <td class='trLabel'>Nom du sous-traitant</td>
-            <td>{{ envoi.NomST }}</td>
-        </tr>
-        <tr>
-            <td class='trLabel'>Dénomination sociale du sous-traitant</td>
-            <td>{{ envoi.DenominationSocialeST }}</td>
-        </tr>
-        <tr>
-            <td class='trLabel'>Siret du sous-traitant</td>
-            <td>{{ envoi.SiretST }}</td>
-        </tr>
-        <tr>
-            <td class='trLabel'>Chargé d'affaire</td>
-            <td>{{ envoi.CA }}</td>
-        </tr>
-        <tr>
-            <td colspan='2'><a href="{{ path('nox_intranet_consulter_fiche_evaluation', {cleFicheEvaluationST: envoi.cleEffectuerFicheEvaluationST}) }}">DQZd</a></td>
-        </tr>
-    </table>
+
+    <div id="ficheEvaluationSTSum_Container">
+        <table id='ficheEvaluationSTSum'>
+            <tr>
+                <th>Numéro d'affaire</th>
+                <td>{{ infoFicheEvaluationST.NumAffaire }}</td>
+            </tr>
+            <tr>
+                <th>Intitulé d'affaire</th>
+                <td>{{ infoFicheEvaluationST.IntituleAffaire }}</td>
+            </tr>
+            <tr>
+                <th>Agence de l'évaluateur</th>
+                <td>{{ infoFicheEvaluationST.Agence }}</td>
+            </tr>
+            <tr>
+                <th>Evaluateur</th>
+                <td>{{ infoFicheEvaluationST.Evaluateur }}</td>
+            </tr>
+            <tr>
+                <th>Nom du sous-traitant</th>
+                <td>{{ infoFicheEvaluationST.NomST }}</td>
+            </tr>
+            <tr>
+                <th>Dénomination sociale du sous-traitant</th>
+                <td>{{ infoFicheEvaluationST.DenominationSocialeST }}</td>
+            </tr>
+            <tr>
+                <th>Siret du sous-traitant</th>
+                <td>{{ infoFicheEvaluationST.SiretST }}</td>
+            </tr>
+            <tr>
+                <th>Chargé d'affaire</th>
+                <td>{{ infoFicheEvaluationST.CA }}</td>
+            </tr>
+            <tr>
+                <th>Fiche d'évaluation</th>
+                <td>
+                    <a href="{{ path('nox_intranet_consulter_fiche_evaluation', {cleFicheEvaluationST: infoFicheEvaluationST.cleEffectuerFicheEvaluationST}) }}">Consulter</a>
+                    <hr>
+                    <a href="{{ path('nox_intranet_download_fiche_evaluation_pdf', {cleFicheEvaluationST: infoFicheEvaluationST.cleEffectuerFicheEvaluationST}) }}">Télécharger</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
 {% endblock %}
