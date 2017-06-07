@@ -114,6 +114,9 @@ class XmlDriver extends AbstractFileDriver
             if (isset($xmlDiscriminator->attributes()->cdata)) {
                 $metadata->xmlDiscriminatorCData = (string) $xmlDiscriminator->attributes()->cdata === 'true';
             }
+            if (isset($xmlDiscriminator->attributes()->namespace)) {
+                $metadata->xmlDiscriminatorNamespace = (string) $xmlDiscriminator->attributes()->namespace;
+            }
         }
 
         foreach ($elem->xpath('./virtual-property') as $method) {
@@ -147,7 +150,8 @@ class XmlDriver extends AbstractFileDriver
             foreach ($propertiesMetadata as $propertyKey => $pMetadata) {
 
                 $isExclude = false;
-                $isExpose = $pMetadata instanceof VirtualPropertyMetadata;
+                $isExpose = $pMetadata instanceof VirtualPropertyMetadata
+                    || $pMetadata instanceof ExpressionPropertyMetadata;
 
                 $pElem = $propertiesNodes[$propertyKey];
                 if ( ! empty($pElem)) {
@@ -162,6 +166,10 @@ class XmlDriver extends AbstractFileDriver
 
                     if (null !== $excludeIf = $pElem->attributes()->{'exclude-if'}) {
                         $pMetadata->excludeIf =$excludeIf;
+                    }
+
+                    if (null !== $skip = $pElem->attributes()->{'skip-when-empty'}) {
+                        $pMetadata->skipWhenEmpty = 'true' === strtolower($skip);
                     }
 
                     if (null !== $excludeIf = $pElem->attributes()->{'expose-if'}) {

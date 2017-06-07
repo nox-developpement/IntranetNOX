@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -15,8 +15,7 @@ use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/*
- *
+/**
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
 class AddMapperInformationCompilerPass implements CompilerPassInterface
@@ -63,6 +62,12 @@ class AddMapperInformationCompilerPass implements CompilerPassInterface
         foreach (DoctrineCollector::getInstance()->getUniques() as $class => $uniques) {
             foreach ($uniques as $field => $options) {
                 $mapper->addMethodCall('addUnique', array($class, $field, $options));
+            }
+        }
+
+        foreach (DoctrineCollector::getInstance()->getOverrides() as $class => $overrides) {
+            foreach ($overrides as $type => $options) {
+                $mapper->addMethodCall('addOverride', array($class, $type, $options));
             }
         }
     }

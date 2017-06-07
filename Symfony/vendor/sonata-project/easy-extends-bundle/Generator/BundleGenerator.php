@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -16,6 +16,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class BundleGenerator implements GeneratorInterface
 {
+    /**
+     * @var string
+     */
     protected $bundleTemplate;
 
     public function __construct()
@@ -24,8 +27,7 @@ class BundleGenerator implements GeneratorInterface
     }
 
     /**
-     * @param OutputInterface $output
-     * @param BundleMetadata  $bundleMetadata
+     * {@inheritdoc}
      */
     public function generate(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
@@ -68,7 +70,8 @@ class BundleGenerator implements GeneratorInterface
      */
     protected function generateBundleFile(OutputInterface $output, BundleMetadata $bundleMetadata)
     {
-        $file = sprintf('%s/Application%s.php', $bundleMetadata->getExtendedDirectory(), $bundleMetadata->getName());
+        $application = explode('\\', $bundleMetadata->getExtendedNamespace())[0];
+        $file = sprintf('%s/%s%s.php', $bundleMetadata->getExtendedDirectory(), $application, $bundleMetadata->getName());
 
         if (is_file($file)) {
             return;
@@ -77,7 +80,8 @@ class BundleGenerator implements GeneratorInterface
         $output->writeln(sprintf('  > generating bundle file <comment>%s</comment>', $file));
 
         $string = Mustache::replace($this->getBundleTemplate(), array(
-            'bundle'    => $bundleMetadata->getName(),
+            'application' => $application,
+            'bundle' => $bundleMetadata->getName(),
             'namespace' => $bundleMetadata->getExtendedNamespace(),
         ));
 

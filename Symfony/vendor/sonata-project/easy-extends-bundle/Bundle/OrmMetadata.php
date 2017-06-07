@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -15,46 +15,86 @@ use Symfony\Component\Finder\Finder;
 
 class OrmMetadata
 {
+    /**
+     * @var string
+     */
     protected $mappingEntityDirectory;
+
+    /**
+     * @var string
+     */
     protected $extendedMappingEntityDirectory;
+
+    /**
+     * @var string
+     */
     protected $entityDirectory;
+
+    /**
+     * @var string
+     */
     protected $extendedEntityDirectory;
+
+    /**
+     * @var string
+     */
     protected $extendedSerializerDirectory;
 
+    /**
+     * @param BundleMetadata $bundleMetadata
+     */
     public function __construct(BundleMetadata $bundleMetadata)
     {
-        $this->mappingEntityDirectory           = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());
-        $this->extendedMappingEntityDirectory   = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getExtendedDirectory());
-        $this->entityDirectory                  = sprintf('%s/Entity', $bundleMetadata->getBundle()->getPath());
-        $this->extendedEntityDirectory          = sprintf('%s/Entity', $bundleMetadata->getExtendedDirectory());
-        $this->extendedSerializerDirectory      = sprintf('%s/Resources/config/serializer', $bundleMetadata->getExtendedDirectory());
+        $this->mappingEntityDirectory = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());
+        $this->extendedMappingEntityDirectory = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getExtendedDirectory());
+        $this->entityDirectory = sprintf('%s/Entity', $bundleMetadata->getBundle()->getPath());
+        $this->extendedEntityDirectory = sprintf('%s/Entity', $bundleMetadata->getExtendedDirectory());
+        $this->extendedSerializerDirectory = sprintf('%s/Resources/config/serializer', $bundleMetadata->getExtendedDirectory());
     }
 
+    /**
+     * @return string
+     */
     public function getMappingEntityDirectory()
     {
         return $this->mappingEntityDirectory;
     }
 
+    /**
+     * @return string
+     */
     public function getExtendedMappingEntityDirectory()
     {
         return $this->extendedMappingEntityDirectory;
     }
 
+    /**
+     * @return string
+     */
     public function getEntityDirectory()
     {
         return $this->entityDirectory;
     }
 
+    /**
+     * @return string
+     */
     public function getExtendedEntityDirectory()
     {
         return $this->extendedEntityDirectory;
     }
 
+    /**
+     * @return string
+     */
     public function getExtendedSerializerDirectory()
     {
         return $this->extendedSerializerDirectory;
     }
 
+    /**
+     * @return array|\Iterator
+     */
     public function getEntityMappingFiles()
     {
         try {
@@ -69,6 +109,9 @@ class OrmMetadata
         }
     }
 
+    /**
+     * @return array
+     */
     public function getEntityNames()
     {
         $names = array();
@@ -89,6 +132,9 @@ class OrmMetadata
         return $names;
     }
 
+    /**
+     * @return array|\Iterator
+     */
     public function getRepositoryFiles()
     {
         try {

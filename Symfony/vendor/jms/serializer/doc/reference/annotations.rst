@@ -21,16 +21,23 @@ that should be used for the class.
 This annotation can be defined on a property to indicate that the property should
 not be serialized/unserialized. Works only in combination with NoneExclusionPolicy.
 
-If the `ExpressionLanguageExclusionStrategy` exclusion strategy is enabled, will
-be possible to use `@Exclude(if="expression")` to exclude dynamically a property.
+If the ``ExpressionLanguageExclusionStrategy`` exclusion strategy is enabled, will
+be possible to use ``@Exclude(if="expression")`` to exclude dynamically a property.
 
 @Expose
 ~~~~~~~
 This annotation can be defined on a property to indicate that the property should
 be serialized/unserialized. Works only in combination with AllExclusionPolicy.
 
-If the `ExpressionLanguageExclusionStrategy` exclusion strategy is enabled, will
-be possible to use `@Expose(if="expression")` to expose dynamically a property.
+If the ``ExpressionLanguageExclusionStrategy`` exclusion strategy is enabled, will
+be possible to use ``@Expose(if="expression")`` to expose dynamically a property.
+
+@SkipWhenEmpty
+~~~~~~~~~~~~~~
+This annotation can be defined on a property to indicate that the property should
+not be serialized if the result will be "empty".
+
+Works option works only when serializing.
 
 @SerializedName
 ~~~~~~~~~~~~~~~
@@ -119,6 +126,11 @@ be called to retrieve, or set the value of the given property:
             $this->name = $name;
         }
     }
+    
+.. note ::
+
+    If you need only to serialize your data, you can avoid providing a setter by
+    setting the property as read-only using the ``@ReadOnly`` annotation.
 
 @AccessorOrder
 ~~~~~~~~~~~~~~
@@ -227,11 +239,12 @@ In this example:
 
 - ``id`` is exposed using the object reflection.
 - ``lastName`` is exposed using the ``getLastName`` getter method.
-- ``id`` is exposed using the ``object.getFirstName()`` expression (``exp`` can contain any valid symfony expression).
+- ``firstName`` is exposed using the ``object.getFirstName()`` expression (``exp`` can contain any valid symfony expression).
 
 
-**Note**: This only works for serialization and is completely ignored during
-deserialization.
+.. note ::
+
+    This only works for serialization and is completely ignored during deserialization.
 
 @Inline
 ~~~~~~~
@@ -491,6 +504,8 @@ Available Options:
 | attribute                           | use an attribute instead of a child node         |
 +-------------------------------------+--------------------------------------------------+
 | cdata                               | render child node content with or without cdata  |
++-------------------------------------+--------------------------------------------------+
+| namespace                           | render child node using the specified namespace  |
 +-------------------------------------+--------------------------------------------------+
 
 Example for "attribute":

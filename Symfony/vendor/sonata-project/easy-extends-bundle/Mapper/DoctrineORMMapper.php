@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -18,19 +18,45 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 class DoctrineORMMapper implements EventSubscriber
 {
+    /**
+     * @var array
+     */
     protected $associations;
 
+    /**
+     * @var array
+     */
     protected $discriminators;
 
+    /**
+     * @var array
+     */
     protected $discriminatorColumns;
 
+    /**
+     * @var array
+     */
     protected $inheritanceTypes;
 
+    /**
+     * @var ManagerRegistry
+     */
     protected $doctrine;
 
+    /**
+     * @var array
+     */
     protected $indexes;
 
+    /**
+     * @var array
+     */
     protected $uniques;
+
+    /**
+     * @var array
+     */
+    protected $overrides;
 
     /**
      * @param ManagerRegistry $doctrine
@@ -40,8 +66,9 @@ class DoctrineORMMapper implements EventSubscriber
      * @param array           $discriminatorColumns
      * @param array           $inheritanceTypes
      * @param array           $uniques
+     * @param array           $overrides
      */
-    public function __construct(ManagerRegistry $doctrine, array $associations = array(), array $indexes = array(), array $discriminators = array(), array $discriminatorColumns = array(), array $inheritanceTypes = array(), array $uniques = array())
+    public function __construct(ManagerRegistry $doctrine, array $associations = array(), array $indexes = array(), array $discriminators = array(), array $discriminatorColumns = array(), array $inheritanceTypes = array(), array $uniques = array(), array $overrides = array())
     {
         $this->doctrine = $doctrine;
         $this->associations = $associations;
@@ -50,6 +77,7 @@ class DoctrineORMMapper implements EventSubscriber
         $this->discriminatorColumns = $discriminatorColumns;
         $this->discriminators = $discriminators;
         $this->inheritanceTypes = $inheritanceTypes;
+        $this->overrides = $overrides;
     }
 
     /**
@@ -104,6 +132,7 @@ class DoctrineORMMapper implements EventSubscriber
             $this->discriminatorColumns[$class] = $columnDef;
         }
     }
+
     /**
      * @param string $class
      * @param string $type
@@ -152,6 +181,22 @@ class DoctrineORMMapper implements EventSubscriber
     }
 
     /**
+     * Adds new ORM override.
+     *
+     * @param string $class
+     * @param string $type
+     * @param array  $options
+     */
+    final public function addOverride($class, $type, array $options)
+    {
+        if (!isset($this->overrides[$class])) {
+            $this->overrides[$class] = array();
+        }
+
+        $this->overrides[$class][$type] = $options;
+    }
+
+    /**
      * @param $eventArgs
      */
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
@@ -165,6 +210,7 @@ class DoctrineORMMapper implements EventSubscriber
         $this->loadDiscriminatorColumns($metadata);
         $this->loadDiscriminators($metadata);
         $this->loadInheritanceTypes($metadata);
+        $this->loadOverrides($metadata);
     }
 
     /**
@@ -181,7 +227,6 @@ class DoctrineORMMapper implements EventSubscriber
         try {
             foreach ($this->associations[$metadata->name] as $type => $mappings) {
                 foreach ($mappings as $mapping) {
-
                     // the association is already set, skip the native one
                     if ($metadata->hasAssociation($mapping['fieldName'])) {
                         continue;
@@ -286,6 +331,30 @@ class DoctrineORMMapper implements EventSubscriber
 
         foreach ($this->uniques[$metadata->name] as $name => $columns) {
             $metadata->table['uniqueConstraints'][$name] = array('columns' => $columns);
+        }
+    }
+
+    /**
+     * @param ClassMetadataInfo $metadata
+     *
+     * @throws \RuntimeException
+     */
+    private function loadOverrides(ClassMetadataInfo $metadata)
+    {
+        if (!array_key_exists($metadata->name, $this->overrides)) {
+            return;
+        }
+
+        try {
+            foreach ($this->overrides[$metadata->name] as $type => $overrides) {
+                foreach ($overrides as $override) {
+                    call_user_func(array($metadata, $type), $override['fieldName'], $override);
+                }
+            }
+        } catch (\ReflectionException $e) {
+            throw new \RuntimeException(
+                sprintf('Error with class %s : %s', $metadata->name, $e->getMessage()), 404, $e
+            );
         }
     }
 }
