@@ -191,7 +191,12 @@ class MatriceCompetenceController extends Controller {
         $user_canonical_name = $this->wd_remove_accents(strtoupper($current_user->getFirstname() . " " . $current_user->getLastname()));
 
         // Si l'utilisateur n'as pas les droits requis on le redirige vers l'accueil.
-        if (!($this->get('security.authorization_checker')->isGranted('ROLE_RH') || !empty($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($user_canonical_name)))) {
+        if (!(
+                $this->get('security.authorization_checker')->isGranted('ROLE_RH') ||
+                !empty($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($user_canonical_name)) ||
+                !empty($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByN2($user_canonical_name)) ||
+                $current_user->getUsername === "r.ballureau" || $current_user->getUsername() === "j.plenard" || $current_user->getUsername() === "a.caproplacide"
+                )) {
             $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas l'autorisation d'accéder à ce service.");
             $this->redirectToRoute("nox_intranet_accueil");
         }
@@ -218,7 +223,6 @@ class MatriceCompetenceController extends Controller {
             }
         }
 
-        //$competencesCount = count($competencesArray, COUNT_RECURSIVE) - count($competencesArray);
         // On récupére les société et établissements.
         $hierachies = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
         $societes = array();
@@ -230,7 +234,10 @@ class MatriceCompetenceController extends Controller {
             $etablissements[$hierachy->getEtablissement()] = $hierachy->getEtablissement();
         }
 
-        return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCompetence.html.twig', array('matrices_competences' => $matrices_competences, 'competencesArray' => $competencesArray, 'societes' => $societes, 'etablissements' => $etablissements));
+        // Liste des collaborateurs authorisés à éditer la matrice.
+        $authorizedEditors = json_encode(array('m.veillon', 'n.rigaudeau', 'a.forestier'));
+
+        return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCompetence.html.twig', array('matrices_competences' => $matrices_competences, 'competencesArray' => $competencesArray, 'societes' => $societes, 'etablissements' => $etablissements, 'authorizedEditors' => $authorizedEditors));
     }
 
     public function extractMatriceCompetenceDataAction() {
