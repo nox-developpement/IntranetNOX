@@ -3,6 +3,7 @@
 namespace NoxIntranet\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * MatriceCompetence
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="NoxIntranet\UserBundle\Entity\MatriceCompetenceRepository")
  */
-class MatriceCompetence {
+class MatriceCompetence implements JsonSerializable {
 
     /**
      * @var integer
@@ -41,6 +42,13 @@ class MatriceCompetence {
      */
     private $etablissement;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Matricule", type="string", length=255)
+     */
+    private $matricule;
+    
     /**
      * @var string
      *
@@ -86,23 +94,16 @@ class MatriceCompetence {
     /**
      * @var string
      *
-     * @ORM\Column(name="Competence_Principale", type="string", length=255)
+     * @ORM\Column(name="Competence_Principale", type="string", length=255, nullable=true)
      */
     private $competencePrincipale;
 
     /**
      * @var array
      *
-     * @ORM\Column(name="Competences_Secondaires", type="array")
+     * @ORM\Column(name="Competences_Secondaires", type="array", nullable=true)
      */
     private $competencesSecondaires;
-
-    /**
-     * @var array
-     *
-     * @ORM\Column(name="IsUpdated", type="boolean")
-     */
-    private $isUpdated = true;
 
     /**
      * Get id
@@ -356,6 +357,26 @@ class MatriceCompetence {
      */
     public function getPrenom() {
         return $this->prenom;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function jsonSerialize() {
+        return array(
+            'user' => $this->user,
+            'societe' => $this->societe,
+            'etablissement' => $this->etablissement,
+            'nom' => $this->nom,
+            'prenom' => $this->prenom,
+            'date_naissance' => $this->dateNaissance->format("d/m/Y"),
+            'date_anciennete' => $this->dateAnciennete->format("d/m/Y"),
+            'statut' => $this->statut,
+            'poste' => $this->poste,
+            'competence_principale' => $this->competencePrincipale,
+            'competences_secondaires' => $this->competencesSecondaires
+        );
     }
 
 }

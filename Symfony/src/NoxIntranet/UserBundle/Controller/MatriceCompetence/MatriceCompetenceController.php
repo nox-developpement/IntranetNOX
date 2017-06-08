@@ -427,6 +427,14 @@ class MatriceCompetenceController extends Controller {
                         'style' => "width: 100%;"
                     )
                 ))
+                ->add('Matricule', TextType::class, array(
+                    'read_only' => true,
+                    'data' => $userHierarchy->getMatricule(),
+                    'label' => "MATRICULE",
+                    'attr' => array(
+                        'style' => "width: 100%;"
+                    )
+                ))
                 ->add('Nom', TextType::class, array(
                     'read_only' => true,
                     'data' => $currentUser->getLastname(),
@@ -444,32 +452,36 @@ class MatriceCompetenceController extends Controller {
                     )
                 ))
                 ->add('Date_Naissance', DateType::class, array(
+                    'read_only' => true,
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy',
                     'label' => "DATE DE NAISSANCE",
                     'years' => range(date('Y') - 100, date('Y')),
                     'attr' => array(
-                        'class' => "datepicker",
+                        //'class' => "datepicker",
                         'style' => "display: inline-block;"
                     ),
                 ))
                 ->add('Date_Anciennete', DateType::class, array(
+                    'read_only' => true,
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy',
                     'label' => 'DATE ANCIENNETE',
                     'years' => range(date('Y') - 100, date('Y')),
                     'attr' => array(
-                        'class' => "datepicker",
+                        //'class' => "datepicker",
                         'style' => "display: inline-block;"
                     ),
                 ))
                 ->add('Statut', TextType::class, array(
+                    'read_only' => true,
                     'label' => "STATUT",
                     'attr' => array(
                         'style' => "width: 100%;"
                     ),
                 ))
                 ->add('Poste', TextType::class, array(
+                    'read_only' => true,
                     'label' => 'POSTE',
                     'attr' => array(
                         'style' => "width: 100%;"
