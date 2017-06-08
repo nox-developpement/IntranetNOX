@@ -231,6 +231,11 @@
             font-size: calc(9px + 0.2vw);
         }
 
+        #recherche_avance_form input[type='radio'] {
+            vertical-align: middle;
+            margin: 0;
+        }
+
         .select2-container .select2-selection--multiple {
             min-height: 0;
         }
@@ -568,6 +573,10 @@
     <!-- Recherche avancée -->
     <div id="recherche_avance_div">
         <form id="recherche_avance_form">
+            <p>
+                <label><input type="radio" name="search_match_type" value="all"> Valide toutes les conditions</label>
+                <label><input type="radio" name="search_match_type" value="any"> Valide une des conditions</label>
+            </p><br />
             <p>
                 <label for="Societe">Société : </label>
                 <select id="Societe" name="societe">

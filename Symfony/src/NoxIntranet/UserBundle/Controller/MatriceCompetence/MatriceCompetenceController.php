@@ -260,7 +260,7 @@ class MatriceCompetenceController extends Controller {
 
         // Modification de la méthode de caching pour économiser la mémoire.
         \PHPExcel_Settings::setCacheStorageMethod(\PHPExcel_CachedObjectStorageFactory::cache_to_sqlite3);
-
+        
         // Initialisation de l'objet Excel du fichier de matrice.
         $objReader = new \PHPExcel_Reader_Excel2007();
         $objReader->setReadDataOnly(true); // Permet de lire seulement les valeurs des cellules pour économiser la mémoire.
