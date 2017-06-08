@@ -20,6 +20,7 @@ namespace JMS\Serializer\Metadata\Driver;
 
 use JMS\Serializer\Annotation\Discriminator;
 use JMS\Serializer\Annotation\ExcludeIf;
+use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\XmlDiscriminator;
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Annotation\HandlerCallback;
@@ -105,6 +106,7 @@ class AnnotationDriver implements DriverInterface
             } elseif ($annot instanceof XmlDiscriminator) {
                 $classMetadata->xmlDiscriminatorAttribute = (bool) $annot->attribute;
                 $classMetadata->xmlDiscriminatorCData = (bool) $annot->cdata;
+                $classMetadata->xmlDiscriminatorNamespace = $annot->namespace ? (string) $annot->namespace : null;
             } elseif ($annot instanceof VirtualProperty) {
                 $virtualPropertyMetadata = new ExpressionPropertyMetadata($name, $annot->name, $annot->exp);
                 $propertiesMetadata[] = $virtualPropertyMetadata;
@@ -152,7 +154,8 @@ class AnnotationDriver implements DriverInterface
 
             foreach ($propertiesMetadata as $propertyKey => $propertyMetadata) {
                 $isExclude = false;
-                $isExpose = $propertyMetadata instanceof VirtualPropertyMetadata;
+                $isExpose = $propertyMetadata instanceof VirtualPropertyMetadata
+                    || $propertyMetadata instanceof ExpressionPropertyMetadata;
                 $propertyMetadata->readOnly = $propertyMetadata->readOnly || $readOnlyClass;
                 $accessType = $classAccessType;
                 $accessor = array(null, null);
@@ -166,6 +169,8 @@ class AnnotationDriver implements DriverInterface
                         $propertyMetadata->untilVersion = $annot->version;
                     } elseif ($annot instanceof SerializedName) {
                         $propertyMetadata->serializedName = $annot->name;
+                    } elseif ($annot instanceof SkipWhenEmpty) {
+                        $propertyMetadata->skipWhenEmpty = true;
                     } elseif ($annot instanceof Expose) {
                         $isExpose = true;
                         if (null !== $annot->if) {

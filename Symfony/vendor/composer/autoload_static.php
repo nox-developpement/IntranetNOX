@@ -28,6 +28,10 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
     );
 
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'Twig\\' => 5,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Util\\' => 22,
@@ -71,6 +75,10 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         array (
             'Monolog\\' => 8,
         ),
+        'L' => 
+        array (
+            'Lexik\\Bundle\\MaintenanceBundle\\' => 31,
+        ),
         'I' => 
         array (
             'Ivory\\JsonBuilder\\' => 18,
@@ -108,6 +116,10 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
     );
 
     public static $prefixDirsPsr4 = array (
+        'Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
         'Symfony\\Polyfill\\Util\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-util',
@@ -231,6 +243,10 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Lexik\\Bundle\\MaintenanceBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lexik/maintenance-bundle',
         ),
         'Ivory\\JsonBuilder\\' => 
         array (

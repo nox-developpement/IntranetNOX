@@ -289,7 +289,7 @@ class PointageController extends Controller {
             // Dates variables
             mktime(0, 0, 0, $easterMonth, $easterDay + 1, $easterYear),
             mktime(0, 0, 0, $easterMonth, $easterDay + 39, $easterYear),
-            mktime(0, 0, 0, $easterMonth, $easterDay + 50, $easterYear),
+            // mktime(0, 0, 0, $easterMonth, $easterDay + 50, $easterYear), On ne prend pas on compte le lundi de Pentecôte car il peux être travaillé.
         );
 
         sort($holidays);

@@ -1,4 +1,4 @@
-#PHP FFmpeg
+# PHP FFmpeg
 
 [![Build Status](https://secure.travis-ci.org/PHP-FFMpeg/PHP-FFMpeg.png?branch=master)](http://travis-ci.org/PHP-FFMpeg/PHP-FFMpeg)
 
@@ -98,7 +98,7 @@ $ffmpeg->open('video.mpeg');
 Two types of media can be resolved: `FFMpeg\Media\Audio` and `FFMpeg\Media\Video`.
 A third type, `FFMpeg\Media\Frame`, is available through videos.
 
-#### Video
+### Video
 
 `FFMpeg\Media\Video` can be transcoded, ie: change codec, isolate audio or
 video. Frames can be extracted.
@@ -111,15 +111,15 @@ pass a `FFMpeg\Format\FormatInterface` for that.
 Please note that audio and video bitrate are set on the format.
 
 ```php
-$format = new Format\Video\X264();
+$format = new FFMpeg\Format\Video\X264();
 $format->on('progress', function ($video, $format, $percentage) {
     echo "$percentage % transcoded";
 });
 
 $format
-    -> setKiloBitrate(1000)
-    -> setAudioChannels(2)
-    -> setAudioKiloBitrate(256);
+    ->setKiloBitrate(1000)
+    ->setAudioChannels(2)
+    ->setAudioKiloBitrate(256);
 
 $video->save($format, 'video.avi');
 ```
@@ -317,9 +317,9 @@ The clip filter takes two parameters:
 - `$start`, an instance of `FFMpeg\Coordinate\TimeCode`, specifies the start point of the clip
 - `$duration`, optional, an instance of `FFMpeg\Coordinate\TimeCode`, specifies the duration of the clip
 
-#### Audio
+### Audio
 
-`FFMpeg\Media\Audio` can be transcoded, ie: change codec, isolate audio or
+`FFMpeg\Media\Audio` can be transcoded too, ie: change codec, isolate audio or
 video. Frames can be extracted.
 
 ##### Transcoding
@@ -339,8 +339,8 @@ $format->on('progress', function ($audio, $format, $percentage) {
 });
 
 $format
-    -> setAudioChannels(2)
-    -> setAudioKiloBitrate(256);
+    ->setAudioChannels(2)
+    ->setAudioKiloBitrate(256);
 
 $audio->save($format, 'track.flac');
 ```
@@ -355,6 +355,14 @@ method. It only accepts audio filters.
 
 You can build your own filters and some are bundled in PHP-FFMpeg - they are
 accessible through the `FFMpeg\Media\Audio::filters` method.
+
+##### Clipping
+Cuts the audio at a desired point.
+
+```php
+$audio->filters()->clip(FFMpeg\Coordinate\TimeCode::fromSeconds(30), FFMpeg\Coordinate\TimeCode::fromSeconds(15));
+```
+
 
 ###### Metadata
 
@@ -477,7 +485,7 @@ informations about the transcoding.
 Predefined formats already provide progress informations as events.
 
 ```php
-$format = new Format\Video\X264();
+$format = new FFMpeg\Format\Video\X264();
 $format->on('progress', function ($video, $format, $percentage) {
     echo "$percentage % transcoded";
 });
@@ -494,7 +502,7 @@ You can add additional parameters to your encoding requests based on your video 
 The argument of the setAdditionalParameters method is an array.
 
 ```php
-$format = new Format\Video\X264();
+$format = new FFMpeg\Format\Video\X264();
 $format->setAdditionalParameters(array('foo', 'bar'));
 $video->save($format, 'video.avi');
 ```

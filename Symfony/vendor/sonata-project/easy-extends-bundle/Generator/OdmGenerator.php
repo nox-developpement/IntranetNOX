@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -16,12 +16,19 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class OdmGenerator implements GeneratorInterface
 {
+    /**
+     * @var string
+     */
     protected $documentTemplate;
+
+    /**
+     * @var string
+     */
     protected $documentRepositoryTemplate;
 
     public function __construct()
     {
-        $this->documentTemplate           = file_get_contents(__DIR__.'/../Resources/skeleton/odm/document.mustache');
+        $this->documentTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/odm/document.mustache');
         $this->documentRepositoryTemplate = file_get_contents(__DIR__.'/../Resources/skeleton/odm/repository.mustache');
     }
 
@@ -33,6 +40,22 @@ class OdmGenerator implements GeneratorInterface
         $this->generateMappingDocumentFiles($output, $bundleMetadata);
         $this->generateDocumentFiles($output, $bundleMetadata);
         $this->generateDocumentRepositoryFiles($output, $bundleMetadata);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDocumentTemplate()
+    {
+        return $this->documentTemplate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDocumentRepositoryTemplate()
+    {
+        return $this->documentRepositoryTemplate;
     }
 
     /**
@@ -49,14 +72,21 @@ class OdmGenerator implements GeneratorInterface
             // copy mapping definition
             $fileName = substr($file->getFileName(), 0, strrpos($file->getFileName(), '.'));
 
-            $dest_file  = sprintf('%s/%s', $bundleMetadata->getOdmMetadata()->getExtendedMappingDocumentDirectory(), $fileName);
-            $src_file   = sprintf('%s/%s.skeleton', $bundleMetadata->getOdmMetadata()->getMappingDocumentDirectory(), $fileName);
+            $dest_file = sprintf('%s/%s', $bundleMetadata->getOdmMetadata()->getExtendedMappingDocumentDirectory(), $fileName);
+            $src_file = sprintf('%s/%s.skeleton', $bundleMetadata->getOdmMetadata()->getMappingDocumentDirectory(), $fileName);
 
             if (is_file($dest_file)) {
                 $output->writeln(sprintf('   ~ <info>%s</info>', $fileName));
             } else {
                 $output->writeln(sprintf('   + <info>%s</info>', $fileName));
-                copy($src_file, $dest_file);
+
+                $mappingEntityTemplate = file_get_contents($src_file);
+
+                $string = Mustache::replace($mappingEntityTemplate, array(
+                    'namespace' => $bundleMetadata->getExtendedNamespace(),
+                ));
+
+                file_put_contents($dest_file, $string);
             }
         }
     }
@@ -74,7 +104,7 @@ class OdmGenerator implements GeneratorInterface
         foreach ($names as $name) {
             $extendedName = $name;
 
-            $dest_file  = sprintf('%s/%s.php', $bundleMetadata->getOdmMetadata()->getExtendedDocumentDirectory(), $name);
+            $dest_file = sprintf('%s/%s.php', $bundleMetadata->getOdmMetadata()->getExtendedDocumentDirectory(), $name);
             $src_file = sprintf('%s/%s.php', $bundleMetadata->getOdmMetadata()->getDocumentDirectory(), $extendedName);
 
             if (!is_file($src_file)) {
@@ -93,11 +123,11 @@ class OdmGenerator implements GeneratorInterface
                 $output->writeln(sprintf('   + <info>%s</info>', $name));
 
                 $string = Mustache::replace($this->getDocumentTemplate(), array(
-                    'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
-                    'name'                  => $name != $extendedName ? $extendedName : $name,
-                    'class'                 => $name,
-                    'extended_name'         => $name == $extendedName ? 'Base'.$name : $extendedName,
-                    'namespace'             => $bundleMetadata->getNamespace(),
+                    'extended_namespace' => $bundleMetadata->getExtendedNamespace(),
+                    'name' => $name != $extendedName ? $extendedName : $name,
+                    'class' => $name,
+                    'extended_name' => $name == $extendedName ? 'Base'.$name : $extendedName,
+                    'namespace' => $bundleMetadata->getNamespace(),
                 ));
 
                 file_put_contents($dest_file, $string);
@@ -116,8 +146,8 @@ class OdmGenerator implements GeneratorInterface
         $names = $bundleMetadata->getOdmMetadata()->getDocumentNames();
 
         foreach ($names as $name) {
-            $dest_file  = sprintf('%s/%sRepository.php', $bundleMetadata->getOdmMetadata()->getExtendedDocumentDirectory(), $name);
-            $src_file   = sprintf('%s/Base%sRepository.php', $bundleMetadata->getOdmMetadata()->getDocumentDirectory(), $name);
+            $dest_file = sprintf('%s/%sRepository.php', $bundleMetadata->getOdmMetadata()->getExtendedDocumentDirectory(), $name);
+            $src_file = sprintf('%s/Base%sRepository.php', $bundleMetadata->getOdmMetadata()->getDocumentDirectory(), $name);
 
             if (!is_file($src_file)) {
                 $output->writeln(sprintf('   ! <info>%sRepository</info>', $name));
@@ -130,29 +160,13 @@ class OdmGenerator implements GeneratorInterface
                 $output->writeln(sprintf('   + <info>%sRepository</info>', $name));
 
                 $string = Mustache::replace($this->getDocumentRepositoryTemplate(), array(
-                    'extended_namespace'    => $bundleMetadata->getExtendedNamespace(),
-                    'name'                  => $name,
-                    'namespace'             => $bundleMetadata->getNamespace(),
+                    'extended_namespace' => $bundleMetadata->getExtendedNamespace(),
+                    'name' => $name,
+                    'namespace' => $bundleMetadata->getNamespace(),
                 ));
 
                 file_put_contents($dest_file, $string);
             }
         }
-    }
-
-    /**
-     * @return string
-     */
-    public function getDocumentTemplate()
-    {
-        return $this->documentTemplate;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDocumentRepositoryTemplate()
-    {
-        return $this->documentRepositoryTemplate;
     }
 }

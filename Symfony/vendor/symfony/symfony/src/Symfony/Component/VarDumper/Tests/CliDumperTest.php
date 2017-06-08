@@ -230,7 +230,6 @@ EOTXT
                 }
             };'),
         ));
-        $line = __LINE__ - 2;
         $ref = (int) $out;
 
         $data = $cloner->cloneVar($out);
@@ -295,10 +294,8 @@ stream resource {@{$ref}
       }
       %d. %slosure%s() ==> Twig_Template->render(): {
         src: {
-          %sCliDumperTest.php:{$line}: """
-                    }\\n
-                };'),\\n
-            ));\\n
+          %sCliDumperTest.php:%d: """
+%A
             """
         }
       }

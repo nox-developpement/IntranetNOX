@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new NoxIntranet\PDFParsingBundle\NoxIntranetPDFParsingBundle(),
             new NoxIntranet\GXBundle\NoxIntranetGXBundle(),
             new NoxIntranet\PointageBundle\NoxIntranetPointageBundle(),
+			new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

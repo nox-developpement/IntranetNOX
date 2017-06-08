@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -18,7 +18,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * EasyExtendsExtension.
- *
  *
  * @author     Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */

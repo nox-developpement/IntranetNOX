@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Maintenance en cours</title>
+        <style>
+            html, body {
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+                background-color: #1F4E79;
+            }
+
+            #maintenance_message_container {
+                display: table;
+                height: 100%;
+                width: 100%;
+            }
+
+            #maintenance_message_vertical_aligner {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            #maintenance_message {
+                text-align: center;
+                font-size: calc(20px + 1vw);
+                color: white;
+            }
+            
+            #maintenance_message img {
+                width: 250px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="maintenance_message_container">
+            <div id="maintenance_message_vertical_aligner">
+                <p id="maintenance_message">
+                    <img src="{{ asset("bundles/noxintranetaccueil/images/LOGO NOX.jpg") }}" alt="Logo NOX"><br />
+                    L'intranet est en cours de maintenance, merci de revenir dans quelques instants...
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

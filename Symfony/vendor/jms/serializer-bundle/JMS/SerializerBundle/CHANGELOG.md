@@ -1,15 +1,87 @@
 # Change Log
 
+## [1.5.0](https://github.com/schmittjoh/JMSSerializerBundle/tree/1.5.0) (2017-05-10)
+**Implemented enhancements:**
 
-## [1.3.1](https://github.com/schmittjoh/JMSSerializerBundle/tree/1.3.1)
+- Added configuration options for recent doctrine improvements [\#570](https://github.com/schmittjoh/JMSSerializerBundle/pull/570) ([goetas](https://github.com/goetas))
+- Allow autowiring serializer [\#568](https://github.com/schmittjoh/JMSSerializerBundle/pull/568) ([Tobion](https://github.com/Tobion))
+- Added runtime twig extension support \(significant performance improvements\) [\#563](https://github.com/schmittjoh/JMSSerializerBundle/pull/563) ([goetas](https://github.com/goetas))
+
+**Fixed bugs:**
+
+- Arrays beginning with index 1 are parsed as an object  [\#375](https://github.com/schmittjoh/JMSSerializerBundle/issues/375)
+- serializing a json array using {} instead of \[\] [\#373](https://github.com/schmittjoh/JMSSerializerBundle/issues/373)
 
 **Closed issues:**
 
+- \[BUG\] Metadata PhpDriver always beats AnnotationDriver in DriverChain [\#567](https://github.com/schmittjoh/JMSSerializerBundle/issues/567)
+-  requirements could not be resolved to an installable set of packages [\#566](https://github.com/schmittjoh/JMSSerializerBundle/issues/566)
+- Missing configuration for doctrine object constructor [\#565](https://github.com/schmittjoh/JMSSerializerBundle/issues/565)
+- Performance issue [\#562](https://github.com/schmittjoh/JMSSerializerBundle/issues/562)
+- Missing configuration option for lazy virtual proxy initialization [\#539](https://github.com/schmittjoh/JMSSerializerBundle/issues/539)
+- SerializationListener not being called for sub entities after upgrading to 1.1.0 [\#514](https://github.com/schmittjoh/JMSSerializerBundle/issues/514)
+- Can't override third party serializer config file [\#511](https://github.com/schmittjoh/JMSSerializerBundle/issues/511)
+- registering callback with a specific class name doesn't work . [\#508](https://github.com/schmittjoh/JMSSerializerBundle/issues/508)
+- change serialized name of a property when it is in a specific group [\#457](https://github.com/schmittjoh/JMSSerializerBundle/issues/457)
+- Serializing stdClass with arbitrary depth [\#414](https://github.com/schmittjoh/JMSSerializerBundle/issues/414)
+- Usage of @Groups [\#382](https://github.com/schmittjoh/JMSSerializerBundle/issues/382)
+- Serializing a stdClass [\#158](https://github.com/schmittjoh/JMSSerializerBundle/issues/158)
+- Add support for Traits \(PHP 5.4\) [\#102](https://github.com/schmittjoh/JMSSerializerBundle/issues/102)
+- @ExclusionPolicy\("all"\) is not respected by the parent classes [\#100](https://github.com/schmittjoh/JMSSerializerBundle/issues/100)
+
+## [1.4.0](https://github.com/schmittjoh/JMSSerializerBundle/tree/1.4.0) (2017-04-10)
+**Closed issues:**
+
+- Document how to prevent JMS serializer from overriding Symfony serializer [\#513](https://github.com/schmittjoh/JMSSerializerBundle/issues/513)
+- AccessorOrder : properties vs virtualProperty [\#512](https://github.com/schmittjoh/JMSSerializerBundle/issues/512)
+- Specify @Serializer/Group for @Discriminator field  [\#506](https://github.com/schmittjoh/JMSSerializerBundle/issues/506)
+- Ignore entity and/or subentity based on attribute value [\#499](https://github.com/schmittjoh/JMSSerializerBundle/issues/499)
+- How to change Strategy [\#493](https://github.com/schmittjoh/JMSSerializerBundle/issues/493)
+- AccessorOrder is ignored [\#488](https://github.com/schmittjoh/JMSSerializerBundle/issues/488)
+- When serializing subentities discriminator value is always added to serialized output [\#479](https://github.com/schmittjoh/JMSSerializerBundle/issues/479)
+- Serialized name "id" [\#461](https://github.com/schmittjoh/JMSSerializerBundle/issues/461)
+- Jms serializer @JMS\Inline\(\) annotation overrides an actual id [\#460](https://github.com/schmittjoh/JMSSerializerBundle/issues/460)
+- @JMS\Serializer\Annotation\Type\("DateTime\<'c'\>"\) doesn't works properly [\#459](https://github.com/schmittjoh/JMSSerializerBundle/issues/459)
+- Custom Class Type Mapping [\#446](https://github.com/schmittjoh/JMSSerializerBundle/issues/446)
+- Return an array instead of object [\#439](https://github.com/schmittjoh/JMSSerializerBundle/issues/439)
+- Serializer does not seem to visit virtual properties recursively [\#429](https://github.com/schmittjoh/JMSSerializerBundle/issues/429)
+- filtering doctrine entites with  `ExclusionPolicy\(All\)` [\#419](https://github.com/schmittjoh/JMSSerializerBundle/issues/419)
+- \[Feature\] Apply exclusión policity by groups [\#401](https://github.com/schmittjoh/JMSSerializerBundle/issues/401)
+- DateTime ISO8601 in PHP doesnt support milliseconds [\#395](https://github.com/schmittjoh/JMSSerializerBundle/issues/395)
+- custom handler documentation [\#379](https://github.com/schmittjoh/JMSSerializerBundle/issues/379)
+- Question: How to serialize data for KNP paginator which is using Solarium Subscriber. [\#374](https://github.com/schmittjoh/JMSSerializerBundle/issues/374)
+- Error View::create [\#365](https://github.com/schmittjoh/JMSSerializerBundle/issues/365)
+- Propel Collection Handler is not registered [\#349](https://github.com/schmittjoh/JMSSerializerBundle/issues/349)
+- Cannot redeclare class doctrine\orm\mapping\annotation [\#339](https://github.com/schmittjoh/JMSSerializerBundle/issues/339)
+- get a error of JMSSerializerBundle in Symfony2.3.4 and ODM [\#320](https://github.com/schmittjoh/JMSSerializerBundle/issues/320)
+- DoctrineObjectConstructor doesn't work with id as attribute [\#305](https://github.com/schmittjoh/JMSSerializerBundle/issues/305)
+- Performance issue - Help needed for optimization [\#281](https://github.com/schmittjoh/JMSSerializerBundle/issues/281)
+- GraphNavigator - Marked as Final  [\#238](https://github.com/schmittjoh/JMSSerializerBundle/issues/238)
+- Error when using yml for FormErrors [\#221](https://github.com/schmittjoh/JMSSerializerBundle/issues/221)
+- Can't configurate class which is in global namespace with YAML or XML [\#217](https://github.com/schmittjoh/JMSSerializerBundle/issues/217)
+- VirtualProperties called after postSerialize triggers [\#216](https://github.com/schmittjoh/JMSSerializerBundle/issues/216)
+
+**Merged pull requests:**
+
+- Use svg build badge [\#560](https://github.com/schmittjoh/JMSSerializerBundle/pull/560) ([hanneskaeufler](https://github.com/hanneskaeufler))
+
+## [1.3.1](https://github.com/schmittjoh/JMSSerializerBundle/tree/1.3.1) (2017-03-29)
+**Implemented enhancements:**
+
+- Added configuration for default context [\#556](https://github.com/schmittjoh/JMSSerializerBundle/pull/556) ([edefimov](https://github.com/edefimov))
+
+**Fixed bugs:**
+
 - Alias not working any more with 1.3 [\#559](https://github.com/schmittjoh/JMSSerializerBundle/issues/559)
 
+**Closed issues:**
 
-## [1.3.0](https://github.com/schmittjoh/JMSSerializerBundle/tree/1.3.0)
+- What's the purpose of 'id' under 'property\_naming' namespace in configuration. [\#522](https://github.com/schmittjoh/JMSSerializerBundle/issues/522)
+- "fos\_rest.serializer" must implement FOS\RestBundle\Serializer\Serializer \(instance of "JMS\Serializer\Serializer" given\). [\#509](https://github.com/schmittjoh/JMSSerializerBundle/issues/509)
+- property\_naming.id is not used? Property way to override the naming strategy [\#449](https://github.com/schmittjoh/JMSSerializerBundle/issues/449)
+- add option to alias field names [\#433](https://github.com/schmittjoh/JMSSerializerBundle/issues/433)
 
+## [1.3.0](https://github.com/schmittjoh/JMSSerializerBundle/tree/1.3.0) (2017-03-28)
 **Closed issues:**
 
 - Force uppermost level of output json as object [\#555](https://github.com/schmittjoh/JMSSerializerBundle/issues/555)
@@ -137,6 +209,10 @@
 - Fix jms\_serializer.infer\_types\_from\_doctrine\_metadata usage [\#430](https://github.com/schmittjoh/JMSSerializerBundle/pull/430) ([magnetik](https://github.com/magnetik))
 
 ## [1.0.0](https://github.com/schmittjoh/JMSSerializerBundle/tree/1.0.0) (2015-06-23)
+**Implemented enhancements:**
+
+- add service definition for IdenticalPropertyNamingStrategy [\#445](https://github.com/schmittjoh/JMSSerializerBundle/pull/445) ([maff](https://github.com/maff))
+
 **Closed issues:**
 
 - Not. [\#443](https://github.com/schmittjoh/JMSSerializerBundle/issues/443)
@@ -176,6 +252,7 @@
 - \[Doc - Configuration\] Fix yaml code-block [\#402](https://github.com/schmittjoh/JMSSerializerBundle/pull/402) ([Peekmo](https://github.com/Peekmo))
 - Added more PHP versions and HHVM [\#399](https://github.com/schmittjoh/JMSSerializerBundle/pull/399) ([Nyholm](https://github.com/Nyholm))
 - Documentation Fix: When registering an event listener, you have to additional attribute "cl... [\#360](https://github.com/schmittjoh/JMSSerializerBundle/pull/360) ([epicwhale](https://github.com/epicwhale))
+- Fix "Changing the Object Constructor" doc samples [\#359](https://github.com/schmittjoh/JMSSerializerBundle/pull/359) ([hanneskaeufler](https://github.com/hanneskaeufler))
 
 ## [0.13.0](https://github.com/schmittjoh/JMSSerializerBundle/tree/0.13.0) (2013-12-05)
 **Closed issues:**
