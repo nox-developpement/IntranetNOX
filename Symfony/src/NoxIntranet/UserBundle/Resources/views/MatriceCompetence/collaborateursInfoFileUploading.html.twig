@@ -15,6 +15,40 @@
             background-color: rgba(255,255,255, 0.6);
             border: 1px solid #1F4E79;
         }
+
+        #upload_info_div form label {
+            display: inline-block;
+            font-size: calc(15px + 0.2vw);
+            margin-bottom: 1em;
+        }
+
+        #upload_info_div form input[type='file'] {
+            display: none;
+        }
+
+        #file_drop {
+            padding: 1em;
+            border: dashed 5px grey;
+            border-radius: 5px;
+        }
+
+        #post_drop_text {
+            display: none;
+            background-color: #1F4E79;
+            color: white;
+            border-radius: 5px;
+            padding: 1em;
+        }
+        
+        #post_drop_delete_file {
+            margin-left: 0.5em;
+            opacity: 0.5;
+            cursor: pointer;
+        }
+        
+        #post_drop_delete_file:hover {
+            opacity: 1;
+        }
     </style>
 {% endblock %}
 
@@ -24,12 +58,47 @@
 
 {% block contenu %}
 
+    <script>
+        $(document).ready(function () {
+            var dropzone = $("#file_drop");
+
+            dropzone.on('dragover', function () {
+                dropzone.css('border-color', 'black');
+                return false;
+            });
+
+            dropzone.on('dragleave', function () {
+                dropzone.css('border-color', 'grey');
+                return false;
+            });
+
+            dropzone.on('drop', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                dropzone.css('border-color', 'grey');
+
+                var file = e.originalEvent.dataTransfer.files;
+
+                $("#post_drop_filename").text(file[0].name);
+                $("#post_drop_text").css('display', 'inline-block');
+                $("#pre_drop_text").hide();
+            });
+        });
+    </script>
+
     <div id="upload_info_div">
         {{ form_start(formUploadInfoFile) }}
-        <p>
-            {{ form_label(formUploadInfoFile.InfoFile) }}<br />
-            {{ form_widget(formUploadInfoFile.InfoFile) }}
-        </p>
+        {{ form_label(formUploadInfoFile.InfoFile) }}
+        {{ form_widget(formUploadInfoFile.InfoFile) }}
+        <div id="file_drop" onclick="$('#form_InfoFile').click();">
+            <p id="pre_drop_text">
+                Glisser-déposer le fichier<br />ou<br />Cliquer pour choisir un fichier
+            </p>
+            <p id="post_drop_text">
+                <span id="post_drop_filename"></span>
+                <span id="post_drop_delete_file">&#10060;</span>
+            </p>
+        </div>
         <p>
             {{ form_widget(formUploadInfoFile.SendFile) }}
         </p>

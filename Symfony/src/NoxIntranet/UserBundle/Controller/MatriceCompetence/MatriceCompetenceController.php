@@ -729,7 +729,7 @@ class MatriceCompetenceController extends Controller {
         $formUploadInfoFileBuilder = $this->createFormBuilder();
         $formUploadInfoFileBuilder
                 ->add("InfoFile", FileType::class, array(
-                    'label' => "Mise à jour des informations des collaborateurs"
+                    'label' => "Téléversement des informations des collaborateurs",
                 ))
                 ->add("SendFile", SubmitType::class, array(
                     'label' => "Envoyer le fichier"
@@ -762,9 +762,8 @@ class MatriceCompetenceController extends Controller {
 
             // Pour chaques cellules du fichier Excel...
             foreach ($objWorksheet->getCellCollection() as $cell) {
-                // Lecture des numéros de ligne et de colonne de la cellule.
+                // Lecture du numéro de ligne de la cellule.
                 $row = $objWorksheet->getCell($cell)->getRow();
-                $column = $objWorksheet->getCell($cell)->getColumn();
 
                 // Si la ligne est > 1 (En-tête) et la valeur de la 1ère cellule de la ligne n'est pas null...
                 if ($row > 1 && $objWorksheet->getCell("A" . $row)->getValue() !== null) {
@@ -801,12 +800,13 @@ class MatriceCompetenceController extends Controller {
                     }
                 }
             }
-            
+
             // Suppression du fichier.
             unlink($filepath);
 
+            // On recharge la page et on affiche un message de confirmation.
             $request->getSession()->getFlashBag()->add('notice', "Les informations des collaborateurs ont été mise à jour.");
-            //$this->redirectToRoute("nox_intranet_matrice_collaborateur_info_file_uploading");
+            $this->redirectToRoute("nox_intranet_matrice_collaborateur_info_file_uploading");
         }
 
         return $this->render("NoxIntranetUserBundle:MatriceCompetence:collaborateursInfoFileUploading.html.twig", array('formUploadInfoFile' => $formUploadInfoFile->createView()));
