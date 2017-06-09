@@ -260,7 +260,7 @@ class MatriceCompetenceController extends Controller {
 
         // Modification de la méthode de caching pour économiser la mémoire.
         \PHPExcel_Settings::setCacheStorageMethod(\PHPExcel_CachedObjectStorageFactory::cache_to_sqlite3);
-        
+
         // Initialisation de l'objet Excel du fichier de matrice.
         $objReader = new \PHPExcel_Reader_Excel2007();
         $objReader->setReadDataOnly(true); // Permet de lire seulement les valeurs des cellules pour économiser la mémoire.
@@ -657,32 +657,46 @@ class MatriceCompetenceController extends Controller {
                     ->select('u')
                     ->from('NoxIntranetUserBundle:MatriceCompetence', 'u');
 
+            // Type de recherche (ET/OU).
+            $search_match_type = $request->request->get('search_match_type');
+
             // Pour chaques champs de la recherche...
             foreach ($request->request as $field => $value) {
                 // Si il existe une valeur pour le champ...
-                if (!empty($value)) {
+                if ($field !== "search_match_type" && !empty($value)) {
                     // Si le champ est une date...
                     if ($field === "dateAnciennete" || $field === "dateNaissance") {
                         // On cherche à convertir la valeur en DateTime.
                         $date_from_value = DateTime::createFromFormat("d/m/Y", $value);
 
                         // On ajoute une recheche de date à la requête.
-                        $searchQueryBuilder
-                                ->andWhere('u.' . $field . " = :" . $field)
-                                ->setParameter($field, $date_from_value, \Doctrine\DBAL\Types\Type::DATE);
+                        if ($search_match_type === 'all') {
+                            $searchQueryBuilder->andWhere('u.' . $field . " = :" . $field); // Recherche en ET
+                        } else {
+                            $searchQueryBuilder->orWhere('u.' . $field . " = :" . $field); // Recherche en OU.
+                        }
+                        $searchQueryBuilder->setParameter($field, $date_from_value, \Doctrine\DBAL\Types\Type::DATE);
                     }
                     // Sinon si la valeur est une compétence secondaire...
                     else if ($field === "competencesSecondaires") {
                         // Pour chaques valeurs de compétence...
                         foreach ($value as $competence) {
                             // On ajoute un condition à la requête.
-                            $searchQueryBuilder->andWhere("u." . $field . " LIKE '%" . $competence . "%'");
+                            if ($search_match_type === 'all') {
+                                $searchQueryBuilder->andWhere("u." . $field . " LIKE '%" . $competence . "%'"); // Recherche en ET
+                            } else {
+                                $searchQueryBuilder->orWhere("u." . $field . " LIKE '%" . $competence . "%'"); // Recherche en OU.
+                            }
                         }
                     }
                     // Si la valeur n'est pas une date ou une compétence secondaire...
                     else {
                         // On ajoute un condition à la requête.
-                        $searchQueryBuilder->andWhere('u.' . $field . " LIKE '%" . $value . "%'");
+                        if ($search_match_type === 'all') {
+                            $searchQueryBuilder->andWhere('u.' . $field . " LIKE '%" . $value . "%'"); // Recherche en ET
+                        } else {
+                            $searchQueryBuilder->orWhere('u.' . $field . " LIKE '%" . $value . "%'"); // Recherche en OU.
+                        }
                     }
                 }
             }
@@ -709,6 +723,8 @@ class MatriceCompetenceController extends Controller {
      * @Security("has_role('ROLE_RH')")
      */
     public function collaborateursInfoUploadingAction(Request $request) {
+        // Initialisation de l'entity manager.
+        $em = $this->getDoctrine()->getManager();
 
         $formUploadInfoFileBuilder = $this->createFormBuilder();
         $formUploadInfoFileBuilder
@@ -731,6 +747,7 @@ class MatriceCompetenceController extends Controller {
             $filename = $file->getClientOriginalName();
 
             // Upload du fichier sur le serveur.
+            $filepath = "./uploads/" . $filename;
             $file->move("./uploads", $filename);
 
             /*
@@ -739,14 +756,98 @@ class MatriceCompetenceController extends Controller {
              * 
              */
 
+            // Initialise la lecture du fichier Excel.
+            $objPHPExcel = \PHPExcel_IOFactory::load($filepath);
+            $objWorksheet = $objPHPExcel->getActiveSheet();
+
+            // Pour chaques cellules du fichier Excel...
+            foreach ($objWorksheet->getCellCollection() as $cell) {
+                // Lecture des numéros de ligne et de colonne de la cellule.
+                $row = $objWorksheet->getCell($cell)->getRow();
+                $column = $objWorksheet->getCell($cell)->getColumn();
+
+                // Si la ligne est > 1 (En-tête) et la valeur de la 1ère cellule de la ligne n'est pas null...
+                if ($row > 1 && $objWorksheet->getCell("A" . $row)->getValue() !== null) {
+                    // On met les informations de la ligne dans un tableau.
+                    $date_naissance = new \DateTime();
+                    $date_naissance->setTimestamp(\PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCell("G" . $row)->getValue()));
+                    $date_anciennete = new \DateTime();
+                    $date_anciennete->setTimestamp(\PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCell("H" . $row)->getValue()));
+                    $user_info = array(
+                        'Matricule' => $objWorksheet->getCell("A" . $row)->getValue(),
+                        'Societe' => $objWorksheet->getCell("B" . $row)->getValue(),
+                        'Etablissement' => $objWorksheet->getCell("D" . $row)->getValue(),
+                        'Date_Naissance' => $date_naissance,
+                        'Date_Anciennete' => $date_anciennete,
+                        'Statut' => $objWorksheet->getCell("I" . $row)->getValue(),
+                        'Poste' => $objWorksheet->getCell("J" . $row)->getValue()
+                    );
+
+                    // Récupération de la matrice de compétence correspondant à la ligne.
+                    $user_matrice = $this->getMatriceCompetenceByUserMatricule($user_info['Matricule']);
+
+                    // Si la matrice existe...
+                    if (!empty($user_matrice)) {
+                        // On met à jour les informations.
+                        $user_matrice->setSociete($user_info['Societe']);
+                        $user_matrice->setEtablissement($user_info['Etablissement']);
+                        $user_matrice->setDateNaissance($user_info['Date_Naissance']);
+                        $user_matrice->setDateAnciennete($user_info['Date_Anciennete']);
+                        $user_matrice->setStatut($user_info['Statut']);
+                        $user_matrice->setPoste($user_info['Poste']);
+
+                        // Sauvegarde en base de données.
+                        $em->flush();
+                    }
+                }
+            }
+            
             // Suppression du fichier.
-            unlink("./uploads/" . $filename);
+            unlink($filepath);
 
             $request->getSession()->getFlashBag()->add('notice', "Les informations des collaborateurs ont été mise à jour.");
-            $this->redirectToRoute("nox_intranet_matrice_collaborateur_info_file_uploading");
+            //$this->redirectToRoute("nox_intranet_matrice_collaborateur_info_file_uploading");
         }
 
         return $this->render("NoxIntranetUserBundle:MatriceCompetence:collaborateursInfoFileUploading.html.twig", array('formUploadInfoFile' => $formUploadInfoFile->createView()));
+    }
+
+    private function getMatriceCompetenceByUserMatricule($matricule) {
+        // Initialisation de l'entity manager.
+        $em = $this->getDoctrine()->getManager();
+
+        // Récupération de la hiérachie.
+        $user_hierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByMatricule($matricule);
+
+        // Si la hiérarchie existe...
+        if (!empty($user_hierarchy)) {
+            // Récupération de l'entitée collaborateur.
+            $user_entity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($user_hierarchy->getUsername());
+
+            // Si le collaborateur existe...
+            if (!empty($user_entity)) {
+                // Récupération de la matrice.
+                $user_matrice = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->findOneByUser($user_entity);
+
+                // Si il n'existe pas de matrice pour ce collaborateur...
+                if (empty($user_matrice)) {
+                    // On en crée une.
+                    $user_matrice = new MatriceCompetence();
+                    $user_matrice->setUser($user_entity);
+                    $user_matrice->setMatricule($matricule);
+                    $user_matrice->setNom($user_entity->getLastname());
+                    $user_matrice->setPrenom($user_entity->getFirstname());
+
+                    // Sauvegarde en base de données.
+                    $em->persist($user_matrice);
+                }
+
+                // On retourne la matrice.
+                return $user_matrice;
+            }
+        }
+
+        return null;
     }
 
 }

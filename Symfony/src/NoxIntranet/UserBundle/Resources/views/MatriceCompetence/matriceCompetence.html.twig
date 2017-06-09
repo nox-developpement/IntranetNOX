@@ -233,7 +233,11 @@
 
         #recherche_avance_form input[type='radio'] {
             vertical-align: middle;
-            margin: 0;
+            margin: 0em;
+        }
+
+        label[for='match_all'], label[for='match_any'] {
+            margin: 0 1em;
         }
 
         .select2-container .select2-selection--multiple {
@@ -565,6 +569,11 @@
             $("#recherche_avance_form input").on("input", function () {
                 ajaxSearch(); // On lance la recherche.
             });
+            
+            // Lorsqu'on on écris dans les champs de recherche...
+            $("#recherche_avance_form input[type='radio']").on("change", function () {
+                ajaxSearch(); // On lance la recherche.
+            });
         }
 
     </script>
@@ -574,8 +583,9 @@
     <div id="recherche_avance_div">
         <form id="recherche_avance_form">
             <p>
-                <label><input type="radio" name="search_match_type" value="all"> Valide toutes les conditions</label>
-                <label><input type="radio" name="search_match_type" value="any"> Valide une des conditions</label>
+                <label>Résultat de recherche :</label>
+                <label for="match_all"><input id="match_all" type="radio" name="search_match_type" value="all" checked="checked"> valide toutes les conditions</label>
+                <label for="match_any"><input id="match_any" type="radio" name="search_match_type" value="any"> valide une des conditions</label>
             </p><br />
             <p>
                 <label for="Societe">Société : </label>
