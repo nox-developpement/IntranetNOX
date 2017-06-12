@@ -723,13 +723,14 @@ class MatriceCompetenceController extends Controller {
      * @Security("has_role('ROLE_RH')")
      */
     public function collaborateursInfoUploadingAction(Request $request) {
-        // Initialisation de l'entity manager.
-        $em = $this->getDoctrine()->getManager();
-
         $formUploadInfoFileBuilder = $this->createFormBuilder();
         $formUploadInfoFileBuilder
                 ->add("InfoFile", FileType::class, array(
                     'label' => "Téléversement des informations des collaborateurs",
+                    'required' => false,
+                    'attr' => array(
+                        "accept" => ".xls,.xlsx"
+                    )
                 ))
                 ->add("SendFile", SubmitType::class, array(
                     'label' => "Envoyer le fichier"
@@ -750,59 +751,8 @@ class MatriceCompetenceController extends Controller {
             $filepath = "./uploads/" . $filename;
             $file->move("./uploads", $filename);
 
-            /*
-             * 
-             * Traitement à ajouter ici...
-             * 
-             */
-
-            // Initialise la lecture du fichier Excel.
-            $objPHPExcel = \PHPExcel_IOFactory::load($filepath);
-            $objWorksheet = $objPHPExcel->getActiveSheet();
-
-            // Pour chaques cellules du fichier Excel...
-            foreach ($objWorksheet->getCellCollection() as $cell) {
-                // Lecture du numéro de ligne de la cellule.
-                $row = $objWorksheet->getCell($cell)->getRow();
-
-                // Si la ligne est > 1 (En-tête) et la valeur de la 1ère cellule de la ligne n'est pas null...
-                if ($row > 1 && $objWorksheet->getCell("A" . $row)->getValue() !== null) {
-                    // On met les informations de la ligne dans un tableau.
-                    $date_naissance = new \DateTime();
-                    $date_naissance->setTimestamp(\PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCell("G" . $row)->getValue()));
-                    $date_anciennete = new \DateTime();
-                    $date_anciennete->setTimestamp(\PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCell("H" . $row)->getValue()));
-                    $user_info = array(
-                        'Matricule' => $objWorksheet->getCell("A" . $row)->getValue(),
-                        'Societe' => $objWorksheet->getCell("B" . $row)->getValue(),
-                        'Etablissement' => $objWorksheet->getCell("D" . $row)->getValue(),
-                        'Date_Naissance' => $date_naissance,
-                        'Date_Anciennete' => $date_anciennete,
-                        'Statut' => $objWorksheet->getCell("I" . $row)->getValue(),
-                        'Poste' => $objWorksheet->getCell("J" . $row)->getValue()
-                    );
-
-                    // Récupération de la matrice de compétence correspondant à la ligne.
-                    $user_matrice = $this->getMatriceCompetenceByUserMatricule($user_info['Matricule']);
-
-                    // Si la matrice existe...
-                    if (!empty($user_matrice)) {
-                        // On met à jour les informations.
-                        $user_matrice->setSociete($user_info['Societe']);
-                        $user_matrice->setEtablissement($user_info['Etablissement']);
-                        $user_matrice->setDateNaissance($user_info['Date_Naissance']);
-                        $user_matrice->setDateAnciennete($user_info['Date_Anciennete']);
-                        $user_matrice->setStatut($user_info['Statut']);
-                        $user_matrice->setPoste($user_info['Poste']);
-
-                        // Sauvegarde en base de données.
-                        $em->flush();
-                    }
-                }
-            }
-
-            // Suppression du fichier.
-            unlink($filepath);
+            // Mise à jour des infos sur l'intranet.
+            $this->collaborateursInfoUpdating($filepath);
 
             // On recharge la page et on affiche un message de confirmation.
             $request->getSession()->getFlashBag()->add('notice', "Les informations des collaborateurs ont été mise à jour.");
@@ -812,6 +762,14 @@ class MatriceCompetenceController extends Controller {
         return $this->render("NoxIntranetUserBundle:MatriceCompetence:collaborateursInfoFileUploading.html.twig", array('formUploadInfoFile' => $formUploadInfoFile->createView()));
     }
 
+    /**
+     * 
+     * Retourne la matrice de compétence associée au matricule passé en paramêtre et en crée une nouvelle si elle n'existe pas.
+     * Retourne null si aucun collaborateur ne correspond à la matrice.
+     * 
+     * @param String $matricule Matricule du collaborateur.
+     * @return MatriceCompetence
+     */
     private function getMatriceCompetenceByUserMatricule($matricule) {
         // Initialisation de l'entity manager.
         $em = $this->getDoctrine()->getManager();
@@ -848,6 +806,95 @@ class MatriceCompetenceController extends Controller {
         }
 
         return null;
+    }
+
+    /**
+     * 
+     * Lecture du fichier Excel d'information des collaborateur de la matrice de compétence et mise à jour des informations sur l'intranet.
+     * 
+     * @param String $filepath Chemin du fichier Excel.
+     */
+    private function collaborateursInfoUpdating($filepath) {
+        // Initialisation de l'entity manager.
+        $em = $this->getDoctrine()->getManager();
+
+        // Initialise la lecture du fichier Excel.
+        $objPHPExcel = \PHPExcel_IOFactory::load($filepath);
+        $objWorksheet = $objPHPExcel->getActiveSheet();
+
+        // Pour chaques cellules du fichier Excel...
+        foreach ($objWorksheet->getCellCollection() as $cell) {
+            // Lecture du numéro de ligne de la cellule.
+            $row = $objWorksheet->getCell($cell)->getRow();
+
+            // Si la ligne est > 1 (En-tête) et la valeur de la 1ère cellule de la ligne n'est pas null...
+            if ($row > 1 && $objWorksheet->getCell("A" . $row)->getValue() !== null) {
+                // On met les informations de la ligne dans un tableau.
+                $date_naissance = new \DateTime();
+                $date_naissance->setTimestamp(\PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCell("G" . $row)->getValue()));
+                $date_anciennete = new \DateTime();
+                $date_anciennete->setTimestamp(\PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCell("H" . $row)->getValue()));
+                $user_info = array(
+                    'Matricule' => $objWorksheet->getCell("A" . $row)->getValue(),
+                    'Societe' => $objWorksheet->getCell("B" . $row)->getValue(),
+                    'Etablissement' => $objWorksheet->getCell("D" . $row)->getValue(),
+                    'Date_Naissance' => $date_naissance,
+                    'Date_Anciennete' => $date_anciennete,
+                    'Statut' => $objWorksheet->getCell("I" . $row)->getValue(),
+                    'Poste' => $objWorksheet->getCell("J" . $row)->getValue()
+                );
+
+                // Récupération de la matrice de compétence correspondant à la ligne.
+                $user_matrice = $this->getMatriceCompetenceByUserMatricule($user_info['Matricule']);
+
+                // Si la matrice existe...
+                if (!empty($user_matrice)) {
+                    // On met à jour les informations.
+                    $user_matrice->setSociete($user_info['Societe']);
+                    $user_matrice->setEtablissement($user_info['Etablissement']);
+                    $user_matrice->setDateNaissance($user_info['Date_Naissance']);
+                    $user_matrice->setDateAnciennete($user_info['Date_Anciennete']);
+                    $user_matrice->setStatut($user_info['Statut']);
+                    $user_matrice->setPoste($user_info['Poste']);
+
+                    // Sauvegarde en base de données.
+                    $em->flush();
+                }
+            }
+        }
+
+        // Suppression du fichier.
+        unlink($filepath);
+    }
+
+    /**
+     * 
+     * Requête d'upload de fichier d'info de la matrice par ajax.
+     * 
+     * @param Request $request
+     * @return Response
+     */
+    public function ajaxUploadCollaborateursInfoAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // Fichier Excel.
+            $info_file = $request->files->get("info_file");
+
+            // Nom du fichier.
+            $filename = $info_file->getClientOriginalName();
+
+            // Upload du fichier sur le serveur.
+            $filepath = "./uploads/" . $filename;
+            $info_file->move("./uploads", $filename);
+
+            // Mise à jour des infos sur l'intranet.
+            $this->collaborateursInfoUpdating($filepath);
+
+            // On génére l'URL de rechargement de la page et on affiche un message de confirmation.
+            $request->getSession()->getFlashBag()->add('notice', "Les informations des collaborateurs ont été mise à jour.");
+            $redirectUrl = $this->generateUrl("nox_intranet_matrice_collaborateur_info_file_uploading");
+
+            return new Response($redirectUrl);
+        }
     }
 
 }

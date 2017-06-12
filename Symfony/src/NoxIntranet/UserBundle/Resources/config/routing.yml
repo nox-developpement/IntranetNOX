@@ -66,3 +66,7 @@ nox_intranet_matrice_collaborateur_ajax_search_in_matrice:
 nox_intranet_matrice_collaborateur_info_file_uploading:
     path:   ressources/matrice-competence/collaborateurs-info-file-uploading
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:collaborateursInfoUploading }
+    
+nox_intranet_matrice_collaborateur_ajax_info_file_uploading:
+    path:   ressources/matrice-competence/ajax-collaborateurs-info-file-uploading
+    defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:ajaxUploadCollaborateursInfo }

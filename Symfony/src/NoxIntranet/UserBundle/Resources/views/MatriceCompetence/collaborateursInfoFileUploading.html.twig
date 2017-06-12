@@ -36,20 +36,27 @@
 
         #post_drop_text {
             display: none;
-            background-color: #1F4E79;
+            background-color: rgba(31,78,121, 0.8);
             color: white;
             border-radius: 5px;
             padding: 1em;
         }
-        
+
         #post_drop_delete_file {
             margin-left: 0.5em;
             opacity: 0.5;
             cursor: pointer;
         }
-        
+
         #post_drop_delete_file:hover {
             opacity: 1;
+        }
+
+        #form_SendFile {
+            background-color: #1F4E79;
+            color: white;
+            padding: 0.5em;
+            border-radius: 5px;
         }
     </style>
 {% endblock %}
@@ -61,38 +68,164 @@
 {% block contenu %}
 
     <script>
+
+
         $(document).ready(function () {
+            // Variable contenant le fichier droppé.
+            info_file = null;
+
+            fileDragDrop();
+            sendForm();
+            fileUploadForm();
+        });
+
+        // Active un drag & drop pour l'envoi de fichier Excel d'informations collaborateur.
+        function fileDragDrop() {
+            // Zone dans laquelle le drag & drop est actif.
             var dropzone = $("#file_drop");
 
+            // Lorsque la souris entre sur la zone de drag & drop.
             dropzone.on('dragover', function () {
                 dropzone.css('border-color', 'black');
                 return false;
             });
 
+            // Lorsque la souris quitte la zone de drag & drop.
             dropzone.on('dragleave', function () {
                 dropzone.css('border-color', 'grey');
                 return false;
             });
 
+            // Lorsqu'on drop un fichier.
             dropzone.on('drop', function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-                dropzone.css('border-color', 'grey');
+                dropzone.css('border-color', 'black');
 
-                var file = e.originalEvent.dataTransfer.files;
+                // On récupére le fichier.
+                var file = e.originalEvent.dataTransfer.files[0];
 
-                $("#post_drop_filename").text(file[0].name);
-                $("#post_drop_text").css('display', 'inline-block');
-                $("#pre_drop_text").hide();
+                // Si le fichier est un fichier Excel...
+                if (file.name.split(".").pop() === "xlxs" || file.name.split(".").pop() === "xls") {
+                    // On stock le fichier dans une variable globale.
+                    info_file = file;
+
+                    // On affiche le nom du fichier.
+                    $("#post_drop_filename").text(file.name);
+                    $("#post_drop_text").css('display', 'inline-block');
+                    $("#pre_drop_text").hide();
+                }
+                // Sinon...
+                else {
+                    // On affiche un message d'erreur.
+                    alert("Veuillez utilser un fichier Excel (.xlsx ou .xls).");
+                }
             });
-        });
+        }
+
+        // Upload d'un fichier par requête ajax.
+        function ajaxUploadInfoFile(file) {
+            // Initialisation du fichier à envoyer.
+            var data = new FormData();
+            data.append('info_file', file);
+
+            // Envoi du fichier.
+            $.ajax({
+                type: "POST",
+                url: "{{ path('nox_intranet_matrice_collaborateur_ajax_info_file_uploading') }}",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // Rechargmement de la page.
+                    document.location.href = response;
+                }
+            });
+        }
+
+        // Gestion de l'envoi du formulaire.
+        function sendForm() {
+            // Lors de l'envoi du formulaire...
+            $("form[name='form']").on("submit", function () {
+                // Si un fichier est présent dans la zone de drop...
+                if (info_file !== null) {
+                    // On bloque l'action par défaut.
+                    ajaxUploadInfoFile(info_file);
+                    return false;
+                }
+                // Sinon si il n'y a pas de fichier dans le formulaire...
+                else if ($("#form_InfoFile").val().length < 1) {
+                    // On bloque l'action par défaut et on affiche un message d'erreur.
+                    alert("Veuilez séléctionner un fichier à envoyer.");
+                    return false;
+                }
+            });
+        }
+
+        // Gestion des évenement sur le formulaire d'envoi de fichier.
+        function fileUploadForm() {
+            // Lors d'un clic sur la zone de drop...
+            $("#file_drop").on("click", function () {
+                // Si la variable global de fichier est null et que le champ de fichier du formulaire est vide..
+                if (info_file === null && $('#form_InfoFile').val() === "") {
+                    // On simule un clic sur le formulaire d'envoi de fichier.
+                    $('#form_InfoFile').click();
+                }
+            });
+
+            // Lors d'un clic sur la croix de suppression de fichier...
+            $("#post_drop_delete_file").on("click", function (e) {
+                // On stop la propagation du clic sur le formulaire parent.
+                e.stopPropagation();
+
+                // Si le fichier a été ajouté depuis le formulaire...
+                if (info_file === null) {
+                    // On efface la valeur du formulaire.
+                    $('#form_InfoFile').val("");
+                }
+                // Si le fichier a été droppé...
+                else {
+                    // On efface la valeur de info_file.
+                    info_file = null;
+                }
+
+                // On cache le nom du fichier.
+                $("#post_drop_filename").text("");
+                $("#post_drop_text").css('display', 'none');
+                $("#pre_drop_text").show();
+                $("#file_drop").css('border-color', 'grey');
+            });
+
+            // Lorsqu'on ajoute un fichier depuis le formulaire.
+            $('#form_InfoFile').on("change", function () {
+                // On récupére le fichier.
+                var file = $(this)[0].files[0];
+
+                // Si le fichier n'est pas un fichier Excel...
+                if (!(file.name.split(".").pop() === "xlxs" || file.name.split(".").pop() === "xls")) {
+                    // On supprime le fichier du formulaire et on affiche un message d'erreur.
+                    $('#form_InfoFile').val();
+                    alert("Veuillez utilser un fichier Excel (.xlsx ou .xls).");
+                    return false;
+                }
+
+                // Si le fichier est valide...
+                if (file.name.length > 1) {
+                    // On affiche le nom du fichier.
+                    $("#post_drop_filename").text(file.name);
+                    $("#post_drop_text").css('display', 'inline-block');
+                    $("#pre_drop_text").hide();
+                    $("#file_drop").css('border-color', 'black');
+                }
+            });
+        }
     </script>
 
     <div id="upload_info_div">
         {{ form_start(formUploadInfoFile) }}
         {{ form_label(formUploadInfoFile.InfoFile) }}
         {{ form_widget(formUploadInfoFile.InfoFile) }}
-        <div id="file_drop" onclick="$('#form_InfoFile').click();">
+        <div id="file_drop">
             <p id="pre_drop_text">
                 Glisser-déposer le fichier<br />ou<br />Cliquer pour choisir un fichier
             </p>
@@ -101,7 +234,7 @@
                 <span id="post_drop_delete_file">&#10060;</span>
             </p>
         </div>
-        <p>
+        <p style="margin-bottom: 0;">
             {{ form_widget(formUploadInfoFile.SendFile) }}
         </p>
         {{ form_end(formUploadInfoFile) }}
