@@ -569,6 +569,15 @@ class MatriceCompetenceController extends Controller {
                         }
                         $searchQueryBuilder->setParameter($field, $date_from_value, \Doctrine\DBAL\Types\Type::DATE);
                     }
+                    // Sinon si la valeur est la compétence principale...
+                    else if ($field === "competencePrincipale") {
+                        // On ajoute un condition à la requête en cherchant la valeur exacte (puisque la valeur correspond à des tags prédéfinis).
+                        if ($search_match_type === 'all') {
+                            $searchQueryBuilder->andWhere("u." . $field . " LIKE '" . $value . "'"); // Recherche en ET
+                        } else {
+                            $searchQueryBuilder->orWhere("u." . $field . " LIKE '" . $value . "'"); // Recherche en OU.
+                        }
+                    }
                     // Sinon si la valeur est une compétence secondaire...
                     else if ($field === "competencesSecondaires") {
                         // Pour chaques valeurs de compétence...
