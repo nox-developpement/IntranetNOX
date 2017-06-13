@@ -563,7 +563,7 @@ class MatriceCompetenceController extends Controller {
 
                         // On ajoute une recheche de date à la requête.
                         if ($search_match_type === 'all') {
-                            $searchQueryBuilder->andWhere('u.' . $field . " = :" . $field); // Recherche en ET
+                            $searchQueryBuilder->andWhere('u.' . $field . " = :" . $field); // Recherche en ET.
                         } else {
                             $searchQueryBuilder->orWhere('u.' . $field . " = :" . $field); // Recherche en OU.
                         }
@@ -584,7 +584,7 @@ class MatriceCompetenceController extends Controller {
                         foreach ($value as $competence) {
                             // On ajoute un condition à la requête.
                             if ($search_match_type === 'all') {
-                                $searchQueryBuilder->andWhere("u." . $field . " LIKE '%" . $competence . "%'"); // Recherche en ET
+                                $searchQueryBuilder->andWhere("u." . $field . " LIKE '%" . $competence . "%'"); // Recherche en ET.
                             } else {
                                 $searchQueryBuilder->orWhere("u." . $field . " LIKE '%" . $competence . "%'"); // Recherche en OU.
                             }
@@ -594,7 +594,7 @@ class MatriceCompetenceController extends Controller {
                     else {
                         // On ajoute un condition à la requête.
                         if ($search_match_type === 'all') {
-                            $searchQueryBuilder->andWhere('u.' . $field . " LIKE '%" . $value . "%'"); // Recherche en ET
+                            $searchQueryBuilder->andWhere('u.' . $field . " LIKE '%" . $value . "%'"); // Recherche en ET.
                         } else {
                             $searchQueryBuilder->orWhere('u.' . $field . " LIKE '%" . $value . "%'"); // Recherche en OU.
                         }
@@ -812,7 +812,6 @@ class MatriceCompetenceController extends Controller {
             $users[$nom][$prenom] = $user;
         }
 
-
         // Fichier Excel de matrice de compétence.
         $matrice_competence_root = $this->get('kernel')->getRootDir() . "/../src/NoxIntranet/UserBundle/Resources/public/MatriceCompetence";
         $matrice_competence_file = $matrice_competence_root . "/Matrice_Competence.xlsx";
@@ -876,7 +875,7 @@ class MatriceCompetenceController extends Controller {
                     }
                     $matrice_competences_secondaires = array();
                     for ($column = 'J'; $column !== 'BO'; $column++) {
-                        if (trim($sheet->getCell($column . $rowIndex)->getValue()) === "*") {
+                        if (trim($sheet->getCell($column . $rowIndex)->getValue()) === "X") {
                             $matrice_competences_secondaires[] = $sheet->getCell($column . '3')->getValue();
                         }
                     }
@@ -907,6 +906,82 @@ class MatriceCompetenceController extends Controller {
         $em->flush();
 
         return new Response("OK");
+    }
+
+    public function exportMatriceCompetencesAction() {
+        // Récupération des matrices de compétences.
+        $em = $this->getDoctrine()->getManager();
+        $matrices_competences = $em->getRepository("NoxIntranetUserBundle:MatriceCompetence")->findBy(array(), array("matricule" => "ASC"));
+
+        // Initialisation d'un nouveau classeur Excel.
+        $objPHPExcel = new \PHPExcel();
+
+        // Initialisation des feuilles de compétences principales et de compétences secondaires.
+        $objPHPExcel->getActiveSheet()->setTitle("Compétence principale");
+        $competence_principale_sheet = $objPHPExcel->getSheetByName("Compétence principale");
+        $objPHPExcel->createSheet()->setTitle("Compétences secondaires");
+        $competences_secondaire_sheet = $objPHPExcel->getSheetByName("Compétences secondaires");
+
+        // Ecriture des en-têtes sur les feuilles.
+        $competence_principale_sheet->getCell("A1")->setValue("Matricule");
+        $competence_principale_sheet->getCell("B1")->setValue("Compétence principale");
+        $competences_secondaire_sheet->getCell("A1")->setValue("Matricule");
+        $competences_secondaire_sheet->getCell("B1")->setValue("Compétences secondaires");
+
+        // Initialisation des index des lignes du tableur.
+        $ligne_competence_principale = 2;
+        $ligne_competences_secondaire = 2;
+
+        // Pour chaque matrice...
+        foreach ($matrices_competences as $matrice) {
+            // Ecriture du matricule et de la compétence principale sur la feuille de compétence principale.
+            $competence_principale_sheet->getCell("A" . $ligne_competence_principale)->setValue($matrice->getMatricule());
+            $competence_principale_sheet->getCell("B" . $ligne_competence_principale)->setValue($matrice->getCompetencePrincipale());
+
+            // Incrémentation de l'index de ligne de la feuille de compétence principale.
+            $ligne_competence_principale++;
+
+            // Pour chaques compétences secondaires...
+            $competences_secondaire = $matrice->getCompetencesSecondaires();
+            foreach ($competences_secondaire as $competence) {
+                // Ecriture du matricule et de la compétence secondaire sur la feuille de compétences secondaires.
+                $competences_secondaire_sheet->getCell("A" . $ligne_competences_secondaire)->setValue($matrice->getMatricule());
+                $competences_secondaire_sheet->getCell("B" . $ligne_competences_secondaire)->setValue($competence);
+
+                // Incrémentation de l'index de ligne de la feuille de compétences secondaires.
+                $ligne_competences_secondaire++;
+            }
+        }
+
+        // Dimensionnement automatique des colonnes.
+        $competence_principale_sheet->getColumnDimension('A')->setAutoSize(true);
+        $competence_principale_sheet->getColumnDimension('B')->setAutoSize(true);
+        $competences_secondaire_sheet->getColumnDimension('A')->setAutoSize(true);
+        $competences_secondaire_sheet->getColumnDimension('B')->setAutoSize(true);
+
+        // Centrage du texte.
+        $competence_principale_sheet->getStyle($competence_principale_sheet->calculateWorksheetDimension())->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $competences_secondaire_sheet->getStyle($competences_secondaire_sheet->calculateWorksheetDimension())->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+
+        // Enregistrement en fichier .xlsx.
+        $export_file = "./Export matrice compétence.xlsx";
+        $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+        $objWriter->save($export_file);
+
+        // Récupération du contenu du fichier.
+        $export_file_binary = file_get_contents($export_file);
+
+        // Suppression du fichier.
+        unlink($export_file);
+
+        // Initialisation du téléchargement.
+        $response = new Response();
+        $response->headers->set("Content-Type", "application/pdf");
+        $response->headers->set("Content-Disposition", "attachment;filename='Export matrice compétence.xlsx'");
+        $response->setContent($export_file_binary);
+
+        return $response;
     }
 
 }
