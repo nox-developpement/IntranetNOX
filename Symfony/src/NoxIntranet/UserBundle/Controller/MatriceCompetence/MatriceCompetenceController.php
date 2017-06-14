@@ -981,7 +981,6 @@ class MatriceCompetenceController extends Controller {
         $competence_principale_sheet->getStyle($competence_principale_sheet->calculateWorksheetDimension())->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $competences_secondaire_sheet->getStyle($competences_secondaire_sheet->calculateWorksheetDimension())->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
-
         // Enregistrement en fichier .xlsx.
         $export_file = "./Export matrice compétence.xlsx";
         $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
