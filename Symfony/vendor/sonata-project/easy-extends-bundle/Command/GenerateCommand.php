@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -17,6 +17,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 /**
  * Generate Application entities from bundle entities.
@@ -32,7 +33,7 @@ class GenerateCommand extends ContainerAwareCommand
     {
         $this
             ->setName('sonata:easy-extends:generate')
-            ->setHelp(<<<EOT
+            ->setHelp(<<<'EOT'
 The <info>easy-extends:generate:entities</info> command generating a valid bundle structure from a Vendor Bundle.
 
   <info>ie: ./app/console sonata:easy-extends:generate SonataUserBundle</info>
@@ -43,6 +44,7 @@ EOT
 
         $this->addArgument('bundle', InputArgument::IS_ARRAY, 'The bundle name to "easy-extends"');
         $this->addOption('dest', 'd', InputOption::VALUE_OPTIONAL, 'The base folder where the Application will be created', false);
+        $this->addOption('namespace', 'ns', InputOption::VALUE_OPTIONAL, 'The namespace for the classes', false);
     }
 
     /**
@@ -54,17 +56,24 @@ EOT
         if ($destOption) {
             $dest = realpath($destOption);
             if (false === $dest) {
-                $output->writeln('');
-                $output->writeln(sprintf('<error>The provided destination folder \'%s\' does not exist!</error>', $destOption));
-
-                return 0;
+                throw new \RuntimeException(sprintf('The provided destination folder \'%s\' does not exist!', $destOption));
             }
         } else {
             $dest = $this->getContainer()->get('kernel')->getRootDir();
         }
 
+        $namespace = $input->getOption('namespace');
+        if ($namespace) {
+            if (!preg_match('/^(?:(?:[[:alnum:]]+|:vendor)\\\\?)+$/', $namespace)) {
+                throw new \InvalidArgumentException('The provided namespace \'%s\' is not a valid namespace!', $namespace);
+            }
+        } else {
+            $namespace = 'Application\:vendor';
+        }
+
         $configuration = array(
-            'application_dir' => sprintf('%s/Application', $dest),
+            'application_dir' => sprintf('%s%s%s', $dest, DIRECTORY_SEPARATOR, str_replace('\\', DIRECTORY_SEPARATOR, $namespace)),
+            'namespace' => $namespace,
         );
 
         $bundleNames = $input->getArgument('bundle');
@@ -74,6 +83,7 @@ EOT
             $output->writeln('<error>You must provide a bundle name!</error>');
             $output->writeln('');
             $output->writeln('  Bundles availables :');
+            /** @var BundleInterface $bundle */
             foreach ($this->getContainer()->get('kernel')->getBundles() as $bundle) {
                 $bundleMetadata = new BundleMetadata($bundle, $configuration);
 
@@ -85,23 +95,17 @@ EOT
             }
 
             $output->writeln('');
+        } else {
+            foreach ($bundleNames as $bundleName) {
+                $processed = $this->generate($bundleName, $configuration, $output);
 
-            return 0;
-        }
-
-        foreach ($bundleNames as $bundleName) {
-            $processed = $this->generate($bundleName, $configuration, $output);
-
-            if (!$processed) {
-                $output->writeln(sprintf('<error>The bundle \'%s\' does not exist or not defined in the kernel file!</error>', $bundleName));
-
-                return -1;
+                if (!$processed) {
+                    throw new \RuntimeException(sprintf('<error>The bundle \'%s\' does not exist or not defined in the kernel file!</error>', $bundleName));
+                }
             }
         }
 
         $output->writeln('done!');
-
-        return 0;
     }
 
     /**
@@ -117,6 +121,7 @@ EOT
     {
         $processed = false;
 
+        /** @var BundleInterface $bundle */
         foreach ($this->getContainer()->get('kernel')->getBundles() as $bundle) {
             if ($bundle->getName() != $bundleName) {
                 continue;

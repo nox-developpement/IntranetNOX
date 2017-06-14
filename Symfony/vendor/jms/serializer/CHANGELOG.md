@@ -1,7 +1,152 @@
 # Change Log
 
-## [1.6.0](https://github.com/schmittjoh/serializer/tree/1.6.0)
+## [1.7.1](https://github.com/schmittjoh/serializer/tree/1.7.1) (2017-05-15)
+**Fixed bugs:**
 
+- Custom type handlers does not work with doctrine proxies anymore [\#765](https://github.com/schmittjoh/serializer/issues/765)
+- Doctrine listener should not change the type on proxies with virtual type [\#768](https://github.com/schmittjoh/serializer/pull/768) ([goetas](https://github.com/goetas))
+
+**Closed issues:**
+
+- Missing bool type in graphNavigator.php in method accept\(\) [\#764](https://github.com/schmittjoh/serializer/issues/764)
+- The sub-class "Proxy-Class" is not listed in the discriminator of the base class "DiscriminatorClass" [\#459](https://github.com/schmittjoh/serializer/issues/459)
+- Configure whether serializing empty array. [\#124](https://github.com/schmittjoh/serializer/issues/124)
+
+## [1.7.0](https://github.com/schmittjoh/serializer/tree/1.7.0) (2017-05-10)
+**Implemented enhancements:**
+
+- Skip doctrine proxy initializations when exclusion strategy will exclude it  [\#760](https://github.com/schmittjoh/serializer/pull/760) ([goetas](https://github.com/goetas))
+
+**Closed issues:**
+
+- Error deserializing a map of \(nullable\) objects [\#762](https://github.com/schmittjoh/serializer/issues/762)
+- Add data using setData produces hashes instead of arrays [\#761](https://github.com/schmittjoh/serializer/issues/761)
+
+## [1.7.0-RC2](https://github.com/schmittjoh/serializer/tree/1.7.0-RC2) (2017-05-05)
+**Implemented enhancements:**
+
+- Make sure input is always a string [\#755](https://github.com/schmittjoh/serializer/pull/755) ([goetas](https://github.com/goetas))
+- Allow namespaced XML element discriminator [\#753](https://github.com/schmittjoh/serializer/pull/753) ([goetas](https://github.com/goetas))
+
+**Fixed bugs:**
+
+- Allow to skip "empty serialization result" when serializing [\#757](https://github.com/schmittjoh/serializer/pull/757) ([goetas](https://github.com/goetas))
+
+**Closed issues:**
+
+- Is it possible to use @XmlNamespace & @XmlRoot in a class at same time ? [\#759](https://github.com/schmittjoh/serializer/issues/759)
+- Serializes FOS:User datas with ExclusionPolicy\("all"\)  [\#599](https://github.com/schmittjoh/serializer/issues/599)
+
+**Merged pull requests:**
+
+- Add a quick reference for how to enable expression evaluator [\#758](https://github.com/schmittjoh/serializer/pull/758) ([chasen](https://github.com/chasen))
+- Allow for setExpressionEvaluator usage to be chainable [\#756](https://github.com/schmittjoh/serializer/pull/756) ([chasen](https://github.com/chasen))
+- Fix typo in annotation docs [\#754](https://github.com/schmittjoh/serializer/pull/754) ([JustBlackBird](https://github.com/JustBlackBird))
+
+## [1.7.0-RC1](https://github.com/schmittjoh/serializer/tree/1.7.0-RC1) (2017-04-25)
+**Implemented enhancements:**
+
+- Allow to configure the doctrine object constructor [\#751](https://github.com/schmittjoh/serializer/pull/751) ([goetas](https://github.com/goetas))
+- Trigger doctrine events on doctrine proxies [\#750](https://github.com/schmittjoh/serializer/pull/750) ([goetas](https://github.com/goetas))
+- Added stdClass serialization handler [\#749](https://github.com/schmittjoh/serializer/pull/749) ([goetas](https://github.com/goetas))
+- Allow to typehint for the type \(array/hash\) of the root item to be serialized [\#728](https://github.com/schmittjoh/serializer/pull/728) ([goetas](https://github.com/goetas))
+
+**Fixed bugs:**
+
+- Array gets serialized as object, not as array, depending on order. [\#709](https://github.com/schmittjoh/serializer/issues/709)
+- Doctrine Proxies and serializer.pre\_serialize [\#666](https://github.com/schmittjoh/serializer/issues/666)
+- Fix stdClass inconsistencies when serializing to JSON [\#730](https://github.com/schmittjoh/serializer/pull/730) ([goetas](https://github.com/goetas))
+- Allow to typehint for the type \\(array/hash\\) of the root item to be serialized [\#728](https://github.com/schmittjoh/serializer/pull/728) ([goetas](https://github.com/goetas))
+
+**Closed issues:**
+
+- Array serialized as JSON object [\#706](https://github.com/schmittjoh/serializer/issues/706)
+- From old issue \#290 [\#670](https://github.com/schmittjoh/serializer/issues/670)
+- Form validation error response - field names not converted from camel case to underscore [\#587](https://github.com/schmittjoh/serializer/issues/587)
+- Ability to getGroups on Context [\#554](https://github.com/schmittjoh/serializer/issues/554)
+- SerializedName misleading usage and constructor issue [\#548](https://github.com/schmittjoh/serializer/issues/548)
+- Discriminator should support xmlAttribute [\#547](https://github.com/schmittjoh/serializer/issues/547)
+- Public method accessor is required for excluded/not exposed properties [\#519](https://github.com/schmittjoh/serializer/issues/519)
+- Entity changed via preserialize and wrongly persisted [\#509](https://github.com/schmittjoh/serializer/issues/509)
+- XML deserialization properties null when using default namespace [\#504](https://github.com/schmittjoh/serializer/issues/504)
+- AccessorOrder is ignored [\#501](https://github.com/schmittjoh/serializer/issues/501)
+- Deserialization of sub entites with non existing id [\#492](https://github.com/schmittjoh/serializer/issues/492)
+- \[Question\] Handler/Converter for specific field [\#476](https://github.com/schmittjoh/serializer/issues/476)
+- getClassName regex may incorrectly retrieve a false class name from comments above the class. [\#460](https://github.com/schmittjoh/serializer/issues/460)
+- Multiple types for property? [\#445](https://github.com/schmittjoh/serializer/issues/445)
+- Allow non-qualified XML serialization when XML namespaces are part of the metadata [\#413](https://github.com/schmittjoh/serializer/issues/413)
+- Discriminator field name [\#412](https://github.com/schmittjoh/serializer/issues/412)
+- Serializing to and deserializing from DateTime is inconsistent [\#394](https://github.com/schmittjoh/serializer/issues/394)
+- ManyToOne and OneToMany Serialization Groups [\#387](https://github.com/schmittjoh/serializer/issues/387)
+- Static SubscribingHandlerInterface::getSubscribingMethod [\#380](https://github.com/schmittjoh/serializer/issues/380)
+- User defined ordering function [\#379](https://github.com/schmittjoh/serializer/issues/379)
+- serialized\_name for discriminator [\#372](https://github.com/schmittjoh/serializer/issues/372)
+- Serializing object with empty array [\#350](https://github.com/schmittjoh/serializer/issues/350)
+- VirtualProperty\(s\) are ignored with AccessorOrder [\#349](https://github.com/schmittjoh/serializer/issues/349)
+- When setting a group of serialization, the inheritance doesn't work anymore [\#328](https://github.com/schmittjoh/serializer/issues/328)
+- Serialization of empty object [\#323](https://github.com/schmittjoh/serializer/issues/323)
+- "Can't pop from an empty datastructure" error when multiple serializer calls [\#319](https://github.com/schmittjoh/serializer/issues/319)
+- virtual\_properties cannot be excluded with groups [\#291](https://github.com/schmittjoh/serializer/issues/291)
+- Integer serialized as String using VirtualProperty [\#289](https://github.com/schmittjoh/serializer/issues/289)
+- SimpleObjectProxy is not implement abstract methods of Proxy class [\#287](https://github.com/schmittjoh/serializer/issues/287)
+- Serializing array that have one of the element or member of an element an empty object [\#277](https://github.com/schmittjoh/serializer/issues/277)
+- Serialization with groups return json object instead array [\#267](https://github.com/schmittjoh/serializer/issues/267)
+- The purpose of "Force JSON output to "{}" instead of "\[\]" if it contains either no properties or all properties are null" [\#248](https://github.com/schmittjoh/serializer/issues/248)
+- Json array serialisation [\#242](https://github.com/schmittjoh/serializer/issues/242)
+- Ignoring "Assert" in output doc if excluded [\#241](https://github.com/schmittjoh/serializer/issues/241)
+- Alphabetical accessor order doesn't respect SerializedName overrides [\#240](https://github.com/schmittjoh/serializer/issues/240)
+- Request Annotation for Array Data [\#234](https://github.com/schmittjoh/serializer/issues/234)
+- Allow @var instead of @Type when deserializing [\#233](https://github.com/schmittjoh/serializer/issues/233)
+- Strange issue with groups exclusion strategy [\#230](https://github.com/schmittjoh/serializer/issues/230)
+- Warning when deserializing removed entity [\#216](https://github.com/schmittjoh/serializer/issues/216)
+- Where in the JMS code does the navigator call VisitProperty method for visitor [\#207](https://github.com/schmittjoh/serializer/issues/207)
+- Property of the type array is not in alphabetic order after serialization [\#196](https://github.com/schmittjoh/serializer/issues/196)
+- Magic and inconsistencies in array serialization [\#191](https://github.com/schmittjoh/serializer/issues/191)
+- PreSerialization Event not handled if the value is not object [\#162](https://github.com/schmittjoh/serializer/issues/162)
+- Hierarchical object serialization does not appear to inherit metadata from ancestors for metadata defined in XML [\#151](https://github.com/schmittjoh/serializer/issues/151)
+- When using MaxDepth, Serialization of an array entitiy is not working [\#132](https://github.com/schmittjoh/serializer/issues/132)
+- Switch to change default naming strategy [\#128](https://github.com/schmittjoh/serializer/issues/128)
+- Throw exceptions on invalid input [\#112](https://github.com/schmittjoh/serializer/issues/112)
+- Recursion detected error when serialization groups are in use [\#96](https://github.com/schmittjoh/serializer/issues/96)
+- Allow serialization groups to be accessible within event subscriber callbacks. [\#84](https://github.com/schmittjoh/serializer/issues/84)
+- Allow Constructed Object to be Passed to Deserialize [\#79](https://github.com/schmittjoh/serializer/issues/79)
+- JSON recursion when first object in root list is empty [\#61](https://github.com/schmittjoh/serializer/issues/61)
+- Can't serialize an array with an empty object [\#59](https://github.com/schmittjoh/serializer/issues/59)
+
+**Merged pull requests:**
+
+- Added runtime twig extension support \(significant performance improvements\) [\#747](https://github.com/schmittjoh/serializer/pull/747) ([goetas](https://github.com/goetas))
+
+## [1.6.2](https://github.com/schmittjoh/serializer/tree/1.6.2) (2017-04-17)
+**Fixed bugs:**
+
+- @VirtualProperty "exp" does not play nice with @ExclusionPolicy\("ALL"\) [\#746](https://github.com/schmittjoh/serializer/issues/746)
+
+## [1.6.1](https://github.com/schmittjoh/serializer/tree/1.6.1) (2017-04-12)
+**Fixed bugs:**
+
+- Do not output the XML node when the object will be emtpy [\#744](https://github.com/schmittjoh/serializer/pull/744) ([goetas](https://github.com/goetas))
+
+**Closed issues:**
+
+- XmlList not working since version 1.5.0 with xmlns attributes [\#742](https://github.com/schmittjoh/serializer/issues/742)
+- DoctrineObjectConstructor: how to use it without Symfony, in a PHP project [\#741](https://github.com/schmittjoh/serializer/issues/741)
+- Outdated docs site [\#733](https://github.com/schmittjoh/serializer/issues/733)
+- Allow data access to Property naming strategy [\#717](https://github.com/schmittjoh/serializer/issues/717)
+- Can't hint interface using @Type to trigger custom handler [\#631](https://github.com/schmittjoh/serializer/issues/631)
+- JSON/YAML encoding changes [\#617](https://github.com/schmittjoh/serializer/issues/617)
+- Why do we need this check inside SerializedName constructor, if there is name? [\#558](https://github.com/schmittjoh/serializer/issues/558)
+- Is it possible to deserialize Collection from Json [\#534](https://github.com/schmittjoh/serializer/issues/534)
+- PhpCollection 0.4 [\#531](https://github.com/schmittjoh/serializer/issues/531)
+- Possible mismatch of xml-attribute-map and $pMetadata-\>xmlAttribute in XmlDriver.php [\#422](https://github.com/schmittjoh/serializer/issues/422)
+- Access level propose for Handler/DateHandler.php [\#386](https://github.com/schmittjoh/serializer/issues/386)
+- Type DateTime and Timestamp \(U format\) [\#343](https://github.com/schmittjoh/serializer/issues/343)
+
+**Merged pull requests:**
+
+- Update PHPDocs [\#736](https://github.com/schmittjoh/serializer/pull/736) ([gnat42](https://github.com/gnat42))
+
+## [1.6.0](https://github.com/schmittjoh/serializer/tree/1.6.0) (2017-03-24)
 **Implemented enhancements:**
 
 - Add DateTimeImmutable support to DateHandler [\#543](https://github.com/schmittjoh/serializer/issues/543)
@@ -206,6 +351,7 @@
 - Trying to decorate a member to ArrayCollection but gets an error when deserilizing because composer didn't download the class from doctrine. [\#596](https://github.com/schmittjoh/serializer/issues/596)
 - Missing doctrine/common requirement ? [\#517](https://github.com/schmittjoh/serializer/issues/517)
 - PHP Fatal error: Using $this when not in object context in JMS/Serializer/Serializer.php on line 99 [\#441](https://github.com/schmittjoh/serializer/issues/441)
+- custom collection handler [\#415](https://github.com/schmittjoh/serializer/issues/415)
 - Exclude annotation not preventing attempt to find public methods when using AccessType [\#367](https://github.com/schmittjoh/serializer/issues/367)
 - serializer.pre\_serialize event only thrown on objects/classes [\#337](https://github.com/schmittjoh/serializer/issues/337)
 - Installing through composer gets "Segmentation fault" [\#308](https://github.com/schmittjoh/serializer/issues/308)

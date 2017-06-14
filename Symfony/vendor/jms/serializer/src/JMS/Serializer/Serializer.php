@@ -72,7 +72,7 @@ class Serializer implements SerializerInterface, ArrayTransformerInterface
      * @param \PhpCollection\MapInterface $deserializationVisitors of VisitorInterface
      * @param EventDispatcher\EventDispatcherInterface $dispatcher
      * @param TypeParser $typeParser
-     * @param ExpressionEvaluatorInterface $expressionLanguage
+     * @param ExpressionEvaluatorInterface|null $expressionEvaluator
      */
     public function __construct(
         MetadataFactoryInterface $factory,
@@ -107,7 +107,9 @@ class Serializer implements SerializerInterface, ArrayTransformerInterface
 
         return $this->serializationVisitors->get($format)
             ->map(function(VisitorInterface $visitor) use ($context, $data, $format) {
-                $this->visit($visitor, $context, $visitor->prepare($data), $format);
+                $type = $context->getInitialType() !== null ? $this->typeParser->parse($context->getInitialType()) : null;
+
+                $this->visit($visitor, $context, $visitor->prepare($data), $format, $type);
 
                 return $visitor->getResult();
             })
@@ -143,7 +145,9 @@ class Serializer implements SerializerInterface, ArrayTransformerInterface
 
         return $this->serializationVisitors->get('json')
             ->map(function(JsonSerializationVisitor $visitor) use ($context, $data) {
-                $this->visit($visitor, $context, $data, 'json');
+                $type = $context->getInitialType() !== null ? $this->typeParser->parse($context->getInitialType()) : null;
+
+                $this->visit($visitor, $context, $data, 'json', $type);
                 $result = $this->convertArrayObjects($visitor->getRoot());
 
                 if ( ! is_array($result)) {
@@ -205,7 +209,7 @@ class Serializer implements SerializerInterface, ArrayTransformerInterface
 
     private function convertArrayObjects($data)
     {
-        if ($data instanceof \ArrayObject) {
+        if ($data instanceof \ArrayObject || $data instanceof \stdClass) {
             $data = (array) $data;
         }
         if (is_array($data)) {

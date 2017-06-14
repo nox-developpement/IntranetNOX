@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -15,46 +15,86 @@ use Symfony\Component\Finder\Finder;
 
 class PhpcrMetadata
 {
+    /**
+     * @var string
+     */
     protected $mappingDocumentDirectory;
+
+    /**
+     * @var string
+     */
     protected $extendedMappingDocumentDirectory;
+
+    /**
+     * @var string
+     */
     protected $documentDirectory;
+
+    /**
+     * @var string
+     */
     protected $extendedDocumentDirectory;
+
+    /**
+     * @var string
+     */
     protected $extendedSerializerDirectory;
 
+    /**
+     * @param BundleMetadata $bundleMetadata
+     */
     public function __construct(BundleMetadata $bundleMetadata)
     {
-        $this->mappingDocumentDirectory           = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());
-        $this->extendedMappingDocumentDirectory   = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getExtendedDirectory());
-        $this->documentDirectory                  = sprintf('%s/PHPCR', $bundleMetadata->getBundle()->getPath());
-        $this->extendedDocumentDirectory          = sprintf('%s/PHPCR', $bundleMetadata->getExtendedDirectory());
-        $this->extendedSerializerDirectory        = sprintf('%s/Resources/config/serializer', $bundleMetadata->getExtendedDirectory());
+        $this->mappingDocumentDirectory = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getBundle()->getPath());
+        $this->extendedMappingDocumentDirectory = sprintf('%s/Resources/config/doctrine/', $bundleMetadata->getExtendedDirectory());
+        $this->documentDirectory = sprintf('%s/PHPCR', $bundleMetadata->getBundle()->getPath());
+        $this->extendedDocumentDirectory = sprintf('%s/PHPCR', $bundleMetadata->getExtendedDirectory());
+        $this->extendedSerializerDirectory = sprintf('%s/Resources/config/serializer', $bundleMetadata->getExtendedDirectory());
     }
 
+    /**
+     * @return string
+     */
     public function getMappingDocumentDirectory()
     {
         return $this->mappingDocumentDirectory;
     }
 
+    /**
+     * @return string
+     */
     public function getExtendedMappingDocumentDirectory()
     {
         return $this->extendedMappingDocumentDirectory;
     }
 
+    /**
+     * @return string
+     */
     public function getDocumentDirectory()
     {
         return $this->documentDirectory;
     }
 
+    /**
+     * @return string
+     */
     public function getExtendedDocumentDirectory()
     {
         return $this->extendedDocumentDirectory;
     }
 
+    /**
+     * @return string
+     */
     public function getExtendedSerializerDirectory()
     {
         return $this->extendedSerializerDirectory;
     }
 
+    /**
+     * @return array|\Iterator
+     */
     public function getDocumentMappingFiles()
     {
         try {
@@ -68,6 +108,9 @@ class PhpcrMetadata
         }
     }
 
+    /**
+     * @return array
+     */
     public function getDocumentNames()
     {
         $names = array();
@@ -87,6 +130,9 @@ class PhpcrMetadata
         return $names;
     }
 
+    /**
+     * @return array|\Iterator
+     */
     public function getRepositoryFiles()
     {
         try {

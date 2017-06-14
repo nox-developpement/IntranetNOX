@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -13,18 +13,44 @@ namespace Sonata\EasyExtendsBundle\Mapper;
 
 class DoctrineCollector
 {
+    /**
+     * @var array
+     */
     protected $associations;
 
+    /**
+     * @var array
+     */
     protected $indexes;
 
+    /**
+     * @var array
+     */
     protected $uniques;
 
+    /**
+     * @var array
+     */
     protected $discriminators;
 
+    /**
+     * @var array
+     */
     protected $discriminatorColumns;
 
+    /**
+     * @var array
+     */
     protected $inheritanceTypes;
 
+    /**
+     * @var array
+     */
+    protected $overrides;
+
+    /**
+     * @var DoctrineCollector
+     */
     private static $instance;
 
     public function __construct()
@@ -35,10 +61,11 @@ class DoctrineCollector
         $this->discriminatorColumns = array();
         $this->inheritanceTypes = array();
         $this->discriminators = array();
+        $this->overrides = array();
     }
 
     /**
-     * @return \Sonata\EasyExtendsBundle\Mapper\DoctrineCollector
+     * @return DoctrineCollector
      */
     public static function getInstance()
     {
@@ -146,12 +173,33 @@ class DoctrineCollector
     }
 
     /**
+     * Adds new override.
+     *
+     * @param string $class
+     * @param string $type
+     * @param array  $options
+     */
+    final public function addOverride($class, $type, array $options)
+    {
+        if (!isset($this->overrides[$class])) {
+            $this->overrides[$class] = array();
+        }
+
+        if (!isset($this->overrides[$class][$type])) {
+            $this->overrides[$class][$type] = array();
+        }
+
+        $this->overrides[$class][$type][] = $options;
+    }
+
+    /**
      * @return array
      */
     public function getAssociations()
     {
         return $this->associations;
     }
+
     /**
      * @return array
      */
@@ -190,5 +238,15 @@ class DoctrineCollector
     public function getUniques()
     {
         return $this->uniques;
+    }
+
+    /**
+     * Get all overrides.
+     *
+     * @return array
+     */
+    final public function getOverrides()
+    {
+        return $this->overrides;
     }
 }

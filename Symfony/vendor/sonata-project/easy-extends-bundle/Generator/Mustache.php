@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata project.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -14,8 +14,8 @@ namespace Sonata\EasyExtendsBundle\Generator;
 class Mustache
 {
     /**
-     * @param       $string
-     * @param array $parameters
+     * @param string $string
+     * @param array  $parameters
      *
      * @return mixed
      */

@@ -81,6 +81,7 @@ class YamlDriver extends AbstractFileDriver
             foreach ($propertiesMetadata as $pName => $pMetadata) {
                 $isExclude = false;
                 $isExpose = $pMetadata instanceof VirtualPropertyMetadata
+                    || $pMetadata instanceof ExpressionPropertyMetadata
                     || (isset($config['properties']) && array_key_exists($pName, $config['properties']));
 
                 if (isset($config['properties'][$pName])) {
@@ -92,6 +93,10 @@ class YamlDriver extends AbstractFileDriver
 
                     if (isset($pConfig['expose'])) {
                         $isExpose = (Boolean) $pConfig['expose'];
+                    }
+
+                    if (isset($pConfig['skip_when_empty'])) {
+                        $pMetadata->skipWhenEmpty = (Boolean) $pConfig['skip_when_empty'];
                     }
 
                     if (isset($pConfig['since_version'])) {
@@ -299,6 +304,9 @@ class YamlDriver extends AbstractFileDriver
                 if (isset($config['discriminator']['xml_element'])) {
                     if (isset($config['discriminator']['xml_element']['cdata'])) {
                         $metadata->xmlDiscriminatorCData = (bool) $config['discriminator']['xml_element']['cdata'];
+                    }
+                    if (isset($config['discriminator']['xml_element']['namespace'])) {
+                        $metadata->xmlDiscriminatorNamespace = (string) $config['discriminator']['xml_element']['namespace'];
                     }
                 }
 

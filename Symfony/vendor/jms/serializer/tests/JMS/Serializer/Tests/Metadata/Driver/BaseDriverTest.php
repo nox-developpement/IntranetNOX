@@ -20,10 +20,14 @@ namespace JMS\Serializer\Tests\Metadata\Driver;
 
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Metadata\ClassMetadata;
+use JMS\Serializer\Metadata\ExpressionPropertyMetadata;
 use JMS\Serializer\Metadata\PropertyMetadata;
 use JMS\Serializer\Metadata\VirtualPropertyMetadata;
 use JMS\Serializer\Tests\Fixtures\Discriminator\ObjectWithXmlAttributeDiscriminatorChild;
 use JMS\Serializer\Tests\Fixtures\Discriminator\ObjectWithXmlAttributeDiscriminatorParent;
+use JMS\Serializer\Tests\Fixtures\Discriminator\ObjectWithXmlNamespaceDiscriminatorChild;
+use JMS\Serializer\Tests\Fixtures\Discriminator\ObjectWithXmlNamespaceDiscriminatorParent;
+use JMS\Serializer\Tests\Fixtures\ParentSkipWithEmptyChild;
 use Metadata\Driver\DriverInterface;
 
 abstract class BaseDriverTest extends \PHPUnit_Framework_TestCase
@@ -136,6 +140,17 @@ abstract class BaseDriverTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($m->propertyMetadata['array']->xmlKeyValuePairs);
     }
 
+    public function testExpressionVirtualPropertyWithExcludeAll()
+    {
+        $a = new \JMS\Serializer\Tests\Fixtures\ObjectWithExpressionVirtualPropertiesAndExcludeAll();
+        $m = $this->getDriver()->loadMetadataForClass(new \ReflectionClass($a));;
+
+        $this->assertArrayHasKey('virtualValue', $m->propertyMetadata);
+
+        $p = new ExpressionPropertyMetadata($m->name, 'virtualValue', 'object.getVirtualValue()');
+        $this->assertEquals($p, $m->propertyMetadata['virtualValue']);
+    }
+
     public function testVirtualPropertyWithExcludeAll()
     {
         $a = new \JMS\Serializer\Tests\Fixtures\ObjectWithVirtualPropertiesAndExcludeAll();
@@ -200,6 +215,23 @@ abstract class BaseDriverTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($m->xmlDiscriminatorCData);
     }
 
+    public function testLoadXmlDiscriminatorWithNamespaces()
+    {
+        /** @var $m ClassMetadata */
+        $m = $this->getDriver()->loadMetadataForClass(new \ReflectionClass(ObjectWithXmlNamespaceDiscriminatorParent::class));
+
+        $this->assertNotNull($m);
+        $this->assertEquals('type', $m->discriminatorFieldName);
+        $this->assertEquals($m->name, $m->discriminatorBaseClass);
+        $this->assertEquals(
+            array(
+                'child' => ObjectWithXmlNamespaceDiscriminatorChild::class,
+            ),
+            $m->discriminatorMap
+        );
+        $this->assertEquals('http://example.com/', $m->xmlDiscriminatorNamespace);
+    }
+
     public function testLoadDiscriminatorWithGroup()
     {
         /** @var $m ClassMetadata */
@@ -215,6 +247,21 @@ abstract class BaseDriverTest extends \PHPUnit_Framework_TestCase
             ),
             $m->discriminatorMap
         );
+    }
+
+    public function testSkipWhenEmptyOption()
+    {
+        /** @var $m ClassMetadata */
+        $m = $this->getDriver()->loadMetadataForClass(new \ReflectionClass(ParentSkipWithEmptyChild::class));
+
+        $this->assertNotNull($m);
+
+        $this->assertInstanceOf(PropertyMetadata::class, $m->propertyMetadata['c']);
+        $this->assertInstanceOf(PropertyMetadata::class, $m->propertyMetadata['d']);
+        $this->assertInstanceOf(PropertyMetadata::class, $m->propertyMetadata['child']);
+        $this->assertFalse($m->propertyMetadata['c']->skipWhenEmpty);
+        $this->assertFalse($m->propertyMetadata['d']->skipWhenEmpty);
+        $this->assertTrue($m->propertyMetadata['child']->skipWhenEmpty);
     }
 
     public function testLoadDiscriminatorSubClass()

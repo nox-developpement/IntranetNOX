@@ -29,10 +29,13 @@ use JMS\Serializer\Metadata\StaticPropertyMetadata;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\Tests\Fixtures\Discriminator\ObjectWithXmlAttributeDiscriminatorParent;
+use JMS\Serializer\Tests\Fixtures\Discriminator\ObjectWithXmlNamespaceDiscriminatorChild;
+use JMS\Serializer\Tests\Fixtures\Discriminator\ObjectWithXmlNamespaceDiscriminatorParent;
 use JMS\Serializer\Tests\Fixtures\Discriminator\ObjectWithXmlNotCDataDiscriminatorChild;
 use JMS\Serializer\Tests\Fixtures\Discriminator\ObjectWithXmlNotCDataDiscriminatorParent;
 use JMS\Serializer\Tests\Fixtures\InvalidUsageOfXmlValue;
 use JMS\Serializer\Exception\InvalidArgumentException;
+use JMS\Serializer\Tests\Fixtures\ObjectWithToString;
 use JMS\Serializer\Tests\Fixtures\ObjectWithXmlNamespacesAndObjectProperty;
 use JMS\Serializer\Tests\Fixtures\ObjectWithXmlNamespacesAndObjectPropertyAuthor;
 use JMS\Serializer\Tests\Fixtures\ObjectWithXmlNamespacesAndObjectPropertyVirtual;
@@ -45,6 +48,7 @@ use JMS\Serializer\Tests\Fixtures\ObjectWithXmlNamespaces;
 use JMS\Serializer\Tests\Fixtures\ObjectWithXmlRootNamespace;
 use JMS\Serializer\Tests\Fixtures\Input;
 use JMS\Serializer\Tests\Fixtures\SimpleClassObject;
+use JMS\Serializer\Tests\Fixtures\SimpleObject;
 use JMS\Serializer\Tests\Fixtures\SimpleSubClassObject;
 use JMS\Serializer\Tests\Fixtures\ObjectWithNamespacesAndList;
 use JMS\Serializer\XmlSerializationVisitor;
@@ -316,6 +320,15 @@ class XmlSerializationTest extends BaseSerializationTest
         $this->markTestSkipped('Not supported in XML.');
     }
 
+    public function testDeserializeWithObjectWithToStringMethod()
+    {
+        $input = new ObjectWithToString($this->getContent('simple_object'));
+
+        $object = $this->deserialize($input, SimpleObject::class);
+
+        $this->assertInstanceOf(SimpleObject::class, $object);
+    }
+
     public function testObjectWithXmlNamespaces()
     {
         $object = new ObjectWithXmlNamespaces('This is a nice title.', 'Foo Bar', new \DateTime('2011-07-30 00:00', new \DateTimeZone('UTC')), 'en');
@@ -449,6 +462,20 @@ class XmlSerializationTest extends BaseSerializationTest
             $this->deserialize(
                 $xml,
                 ObjectWithXmlNotCDataDiscriminatorParent::class
+            )
+        );
+    }
+
+    public function testDiscriminatorWithNamespace()
+    {
+        $xml = $this->serialize(new ObjectWithXmlNamespaceDiscriminatorChild());
+        $this->assertEquals($this->getContent('xml_discriminator_namespace'), $xml);
+
+        $this->assertInstanceOf(
+            ObjectWithXmlNamespaceDiscriminatorChild::class,
+            $this->deserialize(
+                $xml,
+                ObjectWithXmlNamespaceDiscriminatorParent::class
             )
         );
     }
