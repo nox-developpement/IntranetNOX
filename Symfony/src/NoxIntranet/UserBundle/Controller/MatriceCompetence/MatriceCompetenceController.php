@@ -195,10 +195,10 @@ class MatriceCompetenceController extends Controller {
                 $this->get('security.authorization_checker')->isGranted('ROLE_RH') ||
                 !empty($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($user_canonical_name)) ||
                 !empty($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByN2($user_canonical_name)) ||
-                $current_user->getUsername === "r.ballureau" || $current_user->getUsername() === "j.plenard" || $current_user->getUsername() === "a.caproplacide"
+                in_array($current_user->getUsername(), ["r.ballureau", "j.plenard", "a.caproplacide"])
                 )) {
             $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas l'autorisation d'accéder à ce service.");
-            $this->redirectToRoute("nox_intranet_accueil");
+            return $this->redirectToRoute("nox_intranet_accueil");
         }
 
         // Compétences des collaborateurs.
@@ -517,10 +517,16 @@ class MatriceCompetenceController extends Controller {
             // On ajoute les collaborateur qui sont définis dans la hiérarchie et qui ont le collaborateur courant comme DA au tableau de sortie.
             foreach ($collaborateurs as $collaborateur) {
                 $hierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername());
-                if (!empty($hierachy) && $hierachy->getDA($canonicalName)) {
+                if (!empty($hierachy) && ($hierachy->getDA() === $canonicalName || $hierachy->getN2() === $canonicalName)) {
                     $collaborateursList[] = $collaborateur;
                 }
             }
+        }
+
+        // Si l'utilisateur n'est référent d'aucun collaborateurs, on affiche un message d'erreur on on redirige vers l'accueil.
+        if (empty($collaborateursList)) {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas l'autorisation d'accéder à ce service.");
+            return $this->redirectToRoute("nox_intranet_accueil");
         }
 
         // Si une Id de collaborateur est passé en paramêtre.
@@ -798,6 +804,12 @@ class MatriceCompetenceController extends Controller {
         }
     }
 
+    /**
+     * 
+     * Extrait la matrice de compétence depuis un fichier Excel de matrice de compétences.
+     * 
+     * @return Response
+     */
     public function extractMatriceCompetenceDataAction() {
         // Entitées de tous les collaborateurs.
         $em = $this->getDoctrine()->getManager();
@@ -908,6 +920,12 @@ class MatriceCompetenceController extends Controller {
         return new Response("OK");
     }
 
+    /**
+     * 
+     * Exporte les compétences des collaborateurs et leurs matricules dans un fichier Excel et le télécharge.
+     * 
+     * @return Response
+     */
     public function exportMatriceCompetencesAction() {
         // Récupération des matrices de compétences.
         $em = $this->getDoctrine()->getManager();
