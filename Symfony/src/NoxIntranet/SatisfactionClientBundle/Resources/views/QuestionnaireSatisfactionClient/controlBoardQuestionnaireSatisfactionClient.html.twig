@@ -18,7 +18,6 @@
             {{ form_end(formSearch) }}
         </div>
 
-
         <div class='prestationReportingPagination' style='width: calc(100% / 3);'>
             {% if envois|keys|first != page %}<a href='{{ path('nox_intranet_consulter_questionnaire_satisfaction_client', 
                 {'search': search, 'orderTime': orderTime,  'page': envois|keys|first}) }}' title='Page {{ envois|keys|first+1 }}'><<</a>{% endif %}

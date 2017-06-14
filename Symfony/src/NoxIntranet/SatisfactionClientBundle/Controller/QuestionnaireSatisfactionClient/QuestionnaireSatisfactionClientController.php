@@ -212,5 +212,9 @@ class QuestionnaireSatisfactionClientController extends Controller {
 
         return $this->render('NoxIntranetSatisfactionBundle:QuestionnaireSatisfactionClient:rechercheAvanceeControlBoardQuestionnaireSatisfactionClient.html.twig', array('formSearchDetailed' => $formSearchDetailed->createView()));
     }
+    
+    public function sendQuestionnaireToRemoteDB() {
+        
+    }
 
 }

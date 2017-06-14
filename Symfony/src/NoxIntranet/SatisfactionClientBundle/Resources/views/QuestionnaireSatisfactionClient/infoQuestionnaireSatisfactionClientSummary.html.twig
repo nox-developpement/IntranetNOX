@@ -1,41 +1,79 @@
 {% extends "::layout.html.twig" %}
 
-{% block titrePage %} Résumé du questionnaire {% endblock %}
+{% block style %}
+    <style>
+        #ficheEvaluationSTSum_Container {
+            width: 70%;
+            margin: auto;
+        }
 
-{% block messageAccueil %} Résumé du questionnaire {% endblock %}
+        #ficheEvaluationSTSum {
+            margin: auto;
+            border-collapse: collapse;
+        }
+
+        #ficheEvaluationSTSum, #ficheEvaluationSTSum tr, #ficheEvaluationSTSum th, #ficheEvaluationSTSum td {
+            border: 1px solid black;
+        }
+
+        #ficheEvaluationSTSum th, #ficheEvaluationSTSum td {
+            padding: 0.2em;
+        }
+
+        #ficheEvaluationSTSum th {
+            text-align: right;
+        }
+
+        #ficheEvaluationSTSum td {
+            text-align: center;
+        }
+
+        #ficheEvaluationSTSum td a {
+            padding: 0 1em;
+        }
+
+        #ficheEvaluationSTSum td hr {
+            margin: 0.2em 0;
+        }
+    </style>
+{% endblock %}
+
+{% block titrePage %} Résumé du questionnaire de satisfaction client {% endblock %}
+
+{% block messageAccueil %} Résumé du questionnaire de satisfaction client {% endblock %}
 
 {% block contenu %} 
     <table id='ficheEvaluationSTSum'>
         <tr>
-            <td class='trLabel'>Numéro d'affaire</td>
+            <th>Numéro d'affaire</th>
             <td>{{ envoi.NumAffaire }}</td>
         </tr>
         <tr>
-            <td class='trLabel'>Intitulé d'affaire</td>
+            <th>Intitulé d'affaire</th>
             <td>{{ envoi.IntituleAffaire }}</td>
         </tr>
         <tr>
-            <td class='trLabel'>Agence de l'émetteur</td>
+            <th>Agence de l'émetteur</th>
             <td>{{ envoi.Agence }}</td>
         </tr>
         <tr>
-            <td class='trLabel'>Emetteur</td>
+            <th>Emetteur</th>
             <td>{{ envoi.Emetteur }}</td>
         </tr>
         <tr>
-            <td class='trLabel'>Emis le</td>
+            <th>Emis le</th>
             <td>{{ envoi.DateEnvoi|date('d/m/Y') }}</td>
         </tr>
         <tr>
-            <td class='trLabel'>Nom du client</td>
+            <th>Nom du client</th>
             <td>{{ envoi.Client }}</td>
         </tr>
         <tr>
-            <td class='trLabel'>Email du client</td>
+            <th>Email du client</th>
             <td>{{ envoi.EmailClient }}</td>
         </tr>
         <tr>
-            <td class='trLabel'>Chargé d'affaire</td>
+            <th>Chargé d'affaire</th>
             <td>{{ envoi.CA }}</td>
         </tr>
     </table>
