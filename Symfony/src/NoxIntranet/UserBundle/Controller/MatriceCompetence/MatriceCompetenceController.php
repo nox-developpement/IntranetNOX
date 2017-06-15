@@ -961,6 +961,9 @@ class MatriceCompetenceController extends Controller {
 
             // Pour chaques compétences secondaires...
             $competences_secondaire = $matrice->getCompetencesSecondaires();
+            if (empty($competences_secondaire)) {
+                continue;
+            }
             foreach ($competences_secondaire as $competence) {
                 // Ecriture du matricule et de la compétence secondaire sur la feuille de compétences secondaires.
                 $competences_secondaire_sheet->getCell("A" . $ligne_competences_secondaire)->setValue($matrice->getMatricule());
