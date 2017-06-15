@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<questionnaire>
+    
+    <categories>
+        <categorie>
+            <nom_categorie>COMPETENCES / EXPERTISE DE L'EQUIPE</nom_categorie>
+        
+            <questions>
+                <question>
+                    <index>1</index>
+                    <texte>Comment jugez-vous les compétences de l'équipe en charge de votre dossier par rapport à la prestation demandée ?</texte>
+                    <reponses>
+                        <reponse>Très satisfaisantes</reponse>
+                        <reponse>Satisfaisantes</reponse>
+                        <reponse>Insatisfaisantes</reponse>
+                        <reponse>Inacceptables</reponse>
+                    </reponses>
+                </question>
+        
+                <question>
+                    <index>2</index>
+                    <texte>Comment jugez-vous les offres de solutions/améliorations proposées par l'équipe en charge de votre dossier ?</texte>
+                    <reponses>
+                        <reponse>Très satisfaisantes</reponse>
+                        <reponse>Satisfaisantes</reponse>
+                        <reponse>Insatisfaisantes</reponse>
+                        <reponse>Inacceptables</reponse>
+                    </reponses>
+                </question>
+            </questions>
+        
+        </categorie>
+    
+        <categorie>
+            <nom_categorie>CONFORMITE DE LA PRESTATION</nom_categorie>
+        
+            <questions>
+                <question>
+                    <index>3</index>
+                    <texte>Comment jugez-vous la conformité de la prestation en terme de délais par rapport à la demande initiale ?</texte>
+                    <reponses>
+                        <reponse>
+                            Très satisfaisante
+                            (Respect des délais)
+                        </reponse>
+                        <reponse>
+                            Satisfaisante
+                            (Légers retards sans conséquences)
+                        </reponse>
+                        <reponse>
+                            Insatisfaisante
+                            (Retards sur l'affaire)
+                        </reponse>
+                        <reponse>
+                            Inacceptable
+                            (Délais non maitrisés)
+                        </reponse>
+                    </reponses>
+                </question>
+        
+                <question>
+                    <index>4</index>
+                    <texte>Comment jugez-vous les résultats obtenus par l'équipe en charge de votre dossier au regard de vos attentes initiales ?</texte>
+                    <reponses>
+                        <reponse>Très satisfaisantes</reponse>
+                        <reponse>Satisfaisantes</reponse>
+                        <reponse>Insatisfaisantes</reponse>
+                        <reponse>Inacceptables</reponse>
+                    </reponses>
+                </question>
+        
+                <question>
+                    <index>5</index>
+                    <texte>Comment jugez-vous la fiabilité du chiffrage (coûts) réalisé par NOX ?</texte>
+                    <reponses>
+                        <reponse>Très satisfaisantes</reponse>
+                        <reponse>Satisfaisantes</reponse>
+                        <reponse>Insatisfaisantes</reponse>
+                        <reponse>Inacceptables</reponse>
+                    </reponses>
+                </question>
+        
+                <question>
+                    <index>6</index>
+                    <texte>Comment jugez-vous la qualité des livrables transmis par l'équipe en charge de votre dossier ?</texte>
+                    <reponses>
+                        <reponse>Très satisfaisantes</reponse>
+                        <reponse>Satisfaisantes</reponse>
+                        <reponse>Insatisfaisantes</reponse>
+                        <reponse>Inacceptables</reponse>
+                    </reponses>
+                </question>
+            </questions>
+        
+        </categorie>
+    
+        <categorie>
+            <nom_categorie>RELATIONS HUMAINES</nom_categorie>
+        
+            <questions>
+                <question>
+                    <index>7</index>
+                    <texte>Comment jugez-vous la qualité des échanges entre vous et l'équipe en charge de votre dossier ?</texte>
+                    <reponses>
+                        <reponse>Très satisfaisantes</reponse>
+                        <reponse>Satisfaisantes</reponse>
+                        <reponse>Insatisfaisantes</reponse>
+                        <reponse>Inacceptables</reponse>
+                    </reponses>
+                </question>
+        
+                <question>
+                    <index>8</index>
+                    <texte>Le personnel NOX est-il digne de confiance et tient -il ses engagements ?</texte>
+                    <reponses>
+                        <reponse>Oui</reponse>
+                        <reponse>Non</reponse>
+                    </reponses>
+                </question>
+            </questions>
+        
+        </categorie>
+    
+        <categorie>
+            <nom_categorie>DIVERS</nom_categorie>
+        
+            <questions>
+                <question>
+                    <index>9</index>
+                    <texte>Quel est votre niveau de satisfaction de la prestation réalisée ?</texte>
+                    <reponses>
+                        <reponse>1</reponse>
+                        <reponse>2</reponse>
+                        <reponse>3</reponse>
+                        <reponse>4</reponse>
+                        <reponse>5</reponse>
+                        <reponse>6</reponse>
+                        <reponse>7</reponse>
+                        <reponse>8</reponse>
+                        <reponse>9</reponse>
+                        <reponse>10</reponse>
+                    </reponses>
+                </question>
+        
+                <question>
+                    <index>10</index>
+                    <texte>Solliciteriez-vous NOX pour d'autres prestations ?</texte>
+                    <reponses>
+                        <reponse>Oui</reponse>
+                        <reponse>Non</reponse>
+                    </reponses>
+                </question>
+        
+                <question>
+                    <index>11</index>
+                    <texte>Recommanderiez-vous NOX à un partenaire ?</texte>
+                    <reponses>
+                        <reponse>Oui</reponse>
+                        <reponse>Non</reponse>
+                    </reponses>
+                </question>
+            </questions>
+        
+        </categorie>
+    </categories>
+    
+</questionnaire>

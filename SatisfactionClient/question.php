@@ -1,21 +1,27 @@
-<?php include 'database.php' ?>
-<?php session_start(); ?>
 <?php
+include 'database.php';
+
 // Mise en place des numérotations des questions
-// SET
-$number = (int) $_GET['n'];
-// GET question
-$query = "SELECT * FROM questions WHERE question_number = $number";
-$resultat = $connection->query($query) or die($connection->error . __LINE__);
-$question = $resultat->fetch_assoc();
+$categorieIndex = (int) filter_input(INPUT_GET, "categorie");
+$questionIndex = (int) filter_input(INPUT_GET, "question");
 
-$query = "SELECT * FROM questions";
-$resultat = $connection->query($query) or die($connection->error . __LINE__);
-$total = $resultat->num_rows;
+// Chargement du fichier contenant les questions.
+$questions_xml = simplexml_load_file("./data/questions.xml");
 
-// GET choices
-$query = "SELECT * FROM choices WHERE question_number = $number";
-$choices = $connection->query($query) or die($connection->error . __LINE__);
+// Récupération des catégorie et de leur nombre.
+$categories = $questions_xml->categories->categorie;
+$categories_count = count($categories);
+
+// Récupération des questions en fonction de l'index de catégorie passé en paramêtre.
+$questions = $categories[$categorieIndex]->questions->question;
+$question_count = count($questions);
+
+// Récupération des réponses en fonction de l'index de question passé en paramètre.
+$reponses = $questions[$questionIndex]->reponses->reponse;
+
+// Valeur de la catégorie et de la question actuelle.
+$current_categorie = $categories[$categorieIndex];
+$current_question = $questions[$questionIndex];
 ?>
 
 <!DOCTYPE html>
@@ -24,46 +30,51 @@ $choices = $connection->query($query) or die($connection->error . __LINE__);
         <meta charset="UTF-8">
         <title>Questionnaire de satisfaction client | Groupe-NOX</title>
         <link rel="stylesheet" href="css/style.css" type="text/css">
+        <script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
     </head>
+
+    <script>
+        function checkResponseSelection() {
+            // Si aucun radiobutton n'est séléctionné...
+            if (!$("input[name='choice']").is(':checked')) {
+                // On affiche un message d'erreur.
+                alert('Veuillez choisir une réponse !');
+
+                // On retourne false pour bloquer l'envoi du formulaire.
+                return false;
+            }
+        }
+    </script>  
+
     <body>
 
         <header>
             <div class="container">
                 <h1>Questionnaire de satisfaction client | Groupe-NOX</h1>
             </div>
-
         </header>
         <div class="main">
             <div class="container">
-                <div class="current">Question <?php echo $question['question_number'] ?> of <?php echo $total; ?></div>
+                <div class="current">Catégorie <?php echo $categorieIndex + 1; ?> sur <?php echo $categories_count; ?></div>
+                <div class="current">Question <?php echo $questionIndex + 1; ?> sur <?php echo $question_count; ?></div>
                 <p class="question">
-                    <?php echo utf8_encode($question['libelle']); ?>
+                    <?php echo utf8_encode($current_question->index) . ". " . $current_question->texte; ?>
                 </p>
-                <form method="POST" action="process.php">
+                <form name="validate_question" method="POST" action="./process.php" onsubmit="return checkResponseSelection();">
                     <ul class="choices">
-                        <?php while ($row = $choices->fetch_assoc()): ?>
-                            <li><input name="choice" type="radio" value="<?php echo utf8_encode($row['id']); ?>"/><?php echo utf8_encode($row['text']); ?></li>
-                        <?php endwhile; ?>
+                        <?php foreach ($reponses as $reponse) { ?>
+                            <li><label><input name="choice" type="radio" value="<?php echo $reponse; ?>"/><?php echo $reponse; ?></label></li>
+                        <?php } ?>
                     </ul>
                     <input id='nextButton' type="submit" value="Suivant" />
 
-                    <input type="hidden" name="number" value="<?php echo $number; ?>"/>
+                    <input type="hidden" name="question" value="<?php echo $questionIndex; ?>"/>
+                    <input type="hidden" name="categorie" value="<?php echo $categorieIndex; ?>"/>
                 </form>
             </div>
         </div>
         <footer>
 
         </footer>
-    </form>
-</body>
-<script>
-    // Pour faire la vérification lors du clique sur le bouton.
-    $('#nextButton').click(function (event) {
-        // Si aucun radiobutton n'est séléctionné...
-        if (!$("input[name='radio']").is(':checked')) {
-            event.preventDefault(); // Bloque l'action par défaut.
-            alert('Veuillez choisir une réponse !');
-        }
-    });
-</script>    
+    </body>  
 </html>

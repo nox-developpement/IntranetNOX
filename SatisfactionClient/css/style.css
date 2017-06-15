@@ -1,7 +1,18 @@
+html {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
 body{
-    font-family:arial;
-    font-size:15px;
-    line-height:1.6em;
+    width: 70%;
+    height: 100%;
+    padding: 0;
+    margin: 0 auto;
+    font-family: arial;
+    font-size: 15px;
+    line-height: 1.6em;
+    background-color: #1F4E79;
 }
 
 li{
@@ -13,28 +24,31 @@ a{
 }
 
 .container{
-    width:60%;
+    width:90%;
     margin:0 auto;
     overflow:auto;
 }
 
-header{
-    border-bottom:3px #f4f4f4 solid;
+header {
+    color: white;
 }
 
 footer{
-    border-top:3px #f4f4f4 solid;
     text-align:center;
     padding-top:5px;
 }
 
 .main{
+    width: 90%;
+    margin: auto;
     padding-bottom:20px;
+    background-color: white;
+    border-radius: 15px;
 }
 
 .current{
     padding:10px;
-    background:#f4f4f4;
-    border:#ccc dotted 1px;
-    margin:20px 0 10px 0;
+    background: #f4f4f4;
+    border: #ccc dotted 1px;
+    margin: 20px 0 10px 0;
 }
