@@ -3,91 +3,91 @@
 <competences>
     <categorie>
         <categorie_name>BATIMENT</categorie_name>
-        <competence>Génie Civil</competence>
-        <competence>Structure béton</competence>
-        <competence>Structure Métallique</competence>
-        <competence>Architecture/Enveloppe du bâtiment</competence>
-        <competence>Génie thermique/CVC/Plomberie</competence>
-        <competence>Second œuvre/Aménagement</competence>
-        <competence>Génie électrique</competence>
-        <competence>Economie de la construction</competence>
-        <competence>Programmes et opérations immobilières</competence>
+        <competence>GENIE CIVIL</competence>
+        <competence>STRUCTURE BETON</competence>
+        <competence>STRUCTURE METALLIQUE</competence>
+        <competence>ARCHITECTURE/ENVELOPPE BATIMENT</competence>
+        <competence>GENIE THERMIQUE/CVC/PLOMBERIE</competence>
+        <competence>2ND OEUVRE/AMENAGEMENT</competence>
+        <competence>GENIE ELECTRIQUE</competence>
+        <competence>ECONOMIE DE LA CONSTRUCTION</competence>
+        <competence>PROG ET OPERATIONS IMMOBILERES</competence>
     </categorie>
 
     <categorie>
         <categorie_name>INFRASTRCUTURES</categorie_name>
-        <competence>Trafic</competence>
-        <competence>Aménagement urbain</competence>
-        <competence>Routes et autoroutes</competence>
-        <competence>Paysage</competence>
-        <competence>Ouvrages d'art </competence>
-        <competence>Topographie - Cartographie</competence>
+        <competence>TRAFIC</competence>
+        <competence>AMENAGEMENT URBAIN</competence>
+        <competence>ROUTES ET AUTOROUTES</competence>
+        <competence>PAYSAGE</competence>
+        <competence>OUVRAGES D'ART</competence>
+        <competence>TOPOGRAPHIE CARTOGRAPHIE</competence>
     </categorie>
 
     <categorie>
         <categorie_name>ENVIRONNEMENT</categorie_name>
-        <competence>Hydraulique & Assainissement</competence>
-        <competence>Acoustique</competence>
-        <competence>Etudes environnementales</competence>
-        <competence>Faune et flore</competence>
+        <competence>HYDRAULIQUE ASSAINISSEMENT</competence>
+        <competence>ACOUSTIQUE</competence>
+        <competence>ETUDES ENVIRONNEMENTALES</competence>
+        <competence>FAUNE ET FLORE</competence>
         <competence>GIV</competence>
     </categorie>
 
     <categorie>
         <categorie_name>ENERGIE</categorie_name>
-        <competence>Transport énergie</competence>
-        <competence>Fibre optique</competence>
-        <competence>Distribution électricité -gaz - éclairage public </competence>
-        <competence>Nucléaire</competence>
+        <competence>TRANSPORT ENERGIE</competence>
+        <competence>FIBRE OPTIQUE</competence>
+        <competence>DISTRIB ELEC/GAZ/ECLAIRAGE PUBLI</competence>
+        <competence>NUCLEAIRE</competence>
     </categorie>
     
     <categorie>
         <categorie_name>SANTE</categorie_name>
         <competence>SST</competence>
-        <competence>Habilitation électrique</competence>
-        <competence>Correspondant SSE</competence>
+        <competence>HABILITATION ELECTRIQUE</competence>
+        <competence>CORRESPONDANT SSE</competence>
         <competence>SPS</competence>
     </categorie>
     
     <categorie>
         <categorie_name>SPECIFIQUE</categorie_name>
-        <competence>BIM coordinateur</competence>
-        <competence>Protection Incendie</competence>
-        <competence>Maquettiste PAO</competence>
-        <competence>Montage de structure</competence>
+        <competence>BIM COORDINATEUR</competence>
+        <competence>PROTECTION INCENDIE</competence>
+        <competence>MAQUETTISTE PAO</competence>
+        <competence>MONTAGE STRUCTURE</competence>
         <competence>OPC</competence>
-        <competence>Recherche et Développement</competence>
+        <competence>RECHERCHE ET DEVELOPPEMENT</competence>
         <competence>AMO</competence>
     </categorie>
     
     <categorie>
         <categorie_name>INDUSTRIE</categorie_name>
-        <competence>Industrie</competence>
-        <competence>Tuyauterie</competence>
-        <competence>Instrumentation & Contrôle</competence>
-        <competence>Bâtiments industriels</competence>
-        <competence>Hopitaux</competence>
-        <competence>Pharmaceutique</competence>
-        <competence>Bâtiments Tertiaires</competence>
-        <competence>Power and Gaz</competence>
-        <competence>Chimie</competence>
+        <competence>INDUSTRIE</competence>
+        <competence>TUYAUTERIE</competence>
+        <competence>INSTRUMENTATION CONTROLE</competence>
+        <competence>BATIMENT INDUSTRIELS</competence>
+        <competence>HOPITAUX</competence>
+        <competence>PHARMACEUTIQUE</competence>
+        <competence>BATIMENTS TERTIAIRES</competence>
+        <competence>POWER AND GAZ</competence>
+        <competence>CHIMIE</competence>
     </categorie>
 
     <categorie>
         <categorie_name>SUPPORT AU PROJET</categorie_name>
-        <competence>Achat Projet</competence>
-        <competence>Assistance projets</competence>
-        <competence>Finances</competence>
-        <competence>RH</competence>
-        <competence>Juridique</competence>
+        <competence>ACHAT PROJET</competence>
+        <competence>ASSISTANCE PROJETS</competence>
+        <competence>FINANCES</competence>
+        <competence>RESSOURCES HUMAINES</competence>
+        <competence>JURIDIQUE</competence>
         <competence>IT</competence>
-        <competence>Commercial</competence>
-        <competence>Appel d'offres</competence>
-        <competence>Services Généraux</competence>
-        <competence>Correspondant informatique</competence>
-        <competence>Correspondant qualité</competence>
-        <competence>Formation</competence>
-        <competence>Auditeur interne</competence>
+        <competence>COMMERCIAL</competence>
+        <competence>APPEL D'OFFRES</competence>
+        <competence>SERVICES GENERAUX</competence>
+        <competence>CORRESPONDANT INFORMATIQUE</competence>
+        <competence>CORRESPONDANT QUALITE</competence>
+        <competence>FORMATION</competence>
+        <competence>AUDITEUR INTERNE</competence>
     </categorie>
     
 </competences>

@@ -567,7 +567,7 @@
             $("#recherche_avance_form input").on("input", function () {
                 ajaxSearch(); // On lance la recherche.
             });
-            
+
             // Lorsqu'on on écris dans les champs de recherche...
             $("#recherche_avance_form input[type='radio']").on("change", function () {
                 ajaxSearch(); // On lance la recherche.
@@ -634,7 +634,7 @@
                     {% for nom_categorie, liste_competences in competencesArray %}
                         <optgroup label="{{ nom_categorie }}">
                             {% for competence in liste_competences %}
-                                <option value="{{ competence }}">{{ competence }}</option>
+                                <option value="{{ competence }}">{{ competence|capitalize }}</option>
                             {% endfor %}
                         </optgroup>
                     {% endfor %}
@@ -646,7 +646,7 @@
                     {% for nom_categorie, liste_competences in competencesArray %}
                         <optgroup label="{{ nom_categorie }}">
                             {% for competence in liste_competences %}
-                                <option value="{{ competence }}">{{ competence }}</option>
+                                <option value="{{ competence }}">{{ competence|capitalize }}</option>
                             {% endfor %}
                         </optgroup>
                     {% endfor %}
