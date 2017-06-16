@@ -1,9 +1,9 @@
 <?php
-session_start();
+// On récupère la clé passé en paramêtre.
+$error = filter_input(INPUT_GET, "error");
 
-$results = unserialize($_SESSION["results"]);
-
-//session_destroy();
+// On défini un message d'erreur en fonction de l'erreur.
+$message = array("already completed" => "Vous avez déjà remplis le questionnaire.", "not found" => "Ce questionnaire n'existe pas.");
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ $results = unserialize($_SESSION["results"]);
         <meta charset="UTF-8">
         <title>Questionnaire de satisfaction client | Groupe-NOX</title>
         <link rel="stylesheet" href="css/style.css" type="text/css">
-    <src>
+        <script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
     </head>
     <body>
         <header>
@@ -23,21 +23,13 @@ $results = unserialize($_SESSION["results"]);
         </header>
         <div class="main">
             <div class="container">
-                <h2>Merci de nous avoir consacré du temps.</h2>
-                <ul>
-                    <?php
-                    foreach ($results as $categories) {
-                        foreach ($categories as $answer) {
-                            echo "<li>" . $answer["question"] . " : " . $answer["choice"] . "</li>";
-                        }
-                    }
-                    ?>
-                </ul>
+                <p>
+                    <span style="color: red">Erreur</span>: <?php echo $message[$error]; ?>
+                </p>
             </div>
         </div>
         <footer>
 
         </footer>
-        </form>
     </body>
 </html>

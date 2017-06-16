@@ -5,6 +5,9 @@ include 'database.php';
 $categorieIndex = (int) filter_input(INPUT_GET, "categorie");
 $questionIndex = (int) filter_input(INPUT_GET, "question");
 
+// Récupération de la clé du questionnaire.
+$cle_questionnaire = filter_input(INPUT_GET, "cleQuestionnaire");
+
 // Chargement du fichier contenant les questions.
 $questions_xml = simplexml_load_file("./data/questions.xml");
 
@@ -70,6 +73,7 @@ $current_question = $questions[$questionIndex];
 
                     <input type="hidden" name="question" value="<?php echo $questionIndex; ?>"/>
                     <input type="hidden" name="categorie" value="<?php echo $categorieIndex; ?>"/>
+                    <input type="hidden" name="cleQuestionnaire" value="<?php echo $cle_questionnaire; ?>"/>
                 </form>
             </div>
         </div>

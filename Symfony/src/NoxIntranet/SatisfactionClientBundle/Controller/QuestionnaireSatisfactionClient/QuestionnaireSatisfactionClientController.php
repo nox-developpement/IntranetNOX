@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\HttpFoundation\Request;
+use PDO;
 
 class QuestionnaireSatisfactionClientController extends Controller {
 
@@ -61,6 +62,8 @@ class QuestionnaireSatisfactionClientController extends Controller {
                 // On sauvegarde la demande en base de donnée.
                 $em->persist($infoEnvoiQuestionnaireSatisfactionClient);
                 $em->flush();
+
+                $this->sendQuestionnaireToRemoteDB($infoEnvoiQuestionnaireSatisfactionClient);
 
                 // On envoi un email au client afin qu'il remplisse le questionnaire.
                 $this->sendMailToClient($infoEnvoiQuestionnaireSatisfactionClient->getId());
@@ -212,9 +215,44 @@ class QuestionnaireSatisfactionClientController extends Controller {
 
         return $this->render('NoxIntranetSatisfactionBundle:QuestionnaireSatisfactionClient:rechercheAvanceeControlBoardQuestionnaireSatisfactionClient.html.twig', array('formSearchDetailed' => $formSearchDetailed->createView()));
     }
-    
-    public function sendQuestionnaireToRemoteDB() {
-        
+
+    /**
+     * 
+     * Crée un nouveau questionnaire dans la base de données du site de questionnaire client.
+     * 
+     * @param InfoEnvoiQuestionnaireSatisfactionClient $questionnaireSatisfactionClient L'entitée de questionnaire client sur l'intranet.
+     */
+    public function sendQuestionnaireToRemoteDB($questionnaireSatisfactionClient) {
+        // Création de la connection à la base de données
+        $db_host = "192.168.35.217";
+        $db_name = "intranet";
+        $db_user = "intranetadmin";
+        $db_pass = "intranet";
+
+        try {
+            // Initialisation de la connexion à la base de données.
+            $connection = new \PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
+
+            // set the PDO error mode to exception
+            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            // Si la connexion échou, affichage d'un message d'erreur.
+            echo "Connection failed: " . $e->getMessage();
+        }
+
+        // Récupération de la clé.
+        $cle = $questionnaireSatisfactionClient->getCleEnvoiQuestioSatisfClient();
+
+        // Initialisation des réponses.
+        $reponses = serialize(array());
+
+        // Initialisation de la requête de création d'un questionnaire dans la base de données du site de questionnaire client.
+        $addQuestionnaireRequest = $connection->prepare("INSERT INTO questionnaire_satisfaction_client (CleQuestionnaireSatisfactionClient, ReponsesQuestionnaire, Statut) VALUES (:cle, :reponses, 'New')");
+        $addQuestionnaireRequest->bindParam(":cle", $cle);
+        $addQuestionnaireRequest->bindParam(":reponses", $reponses);
+
+        // Execution de la requête.
+        $addQuestionnaireRequest->execute();
     }
 
 }
