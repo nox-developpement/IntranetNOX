@@ -191,9 +191,14 @@ class MatriceCompetenceController extends Controller {
         $user_canonical_name = $this->wd_remove_accents(strtoupper($current_user->getFirstname() . " " . $current_user->getLastname()));
 
         // Si l'utilisateur n'as pas les droits requis on le redirige vers l'accueil.
-        if (!($this->get('security.authorization_checker')->isGranted('ROLE_RH') || !empty($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($user_canonical_name)))) {
+        if (!(
+                $this->get('security.authorization_checker')->isGranted('ROLE_RH') ||
+                !empty($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($user_canonical_name)) ||
+                !empty($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByN2($user_canonical_name)) ||
+                in_array($current_user->getUsername(), ["r.ballureau", "j.plenard", "a.caproplacide"])
+                )) {
             $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas l'autorisation d'accéder à ce service.");
-            $this->redirectToRoute("nox_intranet_accueil");
+            return $this->redirectToRoute("nox_intranet_accueil");
         }
 
         // Compétences des collaborateurs.
@@ -218,7 +223,6 @@ class MatriceCompetenceController extends Controller {
             }
         }
 
-        //$competencesCount = count($competencesArray, COUNT_RECURSIVE) - count($competencesArray);
         // On récupére les société et établissements.
         $hierachies = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
         $societes = array();
@@ -230,115 +234,10 @@ class MatriceCompetenceController extends Controller {
             $etablissements[$hierachy->getEtablissement()] = $hierachy->getEtablissement();
         }
 
-        return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCompetence.html.twig', array('matrices_competences' => $matrices_competences, 'competencesArray' => $competencesArray, 'societes' => $societes, 'etablissements' => $etablissements));
-    }
+        // Liste des collaborateurs authorisés à éditer la matrice.
+        $authorizedEditors = json_encode(array('m.veillon', 'n.rigaudeau', 'a.forestier'));
 
-    public function extractMatriceCompetenceDataAction() {
-        // Entitées de tous les collaborateurs.
-        $em = $this->getDoctrine()->getManager();
-        $allUsers = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
-
-        // On place les entitées collaborateur dans un tableau associatif nom, prénom.
-        $users = array();
-        foreach ($allUsers as $user) {
-            $nom = strtoupper($this->wd_remove_accents(str_replace('-', ' ', $user->getLastname())));
-            $prenom = strtoupper($this->wd_remove_accents(str_replace('-', ' ', $user->getFirstname())));
-
-            $users[$nom][$prenom] = $user;
-        }
-
-        // Fichier Excel de matrice de compétence.
-        $matrice_competence_root = $this->get('kernel')->getRootDir() . "/../src/NoxIntranet/UserBundle/Resources/public/MatriceCompetence";
-        $matrice_competence_file = $matrice_competence_root . "/Matrice_Competence.xlsx";
-
-        // Modification de la méthode de caching pour économiser la mémoire.
-        \PHPExcel_Settings::setCacheStorageMethod(\PHPExcel_CachedObjectStorageFactory::cache_to_sqlite3);
-
-        // Initialisation de l'objet Excel du fichier de matrice.
-        $objReader = new \PHPExcel_Reader_Excel2007();
-        $objReader->setReadDataOnly(true); // Permet de lire seulement les valeurs des cellules pour économiser la mémoire.
-        $objPHPExcel = $objReader->load($matrice_competence_file);
-
-        // Feuile Excel courante.
-        $sheet = $objPHPExcel->getActiveSheet();
-
-        // Pour chaques lignes du fichier Excel...
-        $rowsIterator = $sheet->getRowIterator();
-        foreach ($rowsIterator as $row) {
-            // Index de la ligne.
-            $rowIndex = $row->getRowIndex();
-
-            // Nom et prénom sur la ligne.
-            $matrice_nom = trim(strtoupper($this->wd_remove_accents(str_replace('-', ' ', $sheet->getCell('D' . $rowIndex)->getValue()))));
-            $matrice_prenom = trim(strtoupper($this->wd_remove_accents(str_replace('-', ' ', $sheet->getCell('E' . $rowIndex)->getValue()))));
-
-            // Si le nom et le prénom correspondent à une entitée collaborateur...
-            if (isset($users[$matrice_nom][$matrice_prenom])) {
-                // On récupère l'entitée.
-                $user = $users[$matrice_nom][$matrice_prenom];
-
-                // On recupère l'entitée de matrice de compétence associée.
-                $matrice_competence_entity = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->findOneByUser($user);
-
-                // Si il n'existe pas d'entitée de matrice associé...
-                if (empty($matrice_competence_entity)) {
-                    // On récupére les données du fichier Excel pour le collaborateur.
-                    $matrice_societe = $sheet->getCell('A' . $rowIndex)->getValue();
-                    $matrice_etablissement = $sheet->getCell('C' . $rowIndex)->getValue();
-                    if (gettype($sheet->getCell('F' . $rowIndex)->getValue()) !== 'string') {
-                        $matrice_date_naissance = \PHPExcel_Shared_Date::ExcelToPHPObject($sheet->getCell('F' . $rowIndex)->getValue());
-                    } else if (DateTime::createFromFormat('d/m/Y', trim($sheet->getCell('F' . $rowIndex)->getValue())) !== false) {
-                        $matrice_date_naissance = DateTime::createFromFormat('d/m/Y', trim($sheet->getCell('F' . $rowIndex)->getValue()));
-                    } else {
-                        $matrice_date_naissance = null;
-                    }
-                    if (gettype($sheet->getCell('G' . $rowIndex)->getValue()) !== 'string') {
-                        $matrice_date_anciennete = \PHPExcel_Shared_Date::ExcelToPHPObject($sheet->getCell('G' . $rowIndex)->getValue());
-                    } else if (DateTime::createFromFormat('d/m/Y', trim($sheet->getCell('G' . $rowIndex)->getValue())) !== false) {
-                        $matrice_date_anciennete = DateTime::createFromFormat('d/m/Y', trim($sheet->getCell('G' . $rowIndex)->getValue()));
-                    } else {
-                        $matrice_date_anciennete = null;
-                    }
-                    $matrice_statut = $sheet->getCell('H' . $rowIndex)->getValue();
-                    $matrice_poste = $sheet->getCell('I' . $rowIndex)->getValue();
-                    $matrice_competence_principale = null;
-                    for ($column = 'J'; $column !== 'DA'; $column++) {
-                        if (trim($sheet->getCell($column . $rowIndex)->getValue()) === "1") {
-                            $matrice_competence_principale = $sheet->getCell($column . '3')->getValue();
-                        }
-                    }
-                    $matrice_competences_secondaires = array();
-                    for ($column = 'J'; $column !== 'DA'; $column++) {
-                        if (trim($sheet->getCell($column . $rowIndex)->getValue()) === "*") {
-                            $matrice_competences_secondaires[] = $sheet->getCell($column . '3')->getValue();
-                        }
-                    }
-
-                    // Création d'une nouvelle entité de matrice de compétence et attribution des données.
-                    $new_matrice_competence = new MatriceCompetence();
-                    $new_matrice_competence->setSociete($matrice_societe);
-                    $new_matrice_competence->setEtablissement($matrice_etablissement);
-                    $new_matrice_competence->setUser($user);
-                    $new_matrice_competence->setPrenom($user->getFirstname());
-                    $new_matrice_competence->setNom($user->getLastname());
-                    $new_matrice_competence->setDateNaissance($matrice_date_naissance);
-                    $new_matrice_competence->setDateAnciennete($matrice_date_anciennete);
-                    $new_matrice_competence->setStatut($matrice_statut);
-                    $new_matrice_competence->setPoste($matrice_poste);
-                    $new_matrice_competence->setCompetencePrincipale($matrice_competence_principale);
-                    $new_matrice_competence->setCompetencesSecondaires($matrice_competences_secondaires);
-                    $em->persist($new_matrice_competence);
-
-                    // On supprime le collaborateur de la liste des collaborateur pour éviter les doublons.
-                    unset($users[$matrice_nom][$matrice_prenom]);
-                }
-            }
-        }
-
-        // Sauvegarde en base de données.
-        $em->flush();
-
-        return new Response("OK");
+        return $this->render('NoxIntranetUserBundle:MatriceCompetence:matriceCompetence.html.twig', array('matrices_competences' => $matrices_competences, 'competencesArray' => $competencesArray, 'societes' => $societes, 'etablissements' => $etablissements, 'authorizedEditors' => $authorizedEditors));
     }
 
     /**
@@ -427,6 +326,14 @@ class MatriceCompetenceController extends Controller {
                         'style' => "width: 100%;"
                     )
                 ))
+                ->add('Matricule', TextType::class, array(
+                    'read_only' => true,
+                    'data' => $userHierarchy->getMatricule(),
+                    'label' => "MATRICULE",
+                    'attr' => array(
+                        'style' => "width: 100%;"
+                    )
+                ))
                 ->add('Nom', TextType::class, array(
                     'read_only' => true,
                     'data' => $currentUser->getLastname(),
@@ -444,32 +351,36 @@ class MatriceCompetenceController extends Controller {
                     )
                 ))
                 ->add('Date_Naissance', DateType::class, array(
+                    'read_only' => true,
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy',
                     'label' => "DATE DE NAISSANCE",
                     'years' => range(date('Y') - 100, date('Y')),
                     'attr' => array(
-                        'class' => "datepicker",
+                        //'class' => "datepicker",
                         'style' => "display: inline-block;"
                     ),
                 ))
                 ->add('Date_Anciennete', DateType::class, array(
+                    'read_only' => true,
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy',
                     'label' => 'DATE ANCIENNETE',
                     'years' => range(date('Y') - 100, date('Y')),
                     'attr' => array(
-                        'class' => "datepicker",
+                        //'class' => "datepicker",
                         'style' => "display: inline-block;"
                     ),
                 ))
                 ->add('Statut', TextType::class, array(
+                    'read_only' => true,
                     'label' => "STATUT",
                     'attr' => array(
                         'style' => "width: 100%;"
                     ),
                 ))
                 ->add('Poste', TextType::class, array(
+                    'read_only' => true,
                     'label' => 'POSTE',
                     'attr' => array(
                         'style' => "width: 100%;"
@@ -606,10 +517,16 @@ class MatriceCompetenceController extends Controller {
             // On ajoute les collaborateur qui sont définis dans la hiérarchie et qui ont le collaborateur courant comme DA au tableau de sortie.
             foreach ($collaborateurs as $collaborateur) {
                 $hierachy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($collaborateur->getUsername());
-                if (!empty($hierachy) && $hierachy->getDA($canonicalName)) {
+                if (!empty($hierachy) && ($hierachy->getDA() === $canonicalName || $hierachy->getN2() === $canonicalName)) {
                     $collaborateursList[] = $collaborateur;
                 }
             }
+        }
+
+        // Si l'utilisateur n'est référent d'aucun collaborateurs, on affiche un message d'erreur on on redirige vers l'accueil.
+        if (empty($collaborateursList)) {
+            $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas l'autorisation d'accéder à ce service.");
+            return $this->redirectToRoute("nox_intranet_accueil");
         }
 
         // Si une Id de collaborateur est passé en paramêtre.
@@ -638,32 +555,55 @@ class MatriceCompetenceController extends Controller {
                     ->select('u')
                     ->from('NoxIntranetUserBundle:MatriceCompetence', 'u');
 
+            // Type de recherche (ET/OU).
+            $search_match_type = $request->request->get('search_match_type');
+
             // Pour chaques champs de la recherche...
             foreach ($request->request as $field => $value) {
                 // Si il existe une valeur pour le champ...
-                if (!empty($value)) {
+                if ($field !== "search_match_type" && !empty($value)) {
                     // Si le champ est une date...
                     if ($field === "dateAnciennete" || $field === "dateNaissance") {
                         // On cherche à convertir la valeur en DateTime.
                         $date_from_value = DateTime::createFromFormat("d/m/Y", $value);
 
                         // On ajoute une recheche de date à la requête.
-                        $searchQueryBuilder
-                                ->andWhere('u.' . $field . " = :" . $field)
-                                ->setParameter($field, $date_from_value, \Doctrine\DBAL\Types\Type::DATE);
+                        if ($search_match_type === 'all') {
+                            $searchQueryBuilder->andWhere('u.' . $field . " = :" . $field); // Recherche en ET.
+                        } else {
+                            $searchQueryBuilder->orWhere('u.' . $field . " = :" . $field); // Recherche en OU.
+                        }
+                        $searchQueryBuilder->setParameter($field, $date_from_value, \Doctrine\DBAL\Types\Type::DATE);
+                    }
+                    // Sinon si la valeur est la compétence principale...
+                    else if ($field === "competencePrincipale") {
+                        // On ajoute un condition à la requête en cherchant la valeur exacte (puisque la valeur correspond à des tags prédéfinis).
+                        if ($search_match_type === 'all') {
+                            $searchQueryBuilder->andWhere("u." . $field . " LIKE '" . $value . "'"); // Recherche en ET
+                        } else {
+                            $searchQueryBuilder->orWhere("u." . $field . " LIKE '" . $value . "'"); // Recherche en OU.
+                        }
                     }
                     // Sinon si la valeur est une compétence secondaire...
                     else if ($field === "competencesSecondaires") {
                         // Pour chaques valeurs de compétence...
                         foreach ($value as $competence) {
                             // On ajoute un condition à la requête.
-                            $searchQueryBuilder->andWhere("u." . $field . " LIKE '%" . $competence . "%'");
+                            if ($search_match_type === 'all') {
+                                $searchQueryBuilder->andWhere("u." . $field . " LIKE '%" . $competence . "%'"); // Recherche en ET.
+                            } else {
+                                $searchQueryBuilder->orWhere("u." . $field . " LIKE '%" . $competence . "%'"); // Recherche en OU.
+                            }
                         }
                     }
                     // Si la valeur n'est pas une date ou une compétence secondaire...
                     else {
                         // On ajoute un condition à la requête.
-                        $searchQueryBuilder->andWhere('u.' . $field . " LIKE '%" . $value . "%'");
+                        if ($search_match_type === 'all') {
+                            $searchQueryBuilder->andWhere('u.' . $field . " LIKE '%" . $value . "%'"); // Recherche en ET.
+                        } else {
+                            $searchQueryBuilder->orWhere('u.' . $field . " LIKE '%" . $value . "%'"); // Recherche en OU.
+                        }
                     }
                 }
             }
@@ -690,11 +630,14 @@ class MatriceCompetenceController extends Controller {
      * @Security("has_role('ROLE_RH')")
      */
     public function collaborateursInfoUploadingAction(Request $request) {
-
         $formUploadInfoFileBuilder = $this->createFormBuilder();
         $formUploadInfoFileBuilder
                 ->add("InfoFile", FileType::class, array(
-                    'label' => "Mise à jour des informations des collaborateurs"
+                    'label' => "Téléversement des informations des collaborateurs",
+                    'required' => false,
+                    'attr' => array(
+                        "accept" => ".xls,.xlsx"
+                    )
                 ))
                 ->add("SendFile", SubmitType::class, array(
                     'label' => "Envoyer le fichier"
@@ -712,22 +655,353 @@ class MatriceCompetenceController extends Controller {
             $filename = $file->getClientOriginalName();
 
             // Upload du fichier sur le serveur.
+            $filepath = "./uploads/" . $filename;
             $file->move("./uploads", $filename);
 
-            /*
-             * 
-             * Traitement à ajouter ici...
-             * 
-             */
+            // Mise à jour des infos sur l'intranet.
+            $this->collaborateursInfoUpdating($filepath);
 
-            // Suppression du fichier.
-            unlink("./uploads/" . $filename);
-
+            // On recharge la page et on affiche un message de confirmation.
             $request->getSession()->getFlashBag()->add('notice', "Les informations des collaborateurs ont été mise à jour.");
             $this->redirectToRoute("nox_intranet_matrice_collaborateur_info_file_uploading");
         }
 
         return $this->render("NoxIntranetUserBundle:MatriceCompetence:collaborateursInfoFileUploading.html.twig", array('formUploadInfoFile' => $formUploadInfoFile->createView()));
+    }
+
+    /**
+     * 
+     * Retourne la matrice de compétence associée au matricule passé en paramêtre et en crée une nouvelle si elle n'existe pas.
+     * Retourne null si aucun collaborateur ne correspond à la matrice.
+     * 
+     * @param String $matricule Matricule du collaborateur.
+     * @return MatriceCompetence
+     */
+    private function getMatriceCompetenceByUserMatricule($matricule) {
+        // Initialisation de l'entity manager.
+        $em = $this->getDoctrine()->getManager();
+
+        // Récupération de la hiérachie.
+        $user_hierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByMatricule($matricule);
+
+        // Si la hiérarchie existe...
+        if (!empty($user_hierarchy)) {
+            // Récupération de l'entitée collaborateur.
+            $user_entity = $em->getRepository('NoxIntranetUserBundle:User')->findOneByUsername($user_hierarchy->getUsername());
+
+            // Si le collaborateur existe...
+            if (!empty($user_entity)) {
+                // Récupération de la matrice.
+                $user_matrice = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->findOneByUser($user_entity);
+
+                // Si il n'existe pas de matrice pour ce collaborateur...
+                if (empty($user_matrice)) {
+                    // On en crée une.
+                    $user_matrice = new MatriceCompetence();
+                    $user_matrice->setUser($user_entity);
+                    $user_matrice->setMatricule($matricule);
+                    $user_matrice->setNom($user_entity->getLastname());
+                    $user_matrice->setPrenom($user_entity->getFirstname());
+
+                    // Sauvegarde en base de données.
+                    $em->persist($user_matrice);
+                }
+
+                // On retourne la matrice.
+                return $user_matrice;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * 
+     * Lecture du fichier Excel d'information des collaborateur de la matrice de compétence et mise à jour des informations sur l'intranet.
+     * 
+     * @param String $filepath Chemin du fichier Excel.
+     */
+    private function collaborateursInfoUpdating($filepath) {
+        // Initialisation de l'entity manager.
+        $em = $this->getDoctrine()->getManager();
+
+        // Initialise la lecture du fichier Excel.
+        $objPHPExcel = \PHPExcel_IOFactory::load($filepath);
+        $objWorksheet = $objPHPExcel->getActiveSheet();
+
+        // Pour chaques cellules du fichier Excel...
+        foreach ($objWorksheet->getCellCollection() as $cell) {
+            // Lecture du numéro de ligne de la cellule.
+            $row = $objWorksheet->getCell($cell)->getRow();
+
+            // Si la ligne est > 1 (En-tête) et la valeur de la 1ère cellule de la ligne n'est pas null...
+            if ($row > 1 && $objWorksheet->getCell("A" . $row)->getValue() !== null) {
+                // On met les informations de la ligne dans un tableau.
+                $date_naissance = new \DateTime();
+                $date_naissance->setTimestamp(\PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCell("G" . $row)->getValue()));
+                $date_anciennete = new \DateTime();
+                $date_anciennete->setTimestamp(\PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCell("H" . $row)->getValue()));
+                $user_info = array(
+                    'Matricule' => $objWorksheet->getCell("A" . $row)->getValue(),
+                    'Societe' => $objWorksheet->getCell("B" . $row)->getValue(),
+                    'Etablissement' => $objWorksheet->getCell("D" . $row)->getValue(),
+                    'Date_Naissance' => $date_naissance,
+                    'Date_Anciennete' => $date_anciennete,
+                    'Statut' => $objWorksheet->getCell("I" . $row)->getValue(),
+                    'Poste' => $objWorksheet->getCell("J" . $row)->getValue()
+                );
+
+                // Récupération de la matrice de compétence correspondant à la ligne.
+                $user_matrice = $this->getMatriceCompetenceByUserMatricule($user_info['Matricule']);
+
+                // Si la matrice existe...
+                if (!empty($user_matrice)) {
+                    // On met à jour les informations.
+                    $user_matrice->setSociete($user_info['Societe']);
+                    $user_matrice->setEtablissement($user_info['Etablissement']);
+                    $user_matrice->setDateNaissance($user_info['Date_Naissance']);
+                    $user_matrice->setDateAnciennete($user_info['Date_Anciennete']);
+                    $user_matrice->setStatut($user_info['Statut']);
+                    $user_matrice->setPoste($user_info['Poste']);
+
+                    // Sauvegarde en base de données.
+                    $em->flush();
+                }
+            }
+        }
+
+        // Suppression du fichier.
+        unlink($filepath);
+    }
+
+    /**
+     * 
+     * Requête d'upload de fichier d'info de la matrice par ajax.
+     * 
+     * @param Request $request
+     * @return Response
+     */
+    public function ajaxUploadCollaborateursInfoAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // Fichier Excel.
+            $info_file = $request->files->get("info_file");
+
+            // Nom du fichier.
+            $filename = $info_file->getClientOriginalName();
+
+            // Upload du fichier sur le serveur.
+            $filepath = "./uploads/" . $filename;
+            $info_file->move("./uploads", $filename);
+
+            // Mise à jour des infos sur l'intranet.
+            $this->collaborateursInfoUpdating($filepath);
+
+            // On génére l'URL de rechargement de la page et on affiche un message de confirmation.
+            $request->getSession()->getFlashBag()->add('notice', "Les informations des collaborateurs ont été mise à jour.");
+            $redirectUrl = $this->generateUrl("nox_intranet_matrice_collaborateur_info_file_uploading");
+
+            return new Response($redirectUrl);
+        }
+    }
+
+    /**
+     * 
+     * Extrait la matrice de compétence depuis un fichier Excel de matrice de compétences.
+     * 
+     * @return Response
+     */
+    public function extractMatriceCompetenceDataAction() {
+        // Entitées de tous les collaborateurs.
+        $em = $this->getDoctrine()->getManager();
+        $allUsers = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
+
+        // On place les entitées collaborateur dans un tableau associatif nom, prénom.
+        $users = array();
+        foreach ($allUsers as $user) {
+            $nom = strtoupper($this->wd_remove_accents(str_replace('-', ' ', $user->getLastname())));
+            $prenom = strtoupper($this->wd_remove_accents(str_replace('-', ' ', $user->getFirstname())));
+
+            $users[$nom][$prenom] = $user;
+        }
+
+        // Fichier Excel de matrice de compétence.
+        $matrice_competence_root = $this->get('kernel')->getRootDir() . "/../src/NoxIntranet/UserBundle/Resources/public/MatriceCompetence";
+        $matrice_competence_file = $matrice_competence_root . "/Matrice_Competence.xlsx";
+
+        // Modification de la méthode de caching pour économiser la mémoire.
+        \PHPExcel_Settings::setCacheStorageMethod(\PHPExcel_CachedObjectStorageFactory::cache_to_sqlite3);
+
+        // Initialisation de l'objet Excel du fichier de matrice.
+        $objReader = new \PHPExcel_Reader_Excel2007();
+        $objReader->setReadDataOnly(true); // Permet de lire seulement les valeurs des cellules pour économiser la mémoire.
+        $objPHPExcel = $objReader->load($matrice_competence_file);
+
+        // Feuile Excel courante.
+        $sheet = $objPHPExcel->getActiveSheet();
+
+        // Pour chaques lignes du fichier Excel...
+        $rowsIterator = $sheet->getRowIterator();
+        foreach ($rowsIterator as $row) {
+            // Index de la ligne.
+            $rowIndex = $row->getRowIndex();
+
+            // Nom et prénom sur la ligne.
+            $matrice_nom = trim(strtoupper($this->wd_remove_accents(str_replace('-', ' ', $sheet->getCell('E' . $rowIndex)->getValue()))));
+            $matrice_prenom = trim(strtoupper($this->wd_remove_accents(str_replace('-', ' ', $sheet->getCell('F' . $rowIndex)->getValue()))));
+
+            // Si le nom et le prénom correspondent à une entitée collaborateur...
+            if (isset($users[$matrice_nom][$matrice_prenom])) {
+                // On récupère l'entitée.
+                $user = $users[$matrice_nom][$matrice_prenom];
+
+                // On recupère l'entitée de matrice de compétence associée.
+                $matrice_competence_entity = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->findOneByUser($user);
+
+                // Si il n'existe pas d'entitée de matrice associé...
+                if (empty($matrice_competence_entity)) {
+                    // On récupére les données du fichier Excel pour le collaborateur.
+                    $matrice_matricule = $sheet->getCell('A' . $rowIndex)->getValue();
+                    $matrice_societe = $sheet->getCell('B' . $rowIndex)->getValue();
+                    $matrice_etablissement = $sheet->getCell('D' . $rowIndex)->getValue();
+                    if (gettype($sheet->getCell('G' . $rowIndex)->getValue()) !== 'string') {
+                        $matrice_date_naissance = \PHPExcel_Shared_Date::ExcelToPHPObject($sheet->getCell('G' . $rowIndex)->getValue());
+                    } else if (DateTime::createFromFormat('d/m/Y', trim($sheet->getCell('G' . $rowIndex)->getValue())) !== false) {
+                        $matrice_date_naissance = DateTime::createFromFormat('d/m/Y', trim($sheet->getCell('G' . $rowIndex)->getValue()));
+                    } else {
+                        $matrice_date_naissance = null;
+                    }
+                    if (gettype($sheet->getCell('H' . $rowIndex)->getValue()) !== 'string') {
+                        $matrice_date_anciennete = \PHPExcel_Shared_Date::ExcelToPHPObject($sheet->getCell('H' . $rowIndex)->getValue());
+                    } else if (DateTime::createFromFormat('d/m/Y', trim($sheet->getCell('H' . $rowIndex)->getValue())) !== false) {
+                        $matrice_date_anciennete = DateTime::createFromFormat('d/m/Y', trim($sheet->getCell('H' . $rowIndex)->getValue()));
+                    } else {
+                        $matrice_date_anciennete = null;
+                    }
+                    $matrice_statut = $sheet->getCell('I' . $rowIndex)->getValue();
+                    $matrice_poste = $sheet->getCell('J' . $rowIndex)->getValue();
+                    $matrice_competence_principale = null;
+                    for ($column = 'K'; $column !== 'DA'; $column++) {
+                        if (trim($sheet->getCell($column . $rowIndex)->getValue()) === "1") {
+                            $matrice_competence_principale = $sheet->getCell($column . '3')->getValue();
+                        }
+                    }
+                    $matrice_competences_secondaires = array();
+                    for ($column = 'J'; $column !== 'BO'; $column++) {
+                        if (trim($sheet->getCell($column . $rowIndex)->getValue()) === "X") {
+                            $matrice_competences_secondaires[] = $sheet->getCell($column . '3')->getValue();
+                        }
+                    }
+
+                    // Création d'une nouvelle entité de matrice de compétence et attribution des données.
+                    $new_matrice_competence = new MatriceCompetence();
+                    $new_matrice_competence->setMatricule($matrice_matricule);
+                    $new_matrice_competence->setSociete($matrice_societe);
+                    $new_matrice_competence->setEtablissement($matrice_etablissement);
+                    $new_matrice_competence->setUser($user);
+                    $new_matrice_competence->setPrenom($user->getFirstname());
+                    $new_matrice_competence->setNom($user->getLastname());
+                    $new_matrice_competence->setDateNaissance($matrice_date_naissance);
+                    $new_matrice_competence->setDateAnciennete($matrice_date_anciennete);
+                    $new_matrice_competence->setStatut($matrice_statut);
+                    $new_matrice_competence->setPoste($matrice_poste);
+                    $new_matrice_competence->setCompetencePrincipale($matrice_competence_principale);
+                    $new_matrice_competence->setCompetencesSecondaires($matrice_competences_secondaires);
+                    $em->persist($new_matrice_competence);
+
+                    // On supprime le collaborateur de la liste des collaborateur pour éviter les doublons.
+                    unset($users[$matrice_nom][$matrice_prenom]);
+                }
+            }
+        }
+
+        // Sauvegarde en base de données.
+        $em->flush();
+
+        return new Response("OK");
+    }
+
+    /**
+     * 
+     * Exporte les compétences des collaborateurs et leurs matricules dans un fichier Excel et le télécharge.
+     * 
+     * @return Response
+     */
+    public function exportMatriceCompetencesAction() {
+        // Récupération des matrices de compétences.
+        $em = $this->getDoctrine()->getManager();
+        $matrices_competences = $em->getRepository("NoxIntranetUserBundle:MatriceCompetence")->findBy(array(), array("matricule" => "ASC"));
+
+        // Initialisation d'un nouveau classeur Excel.
+        $objPHPExcel = new \PHPExcel();
+
+        // Initialisation des feuilles de compétences principales et de compétences secondaires.
+        $objPHPExcel->getActiveSheet()->setTitle("Compétence principale");
+        $competence_principale_sheet = $objPHPExcel->getSheetByName("Compétence principale");
+        $objPHPExcel->createSheet()->setTitle("Compétences secondaires");
+        $competences_secondaire_sheet = $objPHPExcel->getSheetByName("Compétences secondaires");
+
+        // Ecriture des en-têtes sur les feuilles.
+        $competence_principale_sheet->getCell("A1")->setValue("Matricule");
+        $competence_principale_sheet->getCell("B1")->setValue("Compétence principale");
+        $competences_secondaire_sheet->getCell("A1")->setValue("Matricule");
+        $competences_secondaire_sheet->getCell("B1")->setValue("Compétences secondaires");
+
+        // Initialisation des index des lignes du tableur.
+        $ligne_competence_principale = 2;
+        $ligne_competences_secondaire = 2;
+
+        // Pour chaque matrice...
+        foreach ($matrices_competences as $matrice) {
+            // Ecriture du matricule et de la compétence principale sur la feuille de compétence principale.
+            $competence_principale_sheet->getCell("A" . $ligne_competence_principale)->setValue($matrice->getMatricule());
+            $competence_principale_sheet->getCell("B" . $ligne_competence_principale)->setValue($matrice->getCompetencePrincipale());
+
+            // Incrémentation de l'index de ligne de la feuille de compétence principale.
+            $ligne_competence_principale++;
+
+            // Pour chaques compétences secondaires...
+            $competences_secondaire = $matrice->getCompetencesSecondaires();
+            if (empty($competences_secondaire)) {
+                continue;
+            }
+            foreach ($competences_secondaire as $competence) {
+                // Ecriture du matricule et de la compétence secondaire sur la feuille de compétences secondaires.
+                $competences_secondaire_sheet->getCell("A" . $ligne_competences_secondaire)->setValue($matrice->getMatricule());
+                $competences_secondaire_sheet->getCell("B" . $ligne_competences_secondaire)->setValue($competence);
+
+                // Incrémentation de l'index de ligne de la feuille de compétences secondaires.
+                $ligne_competences_secondaire++;
+            }
+        }
+
+        // Dimensionnement automatique des colonnes.
+        $competence_principale_sheet->getColumnDimension('A')->setAutoSize(true);
+        $competence_principale_sheet->getColumnDimension('B')->setAutoSize(true);
+        $competences_secondaire_sheet->getColumnDimension('A')->setAutoSize(true);
+        $competences_secondaire_sheet->getColumnDimension('B')->setAutoSize(true);
+
+        // Centrage du texte.
+        $competence_principale_sheet->getStyle($competence_principale_sheet->calculateWorksheetDimension())->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $competences_secondaire_sheet->getStyle($competences_secondaire_sheet->calculateWorksheetDimension())->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+        // Enregistrement en fichier .xlsx.
+        $export_file = "./Export matrice compétence.xlsx";
+        $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+        $objWriter->save($export_file);
+
+        // Récupération du contenu du fichier.
+        $export_file_binary = file_get_contents($export_file);
+
+        // Suppression du fichier.
+        unlink($export_file);
+
+        // Initialisation du téléchargement.
+        $response = new Response();
+        $response->headers->set("Content-Type", "application/pdf");
+        $response->headers->set("Content-Disposition", "attachment;filename='Export matrice compétence.xlsx'");
+        $response->setContent($export_file_binary);
+
+        return $response;
     }
 
 }

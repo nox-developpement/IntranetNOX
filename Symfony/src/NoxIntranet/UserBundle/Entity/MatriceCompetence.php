@@ -45,6 +45,13 @@ class MatriceCompetence implements JsonSerializable {
     /**
      * @var string
      *
+     * @ORM\Column(name="Matricule", type="string", length=255)
+     */
+    private $matricule;
+    
+    /**
+     * @var string
+     *
      * @ORM\Column(name="Nom", type="string", length=255)
      */
     private $nom;
@@ -372,4 +379,28 @@ class MatriceCompetence implements JsonSerializable {
         );
     }
 
+
+    /**
+     * Set matricule
+     *
+     * @param string $matricule
+     *
+     * @return MatriceCompetence
+     */
+    public function setMatricule($matricule)
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    /**
+     * Get matricule
+     *
+     * @return string
+     */
+    public function getMatricule()
+    {
+        return $this->matricule;
+    }
 }

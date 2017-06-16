@@ -116,6 +116,22 @@ class NoxIntranetExtractRHHierarchie extends Controller {
                     // On attribut l'agence.
                     $newUser->setSociete(trim($objWorksheet->getCell('B' . $rowIndex)->getValue(), "  "));
 
+                    ///////////////////////////////////////////////////////////////////
+                    /* Cette portion sert à appeler le service d'envoi de mail de demande de complétion de la matrice de compétence 
+                      si le collaborateur viens d'être ajouté au fichier de hiérarchie. */
+                    if ($this->isNewUser($userDB)) {
+                        // On récupére l'entitée du N+1.
+                        $n1 = $this->container->get('noxintranet.hierarchy_helper')->getUserEntityFromCanonicalName($newUser->getDA());
+
+                        // Si l'entitée du N+1 est trouvée...
+                        if (!empty($n1)) {
+                            // Appel du service d'envoi de mail au N+1.
+                            $update_mailing_service = $this->container->get('noxintranet_userbundle.competences_update_mailing');
+                            $update_mailing_service->sendNewUserUpdateRequestMail($userDB, $n1);
+                        }
+                    }
+                    ///////////////////////////////////////////////////////////////////
+
                     $em->persist($newUser);
                 }
             }
@@ -134,7 +150,7 @@ class NoxIntranetExtractRHHierarchie extends Controller {
     }
 
     // Trouve l'entité utilisateur associé au Nom et au prénom passé en paramètres.
-    function findUserInDB($firstname, $lastname, $DBUsers) {
+    private function findUserInDB($firstname, $lastname, $DBUsers) {
         // On supprime les accents et tirés du nom et du prénom et on les met en minuscule.
         $cleanFirstname = trim(strtolower(str_replace('-', ' ', $this->wd_remove_accents($firstname))));
         $cleanLastname = trim(strtolower(str_replace('-', ' ', $this->wd_remove_accents($lastname))));
@@ -148,8 +164,16 @@ class NoxIntranetExtractRHHierarchie extends Controller {
         }
     }
 
+    private function isNewUser($userEntity) {
+        $em = $this->getDoctrine()->getManager();
+
+        $user_hierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($userEntity->getUsername());
+
+        return empty($user_hierarchy);
+    }
+
     // Supprime les accents d'une chaîne de caractère.
-    function wd_remove_accents($str, $charset = 'utf-8') {
+    private function wd_remove_accents($str, $charset = 'utf-8') {
         $str = htmlentities($str, ENT_NOQUOTES, $charset);
 
         $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);

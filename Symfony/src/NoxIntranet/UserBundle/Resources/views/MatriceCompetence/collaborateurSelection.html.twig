@@ -11,8 +11,6 @@
         }
 
         #collaborateur_selector {
-            display: inline-block; 
-            text-align: left;
             margin: 0;
             margin-bottom: 0.5em;
         }
@@ -24,6 +22,10 @@
 
         #save_matrice_competence_button {
             display: none;
+        }
+
+        #collaborateurs_matrice_selector {
+            width: 30%;
         }
     </style>
 {% endblock %}
@@ -40,7 +42,8 @@
             // Initialisation du sélécteur avancé.
             $("#collaborateurs_matrice_selector").select2({
                 placeholder: "Choisir un collaborateur...",
-                language: "fr"
+                language: "fr",
+                dropdownAutoWidth: true
             });
 
             // Lorsque un collaborateur est séléctionné...

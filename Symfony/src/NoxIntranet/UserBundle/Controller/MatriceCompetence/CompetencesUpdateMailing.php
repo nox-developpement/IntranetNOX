@@ -48,7 +48,7 @@ class CompetencesUpdateMailing {
         // Pour chaques N+1...
         foreach ($n1_collaborateurs_list as $n1) {
             // On envoi un mail de demande de complétion des matrices des collaborateurs.
-            $this->sendRequestMail($n1);
+            $this->sendUpdateRequestMail($n1);
         }
     }
 
@@ -58,7 +58,7 @@ class CompetencesUpdateMailing {
      * 
      * @param Array $n1_list Tableau contenant les entitées des collaborateur et l'entitée du N+1.
      */
-    private function sendRequestMail($n1_list) {
+    private function sendUpdateRequestMail($n1_list) {
         $container = $this->container;
 
         // Génération du mail du N+1;
@@ -72,6 +72,39 @@ class CompetencesUpdateMailing {
                 ->setBody(
                         $container->get('templating')->render(
                                 'Emails/MatriceCompetences/competences_update_request.html.twig', array('N1' => $n1_list['N+1'], 'Collaborateurs' => $n1_list['Collaborateurs'])
+                        ), 'text/html'
+                )
+        ;
+
+        echo "Envoi d'une demande à " . $n1_mail;
+
+        // Envoi du mail.
+        $container->get('mailer')->send($message);
+
+        echo " => OK.\n";
+    }
+
+    /**
+     * 
+     * Envoi un mail de demande de complétion des compétences au N+1 du collaborateur passé en paramêtre. 
+     * 
+     * @param UserEntity $user Entitée du collaborateur dont les compétences doivent être complétés.
+     * @param UserEntity $n1 Entitée du N+1 du collaborateur.
+     */
+    public function sendNewUserUpdateRequestMail($user, $n1) {
+        $container = $this->container;
+
+        // Génération du mail du N+1;
+        $n1_mail = $n1->getUsername() . "@groupe-nox.com";
+
+        // Génération du mail.
+        $message = new \Swift_Message('Matrice de compétences');
+        $message
+                ->setFrom(array("noreply@groupe-nox.com" => "Direction des Ressources Humaines"))
+                ->setTo($n1_mail)
+                ->setBody(
+                        $container->get('templating')->render(
+                                'Emails/MatriceCompetences/new_user_update_competences_request.html.twig', array('user' => $user)
                         ), 'text/html'
                 )
         ;

@@ -231,6 +231,15 @@
             font-size: calc(9px + 0.2vw);
         }
 
+        #recherche_avance_form input[type='radio'] {
+            vertical-align: middle;
+            margin: 0em;
+        }
+
+        label[for='match_all'], label[for='match_any'] {
+            margin: 0 1em;
+        }
+
         .select2-container .select2-selection--multiple {
             min-height: 0;
         }
@@ -252,7 +261,7 @@
 
 {% block contenu %}
     <!-- Script -->
-    <script src="{{ asset("./js/select2/dist/js/select2.min.js") }}"></script>;
+    <script src="{{ asset("./js/select2/dist/js/select2.min.js") }}"></script>
     <script src="{{ asset('./js/jquery.tablesorter/jquery.tablesorter.min.js') }}"></script>
     <script>
         $(document).ready(function () {
@@ -276,6 +285,9 @@
             $(window).resize(function () {
                 initFixedHeader();
             });
+
+            // Initialisation de l'édition des matrices collaborateurs.
+            openEditionPopUp();
 
             // Initialisation de la recheche dans la matrice.
             ajaxSearchInMatrice();
@@ -311,45 +323,66 @@
         }
 
         // Ouvre une pop-up permettant l'édition de la matrice de compétence du collaborateur.
-        function openEditionPopUp(path, userId) {
-            $("#matrice_edition_popup").dialog({
-                open: function (event, ui) {
-                    $('#matrice_edition_popup_content').load(path);
-                },
-                resizable: false,
-                height: $(window).height() * 0.6,
-                width: $(window).width() / 2,
-                modal: true,
-                draggable: false,
-                dialogClass: "pointage-alert-content-class",
-                title: "Edition compétence collaborateur",
-                buttons: {
-                    // Si l'utilisateur valide...
-                    "Valider": function () {
-                        // On envoie le formulaire de modification de matrice collaborateur.
-                        $("form[name='formMatriceCollaborateurEdition']").submit();
+        function openEditionPopUp() {
+            // Liste des collaborateurs autorisés à éditer la matrice.
+            var authorized_users = JSON.parse('{{ authorizedEditors|raw }}');
 
-                        // Ecoute des requêtes ajax.
-                        $(document).ajaxComplete(function (event, xhr, settings) {
-                            // Si une requête de sauvegarde de la matrice de compétence a été effectué...
-                            if (settings.headers.name === "save_matrice_competence" && xhr.readyState === 4) {
-                                // On ferme la pop-up d'édition.
+            // Template du lien d'édition de matrice collaborateur.
+            var path_template = "{{ path('nox_intranet_developpement_professionnel_matrice_competence_edition_collaborateur', {userId: "USER_ID"}) }}";
+
+            // Lors d'un double-clique sur une ligne du tableau de matrice de compétence...
+            $("#matriceCompetenceTable").on("dblclick", ".matrice_collaborateur_tr", function () {
+                // Si le collaborateur courant fait partie de la liste des collaborateurs authorisé...
+                if ($.inArray("{{ app.user.username }}", authorized_users) > -1) {
+                    // Récupération de l'id du collaborateur et génération du lien d'édition de sa matrice.
+                    var user_id = $(this).data('user-id');
+                    var path = path_template.replace("USER_ID", user_id);
+
+                    // Ouverture de la pop-up d'édition.
+                    $("#matrice_edition_popup").dialog({
+                        open: function (event, ui) {
+                            $('#matrice_edition_popup_content').load(path);
+                        },
+                        resizable: false,
+                        height: $(window).height() * 0.6,
+                        width: $(window).width() / 2,
+                        modal: true,
+                        draggable: false,
+                        dialogClass: "pointage-alert-content-class",
+                        title: "Edition compétence collaborateur",
+                        buttons: {
+                            // Si l'utilisateur valide...
+                            "Valider": function () {
+                                // On envoie le formulaire de modification de matrice collaborateur.
+                                $("form[name='formMatriceCollaborateurEdition']").submit();
+
+                                // Ecoute des requêtes ajax.
+                                $(document).ajaxComplete(function (event, xhr, settings) {
+                                    // Si une requête de sauvegarde de la matrice de compétence a été effectué...
+                                    if (settings.hasOwnProperty('headers') && settings.headers.name === "save_matrice_competence" && xhr.readyState === 4) {
+                                        // On ferme la pop-up d'édition.
+                                        $("#matrice_edition_popup").dialog("close");
+                                    }
+                                });
+                            },
+                            // Si l'utilisateur annule, on ferme la fenêtre.
+                            "Annuler": function () {
                                 $("#matrice_edition_popup").dialog("close");
                             }
-                        });
-
-                    },
-                    // Si l'utilisateur annule, on ferme la fenêtre.
-                    "Annuler": function () {
-                        $("#matrice_edition_popup").dialog("close");
-                    }
-                },
-                close: function (event, ui) {
-                    // On appel la fonction de mise à jour de l'affichage du tableau.
-                    updateMatriceView(userId);
+                        },
+                        close: function (event, ui) {
+                            // On appel la fonction de mise à jour de l'affichage du tableau.
+                            updateMatriceView(user_id);
+                        }
+                    });
+                    $('.ui-dialog :button').blur();
+                }
+                // Sinon...
+                else {
+                    // On affiche un message d'erreur.
+                    alert("Vous n'êtes pas autorisé à éditer la matrice de compétence.");
                 }
             });
-            $('.ui-dialog :button').blur();
         }
 
         // Met à jour l'affichage tu tableau avec les dernières mise à jours du collaborateur passé en paramêtre.
@@ -485,7 +518,7 @@
                                             .append(competences_secondaires_container);
 
                                     // HTML de la nouvelle ligne du tableau.
-                                    var newTr = $("<tr class='matrice_collaborateur_tr'></tr>")
+                                    var newTr = $("<tr class='matrice_collaborateur_tr' data-user-id='" + matrice.user.id + "'></tr>")
                                             .append("<td>" + matrice.societe + "<hr>" + matrice.etablissement + "</td>")
                                             .append("<td>" + matrice.nom + "<br>" + matrice.prenom + "</td>")
                                             .append("<td>" + matrice.date_naissance + "</td>")
@@ -534,6 +567,11 @@
             $("#recherche_avance_form input").on("input", function () {
                 ajaxSearch(); // On lance la recherche.
             });
+            
+            // Lorsqu'on on écris dans les champs de recherche...
+            $("#recherche_avance_form input[type='radio']").on("change", function () {
+                ajaxSearch(); // On lance la recherche.
+            });
         }
 
     </script>
@@ -542,6 +580,11 @@
     <!-- Recherche avancée -->
     <div id="recherche_avance_div">
         <form id="recherche_avance_form">
+            <p>
+                <label>Résultat de recherche :</label>
+                <label for="match_all"><input id="match_all" type="radio" name="search_match_type" value="all" checked="checked"> valide toutes les conditions</label>
+                <label for="match_any"><input id="match_any" type="radio" name="search_match_type" value="any"> valide une des conditions</label>
+            </p><br />
             <p>
                 <label for="Societe">Société : </label>
                 <select id="Societe" name="societe">
