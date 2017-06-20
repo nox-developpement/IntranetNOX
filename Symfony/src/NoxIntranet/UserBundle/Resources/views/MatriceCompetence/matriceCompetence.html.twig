@@ -142,6 +142,7 @@
             margin: 0.1em;
             font-size: calc(11px + 0.2vw);
             border-radius: 5px;
+            text-transform: capitalize;
         }
 
         .competence_principale_div {
@@ -405,14 +406,14 @@
                     tr.find('.poste').text(matriceObject.poste);
                     tr.find('.competence_principale_container').html("");
                     if (matriceObject.competence_principale !== null) {
-                        tr.find('.competence_principale_container').append("<div class='competence_principale_div'>" + matriceObject.competence_principale + "</div>");
+                        tr.find('.competence_principale_container').append("<div class='competence_principale_div'>" + matriceObject.competence_principale.toLowerCase() + "</div>");
                     } else {
                         tr.find('.competence_principale_container').append("<div class='competence_principale_div'>Aucune</div>");
                     }
                     tr.find('.competences_secondaires_container').html("");
                     if (matriceObject.competences_secondaires !== null) {
                         $.each(matriceObject.competences_secondaires, function (index, competence) {
-                            tr.find('.competences_secondaires_container').append("<div class='competence_secondaire_div'>" + competence + "</div> ");
+                            tr.find('.competences_secondaires_container').append("<div class='competence_secondaire_div'>" + competence.toLowerCase() + "</div> ");
                         });
                     } else {
                         tr.find('.competences_secondaires_container').append("<div class='competence_secondaire_div'>Aucune</div>");
@@ -499,13 +500,13 @@
                                 $.each(matriceList, function (index, matrice) {
                                     // HTML de la compétences principales.
                                     var competence_principale_container = $("<span class='competence_container competence_principale_container'></span>")
-                                            .append("<span class='competence_principale_div'>" + (matrice.competence_principale !== null ? matrice.competence_principale : "Aucune") + "</span>");
+                                            .append("<span class='competence_principale_div'>" + (matrice.competence_principale !== null ? matrice.competence_principale.toLowerCase() : "Aucune") + "</span>");
 
                                     // HTML des compétences secondaires.
                                     var competences_secondaires_container = $("<span class='competence_container competences_secondaires_container'></span>");
                                     if (matrice.competences_secondaires !== null && matrice.competences_secondaires.length > 0) {
                                         $.each(matrice.competences_secondaires, function (index, competence) {
-                                            competences_secondaires_container.append("<span class='competence_secondaire_div'>" + competence + "</span>");
+                                            competences_secondaires_container.append("<span class='competence_secondaire_div'>" + competence.toLowerCase() + "</span>");
                                         });
                                     } else {
                                         competences_secondaires_container.append("<span class='competence_secondaire_div'>Aucune</span>");
