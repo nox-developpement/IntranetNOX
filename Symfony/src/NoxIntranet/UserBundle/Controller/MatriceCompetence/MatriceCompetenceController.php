@@ -350,42 +350,42 @@ class MatriceCompetenceController extends Controller {
                         'style' => "width: 100%;"
                     )
                 ))
-                ->add('Date_Naissance', DateType::class, array(
-                    'read_only' => true,
-                    'widget' => 'single_text',
-                    'format' => 'dd/MM/yyyy',
-                    'label' => "DATE DE NAISSANCE",
-                    'years' => range(date('Y') - 100, date('Y')),
-                    'attr' => array(
-                        //'class' => "datepicker",
-                        'style' => "display: inline-block;"
-                    ),
-                ))
-                ->add('Date_Anciennete', DateType::class, array(
-                    'read_only' => true,
-                    'widget' => 'single_text',
-                    'format' => 'dd/MM/yyyy',
-                    'label' => 'DATE ANCIENNETE',
-                    'years' => range(date('Y') - 100, date('Y')),
-                    'attr' => array(
-                        //'class' => "datepicker",
-                        'style' => "display: inline-block;"
-                    ),
-                ))
-                ->add('Statut', TextType::class, array(
-                    'read_only' => true,
-                    'label' => "STATUT",
-                    'attr' => array(
-                        'style' => "width: 100%;"
-                    ),
-                ))
-                ->add('Poste', TextType::class, array(
-                    'read_only' => true,
-                    'label' => 'POSTE',
-                    'attr' => array(
-                        'style' => "width: 100%;"
-                    ),
-                ))
+//                ->add('Date_Naissance', DateType::class, array(
+//                    'read_only' => true,
+//                    'widget' => 'single_text',
+//                    'format' => 'dd/MM/yyyy',
+//                    'label' => "DATE DE NAISSANCE",
+//                    'years' => range(date('Y') - 100, date('Y')),
+//                    'attr' => array(
+//                        //'class' => "datepicker",
+//                        'style' => "display: inline-block;"
+//                    ),
+//                ))
+//                ->add('Date_Anciennete', DateType::class, array(
+//                    'read_only' => true,
+//                    'widget' => 'single_text',
+//                    'format' => 'dd/MM/yyyy',
+//                    'label' => 'DATE ANCIENNETE',
+//                    'years' => range(date('Y') - 100, date('Y')),
+//                    'attr' => array(
+//                        //'class' => "datepicker",
+//                        'style' => "display: inline-block;"
+//                    ),
+//                ))
+//                ->add('Statut', TextType::class, array(
+//                    'read_only' => true,
+//                    'label' => "STATUT",
+//                    'attr' => array(
+//                        'style' => "width: 100%;"
+//                    ),
+//                ))
+//                ->add('Poste', TextType::class, array(
+//                    'read_only' => true,
+//                    'label' => 'POSTE',
+//                    'attr' => array(
+//                        'style' => "width: 100%;"
+//                    ),
+//                ))
                 ->add('Competence_Principale', ChoiceType::class, array(
                     'choices' => $competencesArray,
                     'placeholder' => 'Séléctionnez une compétence...',
@@ -442,10 +442,10 @@ class MatriceCompetenceController extends Controller {
             }
 
             // On met à jour les données.
-            $matrice_collaborateur_entity->setDateNaissance(DateTime::createFromFormat('d/m/Y', $form['Date_Naissance']));
-            $matrice_collaborateur_entity->setDateAnciennete(DateTime::createFromFormat('d/m/Y', $form['Date_Anciennete']));
-            $matrice_collaborateur_entity->setStatut($form['Statut']);
-            $matrice_collaborateur_entity->setPoste($form['Poste']);
+            //$matrice_collaborateur_entity->setDateNaissance(DateTime::createFromFormat('d/m/Y', $form['Date_Naissance']));
+            //$matrice_collaborateur_entity->setDateAnciennete(DateTime::createFromFormat('d/m/Y', $form['Date_Anciennete']));
+            //$matrice_collaborateur_entity->setStatut($form['Statut']);
+            //$matrice_collaborateur_entity->setPoste($form['Poste']);
             if (!empty($form['Competence_Principale'])) {
                 $matrice_collaborateur_entity->setCompetencePrincipale($form['Competence_Principale']);
             } else {
