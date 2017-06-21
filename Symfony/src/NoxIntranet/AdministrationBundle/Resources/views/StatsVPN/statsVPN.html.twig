@@ -1,0 +1,107 @@
+{% extends "::layout.html.twig" %}
+
+{% block style %}
+    <style>
+        .statistiques_vnp_container {
+            vertical-align: top;
+            width: 70%;
+            margin: auto;
+        }
+
+        #statistiques_vnp_container_by_users {
+            vertical-align: top;
+            width: 70%;
+            margin: auto;
+            display: none;
+        }
+
+        .statistiques_user_div {
+            display: inline-block;
+            border: 1px solid black;
+            padding: 0.5em;
+            margin: 0.5em;
+            background-color: white;
+        }
+
+        .statistique_vpn {
+            display: inline-block;
+            list-style-type: none;
+            vertical-align: top;
+        }
+
+        .user_ul {
+            padding: 0;
+            margin: 0;
+            background-color: #021C2D;
+            color: white;
+        }
+
+        .annee_ul {
+            background-color: #1F4E79;
+            color: white;
+        }
+
+        .mois_ul {
+            background-color: white;
+            color: #1F4E79;
+        }
+    </style>
+{% endblock %}
+
+{% block titrePage %}Statistiques VPN{% endblock %}
+
+{% block messageAccueil %}Statistiques VPN{% endblock %}
+
+{% block contenu %}
+    <div id="statistiques_vnp_container_by_users" class="statistiques_vnp_container">
+        {% for stat in statsDataByUsers %}
+            <div class="statistiques_user_div">
+                <ul class="statistique_vpn user_ul">
+                    <li>
+                        {{ stat["Utilisateur"] }} => {{ stat["Connexions"]["Dates"]|length }} Connexions
+                    </li>
+                    <li>
+                        <ul class="statistique_vpn annee_ul">
+                            {% for annee, annee_data in stat["Connexions"]["Annees"] %}
+                                <li>
+                                    {{ annee }} => {{ annee_data["Dates"]|length }} Connexions
+                                </li>
+                                <li>
+                                    <ul class="statistique_vpn mois_ul">
+                                        {% for mois, data in annee_data["Mois"] %}
+                                            <li>
+                                                {{ numberToMonth[mois] }} => {{ data["Dates"]|length }} Connexions
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id="statistiques_vnp_container_by_month">
+        {% for month, users in statsDataByMonths %}
+            <div class="statistiques_user_div">
+                <ul class="statistique_vpn">
+                    <li>
+                        {{ numberToMonth[month] }}
+                    </li>
+                    <li>
+                        <ul class="statistique_vpn">
+                            {% for user, dates in users %}
+                                <li>
+                                    {{ idToName[user] is defined ? idToName[user] : user }} : {{ dates|length }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
