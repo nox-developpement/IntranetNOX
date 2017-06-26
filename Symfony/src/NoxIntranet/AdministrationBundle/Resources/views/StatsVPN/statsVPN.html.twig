@@ -15,6 +15,10 @@
             display: none;
         }
 
+        #statistiques_vnp_container_by_month {
+            display: none;
+        }
+
         .statistiques_user_div {
             display: inline-block;
             border: 1px solid black;
@@ -45,6 +49,15 @@
             background-color: white;
             color: #1F4E79;
         }
+
+        .chart_container {
+            position: relative;
+            box-sizing: border-box;
+            padding: 1em;
+            width: 60%;
+            margin: 1em auto;
+            background-color: white;
+        }
     </style>
 {% endblock %}
 
@@ -53,6 +66,81 @@
 {% block messageAccueil %}Statistiques VPN{% endblock %}
 
 {% block contenu %}
+    <script src="{{ asset("js/Chart.bundle.min.js") }}"></script>
+    <script>
+        $(window).load(function () {
+            var graphiqueDatas = JSON.parse('{{ graphiqueDatas|json_encode()|raw }}');
+
+            $.each(graphiqueDatas, function (index, graphiqueData) {
+                var chart_id = "chart_" + index;
+                $("#charts_div").append("<div class='chart_container'><canvas id='" + chart_id + "'></canvas></div>");
+
+                var ctx = document.getElementById(chart_id).getContext('2d');
+
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ["0", "1-5", "6-10", "11-20", "+20"],
+                        datasets: [{
+                                data: [graphiqueData["0"]["Count"], graphiqueData["1-5"]["Count"], graphiqueData["6-10"]["Count"], graphiqueData["11-20"]["Count"], graphiqueData["+20"]["Count"]],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255,99,132,1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            position: "top",
+                            text: "Janvier"
+                        },
+                        scales: {
+                            yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    },
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: "Nombre d'utilisateur(s)"
+                                    }
+                                }],
+                            xAxes: [{
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: "Nombre de connexion(s) durant le mois"
+                                    }
+                                }]
+                        },
+                        legend: {
+                            display: false
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    <div id="charts_div">
+
+    </div>
+
+    <div class="chart_container">
+        <canvas id="myChart"></canvas>
+    </div>
+
+
     <div id="statistiques_vnp_container_by_users" class="statistiques_vnp_container">
         {% for stat in statsDataByUsers %}
             <div class="statistiques_user_div">

@@ -78,12 +78,43 @@ class StatsVPNController extends Controller {
             }
         }
 
+        $graphiqueDatas = array();
+
+        foreach ($statsDataByMonths as $month => $monthData) {
+            $graphiqueDatas[$month]["0"]["Count"] = 0;
+            $graphiqueDatas[$month]["1-5"]["Count"] = 0;
+            $graphiqueDatas[$month]["6-10"]["Count"] = 0;
+            $graphiqueDatas[$month]["11-20"]["Count"] = 0;
+            $graphiqueDatas[$month]["+20"]["Count"] = 0;
+
+            foreach ($monthData as $user => $userData) {
+                $count = count($userData);
+
+                if ($count === 0) {
+                    $graphiqueDatas[$month]["0"]["Count"] ++;
+                    $graphiqueDatas[$month]["0"]["Users"][] = $user;
+                } else if ($count > 1 && $count <= 5) {
+                    $graphiqueDatas[$month]["1-5"]["Count"] ++;
+                    $graphiqueDatas[$month]["1-5"]["Users"][] = $user;
+                } else if ($count > 5 && $count <= 10) {
+                    $graphiqueDatas[$month]["6-10"]["Count"] ++;
+                    $graphiqueDatas[$month]["6-10"]["Users"][] = $user;
+                } else if ($count > 10 && $count <= 20) {
+                    $graphiqueDatas[$month]["11-20"]["Count"] ++;
+                    $graphiqueDatas[$month]["11-20"]["Users"][] = $user;
+                } else if ($count > 20) {
+                    $graphiqueDatas[$month]["+20"] ++;
+                    $graphiqueDatas[$month]["+20"]["Users"][] = $user;
+                }
+            }
+        }
+
         asort($statsDataByUsers);
         //asort($statsDataByMonths);
 
         $numberToMonth = array("01" => "Janvier", "02" => "Février", "03" => "Mars", "04" => "Avril", "05" => "Mai", "06" => "Juin", "07" => "Juillet", "08" => "Août", "09" => "Septembre", "10" => "Octobre", "11" => "Novembre", "12" => "Décembre");
 
-        return $this->render("NoxIntranetAdministrationBundle:StatsVPN:statsVPN.html.twig", array('statsDataByUsers' => $statsDataByUsers, 'statsDataByMonths' => $statsDataByMonths, 'numberToMonth' => $numberToMonth, 'idToName' => $idToName));
+        return $this->render("NoxIntranetAdministrationBundle:StatsVPN:statsVPN.html.twig", array('statsDataByUsers' => $statsDataByUsers, 'statsDataByMonths' => $statsDataByMonths, 'numberToMonth' => $numberToMonth, 'idToName' => $idToName, 'graphiqueDatas' => $graphiqueDatas));
     }
 
 }
