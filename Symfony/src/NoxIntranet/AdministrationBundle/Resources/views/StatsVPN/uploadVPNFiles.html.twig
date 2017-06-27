@@ -1,0 +1,26 @@
+{% extends "::layout.html.twig" %}
+
+{% block style %}
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block titrePage %}Upload fichiers VPN{% endblock %}
+
+{% block messageAccueil %}Upload fichiers VPN{% endblock %}
+
+{% block contenu %}
+
+    <div>
+        {{ form_start(formUploadVPN) }}
+        <p>
+            {{ form_widget(formUploadVPN.File) }}
+        </p>
+        <p>
+            {{ form_widget(formUploadVPN.Upload) }}
+        </p>
+        {{ form_end(formUploadVPN) }}
+    </div>
+
+{% endblock %}

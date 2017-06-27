@@ -212,6 +212,10 @@ nox_intranet_monitoring_scheduled_scripts:
     path: /administration/monitoring-scheduled-scripts
     defaults: { _controller: NoxIntranetAdministrationBundle:MonitoringScheduledScripts:scheduledScriptsMonitoringPanel }
     
+nox_intranet_vpn_stats_upload:
+    path: /administration/stats-vpn/upload
+    defaults: { _controller: NoxIntranetAdministrationBundle:StatsVPN\StatsVPN:uploadVPNLogs }
+    
 nox_intranet_vpn_stats:
     path: /administration/stats-vpn/stats
     defaults: { _controller: NoxIntranetAdministrationBundle:StatsVPN\StatsVPN:statsVPNCalculation }

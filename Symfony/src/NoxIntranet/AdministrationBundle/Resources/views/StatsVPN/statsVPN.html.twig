@@ -58,6 +58,10 @@
             margin: 1em auto;
             background-color: white;
         }
+
+        #dialog {
+            overflow: auto; 
+        }
     </style>
 {% endblock %}
 
@@ -69,14 +73,23 @@
     <script src="{{ asset("js/Chart.bundle.min.js") }}"></script>
     <script>
         $(window).load(function () {
+            // Tableau de conversion d'index de mois en nom de mois.
+            var numberToMonth = {"01": "Janvier", "02": "Février", "03": "Mars", "04": "Avril", "05": "Mai", "06": "Juin", "07": "Juillet", "08": "Août", "09": "Septembre", "10": "Octobre", "11": "Novembre", "12": "Décembre"};
+
+            // Tableau de conversion d'id vpn en nom d'utilisateur.
+            var idToName = JSON.parse('{{ idToName|json_encode()|raw }}');
+
+            // Données d'entrées pour les graphiques.
             var graphiqueDatas = JSON.parse('{{ graphiqueDatas|json_encode()|raw }}');
 
+            // Pour chaques mois...
             $.each(graphiqueDatas, function (index, graphiqueData) {
+                // Ajout d'un caneva HTML pour le graphique.
                 var chart_id = "chart_" + index;
                 $("#charts_div").append("<div class='chart_container'><canvas id='" + chart_id + "'></canvas></div>");
 
+                // Initialisation du graphique.
                 var ctx = document.getElementById(chart_id).getContext('2d');
-
                 var myChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
@@ -104,7 +117,7 @@
                         title: {
                             display: true,
                             position: "top",
-                            text: "Janvier"
+                            text: numberToMonth[index]
                         },
                         scales: {
                             yAxes: [{
@@ -125,71 +138,53 @@
                         },
                         legend: {
                             display: false
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function (tooltipItem, data) {
+                                    return [tooltipItem.yLabel + " Utilisateur(s)", "Cliquez pour voir la liste des utilisateurs."];
+                                },
+                                title: function () {
+                                    return "";
+                                }
+                            }
                         }
+                    }
+                });
+
+                // Lors d'un clic sur le graphique...
+                $("#" + chart_id).on("click", function (e) {
+                    // On récupére l'élement du graphique sur lesquel on a cliqué.
+                    var chartElement = myChart.getElementsAtEvent(e)[0];
+
+                    // Si l'élement existe...
+                    if (chartElement !== undefined) {
+                        // On récupére son label.
+                        var barLabel = chartElement["_view"].label;
+
+                        // On prépare la chaine contenent le nom des utilisateurs correspondant à la barre cliqué.
+                        var alertString = "";
+                        $.each(graphiqueData[barLabel]["Users"], function (index, user) {
+                            alertString += user + " : " + idToName[user] + "<br />";
+                        });
+
+                        // On affiche la liste des utilisateurs.
+                        $("#dialog").html(alertString);
+                        $("#dialog").dialog({
+                            height: $(window).height() / 3,
+                            title: barLabel + " utilisation(s) en " + numberToMonth[index]
+                        });
+                        $('.ui-dialog :button').blur();
                     }
                 });
             });
         });
     </script>
 
+    <div id="dialog">
+    </div>
+
     <div id="charts_div">
-
-    </div>
-
-    <div class="chart_container">
-        <canvas id="myChart"></canvas>
-    </div>
-
-
-    <div id="statistiques_vnp_container_by_users" class="statistiques_vnp_container">
-        {% for stat in statsDataByUsers %}
-            <div class="statistiques_user_div">
-                <ul class="statistique_vpn user_ul">
-                    <li>
-                        {{ stat["Utilisateur"] }} => {{ stat["Connexions"]["Dates"]|length }} Connexions
-                    </li>
-                    <li>
-                        <ul class="statistique_vpn annee_ul">
-                            {% for annee, annee_data in stat["Connexions"]["Annees"] %}
-                                <li>
-                                    {{ annee }} => {{ annee_data["Dates"]|length }} Connexions
-                                </li>
-                                <li>
-                                    <ul class="statistique_vpn mois_ul">
-                                        {% for mois, data in annee_data["Mois"] %}
-                                            <li>
-                                                {{ numberToMonth[mois] }} => {{ data["Dates"]|length }} Connexions
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        {% endfor %}
-    </div>
-
-    <div id="statistiques_vnp_container_by_month">
-        {% for month, users in statsDataByMonths %}
-            <div class="statistiques_user_div">
-                <ul class="statistique_vpn">
-                    <li>
-                        {{ numberToMonth[month] }}
-                    </li>
-                    <li>
-                        <ul class="statistique_vpn">
-                            {% for user, dates in users %}
-                                <li>
-                                    {{ idToName[user] is defined ? idToName[user] : user }} : {{ dates|length }}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        {% endfor %}
     </div>
 
 {% endblock %}
