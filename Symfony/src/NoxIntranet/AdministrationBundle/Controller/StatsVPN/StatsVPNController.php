@@ -10,7 +10,15 @@ use DateTime;
 
 class StatsVPNController extends Controller {
 
+    /**
+     * 
+     * Formulaire permettant l'upload d'un ZIP contenant les fichiers de statistiques VPN.
+     * 
+     * @param Request $request Request contenant les données du formulaire.
+     * @return View
+     */
     public function uploadVPNLogsAction(Request $request) {
+        // Génération du formulaire d'upload.
         $formUploadVPNBuilder = $this->createFormBuilder();
         $formUploadVPNBuilder
                 ->add("File", FileType::class, array(
@@ -18,11 +26,13 @@ class StatsVPNController extends Controller {
                         "accept" => ".zip"
                     )
                 ))
-                ->add("Upload", SubmitType::class)
+                ->add("Upload", SubmitType::class, array(
+                    "label" => "Envoyer"
+                ))
         ;
-
         $formUploadVPN = $formUploadVPNBuilder->getForm();
 
+        // Traitement du formulaire.
         $formUploadVPN->handleRequest($request);
         if ($formUploadVPN->isValid()) {
             // On récupére le fichier.
@@ -39,18 +49,31 @@ class StatsVPNController extends Controller {
             $file->move(".", "VPNFiles.zip");
 
             return $this->redirectToRoute("nox_intranet_vpn_stats");
-            //var_dump($file->getMimeType());
         }
 
         return $this->render("NoxIntranetAdministrationBundle:StatsVPN:uploadVPNFiles.html.twig", array("formUploadVPN" => $formUploadVPN->createView()));
     }
 
-    public function statsVPNCalculationAction() {
+    /**
+     * 
+     * Lis les fichier de statistiques VPN, calcules les degrés d'utilisation par les utilisateurs et retourne une vue d'affichage des statistiques.
+     * 
+     * @return View
+     */
+    public function statsVPNCalculationAction(Request $request) {
         $VPNFilesFolder = "./VPNFiles/";
 
-        // On extrait l'archive contenant les fichiers de statistiques VPN.
+        // On ouvre l'archive contenant les fichiers de statistiques VPN.
         $zip = new \ZipArchive();
-        $zip->open("./VPNFiles.zip");
+        $isOpen = $zip->open("./VPNFiles.zip");
+
+        // Si l'ouverture de l'archive a échoué...
+        if ($isOpen !== true) {
+            // On redirige vers le formulaire d'upload.
+            return $this->redirectToRoute("nox_intranet_vpn_stats_upload");
+        }
+
+        // On extrait l'archive.
         $zip->extractTo($VPNFilesFolder);
         $zip->close();
 
@@ -142,6 +165,24 @@ class StatsVPNController extends Controller {
                 // Suppression de l'archive.
                 unlink($filePath);
             }
+        }
+
+        // Si le dossier des fichiers de statistiques VPN n'est pas vide...
+        if (count(scandir($VPNFilesFolder)) !== 2) {
+            // Pour chaques fichier du dossier...
+            foreach (scandir($VPNFilesFolder) as $file) {
+                // On supprime le fichier.
+                if ($file !== "." && $file !== "..") {
+                    unlink($VPNFilesFolder . $file);
+                }
+            }
+
+            // Suppression du dossier des fichiers de statistiques VPN.
+            rmdir($VPNFilesFolder);
+
+            // On redirige vers le formulaire d'upload avec un message d'erreur.
+            $request->getSession()->getFlashBag()->add('noticeErreur', "L'archive ne contient pas de fichier de statistique VPN valide.");
+            return $this->redirectToRoute("nox_intranet_vpn_stats_upload");
         }
 
         // Suppression du dossier des fichiers de statistiques VPN.

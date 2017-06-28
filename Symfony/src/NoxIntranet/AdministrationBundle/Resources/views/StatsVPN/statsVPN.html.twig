@@ -165,7 +165,7 @@
                         // On prépare la chaine contenent le nom des utilisateurs correspondant à la barre cliqué.
                         var alertString = "";
                         $.each(graphiqueData[barLabel]["Users"], function (index, user) {
-                            alertString += user + " : " + idToName[user] + "<br />";
+                            alertString += user + " : " + (idToName[user] !== undefined ? idToName[user] : "inconnu") + "<br />";
                         });
 
                         // On affiche la liste des utilisateurs.

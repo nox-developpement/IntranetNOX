@@ -2,7 +2,16 @@
 
 {% block style %}
     <style>
-
+        form {
+            display: inline-block;
+            width: auto;
+            padding: 1em;
+            background-color: rgba(255,255,255,0.7);
+        }
+        
+        #form_upload_vpn_container {
+            text-align: center;
+        }
     </style>
 {% endblock %}
 
@@ -12,12 +21,12 @@
 
 {% block contenu %}
 
-    <div>
+    <div id="form_upload_vpn_container">
         {{ form_start(formUploadVPN) }}
         <p>
             {{ form_widget(formUploadVPN.File) }}
         </p>
-        <p>
+        <p style="margin-bottom: 0;">
             {{ form_widget(formUploadVPN.Upload) }}
         </p>
         {{ form_end(formUploadVPN) }}

@@ -197,9 +197,21 @@
                         > 
                     <figcaption>Informations</figcaption>
                 </figure>
-            </a> 
+            </a>  
 
             <br>
+
+            <!-- Message d'alerte -->
+            <a href="{{ path('nox_intranet_administration_message_alerte') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Message-Warning-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Message-Warning-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Message-Warning-128.png') }}';"
+                        > 
+                    <figcaption>Message d'alerte</figcaption>
+                </figure>
+            </a>
 
             <!-- Monitoring charte informatique -->
             <a href="{{ path('nox_intranet_charte_informatique_monitoring') }}" class="icon">
@@ -235,19 +247,19 @@
                         > 
                     <figcaption>Serveurs</figcaption>
                 </figure>
-            </a>
+            </a>   
 
-            <!-- Message d'alerte -->
-            <a href="{{ path('nox_intranet_administration_message_alerte') }}" class="icon">
+            <!-- Statistique VPN -->
+            <a href="{{ path('nox_intranet_vpn_stats_upload') }}" class="icon">
                 <figure>
                     <img 
-                        src="{{ asset('bundles/noxintranetadministration/images/Message-Warning-128.png') }}" 
-                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Message-Warning-128-hover.png') }}';" 
-                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Message-Warning-128.png') }}';"
+                        src="{{ asset('bundles/noxintranetadministration/images/Bar-Chart-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Bar-Chart-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Bar-Chart-128.png') }}';"
                         > 
-                    <figcaption>Message d'alerte</figcaption>
+                    <figcaption>Statistique VPN</figcaption>
                 </figure>
-            </a>
+            </a>   
 
         {% endif %}
 
