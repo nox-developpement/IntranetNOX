@@ -178,6 +178,106 @@
                     }
                 });
             });
+
+            // Données d'entrées pour le graphique global.
+            var graphiqueDatasGlobal = JSON.parse('{{ graphiqueDatasGlobal|json_encode()|raw }}');
+
+            // Ajout d'un caneva HTML pour le graphique.
+            var chart_id = "chart_global";
+            $("#charts_div").append("<div class='chart_container'><canvas id='" + chart_id + "'></canvas></div>");
+
+            // Initialisation du graphique.
+            var ctx = document.getElementById(chart_id).getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["0", "1-5", "6-10", "11-20", "+20"],
+                    datasets: [{
+                            data: [graphiqueDatasGlobal["0"]["Count"], graphiqueDatasGlobal["1-5"]["Count"], graphiqueDatasGlobal["6-10"]["Count"], graphiqueDatasGlobal["11-20"]["Count"], graphiqueDatasGlobal["+20"]["Count"]],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        position: "top",
+                        text: "Global"
+                    },
+                    scales: {
+                        yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: "Nombre d'utilisateur(s)"
+                                }
+                            }],
+                        xAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: "Nombre de connexion(s) global"
+                                }
+                            }]
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem, data) {
+                                return [tooltipItem.yLabel + " Utilisateur(s)", "Cliquez pour voir la liste des utilisateurs."];
+                            },
+                            title: function () {
+                                return "";
+                            }
+                        }
+                    }
+                }
+            });
+
+            console.log(graphiqueDatasGlobal["1-5"]["Users"]);
+
+            // Lors d'un clic sur le graphique...
+            $("#" + chart_id).on("click", function (e) {
+                // On récupére l'élement du graphique sur lesquel on a cliqué.
+                var chartElement = myChart.getElementsAtEvent(e)[0];
+
+                // Si l'élement existe...
+                if (chartElement !== undefined) {
+                    // On récupére son label.
+                    var barLabel = chartElement["_view"].label;
+
+                    // On prépare la chaine contenent le nom des utilisateurs correspondant à la barre cliqué.
+                    var alertString = "";
+                    $.each(graphiqueDatasGlobal[barLabel]["Users"], function (index, user) {
+                        //console.log(graphiqueDatasGlobal[barLabel]["Users"][index]);
+                        alertString += user + " : " + (idToName[user] !== undefined ? idToName[user] : "inconnu") + "<br />";
+                    });
+
+                    // On affiche la liste des utilisateurs.
+                    $("#dialog").html(alertString);
+                    $("#dialog").dialog({
+                        height: $(window).height() / 3,
+                        title: barLabel + " utilisation(s) global"
+                    });
+                    $('.ui-dialog :button').blur();
+                }
+            });
         });
     </script>
 

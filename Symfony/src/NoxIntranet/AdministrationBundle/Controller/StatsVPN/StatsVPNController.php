@@ -83,6 +83,7 @@ class StatsVPNController extends Controller {
         // Tableau contenant les données pour les statistiques.
         $statsDataByUsers = array();
         $statsDataByMonths = array();
+        $statsDataGlobal = array();
 
         // Pour chaques fichier extrait...
         foreach (scandir($VPNFilesFolder) as $file) {
@@ -152,6 +153,9 @@ class StatsVPNController extends Controller {
 
                         // On ajoute la date au tableau par mois.
                         $statsDataByMonths[$mois][$data[2]][] = $date;
+
+                        // On ajoute la date au tableau global.
+                        $statsDataGlobal[$data[2]][] = $data;
                     }
                 }
 
@@ -188,31 +192,41 @@ class StatsVPNController extends Controller {
         // Suppression du dossier des fichiers de statistiques VPN.
         rmdir($VPNFilesFolder);
 
-        // On ajoute les ID manquant au tableau des statistiques par mois.
+        // On ajoute les ID manquant au tableau des statistiques par mois et des statistiques global.
         foreach ($idToName as $id => $name) {
             foreach ($statsDataByMonths as $month => $users) {
                 if (!array_key_exists($id, $users)) {
-                    $statsDataByMonths[$month][$id] = null;
+                    $statsDataByMonths[$month][$id] = array();
                 }
+            }
+            if (!array_key_exists($id, $statsDataGlobal)) {
+                $statsDataGlobal[$id] = array();
             }
         }
 
+        // Initialisation des tableau des données de sortie graphique.
         $graphiqueDatas = array();
+        $graphiqueDatasGlobal = array();
 
+        // Pour chaques mois...
         foreach ($statsDataByMonths as $month => $monthData) {
+            // Initialisation des compteur.
             $graphiqueDatas[$month]["0"]["Count"] = 0;
             $graphiqueDatas[$month]["1-5"]["Count"] = 0;
             $graphiqueDatas[$month]["6-10"]["Count"] = 0;
             $graphiqueDatas[$month]["11-20"]["Count"] = 0;
             $graphiqueDatas[$month]["+20"]["Count"] = 0;
 
+            // Pour chaques utilisateurs...
             foreach ($monthData as $user => $userData) {
+                // On compte le nombre de connexion.
                 $count = count($userData);
 
+                // On incrémente le compteur correspondant.
                 if ($count === 0) {
                     $graphiqueDatas[$month]["0"]["Count"] ++;
                     $graphiqueDatas[$month]["0"]["Users"][] = $user;
-                } else if ($count > 1 && $count <= 5) {
+                } else if ($count > 0 && $count <= 5) {
                     $graphiqueDatas[$month]["1-5"]["Count"] ++;
                     $graphiqueDatas[$month]["1-5"]["Users"][] = $user;
                 } else if ($count > 5 && $count <= 10) {
@@ -226,9 +240,53 @@ class StatsVPNController extends Controller {
                     $graphiqueDatas[$month]["+20"]["Users"][] = $user;
                 }
             }
+
+            // Pour chaques tranches de fréquence d'utilisation...
+            foreach ($graphiqueDatas[$month] as $tranche => $data) {
+                // On trie le tableau en fonction des ID de VPN.
+                sort($graphiqueDatas[$month][$tranche]["Users"]);
+            }
         }
 
-        return $this->render("NoxIntranetAdministrationBundle:StatsVPN:statsVPN.html.twig", array('statsDataByUsers' => $statsDataByUsers, 'statsDataByMonths' => $statsDataByMonths, 'idToName' => $idToName, 'graphiqueDatas' => $graphiqueDatas));
+        // Initialisation des compteur.
+        $graphiqueDatasGlobal["0"]["Count"] = 0;
+        $graphiqueDatasGlobal["1-5"]["Count"] = 0;
+        $graphiqueDatasGlobal["6-10"]["Count"] = 0;
+        $graphiqueDatasGlobal["11-20"]["Count"] = 0;
+        $graphiqueDatasGlobal["+20"]["Count"] = 0;
+
+        // Pour chaques utilisateurs...
+        foreach ($statsDataGlobal as $user => $data) {
+            // On compte le nombre de connexion.
+            $count = count($data);
+
+            // On incrémente le compteur correspondant.
+            if ($count === 0) {
+                $graphiqueDatasGlobal["0"]["Count"] ++;
+                $graphiqueDatasGlobal["0"]["Users"][] = $user;
+            } else if ($count > 0 && $count <= 5) {
+                $graphiqueDatasGlobal["1-5"]["Count"] ++;
+                $graphiqueDatasGlobal["1-5"]["Users"][] = $user;
+            } else if ($count > 5 && $count <= 10) {
+                $graphiqueDatasGlobal["6-10"]["Count"] ++;
+                $graphiqueDatasGlobal["6-10"]["Users"][] = $user;
+            } else if ($count > 10 && $count <= 20) {
+                $graphiqueDatasGlobal["11-20"]["Count"] ++;
+                $graphiqueDatasGlobal["11-20"]["Users"][] = $user;
+            } else if ($count > 20) {
+                $graphiqueDatasGlobal["+20"]["Count"] ++;
+                $graphiqueDatasGlobal["+20"]["Users"][] = $user;
+            }
+        }
+
+        // Trie des tableau par ID de VPN.
+        sort($graphiqueDatasGlobal["0"]["Users"]);
+        sort($graphiqueDatasGlobal["1-5"]["Users"]);
+        sort($graphiqueDatasGlobal["6-10"]["Users"]);
+        sort($graphiqueDatasGlobal["11-20"]["Users"]);
+        sort($graphiqueDatasGlobal["+20"]["Users"]);
+
+        return $this->render("NoxIntranetAdministrationBundle:StatsVPN:statsVPN.html.twig", array('statsDataByUsers' => $statsDataByUsers, 'statsDataByMonths' => $statsDataByMonths, 'idToName' => $idToName, 'graphiqueDatas' => $graphiqueDatas, 'graphiqueDatasGlobal' => $graphiqueDatasGlobal));
     }
 
 }
