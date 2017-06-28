@@ -109,8 +109,8 @@ class StatsVPNController extends Controller {
         // Pour chaques lignes du fichier Excel de gestion d'effectif...
         foreach ($objWorksheet->getRowIterator() as $rowIndex => $row) {
             // Récupération du nom d'utilisateur et de l'ID VPN.
-            $name = $objWorksheet->getCell("A" . $rowIndex)->getValue();
-            $id = $objWorksheet->getCell("B" . $rowIndex)->getValue();
+            $name = trim($objWorksheet->getCell("A" . $rowIndex)->getValue());
+            $id = trim($objWorksheet->getCell("B" . $rowIndex)->getValue());
 
             // Association du nom d'utilisateur et de l'ID VPN.
             $idToName[$id] = $name;
@@ -137,25 +137,28 @@ class StatsVPNController extends Controller {
                 // Pour chaque lignes du fichier CSV...
                 while (($data = fgetcsv($statsFileHandler, 0, ";")) !== FALSE) {
                     // Si l'utilisateur n'est pas le System et qu'il s'agit d'une connexion...
-                    if ($data[2] !== "System" && !empty($data[8])) {
+                    if (!empty($data[8])) {
+                        // On récupére l'utilisateur.
+                        $user = substr($data[8], 26, 13);
+
                         // Récupération de la date.
                         $date = DateTime::createFromFormat("Y-m-d H:i:s", $data[0]);
                         $annee = $date->format("Y");
                         $mois = $date->format("m");
 
                         // On ajoute l'utilisateur au tableau.
-                        $statsDataByUsers[$data[2]]["Utilisateur"] = $data[2];
+                        $statsDataByUsers[$user]["Utilisateur"] = $user;
 
                         // On ajoute la date de connexion au tableau par utilisateurs.
-                        $statsDataByUsers[$data[2]]["Connexions"]["Dates"][] = $date;
-                        $statsDataByUsers[$data[2]]["Connexions"]["Annees"][$annee]["Dates"][] = $date;
-                        $statsDataByUsers[$data[2]]["Connexions"]["Annees"][$annee]["Mois"][$mois]["Dates"][] = $date;
+                        $statsDataByUsers[$user]["Connexions"]["Dates"][] = $date;
+                        $statsDataByUsers[$user]["Connexions"]["Annees"][$annee]["Dates"][] = $date;
+                        $statsDataByUsers[$user]["Connexions"]["Annees"][$annee]["Mois"][$mois]["Dates"][] = $date;
 
                         // On ajoute la date au tableau par mois.
-                        $statsDataByMonths[$mois][$data[2]][] = $date;
+                        $statsDataByMonths[$mois][$user][] = $date;
 
                         // On ajoute la date au tableau global.
-                        $statsDataGlobal[$data[2]][] = $data;
+                        $statsDataGlobal[$user][] = $date;
                     }
                 }
 
