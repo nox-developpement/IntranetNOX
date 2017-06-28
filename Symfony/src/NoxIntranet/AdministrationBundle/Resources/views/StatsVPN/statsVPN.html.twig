@@ -59,8 +59,12 @@
             background-color: white;
         }
 
-        #dialog {
+        #dialog_vpn {
             overflow: auto; 
+        }
+
+        #dialog_vpn p {
+            white-space: nowrap;
         }
     </style>
 {% endblock %}
@@ -165,14 +169,16 @@
                         // On prépare la chaine contenent le nom des utilisateurs correspondant à la barre cliqué.
                         var alertString = "";
                         $.each(graphiqueData[barLabel]["Users"], function (index, user) {
-                            alertString += user + " : " + (idToName[user] !== undefined ? idToName[user] : "inconnu") + "<br />";
+                            alertString += "<p>" + user + " : " + (idToName[user] !== undefined ? idToName[user]["name"] : "inconnu") + "</p>";
                         });
 
                         // On affiche la liste des utilisateurs.
-                        $("#dialog").html(alertString);
-                        $("#dialog").dialog({
+                        $("#dialog_vpn").html(alertString);
+                        $("#dialog_vpn").dialog({
                             height: $(window).height() / 3,
-                            title: barLabel + " utilisation(s) en " + numberToMonth[index]
+                            title: barLabel + " utilisation(s) en " + numberToMonth[index],
+                            width: "auto",
+                            resizable: false
                         });
                         $('.ui-dialog :button').blur();
                     }
@@ -250,8 +256,6 @@
                 }
             });
 
-            console.log(graphiqueDatasGlobal["1-5"]["Users"]);
-
             // Lors d'un clic sur le graphique...
             $("#" + chart_id).on("click", function (e) {
                 // On récupére l'élement du graphique sur lesquel on a cliqué.
@@ -265,15 +269,16 @@
                     // On prépare la chaine contenent le nom des utilisateurs correspondant à la barre cliqué.
                     var alertString = "";
                     $.each(graphiqueDatasGlobal[barLabel]["Users"], function (index, user) {
-                        //console.log(graphiqueDatasGlobal[barLabel]["Users"][index]);
-                        alertString += user + " : " + (idToName[user] !== undefined ? idToName[user] : "inconnu") + "<br />";
+                        alertString += "<p>" + user + " (" + (idToName[user] !== undefined ? idToName[user]["date_creation_vpn"] : "inconnu") + ") : " + (idToName[user] !== undefined ? idToName[user]["name"] : "inconnu") + "</p>";
                     });
 
                     // On affiche la liste des utilisateurs.
-                    $("#dialog").html(alertString);
-                    $("#dialog").dialog({
+                    $("#dialog_vpn").html(alertString);
+                    $("#dialog_vpn").dialog({
                         height: $(window).height() / 3,
-                        title: barLabel + " utilisation(s) global"
+                        title: barLabel + " utilisation(s) global",
+                        width: "auto",
+                        resizable: false
                     });
                     $('.ui-dialog :button').blur();
                 }
@@ -281,7 +286,7 @@
         });
     </script>
 
-    <div id="dialog">
+    <div id="dialog_vpn">
     </div>
 
     <div id="charts_div">

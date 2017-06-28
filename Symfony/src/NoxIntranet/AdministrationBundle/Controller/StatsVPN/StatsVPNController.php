@@ -110,10 +110,11 @@ class StatsVPNController extends Controller {
         foreach ($objWorksheet->getRowIterator() as $rowIndex => $row) {
             // Récupération du nom d'utilisateur et de l'ID VPN.
             $name = trim($objWorksheet->getCell("A" . $rowIndex)->getValue());
+            $date_creation_vpn = date("d/m/Y", \PHPExcel_Shared_Date::ExcelToPHP($objWorksheet->getCell("C" . $rowIndex)->getValue()));
             $id = trim($objWorksheet->getCell("B" . $rowIndex)->getValue());
 
             // Association du nom d'utilisateur et de l'ID VPN.
-            $idToName[$id] = $name;
+            $idToName[$id] = array('name' => $name, 'date_creation_vpn' => $date_creation_vpn);
         }
 
         // Suppression du fichier d'effectifs.
