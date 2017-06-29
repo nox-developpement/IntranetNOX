@@ -179,7 +179,7 @@ class SupportSIController extends Controller {
             // Génére l'email de demande pour la DSI et l'envoie.
             $message = \Swift_Message::newInstance()
                     ->setSubject('Demande de matériel/logiciel ' . $completName)
-                    ->setFrom('noreply@groupe-nox.com')
+                    ->setFrom('intranet@groupe-nox.com')
                     ->setTo($adresseHelpdesk)
                     ->setBody(
                     $this->renderView(
@@ -307,7 +307,7 @@ class SupportSIController extends Controller {
                     // On envoi un email au supérieur hiérachique pour demander la confirmation d'achat.
                     $messageHelpdesk = \Swift_Message::newInstance()
                             ->setSubject('Demande de matériel/logiciel ' . $donneesMessage['demandeur'])
-                            ->setFrom('noreply@groupe-nox.com')
+                            ->setFrom('intranet@groupe-nox.com')
                             ->setTo($mailSuperieur)
                             ->setBody(
                             $this->renderView(
@@ -333,7 +333,7 @@ class SupportSIController extends Controller {
                     // On envoi un email au collaborateur pour lui indiquer le refus.
                     $messageDemandeur = $messageDemandeur = \Swift_Message::newInstance()
                             ->setSubject('Rejet de votre demande de matériel')
-                            ->setFrom('noreply@groupe-nox.com')
+                            ->setFrom('intranet@groupe-nox.com')
                             ->setTo($donneesMessage['emailDemandeur'])
                             ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été rejetée par la DSI."
                             , 'text/html'
@@ -381,7 +381,7 @@ class SupportSIController extends Controller {
                 // On envoi un email au collaborateur pour lui indiquer la validation.
                 $messageHelpdesk = \Swift_Message::newInstance()
                         ->setSubject('Validation de votre demande de matériel')
-                        ->setFrom('noreply@groupe-nox.com')
+                        ->setFrom('intranet@groupe-nox.com')
                         ->setTo($donneesMessage['emailDemandeur'])
                         ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été validée par votre supérieur hiérarchique."
                         , 'text/html'
@@ -397,7 +397,7 @@ class SupportSIController extends Controller {
                 // On envoi un email à la DSI pour lui indiquer la validation.
                 $messageHelpdeskDSI = \Swift_Message::newInstance()
                         ->setSubject('Demande de matériel/logiciel ' . $donneesMessage['demandeur'] . ' valide')
-                        ->setFrom('noreply@groupe-nox.com')
+                        ->setFrom('intranet@groupe-nox.com')
                         ->setTo($adresseHelpdesk)
                         ->setBody(
                         $this->renderView(
@@ -415,7 +415,7 @@ class SupportSIController extends Controller {
                 // On envoi un email au collaborateur pour lui indiquer le refus.
                 $messageHelpdesk = \Swift_Message::newInstance()
                         ->setSubject('Rejet de votre demande de matériel')
-                        ->setFrom('noreply@groupe-nox.com')
+                        ->setFrom('intranet@groupe-nox.com')
                         ->setTo($donneesMessage['emailDemandeur'])
                         ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été rejetée par votre supérieur hiérarchique."
                         , 'text/html'

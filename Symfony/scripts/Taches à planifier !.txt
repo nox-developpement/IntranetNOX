@@ -18,4 +18,6 @@ Execution du script "RHHierarchieExtraction" -> 1 fois par heures
 
 Execution du script "demandeMaterielRevival" -> 1 fois par jours
 
+Execution du script "scriptsExecutionChecker" -> 1 fois par heures
+
 Mot de passe admin VM Prod (192.168.35.3) : Nox30intr&

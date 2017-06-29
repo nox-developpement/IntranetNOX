@@ -209,7 +209,7 @@ class PrestationsInternesAjaxController extends Controller {
     private function sendNewMessageEmail($email, $messageContent, $da1, $da2, $receiver, $demande, $lienEchanges) {
         $message = \Swift_Message::newInstance()
                 ->setSubject('Nouvel échange de proposition')
-                ->setFrom('noreply@groupe-nox.com')
+                ->setFrom('intranet@groupe-nox.com')
                 ->setTo($email)
                 ->setBody(
                 $this->renderView(

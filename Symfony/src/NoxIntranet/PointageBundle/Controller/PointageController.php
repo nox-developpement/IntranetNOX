@@ -621,7 +621,7 @@ class PointageController extends Controller {
 
                     $message = \Swift_Message::newInstance()
                             ->setSubject('Compilation de pointages disponible')
-                            ->setFrom('noreply@groupe-nox.com')
+                            ->setFrom('intranet@groupe-nox.com')
                             ->setTo($recipientEmail)
                             ->setBody(
                             $this->renderView(

@@ -1,0 +1,8 @@
+Bonjour,<br />
+<br />
+<span style="color: red;">L'exécution du script {{ script.ScriptName }} a rencontré un problème.</span><br />
+<br />
+Date de la dernière exécution : Le {{ script.Statut(kernelRootDir).lastIteration|date('d/m/Y à H:i:s') }}.<br />
+Code de retour de la dernière exécution : {{ script.Statut(kernelRootDir).lastTaskResult }}.<br />
+<br />
+Vous pouvez accéder à l'interface de monitoring des scripts en <a href="{{ absolute_url(path("nox_intranet_monitoring_scheduled_scripts")) }}">cliquant ici</a>.

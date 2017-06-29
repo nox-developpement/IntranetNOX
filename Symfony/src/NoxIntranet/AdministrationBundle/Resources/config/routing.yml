@@ -210,7 +210,11 @@ nox_intranet_collaborateurs_en_ligne:
     
 nox_intranet_monitoring_scheduled_scripts:
     path: /administration/monitoring-scheduled-scripts
-    defaults: { _controller: NoxIntranetAdministrationBundle:MonitoringScheduledScripts:scheduledScriptsMonitoringPanel }
+    defaults: { _controller: NoxIntranetAdministrationBundle:MonitoringScheduledScripts\MonitoringScheduledScripts:scheduledScriptsMonitoringPanel }
+    
+nox_intranet_delete_script_monitoring:
+    path: /administration/delete-script-monitoring/{scriptId}
+    defaults: { _controller: NoxIntranetAdministrationBundle:MonitoringScheduledScripts\MonitoringScheduledScripts:deleteScriptMonitoring }
     
 nox_intranet_vpn_stats_upload:
     path: /administration/stats-vpn/upload

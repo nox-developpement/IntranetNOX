@@ -104,7 +104,7 @@ class QuestionnaireStressController extends Controller {
             // On prépare un mail avec le fichier en pièce jointe.
             $message = \Swift_Message::newInstance()
                     ->setSubject('Questionnaire stress')
-                    ->setFrom('noreply@groupe-nox.com')
+                    ->setFrom('intranet@groupe-nox.com')
                     ->setTo('s.aujogues@groupe-nox.com')
                     ->attach(\Swift_Attachment::fromPath($fileLocation))
             ;

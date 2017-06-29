@@ -150,7 +150,7 @@ class PrestationsInternesController extends Controller {
         // On prépare le corps du message.
         $message = \Swift_Message::newInstance()
                 ->setSubject('Demande de prestation interne')
-                ->setFrom('noreply@groupe-nox.com')
+                ->setFrom('intranet@groupe-nox.com')
                 ->setTo($demande->getEmailDA())
                 ->setBody(
                 $this->renderView(
@@ -290,7 +290,7 @@ class PrestationsInternesController extends Controller {
         // On prépare le corps du message.
         $message = \Swift_Message::newInstance()
                 ->setSubject('Demande de prestation interne')
-                ->setFrom('noreply@groupe-nox.com')
+                ->setFrom('intranet@groupe-nox.com')
                 ->setTo($mailDA2)
                 ->setBody(
                 $this->renderView(
@@ -315,7 +315,7 @@ class PrestationsInternesController extends Controller {
         // On prépare le corps du message.
         $message = \Swift_Message::newInstance()
                 ->setSubject('Refus de la demande de prestation interne')
-                ->setFrom('noreply@groupe-nox.com')
+                ->setFrom('intranet@groupe-nox.com')
                 ->setTo($mailDemandeur)
                 ->setBody(
                 $this->renderView(
@@ -357,7 +357,7 @@ class PrestationsInternesController extends Controller {
             // On prépare le corps du message.
             $message = \Swift_Message::newInstance()
                     ->setSubject('Demande acceptée')
-                    ->setFrom('noreply@groupe-nox.com')
+                    ->setFrom('intranet@groupe-nox.com')
                     ->setTo($recherchePrestation->getEMailDA())
                     ->setBody(
                     $this->renderView(
@@ -386,7 +386,7 @@ class PrestationsInternesController extends Controller {
             // On prépare le corps du message.
             $message = \Swift_Message::newInstance()
                     ->setSubject('Demande refusée')
-                    ->setFrom('noreply@groupe-nox.com')
+                    ->setFrom('intranet@groupe-nox.com')
                     ->setTo($recherchePrestation->getEMailDA())
                     ->setBody(
                     $this->renderView(

@@ -67,37 +67,15 @@ class ScriptMonitoring {
         return $this->scriptName;
     }
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return ScriptMonitoring
-     */
-    public function setDescription($description) {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription() {
-        return $this->description;
-    }
-
     // Retourne un tableau contenant les informations de la dernière éxecution du script.
-    public function getStatut($server_root) {
+    public function getStatut() {
         // On récupére le nom du script et son temps d'itération.
         $scriptName = $this->scriptName;
 
         // On exécute le script de récupération de la dernière date d'éxecution du script et on place le résultat dans la variable $result.
         $result = array();
-        exec('cscript //Nologo ' . $server_root . '/../scripts/getScheduledTasks.vbs ' . $scriptName, $result);
-        
+        exec('cscript //Nologo ../scripts/getScheduledTasks.vbs ' . $scriptName, $result);
+
         // On récupére la dernière date d'execution dans le résultat sous forme de chaîne.
         $lastIterationTime = DateTime::createFromFormat("d/m/Y H:i:s", $result[0]);
 

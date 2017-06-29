@@ -67,7 +67,7 @@ class CompetencesUpdateMailing {
         // Génération du mail.
         $message = new \Swift_Message('Matrice de compétences');
         $message
-                ->setFrom('noreply@groupe-nox.com')
+                ->setFrom('intranet@groupe-nox.com')
                 ->setTo($n1_mail)
                 ->setBody(
                         $container->get('templating')->render(
@@ -100,7 +100,7 @@ class CompetencesUpdateMailing {
         // Génération du mail.
         $message = new \Swift_Message('Matrice de compétences');
         $message
-                ->setFrom(array("noreply@groupe-nox.com" => "Direction des Ressources Humaines"))
+                ->setFrom(array("intranet@groupe-nox.com" => "Direction des Ressources Humaines"))
                 ->setTo($n1_mail)
                 ->setBody(
                         $container->get('templating')->render(

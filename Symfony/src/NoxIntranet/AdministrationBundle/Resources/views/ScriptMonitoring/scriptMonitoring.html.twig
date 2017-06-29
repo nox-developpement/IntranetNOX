@@ -13,12 +13,14 @@
             width: auto;
             padding: 0;           
             border: none;
+
         }
 
         form[name='addScript'] fieldset {
             margin: 0;
             padding-top: 0;
             padding-bottom: 0;
+            background-color: rgba(255,255,255, 0.7);
         }
 
         #formDiv {
@@ -136,14 +138,28 @@
             50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
             to { background-color: #FF0; }
         }
+        
+        .delete_script {
+            color: red;
+            text-decoration: none;
+            font-size: calc(20px + 0.2vw);
+        }
+        
+        #addScript_description {
+            box-sizing: border-box;
+            width: 100%;
+            height: 150px;
+        }
     </style>
 
     <table id='monitoringTable'>
         <tr>
             <th>Nom du script</th>
+            <th>Info</th>
             <th>Fréquence d'itération</th>
             <th>Dernière éxecution</th>
             <th>Statut</th>
+            <th>Supprimer</th>
         </tr>
         {% for script in monitoredScripts %}
             <tr>
@@ -151,13 +167,19 @@
                     {{ script.ScriptName }}
                 </td>
                 <td>
-                    Toutes les {{ script.IterationTime }} heure(s)
+                    <span title="{{ script.Description }}" style="border-bottom: 1px dotted black; cursor: help;">?</span>
                 </td>
-                <td>Dernière éxecution le {{ script.Statut.lastIteration|date('d/m/Y à H:i:s') }}</td>
+                <td>
+                    Toutes les {{ script.Statut(kernelRootDir).frequencyHour }} heure(s)
+                </td>
+                <td>Le {{ script.Statut(kernelRootDir).lastIteration|date('d/m/Y à H:i:s') }}</td>
 
                 {% set statusClass = {'En cours': 'led-yellow', 'Erreur': 'led-red', 'OK': 'led-green'} %}
                 <td class="statusLed">
-                    <div class='{{ statusClass[script.Statut.Statut] }}' title='Code de retour: {{ script.Statut.lastTaskResult }}'></div>
+                    <div class='{{ statusClass[script.Statut(kernelRootDir).Statut] }}' title='Code de retour: {{ script.Statut(kernelRootDir).lastTaskResult }}'></div>
+                </td>
+                <td>
+                    <a class="delete_script" href="{{ path("nox_intranet_delete_script_monitoring", {scriptId: script.Id}) }}">&#10006;</a>
                 </td>
             </tr>
         {% endfor %}
@@ -169,7 +191,10 @@
             <legend>Ajouter un monitoring de script</legend>
 
             <p>{{ form_label(formAddScript.scriptName) }} : {{ form_widget(formAddScript.scriptName) }}</p>
-            <p>{{ form_label(formAddScript.iterationTime) }} : Toutes les {{ form_widget(formAddScript.iterationTime) }} heure(s)</p>
+            <p>
+                {{ form_label(formAddScript.description) }}<br />
+                {{ form_widget(formAddScript.description) }}
+            </p>
             <p>{{ form_widget(formAddScript.add) }}</p>
         </fieldset>
         {{ form_end(formAddScript) }}

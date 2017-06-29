@@ -39,6 +39,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         intranet_version: %intranet_version%
+        kernelRootDir: "%kernel.root_dir%"
 
 # Assetic Configuration
 assetic:

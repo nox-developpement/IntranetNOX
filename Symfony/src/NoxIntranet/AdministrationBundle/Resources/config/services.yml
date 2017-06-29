@@ -1,7 +1,7 @@
 services:
     noxintranet_administration.majuserdb:
         class: NoxIntranet\AdministrationBundle\ServicesFunction\NoxIntranetMajUserDB
-        arguments: [ @doctrine.orm.entity_manager, '@service_container' ]
+        arguments: [ '@doctrine.orm.entity_manager', '@service_container' ]
     noxintranet_administration.script_monitoring:
-        class: NoxIntranet\AdministrationBundle\ServicesFunction\CheckScheduledTasksExecution
-        arguments: ['@service_container']
+        class: NoxIntranet\AdministrationBundle\Controller\MonitoringScheduledScripts\scriptsExecutionChecker
+        arguments: [ '@doctrine.orm.entity_manager', '@service_container' ]

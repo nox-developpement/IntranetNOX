@@ -578,7 +578,7 @@ class DeveloppementProfessionnelController extends Controller {
             // On envoi le message au prochain valideur.
             $message = \Swift_Message::newInstance()
                     ->setSubject('EDP en attente de votre validation')
-                    ->setFrom('noreply@groupe-nox.com')
+                    ->setFrom('intranet@groupe-nox.com')
                     ->setTo($nextValidatorEmail)
                     ->setBody(
                     $this->renderView(
@@ -610,7 +610,7 @@ class DeveloppementProfessionnelController extends Controller {
 
         // On prépare le corps du message.
         $message = \Swift_Message::newInstance()
-                ->setFrom('noreply@groupe-nox.com')
+                ->setFrom('intranet@groupe-nox.com')
                 ->setTo('a.forestier@groupe-nox.com')
                 ->setSubject('Entretien développement professionnel ' . $formulaire->getCollaborateur()->getLastname() . ' ' . $formulaire->getCollaborateur()->getFirstname())
                 ->setBody("L'entretien de développement professionnel de " . $formulaire->getCollaborateur()->getLastname() . ' ' . $formulaire->getCollaborateur()->getFirstname() . " est disponible en pièce jointe.")

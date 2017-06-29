@@ -71,7 +71,7 @@ class DemandeMaterielRevival {
             // Génére l'email de demande pour la DSI et l'envoie.
             $message = \Swift_Message::newInstance()
                     ->setSubject('Rappel: Demande de matériel/logiciel ' . $demande_message['demandeur'])
-                    ->setFrom('noreply@groupe-nox.com')
+                    ->setFrom('intranet@groupe-nox.com')
                     ->setTo($adresseHelpdesk)
                     ->setBody(
                     $container->get('templating')->render(
@@ -92,7 +92,7 @@ class DemandeMaterielRevival {
             // On envoi un email au supérieur hiérachique pour demander la confirmation d'achat.
             $messageHelpdesk = \Swift_Message::newInstance()
                     ->setSubject('Rappel: Demande de matériel/logiciel ' . $demande_message['demandeur'])
-                    ->setFrom('noreply@groupe-nox.com')
+                    ->setFrom('intranet@groupe-nox.com')
                     ->setTo($mailSuperieur)
                     ->setBody(
                     $container->get('templating')->render(
