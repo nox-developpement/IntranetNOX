@@ -1030,6 +1030,11 @@ class PointageAjaxController extends Controller {
                 }
             }
 
+            // Réglage des paramêtres d'impression.
+            $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(\PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+            $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(\PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+            $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+
             // On sauvegarde le tableau sous forme de fichier Excel 2007.
             $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
             $filename = 'Pointage.xlsx';
