@@ -1299,6 +1299,12 @@
         function deleteProjectColumn() {
             // Lors d'un clic droit sur une cellule de nom d'affaire.
             $('#tableFeuillePointage').on('contextmenu', 'tr:nth-child(2) .project', function (e) {
+                // Si la feuille est déjà valider...
+                if (!$('#form_Valider').is(":visible")) {
+                    // On quitte la fonction.
+                    return false;
+                }
+
                 var projectCellule = $(this);
                 // On supprime le trigger de clique déjà existant.
                 $('#projectDeleteMenu').unbind('click');
