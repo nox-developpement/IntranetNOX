@@ -1,4 +1,5 @@
+[credential]
+	helper = manager
 [user]
-	signingkey = 3D815515
-	name = tristanbsn
-	email = tristan.besson@wanadoo.fr
+	name = nox-developpement
+	email = t.besson@groupe-nox.com
