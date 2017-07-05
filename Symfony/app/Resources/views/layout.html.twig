@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 
 <html>
-
     <head>
         <meta charset="utf-8" />
         <title> Groupe-Nox / {% block titrePage %}{% endblock %}</title>
-        {# app/Resources/views/layout.html.twig #}
 
         <script src="{{ asset('./js/jquery-2.2.0.min.js') }}"></script>
+        <script src="{{ asset('./js/bootstrap.js') }}"></script>
         <script src="{{ asset('./js/js.cookie.js') }}"></script>
         <script src="{{ asset('./js/texteActions.js') }}"></script>
 
         {% stylesheets '@NoxIntranetCommunicationBundle/Resources/public/css/style.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        <!-- <link rel="stylesheet" href="{{ asset_url }}" type="text/css" /> -->
         {% endstylesheets %}
 
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
         <link rel="icon" type="image/png" href="{{ app.request.getSchemeAndHttpHost() }}/Symfony/web/favicon.ico" />
-
         <link href="{{ asset('js/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" />
+
         <style type="text/css">
             @font-face {
                 font-family: 'NoxFont'; 
@@ -30,170 +30,167 @@
                 background-repeat: no-repeat;
                 background-size: 100%;
             }
-
-
         </style>
+
         {% block style %}
         {% endblock %}
     </head>
 
     <body onload="menuAnimation();">
-
-        <header>
-
-            <div style="border: none; width: 15%; display:inline-block; text-align: center; vertical-align: middle; margin-top: 2.5%;"> <a style="cursor: pointer; font-size: 0.85vw;" onclick="$(function () {
-                        $('#dialog').dialog({width: 970, height: 600});
-                    });"> Plan du site <br /><img style="width: 10%;" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}" alt="Accès au plan de l'intranet" onmousedown="return false;"> </a> 
-            </div><!-- 
-            
-            --><div id ="bandeau">  
-                <img src="{{ asset('bundles/noxintranetcommunication/images/bandeau.png') }}" id ="image_bandeau" alt="bandeau" onmousedown="return false;">
-            </div>
-
-            {{ include('NoxIntranetUserBundle:Security:ADlogin.html.twig') }}
-
-        </header>
-
-        <div id="dialog" title="Plan du site" style="display: none; text-align: center;">
-            <img src="{{ asset('bundles/noxintranetaccueil/images/PlanIntranet.png') }}" alt="Plan de l'intranet" style="width: 100%; vertical-align: middle; text-align: center;">
-        </div>
-
-        <div id="bar_menu">
-
-            <div id="EmailHelpdesk">
-                <a href="mailto:helpdesk@groupe-nox.com"> Une question ? </a>
-            </div><!--
-    
-            --><div id="div_menu">
-
-                <ul id="menu">
-
-                    <li class="menuElement"> <a href="{{ path('nox_intranet_accueil') }}" class="liens"> Accueil </a> </li> 
-
-                    <li class="menuElement"> <a href="{{ path('nox_intranet_communication') }}" class="liens"> Communication </a> </li> 
-
-                    <li class="menuElement"> <a href="{{ path('nox_intranet_ressources') }}" class="liens"> Ressources </a> </li> 
-
-                    <li class="menuElement tooltipSupportSI">  <span class="tooltipSupportSIText">Aide pour les problèmes informatiques.</span> <a href="{{ path('nox_intranet_support_si') }}" class="liens"> Support SI </a> </li> 
-
-                    <li id="google_search"> 
-                        <form id="google_form">
-                            <img src ="{{ asset('bundles/noxintranetcommunication/images/logoRecherche.png') }}" alt="Logo Recherche" onmousedown="return false;">
-                            <input type="text" id="search_input" name="seach_input" placeholder="Rechercher sur Google">
-                            <button id="search" onclick="googleSearch(this)
-                                            ;"> Rechercher 
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-
-            <div id="administrationBouton" >
-                {% if app.user != null and (is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENCES') or is_granted('ROLE_COMPETENCES') or is_granted('ROLE_COMMUNICATION') or is_granted('ROLE_PROCEDURES') or is_granted('ROLE_FAQ') or is_granted('ROLE_CE') or is_granted('ROLE_CHSCT') or is_granted('ROLE_LIENS') or is_granted('ROLE_QUALITE') or is_granted('ROLE_RH')) %}
-                    <p> <a href="{{ path('nox_intranet_administration') }}"> Administration </a> </p>
-                {% elseif is_granted('ROLE_PUBLICATEUR') %}
-                    <p> Publication </p>
-                {% endif %}
-            </div>
-        </div>
-
-        <div id="section_principal" style="background-image: url('{{ asset('images/fond2.png')}}');">
-
-            <div id="contenu">
-
-                {% for flashMessage in app.session.flashbag.get('notice') %}
-                    <p class="flashbag"> 
-                        {{ flashMessage }}
-                    </p>
-                {% endfor %} 
-
-                {% for flashMessage in app.session.flashbag.get('noticeErreur') %}
-                    <p class="flashbagErreur"> 
-                        {{ flashMessage }}
-                    </p>
-                {% endfor %} 
-
-                <div class="messageAcceuil"> 
-                    <h2> {% block messageAccueil %} {% endblock %} </h2>
-                    <h3> {% block sousMessageAccueil %} {% endblock %} </h3>
-                    <span>{% block textEncart %}{% endblock %}</span>
+        <div class="container">
+            <header class="row">
+                <div class="col-md-2">
+                    <a onclick="$('#dialog').dialog({width: 970, height: 600});" class="row"> 
+                        <div class="col-lg-12">Plan du site</div>
+                        <img class="img-responsive col-lg-12" style="width: 10%;" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}" alt="Accès au plan de l'intranet" onmousedown="return false;"> 
+                    </a> 
                 </div>
+                <div class="col-md-8">
+                    <img class="img-responsive" src="{{ asset('bundles/noxintranetcommunication/images/bandeau.png') }}" id ="image_bandeau" alt="bandeau" onmousedown="return false;">
+                </div>
+                <div class="col-md-2">
+                    {{ include('NoxIntranetUserBundle:Security:ADlogin.html.twig') }}
+                </div>
+            </header>
 
-                {% block contenu %}
-
-                {% endblock %}
-
-            </div>  
-
-        </div>
-
-        <footer> 
-            <div>
-                <p> @Copyright {{ date('Y')|date('Y') }} - <a href="http://groupe-nox.com/" target="_blank">GROUPE NOX</a> - IT Dpt, All rights reserved - {{ intranet_version }} </p> 
+            <div id="dialog" title="Plan du site" style="display: none; text-align: center;">
+                <img src="{{ asset('bundles/noxintranetaccueil/images/PlanIntranet.png') }}" alt="Plan de l'intranet" style="width: 100%; vertical-align: middle; text-align: center;">
             </div>
-        </footer>
 
-        <script>
+            <div id="bar_menu" class="row">
+                <div id="EmailHelpdesk" class="col-lg-2">
+                    <a href="mailto:helpdesk@groupe-nox.com">Une question ?</a>
+                </div>
+                <div id="div_menu" class="col-lg-8">
+                    <ul id="menu" class="list-inline list-unstyled">
+                        <li class="menuElement"> 
+                            <a href="{{ path('nox_intranet_accueil') }}" class="liens">Accueil</a>
+                        </li> 
+                        <li class="menuElement"> 
+                            <a href="{{ path('nox_intranet_communication') }}" class="liens">Communication</a> 
+                        </li> 
+                        <li class="menuElement"> 
+                            <a href="{{ path('nox_intranet_ressources') }}" class="liens">Ressources</a> 
+                        </li> 
+                        <li class="menuElement tooltipSupportSI">  
+                            <span class="tooltipSupportSIText">Aide pour les problèmes informatiques.</span> 
+                            <a href="{{ path('nox_intranet_support_si') }}" class="liens">Support SI</a> 
+                        </li> 
+                        <li id="google_search"> 
+                            <form id="google_form">
+                                <img src ="{{ asset('bundles/noxintranetcommunication/images/logoRecherche.png') }}" alt="Logo Recherche" onmousedown="return false;">
+                                <input type="text" id="search_input" name="seach_input" placeholder="Rechercher sur Google">
+                                <button id="search" onclick="googleSearch(this);">Rechercher</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <div id="administrationBouton" class="col-lg-2">
+                    {% if app.user != null and (is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENCES') or is_granted('ROLE_COMPETENCES') or is_granted('ROLE_COMMUNICATION') or is_granted('ROLE_PROCEDURES') or is_granted('ROLE_FAQ') or is_granted('ROLE_CE') or is_granted('ROLE_CHSCT') or is_granted('ROLE_LIENS') or is_granted('ROLE_QUALITE') or is_granted('ROLE_RH')) %}
+                        <p> 
+                            <a href="{{ path('nox_intranet_administration') }}">Administration</a> 
+                        </p>
+                    {% elseif is_granted('ROLE_PUBLICATEUR') %}
+                        <p>Publication</p>
+                    {% endif %}
+                </div>
+            </div>
 
-            function footerAlign() {
-                $('footer').css('display', 'block');
-                $('footer').css('height', 'auto');
-                var footerHeight = $('footer').outerHeight();
+            <div id="section_principal" style="background-image: url('{{ asset('images/fond2.png')}}');" class="row">
+                <div id="contenu" class="col-lg-12">
+                    <div class="row">
+                        {% for flashMessage in app.session.flashbag.get('notice') %}
+                            <p class="flashbag col-lg-8 col-lg-offset-2"> 
+                                {{ flashMessage }}
+                            </p>
+                        {% endfor %} 
 
-                $('footer').css('height', footerHeight);
+                        {% for flashMessage in app.session.flashbag.get('noticeErreur') %}
+                            <p class="flashbagErreur col-lg-8 col-lg-offset-2"> 
+                                {{ flashMessage }}
+                            </p>
+                        {% endfor %} 
+                    </div>
 
+                    <div class="row">
+                        <div class="messageAcceuil col-lg-8 col-lg-offset-2"> 
+                            <h2> {% block messageAccueil %} {% endblock %} </h2>
+                            <h3> {% block sousMessageAccueil %} {% endblock %} </h3>
+                            <span>{% block textEncart %}{% endblock %}</span>
+                        </div>
+                    </div>
 
-            }
+                    {% block contenu %}
+                    {% endblock %}
+                </div>  
+            </div>
 
-            function resizeContenu() {
-                $('#contenu').height($('footer').offset().top - $('header').height() - $('#bar_menu').height() - $('footer').height() / 5);
-            }
+            <footer class="row"> 
+                <div class="col-lg-12">
+                    <p>@Copyright {{ date('Y')|date('Y') }} - <a href="http://groupe-nox.com/" target="_blank">GROUPE NOX</a> - IT Dpt, All rights reserved - {{ intranet_version }}</p> 
+                </div>
+            </footer>
 
+            <script>
+                /*
+                 function footerAlign() {
+                 $('footer').css('display', 'block');
+                 $('footer').css('height', 'auto');
+                 var footerHeight = $('footer').outerHeight();
+                 
+                 $('footer').css('height', footerHeight);
+                 
+                 
+                 }
+                 
+                 function resizeContenu() {
+                 $('#contenu').height($('footer').offset().top - $('header').height() - $('#bar_menu').height() - $('footer').height() / 5);
+                 }
+                 
+                 
+                 function centerContent()
+                 {
+                 var container = $('footer div');
+                 var content = $('footer div p');
+                 content.css("left", (container.width() - content.width()) / 2);
+                 content.css("top", (container.height() - content.height()) / 2);
+                 }
+                 
+                 $(window).load(function () {
+                 footerAlign();
+                 centerContent();
+                 resizeContenu();
+                 });
+                 
+                 $(window).resize(function () {
+                 footerAlign();
+                 centerContent();
+                 resizeContenu();
+                 });
+                 */
+            </script>
 
-            function centerContent()
-            {
-                var container = $('footer div');
-                var content = $('footer div p');
-                content.css("left", (container.width() - content.width()) / 2);
-                content.css("top", (container.height() - content.height()) / 2);
-            }
-
-            $(window).load(function () {
-                footerAlign();
-                centerContent();
-                resizeContenu();
-            });
-
-            $(window).resize(function () {
-                footerAlign();
-                centerContent();
-                resizeContenu();
-            });
-
-        </script>
-
-        <script src="{{ asset('./js/affichageImageResizing.js') }}"></script>
-        <script src="{{ asset('./js/jquery-ui/jquery-ui.min.js') }}"></script>
-        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-        <script src="{{ asset('./js/googleSearch.js') }}"></script>
-        <script src="{{ asset('./js/menuAnimation.js') }}"></script>
-        <script src="{{ asset('./js/positionement.js') }}"></script>
-        <script src="{{ asset('./js/checkboxClick.js') }}"></script>   
-        <script src="{{ asset('./js/textareaLogiciel.js') }}"></script>  
-        <script src="{{ asset('./js/gestionFichiersPopup.js') }}"></script>
-        <script src="{{ asset('./js/texteEncartActions.js') }}"></script>
-        <script src="{{ asset('./js/popupDownloadArchive.js') }}"></script>
-        <script src="{{ asset('./js/menuAdministrationCommunication.js') }}"></script>
-        <script src="{{ asset('./js/formImprimanteScript.js') }}"></script>
-        <script src="{{ asset('./js/editionLiens.js') }}"></script>
-        <script src="{{ asset('./js/jscroller2-1.61.js') }}"></script>
-        <script src="{{ asset('./js/submitFormAffaires.js') }}"></script>
-        <script src="{{ asset('./js/tableurEdition.js') }}"></script>
-        <script src="{{ asset('./js/suiviRecherche.js') }}"></script>
-        <script src="{{ asset('./js/jquery.transit.min.js') }}"></script>
-        <script src="{{ asset('./js/tableHeadFixer.js') }}"></script>
-
+            <script src="{{ asset('./js/affichageImageResizing.js') }}"></script>
+            <script src="{{ asset('./js/jquery-ui/jquery-ui.min.js') }}"></script>
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+            <script src="{{ asset('./js/googleSearch.js') }}"></script>
+            <script src="{{ asset('./js/menuAnimation.js') }}"></script>
+            <script src="{{ asset('./js/positionement.js') }}"></script>
+            <script src="{{ asset('./js/checkboxClick.js') }}"></script>   
+            <script src="{{ asset('./js/textareaLogiciel.js') }}"></script>  
+            <script src="{{ asset('./js/gestionFichiersPopup.js') }}"></script>
+            <script src="{{ asset('./js/texteEncartActions.js') }}"></script>
+            <script src="{{ asset('./js/popupDownloadArchive.js') }}"></script>
+            <script src="{{ asset('./js/menuAdministrationCommunication.js') }}"></script>
+            <script src="{{ asset('./js/formImprimanteScript.js') }}"></script>
+            <script src="{{ asset('./js/editionLiens.js') }}"></script>
+            <script src="{{ asset('./js/jscroller2-1.61.js') }}"></script>
+            <script src="{{ asset('./js/submitFormAffaires.js') }}"></script>
+            <script src="{{ asset('./js/tableurEdition.js') }}"></script>
+            <script src="{{ asset('./js/suiviRecherche.js') }}"></script>
+            <script src="{{ asset('./js/jquery.transit.min.js') }}"></script>
+            <script src="{{ asset('./js/tableHeadFixer.js') }}"></script>
+        </div>
     </body>
-
 </html>

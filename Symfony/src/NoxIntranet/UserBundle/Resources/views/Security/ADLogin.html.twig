@@ -1,16 +1,19 @@
 {% if app.user != null %}
-    <div id="identifiants">
-        <p> <img src="{{ asset('bundles/noxintranetuser/images/User-128-hover.png') }}" alt='Utilisateur' onmousedown="return false;"><br>
-            <span id="usernameSpan"> {{ app.user.firstname }} {{ app.user.lastname }} </span>
-        </p>
-        <a href= {{ path('logout') }} > Déconnexion </a> 
+    <div class="row">
+        <img class="img-responsive col-lg-8 col-lg-offset-2" src="{{ asset('bundles/noxintranetuser/images/User-128-hover.png') }}" alt='Utilisateur' onmousedown="return false;">
+    </div>
+    <div class="row">
+        <div id="usernameSpan" class="col-lg-12">{{ app.user.firstname }} {{ app.user.lastname }}</div>
+    </div>
+    <div class="row">
+        <a class="col-lg-12" href="{{ path('logout') }}">Déconnexion</a> 
     </div>
 {% else %}
 
 
     <div id='login' class="tooltipLogin">
         <span class="tooltipLoginText">
-            Utilisez les mêmes identifiants que pour votre session Windows. <br />
+            Utilisez les mêmes identifiants que pour votre session Windows.<br />
             ex: Vous êtes 'Henry Martin', votre login est 'h.martin'.
         </span>
         <form method="POST" action="{{ path("AD_connexion_check") }}" name='connexion'>

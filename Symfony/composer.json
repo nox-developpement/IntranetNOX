@@ -31,7 +31,9 @@
         "phpoffice/phpexcel": "^1.8",
         "box/spout": "^2.7",
         "symfony/process": "~2.2",
-        "lexik/maintenance-bundle": "dev-master"
+        "lexik/maintenance-bundle": "dev-master",
+        "twbs/bootstrap": "^3.3",
+        "oyejorge/less.php": "v1.7.0.14"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

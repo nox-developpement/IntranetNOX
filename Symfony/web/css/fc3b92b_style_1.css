@@ -32,7 +32,6 @@ body {
     padding-top: 0%;
     background-color:white;
     padding-bottom: 0%;
-    background-image: url('../images/fond2.png');
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -71,6 +70,7 @@ footer {
     background-color: rgb(31,78,121);
     text-align: center;
     box-shadow: 0px -10px 10px white;
+    z-index: 20;
 }
 
 footer div {
@@ -607,7 +607,6 @@ form {
     background-color: #FEFEFE;
 }
 
-
 .boutonFormulaireInverse {
     background-color: white;
     color: rgb(31,78,121);
@@ -1098,13 +1097,37 @@ divAdministrationUtilisateur {
     text-align: left;
 }
 
+.divNews .previewImageContainer {
+    display: inline-block;
+    position: relative;
+    border: 1px solid #1F4E79;
+    vertical-align: middle;
+    width: 20%;
+    margin-right: 2%;
+}
+
 .divNews img {
     display: inline-block;
     vertical-align: middle;
-    width: 15%;
-    border: 1px solid #1F4E79;
-    margin-right: 2%;
+    width: 100%;
     background-color: white;
+}
+
+.divNews .mp4PlayButton {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+    opacity: 0.7
+}
+
+.divNews .previewImageContainer:hover .mp4PlayButton {
+    opacity: 1
 }
 
 
@@ -1287,6 +1310,27 @@ divAdministrationUtilisateur {
     padding: 1%;
     line-height: 0px;
     float:right;
+}
+
+.ui-menu .ui-menu-item {
+    background-color: white;
+    color: rgb(31,78,121);
+    font-weight: bold;
+    font-size: 0.8vw;
+    list-style-type: none;
+    margin: 0% 0% 0% 0%;
+    padding: 0% 2% 0% 2%;
+    white-space: nowrap;
+    display: inline;
+    text-shadow: 0px 0px 10px #f6f09a;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+#ui-id-1 {
+    display: inline-block;
+    margin:0px;
+    padding: 0px;
 }
 
 .suppressionAdminImg {
@@ -1720,7 +1764,7 @@ divAdministrationUtilisateur {
 
 #sousMenuSupport, #sousMenuVideoInstitutionnelle, #sousMenuReseauxSociaux, #sousMenuBanqueImages, #sousMenuOrganigrammes, #sousMenuExterne, 
 #sousMenuInterne, #sousMenuMarketing, #sousMenuSI, #sousMenuCertificatsISO, #sousMenuDocumentQSE, #sousMenuInfoQSE, 
-#sousMenuVieDeLentreprise, #sousMenuRHQuotidien, #sousMenuReglementationRH {
+#sousMenuVieDeLentreprise, #sousMenuRHQuotidien, #sousMenuReglementationRH, #sousMenuBIM {
     display: none;
 }
 
@@ -2736,19 +2780,24 @@ input[type=text]:read-only {
     z-index: 20;
     font-size: 0.8vw;
     -webkit-backdrop-filter: blur(10px);
+    overflow: auto;
 }
 
 #alertMessage {
     width: 70%;
     color: white;
-    left: 15%;
-    position: absolute;
-    top: 50%; /* poussÃ© de la moitiÃ© de hauteur du rÃ©fÃ©rent */
-    transform: translateY(-50%);
+    /*    left: 15%;
+        position: absolute;
+        top: 50%;  poussÃ© de la moitiÃ© de hauteur du rÃ©fÃ©rent 
+        transform: translateY(-50%);*/
+    text-align: center;
+    font-size: 2vw;
+    margin: auto;
 }
 
 #hideAlertButtonParagraph {
     text-align: center;
+    margin-bottom: 10%;
 }
 
 #hideAlertButton {
@@ -2758,8 +2807,7 @@ input[type=text]:read-only {
     border: inset 1px white;
     padding: 1% 2% 1% 2%;
     cursor: pointer;
-    font-size: 0.6vw;
-    font-size: 1em;
+    font-size: 0.5em;
 }
 
 #hideAlertButton:hover {
@@ -2790,6 +2838,8 @@ input[type=text]:read-only {
 #tableFeuillePointageDivContainer td {
     white-space: nowrap;
     max-width:100%;
+    position: relative;
+    overflow: hidden;
 }
 
 #tableFeuillePointage tr:nth-last-child(3) td:nth-last-child(5) {
@@ -2797,9 +2847,14 @@ input[type=text]:read-only {
     border-right: 1px solid black !important;
 }
 
-#tableFeuillePointage, #tableFeuillePointage select {
+#tableFeuillePointage {
     width: 100%;
-    font-size: 0.7vw;
+    font-size: calc(11px + 0.1vw);
+    white-space: nowrap;
+}
+
+#tableFeuillePointage select {
+    font-size: calc(11px + 0.1vw);
     white-space: nowrap;
 }
 
@@ -2830,7 +2885,7 @@ input[type=text]:read-only {
 #tableFeuillePointageTypesAbscences {
     float: left;
     width: 30%;
-    font-size: 0.7vw;
+    font-size: calc(11px + 0.1vw);
     margin-top: 0px;
 }
 
@@ -2849,7 +2904,7 @@ input[type=text]:read-only {
 #tableFeuillePointageTitreTransport {
     float: left;
     width: 30%;
-    font-size: 0.7vw;
+    font-size: calc(11px + 0.1vw);
     vertical-align: top;
     margin-top: 5%;
     margin-left: 5%;
@@ -2877,6 +2932,45 @@ input[type=text]:read-only {
     margin-left: 5%;
     vertical-align: top;
     margin-top: 0px;
+}
+
+#divJustificatifs {
+    display: inline-block;
+    margin-left: 5%;
+    border: 2px solid black;
+    text-align: center;
+    padding: 1em;
+}
+
+#divRegularisation {
+    display: inline-block;
+    width: 30%;
+    margin-left: 5%;
+    margin-top: 2.5%;
+    border: 2px solid black;
+    font-size: calc(11px + 0.1vw);
+}
+
+#divRegularisation p {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0.5em 0.2em;
+    border-bottom: 2px solid black;
+    text-align: center;
+    background-color: white;
+    font-weight: bold;
+}
+
+#divRegularisation #divRegularisationText {
+    height: 200px;
+    box-sizing: border-box;
+    padding: 0.2em;
+    background-color: white;
+}
+
+#addJustificatifButton {
+    padding: 1em;
+    font-size: calc(11px + 0.1vw);
 }
 
 #tableFeuillePointageSignature, #tableFeuillePointageSignature th, #tableFeuillePointageSignature td {
@@ -2993,7 +3087,7 @@ input[type=text]:read-only {
 .pointageStatusLabel {
     margin-top: 1%;
     margin-bottom: 1%;
-    font-size: 0.8vw;
+    font-size: calc(11px + 0.1vw);
 }
 
 .pointageStatusLabelContainer {
@@ -3059,15 +3153,21 @@ tr {
     width: 70%;
     margin: auto;   
     margin-bottom: 5%;
+    overflow: auto;
 }
 
 #compilationPointagesTable {
+    table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
 }
 
 #compilationPointagesTable th {
     color: white;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    font-size: calc(12px + 0.2vw);
+    word-wrap: break-word;
 
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#336fa0+0,052775+100 */
     background: #336fa0; /* Old browsers */
@@ -3079,6 +3179,16 @@ tr {
 
 #compilationPointagesTable td {
     text-align: center;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    font-size: calc(12px + 0.2vw);
+    word-wrap: break-word;
+}
+
+#compilationPointagesTable a[title='Détails'], #compilationPointagesTable a[title='Détails']:visited {
+    color: #1F4E79;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 #compilationPointages form {
@@ -3148,8 +3258,8 @@ tr {
 
 .pointageSelectionDateCompilation form fieldset {
     border: 2px outset #1F4E79;
-    padding-top: 5%;
-    padding-bottom: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
     background-color: rgba(255,255,255, 0.6);
 }
 
@@ -3221,7 +3331,7 @@ tr {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: rgba(255, 0, 0, 0.8) transparent transparent transparent;
+    border-color: rgba(31, 78, 121, 0.8) transparent transparent transparent;
 }
 
 .DRHAdministrationList {
@@ -3416,7 +3526,7 @@ form[name='formNewSearch'] table td input, form[name='formNewSearch'] table td t
 #floatingHeaderContainer {
     display: none;
     position: fixed; 
-    z-index: 0; 
+    z-index: 1; 
     font-size: 0;
     overflow: hidden;
 }
@@ -3442,14 +3552,14 @@ form[name='formNewSearch'] table td input, form[name='formNewSearch'] table td t
     color: white;
     border: 1px solid black;
     box-sizing: border-box;
-    font-size: 0.7vw;
+    font-size: calc(11px + 0.1vw);
     text-align: center;
 }
 
 #floatingVerticalHeaderContainer {
     display: none;
     position: fixed;
-    z-index: 0;
+    z-index: 1;
     font-size: 0;
     overflow: hidden;
 }
@@ -3467,7 +3577,7 @@ form[name='formNewSearch'] table td input, form[name='formNewSearch'] table td t
     border: 1px solid black;
     border-right-width: 2px; 
     box-sizing: border-box;
-    font-size: 0.7vw;
+    font-size: calc(11px + 0.1vw);
     text-align: center;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,2989d8+50,207cca+51,7db9e8+100;Blue+Gloss+Default */
     background: rgb(30,87,153); /* Old browsers */
@@ -3480,6 +3590,7 @@ form[name='formNewSearch'] table td input, form[name='formNewSearch'] table td t
 #floatingHeaderCross {
     display: none;
     position: fixed;
+    z-index: 1;
     background-color: white;
     color: black;
     font-size: 0.7vw;
@@ -3751,6 +3862,8 @@ form[name='formValidationRefus'] textarea {
 }
 
 #operationnel {
+    background-color: lightblue !important;
+
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#005fb2+0,2f75b5+44,5084b2+100 */
     background: rgb(0,95,178); /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(0,95,178,1) 0%, rgba(47,117,181,1) 44%, rgba(80,132,178,1) 100%); /* FF3.6-15 */
@@ -3760,6 +3873,8 @@ form[name='formValidationRefus'] textarea {
 }
 
 #tableFeuillePointage tr:first-child td:nth-child(4) {
+    background-color: lightgreen !important;
+
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#357f00+0,548235+44,647f51+100 */
     background: rgb(53,127,0); /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(53,127,0,1) 0%, rgba(84,130,53,1) 44%, rgba(100,127,81,1) 100%); /* FF3.6-15 */
@@ -4143,7 +4258,126 @@ form[name='formNewSearch'] .textarea[contenteditable=true]:empty:before {
     font-size: 0.8vw;
 }
 
-#controlPanelMenuDiv {
-    width: 20%;
-    display: inline-block;
+#sendTransportJustificatifFormButton {
+    margin: 0.5em; 
+    padding: 0.5em;
+    font-size: calc(11px + 0.1vw);
+}
+
+#uploadLoaderButton {
+    margin: 0.5em; 
+    padding: 0.5em; 
+    display: none; 
+    color: transparent; 
+    background-repeat: no-repeat; 
+    background-size: 70% 70%;
+    background-position: center center;
+    background-color: rgb(31,78,121);
+    border-radius: 5px;
+    border: inset 1px rgb(31,78,121);
+    font-size: 0.6vw;
+}
+
+#deleteJustificatifButton {
+    margin: 0.5em; 
+    padding: 0.5em; 
+    display: none; 
+    color: white;
+    background-repeat: no-repeat; 
+    background-size: 70% 70%;
+    background-position: center center;
+    background-color: rgb(31,78,121);
+    border-radius: 5px;
+    border: inset 1px rgb(31,78,121);
+    font-size: 0.6vw;
+    white-space: nowrap;
+}
+
+#deleteJustificatifButton span {
+    display: block;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#deleteJustificatifButton span:hover {
+    text-decoration: underline;
+}
+
+.projectPercentageCellMovingDashedBorder {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.projectPercentageCellMovingDashedBorderTop {
+    transform: rotate(0deg);
+}
+.projectPercentageCellMovingDashedBorderRight {
+    transform: rotate(90deg) translate(50%, 50%);
+    transform-origin: right center;
+}
+.projectPercentageCellMovingDashedBorderBottom {
+    transform: rotate(180deg);
+}
+.projectPercentageCellMovingDashedBorderLeft {
+    transform: rotate(270deg) translate(-50%, 50%);
+    transform-origin: left center;
+}
+
+.projectPercentageCellMovingDashedBorder i {
+    left: 0;
+    top: 0;
+    width: 200%;
+    display: block;
+    position: absolute;
+    border-bottom: 2px dashed blue;
+    animation: projectPercentageCellDashedBorderAnimation 3.5s infinite linear;
+}
+
+@keyframes projectPercentageCellDashedBorderAnimation {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+#DRHPointageList {
+    list-style-type: none;
+}
+
+#DRHPointageList li a {
+    text-decoration: none;
+    color: #1F4E79;
+    font-size: 1vw;
+}
+
+#DRHPointageList li a:hover {
+    text-decoration: underline;
+}
+
+.pointage-alert-content-class, .pointage-alert-content-class .ui-widget-content {
+    background: white !important;
+}
+
+.pointage-alert-content-class .ui-dialog-content {
+    color: #1F4E79 !important;
+}
+
+.pointage-alert-content-class .ui-widget-header {
+    color: white;
+    background: linear-gradient(to bottom,  #336fa0 0%,#052775 100%) !important;
+}
+
+.pointage-alert-content-class .ui-button {
+    background: linear-gradient(to bottom,  #336fa0 0%,#052775 100%) !important;
+}
+
+.pointage-alert-content-class .ui-button-text {
+    color: white;
 }

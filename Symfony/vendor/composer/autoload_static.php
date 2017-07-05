@@ -397,6 +397,13 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
                 0 => __DIR__ . '/..' . '/jms/metadata/src',
             ),
         ),
+        'L' => 
+        array (
+            'Less' => 
+            array (
+                0 => __DIR__ . '/..' . '/oyejorge/less.php/lib',
+            ),
+        ),
         'J' => 
         array (
             'JsonpCallbackValidator' => 
@@ -535,6 +542,7 @@ class ComposerStaticInitf33d4a144e45e3db0df7213177d6d27a
         'TCPDF_PARSER' => __DIR__ . '/..' . '/tecnickcom/tcpdf/tcpdf_parser.php',
         'TCPDF_STATIC' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/tcpdf_static.php',
         'TypeError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/TypeError.php',
+        'lessc' => __DIR__ . '/..' . '/oyejorge/less.php/lessc.inc.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
