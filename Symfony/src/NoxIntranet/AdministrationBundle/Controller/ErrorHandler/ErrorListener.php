@@ -26,21 +26,26 @@ class ErrorListener {
      */
     public function handleError(GetResponseForExceptionEvent $event) {
         // Code d'erreur et message de l'exception.
-        $errorCode = $event->getException()->getStatusCode();
+        if (method_exists($event->getException(), "getStatusCode")) {
+            $errorCode = $event->getException()->getStatusCode();
+        } else {
+            $errorCode = "Inconnu";
+        }
         $message = $event->getException()->getMessage();
 
         // Route et Url qui ont déclanché l'exception.
         $route = $event->getRequest()->get("_route");
         $url = $event->getRequest()->getPathInfo();
 
-        // Utilisateur ayant déclanché l'exception.
+        // Utilisateur ayant déclanché l'exception et son email.
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $userEmail = $this->container->get('security.token_storage')->getToken()->getUser()->getUsername() . "@groupe-nox.com";
 
         // Date et heure du déclanchement de l'exception.
         $date = new DateTime();
 
         // On envoi un mail au d'erreur à l'administrateur de l'intranet.
-        $this->sendErrorMail($errorCode, $message, $route, $url, $user, $date);
+        $this->sendErrorMail($errorCode, $message, $route, $url, $user, $userEmail, $date);
     }
 
     /**
@@ -53,17 +58,17 @@ class ErrorListener {
      * @param String $url Url ayant déclancher l'excéption.
      * @param DateTime $date Date et heure du déclanchement de l'exception.
      */
-    private function sendErrorMail($errorCode, $message, $route, $url, $user, $date) {
+    private function sendErrorMail($errorCode, $message, $route, $url, $user, $userEmail, $date) {
         // Email de l'administrateur de l'intranet.
         $admin_email = $this->container->getParameter("intranet_admin_email");
 
         // Préparation du mail.
-        $mail = (new \Swift_Message("Erreur de fonctionnement de l'intranet"))
+        $mail = (new \Swift_Message("Erreur intranet"))
                 ->setFrom('intranet@groupe-nox.com')
                 ->setTo($admin_email)
                 ->setBody(
                 $this->templating->render(
-                        'Emails/ErrorHandler/ErrorHandlingMail.html.twig', array('errorCode' => $errorCode, 'message' => $message, 'route' => $route, 'url' => $url, 'user' => $user, 'date' => $date)
+                        'Emails/ErrorHandler/ErrorHandlingMail.html.twig', array('errorCode' => $errorCode, 'message' => $message, 'route' => $route, 'url' => $url, 'user' => $user, 'userEmail' => $userEmail, 'date' => $date)
                 ), 'text/html'
                 )
         ;

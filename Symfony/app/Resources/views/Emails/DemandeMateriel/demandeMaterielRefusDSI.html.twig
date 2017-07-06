@@ -1,0 +1,15 @@
+{% extends "Emails/base_email_template.html.twig" %}
+
+{% block title %}Demande de matériel{% endblock %}
+
+{% block mail_content %}
+    <tr>
+        <td>
+            <p>
+                Bonjour {{ donneesMessage['demandeur'] }},<br />
+                <br />
+                Votre demande de matériel a été rejetée par la DSI.
+            </p>
+        </td>
+    </tr>
+{% endblock %}

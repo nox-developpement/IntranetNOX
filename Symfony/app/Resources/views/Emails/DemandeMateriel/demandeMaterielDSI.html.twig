@@ -1,0 +1,31 @@
+{% extends "Emails/base_email_template.html.twig" %}
+
+{% block title %}Demande de matériel{% endblock %}
+
+{% block mail_content %}
+    <tr>
+        <td>
+            <p>
+                N° ordre : {{ numOrdre }}<br />
+                <br />
+                Bonjour,<br />
+                <br />
+                L'utilisateur <strong>{{ demandeur }}</strong> situé dans l'agence de <strong>{{ agence }}</strong> a fait
+                la/les demande(s) suivante(s) :<br/>
+                <br/>
+                {% if materielCheckbox == true %}
+                    - Matériel :  <strong>{{ materiel }}</strong>.<br />
+                {% endif %}
+                {% if logicielCheckbox == true %}
+                    - Logiciel : <strong>{{ logiciel }}</strong>.<br />
+                {% endif %}
+                <br />
+                Raison de la demande : {{ raison }}<br />
+                <br />
+                Date désirée : <strong>{{ date|date('d/m/Y') }}</strong><br />
+                <br />
+                Pour répondre à cette demande merci de <a style="color: blue;" href="{{ absolute_url(path('nox_intranet_demande_materiel_confirmation_dsi', {cleDemande: cle})) }}">cliquer ici</a>.
+            </p>
+        </td>
+    </tr>
+{% endblock %}

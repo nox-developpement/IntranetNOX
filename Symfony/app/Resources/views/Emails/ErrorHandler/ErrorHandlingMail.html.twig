@@ -1,99 +1,75 @@
-<!Doctype html>
+{% extends "Emails/base_email_template.html.twig" %}
 
-<html>
-    <head>
-        <title>Erreur de fonctionnement de l'intranet</title>
-        <style>
-            body {
-                background-color: #1F4E79;
-                text-align: center;
-            }
+{% block title %}Erreur de fonctionnement de l'intranet{% endblock %}
 
-            .container {
-                width: 70%;
-                margin: auto;
-                padding: 0.5em;
-                background-color: white;
-                -moz-border-radius: 5px; 
-                -webkit-border-radius: 5px; 
-                border-radius: 5px;
-                text-align: left;
-            }
+{% block style %}
+    <style>
+        .exception_infos {
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-            .exception_infos {
-                border-collapse: collapse;
-                width: 100%;
-            }
+        .exception_infos, .exception_infos tr, .exception_infos td {
+            border: 1px solid black;
+        }
 
-            .exception_infos, .exception_infos tr, .exception_infos td {
-                border: 1px solid black;
-            }
+        .exception_infos td {
+            padding: 0.5em;
+            text-align: center;
+            background-color: white;
+        }
 
-            .exception_infos td {
-                padding: 0.5em;
-                text-align: center;
-                background-color: white;
-            }
+        .exception_infos .label {
+            text-align: right;
+            background-color: lightgrey;
+        }
+    </style>
+{% endblock %}
 
-            .exception_infos .label {
-                text-align: right;
-                background-color: lightgrey;
-            }
-        </style>
-    </head>
-    <body>
-        <table class="container">
-            <thead>
-                <tr>
-                    <th>
-                        <img src="{{ absolute_url(asset('bundles/noxintranetcommunication/images/bandeau.png')) }}" alt="Bandeau NOX">
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <p>
-                            Bonjour,<br />
-                            <br />
-                            <span style="color: red;">Une erreur a eu lieu dans le fonctionnement de l'intranet.</span><br />
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <table class="exception_infos">
-                            <tbody>
-                                <tr>
-                                    <td class="label">Code</td>
-                                    <td>{{ errorCode }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label">Message</td>
-                                    <td>{{ message }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label">Route</td>
-                                    <td>{{ route }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label">URL</td>
-                                    <td>{{ url }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="label">Utilisateur</td>
-                                    <td>{{ user.Firstname }} {{ user.Lastname }} ({{ user.Username }})</td>
-                                </tr>
-                                <tr>
-                                    <td class="label">Date et heure</td>
-                                    <td>{{ date|date("d/m/Y à H:i:s") }}</td>
-                                </tr>
-                            </tbody>
-
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </body>
-</html>
+{% block mail_content %}
+    <tr>
+        <td>
+            <p>
+                Bonjour,<br />
+                <br />
+                <span style="color: red;">Une erreur a eu lieu dans le fonctionnement de l'intranet.</span><br />
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table class="exception_infos">
+                <tbody>
+                    <tr>
+                        <td class="label">Code</td>
+                        <td>{{ errorCode }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Message</td>
+                        <td>{{ message }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Route</td>
+                        <td>{{ route }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">URL</td>
+                        <td>{{ url }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Utilisateur</td>
+                        <td>{{ user.Firstname }} {{ user.Lastname }} ({{ user.Username }})</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Email de l'utilisateur</td>
+                        <td><a href='mailto:{{ userEmail }}'>{{ userEmail }}</a></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Date et heure</td>
+                        <td>{{ date|date("d/m/Y à H:i:s") }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+{% endblock %}
