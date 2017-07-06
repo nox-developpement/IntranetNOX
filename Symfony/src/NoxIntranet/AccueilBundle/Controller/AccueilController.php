@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class AccueilController extends Controller {
 
@@ -182,6 +183,10 @@ class AccueilController extends Controller {
         $response->setContent(var_dump(phpinfo()));
 
         return $response;
+    }
+
+    public function simulateErrorExceptionAction() {
+        throw new HttpException(500, "Some description");
     }
 
 }

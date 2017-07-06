@@ -18,3 +18,8 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+    nox_intranet.error_listener:
+        class: NoxIntranet\AdministrationBundle\Controller\ErrorHandler\ErrorListener
+        arguments: [ "@service_container" ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: handleError }
