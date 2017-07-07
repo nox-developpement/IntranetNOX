@@ -1239,8 +1239,8 @@ class PointageAjaxController extends Controller {
             $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($username);
             $tableau = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('user' => $username, 'month' => $month, 'year' => $year));
 
-            // Si le collaborateur fait partie de NOX IP...
-            if (strpos($userHierarchy->getEtablissement(), 'INDUSTRIE') !== false && strpos($userHierarchy->getEtablissement(), 'PROCESS') !== false) {
+            // Si le tableau existe et le collaborateur fait partie de NOX IP...
+            if (!empty($tableau) && strpos($userHierarchy->getEtablissement(), 'INDUSTRIE') !== false && strpos($userHierarchy->getEtablissement(), 'PROCESS') !== false) {
                 // On convertie les données JSON en Array.
                 $affairesDataArray = json_decode($CSVData, true);
 
