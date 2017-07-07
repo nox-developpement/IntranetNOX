@@ -64,7 +64,7 @@ class ErrorListener {
 
         // Préparation du mail.
         $mail = (new \Swift_Message("Erreur intranet"))
-                ->setFrom('intranet@groupe-nox.com')
+                ->setFrom(array('intranet@groupe-nox.com' => "Intranet NOX"))
                 ->setTo($admin_email)
                 ->setBody(
                 $this->templating->render(

@@ -1,10 +1,20 @@
-<p>
-    Bonjour,<br />
-    <br />
-    Suite à l’embauche de {{ user.Firstname }} {{ user.Lastname }} au sein de votre équipe,<br />
-    nous vous remercions de bien vouloir compléter la matrice des compétences sur l’intranet via RESSOURCES/RH/RH au quotidien/Saisie des compétences
-    ou en <a href="{{ absolute_url(path("nox_intranet_matrice_collaborateur_selection_collaborateur", {Collaborateur: user.Id})) }}">cliquant ici</a>.<br />
-    <br />
-    Cordialement,<br /> 
-    La Direction des Ressources Humaines. 
-</p>
+{% extends "Emails/base_email_template.html.twig" %}
+
+{% block title %}Compétences collaborateur{% endblock %}
+
+{% block mail_content %}
+    <tr>
+        <td>
+            <p>
+                Bonjour,<br />
+                <br />
+                Suite à l’embauche de {{ user.Firstname }} {{ user.Lastname }} au sein de votre équipe,<br />
+                nous vous remercions de bien vouloir compléter la matrice des compétences sur l’intranet via RESSOURCES/RH/RH au quotidien/Saisie des compétences
+                ou en <a href="{{ absolute_url(path("nox_intranet_matrice_collaborateur_selection_collaborateur", {Collaborateur: user.Id})) }}">cliquant ici</a>.<br />
+                <br />
+                Cordialement,<br /> 
+                La Direction des Ressources Humaines. 
+            </p>
+        </td>
+    </tr>
+{% endblock %}
