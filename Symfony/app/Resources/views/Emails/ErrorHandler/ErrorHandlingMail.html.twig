@@ -1,0 +1,75 @@
+{% extends "Emails/base_email_template.html.twig" %}
+
+{% block title %}Erreur de fonctionnement de l'intranet{% endblock %}
+
+{% block style %}
+    <style>
+        .exception_infos {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .exception_infos, .exception_infos tr, .exception_infos td {
+            border: 1px solid black;
+        }
+
+        .exception_infos td {
+            padding: 0.5em;
+            text-align: center;
+            background-color: white;
+        }
+
+        .exception_infos .label {
+            text-align: right;
+            background-color: lightgrey;
+        }
+    </style>
+{% endblock %}
+
+{% block mail_content %}
+    <tr>
+        <td>
+            <p>
+                Bonjour,<br />
+                <br />
+                <span style="color: red;">Une erreur a eu lieu dans le fonctionnement de l'intranet.</span><br />
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table class="exception_infos">
+                <tbody>
+                    <tr>
+                        <td class="label">Code</td>
+                        <td>{{ errorCode }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Message</td>
+                        <td>{{ message }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Route</td>
+                        <td>{{ route }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">URL</td>
+                        <td>{{ url }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Utilisateur</td>
+                        <td>{{ user.Firstname }} {{ user.Lastname }} ({{ user.Username }})</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Email de l'utilisateur</td>
+                        <td><a href='mailto:{{ userEmail }}'>{{ userEmail }}</a></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Date et heure</td>
+                        <td>{{ date|date("d/m/Y à H:i:s") }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+{% endblock %}

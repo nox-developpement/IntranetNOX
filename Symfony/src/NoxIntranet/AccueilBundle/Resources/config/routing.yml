@@ -34,3 +34,7 @@ nox_intranet_charte_informatique_reset:
     path: /administration/charte-informatique-reset/{collaborateurUsername}
     defaults: { _controller: NoxIntranetAccueilBundle:CharteInformatique:resetCharteInformatiqueReading }
     
+nox_intranet_simulate_error_exception:
+    path: /error-simulation
+    defaults: { _controller: NoxIntranetAccueilBundle:Accueil:simulateErrorException }
+    

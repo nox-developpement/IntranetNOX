@@ -195,7 +195,7 @@ class MatriceCompetenceController extends Controller {
                 $this->get('security.authorization_checker')->isGranted('ROLE_RH') ||
                 !empty($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByDa($user_canonical_name)) ||
                 !empty($em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByN2($user_canonical_name)) ||
-                in_array($current_user->getUsername(), ["r.ballureau", "j.plenard", "a.caproplacide"])
+                in_array($current_user->getUsername(), ["r.ballureau", "j.plenard", "a.caproplacide", "g.toure"])
                 )) {
             $request->getSession()->getFlashBag()->add('noticeErreur', "Vous n'avez pas l'autorisation d'accéder à ce service.");
             return $this->redirectToRoute("nox_intranet_accueil");

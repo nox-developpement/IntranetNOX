@@ -183,7 +183,7 @@ class SupportSIController extends Controller {
                     ->setTo($adresseHelpdesk)
                     ->setBody(
                     $this->renderView(
-                            'Emails/demandeMaterielDSI.html.twig', array('materielCheckbox' => $form->get('materielList')->getData(), 'materiel' => $form->get('materielList')->getData(), 'logicielCheckbox' => $form->get('logicielCheckbox')->getData(), 'demandeur' => $name, 'agence' => $agence,
+                            'Emails/DemandeMateriel/demandeMaterielDSI.html.twig', array('materielCheckbox' => $form->get('materielList')->getData(), 'materiel' => $form->get('materielList')->getData(), 'logicielCheckbox' => $form->get('logicielCheckbox')->getData(), 'demandeur' => $name, 'agence' => $agence,
                         'numOrdre' => $numRequette, 'logiciel' => $form->get('logicielName')->getData(), 'date' => $form->get('date')->getData(), 'cle' => $cle, 'raison' => $form->get('raison')->getData()
                             )
                     ), 'text/html'
@@ -311,7 +311,7 @@ class SupportSIController extends Controller {
                             ->setTo($mailSuperieur)
                             ->setBody(
                             $this->renderView(
-                                    'Emails/demandeMateriel.html.twig', array('donneesMessage' => $donneesMessage, 'prixEstime' => $form->get('prix')->getData(), 'cle' => $demande->getCleDemande())
+                                    'Emails/DemandeMateriel/demandeMateriel.html.twig', array('donneesMessage' => $donneesMessage, 'prixEstime' => $form->get('prix')->getData(), 'cle' => $demande->getCleDemande())
                             ), 'text/html'
                     );
                     $this->get('mailer')->send($messageHelpdesk);
@@ -335,8 +335,10 @@ class SupportSIController extends Controller {
                             ->setSubject('Rejet de votre demande de matériel')
                             ->setFrom('intranet@groupe-nox.com')
                             ->setTo($donneesMessage['emailDemandeur'])
-                            ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été rejetée par la DSI."
-                            , 'text/html'
+                            ->setBody(
+                            $this->renderView(
+                                    'Emails/DemandeMateriel/demandeMaterielRefusDSI.html.twig', array('donneesMessage' => $donneesMessage)
+                            ), 'text/html'
                     );
                     $this->get('mailer')->send($messageDemandeur);
 
@@ -383,8 +385,10 @@ class SupportSIController extends Controller {
                         ->setSubject('Validation de votre demande de matériel')
                         ->setFrom('intranet@groupe-nox.com')
                         ->setTo($donneesMessage['emailDemandeur'])
-                        ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été validée par votre supérieur hiérarchique."
-                        , 'text/html'
+                        ->setBody(
+                        $this->renderView(
+                                'Emails/DemandeMateriel/demandeMaterielValidationSuperieur.html.twig', array('demandeur' => $donneesMessage['demandeur'])
+                        ), 'text/html'
                 );
                 $this->get('mailer')->send($messageHelpdesk);
 
@@ -401,7 +405,7 @@ class SupportSIController extends Controller {
                         ->setTo($adresseHelpdesk)
                         ->setBody(
                         $this->renderView(
-                                'Emails/demandeMaterielValide.html.twig', array('donneesMessage' => $donneesMessage, 'superieur' => $superieur)
+                                'Emails/DemandeMateriel/demandeMaterielValide.html.twig', array('donneesMessage' => $donneesMessage, 'superieur' => $superieur)
                         ), 'text/html'
                 );
                 $this->get('mailer')->send($messageHelpdeskDSI);
@@ -417,8 +421,9 @@ class SupportSIController extends Controller {
                         ->setSubject('Rejet de votre demande de matériel')
                         ->setFrom('intranet@groupe-nox.com')
                         ->setTo($donneesMessage['emailDemandeur'])
-                        ->setBody("Bonjour " . $donneesMessage['demandeur'] . ", votre demande de matériel a été rejetée par votre supérieur hiérarchique."
-                        , 'text/html'
+                        ->setBody($this->renderView(
+                                'Emails/DemandeMateriel/demandeMaterielRefusSuperieur.html.twig', array('demandeur' => $donneesMessage['demandeur'])
+                        ), 'text/html'
                 );
                 $this->get('mailer')->send($messageHelpdesk);
 

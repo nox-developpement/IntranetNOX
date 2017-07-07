@@ -52,7 +52,7 @@ class Tableau {
     /**
      * @var string
      *
-     * @ORM\Column(name="SignatureCollaborateur", type="text")
+     * @ORM\Column(name="SignatureCollaborateur", type="text", nullable=true)
      */
     private $signatureCollaborateur;
 
