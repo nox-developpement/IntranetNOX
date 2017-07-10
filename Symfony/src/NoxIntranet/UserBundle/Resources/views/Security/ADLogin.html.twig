@@ -9,24 +9,19 @@
         <a class="col-lg-12" href="{{ path('logout') }}">Déconnexion</a> 
     </div>
 {% else %}
-
-
-    <div id='login' class="tooltipLogin">
-        <span class="tooltipLoginText">
-            Utilisez les mêmes identifiants que pour votre session Windows.<br />
-            ex: Vous êtes 'Henry Martin', votre login est 'h.martin'.
-        </span>
-        <form method="POST" action="{{ path("AD_connexion_check") }}" name='connexion'>
-
-            <input type='text' id='username' name='username' placeholder="Nom d'utilisateur">
-
-            <input type='password' id='password'  name='password' placeholder="Mot de passe">
-
-            <p>
-                <input class="boutonFormulaireInverse" type='submit' value='Connexion'>
-            </p>
-
+    <div id='login' class="row">
+        <form method="POST" action="{{ path("AD_connexion_check") }}" name='connexion' class="col-lg-12" data-toggle="tooltip" title="Utilisez les mêmes identifiants que pour votre session Windows.\n ex: Vous êtes 'Henry Martin', votre login est 'h.martin'.">
+            <div class="form-group">
+                <input type='text' id='username' name='username' placeholder="Nom d'utilisateur" class="form-control">
+                <input type='password' id='password'  name='password' placeholder="Mot de passe" class="form-control">
+            </div>
+            <input class="boutonFormulaireInverse btn btn-default" type='submit' value='Connexion'>
         </form>
     </div>
-
 {% endif %}
+
+<script>
+    $(document).ready(function () {
+        $('#login').tooltip();
+    });
+</script>

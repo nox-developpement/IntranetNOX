@@ -72,9 +72,8 @@
                         <li class="menuElement"> 
                             <a href="{{ path('nox_intranet_ressources') }}" class="liens">Ressources</a> 
                         </li> 
-                        <li class="menuElement tooltipSupportSI">  
-                            <span class="tooltipSupportSIText">Aide pour les problèmes informatiques.</span> 
-                            <a href="{{ path('nox_intranet_support_si') }}" class="liens">Support SI</a> 
+                        <li class="menuElement" id="Support_SI">  
+                            <a href="{{ path('nox_intranet_support_si') }}" class="liens" data-toggle="tooltip" title="Aide pour les problèmes informatiques.">Support SI</a> 
                         </li> 
                         <li id="google_search"> 
                             <form id="google_form">
@@ -100,13 +99,13 @@
                 <div id="contenu" class="col-lg-12">
                     <div class="row">
                         {% for flashMessage in app.session.flashbag.get('notice') %}
-                            <p class="flashbag col-lg-8 col-lg-offset-2"> 
+                            <p class="flashbag col-lg-8 col-lg-offset-2 info"> 
                                 {{ flashMessage }}
                             </p>
                         {% endfor %} 
 
                         {% for flashMessage in app.session.flashbag.get('noticeErreur') %}
-                            <p class="flashbagErreur col-lg-8 col-lg-offset-2"> 
+                            <p class="flashbagErreur col-lg-8 col-lg-offset-2 info"> 
                                 {{ flashMessage }}
                             </p>
                         {% endfor %} 
@@ -132,6 +131,10 @@
             </footer>
 
             <script>
+
+                $(document).ready(function () {
+                    $('#Support_SI').tooltip();
+                });
                 /*
                  function footerAlign() {
                  $('footer').css('display', 'block');
