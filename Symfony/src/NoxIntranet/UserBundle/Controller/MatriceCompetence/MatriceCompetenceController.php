@@ -292,6 +292,13 @@ class MatriceCompetenceController extends Controller {
         } else {
             $matrice_competence = new MatriceCompetence();
             $matrice_competence->setUser($currentUser);
+            $matrice_competence->setSociete($userHierarchy->getSociete());
+            $matrice_competence->setEtablissement($userHierarchy->getEtablissement());
+            $matrice_competence->setMatricule($userHierarchy->getMatricule());
+            $matrice_competence->setNom($currentUser->getLastname());
+            $matrice_competence->setPrenom($currentUser->getFirstname());
+            $em->persist($matrice_competence);
+            $em->flush();
         }
 
         // Chemin du fichier de liste des compétences.
@@ -315,9 +322,7 @@ class MatriceCompetenceController extends Controller {
         // Génération du formulaire.
         $formCompetenceBuilder = $this->get('form.factory')->createNamedBuilder('formMatriceCollaborateurEdition', FormType::class, $matrice_competence);
         $formCompetenceBuilder
-                ->add('Id', HiddenType::class, array(
-                    'data' => $userId
-                ))
+                ->add('Id', HiddenType::class)
                 ->add('Societe', TextType::class, array(
                     'read_only' => true,
                     'data' => $userHierarchy->getSociete(),
@@ -430,40 +435,20 @@ class MatriceCompetenceController extends Controller {
     public function ajaxSaveMatriceCollaborateurEditionAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
             // Données du formulaire
-            $form = $request->get('formMatriceCollaborateurEdition');
+            $formMatrice = $request->get('formMatriceCollaborateurEdition');
 
             // On récuépre l'entitée de matrice de compétence et de l'utilisateur.
             $em = $this->getDoctrine()->getManager();
-            $matrice_collaborateur_entity = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->find($form['Id']);
-            $user_entity = $em->getRepository("NoxIntranetUserBundle:User")->find($form["Id"]);
+            $matrice_collaborateur_entity = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->find($formMatrice['Id']);
 
-            // Si il n'existe pas encore d'entitée de matrice de compétence...
-            if (empty($matrice_collaborateur_entity)) {
-                // On en crée une.
-                $matrice_collaborateur_entity = new MatriceCompetence();
-                $matrice_collaborateur_entity
-                        ->setUser($user_entity)
-                        ->setSociete($form['Societe'])
-                        ->setEtablissement($form['Etablissement'])
-                        ->setNom($form['Nom'])
-                        ->setPrenom($form['Prenom'])
-                        ->setMatricule($form['Matricule'])
-                ;
-                $em->persist($matrice_collaborateur_entity);
-            }
-
-            // On met à jour les données.
-            //$matrice_collaborateur_entity->setDateNaissance(DateTime::createFromFormat('d/m/Y', $form['Date_Naissance']));
-            //$matrice_collaborateur_entity->setDateAnciennete(DateTime::createFromFormat('d/m/Y', $form['Date_Anciennete']));
-            //$matrice_collaborateur_entity->setStatut($form['Statut']);
-            //$matrice_collaborateur_entity->setPoste($form['Poste']);
-            if (!empty($form['Competence_Principale'])) {
-                $matrice_collaborateur_entity->setCompetencePrincipale($form['Competence_Principale']);
+            // Mise à jours des compétences.
+            if (!empty($formMatrice['Competence_Principale'])) {
+                $matrice_collaborateur_entity->setCompetencePrincipale($formMatrice['Competence_Principale']);
             } else {
                 $matrice_collaborateur_entity->setCompetencePrincipale(null);
             }
-            if (isset($form['Competences_Secondaires'])) {
-                $matrice_collaborateur_entity->setCompetencesSecondaires($form['Competences_Secondaires']);
+            if (isset($formMatrice['Competences_Secondaires'])) {
+                $matrice_collaborateur_entity->setCompetencesSecondaires($formMatrice['Competences_Secondaires']);
             } else {
                 $matrice_collaborateur_entity->setCompetencesSecondaires(null);
             }
