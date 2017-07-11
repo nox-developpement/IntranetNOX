@@ -20,7 +20,7 @@ class checkScheduledTasksExecutionCommand extends ContainerAwareCommand {
                 ->setName('noxintranet:check_scheduled_tasks_execution')
                 ->setDescription('Vérifie la bonne exécution des scripts planifiés.')
                 ->setHelp('Cette commande permet de vérifier la bonne exécution des scripts planifiés et envoie une alert email dans le cas contraire.')
-                ->addArgument("emailTo", InputArgument::REQUIRED, "L'email vers lequel envoyer les éventuels alert d'erreur d'exécution de script.")
+                //->addArgument("emailTo", InputArgument::REQUIRED, "L'email vers lequel envoyer les éventuels alert d'erreur d'exécution de script.")
         ;
     }
 
@@ -35,7 +35,7 @@ class checkScheduledTasksExecutionCommand extends ContainerAwareCommand {
         $output->writeln("Vérification des scripts...");
 
         // Vérification de la bonne exécution des scripts.
-        $monitoringScriptContainer->checkScriptsExecution($input->getArgument("emailTo"));
+        $monitoringScriptContainer->checkScriptsExecution();
 
         $output->writeln("Vérification terminée.");
     }
