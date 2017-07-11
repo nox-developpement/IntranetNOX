@@ -186,7 +186,7 @@ class MatriceCompetenceController extends Controller {
      */
     public function matriceCompetenceTableAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-
+        
         // On récupère les infos de l'utilisateur courant.
         $current_user = $this->get('security.token_storage')->getToken()->getUser();
         $user_canonical_name = $this->wd_remove_accents(strtoupper($current_user->getFirstname() . " " . $current_user->getLastname()));
