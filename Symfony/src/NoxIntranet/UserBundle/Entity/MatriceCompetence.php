@@ -66,28 +66,28 @@ class MatriceCompetence implements JsonSerializable {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Date_Naissance", type="date")
+     * @ORM\Column(name="Date_Naissance", type="date", nullable=true)
      */
     private $dateNaissance;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Date_Anciennete", type="date")
+     * @ORM\Column(name="Date_Anciennete", type="date", nullable=true)
      */
     private $dateAnciennete;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Statut", type="string", length=255)
+     * @ORM\Column(name="Statut", type="string", length=255, nullable=true)
      */
     private $statut;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Poste", type="string", length=255)
+     * @ORM\Column(name="Poste", type="string", length=255, nullable=true)
      */
     private $poste;
 
