@@ -48,7 +48,7 @@ class MatriceCompetence implements JsonSerializable {
      * @ORM\Column(name="Matricule", type="string", length=255)
      */
     private $matricule;
-    
+
     /**
      * @var string
      *
@@ -364,21 +364,23 @@ class MatriceCompetence implements JsonSerializable {
      * @return type
      */
     public function jsonSerialize() {
+        $date_naissance = !empty($this->dateNaissance) ? $this->dateNaissance->format("d/m/Y") : $this->dateNaissance;
+        $date_anciennete = !empty($this->dateAnciennete) ? $this->dateAnciennete->format("d/m/Y") : $this->dateAnciennete;
+
         return array(
             'user' => $this->user,
             'societe' => $this->societe,
             'etablissement' => $this->etablissement,
             'nom' => $this->nom,
             'prenom' => $this->prenom,
-            'date_naissance' => $this->dateNaissance->format("d/m/Y"),
-            'date_anciennete' => $this->dateAnciennete->format("d/m/Y"),
+            'date_naissance' => $date_naissance,
+            'date_anciennete' => $date_anciennete,
             'statut' => $this->statut,
             'poste' => $this->poste,
             'competence_principale' => $this->competencePrincipale,
             'competences_secondaires' => $this->competencesSecondaires
         );
     }
-
 
     /**
      * Set matricule
@@ -387,8 +389,7 @@ class MatriceCompetence implements JsonSerializable {
      *
      * @return MatriceCompetence
      */
-    public function setMatricule($matricule)
-    {
+    public function setMatricule($matricule) {
         $this->matricule = $matricule;
 
         return $this;
@@ -399,8 +400,8 @@ class MatriceCompetence implements JsonSerializable {
      *
      * @return string
      */
-    public function getMatricule()
-    {
+    public function getMatricule() {
         return $this->matricule;
     }
+
 }
