@@ -62,7 +62,6 @@ class MatriceCompetenceController extends Controller {
         // On récupère les compétences sous forme de tableau.
         $competencesArray = array();
         foreach ($competences->categorie as $categorie) {
-            //var_dump((string) $categorie->categorie_name);
             $competencesArray[(string) $categorie->categorie_name] = array();
             foreach ($categorie->competence as $competence) {
                 $competencesArray[(string) $categorie->categorie_name][(string) $competence] = (string) $competence;
@@ -218,7 +217,6 @@ class MatriceCompetenceController extends Controller {
         // On récupère les compétences sous forme de tableau.
         $competencesArray = array();
         foreach ($competences->categorie as $categorie) {
-            //var_dump((string) $categorie->categorie_name);
             $competencesArray[(string) $categorie->categorie_name] = array();
             foreach ($categorie->competence as $competence) {
                 $competencesArray[(string) $categorie->categorie_name][(string) $competence] = (string) $competence;
@@ -308,7 +306,6 @@ class MatriceCompetenceController extends Controller {
         // On récupère les compétences sous forme de tableau.
         $competencesArray = array();
         foreach ($competences->categorie as $categorie) {
-            //var_dump((string) $categorie->categorie_name);
             $competencesArray[(string) $categorie->categorie_name] = array();
             foreach ($categorie->competence as $competence) {
                 $competencesArray[(string) $categorie->categorie_name][(string) $competence] = (string) $competence;
@@ -318,7 +315,9 @@ class MatriceCompetenceController extends Controller {
         // Génération du formulaire.
         $formCompetenceBuilder = $this->get('form.factory')->createNamedBuilder('formMatriceCollaborateurEdition', FormType::class, $matrice_competence);
         $formCompetenceBuilder
-                ->add('Id', HiddenType::class)
+                ->add('Id', HiddenType::class, array(
+                    'data' => $userId
+                ))
                 ->add('Societe', TextType::class, array(
                     'read_only' => true,
                     'data' => $userHierarchy->getSociete(),
@@ -433,15 +432,17 @@ class MatriceCompetenceController extends Controller {
             // Données du formulaire
             $form = $request->get('formMatriceCollaborateurEdition');
 
-            // On récuépre l'entitée de matrice de compétence.
+            // On récuépre l'entitée de matrice de compétence et de l'utilisateur.
             $em = $this->getDoctrine()->getManager();
             $matrice_collaborateur_entity = $em->getRepository('NoxIntranetUserBundle:MatriceCompetence')->find($form['Id']);
+            $user_entity = $em->getRepository("NoxIntranetUserBundle:User")->find($form["Id"]);
 
             // Si il n'existe pas encore d'entitée de matrice de compétence...
             if (empty($matrice_collaborateur_entity)) {
                 // On en crée une.
                 $matrice_collaborateur_entity = new MatriceCompetence();
                 $matrice_collaborateur_entity
+                        ->setUser($user_entity)
                         ->setSociete($form['Societe'])
                         ->setEtablissement($form['Etablissement'])
                         ->setNom($form['Nom'])
