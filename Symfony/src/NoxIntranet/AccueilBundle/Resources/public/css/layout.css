@@ -1,0 +1,40 @@
+#header-container {
+    background-color: #1F4E79;
+}
+
+.vertical-align {
+    display: table-cell;
+    vertical-align: middle;
+    float: none;
+}
+
+#profil_picture {
+    padding-top: 10px;
+}
+
+#bandeau_nox_header {
+    width: 100%;
+}
+
+.text-white {
+    color: white;
+}
+
+#menu {
+    margin-bottom: 0;
+    padding-right: 15px;
+    background-color: #1F4E79;
+    border: 1px solid white;
+    border-bottom: none;
+    border-radius: 0;
+}
+
+.menu_section a {
+    border-right: 1px solid white;
+}
+
+.menu_section a:hover {
+    background-color: white;
+    color: #1F4E79;
+}
+

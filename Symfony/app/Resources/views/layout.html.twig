@@ -10,13 +10,13 @@
         <script src="{{ asset('./js/js.cookie.js') }}"></script>
         <script src="{{ asset('./js/texteActions.js') }}"></script>
 
-        {% stylesheets '@NoxIntranetCommunicationBundle/Resources/public/css/style.css' %}
-        <!-- <link rel="stylesheet" href="{{ asset_url }}" type="text/css" /> -->
-        {% endstylesheets %}
-
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
         <link rel="icon" type="image/png" href="{{ app.request.getSchemeAndHttpHost() }}/Symfony/web/favicon.ico" />
         <link href="{{ asset('js/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" />
+
+        {% stylesheets '@NoxIntranetAccueilBundle/Resources/public/css/layout.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
 
         <style type="text/css">
             @font-face {
@@ -36,17 +36,17 @@
         {% endblock %}
     </head>
 
-    <body onload="menuAnimation();">
-        <div class="container">
+    <body>
+        <div id="header-container" class="container-fluid">
             <header class="row">
                 <div class="col-md-2">
                     <a onclick="$('#dialog').dialog({width: 970, height: 600});" class="row"> 
-                        <div class="col-lg-12">Plan du site</div>
+                        <div class="col-lg-12 text-center text-white">Plan du site</div>
                         <img class="img-responsive col-lg-12" style="width: 10%;" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}" alt="Accès au plan de l'intranet" onmousedown="return false;"> 
                     </a> 
                 </div>
                 <div class="col-md-8">
-                    <img class="img-responsive" src="{{ asset('bundles/noxintranetcommunication/images/bandeau.png') }}" id ="image_bandeau" alt="bandeau" onmousedown="return false;">
+                    <img id="bandeau_nox_header" class="img-responsive" src="{{ asset('bundles/noxintranetcommunication/images/bandeau.png') }}" alt="Bandeau NOX" onmousedown="return false;">
                 </div>
                 <div class="col-md-2">
                     {{ include('NoxIntranetUserBundle:Security:ADlogin.html.twig') }}
@@ -55,46 +55,50 @@
 
             <div id="dialog" title="Plan du site" style="display: none; text-align: center;">
                 <img src="{{ asset('bundles/noxintranetaccueil/images/PlanIntranet.png') }}" alt="Plan de l'intranet" style="width: 100%; vertical-align: middle; text-align: center;">
-            </div>
+            </div>      
 
-            <div id="bar_menu" class="row">
-                <div id="EmailHelpdesk" class="col-lg-2">
-                    <a href="mailto:helpdesk@groupe-nox.com">Une question ?</a>
+            <div id="menu_div" class="row">
+                <div id="EmailHelpdesk" class="col-lg-2 text-center">
+                    <a class="text-white" href="mailto:helpdesk@groupe-nox.com">Une question ?</a>
                 </div>
-                <div id="div_menu" class="col-lg-8">
-                    <ul id="menu" class="list-inline list-unstyled">
-                        <li class="menuElement"> 
-                            <a href="{{ path('nox_intranet_accueil') }}" class="liens">Accueil</a>
-                        </li> 
-                        <li class="menuElement"> 
-                            <a href="{{ path('nox_intranet_communication') }}" class="liens">Communication</a> 
-                        </li> 
-                        <li class="menuElement"> 
-                            <a href="{{ path('nox_intranet_ressources') }}" class="liens">Ressources</a> 
-                        </li> 
-                        <li class="menuElement" id="Support_SI">  
-                            <a href="{{ path('nox_intranet_support_si') }}" class="liens" data-toggle="tooltip" title="Aide pour les problèmes informatiques.">Support SI</a> 
-                        </li> 
-                        <li id="google_search"> 
-                            <form id="google_form">
-                                <img src ="{{ asset('bundles/noxintranetcommunication/images/logoRecherche.png') }}" alt="Logo Recherche" onmousedown="return false;">
-                                <input type="text" id="search_input" name="seach_input" placeholder="Rechercher sur Google">
-                                <button id="search" onclick="googleSearch(this);">Rechercher</button>
-                            </form>
-                        </li>
-                    </ul>
+                <div class="col-lg-8">
+                    <nav id="menu" class="navbar">
+                        <ul class="nav navbar-nav">
+                            <li class="menu_section"> 
+                                <a class="text-white" href="{{ path('nox_intranet_accueil') }}">Accueil</a>
+                            </li> 
+                            <li class="menu_section"> 
+                                <a class="text-white" href="{{ path('nox_intranet_communication') }}">Communication</a> 
+                            </li> 
+                            <li class="menu_section"> 
+                                <a class="text-white" href="{{ path('nox_intranet_ressources') }}">Ressources</a> 
+                            </li> 
+                            <li id="Support_SI" class="menu_section">  
+                                <a class="text-white" href="{{ path('nox_intranet_support_si') }}" data-toggle="tooltip" title="Aide pour les problèmes informatiques.">Support SI</a> 
+                            </li> 
+                        </ul>
+                        <form id="google_search_form" class="navbar-form navbar-right">
+                            <div class="form-group">
+                                <label for="google_seach_input"><img class="image-responsive" src="{{ asset('bundles/noxintranetcommunication/images/logoRecherche.png') }}" alt="Recherche Google" onmousedown="return false;"></label>
+                                <input type="text" id="google_seach_input" class="form-control" name="google_seach_input" placeholder="Rechercher sur Google">
+                            </div>
+                            <button id="google_search" class="btn btn-default" onclick="googleSearch(this);">Rechercher</button>
+                        </form>
+                    </nav>
                 </div>
-                <div id="administrationBouton" class="col-lg-2">
+                <div id="administrationBouton" class="col-lg-2 text-center">
                     {% if app.user != null and (is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENCES') or is_granted('ROLE_COMPETENCES') or is_granted('ROLE_COMMUNICATION') or is_granted('ROLE_PROCEDURES') or is_granted('ROLE_FAQ') or is_granted('ROLE_CE') or is_granted('ROLE_CHSCT') or is_granted('ROLE_LIENS') or is_granted('ROLE_QUALITE') or is_granted('ROLE_RH')) %}
                         <p> 
-                            <a href="{{ path('nox_intranet_administration') }}">Administration</a> 
+                            <a class="text-white" href="{{ path('nox_intranet_administration') }}">Administration</a> 
                         </p>
                     {% elseif is_granted('ROLE_PUBLICATEUR') %}
                         <p>Publication</p>
                     {% endif %}
                 </div>
             </div>
+        </div>
 
+        <div class="container">
             <div id="section_principal" style="background-image: url('{{ asset('images/fond2.png')}}');" class="row">
                 <div id="contenu" class="col-lg-12">
                     <div class="row">

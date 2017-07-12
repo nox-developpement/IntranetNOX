@@ -1,0 +1,20 @@
+#header-container {
+    background-color: #1F4E79;
+}
+
+header {
+    display: table;
+    table-layout: fixed;
+}
+
+header > * {
+    display: table-cell;
+    vertical-align: middle;
+    float: none;
+}
+
+#profil_picture {
+    padding-top: 10px;
+}
+
+
