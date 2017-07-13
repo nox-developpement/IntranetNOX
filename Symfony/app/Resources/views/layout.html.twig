@@ -127,75 +127,76 @@
                     {% endblock %}
                 </div>  
             </div>
-
-            <footer class="navbar-fixed-bottom blue-background"> 
-                <p id="footer_text" class="text-white navbar-text nav-justified text-center">@Copyright {{ date('Y')|date('Y') }} - <a class="link-white" href="http://groupe-nox.com/" target="_blank">GROUPE NOX</a> - IT Dpt, All rights reserved - {{ intranet_version }}</p> 
-            </footer>
-
-            <script>
-
-                $(document).ready(function () {
-                    $('#Support_SI').tooltip();
-                });
-                /*
-                 function footerAlign() {
-                 $('footer').css('display', 'block');
-                 $('footer').css('height', 'auto');
-                 var footerHeight = $('footer').outerHeight();
-                 
-                 $('footer').css('height', footerHeight);
-                 
-                 
-                 }
-                 
-                 function resizeContenu() {
-                 $('#contenu').height($('footer').offset().top - $('header').height() - $('#bar_menu').height() - $('footer').height() / 5);
-                 }
-                 
-                 
-                 function centerContent()
-                 {
-                 var container = $('footer div');
-                 var content = $('footer div p');
-                 content.css("left", (container.width() - content.width()) / 2);
-                 content.css("top", (container.height() - content.height()) / 2);
-                 }
-                 
-                 $(window).load(function () {
-                 footerAlign();
-                 centerContent();
-                 resizeContenu();
-                 });
-                 
-                 $(window).resize(function () {
-                 footerAlign();
-                 centerContent();
-                 resizeContenu();
-                 });
-                 */
-            </script>
-
-            <script src="{{ asset('./js/affichageImageResizing.js') }}"></script>
-            <script src="{{ asset('./js/jquery-ui/jquery-ui.min.js') }}"></script>
-            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-            <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-            <script src="{{ asset('./js/googleSearch.js') }}"></script>
-            <script src="{{ asset('./js/menuAnimation.js') }}"></script>
-            <script src="{{ asset('./js/positionement.js') }}"></script>
-            <script src="{{ asset('./js/checkboxClick.js') }}"></script>   
-            <script src="{{ asset('./js/textareaLogiciel.js') }}"></script>  
-            <script src="{{ asset('./js/gestionFichiersPopup.js') }}"></script>
-            <script src="{{ asset('./js/texteEncartActions.js') }}"></script>
-            <script src="{{ asset('./js/popupDownloadArchive.js') }}"></script>
-            <script src="{{ asset('./js/menuAdministrationCommunication.js') }}"></script>
-            <script src="{{ asset('./js/formImprimanteScript.js') }}"></script>
-            <script src="{{ asset('./js/editionLiens.js') }}"></script>
-            <script src="{{ asset('./js/jscroller2-1.61.js') }}"></script>
-            <script src="{{ asset('./js/submitFormAffaires.js') }}"></script>
-            <script src="{{ asset('./js/tableurEdition.js') }}"></script>
-            <script src="{{ asset('./js/suiviRecherche.js') }}"></script>
-            <script src="{{ asset('./js/jquery.transit.min.js') }}"></script>
-            <script src="{{ asset('./js/tableHeadFixer.js') }}"></script>
         </div>
+
+        <footer class="navbar-fixed-bottom blue-background"> 
+            <p id="footer_text" class="text-white navbar-text nav-justified text-center">@Copyright {{ date('Y')|date('Y') }} - <a class="link-white" href="http://groupe-nox.com/" target="_blank">GROUPE NOX</a> - IT Dpt, All rights reserved - {{ intranet_version }}</p> 
+        </footer>
+
+        <script>
+
+            $(document).ready(function () {
+                $('#Support_SI').tooltip();
+            });
+            /*
+             function footerAlign() {
+             $('footer').css('display', 'block');
+             $('footer').css('height', 'auto');
+             var footerHeight = $('footer').outerHeight();
+             
+             $('footer').css('height', footerHeight);
+             
+             
+             }
+             
+             function resizeContenu() {
+             $('#contenu').height($('footer').offset().top - $('header').height() - $('#bar_menu').height() - $('footer').height() / 5);
+             }
+             
+             
+             function centerContent()
+             {
+             var container = $('footer div');
+             var content = $('footer div p');
+             content.css("left", (container.width() - content.width()) / 2);
+             content.css("top", (container.height() - content.height()) / 2);
+             }
+             
+             $(window).load(function () {
+             footerAlign();
+             centerContent();
+             resizeContenu();
+             });
+             
+             $(window).resize(function () {
+             footerAlign();
+             centerContent();
+             resizeContenu();
+             });
+             */
+        </script>
+
+        <script src="{{ asset('./js/affichageImageResizing.js') }}"></script>
+        <script src="{{ asset('./js/jquery-ui/jquery-ui.min.js') }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+        <script src="{{ asset('./js/googleSearch.js') }}"></script>
+        <script src="{{ asset('./js/menuAnimation.js') }}"></script>
+        <script src="{{ asset('./js/positionement.js') }}"></script>
+        <script src="{{ asset('./js/checkboxClick.js') }}"></script>   
+        <script src="{{ asset('./js/textareaLogiciel.js') }}"></script>  
+        <script src="{{ asset('./js/gestionFichiersPopup.js') }}"></script>
+        <script src="{{ asset('./js/texteEncartActions.js') }}"></script>
+        <script src="{{ asset('./js/popupDownloadArchive.js') }}"></script>
+        <script src="{{ asset('./js/menuAdministrationCommunication.js') }}"></script>
+        <script src="{{ asset('./js/formImprimanteScript.js') }}"></script>
+        <script src="{{ asset('./js/editionLiens.js') }}"></script>
+        <script src="{{ asset('./js/jscroller2-1.61.js') }}"></script>
+        <script src="{{ asset('./js/submitFormAffaires.js') }}"></script>
+        <script src="{{ asset('./js/tableurEdition.js') }}"></script>
+        <script src="{{ asset('./js/suiviRecherche.js') }}"></script>
+        <script src="{{ asset('./js/jquery.transit.min.js') }}"></script>
+        <script src="{{ asset('./js/tableHeadFixer.js') }}"></script>
+
     </body>
 </html>
