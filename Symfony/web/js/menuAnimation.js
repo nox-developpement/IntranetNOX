@@ -12,10 +12,10 @@ function DivNewsSliding() {
 }
 
 $(window).load(function () {
-    $('.flashbag').each(function () {
-        $(this).delay(7000).slideUp(1500, 'linear');
-    });
-    $('.flashbagErreur').each(function () {
-        $(this).delay(7000).slideUp(1500, 'linear');
-    });
+//    $('.flashbag').each(function () {
+//        $(this).delay(7000).slideUp(1500, 'linear');
+//    });
+//    $('.flashbagErreur').each(function () {
+//        $(this).delay(7000).slideUp(1500, 'linear');
+//    });
 });
