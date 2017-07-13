@@ -21,7 +21,7 @@ class scriptsExecutionChecker {
      * 
      * @param String $emailTo L'email du destinataire de l'alerte.
      */
-    public function checkScriptsExecution($emailTo) {
+    public function checkScriptsExecution() {
         // Racine du serveur.
         $server_root = $this->container->get('kernel')->getRootDir();
 
@@ -34,9 +34,9 @@ class scriptsExecutionChecker {
             $statuts = $script->getStatut($server_root);
 
             // Si l'execution du script à rencontré une erreur...
-            if ($statuts['Statut'] !== "Erreur") {
+            if ($statuts['Statut'] === "Erreur") {
                 // On envoi un mail d'alerte.
-                $this->sendScriptErrorAlert($script, $emailTo);
+                $this->sendScriptErrorAlert($script);
             }
         }
     }
@@ -48,14 +48,17 @@ class scriptsExecutionChecker {
      * @param ScriptMonitoring $script L'entité de monitoring sur script dont l'exécution a échoué.
      * @param String $emailTo L'email du destinataire de l'alerte.
      */
-    private function sendScriptErrorAlert($script, $emailTo) {
-        echo "Envoi d'une alert pour le script " . $script->getScriptname() . " à " . $emailTo . ".\n";
+    private function sendScriptErrorAlert($script) {
+        // Adresse mail de l'administrateur de l'intranet.
+        $intranet_administrator_mail = $this->container()->getParameter("intranet_admin_email");
+
+        echo "Envoi d'une alert pour le script " . $script->getScriptname() . " à " . $intranet_administrator_mail . ".\n";
 
         // Préparation du mail.
         $message = new \Swift_Message("Erreur d'exécution du script: " . $script->getScriptName());
         $message
                 ->setFrom(array('intranet@groupe-nox.com' => "Intranet Script Monitoring"))
-                ->setTo($emailTo)
+                ->setTo($intranet_administrator_mail)
                 ->setBody(
                         $this->container->get("templating")->render(
                                 'Emails/MonitoringScripts/scriptErrorAlert.html.twig', array('script' => $script)
