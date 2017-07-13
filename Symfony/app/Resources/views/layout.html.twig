@@ -96,37 +96,43 @@
             </div>
         </div>
 
-        <div class="container">
-            <div id="section_principal" style="background-image: url('{{ asset('images/fond2.png')}}');" class="row">
-
-                <div id="contenu" class="col-lg-12">
-                    <div class="row">
+        <div class="container-fluid">
+            <div class="row">
+                <div id="main_content_frame" class="col-lg-8 col-lg-offset-2" style="background-image: url('{{ asset('images/fond2.png')}}');">
+                    <div id="alert_row" class="row">
                         {% for flashMessage in app.session.flashbag.get('notice') %}
-                            <p class="flashbag col-lg-8 col-lg-offset-2 info"> 
+                            <p class="flashbag col-lg-12 alert alert-success text-center"> 
                                 {{ flashMessage }}
                             </p>
                         {% endfor %} 
-
                         {% for flashMessage in app.session.flashbag.get('noticeErreur') %}
-                            <p class="flashbagErreur col-lg-8 col-lg-offset-2 error"> 
+                            <p class="flashbagErreur col-lg-12 alert alert-error text-center"> 
                                 {{ flashMessage }}
                             </p>
                         {% endfor %} 
                     </div>
-
-                    <div class="row">
-                        <div class="messageAcceuil col-lg-8 col-lg-offset-2"> 
-                            <h2> {% block messageAccueil %} {% endblock %} </h2>
-                            <h3> {% block sousMessageAccueil %} {% endblock %} </h3>
-                            <span>{% block textEncart %}{% endblock %}</span>
+                    <div id="page_title_row" class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <h2 class="page_title col-lg-10 col-lg-offset-1 text-blue">
+                                    {% block messageAccueil %}
+                                    {% endblock %}<br/>
+                                    <small class="text-blue">
+                                        {% block sousMessageAccueil %}
+                                        {% endblock %}
+                                    </small>
+                                </h2>
+                            </div>
+                            <div class="row">
+                                <span class="col-lg-11 col-lg-offset-1">{% block textEncart %}{% endblock %}</span>
+                            </div>
                         </div>
                     </div>
-
                     {% block contenu %}
                     {% endblock %}
-                </div>  
+                </div>
             </div>
-        </div>
+        </div>  
 
         <footer class="navbar-fixed-bottom blue-background"> 
             <p id="footer_text" class="text-white navbar-text nav-justified text-center">@Copyright {{ date('Y')|date('Y') }} - <a class="link-white" href="http://groupe-nox.com/" target="_blank">GROUPE NOX</a> - IT Dpt, All rights reserved - {{ intranet_version }}</p> 
