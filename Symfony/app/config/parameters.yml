@@ -7,8 +7,8 @@ parameters:
     database_password: intranet
     mailer_transport: smtp
     mailer_host: smtp.groupe-nox.com
-    mailer_encryption: tls
-    mailer_port: 587
+#    mailer_encryption: tls
+#    mailer_port: 587
     mailer_user: intranet@groupe-nox.com
     mailer_password: 7J2tYfqh4Z6C
     secret: cac79ed1075f393421bc6a36836164066162caab
