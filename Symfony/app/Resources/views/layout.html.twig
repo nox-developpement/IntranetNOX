@@ -37,13 +37,15 @@
     </head>
 
     <body>
-        <div id="header-container" class="container-fluid">
+        <div id="header-container" class="container-fluid blue-background">
             <header class="row">
                 <div class="col-md-2">
-                    <a onclick="$('#dialog').dialog({width: 970, height: 600});" class="row"> 
-                        <div class="col-lg-12 text-center link-white">Plan du site</div>
-                        <img class="img-responsive col-lg-12" style="width: 10%;" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}" alt="Accès au plan de l'intranet" onmousedown="return false;"> 
-                    </a> 
+                    <div class="row">
+                        <a onclick="$('#dialog').dialog({width: 970, height: 600});" class="col-lg-12 text-center link-white"> 
+                            Plan du site
+                            <img class="img-responsive center-block" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}" alt="Accès au plan de l'intranet" onmousedown="return false;"> 
+                        </a> 
+                    </div>
                 </div>
                 <div class="col-md-8">
                     <img id="bandeau_nox_header" class="img-responsive" src="{{ asset('bundles/noxintranetcommunication/images/bandeau.png') }}" alt="Bandeau NOX" onmousedown="return false;">
@@ -62,7 +64,7 @@
                     <a class="link-white" href="mailto:helpdesk@groupe-nox.com">Une question ?</a>
                 </div>
                 <div class="col-lg-8">
-                    <nav id="menu" class="navbar">
+                    <nav id="menu" class="navbar blue-background">
                         <ul class="nav navbar-nav">
                             <li class="menu_section"> 
                                 <a class="text-white" href="{{ path('nox_intranet_accueil') }}">Accueil</a>
@@ -126,10 +128,8 @@
                 </div>  
             </div>
 
-            <footer class="row"> 
-                <div class="col-lg-12">
-                    <p>@Copyright {{ date('Y')|date('Y') }} - <a href="http://groupe-nox.com/" target="_blank">GROUPE NOX</a> - IT Dpt, All rights reserved - {{ intranet_version }}</p> 
-                </div>
+            <footer class="navbar-fixed-bottom blue-background"> 
+                <p id="footer_text" class="text-white navbar-text nav-justified text-center">@Copyright {{ date('Y')|date('Y') }} - <a class="link-white" href="http://groupe-nox.com/" target="_blank">GROUPE NOX</a> - IT Dpt, All rights reserved - {{ intranet_version }}</p> 
             </footer>
 
             <script>
