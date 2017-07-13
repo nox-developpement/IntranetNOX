@@ -41,7 +41,7 @@
             <header class="row">
                 <div class="col-md-2">
                     <a onclick="$('#dialog').dialog({width: 970, height: 600});" class="row"> 
-                        <div class="col-lg-12 text-center text-white">Plan du site</div>
+                        <div class="col-lg-12 text-center link-white">Plan du site</div>
                         <img class="img-responsive col-lg-12" style="width: 10%;" src="{{ asset('bundles/noxintranetaccueil/images/Map-32.png') }}" alt="Accès au plan de l'intranet" onmousedown="return false;"> 
                     </a> 
                 </div>
@@ -59,7 +59,7 @@
 
             <div id="menu_div" class="row">
                 <div id="EmailHelpdesk" class="col-lg-2 text-center">
-                    <a class="text-white" href="mailto:helpdesk@groupe-nox.com">Une question ?</a>
+                    <a class="link-white" href="mailto:helpdesk@groupe-nox.com">Une question ?</a>
                 </div>
                 <div class="col-lg-8">
                     <nav id="menu" class="navbar">
@@ -88,11 +88,9 @@
                 </div>
                 <div id="administrationBouton" class="col-lg-2 text-center">
                     {% if app.user != null and (is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENCES') or is_granted('ROLE_COMPETENCES') or is_granted('ROLE_COMMUNICATION') or is_granted('ROLE_PROCEDURES') or is_granted('ROLE_FAQ') or is_granted('ROLE_CE') or is_granted('ROLE_CHSCT') or is_granted('ROLE_LIENS') or is_granted('ROLE_QUALITE') or is_granted('ROLE_RH')) %}
-                        <p> 
-                            <a class="text-white" href="{{ path('nox_intranet_administration') }}">Administration</a> 
-                        </p>
+                        <a class="link-white" href="{{ path('nox_intranet_administration') }}">Administration</a> 
                     {% elseif is_granted('ROLE_PUBLICATEUR') %}
-                        <p>Publication</p>
+                        <span class="text-white">Publication</span>
                     {% endif %}
                 </div>
             </div>

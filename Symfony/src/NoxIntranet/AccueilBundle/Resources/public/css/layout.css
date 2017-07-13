@@ -2,22 +2,19 @@
     background-color: #1F4E79;
 }
 
+header, #menu_div {
+    display: flex;
+    align-items: center;
+}
+
 .vertical-align {
     display: table-cell;
     vertical-align: middle;
     float: none;
 }
 
-#profil_picture {
-    padding-top: 10px;
-}
-
 #bandeau_nox_header {
     width: 100%;
-}
-
-.text-white {
-    color: white;
 }
 
 #menu {
@@ -36,5 +33,27 @@
 .menu_section a:hover {
     background-color: white;
     color: #1F4E79;
+}
+
+.text-white {
+    color: white;
+}
+
+.link-white {
+    color: white;
+}
+
+.link-white:hover {
+    color: #b2b2b2;
+    text-decoration: none;
+}
+
+.link-light-blue {
+    color: #8fa6bc;
+}
+
+.link-light-blue:hover {
+    color: #a5b8c9;
+    text-decoration: none;
 }
 
