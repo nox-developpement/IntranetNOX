@@ -25,6 +25,11 @@ class ErrorListener {
      * @param GetResponseForExceptionEvent $event L'exception déclanché au momment de l'erreur.
      */
     public function handleError(GetResponseForExceptionEvent $event) {
+        // L'environnement est celui de développement, on quitte la fonction.
+        if ($this->container->getParameter('kernel.environment') !== "dev") {
+            return;
+        }
+
         // Code d'erreur et message de l'exception.
         if (method_exists($event->getException(), "getStatusCode")) {
             $errorCode = $event->getException()->getStatusCode();
@@ -38,8 +43,8 @@ class ErrorListener {
         $url = $event->getRequest()->getPathInfo();
 
         // Utilisateur ayant déclanché l'exception et son email.
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $userEmail = $this->container->get('security.token_storage')->getToken()->getUser()->getUsername() . "@groupe-nox.com";
+        $user = $this->container->get('security.token_storage')->getToken()->getUser() !== "anon." ? $this->container->get('security.token_storage')->getToken()->getUser() : null;
+        $userEmail = !empty($user) ? $this->container->get('security.token_storage')->getToken()->getUser()->getUsername() . "@groupe-nox.com" : null;
 
         // Date et heure du déclanchement de l'exception.
         $date = new DateTime();
