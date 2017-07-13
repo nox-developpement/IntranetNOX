@@ -58,11 +58,23 @@
                     </tr>
                     <tr>
                         <td class="label">Utilisateur</td>
-                        <td>{{ user.Firstname }} {{ user.Lastname }} ({{ user.Username }})</td>
+                        <td>
+                            {% if user is not null %}
+                                {{ user.Firstname }} {{ user.Lastname }} ({{ user.Username }})
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
                     </tr>
                     <tr>
                         <td class="label">Email de l'utilisateur</td>
-                        <td><a href='mailto:{{ userEmail }}'>{{ userEmail }}</a></td>
+                        <td>
+                            {% if userEmail is not null %}
+                                <a href='mailto:{{ userEmail }}'>{{ userEmail }}</a>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
                     </tr>
                     <tr>
                         <td class="label">Date et heure</td>
