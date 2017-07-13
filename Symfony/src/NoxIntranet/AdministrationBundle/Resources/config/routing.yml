@@ -222,4 +222,9 @@ nox_intranet_vpn_stats_upload:
     
 nox_intranet_vpn_stats:
     path: /administration/stats-vpn/stats
-    defaults: { _controller: NoxIntranetAdministrationBundle:StatsVPN\StatsVPN:statsVPNCalculation }
+    defaults: { _controller: NoxIntranetAdministrationBundle:StatsVPN\StatsVPN:statsVPNCalculation}
+
+nox_intranet_vpn_export:
+    path: /administration/stats-vpn/export
+    defaults: { _controller: NoxIntranetAdministrationBundle:StatsVPN\StatsVPN:exportVPNExcel}
+
