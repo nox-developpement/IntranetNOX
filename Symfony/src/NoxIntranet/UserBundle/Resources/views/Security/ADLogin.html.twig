@@ -8,18 +8,20 @@
     </div>
 {% else %}
     <div id='login' class="row">
-        <form method="POST" action="{{ path("AD_connexion_check") }}" name='connexion' class="col-lg-12" data-toggle="tooltip" title="Utilisez les mêmes identifiants que pour votre session Windows.\n ex: Vous êtes 'Henry Martin', votre login est 'h.martin'.">
+        <form method="POST" action="{{ path("AD_connexion_check") }}" name='connexion' class="col-lg-12" data-toggle="tooltip" data-placement="left" data-html="true" title="Utilisez les mêmes identifiants que pour votre session Windows. <br /> ex: Vous êtes 'Henry Martin', votre login est 'h.martin'.">
             <div class="form-group">
                 <input type='text' id='username' name='username' placeholder="Nom d'utilisateur" class="form-control">
                 <input type='password' id='password'  name='password' placeholder="Mot de passe" class="form-control">
             </div>
-            <input class="boutonFormulaireInverse btn btn-default text-center" type='submit' value='Connexion'>
+            <div class="text-center">
+                <input class="boutonFormulaireInverse btn btn-default" type='submit' value='Connexion'>
+            </div>
         </form>
     </div>
 {% endif %}
 
 <script>
     $(document).ready(function () {
-        $('#login').tooltip();
+        $("form[name='connexion']").tooltip();
     });
 </script>

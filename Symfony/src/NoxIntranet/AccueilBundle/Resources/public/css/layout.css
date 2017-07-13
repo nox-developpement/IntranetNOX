@@ -67,3 +67,24 @@ header, #menu_div {
     background-color: #1F4E79;
 }
 
+.tooltip.top .tooltip-arrow {
+    border-top-color: black;
+}
+
+.tooltip.bottom .tooltip-arrow {
+    border-bottom-color: black;
+}
+
+.tooltip.left .tooltip-arrow {
+    border-left-color: black;
+}
+
+.tooltip.right .tooltip-arrow {
+    border-right-color: black;
+}
+
+.tooltip-inner {
+    color: black;
+    background: white;
+    border: solid 1px black;
+}

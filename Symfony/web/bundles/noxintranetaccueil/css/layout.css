@@ -1,5 +1,5 @@
-#header-container {
-    background-color: #1F4E79;
+body {
+    background-color: rgb(242,242,242);
 }
 
 header, #menu_div {
@@ -20,7 +20,6 @@ header, #menu_div {
 #menu {
     margin-bottom: 0;
     padding-right: 15px;
-    background-color: #1F4E79;
     border: 1px solid white;
     border-bottom: none;
     border-radius: 0;
@@ -35,12 +34,18 @@ header, #menu_div {
     color: #1F4E79;
 }
 
+#footer_text {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .text-white {
     color: white;
 }
 
-.link-white {
+.link-white, .link-white:visited {
     color: white;
+    text-decoration: none;
 }
 
 .link-white:hover {
@@ -48,12 +53,17 @@ header, #menu_div {
     text-decoration: none;
 }
 
-.link-light-blue {
+.link-light-blue, .link-light-blue:visited {
     color: #8fa6bc;
+    text-decoration: none;
 }
 
 .link-light-blue:hover {
     color: #a5b8c9;
     text-decoration: none;
+}
+
+.blue-background {
+    background-color: #1F4E79;
 }
 
