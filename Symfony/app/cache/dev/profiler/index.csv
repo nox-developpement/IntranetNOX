@@ -1730,3 +1730,12 @@ d7b17d,127.0.0.1,GET,http://127.0.0.1/Symfony/web/app_dev.php/js/routing?callbac
 e18989,127.0.0.1,GET,http://127.0.0.1/Symfony/web/app_dev.php/js/routing?callback=fos.Router.setData,1499931690,,200
 42ba61,127.0.0.1,POST,http://127.0.0.1/Symfony/web/app_dev.php/administration/stats-vpn/upload,1499931959,,302
 f9dcd1,127.0.0.1,GET,http://127.0.0.1/Symfony/web/app_dev.php/administration/stats-vpn/export,1499931963,,200
+b3d3f8,::1,GET,http://localhost/Symfony/web/app_dev.php/accueil,1499933349,,200
+8470f2,::1,GET,http://localhost/Symfony/web/app_dev.php/js/routing?callback=fos.Router.setData,1499933350,,200
+db6903,::1,POST,http://localhost/Symfony/web/app_dev.php/testConnexionCheck,1499933354,,302
+76c862,::1,GET,http://localhost/Symfony/web/app_dev.php/accueil,1499933356,,200
+cb21df,::1,GET,http://localhost/Symfony/web/app_dev.php/js/routing?callback=fos.Router.setData,1499933358,,200
+0b7cfd,::1,GET,http://localhost/Symfony/web/app_dev.php/administration,1499933363,,200
+47d425,::1,GET,http://localhost/Symfony/web/app_dev.php/js/routing?callback=fos.Router.setData,1499933364,,200
+4578c3,::1,GET,http://localhost/Symfony/web/app_dev.php/administration/stats-vpn/upload,1499933371,,200
+0c4180,::1,GET,http://localhost/Symfony/web/app_dev.php/js/routing?callback=fos.Router.setData,1499933372,,200
