@@ -61,7 +61,7 @@ class SupportSIController extends Controller {
         if (empty($userHierarchy) || $this->get('noxintranet.hierarchy_helper')->getUserEntityFromCanonicalName($userHierarchy->getDA()) === null) {
             // On redirige vers l'accueil et on affiche un message d'erreur.
             $request->getSession()->getFlashBag()->add('noticeErreur', "Erreur d'acquisition de la hiérarchie, veuillez contacter le support.");
-            //return $this->redirectToRoute('nox_intranet_accueil');
+            return $this->redirectToRoute('nox_intranet_accueil');
         }
 
         // On récupére l'entitée du DA.
