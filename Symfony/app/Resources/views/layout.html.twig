@@ -14,7 +14,7 @@
 
         {% stylesheets '@NoxIntranetAccueilBundle/Resources/public/css/layout.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-        {% endstylesheets %}
+        {% endstylesheets %} 
 
         <style type="text/css">
             @font-face {
@@ -101,12 +101,12 @@
                 <div id="main_content_frame" class="col-lg-8 col-lg-offset-2" style="background-image: url('{{ asset('images/fond2.png')}}');">
                     <div id="alert_row" class="row">
                         {% for flashMessage in app.session.flashbag.get('notice') %}
-                            <p class="flashbag col-lg-12 alert alert-success text-center"> 
+                            <p class="flashbag col-lg-8 col-lg-offset-2 alert alert-success text-center"> 
                                 {{ flashMessage }}
                             </p>
                         {% endfor %} 
                         {% for flashMessage in app.session.flashbag.get('noticeErreur') %}
-                            <p class="flashbagErreur col-lg-12 alert alert-error text-center"> 
+                            <p class="flashbagErreur col-lg-8 col-lg-offset-2 alert alert-error text-center"> 
                                 {{ flashMessage }}
                             </p>
                         {% endfor %} 
@@ -128,8 +128,12 @@
                             </div>
                         </div>
                     </div>
-                    {% block contenu %}
-                    {% endblock %}
+                    <div class="row">
+                        <div class="col-lg-10 col-lg-offset-1">
+                            {% block contenu %}
+                            {% endblock %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>  
@@ -202,5 +206,7 @@
                                  });
                                  */
         </script>
+        {% block script %}
+        {% endblock %}
     </body>
 </html>

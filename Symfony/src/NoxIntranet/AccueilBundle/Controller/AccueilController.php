@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AccueilController extends Controller {
 
@@ -82,8 +84,8 @@ class AccueilController extends Controller {
         $formBuilder = $this->get('form.factory')->createBuilder('form', $texteEncart);
 
         $formBuilder
-                ->add('text', 'ckeditor')
-                ->add('modifier', 'submit')
+                ->add('text', \Ivory\CKEditorBundle\Form\Type\CKEditorType::class)
+                ->add('modifier', SubmitType::class)
         ;
 
         $form = $formBuilder->getForm();

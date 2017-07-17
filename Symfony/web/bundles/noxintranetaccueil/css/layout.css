@@ -34,6 +34,20 @@ header, #menu_div {
     color: #1F4E79;
 }
 
+#main_content_frame {
+    background-origin: content-box;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.alert {
+    margin-top: 20px;
+}
+
+.page_title {
+    border-bottom: solid 1px rgb(192,0,0);
+}
+
 #footer_text {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -41,6 +55,10 @@ header, #menu_div {
 
 .text-white {
     color: white;
+}
+
+.text-blue {
+    color: #1F4E79;
 }
 
 .link-white, .link-white:visited {

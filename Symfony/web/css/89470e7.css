@@ -1,9 +1,10 @@
-#header-container {
-    background-color: #1F4E79;
+body {
+    background-color: rgb(242,242,242);
 }
 
-#image_bandeau {
-    margin: 0 auto;
+header, #menu_div {
+    display: flex;
+    align-items: center;
 }
 
 .vertical-align {
@@ -12,8 +13,96 @@
     float: none;
 }
 
-#profil_picture {
-    padding-top: 10px;
+#bandeau_nox_header {
+    width: 100%;
 }
 
+#menu {
+    margin-bottom: 0;
+    padding-right: 15px;
+    border: 1px solid white;
+    border-bottom: none;
+    border-radius: 0;
+}
 
+.menu_section a {
+    border-right: 1px solid white;
+}
+
+.menu_section a:hover {
+    background-color: white;
+    color: #1F4E79;
+}
+
+#main_content_frame {
+    background-origin: content-box;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.alert {
+    margin-top: 20px;
+}
+
+.page_title {
+    border-bottom: solid 1px rgb(192,0,0);
+}
+
+#footer_text {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.text-white {
+    color: white;
+}
+
+.text-blue {
+    color: #1F4E79;
+}
+
+.link-white, .link-white:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.link-white:hover {
+    color: #b2b2b2;
+    text-decoration: none;
+}
+
+.link-light-blue, .link-light-blue:visited {
+    color: #8fa6bc;
+    text-decoration: none;
+}
+
+.link-light-blue:hover {
+    color: #a5b8c9;
+    text-decoration: none;
+}
+
+.blue-background {
+    background-color: #1F4E79;
+}
+
+.tooltip.top .tooltip-arrow {
+    border-top-color: black;
+}
+
+.tooltip.bottom .tooltip-arrow {
+    border-bottom-color: black;
+}
+
+.tooltip.left .tooltip-arrow {
+    border-left-color: black;
+}
+
+.tooltip.right .tooltip-arrow {
+    border-right-color: black;
+}
+
+.tooltip-inner {
+    color: black;
+    background: white;
+    border: solid 1px black;
+}

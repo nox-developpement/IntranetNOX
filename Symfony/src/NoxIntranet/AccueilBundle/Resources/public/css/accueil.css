@@ -1,0 +1,20 @@
+#zoneEditionAccueil {
+    height: 500px;
+}
+
+#zoneTexteAccueilContainer {
+    border: 1px solid #1F4E79;
+}
+
+#zoneTexteAccueilHeader {
+    border-radius: 0;
+}
+
+#zoneTexteAccueilHeader h4 {
+    margin-left: 0;
+}
+
+#texteEditButton {
+    margin-right: 0px;
+}
+
