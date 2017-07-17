@@ -26,7 +26,7 @@ class ErrorListener {
      */
     public function handleError(GetResponseForExceptionEvent $event) {
         // L'environnement est celui de développement, on quitte la fonction.
-        if ($this->container->getParameter('kernel.environment') !== "dev") {
+        if ($this->container->getParameter('kernel.environment') === "dev") {
             return;
         }
 
@@ -68,7 +68,7 @@ class ErrorListener {
         $admin_email = $this->container->getParameter("intranet_admin_email");
 
         // Préparation du mail.
-        $mail = (new \Swift_Message("Erreur: " . $message))
+        $mail = (new \Swift_Message("Erreur: \"" . $message . "\""))
                 ->setFrom(array('intranet@groupe-nox.com' => "Intranet NOX"))
                 ->setTo($admin_email)
                 ->setBody(
