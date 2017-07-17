@@ -32,9 +32,9 @@ class HierarchyHelper {
         }
 
         // Si le nom passé en paramêtre correspond à un des collaborateurs...
-        if (array_key_exists(strtoupper($this->wd_remove_accents(str_replace("-", " ", $canonical_name))), $collaborateursCanonicalName)) {
+        if (array_key_exists(trim(strtoupper($this->wd_remove_accents(str_replace("-", " ", $canonical_name)))), $collaborateursCanonicalName)) {
             // On retourne l'entité du collaborateur.
-            return $collaborateursCanonicalName[strtoupper($this->wd_remove_accents(str_replace("-", " ", $canonical_name)))];
+            return $collaborateursCanonicalName[trim(strtoupper($this->wd_remove_accents(str_replace("-", " ", $canonical_name))))];
         }
         // Sinon...
         else {

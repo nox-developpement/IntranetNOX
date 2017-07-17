@@ -56,12 +56,12 @@ class SupportSIController extends Controller {
         // On récupère l'entitée de hiérarchie du collaborateur.
         $em = $this->getDoctrine()->getManager();
         $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($usr->getUsername());
-
+        
         // Si la hiérachie n'est pas définie ou que l'entitée du DA n'est pas trouvée...
         if (empty($userHierarchy) || $this->get('noxintranet.hierarchy_helper')->getUserEntityFromCanonicalName($userHierarchy->getDA()) === null) {
             // On redirige vers l'accueil et on affiche un message d'erreur.
             $request->getSession()->getFlashBag()->add('noticeErreur', "Erreur d'acquisition de la hiérarchie, veuillez contacter le support.");
-            return $this->redirectToRoute('nox_intranet_accueil');
+            //return $this->redirectToRoute('nox_intranet_accueil');
         }
 
         // On récupére l'entitée du DA.
