@@ -1009,4 +1009,72 @@ class MatriceCompetenceController extends Controller {
         return $response;
     }
 
+
+    public function consultationMatriceCompetencesAction(){
+
+        // Récupération des matrices de compétences.
+        $em = $this->getDoctrine()->getManager();
+
+        // Récupération des utilisateur qui ont consulté MatriceCompetence
+        $consultation = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceConsultation')->findAll();
+        // Récupération des utilisateur qui ont édité MatriceCompetence
+        $edition = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceEdition')->findAll();
+
+        
+        $lesconnection = array();
+        $userConsult= array();
+        $userEdit= array();
+        $user = array();
+        $countUserConsult = array();
+        $countUserEdit = array();
+
+        // création tableau de tout les utilisateurs (consult + edit)
+        foreach ($consultation as $key => $value) {
+            $user[$consultation[$key]->getUsername()] = $consultation[$key]->getUsername();
+        }
+        foreach ($edition as $key => $value) {
+            $user[$edition[$key]->getUsername()] = $edition[$key]->getUsername();
+        }
+
+
+        foreach ($user as $key => $value) {
+            $lesconnection = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceConsultation')->findBy(
+              array('username' => $user[$key] )
+            );
+
+            $userConsult[] = $lesconnection;
+        }
+
+        foreach ($user as $key => $value) {
+            $lesconnection = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceEdition')->findBy(
+              array('username' => $user[$key] )
+            );
+
+            $userEdit[] = $lesconnection;
+        }
+
+
+        // création tableau conteur utilisateur qui ont consulté 
+        foreach ($userConsult as $key => $value) {
+            $countUserConsult[] = count($userConsult[$key]);
+        }
+        // création tableau conteur utilisateur qui ont édité
+        foreach ($userEdit as $key => $value) {
+            $countUserEdit[] = count($userEdit[$key]);
+        }
+
+        $user2 = array_values( $user );
+
+
+        // création tableau general des données
+        $tableau = array();
+        $tableau[] = $user2;
+        $tableau[] = $countUserConsult;
+        $tableau[] = $countUserEdit;
+
+
+        return $this->render("NoxIntranetUserBundle:MatriceCompetence:consultationMatriceCompetence.html.twig", array('tableau' => $tableau));
+
+    }
+
 }

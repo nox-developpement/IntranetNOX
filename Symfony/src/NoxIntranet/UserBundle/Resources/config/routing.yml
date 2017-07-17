@@ -1,5 +1,5 @@
 
-AD_connexion:
+AD_connexion: 
     path:   /testConnexion
     defaults: { _controller: NoxIntranetUserBundle:ADConnexion:ADConnexion }
 
@@ -74,3 +74,7 @@ nox_intranet_matrice_collaborateur_ajax_info_file_uploading:
 nox_intranet_matrice_collaborateur_export_matrice_competence:
     path:   ressources/matrice-competence/export-matrice-competence
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:exportMatriceCompetences }
+
+nox_intranet_matrice_collaborateur_consultation_matrice_competence:
+    path:   ressources/matrice-competence/consultation-matrice-competence
+    defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:consultationMatriceCompetences }
