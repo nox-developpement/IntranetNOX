@@ -15,7 +15,7 @@ class CompetencesUpdateMailing {
     /**
      * Liste les collaborateur dont la matrice de compétence n'est pas remplis et envoi un mail de demande de remplissage à leur N+1.
      */
-    public function sendUpdateRequests() {
+    public function sendUpdateRequests() { 
         $em = $this->em;
         $container = $this->container;
 
