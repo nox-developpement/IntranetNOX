@@ -3,6 +3,7 @@
 namespace NoxIntranet\PDFParsingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * PDF
@@ -10,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="NoxIntranet\PDFParsingBundle\Entity\PDFRepository")
  */
-class PDF
-{
+class PDF implements JsonSerializable {
+
     /**
      * @var integer
      *
@@ -27,7 +28,7 @@ class PDF
      * @ORM\Column(name="Chemin", type="string", length=255)
      */
     private $chemin;
-    
+
     /**
      * @var string
      *
@@ -84,14 +85,12 @@ class PDF
      */
     private $dateEnvoi;
 
-
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -102,8 +101,7 @@ class PDF
      *
      * @return PDF
      */
-    public function setChemin($chemin)
-    {
+    public function setChemin($chemin) {
         $this->chemin = $chemin;
 
         return $this;
@@ -114,8 +112,7 @@ class PDF
      *
      * @return string
      */
-    public function getChemin()
-    {
+    public function getChemin() {
         return $this->chemin;
     }
 
@@ -126,8 +123,7 @@ class PDF
      *
      * @return PDF
      */
-    public function setNom($nom)
-    {
+    public function setNom($nom) {
         $this->nom = $nom;
 
         return $this;
@@ -138,8 +134,7 @@ class PDF
      *
      * @return string
      */
-    public function getNom()
-    {
+    public function getNom() {
         return $this->nom;
     }
 
@@ -150,8 +145,7 @@ class PDF
      *
      * @return PDF
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
 
         return $this;
@@ -162,8 +156,7 @@ class PDF
      *
      * @return string
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -174,8 +167,7 @@ class PDF
      *
      * @return PDF
      */
-    public function setAuthor($author)
-    {
+    public function setAuthor($author) {
         $this->author = $author;
 
         return $this;
@@ -186,8 +178,7 @@ class PDF
      *
      * @return string
      */
-    public function getAuthor()
-    {
+    public function getAuthor() {
         return $this->author;
     }
 
@@ -198,8 +189,7 @@ class PDF
      *
      * @return PDF
      */
-    public function setSubject($subject)
-    {
+    public function setSubject($subject) {
         $this->subject = $subject;
 
         return $this;
@@ -210,8 +200,7 @@ class PDF
      *
      * @return string
      */
-    public function getSubject()
-    {
+    public function getSubject() {
         return $this->subject;
     }
 
@@ -222,8 +211,7 @@ class PDF
      *
      * @return PDF
      */
-    public function setKeywords($keywords)
-    {
+    public function setKeywords($keywords) {
         $this->keywords = $keywords;
 
         return $this;
@@ -234,8 +222,7 @@ class PDF
      *
      * @return string
      */
-    public function getKeywords()
-    {
+    public function getKeywords() {
         return $this->keywords;
     }
 
@@ -246,8 +233,7 @@ class PDF
      *
      * @return PDF
      */
-    public function setPages($pages)
-    {
+    public function setPages($pages) {
         $this->pages = $pages;
 
         return $this;
@@ -258,8 +244,7 @@ class PDF
      *
      * @return string
      */
-    public function getPages()
-    {
+    public function getPages() {
         return $this->pages;
     }
 
@@ -270,8 +255,7 @@ class PDF
      *
      * @return PDF
      */
-    public function setDateEnvoi($dateEnvoi)
-    {
+    public function setDateEnvoi($dateEnvoi) {
         $this->dateEnvoi = $dateEnvoi;
 
         return $this;
@@ -282,8 +266,7 @@ class PDF
      *
      * @return string
      */
-    public function getDateEnvoi()
-    {
+    public function getDateEnvoi() {
         return $this->dateEnvoi;
     }
 
@@ -294,8 +277,7 @@ class PDF
      *
      * @return PDF
      */
-    public function setLien($lien)
-    {
+    public function setLien($lien) {
         $this->lien = $lien;
 
         return $this;
@@ -306,8 +288,18 @@ class PDF
      *
      * @return string
      */
-    public function getLien()
-    {
+    public function getLien() {
         return $this->lien;
     }
+
+    public function jsonSerialize() {
+        return array(
+            "Chemin" => $this->chemin,
+            "Lien" => $this->lien,
+            "Nom" => $this->nom,
+            "Title" => $this->title,
+            "Author" => $this->author
+        );
+    }
+
 }

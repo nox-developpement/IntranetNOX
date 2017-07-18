@@ -38,3 +38,7 @@ nox_intranet_simulate_error_exception:
     path: /error-simulation
     defaults: { _controller: NoxIntranetAccueilBundle:Accueil:simulateErrorException }
     
+nox_intranet_accueil_ajax_get_news:
+    path: /accueil/ajax-get-news
+    defaults: { _controller: NoxIntranetAccueilBundle:Accueil:ajaxGetNews }
+    

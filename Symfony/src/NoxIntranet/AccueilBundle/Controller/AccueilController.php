@@ -52,51 +52,47 @@ class AccueilController extends Controller {
     }
 
     public function majCommunicationAction(Request $request) {
-
+        // Racine du serveur
         $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
 
+        // Compteur du nombre de vue de l'intranet.
         $em = $this->getDoctrine()->getManager();
-
         $compteurVue = $em->getRepository('NoxIntranetAccueilBundle:Compteur')->findOneByCompteur('Accueil');
 
+        // Si la valeur du compteur est vide on l'initialise.
         if (isset($compteurVue)) {
             $nombreVues = $compteurVue->getVue();
         } else {
             $nombreVues = 1;
         }
 
+        // On récupèr le texte de l'édito.
         if ($em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findBy(array('section' => 'Edito')) != null) {
             $editos = $em->getRepository('NoxIntranetAdministrationBundle:texteEncart')->findBy(array('section' => 'Edito'));
             $texteEncart = end($editos);
         } else {
-            $texteEncart = null;
-        }
-
-        if ($texteEncart == null) {
             $texteEncart = new texteEncart();
             $texteEncart->setSection('Edito');
             $em->persist($texteEncart);
             $em->flush();
         }
 
+        // Le texte à afficher dans l'édito de la page d'accueil.
+        $texte = $texteEncart->getText();
+
+        // Génération du formulaire d'édito.
         $newTexteEncart = new texteEncart();
-
         $formBuilder = $this->get('form.factory')->createBuilder('form', $texteEncart);
-
         $formBuilder
                 ->add('text', \Ivory\CKEditorBundle\Form\Type\CKEditorType::class)
                 ->add('modifier', SubmitType::class)
         ;
-
         $form = $formBuilder->getForm();
 
+        // Traitement du formulaire d'édito.
         $form->handleRequest($request);
-
-        // On vérifie que les valeurs entrées sont correctes
-        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
         if ($form->isValid()) {
-            // On l'enregistre notre objet $advert dans la base de données, par exemple
-
+            // Si le texte a été modifié, on le sauvegarde.
             if ($texteEncart !== $form['text']->getData()) {
                 $newTexteEncart->setSection('Edito');
                 $newTexteEncart->setText($form['text']->getData());
@@ -108,34 +104,45 @@ class AccueilController extends Controller {
             return $this->redirectToRoute('nox_intranet_accueil');
         }
 
-        $texte = $texteEncart->getText();
+        return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array(
+                    'texte' => $texte, 'formulaire' => $form->createView(), 'nombreVues' => $nombreVues
+        ));
+    }
 
-        $majExterne = $this->getPDF($root . '/web/uploads/Communication/Externe/');
+    public function ajaxGetNewsAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // Racine du serveur
+            $root = str_replace('\\', '/', $this->get('kernel')->getRootDir()) . '/..';
 
-        $majInterne = $this->getPDF($root . '/web/uploads/Communication/Interne/');
-
-        foreach ($majInterne as $key => $maj) {
-            if (strstr($maj->getLien(), '/web/uploads/Communication/Interne/VieDeLentreprise') !== false) {
-                unset($majInterne[$key]);
+            // On récupére les news.
+            $majExterne = $this->getPDF($root . '/web/uploads/Communication/Externe/');
+            $majInterne = $this->getPDF($root . '/web/uploads/Communication/Interne/');
+            foreach ($majInterne as $key => $maj) {
+                if (strstr($maj->getLien(), '/web/uploads/Communication/Interne/VieDeLentreprise') !== false) {
+                    unset($majInterne[$key]);
+                }
             }
+            $majMarketing = $this->getPDF($root . '/web/uploads/Communication/Marketing/');
+            $majSI = $this->getPDF($root . '/web/uploads/Communication/SI/');
+            $majAQ = $this->getPDF($root . '/web/uploads/AQ/');
+            $majRH = $this->getPDF($root . '/web/uploads/RH/');
+            $annoncesPoste = $this->getPDF($root . '/web/uploads/Communication/Interne/VieDeLentreprise/PosteAPourvoir/');
+            $annoncesNomination = $this->getPDF($root . '/web//uploads/Communication/Interne/VieDeLentreprise/NominationOrganisation/');
+
+            // Place les news dans un tableau.
+            $newsArray = array(
+                "Mise à jour externe" => $majExterne,
+                "Mise à jour interne" => $majInterne,
+                "Mise à jour marketing" => $majMarketing,
+                "Mise à jour SI" => $majSI,
+                "Mise à jour RH" => $majRH,
+                "Mise à jour AQ" => $majAQ,
+                "Annonces poste" => $annoncesPoste,
+                "Annonces nomination" => $annoncesNomination
+            );
+
+            return new Response(json_encode($newsArray));
         }
-
-        $majMarketing = $this->getPDF($root . '/web/uploads/Communication/Marketing/');
-
-        $majSI = $this->getPDF($root . '/web/uploads/Communication/SI/');
-
-        $majAQ = $this->getPDF($root . '/web/uploads/AQ/');
-
-        $majRH = $this->getPDF($root . '/web/uploads/RH/');
-
-        $annoncesPoste = $this->getPDF($root . '/web/uploads/Communication/Interne/VieDeLentreprise/PosteAPourvoir/');
-
-        $annoncesNomination = $this->getPDF($root . '/web//uploads/Communication/Interne/VieDeLentreprise/NominationOrganisation/');
-
-        return $this->render('NoxIntranetAccueilBundle:Accueil:accueil.html.twig', array('texte' => $texte, 'formulaire' => $form->createView(),
-                    'majExterne' => $majExterne, 'majInterne' => $majInterne, 'majMarketing' => $majMarketing, 'majSI' => $majSI,
-                    'majAQ' => $majAQ, 'majRH' => $majRH, 'posteAPourvoir' => $annoncesPoste,
-                    'nominationOrganisation' => $annoncesNomination, 'nombreVues' => $nombreVues));
     }
 
     public function getPDF($chemin) {
