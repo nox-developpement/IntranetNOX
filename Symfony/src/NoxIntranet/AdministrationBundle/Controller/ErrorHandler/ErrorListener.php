@@ -25,8 +25,13 @@ class ErrorListener {
      * @param GetResponseForExceptionEvent $event L'exception déclanché au momment de l'erreur.
      */
     public function handleError(GetResponseForExceptionEvent $event) {
-        // L'environnement est celui de développement, on quitte la fonction.
-        if ($this->container->getParameter('kernel.environment') !== "dev") {
+        // Si l'environnement est celui de développement, on quitte la fonction.
+        if ($this->container->getParameter('kernel.environment') === "dev") {
+            return;
+        }
+
+        // Si l'erreur est du à une authentification insuffisante, on quitte la fonction.
+        if (get_class($event->getException()) === "Symfony\Component\Security\Core\Exception\InsufficientAuthenticationException") {
             return;
         }
 
@@ -68,7 +73,7 @@ class ErrorListener {
         $admin_email = $this->container->getParameter("intranet_admin_email");
 
         // Préparation du mail.
-        $mail = (new \Swift_Message("Erreur intranet"))
+        $mail = (new \Swift_Message("Erreur: \"" . $message . "\""))
                 ->setFrom(array('intranet@groupe-nox.com' => "Intranet NOX"))
                 ->setTo($admin_email)
                 ->setBody(

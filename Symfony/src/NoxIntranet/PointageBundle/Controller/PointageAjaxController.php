@@ -1929,16 +1929,26 @@ class PointageAjaxController extends Controller {
      */
     public function ajaxGetLastMonthAffairesAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
+            // Informations du pointage dont ont veux récupérer les affaires.
             $user = $request->get('user');
             $month = $request->get('month');
             $year = $request->get('year');
 
+            // On récupére le pointage.
             $em = $this->getDoctrine()->getManager();
             $pointage = $em->getRepository('NoxIntranetPointageBundle:Tableau')->findOneBy(array('month' => $month, 'year' => $year, 'user' => $user));
 
+            // Si il n'y pas de pointage correspondant...
+            if (empty($pointage)) {
+                // On retourne un tableau null.
+                return new Response(json_encode(array()));
+            }
+
+            // Données du pointage au format JSON.
             $pointesData = json_decode($pointage->getData(), true);
 
-            Return new Response(json_encode($pointesData['projectName']));
+            // On retourne le nom des affaires.
+            return new Response(json_encode($pointesData['projectName']));
         }
     }
 

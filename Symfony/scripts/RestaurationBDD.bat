@@ -1,6 +1,6 @@
 @echo off
 
-cd "%~d0\wamp\bin\mysql\mysql5.7.14\bin"
+cd "%~d0\wamp\bin\mysql\mysql5.6.17\bin"
 
 if not exist %~d0/wamp/www/Symfony/SauvegardeBDD/BDDSupport.sql (
 	echo Le fichier est introuvable ! 
