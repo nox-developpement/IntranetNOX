@@ -95,16 +95,26 @@ function newsListRotation(newsListContainer) {
             // Si l'index de la news est égale à celui de la news qui doit être visible...
             if (index === visibleNewsIndex) {
                 // On retire la classe hidden.
-                $(link).css("transform", "translationX(100%)");
+                $(link).css({
+                    //"width": "0%",
+                    "transform": "translateX(100%)"
+                });
                 $(link).removeClass('hidden');
-                $(link).transition("transform", "translationX(0%)", 2000);
+                $(link).transition({
+                    //"width": "100%",
+                    "transform": "translateX(0%)"
+                }, 2000);
 
             }
             // Sinon...
             else {
                 // On ajoute le classe hidden.
-                $(link).addClass('hidden');
-
+                $(link).transition({
+                    //"width": "100%",
+                    "transform": "translateX(-100%)"
+                }, 2000, function () {
+                    $(link).addClass('hidden');
+                });
             }
         });
 
@@ -124,7 +134,7 @@ function newsListRotation(newsListContainer) {
     // Toutes les 3 secondes...
     setInterval(function () {
         // On change la news visible;
-        //switchVisbleNews();
+        switchVisbleNews();
     }, 5000);
 }
 
