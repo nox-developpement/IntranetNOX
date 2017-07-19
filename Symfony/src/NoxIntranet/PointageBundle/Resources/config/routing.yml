@@ -188,7 +188,7 @@ nox_intranet_pointage_ajax_compilation_pointages_rh_mode:
     
 nox_intranet_pointage_archives_compilation_etablissements:
     path: /ressources/pointage/archives-compilation-etablissements
-    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationArchiveEtablissement }
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:compilationArchiveEtablissement } 
     
 nox_intranet_pointage_archives_compilation_years:
     path: /ressources/pointage/archives-compilation-years
@@ -213,6 +213,10 @@ nox_intranet_pointage_ajax_archives_compilation_export_excel:
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGenerateExcelArchiveRecap }
     requirements:
         etablissement: .+
+
+nox_intranet_pointage_ajax_archives_non_utilisateur_export_excel:
+    path: /ressources/pointage/ajax-archives-non-utilisateur-export-excel
+    defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxGenerateExcelArchiveNonUtilisateur }
                 
 nox_intranet_pointage_compilation_modulation:
     path: /ressources/pointage/compilation-modulation
@@ -237,3 +241,11 @@ nox_intranet_pointage_ajax_get_last_month_affaires:
 nox_intranet_pointage_ajax_upload_justificatif_compilation:
     path: /ressources/pointage/ajax-upload-justificatif-compilation
     defaults: { _controller: NoxIntranetPointageBundle:PointageAjax:ajaxUploadJustificatifCompilation }
+
+nox_intranet_pointage_archives_non_utilisateur_year:
+    path: /ressources/pointage/archives-non-utilisateur-year
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:archiveNonUtilisateurYear } 
+
+nox_intranet_pointage_archives_non_utilisateur_month:
+    path: /ressources/pointage/archives-non-utilisateur-month/{annee}
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:archiveNonUtilisateurMonth }

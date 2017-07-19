@@ -1,8 +1,8 @@
 {% extends "layout.html.twig" %}
 
-{% block titrePage %}Archives compilation des pointages{% endblock %}
+{% block titrePage %}Archives compilation des pointages non utilisateur{% endblock %}
 
-{% block messageAccueil %}Archives compilation des pointages{% endblock %}
+{% block messageAccueil %}Archives compilation des pointages non utilisateur{% endblock %}
 
 {% block contenu %}
 
@@ -74,25 +74,17 @@
     </style>
 
     <div id="pointage_compilation_archives">
-        {% for etablissement in etablissements %} 
+
+
+        {% for year in years %}
+            {% set annee = years[loop.index0] %}
             <div class="archive_folder">
-                <a class="archive_folder_link" href="{{ path('nox_intranet_pointage_archives_compilation_years', {etablissement: etablissement.Etablissement}) }}">
+                <a class="archive_folder_link" href="{{ path('nox_intranet_pointage_archives_non_utilisateur_month', { annee: years[loop.index0] }) }}">
                     <img class="archive_folder_icon" src="{{ asset('bundles/noxintranetpointage/images/Folder.png') }}">
-                    <p class="archive_folder_label">{{ etablissement.Etablissement|title }}</p>
+                    <p class="archive_folder_label">{{ years[loop.index0] }}</p>
                 </a>
             </div>
         {% endfor %}
-
-        <div class="archive_folder">
-            <a class="archive_folder_link" href="{{ path('nox_intranet_pointage_archives_non_utilisateur_year') }}">
-                <img class="archive_folder_icon" src="{{ asset('bundles/noxintranetpointage/images/Folder.png') }}">
-                <p class="archive_folder_label">Collaborateur Sortie</p>
-            </a>
-        </div>
-
-
     </div>
-
-
 
 {% endblock %}
