@@ -34,9 +34,9 @@
     </div>
 
     <div class="row">
-        <div id="zoneTexteAccueilContainer" class="col-lg-6">
+        <div id="zoneTexteAccueilContainer" class="col-lg-6 background-transparent-white">
             <div class="row">
-                <div id='zoneTexteAccueilHeader'  class="navbar blue-background col-lg-12">
+                <div id='zoneTexteAccueilHeader'  class="navbar background-blue col-lg-12">
                     <h4 class="navbar-text text-white">Édito</h4>
                     {% if is_granted('ROLE_COMMUNICATION') %}
                         <button id='texteEditButton' class='btn btn-default navbar-btn navbar-right'>Editer</button>
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div id="zoneNewsAccueil" class="col-lg-5 col-lg-offset-1">
+        <div id="zoneNewsAccueil" class="col-lg-5 col-lg-offset-1 background-transparent-white">
             <script type="text/javascript">
                 $(document).ready(function () {
                     ajaxGetNews("{{ path('nox_intranet_accueil_ajax_get_news') }}");

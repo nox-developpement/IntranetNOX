@@ -3,7 +3,6 @@
 }
 
 #zoneTexteAccueilContainer, #zoneNewsAccueil {
-    background-color: rgba(255,255,255,0.6);
     border: 1px solid #1F4E79;
 }
 
@@ -19,6 +18,23 @@
     margin-right: 0px;
 }
 
-.DivMaj {
-    
+#zoneNewsAccueil {
+    padding-top: 15px;
+    padding-bottom:5px;
+}
+
+.accueil_news_list_container {
+    margin-bottom: 10px;
+    border: 1px solid #1F4E79;
+}
+
+.accueil_news_categorie_title {
+    margin-bottom: 0;
+    padding-left: 10px;
+    border: 1px solid #1F4E79;
+}
+
+.accueil_news_link {
+    padding: 5px;
+    margin-bottom: 0;
 }
