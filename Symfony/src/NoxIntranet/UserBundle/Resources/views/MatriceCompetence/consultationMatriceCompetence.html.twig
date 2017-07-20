@@ -5,42 +5,38 @@
 {% block messageAccueil %}Tableau des consultations{% endblock %}
 
 {% block contenu %}
+    <style type="text/css">
+        table{
+            text-align: center;
+            border: 2px solid #000;
+            width: 50%;
+            margin-left: 25%;
+        }
+        table th{
+            font-size: 20px;
+        }
+        table tr td,th{
+            padding: 10px;
+        }
+    </style>
 
-<style type="text/css">
-	table{
-		text-align: center;
-		border: 2px solid #000;
-		width: 50%;
-		margin-left: 25%;
-	}
-	table th{
-		font-size: 20px;
-	}
-	table tr td,th{
-		padding: 10px;
-	}
-</style>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Nb Consultation</th>
+                <th>Nb Edition</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user, statistique in statistiques %}
+                <tr>
+                    <td>{{ user }}</td>
+                    <td>{{ statistique.Nb_Consultation }}</td>
+                    <td>{{ statistique.Nb_Edition }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
 
-<table>
-	<thead>
-	   <tr>
-	       <th>Nom</th>
-	       <th>Nb Consultation</th>
-	       <th>Nb Edition</th>
-	   </tr>
-	</thead>
-	<tbody>
-		{% for val, name in tableau %}
-		<tr>
-			{% set tour = loop.index0 %}
-			{% for val, name in tableau %}
-				<td>{{ name[tour] }}</td>
-			{% endfor %}
-		</tr>
-	   	{% endfor %}
-	</tbody>
- 
-</table>
-
-
+    </table>
 {% endblock %}

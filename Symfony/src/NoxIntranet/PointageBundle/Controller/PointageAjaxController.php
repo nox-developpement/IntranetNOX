@@ -10,8 +10,8 @@ use NoxIntranet\PointageBundle\Entity\PointageValide;
 use NoxIntranet\PointageBundle\Entity\JustificatifTransportFile;
 use NoxIntranet\PointageBundle\Entity\JustificatifSupplementairesCompilation;
 use ZipArchive;
-
-class PointageAjaxController extends Controller {
+ 
+class PointageAjaxController extends Controller { 
 
     // Retourne les jours et la date correspondante en fonction du mois et de l'année passés en paramètres.
     public function ajaxSetDateAction(Request $request) {
@@ -961,16 +961,16 @@ class PointageAjaxController extends Controller {
     // Permet de transformer une feuille de pointage en tableau Excel et de l'imprimer.
     public function ajaxExportToExcelAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
-            // On récupére le contenu du tableau est les cellules qui doivent êtres mergées.
-            $tableContent = json_decode($request->get('tableContent'), true);
-            $cellWithColspan = $request->get('cellWithColspan');
-            $cellWithRowspan = $request->get('cellWithRowspan');
+            // // On récupére le contenu du tableau est les cellules qui doivent êtres mergées.
+            // $tableContent = json_decode($request->get('tableContent'), true);
+            // $cellWithColspan = $request->get('cellWithColspan');
+            // $cellWithRowspan = $request->get('cellWithRowspan');
 
-            // On récupére la racine du serveur et on importe le module PHP Excel.
-            $root = $this->get('kernel')->getRootDir() . '/..';
+            // // On récupére la racine du serveur et on importe le module PHP Excel.
+            // $root = $this->get('kernel')->getRootDir() . '/..';
 
-            // On initialise une nouvelle feuille Excel.
-            $objPHPExcel = new \PHPExcel();
+            // // On initialise une nouvelle feuille Excel.
+            // $objPHPExcel = new \PHPExcel();
 
             // Pour chaque cellule du tableau de pointage...
             foreach ($tableContent as $cell) {
@@ -1500,6 +1500,8 @@ class PointageAjaxController extends Controller {
         $month = $request->get('month');
         $year = $request->get('year');
 
+
+
         $em = $this->getDoctrine()->getManager();
         $collaborateurs = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByEtablissement($etablissement);
 
@@ -1524,6 +1526,7 @@ class PointageAjaxController extends Controller {
 
             $pointages[$key]['absences'] = json_decode($pointage['absences'], true);
         }
+
 
         // On vide le dossier avant l'enregistrement.
         foreach (glob($root . "/../web/Pointage/FichierRecap/*") as $file) { // iterate files
@@ -1639,6 +1642,210 @@ class PointageAjaxController extends Controller {
         $downloadUrl = $this->generateUrl('nox_intranet_pointage_archives_compilation_export_excel', array('filepath' => base64_encode($folder . $filename)));
         return new Response($downloadUrl);
     }
+
+
+    public function ajaxGenerateExcelArchiveNonUtilisateurAction(Request $request){
+        $month = $request->get('month');
+        $year = $request->get('annee');
+
+        // On récupère les entitées hiérarchique.
+        $em = $this->getDoctrine()->getManager();
+        // On récupère les pointages 
+        $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findAll();
+        // On récupère les user
+        $usersOperationnel = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
+
+        $userOK = array();
+        for ($i=0; $i < count($usersOperationnel)  ; $i++) { 
+           $userOK[$usersOperationnel[$i]->getUsername()]=$usersOperationnel[$i]->getUsername();
+        }
+        $newUserOp=array_values($userOK);
+
+        $nonUsers = array();
+        for ($i=0; $i < count($pointagesValides)  ; $i++) { 
+           $nonUsers[$pointagesValides[$i]->getuser()]=$pointagesValides[$i]->getuser();
+        }
+
+        foreach ($newUserOp as $key => $value) {
+            unset($nonUsers[$newUserOp[$key]]);
+        }
+
+        $allDataNonUser = array();
+        foreach ($nonUsers as $key => $value) {
+            $allDataNonUser[] = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findByUser($value);
+        }
+
+        for ($i=0; $i < count($allDataNonUser) ; $i++) {
+            $etape['annee'] = $allDataNonUser[$i];
+
+            for ($y=0; $y < count($etape['annee']) ; $y++) { 
+                $arrayTrieYear[$etape['annee'][$y]->getYear()][] = $etape['annee'][$y];
+            }
+
+        }
+
+        foreach ($arrayTrieYear as $key => $values) {
+            $etape["mois"] = $arrayTrieYear[$key];
+            for ($i=0; $i < count($etape["mois"])  ; $i++) { 
+                $arrayTrieMonth[$etape["mois"][$i]->getMonth()][] = $etape["mois"][$i];
+            }
+        }
+
+        $anneee = 0;
+        for ($i=1; $i <= count($arrayTrieYear); $i++) {   
+            ${'tableauMonth'.$i} = $arrayTrieYear["2016"+$anneee];
+            $anneee++;
+        }
+
+        for ($i=1; $i <= count($arrayTrieYear) ; $i++) { 
+            foreach (${'tableauMonth'.$i} as $key => $value) {
+                $test[${'tableauMonth'.$i}[$key]->getYear()] = ${'tableauMonth'.$i};
+            }
+        }
+        // céation d'un tableau des pointage par année et mois
+        foreach ($test as $key => $value) {
+            for ($i=0; $i < count($test[$key]) ; $i++) { 
+                $AllTotal[$test[$key][$i]->getYear()][$test[$key][$i]->getMonth()][] = $test[$key][$i];
+            }
+        }
+
+        // on recupère les pointages le année et le mois selectionner
+        $pointage = $AllTotal[$year][$month];
+
+
+        // On récupére le module PHP de traitement des fichiers Excel.
+        $root = str_replace('\\', '/', $this->get('kernel')->getRootDir());
+
+
+        // Initialisation d'un nouveau fichier Excel.
+        $objPHPExcel = \PHPExcel_IOFactory::load($root . '/../web/Pointage/Modele/PointageRecapModele.xlsx');
+        $objWorksheet = $objPHPExcel->getSheet(0); // On séléctionne la feuille de totaux comme feuille de travail.
+
+        $rowTotaux = 2; // Initialisation du compteur de ligne des totaux.
+        $rowAbsence = 2; // Initialisation du compteur de ligne des absences.
+        $rowDeplacement = 2; // Initialisation du compteur de ligne des forfaits déplacement.
+        $rowCommentaires = 2; // Initialisation du compteur de ligne des commentaires.
+        $rowRegularisation = 2; // Initialisation du compteur de ligne de la régularisation.
+
+
+        // supprimler case matricule
+        $objWorksheet->getCell('A1')->setValue();
+        $objWorksheet->getCell('I1')->setValue();
+        $objWorksheet->getCell('P1')->setValue();
+        $objWorksheet->getCell('V1')->setValue();
+        $objWorksheet->getCell('AB1')->setValue();
+
+
+        //suprimer les bordure des case matricule
+        $styleArray2 = array(
+          'borders' => array(
+            'allborders' => array(
+              'style' => \PHPExcel_Style_Border::BORDER_NONE
+            )
+          )
+        );
+        $objPHPExcel->getActiveSheet()->getStyle('A1')->applyFromArray($styleArray2);
+        $objPHPExcel->getActiveSheet()->getStyle('I1')->applyFromArray($styleArray2);
+        $objPHPExcel->getActiveSheet()->getStyle('P1')->applyFromArray($styleArray2);
+        $objPHPExcel->getActiveSheet()->getStyle('V1')->applyFromArray($styleArray2);
+        $objPHPExcel->getActiveSheet()->getStyle('AB1')->applyFromArray($styleArray2);
+
+        foreach ($pointage as $key => $value) {
+
+            $objWorksheet->getCell('B' . $rowTotaux)->setValue($pointage[$key]->getLastname() . ' ' . $pointage[$key]->getFirstname()); // On écris le NOM+Prénom.
+            $objWorksheet->getCell('C' . $rowTotaux)->setValue($pointage[$key]->getTitresRepas()); // On écris le nombre de titres repas.
+            $objWorksheet->getCell('D' . $rowTotaux)->setValue($pointage[$key]->getForfaitsDeplacement()); // On écris le montant du forfait de déplacement.
+            $objWorksheet->getCell('E' . $rowTotaux)->setValue($pointage[$key]->getPrimesPanier()); // On écris le montant de la primes panier.
+            $objWorksheet->getCell('F' . $rowTotaux)->setValue($pointage[$key]->getTitreTransport()); // On écris le montant du titre de transport.
+            $rowTotaux++; // On passe à la ligne suivante.
+
+            $pointageA = json_decode($pointage[$key]->getAbsences(), true); // On décripte les données absence.
+
+            foreach ($pointageA['matin'] as $keys => $absence) {
+                // Si un clé de valeur existe pour l'absence du matin et pour celle de l'après-midi.
+                if (array_key_exists('valeur', $absence) && array_key_exists('valeur', $pointageA['am'][$keys])) {
+                    if ($absence['valeur'] !== '' || $pointageA['am'][$keys]['valeur'] !== '') {
+
+                        $objWorksheet->getCell('J' . $rowAbsence)->setValue($pointage[$key]->getLastname() . ' ' . $pointage[$key]->getFirstname()); // On écris le NOM+Prénom.
+                        $objWorksheet->getCell('K' . $rowAbsence)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
+                        $nbAbsence = 0;
+                        $absenceValue = "";
+                        if ($absence['valeur'] !== '') {
+                            $nbAbsence = $nbAbsence + 0.5;
+                            if ($absenceValue !== '') {
+                                $absenceValue .= '/' . $absence['valeur'];
+                            } else {
+                                $absenceValue .= $absence['valeur'];
+                            }
+                        }
+                        if ($pointageA['am'][$keys]['valeur'] !== '') {
+                            $nbAbsence = $nbAbsence + 0.5;
+                            if ($absenceValue !== '') {
+                                $absenceValue .= '/' . $pointageA['am'][$keys]['valeur'];
+                            } else {
+                                $absenceValue .= $pointageA['am'][$keys]['valeur'];
+                            }
+                        }
+                        $objWorksheet->getCell('L' . $rowAbsence)->setValue(trim($absenceValue)); // On écris la/les valeur(s) d'absence(s).
+                        $objWorksheet->getCell('M' . $rowAbsence)->setValue($nbAbsence); // On écris la/les valeur(s) d'absence(s).
+                        $rowAbsence++; // On passe à la ligne.
+                    }
+                    // Si il y a un commentaire...
+                    if ($absence['commentaires'] !== '') {
+
+                        $objWorksheet->getCell('Q' . $rowCommentaires)->setValue($pointage[$key]->getLastname() . ' ' . $pointage[$key]->getFirstname()); // On écris le NOM+Prénom.
+                        $objWorksheet->getCell('R' . $rowCommentaires)->setValue(str_replace('-', '/', $absence['date'])); // On écris la date.
+                        $objWorksheet->getCell('S' . $rowCommentaires)->setValue($absence['commentaires']); // On écris la/les valeur(s) d'absence(s).
+                        $rowCommentaires++;
+                    }
+                }
+            }
+
+            // On écris les valeurs de forfaits déplacement.
+            $forfaitsDeplacement = !empty($pointage[$key]->getForfaitsDeplacementDetails()) ? json_decode($pointage[$key]->getForfaitsDeplacementDetails(), true) : [];
+            foreach ($forfaitsDeplacement as $forfait) {
+                if (!empty($forfait['value'])) {
+
+                    $objWorksheet->getCell('W' . $rowDeplacement)->setValue($pointage[$key]->getLastname() . ' ' . $pointage[$key]->getFirstname()); // On écris le NOM+Prénom.
+                    $objWorksheet->getCell('X' . $rowDeplacement)->setValue(date('d/m/Y', strtotime($forfait['day']))); // On écris la date.
+                    $objWorksheet->getCell('Y' . $rowDeplacement)->setValue($forfait['value']); // On écris la/les valeur(s) d'absence(s).
+                    $rowDeplacement++;
+                }
+            }
+
+            // On écris la valeur de régularisation si elle existe.
+            if (!empty($pointage[$key]->getRegularisation())) {
+
+                $objWorksheet->getCell('AC' . $rowRegularisation)->setValue($pointage[$key]->getLastname() . ' ' . $pointage[$key]->getFirstname()); // On écris le NOM+Prénom.
+                $objWorksheet->getCell('AD' . $rowRegularisation)->setValue($pointage[$key]->getRegularisation());
+                $rowRegularisation++;
+            }
+        }
+
+        $columLetter = 'A';
+        while ($columLetter !== "AE") {
+            $objPHPExcel->getActiveSheet()->getColumnDimension($columLetter)->setAutoSize(true);
+            $columLetter++;
+        }
+
+        // Initialisation d'un tableau de concordance chiffre => string pour les mois.
+        $monthString = array(1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novemvre', 12 => 'Décembre');
+
+        $filename = str_replace('/', '_', 'Récapitulatif compilation pointages non collaborateur [' . $monthString[$month] . ' ' . $year . '].xlsx'); // On génére le nom de fichier.
+        $folder = $root . "/../web/Pointage/FichierRecap/"; // On récupére le dossier ou sera enregistré le fichier.
+    
+        // On sauvegarde le fichier.
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save($folder . utf8_decode($filename)); // utf8_decode est utilisé pour encoder les accents sur le nom de fichier Windows.  
+
+        $filepath = base64_encode($folder . $filename);
+
+        // On génére et retourne le liens de téléchargement du fichier.
+        $downloadUrl = $this->generateUrl('nox_intranet_pointage_archives_compilation_export_excel', array('filepath' => base64_encode($folder . $filename)));
+        return new Response($downloadUrl);
+    }
+
+
 
     // Retourne les affaires qui correspondent à la chaine passé en charactère.
     public function ajaxSearchGXAffaireAction(Request $request) {
@@ -1788,5 +1995,7 @@ class PointageAjaxController extends Controller {
             return new Response("Uploaded");
         }
     }
+
+
 
 }

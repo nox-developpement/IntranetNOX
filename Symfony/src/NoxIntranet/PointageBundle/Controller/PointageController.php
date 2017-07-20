@@ -16,6 +16,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use NoxIntranet\PointageBundle\Entity\JustificatifFile;
 use Symfony\Component\HttpFoundation\Response;
 use NoxIntranet\PointageBundle\Entity\PointageValide;
+use NoxIntranet\UserBundle\Entity\User;
+
 
 class PointageController extends Controller {
 
@@ -1047,6 +1049,7 @@ class PointageController extends Controller {
         }
         asort($etablissements);
 
+
         return $this->render('NoxIntranetPointageBundle:Pointage:compilationArchiveEtablissement.html.twig', array('etablissements' => $etablissements));
     }
 
@@ -1067,6 +1070,7 @@ class PointageController extends Controller {
             }
         }
         asort($years);
+
 
         return $this->render('NoxIntranetPointageBundle:Pointage:compilationArchiveYear.html.twig', array('years' => $years, 'etablissement' => $etablissement));
     }
@@ -1094,11 +1098,15 @@ class PointageController extends Controller {
         }
         asort($months);
 
+
         return $this->render('NoxIntranetPointageBundle:Pointage:compilationArchiveMonth.html.twig', array('months' => $months, 'year' => $year, 'etablissement' => $etablissement));
     }
 
     // Génére un fichier Excel qui résume la compilation en fonction du mois, de l'année, et de l'utilisateur séléctionné.
     public function generateExcelRecapAction($filepath) {
+
+      
+
         // On décode le chemin du fichier.
         $filepath = utf8_decode(base64_decode($filepath));
 
@@ -1223,5 +1231,168 @@ class PointageController extends Controller {
 
         return $this->render('NoxIntranetPointageBundle:Pointage:compilationModulation.html.twig', array('formGenerationCompilation' => $formGenerateCompilationModulation->createView()));
     }
+
+
+// recuperer les pointages des nonUser
+    public function archiveNonUtilisateurYearAction(Request $request){
+       // On récupère les entitées hiérarchique.
+        $em = $this->getDoctrine()->getManager();
+        // On récupère les pointages
+        $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findAll();
+        // On récupère les users
+        $usersOperationnel = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
+
+        // on compare les 2 liste utilisateur
+        $userOK = array();
+        for ($i=0; $i < count($usersOperationnel)  ; $i++) { 
+           $userOK[$usersOperationnel[$i]->getUsername()]=$usersOperationnel[$i]->getUsername();
+        }
+        $newUserOp=array_values($userOK);
+
+        $nonUsers = array();
+        for ($i=0; $i < count($pointagesValides)  ; $i++) { 
+           $nonUsers[$pointagesValides[$i]->getuser()]=$pointagesValides[$i]->getuser();
+        }
+        foreach ($newUserOp as $key => $value) {
+            unset($nonUsers[$newUserOp[$key]]);
+        }
+        // On récupère les données pointage les non user
+        $allDataNonUser = array();
+        foreach ($nonUsers as $key => $value) {
+            $allDataNonUser[] = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findByUser($value);
+        }
+
+        // on récupère les années
+        $nonUserYears = array();
+        for ($i=0; $i < count($allDataNonUser) ; $i++) {
+            $etape['years'] = $allDataNonUser[$i];
+            for ($y=0; $y <count($etape['years']) ; $y++) { 
+                $nonUserYears[$etape['years'][$y]->getYear()] = $etape['years'][$y]->getYear();
+            }
+        }
+        $newNonUserYears=array_values($nonUserYears);
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:compilationArchiveYearNonUser.html.twig', array('years' => $newNonUserYears));
+
+
+    }
+
+
+    public function archiveNonUtilisateurMonthAction($annee) {
+
+        // On récupère les entitées hiérarchique.
+        $em = $this->getDoctrine()->getManager();
+        // On récupère les pointages
+        $pointagesValides = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findAll();
+        // On récupère les users
+        $usersOperationnel = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
+
+        // on compare les 2 liste utilisateur
+        $userOK = array();
+        for ($i=0; $i < count($usersOperationnel)  ; $i++) { 
+           $userOK[$usersOperationnel[$i]->getUsername()]=$usersOperationnel[$i]->getUsername();
+        }
+        $newUserOp=array_values($userOK);
+
+        $nonUsers = array();
+        for ($i=0; $i < count($pointagesValides)  ; $i++) { 
+           $nonUsers[$pointagesValides[$i]->getuser()]=$pointagesValides[$i]->getuser();
+        }
+
+        // création liste de non user
+        foreach ($newUserOp as $key => $value) {
+            unset($nonUsers[$newUserOp[$key]]);
+        }
+
+        // On récupère les données pointage les non user
+        $allDataNonUser = array();
+        foreach ($nonUsers as $key => $value) {
+            $allDataNonUser[] = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findByUser($value);
+        }
+
+        // On trie les données par année
+        for ($i=0; $i < count($allDataNonUser) ; $i++) {
+            $etape['annee'] = $allDataNonUser[$i];
+            for ($y=0; $y < count($etape['annee']) ; $y++) { 
+                $arrayTrieYear[$etape['annee'][$y]->getYear()][] = $etape['annee'][$y];
+            }
+        }
+
+        // on trie les données par mois
+        foreach ($arrayTrieYear as $key => $values) {
+            $etape["mois"] = $arrayTrieYear[$key];
+            for ($i=0; $i < count($etape["mois"])  ; $i++) { 
+                $arrayTrieMonth[$etape["mois"][$i]->getMonth()][] = $etape["mois"][$i];
+            }
+        }
+
+
+        $anneee = 0;
+        for ($i=1; $i <= count($arrayTrieYear); $i++) {   
+            ${'tableauMonth'.$i} = $arrayTrieYear["2016"+$anneee];
+            $anneee++;
+        }
+
+        $monthparyear = array();
+        for ($i=1; $i <= count($arrayTrieYear) ; $i++) { 
+        $monthparyear = array();
+            foreach (${'tableauMonth'.$i} as $key => $value) {
+
+                $test[${'tableauMonth'.$i}[$key]->getYear()] = ${'tableauMonth'.$i};
+
+                $lemonth = ${'tableauMonth'.$i}[$key]->getMonth();
+                $monthparyear[$lemonth]["Month"] = $lemonth;
+
+                ${'table'.$i}[$monthparyear[$lemonth]["Month"]]["Month"] = $monthparyear[$lemonth]["Month"];
+                if (${'table'.$i}[$monthparyear[$lemonth]["Month"]]["Month"] == 1) {
+                    ${'table'.$i}[$monthparyear[$lemonth]["Month"]]["MonthName"] = "Janvier";
+                }else if(${'table'.$i}[$monthparyear[$lemonth]["Month"]]["Month"] == 2){
+                    ${'table'.$i}[$monthparyear[$lemonth]["Month"]]["MonthName"] = "Février";
+                }else if(${'table'.$i}[$monthparyear[$lemonth]["Month"]]["Month"] == 3){
+                    ${'table'.$i}[$monthparyear[$lemonth]["Month"]]["MonthName"] = "Mars";
+                }else if(${'table'.$i}[$monthparyear[$lemonth]["Month"]]["Month"] == 4){
+                    ${'table'.$i}[$monthparyear[$lemonth]["Month"]]["MonthName"] = "Avril";
+                }else if(${'table'.$i}[$monthparyear[$lemonth]["Month"]]["Month"] == 5){
+                    ${'table'.$i}[$monthparyear[$lemonth]["Month"]]["MonthName"] = "Mai";
+                }else if(${'table'.$i}[$monthparyear[$lemonth]["Month"]]["Month"] == 6){
+                    ${'table'.$i}[$monthparyear[$lemonth]["Month"]]["MonthName"] = "Juin";
+                }else if(${'table'.$i}[$monthparyear[$lemonth]["Month"]]["Month"] == 7){
+                    ${'table'.$i}[$monthparyear[$lemonth]["Month"]]["MonthName"] = "Juillet";
+                }else if(${'table'.$i}[$monthparyear[$lemonth]["Month"]]["Month"] == 8){
+                    ${'table'.$i}[$monthparyear[$lemonth]["Month"]]["MonthName"] = "Août";
+                }else if(${'table'.$i}[$monthparyear[$lemonth]["Month"]]["Month"] == 9){
+                    ${'table'.$i}[$monthparyear[$lemonth]["Month"]]["MonthName"] = "Septembre";
+                }else if(${'table'.$i}[$monthparyear[$lemonth]["Month"]]["Month"] == 10){
+                    ${'table'.$i}[$monthparyear[$lemonth]["Month"]]["MonthName"] = "Octobre";
+                }else if(${'table'.$i}[$monthparyear[$lemonth]["Month"]]["Month"] == 11){
+                    ${'table'.$i}[$monthparyear[$lemonth]["Month"]]["MonthName"] = "Novembre";
+                }else if(${'table'.$i}[$monthparyear[$lemonth]["Month"]]["Month"] == 12){
+                    ${'table'.$i}[$monthparyear[$lemonth]["Month"]]["MonthName"] = "Décembre";
+                }
+            }
+        }
+        // tableau pour chaque année des mois-nummeriaue + nom des mois 
+        $all = array('2016' => $table1,'2017' => $table2, );
+
+        // création d'un tableau les données pointages des non-user trier par année et par mois
+        foreach ($test as $key => $value) {
+            for ($i=0; $i < count($test[$key]) ; $i++) { 
+                $AllTotal[$test[$key][$i]->getYear()][$test[$key][$i]->getMonth()][] = $test[$key][$i];
+            }
+        }
+
+
+        return $this->render('NoxIntranetPointageBundle:Pointage:compilationArchiveMonthNonUser.html.twig', array("annee" => $annee, "all" => $all, "globalData" => $AllTotal, 
+        ));
+
+
+    }
+
+
+
+
+
+
+
 
 }

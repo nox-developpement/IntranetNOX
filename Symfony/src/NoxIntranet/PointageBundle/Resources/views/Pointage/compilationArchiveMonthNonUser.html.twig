@@ -4,10 +4,6 @@
 
 {% block messageAccueil %}Archives compilation des pointages{% endblock %}
 
-{% block sousMessageAccueil %}
-    Etablissement: {{ etablissement }}<br />
-    Année: {{ year }}
-{% endblock %}
 
 {% block contenu %}
 
@@ -78,14 +74,13 @@
         }
     </style>
 
-
     <script>
         // Génére le liens de téléchargement et affiche une fenêtre de dialogue.
-        function downloadLoader(etablissement, month, year) {
+        function downloadLoader(month, annee){
             $.ajax({
-                url: '{{ path('nox_intranet_pointage_ajax_archives_compilation_export_excel') }}',
+                url: '{{ path('nox_intranet_pointage_ajax_archives_non_utilisateur_export_excel') }}',
                 type: 'POST',
-                data: {etablissement: etablissement, month: month, year: year},
+                data: {month: month, annee: annee},
                 success: function (url) {
                     // On redirige vers le téléchargement et on ferme la fenêtre de dialogue.
                     window.location = url;
@@ -116,15 +111,15 @@
 
     <div id="pointage_compilation_archives">
 
- 
-        {% for month in months %}
+        {% for month in all[annee] %}
             <div class="archive_folder">
-                <a class="archive_folder_link" onclick="downloadLoader('{{ etablissement }}', '{{ month.Month }}', '{{ year }}');" href="#">
+                <a class="archive_folder_link" onclick="downloadLoader('{{ month.Month }}','{{ annee }}' );" href="#">
                     <img class="archive_folder_icon" src="{{ asset('bundles/noxintranetpointage/images/ExcelFile.png') }}">
                     <p class="archive_folder_label">{{ month.MonthName }}</p>
                 </a>
             </div>
         {% endfor %}
+
     </div>
 
 {% endblock %}
