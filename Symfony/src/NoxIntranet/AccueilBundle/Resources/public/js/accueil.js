@@ -47,9 +47,9 @@ function appendNews(newsByCategorie) {
         if (newsList.length > 0) {
             // Génération du code HTML du conteneur et du titre de la catégorie des news.
             var newsCategorieRow = $("<div class='accueil_news_row row'></div>");
-            var newsCategorieCol = $("<div class='accueil_news_container col-lg-12'></div>");
+            var newsCategorieCol = $("<div class='accueil_news_container col-lg-12 carousel slide'></div>");
             var newsCategorieTitle = $("<p class='accueil_news_categorie_title background-blue text-white'>" + categorie + "</p>");
-            var newsListContainer = $("<div class='accueil_news_list_container'></div>");
+            var newsListContainer = $("<div class='accueil_news_list_container carousel-inner' role='listbox'></div>");
 
             // Ajout du titre de catégorie au container de news.
             newsCategorieCol.append(newsCategorieTitle);
@@ -57,7 +57,7 @@ function appendNews(newsByCategorie) {
             // Pour chaques news de la catégorie...
             $.each(newsList, function (index, news) {
                 // Génération du code HTML de le la news.
-                var newsDiv = $("<p class='accueil_news_link text-center background-transparent-white'><a href='" + news.Lien + "' target='_blank'>" + news.Nom + "</a></p>");
+                var newsDiv = $("<p class='accueil_news_link text-center item " + (index === 0 ? "active" : "") + " background-transparent-white'><a href='" + news.Lien + "' target='_blank'>" + news.Nom + "</a></p>");
 
                 // Ajout de la news au container de catégorie.
                 newsListContainer.append(newsDiv);
@@ -71,12 +71,17 @@ function appendNews(newsByCategorie) {
             zoneNews.append(newsCategorieRow);
 
             // Lancement de la rotation des news visible.
-            newsListRotation(newsListContainer);
+            // newsListRotation(newsListContainer);
         }
     });
 
+    // Ajout d'un effet de slide sur chaques container de news toutes les 5 secondes.
+    $('.carousel').carousel({
+        interval: 5000
+    });
+
     // Lancement de la rotation des catégories.
-    //newsCategorieRotation(zoneNews);
+    newsCategorieRotation(zoneNews);
 }
 
 // Assure une rotation de la news visible dans le container de news passé en paramètre.
