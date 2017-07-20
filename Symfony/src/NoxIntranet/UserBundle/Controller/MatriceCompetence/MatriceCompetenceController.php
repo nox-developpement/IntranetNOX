@@ -1073,6 +1073,7 @@ class MatriceCompetenceController extends Controller {
         $tableau[] = $countUserEdit;
 
 
+
         return $this->render("NoxIntranetUserBundle:MatriceCompetence:consultationMatriceCompetence.html.twig", array('tableau' => $tableau));
 
     }

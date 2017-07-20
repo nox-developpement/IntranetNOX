@@ -27,17 +27,23 @@
 	       <th>Nom</th>
 	       <th>Nb Consultation</th>
 	       <th>Nb Edition</th>
-	   </tr>
+	   </tr> 
 	</thead>
 	<tbody>
-		{% for val, name in tableau %}
-		<tr>
-			{% set tour = loop.index0 %}
-			{% for val, name in tableau %}
-				<td>{{ name[tour] }}</td>
-			{% endfor %}
-		</tr>
-	   	{% endfor %}
+
+
+
+		{% for i in 0..tableau[0]|length-1 %}
+			<tr>
+			{% for name in tableau %}
+
+					<td>{{name[i]}}</td>
+
+		    {% endfor %}
+
+		    </tr>
+		{% endfor %}
+
 	</tbody>
  
 </table>
