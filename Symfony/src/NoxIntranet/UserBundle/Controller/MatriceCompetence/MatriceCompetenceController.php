@@ -1016,6 +1016,7 @@ class MatriceCompetenceController extends Controller {
         // Récupération des utilisateur qui ont consulté MatriceCompetence
         $consultations = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceConsultation')->findAll();
         // Récupération des utilisateur qui ont édité MatriceCompetence
+
         $editions = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceEdition')->findAll();
 
         // Initialisation des compteurs de consultation et d'édition pour chaques collaborateurs.
@@ -1027,6 +1028,7 @@ class MatriceCompetenceController extends Controller {
         foreach ($editions as $edition) {
             $statistiques[$edition->getUsername()]["Nb_Consultation"] = 0;
             $statistiques[$edition->getUsername()]["Nb_Edition"] = 0;
+
         }
 
 
@@ -1035,10 +1037,12 @@ class MatriceCompetenceController extends Controller {
             $statistiques[$consultation->getUsername()]["Nb_Consultation"] ++;
         }
 
+
         // Remplissage du nombre d'édition.
         foreach ($editions as $edition) {
             $statistiques[$edition->getUsername()]["Nb_Edition"] ++;
         }
+
 
         return $this->render("NoxIntranetUserBundle:MatriceCompetence:consultationMatriceCompetence.html.twig", array('statistiques' => $statistiques));
     }
