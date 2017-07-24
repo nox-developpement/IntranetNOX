@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use DateTime;
-
 use Symfony\Component\HttpFoundation\Response;
 
 class StatsVPNController extends Controller {
@@ -30,13 +29,9 @@ class StatsVPNController extends Controller {
                 ))
                 ->add("Upload", SubmitType::class, array(
                     "label" => "Voir Stat",
-
-
                 ))
                 ->add("Export", SubmitType::class, array(
                     "label" => "Export",
-
-
                 ))
         ;
         $formUploadVPN = $formUploadVPNBuilder->getForm();
@@ -61,8 +56,7 @@ class StatsVPNController extends Controller {
                 // On déplace le fichier dans le dossier web.
                 $file->move(".", "VPNFiles.zip");
                 return $this->redirectToRoute("nox_intranet_vpn_stats");
-
-            }else if ($formUploadVPN->get('Export')->isClicked()) {
+            } else if ($formUploadVPN->get('Export')->isClicked()) {
                 // On récupére le fichier.
                 $file = $formUploadVPN->get("File")->getData();
 
@@ -76,15 +70,12 @@ class StatsVPNController extends Controller {
                 $file->move(".", "VPNFiles.zip");
                 return $this->redirectToRoute("nox_intranet_vpn_export");
             }
-
         }
 
 
 
 
         return $this->render("NoxIntranetAdministrationBundle:StatsVPN:uploadVPNFiles.html.twig", array("formUploadVPN" => $formUploadVPN->createView()));
-
-
     }
 
     /**
@@ -326,11 +317,16 @@ class StatsVPNController extends Controller {
         sort($graphiqueDatasGlobal["11-20"]["Users"]);
         sort($graphiqueDatasGlobal["+20"]["Users"]);
 
-        return $this->render("NoxIntranetAdministrationBundle:StatsVPN:statsVPN.html.twig", array('statsDataByUsers' => $statsDataByUsers, 'statsDataByMonths' => $statsDataByMonths, 'idToName' => $idToName, 'graphiqueDatas' => $graphiqueDatas, 'graphiqueDatasGlobal' => $graphiqueDatasGlobal ));
+        return $this->render("NoxIntranetAdministrationBundle:StatsVPN:statsVPN.html.twig", array('statsDataByUsers' => $statsDataByUsers, 'statsDataByMonths' => $statsDataByMonths, 'idToName' => $idToName, 'graphiqueDatas' => $graphiqueDatas, 'graphiqueDatasGlobal' => $graphiqueDatasGlobal));
     }
 
-
-
+    /**
+     * 
+     * Exporte un tableau de statistiques global d'utilisation des VPN au format PDF.
+     * 
+     * @param Request $request
+     * @return Response
+     */
     public function exportVPNExcelAction(Request $request) {
 
         $VPNFilesFolder = "./VPNFiles/";
@@ -580,9 +576,9 @@ class StatsVPNController extends Controller {
         $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
         $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(16);
         $objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->applyFromArray(
-        array(
-            'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-           )
+                array(
+                    'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                )
         );
 
         // Ecriture des en-têtes de colonnes.
@@ -594,64 +590,60 @@ class StatsVPNController extends Controller {
         $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFont()->setBold(true);
         $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFont()->setSize(12);
         $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getAlignment()->applyFromArray(
-            array(
-                'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-            )
+                array(
+                    'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                )
         );
         $objPHPExcel->getDefaultStyle()->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $objPHPExcel->getDefaultStyle()->getFont()->setSize(12);
 
         // Valeur de la colonnes A
-        foreach ($graphiqueDatasGlobal["0"]["Users"] as $key => $mail){
-            $arrayName[] =  $idToName[$mail]["name"];  
+        foreach ($graphiqueDatasGlobal["0"]["Users"] as $key => $mail) {
+            $arrayName[] = $idToName[$mail]["name"];
         }
         $columnArray = array_chunk($arrayName, 1);
         $objPHPExcel->getActiveSheet()->fromArray($columnArray, NULL, 'A4');
 
         // Valeur de la colonnes B
-        foreach ($graphiqueDatasGlobal["1-5"]["Users"] as $key => $mail){
+        foreach ($graphiqueDatasGlobal["1-5"]["Users"] as $key => $mail) {
             if (isset($idToName[$mail]["name"])) {
-               $arrayNameCol2[] =  $idToName[$mail]["name"];
-            }else{
-                $arrayNameCol2[] =  $mail;
+                $arrayNameCol2[] = $idToName[$mail]["name"];
+            } else {
+                $arrayNameCol2[] = $mail;
             }
- 
         }
         $columnArrayCol2 = array_chunk($arrayNameCol2, 1);
         $objPHPExcel->getActiveSheet()->fromArray($columnArrayCol2, NULL, 'B4');
 
         // Valeur de la colonnes C
-        foreach ($graphiqueDatasGlobal["6-10"]["Users"] as $key => $mail){
+        foreach ($graphiqueDatasGlobal["6-10"]["Users"] as $key => $mail) {
             if (isset($idToName[$mail]["name"])) {
-               $arrayNameCol3[] =  $idToName[$mail]["name"];
-            }else{
-                $arrayNameCol3[] =  $mail;
+                $arrayNameCol3[] = $idToName[$mail]["name"];
+            } else {
+                $arrayNameCol3[] = $mail;
             }
- 
         }
         $columnArrayCol3 = array_chunk($arrayNameCol3, 1);
         $objPHPExcel->getActiveSheet()->fromArray($columnArrayCol3, NULL, 'C4');
 
         // Valeur de la colonnes D
-        foreach ($graphiqueDatasGlobal["11-20"]["Users"] as $key => $mail){
+        foreach ($graphiqueDatasGlobal["11-20"]["Users"] as $key => $mail) {
             if (isset($idToName[$mail]["name"])) {
-               $arrayNameCol4[] =  $idToName[$mail]["name"];
-            }else{
-                $arrayNameCol4[] =  $mail;
+                $arrayNameCol4[] = $idToName[$mail]["name"];
+            } else {
+                $arrayNameCol4[] = $mail;
             }
- 
         }
         $columnArrayCol4 = array_chunk($arrayNameCol4, 1);
         $objPHPExcel->getActiveSheet()->fromArray($columnArrayCol4, NULL, 'D4');
 
         // Valeur de la colonnes E
-        foreach ($graphiqueDatasGlobal["+20"]["Users"] as $key => $mail){
+        foreach ($graphiqueDatasGlobal["+20"]["Users"] as $key => $mail) {
             if (isset($idToName[$mail]["name"])) {
-               $arrayNameCol5[] =  $idToName[$mail]["name"];
-            }else{
-                $arrayNameCol5[] =  $mail;
+                $arrayNameCol5[] = $idToName[$mail]["name"];
+            } else {
+                $arrayNameCol5[] = $mail;
             }
- 
         }
         $columnArrayCol5 = array_chunk($arrayNameCol5, 1);
         $objPHPExcel->getActiveSheet()->fromArray($columnArrayCol5, NULL, 'E4');
@@ -667,19 +659,17 @@ class StatsVPNController extends Controller {
 
 
 // ----------------------------------EXPORT PDF FILE----------------------------------------  
-
         // Chemin d'accès de la librairie
         $rendererName = \PHPExcel_Settings::PDF_RENDERER_TCPDF;
         $rendererLibrary = 'tcpdf';
-        $rendererLibraryPath = dirname(__FILE__).'/../../../../../vendor/tecnickcom/' . $rendererLibrary;
+        $rendererLibraryPath = dirname(__FILE__) . '/../../../../../vendor/tecnickcom/' . $rendererLibrary;
 
         // Verif de la Connexion a la librairie 
         if (!\PHPExcel_Settings::setPdfRenderer(
-            $rendererName,
-            $rendererLibraryPath
-            )) {
+                        $rendererName, $rendererLibraryPath
+                )) {
             die(
-                'Please set the $rendererName and $rendererLibraryPath values' .PHP_EOL.' as appropriate for your directory structure'
+                    'Please set the $rendererName and $rendererLibraryPath values' . PHP_EOL . ' as appropriate for your directory structure'
             );
         }
 
@@ -703,38 +693,24 @@ class StatsVPNController extends Controller {
         return $response;
 
 // ----------------------------------EXPORT EXCEL FILE----------------------------------------
-
         // $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
         // $filename = tempnam('', '');
         // $objWriter->save($filename);
-
         // // On récupére le fichier sous forme de stream.
         // $stream_file = file_get_contents($filename);
-
         // // On supprime le fichier.
         // unlink($filename);
-
         // // On retourne le téléchargement du fichier.
         // $response = new Response();
         // $response->setContent($stream_file);
-
         // // Modification du content-type pour forcer le téléchargement (sinon le navigateur internet essaie d'afficher le document)
         // $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         // $response->headers->set('Content-disposition', "filename='Compilation_modulations.xlsx'");
-
         // // Chemin d'accès de la librairie
         // $rendererName = \PHPExcel_Settings::PDF_RENDERER_MPDF;
         // $rendererLibrary = 'mPDF5.4';
         // $rendererLibraryPath = dirname(__FILE__).'/../../../libraries/PDF/' . $rendererLibrary;
-
-
         // return $response;
-
-
     }
-
-
-
-
 
 }
