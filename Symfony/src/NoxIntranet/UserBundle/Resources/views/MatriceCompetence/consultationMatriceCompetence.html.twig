@@ -5,41 +5,40 @@
 {% block messageAccueil %}Tableau des consultations{% endblock %}
 
 {% block contenu %}
+    <style type="text/css">
+        table{
+            text-align: center;
+            border: 2px solid #000;
+            width: 50%;
+            margin-left: 25%;
+        }
+        table th{
+            font-size: 20px;
+        }
+        table tr td,th{
+            padding: 10px;
+        }
+    </style>
 
-<style type="text/css">
-	table{
-		text-align: center;
-		border: 2px solid #000;
-		width: 50%;
-		margin-left: 25%;
-	}
-	table th{
-		font-size: 20px;
-	}
-	table tr td,th{
-		padding: 10px;
-	}
-</style>
+    {{ dump(statistiques) }}
 
-<table>
-	<thead>
-	   <tr>
-	       <th>Nom</th>
-	       <th>Nb Consultation</th>
-	       <th>Nb Edition</th>
-	   </tr> 
-	</thead>
-	<tbody>
-		{% for i in 0..tableau[0]|length-1 %}
-			<tr>
-			{% for name in tableau %}
-					<td>{{name[i]}}</td>
-		    {% endfor %}
-		    </tr>
-		{% endfor %}
-	</tbody>
- 
-</table>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Nb Consultation</th>
+                <th>Nb Edition</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user, statistique in statistiques %}
+                <tr>
+                    <td>{{ user }}</td>
+                    <td>{{ statistique.Nb_Consultation }}</td>
+                    <td>{{ statistique.Nb_Edition }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
 
-
+    </table>
 {% endblock %}

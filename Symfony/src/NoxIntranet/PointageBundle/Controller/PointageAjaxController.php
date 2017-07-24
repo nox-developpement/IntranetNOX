@@ -10,8 +10,8 @@ use NoxIntranet\PointageBundle\Entity\PointageValide;
 use NoxIntranet\PointageBundle\Entity\JustificatifTransportFile;
 use NoxIntranet\PointageBundle\Entity\JustificatifSupplementairesCompilation;
 use ZipArchive;
- 
-class PointageAjaxController extends Controller { 
+
+class PointageAjaxController extends Controller {
 
     // Retourne les jours et la date correspondante en fonction du mois et de l'année passés en paramètres.
     public function ajaxSetDateAction(Request $request) {
@@ -961,16 +961,16 @@ class PointageAjaxController extends Controller {
     // Permet de transformer une feuille de pointage en tableau Excel et de l'imprimer.
     public function ajaxExportToExcelAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
-            // // On récupére le contenu du tableau est les cellules qui doivent êtres mergées.
-            // $tableContent = json_decode($request->get('tableContent'), true);
-            // $cellWithColspan = $request->get('cellWithColspan');
-            // $cellWithRowspan = $request->get('cellWithRowspan');
+            // On récupére le contenu du tableau est les cellules qui doivent êtres mergées.
+            $tableContent = json_decode($request->get('tableContent'), true);
+            $cellWithColspan = $request->get('cellWithColspan');
+            $cellWithRowspan = $request->get('cellWithRowspan');
 
-            // // On récupére la racine du serveur et on importe le module PHP Excel.
-            // $root = $this->get('kernel')->getRootDir() . '/..';
+            // On récupére la racine du serveur et on importe le module PHP Excel.
+            $root = $this->get('kernel')->getRootDir() . '/..';
 
-            // // On initialise une nouvelle feuille Excel.
-            // $objPHPExcel = new \PHPExcel();
+            // On initialise une nouvelle feuille Excel.
+            $objPHPExcel = new \PHPExcel();
 
             // Pour chaque cellule du tableau de pointage...
             foreach ($tableContent as $cell) {
@@ -1643,8 +1643,7 @@ class PointageAjaxController extends Controller {
         return new Response($downloadUrl);
     }
 
-
-    public function ajaxGenerateExcelArchiveNonUtilisateurAction(Request $request){
+    public function ajaxGenerateExcelArchiveNonUtilisateurAction(Request $request) {
         $month = $request->get('month');
         $year = $request->get('annee');
 
@@ -1656,14 +1655,14 @@ class PointageAjaxController extends Controller {
         $usersOperationnel = $em->getRepository('NoxIntranetUserBundle:User')->findAll();
 
         $userOK = array();
-        for ($i=0; $i < count($usersOperationnel)  ; $i++) { 
-           $userOK[$usersOperationnel[$i]->getUsername()]=$usersOperationnel[$i]->getUsername();
+        for ($i = 0; $i < count($usersOperationnel); $i++) {
+            $userOK[$usersOperationnel[$i]->getUsername()] = $usersOperationnel[$i]->getUsername();
         }
-        $newUserOp=array_values($userOK);
+        $newUserOp = array_values($userOK);
 
         $nonUsers = array();
-        for ($i=0; $i < count($pointagesValides)  ; $i++) { 
-           $nonUsers[$pointagesValides[$i]->getuser()]=$pointagesValides[$i]->getuser();
+        for ($i = 0; $i < count($pointagesValides); $i++) {
+            $nonUsers[$pointagesValides[$i]->getuser()] = $pointagesValides[$i]->getuser();
         }
 
         foreach ($newUserOp as $key => $value) {
@@ -1675,36 +1674,35 @@ class PointageAjaxController extends Controller {
             $allDataNonUser[] = $em->getRepository('NoxIntranetPointageBundle:PointageValide')->findByUser($value);
         }
 
-        for ($i=0; $i < count($allDataNonUser) ; $i++) {
+        for ($i = 0; $i < count($allDataNonUser); $i++) {
             $etape['annee'] = $allDataNonUser[$i];
 
-            for ($y=0; $y < count($etape['annee']) ; $y++) { 
+            for ($y = 0; $y < count($etape['annee']); $y++) {
                 $arrayTrieYear[$etape['annee'][$y]->getYear()][] = $etape['annee'][$y];
             }
-
         }
 
         foreach ($arrayTrieYear as $key => $values) {
             $etape["mois"] = $arrayTrieYear[$key];
-            for ($i=0; $i < count($etape["mois"])  ; $i++) { 
+            for ($i = 0; $i < count($etape["mois"]); $i++) {
                 $arrayTrieMonth[$etape["mois"][$i]->getMonth()][] = $etape["mois"][$i];
             }
         }
 
         $anneee = 0;
-        for ($i=1; $i <= count($arrayTrieYear); $i++) {   
-            ${'tableauMonth'.$i} = $arrayTrieYear["2016"+$anneee];
+        for ($i = 1; $i <= count($arrayTrieYear); $i++) {
+            ${'tableauMonth' . $i} = $arrayTrieYear["2016" + $anneee];
             $anneee++;
         }
 
-        for ($i=1; $i <= count($arrayTrieYear) ; $i++) { 
-            foreach (${'tableauMonth'.$i} as $key => $value) {
-                $test[${'tableauMonth'.$i}[$key]->getYear()] = ${'tableauMonth'.$i};
+        for ($i = 1; $i <= count($arrayTrieYear); $i++) {
+            foreach (${'tableauMonth' . $i} as $key => $value) {
+                $test[${'tableauMonth' . $i}[$key]->getYear()] = ${'tableauMonth' . $i};
             }
         }
         // céation d'un tableau des pointage par année et mois
         foreach ($test as $key => $value) {
-            for ($i=0; $i < count($test[$key]) ; $i++) { 
+            for ($i = 0; $i < count($test[$key]); $i++) {
                 $AllTotal[$test[$key][$i]->getYear()][$test[$key][$i]->getMonth()][] = $test[$key][$i];
             }
         }
@@ -1726,8 +1724,6 @@ class PointageAjaxController extends Controller {
         $rowDeplacement = 2; // Initialisation du compteur de ligne des forfaits déplacement.
         $rowCommentaires = 2; // Initialisation du compteur de ligne des commentaires.
         $rowRegularisation = 2; // Initialisation du compteur de ligne de la régularisation.
-
-
         // supprimler case matricule
         $objWorksheet->getCell('A1')->setValue();
         $objWorksheet->getCell('I1')->setValue();
@@ -1738,11 +1734,11 @@ class PointageAjaxController extends Controller {
 
         //suprimer les bordure des case matricule
         $styleArray2 = array(
-          'borders' => array(
-            'allborders' => array(
-              'style' => \PHPExcel_Style_Border::BORDER_NONE
+            'borders' => array(
+                'allborders' => array(
+                    'style' => \PHPExcel_Style_Border::BORDER_NONE
+                )
             )
-          )
         );
         $objPHPExcel->getActiveSheet()->getStyle('A1')->applyFromArray($styleArray2);
         $objPHPExcel->getActiveSheet()->getStyle('I1')->applyFromArray($styleArray2);
@@ -1833,7 +1829,6 @@ class PointageAjaxController extends Controller {
 
         $filename = str_replace('/', '_', 'Récapitulatif compilation pointages non collaborateur [' . $monthString[$month] . ' ' . $year . '].xlsx'); // On génére le nom de fichier.
         $folder = $root . "/../web/Pointage/FichierRecap/"; // On récupére le dossier ou sera enregistré le fichier.
-    
         // On sauvegarde le fichier.
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $objWriter->save($folder . utf8_decode($filename)); // utf8_decode est utilisé pour encoder les accents sur le nom de fichier Windows.  
@@ -1844,8 +1839,6 @@ class PointageAjaxController extends Controller {
         $downloadUrl = $this->generateUrl('nox_intranet_pointage_archives_compilation_export_excel', array('filepath' => base64_encode($folder . $filename)));
         return new Response($downloadUrl);
     }
-
-
 
     // Retourne les affaires qui correspondent à la chaine passé en charactère.
     public function ajaxSearchGXAffaireAction(Request $request) {
@@ -1995,7 +1988,5 @@ class PointageAjaxController extends Controller {
             return new Response("Uploaded");
         }
     }
-
-
 
 }

@@ -186,7 +186,7 @@ class MatriceCompetenceController extends Controller {
      */
     public function matriceCompetenceTableAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        
+
         // On récupère les infos de l'utilisateur courant.
         $current_user = $this->get('security.token_storage')->getToken()->getUser();
         $user_canonical_name = $this->wd_remove_accents(strtoupper($current_user->getFirstname() . " " . $current_user->getLastname()));
@@ -1009,69 +1009,42 @@ class MatriceCompetenceController extends Controller {
         return $response;
     }
 
-
-    public function consultationMatriceCompetencesAction(){
-
+    public function consultationMatriceCompetencesAction() {
         // Récupération des matrices de compétences.
         $em = $this->getDoctrine()->getManager();
 
         // Récupération des utilisateur qui ont consulté MatriceCompetence
-        $consultation = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceConsultation')->findAll();
+        $consultations = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceConsultation')->findAll();
         // Récupération des utilisateur qui ont édité MatriceCompetence
-        $edition = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceEdition')->findAll();
 
-        $lesconnection = array();
-        $userConsult= array();
-        $userEdit= array();
-        $user = array();
-        $countUserConsult = array();
-        $countUserEdit = array();
+        $editions = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceEdition')->findAll();
 
-        // création tableau de tout les utilisateurs (consult + edit)
-        foreach ($consultation as $key => $value) {
-            $user[$consultation[$key]->getUsername()] = $consultation[$key]->getUsername();
+        // Initialisation des compteurs de consultation et d'édition pour chaques collaborateurs.
+        $statistiques = array();
+        foreach ($consultations as $consultation) {
+            $statistiques[$consultation->getUsername()]["Nb_Consultation"] = 0;
+            $statistiques[$consultation->getUsername()]["Nb_Edition"] = 0;
         }
-        foreach ($edition as $key => $value) {
-            $user[$edition[$key]->getUsername()] = $edition[$key]->getUsername();
-        }
+        foreach ($editions as $edition) {
+            $statistiques[$edition->getUsername()]["Nb_Consultation"] = 0;
+            $statistiques[$edition->getUsername()]["Nb_Edition"] = 0;
 
-        // recherche les information par utilisateur / consultation
-        foreach ($user as $key => $value) {
-            $lesconnection = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceConsultation')->findBy(
-              array('username' => $user[$key] )
-            );
-            $userConsult[] = $lesconnection;
-        }
-
-        // recherche les information par utilisateur / edition
-        foreach ($user as $key => $value) {
-            $lesconnection = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceEdition')->findBy(
-              array('username' => $user[$key] )
-            );
-            $userEdit[] = $lesconnection;
         }
 
 
-        // création tableau conteur utilisateur qui ont consulté 
-        foreach ($userConsult as $key => $value) {
-            $countUserConsult[] = count($userConsult[$key]);
-        }
-        // création tableau conteur utilisateur qui ont édité
-        foreach ($userEdit as $key => $value) {
-            $countUserEdit[] = count($userEdit[$key]);
+        // Remplissage du nombre de consultation.
+        foreach ($consultations as $consultation) {
+            $statistiques[$consultation->getUsername()]["Nb_Consultation"] ++;
         }
 
-        $user2 = array_values( $user );
 
-        // création tableau general des données
-        $tableau = array();
-        $tableau[] = $user2;
-        $tableau[] = $countUserConsult;
-        $tableau[] = $countUserEdit;
+        // Remplissage du nombre d'édition.
+        foreach ($editions as $edition) {
+            $statistiques[$edition->getUsername()]["Nb_Edition"] ++;
+        }
 
 
-        return $this->render("NoxIntranetUserBundle:MatriceCompetence:consultationMatriceCompetence.html.twig", array('tableau' => $tableau));
-
+        return $this->render("NoxIntranetUserBundle:MatriceCompetence:consultationMatriceCompetence.html.twig", array('statistiques' => $statistiques));
     }
 
 }
