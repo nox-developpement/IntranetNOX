@@ -75,6 +75,7 @@ class AdministrationUsersController extends Controller {
             $usersPages = array_chunk($usersAfficher, 20);
         }
 
+
         return $this->render('NoxIntranetAdministrationBundle:AdministrationUser:administrationUser2.html.twig', array('recherche' => true, 'utilisateurs' => $usersPages[$numPage - 1], 'nbPage' => $nbPages, 'numPage' => $numPage, 'roleUser' => $roleUser, 'termeRecherche' => $name));
     }
 

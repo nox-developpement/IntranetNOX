@@ -1020,7 +1020,6 @@ class MatriceCompetenceController extends Controller {
         // Récupération des utilisateur qui ont édité MatriceCompetence
         $edition = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceEdition')->findAll();
 
-        
         $lesconnection = array();
         $userConsult= array();
         $userEdit= array();
@@ -1036,20 +1035,19 @@ class MatriceCompetenceController extends Controller {
             $user[$edition[$key]->getUsername()] = $edition[$key]->getUsername();
         }
 
-
+        // recherche les information par utilisateur / consultation
         foreach ($user as $key => $value) {
             $lesconnection = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceConsultation')->findBy(
               array('username' => $user[$key] )
             );
-
             $userConsult[] = $lesconnection;
         }
 
+        // recherche les information par utilisateur / edition
         foreach ($user as $key => $value) {
             $lesconnection = $em->getRepository('NoxIntranetUserBundle:MatriceCompetenceEdition')->findBy(
               array('username' => $user[$key] )
             );
-
             $userEdit[] = $lesconnection;
         }
 
@@ -1065,13 +1063,11 @@ class MatriceCompetenceController extends Controller {
 
         $user2 = array_values( $user );
 
-
         // création tableau general des données
         $tableau = array();
         $tableau[] = $user2;
         $tableau[] = $countUserConsult;
         $tableau[] = $countUserEdit;
-
 
 
         return $this->render("NoxIntranetUserBundle:MatriceCompetence:consultationMatriceCompetence.html.twig", array('tableau' => $tableau));
