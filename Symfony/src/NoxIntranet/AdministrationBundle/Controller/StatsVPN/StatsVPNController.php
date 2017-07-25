@@ -85,8 +85,6 @@ class StatsVPNController extends Controller {
      * @return View
      */
     public function statsVPNCalculationAction(Request $request) {
-
-
         $VPNFilesFolder = "./VPNFiles/";
 
         // On ouvre l'archive contenant les fichiers de statistiques VPN.
@@ -389,6 +387,10 @@ class StatsVPNController extends Controller {
         // Suppression du fichier d'effectifs.
         unlink($gestion_effectif_file);
 
+        // Valeur de mois et d'années les plus récent.
+        $max_year = 0;
+        $max_month = 0;
+
         // Pour chaques fichiers du dossier de VPN...
         foreach (scandir($VPNFilesFolder) as $file) {
             // On récupére le chemin et l'extension du fichier.
@@ -415,6 +417,14 @@ class StatsVPNController extends Controller {
                         $date = DateTime::createFromFormat("Y-m-d H:i:s", $data[0]);
                         $annee = $date->format("Y");
                         $mois = $date->format("m");
+
+                        // On récupére l'année et le mois le plus récent.
+                        if ($annee > $max_year) {
+                            $max_year = $annee;
+                        }
+                        if ($mois > $max_month) {
+                            $max_month = $mois;
+                        }
 
                         // On ajoute l'utilisateur au tableau.
                         $statsDataByUsers[$user]["Utilisateur"] = $user;
@@ -527,9 +537,31 @@ class StatsVPNController extends Controller {
         $graphiqueDatasGlobal["6-10"]["Count"] = 0;
         $graphiqueDatasGlobal["11-20"]["Count"] = 0;
         $graphiqueDatasGlobal["+20"]["Count"] = 0;
+        $graphiqueDatasGlobal["< 3 mois"]["Count"] = 0;
+
+        // Date du dernier jour du mois le plus récent des statistiques.
+        $now = new DateTime();
+        $now->setDate($max_year, $max_month, 1);
+        $now->setDate($max_year, $max_month, $now->format('t'));
 
         // Pour chaques utilisateurs...
         foreach ($statsDataGlobal as $user => $data) {
+            // Si l'utilisateur est défini dans le fichier de gestion des effectifs.
+            if (!empty($idToName[$user])) {
+                // Date de création du compte VPN au format objet.
+                $dateCreationVPN = DateTime::createFromFormat("d/m/Y", $idToName[$user]['date_creation_vpn']);
+
+                // Nombre de mois depuis la création du compte VPN.
+                $month_since_creation = ($dateCreationVPN->diff($now)->y * 12) + $dateCreationVPN->diff($now)->m;
+
+                // Si le compte a moins de 3 mois.
+                if ($month_since_creation < 3) {
+                    $graphiqueDatasGlobal["< 3 mois"]["Count"] ++;
+                    $graphiqueDatasGlobal["< 3 mois"]["Users"][] = $user;
+                    continue;
+                }
+            }
+
             // On compte le nombre de connexion.
             $count = count($data);
 
@@ -587,9 +619,10 @@ class StatsVPNController extends Controller {
         $objWorkStat->setCellValue('C3', '6-10');
         $objWorkStat->setCellValue('D3', '11-20');
         $objWorkStat->setCellValue('E3', '20 et plus');
-        $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFont()->setSize(12);
-        $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getAlignment()->applyFromArray(
+        $objWorkStat->setCellValue('F3', '< 3 mois');
+        $objPHPExcel->getActiveSheet()->getStyle('A3:F3')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('A3:F3')->getFont()->setSize(12);
+        $objPHPExcel->getActiveSheet()->getStyle('A3:F3')->getAlignment()->applyFromArray(
                 array(
                     'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
                 )
@@ -648,10 +681,19 @@ class StatsVPNController extends Controller {
         $columnArrayCol5 = array_chunk($arrayNameCol5, 1);
         $objPHPExcel->getActiveSheet()->fromArray($columnArrayCol5, NULL, 'E4');
 
-
+        // Valeur de la colonnes F
+        foreach ($graphiqueDatasGlobal["< 3 mois"]["Users"] as $key => $mail) {
+            if (isset($idToName[$mail]["name"])) {
+                $arrayNameCol6[] = $idToName[$mail]["name"];
+            } else {
+                $arrayNameCol6[] = $mail;
+            }
+        }
+        $columnArrayCol6 = array_chunk($arrayNameCol6, 1);
+        $objPHPExcel->getActiveSheet()->fromArray($columnArrayCol6, NULL, 'F4');
 
         // On redimensionne les colonnes.
-        foreach (range('A', 'E') as $columnID) {
+        foreach (range('A', 'F') as $columnID) {
             $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
         }
 
@@ -691,7 +733,6 @@ class StatsVPNController extends Controller {
         header('Content-Disposition: attachment;filename="Connexion_Global.pdf"');
 
         return $response;
-
 // ----------------------------------EXPORT EXCEL FILE----------------------------------------
         // $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
         // $filename = tempnam('', '');
