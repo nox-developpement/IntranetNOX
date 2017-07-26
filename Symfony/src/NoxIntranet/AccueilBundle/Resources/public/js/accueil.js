@@ -154,6 +154,8 @@ function newsCategorieRotation(zoneNews) {
         var last = newsCategories.last();
 
         // On place la dernière catégorie avant la première.
+        last.hide();
         last.insertBefore(first);
+        last.slideDown(1000);
     }, 10000);
 }
