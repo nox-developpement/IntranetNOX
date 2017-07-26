@@ -86,6 +86,13 @@ class PDF implements JsonSerializable {
     private $dateEnvoi;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="Sha1", type="text")
+     */
+    private $sha1;
+
+    /**
      * Get id
      *
      * @return integer
@@ -300,6 +307,28 @@ class PDF implements JsonSerializable {
             "Title" => $this->title,
             "Author" => $this->author
         );
+    }
+
+    /**
+     * Set sha1
+     *
+     * @param string $sha1
+     *
+     * @return PDF
+     */
+    public function setSha1($sha1) {
+        $this->sha1 = $sha1;
+
+        return $this;
+    }
+
+    /**
+     * Get sha1
+     *
+     * @return string
+     */
+    public function getSha1() {
+        return $this->sha1;
     }
 
 }
