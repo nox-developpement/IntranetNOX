@@ -1,4 +1,40 @@
-.zoneEditionAccueil {
-    height: 300px;
+#zoneEditionAccueil {
+    height: 500px;
 }
 
+#zoneTexteAccueilContainer, #zoneNewsAccueil {
+    border: 1px solid #1F4E79;
+}
+
+#zoneTexteAccueilHeader {
+    border-radius: 0;
+}
+
+#zoneTexteAccueilHeader h4 {
+    margin-left: 0;
+}
+
+#texteEditButton {
+    margin-right: 0px;
+}
+
+#zoneNewsAccueil {
+    padding-top: 15px;
+    padding-bottom:5px;
+}
+
+.accueil_news_list_container {
+    margin-bottom: 10px;
+    border: 1px solid #1F4E79;
+}
+
+.accueil_news_categorie_title {
+    margin-bottom: 0;
+    padding-left: 10px;
+    border: 1px solid #1F4E79;
+}
+
+.accueil_news_link {
+    padding: 5px;
+    margin-bottom: 0;
+}

@@ -1,14 +1,14 @@
 {% if app.user != null %}
     <div class="row">
-        <div id="profil_picture" class="col-lg-4 col-lg-offset-4">
+        <div id="profil_picture" class="col-lg-4 col-lg-offset-4 hidden-md hidden-sm hidden-xs">
             <img class="img-responsive" src="{{ asset('bundles/noxintranetuser/images/User-128-hover.png') }}" alt='Profi picture' onmousedown="return false;">
         </div>
-        <div id="profil_username" class="col-lg-12 text-center text-white">{{ app.user.firstname }} {{ app.user.lastname }}</div>
-        <a class="col-lg-12 text-center link-light-blue" href="{{ path('logout') }}">Déconnexion</a> 
+        <div id="profil_username" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-white">{{ app.user.firstname }} {{ app.user.lastname }}</div>
+        <a class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center link-light-blue" href="{{ path('logout') }}">Déconnexion</a> 
     </div>
 {% else %}
     <div id='login' class="row">
-        <form method="POST" action="{{ path("AD_connexion_check") }}" name='connexion' class="col-lg-12" data-toggle="tooltip" data-placement="left" data-html="true" title="Utilisez les mêmes identifiants que pour votre session Windows. <br /> ex: Vous êtes 'Henry Martin', votre login est 'h.martin'.">
+        <form method="POST" action="{{ path("AD_connexion_check") }}" name='connexion' class="col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="tooltip" data-placement="left" data-html="true" title="Utilisez les mêmes identifiants que pour votre session Windows. <br /> ex: Vous êtes 'Henry Martin', votre login est 'h.martin'.">
             <div class="form-group">
                 <input type='text' id='username' name='username' placeholder="Nom d'utilisateur" class="form-control">
                 <input type='password' id='password'  name='password' placeholder="Mot de passe" class="form-control">

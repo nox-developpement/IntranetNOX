@@ -13,16 +13,25 @@ header, #menu_div {
     float: none;
 }
 
-#bandeau_nox_header {
+.bandeau_nox_header {
     width: 100%;
 }
 
-#menu {
+#google_search_form {
+    margin-right: 15px;
+    padding-right: 0px;
+}
+
+#menu, #menu_mobile {
     margin-bottom: 0;
-    padding-right: 15px;
+    /*padding-right: 15px;*/
     border: 1px solid white;
     border-bottom: none;
     border-radius: 0;
+}
+
+#menu .container-fluid {
+    padding: 0;
 }
 
 .menu_section a {
@@ -31,6 +40,23 @@ header, #menu_div {
 
 .menu_section a:hover {
     background-color: white;
+    color: #1F4E79;
+}
+
+#menu_wrapped_container, #menu_wrapped_container li {
+    width: 100%;
+}
+
+.menu_dropdown_selector:hover, .menu_dropdown_selector:focus {
+    color: white !important; 
+    background-color: #1F4E79 !important; 
+}
+
+.menu_dropdown_ul li a {
+    color: white;
+}
+
+.menu_dropdown_ul li a:hover {
     color: #1F4E79;
 }
 
