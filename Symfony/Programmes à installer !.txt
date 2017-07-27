@@ -13,3 +13,5 @@ wkhtmltopdf: Permet la conversion de page HTML en PDF en ligne de commande. Util
 Modules composer:
 	=> PHPExcel: Lecture et génération de fichiers Excel.
 	=> box/spout: Lecture et écriture de fichiers Excel de grande taille.
+
+7zip : Compression des sauvegarde de base de données en ligne de commande.

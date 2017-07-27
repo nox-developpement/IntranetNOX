@@ -615,8 +615,8 @@
                     if ($(this).val() !== '') {
                         // On change la couleur de fond des cases de forfaits déplacement et de primes panier voisines et on bloque leur edition.
                         $(this).parent('.abscenceMatinSelector').siblings('.titreRepasNumberSelector').find('select').val('');
-                        $(this).parent('.abscenceMatinSelector').siblings('.forfaitsDeplacementMontant').text('');
-                        $(this).parent('.abscenceMatinSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
+                        //$(this).parent('.abscenceMatinSelector').siblings('.forfaitsDeplacementMontant').text('');
+                        //$(this).parent('.abscenceMatinSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
                         $(this).parent('.abscenceMatinSelector').siblings('.primesPanierNumber').text('');
                         $(this).parent('.abscenceMatinSelector').siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
                     }
@@ -625,8 +625,8 @@
                     if ($(this).val() !== '') {
                         // On change la couleur de fond des cases de forfaits déplacement et de primes panier voisines et on bloque leur edition.
                         $(this).parent('.abscenceAMSelector').siblings('.titreRepasNumberSelector').find('select').val('');
-                        $(this).parent('.abscenceAMSelector').siblings('.forfaitsDeplacementMontant').text('');
-                        $(this).parent('.abscenceAMSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
+                        //$(this).parent('.abscenceAMSelector').siblings('.forfaitsDeplacementMontant').text('');
+                        //$(this).parent('.abscenceAMSelector').siblings('.forfaitsDeplacementMontant').css('background-color', 'rgb(166,166,166)');
                         $(this).parent('.abscenceAMSelector').siblings('.primesPanierNumber').text('');
                         $(this).parent('.abscenceAMSelector').siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
                     }
@@ -635,8 +635,8 @@
                 $('.forfaitsDeplacementMontant').each(function () {
                     // Si la case n'est pas vide.
                     if ($(this).text() !== '') {
-                        $(this).siblings('.abscenceMatinSelector').find('select').val('');
-                        $(this).siblings('.abscenceAMSelector').find('select').val('');
+                        //$(this).siblings('.abscenceMatinSelector').find('select').val('');
+                        //$(this).siblings('.abscenceAMSelector').find('select').val('');
                         $(this).siblings('.titreRepasNumberSelector').find('select').val('');
                         $(this).siblings('.primesPanierNumber').text('');
                         $(this).siblings('.primesPanierNumber').css('background-color', 'rgb(166,166,166)');
