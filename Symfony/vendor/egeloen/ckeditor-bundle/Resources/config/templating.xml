@@ -6,7 +6,7 @@
 >
     <services>
         <service id="ivory_ck_editor.templating.helper" class="Ivory\CKEditorBundle\Templating\CKEditorHelper">
-            <argument type="service" id="service_container" />
+            <argument type="service" id="ivory_ck_editor.renderer" />
             <tag name="templating.helper" alias="ivory_ckeditor" />
         </service>
     </services>

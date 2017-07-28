@@ -13,12 +13,13 @@ namespace Ivory\CKEditorBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
- * Create assets.packages fallback alias for symfony < 2.7
+ * Create assets.packages fallback alias for Symfony < 2.7
  *
  * @author Adam Misiorny <adam.misiorny@gmail.com>
+ * @author GeLo <geloen.eric@gmail.com>
  */
 class AssetsHelperCompilerPass implements CompilerPassInterface
 {
@@ -27,15 +28,8 @@ class AssetsHelperCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if ($container->hasDefinition('assets.packages')) {
-            return;
+        if (Kernel::VERSION_ID < 20700 && $container->hasDefinition($definition = 'templating.helper.assets')) {
+            $container->setAlias('assets.packages', $definition);
         }
-
-        if (!$container->hasDefinition('templating.helper.assets')) {
-            throw new ServiceNotFoundException('templating.helper.assets');
-        }
-
-        // create fallback alias for symfony < 2.7
-        $container->setAlias('assets.packages', 'templating.helper.assets');
     }
 }

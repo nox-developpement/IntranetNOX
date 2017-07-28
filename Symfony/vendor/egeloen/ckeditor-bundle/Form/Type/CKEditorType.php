@@ -19,6 +19,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\HttpKernel\Kernel;
@@ -34,7 +35,13 @@ class CKEditorType extends AbstractType
     private $enable = true;
 
     /** @var boolean */
+    private $async = false;
+
+    /** @var boolean */
     private $autoload = true;
+
+    /** @var boolean */
+    private $autoInline = true;
 
     /** @var boolean */
     private $inline = false;
@@ -43,7 +50,13 @@ class CKEditorType extends AbstractType
     private $jquery = false;
 
     /** @var boolean */
+    private $requireJs = false;
+
+    /** @var boolean */
     private $inputSync = false;
+
+    /** @var array */
+    private $filebrowsers = array();
 
     /** @var string */
     private $basePath = 'bundles/ivoryckeditor/';
@@ -103,6 +116,22 @@ class CKEditorType extends AbstractType
     }
 
     /**
+     * Sets/Checks if the widget is async.
+     *
+     * @param boolean|null $async TRUE if the widget is async else FALSE.
+     *
+     * @return boolean TRUE if the widget is async else FALSE.
+     */
+    public function isAsync($async = null)
+    {
+        if ($async !== null) {
+            $this->async = (bool) $async;
+        }
+
+        return $this->async;
+    }
+
+    /**
      * Sets/Checks if the widget is autoloaded.
      *
      * @param boolean $autoload TRUE if the widget is autoloaded else FALSE.
@@ -116,6 +145,22 @@ class CKEditorType extends AbstractType
         }
 
         return $this->autoload;
+    }
+
+    /**
+     * Sets/Checks if the widget is auto inlined.
+     *
+     * @param boolean $autoInline TRUE if the widget is auto inlined else FALSE.
+     *
+     * @return boolean TRUE if the widget is auto inlined else FALSE.
+     */
+    public function isAutoInline($autoInline = null)
+    {
+        if ($autoInline !== null) {
+            $this->autoInline = (bool) $autoInline;
+        }
+
+        return $this->autoInline;
     }
 
     /**
@@ -151,6 +196,22 @@ class CKEditorType extends AbstractType
     }
 
     /**
+     * Checks/Sets if require js is used.
+     *
+     * @param boolean $requireJs TRUE if the requirejs is used else FALSE.
+     *
+     * @return boolean TRUE if the requirejs is used else FALSE.
+     */
+    public function useRequireJs($requireJs = null)
+    {
+        if ($requireJs !== null) {
+            $this->requireJs = (bool) $requireJs;
+        }
+
+        return $this->requireJs;
+    }
+
+    /**
      * Sets/Checks if the input is synchonized with the widget.
      *
      * @param boolean $inputSync TRUE if the input is synchronized with the widget else FALSE.
@@ -164,6 +225,72 @@ class CKEditorType extends AbstractType
         }
 
         return $this->inputSync;
+    }
+
+    /**
+     * Checks if there are filebrowsers.
+     *
+     * @return boolean TRUE if there are filebrowsers else FALSE.
+     */
+    public function hasFilebrowsers()
+    {
+        return !empty($this->filebrowsers);
+    }
+
+    /**
+     * Gets the filebrowsers.
+     *
+     * @return array The filebrowsers.
+     */
+    public function getFilebrowsers()
+    {
+        return $this->filebrowsers;
+    }
+
+    /**
+     * Sets the filebrowsers.
+     *
+     * @param array $filebrowsers The filebrowsers.
+     */
+    public function setFilebrowsers(array $filebrowsers)
+    {
+        foreach ($filebrowsers as $filebrowser) {
+            $this->addFilebrowser($filebrowser);
+        }
+    }
+
+    /**
+     * Checks if there is the filebrowser.
+     *
+     * @param string $filebrowser The filebrowser.
+     *
+     * @return boolean TRUE if there is the filebrowser else FALSE.
+     */
+    public function hasFilebrowser($filebrowser)
+    {
+        return in_array($filebrowser, $this->filebrowsers, true);
+    }
+
+    /**
+     * Adds a filebrowser.
+     *
+     * @param string $filebrowser The filebrowser.
+     */
+    public function addFilebrowser($filebrowser)
+    {
+        if (!$this->hasFilebrowser($filebrowser)) {
+            $this->filebrowsers[] = $filebrowser;
+        }
+    }
+
+    /**
+     * Removes a filebrowser.
+     *
+     * @param string $filebrowser The filebrowser.
+     */
+    public function removeFilebrowser($filebrowser)
+    {
+        unset($this->filebrowsers[array_search($filebrowser, $this->filebrowsers, true)]);
     }
 
     /**
@@ -314,32 +441,39 @@ class CKEditorType extends AbstractType
         $builder->setAttribute('enable', $options['enable']);
 
         if ($builder->getAttribute('enable')) {
+            $builder->setAttribute('async', $options['async']);
             $builder->setAttribute('autoload', $options['autoload']);
+            $builder->setAttribute('auto_inline', $options['auto_inline']);
             $builder->setAttribute('inline', $options['inline']);
             $builder->setAttribute('jquery', $options['jquery']);
+            $builder->setAttribute('require_js', $options['require_js']);
             $builder->setAttribute('input_sync', $options['input_sync']);
+            $builder->setAttribute('filebrowsers', $options['filebrowsers']);
             $builder->setAttribute('base_path', $options['base_path']);
             $builder->setAttribute('js_path', $options['js_path']);
             $builder->setAttribute('jquery_path', $options['jquery_path']);
 
+            $configManager = clone $this->configManager;
+            $pluginManager = clone $this->pluginManager;
+            $stylesSetManager = clone $this->stylesSetManager;
+            $templateManager = clone $this->templateManager;
+
             $config = $options['config'];
             if ($options['config_name'] === null) {
-                $name = uniqid('ivory', true);
-
-                $options['config_name'] = $name;
-                $this->configManager->setConfig($name, $config);
+                $options['config_name'] = uniqid('ivory', true);
+                $configManager->setConfig($options['config_name'], $config);
             } else {
-                $this->configManager->mergeConfig($options['config_name'], $config);
+                $configManager->mergeConfig($options['config_name'], $config);
             }
 
-            $this->pluginManager->setPlugins($options['plugins']);
-            $this->stylesSetManager->setStylesSets($options['styles']);
-            $this->templateManager->setTemplates($options['templates']);
+            $pluginManager->setPlugins($options['plugins']);
+            $stylesSetManager->setStylesSets($options['styles']);
+            $templateManager->setTemplates($options['templates']);
 
-            $builder->setAttribute('config', $this->configManager->getConfig($options['config_name']));
-            $builder->setAttribute('plugins', $this->pluginManager->getPlugins());
-            $builder->setAttribute('styles', $this->stylesSetManager->getStylesSets());
-            $builder->setAttribute('templates', $this->templateManager->getTemplates());
+            $builder->setAttribute('config', $configManager->getConfig($options['config_name']));
+            $builder->setAttribute('plugins', $pluginManager->getPlugins());
+            $builder->setAttribute('styles', $stylesSetManager->getStylesSets());
+            $builder->setAttribute('templates', $templateManager->getTemplates());
         }
     }
 
@@ -351,10 +485,14 @@ class CKEditorType extends AbstractType
         $view->vars['enable'] = $form->getConfig()->getAttribute('enable');
 
         if ($form->getConfig()->getAttribute('enable')) {
+            $view->vars['async'] = $form->getConfig()->getAttribute('async');
             $view->vars['autoload'] = $form->getConfig()->getAttribute('autoload');
+            $view->vars['auto_inline'] = $form->getConfig()->getAttribute('auto_inline');
             $view->vars['inline'] = $form->getConfig()->getAttribute('inline');
             $view->vars['jquery'] = $form->getConfig()->getAttribute('jquery');
+            $view->vars['require_js'] = $form->getConfig()->getAttribute('require_js');
             $view->vars['input_sync'] = $form->getConfig()->getAttribute('input_sync');
+            $view->vars['filebrowsers'] = $form->getConfig()->getAttribute('filebrowsers');
             $view->vars['base_path'] = $form->getConfig()->getAttribute('base_path');
             $view->vars['js_path'] = $form->getConfig()->getAttribute('js_path');
             $view->vars['jquery_path'] = $form->getConfig()->getAttribute('jquery_path');
@@ -372,44 +510,67 @@ class CKEditorType extends AbstractType
     {
         $resolver
             ->setDefaults(array(
-                'enable'      => $this->enable,
-                'autoload'    => $this->autoload,
-                'inline'      => $this->inline,
-                'jquery'      => $this->jquery,
-                'input_sync'  => $this->inputSync,
-                'base_path'   => $this->basePath,
-                'js_path'     => $this->jsPath,
-                'jquery_path' => $this->jqueryPath,
-                'config_name' => $this->configManager->getDefaultConfig(),
-                'config'      => array(),
-                'plugins'     => array(),
-                'styles'      => array(),
-                'templates'   => array(),
-            ))
-        ;
+                'enable'       => $this->enable,
+                'async'        => $this->async,
+                'autoload'     => $this->autoload,
+                'auto_inline'  => $this->autoInline,
+                'inline'       => $this->inline,
+                'jquery'       => $this->jquery,
+                'require_js'   => $this->requireJs,
+                'input_sync'   => $this->inputSync,
+                'filebrowsers' => $this->filebrowsers,
+                'base_path'    => $this->basePath,
+                'js_path'      => $this->jsPath,
+                'jquery_path'  => $this->jqueryPath,
+                'config_name'  => $this->configManager->getDefaultConfig(),
+                'config'       => array(),
+                'plugins'      => array(),
+                'styles'       => array(),
+                'templates'    => array(),
+            ));
 
         $allowedTypesMap = array(
-            'enable'      => 'bool',
-            'autoload'    => 'bool',
-            'inline'      => 'bool',
-            'jquery'      => 'bool',
-            'input_sync'  => 'bool',
-            'config_name' => array('string', 'null'),
-            'base_path'   => 'string',
-            'js_path'     => 'string',
-            'jquery_path' => 'string',
-            'config'      => 'array',
-            'plugins'     => 'array',
-            'styles'      => 'array',
-            'templates'   => 'array',
+            'enable'       => 'bool',
+            'async'        => 'bool',
+            'autoload'     => 'bool',
+            'auto_inline'  => 'bool',
+            'inline'       => 'bool',
+            'jquery'       => 'bool',
+            'require_js'   => 'bool',
+            'input_sync'   => 'bool',
+            'filebrowsers' => 'array',
+            'config_name'  => array('string', 'null'),
+            'base_path'    => 'string',
+            'js_path'      => 'string',
+            'jquery_path'  => 'string',
+            'config'       => 'array',
+            'plugins'      => 'array',
+            'styles'       => 'array',
+            'templates'    => 'array',
+        );
+
+        $normalizers = array(
+            'base_path' => function (Options $options, $value) {
+                if (substr($value, -1) !== '/') {
+                    $value .= '/';
+                }
+
+                return $value;
+            },
         );
 
         if (Kernel::VERSION_ID >= 20600) {
             foreach ($allowedTypesMap as $option => $allowedTypes) {
                 $resolver->addAllowedTypes($option, $allowedTypes);
             }
+
+            foreach ($normalizers as $option => $normalizer) {
+                $resolver->setNormalizer($option, $normalizer);
+            }
         } else {
-            $resolver->addAllowedTypes($allowedTypesMap);
+            $resolver
+                ->addAllowedTypes($allowedTypesMap)
+                ->setNormalizers($normalizers);
         }
     }
 
@@ -426,6 +587,12 @@ class CKEditorType extends AbstractType
      */
     public function getParent()
     {
+        // Prefer the FQCN if the getBlockPrefix method exists on the parent method
+        if (method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')) {
+            return 'Symfony\Component\Form\Extension\Core\Type\TextareaType';
+        }
+
+        // Return the legacy shortname; drop this when Symfony <2.8 support is removed
         return 'textarea';
     }
 
@@ -433,6 +600,14 @@ class CKEditorType extends AbstractType
      * {@inheritdoc}
      */
     public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
     {
         return 'ckeditor';
     }

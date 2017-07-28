@@ -9,6 +9,11 @@
 {% block script %}
     {% javascripts '@NoxIntranetAccueilBundle/Resources/public/js/accueil.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            ajaxGetNews("{{ path('nox_intranet_accueil_ajax_get_news') }}");
+        });
+    </script>
     {% endjavascripts %}
 {% endblock %}
 
@@ -34,12 +39,12 @@
     </div>
 
     <div class="row">
-        <div id="zoneTexteAccueilContainer" class="col-lg-6 col-md-6 col-sm-6 col-xs-10 col-xs-offset-1 background-transparent-white">
+        <div id="zoneTexteAccueilContainer" class="col-lg-6 col-lg-offset-0 col-md-6 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-12 background-transparent-white">
             <div class="row">
                 <div id='zoneTexteAccueilHeader'  class="navbar background-blue col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h4 class="navbar-text text-white">Édito</h4>
+                    <h4 class="navbar-text pull-left text-white">Édito</h4>
                     {% if is_granted('ROLE_COMMUNICATION') %}
-                        <button id='texteEditButton' class='btn btn-default navbar-btn navbar-right'>Editer</button>
+                        <button id='texteEditButton' class='btn btn-default navbar-btn navbar-right pull-right'>Editer</button>
                     {% endif %}
                 </div>
             </div>
@@ -52,11 +57,6 @@
             </div>
         </div>
         <div id="zoneNewsAccueil" class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-1 background-transparent-white">
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    ajaxGetNews("{{ path('nox_intranet_accueil_ajax_get_news') }}");
-                });
-            </script>
         </div>
     </div>
 

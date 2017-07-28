@@ -1,5 +1,64 @@
 # CHANGELOG
 
+### 4.0.6 (2016-10-28)
+
+ * 62ca1e1 - Fix usage of deprecated routing feature
+ * c06af42 - Added missing configuration parameters for dedicated templates
+ * 8898f62 - Update style.rst
+ * e831ece - Fixed a minor syntax issue
+ 
+### 4.0.5 (2016-09-07)
+
+ * dde0e2c - Upgrade CKEditor to 4.5.11
+ * a3554ed - Bring back form alias support for Symfony 2.8 which have been dropped accidentally
+
+### 4.0.4 (2016-07-31)
+
+ * 1f3f94a - [PHPUnit] Upgrade to latest version
+ * 1bd768d - [Renderer] Add automatic language support
+ * dfe2e05 - [Renderer] Allow to render template with an engine
+ * a1daa71 - Upgrade CKEditor to 4.5.10
+ * de28bd5 - [DI] Fix form alias for Symfony 2.8
+ * a11ef4f - [Travis] Remove PHP 5.3.3 build
+ * d2de7ea - [Doc] Update installation for Symfony >= 3
+ * fa7f379 - [Doc] Update documentation for plugin configuration.
+ * 900e824 - [Doc] Add section about template overriding
+
+### 4.0.3 (2016-04-08)
+
+ * ca4ded7 - Removes dead code which break twig template compilation
+ 
+### 4.0.2 (2016-04-07)
+
+ * 116b095 - Upgrade CKEditor to 4.5.8
+ * b2fae58 - [Composer] Suggest egeloen/form-extra-bundle
+ * db7b64d - Add custom filebrowsers support
+ * 48ca6c3 - RequireJS support
+ * 9c64a43 - [Routing] Fix reference type deprecation
+ * ba497b4 - [Renderer] Decouple the Twig extension from the Templating component
+ * 971ed32 - [Documentation] Rewrite doc using RestructuredText
+ * 97c60e0 - [Template] Introduce ckeditor_widget_extra block
+ * 39fd4b8 - [Configuration] Don't normalize plugins/stylesSets/templates names
+ * 0e618f6 - [AssetsHelper] Fix BC layer
+ * c65bfa1 - [Templating] Make Asset/Templating component optional
+   
+### 4.0.1 (2015-12-09)
+
+ * bff1d04 - Fix form type tag BC layer
+ 
+### 4.0.0 (2015-12-06)
+
+ * 147166c - Update CKEditor to 4.5.5
+ * 9e4ae7e - Make code base compatible with Symfony3
+ * 6b7eb55 - Add disable auto inline support
+ * d69047f - [Travis] Add PHP 7 + Symfony 2.8.*@dev
+ * 02d8927 - Fix manager services infected by local configs
+ * 0d8ede1 - [Doc] Update installation
+ * afea981 - Update CKEditor to 4.5.2
+ * f80cea0 - Updated CKEditor to 4.5.1
+ * 29f34a8 - Removed excessive use off long variable names.
+ * 7ee6d18 - [Template] Wrap widget code in $(document).ready() if jquery is enabled
+
 ### 3.0.1 (2015-03-08)
 
  * 982342e - Move resources merging in a compiler pass

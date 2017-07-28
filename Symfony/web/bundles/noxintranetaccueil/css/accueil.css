@@ -1,9 +1,11 @@
 #zoneEditionAccueil {
     height: 500px;
+    margin-bottom: 15px;
 }
 
 #zoneTexteAccueilContainer, #zoneNewsAccueil {
     border: 1px solid #1F4E79;
+    margin-bottom: 15px;
 }
 
 #zoneTexteAccueilHeader {

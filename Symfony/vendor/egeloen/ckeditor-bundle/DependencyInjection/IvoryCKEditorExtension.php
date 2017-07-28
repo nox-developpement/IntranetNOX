@@ -16,6 +16,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Ivory CKEditor extension.
@@ -30,7 +31,7 @@ class IvoryCKEditorExtension extends ConfigurableExtension
     protected function loadInternal(array $config, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        foreach (array('form', 'templating', 'twig') as $service) {
+        foreach (array('form', 'renderer', 'templating', 'twig') as $service) {
             $loader->load($service.'.xml');
         }
 
@@ -41,6 +42,13 @@ class IvoryCKEditorExtension extends ConfigurableExtension
             $this->registerPlugins($config, $container);
             $this->registerStylesSet($config, $container);
             $this->registerTemplates($config, $container);
+            $this->registerFilebrowsers($config, $container);
+        }
+
+        if (Kernel::VERSION_ID < 30000) {
+            $container->getDefinition('ivory_ck_editor.form.type')
+                ->clearTag('form.type')
+                ->addTag('form.type', array('alias' => 'ckeditor'));
         }
     }
 
@@ -58,6 +66,14 @@ class IvoryCKEditorExtension extends ConfigurableExtension
             $formType->addMethodCall('isEnable', array($config['enable']));
         }
 
+        if (isset($config['async'])) {
+            $formType->addMethodCall('isAsync', array($config['async']));
+        }
+
+        if (isset($config['auto_inline'])) {
+            $formType->addMethodCall('isAutoInline', array($config['auto_inline']));
+        }
+
         if (isset($config['inline'])) {
             $formType->addMethodCall('isInline', array($config['inline']));
         }
@@ -68,6 +84,10 @@ class IvoryCKEditorExtension extends ConfigurableExtension
 
         if (isset($config['jquery'])) {
             $formType->addMethodCall('useJquery', array($config['jquery']));
+        }
+
+        if (isset($config['require_js'])) {
+            $formType->addMethodCall('useRequireJs', array($config['require_js']));
         }
 
         if (isset($config['input_sync'])) {
@@ -172,6 +192,23 @@ class IvoryCKEditorExtension extends ConfigurableExtension
         foreach ($config['templates'] as $name => $template) {
             $definition->addMethodCall('setTemplate', array($name, $template));
         }
+    }
+
+    /**
+     * Registers the CKEditor filebrowsers.
+     *
+     * @param array                                                   $config    The CKEditor configuration.
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container The container.
+     */
+    private function registerFilebrowsers(array $config, ContainerBuilder $container)
+    {
+        if (empty($config['filebrowsers'])) {
+            return;
+        }
+
+        $container
+            ->getDefinition('ivory_ck_editor.form.type')
+            ->addMethodCall('setFilebrowsers', array($config['filebrowsers']));
     }
 
     /**

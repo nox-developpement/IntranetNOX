@@ -22,7 +22,7 @@
         "friendsofsymfony/jsrouting-bundle": "^1.5",
 		"helios-ag/fm-elfinder-bundle": "~5",
         "sonata-project/media-bundle": "^2.3",
-        "egeloen/ckeditor-bundle": "~3.0",
+        "egeloen/ckeditor-bundle": "4.*",
 		"smalot/pdfparser": "~0.9.25",
 		"twig/extensions": "~1.3.0",
         "spipu/html2pdf": "^4.6",

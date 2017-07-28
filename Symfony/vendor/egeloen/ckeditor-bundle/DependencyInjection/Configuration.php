@@ -31,9 +31,12 @@ class Configuration implements ConfigurationInterface
             ->root('ivory_ck_editor')
             ->children()
                 ->booleanNode('enable')->end()
+                ->booleanNode('async')->end()
+                ->booleanNode('auto_inline')->end()
                 ->booleanNode('inline')->end()
                 ->booleanNode('autoload')->end()
                 ->booleanNode('jquery')->end()
+                ->booleanNode('require_js')->end()
                 ->booleanNode('input_sync')->end()
                 ->scalarNode('base_path')->end()
                 ->scalarNode('js_path')->end()
@@ -43,6 +46,7 @@ class Configuration implements ConfigurationInterface
                 ->append($this->createPluginsNode())
                 ->append($this->createStylesNode())
                 ->append($this->createTemplatesNode())
+                ->append($this->createFilebrowsersNode())
                 ->append($this->createToolbarsNode())
             ->end();
 
@@ -57,8 +61,10 @@ class Configuration implements ConfigurationInterface
     private function createConfigsNode()
     {
         return $this->createNode('configs')
+            ->normalizeKeys(false)
             ->useAttributeAsKey('name')
             ->prototype('array')
+                ->normalizeKeys(false)
                 ->useAttributeAsKey('name')
                 ->prototype('variable')->end()
             ->end();
@@ -72,6 +78,7 @@ class Configuration implements ConfigurationInterface
     private function createPluginsNode()
     {
         return $this->createNode('plugins')
+            ->normalizeKeys(false)
             ->useAttributeAsKey('name')
             ->prototype('array')
                 ->children()
@@ -89,6 +96,7 @@ class Configuration implements ConfigurationInterface
     private function createStylesNode()
     {
         return $this->createNode('styles')
+            ->normalizeKeys(false)
             ->useAttributeAsKey('name')
             ->prototype('array')
                 ->prototype('array')
@@ -120,6 +128,7 @@ class Configuration implements ConfigurationInterface
     private function createTemplatesNode()
     {
         return $this->createNode('templates')
+            ->normalizeKeys(false)
             ->useAttributeAsKey('name')
             ->prototype('array')
                 ->children()
@@ -131,10 +140,29 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('image')->end()
                                 ->scalarNode('description')->end()
                                 ->scalarNode('html')->end()
+                                ->scalarNode('template')->end()
+                                ->arrayNode('template_parameters')
+                                    ->normalizeKeys(false)
+                                    ->useAttributeAsKey('name')
+                                    ->prototype('scalar')->end()
+                                ->end()
                             ->end()
                         ->end()
                     ->end()
                 ->end()
+            ->end();
+    }
+
+    /**
+     * Creates the filebrowsers node.
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition The filebrowsers node.
+     */
+    private function createFilebrowsersNode()
+    {
+        return $this->createNode('filebrowsers')
+            ->useAttributeAsKey('name')
+            ->prototype('scalar')
             ->end();
     }
 
