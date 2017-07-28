@@ -84,7 +84,11 @@ class AccueilController extends Controller {
         $newTexteEncart = new texteEncart();
         $formBuilder = $this->get('form.factory')->createBuilder('form', $texteEncart);
         $formBuilder
-                ->add('text', \Ivory\CKEditorBundle\Form\Type\CKEditorType::class)
+                ->add('text', \Ivory\CKEditorBundle\Form\Type\CKEditorType::class, array(
+                    'config' => array(
+                        'uiColor' => '#1F4E79',
+                    )
+                ))
                 ->add('modifier', SubmitType::class)
         ;
         $form = $formBuilder->getForm();
