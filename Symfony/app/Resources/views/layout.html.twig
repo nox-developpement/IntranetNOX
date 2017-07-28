@@ -3,14 +3,17 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title> Groupe-Nox / {% block titrePage %}{% endblock %}</title>
 
         <script src="{{ asset('./js/jquery-2.2.0.min.js') }}"></script>
         <script src="{{ asset('./js/js.cookie.js') }}"></script>
         <script src="{{ asset('./js/texteActions.js') }}"></script>
 
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
         <link rel="icon" type="image/png" href="{{ app.request.getSchemeAndHttpHost() }}/Symfony/web/favicon.ico" />
+
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
 
         {% stylesheets '@NoxIntranetAccueilBundle/Resources/public/css/layout.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
@@ -58,12 +61,11 @@
                 <img src="{{ asset('bundles/noxintranetaccueil/images/PlanIntranet.png') }}" alt="Plan de l'intranet" style="width: 100%; vertical-align: middle; text-align: center;">
             </div>      
 
-            <div id="menu_div" class="row">
+            <div id="menu_div" class="row hidden-xs">
                 <div id="EmailHelpdesk" class="col-lg-2 col-md-2 col-sm-3 col-xs-6 text-center">
                     <a class="link-white" href="mailto:helpdesk@groupe-nox.com">Une question ?</a>
                 </div>
-                <div class="hidden-lg hidden-md hidden-sm" style="height: 40px;"></div>
-                <div class="col-lg-8 col-md-8 col-sm-6 hidden-xs">
+                <div class="col-lg-8 col-md-8 col-sm-6">
                     <nav id="menu" class="navbar background-blue">
                         <div class="container-fluid">
                             <ul id="menu_wrapped_container" class="nav navbar-nav hidden-lg hidden-md">
@@ -153,9 +155,9 @@
                 </div>
             </div>
 
-            <div id="menu_mobile_div" class="row">
-                <div class="hidden-lg hidden-md hidden-sm col-xs-10 col-xs-offset-1">
-                    <nav id="menu_mobile" class="navbar background-blue">
+            <div id="menu_mobile_div" class="row hidden-lg hidden-md hidden-sm">
+                <div class="col-xs-12">
+                    <nav id="menu_mobile" class="navbar">
                         <div class="container-fluid">
                             <ul class="nav navbar-nav">
                                 <li class="dropdown text-center">
@@ -163,19 +165,24 @@
                                         Menu
                                         <span class="caret"></span>
                                     </a>
-                                    <ul class="menu_dropdown_ul dropdown-menu background-blue">
+                                    <ul class="menu_mobile_dropdown_ul dropdown-menu">
+                                        <li role="separator" class="divider"></li>
                                         <li class="text-center"> 
-                                            <a class="text-white" href="{{ path('nox_intranet_accueil') }}">Accueil</a>
+                                            <a href="{{ path('nox_intranet_accueil') }}">Accueil</a>
                                         </li> 
+                                        <li role="separator" class="divider"></li>
                                         <li class="text-center"> 
-                                            <a class="text-white" href="{{ path('nox_intranet_communication') }}">Communication</a> 
+                                            <a href="{{ path('nox_intranet_communication') }}">Communication</a> 
                                         </li> 
+                                        <li role="separator" class="divider"></li>
                                         <li class="text-center"> 
-                                            <a class="text-white" href="{{ path('nox_intranet_ressources') }}">Ressources</a> 
-                                        </li> 
+                                            <a href="{{ path('nox_intranet_ressources') }}">Ressources</a> 
+                                        </li>
+                                        <li role="separator" class="divider"></li>
                                         <li class="Support_SI text-center blue-tooltip" data-toggle="tooltip" data-placement="bottom" title="Aide pour les problèmes informatiques.">  
-                                            <a class="text-white" href="{{ path('nox_intranet_support_si') }}">Support SI</a> 
+                                            <a href="{{ path('nox_intranet_support_si') }}">Support SI</a> 
                                         </li> 
+                                        <li role="separator" class="divider"></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -187,23 +194,23 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div id="main_content_frame" class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12" style="background-image: url('{{ asset('images/fond2.png')}}');">
+                <div id="main_content_frame" class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12" style="background-image: url('{{ asset('images/fond2.png')}}');">
                     <div id="alert_row" class="row">
                         {% for flashMessage in app.session.flashbag.get('notice') %}
-                            <p class="flashbag col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 alert alert-success text-center"> 
+                            <p class="flashbag col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2 alert alert-success text-center"> 
                                 {{ flashMessage }}
                             </p>
                         {% endfor %} 
                         {% for flashMessage in app.session.flashbag.get('noticeErreur') %}
-                            <p class="flashbagErreur col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 alert alert-error text-center"> 
+                            <p class="flashbagErreur col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2 alert alert-error text-center"> 
                                 {{ flashMessage }}
                             </p>
                         {% endfor %} 
                     </div>
                     <div id="page_title_row" class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="row">
-                                <h2 class="page_title col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 text-blue">
+                                <h2 class="page_title col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 text-blue">
                                     {% block messageAccueil %}
                                     {% endblock %}<br/>
                                     <small class="text-blue">
@@ -213,12 +220,12 @@
                                 </h2>
                             </div>
                             <div class="row">
-                                <span class="col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1">{% block textEncart %}{% endblock %}</span>
+                                <span class="col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1">{% block textEncart %}{% endblock %}</span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+                        <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
                             {% block contenu %}
                             {% endblock %}
                         </div>
@@ -252,7 +259,7 @@
         <script src="{{ asset('./js/suiviRecherche.js') }}"></script>
         <script src="{{ asset('./js/jquery.transit.min.js') }}"></script>
         <script src="{{ asset('./js/tableHeadFixer.js') }}"></script>
-        <script src="{{ asset('./js/bootstrap.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.js') }}"></script>
         <script>
 
                                     $(document).ready(function () {

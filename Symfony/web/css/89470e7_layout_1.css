@@ -60,6 +60,21 @@ header, #menu_div {
     color: #1F4E79;
 }
 
+.menu_mobile_dropdown_ul {
+    background-color: white !important;
+    border-radius: 0;
+}
+
+.menu_mobile_dropdown_ul a {
+    color: #1F4E79 !important;
+    background-color: white !important;
+}
+
+.menu_mobile_dropdown_ul a:hover {
+    color: white !important;
+    background-color: #1F4E79 !important;
+}
+
 #main_content_frame {
     background-origin: content-box;
     background-repeat: no-repeat;
