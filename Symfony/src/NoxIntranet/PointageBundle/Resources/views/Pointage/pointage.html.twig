@@ -690,7 +690,6 @@
                     url: '{{ path('nox_intranet_pointage_ajax_set_date') }}',
                     data: {month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val()},
                     success: function (response) {
-
                         // Ajout/supprime des lignes en fonction du nombre de jours du mois.
                         if ($('.dayDateCell').length !== response.length) {
                             var difference = response.length - $('.dayDateCell').length;
@@ -1178,6 +1177,12 @@
                             $('#deleteJustificatifButtonSpan').attr('idjustificatif', data['justificatifTransport']);
                             $('#downloadJustificatifButtonSpan').attr('onclick', "window.location = '" + '{{ path('nox_intranet_pointages_download_justificatif_transport') }}/' + data['justificatifTransport'] + "';");
                             $('#deleteJustificatifButton').show();
+                        } else {
+                            // On affiche le bouton d'upload, on supprime l'id du justificatif au bouton de suppression, on supprime le lien de téléchargement du fichier au bouton d'affichage et on le cache.
+                            $('#sendTransportJustificatifFormButton').show();
+                            $('#deleteJustificatifButtonSpan').attr('idjustificatif', '');
+                            $('#downloadJustificatifButtonSpan').attr('onclick', '');
+                            $('#deleteJustificatifButton').hide();
                         }
 
                         // Si il existe un texte de régularisation...
@@ -1187,6 +1192,12 @@
                     }
                     // Si il n'y a pas de données pour ce mois et cette année.
                     else {
+                        // On affiche le bouton d'upload, on supprime l'id du justificatif au bouton de suppression, on supprime le lien de téléchargement du fichier au bouton d'affichage et on le cache.
+                        $('#sendTransportJustificatifFormButton').show();
+                        $('#deleteJustificatifButtonSpan').attr('idjustificatif', '');
+                        $('#downloadJustificatifButtonSpan').attr('onclick', '');
+                        $('#deleteJustificatifButton').hide();
+
                         // On récupére les valeurs du mois précédent et de l'année séléctionnés.
                         var month = $('#pointage_month_selector option:selected').val() - 1;
                         var year = $('#pointage_year_selector option:selected').val();
@@ -1388,24 +1399,31 @@
 
         // Vérifie le status de la feuille de pointage, colore la barre d'avancement en conséquence et vérouille la feuille si nécessaire.
         function ajaxGetPointageStatus() {
-            $('td[contenteditable=true]').css('cursor', 'initial');
-            $('td[contenteditable=true]').removeAttr('onkeydown');
+            // Remise en marche de l'édition des éléments.
+            $('td[contenteditable=true], #divRegularisationText').css('cursor', 'initial');
+            $('td[contenteditable=true], #divRegularisationText').removeAttr('onkeydown');
+            $('td[contenteditable=true], #divRegularisationText').off('mousedown');
             $('select:not(#pointage_month_selector, #pointage_year_selector)').removeAttr('disabled');
             $('#addProject').show();
             $('#getLastMonthAffairesButton').show();
             $('#form_Valider').show();
             $('#sendTransportJustificatifFormButton, #uploadLoaderButton').removeAttr('disabled');
             $('#deleteJustificatifButtonSpan').show();
+
+            // Remise à zéro de la barre de statut.
             $('.pointageStatusLine div').width('10%');
             $(".pointageStatusCircle").css('background-color', 'lightgrey');
             $(".pointageStatusCircle").filter(function () {
                 return  $(this).attr("step") <= 0;
             }).css('background-color', 'green');
+
+            // Récupération du statut du pointage.
             $.ajax({
                 type: 'POST',
                 url: '{{ path('nox_intranet_pointage_ajax_get_status') }}',
                 data: {username: '{{ user }}', month: $('#pointage_month_selector option:selected').val(), year: $('#pointage_year_selector option:selected').val()},
                 success: function (response) {
+                    // Attribution du statut sur la barre de statut.
                     var width = null;
                     var cercleNb = null;
                     switch (response) {
@@ -1434,11 +1452,11 @@
                             cercleNb = 4;
                             break;
                     }
-
                     $('.pointageStatusLine div').width(width + '%');
                     $(".pointageStatusCircle").filter(function () {
                         return  $(this).attr("step") <= cercleNb;
                     }).css('background-color', 'green');
+
                     // Si le pointage a déjà été validé...            
                     if (response !== '0' && response !== '') {
                         // On désactive tous les éléments éditables.
@@ -1711,7 +1729,7 @@
                 // On affiche la croix si besoin.
                 toggleFloatingHeaderCross();
             });
-        }   
+        }
 
         // Affiche un header flotant vertical lorsque le header du tableau n'est plus entiérement visible.
         function fixedVerticalHeader() {
