@@ -1,16 +1,14 @@
+html, body {
+    height: 100%;
+}
+
 body {
     background-color: rgb(242,242,242);
+    overflow: hidden;
 }
 
-header, #menu_div {
-    display: flex;
-    align-items: center;
-}
-
-.vertical-align {
-    display: table-cell;
-    vertical-align: middle;
-    float: none;
+#main_container {
+    height: 100%;
 }
 
 .bandeau_nox_header {
@@ -75,10 +73,31 @@ header, #menu_div {
     background-color: #1F4E79 !important;
 }
 
+#main_content_row {
+    height: 100%;
+}
+
 #main_content_frame {
+    height: 100%;
     background-origin: content-box;
     background-repeat: no-repeat;
     background-size: 100%;
+    background-color: white;
+    background-clip: content-box;
+}
+
+#central_content_row {
+    padding-bottom: 20px;
+}
+
+#central_content_container {
+    height: 100%;
+    overflow: auto;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
 }
 
 .alert {
@@ -150,4 +169,13 @@ header, #menu_div {
     color: black;
     background: white;
     border: solid 1px black;
+}
+
+.btn-primary {
+    background-color: #1F4E79;
+}
+
+.btn-primary:hover {
+    background-color: white;
+    color: #1F4E79;
 }

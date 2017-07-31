@@ -1,16 +1,9 @@
+html, body {
+    height: 100%;
+}
+
 body {
     background-color: rgb(242,242,242);
-}
-
-header, #menu_div {
-    display: flex;
-    align-items: center;
-}
-
-.vertical-align {
-    display: table-cell;
-    vertical-align: middle;
-    float: none;
 }
 
 .bandeau_nox_header {
@@ -79,6 +72,11 @@ header, #menu_div {
     background-origin: content-box;
     background-repeat: no-repeat;
     background-size: 100%;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
 }
 
 .alert {
@@ -150,4 +148,13 @@ header, #menu_div {
     color: black;
     background: white;
     border: solid 1px black;
+}
+
+.btn-primary {
+    background-color: #1F4E79;
+}
+
+.btn-primary:hover {
+    background-color: white;
+    color: #1F4E79;
 }

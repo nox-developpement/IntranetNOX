@@ -34,6 +34,9 @@ function ajaxGetNews(getNewsPath /* Url de la fonction de récupération des new
 
             // Appel de la fonction d'injection des news.
             appendNews(newsByCategorie);
+            
+            // Suppresion du gif de chargement.
+            $("#accueil_news_loading_gif").remove();
         }
     });
 }
