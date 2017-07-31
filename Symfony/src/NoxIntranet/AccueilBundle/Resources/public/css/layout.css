@@ -179,3 +179,26 @@ body {
     background-color: white;
     color: #1F4E79;
 }
+
+
+
+.vignette-section .thumbnail {
+    position: relative;
+    border: 0 none;
+    box-shadow: none;
+    margin: 0;
+    margin-bottom: 10px;
+        padding: 0;
+}
+
+.vignette-section img {
+    width: 100%;
+}
+
+.vignette-section .caption {
+    width: 100%;
+    bottom: 10%;
+    position: absolute;
+    background-color: rgba(255,255,255,0.8);
+    word-wrap: break-word;
+}
