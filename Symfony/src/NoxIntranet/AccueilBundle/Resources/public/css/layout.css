@@ -23,7 +23,7 @@ body {
 #menu, #menu_mobile {
     margin-bottom: 0;
     /*padding-right: 15px;*/
-    border: 1px solid white;
+    border: 0px solid white;
     border-bottom: none;
     border-radius: 0;
 }
@@ -201,4 +201,31 @@ body {
     position: absolute;
     background-color: rgba(255,255,255,0.8);
     word-wrap: break-word;
+}
+
+
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+    
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+    
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+
 }
