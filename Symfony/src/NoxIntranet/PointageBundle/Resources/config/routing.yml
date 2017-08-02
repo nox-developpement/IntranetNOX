@@ -249,3 +249,8 @@ nox_intranet_pointage_archives_non_utilisateur_year:
 nox_intranet_pointage_archives_non_utilisateur_month:
     path: /ressources/pointage/archives-non-utilisateur-month/{annee}
     defaults: { _controller: NoxIntranetPointageBundle:Pointage:archiveNonUtilisateurMonth }
+    
+nox_intranet_pointage_archives_Export_User_Pointage:
+    path: /ressources/pointage/archives-export-user-pointage
+    defaults: { _controller: NoxIntranetPointageBundle:Pointage:archiveExportUserPointage } 
+    
