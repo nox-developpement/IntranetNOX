@@ -20,7 +20,7 @@
 
                 {% if app.user and (is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN'))%}
                     <!-- Administration Administrateur -->
-                    <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                    <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                         <div class="thumbnail">
                             <a href="{{ path('nox_intranet_administration_user_admin') }}">
                                 <img 
@@ -37,7 +37,7 @@
 
                     {% if app.user and app.user.local == true %}
                         <!-- Mot de passe -->
-                        <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                        <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                             <div class="thumbnail">
                                 <a href="{{ path('nox_intranet_admin_mdp') }}">
                                     <img 
@@ -55,7 +55,7 @@
                 {% endif %}
 
                 <!-- Synchro. AD -->
-                <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="thumbnail">
                         <a href="{{ path('nox_intranet_administration_userDB') }}">
                             <img 
@@ -71,7 +71,7 @@
                 </div>
 
                 <!-- Utilisateurs -->
-                <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="thumbnail">
                         <a href="{{ path('nox_intranet_administration_user') }}">
                             <img 
@@ -93,7 +93,7 @@
                 <h4>Publication DSI :</h4>
 
                 <!-- Archives -->
-                <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="thumbnail">
                         <a href="{{ path('nox_intranet_archives') }}">
                             <img 
@@ -109,7 +109,7 @@
                 </div>
 
                 <!-- Avancement Projet -->
-                <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="thumbnail">
                         <a href="{{ path('nox_intranet_avancement_projet') }}">
                             <img 
@@ -125,7 +125,7 @@
                 </div>   
 
                 <!-- Demande Mat/log -->
-                <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="thumbnail">
                         <a href="{{ path('nox_intranet_administration_materiel') }}">
                             <img 
@@ -141,7 +141,7 @@
                 </div>   
 
                 <!-- Informations -->
-                <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="thumbnail">
                         <a href="{{ path('nox_intranet_information') }}">
                             <img 
@@ -157,7 +157,7 @@
                 </div>   
 
                 <!-- Message d'alerte -->
-                <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="thumbnail">
                         <a href="{{ path('nox_intranet_administration_message_alerte') }}">
                             <img 
@@ -173,7 +173,7 @@
                 </div>   
 
                 <!-- Monitoring charte informatique -->
-                <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="thumbnail">
                         <a href="{{ path('nox_intranet_charte_informatique_monitoring') }}">
                             <img 
@@ -189,7 +189,7 @@
                 </div>   
 
                 <!-- Monitoring scripts planifiés -->
-                <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="thumbnail">
                         <a href="{{ path('nox_intranet_monitoring_scheduled_scripts') }}">
                             <img 
@@ -205,7 +205,7 @@
                 </div>   
 
                 <!-- News DSI -->
-                <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="thumbnail">
                         <a href="{{ path('nox_intranet_administration_news') }}">
                             <img 
@@ -221,7 +221,7 @@
                 </div>   
 
                 <!-- Serveurs -->
-                <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="thumbnail">
                         <a href="{{ path('nox_intranet_administration_serveurs') }}">
                             <img 
@@ -237,7 +237,7 @@
                 </div>   
 
                 <!-- Statistique VPN -->
-                <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="thumbnail">
                         <a href="{{ path('nox_intranet_vpn_stats_upload') }}">
                             <img 
@@ -262,7 +262,7 @@
             
             <!-- Assistant d'affaire -->
             {% if app.user and is_granted('ROLE_ADMIN') %}
-                <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="thumbnail">
                         <a href="{{ path('nox_intranet_administration_affaires') }}">
                             <img
@@ -279,7 +279,7 @@
             {% endif %}  
               
             <!-- Assurance qualité -->
-            <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+            <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                 <div class="thumbnail">
                     <a href="{{ path('nox_intranet_aq') }}">
                         <img
@@ -295,7 +295,7 @@
             </div>
                             
             <!-- Communication -->
-            <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+            <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                 <div class="thumbnail">
                     <a href="{{ path('nox_intranet_communication') }}">
                         <img
@@ -315,7 +315,7 @@
         <div class="col-lg-10 col-lg-offset-1">
             <!-- FAQ -->
             {% if app.user and is_granted('ROLE_FAQ') %}
-                <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="thumbnail">
                         <a href="{{ path('nox_intranet_faq') }}">
                             <img
@@ -332,7 +332,7 @@
             {% endif %}
             
             <!-- Liens -->
-            <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+            <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                 <div class="thumbnail">
                     <a href="{{ path('nox_intranet_administration_liens') }}">
                         <img
@@ -348,7 +348,7 @@
             </div>
                             
             <!-- Références -->
-            <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+            <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                 <div class="thumbnail">
                     <a href="{{ path('nox_intranet_references') }}">
                         <img
@@ -364,7 +364,7 @@
             </div>
                             
             <!-- Ticketing -->
-            <div class="vignette-section col-lg-3 col-md-3 col-sm-4 col-xs-6">
+            <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
                 <div class="thumbnail">
                     <a href="{{ path('nox_intranet_administration_ticketing') }}">
                         <img
@@ -383,7 +383,7 @@
     </div>
 
     <!-- DRH -->
-    
+
     <div class="col-lg-10 col-lg-offset-1">
         {% if app.user and is_granted('ROLE_RH') %}
 
