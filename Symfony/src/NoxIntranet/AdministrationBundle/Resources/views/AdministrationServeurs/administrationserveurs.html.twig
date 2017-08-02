@@ -1,5 +1,11 @@
 {% extends "::layout.html.twig" %}
 
+{% block style %}
+    {% stylesheets '@NoxIntranetAdministrationBundle/Resources/public/css/administration.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
 {% block titrePage %}
     Administration serveurs
 {% endblock %}
@@ -8,58 +14,71 @@
 {% block sousMessageAccueil %}Le script connecte un lecteur Y:\ avec le contenu du champ "Lien vers le serveur"{% endblock %}
 
 {% block contenu %}
+    
+ 
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                
+                <div id="divAdministrationAdmin">
 
-    <div id="divAdministrationAdmin">
+                    <div id="creationAdmin">
+                        <div id="creationAdminDiv">
 
-        <div id="creationAdmin">
-            <div id="creationAdminDiv">
+                            {{ form_start(form, {'attr': {'class': 'formulaireArchive'}}) }}
+                            {{ form_errors(form) }}
 
-                {{ form_start(form, {'attr': {'class': 'formulaireArchive'}}) }}
-                {{ form_errors(form) }}
+                            <div class="col-xs-2">
+                            {{ form_label(form.agence, "Agence :", {'label_attr': {'class': 'labelFormulaireArchive'}}) }}
+                            </div>
+                            <div class="col-xs-3">
+                            {{ form_errors(form.agence) }}
+                            {{ form_widget(form.agence, {'attr': {'class': 'textFormulaireArchive', 'placeholder': 'ex: Bron'}}) }}
+                            </div>
+                            
+                            <div class="col-xs-3">
+                            {{ form_label(form.lien, "Lien vers le serveur :", {'label_attr': {'class': 'labelFormulaireArchive'}}) }}
+                            </div>
+                            <div class="col-xs-3">
+                            {{ form_errors(form.lien) }}
+                            {{ form_widget(form.lien, {'attr': {'class': 'textFormulaireArchive', 'placeholder': 'ex: \\\\192.168.35.210\\share\\arch_agence\\Bron'}}) }}
+                            </div>
 
-                {{ form_label(form.agence, "Agence :", {'label_attr': {'class': 'labelFormulaireArchive'}}) }}
-                {{ form_errors(form.agence) }}
-                {{ form_widget(form.agence, {'attr': {'class': 'textFormulaireArchive', 'placeholder': 'ex: Bron'}}) }}
+                            {{ form_widget(form._token) }}
+                            <div class="col-xs-1">
+                            {{ form_widget(form.ajouter, {'attr': {'class': 'submitFormulaireArchive', 'class': 'boutonFormulaire' }}) }}
+                            </div>
+                            {{ form_end(form) }}
 
-                {{ form_label(form.lien, "Lien vers le serveur :", {'label_attr': {'class': 'labelFormulaireArchive'}}) }}
-                {{ form_errors(form.lien) }}
-                {{ form_widget(form.lien, {'attr': {'class': 'textFormulaireArchive', 'placeholder': 'ex: \\\\192.168.35.210\\share\\arch_agence\\Bron'}}) }}
+                        </div>
+                    </div>
 
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th> Agence </th>
+                                <th> Lien </th>
+                                <th> Supprimer </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for serveur in serveurs %}
 
-                {{ form_widget(form._token) }}
+                                <tr>
+                                    <td> <p> {{ serveur.agence }} <p> </td>
 
-                {{ form_widget(form.ajouter, {'attr': {'class': 'submitFormulaireArchive', 'class': 'boutonFormulaire' }}) }}
+                                    <td>
+                                        <p> {{ serveur.lien }} </p>
+                                    </td>
 
-                {{ form_end(form) }}
+                                    <td> <a href='{{ path('nox_intranet_suppression_serveur', {'id': serveur.id}) }}'> <img class="suppressionServeurImg" src='{{ asset('bundles/noxintranetadministration/images/Data-Delete-32.png') }}'> </a> </td>
+                                </tr>
 
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
         </div>
-
-        <table>
-
-            <tr>
-                <td> Agence </td>
-                <td> Lien </td>
-                <td> Supprimer </td>
-            </tr>
-
-            {% for serveur in serveurs %}
-
-                <tr>
-                    <td> <p> {{ serveur.agence }} <p> </td>
-
-                    <td>
-                        <p> {{ serveur.lien }} </p>
-                    </td>
-
-                    <td> <a href='{{ path('nox_intranet_suppression_serveur', {'id': serveur.id}) }}'> <img class="suppressionServeurImg" src='{{ asset('bundles/noxintranetadministration/images/Data-Delete-32.png') }}'> </a> </td>
-                </tr>
-
-            {% endfor %}
-
-        </table>
-
-    </div>
-
 {% endblock %}
 {# empty Twig template #}

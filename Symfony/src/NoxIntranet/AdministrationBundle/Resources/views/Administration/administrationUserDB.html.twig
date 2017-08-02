@@ -1,5 +1,11 @@
 {% extends "::layout.html.twig" %}
 
+{% block style %}
+    {% stylesheets '@NoxIntranetAdministrationBundle/Resources/public/css/administration.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
 {% block titrePage %}
     Administration DB
 {% endblock %}
@@ -7,105 +13,139 @@
 {% block messageAccueil %}Administration base de données utilisateurs{% endblock %}
 
 {% block contenu %}
+    
+    <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="iconContener">
+                {% if confirmation is defined and confirmation == true %}
 
-    <div class="iconContener">
+                    <p> Voulez-vous mettre à jours la base de donnée utilisateur ? </p>
 
-        {% if confirmation is defined and confirmation == true %}
+                                
+                    <!-- Confirmer -->         
+                    <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <div class="thumbnail">
+                            <a href="{{ path('nox_intranet_user_updateDB') }}">
+                                <img 
+                                    class="img-rounded"
+                                    src="{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}" 
+                                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Confirm-128-hover.png') }}';" 
+                                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}';"
+                                    alt="Confirmer"
+                                    > 
+                                <div class="caption text-center text-blue">Confirmer</div>
+                            </a>
+                        </div>
+                    </div>   
 
-            <p> Voulez-vous mettre à jours la base de donnée utilisateur ? </p>
-            
-            <!-- Confirmer -->
-            <a href="{{ path('nox_intranet_user_updateDB') }}" class="icon">
-                <figure>
-                    <img 
-                        src="{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}" 
-                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Confirm-128-hover.png') }}';" 
-                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}';"
-                        > 
-                    <figcaption>Confirmer</figcaption>
-                </figure>
-            </a>
+                                
+                    <!-- Annuler -->         
+                    <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <div class="thumbnail">
+                            <a href="{{ path('nox_intranet_administration_userDB') }}">
+                                <img 
+                                    class="img-rounded"
+                                    src="{{ asset('bundles/noxintranetadministration/images/Delete-128.png') }}" 
+                                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Delete-128-hover.png') }}';" 
+                                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Delete-128.png') }}';"
+                                    alt="Annuler"
+                                    > 
+                                <div class="caption text-center text-blue">Annuler</div>
+                            </a>
+                        </div>
+                    </div>           
+                       
 
-            <!-- Annuler -->
-            <a href="{{ path('nox_intranet_administration_userDB') }}" class="icon">
-                <figure>
-                    <img 
-                        src="{{ asset('bundles/noxintranetadministration/images/Delete-128.png') }}" 
-                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Delete-128-hover.png') }}';" 
-                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Delete-128.png') }}';"
-                        > 
-                    <figcaption>Annuler</figcaption>
-                </figure>
-            </a>
+                {% elseif confirmationRestauration is defined and confirmationRestauration == true %}
 
-        {% elseif confirmationRestauration is defined and confirmationRestauration == true %}
-            
-            <p> Voulez-vous restaurer la base de donnée utilisateur ? </p>
-            
-            <!-- Confirmer -->
-            <a href="{{ path('nox_intranet_restaurationBDDConfirmation') }}" class="icon">
-                <figure>
-                    <img 
-                        src="{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}" 
-                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Confirm-128-hover.png') }}';" 
-                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}';"
-                        > 
-                    <figcaption>Confirmer</figcaption>
-                </figure>
-            </a>
+                    <p> Voulez-vous restaurer la base de donnée utilisateur ? </p>
+                                
+                    <!-- Confirmer -->
+                    <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <div class="thumbnail">
+                            <a href="{{ path('nox_intranet_restaurationBDDConfirmation') }}">
+                                <img 
+                                    class="img-rounded"
+                                    src="{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}" 
+                                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Confirm-128-hover.png') }}';" 
+                                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Confirm-128.png') }}';"
+                                    alt="Confirmer"
+                                    > 
+                                <div class="caption text-center text-blue">Confirmer</div>
+                            </a>
+                        </div>
+                    </div>
+                                
+                    <!-- Annuler -->
+                    <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <div class="thumbnail">
+                            <a href="{{ path('nox_intranet_administration_userDB') }}">
+                                <img 
+                                    class="img-rounded"
+                                    src="{{ asset('bundles/noxintranetadministration/images/Delete-128.png') }}" 
+                                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Delete-128-hover.png') }}';" 
+                                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Delete-128.png') }}';"
+                                    alt="Annuler"
+                                    > 
+                                <div class="caption text-center text-blue">Annuler</div>
+                            </a>
+                        </div>
+                    </div>
 
-            <!-- Annuler -->
-            <a href="{{ path('nox_intranet_administration_userDB') }}" class="icon">
-                <figure>
-                    <img 
-                        src="{{ asset('bundles/noxintranetadministration/images/Delete-128.png') }}" 
-                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Delete-128-hover.png') }}';" 
-                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Delete-128.png') }}';"
-                        > 
-                    <figcaption>Annuler</figcaption>
-                </figure>
-            </a>
+                {% else %}
+                    <!-- Mise à jour base de données utilisateurs -->
+                    <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <div class="thumbnail">
+                            <a href="{{ path('nox_intranet_user_verifupdateDB') }}">
+                                <img 
+                                    class="img-rounded"
+                                    src="{{ asset('bundles/noxintranetadministration/images/Data-Refresh-128.png') }}" 
+                                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Refresh-128-hover.png') }}';" 
+                                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Refresh-128.png') }}';"
+                                    alt="Mise à jour base de données utilisateurs"
+                                    > 
+                                <div class="caption text-center text-blue">Mise à jour</div>
+                            </a>
+                        </div>
+                    </div>
 
-        {% else %}
+                    <!-- Restauration des bases de données -->
+                    <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <div class="thumbnail">
+                            <a href="{{ path('nox_intranet_restaurationBDD') }}">
+                                <img 
+                                    class="img-rounded"
+                                    src="{{ asset('bundles/noxintranetadministration/images/Data-Find-128.png') }}" 
+                                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Find-128-hover.png') }}';" 
+                                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Find-128.png') }}';"
+                                    alt="Restauration des bases de données"
+                                    > 
+                                <div class="caption text-center text-blue">Restauration BDD</div>
+                            </a>
+                        </div>
+                    </div>
 
-            <!-- Mise à jour base de données utilisateurs -->
-            <a href="{{ path('nox_intranet_user_verifupdateDB') }}" class="icon">
-                <figure>
-                    <img 
-                        src="{{ asset('bundles/noxintranetadministration/images/Data-Refresh-128.png') }}" 
-                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Refresh-128-hover.png') }}';" 
-                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Refresh-128.png') }}';"
-                        > 
-                    <figcaption>Mise à jour</figcaption>
-                </figure>
-            </a>
+                    <!-- Sauvegarde des bases de données -->
+                    <div class="vignette-section col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <div class="thumbnail">
+                            <a href="{{ path('nox_intranet_restaurationBDD') }}">
+                                <img 
+                                    class="img-rounded"
+                                    src="{{ asset('bundles/noxintranetadministration/images/Data-Copy-128.png') }}" 
+                                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Copy-128-hover.png') }}';" 
+                                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Copy-128.png') }}';"
+                                    alt="Sauvegarde des bases de données"
+                                    > 
+                                <div class="caption text-center text-blue">Sauvegarde BDD</div>
+                            </a>
+                        </div>
+                    </div>
 
-            <!-- Restauration des bases de données -->
-            <a href="{{ path('nox_intranet_restaurationBDD') }}" class="icon">
-                <figure>
-                    <img 
-                        src="{{ asset('bundles/noxintranetadministration/images/Data-Find-128.png') }}" 
-                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Find-128-hover.png') }}';" 
-                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Find-128.png') }}';"
-                        > 
-                    <figcaption>Restauration BDD</figcaption>
-                </figure>
-            </a>
 
-            <!-- Sauvegarde des bases de données -->
-            <a href="{{ path('nox_intranet_sauvegardeBDD') }}" class="icon">
-                <figure>
-                    <img 
-                        src="{{ asset('bundles/noxintranetadministration/images/Data-Copy-128.png') }}" 
-                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Copy-128-hover.png') }}';" 
-                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Data-Copy-128.png') }}';"
-                        > 
-                    <figcaption>Sauvegarde BDD</figcaption>
-                </figure>
-            </a>
+                {% endif %}
 
-        {% endif %}
-
+            </div>
+        </div>
     </div>
 
     {% if ajout is defined and ajout == true %}

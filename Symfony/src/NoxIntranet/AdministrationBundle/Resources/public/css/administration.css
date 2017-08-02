@@ -1,3 +1,5 @@
+/* Administration menu  */  
+
 h4{
     font-size: 20px;
     margin: 15px 0;
@@ -50,31 +52,186 @@ tbody tr td .DRHLinkDiv:hover{
     color: #337ab7;
 }
 
-
-/* Large desktops and laptops */
-@media (min-width: 1200px) {
-}
-
-/* Landscape tablets and medium desktops */
-@media (min-width: 992px) and (max-width: 1199px) {
-    
-}
-
-/* Portrait tablets and small desktops */
-@media (min-width: 768px) and (max-width: 991px) {
-
-}
-
-/* Landscape phones and portrait tablets */
-@media (max-width: 767px) {
-
-}
-
 /* Portrait phones and smaller */
 @media (max-width: 480px) {
     
     .caption{
         font-size: 65%;
     }
+    
+}
 
+/* Administration Synchro AD  */
+
+thead{
+   background: #1F4E79;
+}
+
+thead tr th{
+    text-align: center;
+    color: #fff;
+    
+}
+
+.tableAdministrationAdmin{
+    margin-top: 25px;
+}
+
+.tableAdministrationAdmin tbody tr {
+    border: 1px solid #000;
+}
+
+.tableAdministrationAdmin tbody tr:hover {
+    background: rgba(31, 78, 121,.5);
+}
+
+.tableAdministrationAdmin tbody tr td {
+    border: none;
+}
+
+#creationAdmin{
+    margin: 25px 0 ;
+}
+
+#creationAdmin .col-sm-2, .col-sm-3, .col-sm-4{
+    padding-left: 0px;
+    padding-right: 10px;
+}
+
+#creationAdmin .col-sm-2{
+    padding-right: 0px;
+}
+
+input{
+    width: 100%;
+}
+
+
+/* Administration - Utilisateur */
+
+
+#divAdministrationUtilisateur .table a, .table p, .table input{
+    font-size: 0.85vmax;
+}
+
+#divAdministrationUtilisateur .table .rotation{
+    text-decoration: none;
+    transform: rotate(-90deg);
+    margin-top: 120px;
+    margin-bottom: 0px;
+
+}
+
+#divAdministrationUtilisateur .table .rotation p{
+    display: inline-block;
+    width: 1%;
+
+}
+
+#rechercheUser input, button, label{
+    font-size: 0.8vmax;
+    
+}
+
+#rechercheUser{
+    margin-top: 25px;
+    height: 50px; 
+}
+
+#divAdministrationUtilisateur input[type="submit"], button {
+    border: 1px solid #1F4E79;
+    border-radius:  10px;
+    background-color: transparent;
+}
+
+#rechercheUser input[type="submit"], button {
+    border: 1px solid #1F4E79;
+    border-radius:  10px;
+    background-color: #1F4E79;
+    color:#fff;
+}
+
+#rechercheUser input[type="submit"]:hover, button:hover {
+    background-color: #fff;
+    color:#1F4E79;
+}
+
+#rechercheUser input[type="text"]{
+    padding-left: 0px; 
+    padding-right: 0px; 
+}
+
+
+
+#choixPage {
+    margin: auto;
+    width: 65%;
+    text-align: center;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-size: 20px;
+    vertical-align: central;
+}
+#choixPage p {
+display: inline-block;
+}
+
+#choixPage a, #choixPage a:checked {
+    text-decoration: none;
+    color: rgb(31,78,121);
+    text-align: center;
+    padding: 2px;
+}
+
+#pageActuel, #pageActuel:hover, #pageActuel:checked {
+    text-decoration: underline;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 25px;
+}
+
+
+
+/* Administration - Serveurs */
+
+divAdministrationAdmin table thead {
+    background: #1F4E79;
+}
+
+#divAdministrationAdmin tbody tr{
+    border-bottom: 1px solid #000;
+}
+#divAdministrationAdmin tbody tr:hover {
+    background: rgba(31, 78, 121,.5);
+}
+
+#divAdministrationAdmin table thead tr th{
+    text-align: center;
+    color: #ffffff;
+}
+
+#creationAdminDiv .col-xs-1, .col-xs-2, .col-xs-3{
+    padding: 0;
+    
+}
+
+.formulaireArchive input[type="text"]{
+    margin: 0 0 0 -30px;
+
+}
+
+#creationAdmin{
+    height: 25px;
+
+}
+
+
+/* POPUP VPN STATISTIQUE  */
+
+#dialog_vpn{
+   border: 1px solid #000;
+   width: 50%;
+   left: 25%;
 }

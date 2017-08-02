@@ -60,7 +60,13 @@
         }
 
         #dialog_vpn {
-            overflow: auto; 
+            position: relative;
+            overflow: auto;
+            border: 1px solid #000;
+            width: 50% !important;
+            margin-left: 25vw;
+            background-color: #fff;
+            text-align: center;
         }
 
         #dialog_vpn p {
@@ -279,7 +285,7 @@
                         title: barLabel + " utilisation(s) global",
                         width: "auto",
                         resizable: false
-                    });
+                    });   
                     $('.ui-dialog :button').blur();
                 }
             });
