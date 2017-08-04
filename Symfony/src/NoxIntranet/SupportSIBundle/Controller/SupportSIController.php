@@ -123,7 +123,7 @@ class SupportSIController extends Controller {
                 ->add('mailSuperieur', EmailType::class, array(
                     'attr' => array(
                         'readonly' => true,
-                        'style' => 'background-color: #E6E6E6;'
+                        'style' => 'background-color: #ffffff;'
                     ),
                     'data' => $DAEntity->getUsername() . '@groupe-nox.com' // On génére le mail du DA en fonction de son username.
                 ))

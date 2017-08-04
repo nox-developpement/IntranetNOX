@@ -331,9 +331,6 @@
         }
         
         
-        
-
-        
     </script>
     <!-- Fin script -->
 
@@ -341,23 +338,21 @@
     <div class="row">
         <div class="col-lg-12">
             
-            <form class="form " id="recherche_avance_form" style="background:cornflowerblue;">
+            <form class="form " id="recherche_avance_form">
                     <fieldset class="form-group row">
-                        <legend class="col-sm-2">Résultat de recherche :</legend>
-
-                          <div class="form-check col-sm-5">
-                            <label class="form-check-label">
-                              <input class="form-control" id="match_any" type="radio" name="search_match_type" value="all" checked>
-                               valide toutes les conditions
-                            </label>
-                          </div>
-                          <div class="form-check col-sm-5">
-                            <label class="form-check-label">
-                              <input class="form-control" id="match_any" type="radio" name="search_match_type" value="any">
-                               valide une des conditions
-                            </label>
+                        <label class="col-sm-3 col-sm-offset-1">Résultat de recherche :</label>
+                        <div class="form-check form-check-inline col-sm-4">
+                          <label class="form-check-label" for="match_all">
+                            <input class="form-check-input" type="radio" name="search_match_type" id="match_all" value="all" checked> valide toutes les conditions
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline col-sm-4">
+                          <label class="form-check-label" for="match_any">
+                            <input class="form-check-input" type="radio" name="search_match_type" id="match_any" value="any"> valide une des conditions
+                          </label>
+                        </div> 
                     </fieldset>
-                
+
                     <fieldset class="form-group col-sm-6">
                         <label class="col-sm-10 col-sm-offset-1 " for="Societe">Société : </label>
                         <div class="col-sm-10 col-sm-offset-1 ">
@@ -380,7 +375,25 @@
                             </select>
                         </div>
                     </fieldset>
-                            
+                                    
+                    <fieldset class="form-group col-sm-4">
+                        <label for="Nom" class="col-sm-10 col-sm-offset-1">Nom : </label>
+                        <div class="col-sm-10 col-sm-offset-1">
+                          <input class="form-control" type="text" id="Nom" name="nom">
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group col-sm-4">       
+                        <label for="Prenom" class="col-sm-10">Prénom : </label>
+                        <div class="col-sm-10">
+                          <input class="form-control" type="text" id="Prenom" name="prenom">
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group col-sm-4">       
+                        <label for="Statut" class="col-sm-10">Statut : </label>
+                        <div class="col-sm-10">
+                          <input class="form-control" type="text" id="Statut" name="statut">
+                        </div>
+                    </fieldset>   
                             
                     <fieldset class="form-group col-sm-4">
                         <label for="Poste" class="col-sm-10 col-sm-offset-1">Poste : </label>
@@ -391,104 +404,55 @@
                     <fieldset class="form-group col-sm-4">       
                         <label for="Date_Naissance" class="col-sm-10">Date de naissance : </label>
                         <div class="col-sm-10">
-                          <input class="form-control datepicker" type="date" id="Date_Naissance" name="dateNaissance">
+                          <input class="form-control" type="date" id="Date_Naissance" name="dateNaissance">
                         </div>
                     </fieldset>
                     <fieldset class="form-group col-sm-4">       
                         <label for="Date_Anciennete" class="col-sm-10">Date d'ancienneté : </label>
                         <div class="col-sm-10">
-                          <input class="form-control datepicker" type="date" id="Date_Anciennete" name="dateAnciennete">
+                          <input class="form-control" type="date" id="Date_Anciennete" name="dateAnciennete">
                         </div>
-                    </fieldset>   
+                    </fieldset>  
                             
-
+                    <fieldset class="form-group col-sm-6">
+                        <label class="col-sm-10 col-sm-offset-1 " for="Competence_Principale">Compétence principale : </label>
+                        <div class="col-sm-10 col-sm-offset-1 ">
+                            <select class="form-control" id="Competence_Principale" name="competencePrincipale">
+                                <option value="">dqdzz</option>
+                                {% for nom_categorie, liste_competences in competencesArray %}
+                                    <optgroup label="{{ nom_categorie }}">
+                                        {% for competence in liste_competences %}
+                                            <option value="{{ competence }}">{{ competence|capitalize }}</option>
+                                        {% endfor %}
+                                    </optgroup>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group col-sm-6">       
+                        <label class="col-sm-10 " for="Competences_Secondaires">Compétences secondaires : </label>
+                        <div class="col-sm-10 ">
+                            <select class="form-control" id="Competences_Secondaires" name="competencesSecondaires">
+                            {% for nom_categorie, liste_competences in competencesArray %}
+                                <optgroup label="{{ nom_categorie }}">
+                                    {% for competence in liste_competences %}
+                                        <option value="{{ competence }}">{{ competence|capitalize }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                            {% endfor %}
+                            </select>
+                        </div>
+                    </fieldset>      
+                            
+                    <fieldset class="form-group col-sm-12"> 
+                        <input class="btn btn-primary col-sm-2 col-sm-offset-5" type="reset" id="Reset" name="Reset" value="Remise à zéro" onclick="$('#Competence_Principale, #Competences_Secondaires').val('').trigger('change');
+                            $('#recherche_avance_form input').first().trigger('input');">     
+                    </fieldset>      
+                            
+                    <div class="clearfix"></div>           
               </form>
         </div>
     </div>
-                                
-                            
-                            
-    <div id="recherche_avance_div">
-        <form id="recherche_avance_form">
-            <p>
-                <label>Résultat de recherche :</label>
-                <label for="match_all"><input id="match_all" type="radio" name="search_match_type" value="all" checked="checked"> valide toutes les conditions</label>
-                <label for="match_any"><input id="match_any" type="radio" name="search_match_type" value="any"> valide une des conditions</label>
-            </p><br />
-            <p>
-                <label for="Societe">Société : </label>
-                <select id="Societe" name="societe">
-                    <option value="">Choisir une société...</option>
-                    {% for societe in societes %}
-                        <option value="{{ societe }}">{{ societe }}</option>
-                    {% endfor %}
-                </select>
-            </p>
-            <p>
-                <label for="Etablissement">Etablissement : </label>
-                <select id="Etablissement" name="etablissement">
-                    <option value="">Choisir un établissement...</option>
-                    {% for etablissement in etablissements %}
-                        <option value="{{ etablissement }}">{{ etablissement }}</option>
-                    {% endfor %}
-                </select>
-            </p>
-            <p>
-                <label for="Nom">Nom : </label>
-                <input type="text" id="Nom" name="nom">
-            </p>
-            <p>
-                <label for="Prenom">Prénom : </label>
-                <input type="text" id="Prenom" name="prenom">
-            </p>
-            <p>
-                <label for="Statut">Statut : </label>
-                <input type="text" id="Statut" name="statut">
-            </p>
-            <p>
-                <label for="Poste">Poste : </label>
-                <input type="text" id="Poste" name="poste">
-            </p>
-            <p>
-                <label for="Date_Naissance">Date de naissance : </label>
-                <input type="date" id="Date_Naissance" name="dateNaissance" class="datepicker">
-            </p>
-            <p>
-                <label for="Date_Anciennete">Date d'ancienneté : </label>
-                <input type="date" id="Date_Anciennete" name="dateAnciennete" class="datepicker">
-            </p>
-            <p>
-                <label for="Competence_Principale">Compétence principale : </label>
-                <select id="Competence_Principale" name="competencePrincipale">
-                    <option value="">dqdzz</option>
-                    {% for nom_categorie, liste_competences in competencesArray %}
-                        <optgroup label="{{ nom_categorie }}">
-                            {% for competence in liste_competences %}
-                                <option value="{{ competence }}">{{ competence|capitalize }}</option>
-                            {% endfor %}
-                        </optgroup>
-                    {% endfor %}
-                </select>
-            </p>
-            <p>
-                <label for="Competences_Secondaires">Compétences secondaires : </label>
-                <select id="Competences_Secondaires" name="competencesSecondaires[]" multiple="multiple" >
-                    {% for nom_categorie, liste_competences in competencesArray %}
-                        <optgroup label="{{ nom_categorie }}">
-                            {% for competence in liste_competences %}
-                                <option value="{{ competence }}">{{ competence|capitalize }}</option>
-                            {% endfor %}
-                        </optgroup>
-                    {% endfor %}
-                </select>
-            </p>
-            <p style="display: block;">
-                <input type="reset" id="Reset" name="Reset" value="Remise à zéro" onclick="$('#Competence_Principale, #Competences_Secondaires').val('').trigger('change');
-                        $('#recherche_avance_form input').first().trigger('input');">
-            </p>
-        </form>
-    </div>
-                
 
     <!-- Fin de la recherche avancée -->
 
@@ -499,7 +463,64 @@
     </div>
     <!-- Fin de la pop-up d'édition de la matrice -->
 
+    
+    
     <!-- Table des compétences -->
+    <div id="matriceCompetence_Container">
+        <div id="header-background"></div>
+        <div id="matriceCompetenceTable_Div">
+<table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>xxxxx</th>     
+                <th>xxxxx</th>     
+                <th>xxxxx</th>
+                <th>xxxxx</th>
+                <th>xxxxx</th>
+                <th>xxxxx</th>
+                <th>xxxxx</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Aucun résultat...</td>
+                <td>Aucun résultat...</td>
+                <td>Aucun résultat...</td>
+                <td>Aucun résultat...</td>
+                <td>Aucun résultat...</td>
+                <td>Aucun résultat...</td>
+                <td>Aucun résultat...</td>
+            </tr>
+        </tbody>
+</table>
+        </div>
+    </div>
+
+    
+<div class="container">
+  <div class="row seven-cols">
+    <div class="col-md-1">Col 1</div>
+    <div class="col-md-1">Col 2</div>
+    <div class="col-md-1">Col 3</div>
+    <div class="col-md-1">Col 4</div>
+    <div class="col-md-1">Col 5</div>
+    <div class="col-md-1">Col 6</div>
+    <div class="col-md-1">Col 7</div>
+  </div>
+</div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div id="matriceCompetence_Container">
         <div id="header-background"></div>
         <div id="matriceCompetenceTable_Div">

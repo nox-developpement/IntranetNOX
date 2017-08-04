@@ -204,12 +204,13 @@
 }
 
 #recherche_avance_form {
+    background-color: rgba(31,78,121,0.8);
     box-sizing: border-box;
     width: 100%;
     margin: 0;
     padding: 0.1em;
+    padding-top: 20px;
     border: none;
-    text-align: center;
     font-size: calc(9px + 0.2vw);
 }
 
