@@ -62,15 +62,37 @@
         #dialog_vpn {
             position: relative;
             overflow: auto;
-            border: 1px solid #000;
             width: 50% !important;
             margin-left: 25vw;
             background-color: #fff;
             text-align: center;
+            line-height: 25px;
         }
 
         #dialog_vpn p {
             white-space: nowrap;
+        }
+        .ui-dialog-titlebar{
+            position: relative;
+            background-color: #1F4E79;
+            width: 50% !important;
+            margin-left: 25vw;
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+        }
+        .ui-dialog-titlebar-close{
+                float: right;
+                width: 20px;
+                color: #fff;
+                margin: 0;
+                padding: 0;
+                font-size: 18px;
+                background: transparent;
+                border: none;        
+        }
+        .ui-dialog-titlebar-close::after{
+            content: "x";
         }
     </style>
 {% endblock %}

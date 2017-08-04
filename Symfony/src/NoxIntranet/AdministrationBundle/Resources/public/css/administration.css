@@ -52,7 +52,6 @@ tbody tr td .DRHLinkDiv:hover{
     color: #337ab7;
 }
 
-/* Portrait phones and smaller */
 @media (max-width: 480px) {
     
     .caption{
@@ -161,8 +160,6 @@ input{
     padding-right: 0px; 
 }
 
-
-
 #choixPage {
     margin: auto;
     width: 65%;
@@ -228,10 +225,3 @@ divAdministrationAdmin table thead {
 }
 
 
-/* POPUP VPN STATISTIQUE  */
-
-#dialog_vpn{
-   border: 1px solid #000;
-   width: 50%;
-   left: 25%;
-}
