@@ -48,4 +48,4 @@ assetic:
     use_controller: true
 
 swiftmailer:
-    delivery_address: t.besson@groupe-nox.com
+    delivery_address: t.lassiaz@groupe-nox.com
