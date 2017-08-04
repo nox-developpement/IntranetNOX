@@ -1,260 +1,13 @@
 {% extends "::layout.html.twig" %}
 
 {% block style %}
-    <!-- CSS -->
     <link href="{{ asset("./js/select2/dist/css/select2.min.css") }}" rel="stylesheet" />
-    <style>
-        #matriceCompetenceTable_Div {
-            width: 100%;
-            margin: auto;
-            margin-bottom: 2em;
-            height: 500px;
-            overflow-x: hidden;
-            overflow-y: auto;
-            height: 100%;
-        }
-
-        #competenceTable, #infosSalariesTable {
-            table-layout: fixed;
-        }
-
-        #matriceCompetenceTable {
-            margin: auto;
-            border-collapse: collapse;
-            width: 100%;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
-
-        #matriceCompetenceTable, #matriceCompetenceTable tr, #matriceCompetenceTable th, #matriceCompetenceTable td {
-            border: 1px solid black;
-            text-align: center;
-            font-size: calc(9px + 0.2vw);
-            background-color: transparent;
-        }
-
-        #matriceCompetenceTable td {
-            padding: 0.5em;
-        }
-
-        #matriceCompetenceTable th {
-            background-color: rgba(31,78,121,0.8);
-            color: white;
-        }
-
-        #matriceCompetenceTable th.header {
-            padding-right: 1.5em;
-            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/bg.gif') }}'); 
-            background-repeat: no-repeat;
-            background-position: center right;
-            cursor: pointer;
-        }
-
-        #matriceCompetenceTable th.headerSortUp { 
-            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/asc.gif') }}'); 
-        } 
-
-        #matriceCompetenceTable th.headerSortDown { 
-            background-image: url('{{ asset('js/jquery.tablesorter/themes/blue/desc.gif') }}'); 
-        }
-
-        #matriceCompetenceTable td {
-            background-color: rgba(255,255,255,0.8);
-        }
-
-        .categorie_selection_section {
-            display: inline-block;
-            box-sizing: border-box;
-            width: calc(100% / 3);
-            font-size: calc(11px + 0.2vw);
-            vertical-align: top;
-            padding: 1em;
-        }
-
-        .competences_ul {
-            margin: 0;
-            padding-left: 1em;
-            font-size: calc(11px + 0.2vw);
-            list-style-type: none;
-        }
-
-        .categorie_selection_title {
-            margin-top: 0;
-            margin-bottom: 0;
-            font-size: calc(12px + 0.2vw);
-        }
-
-        #categorie_selection_div {
-            width: 60%;
-            margin: auto;
-            font-size: 0;
-            background-color: rgba(255,255,255, 0.6);
-            border: 2px solid #1F4E79;
-        }
-
-        .competences_li label {
-            font-size: calc(11px + 0.2vw);
-        }
-
-        #categorie_selection_foldbar {
-            background-color: rgba(31,78,121,0.8);
-        }
-
-        .categorie_selection_foldbar_indicator {
-            display: inline-block;
-            width: 50%;
-            box-sizing: border-box;
-            text-align: right;
-            font-size: calc(12px + 0.2vw);
-            padding: 0.25em 1em 0.25em 0.25em;
-            margin: 0;
-            color: white;
-        }
-
-        #categorie_selection_foldbar_text {
-            display: inline-block;
-            width: 50%;
-            box-sizing: border-box;
-            font-size: calc(12px + 0.2vw);
-            padding: 0.25em 0.25em 0.25em 2em;
-            margin: 0;
-            color: white;
-        }
-
-        #categorie_selection_box {
-            height: 250px;
-            overflow-y: auto;
-            border-top: 2px solid #1F4E79;
-        }
-
-        .competence_td {
-            font-size: 0;
-        }
-
-        .competence_container {
-            display: inline-block;
-            padding: 0.25em 0.10em;
-        }
-
-        .competence_principale_div, .competence_secondaire_div {
-            display: inline-block;
-            padding: 0.25em;
-            margin: 0.1em;
-            font-size: calc(11px + 0.2vw);
-            border-radius: 5px;
-            text-transform: capitalize;
-        }
-
-        .competence_principale_div {
-            background-color: #1f4e79;
-            color: white;
-        }
-
-        .competence_secondaire_div {
-            background-color: #5d9bd5;
-            color: white;
-        }
-
-        #matriceCompetence_Container {
-            position: relative;
-            height: 500px;
-            width: 100%;
-            margin-top: 2em;
-        }
-
-        .fixedHeaderCell {
-            position: absolute;
-            top: 0;
-            font-size: calc(9px + 0.2vw);
-            cursor: pointer;
-        }
-
-        #header-background {
-            background-color: rgba(31,78,121,0.8);;
-            height: 30px;
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;   
-        }
-
-        #matriceCompetenceTable thead tr th {
-            font-size: 0;
-            padding: 0;
-        }
-
-        #selected_competence_text {
-            margin: 0;
-            padding: 0.5em;
-            background-color: rgba(255,255,255,0.8);
-            border-top: 1px solid #1F4E79;
-            font-size: calc(11px + 0.2vw);   
-        }
-
-        #select_deselect_competences {
-            margin: 0;
-            padding: 0.5em;
-            padding-bottom: 0;
-            font-size: calc(11px + 0.2vw);   
-            cursor: pointer;
-        }
-
-        #select_deselect_competences span:hover {
-            text-decoration: underline;
-        }
-
-        #recherche_avance_div {
-            width: 70%;
-            margin: auto;
-            background-color: rgba(31,78,121,0.8);
-        }
-
-        #recherche_avance_form {
-            box-sizing: border-box;
-            width: 100%;
-            margin: 0;
-            padding: 0.1em;
-            border: none;
-            text-align: center;
-            font-size: calc(9px + 0.2vw);
-        }
-
-        #recherche_avance_form p {
-            display: inline-block;
-            padding: 0 0.5em;
-        }
-
-        #recherche_avance_form label {
-            color: white;
-        }
-
-        #recherche_avance_form input, #recherche_avance_form select {
-            font-size: calc(9px + 0.2vw);
-        }
-
-        #recherche_avance_form input[type='radio'] {
-            vertical-align: middle;
-            margin: 0em;
-        }
-
-        label[for='match_all'], label[for='match_any'] {
-            margin: 0 1em;
-        }
-
-        .select2-container .select2-selection--multiple {
-            min-height: 0;
-        }
-
-        #loading_tr td {
-            background-image: url("{{ asset('bundles/noxintranetuser/images/loading.gif') }}");
-            background-size: contain;
-            background-position: center center;
-            background-repeat: no-repeat;
-            padding: 5em;
-        }
-    </style>
-    <!-- Fin CSS -->
+    
+    {% stylesheets '@NoxIntranetUserBundle/Resources/public/css/user.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
 {% endblock %}
+
 
 {% block titrePage %}Matrice de compétences{% endblock %}
 
@@ -264,6 +17,8 @@
     <!-- Script -->
     <script src="{{ asset("./js/select2/dist/js/select2.min.js") }}"></script>
     <script src="{{ asset('./js/jquery.tablesorter/jquery.tablesorter.min.js') }}"></script>
+    
+
     <script>
         $(document).ready(function () {
             // Initialisation de la fonction de trie Jquery.
@@ -574,11 +329,85 @@
                 ajaxSearch(); // On lance la recherche.
             });
         }
+        
+        
+        
 
+        
     </script>
     <!-- Fin script -->
 
     <!-- Recherche avancée -->
+    <div class="row">
+        <div class="col-lg-12">
+            
+            <form class="form " id="recherche_avance_form" style="background:cornflowerblue;">
+                    <fieldset class="form-group row">
+                        <legend class="col-sm-2">Résultat de recherche :</legend>
+
+                          <div class="form-check col-sm-5">
+                            <label class="form-check-label">
+                              <input class="form-control" id="match_any" type="radio" name="search_match_type" value="all" checked>
+                               valide toutes les conditions
+                            </label>
+                          </div>
+                          <div class="form-check col-sm-5">
+                            <label class="form-check-label">
+                              <input class="form-control" id="match_any" type="radio" name="search_match_type" value="any">
+                               valide une des conditions
+                            </label>
+                    </fieldset>
+                
+                    <fieldset class="form-group col-sm-6">
+                        <label class="col-sm-10 col-sm-offset-1 " for="Societe">Société : </label>
+                        <div class="col-sm-10 col-sm-offset-1 ">
+                            <select class="form-control" id="Societe" name="societe">
+                                <option value="">Choisir une société...</option>
+                                {% for societe in societes %}
+                                    <option value="{{ societe }}">{{ societe }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group col-sm-6">       
+                        <label class="col-sm-10 " for="Etablissement">Etablissement : </label>
+                        <div class="col-sm-10 ">
+                            <select class="form-control" id="Etablissement" name="etablissement">
+                                <option value="">Choisir un établissement...</option>
+                                {% for etablissement in etablissements %}
+                                    <option value="{{ etablissement }}">{{ etablissement }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </fieldset>
+                            
+                            
+                    <fieldset class="form-group col-sm-4">
+                        <label for="Poste" class="col-sm-10 col-sm-offset-1">Poste : </label>
+                        <div class="col-sm-10 col-sm-offset-1">
+                          <input class="form-control" type="text" id="Poste" name="poste">
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group col-sm-4">       
+                        <label for="Date_Naissance" class="col-sm-10">Date de naissance : </label>
+                        <div class="col-sm-10">
+                          <input class="form-control datepicker" type="date" id="Date_Naissance" name="dateNaissance">
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group col-sm-4">       
+                        <label for="Date_Anciennete" class="col-sm-10">Date d'ancienneté : </label>
+                        <div class="col-sm-10">
+                          <input class="form-control datepicker" type="date" id="Date_Anciennete" name="dateAnciennete">
+                        </div>
+                    </fieldset>   
+                            
+
+              </form>
+        </div>
+    </div>
+                                
+                            
+                            
     <div id="recherche_avance_div">
         <form id="recherche_avance_form">
             <p>
@@ -659,6 +488,8 @@
             </p>
         </form>
     </div>
+                
+
     <!-- Fin de la recherche avancée -->
 
     <!-- Pop-up d'édition de la matrice -->

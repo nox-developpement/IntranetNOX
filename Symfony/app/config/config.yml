@@ -45,7 +45,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ "NoxIntranetAccueilBundle", "NoxIntranetAdministrationBundle", "NoxIntranetRessourcesBundle", "NoxIntranetCommunicationBundle" ]
+    bundles:        [ "NoxIntranetAccueilBundle", "NoxIntranetAdministrationBundle", "NoxIntranetRessourcesBundle", "NoxIntranetCommunicationBundle", "NoxIntranetUserBundle" ]
     # java: C:\Program Files\Java\jdk1.8.0_144\bin\java.exe
     filters:
         cssrewrite: ~ 
