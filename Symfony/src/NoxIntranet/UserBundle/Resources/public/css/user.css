@@ -252,16 +252,57 @@ label[for='match_all'], label[for='match_any'] {
 
 /* Entretien annuel de développement professionnel */
 
-#formEntretienAnnuel #infoGenerale tbody {
+#formulaireDeveloppementProfessionnelDiv #infoGenerale tbody {
     border: 2px solid #000;
 }
 
-#formEntretienAnnuel #infoGenerale td {
+#formulaireDeveloppementProfessionnelDiv #infoGenerale td {
     border: 1px solid #000;
 }
 
 
+#formulaireDeveloppementProfessionnelDiv #questionsTable1 th{
+    text-align: center;
+    font-weight: bold;
+}
 
+#formulaireDeveloppementProfessionnelDiv #questionsTable1 th, td{
+    border: 1px solid #000;
+}
+
+#formulaireDeveloppementProfessionnelDiv #questionsTable2 th{
+    text-align: center;
+    font-weight: bold;
+}
+
+#formulaireDeveloppementProfessionnelDiv #questionsTable2 th, td{
+    border: 1px solid #000;
+}
+
+#formulaireDeveloppementProfessionnelDiv #questionsTable3 th{
+    text-align: center;
+    font-weight: bold;
+}
+
+#formulaireDeveloppementProfessionnelDiv #questionsTable3 th, td{
+    border: 1px solid #000;
+} 
+#formulaireDeveloppementProfessionnelDiv #questionsTable4 th{
+    text-align: center;
+    font-weight: bold;
+}
+
+#formulaireDeveloppementProfessionnelDiv #questionsTable4 th, td{
+    border: 1px solid #000;
+} 
+
+
+
+#formulaireDeveloppementProfessionnelDiv #questionsTable1 textarea{
+    width: 100%;
+    resize: none;
+    border: none;
+} 
 
 #formulaireDeveloppementProfessionnelDiv {
     width: 70%;
@@ -371,50 +412,65 @@ h4 {
     width: 100%;
 }
 
-#questionsTable1 tr:nth-child(5), #questionsTable1 tr:nth-child(5) td {
+
+#questionsTable1 tbody tr:nth-child(3), #questionsTable1 tbody tr:nth-child(3) td {
     border-bottom: none;
 }
 
-#questionsTable1 tr:nth-child(6), #questionsTable1 tr:nth-child(6) td {
+#questionsTable1 tbody tr:nth-child(4), #questionsTable1 tbody tr:nth-child(4) td {
     border-top: none;
 }
 
-#questionsTable1 tr:nth-child(n+7):nth-child(-n+8), #questionsTable1 tr:nth-child(n+7):nth-child(-n+8) td {
-    border-top: none;
-    border-bottom: none;
-}
-
-#questionsTable1 tr:nth-child(n+10):nth-child(-n+13), #questionsTable1 tr:nth-child(n+10):nth-child(-n+13) td {
+#questionsTable1 tbody tr:nth-child(5), #questionsTable1 tbody tr:nth-child(5) td {
     border-top: none;
     border-bottom: none;
 }
 
-#questionsTable1 tr:nth-child(n+15):nth-child(-n+18), #questionsTable1 tr:nth-child(n+15):nth-child(-n+18) td {
+#questionsTable1 tbody tr:nth-child(6), #questionsTable1 tbody tr:nth-child(6) td {
+    border-top: none;
+}
+
+#questionsTable1 tr:nth-child(n+8):nth-child(-n+10), #questionsTable1 tr:nth-child(n+8):nth-child(-n+10) td {
+    border-top: none;
+    border-bottom: none;
+}
+#questionsTable1 tbody tr:nth-child(11), #questionsTable1 tbody tr:nth-child(11) td {
+    border-top: none;
+}
+
+#questionsTable1 tr:nth-child(n+13):nth-child(-n+16), #questionsTable1 tr:nth-child(n+13):nth-child(-n+16) td {
     border-top: none;
     border-bottom: none;
 }
 
-#questionsTable1 tr:nth-child(n+20):nth-child(-n+21), #questionsTable1 tr:nth-child(n+20):nth-child(-n+21) td {
+#questionsTable1 tr:nth-child(n+18):nth-child(-n+19), #questionsTable1 tr:nth-child(n+18):nth-child(-n+19) td {
     border-top: none;
     border-bottom: none;
 }
 
-#questionsTable2 tr:nth-child(n+4):nth-child(-n+5), #questionsTable2 tr:nth-child(n+4):nth-child(-n+5) td {
+#questionsTable2 tr:nth-child(3), #questionsTable2 tr:nth-child(3) td {
     border-top: none;
     border-bottom: none;
 }
 
-#questionsTable3 tr:nth-child(n+6):nth-child(-n+7), #questionsTable3 tr:nth-child(n+6):nth-child(-n+7) td {
+#questionsTable2 tr:nth-child(4), #questionsTable2 tr:nth-child(4) td {
+    border-top: none;
+}
+
+#questionsTable3 tr:nth-child(4), #questionsTable3 tr:nth-child(4) td {
+    border-top: none;
+    border-bottom: none;
+}
+#questionsTable3 tr:nth-child(5), #questionsTable3 tr:nth-child(5) td {
+    border-top: none;
+}
+
+#questionsTable3 tr:nth-child(n+7):nth-child(-n+13), #questionsTable3 tr:nth-child(n+7):nth-child(-n+13) td {
     border-top: none;
     border-bottom: none;
 }
 
-#questionsTable3 tr:nth-child(n+9):nth-child(-n+15), #questionsTable3 tr:nth-child(n+9):nth-child(-n+15) td {
-    border-top: none;
-    border-bottom: none;
-}
-
-#questionsTable4 tr:nth-child(n+5):nth-child(-n+6), #questionsTable4 tr:nth-child(n+5):nth-child(-n+6) td {
+#questionsTable4 tr:nth-child(n+3):nth-child(-n+4), #questionsTable4 tr:nth-child(n+3):nth-child(-n+4) td {
     border-top: none;
     border-bottom: none;
 }
