@@ -225,11 +225,11 @@
 
     <div class="row">   
         <div class="col-sm-12">        
-            <div id="formEntretienAnnuel">
+            <div id="formulaireDeveloppementProfessionnelDiv">
                 
         {{ form_start(formulaireDevellopementProfessionnel) }}
         
-        <table class="table table-responsive">
+        <table class="table table-responsive" id='infoGenerale'>
             <tbody>
                 
                 <tr class="">
@@ -238,47 +238,53 @@
                 </tr>
                 <tr class="">
                     <td> <div class="col-sm-4">{{ form_label(formulaireDevellopementProfessionnel.Prenom) }}</div> <div class="col-sm-8">{{ form_widget(formulaireDevellopementProfessionnel.Prenom, {"attr":{"class":"form-control"}}) }}</div> </td>
-                    <td> <div class="col-sm-6">{{ form_label(formulaireDevellopementProfessionnel.DateAnciennetePoste) }}</div> <div class="col-sm-6"><input class="form-control" type="text" value="Artisanal kale" id="test"></div> </td>
+                    <td> <div class="col-sm-12">{{ form_label(formulaireDevellopementProfessionnel.DateAnciennetePoste) }}</div> <div class="col-sm-12">{{ form_widget(formulaireDevellopementProfessionnel.DateAnciennetePoste) }}</div> </td>
                 </tr>
                 <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
+                    <td> <div class="col-sm-4">{{ form_label(formulaireDevellopementProfessionnel.Age) }}</div> <div class="col-sm-8">{{ form_widget(formulaireDevellopementProfessionnel.Age, {"attr":{"class":"form-control"}}) }}</div> </td>
+                    <td> <div class="col-sm-5">{{ form_label(formulaireDevellopementProfessionnel.SalaireBrutMensuel) }}</div> <div class="col-sm-7">{{ form_widget(formulaireDevellopementProfessionnel.SalaireBrutMensuel, {"attr":{"class":"form-control"}}) }}</div> </td>
                 </tr>
                 <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
+                    <td> <div class="col-sm-12">{{ form_label(formulaireDevellopementProfessionnel.DateAncienneteGroupe) }}</div> <div class="col-sm-12">{{ form_widget(formulaireDevellopementProfessionnel.DateAncienneteGroupe) }}</div> </td>
+                    <td> <div class="col-sm-5">{{ form_label(formulaireDevellopementProfessionnel.NomResponsable) }}</div> <div class="col-sm-7">{{ form_widget(formulaireDevellopementProfessionnel.NomResponsable, {"attr":{"class":"form-control"}}) }}</div> </td>
                 </tr>
                 <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
+                    <td> <div class="col-sm-4">{{ form_label(formulaireDevellopementProfessionnel.Entite) }}</div> <div class="col-sm-8">{{ form_widget(formulaireDevellopementProfessionnel.Entite, {"attr":{"class":"form-control"}}) }}</div> </td>
+                    <td> <div class="col-sm-12">{{ form_label(formulaireDevellopementProfessionnel.DateEntretien) }}</div> <div class="col-sm-12">{{ form_widget(formulaireDevellopementProfessionnel.DateEntretien) }}</div> </td>
                 </tr>
             </tbody>
         </table>
      
         
-        <table id='infoGeneraleTable'>
+        <table class="table table-responsive">
+          <thead>
             <tr>
-                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.Nom) }}{{ form_widget(formulaireDevellopementProfessionnel.Nom) }}</div></td>
-                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.PosteActuel) }}{{ form_widget(formulaireDevellopementProfessionnel.PosteActuel) }}</div></td>
+              <th>#</th>
+              <th>First Name</th>
+              <th clospan='2'>Last Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
             </tr>
             <tr>
-                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.Prenom) }}{{ form_widget(formulaireDevellopementProfessionnel.Prenom) }}</div></td>
-                <td>{{ form_label(formulaireDevellopementProfessionnel.DateAnciennetePoste) }}{{ form_widget(formulaireDevellopementProfessionnel.DateAnciennetePoste) }}</td>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
             </tr>
             <tr>
-                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.Age) }}{{ form_widget(formulaireDevellopementProfessionnel.Age) }}</div></td>
-                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.SalaireBrutMensuel) }}{{ form_widget(formulaireDevellopementProfessionnel.SalaireBrutMensuel) }}</div></td>
+              <th scope="row">3</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
             </tr>
-            <tr>
-                <td>{{ form_label(formulaireDevellopementProfessionnel.DateAncienneteGroupe) }}{{ form_widget(formulaireDevellopementProfessionnel.DateAncienneteGroupe) }}</td>
-                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.NomResponsable) }}{{ form_widget(formulaireDevellopementProfessionnel.NomResponsable) }}</div></td>
-            </tr>
-            <tr>
-                <td><div class='cellInputDiv'>{{ form_label(formulaireDevellopementProfessionnel.Entite) }}{{ form_widget(formulaireDevellopementProfessionnel.Entite) }}</div></td>
-                <td>{{ form_label(formulaireDevellopementProfessionnel.DateEntretien) }}{{ form_widget(formulaireDevellopementProfessionnel.DateEntretien) }}</td>
-            </tr>
+          </tbody>
         </table>
-
             
             
             

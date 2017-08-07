@@ -41,10 +41,10 @@ class DeveloppementProfessionnelController extends Controller {
 
         // Tableau qui associe le statut courant du formulaire à son valideur.
         $statutHierarchie = array(
-            'Collaborateur' => array($collaborateur->getUsername(), 't.besson'),
-            'N2' => array($this->getN2($collaborateurHierarchy), 't.besson', 'a.forestier', 'n.rigaudeau'),
-            'DRH' => array('n.rigaudeau', 'a.forestier', 't.besson'),
-            'Synthèse' => array('n.rigaudeau', 'a.forestier', 't.besson')
+            'Collaborateur' => array($collaborateur->getUsername(), 't.lassiaz'),
+            'N2' => array($this->getN2($collaborateurHierarchy), 't.lassiaz', 'a.forestier', 'n.rigaudeau'),
+            'DRH' => array('n.rigaudeau', 'a.forestier', 't.lassiaz'),
+            'Synthèse' => array('n.rigaudeau', 'a.forestier', 't.lassiaz')
         );
 
         // Fonction de sortie si visite non autorisé.

@@ -252,9 +252,12 @@ label[for='match_all'], label[for='match_any'] {
 
 /* Entretien annuel de développement professionnel */
 
+#formEntretienAnnuel #infoGenerale tbody {
+    border: 2px solid #000;
+}
 
-#formEntretienAnnuel{
-
+#formEntretienAnnuel #infoGenerale td {
+    border: 1px solid #000;
 }
 
 
