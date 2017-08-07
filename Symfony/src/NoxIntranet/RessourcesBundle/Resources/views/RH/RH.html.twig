@@ -114,6 +114,16 @@
     
 <script>
     $("h5 h4").click(function() {
+        
+    var i = 0;
+    for (; i < $("h5 h4 img").length; i++) {
+        if($($("h5 h4 img")[i]).attr("class") == "menuImgDown"){
+    //        $($("h5 h4 img")[i]).attr("class", "menuImg");
+            $($("h5 h4 img")[i]).attr("src", "{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}");
+        }
+    }
+ 
+ 
         if( $(this).children().last().attr("class") == "menuImg" ){
             $(this).children().last().remove();
             $(this).append("<img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Down-32.png') }}' class='menuImgDown'>"); 
@@ -121,6 +131,7 @@
             $(this).children().last().remove();
             $(this).append("<img src='{{ asset('bundles/noxintranetadministration/images/Arrow-Right-32.png') }}' class='menuImg'>");        
         }
+        
     });
 </script>
     
