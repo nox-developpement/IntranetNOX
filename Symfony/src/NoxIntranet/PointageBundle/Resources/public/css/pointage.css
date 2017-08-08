@@ -1,0 +1,129 @@
+        #formDownloadArchive {
+            width: 70%;
+            margin: auto;
+            text-align: center;
+        }
+
+        #formDownloadArchive form {
+            display: inline-block;
+            width: auto;
+            border: 2px outset #1F4E79;
+            background-color: rgba(255,255,255, 0.6);
+        }
+
+        #formDownloadArchive p {
+            text-align: center;
+        }
+
+        #archive-etablissement {
+            margin-top: 15px;
+        }
+
+        .archive_folder {
+            display: inline-block;
+            vertical-align: top;
+            text-align: center;
+            height: 126px;
+            margin-bottom: 10px;
+        }
+        
+        .archive_folder img.img-responsive{
+            display: initial;
+        }
+
+        .archive_folder:hover .archive_folder_label {
+            background-color: rgba(31, 78, 121,0.5);
+            box-shadow: 0px 0px 5px 5px rgba(31, 78, 121,0.5);
+        }
+
+        .archive_folder:hover .archive_folder_icon {
+            animation-name: folder_shaking;
+            animation-duration: 0.15s;
+            animation-iteration-count: 2;
+        }
+
+        .archive_folder_link {
+            display: block;
+            text-decoration: none;
+        }
+
+        .archive_folder_icon {
+            width: 70px
+        }
+
+        .archive_folder_label {
+            margin: 0;
+            font-size: 13px;
+            color: black;
+        }
+
+        @keyframes folder_shaking {
+            0% {transform: translate(0%, 0%);}
+            25% {transform: translate(5%, 0%);}
+            75% {transform: translate(-5%, 0%);}
+            100% {transform: translate(0%, 0%);}
+        }
+        
+        
+/* Compilation agence gestion pointage  */
+
+#validationStepNavigator{
+    font-size: 13px;
+    text-align: center;
+    
+}
+#validationStepNavigator a{
+    border-right: 1px solid #000;
+}
+
+fieldset{
+    border: 1px solid #000;
+    padding: 15px;
+    background-color: #fff;
+    margin: 10px 0;
+}
+legend{
+    width: auto;
+    padding: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    margin-bottom: 0px;
+}
+.pointageSelectionDateCompilation{
+    margin: 20px 0;
+}
+
+.pointageSelectionDateCompilation .col-sm-12 label{
+    margin-top: 10px;
+}
+.pointageStatusCircle{
+    position: relative;
+    z-index: 10;
+    width: 1.5vw;
+    height: 1.5vw;
+    border-radius: 50%;
+    background-color: lightgrey;
+    text-align: center;
+    display: inline-block;
+}
+
+.pointageStatusLine {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    height: 10%;
+    width: 100%;
+    background-color: lightgrey;
+    border-radius: 20px;
+    z-index: 1;
+
+}
+
+.pointageStatusLine div {
+    height: 100%;
+    width: 0;
+    background-color: green;
+    border-radius: 60px;
+}

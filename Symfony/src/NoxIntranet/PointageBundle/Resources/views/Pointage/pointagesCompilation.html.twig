@@ -1,5 +1,11 @@
 {% extends "layout.html.twig" %}
 
+{% block style %}
+    {% stylesheets '@NoxIntranetPointageBundle/Resources/public/css/pointage.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
 {% block titrePage %}{{ templateTitle }}{% endblock %}
 
 {% block messageAccueil %}{{ templateTitle }}{% endblock %}
@@ -7,6 +13,10 @@
 {% block sousMessageAccueil %}<a href='{{ asset('Pointage/Aide/Prise en main des compilations.pdf') }}' target='_blank' style='text-decoration: none;'>Prise en main des compilations</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage Ass  Agence.pdf') }}' target='_blank' style='text-decoration: none;'>Prise en main du pointage assistant(e) agence</a>{% endblock %}
 
 {% block contenu %}
+    
+    <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+    </div></div>   
 
     <div id='loadingContent' style='display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; background-image: url({{asset('bundles/noxintranetressources/images/pointageLoading.svg')}}); background-size: contain; background-repeat: no-repeat; background-position: center center;'></div>
 
@@ -14,63 +24,78 @@
 
     <div id="pointageAlert"><div id="pointageAlertText"></div></div>
 
-    <p id="validationStepNavigator" style="width: 70%; margin: auto; margin-top: 0; text-align: center;">
-        <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'AA'}) }}">Assistant(e)s agence - Correction/Validation compilation</a> |
-        <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'DAManager'}) }}">DA/Manager - Correction/Validation compilation</a> |
-        <a href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'Final'}) }}">Consultation des compilations validées</a>
-    </p>
-
+    
+    <div class="row">
+        <div class="col-sm-12">
+            <p id="validationStepNavigator">
+                
+                <a class="col-sm-6" href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'AA'}) }}">Assistant(e)s agence - Correction/Validation compilation</a>
+                <a class="col-sm-6" href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'DAManager'}) }}">DA/Manager - Correction/Validation compilation</a>
+                <a class="col-sm-6 col-sm-offset-3" href="{{ path('nox_intranet_pointages_compilation', {validationStep: 'Final'}) }}">Consultation des compilations validées</a>
+            </p>
+        </div>   
+    </div>   
     <div class="pointageSelectionDateCompilation">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <fieldset>
 
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
-        <fieldset>
-            <legend>Compilation des pointages</legend>
-            {% if is_granted('ROLE_RH') %}
-                <div style="width: 100%; margin-bottom: 0.5em;">
-                    <label><input type="checkbox" id="RHMode" name="RHMode" style="vertical-align: bottom;" onchange="gestionPointageSetRHMode($(this));" {% if app.request.cookies.get('RHMode') == "true" %}checked{% endif %}>Activer le mode DRH</label>
-                </div><!--
-            {% endif %}
-            --><div style="width: 50%; margin-bottom: 0.5em;">
-                {{ form_label(form.Month, 'Mois:') }}
-                {{ form_errors(form.Month) }}
-                {{ form_widget(form.Month) }}
-            </div><!--
-            --><div style="width: 50%; margin-bottom: 0.5em;">
-                {{ form_label(form.Year, 'Année:') }}
-                {{ form_errors(form.Year) }}
-                {{ form_widget(form.Year) }}
-            </div><!--
-            --><div style="width: 100%; margin-bottom: 0.5em;">
-                {{ form_label(form.Etablissement, 'Etablissement') }}<br />
-                {{ form_errors(form.Etablissement) }}
-                {{ form_widget(form.Etablissement) }}
+                    <legend class="">Compilation des pointages</legend>
+                    <div class="row text-center">
+                        {% if is_granted('ROLE_RH') %}
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <label><input type="checkbox" id="RHMode" name="RHMode" style="vertical-align: bottom;" onchange="gestionPointageSetRHMode($(this));" {% if app.request.cookies.get('RHMode') == "true" %}checked{% endif %}>Activer le mode DRH</label>
+                            </div><!--
+                        {% endif %}
+                        --><div class="col-sm-6 text-center" >
+                            {{ form_label(form.Month, 'Mois:') }}
+                            {{ form_errors(form.Month) }}
+                            {{ form_widget(form.Month , {'attr': {'class': 'form-control'}}) }}
+                        </div ><!--
+                        --><div class="col-sm-6 text-center" >
+                            {{ form_label(form.Year, 'Année:') }}
+                            {{ form_errors(form.Year) }}
+                            {{ form_widget(form.Year , {'attr': {'class': 'form-control'}}) }}
+                        </div><!--
+                        --><div class="col-sm-12" >
+                            {{ form_label(form.Etablissement, 'Etablissement') }}<br />
+                            {{ form_errors(form.Etablissement) }}
+                            {{ form_widget(form.Etablissement , {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div> 
+                </fieldset>
+                {{ form_end(form) }} 
             </div>
-        </fieldset>
-        {{ form_end(form) }}  
-
-        <p id="pointageAValideNumber" style="font-size: 1vw;">
-            Collaborateur(s) n'ayant pas remplis/validé leur pointage : <span id="collaborateurSansPointage" style="color: red; text-decoration: underline; cursor: pointer;">0</span>
-        </p> 
-
-    </div>
-
-    <div id="pointageStatusDiv">
-        <div id="pointageStatusLabelGeneralContainer">
-            <div class='pointageStatusCompilationLabelContainer'><p class='pointageStatusLabel'>Assistant(e) agence</p></div><!--
-            --><div class='pointageStatusCompilationLabelContainer'><p class='pointageStatusLabel'>DA/Manager</p></div><!--
-            --><div class='pointageStatusCompilationLabelContainer'><p class='pointageStatusLabel'>Assistant(e) RH/DRH</p></div><!--
-            --><div class='pointageStatusCompilationLabelContainer'><p class='pointageStatusLabel'>Validé</p></div><!--
-            --></div>
-        <div id="pointageStatus">
-            <div class='pointageStatusCompilationCircleContainer'><div class='pointageStatusCircle' step=0></div></div><!--
-            --><div class='pointageStatusCompilationCircleContainer'><div class='pointageStatusCircle' step=1></div></div><!--
-            --><div class='pointageStatusCompilationCircleContainer'><div class='pointageStatusCircle' step=2></div></div><!--
-            --><div class='pointageStatusCompilationCircleContainer'><div class='pointageStatusCircle' step=3></div></div>
-            <div class='pointageStatusLine'><div></div></div>
+        </div>   
+        <div class="row text-center">
+            <p class="col-sm-8 col-sm-offset-2" id="pointageAValideNumber" style="font-size: 1.6vmin;">
+                Collaborateur(s) n'ayant pas remplis/validé leur pointage : <span id="collaborateurSansPointage" style="color: red; text-decoration: underline; cursor: pointer;">0</span>
+            </p> 
+        </div>
+    </div> 
+        
+    <div class="row">   
+        <div id="pointageStatusDiv" class="col-xs-12">
+            <div id="pointageStatusLabelGeneralContainer" class="col-xs-12 text-center">
+                <div class='pointageStatusCompilationLabelContainer col-xs-3'><p class='pointageStatusLabel'>Assistant(e) agence</p></div><!--
+                --><div class='pointageStatusCompilationLabelContainer col-xs-3'><p class='pointageStatusLabel'>DA/Manager</p></div><!--
+                --><div class='pointageStatusCompilationLabelContainer col-xs-3'><p class='pointageStatusLabel'>Assistant(e) RH/DRH</p></div><!--
+                --><div class='pointageStatusCompilationLabelContainer col-xs-3'><p class='pointageStatusLabel'>Validé</p></div><!--
+                --></div>
+            <div id="pointageStatus" class="col-xs-12 text-center">
+                <div class='pointageStatusCompilationCircleContainer col-xs-3'><div class='pointageStatusCircle' step=0></div></div><!--
+                --><div class='pointageStatusCompilationCircleContainer col-xs-3'><div class='pointageStatusCircle' step=1></div></div><!--
+                --><div class='pointageStatusCompilationCircleContainer col-xs-3'><div class='pointageStatusCircle' step=2></div></div><!--
+                --><div class='pointageStatusCompilationCircleContainer col-xs-3'><div class='pointageStatusCircle' step=3></div></div>
+                <div class='pointageStatusLine col-xs-12'><div></div></div>
+            </div>
         </div>
     </div>
-
+            
+            
+            
     <div id="compilationPointages">
         <p onclick='downloadJustificatifsZip();' style="width: 50%; margin: 0 auto 1em auto; padding: 0.2em; cursor: pointer; border: 1px solid black; border-radius: 5px; background-color: #1F4E79; color: white; text-align: center;">Télécharger les fichiers justificatifs</p>
         {% if validationStep != 'Final' %}

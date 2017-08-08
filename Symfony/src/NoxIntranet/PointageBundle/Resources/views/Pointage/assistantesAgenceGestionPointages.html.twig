@@ -1,5 +1,7 @@
 {% extends "layout.html.twig" %}
 
+
+
 {% block titrePage %} Assistant(e) agence: Validation pointages {% endblock %}
 
 {% block messageAccueil %}Assistant(e) agence: Validation pointages{% endblock %}
@@ -7,7 +9,12 @@
 {% block sousMessageAccueil %}<a href='{{ asset("Pointage/Aide/MODE OP' feuille de pointage.pdf") }}' target='_blank' style='text-decoration: none;'>Aide</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage collaborateur.pdf') }}' target='_blank' style='text-decoration: none;'>Notice de remplissage collaborateurs</a>|<a href='{{ asset('Pointage/Aide/Prise en main du pointage RH.pdf') }}' target='_blank' style='text-decoration: none;'>Notice RH</a>{% endblock %}
 
 {% block contenu %}
+    
+    
+ 
+        
     <div id="pointageSelection">
+
 
         <p id="validationStepNavigator" style="margin-top: 0;">
             <a href="{{ path('nox_intranet_assistantes_agence_gestion_pointage') }}">Assistant(e) agence: Validation pointages</a> |
@@ -62,6 +69,13 @@
         {{ form_end(formToCheckPointage) }}
     </div>
 
+    
+    
+    
+    
+    
+    
+    
     <div id='loadingContent' style='display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; background-image: url({{asset('bundles/noxintranetressources/images/pointageLoading.svg')}}); background-size: contain; background-repeat: no-repeat; background-position: center center;'></div>
 
     <div id='pointageSavingNotification' style='display: none; position: fixed; z-index: 500; background-color: rgba(41,154,11, 0.7); border: 1px outset white; border-radius: 10px; padding: 0.5%;'><p style='display: inline-block; margin: 0; font-size: 0.8vw; color: white;'>Sauvegarde en cours <img src='{{ asset('bundles/noxintranetpointage/images/savingNotification.svg') }}' style='vertical-align: middle; height: 2em;'></p></div>

@@ -542,3 +542,33 @@ h4 {
 #addObjectif:hover {
     text-decoration: underline;
 }
+
+
+
+/* consultation de la matrice de competance  */ 
+
+#tableauConsultation{
+    text-align: center;
+    border: 2px solid #000;
+}
+#tableauConsultation th{
+    text-align: center;
+}
+#tableauConsultation tr th{
+    border-bottom-color: #000;
+}
+#tableauConsultation thead{
+    font-size: 20px;
+    background-color: #1F4E79;
+    color: #fff;
+}
+#tableauConsultation tr{
+    border: 1px solid #000;
+}
+#tableauConsultation tbody tr:hover{
+    background-color: #1F4E79;
+    color: #fff;
+}
+#tableauConsultation tbody td{
+    border: none;
+}

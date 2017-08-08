@@ -66,3 +66,49 @@
     border: none;
     box-shadow: none;
 }
+
+
+/* Gestion des pointages */ 
+
+#gestionPointageMenu {
+    margin: auto;
+}
+
+#gestionPointageMenu, #gestionPointageMenu tr, #gestionPointageMenu th, #gestionPointageMenu td {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+#gestionPointageMenu th {
+    color: white;
+    background-color: #1F4E79;
+}
+
+#gestionPointageMenu tr {
+    border: none;
+}
+
+#gestionPointageMenu td {
+    padding: 1% 2% 1% 2%;
+    text-align: center;
+    border-top: none;
+    border-bottom: none;
+}
+
+#gestionPointageMenu td .gestionPointageLinkDiv {
+    display: inline-block;
+    padding: 2%;
+    border-top: solid 1px rgb(192,0,0);
+    border-bottom: solid 1px rgb(192,0,0);
+}
+
+#gestionPointageMenu td .gestionPointageLinkDiv:hover {
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+}
+
+#gestionPointageMenu td a, #gestionPointageMenu td a:visited {
+    color: #1F4E79;
+    text-decoration: none;
+}
+
