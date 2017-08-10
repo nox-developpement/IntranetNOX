@@ -188,11 +188,6 @@ class StatsVPNController extends Controller {
                     }
                 }
                 
-                echo "<pre>";
-                var_dump($statsDataGlobal);
-                echo "</pre>";
-                
-                die();
                 // Fermeture de l'archive.
                 $zip->close();
 
