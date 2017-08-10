@@ -187,7 +187,12 @@ class StatsVPNController extends Controller {
                         $statsDataGlobal[$user][] = $date;
                     }
                 }
-
+                
+                echo "<pre>";
+                var_dump($statsDataGlobal);
+                echo "</pre>";
+                
+                die();
                 // Fermeture de l'archive.
                 $zip->close();
 
