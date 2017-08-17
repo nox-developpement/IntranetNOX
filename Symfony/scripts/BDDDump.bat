@@ -1,7 +1,5 @@
 ﻿@echo off
 
-echo Connexion...
-net use S: \\192.168.35.210\Save\BDD\InstanceINTRA /user:nox.local\save.bdd 78wmg3ET
 
 :: Reglage de la localisation de la date au format yyyy/mm/dd.
 for /f "skip=1 delims=." %%d in ('wmic os get LocalDateTime ^| findstr .') do set "timestamp=%%d"
@@ -40,7 +38,6 @@ if NOT %day% == %lastDayOfMonth% (
 	for /f "skip=1 eol=: delims=" %%F in ('dir /b /o-d "%~d0\wamp\www\Symfony\SauvegardeBDDVersioning\Wiki\%year%\%month%\*.zip"') do @del "%~d0\wamp\www\Symfony\SauvegardeBDDVersioning\Wiki\%year%\%month%\%%F"
 	for /f "skip=1 eol=: delims=" %%F in ('dir /b /o-d "%~d0\wamp\www\Symfony\SauvegardeBDDVersioning\Support\%year%\%month%\*.zip"') do @del "%~d0\wamp\www\Symfony\SauvegardeBDDVersioning\Support\%year%\%month%\%%F"
 )
-
 
 :: Fin du script.
 pause
