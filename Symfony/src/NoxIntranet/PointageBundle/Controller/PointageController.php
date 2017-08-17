@@ -776,11 +776,11 @@ class PointageController extends Controller {
     }
 
     // Permet de consulter un fichier justificatif associé au pointage.
-    public function showJustificatifFileAction($justificatifId) {
+    public function showJustificatifFileAction($justificatifId) {       
         // On récupére le justificatif depuis son ID.
         $em = $this->getDoctrine()->getManager();
         $justificatifFile = $em->find('NoxIntranetPointageBundle:JustificatifFile', $justificatifId);
-
+        
         // On récupére le fichier.
         $file = stream_get_contents($justificatifFile->getContent());
 

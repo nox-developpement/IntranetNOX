@@ -408,11 +408,11 @@ class StatsVPNController extends Controller {
 
                 // Pour chaque lignes du fichier CSV...
                 while (($data = fgetcsv($statsFileHandler, 0, ";")) !== FALSE) {
-                    // Si l'utilisateur n'est pas le System et qu'il s'agit d'une connexion...
+                    // Si l'utilisateur n'est pas le System et qu'il s'agit d'une connexion...                   
                     if (!empty($data[8])) {
                         // On récupére l'utilisateur.
                         $user = substr($data[8], 26, 13);
-
+                    
                         // Récupération de la date.
                         $date = DateTime::createFromFormat("Y-m-d H:i:s", $data[0]);
                         $annee = $date->format("Y");
@@ -441,7 +441,7 @@ class StatsVPNController extends Controller {
                         $statsDataGlobal[$user][] = $date;
                     }
                 }
-
+                
                 // Fermeture de l'archive.
                 $zip->close();
 
@@ -583,7 +583,7 @@ class StatsVPNController extends Controller {
                 $graphiqueDatasGlobal["+20"]["Users"][] = $user;
             }
         }
-
+        
         // Trie des tableau par ID de VPN.
         sort($graphiqueDatasGlobal["0"]["Users"]);
         sort($graphiqueDatasGlobal["1-5"]["Users"]);
