@@ -9,7 +9,7 @@
 /**
  * Description of ControllerGeneratorCommand
  *
- * @author t.besson
+ * @author t.lassiaz
  */
 
 namespace NoxIntranet\MajDBBundle\Command;
