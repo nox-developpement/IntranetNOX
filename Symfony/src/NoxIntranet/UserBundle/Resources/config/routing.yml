@@ -78,3 +78,8 @@ nox_intranet_matrice_collaborateur_export_matrice_competence:
 nox_intranet_matrice_collaborateur_consultation_matrice_competence:
     path:   ressources/matrice-competence/consultation-matrice-competence
     defaults: { _controller: NoxIntranetUserBundle:MatriceCompetence\MatriceCompetence:consultationMatriceCompetences }
+    
+nox_intranet_recrutement:
+    path:   administration/recrutement
+    defaults: { _controller: NoxIntranetUserBundle:Recrutement\Recrutement:tableauRecrutement }
+    
