@@ -9,7 +9,7 @@
 /**
  * Description of NoxIntranetMajUserDB
  *
- * @author t.besson
+ * @author t.lassiaz
  */
 
 namespace NoxIntranet\AdministrationBundle\ServicesFunction;
@@ -376,7 +376,7 @@ class NoxIntranetMajUserDB extends Controller {
         ldap_set_option($ldap_connection, LDAP_OPT_REFERRALS, 0);
         
         // On se connecte à l'AD.
-        ldap_bind($ldap_connection, 't.besson@nox.local', 'Chegfp95');
+        ldap_bind($ldap_connection, 't.lassiaz@nox.local', 'Lassiaz1');
                 
         // On retourne le token de connexion.
         return $ldap_connection;
