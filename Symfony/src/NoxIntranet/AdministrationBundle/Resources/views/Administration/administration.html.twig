@@ -71,28 +71,36 @@
             text-align: center;
             line-height: 150px;
             color: #fff;
+
         } 
         
         .iconContener .row a:hover span  {
             background-color: #fff ;
             color: rgb(31,78,121);
         }
-        .iconContener .row a:hover figcaption{
+        .iconContener .row a:hover span figcaption{
             color: rgb(31,78,121);
+            font-weight: bold;
         } 
         
-        .iconContener .row figcaption{
-            margin-top: -23px;
+        .iconContener .row span figcaption{
+            height: 87px;
+            margin-top: -87px;
             color: #fff;
-            width: 75%;
-            margin-left: 12.5%;
+            font-size: 12px;
+            font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+            font-weight: 400;
         } 
         
         .iconContener .row figcaption.deuxligne{
+            height: 87px;
             margin-top: -38px;
             color: #fff;
-            width: 50%;
-            margin-left: 25%;
+            font-size: 12px;
+            font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+            font-weight: 400;
+            line-height: 19px;
+            
         } 
 
         .iconContener .row h4{
@@ -105,10 +113,13 @@
                 height: 150px;
             }
             .iconContener .row figcaption.deuxligne{
-                margin-top: -38px;
+                height: 87px;
+                margin-top: -37px;
                 color: #fff;
-                width: 75%;
-                margin-left: 12.5%;
+                font-size: 12px;
+                font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+                font-weight: 400;
+                line-height: 19px;
             } 
         }
     </style>
@@ -126,8 +137,7 @@
                 <!-- Administration Administrateur -->
                 <a href="{{ path('nox_intranet_administration_user_admin') }}" class="icon">
                     <figure class="col-xs-3" >
-                        <span class="fa fa-group"></span>
-                        <figcaption>Administrateurs</figcaption>
+                        <span class="fa fa-group"><figcaption>Administrateurs</figcaption></span>
                     </figure>
                 </a>
 
@@ -136,12 +146,7 @@
             <!-- Licenses (A faire) 
             <a href="{{ path('nox_intranet_administration_userDB') }}" class="icon">
                 <figure>
-                    <img 
-                        src="{{ asset('bundles/noxintranetadministration/images/Licenses-128.png') }}" 
-                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Licenses-128-hover.png') }}';" 
-                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Licenses-128.png') }}';"
-                        > 
-                    <figcaption>Licenses</figcaption>
+                    <span class="fa fa-files-o"><figcaption>Licenses</figcaption></span>
                 </figure>
             </a>
             -->
@@ -152,8 +157,7 @@
 
                     <a href="{{ path('nox_intranet_admin_mdp') }}" class="icon">
                         <figure class="col-xs-3" >
-                            <span class="fa fa-database"></span>
-                            <figcaption>Modif. MDP</figcaption>
+                            <span class="fa fa-database"><figcaption>Modif. MDP</figcaption></span>
                         </figure>
                     </a>
  
@@ -163,8 +167,7 @@
 
                 <a href="{{ path('nox_intranet_administration_userDB') }}" class="icon">
                     <figure class="col-xs-3" >
-                        <span class="fa fa-database"></span>
-                        <figcaption>Synchro. AD</figcaption>
+                        <span class="fa fa-database"><figcaption>Synchro. AD</figcaption></span>
                     </figure>
                 </a>
 
@@ -172,8 +175,7 @@
             <!-- Administration Utilisateurs -->
             <a href="{{ path('nox_intranet_administration_user') }}" class="icon">
                 <figure class="col-xs-3" >
-                    <span class="fa fa-group"></span>
-                    <figcaption>Utilisateurs</figcaption>
+                    <span class="fa fa-group"><figcaption>Utilisateurs</figcaption></span>
                 </figure>
             </a>
 
@@ -187,24 +189,21 @@
             <!-- Archives -->
             <a href="{{ path('nox_intranet_archives') }}" class="icon">
                 <figure class="col-xs-3" >
-                    <span class="fa fa-archive"></span>
-                    <figcaption>Archives</figcaption>
+                    <span class="fa fa-archive"><figcaption>Archives</figcaption></span>
                 </figure>
             </a>
 
             <!-- Avancement Projet -->
             <a href="{{ path('nox_intranet_avancement_projet') }}" class="icon">
                 <figure class="col-xs-3" >
-                    <span class="fa fa-calendar"></span>
-                    <figcaption>Av. projet</figcaption>
+                    <span class="fa fa-calendar"><figcaption>Av. projet</figcaption></span>
                 </figure>
             </a>
 
             <!-- Demande Mat/log -->
             <a href="{{ path('nox_intranet_administration_materiel') }}" class="icon">
                 <figure class="col-xs-3" >
-                    <span class="fa fa-shopping-basket"></span>
-                    <figcaption>Demande Mat/log</figcaption>
+                    <span class="fa fa-shopping-basket"><figcaption>Demande Mat/log</figcaption></span>
                 </figure>
             </a> 
 
@@ -213,9 +212,8 @@
 
             <!-- Imprimantes (A faire)
             <a href="{{ path('nox_intranet_administration_imprimantes') }}" class="icon">
-                <figure>
-                    <span class="fa fa-paper"></span>
-                    <figcaption>Imprimantes</figcaption>
+                <figure class="col-xs-3" >
+                    <span class="fa fa-print"><figcaption>Imprimantes</figcaption></span>
                 </figure>
             </a> 
             -->
@@ -223,24 +221,21 @@
             <!-- Informations -->
             <a href="{{ path('nox_intranet_information') }}" class="icon">
                 <figure class="col-xs-3" >
-                    <span class="fa fa-info"></span>
-                    <figcaption>Informations</figcaption>
+                    <span class="fa fa-info"><figcaption>Informations</figcaption></span>
                 </figure>
             </a>  
 
             <!-- Message d'alerte -->
             <a href="{{ path('nox_intranet_administration_message_alerte') }}" class="icon">
                 <figure class="col-xs-3" >
-                    <span class="fa fa-warning"></span>
-                    <figcaption>Message d'alerte</figcaption>
+                    <span class="fa fa-warning"><figcaption>Message d'alerte</figcaption></span>
                 </figure>
             </a>
 
             <!-- Monitoring charte informatique -->
             <a href="{{ path('nox_intranet_charte_informatique_monitoring') }}" class="icon">
                 <figure class="col-xs-3" >
-                    <span class="fa fa-list"></span>
-                    <figcaption class="deuxligne">Monitoring charte informatique</figcaption>
+                    <span class="fa fa-list"><figcaption class="deuxligne">Monitoring charte informatique</figcaption></span>
                 </figure>
             </a>
 
@@ -250,123 +245,107 @@
             <!-- Monitoring scripts planifiés -->
             <a href="{{ path('nox_intranet_monitoring_scheduled_scripts') }}" class="icon">
                 <figure class="col-xs-3" >
-                    <span class="fa fa-list"></span>
-                    <figcaption class="deuxligne">Monitoring scripts planifiés</figcaption>
+                    <span class="fa fa-list"><figcaption class="deuxligne">Monitoring scripts planifiés</figcaption></span>
                 </figure>
             </a>
 
             <!-- News DSI -->
             <a href="{{ path('nox_intranet_administration_news') }}" class="icon">
                 <figure class="col-xs-3" >
-                    <span class="fa fa-newspaper-o"></span>
-                    <figcaption>News DSI</figcaption>
+                    <span class="fa fa-newspaper-o"><figcaption>News DSI</figcaption></span>
                 </figure>
             </a>
 
             <!-- Serveurs -->
             <a href="{{ path('nox_intranet_administration_serveurs') }}" class="icon">
                 <figure class="col-xs-3" >
-                    <span class="fa fa-server"></span>
-                    <figcaption>Serveurs</figcaption>
+                    <span class="fa fa-server"><figcaption>Serveurs</figcaption></span>
                 </figure>
             </a>   
 
             <!-- Statistique VPN -->
             <a href="{{ path('nox_intranet_vpn_stats_upload') }}" class="icon">
                 <figure class="col-xs-3" >
-                    <span class="fa fa-bar-chart"></span>
-                    <figcaption>Statistique VPN</figcaption>
+                    <span class="fa fa-bar-chart"><figcaption>Statistique VPN</figcaption></span>
                 </figure>
             </a>   
 
         {% endif %}
 
-            </div>
-            <div class="row">
-        
-        <div class="sousMessageAcceuil"> 
-            <h4> Publication Collaborateurs :  </h4>
         </div>
-
-        {% if app.user and is_granted('ROLE_ADMIN') %}
-
-            <!-- Assistant d'affaire -->
-            <a href="{{ path('nox_intranet_administration_affaires') }}" class="icon">
-                <figure class="col-xs-3" >
-                    <span class="fa fa-handshake-o"></span>
-                    <figcaption>Assistant d'affaire</figcaption>
-                </figure>
-            </a>
-
-        {% endif %}
-
-        <!-- Assurance qualité -->
-        <a href="{{ path('nox_intranet_aq') }}" class="icon">
-            <figure class="col-xs-3" >
-                <span class="fa fa-check-square-o"></span>
-                <figcaption>Assurance qualité</figcaption>
-            </figure>
-        </a>
-
-        <!-- Communication -->
-        <a href="{{ path('nox_intranet_communication') }}" class="icon">
-            <figure class="col-xs-3" >
-                <span class="fa fa-comments"></span>
-                <figcaption>Communication</figcaption>
-            </figure>
-        </a>    
-
+        <div class="row">
+        
+            <div class="sousMessageAcceuil"> 
+                <h4> Publication Collaborateurs :  </h4>
             </div>
-            <div class="row">
 
-        {% if app.user and is_granted('ROLE_FAQ') %}        
-            <!-- FAQ -->
-            <a href="{{ path('nox_intranet_faq') }}" class="icon">
+            {% if app.user and is_granted('ROLE_ADMIN') %}
+
+                <!-- Assistant d'affaire -->
+                <a href="{{ path('nox_intranet_administration_affaires') }}" class="icon">
+                    <figure class="col-xs-3" >
+                        <span class="fa fa-handshake-o"><figcaption>Assistant d'affaire</figcaption></span>
+                    </figure>
+                </a>
+
+            {% endif %}
+
+            <!-- Assurance qualité -->
+            <a href="{{ path('nox_intranet_aq') }}" class="icon">
                 <figure class="col-xs-3" >
-                    <span class="fa fa-question"></span>
-                    <figcaption>FAQ</figcaption>
+                    <span class="fa fa-check-square-o"><figcaption>Assurance qualité</figcaption></span>
                 </figure>
             </a>
 
-        {% endif %}
+            <!-- Communication -->
+            <a href="{{ path('nox_intranet_communication') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-comments"><figcaption>Communication</figcaption></span>
+                </figure>
+            </a>    
 
-        <!-- Liens -->
-        <a href="{{ path('nox_intranet_administration_liens') }}" class="icon">
-            <figure class="col-xs-3" >
-                <span class="fa fa-link"></span>
-                <figcaption>Liens</figcaption>
-            </figure>
-        </a>
+        </div>
+        <div class="row">
 
-        <!-- Procédures (A ajouté)
-        <a href="{{ path('nox_intranet_administration_liens') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetadministration/images/Procedures-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Procedures-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Procedures-128.png') }}';"
-                    > 
-                <figcaption>Procédures</figcaption>
-            </figure>
-        </a>
-        -->
+            {% if app.user and is_granted('ROLE_FAQ') %}        
+                <!-- FAQ -->
+                <a href="{{ path('nox_intranet_faq') }}" class="icon">
+                    <figure class="col-xs-3" >
+                        <span class="fa fa-question"><figcaption>FAQ</figcaption></span>
+                    </figure>
+                </a>
 
-        <!-- Références -->
-        <a href="{{ path('nox_intranet_references') }}" class="icon">
-            <figure class="col-xs-3" >
-                <span class="fa fa-puzzle-piece"></span>
-                <figcaption>Références</figcaption>
-            </figure>
-        </a>
+            {% endif %}
 
-        <!-- Ticketing -->
-        <a href="{{ path('nox_intranet_administration_ticketing') }}" class="icon">
-            <figure class="col-xs-3" >
-                <span class="fa fa-ticket"></span>
-                <figcaption>Ticketing</figcaption>
-            </figure>
-        </a>
-    </div>
+            <!-- Liens -->
+            <a href="{{ path('nox_intranet_administration_liens') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-link"><figcaption>Liens</figcaption></span>
+                </figure>
+            </a>
+
+            <!-- Procédures (A ajouté)
+            <a href="{{ path('nox_intranet_administration_liens') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-file-text-o"><figcaption>Procédures</figcaption></span>
+                </figure>
+            </a>
+            -->
+
+            <!-- Références -->
+            <a href="{{ path('nox_intranet_references') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-puzzle-piece"><figcaption>Références</figcaption></span>
+                </figure>
+            </a>
+
+            <!-- Ticketing -->
+            <a href="{{ path('nox_intranet_administration_ticketing') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-ticket"><figcaption>Ticketing</figcaption></span>
+                </figure>
+            </a>
+        </div>
             
         <!-- DRH -->
         {% if app.user and is_granted('ROLE_RH') %}

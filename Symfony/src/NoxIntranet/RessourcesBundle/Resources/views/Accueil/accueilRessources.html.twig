@@ -5,270 +5,225 @@
 {% block messageAccueil %}Ressources{% endblock %}
 
 {% block contenu %} 
+    
+    <style>
+        .iconContener .row figure{
+            text-align: center;
+                margin: 25px 0;
+        } 
+        
+        .iconContener .row span{
+            font-size: 100px;
+            background-color: rgb(31,78,121);
+            width: 150px;
+            height: 150px;
+            text-align: center;
+            line-height: 150px;
+            color: #fff;
+
+        } 
+        
+        .iconContener .row a:hover span  {
+            background-color: #fff ;
+            color: rgb(31,78,121);
+        }
+        .iconContener .row a:hover span figcaption{
+            color: rgb(31,78,121);
+            font-weight: bold;
+        } 
+        
+        .iconContener .row span figcaption{
+            height: 87px;
+            margin-top: -87px;
+            color: #fff;
+            font-size: 12px;
+            font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+            font-weight: 400;
+        } 
+        
+        .iconContener .row figcaption.deuxligne{
+            height: 38px;
+            margin-top: -31px;
+            color: #fff;
+            font-size: 12px;
+            font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+            font-weight: 400;
+            line-height: 14px;
+            
+        } 
+
+        .iconContener .row h4{
+            margin-left: 15px;
+        } 
+
+        @media (min-width: 768px) and (max-width: 991px) { 
+            .iconContener .row span{
+                width: 125px;
+                height: 150px;
+            }
+        }
+    </style>
+    
     <div class="iconContener">
-
-        <!-- Archives -->
-        <a href="{{ path('nox_intranet_archives') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Archive-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Archive-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Archive-128.png') }}';"
-                    > 
-                <figcaption>Archives</figcaption>
-            </figure>
-        </a>
-
-        {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
-            <!-- Assistant d'affaire -->
-            <a href="{{ path('nox_intranet_assistant_affaire') }}" class="icon">
-                <figure>
-                    <img 
-                        src="{{ asset('bundles/noxintranetressources/images/Business-Man-128.png') }}" 
-                        onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Business-Man-128-hover.png') }}';" 
-                        onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Business-Man-128.png') }}';"
-                        > 
-                    <figcaption>Assistant d'affaire</figcaption>
+        <div class="row">
+            
+            <!-- Archives -->
+            <a href="{{ path('nox_intranet_archives') }}" class="icon">
+                <figure class="col-xs-3" > 
+                        <span class="fa fa-archive"><figcaption>Archives</figcaption></span>
                 </figure>
             </a>
-        {% endif %}
 
-        <!-- Assurance qualité -->
-        <a href="{{ path('nox_intranet_aq') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Hand-Sign-06-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Hand-Sign-06-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Hand-Sign-06-128.png') }}';"
-                    > 
-                <figcaption>Assurance qualité</figcaption>
-            </figure>
-        </a>
+            {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
+                <!-- Assistant d'affaire -->
+                <a href="{{ path('nox_intranet_assistant_affaire') }}" class="icon">
+                    <figure class="col-xs-3" >
+                        <span class="fa fa-handshake-o"><figcaption>Assistant d'affaire</figcaption></span>
+                    </figure>
+                </a>
+            {% endif %}
 
-        <!-- Développement professionnel -->
-        <a href="{{ path('nox_intranet_developpement_professionnel_formulaire') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Graduate-01-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Graduate-01-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Graduate-01-128.png') }}';"
-                    > 
-                <figcaption>Développement professionnel</figcaption>
-            </figure>
-        </a>         
+            <!-- Assurance qualité -->
+            <a href="{{ path('nox_intranet_aq') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-check-square-o"><figcaption>Assurance qualité</figcaption></span>
+                </figure>
+            </a>
 
-        <!-- FAQ -->
-        <a href="{{ path('nox_intranet_faq') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Help-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Help-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Help-128.png') }}';"
-                    > 
-                <figcaption>FAQ</figcaption>
-            </figure>
-        </a> 
+            <!-- Développement professionnel -->
+            <a href="{{ path('nox_intranet_developpement_professionnel_formulaire') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-graduation-cap"><figcaption class="deuxligne">Développement professionnel</figcaption></span>
+                </figure>
+            </a>         
 
-        <!-- Interface VOIP -->
-        <a href="https://172.16.35.1:9443/onexportal.html" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Headphone-Mike-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Headphone-Mike-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Headphone-Mike-128.png') }}';"
-                    > 
-                <figcaption>Interface VOIP</figcaption>
-            </figure>
-        </a> 
+            <!-- FAQ -->
+            <a href="{{ path('nox_intranet_faq') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-question"><figcaption>FAQ</figcaption></span>
+                </figure>
+            </a> 
 
-        <!-- Imprimantes (A tester !)
-        <a href="{{ path('nox_intranet_imprimantes') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Printer-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Printer-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Printer-128.png') }}';"
-                    > 
-                <figcaption>Imprimantes</figcaption>
-            </figure>
-        </a>
-        -->
+            <!-- Interface VOIP -->
+            <a href="https://172.16.35.1:9443/onexportal.html" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-headphones"><figcaption>Interface VOIP</figcaption></span>
+                </figure>
+            </a> 
 
-        <br />    
+            <!-- Imprimantes (A tester !)
+            <a href="{{ path('nox_intranet_imprimantes') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-print"><figcaption>Imprimantes</figcaption></span>
+                </figure>
+            </a>
+            -->
 
-        <!-- Liens -->
-        <a href="{{ path('nox_intranet_liens') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Link-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Link-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Link-128.png') }}';"
-                    > 
-                <figcaption>Liens</figcaption>
-            </figure>
-        </a>
+            
+            <!-- Liens -->
+            <a href="{{ path('nox_intranet_liens') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-link"><figcaption>Liens</figcaption></span>
+                </figure>
+            </a>
 
-        <!-- NOX Virtual Reality -->
-        <a href="{{ path('nox_intranet_nox_virtual_reality') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Camera-01-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Camera-01-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Camera-01-128.png') }}';"
-                    > 
-                <figcaption>NOX Virtual Reality</figcaption>
-            </figure>
-        </a>
+            <!-- NOX Virtual Reality -->
+            <a href="{{ path('nox_intranet_nox_virtual_reality') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-camera"><figcaption>NOX Virtual Reality</figcaption></span>
+                </figure>
+            </a>
 
-        <!-- Partage de documents -->
-        <a href="http://partage.groupe-nox.com/" class="icon" target="_blank">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Link-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Link-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Link-128.png') }}';"
-                    > 
-                <figcaption>Partage de documents</figcaption>
-            </figure>
-        </a>
+            <!-- Partage de documents -->
+            <a href="http://partage.groupe-nox.com/" class="icon" target="_blank">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-exchange"><figcaption>Partage de documents</figcaption></span>
+                </figure>
+            </a>
 
-        <!-- Partage de documents -->
-        <a href="{{ path('nox_intranet_pointage') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Pointage-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Pointage-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Pointage-128.png') }}';"
-                    > 
-                <figcaption>Pointage</figcaption>
-            </figure>
-        </a>
+            <!-- Partage de documents -->
+            <a href="{{ path('nox_intranet_pointage') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-thumb-tack"><figcaption>Pointage</figcaption></span>
+                </figure>
+            </a>
 
-        <!-- Procédures (A ajouter)
-        <a href="{{ path('nox_intranet_procedures') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Procedures-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Procedures-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Procedures-128.png') }}';"
-                    > 
-                <figcaption>Procédures</figcaption>
-            </figure>
-        </a>
-        -->
+            <!-- Procédures (A ajouter)
+            <a href="{{ path('nox_intranet_procedures') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-file-text-o"><figcaption>Procédures</figcaption></span>
+                </figure>
+            </a>
+            -->
 
-        <br />
 
-        <!-- Prestations internes -->
-        <a href="{{ path('nox_intranet_prestations_internes') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Conversation-01-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Conversation-01-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Conversation-01-128.png') }}';"
-                    > 
-                <figcaption>Prestations internes</figcaption>
-            </figure>
-        </a>
+            <!-- Prestations internes -->
+            <a href="{{ path('nox_intranet_prestations_internes') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-weixin"><figcaption>Prestations internes</figcaption></span>
+                </figure>
+            </a>
 
-        <!-- Références -->
-        <a href="{{ path('nox_intranet_references') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Sort-Ascending-01-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Sort-Ascending-01-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Sort-Ascending-01-128.png') }}';"
-                    > 
-                <figcaption>Références</figcaption>
-            </figure>
-        </a>
+            <!-- Références -->
+            <a href="{{ path('nox_intranet_references') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-puzzle-piece"><figcaption>Références</figcaption></span>
+                </figure>
+            </a>
 
-        <!-- RH -->
-        <a href="{{ path('nox_intranet_rh') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/User-Group-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/User-Group-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/User-Group-128.png') }}';"
-                    > 
-                <figcaption>RH</figcaption>
-            </figure>
-        </a>
+            <!-- RH -->
+            <a href="{{ path('nox_intranet_rh') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-group"><figcaption>RH</figcaption></span>
+                </figure>
+            </a>
 
-        <!-- Serveurs -->            
-        <a href="{{ path('nox_intranet_serveurs') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Server-02-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Server-02-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Server-02-128.png') }}';"
-                    > 
-                <figcaption>Serveurs</figcaption>
-            </figure>
-        </a>
+            <!-- Serveurs -->            
+            <a href="{{ path('nox_intranet_serveurs') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-server"><figcaption>Serveurs</figcaption></span>
+                </figure>
+            </a>
 
-        <!-- SIREN -->            
-        <a href="{{ path('nox_intranet_ressources_siren') }}" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Office-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Office-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Office-128.png') }}';"
-                    > 
-                <figcaption>SIREN</figcaption>
-            </figure>
-        </a>
+            <!-- SIREN -->            
+            <a href="{{ path('nox_intranet_ressources_siren') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-fort-awesome"><figcaption>SIREN</figcaption></span>
+                </figure>
+            </a>
 
-        <br />
+        </div>
+        <div class="row">
 
-        <!-- Visioconférence salle 1 -->            
-        <a href="https://webrtc.g2j.vc/g2j/#/?conference=669644327" target="_blank" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}';"
-                    > 
-                <figcaption>Capitole 1</figcaption>
-            </figure>
-        </a>
+            <!-- Visioconférence salle 1 -->            
+            <a href="https://webrtc.g2j.vc/g2j/#/?conference=669644327" target="_blank" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-volume-control-phone"><figcaption>Capitole 1</figcaption></span>
+                </figure>
+            </a>
 
-        <!-- Visioconférence salle 2 -->            
-        <a href="https://webrtc.g2j.vc/g2j/#/?conference=669644328" target="_blank" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}';"
-                    > 
-                <figcaption>Capitole 2</figcaption>
-            </figure>
-        </a>
+            <!-- Visioconférence salle 2 -->            
+            <a href="https://webrtc.g2j.vc/g2j/#/?conference=669644328" target="_blank" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-volume-control-phone"><figcaption>Capitole 2</figcaption></span>
+                </figure>
+            </a>
 
-        <!-- Visioconférence salle 1 -->            
-        <a href="https://webrtc.g2j.vc/g2j/#/?conference=669644329" target="_blank" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}';"
-                    > 
-                <figcaption>Capitole 3</figcaption>
-            </figure>
-        </a>
+            <!-- Visioconférence salle 1 -->            
+            <a href="https://webrtc.g2j.vc/g2j/#/?conference=669644329" target="_blank" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-volume-control-phone"><figcaption>Capitole 3</figcaption></span>
+                </figure>
+            </a>
 
-        <!-- Visioconférence salle 2 -->            
-        <a href="https://webrtc.g2j.vc/g2j/#/?conference=669644330" target="_blank" class="icon">
-            <figure>
-                <img 
-                    src="{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}" 
-                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128-hover.png') }}';" 
-                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Conference-Call-01-128.png') }}';"
-                    > 
-                <figcaption>Capitole 4</figcaption>
-            </figure>
-        </a>
-
+            <!-- Visioconférence salle 2 -->            
+            <a href="https://webrtc.g2j.vc/g2j/#/?conference=669644330" target="_blank" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-volume-control-phone"><figcaption>Capitole 4</figcaption></span>
+                </figure>
+            </a>
+        
+        </div>
     </div>
 
 {% endblock %}
