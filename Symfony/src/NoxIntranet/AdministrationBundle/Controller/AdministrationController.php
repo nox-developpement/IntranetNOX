@@ -2,12 +2,14 @@
 
 namespace NoxIntranet\AdministrationBundle\Controller;
 
+use NoxIntranet\UserBundle\Entity\Entite;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NoxIntranet\UserBundle\Entity\User;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AdministrationController extends Controller {
 
@@ -361,5 +363,76 @@ class AdministrationController extends Controller {
                     'pathFichierHierarchie' => $pathFichierHierarchie, 'pathExemple' => $pathExemple
         ));
     }
+    
+    public function administrationEntiteAction() { 
+        $em = $this->getDoctrine()->getManager();
+        $entite = $em->getRepository('NoxIntranetUserBundle:Entite')->findAll();
+        return $this->render('NoxIntranetAdministrationBundle:Administration:adminEntite.html.twig', array('entite' => $entite));
+    }
+    
+    public function administrationModifEntiteAction($id,Request $request) {  
+        $em = $this->getDoctrine()->getManager();
+        $entite = $em->getRepository('NoxIntranetUserBundle:Entite')->findById($id);
 
+        
+        // Génération du formulaire d'upload du fichier de hiérachie RH.
+        $modifEntite = $this->createFormBuilder()
+                ->add('societe',     TextType::class, array(
+                    'attr' => array('value' => $entite[0]->getSociete())
+                ))
+                ->add('etablissement',     TextType::class, array(
+                    'attr' => array('value' => $entite[0]->getEtablissement())
+                ))
+                ->add('aa',     TextType::class, array(
+                    'attr' => array('value' => $entite[0]->getAa())
+                ))
+                ->add('da',     TextType::class, array(
+                    'attr' => array('value' => $entite[0]->getDa())
+                ))
+                ->add('arh',     TextType::class, array(
+                    'attr' => array('value' => $entite[0]->getArh())
+                ))
+                ->add('n2',     TextType::class, array(
+                    'attr' => array('value' => $entite[0]->getN2())
+                ))
+                ->add('modifer', SubmitType::class)
+                ->getForm();
+        
+        // Si la requête est en POST
+        if ($request->isMethod('POST')) {
+          // On fait le lien Requête <-> Formulaire
+          // À partir de maintenant, la variable $modifEntite contient les valeurs entrées dans le formulaire par le visiteur
+          $modifEntite->handleRequest($request);
+
+          // On vérifie que les valeurs entrées sont correctes
+          // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+          if ($modifEntite->isValid()) {
+              $formodif = $modifEntite->getData();
+            // On enregistre notre objet $modifEntite dans la base de données, par exemple
+             
+                $entite[0]->setSociete($formodif["societe"]);
+                $entite[0]->setEtablissement($formodif["etablissement"]);
+                $entite[0]->setAa($formodif["aa"]);
+                $entite[0]->setDa($formodif["da"]);    
+                $entite[0]->setArh($formodif["arh"]);    
+                $entite[0]->setN2($formodif["n2"]);  
+   
+
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Entite à bien été modifier.');
+
+            // On redirige vers la page de visualisation de l'annonce nouvellement créée
+            return $this->redirectToRoute('nox_intranet_administration_entite');
+          }
+        }
+        
+        return $this->render('NoxIntranetAdministrationBundle:Administration:adminModifEntite.html.twig', array('entite' => $entite, 'form' => $modifEntite->createView()));
+        
+        
+        
+        
+    }
+
+    
 }

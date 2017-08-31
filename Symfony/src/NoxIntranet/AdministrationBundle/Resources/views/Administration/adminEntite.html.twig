@@ -1,0 +1,68 @@
+{% extends "::layoutV2.html.twig" %}
+
+{% block titrePage %}
+    Entité
+{% endblock %}
+
+{% block messageAccueil %}Administration Entité{% endblock %}
+
+
+{% block contenu %}
+       
+
+    
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                      <h3 class="box-title">Entite</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Societe</th>
+                                    <th>Etablissement</th>
+                                    <th>AA</th>
+                                    <th>DA</th>
+                                    <th>ARH</th>
+                                    <th>N+2</th>
+                                    <th>Option</th>
+                                </tr>
+                                
+                            </thead>
+                            <tbody>
+                                {% for data in entite %}
+                                    <tr>
+                                        <td>{{ data.societe }}</td>
+                                        <td>{{ data.etablissement }}</td>
+                                        <td>{{ data.aa }}</td>
+                                        <td>{{ data.da }}</td>
+                                        <td>{{ data.arh }}</td>
+                                        <td>{{ data.n2 }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ path('nox_intranet_administration_modif_entite', { 'id':  data.id }) }}"><button class="btn btn-warning">Modifier</button></a>
+                                            <button class="btn btn-danger">Supprimer</button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+
+   
+   <script>
+       $(".dataTables_info")[0].textContent.replace()
+   </script>
+{% endblock %}

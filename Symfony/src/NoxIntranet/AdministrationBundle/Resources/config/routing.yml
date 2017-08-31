@@ -228,3 +228,10 @@ nox_intranet_vpn_export:
     path: /administration/stats-vpn/export
     defaults: { _controller: NoxIntranetAdministrationBundle:StatsVPN\StatsVPN:exportVPNExcel}
 
+nox_intranet_administration_entite:
+    path: /administration/entite
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationEntite }
+    
+nox_intranet_administration_modif_entite:
+    path: /administration/modif/entite/{id}
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationModifEntite }
