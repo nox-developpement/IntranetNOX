@@ -202,4 +202,92 @@ class AdministrationUsersController extends Controller {
         return $this->render('NoxIntranetAdministrationBundle:AdministrationUser:collaborateursEnLigne.html.twig', array('online_users' => $online_users));
     }
 
+    function administrationGestionUsersAction() {
+        // On récupère all users.
+        $allUsers = $this->getDoctrine()->getManager()->getRepository('NoxIntranetUserBundle:Users')->findAll();
+        
+        return $this->render('NoxIntranetAdministrationBundle:AdministrationUser:gestionUsers.html.twig', array('users' => $allUsers));
+    }
+    
+    function administrationVoirUsersAction($id) {
+        // On récupère all users.
+        
+        $em = $this->getDoctrine()->getManager();
+
+        //$users = $em->getRepository('NoxIntranetUserBundle:User')->findBy(array('username' => $name), array('username' => 'ASC'));
+
+        $repository = $em->getRepository('NoxIntranetUserBundle:Users');
+        $query = $repository->createQueryBuilder("u")
+                ->where('u.id = :id')
+                ->setParameter('id', $id )
+                ->getQuery();
+        $users = $query->getResult();
+        
+        
+        $repository = $em->getRepository('NoxIntranetUserBundle:Entite');
+        $query = $repository->createQueryBuilder("e")
+                ->where('e.id = :id')
+                ->setParameter('id', $users[0]->getIdEntite()->getId())
+                ->getQuery();
+        $entite = $query->getResult();
+        
+        
+        $repository = $em->getRepository('NoxIntranetUserBundle:User_Info_Intranet');
+        $query = $repository->createQueryBuilder("i")
+                ->where('i.id = :id')
+                ->setParameter('id', $users[0]->getIdUserInfoIntranet()->getId())
+                ->getQuery();
+        $info = $query->getResult();
+        
+        
+        $role = $info[0]->getRole();
+        $userRole = "";
+                
+        if(preg_match("#ROLE_USER#", $role)){
+            $userRole .= "User ";
+        }
+        if(preg_match("#ROLE_ADMIN#", $role)){
+            $userRole .= "Admin ";
+        }
+        if(preg_match("#ROLE_REFERENCES#", $role)){
+            $userRole .= "References ";
+        }
+        if(preg_match("#ROLE_LIENS#", $role)){
+            $userRole .= "Lien ";
+        }
+        if(preg_match("#ROLE_FAQ#", $role)){
+            $userRole .= "FAQ ";
+        }
+        if(preg_match("#ROLE_CE#", $role)){
+            $userRole .= "CE ";
+        }
+        if(preg_match("#ROLE_CHSCT#", $role)){
+            $userRole .= "CHSCT ";
+        }
+        if(preg_match("#ROLE_QUALITE#", $role)){
+            $userRole .= "Qualité ";
+        }
+        if(preg_match("#ROLE_COMPETENCES#", $role)){
+            $userRole .= "Competences ";
+        }
+        if(preg_match("#ROLE_COMMUNICATION#", $role)){
+            $userRole .= "Communication ";
+        }
+        if(preg_match("#ROLE_PROCEDURES#", $role)){
+            $userRole .= "Procedures ";
+        }
+        if(preg_match("#ROLE_RH#", $role)){
+            $userRole .= "RH ";
+        }
+        if(preg_match("#ROLE_SUPER_ADMIN#", $role)){
+            $userRole .= "Super Admin ";
+        }
+        
+        
+        return $this->render('NoxIntranetAdministrationBundle:AdministrationUser:infoUser.html.twig', array('user' => $users, 'userole' => $userRole ));
+    }
+    
+    
 }
+
+

@@ -243,3 +243,11 @@ nox_intranet_administration_modif_entite:
 nox_intranet_administration_supp_entite:
     path: /administration/supp/entite/{id}
     defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationSuppEntite }
+    
+nox_intranet_administration_gestion_users:
+    path: /administration/gestion/users
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationUsers:administrationGestionUsers }
+    
+nox_intranet_administration_voir_user:
+    path: /administration/gestion/users/{id}
+    defaults: { _controller: NoxIntranetAdministrationBundle:AdministrationUsers:administrationVoirUsers}

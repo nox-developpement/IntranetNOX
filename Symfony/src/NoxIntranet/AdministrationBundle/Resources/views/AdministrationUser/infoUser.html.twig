@@ -1,0 +1,99 @@
+{% extends "::layoutV2.html.twig" %}
+
+{% block titrePage %}
+    Profil Users
+{% endblock %}
+
+{% block messageAccueil %}Administration Users{% endblock %}
+
+
+{% block contenu %}
+       
+    <style>
+        .content{
+            padding-top: 0px;
+        }
+        button.cree{
+            margin-bottom: 10px;
+        }
+        
+        .box-title{
+            font-weight: bold;
+        }
+        
+    </style>
+    
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+           
+            
+            {% for data in user %}
+                
+            <div class="col-sm-12">
+              <div class="box box-solid">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Profil de {{data.nom}} {{data.prenom}} </h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body ">
+                  <dl class="dl-horizontal">
+                      
+                      <h4>Info Personnel</h4>
+                    <dt>Nom :</dt>
+                        <dd>{{ data.nom }}</dd>
+                    <dt>Prenom :</dt>
+                        <dd>{{ data.prenom }}</dd>
+                    <dt>Username :</dt>
+                        <dd>{{ data.username }}</dd>
+                    <dt>Date de Naissance :</dt>
+                        <dd>{{ data.dateNaissance.date }}</dd>
+                    <dt>Date d'Embauche :</dt>
+                        <dd>{{ data.dateEmbauche.date }}</dd>
+                    <dt>Matricule :</dt>
+                        <dd>{{ data.matricule }}</dd>
+                        
+                    <h4>Info Professionnel</h4>
+                    <dt>Statut :</dt>
+                        <dd>{{ data.statut }}</dd>
+                    <dt>Poste :</dt>
+                        <dd>{{ data.poste }}</dd>
+                    <dt>Societe :</dt>
+                        <dd>{{ data.idEntite.societe }}</dd>
+                    <dt>Etablissement :</dt>
+                        <dd>{{ data.idEntite.etablissement }}</dd>
+                    <dt>AA :</dt>
+                        <dd>{{ data.idEntite.aa }}</dd>
+                    <dt>DA :</dt>
+                        <dd>{{ data.idEntite.da }}</dd>
+                    <dt>ARH :</dt>
+                        <dd>{{ data.idEntite.arh }}</dd>
+                    <dt>N+2 :</dt>
+                        <dd>{{ data.idEntite.n2 }}</dd>
+                        
+                    <h4>Info Intranet</h4>
+                    <dt>Role :</dt>
+                        <dd>{{ userole }}</dd>
+                    <dt>Compétence Principale :</dt>
+                        <dd>{{ data.idUserInfoIntranet.competancePrincipale }}</dd>
+                    <dt>Compétence Secondaire :</dt>
+                        <dd>{{ data.idUserInfoIntranet.competanceSecondaire }}</dd>
+                    <dt>AUTRE... </dt>
+                        <dd>..........................</dd>
+                  </dl>
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!-- /.box -->
+            </div>
+            {% endfor %}
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+
+   
+   <script>
+       $(".dataTables_info")[0].textContent.replace()
+   </script>
+{% endblock %}

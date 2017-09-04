@@ -98,7 +98,7 @@ class Users
     private $idEntite;
 
     /**
-     * @ORM\ManyToOne(targetEntity="NoxIntranet\UserBundle\Entity\User_Info_Intranet", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="NoxIntranet\UserBundle\Entity\User_Info_Intranet", inversedBy="entite")
      * @ORM\JoinColumn(nullable=false)
      */
     private $idUserInfoIntranet;

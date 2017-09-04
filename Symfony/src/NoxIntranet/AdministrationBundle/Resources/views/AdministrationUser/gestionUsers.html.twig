@@ -1,0 +1,67 @@
+{% extends "::layoutV2.html.twig" %}
+
+{% block titrePage %}
+    Users
+{% endblock %}
+
+{% block messageAccueil %}Administration Users{% endblock %}
+
+
+{% block contenu %}
+       
+    <style>
+        .content{
+            padding-top: 0px;
+        }
+        button.cree{
+            margin-bottom: 10px;
+        }
+        
+    </style>
+    
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                      <h3 class="box-title">Entite</h3>
+                    </div>
+                    
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Agence</th>
+                                    <th>Voir Profil</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for data in users %}
+                                    <tr>
+                                        <td>{{ data.nom }}</td>
+                                        <td>{{ data.prenom }}</td>
+                                        <td>{{ data.agence }}</td>
+                                        <td><a href="{{ path('nox_intranet_administration_voir_user', { 'id':  data.id }) }}"><button class="btn btn-primary">Voir Profil</button> </a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+
+   
+   <script>
+       $(".dataTables_info")[0].textContent.replace()
+   </script>
+{% endblock %}
