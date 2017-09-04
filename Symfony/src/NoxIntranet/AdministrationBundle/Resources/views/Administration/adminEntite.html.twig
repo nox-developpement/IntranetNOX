@@ -9,10 +9,21 @@
 
 {% block contenu %}
        
-
+    <style>
+        .content{
+            padding-top: 0px;
+        }
+        button.cree{
+            margin-bottom: 10px;
+        }
+        
+    </style>
     
     <!-- Main content -->
     <section class="content">
+            {% if app.user and is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('nox_intranet_administration_add_entite') }}"><button class="btn btn-primary col-sm-4 col-md-3 col-lg-2 cree">Crée Nouvelle Entite</button></a>
+            {% endif %}
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
@@ -30,12 +41,16 @@
                                     <th>DA</th>
                                     <th>ARH</th>
                                     <th>N+2</th>
-                                    <th>Option</th>
+                                    {% if app.user and is_granted('ROLE_ADMIN') %}
+                                        <th>Option</th>
+                                    {% endif %}
+
                                 </tr>
                                 
                             </thead>
                             <tbody>
                                 {% for data in entite %}
+                                    
                                     <tr>
                                         <td>{{ data.societe }}</td>
                                         <td>{{ data.etablissement }}</td>
@@ -43,10 +58,13 @@
                                         <td>{{ data.da }}</td>
                                         <td>{{ data.arh }}</td>
                                         <td>{{ data.n2 }}</td>
-                                        <td class="text-center">
-                                            <a href="{{ path('nox_intranet_administration_modif_entite', { 'id':  data.id }) }}"><button class="btn btn-warning">Modifier</button></a>
-                                            <button class="btn btn-danger">Supprimer</button>
+                                        {% if app.user and is_granted('ROLE_ADMIN') %}
+                                        <td class="">
+             
+                                            <a href="{{ path('nox_intranet_administration_modif_entite', { 'id':  data.id }) }}"><button class="btn btn-warning col-sm-12">Modifier</button></a>
+                                            <button type="button" class="btn btn-danger col-sm-12" data-toggle="modal" data-target=#modal-default-{{data.id}}>Supprimer</button>
                                         </td>
+                                        {% endif %}
                                     </tr>
                                 {% endfor %}
                             </tbody>
@@ -55,7 +73,36 @@
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
-            </div>
+            {% if app.user and is_granted('ROLE_ADMIN') %}
+                {% for data in entite %}
+                    <div class="modal fade" id=modal-default-{{data.id}} style="display: none;">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">Confirmation Suppresion Entite</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p>Voulez-vous vraiment supprimer l'entite suivante :</p>
+                            <p><strong>Sociéte :</strong> {{ data.societe }}</p>
+                            <p><strong>Etablissement :</strong> {{ data.etablissement }}</p>
+                            <p><strong>AA :</strong> {{ data.aa }}</p>
+                            <p><strong>DA :</strong> {{ data.da }}</p>
+                            <p><strong>ARH :</strong> {{ data.arh }}</p>
+                            <p><strong>N+2 :</strong> {{ data.n2 }}</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Retour</button>
+                            <a href="{{ path('nox_intranet_administration_supp_entite', { 'id':  data.id }) }}"><button class="btn btn-danger">Supprimer</button></a>
+                          </div>
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+                {% endfor %}
+            {% endif %}
             <!-- /.col -->
         </div>
         <!-- /.row -->

@@ -369,12 +369,68 @@ class AdministrationController extends Controller {
         $entite = $em->getRepository('NoxIntranetUserBundle:Entite')->findAll();
         return $this->render('NoxIntranetAdministrationBundle:Administration:adminEntite.html.twig', array('entite' => $entite));
     }
+
+    public function administrationAddEntiteAction(Request $request) {  
+        $em = $this->getDoctrine()->getManager();
+
+
+        // Génération du formulaire d'upload du fichier de hiérachie RH.
+        $addEntite = $this->createFormBuilder()
+                ->add('societe',     TextType::class, array(
+                ))
+                ->add('etablissement',     TextType::class, array(
+                ))
+                ->add('aa',     TextType::class, array(
+                ))
+                ->add('da',     TextType::class, array(
+                ))
+                ->add('arh',     TextType::class, array(
+                ))
+                ->add('n2',     TextType::class, array(
+                ))
+                ->add('ajout', SubmitType::class)
+                ->getForm();
+        
+        // Si la requête est en POST
+        if ($request->isMethod('POST')) {
+          // On fait le lien Requête <-> Formulaire
+          // À partir de maintenant, la variable $modifEntite contient les valeurs entrées dans le formulaire par le visiteur
+          $addEntite->handleRequest($request);
+
+          // On vérifie que les valeurs entrées sont correctes
+          // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+          if ($addEntite->isValid()) {
+              $foradd = $addEntite->getData();
+            // On enregistre notre objet $modifEntite dans la base de données, par exemple
+             
+                $newEntite = new Entite;
+                
+                $newEntite->setSociete($foradd["societe"]);
+                $newEntite->setEtablissement($foradd["etablissement"]);
+                $newEntite->setAa($foradd["aa"]);
+                $newEntite->setDa($foradd["da"]);    
+                $newEntite->setArh($foradd["arh"]);    
+                $newEntite->setN2($foradd["n2"]);  
+                
+                // Et on le persiste
+                $em->persist($newEntite);
+
+                $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Entite à bien été ajouté.');
+
+            // On redirige vers la page de visualisation de l'annonce nouvellement créée
+            return $this->redirectToRoute('nox_intranet_administration_entite');
+          }
+        }
+        
+        return $this->render('NoxIntranetAdministrationBundle:Administration:adminAddEntite.html.twig', array('form' => $addEntite->createView()));
+    }
     
     public function administrationModifEntiteAction($id,Request $request) {  
         $em = $this->getDoctrine()->getManager();
         $entite = $em->getRepository('NoxIntranetUserBundle:Entite')->findById($id);
 
-        
         // Génération du formulaire d'upload du fichier de hiérachie RH.
         $modifEntite = $this->createFormBuilder()
                 ->add('societe',     TextType::class, array(
@@ -428,10 +484,19 @@ class AdministrationController extends Controller {
         }
         
         return $this->render('NoxIntranetAdministrationBundle:Administration:adminModifEntite.html.twig', array('entite' => $entite, 'form' => $modifEntite->createView()));
+    }
+    
+    public function administrationSuppEntiteAction($id, Request $request) { 
+        $em = $this->getDoctrine()->getManager();
+        $suppEntite = $em->getRepository('NoxIntranetUserBundle:Entite')->findOneById($id); 
         
         
+        $em->remove($suppEntite);
+        $em->flush(); // Exécute un DELETE sur $suppEntite
         
+        $request->getSession()->getFlashBag()->add('notice', 'Entite à bien été Supprimer.');
         
+        return $this->redirectToRoute('nox_intranet_administration_entite');
     }
 
     
