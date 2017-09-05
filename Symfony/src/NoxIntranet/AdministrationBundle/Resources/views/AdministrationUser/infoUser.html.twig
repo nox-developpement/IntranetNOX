@@ -21,6 +21,24 @@
             font-weight: bold;
         }
         
+        .dl-horizontal dt {
+            float: left;
+            width: calc(50% - 20px);
+            overflow: hidden;
+            clear: left;
+            text-align: right;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+       
+        .dl-horizontal dd {
+            margin-left: 50%;
+        }
+        
+        h4{
+            border-bottom: 1px solid rgba(0,0,0,.2);
+        }
+
     </style>
     
     <!-- Main content -->
@@ -30,7 +48,7 @@
             
             {% for data in user %}
                 
-            <div class="col-sm-12">
+            <div class="col-xs-12">
               <div class="box box-solid">
                 <div class="box-header with-border">
                   <h3 class="box-title">Profil de {{data.nom}} {{data.prenom}} </h3>
