@@ -345,8 +345,34 @@
                     <span class="fa fa-ticket"><figcaption>Ticketing</figcaption></span>
                 </figure>
             </a>
+                
+            <!-- user -->
+            <a href="{{ path('nox_intranet_administration_gestion_users') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-ticket"><figcaption>Users</figcaption></span>
+                </figure>
+            </a>
+                
+            <!-- entite -->
+            <a href="{{ path('nox_intranet_administration_entite') }}" class="icon">
+                <figure class="col-xs-3" >
+                    <span class="fa fa-ticket"><figcaption>Gestion Entite</figcaption></span>
+                </figure>
+            </a>
+                
+                
+                
+                
         </div>
             
+                
+                
+                
+                
+                
+                
+                
+                
         <!-- DRH -->
         {% if app.user and is_granted('ROLE_RH') %}
 

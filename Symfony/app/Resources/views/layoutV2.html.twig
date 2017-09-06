@@ -98,6 +98,16 @@
                     height: 50px;
             }
             
+            .main-header .fa-chevron-left {
+                color: #fff;
+                float: left;
+                background-color: transparent;
+                background-image: none;
+                padding: 15px 15px;
+                font-family: fontAwesome;
+            }
+            
+            
         </style>
             {% if app.user != null %}
             {% else %}
@@ -143,7 +153,7 @@
           <!-- Header Navbar: style can be found in header.less -->
           <nav class="navbar navbar-static-top">
             <!-- Sidebar toggle button-->
-            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <a href="#" class="fa fa-chevron-left" data-toggle="push-menu" role="button">
               <span class="sr-only">Toggle navigation</span>
             </a>
 
@@ -438,6 +448,12 @@
       'autoWidth'   : false
     })
   })
+</script>
+<script>
+    if($(".content-wrapper").css("min-height") === "452.011px"){
+        console.log("ok");
+    }
+    
 </script>
             
     </body>

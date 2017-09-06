@@ -240,51 +240,39 @@ class AdministrationUsersController extends Controller {
         $info = $query->getResult();
         
         
+        // traiter les info role
+        // recupere les roles de l'utilisateur
         $role = $info[0]->getRole();
+        // décode les roles pour pour pouvoir les afficher
+        $decodeRole = unserialize($role);
         $userRole = "";
-                
-        if(preg_match("#ROLE_USER#", $role)){
-            $userRole .= "User ";
+        
+        foreach ($decodeRole as $key => $value) {
+            if($value !== ""){
+                $userRole .= $value." / ";
+            }
         }
-        if(preg_match("#ROLE_ADMIN#", $role)){
-            $userRole .= "Admin ";
-        }
-        if(preg_match("#ROLE_REFERENCES#", $role)){
-            $userRole .= "References ";
-        }
-        if(preg_match("#ROLE_LIENS#", $role)){
-            $userRole .= "Lien ";
-        }
-        if(preg_match("#ROLE_FAQ#", $role)){
-            $userRole .= "FAQ ";
-        }
-        if(preg_match("#ROLE_CE#", $role)){
-            $userRole .= "CE ";
-        }
-        if(preg_match("#ROLE_CHSCT#", $role)){
-            $userRole .= "CHSCT ";
-        }
-        if(preg_match("#ROLE_QUALITE#", $role)){
-            $userRole .= "Qualité ";
-        }
-        if(preg_match("#ROLE_COMPETENCES#", $role)){
-            $userRole .= "Competences ";
-        }
-        if(preg_match("#ROLE_COMMUNICATION#", $role)){
-            $userRole .= "Communication ";
-        }
-        if(preg_match("#ROLE_PROCEDURES#", $role)){
-            $userRole .= "Procedures ";
-        }
-        if(preg_match("#ROLE_RH#", $role)){
-            $userRole .= "RH ";
-        }
-        if(preg_match("#ROLE_SUPER_ADMIN#", $role)){
-            $userRole .= "Super Admin ";
-        }
+        // supp les 3 derniers caractere
+        $Role = substr($userRole, 0, -3);
         
         
-        return $this->render('NoxIntranetAdministrationBundle:AdministrationUser:infoUser.html.twig', array('user' => $users, 'userole' => $userRole ));
+        // traiter les info competences secondaire
+        // recupere les competences de l'utilisateur
+        $competence = $info[0]->getCompetanceSecondaire();
+        // décode les competences pour pour pouvoir les afficher
+        $decodeCompetence = unserialize($competence);
+        $userCompetence = "";
+        
+        foreach ($decodeCompetence as $key => $value) {
+            if($value !== ""){
+                $userCompetence .= $value." / ";
+            }
+        }
+        // supp les 3 derniers caractere
+        $Competence = substr($userCompetence, 0, -3);
+
+        
+        return $this->render('NoxIntranetAdministrationBundle:AdministrationUser:infoUser.html.twig', array('user' => $users, 'userole' => $Role, 'userCompetence' => $Competence ));
     }
     
     

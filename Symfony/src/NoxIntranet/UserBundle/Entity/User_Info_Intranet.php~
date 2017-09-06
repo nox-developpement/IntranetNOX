@@ -38,14 +38,14 @@ class User_Info_Intranet
     /**
      * @var string
      *
-     * @ORM\Column(name="competance_principale", type="string", length=255)
+     * @ORM\Column(name="competance_principale", type="string", length=255, nullable=true)
      */
     private $competancePrincipale;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="competance_secondaire", type="text")
+     * @ORM\Column(name="competance_secondaire", type="text", nullable=true)
      */
     private $competanceSecondaire;
 
