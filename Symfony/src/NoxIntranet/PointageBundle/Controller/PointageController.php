@@ -911,7 +911,7 @@ class PointageController extends Controller {
             $newCSVFileHandler = fopen($newCSVFile, 'w+');
 
             if ($formCompilationDate->get('download_variables_affaires')->isClicked()) {
-                fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values(array('Nom', 'Prénom', 'Numéro d\'affaire', 'Valeur', 'Date'))), ';');
+                fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values(array('Nom', 'Prénom', 'Numéro d\'affaire', 'Valeur', 'Date', "Commentaire"))), ';');
                 $filename = "Compilation des variables d'affaires";
             } else if ($formCompilationDate->get('download_variables_paie')->isClicked()) {
                 fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values(array('Date', 'Nom', 'Prénom', 'Modulation', 'Absence matin', 'Absence après-midi', 'Titre repas', 'Forfait déplacement', 'Prime panier', 'Commentaire'))), ';');
@@ -920,30 +920,35 @@ class PointageController extends Controller {
 
             // Pour chaque pointage...
             foreach ($tableau as $pointage) {
+                
                 // On récupére la hiérarchie du collaborateur du pointage.
                 $userHierarchy = $em->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($pointage->getUser());
-
+                
+                
                 // Si le collaborateur du pointage appartient à NOX IP et le pointage contient des données CSV...
                 if (!empty($userHierarchy) && strpos($userHierarchy->getEtablissement(), 'INDUSTRIE') !== false && strpos($userHierarchy->getEtablissement(), 'PROCESS') !== false && !empty($pointage->getCSVData())) {
                     // On récupére les données CSV.
                     $CSVData = $pointage->getCSVData();
+                    
 
                     if ($formCompilationDate->get('download_variables_affaires')->isClicked()) {
                         // On injecte les données dans le fichier pour chaques affaires...
                         foreach ($CSVData['variables_affaires'] as $affaireDate) {
                             // Et chaques dates...
                             foreach ($affaireDate as $affaire) {
+
                                 fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values($affaire)), ";");
                             }
                         }
                     } else if ($formCompilationDate->get('download_variables_paie')->isClicked()) {
                         // On injecte les données dans le fichier pour chaques affaires...
-                        foreach ($CSVData['variables_paie'] as $variables_paies) {
+                        foreach ($CSVData['variables_paie'] as $variables_paies) {                            
                             fputcsv($newCSVFileHandler, array_map('utf8_decode', array_values($variables_paies)), ";");
                         }
                     }
                 }
             }
+            
 
             // On récupére les données du fichier.
             $file = stream_get_contents($newCSVFileHandler, -1, 0);

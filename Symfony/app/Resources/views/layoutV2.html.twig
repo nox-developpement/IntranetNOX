@@ -98,7 +98,7 @@
                     height: 50px;
             }
             
-            .main-header .fa-chevron-left {
+            .main-header .fa-chevron-left, .main-header .fa-chevron-right  {
                 color: #fff;
                 float: left;
                 background-color: transparent;
@@ -450,9 +450,24 @@
   })
 </script>
 <script>
-    if($(".content-wrapper").css("min-height") === "452.011px"){
-        console.log("ok");
-    }
+    $(".fa-chevron-left, .fa-chevron-rigth").click(function(){
+        if($("body").hasClass("sidebar-collapse") == true){
+            $(".fa-chevron-right").attr("class", "fa fa-chevron-left");
+        }else{
+            $(".fa-chevron-left").attr("class", "fa fa-chevron-right");
+        }
+    })
+
+    setInterval(function(){
+        if($(".content-wrapper").css("min-height") ===  "452.011px"){
+            $(".fa-chevron-left").attr("class", "fa fa-chevron-right");
+        }else{
+            if($("body").hasClass("sidebar-collapse") == false){
+                $(".fa-chevron-right").attr("class", "fa fa-chevron-left");
+            }
+        }
+    }, 1000);
+    
     
 </script>
             

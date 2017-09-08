@@ -263,11 +263,17 @@ class AdministrationUsersController extends Controller {
         $decodeCompetence = unserialize($competence);
         $userCompetence = "";
         
-        foreach ($decodeCompetence as $key => $value) {
-            if($value !== ""){
-                $userCompetence .= $value." / ";
+        if($decodeCompetence != false){
+            foreach ($decodeCompetence as $key => $value) {
+                if($value !== ""){
+                    $userCompetence .= $value." / ";
+                }
             }
         }
+
+
+
+        
         // supp les 3 derniers caractere
         $Competence = substr($userCompetence, 0, -3);
 

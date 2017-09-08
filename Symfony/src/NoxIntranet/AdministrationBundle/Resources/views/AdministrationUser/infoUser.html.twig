@@ -99,11 +99,21 @@
                         
                     <h4>Info Intranet</h4>
                     <dt>Role :</dt>
+                    
                         <dd>{{ userole }}</dd>
+                        
                     <dt>Compétence Principale :</dt>
-                        <dd>{{ data.idUserInfoIntranet.competancePrincipale }}</dd>
-                    <dt>Compétence Secondaire :</dt>
-                        <dd>{{ userCompetence }}</dd>
+                        {% if data.idUserInfoIntranet.competancePrincipale != null %}
+                            <dd>{{ data.idUserInfoIntranet.competancePrincipale }}</dd>
+                        {% else %}
+                            <dd>Aucune Compétence</dd>
+                        {% endif %}
+                    <dt>Compétence Secondaire :</dt>                    
+                        {% if userCompetence != false %}
+                            <dd>{{ userCompetence }}</dd>
+                        {% else %}
+                            <dd>Aucune Compétence</dd>
+                        {% endif %}
                     <dt>AUTRE... </dt>
                         <dd>..........................</dd>
                   </dl>

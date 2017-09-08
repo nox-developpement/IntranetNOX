@@ -255,3 +255,7 @@ nox_intranet_administration_voir_user:
 nox_intranet_administration_maj_new_bdd:
     path: /administration/maj/bdd_info_intranet
     defaults: { _controller: NoxIntranetAdministrationBundle:MAJNewBDD:administrationBddInfoIntranet }
+    
+nox_intranet_administration_maj_new_bdd_users:
+    path: /administration/maj/bdd_users
+    defaults: { _controller: NoxIntranetAdministrationBundle:MAJNewBDD:administrationBddUsers }
