@@ -244,17 +244,17 @@
           <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MENU </li>
             
-
-            {% if app.user != null and (is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENCES') or is_granted('ROLE_COMPETENCES') or is_granted('ROLE_COMMUNICATION') or is_granted('ROLE_PROCEDURES') or is_granted('ROLE_FAQ') or is_granted('ROLE_CE') or is_granted('ROLE_CHSCT') or is_granted('ROLE_LIENS') or is_granted('ROLE_QUALITE') or is_granted('ROLE_RH')) %}
+            
+            {% if app.user != null and is_granted('ROLE_ADMIN') %}
                 <li class="admin">
                     <a href="{{ path('nox_intranet_administration') }}">
                         <i class="fa fa-group"></i> <span>Administration</span>
                     </a>
                 </li>
-            {% elseif is_granted('ROLE_PUBLICATEUR') %}
-                <li class="pulbic">
-                    <a href="#">
-                        <i class="fa fa-group"></i> <span>Publication</span>
+            {% elseif app.user != null and is_granted('ROLE_REFERENCES') or is_granted('ROLE_COMPETENCES') or is_granted('ROLE_COMMUNICATION') or is_granted('ROLE_PROCEDURES') or is_granted('ROLE_FAQ') or is_granted('ROLE_CE') or is_granted('ROLE_CHSCT') or is_granted('ROLE_LIENS') or is_granted('ROLE_QUALITE') or is_granted('ROLE_RH') %}
+                <li class="public">
+                    <a href="{{ path('nox_intranet_administration_service') }}">
+                        <i class="fa fa-group"></i> <span>Service</span>
                     </a>
                 </li>
             {% endif %}

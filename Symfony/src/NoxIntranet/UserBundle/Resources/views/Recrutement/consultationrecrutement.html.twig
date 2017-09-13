@@ -1,0 +1,91 @@
+{% extends "::layoutV2.html.twig" %}
+
+{% block titrePage %}
+    Profil Users
+{% endblock %}
+
+{% block messageAccueil %}Demande d'Embauche{% endblock %}
+
+
+{% block contenu %}
+       
+    <style>
+        .embauche{
+            font-size: 16px;
+            font-weight: bold;
+            list-style: none;
+        }
+        .embauche li{
+            padding: 5px 0;
+        }
+        .embauche li span{
+            padding-left: 5px;
+            font-weight: normal;
+        }
+    </style>
+   
+    
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <ul class="embauche">
+                <li>Titre : <span>{{ demande.titre }}</span></li>
+                <li>Réference : <span>{{ demande.reference }}</span></li>
+                <li>Ville : <span>{{ demande.ville }}</span></li>
+                <li>Societe : <span>{{ demande.societe }}</span></li>
+                <li>Etablissement : <span>{{ demande.etablissement }}</span></li>
+                <li>Contrat : <span>{{ demande.contrat }}</span></li>
+                <li>Date d'Embauche : <span>{{ demande.dateEmbauche.date|date("d/m/Y") }}</span></li>
+                <li>Commentaire : <span>{{ demande.commentaireProfile }}</span></li>
+            </ul>
+        </div> 
+    </div>
+    
+    
+    
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                      <h3 class="box-title">Candidat</h3>
+                    </div>
+                    
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Agence</th>
+                                    <th>Voir Profil</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                   
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+
+   
+   <script>
+       $(".dataTables_info")[0].textContent.replace()
+   </script>
+{% endblock %}

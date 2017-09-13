@@ -73,17 +73,32 @@
                     <dt>Username :</dt>
                         <dd>{{ data.username }}</dd>
                     <dt>Date de Naissance :</dt>
-                        <dd>{{ data.dateNaissance.date }}</dd>
+                        {% if data.dateNaissance != null %}
+                            <dd>{{ data.dateNaissance.date }}</dd>
+                        {% else %}
+                            <dd>Information Manquante</dd>
+                        {% endif %}
                     <dt>Date d'Embauche :</dt>
-                        <dd>{{ data.dateEmbauche.date }}</dd>
+                        {% if data.dateEmbauche != null %}
+                            <dd>{{ data.dateEmbauche.date }}</dd>
+                        {% else %}
+                            <dd>Information Manquante</dd>
+                        {% endif %}
                     <dt>Matricule :</dt>
                         <dd>{{ data.matricule }}</dd>
-                        
                     <h4>Info Professionnel</h4>
                     <dt>Statut :</dt>
-                        <dd>{{ data.statut }}</dd>
+                        {% if data.statut != null %}
+                            <dd>{{ data.statut }}</dd>
+                        {% else %}
+                            <dd>Information Manquante</dd>
+                        {% endif %}
                     <dt>Poste :</dt>
-                        <dd>{{ data.poste }}</dd>
+                        {% if data.poste != null %}
+                            <dd>{{ data.poste }}</dd>
+                        {% else %}
+                            <dd>Information Manquante</dd>
+                        {% endif %}
                     <dt>Societe :</dt>
                         <dd>{{ data.idEntite.societe }}</dd>
                     <dt>Etablissement :</dt>

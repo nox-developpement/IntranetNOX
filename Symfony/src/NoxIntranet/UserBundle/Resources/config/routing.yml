@@ -83,3 +83,14 @@ nox_intranet_recrutement:
     path:   administration/recrutement
     defaults: { _controller: NoxIntranetUserBundle:Recrutement\Recrutement:tableauRecrutement }
     
+nox_intranet_consultation_recrutement:
+    path:   administration/consultation-recrutement/{reference}
+    defaults: { _controller: NoxIntranetUserBundle:Recrutement\Recrutement:consultationRecrutement }
+    
+nox_intranet_cree_recrutement:
+    path:   administration/cree-recrutement
+    defaults: { _controller: NoxIntranetUserBundle:Recrutement\Recrutement:creeRecrutement }
+    
+nox_intranet_update_recrutement:
+    path:   administration/update-recrutement/{reference}
+    defaults: { _controller: NoxIntranetUserBundle:Recrutement\Recrutement:updateRecrutement }

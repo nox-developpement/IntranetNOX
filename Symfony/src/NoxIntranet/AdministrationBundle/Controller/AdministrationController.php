@@ -12,12 +12,17 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AdministrationController extends Controller {
-
+    
     public function administrationAction() {
 
         return $this->render('NoxIntranetAdministrationBundle:Administration:administration.html.twig');
     }
+    
+    public function administrationServiceAction() {
 
+        return $this->render('NoxIntranetAdministrationBundle:Administration:administrationService.html.twig');
+    } 
+    
     public function administrationNewsAction() {
 
         return $this->render('NoxIntranetAdministrationBundle:AdministrationNews:administrationNews.html.twig');

@@ -20,7 +20,7 @@ class MAJNewBDDController extends Controller {
         // On récupère all users.
         $allUsers = $this->getDoctrine()->getManager()->getRepository('NoxIntranetUserBundle:User')->findAll();
     
-        set_time_limit(600);
+        set_time_limit(800);
         
         foreach ($allUsers as $key => $value) {
             
@@ -129,7 +129,6 @@ class MAJNewBDDController extends Controller {
                         $newInfoUserIntranet->setCharteInformationReadingDate(NULL);
                     }
             
-
                 }
             
                 $em->persist($newInfoUserIntranet);
@@ -141,10 +140,6 @@ class MAJNewBDDController extends Controller {
              
 
         } 
-        
-
-
-
 
         
     }
@@ -156,13 +151,80 @@ class MAJNewBDDController extends Controller {
         // On récupère all users.
         $allUsers = $this->getDoctrine()->getManager()->getRepository('NoxIntranetUserBundle:User')->findAll();
         
-        set_time_limit(600);
+        set_time_limit(800);
         
         foreach ($allUsers as $key => $value){
             
-            $em = $this->getDoctrine()->getManager();
-            
+            // update
+            if(!empty( $this->getDoctrine()->getManager()->getRepository('NoxIntranetUserBundle:Users')->findByUsername($value->getUsername()))){
+                
+                $em = $this->getDoctrine()->getManager();
+                
+                $updateUser = $em->getRepository('NoxIntranetUserBundle:Users')->findByUsername($value->getUsername());
+                
+                $updateUser[0]->setSalt($value->getSalt());
+                
+                if($value->getMatriceCompetence() == NULL){
+                    $updateUser[0]->setStatut(NULL);
+                    $updateUser[0]->setPoste(NULL);
+                }else{
+                    $updateUser[0]->setStatut($value->getMatriceCompetence()->getStatut());
+                    $updateUser[0]->setPoste($value->getMatriceCompetence()->getPoste());
+                }
 
+                if( $value->getAgence() == NULL){
+                    $updateUser[0]->setAgence("Indéfini");
+                }else{
+                    $updateUser[0]->setAgence($value->getAgence());
+                }
+                
+                $idUserInfoIntranet = $this->getDoctrine()->getManager()->getRepository('NoxIntranetUserBundle:User_Info_Intranet')->findOneByUsername($value->getUsername());           
+                $updateUser[0]->setIdUserInfoIntranet($idUserInfoIntranet);
+                
+                $userHyerarchie = $this->getDoctrine()->getManager()->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($value->getUsername());           
+
+                if($userHyerarchie != NULL){
+                    //etable du users
+                    $etable = $userHyerarchie->getEtablissement();
+                    $aa = $userHyerarchie->getAa();
+                    $da = $userHyerarchie->getDa();
+                    $rh = $userHyerarchie->getRh();
+                    $n2 = $userHyerarchie->getN2();
+
+
+
+                    $rechercheHyerarchie = $this->getDoctrine()->getEntityManager()->createQuery('select ent from NoxIntranetUserBundle:Entite ent WHERE ent.etablissement LIKE :etabli AND ent.aa LIKE :aa AND ent.da LIKE :da AND ent.arh LIKE :rh AND ent.n2 LIKE :n2')
+                    ->setParameter("etabli", '%'.$etable.'%')
+                    ->setParameter("aa", '%'.$aa.'%')
+                    ->setParameter("da", '%'.$da.'%')
+                    ->setParameter("rh", '%'.$rh.'%')
+                    ->setParameter("n2", '%'.$n2.'%')
+                    ->getResult();
+
+                    if(empty($rechercheHyerarchie)){
+
+                        $rechercheHyerarchie = $this->getDoctrine()->getEntityManager()->createQuery('select ent from NoxIntranetUserBundle:Entite ent WHERE ent.etablissement LIKE :etabli ')
+                        ->setParameter("etabli", '%'.$etable.'%')
+                        ->getResult();
+                    }
+
+                }else if($userHyerarchie == NULL){
+                    $non = "Non defini";
+                    $rechercheHyerarchie = $this->getDoctrine()->getEntityManager()->createQuery('select ent from NoxIntranetUserBundle:Entite ent WHERE ent.etablissement LIKE :etabli')
+                    ->setParameter("etabli", '%'.$non.'%')
+                    ->getResult();
+
+                }
+
+                $updateUser[0]->setIdEntite($rechercheHyerarchie[0]);
+                
+                $em->flush();
+                
+                
+            //create
+            }else{
+                $em = $this->getDoctrine()->getManager();
+                
                 $newUsers = new \NoxIntranet\UserBundle\Entity\Users;
                 
                 $newUsers->setNom($value->getLastname());
@@ -178,15 +240,21 @@ class MAJNewBDDController extends Controller {
                     $newUsers->setStatut(NULL);
                     $newUsers->setPoste(NULL);
                 }else{
-                    $Naissance = $value->getMatriceCompetence()->getDateNaissance()->getTimestamp();
-                    $dateNaissance = date("Y-m-d H:i:s", $Naissance );
-            
-                    $Embauche = $value->getMatriceCompetence()->getDateAnciennete()->getTimestamp();
-                    $dateEmbauche = date("Y-m-d H:i:s", $Embauche );
-            
-            
-                    $newUsers->setDateNaissance( DateTime::createFromFormat("Y-m-d H:i:s", $dateNaissance) );
-                    $newUsers->setDateEmbauche( DateTime::createFromFormat("Y-m-d H:i:s", $dateEmbauche) );
+                    
+                    if($value->getMatriceCompetence()->getDateNaissance() != NULL){
+                        $Naissance = $value->getMatriceCompetence()->getDateNaissance()->getTimestamp();
+                        $dateNaissance = date("Y-m-d H:i:s", $Naissance );
+
+                        $Embauche = $value->getMatriceCompetence()->getDateAnciennete()->getTimestamp();
+                        $dateEmbauche = date("Y-m-d H:i:s", $Embauche );
+
+                        $newUsers->setDateNaissance( DateTime::createFromFormat("Y-m-d H:i:s", $dateNaissance) );
+                        $newUsers->setDateEmbauche( DateTime::createFromFormat("Y-m-d H:i:s", $dateEmbauche) );
+                    }else{
+                        $newUsers->setDateNaissance( NULL );
+                        $newUsers->setDateEmbauche( NULL );
+                    }                   
+                    
                     $newUsers->setMatricule( $value->getMatriceCompetence()->getMatricule() );
                     $newUsers->setStatut($value->getMatriceCompetence()->getStatut());
                     $newUsers->setPoste($value->getMatriceCompetence()->getPoste());
@@ -201,66 +269,123 @@ class MAJNewBDDController extends Controller {
                 $idUserInfoIntranet = $this->getDoctrine()->getManager()->getRepository('NoxIntranetUserBundle:User_Info_Intranet')->findOneByUsername($value->getUsername());           
                 $newUsers->setIdUserInfoIntranet($idUserInfoIntranet);
                    
-                
                 $userHyerarchie = $this->getDoctrine()->getManager()->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findOneByUsername($value->getUsername());           
 
-                
-                
-            if($userHyerarchie != NULL){
-                //etable du users
-                $etable = $userHyerarchie->getEtablissement();
-                $aa = $userHyerarchie->getAa();
-                $da = $userHyerarchie->getDa();
-                $rh = $userHyerarchie->getRh();
-                $n2 = $userHyerarchie->getN2();
-                
+                if($userHyerarchie != NULL){
+                    //etable du users
+                    $etable = $userHyerarchie->getEtablissement();
+                    $aa = $userHyerarchie->getAa();
+                    $da = $userHyerarchie->getDa();
+                    $rh = $userHyerarchie->getRh();
+                    $n2 = $userHyerarchie->getN2();
 
 
-                $rechercheHyerarchie = $this->getDoctrine()->getEntityManager()->createQuery('select ent from NoxIntranetUserBundle:Entite ent WHERE ent.etablissement LIKE :etabli AND ent.aa LIKE :aa AND ent.da LIKE :da AND ent.arh LIKE :rh AND ent.n2 LIKE :n2')
-                ->setParameter("etabli", '%'.$etable.'%')
-                ->setParameter("aa", '%'.$aa.'%')
-                ->setParameter("da", '%'.$da.'%')
-                ->setParameter("rh", '%'.$rh.'%')
-                ->setParameter("n2", '%'.$n2.'%')
-                ->getResult();
-                
-                if(empty($rechercheHyerarchie)){
-                    
-                    $rechercheHyerarchie = $this->getDoctrine()->getEntityManager()->createQuery('select ent from NoxIntranetUserBundle:Entite ent WHERE ent.etablissement LIKE :etabli ')
+
+                    $rechercheHyerarchie = $this->getDoctrine()->getEntityManager()->createQuery('select ent from NoxIntranetUserBundle:Entite ent WHERE ent.etablissement LIKE :etabli AND ent.aa LIKE :aa AND ent.da LIKE :da AND ent.arh LIKE :rh AND ent.n2 LIKE :n2')
                     ->setParameter("etabli", '%'.$etable.'%')
+                    ->setParameter("aa", '%'.$aa.'%')
+                    ->setParameter("da", '%'.$da.'%')
+                    ->setParameter("rh", '%'.$rh.'%')
+                    ->setParameter("n2", '%'.$n2.'%')
                     ->getResult();
-                }
-                
-            }else if($userHyerarchie == NULL){
-                $non = "Non defini";
-                $rechercheHyerarchie = $this->getDoctrine()->getEntityManager()->createQuery('select ent from NoxIntranetUserBundle:Entite ent WHERE ent.etablissement LIKE :etabli')
-                ->setParameter("etabli", '%'.$non.'%')
-                ->getResult();
 
-            }
-            
-            
+                    if(empty($rechercheHyerarchie)){
+
+                        $rechercheHyerarchie = $this->getDoctrine()->getEntityManager()->createQuery('select ent from NoxIntranetUserBundle:Entite ent WHERE ent.etablissement LIKE :etabli ')
+                        ->setParameter("etabli", '%'.$etable.'%')
+                        ->getResult();
+                    }
+
+                }else if($userHyerarchie == NULL){
+                    $non = "Non defini";
+                    $rechercheHyerarchie = $this->getDoctrine()->getEntityManager()->createQuery('select ent from NoxIntranetUserBundle:Entite ent WHERE ent.etablissement LIKE :etabli')
+                    ->setParameter("etabli", '%'.$non.'%')
+                    ->getResult();
+
+                }
+
                 $newUsers->setIdEntite($rechercheHyerarchie[0]);
 
                  
-               $em->persist($newUsers);
-               $em->flush();
+                $em->persist($newUsers);
+                $em->flush();
+
+            }
+            
+              
         }
         
    
          die();
         
-        
-        
-       
-                
-                
-                
-                
-                
-                
-                
+                  
         
     }
+    
+    
+    function administrationBddEntiteAction() {
+        
+        $allHierarchy = $this->getDoctrine()->getManager()->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findAll();
+             
+        $test = $this->getDoctrine()->getManager()->getRepository('NoxIntranetPointageBundle:UsersHierarchy')->findByUsername("g.venture");
+        
+
+        
+        set_time_limit(800);
+        
+        foreach ($allHierarchy as $key => $value) {
+            
+            $em = $this->getDoctrine()->getManager();
+                
+            $newEntite = new \NoxIntranet\UserBundle\Entity\Entite;
+            
+            $etable = $value->getEtablissement();
+            $aa = $value->getAa();
+            $da = $value->getDa();
+            $rh = $value->getRh();
+            $n2 = $value->getN2();
+            
+            $existEntite = $this->getDoctrine()->getEntityManager()->createQuery('select ent from NoxIntranetUserBundle:Entite ent WHERE ent.etablissement LIKE :etabli AND ent.aa LIKE :aa AND ent.da LIKE :da AND ent.arh LIKE :rh AND ent.n2 LIKE :n2')
+            ->setParameter("etabli", '%'.$etable.'%')
+            ->setParameter("aa", '%'.$aa.'%')
+            ->setParameter("da", '%'.$da.'%')
+            ->setParameter("rh", '%'.$rh.'%')
+            ->setParameter("n2", '%'.$n2.'%')
+            ->getResult();
+            
+            
+            if(empty($existEntite)){
+                //echo "cree";
+                
+                $newEntite->setSociete($value->getSociete());
+                $newEntite->setEtablissement($value->getEtablissement());
+                $newEntite->setAa($value->getAa());
+                $newEntite->setDa($value->getDa());
+                $newEntite->setArh($value->getRh());
+                $newEntite->setN2($value->getN2());
+
+                $em->persist($newEntite);
+                $em->flush();
+                
+            }else{
+                //echo "exist";
+            }
+            
+           
+            
+        }
+        
+        
+        die();
+        
+       
+        
+    }
+    
+    
+    
+    
+    
+    
     
 }

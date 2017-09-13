@@ -259,3 +259,11 @@ nox_intranet_administration_maj_new_bdd:
 nox_intranet_administration_maj_new_bdd_users:
     path: /administration/maj/bdd_users
     defaults: { _controller: NoxIntranetAdministrationBundle:MAJNewBDD:administrationBddUsers }
+    
+nox_intranet_administration_maj_new_bdd_entite:
+    path: /administration/maj/entite
+    defaults: { _controller: NoxIntranetAdministrationBundle:MAJNewBDD:administrationBddEntite }
+    
+nox_intranet_administration_service:
+    path: /administration/service
+    defaults: { _controller: NoxIntranetAdministrationBundle:Administration:administrationService }
