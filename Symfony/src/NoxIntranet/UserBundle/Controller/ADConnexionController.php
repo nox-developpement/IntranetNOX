@@ -43,7 +43,7 @@ class ADConnexionController extends Controller {
             if (empty($user)) {
                 // On affiche un message d'erreur.
                 $request->getSession()->getFlashBag()->add('noticeErreur', 'Identifiant/Mot de passe incorrect !');
-
+                
                 // On redirige vers la page précédente.
                 $referer = $this->getRequest()->headers->get('referer');
                 return $this->redirect($referer);
