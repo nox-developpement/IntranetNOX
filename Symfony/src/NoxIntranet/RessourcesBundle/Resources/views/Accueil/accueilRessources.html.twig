@@ -5,6 +5,51 @@
 {% block messageAccueil %}Ressources{% endblock %}
 
 {% block contenu %} 
+<!-- Font Awesome -->
+        <link rel="stylesheet" href="{{ asset('./bower_components/font-awesome/css/font-awesome.min.css') }}">
+        
+        <style>
+            .fa-file-text{
+               
+                background-color: rgb(31,78,121);
+                border-radius: 15px;
+                width: 100%;
+                color: #fff;
+                padding: 15px 0;
+                font-size: 5em;
+                border: solid 1px rgb(31,78,121);
+            }
+            
+            .fa-file-text:hover{
+                background-color: #fff;
+                color: rgb(31,78,121);
+            }
+            
+            @media (max-width: 1000px) {
+                .fa-file-text{
+                    background-color: rgb(31,78,121);
+                    border-radius: 15px;
+                    width: 100%;
+                    color: #fff;
+                    padding: 12px 0;
+                    font-size: 4em;
+                    border: solid 1px rgb(31,78,121);
+                }
+            }
+
+            @media (max-width: 600px) {
+                .fa-file-text{
+                    background-color: rgb(31,78,121);
+                    border-radius: 15px;
+                    width: 100%;
+                    color: #fff;
+                    padding: 9px 0;
+                    font-size: 4em;
+                    border: solid 1px rgb(31,78,121);
+                }
+            }
+            
+        </style>
     <div class="iconContener">
 
         <!-- Archives -->
@@ -144,6 +189,15 @@
             </figure>
         </a>
 
+        <!-- Partage de documents -->
+        <a href="https://uk1.aconex.co.uk/Logon?Action=Login&LOCALE=fr_FR" class="icon">
+            <figure>
+                <i class="fa fa-file-text" aria-hidden="true"></i>
+
+                <figcaption>Aconex</figcaption>
+            </figure>
+        </a>          
+                    
         <!-- Procédures (A ajouter)
         <a href="{{ path('nox_intranet_procedures') }}" class="icon">
             <figure>
