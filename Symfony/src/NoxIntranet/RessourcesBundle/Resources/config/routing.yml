@@ -243,3 +243,7 @@ nox_intranet_ressources_siren:
 nox_intranet_ressources_ajax_search_by_siren:
     path: /ressources/ajax_search_by_siren
     defaults: { _controller: NoxIntranetRessourcesBundle:Siren\Siren:ajaxSearchBySiren }
+    
+nox_intranet_ressources_extraction_noxpointage:
+    path: /ressources/extraction_pointage_csvdata/{month}
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:extractionPointageCSVData }

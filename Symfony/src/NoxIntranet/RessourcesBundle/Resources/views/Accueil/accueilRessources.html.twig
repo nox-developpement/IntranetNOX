@@ -5,9 +5,8 @@
 {% block messageAccueil %}Ressources{% endblock %}
 
 {% block contenu %} 
-<!-- Font Awesome -->
+    <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('./bower_components/font-awesome/css/font-awesome.min.css') }}">
-        
         <style>
             .fa-file-text{
                
@@ -189,14 +188,17 @@
             </figure>
         </a>
 
-        <!-- Partage de documents -->
+        <!-- Aconex -->
         <a href="https://uk1.aconex.co.uk/Logon?Action=Login&LOCALE=fr_FR" class="icon">
             <figure>
-                <i class="fa fa-file-text" aria-hidden="true"></i>
-
+                <img 
+                    src="{{ asset('bundles/noxintranetressources/images/Archive-128.png') }}" 
+                    onmouseover="this.src = '{{ asset('bundles/noxintranetressources/images/Archive-128-hover.png') }}';" 
+                    onmouseout="this.src = '{{ asset('bundles/noxintranetressources/images/Archive-128.png') }}';"
+                    > 
                 <figcaption>Aconex</figcaption>
             </figure>
-        </a>          
+        </a>        
                     
         <!-- Procédures (A ajouter)
         <a href="{{ path('nox_intranet_procedures') }}" class="icon">

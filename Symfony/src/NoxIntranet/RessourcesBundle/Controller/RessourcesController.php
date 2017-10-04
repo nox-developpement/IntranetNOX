@@ -741,4 +741,36 @@ class RessourcesController extends Controller {
         return $this->render('NoxIntranetRessourcesBundle:VR:NoxVirtualReality.html.twig', array('texte' => $texte, 'formulaire' => $form->createView()));
     }
 
+    public function extractionPointageCSVDataAction(Request $request, $month) {
+
+        $em = $this->getDoctrine()->getManager();
+        
+        $Datausers[];
+                
+        foreach ($users as $key => $value) {
+            $Datausers[$users] = $em->getRepository('NoxIntranetAdministrationBundle:tableau')->findByUser($users);
+        }
+        
+        $Datausers = $em->getRepository('NoxIntranetAdministrationBundle:tableau')->findOneBySection('NOXVR');
+
+        if ($texteEncart == null) {
+            $texteEncart = new texteEncart();
+            $texteEncart->setSection('NOXVR');
+            $em->persist($texteEncart);
+            $em->flush();
+        }
+
+
+       
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
