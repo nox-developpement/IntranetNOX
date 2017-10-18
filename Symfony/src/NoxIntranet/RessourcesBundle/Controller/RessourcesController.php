@@ -5,6 +5,9 @@ namespace NoxIntranet\RessourcesBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use NoxIntranet\AdministrationBundle\Entity\texteEncart;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use NoxIntranet\RessourcesBundle\Entity\CompteurSAPGX;
 
 class RessourcesController extends Controller {
 
@@ -524,7 +527,7 @@ class RessourcesController extends Controller {
             $nbPages = intval(ceil(sizeof($news) / 5));
             $news10 = array_chunk($news, 5);
         }
-
+               
         return $this->render('NoxIntranetRessourcesBundle:RH:affichageContenu.html.twig', array('nbPage' => $nbPages, 'chemin' => $chemin, 'page' => $page, 'news' => $news10[$page - 1], 'dossier' => $dossier, 'config' => $config));
     }
     
@@ -745,7 +748,7 @@ class RessourcesController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         
-        $Datausers[];
+        $Datausers = array();
                 
         foreach ($users as $key => $value) {
             $Datausers[$users] = $em->getRepository('NoxIntranetAdministrationBundle:tableau')->findByUser($users);
@@ -764,13 +767,58 @@ class RessourcesController extends Controller {
        
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    public function compteurSAPGXAction(Request $request) {
+        
+        // ouvre une connexion vers la bdd pour chercher toutes les infos de l'agence
+        $em = $this->getDoctrine()->getManager();
+        $AllSection = $em->getRepository('NoxIntranetRessourcesBundle:CompteurSAPGX')->findAll();
+        
+        $arraySection = array();
+        
+        foreach ($AllSection as $key => $value){
+            $arraySection[$value->getAbreger()] = $value->getEntite();
+        }
+        
+        // J'ai raccourci cette partie, car c'est plus rapide à écrire !
+        $form = $this->get('form.factory')->createBuilder()
+            ->add('entite', ChoiceType::class, array(
+                'choices'  => $arraySection,
+            ))
+            ->add('generer',SubmitType::class)
+            ->getForm();
+
+        // Si la requête est en POST
+        if ($request->isMethod('POST')) {
+            // On fait le lien Requête <-> Formulaire
+            $form->handleRequest($request);
+
+            // On vérifie que les valeurs entrées sont correctes
+            // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+            if ($form->isValid()) {
+                // la variable $data contient les données du formulaire
+                $data = $form->getData();
+
+                // ouvre une connexion vers la bdd pour chercher les infos de l'agence selectionner dans le formulaire.
+                $em = $this->getDoctrine()->getManager();
+                $Section = $em->getRepository('NoxIntranetRessourcesBundle:CompteurSAPGX')->findOneByAbreger($data["entite"]);
+
+                // construction du numero unique 
+                if(strlen($Section->getIncrement()) == 1){
+                    $numeros = $Section->getAbreger().".".date("y.m", time())."."."0".$Section->getIncrement();
+                }else{
+                    $numeros = $Section->getAbreger().".".date("y.m", time()).".".$Section->getIncrement();
+                }
+
+                // incrementation du nombre
+                $incr = intval($Section->getIncrement())+1;
+                // mettre a jour la bdd
+                $Section->setIncrement($incr);
+                $em->flush();
+
+                return $this->render('NoxIntranetRessourcesBundle:Accueil:compteurSAPGX_info.html.twig', array("numero"=> $numeros, "infoEntite" => $Section));
+            }
+        }
+        return $this->render('NoxIntranetRessourcesBundle:Accueil:compteurSAPGX.html.twig', array('formulaire' => $form->createView()));
+    }
+
 }

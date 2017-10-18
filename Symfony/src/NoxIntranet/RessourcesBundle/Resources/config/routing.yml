@@ -247,3 +247,7 @@ nox_intranet_ressources_ajax_search_by_siren:
 nox_intranet_ressources_extraction_noxpointage:
     path: /ressources/extraction_pointage_csvdata/{month}
     defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:extractionPointageCSVData }
+    
+nox_intranet_ressources_compteur_SAP_GX:
+    path: /ressources/compteur_SAP_GX
+    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:compteurSAPGX }

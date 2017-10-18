@@ -1,0 +1,26 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Compteur SAP GX {% endblock %}
+
+{% block messageAccueil %}SAP GX{% endblock %}
+
+{% block contenu %} 
+    
+    <style>
+        form select{
+            padding: 3px 0px;
+        }
+    </style>
+
+        <div class='compteurSAPGX'>
+
+            {{ form_start(formulaire) }}
+                {{ form_label(formulaire.entite, "Entite :") }}
+                {{ form_errors(formulaire.entite) }}
+                {{ form_widget(formulaire.entite) }}
+                {{ form_widget(formulaire.generer, { 'label': 'Générer' }) }}
+            {{ form_end(formulaire) }}
+
+        </div>
+        
+{% endblock %}

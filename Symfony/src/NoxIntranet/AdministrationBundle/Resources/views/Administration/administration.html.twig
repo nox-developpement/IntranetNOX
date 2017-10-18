@@ -131,12 +131,25 @@
                     <figcaption>Utilisateurs</figcaption>
                 </figure>
             </a>
+						
 
             <br>
 
             <div class="sousMessageAcceuil"> 
                 <h4> Publication DSI :  </h4>
             </div>
+			
+			<!-- SAP GX -->
+            <a href="{{ path('nox_intranet_ressources_compteur_SAP_GX') }}" class="icon">
+                <figure>
+                    <img 
+                        src="{{ asset('bundles/noxintranetadministration/images/Archive-128.png') }}" 
+                        onmouseover="this.src = '{{ asset('bundles/noxintranetadministration/images/Archive-128-hover.png') }}';" 
+                        onmouseout="this.src = '{{ asset('bundles/noxintranetadministration/images/Archive-128.png') }}';"
+                        > 
+                    <figcaption>SAP GX</figcaption>
+                </figure>
+            </a>
 
             <!-- Archives -->
             <a href="{{ path('nox_intranet_archives') }}" class="icon">

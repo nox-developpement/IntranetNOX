@@ -1,0 +1,31 @@
+{% extends "::layout.html.twig" %}
+
+{% block titrePage %} Compteur SAP GX {% endblock %}
+
+{% block messageAccueil %} Numéro Affaire{% endblock %}
+
+{% block contenu %} 
+    
+    <style>
+        table{
+            text-align: center;
+            width: 50%;
+            margin-left: 25%;
+        }
+        table td{
+            border: 1px solid #000;
+            padding: 5px;
+        }
+    </style>
+
+    <table>
+        <tbody>
+            <tr>
+                <td>{{ infoEntite.entite }}</td>
+                <td>{{ infoEntite.serie }}</td>
+                <td>{{ numero }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+{% endblock %}

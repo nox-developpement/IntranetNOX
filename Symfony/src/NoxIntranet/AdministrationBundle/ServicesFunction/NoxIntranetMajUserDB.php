@@ -376,7 +376,7 @@ class NoxIntranetMajUserDB extends Controller {
         ldap_set_option($ldap_connection, LDAP_OPT_REFERRALS, 0);
         
         // On se connecte à l'AD.
-        ldap_bind($ldap_connection, 'sync-AD-intranet', 'U54gme4R');
+        ldap_bind($ldap_connection, 't.lassiaz@nox.local', 'Lassiaz1');
                 
         // On retourne le token de connexion.
         return $ldap_connection;

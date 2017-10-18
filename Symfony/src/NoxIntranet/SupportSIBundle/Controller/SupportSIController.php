@@ -334,6 +334,7 @@ class SupportSIController extends Controller {
                     $messageDemandeur = $messageDemandeur = \Swift_Message::newInstance()
                             ->setSubject('Rejet de votre demande de matériel')
                             ->setFrom('intranet@groupe-nox.com')
+                            ->setCc(array("helpdesk@groupe-nox.com" => "Helpdesk"))
                             ->setTo($donneesMessage['emailDemandeur'])
                             ->setBody(
                             $this->renderView(
