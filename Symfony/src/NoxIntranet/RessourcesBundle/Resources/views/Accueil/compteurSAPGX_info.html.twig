@@ -16,6 +16,17 @@
             border: 1px solid #000;
             padding: 5px;
         }
+        .increment a{
+            text-decoration: none;
+            color: #000;
+        }
+        .increment{
+            text-align: center;
+            margin-top: 15px;
+            margin-left: 25%;
+            text-transform: uppercase;
+            padding: 5px;
+        }
     </style>
 
     <table>
@@ -27,5 +38,7 @@
             </tr>
         </tbody>
     </table>
+          <button class="increment"><a href="{{ path('nox_intranet_ressources_increment_compteur_SAP_GX', { 'abreger': infoEntite.abreger }) }}">Numéro d'affaire utilisé</a></button>  
+            
     
 {% endblock %}

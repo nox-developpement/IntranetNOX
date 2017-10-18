@@ -809,16 +809,29 @@ class RessourcesController extends Controller {
                     $numeros = $Section->getAbreger().".".date("y.m", time()).".".$Section->getIncrement();
                 }
 
-                // incrementation du nombre
-                $incr = intval($Section->getIncrement())+1;
-                // mettre a jour la bdd
-                $Section->setIncrement($incr);
-                $em->flush();
-
                 return $this->render('NoxIntranetRessourcesBundle:Accueil:compteurSAPGX_info.html.twig', array("numero"=> $numeros, "infoEntite" => $Section));
             }
         }
         return $this->render('NoxIntranetRessourcesBundle:Accueil:compteurSAPGX.html.twig', array('formulaire' => $form->createView()));
     }
+    
+    public function incrementCompteurSAPGXAction(Request $request, $abreger) {
+
+        // récuperation des informations sur l'agence selectionner
+        $em = $this->getDoctrine()->getManager();
+        $Section = $em->getRepository('NoxIntranetRessourcesBundle:CompteurSAPGX')->findOneByAbreger($abreger);
+
+        // incrementation du nombre
+        $incr = intval($Section->getIncrement())+1;
+
+        // mettre a jour la bdd
+        $Section->setIncrement($incr);
+        $em->flush();
+
+        return $this->redirectToRoute('nox_intranet_ressources_compteur_SAP_GX');
+        
+    }
+        
+    
 
 }
