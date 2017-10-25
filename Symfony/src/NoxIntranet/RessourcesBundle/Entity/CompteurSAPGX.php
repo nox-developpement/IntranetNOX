@@ -49,6 +49,12 @@ class CompteurSAPGX
      */
     private $increment;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mois", type="string", length=255)
+     */
+    private $mois;
 
     /**
      * Get id
@@ -155,4 +161,29 @@ class CompteurSAPGX
     {
         return $this->increment;
     }
+    
+    /**
+     * Set mois
+     *
+     * @param string $mois
+     *
+     * @return CompteurSAPGX
+     */
+    public function setMois($mois)
+    {
+        $this->mois = $mois;
+
+        return $this;
+    }
+
+    /**
+     * Get mois
+     *
+     * @return string
+     */
+    public function getMois()
+    {
+        return $this->mois;
+    }
+    
 }

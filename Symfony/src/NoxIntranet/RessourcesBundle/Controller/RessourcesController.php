@@ -527,6 +527,19 @@ class RessourcesController extends Controller {
             $nbPages = intval(ceil(sizeof($news) / 5));
             $news10 = array_chunk($news, 5);
         }
+        
+        // trie des fichiers dans un ordre precise 
+        $titre = array("00-FICHES LIVRET ACCUEIL","PLAQUETTE COUV","PLAQUETTE INT","01-MANUEL QSE","02-PARCOURS D INTEGRATION","03-RAPPORT D ETONNEMENT","04-ENTRETIEN DEVELOPPEMENT PROFESSIONNEL","05-REGLEMENT INTERIEUR GROUPE NOX","06-NOTE INTERNE INDEMNITES DE DEPLACEMENTS 27 JANV 2014","07-GROLLE DE REMBOURSEMENT MALAKOFF 01.01.2016","08-GRILLE PREVOYANCE MALAKOFF MEDERIC","09-SYNTHESE PRESTATIONS ACTION LOGEMENT","10-NOTE INTERNE COOPTATION" );
+        $tablOrdre = array();
+        foreach ($titre as $key => $fichier) {
+            foreach ($news as $index => $object) {
+                  if ($object->getNom() == $fichier){
+                      $tablOrdre[] = $object;
+                  }
+            } 
+        }
+        // 5 document par page
+        $tablFinal = array_chunk($tablOrdre, 5);
                
         return $this->render('NoxIntranetRessourcesBundle:RH:affichageContenu.html.twig', array('nbPage' => $nbPages, 'chemin' => $chemin, 'page' => $page, 'news' => $news10[$page - 1], 'dossier' => $dossier, 'config' => $config));
     }
@@ -769,10 +782,11 @@ class RessourcesController extends Controller {
     
     public function compteurSAPGXAction(Request $request) {
         
-        // ouvre une connexion vers la bdd pour chercher toutes les infos de l'agence
+        // ouvre une connexion vers la bdd pour chercher toutes les infos de l'Entites
         $em = $this->getDoctrine()->getManager();
         $AllSection = $em->getRepository('NoxIntranetRessourcesBundle:CompteurSAPGX')->findAll();
         
+        // initialisation des Entites
         $arraySection = array();
         
         foreach ($AllSection as $key => $value){
@@ -795,43 +809,50 @@ class RessourcesController extends Controller {
             // On vérifie que les valeurs entrées sont correctes
             // (Nous verrons la validation des objets en détail dans le prochain chapitre)
             if ($form->isValid()) {
+
                 // la variable $data contient les données du formulaire
                 $data = $form->getData();
-
+                
                 // ouvre une connexion vers la bdd pour chercher les infos de l'agence selectionner dans le formulaire.
                 $em = $this->getDoctrine()->getManager();
-                $Section = $em->getRepository('NoxIntranetRessourcesBundle:CompteurSAPGX')->findOneByAbreger($data["entite"]);
+                $Section = $em->getRepository('NoxIntranetRessourcesBundle:CompteurSAPGX')->findOneByAbreger($data["entite"]);  
+                
+                // On vérifie que le mois enregistrer dans la bdd et egal au mois actuel
+                // Sinon on passe au mois suivant reset des chiffres et actualisation du mois bdd
+                if( $Section->getMois() !== date("m", time()) ){   
+                    
+                    // recupérer le mois actiel
+                    $moisActuel = date("m", time());
 
-                // construction du numero unique 
+                    // mettre a jour la bdd
+                    $Section->setIncrement("1");
+                    $Section->setMois($moisActuel);
+                    $em->flush();
+                }
+                
+                // construction du numero unique ( XXX.AA.MM.000 )
                 if(strlen($Section->getIncrement()) == 1){
+                    $numeros = $Section->getAbreger().".".date("y.m", time())."."."00".$Section->getIncrement();
+                }else if(strlen($Section->getIncrement()) == 2){
                     $numeros = $Section->getAbreger().".".date("y.m", time())."."."0".$Section->getIncrement();
                 }else{
                     $numeros = $Section->getAbreger().".".date("y.m", time()).".".$Section->getIncrement();
                 }
+                
+                // incrementation du nombre
+                $incr = intval($Section->getIncrement())+1;
 
-                return $this->render('NoxIntranetRessourcesBundle:Accueil:compteurSAPGX_info.html.twig', array("numero"=> $numeros, "infoEntite" => $Section));
+                // mettre a jour la bdd
+                $Section->setIncrement($incr);
+                $em->flush();    
+                
+                return $this->render('NoxIntranetRessourcesBundle:Accueil:compteurSAPGX_info2.html.twig', array("numero" => $numeros, "infoEntite" => $Section));
+                    
             }
         }
         return $this->render('NoxIntranetRessourcesBundle:Accueil:compteurSAPGX.html.twig', array('formulaire' => $form->createView()));
     }
     
-    public function incrementCompteurSAPGXAction(Request $request, $abreger) {
-
-        // récuperation des informations sur l'agence selectionner
-        $em = $this->getDoctrine()->getManager();
-        $Section = $em->getRepository('NoxIntranetRessourcesBundle:CompteurSAPGX')->findOneByAbreger($abreger);
-
-        // incrementation du nombre
-        $incr = intval($Section->getIncrement())+1;
-
-        // mettre a jour la bdd
-        $Section->setIncrement($incr);
-        $em->flush();
-
-        return $this->redirectToRoute('nox_intranet_ressources_compteur_SAP_GX');
-        
-    }
         
     
-
 }

@@ -251,7 +251,3 @@ nox_intranet_ressources_extraction_noxpointage:
 nox_intranet_ressources_compteur_SAP_GX:
     path: /ressources/compteur_SAP_GX
     defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:compteurSAPGX }
-    
-nox_intranet_ressources_increment_compteur_SAP_GX:
-    path: /ressources/compteur_SAP_GX/{abreger}
-    defaults: { _controller: NoxIntranetRessourcesBundle:Ressources:incrementCompteurSAPGX }
